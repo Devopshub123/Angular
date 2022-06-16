@@ -1,5 +1,40 @@
 
+
 .demo-app-main {
-    flex-grow: 1;
-    padding: 3em;
-  }
+  flex-grow: 1;
+  padding: 1em;
+}
+.pending-attendance{
+  padding: 1em;
+  margin-top: 5em;
+  background-color: lightgrey;
+}
+.clock-attendance{
+  padding: 5px;
+  /* margin-top: 5em; */
+  background-color: lightgrey;
+}
+.clock-attendance{
+  padding: 5px;
+  /* margin-top: 5em; */
+  background-color: lightgrey;
+}
+.time-attendance{
+  padding: 5px;
+  background-color:azure;
+}
+.green-icon {
+  color: green;
+}
+.red-icon {
+color: red;
+}
+.blue-icon {
+color: blue;
+}
+.yellow-icon {
+color: yellow;
+}
+mat-icon {
+font-size: 20px;
+}
