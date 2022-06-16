@@ -1,0 +1,59 @@
+<div fxLayout="column">
+    <form [formGroup]="requestform" autocomplete="off">
+        <mat-card>
+            <mat-card-header class="">
+                <mat-card-title class="title"> Approval For Attendance </mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <div fxLayout fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+
+                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Applied Date</mat-label>
+                    <input formControlName="appliedDate" matInput placeholder="Applied Date" readonly>
+                </mat-form-field>
+
+                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Employee Name</mat-label>
+                    <input formControlName="empName" matInput placeholder="Employee Name" readonly>
+                </mat-form-field>
+                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Shift</mat-label>
+                    <input formControlName="shift" matInput placeholder="Shift" readonly>
+                </mat-form-field>
+            </div>
+            <div fxLayout fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+
+                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Work Type</mat-label>
+                    <input formControlName="workType" matInput placeholder="Work Type" readonly>
+                </mat-form-field>
+                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>From Date</mat-label>
+                    <input formControlName="fromDate" matInput placeholder="From Date" readonly>
+                </mat-form-field>
+                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>To Date</mat-label>
+                    <input formControlName="toDate" matInput placeholder="To Date" readonly>
+                </mat-form-field>
+            </div>
+            <div fxLayout fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Reason</mat-label>
+                    <textarea formControlName="reason" readonly matInput placeholder="Reason"></textarea>
+                    <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
+                        Reason is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayoutAlign="center">
+                <button class="mx-1 mat-stroked-button button-save" (click)="acceptApproval()" type="submit">
+                    <span>Accept</span>
+                </button>
+
+                <button class="mx-1  mat-stroked-button button-clear" (click)="rejectApproval()">
+                    <span style="color:#42aee5">Reject</span>
+                </button>
+                <br />
+            </div>
+        </mat-card>
+    </form>

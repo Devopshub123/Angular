@@ -1,0 +1,26 @@
+<div fxLayout="column">
+    <mat-card>
+        <mat-card-header class="">
+            <mat-card-title class="title"> Attendance Excel File Upload </mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <div  fxLayout="row" fxLayout.xs="column" class="mx-2 my-2"  fxLayoutAlign.xs="center center"fxLayoutAlign="center">
+
+            <input type="file" (change)="onFileChange($event)" multiple="false" />
+            <button class="btn btn-primary" (click)="uploadFile();">Upload</button>
+        </div>
+        <div  fxLayout="row" fxLayout.xs="column" class="mx-2 my-2"  fxLayoutAlign="center" fxLayoutAlign.xs="center center">
+
+            <table class="sjs-table">
+                <tbody>
+                    <tr *ngFor="let row of data">
+                        <td *ngFor="let val of row">
+                            {{val}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-card>
+   
+</div>

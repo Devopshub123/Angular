@@ -1,0 +1,49 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" >
+<div class="container" fxFlex="40">
+	<h2 style="text-align: centre;">Login</h2>
+	<form
+	  [formGroup]="formGroup"
+	  class="form"
+	>
+	  <mat-form-field floatLabel="never" class="form-element">
+		<input
+		  type="text"
+		  matInput
+		  placeholder="Username"
+		  formControlName="username"
+		/>
+		<mat-error *ngIf="formGroup.controls['username'].invalid">
+			{{msgLM1}}
+		</mat-error>
+	  </mat-form-field>
+      
+	  <mat-form-field floatLabel="never" class="form-element">
+		<!-- <mat-icon>lock</mat-icon>  -->
+		<input 
+		  [type]="hide ? 'password' : 'text'" 
+		  matInput
+		  placeholder="Password"
+		  formControlName="password"
+		/>
+		<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+		<mat-error *ngIf="formGroup.controls['password'].invalid">
+		 {{msgLM1}}
+		</mat-error>
+	  </mat-form-field>
+	  <a href="ForgotPassword" >Forgot Password?</a>
+  
+	  <div class="form-element">
+		<button
+		  mat-raised-button
+		  color="primary"
+		  type="submit"
+		  class="button"
+		  [disabled]="!formGroup.valid"
+		  (click)="login()"
+		>
+		  Login
+		</button>
+	  </div>
+	</form>
+  </div>
+</div>
