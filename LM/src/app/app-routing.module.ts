@@ -6,13 +6,16 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component'
 import {LMSAccessGuard} from  './LMS-access.guard';
+import { DesignationsComponent } from './pages/designations/designations.component';
+import { DeparmentComponent } from './pages/deparment/deparment.component';
 
 const routes: Routes = [
   {path:'Login',component:LoginComponent},
   {path:'ChangePassword',component:ChangePasswordComponent,canActivate:[LMSAccessGuard]},
   // {path:'ResetPassword',component:ResetPasswordComponent},
   {path:'ResetPassword/:email/:id',component:ResetPasswordComponent},
-
+  {path:'Designation',component:DesignationsComponent},
+  {path:'Department',component:DeparmentComponent},
   {path:'ForgotPassword',component:ForgotPasswordComponent},
   {
     path: 'admin',
