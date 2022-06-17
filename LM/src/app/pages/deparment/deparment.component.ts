@@ -10,8 +10,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
 export interface UserData {
-  department:string;
+  deptname:string;
   status: string;
+  depthead:string;
+  headcount: number;
+  id:number;
+  total:number;
 }
 
 @Component({
@@ -29,6 +33,8 @@ export class DeparmentComponent implements OnInit {
   isdata:boolean=true;
   isEdit:boolean=true;
   isSave:boolean=false;
+  enable:any=null;
+  valid:boolean = false;
   displayedColumns: string[] = ['department','status','Action'];
   departmentData:any=[];
   dataSource: MatTableDataSource<UserData>;
@@ -37,9 +43,6 @@ export class DeparmentComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-
-  // @ViewChild(MatPaginator)
-  // paginator!: MatPaginator;
 
   constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private LM:CompanySettingService) {
     this.getDepartments();
@@ -55,39 +58,64 @@ export class DeparmentComponent implements OnInit {
       },
     );
   }
+  validatedepartments(data:any){
+    console.log("ghhgh",data,this.valid)
+    for(let i=0;i<this.departmentData.length;i++){
+        if(data === this.departmentData[i].deptname){
+          this.valid = false;
+          break;          
+        }
+        else{
+          this.valid = true;
+        }
+    }
+    return this.valid;
+  }
   setdepartment(){
-    console.log("sdf",this.departmentForm.controls.department.value);
+    this.validatedepartments(this.departmentForm.controls.department.value)
     this.department = this.departmentForm.controls.department.value;
     var data = {
       departmentName:this.department
     }
     
     if(this.departmentForm.valid){
-      this.LM.setDepartments(data).subscribe((data) => {
-        if (data.status) {
-          this.departmentForm.reset();
-          this.isdata = true;
-          this.isAdd = false;
-          this.ngOnInit();
-          const dialog: PopupConfig = {
-            title: 'Designation Added Successfully',
-            close: 'OK',
+      if(this.valid){
+        this.LM.setDepartments(data).subscribe((data) => {
+          this.valid = false;
+          if (data.status) {
+            this.departmentForm.reset();
+            this.isdata = true;
+            this.isAdd = false;
+            this.ngOnInit();
+            const dialog: PopupConfig = {
+              title: 'Designation Added Successfully',
+              close: 'OK',
+              
+            };
+            this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+           
+          } else {
+            const dialog: PopupConfig = {
+              title: 'Unable to insert designation',
+              close: 'OK',
+              
+            };
+            this.dialog.open(PopupComponent, { width: '600px', data: dialog });
             
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-         
-        } else {
-          const dialog: PopupConfig = {
-            title: 'Unable to insert designation',
-            close: 'OK',
-            
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+          }
+  
+        })
+      }
+      else{
+        const dialog: PopupConfig = {
+          title: 'Department Already Existed',
+          close: 'OK',
           
-        }
+        };
+        this.dialog.open(PopupComponent, { width: '600px', data: dialog });
 
-      })
-
+      }
+      
     }
 
   }
@@ -100,23 +128,29 @@ export class DeparmentComponent implements OnInit {
     this.isdata = false;
   }
   cancel(){
+    this.enable = null;
     this.departmentForm.reset();
     this.isAdd = false;
     this.isdata = true;
-    // this.designationForm.controls.designation = ''
-   
+
   }
-  edit(){
+  edit(w:any,i:any){
+    console.log(i)
+    this.enable = i;
     this.isEdit=false;
     this.isSave=true;
 
   }
-  save(){
+  save(event:any,id:any,deptname:any){
+    console.log("save",id,deptname)
+    this.enable = null;
     this.isEdit=true;
     this.isSave=false;
 
   }
-  canceledit(){
+  canceledit(event:any,id:any){
+    console.log("cancel",id)
+    this.enable = null;
     this.isEdit=true;
     this.isSave=false;
 

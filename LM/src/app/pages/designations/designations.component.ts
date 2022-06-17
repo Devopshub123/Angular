@@ -38,8 +38,10 @@ export class DesignationsComponent implements OnInit {
   isdata:boolean=true;
   isEdit:boolean=true;
   isSave:boolean=false;
+  valid:boolean=false;
   displayedColumns: string[] = ['designation','status','Action'];
   designationData:any=[];
+  enable:any=null;
   dataSource: MatTableDataSource<UserData>;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -62,8 +64,7 @@ export class DesignationsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   
-    
+    this.getDesignation();
     this.designationForm=this.formBuilder.group(
       {
         designation:["",Validators.required],
@@ -71,36 +72,67 @@ export class DesignationsComponent implements OnInit {
       },
     );
   }
-  setd(){
+  validatedesignation(data:any){
+    console.log("ghhgh",data,this.valid)
+    for(let i=0;i<this.designationData.length;i++){
+        if(data===this.designationData[i].designation){
+          this.valid = false;
+          break
+          
+        }
+        else{
+          this.valid = true;
+        }
+    }
+    return this.valid;
+  }
+  setdesignations(){
+    this.validatedesignation(this.designationForm.controls.designation.value)
     console.log("sdf",this.designationForm.controls.designation.value);
     this.designation = this.designationForm.controls.designation.value;
     var data = {
       designationName: this.designation
     }
+    
     if(this.designationForm.valid){
-      this.LM.setDesignation(data).subscribe((data) => {
-        if (data.status) {
-          this.designationForm.reset();
-          this.isdata = true;
-          this.isAdd = false;
-          const dialog: PopupConfig = {
-            title: 'Designation Added Successfully',
-            close: 'OK',
+      if(this.valid){
+        this.LM.setDesignation(data).subscribe((data) => {
+          this.valid = false;
+          if (data.status) {
+            this.ngOnInit();
+            this.designationForm.reset();
+            this.isdata = true;
+            this.isAdd = false;
+            const dialog: PopupConfig = {
+              title: 'Designation Added Successfully',
+              close: 'OK',
+              
+            };
+            this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+           
+          } else {
+            const dialog: PopupConfig = {
+              title: 'Unable to insert designation',
+              close: 'OK',
+              
+            };
+            this.dialog.open(PopupComponent, { width: '600px', data: dialog });
             
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-         
-        } else {
-          const dialog: PopupConfig = {
-            title: 'Unable to insert designation',
-            close: 'OK',
-            
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-          
-        }
+          }
+  
+        });
 
-      })
+      }
+      else{
+        const dialog: PopupConfig = {
+          title: 'Designation Already Existed',
+          close: 'OK',
+          
+        };
+        this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+
+      }
+     
 
     }
 
@@ -118,17 +150,23 @@ export class DesignationsComponent implements OnInit {
     this.isAdd = false;
     this.isdata = true; 
   }
-  edit(){
+  edit(w:any,i:any){
+    console.log(i)
+    this.enable = i;
     this.isEdit=false;
     this.isSave=true;
 
   }
-  save(){
+  save(event:any,id:any,deptname:any){
+    console.log("save",id,deptname)
+    this.enable = null;
     this.isEdit=true;
     this.isSave=false;
 
   }
-  canceledit(){
+  canceledit(event:any,id:any){
+    console.log("cancel",id)
+    this.enable = null;
     this.isEdit=true;
     this.isSave=false;
 
@@ -139,6 +177,7 @@ export class DesignationsComponent implements OnInit {
       if(info.status && info.data.length !=0) {
         console.log(info.data);
         this.designationData = info.data;
+        console.log(this.designationData[5].designation)
         // this.dataSource =this.designationData;
         // this.count = info.data[0].total;
       }
