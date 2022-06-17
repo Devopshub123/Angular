@@ -4,7 +4,7 @@
             <mat-card-title class="title"> Attendance Excel File Upload </mat-card-title>
         </mat-card-header>
         <mat-divider></mat-divider>
-        <div  fxLayout="row" fxLayout.xs="column" class="mx-2 my-2"  fxLayoutAlign.xs="center center"fxLayoutAlign="center">
+        <!-- <div  fxLayout="row" fxLayout.xs="column" class="mx-2 my-2"  fxLayoutAlign.xs="center center"fxLayoutAlign="center">
 
             <input type="file" (change)="onFileChange($event)" multiple="false" />
             <button class="btn btn-primary" (click)="uploadFile();">Upload</button>
@@ -20,7 +20,49 @@
                     </tr>
                 </tbody>
             </table>
+        </div> -->
+        <div fxLayout="column" class="mx-2 my-2">
+            <!-- <h2>File Upload & Image Preview</h2> -->
+
+            <!-- Upload  -->
+            <form id="file-upload-form" class="uploader">
+                <input id="file-upload" type="file" name="fileUpload"
+                (change)="onChange($event)" #inputFile multiple="false"
+                accept=".xls,.xlsx" />
+
+                <label for="file-upload" id="file-drag">
+                    <img id="file-image" src="#" alt="Preview" class="hidden">
+                    <div id="start">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                        <div>Select a file or drag here</div>
+                        <div id="notimage" class="hidden">Please select an image</div>
+                        <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+                    </div>
+                    <div id="response" class="hidden">
+                        <div id="messages"></div>
+                        <progress class="progress" id="file-progress" value="0">
+                            <span>0</span>%
+                        </progress>
+                    </div>
+                </label>
+            </form>
+             <div  fxLayout="row" fxLayout.xs="column" class="mx-2 my-2"  fxLayoutAlign="center" fxLayoutAlign.xs="center center">
+
+            <table class="sjs-table">
+                <tbody>
+                    <tr *ngFor="let row of data">
+                        <td *ngFor="let val of row">
+                            {{val}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+<div fxLayout="row" fxLayoutAlign="center center" >
+    <button class="btn btn-primary"  (click)="SaveUploadedData();">Submit</button>
+    <button class="btn btn-primary" (click)="removeData();">Cancel</button>
+</div>
         </div>
     </mat-card>
-   
+
 </div>

@@ -25,6 +25,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { PopupComponent} from './pages/popup/popup.component'
 import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ReusableDialogComponent } from './pages/reusable-dialog/reusable-dialog.component';
 
 
  FullCalendarModule.registerPlugins([ 
@@ -41,7 +42,8 @@ import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
     ChangePasswordComponent,
     ResetPasswordComponent,
     ForgotPasswordComponent,
-    PopupComponent
+    PopupComponent,
+    ReusableDialogComponent
   ],
   imports: [
     BrowserModule,
