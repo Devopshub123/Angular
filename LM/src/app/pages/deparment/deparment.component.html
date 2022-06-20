@@ -33,16 +33,17 @@
                     <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue" (click)="Add()" type="submit">
                         <span>Add</span>
                     </button>
-                </div>
+                </div><br>
                 <div class="mat-elevation-z8">
                     <table mat-table [dataSource]="departmentData" matSort>
         
                         <ng-container matColumnDef="department">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
                             <!-- <td mat-cell *matCellDef="let row" > {{row.deptname}} </td> -->
-                            <td mat-cell *matCellDef="let row; let i = index"> 
-                                <span *ngIf="enable != row.id">{{row.deptname}} </span>
-                                <span *ngIf="enable === row.id"><input formControlName="department" matInput placeholder="" ></span>
+                            <td mat-cell *matCellDef="let row" > 
+                                <span *ngIf="enable != row.id">{{row.deptname}}&nbsp;</span>
+                                <span *ngIf="enable === row.id"><input formControlName="department" value="row.deptname" matInput placeholder="{{row.deptname}}" ></span>
+
                             </td>
                         </ng-container>
         
@@ -51,9 +52,12 @@
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                             <!-- <td mat-cell *matCellDef="let row"> {{row.status}}</td> -->
                             <td mat-cell *matCellDef="let row">
-                                <mat-radio-group >
+                                <!-- <mat-radio-group >
                                     <mat-radio-button value="{{row.status}}">Active</mat-radio-button> &nbsp;
                                     <mat-radio-button value="{{row.status}}">Inactive</mat-radio-button>
+                                  </mat-radio-group> -->
+                                  <mat-radio-group  >
+                                    <mat-radio-button  color="primary" *ngFor="let halfs of arrayValue;index as i;" (change)="status(halfs.Value,row.id,row.deptname)" [checked]="halfs.Value == row.status"  [value]="halfs.Value"  >{{halfs.name}}</mat-radio-button>
                                   </mat-radio-group>
                             </td>
                         </ng-container>
