@@ -30,7 +30,10 @@ export interface UserData {
 
 export class DesignationsComponent implements OnInit {
   designationForm!: FormGroup;
-  designation:any
+  designation:any;
+  errorDesName:any='';
+  saveResponseMessage:any='';
+  editResponseMessage:any='';
   issubmitted: boolean=false;
   isvalid:boolean=false;
   isView:boolean=false;
@@ -65,6 +68,9 @@ export class DesignationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDesignation();
+    this.getErrorMessages('LM1');
+    this.getErrorMessages('LM30');
+    this.getErrorMessages('LM31');
     this.designationForm=this.formBuilder.group(
       {
         designation:["",Validators.required],
@@ -157,11 +163,47 @@ export class DesignationsComponent implements OnInit {
     this.isSave=true;
 
   }
-  save(event:any,id:any,deptname:any){
-    console.log("save",id,deptname)
+  save(event:any,id:any,desname:any){
+    this.validatedesignation(desname)
+    console.log("save",id,desname)
     this.enable = null;
     this.isEdit=true;
     this.isSave=false;
+    if(this.valid){
+      this.LM.putDesignation({id: id, name: desname}).subscribe((data) => {
+        if (data.status) {
+          this.enable = null;
+          this.getDesignation();
+          const dialog: PopupConfig = {
+            title: 'Designation Updated Successfully',
+            close: 'OK',
+            
+          };
+          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+        
+  
+        } else {
+          const dialog: PopupConfig = {
+            title: 'Unable To Update Designation',
+            close: 'OK',
+            
+          };
+          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+        
+        }
+      })
+    }
+    else{
+      this.ngOnInit();
+      const dialog: PopupConfig = {
+        title: 'Designation Already Existed',
+        close: 'OK',
+        
+      };
+      this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+    }
+    
+    
 
   }
   canceledit(event:any,id:any){
@@ -169,6 +211,7 @@ export class DesignationsComponent implements OnInit {
     this.enable = null;
     this.isEdit=true;
     this.isSave=false;
+    this.ngOnInit();
 
 
   }
@@ -184,6 +227,25 @@ export class DesignationsComponent implements OnInit {
 
     })
 
+  }
+  getErrorMessages(errorCode:any) {
+
+    this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+
+      if(result.status && errorCode == 'LM1')
+      {
+        this.errorDesName = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM30')
+      {
+        this.saveResponseMessage = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM31')
+      {
+        this.editResponseMessage = result.data[0].errormessage
+      }
+
+    })
   }
 
 }

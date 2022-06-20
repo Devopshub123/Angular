@@ -139,13 +139,51 @@ export class DeparmentComponent implements OnInit {
     this.enable = i;
     this.isEdit=false;
     this.isSave=true;
+    // VOFormElement.get('VORows').at(i).get('isEditable').patchValue(false);
 
   }
   save(event:any,id:any,deptname:any){
+    this.validatedepartments(deptname)
     console.log("save",id,deptname)
     this.enable = null;
     this.isEdit=true;
     this.isSave=false;
+    
+    if(this.valid){
+      this.LM.putDepartments({id: id, name: deptname}).subscribe((data) => {
+        if (data.status) {
+          this.enable = null;
+          const dialog: PopupConfig = {
+            title: 'Department Updated SuccesFully',
+            close: 'OK',
+            
+          };
+          this.dialog.open(PopupComponent, { width: '600px', data: dialog });      
+          // this.getDepartments();
+          this.ngOnInit();
+        } else {
+          
+          const dialog: PopupConfig = {
+            title: 'Unable to Update Department',
+            close: 'OK',
+            
+          };
+          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+        }
+      })
+    }
+    else{
+      this.ngOnInit();
+      const dialog: PopupConfig = {
+        title: 'Department Already Existed',
+        close: 'OK',
+        
+      };
+      this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+
+    }
+
+  
 
   }
   canceledit(event:any,id:any){
@@ -153,6 +191,7 @@ export class DeparmentComponent implements OnInit {
     this.enable = null;
     this.isEdit=true;
     this.isSave=false;
+    this.ngOnInit();
 
   }
   getDepartments(){
