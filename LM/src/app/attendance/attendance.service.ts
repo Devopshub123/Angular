@@ -38,8 +38,8 @@ export class AttendanceService {
   updateAttendanceRequest(data:any):Observable<any>{
     return this.http.put(this.mainBeUrl+'api/setattendanceapprovalstatus',JSON.stringify(data),this.httpOptions);
   }
-  getAttendanceRequestListByEmpId(empid:any): Observable<any>{
-    return this.http.post(this.mainBeUrl + 'api/getemployeeattendanceregularization/'+empid, this.httpOptions);
+  getAttendanceRequestListByEmpId(employee_id:any): Observable<any>{
+    return this.http.get(this.mainBeUrl + 'api/getemployeeattendanceregularization/'+employee_id, this.httpOptions);
   }
   getPendingAttendanceListByManagerEmpId(empid:any): Observable<any>{
     return this.http.post(this.mainBeUrl + 'api/getpendingattendanceregularizations/'+empid, this.httpOptions);

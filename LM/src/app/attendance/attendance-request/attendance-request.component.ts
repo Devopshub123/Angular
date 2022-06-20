@@ -1,30 +1,20 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AttendanceService } from '../attendance.service';
-export interface UserData {
-  id: number;
-  workType: string;
-  fromDate: string;
-  toDate: string;
-  reason: string;
-  status: string;
-}
+
 interface IdName {
   id: string;
   name: string;
 }
 /** Constants used to fill up our data base. */
-const arrayList:any = [
-  {"id":1,"workType":"Work From Office","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Pending"},
-  {"id":2,"workType":"On Duty","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Approved"},
-  {"id":3,"workType":"Remote Work","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Pending"},
-  {"id":4,"workType":"Work From Office","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Approve"},
-  {"id":5,"workType":"On Duty","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Pending"},
-];
+
 
 @Component({
   selector: 'app-attendance-request',
@@ -36,85 +26,87 @@ export class AttendanceRequestComponent implements OnInit {
   fromDate: any;
   toDate: any;
   today: Date = new Date();
-  minDate=new Date('1950/01/01'); maxDate = new Date();
+  minDate = new Date('1950/01/01'); maxDate = new Date('2050/01/01'); 
   pipe = new DatePipe('en-US');
-  todayWithPipe:any;
-  displayedColumns: string[] = ['id', 'workType', 'fromDate', 'toDate','reason','status'];
-  dataSource: MatTableDataSource<UserData>;
+  todayWithPipe: any;
+  displayedColumns: string[] = ['id', 'worktype', 'fromdate', 'todate', 'reason', 'status'];
+  dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-  workType: IdName[] = [
-    {id: '1', name: 'Remote Work'},
-    {id: '2', name: 'On Duty'},
-    {id: '3', name: 'Work From Home'},
-    {id: '3', name: 'Work From Office'},
-  ];
-  arrayList: any;
-  employee_id:any;
+ 
+  arrayList: any=[];
+
   workTypeData: any;
-  userSession:any;
+  userSession: any;
   shiftData: any;
-  constructor(private formBuilder: FormBuilder,private attendanceService:AttendanceService) {
-     // Create 100 users
-  
-     // Assign the data to the data source for the table to render
-     this.dataSource = new MatTableDataSource(arrayList);
-   }
+  constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
+     public dialog: MatDialog, public datePipe: DatePipe,private router: Router) {
+    // Create 100 users
+
+    // Assign the data to the data source for the table to render
+ 
+  }
 
   ngOnInit(): void {
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
-    this.requestform=this.formBuilder.group(
+    this.requestform = this.formBuilder.group(
       {
-        appliedDate:[this.todayWithPipe,Validators.required],
-        shift:['',Validators.required],
-        fromDate:['',Validators.required],
-        toDate:['',Validators.required],
-        workType:['',Validators.required],
-        reason:['',Validators.required],
-        
+        appliedDate: [this.todayWithPipe, Validators.required],
+        shift: ['', Validators.required],
+        fromDate: ['', Validators.required],
+        toDate: ['', Validators.required],
+        workType: ['', Validators.required],
+        reason: ['', Validators.required],
+
       });
-      this.userSession = JSON.parse(sessionStorage.getItem('user')??'');
-      console.log(this.userSession)
-      console.log(this.userSession.id)
-      this.getWorkypeList();
-      this.getEmployeeShiftDetails()
-      
+    this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
+    console.log(this.userSession)
+    console.log(this.userSession.id)
+    this.getWorkypeList();
+    this.getEmployeeShiftDetails()
+    this.getAttendanceRequestListByEmpId();
+
   }
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+ 
   }
-  getEmployeeShiftDetails(){
-      this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res)=>{
-        if(res){
-          this.shiftData=res.data[0];
-          this.requestform.controls.shift.setValue(this.shiftData.shiftname)
-        }
-      })
+  getEmployeeShiftDetails() {
+    this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res) => {
+      if (res) {
+        this.shiftData = res.data[0];
+        this.requestform.controls.shift.setValue(this.shiftData.shiftname);
+      }
+    })
   }
-  getWorkypeList(){
-    this.attendanceService.getWorkypeList('attendancetypesmaster','active',1,100,'boon_client').subscribe((info)=>{
-      if(info.status && info.data.length !=0) {
-      
+  getWorkypeList() {
+    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'boon_client').subscribe((info) => {
+      if (info.status && info.data.length != 0) {
+
         this.workTypeData = info.data;
-       
+
       }
 
     })
 
   }
-  getAttendanceRequestListByEmpId(){
-    this.arrayList=[];
-   this.attendanceService.getAttendanceRequestListByEmpId(this.userSession.id).subscribe((res)=>{
-    if(res.status){
-      this.arrayList=res.data;
-    }else{
-      this.arrayList=[];
-    }
-   })
+  getAttendanceRequestListByEmpId() {
+    this.arrayList = [];
+    this.attendanceService.getAttendanceRequestListByEmpId(this.userSession.id).subscribe((res) => {
+      if (res.status) {
+        this.arrayList = res.data;
+        this.dataSource = new MatTableDataSource(this.arrayList);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      } else {
+        this.arrayList = [];
+        this.dataSource = new MatTableDataSource(this.arrayList);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    })
   };
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -124,15 +116,38 @@ export class AttendanceRequestComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  saveConsultation(){
-   this.attendanceService.setemployeeattendanceregularization(this.resetform).subscribe((res)=>{
-    if(res.status){
-      
-    }
-   })
+  saveConsultation() {
+    let obj = {
+      "empid": this.userSession.id ?? '',
+      "shiftid": this.shiftData.shiftid,
+      "worktype": this.requestform.controls.workType.value,
+      "fromdate": this.pipe.transform(new Date(this.requestform.controls.fromDate.value??''), 'yyyy-MM-dd'),//this.datePipe.transform(this.requestform.controls.fromDate.value, "y-MM-d"),
+      "todate": this.pipe.transform(new Date(this.requestform.controls.toDate.value??''), 'yyyy-MM-dd'),//this.requestform.controls.toDate.value,
+      "logintime": this.shiftData.fromtime,
+      "logouttime": this.shiftData.totime,
+      "reason": this.requestform.controls.reason.value,
+      "raisedby": this.userSession.id ?? '',
+      "approvercomments": '',
+      "actionby": null,
+      "status": 'Submited'
+
+    };
+
+
+    this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res) => {
+      if (res.status) {
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          disableClose: true,
+          data: res.message
+        });
+        this.resetform();
+        // this. getAttendanceRequestListByEmpId();
+      }
+    })
   }
-  resetform(){
-    
+  resetform() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/Attendance/AttendanceRequest"]));
   }
 }
 

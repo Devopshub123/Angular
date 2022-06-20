@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { AttendanceRoutingModule } from './attendance-routing.module';
 import { ApprovalAttendanceListComponent } from './approval-attendance-list/approval-attendance-list.component';
@@ -42,6 +42,7 @@ import { DialogComponent } from './dialog/dialog.component';
     ReactiveFormsModule,
     FullCalendarModule,
     FlexLayoutModule,
-  ]
+  ],
+  providers:[DatePipe]
 })
 export class AttendanceModule { }

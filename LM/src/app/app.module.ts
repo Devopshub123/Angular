@@ -28,6 +28,7 @@ import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReusableDialogComponent } from './pages/reusable-dialog/reusable-dialog.component';
 import { DesignationsComponent } from './pages/designations/designations.component';
 import { DeparmentComponent } from './pages/deparment/deparment.component';
+import { CommonModule } from '@angular/common';
 
 
  FullCalendarModule.registerPlugins([ 
@@ -60,7 +61,8 @@ import { DeparmentComponent } from './pages/deparment/deparment.component';
     ReactiveFormsModule,
     FullCalendarModule ,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
     // HttpClient,
     // HttpHeaders,
     // Observable
