@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { AttendanceService } from '../attendance.service';
 export interface UserData {
   id: number;
   workType: string;
@@ -17,7 +18,7 @@ interface IdName {
   name: string;
 }
 /** Constants used to fill up our data base. */
-const arrayList = [
+const arrayList:any = [
   {"id":1,"workType":"Work From Office","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Pending"},
   {"id":2,"workType":"On Duty","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Approved"},
   {"id":3,"workType":"Remote Work","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Pending"},
@@ -51,7 +52,8 @@ export class AttendanceRequestComponent implements OnInit {
     {id: '3', name: 'Work From Home'},
     {id: '3', name: 'Work From Office'},
   ];
-  constructor(private formBuilder: FormBuilder) {
+  arrayList: any;
+  constructor(private formBuilder: FormBuilder,private attendanceService:AttendanceService) {
      // Create 100 users
   
      // Assign the data to the data source for the table to render
@@ -76,7 +78,16 @@ export class AttendanceRequestComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
+  getAttendanceRequestListByEmpId(empId:any){
+    this.arrayList=[];
+   this.attendanceService.getAttendanceRequestListByEmpId(empId).subscribe((res)=>{
+    if(res.status){
+      this.arrayList=res.data;
+    }else{
+      this.arrayList=[];
+    }
+   })
+  };
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -86,7 +97,11 @@ export class AttendanceRequestComponent implements OnInit {
     }
   }
   saveConsultation(){
-
+   this.attendanceService.setemployeeattendanceregularization(this.resetform).subscribe((res)=>{
+    if(res.status){
+      
+    }
+   })
   }
   resetform(){
     

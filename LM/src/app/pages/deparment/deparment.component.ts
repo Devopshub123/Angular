@@ -154,7 +154,6 @@ export class DeparmentComponent implements OnInit {
     this.isEdit=true;
     this.isSave=false;
 
-
   }
   getDepartments(){
     this.LM.getDepartments('departmentsmaster',null,1,100,'boon_client').subscribe((info)=>{

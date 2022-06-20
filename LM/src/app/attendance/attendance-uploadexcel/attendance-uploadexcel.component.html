@@ -26,9 +26,8 @@
 
             <!-- Upload  -->
             <form id="file-upload-form" class="uploader">
-                <input id="file-upload" type="file" name="fileUpload"
-                (change)="onChange($event)" #inputFile multiple="false"
-                accept=".xls,.xlsx" />
+                <input id="file-upload" type="file" name="fileUpload" (change)="onChange($event)" #inputFile
+                    multiple="false" accept=".xls,.xlsx" />
 
                 <label for="file-upload" id="file-drag">
                     <img id="file-image" src="#" alt="Preview" class="hidden">
@@ -46,22 +45,26 @@
                     </div>
                 </label>
             </form>
-             <div  fxLayout="row" fxLayout.xs="column" class="mx-2 my-2"  fxLayoutAlign="center" fxLayoutAlign.xs="center center">
+            <div fxLayout="row" fxLayout.xs="column" class="mx-2 my-2" fxLayoutAlign="center"
+                fxLayoutAlign.xs="center center">
 
-            <table class="sjs-table">
-                <tbody>
-                    <tr *ngFor="let row of data">
-                        <td *ngFor="let val of row">
-                            {{val}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-<div fxLayout="row" fxLayoutAlign="center center" >
-    <button class="btn btn-primary"  (click)="SaveUploadedData();">Submit</button>
-    <button class="btn btn-primary" (click)="removeData();">Cancel</button>
-</div>
+                <table class="sjs-table">
+                    <tbody>
+                        <tr *ngFor="let row of data">
+                            <td *ngFor="let val of row">
+                                {{val}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button tabindex="13" class="m-1 mat-stroked-button button-save" (click)="SaveUploadedData();">
+                    <span>Submit</span>
+                </button>
+                <button tabindex="23" class="m-1 mat-stroked-button button-clear" (click)="removeData()">Cancel</button>
+
+            </div>
         </div>
     </mat-card>
 
