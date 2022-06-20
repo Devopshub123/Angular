@@ -52,7 +52,13 @@ export class AppComponent {
             displayName: 'Dash Board',
             iconName: 'admin',
             route: '/admin-dashboard'
-          }
+          },
+          {displayName:'Designation',
+           iconName:'designation',
+           route:'/Designation'},
+           {displayName:'Department',
+           iconName:'department',
+           route:'/Department'}
         ]
       }
   ];

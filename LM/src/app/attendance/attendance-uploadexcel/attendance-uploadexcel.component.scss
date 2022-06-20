@@ -167,3 +167,6 @@ p {
     cursor: pointer;
   }
 }
+table.sjs-table > tbody > tr:first-child > td {
+  background-color: lightgreen;
+}

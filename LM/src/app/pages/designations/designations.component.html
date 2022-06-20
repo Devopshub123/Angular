@@ -43,7 +43,7 @@
                             <!-- <td mat-cell *matCellDef="let row"> {{row.designation}} </td> -->
                             <td mat-cell *matCellDef="let row" > 
                                 <span *ngIf="enable != row.id">{{row.designation}} </span>
-                                <span *ngIf="enable === row.id"><input formControlName="designation" matInput placeholder="" ></span>
+                                <span *ngIf="enable === row.id"><input formControlName="designation" [value]="row.designation" matInput placeholder="{{row.designation}}" ></span>
                             </td>
                         </ng-container>
         

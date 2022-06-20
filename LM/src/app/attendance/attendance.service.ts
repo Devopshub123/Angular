@@ -27,7 +27,10 @@ export class AttendanceService {
       return this.http.post(this.mainBeUrl + 'api/setEmployeeAttendance',JSON.stringify(data), this.httpOptions);
   }  
   getShiftDetailsByEmpId(empid:any):Observable<any>{
-    return this.http.get(this.mainBeUrl+'api/');
+    return this.http.get(this.mainBeUrl+'api/getemployeeshift/'+empid, this.httpOptions);
+  }
+  getWorkypeList(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
+    return this.http.get(this.mainBeUrl+'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
   }
   setemployeeattendanceregularization(data:any):Observable<any>{
     return this.http.post(this.mainBeUrl+'api/setemployeeattendanceregularization',JSON.stringify(data),this.httpOptions);

@@ -20,9 +20,9 @@
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Work Type</mat-label>
                     <mat-select formControlName="workType" required>
-                        <ng-container *ngFor="let v of workType">
+                        <ng-container *ngFor="let v of workTypeData">
                             <!-- <mat-option *ngIf="v.status=='1'" value={{v.id}}>{{v.name}}</mat-option> -->
-                            <mat-option value={{v.id}}>{{v.name}}</mat-option>
+                            <mat-option value={{v.id}}>{{v.type}}</mat-option>
                         </ng-container>
                     </mat-select>
                     <mat-error class="con-error" *ngIf="requestform.controls.workType.errors?.required">

@@ -53,6 +53,10 @@ export class AttendanceRequestComponent implements OnInit {
     {id: '3', name: 'Work From Office'},
   ];
   arrayList: any;
+  employee_id:any;
+  workTypeData: any;
+  userSession:any;
+  shiftData: any;
   constructor(private formBuilder: FormBuilder,private attendanceService:AttendanceService) {
      // Create 100 users
   
@@ -65,22 +69,46 @@ export class AttendanceRequestComponent implements OnInit {
     this.requestform=this.formBuilder.group(
       {
         appliedDate:[this.todayWithPipe,Validators.required],
-        shift:['General',Validators.required],
+        shift:['',Validators.required],
         fromDate:['',Validators.required],
         toDate:['',Validators.required],
         workType:['',Validators.required],
         reason:['',Validators.required],
         
       });
+      this.userSession = JSON.parse(sessionStorage.getItem('user')??'');
+      console.log(this.userSession)
+      console.log(this.userSession.id)
+      this.getWorkypeList();
+      this.getEmployeeShiftDetails()
       
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  getAttendanceRequestListByEmpId(empId:any){
+  getEmployeeShiftDetails(){
+      this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res)=>{
+        if(res){
+          this.shiftData=res.data[0];
+          this.requestform.controls.shift.setValue(this.shiftData.shiftname)
+        }
+      })
+  }
+  getWorkypeList(){
+    this.attendanceService.getWorkypeList('attendancetypesmaster','active',1,100,'boon_client').subscribe((info)=>{
+      if(info.status && info.data.length !=0) {
+      
+        this.workTypeData = info.data;
+       
+      }
+
+    })
+
+  }
+  getAttendanceRequestListByEmpId(){
     this.arrayList=[];
-   this.attendanceService.getAttendanceRequestListByEmpId(empId).subscribe((res)=>{
+   this.attendanceService.getAttendanceRequestListByEmpId(this.userSession.id).subscribe((res)=>{
     if(res.status){
       this.arrayList=res.data;
     }else{

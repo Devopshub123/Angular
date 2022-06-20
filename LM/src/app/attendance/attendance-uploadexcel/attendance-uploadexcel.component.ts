@@ -56,7 +56,7 @@ export class AttendanceUploadexcelComponent implements OnInit {
         disableClose:true,
         data: "Uploaded successfully"
      });
-
+     this.removeData();
      }, 
      error =>{
        error.error.text
