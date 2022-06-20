@@ -37,6 +37,7 @@ export class DeparmentComponent implements OnInit {
   valid:boolean = false;
   displayedColumns: string[] = ['department','status','Action'];
   departmentData:any=[];
+  arrayValue:any=[{Value:'active',name:'Active'},{Value:'inactive',name:'Inactive'}];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator)
@@ -133,6 +134,39 @@ export class DeparmentComponent implements OnInit {
     this.isAdd = false;
     this.isdata = true;
 
+  }
+  status(status:any,id:any,deptname:any){
+    
+    let data = {
+      deptname:deptname,
+    tableName:'employee',
+    columnName :'department',
+    id:id,
+    status:status
+    }
+    this.LM.updateStatus(data).subscribe((result)=> {
+      if(result.status){
+        this.ngOnInit();
+        const dialog: PopupConfig = {
+          title: 'Department Status Updated Successfully',
+          close: 'OK',
+          
+        };
+        this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+
+
+      }else{
+        this.ngOnInit();
+        const dialog: PopupConfig = {
+          title: 'This department have active employees. So we are unable to inactivate this department now. Please move those employee to another department and try again',
+          close: 'OK',
+          
+        };
+        this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+
+
+      }
+    })
   }
   edit(w:any,i:any){
     console.log(i)
