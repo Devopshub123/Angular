@@ -386,3 +386,43 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .px-7 {
   padding-left: 6rem !important;
 }
+.mat-form-field-infix{
+  min-width: 215px !important;
+  width: auto !important;
+}
+mat-paginator{
+.mat-form-field-infix{
+    width: auto;
+    min-width: 0px !important;
+}
+}
+.mat-form-field:not(.mat-form-field-appearance-legacy)
+.mat-form-field-prefix .mat-icon-button .mat-datepicker-toggle-default-icon,
+  .mat-form-field:not(.mat-form-field-appearance-legacy)
+   .mat-form-field-suffix .mat-icon-button .mat-datepicker-toggle-default-icon {
+    margin: 0px !important;
+    margin-left: 0px !important;
+}
+
+.mat-form-field-suffix {
+    margin-left: -35px !important;
+    }
+
+.mat-form-field-appearance-outline .mat-form-field-label {
+    margin-top: -0.35em !important;
+}
+
+.button-save{
+  background-color: #28acaf !important;
+  color: #fcfcfc !important;
+  height: 34px;
+  width: 86px;
+  top: 0px;
+}
+.button-clear{
+  background-color: #F2F2F2 !important;
+  color:#333333 !important;
+  height: 34px;
+  width: 86px;
+  top: 1px;
+}

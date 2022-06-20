@@ -227,7 +227,6 @@ export class DeparmentComponent implements OnInit {
     this.isSave=false;
     this.ngOnInit();
 
-
   }
   getDepartments(){
     this.LM.getDepartments('departmentsmaster',null,1,100,'boon_client').subscribe((info)=>{
