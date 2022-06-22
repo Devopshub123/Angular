@@ -47,7 +47,7 @@ export class AttendanceService {
   getPendingAttendanceListByManagerEmpId(employee_id:any): Observable<any>{
     return this.http.get(this.mainBeUrl + 'attendance/api/getpendingattendanceregularizations/'+employee_id, this.httpOptions);
   }
-
+  
 
 
 
