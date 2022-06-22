@@ -32,6 +32,11 @@ export class AppComponent {
           iconName: 'how_to_reg',
           route: '/Attendance/AttendanceRequest'
         },
+        {
+          displayName: 'Attendance Request Behalf',
+          iconName: 'how_to_reg',
+          route: '/Attendance/AttendanceBehalfRequest'
+        },
         { 
           displayName: 'Approval Attendance',
           iconName: 'waves',
