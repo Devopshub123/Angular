@@ -11,37 +11,40 @@
        </mat-form-field>  
      </div>
      <div class="mat-elevation-z8" >
-         <table mat-table [dataSource]="dataSource" matSort>
+         <table *ngIf="dataSource" mat-table [dataSource]="dataSource" matSort>
  
              <!-- ID Column -->
              <ng-container matColumnDef="id">
                  <th mat-header-cell *matHeaderCellDef mat-sort-header> S.no. </th>
                  <td mat-cell *matCellDef="let row"> {{row.id}} </td>
              </ng-container>
- 
+             <ng-container matColumnDef="applieddate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Work Type </th>
+                <td mat-cell *matCellDef="let row"> {{row.applieddate}}</td>
+            </ng-container>
              <!-- Progress Column -->
-             <ng-container matColumnDef="workType">
+             <ng-container matColumnDef="worktype">
                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Work Type </th>
-                 <td mat-cell *matCellDef="let row"> {{row.workType}}</td>
+                 <td mat-cell *matCellDef="let row"> {{row.worktype}}</td>
              </ng-container>
-             <ng-container matColumnDef="empName">
+             <ng-container matColumnDef="raisedbyname">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
-                <td mat-cell *matCellDef="let row"> {{row.empName}}</td>
+                <td mat-cell *matCellDef="let row"> {{row.raisedbyname}}</td>
             </ng-container>
             <ng-container matColumnDef="shift">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Shift </th>
                 <td mat-cell *matCellDef="let row"> {{row.shift}}</td>
             </ng-container>
              <!-- Name Column -->
-             <ng-container matColumnDef="fromDate">
+             <ng-container matColumnDef="fromdate">
                  <th mat-header-cell *matHeaderCellDef mat-sort-header> From Date </th>
-                 <td mat-cell *matCellDef="let row"> {{row.fromDate}} </td>
+                 <td mat-cell *matCellDef="let row"> {{row.fromdate}} </td>
              </ng-container>
  
              <!-- Color Column -->
-             <ng-container matColumnDef="toDate">
+             <ng-container matColumnDef="todate">
                  <th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>
-                 <td mat-cell *matCellDef="let row" > {{row.toDate}} </td>
+                 <td mat-cell *matCellDef="let row" > {{row.todate}} </td>
              </ng-container>
    <!-- Color Column -->
              <ng-container matColumnDef="reason">
@@ -52,11 +55,11 @@
              <ng-container matColumnDef="status">
                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                  <td mat-cell *matCellDef="let row" [style.color]="row.status">
-                    <button *ngIf="row.status=='Pending'" (click)="changeTab(row)" mat-button color="primary"><a style="text-overflow: ellipsis;
+                    <button *ngIf="row.status=='Submitted'" (click)="changeTab(row)" mat-button color="primary"><a style="text-overflow: ellipsis;
                         overflow: hidden;
                         white-space: no;"> {{row.status}}</a>
                       </button>
-                      <button *ngIf="row.status!='Pending'"  mat-button ><a style="text-overflow: ellipsis;
+                      <button *ngIf="row.status!='Submitted'"  mat-button ><a style="text-overflow: ellipsis;
                         overflow: hidden;
                         white-space: no;"> {{row.status}}</a>
                       </button>

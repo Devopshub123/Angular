@@ -29,6 +29,7 @@ import { ReusableDialogComponent } from './pages/reusable-dialog/reusable-dialog
 import { DesignationsComponent } from './pages/designations/designations.component';
 import { DeparmentComponent } from './pages/deparment/deparment.component';
 import { CommonModule } from '@angular/common';
+import { OnlyNumberDirective } from './custom-directive/only-number.directive';
 
 
  FullCalendarModule.registerPlugins([ 
@@ -48,7 +49,8 @@ import { CommonModule } from '@angular/common';
     PopupComponent,
     ReusableDialogComponent,
     DesignationsComponent,
-    DeparmentComponent
+    DeparmentComponent,
+    OnlyNumberDirective
   ],
   imports: [
     BrowserModule,

@@ -4,14 +4,25 @@
   
   <h1 mat-dialog-title>{{data.name}}</h1>
   <div mat-dialog-content>
-     <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+    <form [formGroup]="requestform" autocomplete="off">
+     <!-- <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
       <mat-label>Reason</mat-label>
       <input matInput [(ngModel)]="data.animal" />
-    </mat-form-field>
+    </mat-form-field> -->
+    <div fxLayout fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+      <mat-form-field  fxFlex="100" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+          <mat-label>Reason</mat-label>
+          <textarea formControlName="reason"  matInput placeholder="Reason"></textarea>
+          <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
+              Reason is required.
+          </mat-error>
+      </mat-form-field>
   </div>
-  <div mat-dialog-actions>
+  </form>
+  </div>
+  <div mat-dialog-actions fxLayoutAlign="center">
     <button mat-button (click)="onNoClick()">No</button>
-    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>
+    <button mat-button (click)="onOkClick()" cdkFocusInitial>
       Yes
     </button>
   </div>

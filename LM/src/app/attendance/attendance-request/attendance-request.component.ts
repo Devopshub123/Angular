@@ -129,7 +129,7 @@ export class AttendanceRequestComponent implements OnInit {
       "raisedby": this.userSession.id ?? '',
       "approvercomments": '',
       "actionby": null,
-      "status": 'Submited'
+      "status": 'Submitted'
 
     };
 

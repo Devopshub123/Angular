@@ -3,46 +3,43 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { AttendanceService } from '../attendance.service';
 import { UserData } from '../models/EmployeeData';
 interface IdName {
   id: string;
   name: string;
 }
 /** Constants used to fill up our data base. */
-const arrayList = [
-  {"id":1,"appliedDate":"10/06/2022","workType":"Work From Office","empName":"Raghavendra","shift":"General","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Pending"},
-  {"id":2,"appliedDate":"10/06/2022","workType":"On Duty","empName":"Chandra Shekar","shift":"AfterNoon","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Approved"},
-  {"id":3,"appliedDate":"10/06/2022","workType":"Remote Work","empName":"Ganesh","shift":"Evening","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Pending"},
-  {"id":4,"appliedDate":"10/06/2022","workType":"Work From Office","empName":"Raju","shift":"General","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Approve"},
-  {"id":5,"appliedDate":"10/06/2022","workType":"On Duty","empName":"Venu","shift":"Morning","fromDate":"02/06/2022","toDate":"03/07/2022","reason":"outside work","status":"Pending"},
-];
+
 @Component({
   selector: 'app-approval-attendance-list',
   templateUrl: './approval-attendance-list.component.html',
   styleUrls: ['./approval-attendance-list.component.scss']
 })
+
+
 export class ApprovalAttendanceListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'workType','empName','shift', 'fromDate', 'toDate','reason','status'];
-  dataSource: MatTableDataSource<UserData>;
+  displayedColumns: string[] = ['id','applieddate' ,'worktype','raisedbyname','shift', 'fromdate', 'todate','reason','status'];
+  dataSource!: MatTableDataSource<UserData>;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-  workType: IdName[] = [
-    {id: '1', name: 'Remote Work'},
-    {id: '2', name: 'On Duty'},
-    {id: '3', name: 'Work From Home'},
-    {id: '3', name: 'Work From Office'},
-  ];
-  constructor(private router:Router) {
+ 
+  arrayList: UserData[]=[];
+  userSession: any;
+  constructor(private router:Router, private attendanceService:AttendanceService) {
   
      // Assign the data to the data source for the table to render
-     this.dataSource = new MatTableDataSource(arrayList);
+    
    }
 
   ngOnInit(): void {
+    this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
+    this.getPendingAttendanceRequestListByEmpId();
   }
   ngAfterViewInit() {
+    this.dataSource = new MatTableDataSource(this.arrayList);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -55,6 +52,22 @@ export class ApprovalAttendanceListComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
 }
+getPendingAttendanceRequestListByEmpId() {
+  this.arrayList = [];
+  this.attendanceService.getPendingAttendanceListByManagerEmpId(this.userSession.id).subscribe((res) => {
+    if (res.status) {
+      this.arrayList = res.data;
+      this.dataSource = new MatTableDataSource(this.arrayList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    } else {
+      this.arrayList = [];
+      this.dataSource = new MatTableDataSource(this.arrayList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
+  })
+};
 changeTab(elment:UserData){
 
   this.router.navigate(["/Attendance/Approval"],{state: {userData:elment}}); 
