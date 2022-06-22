@@ -30,7 +30,7 @@ export class AttendanceService {
     return this.http.get(this.mainBeUrl+'attendance/api/getemployeeshift/'+employee_id, this.httpOptions);
   }
   getgetemployeesByMangerId(employee_id:any):Observable<any>{
-    return this.http.get(this.mainBeUrl+'attendance/api/getemployeesByMangerId/'+employee_id, this.httpOptions);
+    return this.http.get(this.mainBeUrl+'attendance/api/getEmployeesByManagerId/'+employee_id, this.httpOptions);
   }
   getWorkypeList(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
     return this.http.get(this.mainBeUrl+'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);

@@ -79,7 +79,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
  
   }
   getEmployeeListByManagerId() {
-    this.attendanceService.getgetemployeesByMangerId(23).subscribe((res) => {
+    this.attendanceService.getgetemployeesByMangerId(this.userSession.id).subscribe((res) => {
       if (res) {
         this.employeesData = res.data;
        
@@ -88,7 +88,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   }
 
   getEmployeeShiftDetails(selectedValue: any) {
-    //this.userSession.id
+    //
     this.attendanceService.getShiftDetailsByEmpId(selectedValue).subscribe((res) => {
       if (res) {
         this.shiftData = res.data[0];
@@ -129,7 +129,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   }
   saveConsultation() {
     let obj = {
-      "empid": this.userSession.id ?? '',
+      "empid": this.requestform.controls.employeeName.value,
       "shiftid": this.shiftData.shiftid,
       "worktype": this.requestform.controls.workType.value,
       "fromdate": this.pipe.transform(new Date(this.requestform.controls.fromDate.value??''), 'yyyy-MM-dd'),//this.datePipe.transform(this.requestform.controls.fromDate.value, "y-MM-d"),
