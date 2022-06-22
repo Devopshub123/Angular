@@ -1,11 +1,12 @@
 export interface UserData {
     id: number;
-    appliedDate:string;
-    workType: string;
-    empName:string;
+    applieddate:string;
+    worktype: string;
     shift:string;
-    fromDate: string;
-    toDate: string;
+    fromdate: string;
+    todate: string;
     reason: string;
+    raisedbyid: number;
+    raisedbyname: string;
     status: string;
   }

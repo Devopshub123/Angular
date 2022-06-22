@@ -24,28 +24,28 @@ export class AttendanceService {
 
   }
   excelDataForAttendance(data:any): Observable<any> {
-      return this.http.post(this.mainBeUrl + 'api/setEmployeeAttendance',JSON.stringify(data), this.httpOptions);
+      return this.http.post(this.mainBeUrl + 'attendance/api/setEmployeeAttendance',JSON.stringify(data), this.httpOptions);
   }  
   getShiftDetailsByEmpId(employee_id:any):Observable<any>{
-    return this.http.get(this.mainBeUrl+'api/getemployeeshift/'+employee_id, this.httpOptions);
+    return this.http.get(this.mainBeUrl+'attendance/api/getemployeeshift/'+employee_id, this.httpOptions);
   }
   getgetemployeesByMangerId(employee_id:any):Observable<any>{
-    return this.http.get(this.mainBeUrl+'api/getemployeesByMangerId/'+employee_id, this.httpOptions);
+    return this.http.get(this.mainBeUrl+'attendance/api/getemployeesByMangerId/'+employee_id, this.httpOptions);
   }
   getWorkypeList(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
     return this.http.get(this.mainBeUrl+'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
   }
   setemployeeattendanceregularization(data:any):Observable<any>{
-    return this.http.post(this.mainBeUrl+'api/setemployeeattendanceregularization',JSON.stringify(data),this.httpOptions);
+    return this.http.post(this.mainBeUrl+'attendance/api/setemployeeattendanceregularization',JSON.stringify(data),this.httpOptions);
   }
   updateAttendanceRequest(data:any):Observable<any>{
-    return this.http.put(this.mainBeUrl+'api/setattendanceapprovalstatus',JSON.stringify(data),this.httpOptions);
+    return this.http.post(this.mainBeUrl+'attendance/api/setattendanceapprovalstatus',JSON.stringify(data),this.httpOptions);
   }
   getAttendanceRequestListByEmpId(employee_id:any): Observable<any>{
-    return this.http.get(this.mainBeUrl + 'api/getemployeeattendanceregularization/'+employee_id, this.httpOptions);
+    return this.http.get(this.mainBeUrl + 'attendance/api/getemployeeattendanceregularization/'+employee_id, this.httpOptions);
   }
   getPendingAttendanceListByManagerEmpId(employee_id:any): Observable<any>{
-    return this.http.post(this.mainBeUrl + 'api/getpendingattendanceregularizations/'+employee_id, this.httpOptions);
+    return this.http.get(this.mainBeUrl + 'attendance/api/getpendingattendanceregularizations/'+employee_id, this.httpOptions);
   }
 
 

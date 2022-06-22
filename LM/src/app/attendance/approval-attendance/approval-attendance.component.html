@@ -37,7 +37,7 @@
                 </mat-form-field>
             </div>
             <div fxLayout fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field  fxFlex="51" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason</mat-label>
                     <textarea formControlName="reason" readonly matInput placeholder="Reason"></textarea>
                     <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
