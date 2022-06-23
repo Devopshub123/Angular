@@ -20,7 +20,7 @@ interface IdName {
 
 export class ApprovalAttendanceListComponent implements OnInit {
   displayedColumns: string[] = ['id','applieddate' ,'worktype','raisedbyname','shift', 'fromdate', 'todate','reason','status'];
-  dataSource!: MatTableDataSource<UserData>;
+  dataSource: MatTableDataSource<UserData>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)

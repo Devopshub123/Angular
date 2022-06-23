@@ -28,7 +28,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   pipe = new DatePipe('en-US');
   todayWithPipe: any;
   displayedColumns: string[] = ['id', 'worktype', 'fromdate', 'todate', 'reason', 'status'];
-  dataSource!: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<any>=<any>[];
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;

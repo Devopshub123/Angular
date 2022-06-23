@@ -63,7 +63,7 @@ export class ApprovalAttendanceComponent implements OnInit {
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '500px',
+      width: '500px',position:{top:`70px`},
       data: {name: this.titleName, reason: this.reason}
     });
 
