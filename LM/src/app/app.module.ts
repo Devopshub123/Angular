@@ -17,20 +17,17 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
 import { HeaderComponent } from './pages/header/header.component';
 import { SideNavComponent } from './pages/side-nav/side-nav.component';
 import { FooterComponent } from './pages/footer/footer.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
-import { JitCompiler }from '@angular/compiler';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { PopupComponent} from './pages/popup/popup.component'
-import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReusableDialogComponent } from './pages/reusable-dialog/reusable-dialog.component';
 
 import { CommonModule } from '@angular/common';
 import { OnlyNumberDirective } from './custom-directive/only-number.directive';
 import { MainComponent } from './pages/main/main.component';
-
+import { EmployeeMasterToAddComponent } from './modules/admin/pages/employee-master-to-add/employee-master-to-add.component';
+import { MatTableModule } from '@angular/material/table'
 
  FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -49,7 +46,9 @@ import { MainComponent } from './pages/main/main.component';
     PopupComponent,
     ReusableDialogComponent,
     OnlyNumberDirective,
-    MainComponent
+    MainComponent,
+    OnlyNumberDirective,
+    EmployeeMasterToAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,12 +62,8 @@ import { MainComponent } from './pages/main/main.component';
     FullCalendarModule ,
     FlexLayoutModule,
     HttpClientModule,
-    CommonModule
-    // HttpClient,
-    // HttpHeaders,
-    // Observable
-
-   
+    CommonModule,
+    MatTableModule,
 
   ],
 

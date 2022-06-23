@@ -8,17 +8,22 @@ import { ManagerDashboardComponent } from './pages/manager-dashboard/manager-das
 import { ApprovalAttendanceListComponent } from './pages/approval-attendance-list/approval-attendance-list.component';
 import { AttendanceRequestBehalfComponent } from './pages/attendance-request-behalf/attendance-request-behalf.component';
 import { AttendanceRequestComponent } from './pages/attendance-request/attendance-request.component';
+import { MainComponent } from 'src/app/pages/main/main.component';
 
 const routes: Routes = [
-  {path:'',component:AttendanceComponent},
-  {path:'Approval',component:ApprovalAttendanceComponent},
-  {path:'ApprovalList',component:ApprovalAttendanceListComponent},
-  {path:'AttendanceRequest',component:AttendanceRequestComponent},
-  {path: 'AttendanceBehalfRequest',component:AttendanceRequestBehalfComponent},
-  {path:'EmployeeDashboard',component:EmployeDashboardComponent},
-  {path:'ManagerDashboard',component:ManagerDashboardComponent},
-  {path:'uploadExcel',component:AttendanceUploadexcelComponent},
-];
+  {
+    path: '', component: MainComponent,
+    children: [
+      // {path:'',component:AttendanceComponent},
+      { path: 'Approval', component: ApprovalAttendanceComponent },
+      { path: 'ApprovalList', component: ApprovalAttendanceListComponent },
+      { path: 'AttendanceRequest', component: AttendanceRequestComponent },
+      { path: 'AttendanceBehalfRequest', component: AttendanceRequestBehalfComponent },
+      { path: 'EmployeeDashboard', component: EmployeDashboardComponent },
+      { path: 'ManagerDashboard', component: ManagerDashboardComponent },
+      { path: 'uploadExcel', component: AttendanceUploadexcelComponent },
+    ]
+  }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

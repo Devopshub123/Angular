@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches" >
   <mat-toolbar>
     <div class="main-header">
@@ -8,13 +8,7 @@
       </div>
       <nav class="navbar navbar-header navbar-expand-lg">
         <div class="container-fluid">
-          <!-- <div class="navbar-minimize" *ngIf="checkHeadNav == 'admin'">
-            <button class="btn btn-minimize btn-rounded" (click)="setToggleSideBar(toggleValue)">
-              <i class="la la-navicon" *ngIf="checkToggleBar == 'Show'"></i>
-              <i class="la la-ellipsis-v" *ngIf="checkToggleBar == 'Hide'"></i>
-            </button>
-          </div> -->
-          <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+               <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
     
             <li class="nav-item dropdown hidden-caret">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,18 +88,12 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="Login" (click)="logout()"><i class="fa fa-power-off"></i> Logout</a>
               </ul>
-              <!-- /.dropdown-user -->
             </li>
           </ul>
         </div>
       </nav>
     </div>
-    <!-- <a href="index.html" class="logo"><img [src]="pic" style="width: 25px;" alt="" class="logo-img mr-2">Sreeb Technologies</a>
-    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-    
-    <button mat-icon-button style="float: right;" (click)="logout()"><mat-icon>logout</mat-icon></button>
-     -->
-  </mat-toolbar>
+    </mat-toolbar>
 
   <mat-sidenav-container class="example-sidenav-container"
                          [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
@@ -154,4 +142,5 @@
   </mat-sidenav-container>
 </div>
 
-
+ -->
+ <router-outlet></router-outlet>

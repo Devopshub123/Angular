@@ -14,6 +14,7 @@ const routes: Routes = [
   {path:'ResetPassword/:email/:id',component:ResetPasswordComponent},
 
   {path:'ForgotPassword',component:ForgotPasswordComponent},
+
   {
     path: 'admin',
     loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
