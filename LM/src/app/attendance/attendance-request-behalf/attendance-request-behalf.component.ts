@@ -79,7 +79,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
  
   }
   getEmployeeListByManagerId() {
-    this.attendanceService.getgetemployeesByMangerId(this.userSession.id).subscribe((res) => {
+    this.attendanceService.getgetemployeesByMangerId(23).subscribe((res) => {
       if (res) {
         this.employeesData = res.data;
        
@@ -105,7 +105,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   }
   getAttendanceRequestListByEmpId() {
     this.arrayList = [];
-    this.attendanceService.getAttendanceRequestListByEmpId(this.userSession.id).subscribe((res) => {
+    this.attendanceService.getAttendanceRegularizationByManagerId(this.userSession.id).subscribe((res) => {
       if (res.status) {
         this.arrayList = res.data;
         this.dataSource = new MatTableDataSource(this.arrayList);
@@ -139,8 +139,8 @@ export class AttendanceRequestBehalfComponent implements OnInit {
       "reason": this.requestform.controls.reason.value,
       "raisedby": this.userSession.id ?? '',
       "approvercomments": '',
-      "actionby": null,
-      "status": 'Submited'
+      "actionby": this.userSession.id ?? '',
+      "status": 'Approved'
 
     };
 
@@ -158,7 +158,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   }
   resetform() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate(["/Attendance/AttendanceRequest"]));
+    this.router.navigate(["/Attendance/AttendanceBehalfRequest"]));
   }
 }
 

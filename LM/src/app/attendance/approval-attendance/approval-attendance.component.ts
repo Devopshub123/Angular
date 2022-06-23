@@ -68,8 +68,7 @@ export class ApprovalAttendanceComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      
+          
       if(result.reason!=undefined ){
         this.reason = result.reason;
         this.saveApproval();

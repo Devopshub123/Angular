@@ -1,1 +1,149 @@
-<p>side-nav works!</p>
+<div class="cmn-dahboard" *ngIf="checkHeadNav == 'self'">
+    <div class="sidebar">
+      <div class="scrollbar-inner sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item" (click)="setSideNav('dashboard')"><a routerLink="" [ngClass]="{'current-menu-item' : checkSideNav == 'dashboard'}"><i class="la la-dashboard"></i><p>Dashboard</p></a></li>
+          <li class="nav-item" (click)="setSideNav('newLeaveRequest')"><a routerLink="/NewLeaveRequest" [ngClass]="{'current-menu-item' : checkSideNav == 'newLeaveRequest'}"><i class="la la-calendar-check-o"></i><p>New Leave Request</p></a></li>
+          <li class="nav-item" (click)="setSideNav('leaveHistory')"><a routerLink="/LeaveHistory" [ngClass]="{'current-menu-item' : checkSideNav == 'leaveHistory'}"><i class="la la-calendar-o"></i><p>Leave History</p></a></li>
+          <li class="nav-item" (click)="setSideNav('leaveBalance')"><a routerLink="/LeaveBalance" [ngClass]="{'current-menu-item' : checkSideNav == 'leaveBalance'}"><i class="la la-calendar-minus-o"></i><p>Leave Balance</p></a></li>
+          <li class="nav-item" (click)="setSideNav('reports')"><a routerLink="/UserDetailedReports" [ngClass]="{'current-menu-item' : checkSideNav == 'reports'}"><i class="la la-file-pdf-o"></i><p>Reports</p></a></li>
+          <li class="nav-item" (click)="setSideNav('comp-off')"><a routerLink="/CompOff" [ngClass]="{'current-menu-item' : checkSideNav == 'comp-off'}"><i class="la la-list-ol"></i><p>Comp-Off</p></a></li>
+        </ul>
+      </div>
+    </div>
+    </div>
+    <div class="admin-dash" [ngClass]="{'sidebar_minimize' : checkToggleBar == 'Hide'}" *ngIf="checkHeadNav == 'admin'">
+    <div id="main-nav" class="sidebar admin-dashboard">
+      <div class="scrollbar-inner sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item" (click)="setSideNav('adminDashboard')"><a [ngClass]="{'current-menu-item' : checkSideNav == 'adminDashboard'}"><i class="la la-dashboard"></i><p>Admin Dashboard</p></a></li>
+          <li class="nav-item" (click)="setSideNav('companyInformation')"><a routerLink="/CompanyInformation" [ngClass]="{'current-menu-item' : checkSideNav == 'companyInformation'}"><i class="la la-building"></i><p>Company Information</p></a></li>
+          <!--<li class="nav-item" (click)="setSideNav('companySetting')"><a  [ngClass]="{'current-menu-item' : checkSideNav == 'companySetting'}"><i class="la la-building"></i><p>Company Setting</p></a></li>-->
+          <li class="nav-item" (click)="setSideNav('companySetting')">
+            <a data-toggle="collapse" href="#companysetting" class="collapsed" [ngClass]="{'current-menu-item' : checkSideNav == 'companySetting'}" aria-expanded="false"><i class="la la-building"></i><p>Company Setting</p><span class="caret"></span></a>
+            <div class="collapse" id="companysetting" style="">
+              <ul class="nav nav-collapse">
+                <li (click)="setSubSideNav('workLocation')"><a routerLink="/WorkLocation" [ngClass]="{'current-menu-item' : checkSubSideNav == 'workLocation'}"><span class="sub-item">Work Location</span></a></li>
+                <li (click)="setSubSideNav('departments')"><a routerLink="/Departments" [ngClass]="{'current-menu-item' : checkSubSideNav == 'departments'}"><span class="sub-item">Departments</span></a></li>
+                <li (click)="setSubSideNav('designations')"><a routerLink="/Designations" [ngClass]="{'current-menu-item' : checkSubSideNav == 'designations'}"><span class="sub-item">Designations</span></a></li>
+    
+                <li (click)="setSubSideNav('companyLogo')"><a routerLink="/CompanyLogo" [ngClass]="{'current-menu-item' : checkSubSideNav == 'companyLogo'}"><span class="sub-item">Company Logo</span></a></li>
+              </ul>
+            </div>
+          </li>
+          <!--<li class="nav-item" (click)="setSideNav('employeeMaster')"><a [ngClass]="{'current-menu-item' : checkSideNav == 'employeeMaster'}"><i class="la la-user-plus"></i><p>Employee Master</p></a></li>-->
+          <li class="nav-item" (click)="setSideNav('employeeMaster')"><a routerLink="/EmployeeMasterToAdd" [ngClass]="{'current-menu-item' : checkSubSideNav == 'employeeMaster'}"><i class="la la-building"></i><p>Employee Master</p></a></li>
+    
+         <!-- <li class="nav-item" (click)="setSideNav('employeeMaster')">
+            <a data-toggle="collapse" href="#employeemaster" class="collapsed" [ngClass]="{'current-menu-item' : checkSideNav == 'employeeMaster'}" aria-expanded="false"><i class="la la-user-plus"></i><p>Employee Master</p><span class="caret"></span></a>
+            <div class="collapse" id="employeemaster" style="">
+              <ul class="nav nav-collapse">
+                <li (click)="setSubSideNav('addEmployee')"><a routerLink="/EmployeeMasterToAdd" [ngClass]="{'current-menu-item' : checkSubSideNav == 'addEmployee'}"><span class="sub-item">Employee Master to add</span></a></li>
+                <li (click)="setSubSideNav('updateEmployee')"><a routerLink="/EmployeeMasterUpdate" [ngClass]="{'current-menu-item' : checkSubSideNav == 'updateEmployee'}"><span class="sub-item">Employee Master update</span></a></li>
+              </ul>
+            </div>
+          </li>-->
+          <!--<li class="nav-item"><a routerLink="\EmployeeType"><i class="la la-user-plus"></i><p>Employee Type</p></a></li>-->
+          <li class="nav-item" (click)="setSideNav('leavePolicies')"><a routerLink="/AddLeaveConfigure" [ngClass]="{'current-menu-item' : checkSideNav == 'leavePolicies'}"><i class="la la-calendar"></i><p>Leave Policies</p></a></li>
+        <!--  <li class="nav-item" (click)="setSideNav('leavePolicies')">
+            <a data-toggle="collapse" href="#leave-policies" class="collapsed" [ngClass]="{'current-menu-item' : checkSideNav == 'leavePolicies'}" aria-expanded="false"><i class="la la-calendar"></i><p>Leave Policies</p><span class="caret"></span></a>
+            <div class="collapse" id="leave-policies" style="">
+              <ul class="nav nav-collapse">
+                <li (click)="setSubSideNav('addLeaveBalance')"><a routerLink="/AddLeaveBalance" [ngClass]="{'current-menu-item' : checkSubSideNav == 'addLeaveBalance'}"><span class="sub-item">Add Leave Balance</span></a></li>
+                <li (click)="setSubSideNav('addLeaveType')"><a routerLink="/AddLeaveConfigure" [ngClass]="{'current-menu-item' : checkSubSideNav == 'addLeaveType'}"><span class="sub-item">Add Leave Type</span></a></li>
+              </ul>
+            </div>
+          </li>-->
+          <li class="nav-item" (click)="setSideNav('holidays')"><a routerLink="/Holidays"  [ngClass]="{'current-menu-item' : checkSideNav == 'holidays'}"><i class="la la-calendar"></i><p>Holidays</p></a></li>
+          <li class="nav-item" (click)="setSideNav('errorMessages')"><a routerLink="/errorMessages"  [ngClass]="{'current-menu-item' : checkSideNav == 'errorMessages'}"><i class="la la-align-center"></i><p>Messages Master</p></a></li>
+          <li class="nav-item" (click)="setSideNav('roleMaster')"><a routerLink="/roleMaster"  [ngClass]="{'current-menu-item' : checkSideNav == 'roleMaster'}"><i class="la la-user"></i><p>Role & Permissions</p></a></li>
+    <!--
+          <li class="nav-item" (click)="setSideNav('shifts')"><a routerLink="/Shifts" [ngClass]="{'current-menu-item' : checkSideNav == 'shifts'}"><i class="la la-calendar"></i><p>Shifts</p></a></li>
+          <li class="nav-item" (click)="setSideNav('reports')"><a  [ngClass]="{'current-menu-item' : checkSideNav == 'reports'}"><i class="la la-file-code-o"></i><p>Reports</p></a></li>
+    -->
+        </ul>
+      </div>
+    </div>
+    </div>
+    <div class="myteam-dahboard" *ngIf="checkHeadNav == 'myTeam'">
+    <div id="main-nav" class="sidebar myteam-dashboard">
+      <div class="scrollbar-inner sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item" (click)="setSideNav('leaveManagement')"><a [ngClass]="{'current-menu-item' : checkSideNav == 'leaveManagement'}"><i class="la la-calendar-check-o"></i><p>Leave Management</p></a></li>
+          <li class="nav-item" (click)="setSideNav('teamDashboard')"><a routerLink="/MyteamDashboard" [ngClass]="{'current-menu-item' : checkSideNav == 'teamDashboard'}"><i class="la la-dashboard"></i><p>Team Dashboard</p></a></li>
+          <li class="nav-item" (click)="setSideNav('pendingApproval')"><a routerLink="/PendingApprovalsView" [ngClass]="{'current-menu-item' : checkSideNav == 'pendingApproval'}"><i class="la la-building"></i><p>Pending Approvals</p></a></li>
+          <li class="nav-item" (click)="setSideNav('reports')"><a [ngClass]="{'current-menu-item' : checkSideNav == 'reports'}"><i class="la la-file-code-o"></i><p>Reports</p></a></li>
+        </ul>
+      </div>
+    </div>
+      </div>
+    <div class="admin-dash">
+      <div id="main-nav" class="sidebar admin-dashboard">
+        <div class="scrollbar-inner sidebar-wrapper">
+          <ul class="nav">
+            <li class="nav-item" *ngFor="let a of employeeRoles; index as i;" (click)="getScreens(a.name,a.id)">
+              <a data-toggle="collapse" href="#self" class="collapsed" [ngClass]="{'current-menu-item' : checkSideNav == 'myTeam'}" *ngIf="a.name == 'Employee'" aria-expanded="false"><i class="la la-building"></i><p>Self</p><span class="caret"></span></a>
+              <div class="collapse" id="self" [ngClass]="{'show' : checkSideNav == 'self'}" *ngIf="a.name == 'Employee'">
+                <ul class="nav nav-collapse">
+                  <li class="nav-item" (click)="setSideNav('dashboard')"><a routerLink="" [ngClass]="{'current-menu-item' : checkSideNav == 'dashboard'}"><i class="la la-dashboard"></i><p>Dashboard</p></a></li>
+                  <li class="nav-item" (click)="setSideNav('newLeaveRequest')"><a routerLink="/NewLeaveRequest" [ngClass]="{'current-menu-item' : checkSideNav == 'newLeaveRequest'}"><i class="la la-calendar-check-o"></i><p>New Leave Request</p></a></li>
+                  <li class="nav-item" (click)="setSideNav('leaveHistory')"><a routerLink="/LeaveHistory" [ngClass]="{'current-menu-item' : checkSideNav == 'leaveHistory'}"><i class="la la-calendar-o"></i><p>Leave History</p></a></li>
+                  <li class="nav-item" (click)="setSideNav('leaveBalance')"><a routerLink="/LeaveBalance" [ngClass]="{'current-menu-item' : checkSideNav == 'leaveBalance'}"><i class="la la-calendar-minus-o"></i><p>Leave Balance</p></a></li>
+                  <li class="nav-item" (click)="setSideNav('reports')"><a routerLink="/UserDetailedReports" [ngClass]="{'current-menu-item' : checkSideNav == 'reports'}"><i class="la la-file-pdf-o"></i><p>Reports</p></a></li>
+                  <li class="nav-item" (click)="setSideNav('comp-off')"><a routerLink="/CompOff" [ngClass]="{'current-menu-item' : checkSideNav == 'comp-off'}"><i class="la la-list-ol"></i><p>Comp-Off</p></a></li>
+                </ul>
+              </div>
+    
+              <a data-toggle="collapse" href="#myTeam" class="collapsed" [ngClass]="{'current-menu-item' : checkSideNav == 'myTeam'}" *ngIf="a.name == 'Manager'" aria-expanded="false"><i class="la la-building"></i><p>My Team</p><span class="caret"></span></a>
+              <div class="collapse" id="myTeam" [ngClass]="{'show' : checkSideNav == 'myTeam'}" *ngIf="a.name == 'Manager'">
+                <ul class="nav nav-collapse">
+                  <li class="nav-item" (click)="setSideNav('leaveManagement')"><a [ngClass]="{'current-menu-item' : checkSideNav == 'leaveManagement'}"><i class="la la-calendar-check-o"></i><p>Leave Management</p></a></li>
+                  <li class="nav-item" (click)="setSideNav('teamDashboard')"><a routerLink="/MyteamDashboard" [ngClass]="{'current-menu-item' : checkSideNav == 'teamDashboard'}"><i class="la la-dashboard"></i><p>Team Dashboard</p></a></li>
+                  <li class="nav-item" (click)="setSideNav('pendingApproval')"><a routerLink="/PendingApprovalsView" [ngClass]="{'current-menu-item' : checkSideNav == 'pendingApproval'}"><i class="la la-building"></i><p>Pending Approvals</p></a></li>
+                  <li class="nav-item" (click)="setSideNav('reports')"><a [ngClass]="{'current-menu-item' : checkSideNav == 'reports'}"><i class="la la-file-code-o"></i><p>Reports</p></a></li>
+                </ul>
+              </div>
+    
+              <a data-toggle="collapse" href="{{'#'+i}}" class="collapsed" [ngClass]="{'current-menu-item' : checkSideNav == a.name}" *ngIf="a.name != 'Employee' && a.name != 'Manager'" aria-expanded="false"><i class="la la-building"></i><p>{{a.name}}</p><span class="caret"></span></a>
+              <div class="collapse" id="{{i}}" [ngClass]="{'show' : checkSideNav == a.name}" *ngIf="a.name != 'Employee' && a.name != 'Manager'">
+                <ul class="nav nav-collapse">
+                  <li class="nav-item" (click)="setSideNav('adminDashboard')"><a [ngClass]="{'current-menu-item' : checkSideNav == 'adminDashboard'}"><i class="la la-dashboard"></i><p>Admin Dashboard</p></a></li>
+                  <li class="nav-item" (click)="setSideNav('companyInformation')"><a routerLink="/CompanyInformation" [ngClass]="{'current-menu-item' : checkSideNav == 'companyInformation'}"><i class="la la-building"></i><p>Company Information</p></a></li>
+    
+                  <li class="nav-item" (click)="setSideNav('companySetting')">
+                    <a data-toggle="collapse" href="#companysetting" class="collapsed" [ngClass]="{'current-menu-item' : checkSideNav == 'companySetting'}" aria-expanded="false"><i class="la la-building"></i><p>Company Setting</p><span class="caret"></span></a>
+                    <div class="collapse" id="companysetting" style="">
+                      <ul class="nav nav-collapse">
+                        <li (click)="setSubSideNav('workLocation')"><a routerLink="/WorkLocation" [ngClass]="{'current-menu-item' : checkSubSideNav == 'workLocation'}"><span class="sub-item">Work Location</span></a></li>
+                        <li (click)="setSubSideNav('departments')"><a routerLink="/Departments" [ngClass]="{'current-menu-item' : checkSubSideNav == 'departments'}"><span class="sub-item">Departments</span></a></li>
+                        <li (click)="setSubSideNav('designations')"><a routerLink="/Designations" [ngClass]="{'current-menu-item' : checkSubSideNav == 'designations'}"><span class="sub-item">Designations</span></a></li>
+    
+                        <li (click)="setSubSideNav('companyLogo')"><a routerLink="/CompanyLogo" [ngClass]="{'current-menu-item' : checkSubSideNav == 'companyLogo'}"><span class="sub-item">Company Logo</span></a></li>
+                      </ul>
+                    </div>
+                  </li>
+    
+                  <li class="nav-item" (click)="setSideNav('employeeMaster')"><a routerLink="/EmployeeMasterToAdd" [ngClass]="{'current-menu-item' : checkSubSideNav == 'employeeMaster'}"><i class="la la-building"></i><p>Employee Master</p></a></li>
+    
+    
+                  <!--<li class="nav-item"><a routerLink="\EmployeeType"><i class="la la-user-plus"></i><p>Employee Type</p></a></li>-->
+                  <li class="nav-item" (click)="setSideNav('leavePolicies')"><a routerLink="/AddLeaveConfigure" [ngClass]="{'current-menu-item' : checkSideNav == 'leavePolicies'}"><i class="la la-calendar"></i><p>Leave Policies</p></a></li>
+    
+                  <li class="nav-item" (click)="setSideNav('holidays')"><a routerLink="/Holidays"  [ngClass]="{'current-menu-item' : checkSideNav == 'holidays'}"><i class="la la-calendar"></i><p>Holidays</p></a></li>
+                  <li class="nav-item" (click)="setSideNav('errorMessages')"><a routerLink="/errorMessages"  [ngClass]="{'current-menu-item' : checkSideNav == 'errorMessages'}"><i class="la la-align-center"></i><p>Messages Master</p></a></li>
+                  <li class="nav-item" (click)="setSideNav('roleMaster')"><a routerLink="/roleMaster"  [ngClass]="{'current-menu-item' : checkSideNav == 'roleMaster'}"><i class="la la-user"></i><p>Role & Permissions</p></a></li>
+    <!--
+    
+                  <li class="nav-item" (click)="setSideNav('shifts')"><a routerLink="/Shifts" [ngClass]="{'current-menu-item' : checkSideNav == 'shifts'}"><i class="la la-calendar"></i><p>Shifts</p></a></li>
+                  <li class="nav-item" (click)="setSideNav('reports')"><a  [ngClass]="{'current-menu-item' : checkSideNav == 'reports'}"><i class="la la-file-code-o"></i><p>Reports</p></a></li>
+    -->
+    
+                </ul>
+                </div>
+    
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    

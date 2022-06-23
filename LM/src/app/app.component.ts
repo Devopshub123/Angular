@@ -11,7 +11,16 @@ import { Router } from '@angular/router';
 export class AppComponent {
   
   title = 'boon-hrms';
+  checkHeadNav: any;
+  checkToggleBar: any;
+  toggleValue: any;
+  subscription: any;
   pic:any;
+  usersession:any;
+  data:any;
+  empname:any;
+  email:any;
+  
   menu: NavItem [] = [
     {
       displayName: 'Attendance Module',
@@ -71,7 +80,7 @@ export class AppComponent {
 
 fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
 private _mobileQueryListener: () => void;
-constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,private router:Router) {
+constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,public router:Router) {
   this.mobileQuery = media.matchMedia('(max-width: 600px)');
   this._mobileQueryListener = () => changeDetectorRef.detectChanges();
   this.mobileQuery.addListener(this._mobileQueryListener);
