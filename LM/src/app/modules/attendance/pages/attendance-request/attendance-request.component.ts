@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -26,7 +26,7 @@ export class AttendanceRequestComponent implements OnInit {
   fromDate: any;
   toDate: any;
   today: Date = new Date();
-  minDate = new Date('1950/01/01'); maxDate = new Date('2050/01/01'); 
+  minDate = new Date('1950/01/01'); maxDate = new Date('2050/01/01');
   pipe = new DatePipe('en-US');
   todayWithPipe: any;
   displayedColumns: string[] = ['id', 'worktype', 'fromdate', 'todate', 'reason', 'status'];
@@ -36,18 +36,18 @@ export class AttendanceRequestComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
- 
-  arrayList: any=[];
+
+  arrayList: any = [];
 
   workTypeData: any;
   userSession: any;
   shiftData: any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
-     public dialog: MatDialog, public datePipe: DatePipe,private router: Router) {
+    public dialog: MatDialog, public datePipe: DatePipe, private router: Router) {
     // Create 100 users
 
     // Assign the data to the data source for the table to render
- 
+
   }
 
   ngOnInit(): void {
@@ -71,10 +71,13 @@ export class AttendanceRequestComponent implements OnInit {
 
   }
   ngAfterViewInit() {
- 
+
+  }
+  get f(): { [key: string]: AbstractControl } {
+    return this.requestform.controls;
   }
   getEmployeeShiftDetails() {
-    this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res:any) => {
+    this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res: any) => {
       if (res) {
         this.shiftData = res.data[0];
         this.requestform.controls.shift.setValue(this.shiftData.shiftname);
@@ -82,7 +85,7 @@ export class AttendanceRequestComponent implements OnInit {
     })
   }
   getWorkypeList() {
-    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'boon_client').subscribe((info:any) => {
+    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'boon_client').subscribe((info: any) => {
       if (info.status && info.data.length != 0) {
 
         this.workTypeData = info.data;
@@ -94,7 +97,7 @@ export class AttendanceRequestComponent implements OnInit {
   }
   getAttendanceRequestListByEmpId() {
     this.arrayList = [];
-    this.attendanceService.getAttendanceRequestListByEmpId(this.userSession.id).subscribe((res:any) => {
+    this.attendanceService.getAttendanceRequestListByEmpId(this.userSession.id).subscribe((res: any) => {
       if (res.status) {
         this.arrayList = res.data;
         this.dataSource = new MatTableDataSource(this.arrayList);
@@ -117,37 +120,40 @@ export class AttendanceRequestComponent implements OnInit {
     }
   }
   saveConsultation() {
-    let obj = {
-      "empid": this.userSession.id ?? '',
-      "shiftid": this.shiftData.shiftid,
-      "worktype": this.requestform.controls.workType.value,
-      "fromdate": this.pipe.transform(new Date(this.requestform.controls.fromDate.value??''), 'yyyy-MM-dd'),//this.datePipe.transform(this.requestform.controls.fromDate.value, "y-MM-d"),
-      "todate": this.pipe.transform(new Date(this.requestform.controls.toDate.value??''), 'yyyy-MM-dd'),//this.requestform.controls.toDate.value,
-      "logintime": this.shiftData.fromtime,
-      "logouttime": this.shiftData.totime,
-      "reason": this.requestform.controls.reason.value,
-      "raisedby": this.userSession.id ?? '',
-      "approvercomments": '',
-      "actionby": null,
-      "status": 'Submitted'
+    if (this.requestform.invalid) {
+      return;
+    } else {
+      let obj = {
+        "empid": this.userSession.id ?? '',
+        "shiftid": this.shiftData.shiftid,
+        "worktype": this.requestform.controls.workType.value,
+        "fromdate": this.pipe.transform(new Date(this.requestform.controls.fromDate.value ?? ''), 'yyyy-MM-dd'),//this.datePipe.transform(this.requestform.controls.fromDate.value, "y-MM-d"),
+        "todate": this.pipe.transform(new Date(this.requestform.controls.toDate.value ?? ''), 'yyyy-MM-dd'),//this.requestform.controls.toDate.value,
+        "logintime": this.shiftData.fromtime,
+        "logouttime": this.shiftData.totime,
+        "reason": this.requestform.controls.reason.value,
+        "raisedby": this.userSession.id ?? '',
+        "approvercomments": '',
+        "actionby": null,
+        "status": 'Submitted'
 
-    };
+      };
 
 
-    this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res:any) => {
-      if (res.status) {
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          disableClose: true,
-          data: res.message
-        });
-        this.resetform();
-        // this. getAttendanceRequestListByEmpId();
-      }
-    })
+      this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res: any) => {
+        if (res.status) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data: res.message
+          });
+          this.resetform();
+          // this. getAttendanceRequestListByEmpId();
+        }
+      })
+    }
   }
   resetform() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate(["/Attendance/AttendanceRequest"]));
+      this.router.navigate(["/Attendance/AttendanceRequest"]));
   }
 }
-

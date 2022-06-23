@@ -1,8 +1,10 @@
 <button mat-icon-button class="close-button" [mat-dialog-close]="true">
     <mat-icon class="close-icon" color="warn">close</mat-icon>
   </button>
-  
-  <h1 mat-dialog-title>{{data.name}}</h1>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <h1 mat-dialog-title >{{data.name}}</h1>
+  </div>
+
   <div mat-dialog-content>
     <form [formGroup]="requestform" autocomplete="off">
      <!-- <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
@@ -21,10 +23,11 @@
   </form>
   </div>
   <div mat-dialog-actions fxLayoutAlign="center">
-    <button mat-button (click)="onNoClick()">No</button>
-    <button mat-button (click)="onOkClick()" cdkFocusInitial>
-      Yes
+    <button mat-button class="button-save" (click)="onOkClick()" cdkFocusInitial>
+      Submit
     </button>
+    <button mat-button class="button-clear" (click)="onNoClick()">Cancel</button>
+    
   </div>
   
   
