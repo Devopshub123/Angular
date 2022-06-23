@@ -37,7 +37,7 @@ export class DeparmentComponent implements OnInit {
   valid:boolean = false;
   displayedColumns: string[] = ['department','status','Action'];
   departmentData:any=[];
-  arrayValue:any=[{Value:'active',name:'Active'},{Value:'inactive',name:'Inactive'}];
+  arrayValue:any=[{Value:'Active',name:'Active '},{Value:'Inactive',name:'Inactive'}];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator)
@@ -89,7 +89,8 @@ export class DeparmentComponent implements OnInit {
             this.isAdd = false;
             this.ngOnInit();
             const dialog: PopupConfig = {
-              title: 'Designation Added Successfully',
+              // img:"assets/img/success.png",
+              title: 'Department Added Successfully',
               close: 'OK',
               
             };

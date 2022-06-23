@@ -1,0 +1,45 @@
+.headerbox{
+    padding: 5px;
+    background-color:#28acaf;
+  }
+  .custom-style{
+    background: #e8e8e8 !important;
+    border-color: #e8e8e8 !important;
+  }
+  table {
+    width: 100%;
+  }
+  
+  // .mat-form-field {
+  //   font-size: 14px;
+  //   width: 25%;
+  // }
+  
+  /* td, th {
+    width: 25%;
+  } */
+  .thead{
+    padding: 5px;
+    background-color:#28acaf;
+  }
+  .title{
+    margin-top: 10px;
+    font-family: "Roboto";
+    font-size: 18px;
+    font-weight: normal;
+     font-stretch: normal;
+     font-style: normal;
+    letter-spacing: 0.32px;
+    color: #000000;
+  }
+  .mat-header-cell{
+    margin-top: 10px;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: normal;
+     font-stretch: normal;
+     font-style: normal;
+    letter-spacing: 0.32px;
+    color: #000000;
+    background-color: #28acaf;
+  }

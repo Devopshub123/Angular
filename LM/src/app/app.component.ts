@@ -72,7 +72,10 @@ export class AppComponent {
            route:'/Designation'},
            {displayName:'Department',
            iconName:'department',
-           route:'/Department'}
+           route:'/Department'},
+           {displayName:'Employee-Master',
+           iconName:'department',
+           route:'/EmployeeMaterToAdd'}
         ]
       }
   ];

@@ -30,7 +30,8 @@ import { DesignationsComponent } from './pages/designations/designations.compone
 import { DeparmentComponent } from './pages/deparment/deparment.component';
 import { CommonModule } from '@angular/common';
 import { OnlyNumberDirective } from './custom-directive/only-number.directive';
-
+import { EmployeeMasterToAddComponent } from './pages/employee-master-to-add/employee-master-to-add.component';
+import { MatTableModule } from '@angular/material/table'
 
  FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -50,7 +51,8 @@ import { OnlyNumberDirective } from './custom-directive/only-number.directive';
     ReusableDialogComponent,
     DesignationsComponent,
     DeparmentComponent,
-    OnlyNumberDirective
+    OnlyNumberDirective,
+    EmployeeMasterToAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,8 @@ import { OnlyNumberDirective } from './custom-directive/only-number.directive';
     FullCalendarModule ,
     FlexLayoutModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    MatTableModule,
     // HttpClient,
     // HttpHeaders,
     // Observable

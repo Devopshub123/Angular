@@ -11,6 +11,45 @@ import { Observable } from 'rxjs';
     };    
     constructor(private hClient: HttpClient) {}
     url:any = 'http://localhost:6060';
+    validatePrefix(info:any): Observable<any> {
+      console.log(info)
+      return this.hClient.post(this.url+'/api/validatePrefix', JSON.stringify(info), this.httpOptions);
+    }
+    setWorkLocation(info:any): Observable<any> {
+      return this.hClient.post(this.url+'/api/setWorkLocation', JSON.stringify(info), this.httpOptions);
+    }
+    getWorkLocation(info:any): Observable<any>{
+      console.log(info)
+      return this.hClient.post(this.url+'/api/getWorkLocation',JSON.stringify(info), this.httpOptions);
+    }
+    getactiveWorkLocation(info:any): Observable<any>{
+      console.log(info)
+      return this.hClient.post(this.url+'/api/getactiveWorkLocation',JSON.stringify(info), this.httpOptions);
+    }
+    getReportingManagers(id:any):Observable<any>{
+      return this.hClient.post(this.url+'/api/getReportingManager',JSON.stringify(id), this.httpOptions)
+  
+    }
+    getMastertable(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
+     /* console.log('tableName',tableName)*/
+      return this.hClient.get(this.url+'/api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+    }
+    getCountry(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
+     /* console.log('tableName',tableName)*/
+      return this.hClient.get(this.url+'/api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+    }
+    getStates(tableName:any,page:any,size:any,companyName:any):Observable<any>{
+      return this.hClient.get(this.url+'/api/getMastertable/'+tableName+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+    }
+    getStatesc(id:any):Observable<any>{
+      return this.hClient.get(this.url+'/api/getStates/'+id,this.httpOptions)
+    }
+    getCities(id:any):Observable<any>{
+      return this.hClient.get(this.url+'/api/getCities/'+id,this.httpOptions)
+    }
+    setWorkStatus(info:any){
+      return this.hClient.post(this.url+'/api/setWorkStatus', JSON.stringify(info), this.httpOptions);
+    }  
   setDesignation(info:any): Observable<any>{
     return this.hClient.post(this.url+'/api/setDesignation',  JSON.stringify(info), this.httpOptions);
   }

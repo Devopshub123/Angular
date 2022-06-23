@@ -8,6 +8,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import {LMSAccessGuard} from  './LMS-access.guard';
 import { DesignationsComponent } from './pages/designations/designations.component';
 import { DeparmentComponent } from './pages/deparment/deparment.component';
+import { EmployeeMasterToAddComponent } from './pages/employee-master-to-add/employee-master-to-add.component';
 
 const routes: Routes = [
   {path:'Login',component:LoginComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path:'Designation',component:DesignationsComponent},
   {path:'Department',component:DeparmentComponent},
   {path:'ForgotPassword',component:ForgotPasswordComponent},
+  {path:'EmployeeMaterToAdd',component:EmployeeMasterToAddComponent},
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
