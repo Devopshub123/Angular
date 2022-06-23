@@ -7,19 +7,21 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
-import { AttendanceService } from '../attendance.service';
+import { AttendanceService } from '../../attendance.service';
 
 interface IdName {
   id: string;
   name: string;
-} 
-@Component({
-  selector: 'app-attendance-request-behalf',
-  templateUrl: './attendance-request-behalf.component.html',
-  styleUrls: ['./attendance-request-behalf.component.scss']
-})
-export class AttendanceRequestBehalfComponent implements OnInit {
+}
+/** Constants used to fill up our data base. */
 
+
+@Component({
+  selector: 'app-attendance-request',
+  templateUrl: './attendance-request.component.html',
+  styleUrls: ['./attendance-request.component.scss']
+})
+export class AttendanceRequestComponent implements OnInit {
   requestform!: FormGroup;
   fromDate: any;
   toDate: any;
@@ -40,7 +42,6 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   workTypeData: any;
   userSession: any;
   shiftData: any;
-  employeesData: any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
      public dialog: MatDialog, public datePipe: DatePipe,private router: Router) {
     // Create 100 users
@@ -57,7 +58,6 @@ export class AttendanceRequestBehalfComponent implements OnInit {
         shift: ['', Validators.required],
         fromDate: ['', Validators.required],
         toDate: ['', Validators.required],
-        employeeName:['',Validators.required],
         workType: ['', Validators.required],
         reason: ['', Validators.required],
 
@@ -66,30 +66,15 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     console.log(this.userSession)
     console.log(this.userSession.id)
     this.getWorkypeList();
-    this.getEmployeeListByManagerId()
+    this.getEmployeeShiftDetails()
     this.getAttendanceRequestListByEmpId();
-    this.requestform.get("employeeName")?.valueChanges.subscribe(selectedValue => {
-        console.log(selectedValue)
-      this.getEmployeeShiftDetails(selectedValue);
-       
-      })
-  
+
   }
   ngAfterViewInit() {
  
   }
-  getEmployeeListByManagerId() {
-    this.attendanceService.getgetemployeesByMangerId(23).subscribe((res) => {
-      if (res) {
-        this.employeesData = res.data;
-       
-      }
-    })
-  }
-
-  getEmployeeShiftDetails(selectedValue: any) {
-    //
-    this.attendanceService.getShiftDetailsByEmpId(selectedValue).subscribe((res) => {
+  getEmployeeShiftDetails() {
+    this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res:any) => {
       if (res) {
         this.shiftData = res.data[0];
         this.requestform.controls.shift.setValue(this.shiftData.shiftname);
@@ -97,15 +82,19 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     })
   }
   getWorkypeList() {
-    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'boon_client').subscribe((info) => {
+    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'boon_client').subscribe((info:any) => {
       if (info.status && info.data.length != 0) {
+
         this.workTypeData = info.data;
+
       }
+
     })
+
   }
   getAttendanceRequestListByEmpId() {
     this.arrayList = [];
-    this.attendanceService.getAttendanceRegularizationByManagerId(this.userSession.id).subscribe((res) => {
+    this.attendanceService.getAttendanceRequestListByEmpId(this.userSession.id).subscribe((res:any) => {
       if (res.status) {
         this.arrayList = res.data;
         this.dataSource = new MatTableDataSource(this.arrayList);
@@ -129,7 +118,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   }
   saveConsultation() {
     let obj = {
-      "empid": this.requestform.controls.employeeName.value,
+      "empid": this.userSession.id ?? '',
       "shiftid": this.shiftData.shiftid,
       "worktype": this.requestform.controls.workType.value,
       "fromdate": this.pipe.transform(new Date(this.requestform.controls.fromDate.value??''), 'yyyy-MM-dd'),//this.datePipe.transform(this.requestform.controls.fromDate.value, "y-MM-d"),
@@ -139,13 +128,13 @@ export class AttendanceRequestBehalfComponent implements OnInit {
       "reason": this.requestform.controls.reason.value,
       "raisedby": this.userSession.id ?? '',
       "approvercomments": '',
-      "actionby": this.userSession.id ?? '',
-      "status": 'Approved'
+      "actionby": null,
+      "status": 'Submitted'
 
     };
 
 
-    this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res) => {
+    this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res:any) => {
       if (res.status) {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           disableClose: true,
@@ -158,7 +147,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   }
   resetform() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate(["/Attendance/AttendanceBehalfRequest"]));
+    this.router.navigate(["/Attendance/AttendanceRequest"]));
   }
 }
 

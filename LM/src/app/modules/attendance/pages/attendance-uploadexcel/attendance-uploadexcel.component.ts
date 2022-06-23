@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import * as XLSX from 'xlsx';
-import { AttendanceService } from '../attendance.service';
+import { AttendanceService } from '../../attendance.service';
 type AOA = any[][];
 
 @Component({

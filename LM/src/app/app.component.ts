@@ -42,7 +42,7 @@ export class AppComponent {
           route: '/Attendance/AttendanceRequest'
         },
         {
-          displayName: 'Attendance Request Behalf',
+          displayName: 'Request Behalf of Employee',
           iconName: 'how_to_reg',
           route: '/Attendance/AttendanceBehalfRequest'
         },
@@ -69,10 +69,10 @@ export class AppComponent {
           },
           {displayName:'Designation',
            iconName:'designation',
-           route:'/Designation'},
+           route:'/admin/Designation'},
            {displayName:'Department',
            iconName:'department',
-           route:'/Department'}
+           route:'/admin/Department'}
         ]
       }
   ];

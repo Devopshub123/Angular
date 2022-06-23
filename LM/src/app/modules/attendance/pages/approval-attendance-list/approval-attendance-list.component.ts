@@ -3,8 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { AttendanceService } from '../attendance.service';
-import { UserData } from '../models/EmployeeData';
+import { AttendanceService } from '../../attendance.service';
+import { UserData } from '../../models/EmployeeData';
 interface IdName {
   id: string;
   name: string;

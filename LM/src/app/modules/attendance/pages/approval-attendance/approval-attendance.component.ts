@@ -1,12 +1,12 @@
-import { UserData } from './../../pages/deparment/deparment.component';
+
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
-import { AttendanceService } from '../attendance.service';
+import { DialogComponent } from '../../dialog/dialog.component';
+import { AttendanceService } from '../../attendance.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 @Component({
   selector: 'app-approval-attendance',

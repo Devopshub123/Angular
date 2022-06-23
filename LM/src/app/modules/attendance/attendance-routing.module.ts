@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ApprovalAttendanceListComponent } from './approval-attendance-list/approval-attendance-list.component';
-import { ApprovalAttendanceComponent } from './approval-attendance/approval-attendance.component';
-import { AttendanceRequestBehalfComponent } from './attendance-request-behalf/attendance-request-behalf.component';
-import { AttendanceRequestComponent } from './attendance-request/attendance-request.component';
-import { AttendanceUploadexcelComponent } from './attendance-uploadexcel/attendance-uploadexcel.component';
+import { ApprovalAttendanceComponent } from './pages/approval-attendance/approval-attendance.component';
+import { AttendanceUploadexcelComponent } from './pages/attendance-uploadexcel/attendance-uploadexcel.component';
 import { AttendanceComponent } from './attendance/attendance.component';
-import { EmployeDashboardComponent } from './employe-dashboard/employe-dashboard.component';
-import { ManagerDashboardComponent } from './manager-dashboard/manager-dashboard.component';
+import { EmployeDashboardComponent } from './pages/employe-dashboard/employe-dashboard.component';
+import { ManagerDashboardComponent } from './pages/manager-dashboard/manager-dashboard.component';
+import { ApprovalAttendanceListComponent } from './pages/approval-attendance-list/approval-attendance-list.component';
+import { AttendanceRequestBehalfComponent } from './pages/attendance-request-behalf/attendance-request-behalf.component';
+import { AttendanceRequestComponent } from './pages/attendance-request/attendance-request.component';
 
 const routes: Routes = [
   {path:'',component:AttendanceComponent},

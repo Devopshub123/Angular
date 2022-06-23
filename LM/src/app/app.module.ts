@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AttendanceModule } from './attendance/attendance.module';
-import { AdminModule } from './admin/admin.module';
+import { AttendanceModule } from './modules/attendance/attendance.module';
+import { AdminModule } from './modules/admin/admin.module';
 import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular'; 
@@ -26,10 +26,10 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { PopupComponent} from './pages/popup/popup.component'
 import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReusableDialogComponent } from './pages/reusable-dialog/reusable-dialog.component';
-import { DesignationsComponent } from './pages/designations/designations.component';
-import { DeparmentComponent } from './pages/deparment/deparment.component';
+
 import { CommonModule } from '@angular/common';
 import { OnlyNumberDirective } from './custom-directive/only-number.directive';
+import { MainComponent } from './pages/main/main.component';
 
 
  FullCalendarModule.registerPlugins([ 
@@ -48,9 +48,8 @@ import { OnlyNumberDirective } from './custom-directive/only-number.directive';
     ForgotPasswordComponent,
     PopupComponent,
     ReusableDialogComponent,
-    DesignationsComponent,
-    DeparmentComponent,
-    OnlyNumberDirective
+    OnlyNumberDirective,
+    MainComponent
   ],
   imports: [
     BrowserModule,
