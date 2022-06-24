@@ -194,7 +194,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   resetform() {
     //this.requestform.reset();
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/Attendance/AttendanceBehalfRequest"]));
+      this.router.navigate(["/Attendance/RequestofEmployee"]));
   }
 }
 

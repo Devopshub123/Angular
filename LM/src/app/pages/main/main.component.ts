@@ -58,12 +58,12 @@ export class MainComponent implements OnInit {
         {
           displayName: 'Request Behalf of Employee',
           iconName: 'how_to_reg',
-          route: '/Attendance/AttendanceBehalfRequest'
+          route: '/Attendance/RequestofEmployee'
         },
         {
           displayName: 'Approval',
           iconName: 'waves',
-          route: '/Attendance//ApprovalList'
+          route: '/Attendance/ApprovalList'
         },
         {
           displayName: 'Excel Upload',
@@ -84,7 +84,7 @@ export class MainComponent implements OnInit {
         {
           displayName: 'Request',
           iconName: 'how_to_reg',
-          route: '/Attendance/AttendanceRequest'
+          route: '/Attendance/Request'
         },
       
       ]},

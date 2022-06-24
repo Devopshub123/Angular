@@ -39,9 +39,9 @@ export class ApprovalAttendanceListComponent implements OnInit {
     this.getPendingAttendanceRequestListByEmpId();
   }
   ngAfterViewInit() {
-    this.dataSource = new MatTableDataSource(this.arrayList);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource = new MatTableDataSource(this.arrayList);
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
