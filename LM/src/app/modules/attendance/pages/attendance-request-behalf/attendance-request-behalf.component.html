@@ -42,9 +42,10 @@
                     <mat-label>Shift</mat-label>
                     <input formControlName="shift" matInput placeholder="Shift" readonly>
                 </mat-form-field>
+
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>From Date</mat-label>
-                    <input matInput readonly [matDatepicker]="fromDate" [min]="minDate" [max]="maxDate"
+                    <input matInput readonly [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate" (dateInput)="fromDateChange('input', $event)"
                         placeholder="From Date" formControlName="fromDate">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
                     <mat-datepicker #fromDate></mat-datepicker>
@@ -54,8 +55,8 @@
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>To Date</mat-label>
-                    <input matInput readonly [matDatepicker]="toDate" [min]="minDate" [max]="maxDate"
-                        placeholder="To Date" formControlName="toDate">
+                    <input matInput readonly [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
+                    (dateInput)="toDateChange('input', $event)" formControlName="toDate">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
                     <mat-datepicker #toDate></mat-datepicker>
                     <mat-error class="con-error" *ngIf="requestform.controls.toDate.errors?.required">

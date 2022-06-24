@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -21,10 +22,11 @@ interface IdName {
 export class AttendanceRequestBehalfComponent implements OnInit {
 
   requestform!: FormGroup;
-  fromDate: any;
-  toDate: any;
-  today: Date = new Date();
-  minDate = new Date('1950/01/01'); maxDate = new Date('2050/01/01');
+  minFromDate: Date;
+  maxFromDate: Date|null ;
+  minToDate: Date | null;
+  maxToDate: Date;
+  currentDate:Date =new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe: any;
   displayedColumns: string[] = ['id', 'worktype', 'fromdate', 'todate', 'reason', 'status'];
@@ -43,10 +45,14 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   employeesData: any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router) {
-    // Create 100 users
-
-    // Assign the data to the data source for the table to render
-
+      this.minFromDate = new Date();
+      this.minFromDate.setDate(this.currentDate.getDate()-30);
+      this.maxFromDate = new Date();
+      this.maxFromDate.setDate(this.currentDate.getDate()+30);
+      this.minToDate = new Date();
+      this.minToDate.setDate(this.currentDate.getDate()-30);
+      this.maxToDate = new Date();
+      this.maxToDate.setDate(this.currentDate.getDate()+30);
   }
 
   ngOnInit(): void {
@@ -81,8 +87,30 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   get f(): { [key: string]: AbstractControl } {
     return this.requestform.controls;
   }
+  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+    console.log(`${type}: ${event.value}`);
+    this.minToDate = event.value;
+    if (event.value !== null) {
+      this.maxToDate = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() + 30
+      );
+    }
+  }
+
+  toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.maxFromDate = event.value;
+    if (event.value !== null) {
+      this.minFromDate = new Date(
+        event!.value.getFullYear(),
+        event!.value.getMonth(),
+        event!.value.getDate() - 30
+      );
+    }
+  }
   getEmployeeListByManagerId() {
-    this.attendanceService.getgetemployeesByMangerId(23).subscribe((res) => {
+    this.attendanceService.getgetemployeesByMangerId(this.userSession.id).subscribe((res) => {
       if (res) {
         this.employeesData = res.data;
 
@@ -164,6 +192,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     }
   }
   resetform() {
+    //this.requestform.reset();
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(["/Attendance/AttendanceBehalfRequest"]));
   }

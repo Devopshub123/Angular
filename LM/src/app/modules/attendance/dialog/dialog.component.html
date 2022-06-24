@@ -2,20 +2,16 @@
     <mat-icon class="close-icon" color="warn">close</mat-icon>
   </button>
   <div fxLayout="row" fxLayoutAlign="center">
-    <h1 mat-dialog-title >{{data.name}}</h1>
+    <h1 mat-dialog-title >{{data.name}}  Approval</h1>
   </div>
 
   <div mat-dialog-content>
-    <form [formGroup]="requestform" autocomplete="off">
-     <!-- <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-      <mat-label>Reason</mat-label>
-      <input matInput [(ngModel)]="data.animal" />
-    </mat-form-field> -->
-    <div fxLayout fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+    <form [formGroup]="form" autocomplete="off" >
+        <div fxLayout fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
       <mat-form-field  fxFlex="100" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
           <mat-label>Reason</mat-label>
           <textarea formControlName="reason"  matInput placeholder="Reason"></textarea>
-          <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
+          <mat-error class="con-error" *ngIf="form.controls.reason.errors?.required">
               Reason is required.
           </mat-error>
       </mat-form-field>
@@ -23,11 +19,13 @@
   </form>
   </div>
   <div mat-dialog-actions fxLayoutAlign="center">
-    <button mat-button class="button-save" (click)="onOkClick()" cdkFocusInitial>
-      Submit
-    </button>
-    <button mat-button class="button-clear" (click)="onNoClick()">Cancel</button>
-    
+    <button class="m-1 mat-stroked-button button-save" (click)="onOkClick()" type="submit">
+      <span>Submit</span>
+  </button>
+
+  <button class="m-1 mat-stroked-button button-clear"  (click)="onNoClick()">
+      <span >Cancel</span>
+  </button>
   </div>
   
   

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -8,26 +8,41 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
-  public requestform!:FormGroup;
+    public form:FormGroup;
  
   constructor(private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.form = this.formBuilder.group({ 
+        'reason':['',], });
+    }
 
   ngOnInit(): void {
-    this.requestform = this.formBuilder.group(
-      {
-        reason: ['', Validators.required],
-      });
+    // this.requestform = this.formBuilder.group(
+    //   {
+    //     reason: ['',[Validators.required]],
+    //   });
+  }
+  get f(): { [key: string]: AbstractControl } {
+    return this.form.controls;
   }
   onNoClick(): void {
     this.dialogRef.close();
   }
   onOkClick(){
-     this.requestform.get('reason')?.setValidators([Validators.required]);
-     this.requestform.get('reason')?.updateValueAndValidity();
-    if(this.requestform.valid && this.requestform.value){
-      this.dialogRef.close(this.requestform.value);
+    if(this.data.name == "Reject"){
+    this.form.get('reason')?.clearValidators();
+    this.form.get('reason')!.setValidators([Validators.required]);
+    this.form.get('reason')!.updateValueAndValidity();
+   
+    if(this.form.valid && this.form.value){
+      this.dialogRef.close(this.form.value);
     }
+  }else{
+    this.form.get('reason')?.clearValidators();
+    this.form.get('reason')!.updateValueAndValidity();
+   
+    this.dialogRef.close(this.form.value);
+  }
   }
 }

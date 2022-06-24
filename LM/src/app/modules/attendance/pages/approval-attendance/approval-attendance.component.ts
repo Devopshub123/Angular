@@ -53,18 +53,18 @@ export class ApprovalAttendanceComponent implements OnInit {
       
   }
   acceptApproval(){
-    this.titleName="Accept Approval"
+    this.titleName="Accept"
     
     this.openDialog();
   }
   rejectApproval(){
-    this.titleName="Reject Approval"
+    this.titleName="Reject"
     this.openDialog();
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '500px',position:{top:`70px`},
-      data: {name: this.titleName, reason: this.reason}
+      data: {name: this.titleName, reason: this.reason,}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -81,7 +81,7 @@ export class ApprovalAttendanceComponent implements OnInit {
       "id":this.userData.userData.id,
       "approvercomments": this.reason,
       "actionby": this.userSession.id,
-      "approvelstatus": 'Approved'
+      "approvelstatus": this.titleName=="Reject"?'Reject':'Approved'
 
     };
 
