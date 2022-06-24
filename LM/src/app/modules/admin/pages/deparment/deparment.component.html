@@ -35,7 +35,7 @@
                     </button>
                 </div><br>
                 <div class="mat-elevation-z8">
-                    <table mat-table [dataSource]="departmentData" matSort>
+                    <table mat-table [dataSource]="dataSource" matSort>
         
                         <ng-container matColumnDef="department">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
@@ -78,9 +78,9 @@
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         
         
-                        <!-- <tr class="mat-row" *matNoDataRow>
-                            <td class="mat-cell" colspan="6">No data matching the filter "{{input.value}}"</td>
-                        </tr> -->
+                    <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="6">No data found"</td>
+                        </tr> 
                     </table>
         
                     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

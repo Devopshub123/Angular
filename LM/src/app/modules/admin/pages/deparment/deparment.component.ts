@@ -38,7 +38,7 @@ export class DeparmentComponent implements OnInit {
   displayedColumns: string[] = ['department','status','Action'];
   departmentData:any=[];
   arrayValue:any=[{Value:'Active',name:'Active '},{Value:'Inactive',name:'Inactive'}];
-  dataSource: MatTableDataSource<UserData>;
+  dataSource: MatTableDataSource<UserData>=<any>[];
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -46,8 +46,7 @@ export class DeparmentComponent implements OnInit {
   sort!: MatSort;
 
   constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private LM:CompanySettingService) {
-    this.getDepartments();
-    this.dataSource = new MatTableDataSource(this.departmentData);
+   
   }
 
   ngOnInit(): void {
@@ -87,7 +86,7 @@ export class DeparmentComponent implements OnInit {
             this.departmentForm.reset();
             this.isdata = true;
             this.isAdd = false;
-            this.ngOnInit();
+            this.getDepartments();
             const dialog: PopupConfig = {
               // img:"assets/img/success.png",
               title: 'Department Added Successfully',
@@ -122,8 +121,8 @@ export class DeparmentComponent implements OnInit {
 
   }
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
   Add(){
     this.isAdd = true;
@@ -194,8 +193,8 @@ export class DeparmentComponent implements OnInit {
             
           };
           this.dialog.open(PopupComponent, { width: '600px', data: dialog });      
-          // this.getDepartments();
-          this.ngOnInit();
+           this.getDepartments();
+          //this.ngOnInit();
         } else {
           
           const dialog: PopupConfig = {
@@ -234,8 +233,10 @@ export class DeparmentComponent implements OnInit {
       if(info.status && info.data.length !=0) {
         console.log(info.data);
         this.departmentData = info.data;
-        this.dataSource =this.departmentData;
-        // this.count = info.data[0].total;
+      
+        this.dataSource = new MatTableDataSource(this.departmentData);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
 
     })

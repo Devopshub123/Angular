@@ -212,9 +212,11 @@ export class DesignationsComponent implements OnInit {
       if(info.status && info.data.length !=0) {
         console.log(info.data);
         this.designationData = info.data;
-        console.log(this.designationData[5].designation)
-        this.dataSource =this.designationData;
+        console.log(this.designationData[5].designation);
+        this.dataSource = new MatTableDataSource(this.designationData);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+
       }
     })
   }
