@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.directive';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { PopupComponent, PopupConfig } from '../../../../pages/popup/popup.component';
 @Component({
   selector: 'app-employee-master-to-add',
   templateUrl: './employee-master-to-add.component.html',
@@ -33,6 +34,8 @@ export class EmployeeMasterToAddComponent implements OnInit {
   genderDetails:any[]=[];
   employeeRelationship:any=[];
   familyDetails:any=[];
+  Experience:any=[];
+  Educations:any=[];
   EmploymentTypeDetails:any=[];
   availableDesignations:any = [];
   availableDepartments:any = [];
@@ -201,6 +204,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
         institutename:[""],
         companyname:[""],
         empid:[""],
+        edu: this.formBuilder.array([]) ,
        
 
       },
@@ -262,7 +266,8 @@ export class EmployeeMasterToAddComponent implements OnInit {
         this.minwtodate = selectedValue;
       })
       this.employeeAddForm.get('dateofbirth')?.valueChanges.subscribe(selectedValue => {
-        this.mindatofjoin = selectedValue;
+       
+        this.dateofjonupdate(selectedValue)
         
         
       })
@@ -288,6 +293,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
         })
       })
   }
+  dateofjonupdate(data:any){
+    this.mindatofjoin = data;
+    this.mindatofjoin.setFullYear(this.mindatofjoin.getFullYear() +18);
+  }
   applyFilter(event: Event) {
     console.log("hjh",event)
     const filterValue = (event.target as HTMLInputElement).value;
@@ -297,6 +306,50 @@ export class EmployeeMasterToAddComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  edu(): FormArray {
+    return this.employeeAddForm.get("edu") as FormArray
+  }
+ 
+ 
+  newEmployee(): FormGroup {
+    return this.formBuilder.group({
+      course: '',
+      institutename: '',
+      efromdate:'',
+      etodate:''
+      
+    })
+  }
+ 
+ 
+  // addeducation() {
+  //   console.log("Adding a employee");
+  //   this.edu().push(this.newEmployee());
+  // }
+ 
+ 
+  // removeeducation(empIndex:number) {
+  //   this.edu().removeAt(empIndex);
+  // }
+  removeeducation(){}
+  addexperience(){
+    this.Experience.push({
+      companyname:this.employeeAddForm.controls.companyname.value,
+      skills:'test',
+      fromdate:this.pipe.transform(this.employeeAddForm.controls.wfromdate.value, 'yyyy-MM-dd'),
+      todate:this.pipe.transform(this.employeeAddForm.controls.wtomdate.value, 'yyyy-MM-dd')
+    });
+  }
+  
+  addeducation(){
+    this.Educations.push({
+      course:this.employeeAddForm.controls.course.value,
+      institutename:this.employeeAddForm.controls.institutename.value,
+      fromdate:this.pipe.transform(this.employeeAddForm.controls.efromdate.value, 'yyyy-MM-dd'),
+      todate:this.pipe.transform(this.employeeAddForm.controls.etomdate.value, 'yyyy-MM-dd')
+    });
+  }
+ 
   addemp(){
     this.addempdetails= true;
     this.viewdetails = false;
@@ -320,6 +373,92 @@ export class EmployeeMasterToAddComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
+  }
+  employeeview(data:any){
+    this.addempdetails= true;
+    this.viewdetails = false;
+    this.isview=true;
+    this.LM.getEmployeeMaster(data).subscribe((result)=>{
+      this.employeedata = JSON.parse(result.data[0][0].json)[0];
+      console.log("empfulldata",this.employeedata)
+      this.employeeAddForm.controls.aadharnumber.setValue(this.employeedata.aadharnumber);
+      this.employeeAddForm.controls.address.setValue(this.employeedata.address);
+      this.employeeAddForm.controls.bankaccountnumber.setValue(this.employeedata.bankaccountnumber);
+      this.employeeAddForm.controls.bankname.setValue(this.employeedata.bankname);
+      this.employeeAddForm.controls.bloodgroup.setValue(this.employeedata.bloodgroup);
+      this.employeeAddForm.controls.branchname.setValue(this.employeedata.branchname);
+      this.employeeAddForm.controls.contactnumber.setValue(this.employeedata.contactnumber);
+      this.employeeAddForm.controls.dateofbirth.setValue(new Date(this.employeedata.dateofbirth));
+      this.employeeAddForm.controls.dateofjoin.setValue(new Date(this.employeedata.dateofjoin));
+      this.employeeAddForm.controls.designation.setValue(this.employeedata.designation);
+      this.employeeAddForm.controls.empid.setValue(this.employeedata.empid);
+      this.employeeAddForm.controls.employmenttype.setValue(this.employeedata.usertype);
+      this.employeeAddForm.controls.esi.setValue(this.employeedata.esi);
+      this.employeeAddForm.controls.firstname.setValue(this.employeedata.firstname);
+      this.employeeAddForm.controls.gender.setValue(this.employeedata.gender);
+      this.employeeAddForm.controls.ifsccode.setValue(this.employeedata.ifsccode);
+      this.employeeAddForm.controls.lastname.setValue(this.employeedata.lastname);
+      this.employeeAddForm.controls.maritalstatus.setValue(this.employeedata.maritalstatus);
+      this.employeeAddForm.controls.middlename.setValue(this.employeedata.middlename);
+      this.employeeAddForm.controls.nameasperbankaccount.setValue(this.employeedata.nameasperbankaccount);
+      this.employeeAddForm.controls.officeemail.setValue(this.employeedata.officeemail);
+      this.employeeAddForm.controls.paddress.setValue(this.employeedata.paddress);
+      this.employeeAddForm.controls.pan.setValue(this.employeedata.pan);
+      this.employeeAddForm.controls.passport.setValue(this.employeedata.passport);
+      this.employeeAddForm.controls.personalemail.setValue(this.employeedata.personalemail);
+      this.employeeAddForm.controls.pfaccountnumber.setValue(this.employeedata.pfaccountnumber);
+      this.employeeAddForm.controls.pincode.setValue(this.employeedata.pincode);
+      this.employeeAddForm.controls.ppincode.setValue(this.employeedata.ppincode);
+      this.employeeAddForm.controls.shift.setValue(this.employeedata.shift);
+      this.employeeAddForm.controls.status.setValue(this.employeedata.status);
+      this.employeeAddForm.controls.uanumber.setValue(this.employeedata.uanumber);
+      this.employeeAddForm.controls.usertype.setValue(this.employeedata.usertype);
+      this.employeeAddForm.controls.companylocation.setValue(this.employeedata.worklocation);
+      this.employeeAddForm.controls.reportingmanager.setValue(this.employeedata.reportingmanager);
+      this.employeeAddForm.controls.country.setValue(this.employeedata.country);
+      this.employeeAddForm.controls.pcountry.setValue(this.employeedata.pcountry);
+      this.employeeAddForm.controls.state.setValue(this.employeedata.state);
+      this.employeeAddForm.controls.pstate.setValue(this.employeedata.pstate);
+      this.employeeAddForm.controls.city.setValue(this.employeedata.city);
+      this.employeeAddForm.controls.pcity.setValue(this.employeedata.pcity);
+      this.employeeAddForm.controls.department.setValue(this.employeedata.department);
+      let x = JSON.parse((this.employeedata.education))
+      let y = JSON.parse((this.employeedata.experience))
+      let z = JSON.parse(JSON.stringify(this.employeedata.relations))
+      // console.log("education",x,x.length)
+      // console.log("work",y,y.length)
+      // console.log("relations",z,z.length)
+      // this.familyDetails = z;
+      // for(let i = 0; i<z.length;i++){
+
+      // }
+      // this.dataSource = new MatTableDataSource(this.familyDetails);
+
+      this.employeeAddForm.controls.course.setValue(x[0].course);
+      this.employeeAddForm.controls.institutename.setValue(x[0].institutename);
+      this.employeeAddForm.controls.efromdate.setValue(new Date(x[0].fromdate));
+      this.employeeAddForm.controls.etodate.setValue(new Date(x[0].todate));
+      this.employeeAddForm.controls.companyname.setValue(y[0].companyname);
+      this.employeeAddForm.controls.wfromdate.setValue(new Date(y[0].fromdate));
+      this.employeeAddForm.controls.wtodate.setValue(new Date(y[0].todate));
+
+
+      for(let i = 0;i<z.length;i++){
+        this.familyDetails.push({
+          firstname: z[i].firstname,
+          lastname: z[i].lastname,
+          gender: z[i].gender,
+          contactnumber: z[i].contactnumber,
+          status: z[i].status,
+          relationship: z[i].relationship,
+          dateofbirth: this.pipe.transform(z[i].dateofbirth, 'yyyy-MM-dd')
+        });
+      }
+      this.dataSource = new MatTableDataSource(this.familyDetails);
+      
+    });
+        
+
   }
   editEmployee(data:any){
     this.addempdetails= true;
@@ -371,9 +510,9 @@ export class EmployeeMasterToAddComponent implements OnInit {
       let x = JSON.parse((this.employeedata.education))
       let y = JSON.parse((this.employeedata.experience))
       let z = JSON.parse(JSON.stringify(this.employeedata.relations))
-      console.log("education",x,x.length)
-      console.log("work",y,y.length)
-      console.log("relations",z,z.length)
+      // console.log("education",x,x.length)
+      // console.log("work",y,y.length)
+      // console.log("relations",z,z.length)
       // this.familyDetails = z;
       // for(let i = 0; i<z.length;i++){
 
@@ -435,10 +574,9 @@ export class EmployeeMasterToAddComponent implements OnInit {
     
   }
     console.log("jkj", this.familyDetails)
-
-
   
   }
+
   save(){
 
     let employeeinformation = {
@@ -487,24 +625,42 @@ export class EmployeeMasterToAddComponent implements OnInit {
       esi:this.employeeAddForm.controls.esi.value,
       shift:this.employeeAddForm.controls.shift.value,
       relations:this.familyDetails,
-      education: {
-        course:this.employeeAddForm.controls.course.value,
-        institutename:this.employeeAddForm.controls.institutename.value,
-        fromdate:this.pipe.transform(this.employeeAddForm.controls.efromdate.value,'yyyy-MM'),
-        todate:this.pipe.transform(this.employeeAddForm.controls.etodate.value,'yyyy-MM'),
-      },
-      experience:{
-        companyname:this.employeeAddForm.controls.companyname.value,
-        fromdate:this.pipe.transform(this.employeeAddForm.controls.wfromdate.value,'yyyy-MM-dd'),
-        todate:this.pipe.transform(this.employeeAddForm.controls.wtodate.value,'yyyy-MM-dd'),
+      education:this.Educations,
+      experience:this.Experience
+      // education: {
+      //   course:this.employeeAddForm.controls.course.value,
+      //   institutename:this.employeeAddForm.controls.institutename.value,
+      //   fromdate:this.pipe.transform(this.employeeAddForm.controls.efromdate.value,'yyyy-MM'),
+      //   todate:this.pipe.transform(this.employeeAddForm.controls.etodate.value,'yyyy-MM'),
+      // },
+      // experience:{
+      //   companyname:this.employeeAddForm.controls.companyname.value,
+      //   fromdate:this.pipe.transform(this.employeeAddForm.controls.wfromdate.value,'yyyy-MM-dd'),
+      //   todate:this.pipe.transform(this.employeeAddForm.controls.wtodate.value,'yyyy-MM-dd'),
 
-      },
+      // },
       // relations:this.employeeAddForm.controls.relations,
       // education:this.employeeAddForm.controls.education,
       // experience:this.employeeAddForm.controls.experience
     }
     this.LM.setEmployeeMaster(employeeinformation).subscribe((data) => {
+         if(data.status){
+          const dialog: PopupConfig = {
+            title: 'Employee Added Successfully',
+            close: 'OK',
+            
+          };
+          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+         }
+         else{
+          const dialog: PopupConfig = {
+            title: 'Unable to insert Employee',
+            close: 'OK',
+            
+          };
+          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
 
+         }
     })
   }
   editfamily(i:any){
@@ -517,7 +673,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
   }
   deletefamily(index:any){
+    console.log("ff",index)
+    // this.familyDetails.removeAt(index);
     this.familyDetails.splice(index,1);
+    this.dsFamily = new MatTableDataSource(this.familyDetails);
     this.isfamilyedit = false;
 
   }
@@ -640,6 +799,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   firstprev(){
     this.emp=true;
     this.family = false;
+    this.work=false;
   }
   secondprev(){
     this.work=false;
@@ -651,6 +811,9 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
     this.addempdetails= false;
     this.viewdetails = true;
+    this.work=false;
+    this.emp = true;
+    this.family = false;
     // this.employeeAddForm.reset();
     this.ngOnInit();
   }
