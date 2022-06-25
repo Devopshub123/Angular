@@ -76,6 +76,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
   tableSizes = [10, 25, 50, 'All'];
   addempdetails:boolean=false;
   viewdetails:boolean =true;
+  msgLM1:any='';
+  msgLM2:any='';
+  msgLM3:any='';
+  msgLM54:any='';
+  msgLM38:any='';
+  msgLM39:any='';
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -136,39 +142,45 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.getDepartmentsMaster();
     // this.getEmployeeDetails(null,null);
     this.getWorkLocation();
-    this.getEmployeeDetails(null,null)
+    this.getEmployeeDetails(null,null);
+    this.getErrorMessages('LM1');
+    this.getErrorMessages('LM2');
+    this.getErrorMessages('LM3');
+    this.getErrorMessages('LM54');
+    this.getErrorMessages('LM38');
+    this.getErrorMessages('LM39');
     // this.editemployee();
     // this.getReportingManagers();
     this.employeeAddForm=this.formBuilder.group(
       {
-        firstname:[""],
-        lastname: [""],
+        firstname:["",Validators.required],
+        lastname: ["",Validators.required],
         middlename: [""],
-        contactnumber:[""],
-        personalemail:[""],
-        dateofbitrh:[""],
+        contactnumber:["",Validators.required],
+        personalemail:["",[Validators.required,Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+        dateofbitrh:["",Validators.required],
         bloodgroup:[""],
-        gender:[""],
+        gender:["",Validators.required],
         emergencycontact:[""],
-        officeemail: [""],
-        dateofbirth: [""],
-        maritalstatus: [""],
-        usertype: [""],
-        designation: [""],
-        department: [""],
-        employmenttype: [""],
-        dateofjoin: [""],
-        companylocation: [""],
-        reportingmanager: [""],
+        officeemail: ["",[Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+        dateofbirth: ["",Validators.required],
+        maritalstatus: ["",Validators.required],
+        usertype: ["",Validators.required],
+        designation: ["",Validators.required],
+        department: ["",Validators.required],
+        employmenttype: ["",Validators.required],
+        dateofjoin: ["",Validators.required],
+        companylocation: ["",Validators.required],
+        reportingmanager: ["",Validators.required],
         emergencycontactnumber: [""],
         emergencycontactrelation: [""],
         emergencycontactname: [""],
-        city: [""],
-        state: [""],
-        pincode: [""],
-        country: [""],
+        city: ["",Validators.required],
+        state: ["",Validators.required],
+        pincode: ["",Validators.required],
+        country: ["",Validators.required],
         paddress: [""],
-        address:[""],
+        address:["",Validators.required],
         pcity: [""],
         pstate: [""],
         ppincode: [""],
@@ -185,17 +197,17 @@ export class EmployeeMasterToAddComponent implements OnInit {
         pan: [""],
         status: [""],
         esi: [""],
-        shift: [""],
+        shift: ["",Validators.required],
         relations: [""],
         education: [""],
         experience: [""],
-        familyfirstname:[""],
-        familylastname:[""],
+        familyfirstname:["",Validators.required],
+        familylastname:["",Validators.required],
         familydateofbirth:[""],
-        familystatus:[""],
+        familystatus:["",Validators.required],
         familycontact:[""],
-        familygender:[""],
-        relation:[""],
+        familygender:["",Validators.required],
+        relation:["",Validators.required],
         efromdate:[""],
         etodate:[""],
         wfromdate:[""],
@@ -816,6 +828,36 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.family = false;
     // this.employeeAddForm.reset();
     this.ngOnInit();
+  }
+  getErrorMessages(errorCode:any) {
+
+    this.LMS.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+
+      if(result.status && errorCode == 'LM1')
+      {
+        this.msgLM1 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM2')
+      {
+        this.msgLM2 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM3')
+      {
+        this.msgLM3 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM54')
+      {
+        this.msgLM54 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM38')
+      {
+        this.msgLM38 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM39')
+      {
+        this.msgLM39 = result.data[0].errormessage
+      }
+    })
   }
   sameAsAddress(){
     console.log(this.selectAll);

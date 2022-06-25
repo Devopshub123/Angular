@@ -16,13 +16,19 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
     
                         <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
-                            <mat-label>First Name<span  style="color: red">*</span></mat-label>
-                            <input   type="text"  formControlName="firstname" matInput placeholder="" maxlength="100">
+                            <mat-label>First Name</mat-label>
+                            <input   type="text"  formControlName="firstname" matInput placeholder="" maxlength="100" required>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.firstname.errors?.required">
+                                {{msgLM1}}
+                            </mat-error>
                             <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Last Name<span  style="color: red">*</span></mat-label>
-                            <input  type="text"  formControlName="lastname" matInput placeholder="" maxlength="100">
+                            <mat-label>Last Name</mat-label>
+                            <input  type="text"  formControlName="lastname" matInput placeholder="" maxlength="100" required>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.lastname.errors?.required">
+                                {{msgLM1}}
+                            </mat-error>
                             <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -36,13 +42,22 @@
     
                        
                         <mat-form-field fxFlex.xs="100"  fxFlex="30"   class="mx-2 my-2" appearance="outline">
-                            <mat-label>Contact Number<span  style="color: red">*</span></mat-label>
-                            <input type="text" onlyNumber formControlName="contactnumber" matInput placeholder="" maxlength="10">
+                            <mat-label>Contact Number</mat-label>
+                            <input type="text" onlyNumber formControlName="contactnumber" matInput placeholder="" maxlength="10" required>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.contactnumber.errors?.required">
+                                {{msgLM1}}
+                            </mat-error>
                             <!-- <input *ngIf="isview" formControlName="contactnumber" matInput placeholder="" > -->
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100"  fxFlex="30"  class="mx-2 my-2" appearance="outline">
                             <mat-label>personal Email</mat-label>
-                            <input type="text" formControlName="personalemail" matInput placeholder="" maxlength="100" >
+                            <input type="text" formControlName="personalemail" matInput placeholder="" maxlength="100" required>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.personalemail.errors?.required">
+                                {{msgLM1}}
+                            </mat-error>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.personalemail.errors?.email">
+                                {{msgLM2}}
+                            </mat-error>
                             <!-- <input *ngIf="isview"  formControlName="personalemail" matInput placeholder="" > -->
                         </mat-form-field>  
                         
@@ -55,11 +70,15 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Date Of Birth</mat-label>
-                            <input matInput readonly  [matDatepicker]="dateofbirth" [min]="minDate" [max]="maxBirthDate"
+                            <input required matInput readonly  [matDatepicker]="dateofbirth" [min]="minDate" [max]="maxBirthDate"
                             placeholder="MM/DD/YYYY" formControlName="dateofbirth">
                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofbirth"></mat-datepicker-toggle>
                         <mat-datepicker #dateofbirth></mat-datepicker>
-                        </mat-form-field>
+                        <mat-error class="con-error" *ngIf="employeeAddForm.controls.dateofbirth.errors?.required">
+                            {{msgLM1}}
+                        </mat-error>    
+                    </mat-form-field>
+                        
                         <mat-form-field fxFlex.xs="100"   fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Blood Group</mat-label>
                             <mat-select formControlName="bloodgroup">
@@ -74,7 +93,7 @@
                         </mat-form-field>  
                         <mat-form-field fxFlex.xs="100"   fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Gender</mat-label>
-                            <mat-select formControlName="gender" required>
+                            <mat-select required formControlName="gender" required>
                                 <ng-container >
                                     <div *ngFor="let b of genderDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -83,7 +102,12 @@
         
                                 </ng-container>
                             </mat-select>
-                        </mat-form-field>      
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.gender.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
+                        </mat-form-field> 
+   
+                             
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                         
@@ -113,7 +137,11 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.maritalstatus.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>
+                    
                           
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -163,10 +191,14 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
         
                         <mat-form-field fxFlex.xs="100"  fxFlex="50" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Residance Address<span  style="color: red">*</span></mat-label>
-                            <input type="text"  formControlName="address" matInput placeholder="" maxlength="100">
+                            <mat-label>Residance Address</mat-label>
+                            <input type="text"  formControlName="address" matInput placeholder="" maxlength="100" required>
                             <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.address.errors?.required">
+                                {{msgLM1}}
+                            </mat-error>
                         </mat-form-field>
+                        
                         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                             <mat-label>Permanent Address</mat-label>
                             <input type="text" formControlName="paddress" matInput placeholder="" maxlength="100">
@@ -178,7 +210,7 @@
                        
                         <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
                             <mat-label>Country</mat-label>
-                            <mat-select formControlName="country"  required>
+                            <mat-select required formControlName="country"  required>
                                 <ng-container >
                                     <div *ngFor="let b of CountryDetails">
                                         
@@ -187,7 +219,11 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.country.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>
+                        
                         <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
                             <mat-label>Country</mat-label>
                             <mat-select formControlName="pcountry"  >
@@ -205,7 +241,7 @@
                        
                         <mat-form-field fxFlex.xs="100"  fxFlex="50" class="mx-2 my-2" appearance="outline">
                             <mat-label>State</mat-label>
-                            <mat-select formControlName="state"    required>
+                            <mat-select  formControlName="state"    required>
                                 <ng-container >
                                     <div *ngFor="let b of stateDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -214,7 +250,11 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.state.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>
+                        
                         <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
                             <mat-label>State</mat-label>
                             <mat-select formControlName="pstate" >
@@ -241,7 +281,11 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.city.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>
+                       
                         <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
                             <mat-label>City</mat-label>
                             <mat-select formControlName="pcity">
@@ -258,10 +302,14 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
         
                         <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
-                            <mat-label>Pincode<span  style="color: red">*</span></mat-label>
-                            <input type="text" onlyNumber  formControlName="pincode" matInput placeholder="" maxlength="6">
+                            <mat-label>Pincode</mat-label>
+                            <input type="text" onlyNumber  formControlName="pincode" matInput placeholder="" maxlength="6" required>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.pincode.errors?.required">
+                                {{msgLM1}}
+                            </mat-error>
                             <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
                         </mat-form-field>
+                        
                         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                             <mat-label>Pincode</mat-label>
                             <input type="text" onlyNumber  formControlName="ppincode" matInput placeholder=""  maxlength="6" >
@@ -274,7 +322,7 @@
                           <!-- <button  class="col-md-2 btn btn-primary">Cancel</button> -->
                         </div>
                         <div class="col-sm-6 text-right">
-                          <button  class="col-md-2 btn btn-primary"  (click)="firstNext()">Next</button>
+                          <button  class="col-md-2 btn btn-primary"   (click)="firstNext()">Next</button>
                         </div>
                     </div>
                 </div>
@@ -329,13 +377,20 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
     
                         <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
-                            <mat-label>First Name<span  style="color: red">*</span></mat-label>
-                            <input type="text"  formControlName="familyfirstname" matInput placeholder="" maxlength="100" >
+                            <mat-label>First Name</mat-label>
+                            <input type="text"  formControlName="familyfirstname" matInput placeholder="" maxlength="100" required >
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.familyfirstname.errors?.required">
+                                {{msgLM1}}
+                            </mat-error>
                             <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
                         </mat-form-field>
+  
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" >
-                            <mat-label>Last Name<span  style="color: red">*</span></mat-label>
-                            <input type="text"  formControlName="familylastname" matInput placeholder="" maxlength="100">
+                            <mat-label>Last Name</mat-label>
+                            <input type="text"  formControlName="familylastname" matInput placeholder="" maxlength="100" required>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.familylastname.errors?.required">
+                                {{msgLM1}}
+                            </mat-error>
                             <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
@@ -349,6 +404,9 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.familygender.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>
                         
                     </div>
@@ -369,7 +427,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Relationship</mat-label>
-                            <mat-select formControlName="relation">
+                            <mat-select required formControlName="relation">
                                 <ng-container >
                                     <div *ngFor="let b of employeeRelationship">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -378,12 +436,15 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.relation.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>        
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                         <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                             <mat-label>Status</mat-label>
-                            <mat-select formControlName="familystatus">
+                            <mat-select required formControlName="familystatus">
                                 <ng-container >
                                     <div >
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -392,6 +453,9 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.familystatus.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field> 
                         <div class="col-sm-6 mx-2 my-2 text-right">
                             <button  class="col-md-2 btn btn-primary" (click)="addfamily()" >{{ isfamilyedit ? "Update":"Add" }}</button>
@@ -477,15 +541,20 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Date Of Join</mat-label>
-                            <input matInput readonly  [matDatepicker]="dateofjoin" [min]="mindatofjoin" [max]="maxDate"
+                            <input required matInput readonly  [matDatepicker]="dateofjoin" [min]="mindatofjoin" [max]="maxDate"
                             placeholder="MM/DD/YYYY" formControlName="dateofjoin">
                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofjoin"></mat-datepicker-toggle>
                         <mat-datepicker #dateofjoin></mat-datepicker>
+                        <mat-error class="con-error" *ngIf="employeeAddForm.controls.dateofjoin.errors?.required">
+                            {{msgLM1}}
+                        </mat-error>
                         </mat-form-field> 
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Official Email</mat-label>
                             <input type="text" maxlength="100" formControlName="officeemail" matInput placeholder=""  >
-                           
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.officeemail.errors?.email">
+                                {{msgLM2}}
+                            </mat-error>
                         </mat-form-field>  
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -506,10 +575,13 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.status.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Employment Type</mat-label>
-                            <mat-select formControlName="employmenttype">
+                            <mat-select required formControlName="employmenttype">
                                 <ng-container >
                                     <div *ngFor="let b of EmploymentTypeDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -518,10 +590,13 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.employmenttype.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Designation</mat-label>
-                            <mat-select formControlName="designation">
+                            <mat-select required formControlName="designation">
                                 <ng-container >
                                     <div *ngFor="let b of availableDesignations">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -530,13 +605,16 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.designation.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>         
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
         
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Department</mat-label>
-                            <mat-select formControlName="department">
+                            <mat-select required formControlName="department">
                                 <ng-container >
                                     <div *ngFor="let b of availableDepartments">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -545,10 +623,13 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.department.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                             <mat-label>Manager</mat-label>
-                            <mat-select formControlName="reportingmanager">
+                            <mat-select required formControlName="reportingmanager">
                                 <ng-container >
                                     <div *ngFor="let b of availablereportingmanagers">
                                         <!-- <mat-option value=23>Select </mat-option> -->
@@ -559,10 +640,13 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.reportingmanager.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Shifts</mat-label>
-                            <mat-select formControlName="shift">
+                            <mat-select required formControlName="shift">
                                 <ng-container >
                                     <div *ngFor="let b of availableShifts">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -573,12 +657,15 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.shift.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>         
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                         <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                             <mat-label>Role</mat-label>
-                            <mat-select formControlName="usertype">
+                            <mat-select required formControlName="usertype">
                                 <ng-container >
                                     <div *ngFor="let b of availableRole">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -587,11 +674,14 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.usertype.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>
                        
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Company Location</mat-label>
-                            <mat-select formControlName="companylocation">
+                            <mat-select required formControlName="companylocation">
                                 <ng-container >
                                     <div *ngFor="let b of worklocationDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -600,6 +690,9 @@
         
                                 </ng-container>
                             </mat-select>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.companylocation.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
                         </mat-form-field>         
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
