@@ -55,8 +55,8 @@ export class LoginComponent implements OnInit {
             
           };
           this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-          
-          this.router.navigate(['/ChangePassword']);
+          this.router.navigate(['/ChangePassword']); 
+
 
         }
         else{
@@ -66,7 +66,17 @@ export class LoginComponent implements OnInit {
             
           // };
           // this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-          this.router.navigate(['/Attendance/EmployeeDashboard']);
+          empdata.roles.forEach((e:any) => {
+            if(e.role_name=="Employee"){
+              this.router.navigate(['/Attendance/EmployeeDashboard']);
+            }else if(e.role_name=="Manager"){
+              this.router.navigate(['/Attendance/ManagerDashboard']);
+            }else{
+              this.router.navigate(['/Admin/AdminDashboard']);
+            }
+          });
+          
+
 
         }
                 
