@@ -1,7 +1,8 @@
 <div *ngIf="addempdetails">
     <div fxLayout="column">
-        <form [formGroup]="employeeAddForm" autocomplete="off">
-            <mat-card>
+        
+        <mat-card>
+            <form [formGroup]="employeeAddForm" autocomplete="off">
                 
                 <div *ngIf="emp" >
                     <mat-card-header class="">
@@ -183,7 +184,7 @@
                    
                     <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="end">
         
-                       <mat-checkbox (change)="sameAsAddress()" >Same as residence address</mat-checkbox> 
+                       <mat-checkbox (change)="sameAsAddress()" color="primary" >Same as residence address</mat-checkbox> 
                             
                         
                          
@@ -322,482 +323,494 @@
                           <!-- <button  class="col-md-2 btn btn-primary">Cancel</button> -->
                         </div>
                         <div class="col-sm-6 text-right">
-                          <button  class="col-md-2 btn btn-primary"   (click)="firstNext()">Next</button>
+                          <button  class="col-md-2 btn btn-primary" [disabled]="!employeeAddForm.valid " (click)="firstNext()">Next</button>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="family">
-                    <mat-card-header class="">
-                        <mat-card-title class="title"> Add Employee Details </mat-card-title>
-                    </mat-card-header>
-                    <mat-progress-bar mode="determinate" value="60"></mat-progress-bar>
-                    <mat-divider></mat-divider>
-                    <mat-card-header class="">
-                        <mat-card-title class="title"> Bank Information </mat-card-title>
-                    </mat-card-header>
-                    <mat-divider></mat-divider>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        
-                        <mat-form-field fxFlex.xs="100"  fxFlex="30"  class="mx-2 my-2" appearance="outline">
-                            <mat-label>Bank Name</mat-label>
-                            <input type="text"  formControlName="bankname" matInput placeholder="" maxlength="100">
-                            <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
-                        </mat-form-field>
-                        <mat-form-field fxFlex.xs="100"  fxFlex="30"  class="mx-2 my-2" appearance="outline">
-                            <mat-label>IFSC Code</mat-label>
-                            <input type="text"   formControlName="ifsccode" matInput placeholder="" maxlength="10">
-                            <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
-                        </mat-form-field> 
-                        <mat-form-field fxFlex.xs="100"   fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Name as per bank Account</mat-label>
-                            <input type="text"  formControlName="nameasperbankaccount" matInput placeholder="" maxlength="100">
-                            <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
-                        </mat-form-field>  
-                    </div>
-                    
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        
-                        <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
-                            <mat-label>Branch Name</mat-label>
-                            <input  type="text" formControlName="branchname" matInput placeholder="" maxlength="100">
-                            <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
-                        </mat-form-field>
-                        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Account Number</mat-label>
-                            <input type="text" onlyNumber  formControlName="bankaccountnumber" matInput placeholder="" maxlength="16">
-                            <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
-                        </mat-form-field>   
-            
-                    </div>
-                    <mat-divider></mat-divider>
-                    <mat-card-header class="">
-                        <mat-card-title class="title"> Family Details </mat-card-title>
-                    </mat-card-header>
-                    <mat-divider></mat-divider>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-    
-                        <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
-                            <mat-label>First Name</mat-label>
-                            <input type="text"  formControlName="familyfirstname" matInput placeholder="" maxlength="100" required >
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.familyfirstname.errors?.required">
-                                {{msgLM1}}
-                            </mat-error>
-                            <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
-                        </mat-form-field>
-  
-                        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" >
-                            <mat-label>Last Name</mat-label>
-                            <input type="text"  formControlName="familylastname" matInput placeholder="" maxlength="100" required>
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.familylastname.errors?.required">
-                                {{msgLM1}}
-                            </mat-error>
-                            <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
-                        </mat-form-field>
-                        <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
-                            <mat-label>Gender</mat-label>
-                            <mat-select formControlName="familygender" required>
-                                <ng-container >
-                                    <div *ngFor="let b of genderDetails">
-                                        <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option   value="{{b.id}}">{{b.gender}}</mat-option>
-                                    </div>
-        
-                                </ng-container>
-                            </mat-select>
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.familygender.errors?.required">
-                                {{msgLM3}}
-                            </mat-error>
-                        </mat-form-field>
-                        
-                    </div>
-                   
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Contact Number</mat-label>
-                            <input type="text" onlyNumber formControlName="familycontact" matInput placeholder="" maxlength="10" >
-                           
-                        </mat-form-field> 
-                        
-                        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Date Of Birth</mat-label>
-                            <input matInput readonly  [matDatepicker]="familydateofbirth" [min]="minDate" [max]="maxDate"
-                            placeholder="MM/DD/YYYY" formControlName="familydateofbirth">
-                        <mat-datepicker-toggle class="datepicker" matSuffix [for]="familydateofbirth"></mat-datepicker-toggle>
-                        <mat-datepicker #familydateofbirth></mat-datepicker>
-                        </mat-form-field>
-                        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Relationship</mat-label>
-                            <mat-select required formControlName="relation">
-                                <ng-container >
-                                    <div *ngFor="let b of employeeRelationship">
-                                        <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option  value={{b.id}}>{{b.relationship}}</mat-option>
-                                    </div>
-        
-                                </ng-container>
-                            </mat-select>
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.relation.errors?.required">
-                                {{msgLM3}}
-                            </mat-error>
-                        </mat-form-field>        
-                    </div>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                        <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
-                            <mat-label>Status</mat-label>
-                            <mat-select required formControlName="familystatus">
-                                <ng-container >
-                                    <div >
-                                        <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option  value="Alive">Alive</mat-option>
-                                    </div>
-        
-                                </ng-container>
-                            </mat-select>
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.familystatus.errors?.required">
-                                {{msgLM3}}
-                            </mat-error>
-                        </mat-form-field> 
-                        <div class="col-sm-6 mx-2 my-2 text-right">
-                            <button  class="col-md-2 btn btn-primary" (click)="addfamily()" >{{ isfamilyedit ? "Update":"Add" }}</button>
-                            <!-- <button  class="col-md-2 btn btn-primary" (click)="addfamily()" *ngIf="isfamilyedit">Update</button> -->
-                        </div>
-                        <!-- <div class="col-sm-6 mx-2 my-2 text-right">
-                            <button  class="col-md-2 btn btn-primary" >Cancel</button>
-                        </div> -->
-                    </div>
-                    <div class="mat-elevation-z8"  *ngIf="familyDetails.length > 0">
-                    <table mat-table [dataSource]="dsFamily" >
-                        <ng-container matColumnDef="position">
-                          <th mat-header-cell *matHeaderCellDef> SNo </th>
-                          <td mat-cell *matCellDef="let data; let i = index;"> {{i+1}} </td>
-                        </ng-container>
-                      
-                       
-                        <ng-container matColumnDef="name">
-                          <th mat-header-cell *matHeaderCellDef> Name </th>
-                          <td mat-cell *matCellDef="let data"> {{data.firstname}} </td>
-                        </ng-container>
-                      
-                        
-                        <ng-container matColumnDef="relation">
-                          <th mat-header-cell *matHeaderCellDef> Relationship </th>
-                          <td mat-cell *matCellDef="let data"> {{data.relationship}} </td>
-                        </ng-container>
-                      
-                        
-                        <ng-container matColumnDef="gender">
-                          <th mat-header-cell *matHeaderCellDef> Gender </th>
-                          <td mat-cell *matCellDef="let data"> {{data.gender}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="contact">
-                            <th mat-header-cell *matHeaderCellDef> Contact Number </th>
-                            <td mat-cell *matCellDef="let data"> {{data.contactnumber}} </td>
-                          </ng-container>
-                        
-                         
-                          <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef> Status </th>
-                            <td mat-cell *matCellDef="let data"> {{data.status}} </td>
-                          </ng-container>
-                        
-                        
-                          <ng-container matColumnDef="action">
-                            <th mat-header-cell *matHeaderCellDef> Action </th>
-                            <td mat-cell *matCellDef="let element; let i = index;">  
-                                <mat-icon title="Edit" (click)="editfamily(i)">edit</mat-icon>
-                                <mat-icon title="Delete" (click)="deletefamily(i)">delete</mat-icon>
-                            </td>
-                          </ng-container>
-                      
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                      </table>
-                    </div>
-                    <div class="form-group row ml-1 mt-3">
-                        <div class="col-sm-6" style="padding:0px">
-                          <button  class="col-md-2 btn btn-primary"  (click)="firstprev()">Prev</button>
-                        </div>
-                        <div class="col-sm-6 text-right">
-                          <button  class="col-md-2 btn btn-primary"  (click)="secondnext()">Next</button>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="work">
-                    <mat-card-header class="">
-                        <mat-card-title class="title"> Add Employee Details </mat-card-title>
-                    </mat-card-header>
-                    <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
-                    <mat-divider></mat-divider>
-                    <mat-card-header class="">
-                        <mat-card-title class="title"> Work Information </mat-card-title>
-                    </mat-card-header>
-                    <mat-divider></mat-divider>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        
-                        <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
-                            <mat-label>Employee ID</mat-label>
-                            <input   formControlName="empid" matInput placeholder="Employee ID" [readonly]="isview">
-                            <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
-                        </mat-form-field>
-                        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Date Of Join</mat-label>
-                            <input required matInput readonly  [matDatepicker]="dateofjoin" [min]="mindatofjoin" [max]="maxDate"
-                            placeholder="MM/DD/YYYY" formControlName="dateofjoin">
-                        <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofjoin"></mat-datepicker-toggle>
-                        <mat-datepicker #dateofjoin></mat-datepicker>
-                        <mat-error class="con-error" *ngIf="employeeAddForm.controls.dateofjoin.errors?.required">
-                            {{msgLM1}}
-                        </mat-error>
-                        </mat-form-field> 
-                        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Official Email</mat-label>
-                            <input type="text" maxlength="100" formControlName="officeemail" matInput placeholder=""  >
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.officeemail.errors?.email">
-                                {{msgLM2}}
-                            </mat-error>
-                        </mat-form-field>  
-                    </div>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                        
-                        
-                        
-                        
-                    </div>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                        <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
-                            <mat-label>Employee Status</mat-label>
-                            <mat-select formControlName="status" required>
-                                <ng-container >
-                                    <div >
-                                        <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option   value="Active">Active</mat-option>
-                                    </div>
-        
-                                </ng-container>
-                            </mat-select>
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.status.errors?.required">
-                                {{msgLM3}}
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Employment Type</mat-label>
-                            <mat-select required formControlName="employmenttype">
-                                <ng-container >
-                                    <div *ngFor="let b of EmploymentTypeDetails">
-                                        <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option  value={{b.id}}>{{b.employmenttype}}</mat-option>
-                                    </div>
-        
-                                </ng-container>
-                            </mat-select>
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.employmenttype.errors?.required">
-                                {{msgLM3}}
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Designation</mat-label>
-                            <mat-select required formControlName="designation">
-                                <ng-container >
-                                    <div *ngFor="let b of availableDesignations">
-                                        <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option  [value]="b.id">{{b.designation}}</mat-option>
-                                    </div>
-        
-                                </ng-container>
-                            </mat-select>
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.designation.errors?.required">
-                                {{msgLM3}}
-                            </mat-error>
-                        </mat-form-field>         
-                    </div>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        
-                        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Department</mat-label>
-                            <mat-select required formControlName="department">
-                                <ng-container >
-                                    <div *ngFor="let b of availableDepartments">
-                                        <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option  [value]=b.id>{{b.deptname}}</mat-option>
-                                    </div>
-        
-                                </ng-container>
-                            </mat-select>
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.department.errors?.required">
-                                {{msgLM3}}
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
-                            <mat-label>Manager</mat-label>
-                            <mat-select required formControlName="reportingmanager">
-                                <ng-container >
-                                    <div *ngFor="let b of availablereportingmanagers">
-                                        <!-- <mat-option value=23>Select </mat-option> -->
-                                        <mat-option  [value]="b.id">{{b.employee_name}}</mat-option>
-                                    </div>
-                                    <mat-option  value="Self">Self</mat-option>
-
-        
-                                </ng-container>
-                            </mat-select>
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.reportingmanager.errors?.required">
-                                {{msgLM3}}
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Shifts</mat-label>
-                            <mat-select required formControlName="shift">
-                                <ng-container >
-                                    <div *ngFor="let b of availableShifts">
-                                        <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option  [value]="b.id">{{b.shiftname}}</mat-option>
-                                        <!-- <mat-option  value=2>Night Shift</mat-option> -->
-    
-                                    </div>
-        
-                                </ng-container>
-                            </mat-select>
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.shift.errors?.required">
-                                {{msgLM3}}
-                            </mat-error>
-                        </mat-form-field>         
-                    </div>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                        <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
-                            <mat-label>Role</mat-label>
-                            <mat-select required formControlName="usertype">
-                                <ng-container >
-                                    <div *ngFor="let b of availableRole">
-                                        <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option  [value]="b.id">{{b.name}}</mat-option>
-                                    </div>
-        
-                                </ng-container>
-                            </mat-select>
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.usertype.errors?.required">
-                                {{msgLM3}}
-                            </mat-error>
-                        </mat-form-field>
-                       
-                        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Company Location</mat-label>
-                            <mat-select required formControlName="companylocation">
-                                <ng-container >
-                                    <div *ngFor="let b of worklocationDetails">
-                                        <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option  [value]="b.city">{{b.cityname}}</mat-option>
-                                    </div>
-        
-                                </ng-container>
-                            </mat-select>
-                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.companylocation.errors?.required">
-                                {{msgLM3}}
-                            </mat-error>
-                        </mat-form-field>         
-                    </div>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        
-                       
-                             
-                    </div>
-                    <mat-card-header class="">
-                        <mat-card-title class="title"> Education Details </mat-card-title>
-                    </mat-card-header>
-                    <mat-divider></mat-divider>
-                    
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
-                            <!-- <div formArrayName="edu">
-                                <div  *ngFor="let employee of edu().controls; let empIndex=index">
-                                    <div [formGroupName]="empIndex">
-                                        rakesh:
-                                        <input type="text" formControlName="course">
-
-                                    </div>
-                                </div> 
-                            </div> -->
-                           
-                                 <mat-form-field fxFlex.xs="100" fxFlex="10" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Course</mat-label>
-                                    <input type="text" maxlength="100" formControlName="course" matInput placeholder="" appRemoveSpace >
-                                </mat-form-field>
-                                <mat-form-field fxFlex.xs="100" fxFlex="15" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Institute Name</mat-label>
-                                    <input type="text" maxlength="100" formControlName="institutename" matInput placeholder="" appRemoveSpace >
-                                </mat-form-field>
-                                <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>From </mat-label>
-                                    <input matInput readonly  [matDatepicker]="efromdate" [min]="minDate" [max]="maxDate"
-                                    placeholder="MM/DD/YYYY" formControlName="efromdate">
-                                <mat-datepicker-toggle class="datepicker" matSuffix [for]="efromdate"></mat-datepicker-toggle>
-                                <mat-datepicker #efromdate></mat-datepicker>
-                                </mat-form-field>  
-                                <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>To </mat-label>
-                                    <input matInput readonly  [matDatepicker]="etodate" [min]="minetodate" [max]="maxDate"
-                                    placeholder="MM/DD/YYYY" formControlName="etodate">
-                                <mat-datepicker-toggle class="datepicker" matSuffix [for]="etodate"></mat-datepicker-toggle>
-                                <mat-datepicker #etodate></mat-datepicker>
-                                </mat-form-field> 
-                                <div fxFlex.xs="100" fxFlex="20" style="padding:20px"  class="mx-2 my-2 mr2" appearance="outline">
-                                    <mat-icon (click)="addeducation()">add</mat-icon>
-                                    <mat-icon (click)="removeeducation()">delete</mat-icon>
-                                </div> 
-
-                           
-                       </div>
-                    
-                    <mat-card-header class="">
-                        <mat-card-title class="title"> Work Experience </mat-card-title>
-                    </mat-card-header>
-                    <mat-divider></mat-divider>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                        <mat-form-field fxFlex.xs="100" fxFlex="20" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Company Name</mat-label>
-                            <input type="text" maxlength="100" formControlName="companyname" matInput placeholder="" appRemoveSpace >
-                        </mat-form-field>
-                        <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
-                            <mat-label>From </mat-label>
-                            <input matInput   [matDatepicker]="wfromdate" [min]="minDate" [max]="maxDate"
-                            placeholder="MM/DD/YYYY" formControlName="wfromdate">
-                        <mat-datepicker-toggle class="datepicker" matSuffix [for]="wfromdate"></mat-datepicker-toggle>
-                        <mat-datepicker #wfromdate></mat-datepicker>
-                        </mat-form-field>
-                        <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
-                            <mat-label>To </mat-label>
-                            <input matInput   [matDatepicker]="wtodate" [min]="minwtodate" [max]="maxDate"
-                            placeholder="MM/DD/YYYY" formControlName="wtodate">
-                        <mat-datepicker-toggle class="datepicker" matSuffix [for]="wtodate"></mat-datepicker-toggle>
-                        <mat-datepicker #wtodate></mat-datepicker>
-                        </mat-form-field> 
-                        <div fxFlex.xs="100" fxFlex="20" style="padding:20px" class="mx-2 my-2 mr2" appearance="outline">
-                            <mat-icon (click)="addexperience()">add</mat-icon>
-                            <mat-icon>delete</mat-icon>
-                        </div>
-                        <!-- <mat-form-field fxFlex.xs="100" fxFlex="15" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Actions</mat-label>
-                            <input formControlName="middlename" matInput placeholder="" appRemoveSpace >
-                        </mat-form-field>  -->
-          
-                      
-                             
-                    </div>
-                    
-                    
-                    <div class="form-group row ml-1 mt-3">
-                        <div class="col-sm-6" style="padding:0px">
-                          <button  class="col-md-2 btn btn-primary" (click)="secondprev()">Prev</button>
-                        </div>
-                        <div class="col-sm-6 mr2 text-right">
-                          <button  class="col-md-2  btn btn-primary" (click)="save()" >Save</button>
-                          <button  class="col-md-2  btn btn-danger" (click)="close()" >Close</button>
-                        </div>
-                    </div>
-                </div>
-    
-               
-            </mat-card>
-            
         </form>
+        <form [formGroup]="employeefamilyAddForm" autocomplete="off">        
+                <div *ngIf="family">
+                        <mat-card-header class="">
+                            <mat-card-title class="title"> Add Employee Details </mat-card-title>
+                        </mat-card-header>
+                        <mat-progress-bar mode="determinate" value="60"></mat-progress-bar>
+                        <mat-divider></mat-divider>
+                        <mat-card-header class="">
+                            <mat-card-title class="title"> Bank Information </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            
+                            <mat-form-field fxFlex.xs="100"  fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                                <mat-label>Bank Name</mat-label>
+                                <input type="text"  formControlName="bankname" matInput placeholder="" maxlength="100">
+                                <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100"  fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                                <mat-label>IFSC Code</mat-label>
+                                <input type="text"   formControlName="ifsccode" matInput placeholder="" maxlength="10">
+                                <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
+                            </mat-form-field> 
+                            <mat-form-field fxFlex.xs="100"   fxFlex="30" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Name as per bank Account</mat-label>
+                                <input type="text"  formControlName="nameasperbankaccount" matInput placeholder="" maxlength="100">
+                                <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
+                            </mat-form-field>  
+                        </div>
+                        
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            
+                            <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
+                                <mat-label>Branch Name</mat-label>
+                                <input  type="text" formControlName="branchname" matInput placeholder="" maxlength="100">
+                                <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Account Number</mat-label>
+                                <input type="text" onlyNumber  formControlName="bankaccountnumber" matInput placeholder="" maxlength="16">
+                                <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
+                            </mat-form-field>   
+                
+                        </div>
+                        <mat-divider></mat-divider>
+                        <mat-card-header class="">
+                            <mat-card-title class="title"> Family Details </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+        
+                            <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
+                                <mat-label>First Name</mat-label>
+                                <input type="text"  formControlName="familyfirstname" matInput placeholder="" maxlength="100" required >
+                                <mat-error class="con-error" *ngIf="employeefamilyAddForm.controls.familyfirstname.errors?.required">
+                                    {{msgLM1}}
+                                </mat-error>
+                                <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
+                            </mat-form-field>
+      
+                            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" >
+                                <mat-label>Last Name</mat-label>
+                                <input type="text"  formControlName="familylastname" matInput placeholder="" maxlength="100" required>
+                                <mat-error class="con-error" *ngIf="employeefamilyAddForm.controls.familylastname.errors?.required">
+                                    {{msgLM1}}
+                                </mat-error>
+                                <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                                <mat-label>Gender</mat-label>
+                                <mat-select formControlName="familygender" required>
+                                    <ng-container >
+                                        <div *ngFor="let b of genderDetails">
+                                            <!-- <mat-option value="" disabled selected>Select </mat-option> -->
+                                            <mat-option   value="{{b.id}}">{{b.gender}}</mat-option>
+                                        </div>
+            
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="con-error" *ngIf="employeefamilyAddForm.controls.familygender.errors?.required">
+                                    {{msgLM3}}
+                                </mat-error>
+                            </mat-form-field>
+                            
+                        </div>
+                       
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Contact Number</mat-label>
+                                <input type="text" onlyNumber formControlName="familycontact" matInput placeholder="" maxlength="10" >
+                               
+                            </mat-form-field> 
+                            
+                            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Date Of Birth</mat-label>
+                                <input matInput readonly  [matDatepicker]="familydateofbirth" [max]="maxDate"
+                                placeholder="MM/DD/YYYY" formControlName="familydateofbirth">
+                            <mat-datepicker-toggle class="datepicker" matSuffix [for]="familydateofbirth"></mat-datepicker-toggle>
+                            <mat-datepicker #familydateofbirth></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Relationship</mat-label>
+                                <mat-select required formControlName="relation">
+                                    <ng-container >
+                                        <div *ngFor="let b of employeeRelationship">
+                                            <!-- <mat-option value="" disabled selected>Select </mat-option> -->
+                                            <mat-option  value={{b.id}}>{{b.relationship}}</mat-option>
+                                        </div>
+            
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="con-error" *ngIf="employeefamilyAddForm.controls.relation.errors?.required">
+                                    {{msgLM3}}
+                                </mat-error>
+                            </mat-form-field>        
+                        </div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                            <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                                <mat-label>Status</mat-label>
+                                <mat-select required formControlName="familystatus">
+                                    <ng-container >
+                                        <div >
+                                            <!-- <mat-option value="" disabled selected>Select </mat-option> -->
+                                            <mat-option  value="Alive">Alive</mat-option>
+                                        </div>
+            
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="con-error" *ngIf="employeefamilyAddForm.controls.familystatus.errors?.required">
+                                    {{msgLM3}}
+                                </mat-error>
+                            </mat-form-field> 
+                            <div class="col-sm-6 mx-2 my-2 text-right">
+                                <button  class="col-md-2 btn btn-primary" (click)="addfamily()" >{{ isfamilyedit ? "Update":"Add" }}</button>
+                                <!-- <button  class="col-md-2 btn btn-primary" (click)="addfamily()" *ngIf="isfamilyedit">Update</button> -->
+                            </div>
+                            <div class="col-sm-6 mx-2 my-2 text-end">
+                                <button  class="col-md-2 btn btn-danger" (click)="clearfamily()" >Clear</button>
+                            </div>
+                        </div>
+                        <div class="mat-elevation-z8"  *ngIf="familyDetails.length > 0">
+                        <table mat-table [dataSource]="dsFamily" >
+                            <ng-container matColumnDef="position">
+                              <th mat-header-cell *matHeaderCellDef> SNo </th>
+                              <td mat-cell *matCellDef="let data; let i = index;"> {{i+1}} </td>
+                            </ng-container>
+                          
+                           
+                            <ng-container matColumnDef="name">
+                              <th mat-header-cell *matHeaderCellDef> Name </th>
+                              <td mat-cell *matCellDef="let data"> {{data.firstname}} </td>
+                            </ng-container>
+                          
+                            
+                            <ng-container matColumnDef="relation">
+                              <th mat-header-cell *matHeaderCellDef> Relationship </th>
+                              <td mat-cell *matCellDef="let data"> {{data.relationship}} </td>
+                            </ng-container>
+                          
+                            
+                            <ng-container matColumnDef="gender">
+                              <th mat-header-cell *matHeaderCellDef> Gender </th>
+                              <td mat-cell *matCellDef="let data"> {{data.gender}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="contact">
+                                <th mat-header-cell *matHeaderCellDef> Contact Number </th>
+                                <td mat-cell *matCellDef="let data"> {{data.contactnumber}} </td>
+                              </ng-container>
+                            
+                             
+                              <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef> Status </th>
+                                <td mat-cell *matCellDef="let data"> {{data.status}} </td>
+                              </ng-container>
+                            
+                            
+                              <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef> Action </th>
+                                <td mat-cell *matCellDef="let element; let i = index;">  
+                                    <mat-icon title="Edit" (click)="editfamily(i)">edit</mat-icon>
+                                    <mat-icon title="Delete" (click)="deletefamily(i)">delete</mat-icon>
+                                </td>
+                              </ng-container>
+                          
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          </table>
+                        </div>
+                        <div class="form-group row ml-1 mt-3">
+                            <div class="col-sm-6" style="padding:0px">
+                              <button  class="col-md-2 btn btn-primary"  (click)="firstprev()">Prev</button>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                              <button  class="col-md-2 btn btn-primary"   (click)="secondnext()">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <form [formGroup]="employeeworkAddForm" autocomplete="off">        
+                     <div *ngIf="work">
+                   
+                        <mat-card-header class="">
+                            <mat-card-title class="title"> Add Employee Details </mat-card-title>
+                        </mat-card-header>
+                        <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+                        <mat-divider></mat-divider>
+                        <mat-card-header class="">
+                            <mat-card-title class="title"> Work Information </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            
+                            <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                                <mat-label>Employee ID</mat-label>
+                                <input   formControlName="empid" matInput placeholder="Employee ID" [readonly]="isview">
+                                <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Date Of Join</mat-label>
+                                <input required matInput readonly  [matDatepicker]="dateofjoin" [min]="mindatofjoin" [max]="maxDate"
+                                placeholder="MM/DD/YYYY" formControlName="dateofjoin">
+                            <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofjoin"></mat-datepicker-toggle>
+                            <mat-datepicker #dateofjoin></mat-datepicker>
+                            <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.dateofjoin.errors?.required">
+                                {{msgLM1}}
+                            </mat-error>
+                            </mat-form-field> 
+                            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Official Email</mat-label>
+                                <input type="text" maxlength="100" formControlName="officeemail" matInput placeholder="" required >
+                                <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.officeemail.errors?.email">
+                                    {{msgLM2}}
+                                </mat-error>
+                                <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.officeemail.errors?.required">
+                                    {{msgLM2}}
+                                </mat-error>
+                            </mat-form-field>  
+                        </div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                            
+                            
+                            
+                            
+                        </div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                            <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
+                                <mat-label>Employee Status</mat-label>
+                                <mat-select formControlName="status" required>
+                                    <ng-container >
+                                        <div >
+                                            <!-- <mat-option value="" disabled selected>Select </mat-option> -->
+                                            <mat-option   value="Active">Active</mat-option>
+                                            <mat-option *ngIf="this.editemployee" value="Active" >Inactive</mat-option>
+                                        </div>
+            
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.status.errors?.required">
+                                    {{msgLM3}}
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Employment Type</mat-label>
+                                <mat-select required formControlName="employmenttype">
+                                    <ng-container >
+                                        <div *ngFor="let b of EmploymentTypeDetails">
+                                            <!-- <mat-option value="" disabled selected>Select </mat-option> -->
+                                            <mat-option  [value]="b.id">{{b.employmenttype}}</mat-option>
+                                        </div>
+            
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.employmenttype.errors?.required">
+                                    {{msgLM3}}
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Designation</mat-label>
+                                <mat-select required formControlName="designation">
+                                    <ng-container >
+                                        <div *ngFor="let b of availableDesignations">
+                                            <!-- <mat-option value="" disabled selected>Select </mat-option> -->
+                                            <mat-option  [value]="b.id">{{b.designation}}</mat-option>
+                                        </div>
+            
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.designation.errors?.required">
+                                    {{msgLM3}}
+                                </mat-error>
+                            </mat-form-field>         
+                        </div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            
+                            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Department</mat-label>
+                                <mat-select required formControlName="department">
+                                    <ng-container >
+                                        <div *ngFor="let b of availableDepartments">
+                                            <!-- <mat-option value="" disabled selected>Select </mat-option> -->
+                                            <mat-option  [value]=b.id>{{b.deptname}}</mat-option>
+                                        </div>
+            
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.department.errors?.required">
+                                    {{msgLM3}}
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                                <mat-label>Manager</mat-label>
+                                <mat-select required formControlName="reportingmanager">
+                                    <ng-container >
+                                        <div *ngFor="let b of availablereportingmanagers">
+                                            <!-- <mat-option value=23>Select </mat-option> -->
+                                            <mat-option  [value]="b.id">{{b.employee_name}}</mat-option>
+                                        </div>
+                                        <mat-option  value="Self">Self</mat-option>
+    
+            
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.reportingmanager.errors?.required">
+                                    {{msgLM3}}
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Shifts</mat-label>
+                                <mat-select required formControlName="shift">
+                                    <ng-container >
+                                        <div *ngFor="let b of availableShifts">
+                                            <!-- <mat-option value="" disabled selected>Select </mat-option> -->
+                                            <mat-option  [value]="b.id">{{b.shiftname}}</mat-option>
+                                            <!-- <mat-option  value=2>Night Shift</mat-option> -->
+        
+                                        </div>
+            
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.shift.errors?.required">
+                                    {{msgLM3}}
+                                </mat-error>
+                            </mat-form-field>         
+                        </div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                            <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                                <mat-label>Role</mat-label>
+                                <mat-select required formControlName="usertype">
+                                    <ng-container >
+                                        <div *ngFor="let b of availableRole">
+                                            <!-- <mat-option value="" disabled selected>Select </mat-option> -->
+                                            <mat-option  [value]="b.id">{{b.name}}</mat-option>
+                                        </div>
+            
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.usertype.errors?.required">
+                                    {{msgLM3}}
+                                </mat-error>
+                            </mat-form-field>
+                           
+                            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Company Location</mat-label>
+                                <mat-select required formControlName="companylocation">
+                                    <ng-container >
+                                        <div *ngFor="let b of worklocationDetails">
+                                            <!-- <mat-option value="" disabled selected>Select </mat-option> -->
+                                            <mat-option  [value]="b.city">{{b.cityname}}</mat-option>
+                                        </div>
+            
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.companylocation.errors?.required">
+                                    {{msgLM3}}
+                                </mat-error>
+                            </mat-form-field>         
+                        </div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            
+                           
+                                 
+                        </div>
+                        <mat-card-header class="">
+                            <mat-card-title class="title"> Education Details </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
+                                <!-- <div formArrayName="edu">
+                                    <div  *ngFor="let employee of edu().controls; let empIndex=index">
+                                        <div [formGroupName]="empIndex">
+                                            rakesh:
+                                            <input type="text" formControlName="course">
+    
+                                        </div>
+                                    </div> 
+                                </div> -->
+                               
+                                     <mat-form-field fxFlex.xs="100" fxFlex="10" class="mx-2 my-2" appearance="outline">
+                                        <mat-label>Course</mat-label>
+                                        <input type="text" maxlength="100" formControlName="course" matInput placeholder="" appRemoveSpace >
+                                    </mat-form-field>
+                                    <mat-form-field fxFlex.xs="100" fxFlex="15" class="mx-2 my-2" appearance="outline">
+                                        <mat-label>Institute Name</mat-label>
+                                        <input type="text" maxlength="100" formControlName="institutename" matInput placeholder="" appRemoveSpace >
+                                    </mat-form-field>
+                                    <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
+                                        <mat-label>From </mat-label>
+                                        <input matInput readonly  [matDatepicker]="efromdate" [max]="maxDate"
+                                        placeholder="MM/DD/YYYY" formControlName="efromdate">
+                                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="efromdate"></mat-datepicker-toggle>
+                                    <mat-datepicker #efromdate></mat-datepicker>
+                                    </mat-form-field>  
+                                    <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
+                                        <mat-label>To </mat-label>
+                                        <input matInput readonly  [matDatepicker]="etodate" [min]="minetodate" [max]="maxDate"
+                                        placeholder="MM/DD/YYYY" formControlName="etodate">
+                                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="etodate"></mat-datepicker-toggle>
+                                    <mat-datepicker #etodate></mat-datepicker>
+                                    </mat-form-field> 
+                                    <div fxFlex.xs="100" fxFlex="20" style="padding:20px"  class="mx-2 my-2 mr2" appearance="outline">
+                                        <mat-icon (click)="addeducation()">add</mat-icon>
+                                        <mat-icon (click)="removeeducation()">delete</mat-icon>
+                                    </div> 
+    
+                               
+                           </div>
+                        
+                        <mat-card-header class="">
+                            <mat-card-title class="title"> Work Experience </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                            <mat-form-field fxFlex.xs="100" fxFlex="20" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Company Name</mat-label>
+                                <input type="text" maxlength="100" formControlName="companyname" matInput placeholder="" appRemoveSpace >
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
+                                <mat-label>From </mat-label>
+                                <input matInput   [matDatepicker]="wfromdate"  [max]="maxDate"
+                                placeholder="MM/DD/YYYY" formControlName="wfromdate">
+                            <mat-datepicker-toggle class="datepicker" matSuffix [for]="wfromdate"></mat-datepicker-toggle>
+                            <mat-datepicker #wfromdate></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
+                                <mat-label>To </mat-label>
+                                <input matInput   [matDatepicker]="wtodate" [min]="minwtodate" [max]="maxDate"
+                                placeholder="MM/DD/YYYY" formControlName="wtodate">
+                            <mat-datepicker-toggle class="datepicker" matSuffix [for]="wtodate"></mat-datepicker-toggle>
+                            <mat-datepicker #wtodate></mat-datepicker>
+                            </mat-form-field> 
+                            <div fxFlex.xs="100" fxFlex="20" style="padding:20px" class="mx-2 my-2 mr2" appearance="outline">
+                                <mat-icon (click)="addexperience()">add</mat-icon>
+                                <mat-icon>delete</mat-icon>
+                            </div>
+                            <!-- <mat-form-field fxFlex.xs="100" fxFlex="15" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Actions</mat-label>
+                                <input formControlName="middlename" matInput placeholder="" appRemoveSpace >
+                            </mat-form-field>  -->
+              
+                          
+                                 
+                        </div>
+                        
+                        
+                        <div class="form-group row ml-1 mt-3">
+                            <div class="col-sm-6" style="padding:0px">
+                              <button  class="col-md-2 btn btn-primary" (click)="secondprev()">Prev</button>
+                            </div>
+                            <div class="col-sm-6 mr2 text-right">
+                                <button  class="col-md-2  btn btn-primary" *ngIf="this.editemployee" >Save</button>
+                              <button  class="col-md-2  btn btn-primary" (click)="save()" *ngIf="this.addemployee" [disabled]="!employeeworkAddForm.valid"   >Submit</button>
+                              <button  class="col-md-2  btn btn-danger" (click)="close()" >Close</button>
+                            </div>
+                        </div>
+                    </div>
+        
+                </form>   
+            </mat-card>
+                    
+            
+                        
         <mat-divider></mat-divider>
         
       
@@ -857,7 +870,7 @@
             <!-- <td mat-cell *matCellDef="let row"> {{row.id}} </td> -->
             <td mat-cell *matCellDef="let row"> 
                 <mat-icon class="mr-2" title="Edit" (click)="editEmployee(row)">edit</mat-icon> 
-                <mat-icon class="mr-2" title="view" (click)="employeeview(row)">visibility</mat-icon> 
+                <!-- <mat-icon class="mr-2" title="view" (click)="employeeview(row)">visibility</mat-icon>  -->
 
             </td>
 
