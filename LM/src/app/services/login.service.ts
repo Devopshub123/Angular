@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 // import {subscription} from '../models/subscription';
 // import { changePassword } from '../models/changePassword';
@@ -12,9 +13,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
   })
   export class LoginService {
-    
-      // host= localhost;
-      // port = 6060;multipart/
+    mainBeUrl= environment.apiUrl;
       userSession: any;
       httpOptions = {
         headers: new HttpHeaders({'content-Type': 'application/json'})
@@ -32,27 +31,27 @@ import { Observable } from 'rxjs';
 /* get All Subscriptions */
 
 getallSubscriptions():Observable<any>{
-  return this.hClient.get('http://localhost:6060/savesubscription', { responseType: 'json' });
+  return this.hClient.get(this.mainBeUrl + 'savesubscription', { responseType: 'json' });
 }
 getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
   console.log(errorCode)
-  return this.hClient.get('http://localhost:6060/api/getErrorMessages/' + errorCode + '/' + page + '/' + size, this.httpOptions);
+  return this.hClient.get(this.mainBeUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size, this.httpOptions);
 }
 Savelogin(data:any): Observable<any> {
   // console.log("dddd", email,password)
-  return this.hClient.post('http://localhost:6060/api/emp_login', JSON.stringify(data) ,this.httpOptions);
+  return this.hClient.post(this.mainBeUrl + 'api/emp_login', JSON.stringify(data) ,this.httpOptions);
 }  
  /* save change password */
 changepassword(changePassword: any): Observable<any> {
   console.log("jjjj")
-  return this.hClient.post('http://localhost:6060/changePassword', JSON.stringify(changePassword), this.httpOptions);
+  return this.hClient.post(this.mainBeUrl + 'changePassword', JSON.stringify(changePassword), this.httpOptions);
 }
 resetpassword(resetPassword:any) : Observable<any> {
-  return this.hClient.post('http://localhost:6060/api/resetpassword', JSON.stringify(resetPassword), this.httpOptions);
+  return this.hClient.post(this.mainBeUrl + 'api/resetpassword', JSON.stringify(resetPassword), this.httpOptions);
 
 }
 // forgot password
 verifyEmail(email: any): Observable<any> {
-  return this.hClient.get('http://localhost:6060/api/forgetpassword/'+email,this.httpOptions);
+  return this.hClient.get(this.mainBeUrl + 'api/forgetpassword/'+email,this.httpOptions);
 }
 }    
