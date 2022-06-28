@@ -5,7 +5,7 @@ import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard
 import { DeparmentComponent } from './pages/deparment/deparment.component';
 import { DesignationsComponent } from './pages/designations/designations.component';
 import { EmployeeMasterToAddComponent } from './pages/employee-master-to-add/employee-master-to-add.component';
-
+import { CompanyinformationComponent } from './pages/companyinformation/companyinformation.component';
 const routes: Routes = [
   {
     path: '', component: MainComponent,
@@ -14,6 +14,7 @@ const routes: Routes = [
       { path: 'Designation', component: DesignationsComponent },
       { path: 'Department', component: DeparmentComponent },
       { path: 'Employee', component: EmployeeMasterToAddComponent },
+      { path: 'CompanyInformation',component:CompanyinformationComponent}
     ]
   }
 

@@ -95,10 +95,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   
   empdataa:any = [];
   constructor(private formBuilder: FormBuilder,private LMS:CompanySettingService,private LM:EmployeeMasterService,private dialog: MatDialog,private router: Router) {
-    // this.dataSource = new MatTableDataSource(this.familyDetails);
-    // this.employeeAddForm=this.formBuilder.group({
-    //   works: this.formBuilder.array([]) ,
-    // })
+
    }
   //  works(): FormArray {
   //   return this.employeeAddForm.get("works") as FormArray
@@ -117,18 +114,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   // }
  
  
-  // removeWork(workIndex:number) {
-  //   this.works().removeAt(workIndex);
-  // }
-  // this.empdataa = {
-  //   empid: 'st40',
-  //   firstname: 'rakesh',
-  //   id: 200,
-  //   lastname: 'thallapelly',
-  //   middlename: '',
-  //   status: 'Active',
-  //   total: 123
-  // };
+
   ngOnInit(): void {
     let auxDate = this.substractYearsToDate(new Date(), 18);
     this.maxBirthDate = this.getDateFormateForSearch(auxDate);
@@ -136,7 +122,8 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.getGender();
     this.getCountry();
     // this.getstatedetails();
-    // this.getcityDetails()
+    // this.getcityDetails();
+    // this.addeducation();
     this.getShifts();
     this.getRoles();
     this.getMaritalStatusMaster();
@@ -183,8 +170,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
         pfaccountnumber: [""],
         pan: [""],       
         esi: [""],
+        emergencycontactnumber: [""],
+        emergencycontactrelation: [""],
+        emergencycontactname: [""],
 
       }) ,
+      // this.edu().push(this.newEmployee());
       this.employeefamilyAddForm=this.formBuilder.group(
         {
           familyfirstname:["",Validators.required],
@@ -201,24 +192,19 @@ export class EmployeeMasterToAddComponent implements OnInit {
           bankaccountnumber: [""],})
       this.employeeworkAddForm=this.formBuilder.group(
         {
-        officeemail: ["",[Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
-        maritalstatus: ["",Validators.required],
+        officeemail: ["",[Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],        
         usertype: ["",Validators.required],
         designation: ["",Validators.required],
         department: ["",Validators.required],
         employmenttype: ["",Validators.required],
         dateofjoin: ["",Validators.required],
         companylocation: ["",Validators.required],
-        reportingmanager: ["",Validators.required],
-        emergencycontactnumber: [""],
-        emergencycontactrelation: [""],
-        emergencycontactname: [""],
+        reportingmanager: ["",Validators.required],        
         status: [""],
         shift: ["",Validators.required],
         relations: [""],
-        education: [""],
-        experience: [""],
-        
+        // education: [""],
+        // experience: [""],        
         efromdate:[""],
         etodate:[""],
         wfromdate:[""],
@@ -228,6 +214,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
         companyname:[""],
         empid:[""],
         edu: this.formBuilder.array([]) ,
+        exp:this.formBuilder.array([]),
        
 
       });
@@ -313,6 +300,8 @@ export class EmployeeMasterToAddComponent implements OnInit {
           }
         })
       })
+      this.edu().push(this.newEducation());
+      this.exp().push(this.newExperince());
   }
   dateofjonupdate(data:any){
     this.mindatofjoin = new Date()
@@ -328,11 +317,14 @@ export class EmployeeMasterToAddComponent implements OnInit {
     }
   }
   edu(): FormArray {
-    return this.employeeAddForm.get("edu") as FormArray
+    return this.employeeworkAddForm.get("edu") as FormArray
+  }
+  exp(): FormArray {
+    return this.employeeworkAddForm.get("exp") as FormArray
   }
  
  
-  newEmployee(): FormGroup {
+  newEducation(): FormGroup {
     return this.formBuilder.group({
       course: '',
       institutename: '',
@@ -341,36 +333,62 @@ export class EmployeeMasterToAddComponent implements OnInit {
       
     })
   }
- 
- 
-  // addeducation() {
-  //   console.log("Adding a employee");
-  //   this.edu().push(this.newEmployee());
-  // }
- 
- 
-  // removeeducation(empIndex:number) {
-  //   this.edu().removeAt(empIndex);
-  // }
-  removeeducation(){}
-  addexperience(){
-    this.Experience.push({
-      companyname:this.employeeworkAddForm.controls.companyname.value,
-      skills:'test',
-      fromdate:this.pipe.transform(this.employeeAddForm.controls.wfromdate.value, 'yyyy-MM-dd'),
-      todate:this.pipe.transform(this.employeeAddForm.controls.wtomdate.value, 'yyyy-MM-dd')
-    });
+  newExperince(): FormGroup {
+    return this.formBuilder.group({
+      companyname:'',
+      wfromdate:'',
+      wtodate:''
+      
+    })
   }
+
+  addexperience() {
+    console.log("Adding a employee");
+    this.exp().push(this.newExperince());
+    
+  }
+  addexperiencedetils(){
+    for(let i =0;i<this.exp().controls.length;i++){
+      this.Experience.push({
+        companyname:this.exp().controls[i].value.companyname,
+        skills:'test',
+        fromdate:this.pipe.transform(this.exp().controls[i].value.wfromdate, 'yyyy-MM-dd'),
+        todate:this.pipe.transform(this.exp().controls[i].value.wtodate, 'yyyy-MM-dd')
+      });
+
+    }
+   
+  }
+ 
+  addeducation() {
+    console.log("Adding a employee");
+    this.edu().push(this.newEducation());
+    // this.addeducationdetails()
+  }
+   addeducationdetails(){
+    for(let i =0;i<this.edu().controls.length;i++){
+      if(this.edu().controls[i].value.efromdate != null){
+        this.Educations.push({
+          course:this.edu().controls[i].value.course,
+          institutename:this.edu().controls[i].value.institutename,
+          fromdate:this.pipe.transform(this.edu().controls[i].value.efromdate, 'yyyy-MM-dd'),
+          todate:this.pipe.transform(this.edu().controls[i].value.etodate, 'yyyy-MM-dd')
+        });
   
-  addeducation(){
-    this.Educations.push({
-      course:this.employeeworkAddForm.controls.course.value,
-      institutename:this.employeeAddForm.controls.institutename.value,
-      fromdate:this.pipe.transform(this.employeeworkAddForm.controls.efromdate.value, 'yyyy-MM-dd'),
-      todate:this.pipe.transform(this.employeeworkAddForm.controls.etomdate.value, 'yyyy-MM-dd')
-    });
+
+      }
+     
+    } 
   }
+  removeWork(workIndex:number) {
+    this.exp().removeAt(workIndex);
+  }
+
  
+  removeeducation(empIndex:number) {
+    this.edu().removeAt(empIndex);
+  }
+
   addemp(){
     this.addempdetails= true;
     this.viewdetails = false;
@@ -395,92 +413,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
       this.dataSource.sort = this.sort;
     })
   }
-  // employeeview(data:any){
-  //   this.addempdetails= true;
-  //   this.viewdetails = false;
-  //   this.isview=true;
-  //   this.LM.getEmployeeMaster(data).subscribe((result)=>{
-  //     this.employeedata = JSON.parse(result.data[0][0].json)[0];
-  //     console.log("empfulldata",this.employeedata)
-  //     this.employeeAddForm.controls.aadharnumber.setValue(this.employeedata.aadharnumber);
-  //     this.employeeAddForm.controls.address.setValue(this.employeedata.address);
-  //     this.employeeAddForm.controls.bankaccountnumber.setValue(this.employeedata.bankaccountnumber);
-  //     this.employeeAddForm.controls.bankname.setValue(this.employeedata.bankname);
-  //     this.employeeAddForm.controls.bloodgroup.setValue(this.employeedata.bloodgroup);
-  //     this.employeeAddForm.controls.branchname.setValue(this.employeedata.branchname);
-  //     this.employeeAddForm.controls.contactnumber.setValue(this.employeedata.contactnumber);
-  //     this.employeeAddForm.controls.dateofbirth.setValue(new Date(this.employeedata.dateofbirth));
-  //     this.employeeAddForm.controls.dateofjoin.setValue(new Date(this.employeedata.dateofjoin));
-  //     this.employeeAddForm.controls.designation.setValue(this.employeedata.designation);
-  //     this.employeeAddForm.controls.empid.setValue(this.employeedata.empid);
-  //     this.employeeAddForm.controls.employmenttype.setValue(this.employeedata.usertype);
-  //     this.employeeAddForm.controls.esi.setValue(this.employeedata.esi);
-  //     this.employeeAddForm.controls.firstname.setValue(this.employeedata.firstname);
-  //     this.employeeAddForm.controls.gender.setValue(this.employeedata.gender);
-  //     this.employeeAddForm.controls.ifsccode.setValue(this.employeedata.ifsccode);
-  //     this.employeeAddForm.controls.lastname.setValue(this.employeedata.lastname);
-  //     this.employeeAddForm.controls.maritalstatus.setValue(this.employeedata.maritalstatus);
-  //     this.employeeAddForm.controls.middlename.setValue(this.employeedata.middlename);
-  //     this.employeeAddForm.controls.nameasperbankaccount.setValue(this.employeedata.nameasperbankaccount);
-  //     this.employeeAddForm.controls.officeemail.setValue(this.employeedata.officeemail);
-  //     this.employeeAddForm.controls.paddress.setValue(this.employeedata.paddress);
-  //     this.employeeAddForm.controls.pan.setValue(this.employeedata.pan);
-  //     this.employeeAddForm.controls.passport.setValue(this.employeedata.passport);
-  //     this.employeeAddForm.controls.personalemail.setValue(this.employeedata.personalemail);
-  //     this.employeeAddForm.controls.pfaccountnumber.setValue(this.employeedata.pfaccountnumber);
-  //     this.employeeAddForm.controls.pincode.setValue(this.employeedata.pincode);
-  //     this.employeeAddForm.controls.ppincode.setValue(this.employeedata.ppincode);
-  //     this.employeeAddForm.controls.shift.setValue(this.employeedata.shift);
-  //     this.employeeAddForm.controls.status.setValue(this.employeedata.status);
-  //     this.employeeAddForm.controls.uanumber.setValue(this.employeedata.uanumber);
-  //     this.employeeAddForm.controls.usertype.setValue(this.employeedata.usertype);
-  //     this.employeeAddForm.controls.companylocation.setValue(this.employeedata.worklocation);
-  //     this.employeeAddForm.controls.reportingmanager.setValue(this.employeedata.reportingmanager);
-  //     this.employeeAddForm.controls.country.setValue(this.employeedata.country);
-  //     this.employeeAddForm.controls.pcountry.setValue(this.employeedata.pcountry);
-  //     this.employeeAddForm.controls.state.setValue(this.employeedata.state);
-  //     this.employeeAddForm.controls.pstate.setValue(this.employeedata.pstate);
-  //     this.employeeAddForm.controls.city.setValue(this.employeedata.city);
-  //     this.employeeAddForm.controls.pcity.setValue(this.employeedata.pcity);
-  //     this.employeeAddForm.controls.department.setValue(this.employeedata.department);
-  //     let x = JSON.parse((this.employeedata.education))
-  //     let y = JSON.parse((this.employeedata.experience))
-  //     let z = JSON.parse(JSON.stringify(this.employeedata.relations))
-  //     // console.log("education",x,x.length)
-  //     // console.log("work",y,y.length)
-  //     // console.log("relations",z,z.length)
-  //     // this.familyDetails = z;
-  //     // for(let i = 0; i<z.length;i++){
-
-  //     // }
-  //     // this.dataSource = new MatTableDataSource(this.familyDetails);
-
-  //     this.employeeAddForm.controls.course.setValue(x[0].course);
-  //     this.employeeAddForm.controls.institutename.setValue(x[0].institutename);
-  //     this.employeeAddForm.controls.efromdate.setValue(new Date(x[0].fromdate));
-  //     this.employeeAddForm.controls.etodate.setValue(new Date(x[0].todate));
-  //     this.employeeAddForm.controls.companyname.setValue(y[0].companyname);
-  //     this.employeeAddForm.controls.wfromdate.setValue(new Date(y[0].fromdate));
-  //     this.employeeAddForm.controls.wtodate.setValue(new Date(y[0].todate));
-
-
-  //     for(let i = 0;i<z.length;i++){
-  //       this.familyDetails.push({
-  //         firstname: z[i].firstname,
-  //         lastname: z[i].lastname,
-  //         gender: z[i].gender,
-  //         contactnumber: z[i].contactnumber,
-  //         status: z[i].status,
-  //         relationship: z[i].relationship,
-  //         dateofbirth: this.pipe.transform(z[i].dateofbirth, 'yyyy-MM-dd')
-  //       });
-  //     }
-  //     this.dataSource = new MatTableDataSource(this.familyDetails);
-      
-  //   });
-        
-
-  // }
   editEmployee(data:any){
     this.addempdetails= true;
     this.viewdetails = false;
@@ -500,7 +432,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
       this.employeeworkAddForm.controls.dateofjoin.setValue(new Date(this.employeedata.dateofjoin));
       this.employeeworkAddForm.controls.designation.setValue(this.employeedata.designation);
       this.employeeworkAddForm.controls.empid.setValue(this.employeedata.empid);
-      this.employeeworkAddForm.controls.employmenttype.setValue(this.employeedata.usertype);
+      this.employeeworkAddForm.controls.usertype.setValue(this.employeedata.usertype);
       this.employeeAddForm.controls.esi.setValue(this.employeedata.esi);
       this.employeeAddForm.controls.firstname.setValue(this.employeedata.firstname);
       this.employeeAddForm.controls.gender.setValue(this.employeedata.gender);
@@ -534,9 +466,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
       let x = JSON.parse((this.employeedata.education))
       let y = JSON.parse((this.employeedata.experience))
       let z = JSON.parse((this.employeedata.relations))
-      // console.log("education",x,x.length)
-      // console.log("work",y,y.length)
-      console.log("relations",z)
       for(let i = 0;i<z.length;i++){
         this.familyDetails.push({
           firstname: z[i].firstname,
@@ -550,12 +479,24 @@ export class EmployeeMasterToAddComponent implements OnInit {
         
 
       }
-      // this.familyDetails = z;
-      // for(let i = 0; i<z.length;i++){
+      this.dsFamily = new MatTableDataSource(this.familyDetails);
+      for(let i=0; i<x.length;i++){
+        this.Educations.push({
+          course:x[i].course,
+          institutename:x[i].institutename,
+          fromdate:new Date(x[i].efromdate),
+          todate:new Date(x[i].etodate)
+        })
 
-      // }
-      // this.dataSource = new MatTableDataSource(this.familyDetails);
+      }
+      for(let i=0; i<y.length;i++){
+        this.Experience.push({
+          companyname:y[i].companyname,
+          fromdate:new Date(y[i].wfromdate),
+          todate:new Date(y[i].wtodate)
+        })
 
+      }
       this.employeeworkAddForm.controls.course.setValue(x[0].course);
       this.employeeworkAddForm.controls.institutename.setValue(x[0].institutename);
       this.employeeworkAddForm.controls.efromdate.setValue(new Date(x[0].fromdate));
@@ -566,8 +507,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
 
   
-      console.log("family",this.familyDetails)
-      this.dsFamily = new MatTableDataSource(this.familyDetails);
+      
       
     });
 
@@ -606,6 +546,8 @@ export class EmployeeMasterToAddComponent implements OnInit {
   }
 
   save(){
+    this.addexperiencedetils();
+    this.addeducationdetails();
     let employeeinformation = {
       firstname:this.employeeAddForm.controls.firstname.value,
       middlename:this.employeeAddForm.controls.middlename.value,
@@ -643,16 +585,17 @@ export class EmployeeMasterToAddComponent implements OnInit {
       ifsccode:this.employeefamilyAddForm.controls.ifsccode.value,
       nameasperbankaccount:this.employeefamilyAddForm.controls.nameasperbankaccount.value,
       branchname:this.employeefamilyAddForm.controls.branchname.value,
-      bankaccountnumber:this.employeeAddForm.controls.bankaccountnumber.value,
+      bankaccountnumber:this.employeefamilyAddForm.controls.bankaccountnumber.value,
       uanumber:this.employeeAddForm.controls.uanumber.value,
       pfaccountnumber:this.employeeAddForm.controls.pfaccountnumber.value,
       pan:this.employeeAddForm.controls.pan.value,
       status: 'Active',
-      esi:this.employeeworkAddForm.controls.esi.value,
-      shift:this.employeeAddForm.controls.shift.value,
+      esi:this.employeeAddForm.controls.esi.value,
+      shift:this.employeeworkAddForm.controls.shift.value,
       relations:this.familyDetails,
       education:this.Educations,
       experience:this.Experience
+      
       // education: {
       //   course:this.employeeAddForm.controls.course.value,
       //   institutename:this.employeeAddForm.controls.institutename.value,
@@ -669,6 +612,11 @@ export class EmployeeMasterToAddComponent implements OnInit {
       // education:this.employeeAddForm.controls.education,
       // experience:this.employeeAddForm.controls.experience
     }
+    console.log("ff",employeeinformation)
+    console.log("ff",employeeinformation.experience)
+    console.log("ff",employeeinformation.education)
+    console.log("ff",this.edu().controls[0].value)
+    console.log("ff",this.edu().controls[1].value)
     this.LM.setEmployeeMaster(employeeinformation).subscribe((data) => {
          if(data.status){
           const dialog: PopupConfig = {
@@ -709,14 +657,14 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
   }
   clearfamily(){
-    this.employeefamilyAddForm.reset();
-    // this.employeeAddForm.controls.familyfirstname.reset();
-    // this.employeeAddForm.controls.familylastname.reset();
-    // this.employeeAddForm.controls.relation.reset();
-    // this.employeeAddForm.controls.familystatus.reset();
-    // this.employeeAddForm.controls.familycontact.reset();
-    // this.employeeAddForm.controls.familydateofbirth.reset();
-    // this.employeeAddForm.controls.familygender.reset();
+   // this.employeefamilyAddForm.resetForm();
+    this.employeefamilyAddForm.controls.familyfirstname.setValue('');
+    this.employeefamilyAddForm.controls.familylastname.setValue('');
+    this.employeefamilyAddForm.controls.relation.setValue('');
+    this.employeefamilyAddForm.controls.familystatus.setValue('');
+    this.employeefamilyAddForm.controls.familycontact.setValue('');
+    this.employeefamilyAddForm.controls.familydateofbirth.setValue('');
+    this.employeefamilyAddForm.controls.familygender.setValue('');
   }
   deletefamily(index:any){
     console.log("ff",index)
@@ -806,17 +754,13 @@ export class EmployeeMasterToAddComponent implements OnInit {
   getRoles(){
     this.LMS.getMastertable('rolesmaster',null,1,1000,'boon_client').subscribe(data=>{
       let roledata = data.data;
-      console.log(roledata)
-      console.log(roledata.length)
-      console.log(roledata[0].isEditable)
+
       for(let i=0;i<roledata.length;i++){
         if(roledata[i].isEditable == 0){
-          console.log("ggg")
           this.availableRole.push(roledata[i])
         }
 
       }
-      console.log("Roles,",this.availableRole)
     })
   }
   getShifts(){
@@ -866,6 +810,9 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.work=false;
     this.emp = true;
     this.family = false;
+    this.familyDetails=[];
+    this.Experience=[];
+    this.Educations=[];
     this.ngOnInit();
   }
   getErrorMessages(errorCode:any) {
@@ -898,9 +845,26 @@ export class EmployeeMasterToAddComponent implements OnInit {
       }
     })
   }
+  countryChange(Id:any){
+    this.permanentStateDetails=[];
+    this.LMS.getStatesc(Id).subscribe((data)=>{
+      this.permanentStateDetails=data[0]
+    })
+  }
+
+  stateChange(Id:any){
+  
+    this.permanentCityDetails=[];
+    this.LMS.getCities(Id).subscribe((data)=>{
+      this.permanentCityDetails=data[0]
+    })
+  }
   sameAsAddress(){
+    this.countryChange(this.employeeAddForm.controls.country.value)
+    this.stateChange(this.employeeAddForm.controls.state.value)
     this.employeeAddForm.controls.paddress.setValue(this.employeeAddForm.controls.address.value),
     this.employeeAddForm.controls.pcountry.setValue(this.employeeAddForm.controls.country.value),
+
     this.employeeAddForm.controls.pstate.setValue(this.employeeAddForm.controls.state.value),
     this.employeeAddForm.controls.pcity.setValue(this.employeeAddForm.controls.city.value),
     this.employeeAddForm.controls.ppincode.setValue(this.employeeAddForm.controls.pincode.value)
