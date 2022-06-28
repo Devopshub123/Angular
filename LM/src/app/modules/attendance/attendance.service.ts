@@ -48,10 +48,15 @@ export class AttendanceService {
     return this.http.get(this.mainBeUrl + 'attendance/api/getpendingattendanceregularizations/'+employee_id, this.httpOptions);
   }
   getAttendanceRegularizationByManagerId(manager_employee_id:any):Observable<any>{
-    return this.http.get(this.mainBeUrl+'attendance/api/getAttendanceRegularizationByManagerId/'+manager_employee_id, this.httpOptions);
+    return this.http.get(this.mainBeUrl+'attendance/api/getAttendanceRegularizationByManagerId/'
+    +manager_employee_id, this.httpOptions);
   }  
 
-
+  getemployeeattendancedashboard(data:any):Observable<any>{
+    return this.http.post(this.mainBeUrl +'attendance/api/getemployeeattendancedashboard',
+    data,this.httpOptions
+    )
+  }
 
 
 }

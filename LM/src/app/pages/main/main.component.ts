@@ -2,7 +2,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavItem } from 'src/app/models/navItem';
-import { UserDashboardService } from 'src/app/services/user-dashboard.service';
 
 @Component({
   selector: 'app-main',
@@ -28,7 +27,7 @@ export class MainComponent implements OnInit {
         {
           displayName: 'Dashboard',
           iconName: 'admin',
-          route: '/admin-dashboard'
+          route: '/admin/Dashboard'
         },
         {
           displayName: 'Designation',
@@ -96,7 +95,8 @@ export class MainComponent implements OnInit {
   fillerNav = Array.from({ length: 50 }, (_, i) => `Nav Item ${i + 1}`);
   private _mobileQueryListener: () => void;
   employeeRoles: any;
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public router: Router,private UD:UserDashboardService,) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public router: Router,
+    ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -106,14 +106,7 @@ export class MainComponent implements OnInit {
     this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.employeeRoles=this.usersession.roles;
   }
-  getEmployeeRoles() {
-    console.log("sfdsdfs")
-    this.UD.getEmployeeRoles(this.usersession.roles[0].employee_id).subscribe((result)=>{
-      console.log(result);
-      this.employeeRoles = result;
-      console.log("getEmployeeRoles",this.employeeRoles);
-    })
-  }
+  
   logout() {
     sessionStorage.removeItem('user');
     this.router.navigate(['/Login']);

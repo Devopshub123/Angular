@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material/material.module';
 import { DesignationsComponent } from './pages/designations/designations.component';
 import { DeparmentComponent } from './pages/deparment/deparment.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { DeparmentComponent } from './pages/deparment/deparment.component';
     
     DesignationsComponent,
     DeparmentComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     CommonModule,
