@@ -1,48 +1,50 @@
-<mat-card>
-    <mat-card-header>
-           <mat-card-title class="title"> Attendance Calendar</mat-card-title>
-    </mat-card-header>
-    <mat-divider></mat-divider>
+<div fxLayout="column">
+       <mat-card>
+              <mat-card-header>
+                     <mat-card-title class="title"> Attendance Calendar</mat-card-title>
+              </mat-card-header>
+              <mat-divider></mat-divider>
 
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-           <div fxFlex="70">
-                  <div class='demo-app-main'>
-                         
-                         <full-calendar [options]='calendarOptions'></full-calendar>
-                  </div>
-                  <div class='demo-app-main'>
-                         <mat-icon class="green-icon">check_circle</mat-icon>Present
-                         <mat-icon class="red-icon">check_circle</mat-icon> Absent
-                         <mat-icon class="blue-icon">check_circle</mat-icon>Week-Off
-                         <mat-icon class="yellow-icon">check_circle</mat-icon> Holiday
-                  </div>
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+                     <div fxFlex="70">
+                            <div class='demo-app-main'>
 
-           </div>
-           <div class="sub-section-2" fxLayout="column" fxFlex="30" fxLayoutGap="20px">
-                  <div fxLayout="column" class='pending-attendance'>
-                         <div fxLayout="column" fxLayoutAlign="start end">
-                                Pending attendance 07-jun-2022
-                                <a routerLink="/Attendance/AttendanceRequest">send a request</a>
-                         </div>
-                         <div fxLayout="column" fxLayoutAlign="start end">
-                                Pending attendance 07-jun-2022
-                                <a routerLink="/Attendance/AttendanceRequest">send a request</a>
-                         </div>
+                                   <full-calendar [options]='calendarOptions'></full-calendar>
+                            </div>
+                            <div class='demo-app-main'>
+                                   <mat-icon class="green-icon">check_circle</mat-icon>Present
+                                   <mat-icon class="red-icon">check_circle</mat-icon> Absent
+                                   <mat-icon class="blue-icon">check_circle</mat-icon>Week-Off
+                                   <mat-icon class="yellow-icon">check_circle</mat-icon> Holiday
+                            </div>
 
-                  </div>
-                  <div fxLayout="column">
-                         <div fxLayout="row" fxLayoutAlign="space-between" class="clock-attendance">
-                                <p>
-                                       <mat-icon>alarm</mat-icon> Check In/Out
-                                </p>
-                                <p>15/06/2022</p>
-                         </div>
-                         <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
-                                <p> First In 09:30</p>
-                                <p>Last Out </p>
-                         </div>
-                  </div>
-           </div>
-    </div>
+                     </div>
+                     <div class="sub-section-2" fxLayout="column" fxFlex="30" fxLayoutGap="20px">
+                            <div fxLayout="column" class='pending-attendance'>
+                                   <div fxLayout="column" fxLayoutAlign="start end">
+                                          Pending attendance 07-jun-2022
+                                          <a routerLink="/Attendance/AttendanceRequest">send a request</a>
+                                   </div>
+                                   <div fxLayout="column" fxLayoutAlign="start end">
+                                          Pending attendance 07-jun-2022
+                                          <a routerLink="/Attendance/AttendanceRequest">send a request</a>
+                                   </div>
 
-</mat-card>
+                            </div>
+                            <div fxLayout="column">
+                                   <div fxLayout="row" fxLayoutAlign="space-between" class="clock-attendance">
+                                          <p>
+                                                 <mat-icon>alarm</mat-icon> Check In/Out
+                                          </p>
+                                          <p>15/06/2022</p>
+                                   </div>
+                                   <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
+                                          <p> First In 09:30</p>
+                                          <p>Last Out </p>
+                                   </div>
+                            </div>
+                     </div>
+              </div>
+
+       </mat-card>
+</div>

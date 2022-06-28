@@ -99,7 +99,7 @@ export class DesignationsComponent implements OnInit {
            
           } else {
             const dialog: PopupConfig = {
-              title: 'Unable to insert designation',
+              title: 'Designation already Existed',
               close: 'OK',
               
             };
