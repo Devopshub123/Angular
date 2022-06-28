@@ -1,4 +1,4 @@
-<div class="example-container" [class.example-is-mobile]="mobileQuery.matches" >
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches"  class="h-100">
     <mat-toolbar>
       <div class="main-header">
         <div class="logo-header">
@@ -101,7 +101,7 @@
       </div>
       </mat-toolbar>
   
-    <mat-sidenav-container class="example-sidenav-container"
+    <mat-sidenav-container class="example-sidenav-container h-100"
                            [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
       <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
@@ -147,7 +147,7 @@
       </mat-sidenav>
   
       <mat-sidenav-content>
-      <router-outlet #outlet="outlet"></router-outlet> 
+      <router-outlet #outlet="outlet" ></router-outlet> 
   
       </mat-sidenav-content>
     </mat-sidenav-container>

@@ -97,7 +97,7 @@ export class DeparmentComponent implements OnInit {
            
           } else {
             const dialog: PopupConfig = {
-              title: 'Unable to insert designation',
+              title: 'Department already Existed',
               close: 'OK',
               
             };

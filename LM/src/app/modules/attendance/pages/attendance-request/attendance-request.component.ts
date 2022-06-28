@@ -105,6 +105,7 @@ export class AttendanceRequestComponent implements OnInit {
     this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res: any) => {
       if (res) {
         this.shiftData = res.data[0];
+        console.log(this.shiftData)
         this.requestform.controls.shift.setValue(this.shiftData.shiftname);
       }
     })
@@ -177,6 +178,6 @@ export class AttendanceRequestComponent implements OnInit {
   }
   resetform() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/Attendance/AttendanceRequest"]));
+      this.router.navigate(["/Attendance/Request"]));
   }
 }
