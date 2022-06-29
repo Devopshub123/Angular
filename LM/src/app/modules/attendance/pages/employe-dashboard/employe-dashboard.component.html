@@ -1,7 +1,7 @@
 <div fxLayout="column">
        <mat-card>
               <mat-card-header>
-                     <mat-card-title class="title"> Attendance Calendar</mat-card-title>
+                     <mat-card-title> Attendance Calendar</mat-card-title>
               </mat-card-header>
               <mat-divider></mat-divider>
 
@@ -9,7 +9,7 @@
                      <div fxFlex="70">
                             <div class='demo-app-main'>
 
-                                   <full-calendar [options]='calendarOptions'></full-calendar>
+                                   <full-calendar fxLayout="column"   [options]='calendarOptions'></full-calendar>
                             </div>
                             <div class='demo-app-main'>
                                    <mat-icon class="green-icon">check_circle</mat-icon>Present
@@ -20,7 +20,7 @@
 
                      </div>
                      <div class="sub-section-2" fxLayout="column" fxFlex="30" fxLayoutGap="20px">
-                            <div fxLayout="column" class='pending-attendance'>
+                            <!-- <div fxLayout="column" class='pending-attendance'>
                                    <div fxLayout="column" fxLayoutAlign="start end">
                                           Pending attendance 07-jun-2022
                                           <a routerLink="/Attendance/AttendanceRequest">send a request</a>
@@ -30,13 +30,41 @@
                                           <a routerLink="/Attendance/AttendanceRequest">send a request</a>
                                    </div>
 
+                            </div> -->
+                            <div fxLayout="column" fxFlex="50">
+
+                                   <div fxLayout="row" fxLayoutAlign="space-between" class="pending-attendance">
+                                          <p>
+                                                 <mat-icon>bell</mat-icon><b>Pending Attendance</b>
+                                          </p>
+
+                                   </div>
+                                   <cdk-virtual-scroll-viewport
+                                   class="example-viewport"
+                                   itemSize="5"
+                                   >
+                                   
+                                   <mat-list class="time-attendance">
+                                     <ng-container *cdkVirtualFor="let item of attendanceData">
+                                      <span *ngIf="item.present_or_absent=='A'">
+                                          <mat-list-item>
+                                                 <h3 matLine> {{ item.attendancedate}} </h3>
+                                                
+                                                 <p> <a routerLink="/Attendance/AttendanceRequest">send a
+                                                       request</a>
+                                             </mat-list-item>
+                                      </span> 
+                                     </ng-container>
+                                   </mat-list>
+                                 </cdk-virtual-scroll-viewport>
+                                   
                             </div>
                             <div fxLayout="column">
                                    <div fxLayout="row" fxLayoutAlign="space-between" class="clock-attendance">
                                           <p>
-                                                 <mat-icon>alarm</mat-icon> Check In/Out
+                                                 <mat-icon>alarm</mat-icon><b> Check In/Out</b>
                                           </p>
-                                          <p>15/06/2022</p>
+                                          <p><b>{{todayDate}}</b></p>
                                    </div>
                                    <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
                                           <p> First In 09:30</p>

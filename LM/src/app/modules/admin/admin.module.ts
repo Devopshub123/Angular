@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material/material.module';
 import { DesignationsComponent } from './pages/designations/designations.component';
 import { DeparmentComponent } from './pages/deparment/deparment.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { CompanyinformationComponent } from './pages/companyinformation/companyinformation.component';
 import { CompanylogoComponent } from './pages/companylogo/companylogo.component';
 
@@ -16,6 +17,7 @@ import { CompanylogoComponent } from './pages/companylogo/companylogo.component'
     
     DesignationsComponent,
     DeparmentComponent,
+    AdminDashboardComponent,
     CompanyinformationComponent,
     CompanylogoComponent,
   ],

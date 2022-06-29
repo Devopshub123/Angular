@@ -5,7 +5,7 @@
   padding: 1em;
 }
 .pending-attendance{
-  padding: 1em;
+  padding: 5px;
   margin-top: 5em;
   background-color: lightgrey;
 }
@@ -37,4 +37,14 @@ color: yellow;
 }
 mat-icon {
 font-size: 20px;
+}
+
+.example-viewport {
+  height: 100%;
+  width: 100%;
+//  border: 1px solid black;
+//  box-sizing: border-box;
+}
+::ng-deep .fc .fc-button-primary{
+	background-color:#28acaf !important;
 }
