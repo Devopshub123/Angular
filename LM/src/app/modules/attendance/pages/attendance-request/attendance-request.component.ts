@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AttendanceService } from '../../attendance.service';
+import { Location } from '@angular/common';
 
 interface IdName {
   id: string;
@@ -43,8 +44,10 @@ export class AttendanceRequestComponent implements OnInit {
   minToDate: Date | null;
   maxToDate: Date;
   currentDate:Date =new Date();
+  userData: any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
-    public dialog: MatDialog, public datePipe: DatePipe, private router: Router) {
+    public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
+    private location:Location) {
       this.minFromDate = new Date();
       this.minFromDate.setDate(this.currentDate.getDate()-30);
       this.maxFromDate = new Date();
@@ -56,6 +59,7 @@ export class AttendanceRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userData = this.location.getState();
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
     this.requestform = this.formBuilder.group(
       {
@@ -67,20 +71,22 @@ export class AttendanceRequestComponent implements OnInit {
         reason: ['', Validators.required],
       });
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
-    console.log(this.userSession)
-    console.log(this.userSession.id)
     this.getWorkypeList();
     this.getEmployeeShiftDetails()
     this.getAttendanceRequestListByEmpId();
+    if(this.userData.userData!=undefined){
+      this.requestform.controls.fromDate.setValue(new Date(this.userData.userData.attendancedate));
+      this.requestform.controls.toDate.setValue(new Date(this.userData.userData.attendancedate)); 
+      this.requestform.get('fromDate')?.disabled;
+    }
   }
   ngAfterViewInit() {
 
   }
-  get f(): { [key: string]: AbstractControl } {
-    return this.requestform.controls;
-  }
+  // get f(): { [key: string]: AbstractControl } {
+  //   return this.requestform.controls;
+  // }
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
     this.minToDate = event.value;
     if (event.value !== null) {
       this.maxToDate = new Date(

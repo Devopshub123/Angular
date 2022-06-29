@@ -4,6 +4,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { AttendanceService } from '../../attendance.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { UserData } from '../../models/EmployeeData';
+import { RequestData } from '../../models/Request';
 @Component({
   selector: 'app-employe-dashboard',
   templateUrl: './employe-dashboard.component.html',
@@ -18,7 +21,7 @@ export class EmployeDashboardComponent implements OnInit {
   Events: any[] = [];
   calendarOptions: CalendarOptions = {
     headerToolbar: {
-      left: 'prev,next today',
+      left: 'prev,next',
       center: 'title',
       right: 'dayGridMonth'
     },
@@ -27,14 +30,15 @@ export class EmployeDashboardComponent implements OnInit {
     editable: true,
     selectable: true,
     selectMirror: true,
-    dayMaxEvents: true
+    dayMaxEvents: true,
+    
   };
   pipe = new DatePipe('en-US');
   userSession: any;
   attendanceData:any;
   selectedDate: any;
 
-  constructor(private attendanceService:AttendanceService) { }
+  constructor(private attendanceService:AttendanceService,private router:Router) { }
 
   ngOnInit(): void {
    this.todayDate= this.pipe.transform(Date.now(), 'dd/MM/yyyy');
@@ -65,5 +69,9 @@ export class EmployeDashboardComponent implements OnInit {
       }
 
     })
+  }
+  onRequestClick(elment:RequestData){
+  
+    this.router.navigate(["/Attendance/Request"],{state: {userData:elment}}); 
   }
 }
