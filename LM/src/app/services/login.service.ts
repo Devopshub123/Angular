@@ -54,4 +54,11 @@ resetpassword(resetPassword:any) : Observable<any> {
 verifyEmail(email: any): Observable<any> {
   return this.hClient.get(this.mainBeUrl + 'attendance/api/forgetpassword/'+email,this.httpOptions);
 }
+// forgot password
+// getModules(): Observable<any> {
+//   return this.hClient.get(this.mainBeUrl + 'attendance/api/getModules',this.httpOptions);
+// }
+getModules(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
+  return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+}
 }    
