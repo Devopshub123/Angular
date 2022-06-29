@@ -48,6 +48,11 @@ export class MainComponent implements OnInit {
           displayName:'Company Information',
           iconName:'',
           route:'/admin/CompanyInformation'
+        },
+        {
+          displayName:'Company Logo',
+          iconName:'',
+          route:'/admin/Logo'
         }
       ]
     },
