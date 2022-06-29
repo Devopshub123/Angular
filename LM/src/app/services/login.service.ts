@@ -39,12 +39,12 @@ getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
 }
 Savelogin(data:any): Observable<any> {
   // console.log("dddd", email,password)
-  return this.hClient.post(this.mainBeUrl + 'attendance/api/emp_login', JSON.stringify(data) ,this.httpOptions);
+  return this.hClient.post(this.mainBeUrl + 'api/emp_login', JSON.stringify(data) ,this.httpOptions);
 }  
  /* save change password */
 changepassword(changePassword: any): Observable<any> {
   console.log("jjjj")
-  return this.hClient.post(this.mainBeUrl + 'attendance/changePassword', JSON.stringify(changePassword), this.httpOptions);
+  return this.hClient.post(this.mainBeUrl + 'changePassword', JSON.stringify(changePassword), this.httpOptions);
 }
 resetpassword(resetPassword:any) : Observable<any> {
   return this.hClient.post(this.mainBeUrl + 'attendance/api/resetpassword', JSON.stringify(resetPassword), this.httpOptions);

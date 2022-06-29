@@ -4,6 +4,7 @@ import { MainComponent } from 'src/app/pages/main/main.component';
 import { DeparmentComponent } from './pages/deparment/deparment.component';
 import { DesignationsComponent } from './pages/designations/designations.component';
 import { EmployeeMasterToAddComponent } from './pages/employee-master-to-add/employee-master-to-add.component';
+import { CompanylogoComponent } from './pages/companylogo/companylogo.component';
 import { CompanyinformationComponent } from './pages/companyinformation/companyinformation.component';
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
       { path: 'Designation', component: DesignationsComponent },
       { path: 'Department', component: DeparmentComponent },
       { path: 'Employee', component: EmployeeMasterToAddComponent },
-      { path: 'CompanyInformation',component:CompanyinformationComponent}
+      { path: 'CompanyInformation',component:CompanyinformationComponent},
+      { path: 'Logo',component:CompanylogoComponent},
     ]
   }
 

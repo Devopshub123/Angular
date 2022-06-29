@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { DesignationsComponent } from './pages/designations/designations.component';
 import { DeparmentComponent } from './pages/deparment/deparment.component';
 import { CompanyinformationComponent } from './pages/companyinformation/companyinformation.component';
+import { CompanylogoComponent } from './pages/companylogo/companylogo.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { CompanyinformationComponent } from './pages/companyinformation/companyi
     DesignationsComponent,
     DeparmentComponent,
     CompanyinformationComponent,
+    CompanylogoComponent,
   ],
   imports: [
     CommonModule,
