@@ -9,6 +9,7 @@ import { DesignationsComponent } from './pages/designations/designations.compone
 import { DeparmentComponent } from './pages/deparment/deparment.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { CompanyinformationComponent } from './pages/companyinformation/companyinformation.component';
+import { CompanylogoComponent } from './pages/companylogo/companylogo.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { CompanyinformationComponent } from './pages/companyinformation/companyi
     DeparmentComponent,
     AdminDashboardComponent,
     CompanyinformationComponent,
+    CompanylogoComponent,
   ],
   imports: [
     CommonModule,

@@ -9,47 +9,53 @@
   
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Fullcompanyname</mat-label>
-                    <input formControlName="companyname" matInput placeholder="" >
-                    <!-- <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
-                      {{errorDesName}}
-                  </mat-error> -->
+                    <input formControlName="companyname" matInput [readonly]="isview" placeholder="" maxlength="100" >
+                    <mat-error class="con-error" *ngIf="  companyForm.controls.companyname.errors?.required">
+                      This field is required
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Company website</mat-label>
-                    <input formControlName="companyname" matInput placeholder="" >
-                    <!-- <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
-                      {{errorDesName}}
-                  </mat-error> -->
+                    <input formControlName="website" required matInput [readonly]="isview" placeholder="" maxlength="100" >
+                    <mat-error class="con-error" *ngIf="companyForm.controls.website.errors?.required">
+                        This field is required
+                  </mat-error>
+                  <!-- <mat-error class="con-error" *ngIf="companyForm.controls.website.errors?.pattern">
+                    Please enter valid data
+              </mat-error> -->
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Country</mat-label>
-                    <mat-select required formControlName="country"  required>
+                    <mat-select  formControlName="country"  >
                         <ng-container >
                             <div *ngFor="let b of CountryDetails">    
-                                <mat-option   value={{b.id}}>{{b.country}}</mat-option>
+                                <mat-option    [value]="b.id">{{b.country}}</mat-option>
                             </div>
                         </ng-container>
                     </mat-select>
-                    <!-- <mat-error class="con-error" *ngIf="employeeAddForm.controls.country.errors?.required">
-                        {{msgLM3}}
-                    </mat-error> -->
+                    <mat-error class="con-error" *ngIf="  companyForm.controls.country.errors?.required">
+                        Please select an option
+                    </mat-error>
                 </mat-form-field>   
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
   
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Primary Contact</mat-label>
-                    <input formControlName="contact" matInput placeholder="" >
-                    <!-- <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
-                      {{errorDesName}}
-                  </mat-error> -->
+                    <input type="text" formControlName="contact" onlyNumber matInput [readonly]="isview" placeholder="" maxlength="10" >
+                    <mat-error class="con-error" *ngIf="  companyForm.controls.contact.errors?.required">
+                        Please select an option
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Primary Contact Email</mat-label>
-                    <input formControlName="email" matInput placeholder="" >
-                    <!-- <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
-                      {{errorDesName}}
-                  </mat-error> -->
+                    <input formControlName="email"  matInput [readonly]="isview" placeholder="" maxlength="100" >
+                    <mat-error class="con-error" *ngIf="  companyForm.controls.email.errors?.required">
+                      This field is required
+                  </mat-error>
+                  <mat-error class="con-error" *ngIf="  companyForm.controls.email.errors?.email">
+                    Please enter valid data
+                </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>State</mat-label>
@@ -57,28 +63,29 @@
                         <ng-container >
                             <div *ngFor="let b of stateDetails">
                                 
-                                <mat-option   value={{b.id}}>{{b.state}}</mat-option>
+                                <mat-option   [value]="b.id">{{b.state}}</mat-option>
                             </div>
 
                         </ng-container>
                     </mat-select>
-                    <!-- <mat-error class="con-error" *ngIf="employeeAddForm.controls.country.errors?.required">
-                        {{msgLM3}}
-                    </mat-error> -->
+                    <mat-error class="con-error" *ngIf="  companyForm.controls.state.errors?.required">
+                        Please select an option 
+                    </mat-error>
                 </mat-form-field>   
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
   
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Address1</mat-label>
-                    <input formControlName="address1" matInput placeholder="" >
-                    <!-- <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
-                      {{errorDesName}}
-                  </mat-error> -->
+                    <input formControlName="address1" matInput [readonly]="isview"  placeholder=""  maxlength="100" >
+                    <!-- <input matInput [readonly]="isview"  value="Sushi" [formControl]="foodCtrl" *ngIf="isview"> -->
+                    <mat-error class="con-error" *ngIf="  companyForm.controls.address1.errors?.required">
+                      This field is required
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Address2</mat-label>
-                    <input formControlName="address2" matInput placeholder="" >
+                    <input formControlName="address2" matInput [readonly]="isview" placeholder="" maxlength="100">
                     <!-- <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
                       {{errorDesName}}
                   </mat-error> -->
@@ -89,36 +96,49 @@
                         <ng-container >
                             <div *ngFor="let b of cityDetails">
                                 
-                                <mat-option   value="{{b.id}}">{{b.location}}</mat-option>
+                                <mat-option   [value]="b.id">{{b.location}}</mat-option>
                             </div>
 
                         </ng-container>
                     </mat-select>
-                    <!-- <mat-error class="con-error" *ngIf="employeeAddForm.controls.country.errors?.required">
-                        {{msgLM3}}
-                    </mat-error> -->
+                    <mat-error class="con-error" *ngIf="  companyForm.controls.city.errors?.required">
+                        Please select an option
+                    </mat-error>
                 </mat-form-field>   
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
   
                 <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Pincode</mat-label>
-                    <input type="text" onlyNumber  formControlName="pincode" matInput placeholder="" maxlength="6" required>
-                    <!-- <mat-error class="con-error" *ngIf="employeeAddForm.controls.pincode.errors?.required">
-                        {{msgLM1}}
-                    </mat-error> -->
-                    <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
+                    
+                    <input type="text" onlyNumber formControlName="pincode" matInput [readonly]="isview" placeholder="" maxlength="6">
+                                
+                    <mat-error class="con-error" *ngIf="  companyForm.controls.pincode.errors?.required">
+                        This field is required
+                    </mat-error>
+                    <!-- <input *ngIf="isview"  formControlName="firstname" matInput [readonly]="isview" placeholder="" readonly> -->
                 </mat-form-field>
                 
             </div>
-            <div fxLayoutAlign="center" class="">
-                <button class="mx-1 mat-stroked-button button-save text-end"  style="background-color:#3f51b5;color:aliceblue" (click)="save()"   type="submit">
+            <div fxLayoutAlign="end" class="" *ngIf = "isadd">
+                <button class="mx-1 mat-stroked-button button-save text-end" [disabled]="!companyForm.valid" style="background-color:#3f51b5;color:aliceblue" (click)="save()" *ngIf ="!isedit"   type="submit">
                     <span>Submit</span>
+                </button>
+                <button class="mx-1 mat-stroked-button button-save text-end"  style="background-color:#3f51b5;color:aliceblue" (click)="update()" *ngIf = "isedit"  type="submit">
+                    <span>Save</span>
                 </button>
   
                 <button class="mx-1  mat-stroked-button button-clear text-end" style="background-color:#550534;color:aliceblue" (click)="cancel()">
                     <span >Cancel</span>
                 </button>
+                <br />
+            </div>
+            <div fxLayoutAlign="end" class="" *ngIf ="isview">
+                <button class="mx-1 mat-stroked-button button-save text-end" [disabled]="!companyForm.valid" style="background-color:#3f51b5;color:aliceblue" (click)="edit()"   type="submit">
+                    <span>Edit</span>
+                </button>
+  
+ 
                 <br />
             </div>
           

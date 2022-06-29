@@ -200,7 +200,7 @@
 
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end">
 
-                        <mat-checkbox (change)="sameAsAddress()" color="primary">Same as residence address
+                        <mat-checkbox [checked]="ischecked === true" (change)="sameAsAddress($event,true)" color="primary">Same as residence address
                         </mat-checkbox>
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">

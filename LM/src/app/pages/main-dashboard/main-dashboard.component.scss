@@ -1,0 +1,25 @@
+.container-fluid{
+padding: 30px;
+}
+.column {
+    height: 100px;
+    width: 100%;
+    padding: 100px;
+    outline-style: solid;
+    white-space: nowrap;
+}
+.bottom{
+    margin-bottom: 30px;
+    border: 2 solid black;    
+
+}
+.top{
+   padding: 0px !important;
+}
+.header{
+    background-color: #28acaf;
+    text-align: center;
+    padding: 15px;
+    height: 50px;
+    font-weight: bold;
+}

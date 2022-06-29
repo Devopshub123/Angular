@@ -78,4 +78,28 @@ import { environment } from 'src/environments/environment';
   getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
     return this.hClient.get('http://localhost:6060/api/getErrorMessages/' + errorCode + '/' + page + '/' + size, this.httpOptions);
   }
-}    
+  
+  setCompanyInformation(info: any):Observable<any>{
+    console.log("hellohsdkhcbhdb",info)
+    return this.hClient.post(this.mainBeUrl + 'api/setCompanyInformation', JSON.stringify(info), this.httpOptions);
+  }
+  getCompanyInformation(tableName: string,status: null,page: string | number,size: string | number,companyName: string):Observable<any>{
+    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+null+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+  }
+  putCompanyInformation(info: any):Observable<any>{
+    return this.hClient.put(this.mainBeUrl + 'api/putCompanyInformation', JSON.stringify(info), this.httpOptions);
+  }
+  setUploadImage(data: FormData,Id: number): Observable<any> {
+    var conpanyName ='Apple'
+    return this.hClient.post(this.mainBeUrl + 'api/setUploadImage/'+conpanyName, data);
+  }
+  getUploadImage(id: any,companyName:any): Observable<any> {
+    // var conpanyName ='Apple'
+    return this.hClient.get(this.mainBeUrl + 'api/getImage/' + id+'/'+companyName);
+  }
+  removeImage(id: any,companyName:any): Observable<any> {
+    return this.hClient.delete(this.mainBeUrl + 'api/removeImage/' + id+'/'+companyName,this.httpOptions);
+  }
+
+}
+  

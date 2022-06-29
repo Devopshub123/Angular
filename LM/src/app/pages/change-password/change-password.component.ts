@@ -79,36 +79,50 @@ export class ChangePasswordComponent implements OnInit {
   }
   changePassword(){
       this.submitted = true;
-      if(this.changePasswordform.valid){
+    if(this.changePasswordform.valid){
       this.changePasswordAddObj.oldPassword=this.changePasswordform.controls.oldPassword.value;
       this.changePasswordAddObj.newPassword=this.changePasswordform.controls.password.value;
       this.changePasswordAddObj.confirmPassword=this.changePasswordform.controls.confirmPassword.value;
      
       if(this.changePasswordAddObj.oldPassword !='' && this.changePasswordAddObj.newPassword != '' && this.changePasswordAddObj.confirmPassword !=''){
-        this.ts.changepassword(this.changePasswordAddObj).subscribe((data) => {
-          if (data.status) {
-            const dialog: PopupConfig = {
-              title: this.msgLM56,
-              close: 'OK',
-              
-            };
-            this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-        
-            sessionStorage.removeItem('user')
-            this.router.navigate(['/Login']);
-    
-          } else {
-            const dialog: PopupConfig = {
-              title: this.msgLM2,
-              close: 'OK',
-              
-            };
-            this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-            // Swal.fire({title:this.msgLM2,color:'red',showCloseButton: true});
-          }
+        if(this.changePasswordAddObj.oldPassword === this.changePasswordAddObj.newPassword){
+          const dialog: PopupConfig = {
+            title: "Your newpassword cannot be same as the old password",
+            close: 'OK',
+            
+          };
+          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+        }
+        else{
+          this.ts.changepassword(this.changePasswordAddObj).subscribe((data) => {
+
+            if (data.status) {
+              const dialog: PopupConfig = {
+                title: this.msgLM56,
+                close: 'OK',
+                
+              };
+              this.dialog.open(PopupComponent, { width: '600px', data: dialog });
           
-    
-        });
+              sessionStorage.removeItem('user')
+              this.router.navigate(['/Login']);
+      
+            } else {
+              const dialog: PopupConfig = {
+                title: this.msgLM2,
+                close: 'OK',
+                
+              };
+              this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+              // Swal.fire({title:this.msgLM2,color:'red',showCloseButton: true});
+            }
+            
+      
+          });
+
+
+        }
+        
       }
     }
   }
