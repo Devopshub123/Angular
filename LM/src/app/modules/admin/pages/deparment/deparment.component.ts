@@ -46,7 +46,7 @@ export class DeparmentComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private LM:CompanySettingService) {
+  constructor(private formBuilder: FormBuilder,private router: Router,private dialog: MatDialog,private LM:CompanySettingService) {
    
   }
 
@@ -84,10 +84,8 @@ export class DeparmentComponent implements OnInit {
         this.LM.setDepartments(data).subscribe((data) => {
           this.valid = false;
           if (data.status) {
-            this.departmentForm.reset();
-            this.isdata = true;
-            this.isAdd = false;
-            this.getDepartments();
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/admin/Department"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               disableClose: true,
               data: 'Department added successfully'
@@ -99,10 +97,7 @@ export class DeparmentComponent implements OnInit {
               disableClose: true,
               data: 'Department already existed'
             });
-  
-            
           }
-  
         })
       }
       else{
@@ -130,6 +125,7 @@ export class DeparmentComponent implements OnInit {
     this.departmentForm.reset();
     this.isAdd = false;
     this.isdata = true;
+    this.getDepartments();
 
   }
   status(status:any,id:any,deptname:any){
@@ -186,7 +182,7 @@ export class DeparmentComponent implements OnInit {
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             disableClose: true,
-            data: 'Unable to update department'
+            data: 'Department already existed'
           });  
         }
       })

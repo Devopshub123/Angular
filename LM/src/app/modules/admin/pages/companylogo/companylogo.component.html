@@ -26,10 +26,11 @@
                                 </div>
                               </div>
                               <div class="col-md-12">
-                                <div class="row custom-view-mbt-1">
-                                  <div class="col-md-3 productAddfromImages" *ngFor='let url of imageurls; let i = index'>
+                                <div class="column custom-view-mbt-1">
+                                  <div class="col-md-4 productAddfromImages" *ngFor='let url of imageurls; let i = index'>
                                     <img class="img-fluid custom-image"  [src]="url.base64String">
-                                    <span class="btn btn-success btn-file mr-3 mx-2 my-2" *ngIf="!isFileImage">
+                                    <div class="row " >
+                                      <span class="btn btn-success btn-file mr-3 mx-2 my-2" *ngIf="!isFileImage">
                                         Change <input type="file"
                                                         class="form-control"
                                                         (change)="onSelectFile($event)"
@@ -42,8 +43,11 @@
                                       Remove
                                   </span>
                                   <span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save"  *ngIf="isFileImage" (click)="cancelImage()">
-                                    cancel
+                                    Cancel
                                 </span>
+
+                                    </div>
+                    
                                     <!-- <button (click)="removeImage()" class="btn btn-xs btn-danger  mx-2 my-2 custom-font-white"*ngIf="isRemoveImage" >Remove</button> -->
                                     <!-- <button (click)="cancelImage()"class="btn btn-xs btn-danger  mx-2 my-2 custom-font-white" *ngIf="isFileImage">cancel</button> -->
                                   </div>

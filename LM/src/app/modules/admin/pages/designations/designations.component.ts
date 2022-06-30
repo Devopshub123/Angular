@@ -47,7 +47,7 @@ export class DesignationsComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private LM:CompanySettingService) {
+  constructor(private formBuilder: FormBuilder,private router: Router,private dialog: MatDialog,private LM:CompanySettingService) {
     this.getDesignation();
     this.dataSource = new MatTableDataSource(this.designationData);
   }
@@ -87,10 +87,8 @@ export class DesignationsComponent implements OnInit {
         this.LM.setDesignation(designationdata).subscribe((data) => {
           this.valid = false;
           if (data.status) {
-            this.ngOnInit();
-            this.designationForm.reset();
-            this.isdata = true;
-            this.isAdd = false;
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/admin/Designation"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               disableClose: true,
               data: 'Designation added successfully'
@@ -153,6 +151,7 @@ export class DesignationsComponent implements OnInit {
     this.designationForm.reset();
     this.isAdd = false;
     this.isdata = true; 
+    this.getDesignation();
   }
   edit(event:any,i:any){
     console.log(i)
@@ -173,13 +172,13 @@ export class DesignationsComponent implements OnInit {
           this.getDesignation();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             disableClose: true,
-            data:'This designation have active employees. So we are unable to inactivate this designation now. Please move those employee to another designation and try again',
+            data:'Designation updated successfully',
           });
         
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             disableClose: true,
-            data:'Unable To Update Designation',
+            data:'Designation alreay existed',
           });
                   
         }

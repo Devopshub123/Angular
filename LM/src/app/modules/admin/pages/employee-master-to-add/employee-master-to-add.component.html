@@ -200,7 +200,7 @@
 
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end">
 
-                        <mat-checkbox [checked]="ischecked === true" (change)="sameAsAddress($event,true)" color="primary">Same as residence address
+                        <mat-checkbox formControlName="checked" (change)="sameAsAddress($event,true)" color="primary">Same as residence address
                         </mat-checkbox>
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -495,12 +495,13 @@
                                 "Update":"Add" }}</button>
                             <!-- <button  class="col-md-2 btn btn-primary" (click)="addfamily()" *ngIf="isfamilyedit">Update</button> -->
                         </div>
+                        <div class="col-sm-6 mx-2 my-2 text-end">
+                            <button class="col-md-2 btn btn-danger" (click)="clearfamily()">Clear</button>
+                        </div>
                        
                     </div>
                 </form>
-                    <div class="col-sm-6 mx-2 my-2 text-end">
-                        <button class="col-md-2 btn btn-danger" (click)="clearfamily()">Clear</button>
-                    </div>
+                    
                     <div class="mat-elevation-z8" *ngIf="familyDetails.length > 0">
                         <table mat-table [dataSource]="dsFamily">
                             <ng-container matColumnDef="position">
