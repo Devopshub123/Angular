@@ -1,1 +1,107 @@
-<p>detail-report works!</p>
+<div fxLayout="column">
+    <form [formGroup]="searchForm" autocomplete="off">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title> Detail Report </mat-card-title>
+            </mat-card-header>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+
+                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>From Date</mat-label>
+                    <input matInput readonly [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate"
+                        (dateInput)="fromDateChange('input', $event)" placeholder="From Date"
+                        formControlName="fromDate">
+                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                    <mat-datepicker #fromDate></mat-datepicker>
+                    <mat-error class="con-error" *ngIf="searchForm.controls.fromDate.errors?.required">
+                        Please select an option.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>To Date</mat-label>
+                    <input matInput readonly [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
+                        (dateInput)="toDateChange('input', $event)" formControlName="toDate">
+                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
+                    <mat-datepicker #toDate></mat-datepicker>
+                    <mat-error class="con-error" *ngIf="searchForm.controls.toDate.errors?.required">
+                        Please select an option.
+                    </mat-error>
+                </mat-form-field>
+                <div> <button class="mx-2 my-3 mat-stroked-button button-save" style="height: 44px;"
+                        (click)="Searchform()" type="submit">
+                        <span>Submit</span>
+                    </button>
+                </div>
+                <div> <button class="mx-2 my-3 mat-stroked-button button-clear" style="height: 44px;"
+                    (click)="resetform()">
+                        <span>Cancel</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- <div fxLayoutAlign="center">
+                <button class="m-1 mat-stroked-button button-save" (click)="saveConsultation()" type="submit">
+                    <span>Submit</span>
+                </button>
+
+                <button class="m-1 mat-stroked-button button-clear"  (click)="resetform()">
+                    <span >Cancel</span>
+                </button>
+                <br />
+            </div> -->
+        </mat-card>
+    </form>
+    <mat-divider></mat-divider>
+    <mat-card>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> S.no. </th>
+                    <td mat-cell *matCellDef="let row;let i = index;">{{i+1}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="worktype">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Work Type </th>
+                    <td mat-cell *matCellDef="let row"> {{row.worktype}}</td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="fromdate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> From Date </th>
+                    <td mat-cell *matCellDef="let row"> {{row.fromdate}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="todate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>
+                    <td mat-cell *matCellDef="let row"> {{row.todate}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="reason">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
+                    <td mat-cell *matCellDef="let row"> {{row.reason}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.status"> {{row.status}} </td>
+                </ng-container>
+                <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="6">No data available</td>
+                </tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+    </mat-card>
+
+
+
+
+</div>

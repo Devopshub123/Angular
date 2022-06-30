@@ -8,7 +8,7 @@ import { SummaryReportComponent } from './pages/summary-report/summary-report.co
 const routes: Routes = [
   {path:'',component:MainComponent,children:[
     {path:'SummaryReport',component:SummaryReportComponent},
-    {path:'DetailsReport',component:DetailReportComponent}
+    {path:'DetailReport',component:DetailReportComponent}
   ]}
 ];
 

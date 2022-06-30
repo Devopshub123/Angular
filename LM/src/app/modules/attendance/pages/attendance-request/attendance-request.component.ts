@@ -25,8 +25,6 @@ interface IdName {
 })
 export class AttendanceRequestComponent implements OnInit {
   requestform!: FormGroup;
-   // today: Date = new Date();
-  //minDate = new Date('1950/01/01'); maxDate = new Date('2050/01/01');
   pipe = new DatePipe('en-US');
   todayWithPipe: any;
   displayedColumns: string[] = ['id', 'worktype', 'fromdate', 'todate', 'reason', 'status'];

@@ -5,7 +5,6 @@ import { AttendanceRoutingModule } from './attendance-routing.module';
 import { ApprovalAttendanceComponent } from './pages/approval-attendance/approval-attendance.component';
 import { EmployeDashboardComponent } from './pages/employe-dashboard/employe-dashboard.component';
 import { ManagerDashboardComponent } from './pages/manager-dashboard/manager-dashboard.component';
-import { AttendanceComponent } from './attendance/attendance.component';
 import { MaterialModule } from '../../material/material.module';
 import { AttendanceUploadexcelComponent } from './pages/attendance-uploadexcel/attendance-uploadexcel.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,7 +29,6 @@ import { AttendanceRequestComponent } from './pages/attendance-request/attendanc
     AttendanceRequestBehalfComponent,
     EmployeDashboardComponent,
     ManagerDashboardComponent,
-    AttendanceComponent,
     AttendanceUploadexcelComponent,
     DialogComponent
   ],

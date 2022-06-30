@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarOptions, EventInput, FullCalendarComponent } from '@fullcalendar/angular'; // useful for typechecking
-import { MatDividerModule } from '@angular/material/divider';
 import { AttendanceService } from '../../attendance.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { UserData } from '../../models/EmployeeData';
 import { RequestData } from '../../models/Request';
 @Component({
   selector: 'app-employe-dashboard',
@@ -52,7 +50,8 @@ export class EmployeDashboardComponent implements OnInit {
   calendarApi: any;
 
   constructor(private attendanceService:AttendanceService,private router:Router) { }
-
+   firstIn:any='00:00';
+   lastOut:any='00:00';
   ngOnInit(): void {
     this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
    this.todayDate= this.pipe.transform(Date.now(), 'dd/MM/yyyy');
@@ -60,7 +59,6 @@ export class EmployeDashboardComponent implements OnInit {
     this.getemployeeattendancedashboard();
   }
   getemployeeattendancedashboard(){
-   // this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
     let data={
       'manager_id':null,
       'employee_id':this.userSession.id,
@@ -75,6 +73,7 @@ export class EmployeDashboardComponent implements OnInit {
               title: e.present_or_absent=='P'?'Present':'Absent',
               start:e.attendancedate, ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
               color: e.present_or_absent=='P'?'#32cd32':'#FF3131',
+              icon:e.present_or_absent=='P'? 'fa-check-circle':'fa-times-circle'
                   }
           this.initialEvents.push(item);
         });

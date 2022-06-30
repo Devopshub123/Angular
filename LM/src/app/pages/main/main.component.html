@@ -7,7 +7,13 @@
       </div>
       <nav class="navbar navbar-header navbar-expand-lg">
         <div class="container-fluid">
-                 <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+          <!-- <div class="navbar-minimize" *ngIf="checkHeadNav == 'admin'">
+            <button class="btn btn-minimize btn-rounded" (click)="setToggleSideBar(toggleValue)">
+              <i class="la la-navicon" *ngIf="checkToggleBar == 'Show'"></i>
+              <i class="la la-ellipsis-v" *ngIf="checkToggleBar == 'Hide'"></i>
+            </button>
+          </div> -->
+          <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
     
             <li class="nav-item dropdown hidden-caret">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -85,7 +91,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="ChangePassword"><i class="ti-settings"></i> Change Password</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="" (click)="logout()"><i class="fa fa-power-off"></i> Logout</a>
+                <a class="dropdown-item" href="Login" (click)="logout()"><i class="fa fa-power-off"></i> Logout</a>
               </ul>
               <!-- /.dropdown-user -->
             </li>
@@ -95,9 +101,9 @@
     </div>
     </mat-toolbar>
 
-  <mat-sidenav-container class="example-sidenav-container h-100"
+  <mat-sidenav-container  class="example-sidenav-container h-100"
                          [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+    <mat-sidenav #snav opened  [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
 

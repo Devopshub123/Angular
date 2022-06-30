@@ -26,7 +26,7 @@
                         </ng-container>
                     </mat-select>
                     <mat-error class="con-error" *ngIf="requestform.controls.workType.errors?.required">
-                        Work Type is required.
+                        Please select an option.
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -39,7 +39,7 @@
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
                     <mat-datepicker #fromDate></mat-datepicker>
                     <mat-error class="con-error" *ngIf="requestform.controls.fromDate.errors?.required">
-                        From Date is required.
+                        Please select an option.
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
@@ -49,7 +49,7 @@
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
                     <mat-datepicker #toDate></mat-datepicker>
                     <mat-error class="con-error" *ngIf="requestform.controls.toDate.errors?.required">
-                        To Date is required.
+                        Please select an option.
                     </mat-error>
                 </mat-form-field>
 <!-- 
