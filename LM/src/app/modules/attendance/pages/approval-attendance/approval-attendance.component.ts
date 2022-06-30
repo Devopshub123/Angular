@@ -81,7 +81,7 @@ export class ApprovalAttendanceComponent implements OnInit {
       "id":this.userData.userData.id,
       "approvercomments": this.reason,
       "actionby": this.userSession.id,
-      "approvelstatus": this.titleName=="Reject"?'Reject':'Approved'
+      "approvelstatus": this.titleName=="Reject"?'Rejected':'Approved'
 
     };
 
@@ -90,7 +90,7 @@ export class ApprovalAttendanceComponent implements OnInit {
       if (res.status) {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           disableClose: true,
-          data: res.message
+          data: this.titleName=="Reject"?'Attendance request rejected successfully':'Attendance request approved successfully'
         });
         this.router.navigate(["/Attendance/ApprovalList"],);  
         

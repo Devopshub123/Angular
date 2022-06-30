@@ -1,0 +1,114 @@
+<div fxLayout="column">
+
+  <mat-card>
+    <mat-card-header class="heading">
+      <mat-card-title class="headingtext">Summary Report</mat-card-title>
+    </mat-card-header>
+    <br />
+    <!-- <span *ngIf="isLoading">
+            <div class="overlay">   
+              <div class="center">
+                <mat-progress-spinner diameter=50  mode="indeterminate"  color="primary">   </mat-progress-spinner> 
+            </div>
+             </div>
+          </span>
+     -->
+    <div fxLayout fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center" [formGroup]="searchForm">
+      <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%">
+        <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
+          <mat-label>From Date</mat-label>
+          <input matInput readonly [matDatepicker]="fromDate" [min]="minDate" [max]="maxDate" placeholder="From Date"
+            formControlName="fromDate">
+          <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
+          <mat-datepicker #fromDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
+          <mat-label>To Date</mat-label>
+          <input matInput readonly [matDatepicker]="toDate" placeholder="To Date" formControlName="toDate">
+          <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
+          <mat-datepicker #toDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
+          <mat-label>User Name</mat-label>
+          <mat-select formControlName="Users" required>
+            <mat-option value="0">-- All Users --</mat-option>
+            <ng-container *ngFor="let e of employeelist">
+              <mat-option [value]="e.id" *ngIf="e.status">{{e.firstName}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxFlex.xs="100%" class="showLine">
+        <span>
+          <button class="m-1 button-save" (click)="Searchform()" mat-stroked-button>
+            Show
+          </button>
+        </span>
+        <span class="line" style="color:#1898D5;font-size:16px"></span>
+        <button class="m-1 mat-flat-button  button-clear" (click)="resetform()">
+          <span>Clear</span>
+        </button>
+      </div>
+    </div>
+    <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">
+      <div>
+        <span class="exlprint"> | </span>
+        <a> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+        </a>
+      </div>
+    </div>
+  </mat-card>
+
+  <div class="p-2">
+
+    <div class="example-container mat-elevation-z8">
+      <mat-table #table [dataSource]="dataSource" *ngIf="List.length > 0">
+        <ng-container matColumnDef="c1">
+          <mat-header-cell *matHeaderCellDef><b>S.No. </b></mat-header-cell>
+          <mat-cell *matCellDef="let row; let i = index;">{{i+1}}</mat-cell>
+          <mat-footer-cell *matFooterCellDef><b></b> </mat-footer-cell>
+        </ng-container>
+        <ng-container matColumnDef="c2">
+          <mat-header-cell *matHeaderCellDef><b> Bill Type </b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.label}} </mat-cell>
+          <mat-footer-cell *matFooterCellDef><b>Total </b> </mat-footer-cell>
+        </ng-container>
+        <ng-container matColumnDef="c3">
+          <mat-header-cell *matHeaderCellDef><b> Count</b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.count}} </mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="c4">
+          <mat-header-cell *matHeaderCellDef><b>Total Amount </b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.totalAmount}} </mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="c8">
+          <mat-header-cell *matHeaderCellDef><b>Total Discount </b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.discountAmount}} </mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="c5">
+          <mat-header-cell *matHeaderCellDef><b>Net Amount </b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.netAmount}} </mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="c6">
+          <mat-header-cell *matHeaderCellDef><b>Paid Amount </b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.paidAmount}} </mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="c7">
+          <mat-header-cell *matHeaderCellDef><b>Due Amount </b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.dueAmount}} </mat-cell>
+
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true" style=" background-color:#ededed;">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-footer-row *matFooterRowDef="displayedColumns"></mat-footer-row>
+      </mat-table>
+      <div style="text-align: center;padding-top: 20px;" *ngIf="List.length === 0">No data found in selected date</div>
+    </div>
+  </div>
+</div>

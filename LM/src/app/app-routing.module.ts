@@ -29,9 +29,8 @@ const routes: Routes = [
   {
     path: 'Attendance',
     loadChildren: () => import('./modules/attendance/attendance.module').then(m => m.AttendanceModule)
-    //,canActivate: [AuthguardGuard]
   ,canActivate:[LMSAccessGuard]},
-
+  {path:'Reports',loadChildren:()=>import('./modules/reports/reports.module').then(m=>m.ReportsModule)},
   {
     path: '',
     redirectTo: 'Login',
