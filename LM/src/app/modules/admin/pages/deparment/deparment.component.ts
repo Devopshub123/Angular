@@ -8,6 +8,7 @@ import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 
 export interface UserData {
   deptname:string;
@@ -87,33 +88,29 @@ export class DeparmentComponent implements OnInit {
             this.isdata = true;
             this.isAdd = false;
             this.getDepartments();
-            const dialog: PopupConfig = {
-              // img:"assets/img/success.png",
-              title: 'Department Added Successfully',
-              close: 'OK',
-              
-            };
-            this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose: true,
+              data: 'Department added successfully'
+            });
+    
            
           } else {
-            const dialog: PopupConfig = {
-              title: 'Department already Existed',
-              close: 'OK',
-              
-            };
-            this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose: true,
+              data: 'Department already existed'
+            });
+  
             
           }
   
         })
       }
       else{
-        const dialog: PopupConfig = {
-          title: 'Department Already Existed',
-          close: 'OK',
-          
-        };
-        this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          disableClose: true,
+          data: 'Department already existed'
+        });
+   
 
       }
       
@@ -147,24 +144,17 @@ export class DeparmentComponent implements OnInit {
     this.LM.updateStatus(data).subscribe((result)=> {
       if(result.status){
         this.ngOnInit();
-        const dialog: PopupConfig = {
-          title: 'Department Status Updated Successfully',
-          close: 'OK',
-          
-        };
-        this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          disableClose: true,
+          data: 'Department status updated successfully'
+        });
 
       }else{
         this.ngOnInit();
-        const dialog: PopupConfig = {
-          title: 'This department have active employees. So we are unable to inactivate this department now. Please move those employee to another department and try again',
-          close: 'OK',
-          
-        };
-        this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-
-
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          disableClose: true,
+          data: 'This department have active employees. So we are unable to inactivate this department now. Please move those employee to another department and try again'
+        });
       }
     })
   }
@@ -187,34 +177,27 @@ export class DeparmentComponent implements OnInit {
       this.LM.putDepartments({id: id, name: deptname}).subscribe((data) => {
         if (data.status) {
           this.enable = null;
-          const dialog: PopupConfig = {
-            title: 'Department Updated SuccesFully',
-            close: 'OK',
-            
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });      
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data: 'Department updated succesFully'
+          });    
            this.getDepartments();
-          //this.ngOnInit();
-        } else {
           
-          const dialog: PopupConfig = {
-            title: 'Unable to Update Department',
-            close: 'OK',
-            
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+        } else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data: 'Unable to update department'
+          });  
         }
       })
     }
     else{
       this.ngOnInit();
-      const dialog: PopupConfig = {
-        title: 'Department Already Existed',
-        close: 'OK',
-        
-      };
-      this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        disableClose: true,
+        data: 'Department already existed'
+      }); 
+      
     }
 
   

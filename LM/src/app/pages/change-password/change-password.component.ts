@@ -4,6 +4,8 @@ import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl} from '@
 import { Router, RouterModule } from '@angular/router';
 import { PopupComponent,PopupConfig } from '../popup/popup.component';
 import { MatDialog } from '@angular/material/dialog'; 
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+
 
 
 import { LoginService } from 'src/app/services/login.service';
@@ -75,7 +77,8 @@ export class ChangePasswordComponent implements OnInit {
     return this.changePasswordform.controls;
   }
   cancel(){
-    this.router.navigate(['']);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate(["/ChangePassword"]));
   }
   changePassword(){
       this.submitted = true;
@@ -86,38 +89,32 @@ export class ChangePasswordComponent implements OnInit {
      
       if(this.changePasswordAddObj.oldPassword !='' && this.changePasswordAddObj.newPassword != '' && this.changePasswordAddObj.confirmPassword !=''){
         if(this.changePasswordAddObj.oldPassword === this.changePasswordAddObj.newPassword){
-          const dialog: PopupConfig = {
-            title: "Your newpassword cannot be same as the old password",
-            close: 'OK',
-            
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data: 'Your newpassword cannot be same as the old password'
+          });
         }
         else{
           this.ts.changepassword(this.changePasswordAddObj).subscribe((data) => {
 
             if (data.status) {
-              const dialog: PopupConfig = {
-                title: this.msgLM56,
-                close: 'OK',
-                
-              };
-              this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                disableClose: true,
+                data: this.msgLM56
+              });
+       
           
               sessionStorage.removeItem('user')
-              this.router.navigate(['/Login']);
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                this.router.navigate(["/ChangePassword"]));
       
-            } else {
-              const dialog: PopupConfig = {
-                title: this.msgLM2,
-                close: 'OK',
-                
-              };
-              this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-              // Swal.fire({title:this.msgLM2,color:'red',showCloseButton: true});
+            } 
+            else {
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                disableClose: true,
+                data: this.msgLM2
+              });
             }
-            
-      
           });
 
 
