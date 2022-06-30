@@ -94,11 +94,11 @@ export class MainDashboardComponent implements OnInit {
         }
        });
        sessionStorage.setItem('sidemenu',JSON.stringify(this.menu));
-       this.router.navigate(['/admin/Dashboard'])
+      // this.router.navigate(['/admin/Dashboard'])
       // sessionStorage.setItem('user',JSON.stringify(this.menu));
      //  this.sideMenuService.setData(this.menu);
       // this.router.navigate(['/admin/Dashboard'])
-       //this.router.navigate([this.firstRoute]);
+       this.router.navigate([this.firstRoute]);
         
       }
 

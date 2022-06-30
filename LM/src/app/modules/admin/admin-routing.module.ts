@@ -16,7 +16,7 @@ const routes: Routes = [
       { path: 'Department', component: DeparmentComponent },
       { path: 'Employee', component: EmployeeMasterToAddComponent },
       { path: 'CompanyInformation',component:CompanyinformationComponent},
-      { path: 'Logo',component:CompanylogoComponent},
+      { path: 'CompanyLogo',component:CompanylogoComponent},
     ]
   }
 
