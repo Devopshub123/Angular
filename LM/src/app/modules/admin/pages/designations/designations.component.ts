@@ -8,6 +8,7 @@ import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 
 export interface UserData {
   id:number;
@@ -90,29 +91,26 @@ export class DesignationsComponent implements OnInit {
             this.designationForm.reset();
             this.isdata = true;
             this.isAdd = false;
-            const dialog: PopupConfig = {
-              title: 'Designation Added Successfully',
-              close: 'OK',
-              
-            };
-            this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose: true,
+              data: 'Designation added successfully'
+            });
            
           } else {
-            const dialog: PopupConfig = {
-              title: 'Designation already Existed',
-              close: 'OK',
-              
-            };
-            this.dialog.open(PopupComponent, { width: '600px', data: dialog });            
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose: true,
+              data: 'Designation already existed'
+            });
+                       
           }  
         });
       }
       else{
-        const dialog: PopupConfig = {
-          title: 'Designation Already Existed',
-          close: 'OK',
-        };
-        this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          disableClose: true,
+          data: 'Designation already existed'
+        });
+        
       }
     }
   }
@@ -129,28 +127,24 @@ export class DesignationsComponent implements OnInit {
     this.LM.designationstatus(data).subscribe((result)=> {
       if(result.status){
         this.ngOnInit();
-        const dialog: PopupConfig = {
-          title: 'Designation Status Updated Successfully',
-          close: 'OK',
-        };
-        this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          disableClose: true,
+          data: 'Designation status updated successfully'
+        });
+     
       }else{
         this.ngOnInit();
-        const dialog: PopupConfig = {
-          title: 'This designation have active employees. So we are unable to inactivate this designation now. Please move those employee to another designation and try again',
-          close: 'OK',     
-        };
-        this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          disableClose: true,
+          data:'This designation have active employees. So we are unable to inactivate this designation now. Please move those employee to another designation and try again',
+        });
       }
     })
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  // ngAfterViewInit() {
-  //   this.dataSource.paginator = this.paginator;
-  //   this.dataSource.sort = this.sort;
-  // }
+
   Add(){
     this.isAdd = true;
     this.isdata = false;
@@ -177,27 +171,26 @@ export class DesignationsComponent implements OnInit {
         if (data.status) {
           this.enable = null;
           this.getDesignation();
-          const dialog: PopupConfig = {
-            title: 'Designation Updated Successfully',
-            close: 'OK',            
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });  
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data:'This designation have active employees. So we are unable to inactivate this designation now. Please move those employee to another designation and try again',
+          });
+        
         } else {
-          const dialog: PopupConfig = {
-            title: 'Unable To Update Designation',
-            close: 'OK',            
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });        
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data:'Unable To Update Designation',
+          });
+                  
         }
       })
     }
     else{
       this.ngOnInit();
-      const dialog: PopupConfig = {
-        title: 'Designation Already Existed',
-        close: 'OK',        
-      };
-      this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        disableClose: true,
+        data:'Designation already existed',
+      });
     }        
   }
   canceledit(event:any,id:any){

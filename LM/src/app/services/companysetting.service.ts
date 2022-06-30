@@ -100,6 +100,8 @@ import { environment } from 'src/environments/environment';
   removeImage(id: any,companyName:any): Observable<any> {
     return this.hClient.delete(this.mainBeUrl + 'api/removeImage/' + id+'/'+companyName,this.httpOptions);
   }
+  
+  
 
 }
   

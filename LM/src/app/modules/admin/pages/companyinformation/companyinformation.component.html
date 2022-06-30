@@ -16,17 +16,17 @@
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Company website</mat-label>
-                    <input formControlName="website" required matInput [readonly]="isview" placeholder="" maxlength="100" >
+                    <input formControlName="website" required matInput [disabled]="isview"  placeholder="" maxlength="100" >
                     <mat-error class="con-error" *ngIf="companyForm.controls.website.errors?.required">
                         This field is required
                   </mat-error>
                   <!-- <mat-error class="con-error" *ngIf="companyForm.controls.website.errors?.pattern">
                     Please enter valid data
-              </mat-error> -->
+                  </mat-error> -->
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Country</mat-label>
-                    <mat-select  formControlName="country"  >
+                    <mat-select [disabled]="isview"  formControlName="country"  >
                         <ng-container >
                             <div *ngFor="let b of CountryDetails">    
                                 <mat-option    [value]="b.id">{{b.country}}</mat-option>
@@ -59,7 +59,7 @@
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>State</mat-label>
-                    <mat-select required formControlName="state"  required>
+                    <mat-select [disabled]="isview"  required formControlName="state"  required>
                         <ng-container >
                             <div *ngFor="let b of stateDetails">
                                 
@@ -92,7 +92,7 @@
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
                     <mat-label>City</mat-label>
-                    <mat-select required formControlName="city"  required>
+                    <mat-select required [disabled]="isview"  formControlName="city"  required>
                         <ng-container >
                             <div *ngFor="let b of cityDetails">
                                 

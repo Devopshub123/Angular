@@ -6,7 +6,9 @@ import { LoginService } from 'src/app/services/login.service';
 import Validation from '../confirm-password.validator';
 import { resetPassword } from 'src/app/models/resetPassword';
 import { PopupComponent,PopupConfig } from '../popup/popup.component';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+
 
 @Component({
   selector: 'app-reset-password',
@@ -61,50 +63,36 @@ export class ResetPasswordComponent implements OnInit {
       console.log("dgsd",resetObj)
       this.tss.resetpassword(resetObj).subscribe((data) => {
         if (data.status) {
-          // Swal.fire({title:'Password  reset successfully ',showCloseButton: true});
-          const dialog: PopupConfig = {
-            title: "Password Change Succesfull",
-            close: 'OK',
-            
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data: 'Password change succesfully'
+          });
           sessionStorage.removeItem('user')
           this.router.navigate(['/Login']);
   
         } else {
-          const dialog: PopupConfig = {
-            title: "Please Change Password",
-            close: 'OK',
-            
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-
-          // Swal.fire({title:'please change password',showCloseButton: true});
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data: 'Your newpassword cannot be same as the old password'
+          });
         }
         
   
       });
-      
-
-      // console.log("newpassword",this.newpassword)
-      // console.log("confirmpassword",this.confirmpassword)
-      // console.log("email",this.email)
-      // console.log("passempidord",this.empid)
     }
     else{
-      const dialog: PopupConfig = {
-        title: this.msgLM5,
-        close: 'OK',
-        
-      };
-      this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        disableClose: true,
+        data: this.msgLM5
+      });
   
     }
     
   }
   cancel(){
-    this.formGroup.valid = true;
     this.formGroup.reset();
+    this.formGroup.valid = true;
+  
 
   }
   getErrorMessages(errorCode:any) {
