@@ -61,4 +61,8 @@ verifyEmail(email: any): Observable<any> {
 getModules(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
   return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
 }
+getrolescreenfunctionalities(empId:any,moduleId:any): Observable<any>{
+  return this.hClient.get(this.mainBeUrl + 'attendance/api/getrolescreenfunctionalities/'+empId+'/'+moduleId, this.httpOptions);
+}
+
 }    

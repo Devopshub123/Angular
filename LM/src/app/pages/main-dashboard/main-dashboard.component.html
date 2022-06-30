@@ -2,40 +2,34 @@
 <html lang="en">
 
 <body style="overflow: hidden;">
-    <div class="container-fluid top">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="header">Welcome To HRMS</div>
-            </div>
-        </div>
-    </div>
+    <app-header></app-header>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding-top: 70px;">
         <div class="row"  >
-            <div class="col-md-3" *ngFor="let module of allModuleDetails; index as i;">
-                <div class="p3 column ">{{module.modulename}}</div>
-            </div>
-            <!-- <div class="col-md-3 bottom  ">
-                <div class="p3 column ">.col-12 .col-md-8</div>
-            </div>
-            <div class="col-md-3 bottom ">
-                <div class="p3 column ">.col-12 .col-md-8</div>
+            <div class="col-md-3 bottom" *ngFor="let module of allModuleDetails; index as i;">
+                <div class="p3 column " 		  (click)="getrolescreenfunctionalities(module.id)"                >
+                
+                <div style="padding: 20px;text-align:center;">
+                    <span>   <!-- <mat-icon *ngIf="module.id !== 4">event_note</mat-icon> -->
+                        <i class="material-icons" *ngIf="module.id === 1" style="font-size: 50px;">person_search</i>
+
+                    <mat-icon *ngIf="module.id === 4" style="font-size: 50px;">date_range</mat-icon>
+                    <i class="material-icons" *ngIf="module.id === 3" style="font-size: 50px;">edit_calendar</i>
+                    <i class="material-icons" *ngIf="module.id === 2" style="font-size: 50px;">calendar_month</i>
+                    <i class="material-icons" *ngIf="module.id === 5" style="font-size: 50px;">paypal</i>
+                    <i class="material-icons" *ngIf="module.id === 6" style="font-size: 50px;">settings_display</i>
+                    <i class="material-icons" *ngIf="module.id === 7" style="font-size: 50px;">person_search</i>
+                    <i class="material-icons" *ngIf="module.id === 8" style="font-size: 50px;">people_alt</i>
+                    
+                 </span><br/>
+                 <span style="font-weight: bold;">{{module.modulename}}</span>
+                 </div>
+                    
+                
+
                 </div>
-            <div class="col-md-3 bottom ">
-                <div class="p3 column ">.col-12 .col-md-8</div>
             </div>
-            <div class="col-md-3 bottom ">
-                <div class="p3 column ">.col-12 .col-md-8</div>
-            </div>
-            <div class="col-md-3 bottom ">
-                <div class="p3 column ">.col-12 .col-md-8</div>
-            </div>
-            <div class="col-md-3 bottom ">
-                <div class="p3 column ">.col-12 .col-md-8</div>
-            </div>
-            <div class="col-md-3 bottom ">
-                <div class="p3 column ">.col-12 .col-md-8</div>
-            </div> -->
+          
         </div>
        
     </div>

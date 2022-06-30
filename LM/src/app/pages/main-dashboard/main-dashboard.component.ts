@@ -9,15 +9,14 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class MainDashboardComponent implements OnInit {
   allModuleDetails:any=[];
-  constructor(private AMS : LoginService) {
-    this.AMS.getModules('modulesmaster',null,1,100,'boon_client').subscribe((result)=>{
-      if(result && result.status){
-        this.allModuleDetails = result.data;
+  usersession:any;
+  data :any;
+  userRoles:any=[];
 
-      }
-      console.log("resultatte",result)
-    })
-    
+  constructor(private AMS : LoginService) {
+    this.data= sessionStorage.getItem('user')
+    this.usersession = JSON.parse(this.data)
+  
    }
 
   getModules(){
@@ -26,12 +25,22 @@ export class MainDashboardComponent implements OnInit {
         this.allModuleDetails = result.data;
 
       }
-      console.log("resultatte",result)
+    })
+  }
+
+  getrolescreenfunctionalities(id:any){
+    this.AMS.getrolescreenfunctionalities(this.usersession.id,id).subscribe((result)=>{
+      if(result && result.status){
+        this.userRoles = result.data;
+
+      }
     })
   }
 
   ngOnInit(): void {
-    // this.getModules();
+    this.getModules();
   }
+
+  
 
 }
