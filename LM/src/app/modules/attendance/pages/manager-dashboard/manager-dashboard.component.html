@@ -3,7 +3,7 @@
               <mat-card-header>
                      <mat-card-title> Attendance Calendar</mat-card-title>
               </mat-card-header>
-              <mat-divider></mat-divider>
+              <!-- <mat-divider></mat-divider> -->
 
               <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
                      <div fxFlex="70">
@@ -35,7 +35,7 @@
 
                                    <div fxLayout="row" fxLayoutAlign="space-between" class="pending-attendance">
                                           <p>
-                                                 <mat-icon>bell</mat-icon><b>Pending Attendance</b>
+                                                 <mat-icon>bell</mat-icon><b>Request Behalf of Request</b>
                                           </p>
 
                                    </div>
@@ -46,10 +46,9 @@
                                                         <span *ngIf="item.present_or_absent=='A'">
                                                                <mat-list-item>
                                                                       <h3 matLine> {{ item.attendancedate}} </h3>
-
-                                                                      <p> <a routerLink="/Attendance/AttendanceRequest">send
-                                                                                    a
-                                                                                    request</a>
+                                                                      <p> <a routerLink="/"
+                                                                             (click)="onBehalfofRequestClick(item)">send a
+                                                                            request</a>
                                                                </mat-list-item>
                                                         </span>
                                                  </ng-container>
@@ -73,7 +72,7 @@
                                                         <mat-list-item>
                                                                <h3 matLine> {{ item.raisedbyname}} </h3>
 
-                                                               <p> {{ item.applieddate}} <a href=""
+                                                               <p> {{ item.applieddate}} <a routerLink="/"
                                                                              (click)="changeTab(item)">Approve
                                                                              request </a></p>
                                                         </mat-list-item>

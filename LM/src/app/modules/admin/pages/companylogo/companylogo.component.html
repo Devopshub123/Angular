@@ -1,72 +1,73 @@
-<!-- 
-<mat-card>
-    <mat-card-header class="">
-        <mat-card-title class="title"> Company Logo </mat-card-title>
-    </mat-card-header>
-    <mat-form-field>
-        <div>
-          <mat-toolbar>
-            <input
-              matInput
-              [value]="selectedFileNames.length ? selectedFileNames : 'Select Images'"
-            />
-          </mat-toolbar>
-      
-          <input
-            type="file"
-            id="fileInput"
-            name="fileInput"
-            accept="image/*"
-            multiple
-            (change)="selectFiles($event)"
-          />
+
+<div class="wrapper">
+    <!-- header starts -->
+    <!--<div id="header"></div>-->
+    <!-- header ends -->
+  
+ 
+      <div class="content">
+        <div class="container-fluid">
+          <div class="card">
+            <div class="card-header ">
+              <h4 class="card-title">Company Logo</h4>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card no-value">
+                    <div class="card-header no-value no-border">
+                      <div class="card-head-row">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="row">
+                              <div class="card main-title">
+                                <div class="col-md-12">
+  
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="row custom-view-mbt-1">
+                                  <div class="col-md-3 productAddfromImages" *ngFor='let url of imageurls; let i = index'>
+                                    <img class="img-fluid custom-image"  [src]="url.base64String">
+                                    <span class="btn btn-success btn-file mr-3 mx-2 my-2" *ngIf="!isFileImage">
+                                        Change <input type="file"
+                                                        class="form-control"
+                                                        (change)="onSelectFile($event)"
+                                                        accept="image/*" />
+                                    </span>
+                                    <span class="btn btn-primary btn-file mr-3 mx-2 my-2 custom-button-save" *ngIf="isFileImage" (click)="saveImage()">
+                                        Save
+                                    </span>
+                                    <span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save" *ngIf="isRemoveImage"  (click)="removeImage()">
+                                      Remove
+                                  </span>
+                                  <span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save"  *ngIf="isFileImage" (click)="cancelImage()">
+                                    cancel
+                                </span>
+                                    <!-- <button (click)="removeImage()" class="btn btn-xs btn-danger  mx-2 my-2 custom-font-white"*ngIf="isRemoveImage" >Remove</button> -->
+                                    <!-- <button (click)="cancelImage()"class="btn btn-xs btn-danger  mx-2 my-2 custom-font-white" *ngIf="isFileImage">cancel</button> -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+  
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+  
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </div>
         </div>
-      </mat-form-field>
-      
-      <div>
-        <img *ngFor="let preview of previews" [src]="preview" class="preview" />
       </div>
-      
-      <div *ngIf="message.length" class="message">
-        <ul *ngFor="let msg of message; let i = index">
-          <li>{{ msg }}</li>
-        </ul>
-      </div>
-      
-      <mat-card class="list-card">
-        <button
-          mat-flat-button
-          color="primary"
-          [disabled]="!selectedFiles"
-          (click)="uploadFiles()"
-        >
-          Upload
-        </button>&nbsp;
-        <button
-        mat-flat-button
-        color="primary"
-        [disabled]="!selectedFiles"
-        
-      >
-        Cancel
-      </button>
-      <mat-card-header>
-          <mat-card-title>List of Images</mat-card-title>
-        </mat-card-header> -->
-        <!-- <mat-card-content>
-          <mat-list role="list">
-            <mat-list-item
-              role="listitem"
-              *ngFor="let image of imageInfos | async"
-              class="list-item"
-            >
-              <p matLine>
-               <a href="{{ image.url }}">{{ image.name }}</a> -->
-              <!-- </p>
-              <img src="previews" alt="{{ image.name }}" height="50px" />
-            </mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
-      
-</mat-card>      -->
+      <!-- footer starts -->
+      <!--<div id="footer"></div>-->
+      <!-- footer ends -->
+   
+  </div>
+  
+  

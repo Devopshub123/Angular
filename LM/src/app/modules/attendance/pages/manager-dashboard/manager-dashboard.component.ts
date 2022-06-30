@@ -9,6 +9,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 import { AttendanceService } from '../../attendance.service';
 import { UserData } from '../../models/EmployeeData';
+import { RequestData } from '../../models/Request';
 @Component({
   selector: 'app-manager-dashboard',
   templateUrl: './manager-dashboard.component.html',
@@ -22,7 +23,7 @@ export class ManagerDashboardComponent implements OnInit {
  Events: any[] = [];
  calendarOptions: CalendarOptions = {
    headerToolbar: {
-     left: 'prev,next today',
+     left: 'prev,next',
      center: 'title',
      right: 'dayGridMonth'
    },
@@ -50,7 +51,7 @@ export class ManagerDashboardComponent implements OnInit {
  getemployeeattendancedashboard(){
    this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
    let data={
-     'manager_id':null,
+     'manager_id':this.userSession.id,
      'employee_id':this.userSession.id,
      'date':this.selectedDate
    }
@@ -85,7 +86,10 @@ export class ManagerDashboardComponent implements OnInit {
     })
   };
   changeTab(elment:UserData){
-  
     this.router.navigate(["/Attendance/Approval"],{state: {userData:elment}}); 
+  }
+  onBehalfofRequestClick(elment:RequestData){
+  
+    this.router.navigate(["/Attendance/RequestofEmployee"],{state: {userData:elment}}); 
   }
 }

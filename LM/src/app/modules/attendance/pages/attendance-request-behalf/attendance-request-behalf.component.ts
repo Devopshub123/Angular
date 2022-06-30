@@ -9,7 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AttendanceService } from '../../attendance.service';
-
+import { Location } from '@angular/common';
 interface IdName {
   id: string;
   name: string;
@@ -43,8 +43,10 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   userSession: any;
   shiftData: any;
   employeesData: any;
+  userData: any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
-    public dialog: MatDialog, public datePipe: DatePipe, private router: Router) {
+    public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
+    private location:Location) {
       this.minFromDate = new Date();
       this.minFromDate.setDate(this.currentDate.getDate()-30);
       this.maxFromDate = new Date();
@@ -56,6 +58,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userData = this.location.getState();
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
     this.requestform = this.formBuilder.group(
       {
@@ -79,6 +82,11 @@ export class AttendanceRequestBehalfComponent implements OnInit {
       this.getEmployeeShiftDetails(selectedValue);
 
     })
+    if(this.userData.userData!=undefined){
+      this.requestform.controls.fromDate.setValue(new Date(this.userData.userData.attendancedate));
+      this.requestform.controls.toDate.setValue(new Date(this.userData.userData.attendancedate)); 
+      this.requestform.controls.employeeName.setValue(this.userData.userData.id);
+    }
 
   }
   ngAfterViewInit() {

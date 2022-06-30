@@ -36,7 +36,7 @@ export class CompanyinformationComponent implements OnInit {
         contact:["",[Validators.required]],
         email:["",[Validators.required,Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
         // website:["",Validators.required,Validators.pattern("^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$")],
-        website:["",Validators.required],
+        website:["",Validators.required], //,Validators.pattern('^(?www)?:[a-zA-Z/].[a-zA-z]')
         address2:[""],
         city: ["",Validators.required],
         state: ["",Validators.required],
@@ -98,7 +98,7 @@ export class CompanyinformationComponent implements OnInit {
           disableClose: true,
           data: 'Company Information updated successfully'
         });
-      
+       
         this.getCompanyInformation()
 
       }else {

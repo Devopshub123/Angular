@@ -3,7 +3,7 @@
               <mat-card-header>
                      <mat-card-title> Attendance Calendar</mat-card-title>
               </mat-card-header>
-              <mat-divider></mat-divider>
+              <!-- <mat-divider></mat-divider> -->
 
               <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
                      <div fxFlex="70">
@@ -50,7 +50,8 @@
                                           <mat-list-item>
                                                  <h3 matLine> {{ item.attendancedate}} </h3>
                                                 
-                                                 <p> <a routerLink="/Attendance/AttendanceRequest">send a
+                                                 <p> <a routerLink="/"
+                                                        (click)="onRequestClick(item)">send a
                                                        request</a>
                                              </mat-list-item>
                                       </span> 

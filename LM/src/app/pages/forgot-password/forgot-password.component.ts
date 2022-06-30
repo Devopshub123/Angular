@@ -4,7 +4,9 @@ import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
 import { PopupComponent,PopupConfig } from '../popup/popup.component';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+
 
 @Component({
   selector: 'app-forgot-password',
@@ -31,39 +33,23 @@ export class ForgotPasswordComponent implements OnInit {
     this.email = this.formGroup.controls.email.value;
     this.tss.verifyEmail(this.email).subscribe((data) => {
       if(data.status){
-        const dialog: PopupConfig = {
-          title: "Please Check Your Email For ResetPassword",
-          close: 'OK',
-          
-        };
-        this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          disableClose: true,
+          data: 'Please check your email for resetPassword'
+        });
       }
       else{
-        const dialog: PopupConfig = {
-          title: "Please Enter Valid Email For ResetPassword",
-          close: 'OK',
-          
-        };
-        this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          disableClose: true,
+          data: 'Please enter valid email for resetPassword'
+        });
       }
   
     });
    
   }
-  verifyemail(){
-    console.log("ghgh",this.email)
-    // this.tss.verifyEmail(this.email.emailid).subscribe((data) => {
-    //   if(data.status){
-
-    
-    // }
-  
-    // });
-  }
+ 
   cancel(){
-    // this.formGroup.valid = true;
-    // this.formGroup.reset();
     this.router.navigate(['/Login'])
   }
 
