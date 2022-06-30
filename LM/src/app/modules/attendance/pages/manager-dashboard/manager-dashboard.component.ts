@@ -3,13 +3,14 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CalendarOptions, EventInput } from '@fullcalendar/angular'; // useful for typechecking
+import { CalendarOptions, EventInput, FullCalendarComponent } from '@fullcalendar/angular'; // useful for typechecking
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 import { AttendanceService } from '../../attendance.service';
 import { UserData } from '../../models/EmployeeData';
 import { RequestData } from '../../models/Request';
+
 @Component({
   selector: 'app-manager-dashboard',
   templateUrl: './manager-dashboard.component.html',
@@ -17,6 +18,9 @@ import { RequestData } from '../../models/Request';
 })
 export class ManagerDashboardComponent implements OnInit {
   @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
+  // references the #calendar in the template
+  @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
+
   TODAY_STR = new Date().toISOString().replace(/T.*$/, '');
  initialEvents:EventInput[] = [ ];
  todayDate:any;
@@ -27,29 +31,45 @@ export class ManagerDashboardComponent implements OnInit {
      center: 'title',
      right: 'dayGridMonth'
    },
+   customButtons: {
+    next: {
+        click: this.nextMonth.bind(this),
+    },
+    prev: {
+        click: this.prevMonth.bind(this),
+    },
+    today: {
+
+        click: this.currentMonth.bind(this),
+    },
+},
    initialView: 'dayGridMonth',
    weekends: true,
    editable: true,
    selectable: true,
    selectMirror: true,
-   dayMaxEvents: true
+   dayMaxEvents: true,
+ 
  };
  pipe = new DatePipe('en-US');
  userSession: any;
  attendanceData:any;
  selectedDate: any;
   arrayList: any;
+  displayEvent: any;
+  calendarApi: any;
 
  constructor(private attendanceService:AttendanceService,private router:Router) { }
 
  ngOnInit(): void {
+  this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
   this.todayDate= this.pipe.transform(Date.now(), 'dd/MM/yyyy');
    this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
    this.getemployeeattendancedashboard();
    this.getPendingAttendanceRequestListByEmpId();
  }
  getemployeeattendancedashboard(){
-   this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
+  // this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
    let data={
      'manager_id':this.userSession.id,
      'employee_id':this.userSession.id,
@@ -92,4 +112,31 @@ export class ManagerDashboardComponent implements OnInit {
   
     this.router.navigate(["/Attendance/RequestofEmployee"],{state: {userData:elment}}); 
   }
+    nextMonth(): void {
+    console.log('nextMonth');
+    this.calendarApi = this.calendarComponent.getApi();
+    this.calendarApi.next();
+    const currentDate = this.calendarApi.getDate();
+    console.log("The current date of the calendar is " + currentDate);
+    this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
+    this.getemployeeattendancedashboard()
+}
+prevMonth(): void {
+  console.log('prevMonth');
+  this.calendarApi = this.calendarComponent.getApi();
+  this.calendarApi.prev();
+  const currentDate = this.calendarApi.getDate();
+  console.log("The current date of the calendar is " + currentDate);
+  this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
+  this.getemployeeattendancedashboard()
+}
+currentMonth(): void {
+  console.log('currentMonth');
+  this.calendarApi = this.calendarComponent.getApi();
+  this.calendarApi.today();
+  const currentDate = this.calendarApi.getDate();
+  console.log("The current date of the calendar is " + currentDate);
+  this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
+  this.getemployeeattendancedashboard()
+}
 }

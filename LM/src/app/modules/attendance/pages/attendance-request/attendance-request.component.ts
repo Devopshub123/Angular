@@ -109,7 +109,7 @@ export class AttendanceRequestComponent implements OnInit {
   }
   getEmployeeShiftDetails() {
     this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res: any) => {
-      if (res) {
+      if (res.status) {
         this.shiftData = res.data[0];
         console.log(this.shiftData)
         this.requestform.controls.shift.setValue(this.shiftData.shiftname);

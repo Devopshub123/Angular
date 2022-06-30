@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CalendarOptions, EventInput } from '@fullcalendar/angular'; // useful for typechecking
+import { CalendarOptions, EventInput, FullCalendarComponent } from '@fullcalendar/angular'; // useful for typechecking
 import { MatDividerModule } from '@angular/material/divider';
 import { AttendanceService } from '../../attendance.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
@@ -15,6 +15,7 @@ import { RequestData } from '../../models/Request';
 export class EmployeDashboardComponent implements OnInit {
   
   @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
+  @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
    TODAY_STR = new Date().toISOString().replace(/T.*$/, '');
   initialEvents:EventInput[] = [ ];
   todayDate:any;
@@ -24,7 +25,18 @@ export class EmployeDashboardComponent implements OnInit {
       left: 'prev,next',
       center: 'title',
       right: 'dayGridMonth'
-    },
+    }, customButtons: {
+      next: {
+          click: this.nextMonth.bind(this),
+      },
+      prev: {
+          click: this.prevMonth.bind(this),
+      },
+      today: {
+  
+          click: this.currentMonth.bind(this),
+      },
+  },
     initialView: 'dayGridMonth',
     weekends: true,
     editable: true,
@@ -37,16 +49,18 @@ export class EmployeDashboardComponent implements OnInit {
   userSession: any;
   attendanceData:any;
   selectedDate: any;
+  calendarApi: any;
 
   constructor(private attendanceService:AttendanceService,private router:Router) { }
 
   ngOnInit(): void {
+    this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
    this.todayDate= this.pipe.transform(Date.now(), 'dd/MM/yyyy');
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getemployeeattendancedashboard();
   }
   getemployeeattendancedashboard(){
-    this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
+   // this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
     let data={
       'manager_id':null,
       'employee_id':this.userSession.id,
@@ -74,4 +88,25 @@ export class EmployeDashboardComponent implements OnInit {
   
     this.router.navigate(["/Attendance/Request"],{state: {userData:elment}}); 
   }
+  nextMonth(): void {
+    this.calendarApi = this.calendarComponent.getApi();
+    this.calendarApi.next();
+    const currentDate = this.calendarApi.getDate();
+    this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
+    this.getemployeeattendancedashboard()
+}
+prevMonth(): void {
+  this.calendarApi = this.calendarComponent.getApi();
+  this.calendarApi.prev();
+  const currentDate = this.calendarApi.getDate();
+  this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
+  this.getemployeeattendancedashboard()
+}
+currentMonth(): void {
+  this.calendarApi = this.calendarComponent.getApi();
+  this.calendarApi.today();
+  const currentDate = this.calendarApi.getDate();
+  this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
+  this.getemployeeattendancedashboard()
+}
 }

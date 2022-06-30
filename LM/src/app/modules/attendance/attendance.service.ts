@@ -15,9 +15,6 @@ export class AttendanceService {
   };  
  
   constructor(private http: HttpClient) {
-
-
-
   }
   excelDataForAttendance(data:any): Observable<any> {
       return this.http.post(this.mainBeUrl + 'attendance/api/setEmployeeAttendance',JSON.stringify(data), this.httpOptions);
