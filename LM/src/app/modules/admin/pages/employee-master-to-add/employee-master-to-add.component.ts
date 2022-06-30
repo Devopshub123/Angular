@@ -20,7 +20,7 @@ import { PopupComponent, PopupConfig } from '../../../../pages/popup/popup.compo
 })
 export class EmployeeMasterToAddComponent implements OnInit {
   employeeAddForm!: FormGroup;
-  employeefamilyAddForm! :FormGroup;
+  employeefamilyAddForm :any=FormGroup;
   employeeworkAddForm! :FormGroup;
   workForm!:FormGroup;
   educationForm!:FormGroup;
@@ -62,6 +62,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   maxDate = new Date();
   minwtodate:any;
   minetodate:any;
+  empid:any;
   mindatofjoin:any;
   work:boolean=false;
   family:boolean=false;
@@ -124,9 +125,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.getBloodgroups();
     this.getGender();
     this.getCountry();
-    // this.getstatedetails();
-    // this.getcityDetails();
-    // this.addeducation();
     this.getShifts();
     this.getRoles();
     this.getMaritalStatusMaster();
@@ -143,8 +141,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.getErrorMessages('LM54');
     this.getErrorMessages('LM38');
     this.getErrorMessages('LM39');
-    // this.editemployee();
-    // this.getReportingManagers();
+    /**page 1 form */
     this.employeeAddForm=this.formBuilder.group(
       {
         firstname:["",Validators.required],
@@ -173,12 +170,13 @@ export class EmployeeMasterToAddComponent implements OnInit {
         pfaccountnumber: [""],
         pan: [""],       
         esi: [""],
+        checked:[false],
         emergencycontactnumber: [""],
         emergencycontactrelation: [""],
         emergencycontactname: [""],
 
       }) ,
-      // this.edu().push(this.newEmployee());
+      /**page 2 form */
       this.employeefamilyAddForm=this.formBuilder.group(
         {
           familyfirstname:["",Validators.required],
@@ -192,7 +190,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
           ifsccode: [""],
           nameasperbankaccount: [""],
           branchname: [""],
-          bankaccountnumber: [""],})
+          
+          bankaccountnumber: [""],
+        }),
+      /**page 3 form */
       this.employeeworkAddForm=this.formBuilder.group(
         {
         officeemail: ["",[Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],        
@@ -205,9 +206,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
         reportingmanager: ["",Validators.required],        
         status: [""],
         shift: ["",Validators.required],
-        relations: [""],
-        // education: [""],
-        // experience: [""],        
+        relations: [""],       
         efromdate:[""],
         etodate:[""],
         wfromdate:[""],
@@ -218,10 +217,48 @@ export class EmployeeMasterToAddComponent implements OnInit {
         empid:[""],
         edu: this.formBuilder.array([]) ,
         exp:this.formBuilder.array([]),
-       
-
       });
-     
+      /**same as present address checkbox */
+      this.employeeAddForm.get('checked')?.valueChanges.subscribe(selectedValue => {
+        if(selectedValue){
+          this.employeeAddForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
+            this.permanentStateDetails=[];
+            this.LMS.getStatesc(selectedValue).subscribe((data)=>{
+              this.permanentStateDetails=data[0]
+              if(this.employeeAddForm.controls.state.value != null)
+              {
+                this.employeeAddForm.controls.pstate.setValue(this.employeeAddForm.controls.state.value);
+    
+              }
+             
+            })
+          })
+          this.employeeAddForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
+            this.permanentCityDetails=[];
+            this.LMS.getCities(selectedValue).subscribe((data)=>{
+              this.permanentCityDetails=data[0]
+              if(this.employeeAddForm.controls.city.value != null)
+              {
+                this.employeeAddForm.controls.pcity.setValue(this.employeeAddForm.controls.city.value);
+    
+              }
+            })            
+          })
+
+          this.employeeAddForm.controls.paddress.setValue(this.employeeAddForm.controls.address.value),
+          this.employeeAddForm.controls.pcountry.setValue(this.employeeAddForm.controls.country.value),
+          this.employeeAddForm.controls.ppincode.setValue(this.employeeAddForm.controls.pincode.value)
+        }
+        else{
+          this.employeeAddForm.controls.paddress.setValue('')
+          this.employeeAddForm.controls.pcountry.setValue('')
+          this.employeeAddForm.controls.pstate.setValue('')
+          this.employeeAddForm.controls.pstate.setValue('')
+          this.employeeAddForm.controls.pcity.setValue('')
+          this.employeeAddForm.controls.ppincode.setValue('')
+        }        
+      })
+     /**get state details for residance address */
       this.employeeAddForm.get('country')?.valueChanges.subscribe(selectedValue => {
         this.stateDetails= [];
         this.LMS.getStatesc(selectedValue).subscribe((data)=>{
@@ -229,17 +266,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
           if(this.employeedata != null)
           {
             this.employeeAddForm.controls.state.setValue(this.employeedata.state);
-
-          }
-          if(this.ischecked){
-            this.permanentStateDetails=data[0]
-            // this.employeeAddForm.controls.pstate.setValue(this.employeedata.state);
-
           }
         })
-      
-         
       })
+      /**get city details for residance address */
       this.employeeAddForm.get('state')?.valueChanges.subscribe(selectedValue => {
         this.cityDetails=[];
         this.LMS.getCities(selectedValue).subscribe((data)=>{
@@ -247,11 +277,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
           if(this.employeedata != null)
           {
             this.employeeAddForm.controls.city.setValue(this.employeedata.city);
-
           }
-      // this.availablecities=data
         })
       })
+      /**get state details for present address*/
       this.employeeAddForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
         this.permanentStateDetails=[];
         this.LMS.getStatesc(selectedValue).subscribe((data)=>{
@@ -261,20 +290,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
             this.employeeAddForm.controls.pstate.setValue(this.employeedata.pstate);
 
           }
-          if(this.ischecked){
-            this.permanentStateDetails=data[0]
-            this.employeeAddForm.controls.pstate.setValue(this.employeedata.state);
-
-          }
-          if(this.ischecked){
-            this.permanentCityDetails=data[0]
-            // this.employeeAddForm.controls.pcity.setValue(this.employeedata.city);
-
-          }
+         
         })
-      
-         
       })
+      /**get city details for present address */
       this.employeeAddForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
         this.permanentCityDetails=[];
         this.LMS.getCities(selectedValue).subscribe((data)=>{
@@ -287,8 +306,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
         })
         
       })
-      this.employeeworkAddForm.get('wfromdate')?.valueChanges.subscribe(selectedValue => {
-        
+      this.employeeworkAddForm.get('wfromdate')?.valueChanges.subscribe(selectedValue => {        
         this.minwtodate = selectedValue;
       })
       this.employeeAddForm.get('dateofbirth')?.valueChanges.subscribe(selectedValue => {
@@ -303,6 +321,18 @@ export class EmployeeMasterToAddComponent implements OnInit {
         console.log(selectedValue)
         this.minetodate = selectedValue;
       })
+      // this.employeeAddForm.get('paddress')?.valueChanges.subscribe(selectedValue => {
+      //   console.log(selectedValue)
+      //   this.minetodate = selectedValue;
+      //   if(this.employeeAddForm.controls.address == selectedValue){
+      //     this.employeeAddForm.controls.checked.setValue(true)
+      //   }
+      //   else{
+      //     this.employeeAddForm.controls.checked.setValue(false)
+      //   }
+
+      // })
+      /**get reporting managers */
       this.employeeworkAddForm.get('department')?.valueChanges.subscribe(selectedValue => { 
         this.availablereportingmanagers=[]
         let data = {
@@ -318,22 +348,18 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
           }
         })
-      })
-      if(this.add){
-        this.edu().push(this.newEducation());
-        this.exp().push(this.newExperince());
-      }
-      
+      })      
   }
+
   dateofjonupdate(data:any){
     this.mindatofjoin = new Date()
     this.mindatofjoin.setFullYear(data.getFullYear() + 18);
   }
+  /**Search functionality */
   applyFilter(event: Event) {
     console.log("hjh",event)
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -344,8 +370,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
   exp(): FormArray {
     return this.employeeworkAddForm.get("exp") as FormArray
   }
- 
- 
   newEducation(): FormGroup {
     return this.formBuilder.group({
       course: '',
@@ -388,6 +412,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
   }
    addeducationdetails(){
+    console.log(this.edu().controls.length)
     for(let i =0;i<this.edu().controls.length;i++){
       if(this.edu().controls[i].value.efromdate != null){
         this.Educations.push({
@@ -564,7 +589,18 @@ export class EmployeeMasterToAddComponent implements OnInit {
   save(){
     this.addexperiencedetils();
     this.addeducationdetails();
+    console.log("kj",this.Educations)
+    console.log("kj",this.Experience)
+    if(this.employeedata != null){
+      this.empid=this.employeedata.empid
+
+    }
+    else{
+      this.empid=''
+
+    }
     let employeeinformation = {
+      empid:this.empid,
       firstname:this.employeeAddForm.controls.firstname.value,
       middlename:this.employeeAddForm.controls.middlename.value,
       lastname:this.employeeAddForm.controls.lastname.value,
@@ -610,7 +646,9 @@ export class EmployeeMasterToAddComponent implements OnInit {
       shift:this.employeeworkAddForm.controls.shift.value,
       relations:this.familyDetails,
       education:this.Educations,
-      experience:this.Experience
+      experience:this.Experience,
+
+     
       
       // education: {
       //   course:this.employeeAddForm.controls.course.value,
@@ -628,11 +666,11 @@ export class EmployeeMasterToAddComponent implements OnInit {
       // education:this.employeeAddForm.controls.education,
       // experience:this.employeeAddForm.controls.experience
     }
-    console.log("ff",employeeinformation)
-    console.log("ff",employeeinformation.experience)
-    console.log("ff",employeeinformation.education)
-    console.log("ff",this.edu().controls[0].value)
-    console.log("ff",this.edu().controls[1].value)
+    // console.log("ff",employeeinformation)
+    // console.log("ff",employeeinformation.experience)
+    // console.log("ff",employeeinformation.education)
+    // console.log("ff",this.edu().controls[0].value)
+    // console.log("ff",this.edu().controls[1].value)
     this.LM.setEmployeeMaster(employeeinformation).subscribe((data) => {
          if(data.status){
           const dialog: PopupConfig = {
@@ -673,14 +711,15 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
   }
   clearfamily(){
-   // this.employeefamilyAddForm.resetForm();
-    this.employeefamilyAddForm.controls.familyfirstname.setValue('');
-    this.employeefamilyAddForm.controls.familylastname.setValue('');
-    this.employeefamilyAddForm.controls.relation.setValue('');
-    this.employeefamilyAddForm.controls.familystatus.setValue('');
-    this.employeefamilyAddForm.controls.familycontact.setValue('');
-    this.employeefamilyAddForm.controls.familydateofbirth.setValue('');
-    this.employeefamilyAddForm.controls.familygender.setValue('');
+    this.employeefamilyAddForm.controls.familyfirstname.reset();
+    // this.employeefamilyAddForm.controls.familyfirstname.setValue('');
+    this.employeefamilyAddForm.controls.familylastname.reset();
+    this.employeefamilyAddForm.controls.relation.reset();
+    this.employeefamilyAddForm.controls.familystatus.reset();
+    this.employeefamilyAddForm.controls.familycontact.reset();
+    this.employeefamilyAddForm.controls.familydateofbirth.reset();
+    this.employeefamilyAddForm.controls.familygender.reset();
+    this.employeefamilyAddForm.valid = true;
   }
   deletefamily(index:any){
     console.log("ff",index)
@@ -820,7 +859,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.family = true;
   }
   close(){
-
+    this.addemployee=true;
     this.addempdetails= false;
     this.viewdetails = true;
     this.work=false;
@@ -829,6 +868,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.familyDetails=[];
     this.Experience=[];
     this.Educations=[];
+    this.employeedata=[];
     this.ngOnInit();
   }
   getErrorMessages(errorCode:any) {
@@ -876,39 +916,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
     })
   }
   sameAsAddress(event: MatCheckboxChange,checked:any){
-    this.ischecked = checked;
-    // this.countryChange(this.employeeAddForm.controls.country.value)
-    // this.stateChange(this.employeeAddForm.controls.state.value)
-    console.log(checked)
-    if(event.checked ){
-      this.employeeAddForm.controls.paddress.setValue(this.employeeAddForm.controls.address.value),
-    this.employeeAddForm.controls.pcountry.setValue(this.employeeAddForm.controls.country.value),
-
-    this.employeeAddForm.controls.pstate.setValue(this.employeeAddForm.controls.state.value),
-    this.employeeAddForm.controls.pcity.setValue(this.employeeAddForm.controls.city.value),
-    this.employeeAddForm.controls.ppincode.setValue(this.employeeAddForm.controls.pincode.value)
-
-    }
-    
-
-    
-    // if(this.employeeDetails.isChecked){
-    //   this.employeeDetails.pAddress='';
-    //   this.employeeDetails.pCountry='';
-    //   this.employeeDetails.pState='';
-    //   this.employeeDetails.pCity='';
-    //   this.employeeDetails.pPincode='';
-
-    // }else {
-    //   this.employeeDetails.pAddress=this.employeeDetails.address;
-    //   this.employeeDetails.pCountry=this.employeeDetails.country;
-    //   this.employeeDetails.pPincode=this.employeeDetails.pincode;
-    //   this.permanentCountryChange(this.employeeDetails.country)
-    //   this.employeeDetails.pState=this.employeeDetails.state;
-    //   this.permanentStateChange(this.employeeDetails.state)
-    //   this.employeeDetails.pCity=this.employeeDetails.city;
-    //   }
-
+ 
   }
   
   
