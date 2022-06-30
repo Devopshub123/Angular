@@ -17,12 +17,12 @@ const routes: Routes = [
   {path:'ResetPassword/:email/:id',component:ResetPasswordComponent},
 
   {path:'ForgotPassword',component:ForgotPasswordComponent},
+  // {
+  //   path: 'HrmsDashboard',
+  //   component:ForgotPasswordComponent
+  // },
   {
-    path: 'HrmsDashboard',
-    component:ForgotPasswordComponent
-  },
-  {
-    path: 'admin',
+    path: 'Admin',
     loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
     ,canActivate:[LMSAccessGuard]
   },

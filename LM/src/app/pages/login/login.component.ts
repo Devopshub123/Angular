@@ -60,21 +60,22 @@ export class LoginComponent implements OnInit {
 
         }
         else{
+          this.router.navigate(['/MainDashboard']);
           // const dialog: PopupConfig = {
           //   title: 'Login Successfull',
           //   close: 'OK',
             
           // };
           // this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-          empdata.roles.forEach((e:any) => {
-            if(e.role_name=="Employee"){
-              this.router.navigate(['/Attendance/EmployeeDashboard']);
-            }else if(e.role_name=="Manager"){
-              this.router.navigate(['/Attendance/ManagerDashboard']);
-            }else{
-              this.router.navigate(['/admin/Dashboard']);
-            }
-          });
+          // empdata.roles.forEach((e:any) => {
+          //   if(e.role_name=="Employee"){
+          //     this.router.navigate(['/Attendance/EmployeeDashboard']);
+          //   }else if(e.role_name=="Manager"){
+          //     this.router.navigate(['/Attendance/ManagerDashboard']);
+          //   }else{
+          //     this.router.navigate(['/admin/Dashboard']);
+          //   }
+          // });
           
 
 
