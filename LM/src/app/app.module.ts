@@ -27,7 +27,8 @@ import { CommonModule } from '@angular/common';
 import { OnlyNumberDirective } from './custom-directive/only-number.directive';
 import { MainComponent } from './pages/main/main.component';
 import { EmployeeMasterToAddComponent } from './modules/admin/pages/employee-master-to-add/employee-master-to-add.component';
-import { MatTableModule } from '@angular/material/table'
+import { MatTableModule } from '@angular/material/table';
+import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.component';
 
  FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -49,6 +50,7 @@ import { MatTableModule } from '@angular/material/table'
     MainComponent,
     OnlyNumberDirective,
     EmployeeMasterToAddComponent,
+    MainDashboardComponent
   ],
   imports: [
     BrowserModule,

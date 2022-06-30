@@ -5,7 +5,10 @@ import { LoginComponent } from './pages/login/login.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component'
+import {MainDashboardComponent} from './pages/main-dashboard/main-dashboard.component'
 import {LMSAccessGuard} from  './LMS-access.guard';
+import { CommonModule } from '@angular/common';
+
 
 const routes: Routes = [
   {path:'Login',component:LoginComponent},
@@ -14,7 +17,10 @@ const routes: Routes = [
   {path:'ResetPassword/:email/:id',component:ResetPasswordComponent},
 
   {path:'ForgotPassword',component:ForgotPasswordComponent},
-
+  {
+    path: 'HrmsDashboard',
+    component:ForgotPasswordComponent
+  },
   {
     path: 'admin',
     loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
@@ -30,11 +36,14 @@ const routes: Routes = [
     path: '',
     redirectTo: 'Login',
     pathMatch: 'full'
-  }
+  },
+  {path:'MainDashboard',component:MainDashboardComponent}
+
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),CommonModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
