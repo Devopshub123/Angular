@@ -53,7 +53,7 @@ export class ApprovalAttendanceComponent implements OnInit {
       
   }
   acceptApproval(){
-    this.titleName="Accept"
+    this.titleName="Approve"
     
     this.openDialog();
   }
