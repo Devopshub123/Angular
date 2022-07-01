@@ -7,16 +7,16 @@
     <button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
   </div>
   <nav class="navbar navbar-header navbar-expand-lg">
-    <div class="container-fluid">
-      <div class="navbar-minimize" *ngIf="checkHeadNav == 'admin'">
+     <div class="container-fluid">
+     <!-- <div class="navbar-minimize" *ngIf="checkHeadNav == 'admin'">
         <button class="btn btn-minimize btn-rounded" (click)="setToggleSideBar(toggleValue)">
           <i class="la la-navicon" *ngIf="checkToggleBar == 'Show'"></i>
           <i class="la la-ellipsis-v" *ngIf="checkToggleBar == 'Hide'"></i>
         </button>
-      </div>
+      </div> -->
       <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 
-        <li class="nav-item dropdown hidden-caret">
+        <!-- <li class="nav-item dropdown hidden-caret">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="la la-bell"></i>
             <span class="notification">3</span>
@@ -93,8 +93,16 @@
             <a class="dropdown-item" href="ChangePassword"><i class="ti-settings"></i> Change Password</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="Login" (click)="logout()"><i class="fa fa-power-off"></i> Logout</a>
-          </ul>
+          </ul> -->
           <!-- /.dropdown-user -->
+        <!-- </li> -->
+        <li >
+          <a class="dropdown-item" href="ChangePassword"><span class='material-icons' style="margin-top: 15px; cursor: pointer;" title="password change" >key</span> </a>
+        </li>
+        
+        <li style="margin-right: 0px;">
+              <span class="material-icons " (click)="logout()" style="margin-top: 15px; cursor: pointer;" title="logout">logout</span>
+
         </li>
       </ul>
     </div>
