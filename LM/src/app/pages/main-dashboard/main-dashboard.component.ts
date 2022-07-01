@@ -4,6 +4,8 @@ import { NavItem } from 'src/app/models/navItem';
 import { LoginService } from 'src/app/services/login.service';
 import { MainService } from 'src/app/services/main.service';
 import { SideMenuService } from 'src/app/services/side-menu.service';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -18,6 +20,8 @@ export class MainDashboardComponent implements OnInit {
   userRoles:any=[];
   menu: NavItem[]=[];
   firstRoute:any;
+  showError: boolean = false;
+  private unsubscriber: Subject<void> = new Subject<void>();
   constructor(private AMS : LoginService,private mainService:MainService,
     private sideMenuService:SideMenuService,private router:Router) {
     this.data= sessionStorage.getItem('user')
@@ -117,8 +121,19 @@ export class MainDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getModules();
+    history.pushState(null, '');
+
+    fromEvent(window, 'popstate')
+      .pipe(takeUntil(this.unsubscriber))
+      .subscribe((_) => {
+        history.pushState(null, '');
+        this.showError = true;
+      });
   }
 
   
-
+  ngOnDestroy(): void {
+    this.unsubscriber.next();
+    this.unsubscriber.complete();
+  }
 }
