@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ReportsService {
-  mainBeUrl= environment.apiUrl;
+  mainUrl= environment.apiUrl;
   userSession: any;
   httpOptions = {
     headers: new HttpHeaders({'content-Type': 'application/json'})
@@ -16,13 +16,13 @@ export class ReportsService {
 }
   
   getTotalEmployeslist(): any{
-    return this.http.get(this.mainBeUrl + 'user',this.httpOptions);
+    return this.http.get(this.mainUrl + 'attendance/api/getallemployeeslist',this.httpOptions);
   } 
   // ALL USER-WISE COLLECTION DATA API
   allUsersCollectionReport(fromDate:any,toDate:any) {
-    return this.http.get(this.mainBeUrl + 'bill/totalCollectionReport/' + fromDate + '/' +  toDate, this.httpOptions);
+    return this.http.get(this.mainUrl + 'bill/totalCollectionReport/' + fromDate + '/' +  toDate, this.httpOptions);
   }
   employeeCollectionReportByDatesByUserID(fromDate:any,toDate:any,userId:any) {
-    return this.http.get(this.mainBeUrl + 'bill/totalCollectionReport/' + fromDate + '/' +  toDate+'?userId='+userId, this.httpOptions);
+    return this.http.get(this.mainUrl + 'bill/totalCollectionReport/' + fromDate + '/' +  toDate+'?userId='+userId, this.httpOptions);
   }
 }
