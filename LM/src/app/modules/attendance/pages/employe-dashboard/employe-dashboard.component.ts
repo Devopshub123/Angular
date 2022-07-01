@@ -52,6 +52,7 @@ export class EmployeDashboardComponent implements OnInit {
   constructor(private attendanceService:AttendanceService,private router:Router) { }
    firstIn:any='00:00';
    lastOut:any='00:00';
+   currentDate = new Date();
   ngOnInit(): void {
     this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
    this.todayDate= this.pipe.transform(Date.now(), 'dd/MM/yyyy');
@@ -90,22 +91,33 @@ export class EmployeDashboardComponent implements OnInit {
   nextMonth(): void {
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.next();
+    const selectDate = this.calendarApi.getDate();
+    if (selectDate.getTime() <= this.currentDate.getTime()) {
+      this.getemployeeattendancedashboard();
+    } else {
+      this.attendanceData = [];
+      this.initialEvents = [];
+      this.calendarOptions.events = this.initialEvents;
+    }
+
+  }
+  prevMonth(): void {
+    this.calendarApi = this.calendarComponent.getApi();
+    this.calendarApi.prev();
+    const selectDate = this.calendarApi.getDate();
+    if (selectDate.getTime() <= this.currentDate.getTime()) {
+      this.getemployeeattendancedashboard();
+    } else {
+      this.attendanceData = [];
+      this.initialEvents = [];
+      this.calendarOptions.events = this.initialEvents;
+    }
+  }
+  currentMonth(): void {
+    this.calendarApi = this.calendarComponent.getApi();
+    this.calendarApi.today();
     const currentDate = this.calendarApi.getDate();
     this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
     this.getemployeeattendancedashboard()
-}
-prevMonth(): void {
-  this.calendarApi = this.calendarComponent.getApi();
-  this.calendarApi.prev();
-  const currentDate = this.calendarApi.getDate();
-  this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
-  this.getemployeeattendancedashboard()
-}
-currentMonth(): void {
-  this.calendarApi = this.calendarComponent.getApi();
-  this.calendarApi.today();
-  const currentDate = this.calendarApi.getDate();
-  this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
-  this.getemployeeattendancedashboard()
-}
+  }
 }

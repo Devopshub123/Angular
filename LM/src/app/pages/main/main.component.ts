@@ -2,7 +2,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavItem } from 'src/app/models/navItem';
-import { BaseService } from 'src/app/services/base.service';
 import { CompanyInformationService } from 'src/app/services/company-information.service';
 import { MainService } from 'src/app/services/main.service';
 import { SideMenuService } from 'src/app/services/side-menu.service';
@@ -13,8 +12,9 @@ import { SideMenuService } from 'src/app/services/side-menu.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  
-  toggleValue: any= "Show";
+  checkHeadNav: any;
+  checkToggleBar: any;
+  toggleValue: any;
   subscription: any;
   pic: any;
   usersession: any;
@@ -110,7 +110,7 @@ menu:NavItem[] =[];
   employeeRoles: any;
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public router: Router,
     private companyInformationService:CompanyInformationService,private mainService:MainService,
-    private sideMenuService:SideMenuService,private baseService: BaseService,
+    private sideMenuService:SideMenuService
     ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -217,16 +217,5 @@ menu:NavItem[] =[];
       }
     })
   }
-
-  setToggleSideBar(data:any): void
-  {
-    this.baseService.setToggleSideBar(data);
-    if(data == "Show") {
-      this.toggleValue = "Hide";
-    }
-    else if(data == "Hide")
-    {
-      this.toggleValue = "Show";
-    }
-  }
+  
 }

@@ -85,7 +85,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     if(this.userData.userData!=undefined){
       this.requestform.controls.fromDate.setValue(new Date(this.userData.userData.attendancedate));
       this.requestform.controls.toDate.setValue(new Date(this.userData.userData.attendancedate)); 
-      this.requestform.controls.employeeName.setValue(this.userData.userData.id);
+      this.requestform.controls.employeeName.setValue(this.userData.userData.empid);
     }
 
   }
