@@ -54,9 +54,9 @@ export class DesignationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDesignation();
-    // this.getErrorMessages('LM1');
-    // this.getErrorMessages('LM30');
-    // this.getErrorMessages('LM31');
+    this.getErrorMessages('LM1');
+    this.getErrorMessages('LM30');
+    this.getErrorMessages('LM31');
     this.designationForm=this.formBuilder.group(
       {
         designation:["",Validators.required],
@@ -221,22 +221,22 @@ export class DesignationsComponent implements OnInit {
       }
     })
   }
-  // getErrorMessages(errorCode:any) {
-  //   this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
-  //     if(result.status && errorCode == 'LM1')
-  //     {
-  //       this.errorDesName = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM30')
-  //     {
-  //       this.saveResponseMessage = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM31')
-  //     {
-  //       this.editResponseMessage = result.data[0].errormessage
-  //     }
+  getErrorMessages(errorCode:any) {
+    this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+      if(result.status && errorCode == 'LM1')
+      {
+        this.errorDesName = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM30')
+      {
+        this.saveResponseMessage = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM31')
+      {
+        this.editResponseMessage = result.data[0].errormessage
+      }
 
-  //   })
-  // }
+    })
+  }
 
 }

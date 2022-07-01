@@ -1,3 +1,4 @@
+import { changePassword } from './../../models/changepassword';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -218,20 +219,7 @@ menu:NavItem[] =[];
     })
   }
 
-  setToggleSideBar(data:any): void
-  {
-    this.baseService.setToggleSideBar(data);
-    if(data == "Show") {
-      this.toggleValue = "Hide";
-    }
-    else if(data == "Hide")
-    {
-      this.toggleValue = "Show";
-    }
-  }
   changePassword(){
     this.router.navigate(['Attendance/ChangePassword'])
   }
-  
-
 }

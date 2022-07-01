@@ -13,7 +13,22 @@ import { ReportsService } from '../../reports.service';
   styleUrls: ['./summary-report.component.scss']
 })
 export class SummaryReportComponent implements OnInit {
-  List:any[]=[];
+  List:any[]=[
+    {'date':'01-Feb', 'firstin':'09:45 AM', 'lastout':'07:00 PM', 
+    'totalhours':'09.15','breaks':'11.00 - 11.15', 'breaktime':'00.15', 'productionhours':'09.00'},
+    {'date':'01-Feb', 'firstin':'09:45 AM', 'lastout':'07:00 PM', 
+    'totalhours':'09.15','breaks':'11.00 - 11.15', 'breaktime':'00.15', 'productionhours':'09.00'},
+    {'date':'01-Feb', 'firstin':'09:45 AM', 'lastout':'07:00 PM', 
+    'totalhours':'09.15','breaks':'11.00 - 11.15', 'breaktime':'00.15', 'productionhours':'09.00'},
+    {'date':'01-Feb', 'firstin':'09:45 AM', 'lastout':'07:00 PM', 
+    'totalhours':'09.15','breaks':'11.00 - 11.15', 'breaktime':'00.15', 'productionhours':'09.00'},
+    {'date':'01-Feb', 'firstin':'09:45 AM', 'lastout':'07:00 PM', 
+    'totalhours':'09.15','breaks':'11.00 - 11.15', 'breaktime':'00.15', 'productionhours':'09.00'},
+    {'date':'01-Feb', 'firstin':'09:45 AM', 'lastout':'07:00 PM', 
+    'totalhours':'09.15','breaks':'11.00 - 11.15', 'breaktime':'00.15', 'productionhours':'09.00'},
+    {'date':'01-Feb', 'firstin':'09:45 AM', 'lastout':'07:00 PM', 
+    'totalhours':'09.15','breaks':'11.00 - 11.15', 'breaktime':'00.15', 'productionhours':'09.00'},
+  ];
   employeelist:any;
   Users:any;
   minDate=new Date('1950/01/01'); maxDate = new Date();
@@ -24,19 +39,23 @@ export class SummaryReportComponent implements OnInit {
  filter = new FormControl();
   searchForm = this.formBuilder.group({ fromDate: [new Date()], toDate: [new Date()],Users:['0'] });
   dataSource: MatTableDataSource<any> = <any>[];
-  displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4','c8', 'c5', 'c6','c7'];
+  displayedColumns: string[] = ['sno','date', 'firstin', 'lastout', 'totalhours','breaks', 'breaktime', 'productionhours','action'];
   isLoading = false;
 ngOnInit() {
-    this.Searchform();
+   // this.Searchform();
+   this.dataSource = new MatTableDataSource(this.List);
     this.getEmployeelist();
   }
 
   getEmployeelist(){
    
     this.reportsService.getTotalEmployeslist().subscribe((res:any) => {
-      this.employeelist = [];
-      this.employeelist = res
-      this.searchForm.controls.Users.setValue('0');
+      if(res.status){
+        this.employeelist = [];
+        this.employeelist = res.data;
+        this.searchForm.controls.Users.setValue('0');
+      }
+
       });
   }
   //All Employees API
@@ -99,13 +118,13 @@ ngOnInit() {
     this.dataSource.data.map(a => {
       let e:any = {};
       e['Sno'] = i++;
-      e['Bill Type'] = a.label;
-      e['Count'] = a.count;
-      e['Total Amount'] = a.totalAmount;
-      e['Total Discount'] = a.discountAmount;
-      e['Net Amount'] = a.netAmount;
-      e['Paid Amount'] = a.paidAmount;
-      e['Due Amount'] = a.dueAmount;
+      e['Date'] = a.date;
+      e['First In'] = a.firstin;
+      e['Last Out'] = a.lastout;
+      e['Total Hours'] = a.totalhours;
+      e['Breaks'] = a.breaks;
+      e['Break Time'] = a.breaktime;
+      e['Production Hours'] = a.productionhours;
       edata.push(e);
     })
     this.excelService.exportAsExcelFile(edata,'');

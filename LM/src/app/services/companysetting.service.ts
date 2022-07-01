@@ -78,7 +78,7 @@ import { environment } from 'src/environments/environment';
     return this.hClient.post(this.mainBeUrl + 'api/designationstatus', JSON.stringify(info), this.httpOptions);
   }
   getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
-    return this.hClient.get('http://localhost:6060/api/getErrorMessages/' + errorCode + '/' + page + '/' + size, this.httpOptions);
+    return this.hClient.get(this.mainBeUrl +'api/getErrorMessages/' + errorCode + '/' + page + '/' + size, this.httpOptions);
   }
   
   setCompanyInformation(info: any):Observable<any>{

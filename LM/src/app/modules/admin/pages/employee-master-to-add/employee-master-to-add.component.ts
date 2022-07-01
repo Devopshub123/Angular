@@ -135,12 +135,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.getDepartmentsMaster();
     this.getWorkLocation();
     this.getEmployeeDetails(null,null);
-    // this.getErrorMessages('LM1');
-    // this.getErrorMessages('LM2');
-    // this.getErrorMessages('LM3');
-    // this.getErrorMessages('LM54');
-    // this.getErrorMessages('LM38');
-    // this.getErrorMessages('LM39');
+    this.getErrorMessages('LM1');
+    this.getErrorMessages('LM2');
+    this.getErrorMessages('LM3');
+    this.getErrorMessages('LM54');
+    this.getErrorMessages('LM38');
+    this.getErrorMessages('LM39');
     /**page 1 form */
     this.employeeAddForm=this.formBuilder.group(
       {
@@ -517,22 +517,28 @@ export class EmployeeMasterToAddComponent implements OnInit {
       let x = JSON.parse((this.employeedata.education))
       let y = JSON.parse((this.employeedata.experience))
       let z = JSON.parse((this.employeedata.relations))
-      for(let i = 0;i<z.length;i++){
-        this.familyDetails.push({
-          firstname: z[i].firstname,
-          lastname: z[i].lastname,
-          gender: z[i].gender,
-          contactnumber: z[i].contactnumber,
-          status: z[i].status,
-          relationship: z[i].relationship,
-          dateofbirth: this.pipe.transform(z[i].dateofbirth, 'yyyy-MM-dd')
-        });
-        
+      console.log("aa",x,y,z)
+      if(z != null){
+        for(let i = 0;i<z.length;i++){
+          this.familyDetails.push({
+            firstname: z[i].firstname,
+            lastname: z[i].lastname,
+            gender: z[i].gender,
+            contactnumber: z[i].contactnumber,
+            status: z[i].status,
+            relationship: z[i].relationship,
+            dateofbirth: this.pipe.transform(z[i].dateofbirth, 'yyyy-MM-dd')
+          });
+          
+  
+        }
+        this.dsFamily = new MatTableDataSource(this.familyDetails);
 
       }
-      this.dsFamily = new MatTableDataSource(this.familyDetails);
+      
      let education = JSON.parse(this.employeedata.education)
-     education.forEach((e:any) => {
+     if(education !=null){
+      education.forEach((e:any) => {
         this.edu().push(this.formBuilder.group({
           course: e.course,
           institutename: e.institutename,
@@ -541,7 +547,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
           
         }));
       });
-      let experience = JSON.parse(this.employeedata.experience)
+
+     }
+     let experience = JSON.parse(this.employeedata.experience)
+     if(experience != null){
       experience.forEach((e:any) => {
         this.exp().push(this.formBuilder.group({
           companyname: e.companyname,
@@ -549,7 +558,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
           wtodate:new Date(e.todate)
           
         }));
-      });      
+      });  
+
+     }
+     
+      
+         
     });
 
   }
@@ -857,36 +871,36 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.employeedata=[];
     this.ngOnInit();
   }
-  // getErrorMessages(errorCode:any) {
+  getErrorMessages(errorCode:any) {
 
-  //   this.LMS.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+    this.LMS.getErrorMessages(errorCode,1,100).subscribe((result)=>{
 
-  //     if(result.status && errorCode == 'LM1')
-  //     {
-  //       this.msgLM1 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM2')
-  //     {
-  //       this.msgLM2 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM3')
-  //     {
-  //       this.msgLM3 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM54')
-  //     {
-  //       this.msgLM54 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM38')
-  //     {
-  //       this.msgLM38 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM39')
-  //     {
-  //       this.msgLM39 = result.data[0].errormessage
-  //     }
-  //   })
-  // }
+      if(result.status && errorCode == 'LM1')
+      {
+        this.msgLM1 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM2')
+      {
+        this.msgLM2 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM3')
+      {
+        this.msgLM3 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM54')
+      {
+        this.msgLM54 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM38')
+      {
+        this.msgLM38 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM39')
+      {
+        this.msgLM39 = result.data[0].errormessage
+      }
+    })
+  }
   countryChange(Id:any){
     this.permanentStateDetails=[];
     this.LMS.getStatesc(Id).subscribe((data)=>{
