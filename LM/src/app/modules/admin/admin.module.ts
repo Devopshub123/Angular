@@ -10,6 +10,8 @@ import { DeparmentComponent } from './pages/deparment/deparment.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { CompanyinformationComponent } from './pages/companyinformation/companyinformation.component';
 import { CompanylogoComponent } from './pages/companylogo/companylogo.component';
+import { RolesPermissionsComponent } from './pages/roles-permissions/roles-permissions.component';
+import { AddRoleModalComponent } from './pages/add-role-modal/add-role-modal.component';
 
 
 @NgModule({
@@ -20,6 +22,8 @@ import { CompanylogoComponent } from './pages/companylogo/companylogo.component'
     AdminDashboardComponent,
     CompanyinformationComponent,
     CompanylogoComponent,
+    RolesPermissionsComponent,
+    AddRoleModalComponent
   ],
   imports: [
     CommonModule,
