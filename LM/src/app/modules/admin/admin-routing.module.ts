@@ -7,16 +7,18 @@ import { DesignationsComponent } from './pages/designations/designations.compone
 import { EmployeeMasterToAddComponent } from './pages/employee-master-to-add/employee-master-to-add.component';
 import { CompanylogoComponent } from './pages/companylogo/companylogo.component';
 import { CompanyinformationComponent } from './pages/companyinformation/companyinformation.component';
+import {LMSAccessGuard} from  '../../LMS-access.guard';
+
 const routes: Routes = [
   {
     path: '', component: MainComponent,
     children: [
-      {path:'Dashboard',component:AdminDashboardComponent},
-      { path: 'Designation', component: DesignationsComponent },
-      { path: 'Department', component: DeparmentComponent },
-      { path: 'Employee', component: EmployeeMasterToAddComponent },
-      { path: 'CompanyInformation',component:CompanyinformationComponent},
-      { path: 'CompanyLogo',component:CompanylogoComponent},
+      {path:'Dashboard',component:AdminDashboardComponent,canActivate:[LMSAccessGuard] },
+      { path: 'Designation', component: DesignationsComponent,canActivate:[LMSAccessGuard] },
+      { path: 'Department', component: DeparmentComponent ,canActivate:[LMSAccessGuard]},
+      { path: 'Employee', component: EmployeeMasterToAddComponent,canActivate:[LMSAccessGuard] },
+      { path: 'CompanyInformation',component:CompanyinformationComponent,canActivate:[LMSAccessGuard]},
+      { path: 'CompanyLogo',component:CompanylogoComponent,canActivate:[LMSAccessGuard]},
     ]
   }
 
