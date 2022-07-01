@@ -41,6 +41,7 @@ export class MainDashboardComponent implements OnInit {
       'moduleid':id
     };
     this.mainService.getRoleScreenFunctionalities(data).subscribe((res:any)=>{
+      this.menu=[];
       if(res.status){
         this.menu=[];
          this.firstRoute='';
@@ -93,12 +94,11 @@ export class MainDashboardComponent implements OnInit {
          
         }
        });
-       sessionStorage.setItem('sidemenu',JSON.stringify(this.menu));
-      // this.router.navigate(['/admin/Dashboard'])
-      // sessionStorage.setItem('user',JSON.stringify(this.menu));
-     //  this.sideMenuService.setData(this.menu);
-      // this.router.navigate(['/admin/Dashboard'])
-       this.router.navigate([this.firstRoute]);
+       if(this.menu.length>0){
+        sessionStorage.setItem('sidemenu',JSON.stringify(this.menu));
+        this.router.navigate([this.firstRoute]);
+       }
+
         
       }
 
