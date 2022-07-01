@@ -6,8 +6,8 @@
     </button>
     <button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
   </div>
-  <nav class="navbar navbar-header navbar-expand-lg">
-     <div class="container-fluid">
+  <nav class="navbar navbar-header navbar-expand-lg" style="padding: 0px;">
+     <!-- <div class="container-fluid"> -->
      <!-- <div class="navbar-minimize" *ngIf="checkHeadNav == 'admin'">
         <button class="btn btn-minimize btn-rounded" (click)="setToggleSideBar(toggleValue)">
           <i class="la la-navicon" *ngIf="checkToggleBar == 'Show'"></i>
@@ -101,11 +101,11 @@
         </li>
         
         <li style="margin-right: 0px;">
-              <span class="material-icons " (click)="logout()" style="margin-top: 15px; cursor: pointer;" title="logout">logout</span>
+          <a class="dropdown-item" href="Login"><span class="material-icons " (click)="logout()" style="margin-top: 15px; cursor: pointer;" title="logout">logout</span></a>
 
         </li>
       </ul>
-    </div>
+    <!-- </div> -->
   </nav>
 </div>
 

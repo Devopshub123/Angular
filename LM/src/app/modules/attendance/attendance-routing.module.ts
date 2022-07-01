@@ -8,19 +8,21 @@ import { ApprovalAttendanceListComponent } from './pages/approval-attendance-lis
 import { AttendanceRequestBehalfComponent } from './pages/attendance-request-behalf/attendance-request-behalf.component';
 import { AttendanceRequestComponent } from './pages/attendance-request/attendance-request.component';
 import { MainComponent } from 'src/app/pages/main/main.component';
+import {LMSAccessGuard} from  '../../LMS-access.guard';
+
 
 const routes: Routes = [
   {
     path: '', component: MainComponent,
     children: [
 
-      { path: 'Approval', component: ApprovalAttendanceComponent },
-      { path: 'ApprovalList', component: ApprovalAttendanceListComponent },
-      { path: 'Request', component: AttendanceRequestComponent },
-      { path: 'RequestofEmployee', component: AttendanceRequestBehalfComponent },
-      { path: 'EmployeeDashboard', component: EmployeDashboardComponent },
-      { path: 'ManagerDashboard', component: ManagerDashboardComponent },
-      { path: 'uploadExcel', component: AttendanceUploadexcelComponent },
+      { path: 'Approval', component: ApprovalAttendanceComponent,canActivate:[LMSAccessGuard] },
+      { path: 'ApprovalList', component: ApprovalAttendanceListComponent,canActivate:[LMSAccessGuard] },
+      { path: 'Request', component: AttendanceRequestComponent ,canActivate:[LMSAccessGuard]},
+      { path: 'RequestofEmployee', component: AttendanceRequestBehalfComponent ,canActivate:[LMSAccessGuard]},
+      { path: 'EmployeeDashboard', component: EmployeDashboardComponent,canActivate:[LMSAccessGuard] },
+      { path: 'ManagerDashboard', component: ManagerDashboardComponent,canActivate:[LMSAccessGuard]},
+      { path: 'uploadExcel', component: AttendanceUploadexcelComponent,canActivate:[LMSAccessGuard] },
     ]
   }];
 

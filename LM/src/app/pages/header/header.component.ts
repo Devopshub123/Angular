@@ -32,6 +32,8 @@ export class HeaderComponent implements OnInit {
   }
   logout(){
     sessionStorage.removeItem('user')
+    sessionStorage.removeItem('sidemenu');
+
   }
 
   setHeadNav(data:any): void {
