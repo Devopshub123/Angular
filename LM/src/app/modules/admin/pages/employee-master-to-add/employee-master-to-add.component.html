@@ -60,12 +60,11 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>personal Email</mat-label>
-                            <input type="text" formControlName="personalemail" matInput placeholder="" maxlength="100"
-                                required>
-                            <mat-error class="con-error"
+                            <input type="text" formControlName="personalemail" matInput placeholder="" maxlength="100">
+                            <!-- <mat-error class="con-error"
                                 *ngIf="employeeAddForm.controls.personalemail.errors?.required">
                                 {{msgLM1}}
-                            </mat-error>
+                            </mat-error> -->
                             <mat-error class="con-error" *ngIf="employeeAddForm.controls.personalemail.errors?.email">
                                 {{msgLM2}}
                             </mat-error>
@@ -594,15 +593,15 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Official Email</mat-label>
-                            <input type="text" maxlength="100" formControlName="officeemail" matInput placeholder=""
-                                required>
+                            <input type="text" maxlength="100" formControlName="officeemail" matInput placeholder="">
+                                
                             <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.officeemail.errors?.email">
                                 {{msgLM2}}
                             </mat-error>
-                            <mat-error class="con-error"
+                            <!-- <mat-error class="con-error"
                                 *ngIf="employeeworkAddForm.controls.officeemail.errors?.required">
                                 {{msgLM2}}
-                            </mat-error>
+                            </mat-error> -->
                         </mat-form-field>
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -738,7 +737,7 @@
                                 <ng-container>
                                     <div *ngFor="let b of worklocationDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option [value]="b.city">{{b.cityname}}</mat-option>
+                                        <mat-option [value]="b.id">{{b.cityname}}</mat-option>
                                     </div>
 
                                 </ng-container>
@@ -756,7 +755,9 @@
                     </div>
                     <mat-card-header class="">
                         <mat-card-title class="title"> Education Details </mat-card-title>
+                        <mat-icon (click)="addeducation()">add</mat-icon>
                     </mat-card-header>
+                    
                     <mat-divider></mat-divider>
 
 
@@ -792,7 +793,7 @@
                                             </mat-form-field>
                                             <div fxFlex.xs="100" fxFlex="20" style="padding:20px" class="mx-2 my-2 mr2"
                                                   appearance="outline">
-                                                <mat-icon (click)="addeducation()">add</mat-icon>
+                                                <!-- <mat-icon (click)="addeducation()">add</mat-icon> -->
                                                 <mat-icon (click)="removeeducation(empIndex)">delete</mat-icon>
                                             </div>
                                             
@@ -809,6 +810,7 @@
 
                     <mat-card-header class="">
                         <mat-card-title class="title"> Work Experience </mat-card-title>
+                        <mat-icon (click)="addexperience()">add</mat-icon>
                     </mat-card-header>
                     <mat-divider></mat-divider>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -837,7 +839,7 @@
                                     </mat-form-field>
                                     <div fxFlex.xs="100" fxFlex="20" style="padding:20px" class="mx-2 my-2 mr2"
                                         appearance="outline">
-                                        <mat-icon (click)="addexperience()">add</mat-icon>
+                                        <!-- <mat-icon (click)="addexperience()">add</mat-icon> -->
                                         <mat-icon (click)="removeWork(empIndex)">delete</mat-icon>
                                     </div>
                                     </div>
@@ -955,7 +957,7 @@
         </div>
 
     </mat-card>
-
+    
 
 
 </div>

@@ -60,8 +60,12 @@ export class DeparmentComponent implements OnInit {
     );
   }
   validatedepartments(data:any){
-    console.log("ghhgh",data,this.valid)
-    for(let i=0;i<this.departmentData.length;i++){
+    if(this.departmentData.length<0){
+      this.valid = true;
+
+    }
+    else{
+      for(let i=0;i<this.departmentData.length;i++){
         if(data === this.departmentData[i].deptname){
           this.valid = false;
           break;          
@@ -70,7 +74,8 @@ export class DeparmentComponent implements OnInit {
           this.valid = true;
         }
     }
-    return this.valid;
+    }
+  
   }
   setdepartment(){
     this.validatedepartments(this.departmentForm.controls.department.value)
@@ -85,7 +90,7 @@ export class DeparmentComponent implements OnInit {
           this.valid = false;
           if (data.status) {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/admin/Department"]));
+            this.router.navigate(["/Admin/Department"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               disableClose: true,
               data: 'Department added successfully'
@@ -170,9 +175,12 @@ export class DeparmentComponent implements OnInit {
     this.isSave=false;
     
     if(this.valid){
+   
       this.LM.putDepartments({id: id, name: deptname}).subscribe((data) => {
         if (data.status) {
-          this.enable = null;
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/Department"]));
+          // this.enable = null;
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             disableClose: true,
             data: 'Department updated succesFully'
@@ -208,7 +216,7 @@ export class DeparmentComponent implements OnInit {
 
   }
   getDepartments(){
-    this.LM.getDepartments('departmentsmaster',null,1,100,'boon_client').subscribe((info)=>{
+    this.LM.getDepartments('departmentsmaster',null,1,100,'nandyala_hospitals').subscribe((info)=>{
       if(info.status && info.data.length !=0) {
         console.log(info.data);
         this.departmentData = info.data;

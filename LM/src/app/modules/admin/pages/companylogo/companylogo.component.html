@@ -36,13 +36,13 @@
                                                         (change)="onSelectFile($event)"
                                                         accept="image/*" />
                                     </span>
-                                    <span class="btn btn-primary btn-file mr-3 mx-2 my-2 custom-button-save" *ngIf="isFileImage" (click)="saveImage()">
+                                    <span class="btn btn-primary btn-file mr-3 mx-2 my-2 custom-button-save" *ngIf="isFileImage" style="width: fit-content;" (click)="saveImage()">
                                         Save
                                     </span>
-                                    <span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save" *ngIf="isRemoveImage"  (click)="removeImage()">
+                                    <span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save" *ngIf="isRemoveImage" style="width: fit-content;" (click)="removeImage()">
                                       Remove
                                   </span>
-                                  <span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save"  *ngIf="isFileImage" (click)="cancelImage()">
+                                  <span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save"  *ngIf="isFileImage" style="width: fit-content;" (click)="cancelImage()">
                                     Cancel
                                 </span>
 

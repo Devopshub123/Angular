@@ -28,7 +28,7 @@ export class ChangePasswordComponent implements OnInit {
   isvalid:boolean=false;
   isView:boolean=true;
   empId: any;
-  msgLM1:any;
+  msgLM1:any='This Field is Requird';
   msgLM2:any;
   msgLM4:any;
   msgLM5:any;
@@ -40,11 +40,11 @@ export class ChangePasswordComponent implements OnInit {
    @ViewChild("chngfrm", {static: true}) form: any;
   passwordPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9].{8,20})"
   ngOnInit() {
-    this.getErrorMessages('LM1')
-    this.getErrorMessages('LM2')
-    this.getErrorMessages('LM4')
-    this.getErrorMessages('LM5')
-    this.getErrorMessages('LM56')
+    // this.getErrorMessages('LM1')
+    // this.getErrorMessages('LM2')
+    // this.getErrorMessages('LM4')
+    // this.getErrorMessages('LM5')
+    // this.getErrorMessages('LM56')
     this.changePasswordform=this.formBuilder.group(
       {
         oldPassword:["",Validators.required],
@@ -70,6 +70,7 @@ export class ChangePasswordComponent implements OnInit {
     else{
       console.log("false")
       this.isView=true;
+
     }
   
   }
@@ -124,37 +125,37 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
  
-  getErrorMessages(errorCode:any) {
+  // getErrorMessages(errorCode:any) {
 
-    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+  //   this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
 
-      if(result.status && errorCode == 'LM1')
-      {
-        this.msgLM1 = result.data[0].errormessage
-        console.log(this.msgLM1)
-      }
-      else if(result.status && errorCode == 'LM2')
-      {
-        this.msgLM2 = result.data[0].errormessage
-        console.log(this.msgLM2)
-      }
-      else if(result.status && errorCode == 'LM4')
-      {
-        this.msgLM4 = result.data[0].errormessage
-        console.log(this.msgLM4)
-      }
-      else if(result.status && errorCode == 'LM5')
-      {
-        this.msgLM5 = result.data[0].errormessage
-        console.log(this.msgLM5)
-      }
-      else if(result.status && errorCode == 'LM56')
-      {
-        this.msgLM56 = result.data[0].errormessage
-        console.log(this.msgLM56)
-      }
+  //     if(result.status && errorCode == 'LM1')
+  //     {
+  //       this.msgLM1 = result.data[0].errormessage
+  //       console.log(this.msgLM1)
+  //     }
+  //     else if(result.status && errorCode == 'LM2')
+  //     {
+  //       this.msgLM2 = result.data[0].errormessage
+  //       console.log(this.msgLM2)
+  //     }
+  //     else if(result.status && errorCode == 'LM4')
+  //     {
+  //       this.msgLM4 = result.data[0].errormessage
+  //       console.log(this.msgLM4)
+  //     }
+  //     else if(result.status && errorCode == 'LM5')
+  //     {
+  //       this.msgLM5 = result.data[0].errormessage
+  //       console.log(this.msgLM5)
+  //     }
+  //     else if(result.status && errorCode == 'LM56')
+  //     {
+  //       this.msgLM56 = result.data[0].errormessage
+  //       console.log(this.msgLM56)
+  //     }
      
-    })
-  }
+  //   })
+  // }
 
 }
