@@ -29,40 +29,62 @@ export class MainDashboardComponent implements OnInit {
     this.AMS.getModules('modulesmaster',null,1,100,'boon_client').subscribe((result)=>{
       if(result && result.status){
         this.allModuleDetails = result.data;
+        console.log("hhhhh",result)
 
       }
     })
   }
+ 
 
-  getrolescreenfunctionalities(id:any){
-   
-    let data={
-      'empid':this.usersession.id,
-      'moduleid':id
-    };
-    this.mainService.getRoleScreenFunctionalities(data).subscribe((res:any)=>{
-      if(res.status){
-        this.menu=[];
-         this.firstRoute='';
-        res.data.forEach((e:any)=>{
-          
-        if(this.menu.length>0){
-          var isvalid=true;
-          this.menu.forEach((item)=>{
-            if(item.displayName==e.role_name){
-              isvalid=false;
-              var itemnav=    {
-                displayName: e.screen_name,
-                iconName:'',// e.role_name,
-                route: e.routename
-              }
-              item.children?.push(itemnav);
-            }
-          })
-            if(isvalid==true){
-              var navitem= {
+  
+
+  getrolescreenfunctionalities(id:any,date:any){
+
+    if(date){
+        let data={
+          'empid':this.usersession.id,
+          'moduleid':id
+        };
+        this.mainService.getRoleScreenFunctionalities(data).subscribe((res:any)=>{
+          if(res.status){
+            this.menu=[];
+            this.firstRoute='';
+            res.data.forEach((e:any)=>{
+              
+            if(this.menu.length>0){
+              var isvalid=true;
+              this.menu.forEach((item)=>{
+                if(item.displayName==e.role_name){
+                  isvalid=false;
+                  var itemnav=    {
+                    displayName: e.screen_name,
+                    iconName:'',// e.role_name,
+                    route: e.routename
+                  }
+                  item.children?.push(itemnav);
+                }
+              })
+                if(isvalid==true){
+                  var navitem= {
+                    displayName: e.role_name,
+                    iconName:'' ,//e.role_name,
+                    children: [
+                      {
+                        displayName: e.screen_name,
+                        iconName:'',// e.role_name,
+                        route: e.routename
+                      }
+                      
+                    ]};
+                    this.menu.push(navitem)
+                
+
+                }
+            }else{
+              
+            var navtem= {
                 displayName: e.role_name,
-                iconName:'' ,//e.role_name,
+                iconName: '',//e.role_name,
                 children: [
                   {
                     displayName: e.screen_name,
@@ -71,40 +93,28 @@ export class MainDashboardComponent implements OnInit {
                   }
                   
                 ]};
-                this.menu.push(navitem)
-             
-
+                this.firstRoute=e.routename;
+                this.menu.push(navtem)
+            
             }
-        }else{
-          
-         var navtem= {
-            displayName: e.role_name,
-            iconName: '',//e.role_name,
-            children: [
-              {
-                displayName: e.screen_name,
-                iconName:'',// e.role_name,
-                route: e.routename
-              }
-              
-            ]};
-            this.firstRoute=e.routename;
-            this.menu.push(navtem)
-         
-        }
-       });
-       sessionStorage.setItem('sidemenu',JSON.stringify(this.menu));
-      // this.router.navigate(['/admin/Dashboard'])
-      // sessionStorage.setItem('user',JSON.stringify(this.menu));
-     //  this.sideMenuService.setData(this.menu);
-      // this.router.navigate(['/admin/Dashboard'])
-       this.router.navigate([this.firstRoute]);
+          });
+          sessionStorage.setItem('sidemenu',JSON.stringify(this.menu));
+          // this.router.navigate(['/admin/Dashboard'])
+          // sessionStorage.setItem('user',JSON.stringify(this.menu));
+        //  this.sideMenuService.setData(this.menu);
+          // this.router.navigate(['/admin/Dashboard'])
+          if(this.usersession.firstlogin == 'Y'){
+            this.router.navigate(['/ChangePassword']);
+          }else{
+          this.router.navigate([this.firstRoute]);
+          }
+            
+          }
+
+
         
-      }
-
-
-    
-    })
+        })
+  }
 
   }
 

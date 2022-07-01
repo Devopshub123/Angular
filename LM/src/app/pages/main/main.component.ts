@@ -135,6 +135,7 @@ menu:NavItem[] =[];
   }
   logout() {
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem('sidemenu');
     this.router.navigate(['/Login']);
   }
   ngOnDestroy(): void {

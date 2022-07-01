@@ -48,38 +48,39 @@ export class LoginComponent implements OnInit {
       if(data.status === true){
         let empdata = data.result[0];
         sessionStorage.setItem('user',JSON.stringify(empdata));
-        if(empdata.firstlogin == 'Y'){
-          const dialog: PopupConfig = {
-            title: 'Login Successfull',
-            close: 'OK',
+        this.router.navigate(['/MainDashboard'])
+        // if(empdata.firstlogin == 'Y'){
+        //   const dialog: PopupConfig = {
+        //     title: 'Login Successfull',
+        //     close: 'OK',
             
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-          this.router.navigate(['/ChangePassword']); 
+        //   };
+        //   this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+        //   this.router.navigate(['/ChangePassword']); 
 
 
-        }
-        else{
-          this.router.navigate(['/MainDashboard']);
-          // const dialog: PopupConfig = {
-          //   title: 'Login Successfull',
-          //   close: 'OK',
+        // }
+        // else{
+        //   this.router.navigate(['/MainDashboard']);
+        //   // const dialog: PopupConfig = {
+        //   //   title: 'Login Successfull',
+        //   //   close: 'OK',
             
-          // };
-          // this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-          // empdata.roles.forEach((e:any) => {
-          //   if(e.role_name=="Employee"){
-          //     this.router.navigate(['/Attendance/EmployeeDashboard']);
-          //   }else if(e.role_name=="Manager"){
-          //     this.router.navigate(['/Attendance/ManagerDashboard']);
-          //   }else{
-          //     this.router.navigate(['/admin/Dashboard']);
-          //   }
-          // });
+        //   // };
+        //   // this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+        //   // empdata.roles.forEach((e:any) => {
+        //   //   if(e.role_name=="Employee"){
+        //   //     this.router.navigate(['/Attendance/EmployeeDashboard']);
+        //   //   }else if(e.role_name=="Manager"){
+        //   //     this.router.navigate(['/Attendance/ManagerDashboard']);
+        //   //   }else{
+        //   //     this.router.navigate(['/admin/Dashboard']);
+        //   //   }
+        //   // });
           
 
 
-        }
+        // }
                 
       }
       else {
