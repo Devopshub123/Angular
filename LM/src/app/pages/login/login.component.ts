@@ -49,13 +49,13 @@ export class LoginComponent implements OnInit {
         let empdata = data.result[0];
         sessionStorage.setItem('user',JSON.stringify(empdata));
         if(empdata.firstlogin == 'Y'){
-          const dialog: PopupConfig = {
-            title: 'Login Successfull',
-            close: 'OK',
+          // const dialog: PopupConfig = {
+          //   title: 'Login Successfull',
+          //   close: 'OK',
             
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-          this.router.navigate(['/ChangePassword']); 
+          // };
+          // this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+          this.router.navigate(['/MainDashboard']); 
 
 
         }

@@ -133,7 +133,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.getEmploymentTypeMaster();
     this.getDesignationsMaster();
     this.getDepartmentsMaster();
-    // this.getEmployeeDetails(null,null);
     this.getWorkLocation();
     this.getEmployeeDetails(null,null);
     // this.getErrorMessages('LM1');
@@ -592,17 +591,16 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.addeducationdetails();
     console.log("kj",this.Educations)
     console.log("kj",this.Experience)
-    // if(this.employeedata != null){
-    //   this.empid=this.employeedata.empid
+    if(this.employeedata != null){
+      this.empid=this.employeedata.empid
 
-    // }
-    // else{
-    //   this.empid=null;
+    }
+    else{
+      this.empid=null;
 
-    // }
+    }
     let employeeinformation = {
-      // empid:this.empid,
-      empid:null,
+      empid:this.empid,
       firstname:this.employeeAddForm.controls.firstname.value,
       middlename:this.employeeAddForm.controls.middlename.value,
       lastname:this.employeeAddForm.controls.lastname.value,
@@ -649,47 +647,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
       relations:this.familyDetails,
       education:this.Educations,
       experience:this.Experience,
-
-     
-      
-      // education: {
-      //   course:this.employeeAddForm.controls.course.value,
-      //   institutename:this.employeeAddForm.controls.institutename.value,
-      //   fromdate:this.pipe.transform(this.employeeAddForm.controls.efromdate.value,'yyyy-MM'),
-      //   todate:this.pipe.transform(this.employeeAddForm.controls.etodate.value,'yyyy-MM'),
-      // },
-      // experience:{
-      //   companyname:this.employeeAddForm.controls.companyname.value,
-      //   fromdate:this.pipe.transform(this.employeeAddForm.controls.wfromdate.value,'yyyy-MM-dd'),
-      //   todate:this.pipe.transform(this.employeeAddForm.controls.wtodate.value,'yyyy-MM-dd'),
-
-      // },
-      // relations:this.employeeAddForm.controls.relations,
-      // education:this.employeeAddForm.controls.education,
-      // experience:this.employeeAddForm.controls.experience
     }
-    // console.log("ff",employeeinformation)
-    // console.log("ff",employeeinformation.experience)
-    // console.log("ff",employeeinformation.education)
-    // console.log("ff",this.edu().controls[0].value)
-    // console.log("ff",this.edu().controls[1].value)
+    
     this.LM.setEmployeeMaster(employeeinformation).subscribe((data) => {
-      if(this.employeedata != null){
-        if(data.status){    
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            disableClose: true,
-            data: 'Employee updated successfully'
-          });
-         }
-         else{
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            disableClose: true,
-            data: 'Unable to update employee'
-          });
-         }
-  
-      }
-      else{
+      if(this.empid= null){
         if(data.status){    
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             disableClose: true,
@@ -702,6 +663,25 @@ export class EmployeeMasterToAddComponent implements OnInit {
             data: 'Unable to insert employee'
           });
          }
+        
+  
+      }
+      else{
+        if(data.status){    
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data: 'Employee updated successfully'
+          });
+         }
+         else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data: 'Unable to update employee'
+          });
+         }
+
+
+
   
       }
 

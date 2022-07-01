@@ -71,7 +71,7 @@ export class CompanyinformationComponent implements OnInit {
       })
   }
   getCountry(){
-    this.LMS.getCountry('countrymaster',null,1,10,'boon_client').subscribe((results)=>{
+    this.LMS.getCountry('countrymaster',null,1,10,'nandyala_hospitals').subscribe((results)=>{
       this.CountryDetails=results.data;
   
 
@@ -126,7 +126,7 @@ export class CompanyinformationComponent implements OnInit {
       city:this.companyForm.controls.city.value,
       pincode:this.companyForm.controls.pincode.value,
     }
-    console.log("hjhh",companyinformation)
+
     
     if(true) {
       
@@ -155,7 +155,7 @@ export class CompanyinformationComponent implements OnInit {
     this.issubmitted=false;
     this.ngOnInit();
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/admin/CompanyInformation"]));
+      this.router.navigate(["/Admin/CompanyInformation"]));
   }
   edit(){
     this.isview=false;
@@ -165,7 +165,7 @@ export class CompanyinformationComponent implements OnInit {
 
   }
   getCompanyInformation(){
-    this.LMS.getCompanyInformation('companyinformation',null,1,10,'boon_client').subscribe((data)=>{
+    this.LMS.getCompanyInformation('companyinformation',null,1,10,'nandyala_hospitals').subscribe((data)=>{
       console.log('onddddde',data)
 
       if(data.status && data.data.length!=0) {
