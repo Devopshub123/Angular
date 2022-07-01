@@ -36,7 +36,7 @@ const routes: Routes = [
     redirectTo: 'Login',
     pathMatch: 'full'
   },
-  {path:'MainDashboard',component:MainDashboardComponent}
+  {path:'MainDashboard',component:MainDashboardComponent,canActivate:[LMSAccessGuard]}
 
 
 ];

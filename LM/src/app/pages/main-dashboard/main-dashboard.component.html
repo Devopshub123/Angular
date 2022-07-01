@@ -7,22 +7,24 @@
     <div class="container-fluid" style="padding-top: 70px;">
         <div class="row"  >
             <div class="col-md-3 bottom" *ngFor="let module of allModuleDetails; index as i;">
-                <div class="p3 column " 		  (click)="getrolescreenfunctionalities(module.id)"                >
+                <div class="p3 column " 		  (click)="getrolescreenfunctionalities(module.id,module.effectivestartdate)"                >
                 
                 <div class="icons" style="padding: 20px;text-align:center;">
                     <span>   <!-- <mat-icon *ngIf="module.id !== 4">event_note</mat-icon> -->
                         <i class="material-icons" *ngIf="module.id === 1" style="font-size: 50px;">person_search</i>
 
-                    <mat-icon *ngIf="module.id === 4" style="font-size: 50px;">date_range</mat-icon>
+                    <mat-icon *ngIf="module.id === 4" style="font-size: 50px; color: #28acaf;">date_range</mat-icon>
                     <i class="material-icons" *ngIf="module.id === 3" style="font-size: 50px;">edit_calendar</i>
                     <i class="material-icons" *ngIf="module.id === 2" style="font-size: 50px;">calendar_month</i>
-                    <i class="material-icons" *ngIf="module.id === 5" style="font-size: 50px;">paypal</i>
+                    <i class="material-icons" *ngIf="module.id === 5" style="font-size: 50px;">paid</i>
                     <i class="material-icons" *ngIf="module.id === 6" style="font-size: 50px;">settings_display</i>
                     <i class="material-icons" *ngIf="module.id === 7" style="font-size: 50px;">person_search</i>
                     <i class="material-icons" *ngIf="module.id === 8" style="font-size: 50px;">people_alt</i>
                     
                  </span><br/>
-                 <span style="font-weight: bold;">{{module.modulename}}</span>
+                 <span *ngIf="module.id !== 4" style="font-weight: bold;">{{module.modulename}}</span>
+                 <span *ngIf="module.id === 4" style="font-weight: bold; margin-left: 30px; color:#28acaf;">{{module.modulename}}</span>
+
                  </div>
                     
                 

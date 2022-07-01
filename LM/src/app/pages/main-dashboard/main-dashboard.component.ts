@@ -4,6 +4,8 @@ import { NavItem } from 'src/app/models/navItem';
 import { LoginService } from 'src/app/services/login.service';
 import { MainService } from 'src/app/services/main.service';
 import { SideMenuService } from 'src/app/services/side-menu.service';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -18,6 +20,8 @@ export class MainDashboardComponent implements OnInit {
   userRoles:any=[];
   menu: NavItem[]=[];
   firstRoute:any;
+  showError: boolean = false;
+  private unsubscriber: Subject<void> = new Subject<void>();
   constructor(private AMS : LoginService,private mainService:MainService,
     private sideMenuService:SideMenuService,private router:Router) {
     this.data= sessionStorage.getItem('user')
@@ -29,41 +33,63 @@ export class MainDashboardComponent implements OnInit {
     this.AMS.getModules('modulesmaster',null,1,100,'boon_client').subscribe((result)=>{
       if(result && result.status){
         this.allModuleDetails = result.data;
+        console.log("hhhhh",result)
 
       }
     })
   }
+ 
 
-  getrolescreenfunctionalities(id:any){
-   
-    let data={
-      'empid':this.usersession.id,
-      'moduleid':id
-    };
-    this.mainService.getRoleScreenFunctionalities(data).subscribe((res:any)=>{
-      this.menu=[];
-      if(res.status){
-        this.menu=[];
-         this.firstRoute='';
-        res.data.forEach((e:any)=>{
-          
-        if(this.menu.length>0){
-          var isvalid=true;
-          this.menu.forEach((item)=>{
-            if(item.displayName==e.role_name){
-              isvalid=false;
-              var itemnav=    {
-                displayName: e.screen_name,
-                iconName:'',// e.role_name,
-                route: e.routename
-              }
-              item.children?.push(itemnav);
-            }
-          })
-            if(isvalid==true){
-              var navitem= {
+  
+
+  getrolescreenfunctionalities(id:any,date:any){
+
+    if(date){
+        let data={
+          'empid':this.usersession.id,
+          'moduleid':id
+        };
+        this.mainService.getRoleScreenFunctionalities(data).subscribe((res:any)=>{
+          this.menu=[];
+          if(res.status){
+            this.menu=[];
+            this.firstRoute='';
+            res.data.forEach((e:any)=>{
+              
+            if(this.menu.length>0){
+              var isvalid=true;
+              this.menu.forEach((item)=>{
+                if(item.displayName==e.role_name){
+                  isvalid=false;
+                  var itemnav=    {
+                    displayName: e.screen_name,
+                    iconName:'',// e.role_name,
+                    route: e.routename
+                  }
+                  item.children?.push(itemnav);
+                }
+              })
+                if(isvalid==true){
+                  var navitem= {
+                    displayName: e.role_name,
+                    iconName:'' ,//e.role_name,
+                    children: [
+                      {
+                        displayName: e.screen_name,
+                        iconName:'',// e.role_name,
+                        route: e.routename
+                      }
+                      
+                    ]};
+                    this.menu.push(navitem)
+                
+
+                }
+            }else{
+              
+            var navtem= {
                 displayName: e.role_name,
-                iconName:'' ,//e.role_name,
+                iconName: '',//e.role_name,
                 children: [
                   {
                     displayName: e.screen_name,
@@ -72,46 +98,42 @@ export class MainDashboardComponent implements OnInit {
                   }
                   
                 ]};
-                this.menu.push(navitem)
-             
-
+                this.firstRoute=e.routename;
+                this.menu.push(navtem)
+            
             }
-        }else{
-          
-         var navtem= {
-            displayName: e.role_name,
-            iconName: '',//e.role_name,
-            children: [
-              {
-                displayName: e.screen_name,
-                iconName:'',// e.role_name,
-                route: e.routename
-              }
-              
-            ]};
-            this.firstRoute=e.routename;
-            this.menu.push(navtem)
-         
-        }
-       });
-       if(this.menu.length>0){
-        sessionStorage.setItem('sidemenu',JSON.stringify(this.menu));
-        this.router.navigate([this.firstRoute]);
-       }
+          });
+          sessionStorage.setItem('sidemenu',JSON.stringify(this.menu));
+                if(this.usersession.firstlogin == 'Y'){
+            this.router.navigate(['/ChangePassword']);
+          }else{
+          this.router.navigate([this.firstRoute]);
+          }
+            
+          }
+
 
         
-      }
-
-
-    
-    })
+        })
+  }
 
   }
 
   ngOnInit(): void {
     this.getModules();
+    history.pushState(null, '');
+
+    fromEvent(window, 'popstate')
+      .pipe(takeUntil(this.unsubscriber))
+      .subscribe((_) => {
+        history.pushState(null, '');
+        this.showError = true;
+      });
   }
 
   
-
+  ngOnDestroy(): void {
+    this.unsubscriber.next();
+    this.unsubscriber.complete();
+  }
 }
