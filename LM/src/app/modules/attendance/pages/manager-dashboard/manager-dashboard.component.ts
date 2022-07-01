@@ -22,121 +22,133 @@ export class ManagerDashboardComponent implements OnInit {
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
 
   TODAY_STR = new Date().toISOString().replace(/T.*$/, '');
- initialEvents:EventInput[] = [ ];
- todayDate:any;
- Events: any[] = [];
- calendarOptions: CalendarOptions = {
-   headerToolbar: {
-     left: 'prev,next',
-     center: 'title',
-     right: 'dayGridMonth'
-   },
-   customButtons: {
-    next: {
+  initialEvents: EventInput[] = [];
+  todayDate: any;
+  Events: any[] = [];
+  calendarOptions: CalendarOptions = {
+    headerToolbar: {
+      left: 'prev,next',
+      center: 'title',
+      right: 'dayGridMonth'
+    },
+    customButtons: {
+      next: {
         click: this.nextMonth.bind(this),
-    },
-    prev: {
+      },
+      prev: {
         click: this.prevMonth.bind(this),
-    },
-    today: {
+      },
+      today: {
 
         click: this.currentMonth.bind(this),
+      },
     },
-},
-   initialView: 'dayGridMonth',
-   weekends: true,
-   editable: true,
-   selectable: true,
-   selectMirror: true,
-   dayMaxEvents: true,
- 
- };
- pipe = new DatePipe('en-US');
- userSession: any;
- attendanceData:any;
- selectedDate: any;
+    initialView: 'dayGridMonth',
+    weekends: true,
+    editable: true,
+    selectable: true,
+    selectMirror: true,
+    dayMaxEvents: true,
+
+  };
+  pipe = new DatePipe('en-US');
+  userSession: any;
+  attendanceData: any;
+  selectedDate: any;
   arrayList: any;
   displayEvent: any;
   calendarApi: any;
 
- constructor(private attendanceService:AttendanceService,private router:Router) { }
+  constructor(private attendanceService: AttendanceService, private router: Router) { }
+  currentDate = new Date();
+  ngOnInit(): void {
+    this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
+    this.todayDate = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
+    this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
+    this.getemployeeattendancedashboard();
+    this.getPendingAttendanceRequestListByEmpId();
+  }
+  getemployeeattendancedashboard() {
+    // this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
+    let data = {
+      'manager_id': this.userSession.id,
+      'employee_id': this.userSession.id,
+      'date': this.selectedDate
+    }
+    this.attendanceService.getemployeeattendancedashboard(data).subscribe((res: any) => {
+      if (res.status) {
+        this.attendanceData = res.data;
+        this.attendanceData.forEach((e: any) => {
+          let item =
+          {
+            title: e.empname,
+            start: e.attendancedate, ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
+            color: e.present_or_absent == 'P' ? '#32cd32' : '#FF3131',
+            icon: e.present_or_absent == 'P' ? 'fa-check-circle' : 'fa-times-circle'
+          }
+          this.initialEvents.push(item);
+        });
+        this.calendarOptions.events = this.initialEvents;
 
- ngOnInit(): void {
-  this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
-  this.todayDate= this.pipe.transform(Date.now(), 'dd/MM/yyyy');
-   this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
-   this.getemployeeattendancedashboard();
-   this.getPendingAttendanceRequestListByEmpId();
- }
- getemployeeattendancedashboard(){
-  // this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
-   let data={
-     'manager_id':this.userSession.id,
-     'employee_id':this.userSession.id,
-     'date':this.selectedDate
-   }
-   this.attendanceService.getemployeeattendancedashboard(data).subscribe((res:any)=>{
-     if(res.status){
-       this.attendanceData=res.data;
-       this.attendanceData.forEach((e:any)=>{
-         let item=
-           {
-             title: e.present_or_absent=='P'?'Present':'Absent',
-             start:e.attendancedate, ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
-             color: e.present_or_absent=='P'?'#32cd32':'#FF3131',
-                 }
-         this.initialEvents.push(item);
-       });
-       this.calendarOptions.events = this.initialEvents;
+      }
 
-     }
-
-   })
+    })
   }
   getPendingAttendanceRequestListByEmpId() {
     this.arrayList = [];
     this.attendanceService.getPendingAttendanceListByManagerEmpId(this.userSession.id).subscribe((res) => {
       if (res.status) {
         this.arrayList = res.data;
-       
+
       } else {
         this.arrayList = [];
 
       }
     })
   };
-  changeTab(elment:UserData){
-    this.router.navigate(["/Attendance/Approval"],{state: {userData:elment}}); 
+  changeTab(elment: UserData) {
+    this.router.navigate(["/Attendance/Approval"], { state: { userData: elment } });
   }
-  onBehalfofRequestClick(elment:RequestData){
-  
-    this.router.navigate(["/Attendance/RequestofEmployee"],{state: {userData:elment}}); 
+  onBehalfofRequestClick(elment: RequestData) {
+
+    this.router.navigate(["/Attendance/RequestofEmployee"], { state: { userData: elment } });
   }
-    nextMonth(): void {
+  nextMonth(): void {
     console.log('nextMonth');
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.next();
+    const selectDate = this.calendarApi.getDate();
+    if (selectDate.getTime() <= this.currentDate.getTime()) {
+      this.selectedDate = this.pipe.transform(selectDate, 'yyyy-MM-dd');
+      this.getemployeeattendancedashboard();
+    } else {
+      this.attendanceData = [];
+      this.initialEvents = [];
+      this.calendarOptions.events = this.initialEvents;
+    }
+
+  }
+  prevMonth(): void {
+    console.log('prevMonth');
+    this.calendarApi = this.calendarComponent.getApi();
+    this.calendarApi.prev();
+    const selectDate = this.calendarApi.getDate();
+    if (selectDate.getTime() <= this.currentDate.getTime()) {
+      this.selectedDate = this.pipe.transform(selectDate, 'yyyy-MM-dd');
+      this.getemployeeattendancedashboard();
+    } else {
+      this.attendanceData = [];
+      this.initialEvents = [];
+      this.calendarOptions.events = this.initialEvents;
+    }
+  }
+  currentMonth(): void {
+    console.log('currentMonth');
+    this.calendarApi = this.calendarComponent.getApi();
+    this.calendarApi.today();
     const currentDate = this.calendarApi.getDate();
     console.log("The current date of the calendar is " + currentDate);
     this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
     this.getemployeeattendancedashboard()
-}
-prevMonth(): void {
-  console.log('prevMonth');
-  this.calendarApi = this.calendarComponent.getApi();
-  this.calendarApi.prev();
-  const currentDate = this.calendarApi.getDate();
-  console.log("The current date of the calendar is " + currentDate);
-  this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
-  this.getemployeeattendancedashboard()
-}
-currentMonth(): void {
-  console.log('currentMonth');
-  this.calendarApi = this.calendarComponent.getApi();
-  this.calendarApi.today();
-  const currentDate = this.calendarApi.getDate();
-  console.log("The current date of the calendar is " + currentDate);
-  this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
-  this.getemployeeattendancedashboard()
-}
+  }
 }

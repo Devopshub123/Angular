@@ -48,7 +48,7 @@
                                      <ng-container *cdkVirtualFor="let item of attendanceData">
                                       <span *ngIf="item.present_or_absent=='A'">
                                           <mat-list-item>
-                                                 <h3 matLine> {{ item.attendancedate}} </h3>
+                                                 <h3 matLine> {{ item.attendancedate | date:'longDate'}} </h3>
                                                 
                                                  <p> <a routerLink="/"
                                                         (click)="onRequestClick(item)">send a

@@ -6,7 +6,7 @@
               <!-- <mat-divider></mat-divider> -->
 
               <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-                     <div fxFlex="70">
+                     <div fxFlex="60">
                             <div class='demo-app-main'>
 
                                    <full-calendar #calendar fxLayout="column" [options]='calendarOptions'></full-calendar>
@@ -19,7 +19,7 @@
                             </div>
 
                      </div>
-                     <div class="sub-section-2" fxLayout="column" fxFlex="30" fxLayoutGap="20px">
+                     <div class="sub-section-2" fxLayout="column" fxFlex="40" fxLayoutGap="20px">
                             <!-- <div fxLayout="column" class='pending-attendance'>
                                    <div fxLayout="column" fxLayoutAlign="start end">
                                           Pending attendance 07-jun-2022
@@ -35,7 +35,7 @@
 
                                    <div fxLayout="row" fxLayoutAlign="space-between" class="pending-attendance">
                                           <p>
-                                                 <mat-icon>bell</mat-icon><b>Request Behalf of Request</b>
+                                                 <mat-icon>bell</mat-icon><b>Request Behalf of Employee</b>
                                           </p>
 
                                    </div>
@@ -45,7 +45,7 @@
                                                  <ng-container *cdkVirtualFor="let item of attendanceData">
                                                         <span *ngIf="item.present_or_absent=='A'">
                                                                <mat-list-item>
-                                                                      <h3 matLine> {{ item.attendancedate}} </h3>
+                                                                      <h3 matLine> {{ item.attendancedate | date:'longDate' }} -{{item.empname}} </h3>
                                                                       <p> <a routerLink="/"
                                                                              (click)="onBehalfofRequestClick(item)">send a
                                                                             request</a>
