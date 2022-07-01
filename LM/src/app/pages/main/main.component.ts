@@ -229,4 +229,9 @@ menu:NavItem[] =[];
       this.toggleValue = "Show";
     }
   }
+  changePassword(){
+    this.router.navigate(['Attendance/ChangePassword'])
+  }
+  
+
 }
