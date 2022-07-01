@@ -14,7 +14,7 @@
             </button>
           </div> -->
           <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-    
+<!--       
             <li class="nav-item dropdown hidden-caret">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="la la-bell"></i>
@@ -66,18 +66,18 @@
                   <a class="see-all" href="javascript:void(0);"> <strong>Clear all notifications</strong> </a>
                 </li>
               </ul>
-            </li>
-            <li class="nav-item dropdown hidden-caret">
+            </li> -->
+            <!-- <li class="nav-item dropdown hidden-caret">
               <a title="Help" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="la la-info-circle"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Document Shortcut</a>
               </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img src="assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><span >{{empname}}</span></a>
-              <ul class="dropdown-menu dropdown-user">
+            </li> -->
+            <!-- <li class="nav-item dropdown">
+              <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img src="assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><span >{{empname}}</span></a> -->
+              <!-- <ul class="dropdown-menu dropdown-user">
                 <li>
                   <div class="user-box">
                     <div class="u-img"><img src="assets/img/profile.jpg" alt="user"></div>
@@ -92,8 +92,16 @@
                 <a class="dropdown-item" href="ChangePassword"><i class="ti-settings"></i> Change Password</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="Login" (click)="logout()"><i class="fa fa-power-off"></i> Logout</a>
-              </ul>
+              </ul> -->
               <!-- /.dropdown-user -->
+            <!-- </li> -->
+            <li >
+              <a class="dropdown-item" href="ChangePassword"><span class='material-icons' style="margin-top: 15px; cursor: pointer;" title="password change" >key</span> </a>
+            </li>
+            
+            <li style="margin-right: 0px;">
+                  <span class="material-icons " (click)="logout()" style="margin-top: 15px; cursor: pointer;" title="logout">logout</span>
+
             </li>
           </ul>
         </div>
@@ -101,13 +109,14 @@
     </div>
     </mat-toolbar>
 
-  <mat-sidenav-container  class="example-sidenav-container h-100"
+  <mat-sidenav-container class="example-sidenav-container h-100"
                          [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav opened  [mode]="mobileQuery.matches ? 'over' : 'side'"
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
-
+        <span *ngFor="let a of employeeRoles; index as i;">
         <span *ngFor="let item of menu">
+          <span *ngIf="a.role_name == item.displayName" >
             <span *ngIf="item.children && item.children.length > 0">
               <mat-accordion>
                 <mat-expansion-panel>
@@ -130,18 +139,18 @@
                 </mat-expansion-panel>
               </mat-accordion>
             </span>
-            <!-- <span *ngIf="!item.children || item.children.length === 0">
+            <span *ngIf="!item.children || item.children.length === 0">
               <mat-list-item routerLink="[item.route]">
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                   <mat-icon>{{item.iconName}}</mat-icon>
                   {{item.displayName}}
                 </div>
               </mat-list-item>
-            </span> -->
-        
+            </span>
+          </span>
 
         </span>
-      
+      </span>
       </mat-nav-list>
     </mat-sidenav>
 
