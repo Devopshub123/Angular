@@ -70,6 +70,7 @@ export class ChangePasswordComponent implements OnInit {
     else{
       console.log("false")
       this.isView=true;
+      
     }
   
   }

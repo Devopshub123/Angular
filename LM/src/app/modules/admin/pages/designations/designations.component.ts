@@ -54,9 +54,9 @@ export class DesignationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDesignation();
-    this.getErrorMessages('LM1');
-    this.getErrorMessages('LM30');
-    this.getErrorMessages('LM31');
+    // this.getErrorMessages('LM1');
+    // this.getErrorMessages('LM30');
+    // this.getErrorMessages('LM31');
     this.designationForm=this.formBuilder.group(
       {
         designation:["",Validators.required],
@@ -65,7 +65,13 @@ export class DesignationsComponent implements OnInit {
     );
   }
   validatedesignation(data:any){
-    for(let i=0;i<this.designationData.length;i++){
+    console.log(this.designationData.length)
+    if(this.designationData.length<0){
+      this.valid=true;
+
+    }
+    else{
+      for(let i=0;i<this.designationData.length;i++){
         if(data===this.designationData[i].designation){
           this.valid = false;
           break;          
@@ -74,21 +80,23 @@ export class DesignationsComponent implements OnInit {
           this.valid = true;
         }
     }
-    return this.valid;
+    }
   }
   setdesignations(){
     this.validatedesignation(this.designationForm.controls.designation.value)
     this.designation = this.designationForm.controls.designation.value;
+    console.log(this.designation)
     let designationdata = {
       designationName: this.designation
     }
     if(this.designationForm.valid){
       if(this.valid){
+        console.log(designationdata)
         this.LM.setDesignation(designationdata).subscribe((data) => {
           this.valid = false;
           if (data.status) {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/admin/Designation"]));
+              this.router.navigate(["/Admin/Designation"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               disableClose: true,
               data: 'Designation added successfully'
@@ -168,6 +176,8 @@ export class DesignationsComponent implements OnInit {
     if(this.valid){
       this.LM.putDesignation({id: id, name: desname}).subscribe((data) => {
         if (data.status) {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/Designation"]));
           this.enable = null;
           this.getDesignation();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -200,11 +210,10 @@ export class DesignationsComponent implements OnInit {
     this.ngOnInit();
   }
   getDesignation(){
-    this.LM.getDesignation('designationsmaster',null,1,100,'boon_client').subscribe((info)=>{
+    this.LM.getDesignation('designationsmaster',null,1,100,'nandyala_hospitals').subscribe((info)=>{
       if(info.status && info.data.length !=0) {
         console.log(info.data);
         this.designationData = info.data;
-        console.log(this.designationData[5].designation);
         this.dataSource = new MatTableDataSource(this.designationData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -212,22 +221,22 @@ export class DesignationsComponent implements OnInit {
       }
     })
   }
-  getErrorMessages(errorCode:any) {
-    this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
-      if(result.status && errorCode == 'LM1')
-      {
-        this.errorDesName = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM30')
-      {
-        this.saveResponseMessage = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM31')
-      {
-        this.editResponseMessage = result.data[0].errormessage
-      }
+  // getErrorMessages(errorCode:any) {
+  //   this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+  //     if(result.status && errorCode == 'LM1')
+  //     {
+  //       this.errorDesName = result.data[0].errormessage
+  //     }
+  //     else if(result.status && errorCode == 'LM30')
+  //     {
+  //       this.saveResponseMessage = result.data[0].errormessage
+  //     }
+  //     else if(result.status && errorCode == 'LM31')
+  //     {
+  //       this.editResponseMessage = result.data[0].errormessage
+  //     }
 
-    })
-  }
+  //   })
+  // }
 
 }

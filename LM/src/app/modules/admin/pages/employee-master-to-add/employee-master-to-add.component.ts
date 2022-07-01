@@ -12,6 +12,7 @@ import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.direct
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { PopupComponent, PopupConfig } from '../../../../pages/popup/popup.component';
 @Component({
   selector: 'app-employee-master-to-add',
@@ -135,12 +136,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
     // this.getEmployeeDetails(null,null);
     this.getWorkLocation();
     this.getEmployeeDetails(null,null);
-    this.getErrorMessages('LM1');
-    this.getErrorMessages('LM2');
-    this.getErrorMessages('LM3');
-    this.getErrorMessages('LM54');
-    this.getErrorMessages('LM38');
-    this.getErrorMessages('LM39');
+    // this.getErrorMessages('LM1');
+    // this.getErrorMessages('LM2');
+    // this.getErrorMessages('LM3');
+    // this.getErrorMessages('LM54');
+    // this.getErrorMessages('LM38');
+    // this.getErrorMessages('LM39');
     /**page 1 form */
     this.employeeAddForm=this.formBuilder.group(
       {
@@ -148,7 +149,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
         lastname: ["",Validators.required],
         middlename: [""],
         contactnumber:["",Validators.required],
-        personalemail:["",[Validators.required,Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+        personalemail:["",[Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
         bloodgroup:[""],
         gender:["",Validators.required],
         emergencycontact:[""],
@@ -441,8 +442,8 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.addempdetails= true;
     this.viewdetails = false;
     this.editemployee = false;
-    this.edu().push(this.newEducation());
-    this.exp().push(this.newExperince());
+    // this.edu().push(this.newEducation());
+    // this.exp().push(this.newExperince());
   }
   getEmployeeDetails(employeeId:any,employeeName:any)
   {
@@ -591,16 +592,17 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.addeducationdetails();
     console.log("kj",this.Educations)
     console.log("kj",this.Experience)
-    if(this.employeedata != null){
-      this.empid=this.employeedata.empid
+    // if(this.employeedata != null){
+    //   this.empid=this.employeedata.empid
 
-    }
-    else{
-      this.empid=''
+    // }
+    // else{
+    //   this.empid=null;
 
-    }
+    // }
     let employeeinformation = {
-      empid:this.empid,
+      // empid:this.empid,
+      empid:null,
       firstname:this.employeeAddForm.controls.firstname.value,
       middlename:this.employeeAddForm.controls.middlename.value,
       lastname:this.employeeAddForm.controls.lastname.value,
@@ -672,31 +674,44 @@ export class EmployeeMasterToAddComponent implements OnInit {
     // console.log("ff",this.edu().controls[0].value)
     // console.log("ff",this.edu().controls[1].value)
     this.LM.setEmployeeMaster(employeeinformation).subscribe((data) => {
-         if(data.status){
-          const dialog: PopupConfig = {
-            title: 'Employee Added Successfully',
-            close: 'OK',
-            
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
+      if(this.employeedata != null){
+        if(data.status){    
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data: 'Employee updated successfully'
+          });
          }
          else{
-          const dialog: PopupConfig = {
-            title: 'Unable to insert Employee',
-            close: 'OK',
-            
-          };
-          this.dialog.open(PopupComponent, { width: '600px', data: dialog });
-
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data: 'Unable to update employee'
+          });
          }
+  
+      }
+      else{
+        if(data.status){    
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data: 'Employee added successfully'
+          });
+         }
+         else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            disableClose: true,
+            data: 'Unable to insert employee'
+          });
+         }
+  
+      }
+
+        
     })
   }
   editfamily(i:any){
     console.log("edit",i)
     this.familyindex = i;
-    console.log("data",this.familyDetails[i].firstname)
-    this.isfamilyedit = true;
-   
+    this.isfamilyedit = true;   
     this.employeefamilyAddForm.controls.familyfirstname.setValue(this.familyDetails[i].firstname);
     this.employeefamilyAddForm.controls.familylastname.setValue(this.familyDetails[i].lastname);
     this.employeefamilyAddForm.controls.familydateofbirth.setValue(new Date(this.familyDetails[i].dateofbirth));
@@ -704,15 +719,9 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.employeefamilyAddForm.controls.familystatus.setValue(this.familyDetails[i].status);
     this.employeefamilyAddForm.controls.familycontact.setValue(this.familyDetails[i].contactnumber);
     this.employeefamilyAddForm.controls.familygender.setValue(this.familyDetails[i].gender);
-
-    
-
-    // this.employeeAddForm.controls.familyfirstname = ;
-
   }
   clearfamily(){
     this.employeefamilyAddForm.controls.familyfirstname.reset();
-    // this.employeefamilyAddForm.controls.familyfirstname.setValue('');
     this.employeefamilyAddForm.controls.familylastname.reset();
     this.employeefamilyAddForm.controls.relation.reset();
     this.employeefamilyAddForm.controls.familystatus.reset();
@@ -722,8 +731,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.employeefamilyAddForm.valid = true;
   }
   deletefamily(index:any){
-    console.log("ff",index)
-    // this.familyDetails.removeAt(index);
     this.familyDetails.splice(index,1);
     this.dsFamily = new MatTableDataSource(this.familyDetails);
     this.isfamilyedit = false;
@@ -733,7 +740,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
     auxDate.setFullYear(auxDate.getFullYear() - years);
     return auxDate;
   }
- 
 
   getDateFormateForSearch(date: Date): string {
     let year = date.toLocaleDateString('es', { year: 'numeric' });
@@ -742,17 +748,17 @@ export class EmployeeMasterToAddComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
   getBloodgroups(){
-    this.LMS.getMastertable('bloodgroupmaster','Active',1,10,'boon_client').subscribe(data=>{
+    this.LMS.getMastertable('bloodgroupmaster','Active',1,10,'nandyala_hospitals').subscribe(data=>{
       this.bloodGroupdetails = data.data;
     })
   }
   getGender(){
-    this.LMS.getMastertable('gendermaster',null,1,40,'boon_client').subscribe(data=>{
+    this.LMS.getMastertable('gendermaster',null,1,40,'nandyala_hospitals').subscribe(data=>{
       this.genderDetails = data.data;
     })
   }
   getWorkLocation(){
-    this.LMS.getactiveWorkLocation({id:null,companyName:'boon_client'}).subscribe((result)=>{
+    this.LMS.getactiveWorkLocation({id:null,companyName:'nandyala_hospitals'}).subscribe((result)=>{
       this.worklocationDetails=result.data;
       console.log('availablereportingmanagers',this.worklocationDetails)
     })
@@ -772,42 +778,42 @@ export class EmployeeMasterToAddComponent implements OnInit {
   }
  
   getMaritalStatusMaster(){
-    this.LMS.getMastertable('maritalstatusmaster',null,1,10,'boon_client').subscribe(data=>{
+    this.LMS.getMastertable('maritalstatusmaster',null,1,10,'nandyala_hospitals').subscribe(data=>{
       this.maritalStatusDetails = data.data;
       
     })
   }
   getRelationshipMaster(){
-    this.LMS.getMastertable('relationshipmaster','Active',1,30,'boon_client').subscribe(data=>{
+    this.LMS.getMastertable('relationshipmaster','Active',1,30,'nandyala_hospitals').subscribe(data=>{
       this.employeeRelationship = data.data;
       console.log("hjjh",data.data )
     })
   }
   getEmploymentTypeMaster(){
-    this.LMS.getMastertable('employmenttypemaster',null,1,1000,'boon_client').subscribe(data=>{
+    this.LMS.getMastertable('employmenttypemaster',null,1,1000,'nandyala_hospitals').subscribe(data=>{
       this.EmploymentTypeDetails = data.data;
       console.log("hjjh",this.EmploymentTypeDetails )
     })
   }
   getDesignationsMaster(){
-    this.LMS.getMastertable('designationsmaster','Active',1,1000,'boon_client').subscribe(data=>{
+    this.LMS.getMastertable('designationsmaster','Active',1,1000,'nandyala_hospitals').subscribe(data=>{
       this.availableDesignations = data.data;
     })
   }
   getDepartmentsMaster(){
-    this.LMS.getMastertable('departmentsmaster','Active',1,1000,'boon_client').subscribe(data=>{
+    this.LMS.getMastertable('departmentsmaster','Active',1,1000,'nandyala_hospitals').subscribe(data=>{
       this.availableDepartments = data.data;
     })
   }
   getCountry(){
-    this.LMS.getCountry('countrymaster',null,1,10,'boon_client').subscribe((results)=>{
+    this.LMS.getCountry('countrymaster',null,1,10,'nandyala_hospitals').subscribe((results)=>{
       this.CountryDetails=results.data;
       this.permanentCountryDetails=results.data;
 
     })
   }
   getRoles(){
-    this.LMS.getMastertable('rolesmaster',null,1,1000,'boon_client').subscribe(data=>{
+    this.LMS.getMastertable('rolesmaster',null,1,1000,'nandyala_hospitals').subscribe(data=>{
       let roledata = data.data;
 
       for(let i=0;i<roledata.length;i++){
@@ -819,7 +825,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
     })
   }
   getShifts(){
-    this.LMS.getMastertable('shiftsmaster',1,1,1000,'boon_client').subscribe(data=>{
+    this.LMS.getMastertable('shiftsmaster',1,1,1000,'nandyala_hospitals').subscribe(data=>{
       this.availableShifts = data.data;
       console.log("shifts", this.availableShifts)
     })
@@ -840,11 +846,11 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
   }
   secondnext(){
-    if(this.familyDetails.length>0){
+    // if(this.familyDetails.length>0){
       this.family = false;
       this.work = true;
       this.emp=false;
-    }
+    // }
     
 
   }
@@ -871,36 +877,36 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.employeedata=[];
     this.ngOnInit();
   }
-  getErrorMessages(errorCode:any) {
+  // getErrorMessages(errorCode:any) {
 
-    this.LMS.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+  //   this.LMS.getErrorMessages(errorCode,1,1).subscribe((result)=>{
 
-      if(result.status && errorCode == 'LM1')
-      {
-        this.msgLM1 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM2')
-      {
-        this.msgLM2 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM3')
-      {
-        this.msgLM3 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM54')
-      {
-        this.msgLM54 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM38')
-      {
-        this.msgLM38 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM39')
-      {
-        this.msgLM39 = result.data[0].errormessage
-      }
-    })
-  }
+  //     if(result.status && errorCode == 'LM1')
+  //     {
+  //       this.msgLM1 = result.data[0].errormessage
+  //     }
+  //     else if(result.status && errorCode == 'LM2')
+  //     {
+  //       this.msgLM2 = result.data[0].errormessage
+  //     }
+  //     else if(result.status && errorCode == 'LM3')
+  //     {
+  //       this.msgLM3 = result.data[0].errormessage
+  //     }
+  //     else if(result.status && errorCode == 'LM54')
+  //     {
+  //       this.msgLM54 = result.data[0].errormessage
+  //     }
+  //     else if(result.status && errorCode == 'LM38')
+  //     {
+  //       this.msgLM38 = result.data[0].errormessage
+  //     }
+  //     else if(result.status && errorCode == 'LM39')
+  //     {
+  //       this.msgLM39 = result.data[0].errormessage
+  //     }
+  //   })
+  // }
   countryChange(Id:any){
     this.permanentStateDetails=[];
     this.LMS.getStatesc(Id).subscribe((data)=>{
@@ -918,10 +924,5 @@ export class EmployeeMasterToAddComponent implements OnInit {
   sameAsAddress(event: MatCheckboxChange,checked:any){
  
   }
-  
-  
 
-
-
-  
 }
