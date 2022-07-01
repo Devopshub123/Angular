@@ -35,13 +35,13 @@ export class MainDashboardComponent implements OnInit {
   }
 
   getrolescreenfunctionalities(id:any){
-   
     let data={
       'empid':this.usersession.id,
       'moduleid':id
     };
     this.mainService.getRoleScreenFunctionalities(data).subscribe((res:any)=>{
       this.menu=[];
+      sessionStorage.removeItem('sidemenu');
       if(res.status){
         this.menu=[];
          this.firstRoute='';
