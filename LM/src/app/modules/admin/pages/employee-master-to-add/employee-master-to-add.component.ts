@@ -707,6 +707,20 @@ export class EmployeeMasterToAddComponent implements OnInit {
       })
 
   }
+  firstcancel(){
+    this.addemployee=true;
+    this.addempdetails= false;
+    this.viewdetails = true;
+    this.work=false;
+    this.emp = true;
+    this.family = false;
+    this.familyDetails=[];
+    this.Experience=[];
+    this.Educations=[];
+    this.employeedata=[];
+    this.ngOnInit();
+
+  }
   editfamily(i:any){
     console.log("edit",i)
     this.familyindex = i;

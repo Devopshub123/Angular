@@ -97,24 +97,29 @@ export class ChangePasswordComponent implements OnInit {
         }
         else{
           this.ts.changepassword(this.changePasswordAddObj).subscribe((data) => {
-
-            if (data.status) {
+            console.log(data)
+            if (data[0]==0) {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 disableClose: true,
-                data: this.msgLM56
+                data: 'Password changed successfully' 
               });
-       
-          
               sessionStorage.removeItem('user')
               this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                this.router.navigate(["/ChangePassword"]));
+                this.router.navigate(["/Login"]));
       
             } 
-            else {
+            else if(data[0]== -1) {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 disableClose: true,
-                data: this.msgLM2
+                data: "Please enter correct old password"
               });
+            }
+            else{
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                disableClose: true,
+                data: "Your new password cannot be the same as previous passwords count of 3"
+              });
+
             }
           });
 

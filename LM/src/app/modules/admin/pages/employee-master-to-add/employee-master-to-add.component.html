@@ -205,7 +205,7 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
                         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Residance Address</mat-label>
+                            <mat-label>Residence Address</mat-label>
                             <input type="text" formControlName="address" matInput placeholder="" maxlength="100"
                                 required>
                             <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
@@ -336,13 +336,14 @@
                     </div>
                     <div class="form-group row ml-1 mt-3">
                         <div class="col-sm-6" style="padding:0px">
-                            <!-- <button  class="col-md-2 btn btn-primary">Cancel</button> -->
+                            <button class="col-md-2 btn btn-danger" (click)="firstcancel()">Cancel</button>  
                         </div>
                         <div class="col-sm-6 text-right">
                             <button class="col-md-2 btn btn-primary" [disabled]="!employeeAddForm.valid "
                                 (click)="firstNext()">Next</button>
                         </div>
                     </div>
+                  
                 </div>
             </form>
                <div *ngIf="family">
@@ -580,7 +581,7 @@
                             <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Date Of Join</mat-label>
+                            <mat-label>Date Of Joining</mat-label>
                             <input required matInput readonly [matDatepicker]="dateofjoin" [min]="mindatofjoin"
                                 [max]="maxDate" placeholder="MM/DD/YYYY" formControlName="dateofjoin">
                             <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofjoin">
@@ -668,7 +669,7 @@
                                 <ng-container>
                                     <div *ngFor="let b of availableDepartments">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option [value]=b.id>{{b.deptname}}</mat-option>
+                                        <mat-option [value]="b.id">{{b.deptname}}</mat-option>
                                     </div>
 
                                 </ng-container>
@@ -755,7 +756,7 @@
                     </div>
                     <mat-card-header class="">
                         <mat-card-title class="title"> Education Details </mat-card-title>
-                        <mat-icon  fxLayoutAlign="end" (click)="addeducation()">add</mat-icon>
+                        <mat-icon title="Add" fxLayoutAlign="end" (click)="addeducation()">add</mat-icon>
                     </mat-card-header>
                     
                     <mat-divider></mat-divider>
@@ -794,7 +795,7 @@
                                             <div fxFlex.xs="100" fxFlex="20" style="padding:20px" class="mx-2 my-2 mr2"
                                                   appearance="outline">
                                                 <!-- <mat-icon (click)="addeducation()">add</mat-icon> -->
-                                                <mat-icon (click)="removeeducation(empIndex)">delete</mat-icon>
+                                                <mat-icon title="Delete" (click)="removeeducation(empIndex)">delete</mat-icon>
                                             </div>
                                             
     
@@ -810,7 +811,7 @@
 
                     <mat-card-header class="">
                         <mat-card-title class="title"> Work Experience </mat-card-title>
-                        <mat-icon    (click)="addexperience()">add</mat-icon>
+                        <mat-icon  title="Add"  (click)="addexperience()">add</mat-icon>
                     </mat-card-header>
                     <mat-divider></mat-divider>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -840,7 +841,7 @@
                                     <div fxFlex.xs="100" fxFlex="20" style="padding:20px" class="mx-2 my-2 mr2"
                                         appearance="outline">
                                         <!-- <mat-icon (click)="addexperience()">add</mat-icon> -->
-                                        <mat-icon (click)="removeWork(empIndex)">delete</mat-icon>
+                                        <mat-icon title="Delete" (click)="removeWork(empIndex)">delete</mat-icon>
                                     </div>
                                     </div>
                                 </div>
@@ -861,9 +862,9 @@
                             <button class="col-md-2 btn btn-primary" (click)="secondprev()">Prev</button>
                         </div>
                         <div class="col-sm-6 mr2 text-right">
-                            <button class="col-md-2  btn btn-primary" (click)="save()"
+                            <button class="col-md-2 mr-2 btn btn-primary" (click)="save()"
                                 *ngIf="this.editemployee">Save</button>
-                            <button class="col-md-2  btn btn-primary" (click)="save()" *ngIf="this.addemployee"
+                            <button class="col-md-2 mr-2 btn btn-primary" (click)="save()" *ngIf="this.addemployee"
                                 [disabled]="!employeeworkAddForm.valid">Submit</button>
                             <button class="col-md-2  btn btn-danger" (click)="close()">Close</button>
                         </div>

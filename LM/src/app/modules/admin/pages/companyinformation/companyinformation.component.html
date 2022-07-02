@@ -8,15 +8,15 @@
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
   
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Fullcompanyname</mat-label>
-                    <input formControlName="companyname" matInput [readonly]="isview" placeholder="" maxlength="100" >
+                    <mat-label>Full Company Name</mat-label>
+                    <input formControlName="companyname" matInput [readonly]="isview" placeholder="" maxlength="100" required>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.companyname.errors?.required">
                       This field is required
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Company website</mat-label>
-                    <input formControlName="website" required matInput [disabled]="isview"  placeholder="" maxlength="100" >
+                    <input formControlName="website" required matInput [disabled]="isview"  placeholder="" maxlength="100"  >
                     <mat-error class="con-error" *ngIf="companyForm.controls.website.errors?.required">
                         This field is required
                   </mat-error>
@@ -26,7 +26,7 @@
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Country</mat-label>
-                    <mat-select [disabled]="isview"  formControlName="country"  >
+                    <mat-select [disabled]="isview"  formControlName="country" required  >
                         <ng-container >
                             <div *ngFor="let b of CountryDetails">    
                                 <mat-option    [value]="b.id">{{b.country}}</mat-option>
@@ -42,14 +42,14 @@
   
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Primary Contact</mat-label>
-                    <input type="text" formControlName="contact" onlyNumber matInput [readonly]="isview" placeholder="" maxlength="10" >
+                    <input type="text" formControlName="contact" onlyNumber matInput [readonly]="isview" placeholder="" maxlength="10"required >
                     <mat-error class="con-error" *ngIf="  companyForm.controls.contact.errors?.required">
                         Please select an option
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Primary Contact Email</mat-label>
-                    <input formControlName="email"  matInput [readonly]="isview" placeholder="" maxlength="100" >
+                    <input formControlName="email"  matInput [readonly]="isview" placeholder="" maxlength="100" required>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.email.errors?.required">
                       This field is required
                   </mat-error>
@@ -59,7 +59,7 @@
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>State</mat-label>
-                    <mat-select [disabled]="isview"  required formControlName="state"  required>
+                    <mat-select [disabled]="isview"  required formControlName="state"  >
                         <ng-container >
                             <div *ngFor="let b of stateDetails">
                                 
@@ -77,7 +77,7 @@
   
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Address1</mat-label>
-                    <input formControlName="address1" matInput [readonly]="isview"  placeholder=""  maxlength="100" >
+                    <input formControlName="address1" matInput [readonly]="isview"  placeholder=""  maxlength="100" required >
                     <!-- <input matInput [readonly]="isview"  value="Sushi" [formControl]="foodCtrl" *ngIf="isview"> -->
                     <mat-error class="con-error" *ngIf="  companyForm.controls.address1.errors?.required">
                       This field is required
@@ -111,7 +111,7 @@
                 <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Pincode</mat-label>
                     
-                    <input type="text" onlyNumber formControlName="pincode" matInput [readonly]="isview" placeholder="" maxlength="6">
+                    <input type="text" onlyNumber formControlName="pincode" matInput [readonly]="isview" placeholder="" maxlength="6" required>
                                 
                     <mat-error class="con-error" *ngIf="  companyForm.controls.pincode.errors?.required">
                         This field is required
