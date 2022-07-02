@@ -7,7 +7,7 @@
                 <div *ngIf="emp">
                     <mat-card-header class="">
                         <mat-card-title class="title"> Add Employee Details </mat-card-title>
-                    </mat-card-header>
+                    </mat-card-header><br>
                     <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
                     <mat-divider></mat-divider>
                     <mat-card-header class="">
@@ -633,7 +633,7 @@
                                 <ng-container>
                                     <div *ngFor="let b of EmploymentTypeDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option [value]="b.id">{{b.employmenttype}}</mat-option>
+                                        <mat-option value={{b.id}}>{{b.employmenttype}}</mat-option>
                                     </div>
 
                                 </ng-container>

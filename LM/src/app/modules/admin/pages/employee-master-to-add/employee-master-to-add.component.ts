@@ -102,24 +102,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private LMS:CompanySettingService,private LM:EmployeeMasterService,private dialog: MatDialog,private router: Router) {
 
    }
-  //  works(): FormArray {
-  //   return this.employeeAddForm.get("works") as FormArray
-  // }
-  // newWork(): FormGroup {
-  //   return this.formBuilder.group({
-  //     compamyname: '',
-  //     fromdate: '',
-  //     todate:''
-      
-  //   })
-  // }
-  // addWork() {
-  //   console.log("Adding a employee");
-  //   this.works().push(this.newWork());
-  // }
- 
- 
-
   ngOnInit(): void {
     let auxDate = this.substractYearsToDate(new Date(), 18);
     this.maxBirthDate = this.getDateFormateForSearch(auxDate);
@@ -261,7 +243,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
      /**get state details for residance address */
       this.employeeAddForm.get('country')?.valueChanges.subscribe(selectedValue => {
         this.stateDetails= [];
-        console.log("Hi",selectedValue)
         this.LMS.getStatesc(selectedValue).subscribe((data)=>{
           this.stateDetails=data[0];
           if(this.employeedata != null)
@@ -477,8 +458,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
       if(a.country == a.pcountry && a.state == a.pstate && a.city == a.pcity && a.address == a.paddress && a.pincode == a.ppincode ){
         this.employeeAddForm.controls.checked.setValue(true)      
       }
-      // console.log("empfulldata",this.employeedata)
-      // console.log("empfulldata",this.employeedata.country)
       this.employeeAddForm.controls.aadharnumber.setValue(this.employeedata.aadharnumber);
       this.employeeAddForm.controls.address.setValue(this.employeedata.address);
       this.employeefamilyAddForm.controls.bankaccountnumber.setValue(this.employeedata.bankaccountnumber);
@@ -603,21 +582,17 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
       }
   }
-    console.log("jkj", this.familyDetails)
   
   }
 
   save(){
     this.addexperiencedetils();
     this.addeducationdetails();
-    console.log("kj",this.Educations)
-    console.log("kj",this.Experience)
-    if(this.employeedata != null){
-      this.empid=this.employeedata.empid
-
+    if(this.addemployee){
+      this.empid=null;
     }
     else{
-      this.empid=null;
+      this.empid=this.employeedata.empid;
 
     }
     let employeeinformation = {
@@ -668,46 +643,69 @@ export class EmployeeMasterToAddComponent implements OnInit {
       relations:this.familyDetails,
       education:this.Educations,
       experience:this.Experience,
-    }
-    
-    this.LM.setEmployeeMaster(employeeinformation).subscribe((data) => {
-      if(this.empid= null){
-        if(data.status){    
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            disableClose: true,
-            data: 'Employee added successfully'
-          });
-         }
-         else{
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            disableClose: true,
-            data: 'Unable to insert employee'
-          });
-         }
-        
-  
-      }
-      else{
-        if(data.status){    
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            disableClose: true,
-            data: 'Employee updated successfully'
-          });
-         }
-         else{
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            disableClose: true,
-            data: 'Unable to update employee'
-          });
-         }
+    } 
+      
+      this.LM.setEmployeeMaster(employeeinformation).subscribe((data) => {
+        /**For add employee */
+        if(this.addemployee){
+          if(data.status){
+            this.addemployee=true;
+            this.addempdetails= false;
+            this.viewdetails = true;
+            this.work=false;
+            this.emp = true;
+            this.family = false;
+            this.familyDetails=[];
+            this.Experience=[];
+            this.Educations=[];
+            this.employeedata=[];  
+            this.ngOnInit();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose: true,
+              data: 'Employee added successfully'
+            });  
+                   
+          }
+          else{
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose: true,
+              data: 'Unable to insert employee'
+            });
+           }
+                   
+                  
 
+        }
+        /**For edit employee */
+        else{
+          if(data.status){   
+            this.addemployee=true;
+            this.addempdetails= false;
+            this.viewdetails = true;
+            this.work=false;
+            this.emp = true;
+            this.family = false;
+            this.familyDetails=[];
+            this.Experience=[];
+            this.Educations=[];
+            this.employeedata=[];
+            this.ngOnInit(); 
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose: true,
+              data: 'Employee updated successfully'
+            });
+           }
+           else{
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose: true,
+              data: 'Unable to update employee'
+            });
+           }
 
+        }
+          
+      })
 
-  
-      }
-
-        
-    })
   }
   editfamily(i:any){
     console.log("edit",i)

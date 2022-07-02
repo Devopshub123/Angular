@@ -83,13 +83,13 @@ export class DesignationsComponent implements OnInit {
     }
   }
   setdesignations(){
+    if(this.designationForm.valid){
     this.validatedesignation(this.designationForm.controls.designation.value)
     this.designation = this.designationForm.controls.designation.value;
     console.log(this.designation)
     let designationdata = {
       designationName: this.designation
-    }
-    if(this.designationForm.valid){
+    }    
       if(this.valid){
         console.log(designationdata)
         this.LM.setDesignation(designationdata).subscribe((data) => {
@@ -156,13 +156,16 @@ export class DesignationsComponent implements OnInit {
     this.isdata = false;
   }
   cancel(){
-    this.designationForm.reset();
-    this.isAdd = false;
-    this.isdata = true; 
-    this.getDesignation();
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate(["/Admin/Designation"]));
+    // this.designationForm.reset();
+    // this.isAdd = false;
+    // this.isdata = true; 
+    // this.getDesignation();
   }
   edit(event:any,i:any){
     console.log(i)
+    this.designationForm.controls.designation.setValue('')
     this.enable = i;
     this.isEdit=false;
     this.isSave=true;
