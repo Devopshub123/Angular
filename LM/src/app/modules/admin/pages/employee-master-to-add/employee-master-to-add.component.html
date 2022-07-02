@@ -6,7 +6,7 @@
 
                 <div *ngIf="emp">
                     <mat-card-header class="">
-                        <mat-card-title class="title"> Employee Master </mat-card-title>
+                        <mat-card-title class="title"> Add Employee Details </mat-card-title>
                     </mat-card-header>
                     <mat-progress-bar mode="determinate" value="30"></mat-progress-bar>
                     <mat-divider></mat-divider>
@@ -229,7 +229,7 @@
                                 <ng-container>
                                     <div *ngFor="let b of CountryDetails">
 
-                                        <mat-option [value]="b.id">{{b.country}}</mat-option>
+                                        <mat-option value={{b.id}}>{{b.country}}</mat-option>
                                     </div>
 
                                 </ng-container>
@@ -245,7 +245,7 @@
                                 <ng-container>
                                     <div *ngFor="let b of permanentCountryDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option [value]="b.id">{{b.country}}</mat-option>
+                                        <mat-option value={{b.id}}>{{b.country}}</mat-option>
                                     </div>
 
                                 </ng-container>
@@ -260,7 +260,7 @@
                                 <ng-container>
                                     <div *ngFor="let b of stateDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option [value]="b.id">{{b.state}}</mat-option>
+                                        <mat-option value={{b.id}}>{{b.state}}</mat-option>
                                     </div>
 
                                 </ng-container>
@@ -276,7 +276,7 @@
                                 <ng-container>
                                     <div *ngFor="let b of permanentStateDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option [value]="b.id">{{b.state}}</mat-option>
+                                        <mat-option value={{b.id}}>{{b.state}}</mat-option>
                                     </div>
 
                                 </ng-container>
@@ -291,7 +291,7 @@
                                 <ng-container>
                                     <div *ngFor="let b of cityDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option [value]="b.id">{{b.location}}</mat-option>
+                                        <mat-option value={{b.id}}>{{b.location}}</mat-option>
                                     </div>
 
                                 </ng-container>
@@ -307,7 +307,7 @@
                                 <ng-container>
                                     <div *ngFor="let b of permanentCityDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option [value]="b.id">{{b.location}}</mat-option>
+                                        <mat-option value={{b.id}}>{{b.location}}</mat-option>
                                     </div>
 
                                 </ng-container>
@@ -755,7 +755,7 @@
                     </div>
                     <mat-card-header class="">
                         <mat-card-title class="title"> Education Details </mat-card-title>
-                        <mat-icon (click)="addeducation()">add</mat-icon>
+                        <mat-icon  fxLayoutAlign="end" (click)="addeducation()">add</mat-icon>
                     </mat-card-header>
                     
                     <mat-divider></mat-divider>
@@ -810,7 +810,7 @@
 
                     <mat-card-header class="">
                         <mat-card-title class="title"> Work Experience </mat-card-title>
-                        <mat-icon (click)="addexperience()">add</mat-icon>
+                        <mat-icon    (click)="addexperience()">add</mat-icon>
                     </mat-card-header>
                     <mat-divider></mat-divider>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -886,6 +886,9 @@
 
 <div *ngIf="viewdetails">
     <mat-card>
+        <mat-card-header class="">
+            <mat-card-title class="title">Employee Master </mat-card-title>
+        </mat-card-header><br>
         <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
             <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
                 (click)="addemp()" type="submit">

@@ -261,10 +261,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
      /**get state details for residance address */
       this.employeeAddForm.get('country')?.valueChanges.subscribe(selectedValue => {
         this.stateDetails= [];
+        console.log("Hi",selectedValue)
         this.LMS.getStatesc(selectedValue).subscribe((data)=>{
           this.stateDetails=data[0];
           if(this.employeedata != null)
           {
+            console.log('state',this.employeedata.state)
             this.employeeAddForm.controls.state.setValue(this.employeedata.state);
           }
         })
@@ -471,7 +473,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.addemployee=false;
     this.LM.getEmployeeMaster(data).subscribe((result)=>{
       this.employeedata = JSON.parse(result.data[0][0].json)[0];
-      console.log("empfulldata",this.employeedata)
+      let a = this.employeedata;
+      if(a.country == a.pcountry && a.state == a.pstate && a.city == a.pcity && a.address == a.paddress && a.pincode == a.ppincode ){
+        this.employeeAddForm.controls.checked.setValue(true)      
+      }
+      // console.log("empfulldata",this.employeedata)
+      // console.log("empfulldata",this.employeedata.country)
       this.employeeAddForm.controls.aadharnumber.setValue(this.employeedata.aadharnumber);
       this.employeeAddForm.controls.address.setValue(this.employeedata.address);
       this.employeefamilyAddForm.controls.bankaccountnumber.setValue(this.employeedata.bankaccountnumber);
