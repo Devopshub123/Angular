@@ -50,6 +50,11 @@ export class AttendanceService {
     data,this.httpOptions
     )
   }
+  getAttendanceDetailsByAttendanceID(data:any):Observable<any>{
+    return this.http.post(this.mainBeUrl +'attendance/api/getAttendanceDetailsByAttendanceID',
+    data,this.httpOptions
+    )
+  }
 
 
 }

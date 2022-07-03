@@ -6,12 +6,14 @@ import { DetailReportComponent } from './pages/detail-report/detail-report.compo
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material/material.module';
+import { DialogDetailComponent } from './pages/dialog-detail/dialog-detail.component';
 
 
 @NgModule({
   declarations: [
     SummaryReportComponent,
-    DetailReportComponent
+    DetailReportComponent,
+    DialogDetailComponent
   ],
   imports: [
     CommonModule,
