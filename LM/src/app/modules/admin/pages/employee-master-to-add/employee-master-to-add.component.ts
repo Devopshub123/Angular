@@ -568,7 +568,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
         this.familyDetails[this.familyindex].contactnumber =  this.employeefamilyAddForm.controls.familycontact.value;
         this.familyDetails[this.familyindex].status = "Alive";
         this.familyDetails[this.familyindex].relationship = this.employeefamilyAddForm.controls.relation.value;
-        this.familyDetails[this.familyindex].dateofbirth = this.pipe.transform(this.employeeAddForm.controls.familydateofbirth.value, 'yyyy-MM-dd');
+        this.familyDetails[this.familyindex].dateofbirth =this.pipe.transform(this.employeefamilyAddForm.controls.familydateofbirth.value, 'yyyy-MM-dd')
         this.clearfamily()
        console.log("ff") 
         
@@ -587,16 +587,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
         });
         this.dsFamily = new MatTableDataSource(this.familyDetails);
         this.clearfamily();
-        // this.employeefamilyAddForm.controls.familyfirstname.reset();
-        // this.employeefamilyAddForm.controls.familylastname.reset();
-        // this.employeefamilyAddForm.controls.relation.reset();
-        // this.employeefamilyAddForm.controls.familystatus.reset();
-        // this.employeefamilyAddForm.controls.familycontact.reset();
-        // this.employeefamilyAddForm.controls.familydateofbirth.reset();
-        // this.employeefamilyAddForm.controls.familygender.reset();
-        // this.employeefamilyAddForm.valid = true;
-       
-
       }
   }
   
