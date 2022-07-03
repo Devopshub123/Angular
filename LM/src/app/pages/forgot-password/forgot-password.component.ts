@@ -37,6 +37,7 @@ export class ForgotPasswordComponent implements OnInit {
           disableClose: true,
           data: 'Please check your email for resetPassword'
         });
+          this.router.navigate(["/Login"])
       }
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {

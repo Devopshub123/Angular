@@ -54,9 +54,9 @@ export class DesignationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDesignation();
-    // this.getErrorMessages('LM1');
-    // this.getErrorMessages('LM30');
-    // this.getErrorMessages('LM31');
+    this.getErrorMessages('LM1');
+    this.getErrorMessages('LM30');
+    this.getErrorMessages('LM31');
     this.designationForm=this.formBuilder.group(
       {
         designation:["",Validators.required],
@@ -83,13 +83,13 @@ export class DesignationsComponent implements OnInit {
     }
   }
   setdesignations(){
+    if(this.designationForm.valid){
     this.validatedesignation(this.designationForm.controls.designation.value)
     this.designation = this.designationForm.controls.designation.value;
     console.log(this.designation)
     let designationdata = {
       designationName: this.designation
-    }
-    if(this.designationForm.valid){
+    }    
       if(this.valid){
         console.log(designationdata)
         this.LM.setDesignation(designationdata).subscribe((data) => {
@@ -156,13 +156,16 @@ export class DesignationsComponent implements OnInit {
     this.isdata = false;
   }
   cancel(){
-    this.designationForm.reset();
-    this.isAdd = false;
-    this.isdata = true; 
-    this.getDesignation();
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate(["/Admin/Designation"]));
+    // this.designationForm.reset();
+    // this.isAdd = false;
+    // this.isdata = true; 
+    // this.getDesignation();
   }
   edit(event:any,i:any){
     console.log(i)
+    this.designationForm.controls.designation.setValue('')
     this.enable = i;
     this.isEdit=false;
     this.isSave=true;
@@ -221,22 +224,22 @@ export class DesignationsComponent implements OnInit {
       }
     })
   }
-  // getErrorMessages(errorCode:any) {
-  //   this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
-  //     if(result.status && errorCode == 'LM1')
-  //     {
-  //       this.errorDesName = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM30')
-  //     {
-  //       this.saveResponseMessage = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM31')
-  //     {
-  //       this.editResponseMessage = result.data[0].errormessage
-  //     }
+  getErrorMessages(errorCode:any) {
+    this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+      if(result.status && errorCode == 'LM1')
+      {
+        this.errorDesName = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM30')
+      {
+        this.saveResponseMessage = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM31')
+      {
+        this.editResponseMessage = result.data[0].errormessage
+      }
 
-  //   })
-  // }
+    })
+  }
 
 }

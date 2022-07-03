@@ -104,7 +104,7 @@
         </ng-container>
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef><b>Action</b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> <a style="color: blue"><u>Details</u></a> </mat-cell>
+          <mat-cell *matCellDef="let row"> <a style="color: blue" (click)="openDialog(row)"><u>Details</u></a> </mat-cell>
 
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true" style=" background-color:#ededed;">

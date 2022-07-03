@@ -102,24 +102,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private LMS:CompanySettingService,private LM:EmployeeMasterService,private dialog: MatDialog,private router: Router) {
 
    }
-  //  works(): FormArray {
-  //   return this.employeeAddForm.get("works") as FormArray
-  // }
-  // newWork(): FormGroup {
-  //   return this.formBuilder.group({
-  //     compamyname: '',
-  //     fromdate: '',
-  //     todate:''
-      
-  //   })
-  // }
-  // addWork() {
-  //   console.log("Adding a employee");
-  //   this.works().push(this.newWork());
-  // }
- 
- 
-
   ngOnInit(): void {
     let auxDate = this.substractYearsToDate(new Date(), 18);
     this.maxBirthDate = this.getDateFormateForSearch(auxDate);
@@ -135,12 +117,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.getDepartmentsMaster();
     this.getWorkLocation();
     this.getEmployeeDetails(null,null);
-    // this.getErrorMessages('LM1');
-    // this.getErrorMessages('LM2');
-    // this.getErrorMessages('LM3');
-    // this.getErrorMessages('LM54');
-    // this.getErrorMessages('LM38');
-    // this.getErrorMessages('LM39');
+    this.getErrorMessages('LM1');
+    this.getErrorMessages('LM2');
+    this.getErrorMessages('LM3');
+    this.getErrorMessages('LM54');
+    this.getErrorMessages('LM38');
+    this.getErrorMessages('LM39');
     /**page 1 form */
     this.employeeAddForm=this.formBuilder.group(
       {
@@ -242,6 +224,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
                 this.employeeAddForm.controls.pcity.setValue(this.employeeAddForm.controls.city.value);
     
               }
+
             })            
           })
 
@@ -265,6 +248,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
           this.stateDetails=data[0];
           if(this.employeedata != null)
           {
+            console.log('state',this.employeedata.state)
             this.employeeAddForm.controls.state.setValue(this.employeedata.state);
           }
         })
@@ -350,6 +334,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
         })
       })      
   }
+
+  // closeDatePicker(event:any,efromdate:any){
+  //     efromdate.close();
+  // }
 
   dateofjonupdate(data:any){
     this.mindatofjoin = new Date()
@@ -471,7 +459,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.addemployee=false;
     this.LM.getEmployeeMaster(data).subscribe((result)=>{
       this.employeedata = JSON.parse(result.data[0][0].json)[0];
-      console.log("empfulldata",this.employeedata)
+      let a = this.employeedata;
+      if(a.country == a.pcountry && a.state == a.pstate && a.city == a.pcity && a.address == a.paddress && a.pincode == a.ppincode ){
+        this.employeeAddForm.controls.checked.setValue(true)      
+      }
       this.employeeAddForm.controls.aadharnumber.setValue(this.employeedata.aadharnumber);
       this.employeeAddForm.controls.address.setValue(this.employeedata.address);
       this.employeefamilyAddForm.controls.bankaccountnumber.setValue(this.employeedata.bankaccountnumber);
@@ -517,22 +508,28 @@ export class EmployeeMasterToAddComponent implements OnInit {
       let x = JSON.parse((this.employeedata.education))
       let y = JSON.parse((this.employeedata.experience))
       let z = JSON.parse((this.employeedata.relations))
-      for(let i = 0;i<z.length;i++){
-        this.familyDetails.push({
-          firstname: z[i].firstname,
-          lastname: z[i].lastname,
-          gender: z[i].gender,
-          contactnumber: z[i].contactnumber,
-          status: z[i].status,
-          relationship: z[i].relationship,
-          dateofbirth: this.pipe.transform(z[i].dateofbirth, 'yyyy-MM-dd')
-        });
-        
+      console.log("aa",x,y,z)
+      if(z != null){
+        for(let i = 0;i<z.length;i++){
+          this.familyDetails.push({
+            firstname: z[i].firstname,
+            lastname: z[i].lastname,
+            gender: z[i].gender,
+            contactnumber: z[i].contactnumber,
+            status: z[i].status,
+            relationship: z[i].relationship,
+            dateofbirth: this.pipe.transform(z[i].dateofbirth, 'yyyy-MM-dd')
+          });
+          
+  
+        }
+        this.dsFamily = new MatTableDataSource(this.familyDetails);
 
       }
-      this.dsFamily = new MatTableDataSource(this.familyDetails);
+      
      let education = JSON.parse(this.employeedata.education)
-     education.forEach((e:any) => {
+     if(education !=null){
+      education.forEach((e:any) => {
         this.edu().push(this.formBuilder.group({
           course: e.course,
           institutename: e.institutename,
@@ -541,7 +538,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
           
         }));
       });
-      let experience = JSON.parse(this.employeedata.experience)
+
+     }
+     let experience = JSON.parse(this.employeedata.experience)
+     if(experience != null){
       experience.forEach((e:any) => {
         this.exp().push(this.formBuilder.group({
           companyname: e.companyname,
@@ -549,21 +549,28 @@ export class EmployeeMasterToAddComponent implements OnInit {
           wtodate:new Date(e.todate)
           
         }));
-      });      
+      });  
+
+     }
+     
+      
+         
     });
 
   }
  
   addfamily(){
     if(this.isfamilyedit){
+        this.isfamilyedit = false;
         this.familyDetails[this.familyindex].firstname =this.employeefamilyAddForm.controls.familyfirstname.value;
         this.familyDetails[this.familyindex].lastname = this.employeefamilyAddForm.controls.familylastname.value;
         this.familyDetails[this.familyindex].gender = this.employeefamilyAddForm.controls.familygender.value;
         this.familyDetails[this.familyindex].contactnumber =  this.employeefamilyAddForm.controls.familycontact.value;
         this.familyDetails[this.familyindex].status = "Alive";
         this.familyDetails[this.familyindex].relationship = this.employeefamilyAddForm.controls.relation.value;
-        this.familyDetails[this.familyindex].dateofbirth = this.pipe.transform(this.employeeAddForm.controls.familydateofbirth.value, 'yyyy-MM-dd');
-        this.isfamilyedit = false;
+        this.familyDetails[this.familyindex].dateofbirth =this.pipe.transform(this.employeefamilyAddForm.controls.familydateofbirth.value, 'yyyy-MM-dd')
+        this.clearfamily()
+       console.log("ff") 
         
 
     }
@@ -579,24 +586,20 @@ export class EmployeeMasterToAddComponent implements OnInit {
           dateofbirth: this.pipe.transform(this.employeefamilyAddForm.controls.familydateofbirth.value, 'yyyy-MM-dd')
         });
         this.dsFamily = new MatTableDataSource(this.familyDetails);
-
+        this.clearfamily();
       }
   }
-    console.log("jkj", this.familyDetails)
   
   }
 
   save(){
     this.addexperiencedetils();
     this.addeducationdetails();
-    console.log("kj",this.Educations)
-    console.log("kj",this.Experience)
-    if(this.employeedata != null){
-      this.empid=this.employeedata.empid
-
+    if(this.addemployee){
+      this.empid=null;
     }
     else{
-      this.empid=null;
+      this.empid=this.employeedata.empid;
 
     }
     let employeeinformation = {
@@ -647,46 +650,83 @@ export class EmployeeMasterToAddComponent implements OnInit {
       relations:this.familyDetails,
       education:this.Educations,
       experience:this.Experience,
-    }
-    
-    this.LM.setEmployeeMaster(employeeinformation).subscribe((data) => {
-      if(this.empid= null){
-        if(data.status){    
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            disableClose: true,
-            data: 'Employee added successfully'
-          });
-         }
-         else{
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            disableClose: true,
-            data: 'Unable to insert employee'
-          });
-         }
-        
-  
-      }
-      else{
-        if(data.status){    
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            disableClose: true,
-            data: 'Employee updated successfully'
-          });
-         }
-         else{
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            disableClose: true,
-            data: 'Unable to update employee'
-          });
-         }
+    } 
+      
+      this.LM.setEmployeeMaster(employeeinformation).subscribe((data) => {
+        /**For add employee */
+        if(this.addemployee){
+          if(data.status){
+            this.addemployee=true;
+            this.addempdetails= false;
+            this.viewdetails = true;
+            this.work=false;
+            this.emp = true;
+            this.family = false;
+            this.familyDetails=[];
+            this.Experience=[];
+            this.Educations=[];
+            this.employeedata=[];  
+            this.ngOnInit();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose: true,
+              data: 'Employee added successfully'
+            });  
+                   
+          }
+          else{
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose: true,
+              data: 'Unable to insert employee'
+            });
+           }
+                   
+                  
 
+        }
+        /**For edit employee */
+        else{
+          if(data.status){   
+            this.addemployee=true;
+            this.addempdetails= false;
+            this.viewdetails = true;
+            this.work=false;
+            this.emp = true;
+            this.family = false;
+            this.familyDetails=[];
+            this.Experience=[];
+            this.Educations=[];
+            this.employeedata=[];
+            this.ngOnInit(); 
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose: true,
+              data: 'Employee updated successfully'
+            });
+           }
+           else{
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose: true,
+              data: 'Unable to update employee'
+            });
+           }
 
+        }
+          
+      })
 
-  
-      }
+  }
+  firstcancel(){
+    this.addemployee=true;
+    this.addempdetails= false;
+    this.viewdetails = true;
+    this.work=false;
+    this.emp = true;
+    this.family = false;
+    this.familyDetails=[];
+    this.Experience=[];
+    this.Educations=[];
+    this.employeedata=[];
+    this.ngOnInit();
 
-        
-    })
   }
   editfamily(i:any){
     console.log("edit",i)
@@ -857,36 +897,36 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.employeedata=[];
     this.ngOnInit();
   }
-  // getErrorMessages(errorCode:any) {
+  getErrorMessages(errorCode:any) {
 
-  //   this.LMS.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+    this.LMS.getErrorMessages(errorCode,1,100).subscribe((result)=>{
 
-  //     if(result.status && errorCode == 'LM1')
-  //     {
-  //       this.msgLM1 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM2')
-  //     {
-  //       this.msgLM2 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM3')
-  //     {
-  //       this.msgLM3 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM54')
-  //     {
-  //       this.msgLM54 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM38')
-  //     {
-  //       this.msgLM38 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM39')
-  //     {
-  //       this.msgLM39 = result.data[0].errormessage
-  //     }
-  //   })
-  // }
+      if(result.status && errorCode == 'LM1')
+      {
+        this.msgLM1 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM2')
+      {
+        this.msgLM2 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM3')
+      {
+        this.msgLM3 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM54')
+      {
+        this.msgLM54 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM38')
+      {
+        this.msgLM38 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM39')
+      {
+        this.msgLM39 = result.data[0].errormessage
+      }
+    })
+  }
   countryChange(Id:any){
     this.permanentStateDetails=[];
     this.LMS.getStatesc(Id).subscribe((data)=>{

@@ -8,10 +8,10 @@
             <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd">
   
                 <mat-form-field fxFlex.xs="100" fxFlex.size="25" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Department<span  style="color: red">*</span></mat-label>
-                    <input formControlName="department" matInput placeholder="" >
+                    <mat-label>Department</mat-label>
+                    <input formControlName="department" matInput placeholder="" required maxlength="100">
                     <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.required">
-                      This Field is required
+                      This field is required
                   </mat-error>
                 </mat-form-field>
                 <div fxLayoutAlign="center">
@@ -79,7 +79,7 @@
         
         
                     <tr class="mat-row" *matNoDataRow>
-                            <td class="mat-cell" colspan="6">No data found"</td>
+                            <td class="mat-cell" colspan="6">No data found</td>
                         </tr> 
                     </table>
         

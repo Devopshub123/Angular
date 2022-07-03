@@ -126,11 +126,13 @@ export class DeparmentComponent implements OnInit {
     this.isdata = false;
   }
   cancel(){
-    this.enable = null;
-    this.departmentForm.reset();
-    this.isAdd = false;
-    this.isdata = true;
-    this.getDepartments();
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate(["/Admin/Department"]));
+    // this.enable = null;
+    // this.departmentForm.reset();
+    // this.isAdd = false;
+    // this.isdata = true;
+    // this.getDepartments();
 
   }
   status(status:any,id:any,deptname:any){
@@ -160,7 +162,8 @@ export class DeparmentComponent implements OnInit {
     })
   }
   edit(w:any,i:any){
-    console.log(i)
+   
+    this.departmentForm.controls.department.setValue('');
     this.enable = i;
     this.isEdit=false;
     this.isSave=true;

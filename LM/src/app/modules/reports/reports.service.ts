@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -19,10 +20,13 @@ export class ReportsService {
     return this.http.get(this.mainUrl + 'attendance/api/getallemployeeslist',this.httpOptions);
   } 
   // ALL USER-WISE COLLECTION DATA API
-  allUsersCollectionReport(fromDate:any,toDate:any) {
-    return this.http.get(this.mainUrl + 'bill/totalCollectionReport/' + fromDate + '/' +  toDate, this.httpOptions);
+  getAttendanceSummaryReport(data:any):Observable<any> {
+    return this.http.post(this.mainUrl + 'attendance/api/getAttendanceSummaryReport'
+    ,  data, this.httpOptions);
   }
-  employeeCollectionReportByDatesByUserID(fromDate:any,toDate:any,userId:any) {
-    return this.http.get(this.mainUrl + 'bill/totalCollectionReport/' + fromDate + '/' +  toDate+'?userId='+userId, this.httpOptions);
+  getAttendanceDetailsByAttendanceId(data:any):Observable<any>{
+    return this.http.post(this.mainUrl +'attendance/api/d',
+    data,this.httpOptions
+    )
   }
 }

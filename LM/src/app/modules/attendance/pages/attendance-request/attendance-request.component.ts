@@ -61,8 +61,8 @@ export class AttendanceRequestComponent implements OnInit {
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
     this.requestform = this.formBuilder.group(
       {
-        appliedDate: [this.todayWithPipe, Validators.required],
-        shift: ['', Validators.required],
+        appliedDate: [{value:this.todayWithPipe, disabled: true}, Validators.required],
+        shift:  [{value: '', disabled: true}, Validators.required],
         fromDate: ['', Validators.required],
         toDate: ['', Validators.required],
         workType: ['', Validators.required],

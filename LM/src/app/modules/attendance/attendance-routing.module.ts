@@ -9,6 +9,7 @@ import { AttendanceRequestBehalfComponent } from './pages/attendance-request-beh
 import { AttendanceRequestComponent } from './pages/attendance-request/attendance-request.component';
 import { MainComponent } from 'src/app/pages/main/main.component';
 import {LMSAccessGuard} from  '../../LMS-access.guard';
+import { ChangePasswordComponent } from '../../pages/change-password/change-password.component'
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'EmployeeDashboard', component: EmployeDashboardComponent,canActivate:[LMSAccessGuard] },
       { path: 'ManagerDashboard', component: ManagerDashboardComponent,canActivate:[LMSAccessGuard]},
       { path: 'uploadExcel', component: AttendanceUploadexcelComponent,canActivate:[LMSAccessGuard] },
+      { path: 'ChangePassword', component: ChangePasswordComponent,canActivate:[LMSAccessGuard] }
     ]
   }];
 

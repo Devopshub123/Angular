@@ -12,6 +12,7 @@ type AOA = any[][];
 })
 export class AttendanceUploadexcelComponent implements OnInit {
   data: AOA = [[], []];
+  isview:boolean=false;
   wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
   fileName: string = 'SheetJS.xlsx';
   @ViewChild('inputFile') inputFile!: ElementRef;
@@ -48,6 +49,10 @@ export class AttendanceUploadexcelComponent implements OnInit {
 
       }
   }
+  upload(){
+    this.isview = true;
+
+  }
   SaveUploadedData(){
     console.log("gg",this.convertedJson)
     this.attendanceService.excelDataForAttendance(JSON.parse(this.convertedJson)).subscribe(
@@ -56,6 +61,7 @@ export class AttendanceUploadexcelComponent implements OnInit {
         disableClose:true,
         data: "Uploaded successfully"
      });
+     this.isview=false;
      this.removeData();
      }, 
      error =>{

@@ -9,16 +9,16 @@
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Applied Date</mat-label>
-                    <input formControlName="appliedDate" matInput placeholder="Applied Date" readonly>
+                    <input formControlName="appliedDate" matInput placeholder="Applied Date"readonly>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Shift</mat-label>
-                    <input formControlName="shift" matInput placeholder="Shift" readonly>
+                    <input formControlName="shift" matInput placeholder="Shift" >
                 </mat-form-field>
                 
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Work Type</mat-label>
+                    <mat-label>Work Type <span  style="color: red">*</span></mat-label>
                     <mat-select formControlName="workType" required>
                         <ng-container *ngFor="let v of workTypeData">
                             <!-- <mat-option *ngIf="v.status=='1'" value={{v.id}}>{{v.name}}</mat-option> -->
@@ -33,7 +33,7 @@
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>From Date</mat-label>
+                    <mat-label>From Date <span  style="color: red">*</span></mat-label>
                     <input matInput readonly [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate" (dateInput)="fromDateChange('input', $event)"
                         placeholder="From Date" formControlName="fromDate">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
@@ -43,7 +43,7 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>To Date</mat-label>
+                    <mat-label>To Date <span  style="color: red">*</span></mat-label>
                     <input matInput readonly [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
                     (dateInput)="toDateChange('input', $event)" formControlName="toDate">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
@@ -67,7 +67,7 @@
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex="52" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Reason</mat-label>
+                    <mat-label>Reason<span  style="color: red">*</span></mat-label>
                     <textarea formControlName="reason" matInput placeholder="Reason"></textarea>
                     <mat-error class="con-error" maxLength="250" *ngIf="requestform.controls.reason.errors?.required">
                         Reason is required.
