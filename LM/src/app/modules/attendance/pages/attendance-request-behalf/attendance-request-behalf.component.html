@@ -107,7 +107,7 @@
             </mat-form-field>
         </div>
         <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort>
+            <table mat-table [dataSource]="dataSource" matSort *ngIf="arrayList.length > 0">
 
                 <ng-container matColumnDef="id"  style="width: 10%;">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> S.no. </th>
@@ -162,7 +162,7 @@
                 </tr>
             </table>
 
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            <mat-paginator *ngIf="arrayList.length > 4" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
         </div>
     </mat-card>
 
