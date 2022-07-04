@@ -821,12 +821,12 @@
                                 <div [formGroupName]="empIndex">
                                     <mat-form-field fxFlex.xs="100" fxFlex="20" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Company Name</mat-label>
-                                        <input type="text" maxlength="100" formControlName="companyname" matInput placeholder=""
+                                        <input type="text"  maxlength="100" formControlName="companyname" matInput placeholder=""
                                             appRemoveSpace>
                                     </mat-form-field>
                                     <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
                                         <mat-label>From </mat-label>
-                                        <input matInput [matDatepicker]="wfromdate" [max]="maxDate" placeholder="MM/DD/YYYY"
+                                        <input matInput readonly [matDatepicker]="wfromdate" [max]="maxDate" placeholder="MM/DD/YYYY"
                                             formControlName="wfromdate">
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="wfromdate">
                                         </mat-datepicker-toggle>
@@ -834,7 +834,7 @@
                                     </mat-form-field>
                                     <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
                                         <mat-label>To </mat-label>
-                                        <input matInput [matDatepicker]="wtodate" [min]="minwtodate" [max]="maxDate"
+                                        <input matInput readonly [matDatepicker]="wtodate" [min]="minwtodate" [max]="maxDate"
                                             placeholder="MM/DD/YYYY" formControlName="wtodate">
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="wtodate"></mat-datepicker-toggle>
                                         <mat-datepicker #wtodate></mat-datepicker>

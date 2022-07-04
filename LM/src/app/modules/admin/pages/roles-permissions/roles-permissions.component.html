@@ -28,7 +28,7 @@
                                                         <div class="form-group row col-sm-12">
                                                             <label for="" class="col-sm-2 col-form-label">Role Name*</label>
                                                             <div class="col-sm-4">
-                                                                <select id="year" class="form-control" name="year" (change)="getRoleScreenFunctionalities()" [(ngModel)]="roleId">
+                                                                <select id="year" class="form-control" name="year" (change)="getRoleScreenFunctionalities('4')" [(ngModel)]="roleId">
                                                                     <option value="" disabled selected>Role Name</option>
                                                                     <option *ngFor="let role of roleMasters;"
                                                                             value="{{role.id}}">{{role.name}}

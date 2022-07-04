@@ -231,6 +231,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
           this.employeeAddForm.controls.paddress.setValue(this.employeeAddForm.controls.address.value),
           this.employeeAddForm.controls.pcountry.setValue(this.employeeAddForm.controls.country.value),
           this.employeeAddForm.controls.ppincode.setValue(this.employeeAddForm.controls.pincode.value)
+          this.employeeAddForm.controls.paddress.disable();
+          this.employeeAddForm.controls.pcountry.disable();
+          this.employeeAddForm.controls.pstate.disable();
+          this.employeeAddForm.controls.pstate.disable();
+          this.employeeAddForm.controls.pcity.disable();
+          this.employeeAddForm.controls.ppincode.disable();
         }
         else{
           this.employeeAddForm.controls.paddress.setValue('')
@@ -248,7 +254,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
           this.stateDetails=data[0];
           if(this.employeedata != null)
           {
-            console.log('state',this.employeedata.state)
             this.employeeAddForm.controls.state.setValue(this.employeedata.state);
           }
         })
@@ -294,7 +299,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
         this.minwtodate = selectedValue;
       })
       this.employeeAddForm.get('dateofbirth')?.valueChanges.subscribe(selectedValue => {
-        console.log(selectedValue)
         this.dateofjonupdate(selectedValue)
         
         
@@ -302,7 +306,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
       
       
       this.employeeworkAddForm.get('efromdate')?.valueChanges.subscribe(selectedValue => {
-        console.log(selectedValue)
         this.minetodate = selectedValue;
       })
       // this.employeeAddForm.get('paddress')?.valueChanges.subscribe(selectedValue => {
@@ -323,9 +326,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
           id:selectedValue
         }
         this.LMS.getReportingManagers(data).subscribe(data=>{
-          this.availablereportingmanagers=data[0]
-          console.log('availablereportingmanagers',this.availablereportingmanagers)
-          
+          this.availablereportingmanagers=data[0]         
           if(this.employeedata != null)
           {
             this.employeeworkAddForm.controls.reportingmanager.setValue(this.employeedata.reportingmanager);
@@ -345,7 +346,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
   }
   /**Search functionality */
   applyFilter(event: Event) {
-    console.log("hjh",event)
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
@@ -377,7 +377,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
   }
 
   addexperience() {
-    console.log("Adding a employee");
     this.exp().push(this.newExperince());
     
   }
@@ -395,12 +394,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
   }
  
   addeducation() {
-    console.log("Adding a employee");
     this.edu().push(this.newEducation());
 
   }
    addeducationdetails(){
-    console.log(this.edu().controls.length)
     for(let i =0;i<this.edu().controls.length;i++){
       if(this.edu().controls[i].value.efromdate != null){
         this.Educations.push({
@@ -507,24 +504,20 @@ export class EmployeeMasterToAddComponent implements OnInit {
       this.employeeworkAddForm.controls.department.setValue(this.employeedata.department);
       let x = JSON.parse((this.employeedata.education))
       let y = JSON.parse((this.employeedata.experience))
-      let z = JSON.parse((this.employeedata.relations))
-      console.log("aa",x,y,z)
-      if(z != null){
-        for(let i = 0;i<z.length;i++){
+      let familydata = JSON.parse((this.employeedata.relations))
+      if(familydata != null){
+        for(let i = 0;i<familydata.length;i++){
           this.familyDetails.push({
-            firstname: z[i].firstname,
-            lastname: z[i].lastname,
-            gender: z[i].gender,
-            contactnumber: z[i].contactnumber,
-            status: z[i].status,
-            relationship: z[i].relationship,
-            dateofbirth: this.pipe.transform(z[i].dateofbirth, 'yyyy-MM-dd')
+            firstname: familydata[i].firstname,
+            lastname: familydata[i].lastname,
+            gender: familydata[i].gender,
+            contactnumber: familydata[i].contactnumber,
+            status: familydata[i].status,
+            relationship: familydata[i].relationship,
+            dateofbirth: this.pipe.transform(familydata[i].dateofbirth, 'yyyy-MM-dd')
           });
-          
-  
         }
         this.dsFamily = new MatTableDataSource(this.familyDetails);
-
       }
       
      let education = JSON.parse(this.employeedata.education)
@@ -569,10 +562,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
         this.familyDetails[this.familyindex].status = "Alive";
         this.familyDetails[this.familyindex].relationship = this.employeefamilyAddForm.controls.relation.value;
         this.familyDetails[this.familyindex].dateofbirth =this.pipe.transform(this.employeefamilyAddForm.controls.familydateofbirth.value, 'yyyy-MM-dd')
-        this.clearfamily()
-       console.log("ff") 
-        
-
+        this.clearfamily();
     }
     else{
       if(this.employeefamilyAddForm.valid){
@@ -729,7 +719,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
   }
   editfamily(i:any){
-    console.log("edit",i)
     this.familyindex = i;
     this.isfamilyedit = true;   
     this.employeefamilyAddForm.controls.familyfirstname.setValue(this.familyDetails[i].firstname);
@@ -780,19 +769,16 @@ export class EmployeeMasterToAddComponent implements OnInit {
   getWorkLocation(){
     this.LMS.getactiveWorkLocation({id:null,companyName:'nandyala_hospitals'}).subscribe((result)=>{
       this.worklocationDetails=result.data;
-      console.log('availablereportingmanagers',this.worklocationDetails)
     })
 
   }
 
   getReportingManagers(id:any){
-    console.log("dept",id)
     let data = {
       id:id
     }
     this.LMS.getReportingManagers(data).subscribe(data=>{
       this.availablereportingmanagers=data[0]
-      console.log('availablereportingmanagers',this.availablereportingmanagers)
     })
 
   }
@@ -806,13 +792,11 @@ export class EmployeeMasterToAddComponent implements OnInit {
   getRelationshipMaster(){
     this.LMS.getMastertable('relationshipmaster','Active',1,30,'nandyala_hospitals').subscribe(data=>{
       this.employeeRelationship = data.data;
-      console.log("hjjh",data.data )
     })
   }
   getEmploymentTypeMaster(){
     this.LMS.getMastertable('employmenttypemaster',null,1,1000,'nandyala_hospitals').subscribe(data=>{
       this.EmploymentTypeDetails = data.data;
-      console.log("hjjh",this.EmploymentTypeDetails )
     })
   }
   getDesignationsMaster(){
@@ -847,16 +831,9 @@ export class EmployeeMasterToAddComponent implements OnInit {
   getShifts(){
     this.LMS.getMastertable('shiftsmaster',1,1,1000,'nandyala_hospitals').subscribe(data=>{
       this.availableShifts = data.data;
-      console.log("shifts", this.availableShifts)
     })
   }
 
-  submit(){
-    console.log(this.employeeAddForm.controls.country.value)
-  }
-  validnumber(pincode:any){
-    console.log("hjjh",pincode)
-  }
   firstNext(){
     if(this.employeeAddForm.valid){
       this.family = true;
@@ -866,13 +843,9 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
   }
   secondnext(){
-    // if(this.familyDetails.length>0){
       this.family = false;
       this.work = true;
       this.emp=false;
-    // }
-    
-
   }
   firstprev(){
     this.emp=true;

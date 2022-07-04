@@ -33,7 +33,7 @@ export class RoleMasterService {
     setRoleMaster(info: any): Observable<any> {
         return this.hClient.post(this.mainBeUrl + 'api/setRoleMaster', JSON.stringify(info), this.httpOptions);
     }
-    setRoleAccess(info: {}): Observable<any> {
+    setRoleAccess(info: any): Observable<any> {
         return this.hClient.post(this.mainBeUrl + 'api/setRoleAccess', JSON.stringify(info), this.httpOptions);
     }
 }

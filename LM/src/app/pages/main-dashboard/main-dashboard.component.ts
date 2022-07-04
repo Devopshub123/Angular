@@ -33,7 +33,6 @@ export class MainDashboardComponent implements OnInit {
     this.AMS.getModules('modulesmaster',null,1,100,'boon_client').subscribe((result)=>{
       if(result && result.status){
         this.allModuleDetails = result.data;
-        console.log("hhhhh",result)
 
       }
     })
@@ -49,6 +48,7 @@ export class MainDashboardComponent implements OnInit {
           'empid':this.usersession.id,
           'moduleid':id
         };
+        sessionStorage.setItem('activeModule',JSON.stringify(data));
         this.mainService.getRoleScreenFunctionalities(data).subscribe((res:any)=>{
           this.menu=[];
           if(res.status){
