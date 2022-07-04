@@ -77,9 +77,8 @@ export class ChangePasswordComponent implements OnInit {
   get f(): { [key: string]: AbstractControl } {
     return this.changePasswordform.controls;
   }
-  cancel(){
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/ChangePassword"]));
+  cancel(){ 
+    this.router.navigate(["/MainDashboard"])
   }
   changePassword(){
       this.submitted = true;
@@ -92,7 +91,7 @@ export class ChangePasswordComponent implements OnInit {
         if(this.changePasswordAddObj.oldPassword === this.changePasswordAddObj.newPassword){
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             disableClose: true,
-            data: 'Your newpassword cannot be same as the old password'
+            data: 'Your new password cannot be same as the old password'
           });
         }
         else{

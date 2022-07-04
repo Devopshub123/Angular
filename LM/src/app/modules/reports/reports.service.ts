@@ -24,7 +24,9 @@ export class ReportsService {
     return this.http.post(this.mainUrl + 'attendance/api/getAttendanceSummaryReport'
     ,  data, this.httpOptions);
   }
-  employeeCollectionReportByDatesByUserID(fromDate:any,toDate:any,userId:any) {
-    return this.http.get(this.mainUrl + 'bill/totalCollectionReport/' + fromDate + '/' +  toDate+'?userId='+userId, this.httpOptions);
+  getAttendanceDetailsByAttendanceId(data:any):Observable<any>{
+    return this.http.post(this.mainUrl +'attendance/api/d',
+    data,this.httpOptions
+    )
   }
 }

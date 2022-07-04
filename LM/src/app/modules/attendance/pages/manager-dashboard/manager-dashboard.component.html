@@ -14,8 +14,8 @@
                             <div class='demo-app-main'>
                                    <mat-icon class="green-icon">check_circle</mat-icon>Present
                                    <mat-icon class="red-icon">check_circle</mat-icon> Absent
-                                   <mat-icon class="blue-icon">check_circle</mat-icon>Week-Off
-                                   <mat-icon class="yellow-icon">check_circle</mat-icon> Holiday
+                                   <!-- <mat-icon class="blue-icon">check_circle</mat-icon>Week-Off
+                                   <mat-icon class="yellow-icon">check_circle</mat-icon> Holiday -->
                             </div>
 
                      </div>
@@ -47,7 +47,7 @@
                                                                <mat-list-item>
                                                                       <h3 matLine> {{ item.attendancedate | date:'longDate' }} -{{item.empname}} </h3>
                                                                       <p> <a routerLink="/"
-                                                                             (click)="onBehalfofRequestClick(item)">send a
+                                                                             (click)="onBehalfofRequestClick(item)">Add a
                                                                             request</a>
                                                                </mat-list-item>
                                                         </span>

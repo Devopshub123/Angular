@@ -25,7 +25,7 @@
             <!-- <h2>File Upload & Image Preview</h2> -->
 
             <!-- Upload  -->
-            <form id="file-upload-form" class="uploader">
+            <form id="file-upload-form" class="uploader" *ngIf="isadd">
                 <input id="file-upload" type="file" name="fileUpload" (change)="onChange($event)" #inputFile
                     multiple="false" accept=".xls,.xlsx" />
 
@@ -58,7 +58,7 @@
                     </tbody>
                 </table>
             </div>
-            <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxLayout="row" fxLayoutAlign="center center" *ngIf="isview">
                 <button tabindex="13" class="m-1 mat-stroked-button button-save" (click)="SaveUploadedData();">
                     <span>Submit</span>
                 </button>

@@ -14,7 +14,7 @@ export class DialogComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.form = this.formBuilder.group({ 
-        'reason':['',], });
+        'reason':['',Validators.maxLength(250)], });
     }
 
   ngOnInit(): void {

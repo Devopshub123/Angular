@@ -68,18 +68,18 @@
           <mat-cell *matCellDef="let row; let i = index;">{{i+1}}</mat-cell>
           
         </ng-container>
-        <ng-container matColumnDef="date">
+        <ng-container matColumnDef="attendancedate">
           <mat-header-cell *matHeaderCellDef><b>Date</b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.date}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.attendancedate}} </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="firstin">
+        <ng-container matColumnDef="firstlogintime">
           <mat-header-cell *matHeaderCellDef><b> First In</b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.firstin}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.firstlogintime}} </mat-cell>
 
         </ng-container>
-        <ng-container matColumnDef="lastout">
+        <ng-container matColumnDef="lastlogouttime">
           <mat-header-cell *matHeaderCellDef><b>Last Out </b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.lastout}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.lastlogouttime}} </mat-cell>
 
         </ng-container>
         <ng-container matColumnDef="totalhours">
@@ -97,14 +97,14 @@
           <mat-cell *matCellDef="let row"> {{row.breaktime}} </mat-cell>
 
         </ng-container>
-        <ng-container matColumnDef="productionhours">
+        <ng-container matColumnDef="productivehours">
           <mat-header-cell *matHeaderCellDef><b>Production Hours</b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.productionhours}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.productivehours}} </mat-cell>
 
         </ng-container>
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef><b>Action</b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> <a style="color: blue"><u>Details</u></a> </mat-cell>
+          <mat-cell *matCellDef="let row"> <a style="color: blue" (click)="openDialog(row)"><u>Details</u></a> </mat-cell>
 
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true" style=" background-color:#ededed;">
