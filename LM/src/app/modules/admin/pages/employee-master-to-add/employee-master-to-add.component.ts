@@ -231,6 +231,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
           this.employeeAddForm.controls.paddress.setValue(this.employeeAddForm.controls.address.value),
           this.employeeAddForm.controls.pcountry.setValue(this.employeeAddForm.controls.country.value),
           this.employeeAddForm.controls.ppincode.setValue(this.employeeAddForm.controls.pincode.value)
+          this.employeeAddForm.controls.paddress.disable();
+          this.employeeAddForm.controls.pcountry.disable();
+          this.employeeAddForm.controls.pstate.disable();
+          this.employeeAddForm.controls.pstate.disable();
+          this.employeeAddForm.controls.pcity.disable();
+          this.employeeAddForm.controls.ppincode.disable();
         }
         else{
           this.employeeAddForm.controls.paddress.setValue('')
