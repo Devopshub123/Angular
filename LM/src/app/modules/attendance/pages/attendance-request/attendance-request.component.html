@@ -68,10 +68,14 @@
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex="52" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason<span  style="color: red">*</span></mat-label>
-                    <textarea formControlName="reason" matInput placeholder="Reason"></textarea>
+                    <textarea formControlName="reason"  maxLenth="250" matInput placeholder="Reason"></textarea>
                     <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
                         Reason is required.
                     </mat-error>
+                    <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.maxlength">
+                        Reason is required.
+                    </mat-error>
+            
                 </mat-form-field>
             </div>
             <div fxLayoutAlign="center">

@@ -68,7 +68,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
         toDate: ['', Validators.required],
         employeeName: ['', Validators.required],
         workType: ['', Validators.required],
-        reason: ['', Validators.required],
+        reason: ['', Validators.required,Validators.maxLength(250)],
 
       });
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');

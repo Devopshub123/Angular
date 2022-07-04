@@ -29,6 +29,7 @@ import { MainComponent } from './pages/main/main.component';
 import { EmployeeMasterToAddComponent } from './modules/admin/pages/employee-master-to-add/employee-master-to-add.component';
 import { MatTableModule } from '@angular/material/table';
 import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.component';
+import { BnNgIdleService } from 'bn-ng-idle';
 
  FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -69,7 +70,7 @@ import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.co
 
   ],
 
-  providers: [AuthguardService],
+  providers: [AuthguardService,BnNgIdleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
