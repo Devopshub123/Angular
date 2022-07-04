@@ -19,5 +19,11 @@ export class MainService {
 
     return this.http.post(this.mainBeUrl + 'attendance/api/getrolescreenfunctionalities',data, this.httpOptions);
 
-}
+  }
+/*Get Role Screen Functionalities Based on RoleId*/
+  getrolescreenfunctionalitiesforrole(data: any) {
+
+    return this.http.post(this.mainBeUrl + 'attendance/api/getrolescreenfunctionalitiesforrole',data, this.httpOptions);
+
+  }
 }

@@ -47,7 +47,6 @@ export class AddRoleModalComponent implements OnInit {
   }
   checkLeaveTypes(){
     this.isRoleAlreadyExists = false;
-    console.log(this.roleMasters);
   this.roleMasters.findIndex((item:any) => {
 
       if(item.name == this.role.roleName)
