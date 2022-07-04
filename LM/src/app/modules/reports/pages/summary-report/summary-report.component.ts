@@ -16,34 +16,7 @@ import { DialogDetailComponent } from '../dialog-detail/dialog-detail.component'
 })
 export class SummaryReportComponent implements OnInit {
   List: any[] = [
-    {
-      'attendancedate': '01-Feb', 'firstlogintime': '09:45 AM', 'lastlogouttime': '07:00 PM',
-      'totalhours': '09.15', 'breaks': '11.00 - 11.15', 'breaktime': '00.15', 'productivehours': '09.00'
-    },
-    {
-      'attendancedate': '01-Feb', 'firstlogintime': '09:45 AM', 'lastlogouttime': '07:00 PM',
-      'totalhours': '09.15', 'breaks': '11.00 - 11.15', 'breaktime': '00.15', 'productivehours': '09.00'
-    },
-    {
-      'attendancedate': '01-Feb', 'firstlogintime': '09:45 AM', 'lastlogouttime': '07:00 PM',
-      'totalhours': '09.15', 'breaks': '11.00 - 11.15', 'breaktime': '00.15', 'productivehours': '09.00'
-    },
-    {
-      'attendancedate': '01-Feb', 'firstlogintime': '09:45 AM', 'lastlogouttime': '07:00 PM',
-      'totalhours': '09.15', 'breaks': '11.00 - 11.15', 'breaktime': '00.15', 'productivehours': '09.00'
-    },
-    {
-      'attendancedate': '01-Feb', 'firstlogintime': '09:45 AM', 'lastlogouttime': '07:00 PM',
-      'totalhours': '09.15', 'breaks': '11.00 - 11.15', 'breaktime': '00.15', 'productivehours': '09.00'
-    },
-    {
-      'attendancedate': '01-Feb', 'firstlogintime': '09:45 AM', 'lastlogouttime': '07:00 PM',
-      'totalhours': '09.15', 'breaks': '11.00 - 11.15', 'breaktime': '00.15', 'productivehours': '09.00'
-    },
-    {
-      'attendancedate': '01-Feb', 'firstlogintime': '09:45 AM', 'lastlogouttime': '07:00 PM',
-      'totalhours': '09.15', 'breaks': '11.00 - 11.15', 'breaktime': '00.15', 'productivehours': '09.00'
-    },
+    
   ];
   employeelist: any;
   Users: any;
@@ -56,11 +29,11 @@ export class SummaryReportComponent implements OnInit {
   filter = new FormControl();
   searchForm = this.formBuilder.group({ fromDate: [new Date()], toDate: [new Date()], Users: ['0'] });
   dataSource: MatTableDataSource<any> = <any>[];
-  displayedColumns: string[] = ['sno', 'attendancedate', 'firstlogintime', 'lastlogouttime', 'totalhours', 'breaks', 'breaktime', 'productivehours', 'action'];
+  displayedColumns: string[] = ['sno','empname', 'attendancedate', 'firstlogintime', 
+  'lastlogouttime', 'totalhours', 'breaks', 'breaktime', 'productivehours', 'action'];
   isLoading = false;
   ngOnInit() {
-    // this.Searchform();
-    this.dataSource = new MatTableDataSource(this.List);
+     this.Searchform();
     this.getEmployeelist();
   }
 
@@ -93,9 +66,7 @@ export class SummaryReportComponent implements OnInit {
     }
     this.isLoading = true;
     this.reportsService.getAttendanceSummaryReport(data).subscribe((res: any) => {
-      for (const a in res) {
-        this.List.push(res[a]);
-      }
+      this.List=res.data;
       this.isLoading = false;
       this.dataSource = new MatTableDataSource(this.List);
 

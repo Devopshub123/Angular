@@ -1,27 +1,76 @@
 <button mat-icon-button class="close-button" [mat-dialog-close]="true">
-    <mat-icon class="close-icon" color="warn">close</mat-icon>
+  <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+<div fxLayout="row" fxLayoutAlign="center">
+  <h1 mat-dialog-title>Detail Report</h1>
+</div>
+
+<div mat-dialog-content>
+  <div class="p-2">
+
+    <div class="example-container mat-elevation-z8">
+      <mat-table #table [dataSource]="dataSource" *ngIf="List.length > 0">
+        <ng-container matColumnDef="sno">
+          <mat-header-cell *matHeaderCellDef><b>S.No. </b></mat-header-cell>
+          <mat-cell *matCellDef="let row; let i = index;">{{i+1}}</mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="empname">
+          <mat-header-cell *matHeaderCellDef><b>Employee Name </b></mat-header-cell>
+          <mat-cell *matCellDef="let row;">{{row.empname}}</mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="attendancedate">
+          <mat-header-cell *matHeaderCellDef><b>Date</b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.attendancedate}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="firstlogintime">
+          <mat-header-cell *matHeaderCellDef><b> First In</b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.firstlogintime}} </mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="lastlogouttime">
+          <mat-header-cell *matHeaderCellDef><b>Last Out </b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.lastlogouttime}} </mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="totalhours">
+          <mat-header-cell *matHeaderCellDef><b>Total Hours </b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.totalhours}} </mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="breaks">
+          <mat-header-cell *matHeaderCellDef><b>Breaks </b></mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <div *ngFor="let number of arrString">
+              <p>{{number}}</p>
+
+            </div>
+          </mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="breaktime">
+          <mat-header-cell *matHeaderCellDef><b>Break Time </b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.breaktime}} </mat-cell>
+
+        </ng-container>
+        <ng-container matColumnDef="productivehours">
+          <mat-header-cell *matHeaderCellDef><b>Production Hours</b></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.productivehours}} </mat-cell>
+
+        </ng-container>
+        <mat-header-row class="headerbox" *matHeaderRowDef="displayedColumns; sticky:true">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <div style="text-align: center;padding-top: 20px;" *ngIf="List.length === 0">No data found in selected date</div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions fxLayoutAlign="center">
+  <button class="m-1 mat-stroked-button button-save" (click)="onOkClick()" type="submit">
+    <span>Ok</span>
   </button>
-  <div fxLayout="row" fxLayoutAlign="center">
-    <h1 mat-dialog-title >Detail Report</h1>
-  </div>
-
-  <div mat-dialog-content>
-    <table  class="mat-elevation-z8">
-      <tr><th>S.no </th><th>Employee</th><th>First In</th><th>Last Out</th><th>Total Hours</th>
-        <th>Breaks</th><th>Break Time</th><th>Production Hours</th><th>Shift</th>  </tr>
-  <ng-container  *ngFor="let column of list">
-  <tr>     <td> </td></tr>
-
-  </ng-container>
-
-</table>
-  </div>
-  <div mat-dialog-actions fxLayoutAlign="center">
-    <button class="m-1 mat-stroked-button button-save" (click)="onOkClick()" type="submit">
-      <span>Ok</span>
-  </button>
 
 
-  </div>
-  
-  
+</div>

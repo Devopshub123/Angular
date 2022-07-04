@@ -111,7 +111,7 @@
                 <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Pincode</mat-label>
 
-                    <input type="text" onlyNumber formControlName="pincode" matInput [readonly]="isview" placeholder="" maxlength="6" required>             
+                    <input type="text" onlynumber formControlName="pincode" matInput [readonly]="isview" placeholder="" maxlength="6" required>             
                     <mat-error class="con-error" *ngIf="  companyForm.controls.pincode.errors?.required">
                         This field is required
                     </mat-error>

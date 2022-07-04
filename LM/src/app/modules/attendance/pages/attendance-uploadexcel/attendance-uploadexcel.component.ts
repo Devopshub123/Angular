@@ -51,13 +51,16 @@ export class AttendanceUploadexcelComponent implements OnInit {
        this.isview=false;
        this.isadd = true;
       
-       
+       let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          disableClose:true,
+          data: res.message
+       });
       }else{
+        
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           disableClose:true,
           data: res.message
        });
-       
       }
      }, 
      error =>{
@@ -69,7 +72,7 @@ export class AttendanceUploadexcelComponent implements OnInit {
   removeData() {
     this.isview = false;
     this.isadd = true ;
-    this.inputFile.nativeElement.value = '';
+  //  this.inputFile.nativeElement.value = '';
     this.data=[[], []];
     this.convertedJson = '';
     
