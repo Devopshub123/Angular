@@ -62,30 +62,40 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
     this.requestform = this.formBuilder.group(
       {
-        appliedDate: [this.todayWithPipe, Validators.required],
-        shift: ['', Validators.required],
+        appliedDate: [{value:this.todayWithPipe, disabled: true}, Validators.required],
+        shift: [{value: '', disabled: true}, Validators.required],
         fromDate: ['', Validators.required],
         toDate: ['', Validators.required],
         employeeName: ['', Validators.required],
         workType: ['', Validators.required],
-        reason: ['', Validators.required,Validators.maxLength(250)],
-
+        reason: ['', Validators.required],
       });
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
-    console.log(this.userSession)
-    console.log(this.userSession.id)
-    this.getWorkypeList();
+     this.getWorkypeList();
     this.getEmployeeListByManagerId()
     this.getAttendanceRequestListByEmpId();
+
     this.requestform.get("employeeName")?.valueChanges.subscribe(selectedValue => {
       console.log(selectedValue)
       this.getEmployeeShiftDetails(selectedValue);
 
     })
     if(this.userData.userData!=undefined){
-      this.requestform.controls.fromDate.setValue(new Date(this.userData.userData.attendancedate));
-      this.requestform.controls.toDate.setValue(new Date(this.userData.userData.attendancedate)); 
-      this.requestform.controls.employeeName.setValue(this.userData.userData.empid);
+      this.getEmployeeShiftDetails(this.userData.userData.empid);
+
+      this.requestform = this.formBuilder.group(
+        {
+          appliedDate: [{value:this.todayWithPipe, disabled: true}, Validators.required],
+          shift: [{value: '', disabled: true}, Validators.required],
+          fromDate: [{value: new Date(this.userData.userData.attendancedate), disabled: true}, Validators.required],
+          toDate: [{value: new Date(this.userData.userData.attendancedate), disabled: true}, Validators.required],
+          employeeName: [{value: '', disabled: true}, Validators.required],
+          workType: ['', Validators.required],
+          reason: ['', Validators.required],
+        });
+        this.requestform.controls.employeeName.setValue(this.userData.userData.empid);
+    }else{
+      
     }
 
   }
@@ -132,6 +142,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
       if (res.status) {
         this.shiftData = res.data[0];
         this.requestform.controls.shift.setValue(this.shiftData.shiftname);
+        this.requestform.controls.shift.disable();
       }
     })
   }
@@ -170,6 +181,8 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     if (this.requestform.invalid) {
       return;
     } else {
+    
+
       let obj = {
         "empid": this.requestform.controls.employeeName.value,
         "shiftid": this.shiftData.shiftid,

@@ -68,6 +68,11 @@
           <mat-cell *matCellDef="let row; let i = index;">{{i+1}}</mat-cell>
           
         </ng-container>
+        <ng-container matColumnDef="empname">
+          <mat-header-cell *matHeaderCellDef><b>S.No. </b></mat-header-cell>
+          <mat-cell *matCellDef="let row;">{{row.empname}}</mat-cell>
+          
+        </ng-container>
         <ng-container matColumnDef="attendancedate">
           <mat-header-cell *matHeaderCellDef><b>Date</b></mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.attendancedate}} </mat-cell>

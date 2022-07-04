@@ -13,7 +13,7 @@
                 </mat-form-field>
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Employee Name <span  style="color: red">*</span></mat-label>
+                    <mat-label>Employee Name</mat-label>
                     <mat-select formControlName="employeeName"  required>
                         <ng-container *ngFor="let v of employeesData">
                             <!-- <mat-option *ngIf="v.status=='1'" value={{v.id}}>{{v.name}}</mat-option> -->
@@ -21,11 +21,11 @@
                         </ng-container>
                     </mat-select>
                     <mat-error class="con-error" *ngIf="requestform.controls.employeeName.errors?.required">
-                        Please select an option.
+                        Employee Name is required.
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Work Type <span  style="color: red">*</span></mat-label>
+                    <mat-label>Work Type</mat-label>
                     <mat-select formControlName="workType" required>
                         <ng-container *ngFor="let v of workTypeData">
                             <!-- <mat-option *ngIf="v.status=='1'" value={{v.id}}>{{v.name}}</mat-option> -->
@@ -33,34 +33,34 @@
                         </ng-container>
                     </mat-select>
                     <mat-error class="con-error" *ngIf="requestform.controls.workType.errors?.required">
-                        Please select an option.
+                        Work Type is required.
                     </mat-error>
                 </mat-form-field>
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Shift <span  style="color: red">*</span></mat-label>
+                    <mat-label>Shift</mat-label>
                     <input formControlName="shift" matInput placeholder="Shift" readonly>
                 </mat-form-field>
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>From Date <span  style="color: red">*</span></mat-label>
+                    <mat-label>From Date</mat-label>
                     <input matInput readonly [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate" (dateInput)="fromDateChange('input', $event)"
                         placeholder="From Date" formControlName="fromDate">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
                     <mat-datepicker #fromDate></mat-datepicker>
                     <mat-error class="con-error" *ngIf="requestform.controls.fromDate.errors?.required">
-                        Please select an option.
+                        From Date is required.
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>To Date <span  style="color: red">*</span></mat-label>
+                    <mat-label>To Date</mat-label>
                     <input matInput readonly [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
                     (dateInput)="toDateChange('input', $event)" formControlName="toDate">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
                     <mat-datepicker #toDate></mat-datepicker>
                     <mat-error class="con-error" *ngIf="requestform.controls.toDate.errors?.required">
-                        Please select an option.
+                        To Date is required.
                     </mat-error>
                 </mat-form-field>
 <!-- 
@@ -78,10 +78,10 @@
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex="52" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Reason <span  style="color: red">*</span></mat-label>
+                    <mat-label>Reason</mat-label>
                     <textarea formControlName="reason" matInput placeholder="Reason"></textarea>
                     <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
-                        This field is required.
+                        Reason is required.
                     </mat-error>
                 </mat-form-field>
             </div>
