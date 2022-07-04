@@ -19,7 +19,7 @@
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Work Type <span  style="color: red">*</span></mat-label>
-                    <mat-select formControlName="workType" required>
+                    <mat-select formControlName="workType" >
                         <ng-container *ngFor="let v of workTypeData">
                             <!-- <mat-option *ngIf="v.status=='1'" value={{v.id}}>{{v.name}}</mat-option> -->
                             <mat-option value={{v.id}}>{{v.type}}</mat-option>
@@ -68,7 +68,7 @@
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex="52" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason<span  style="color: red">*</span></mat-label>
-                    <textarea formControlName="reason"  maxLenth="250" matInput placeholder="Reason"></textarea>
+                    <textarea formControlName="reason" maxlength="250" matInput placeholder="Reason"></textarea>
                     <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
                         Reason is required.
                     </mat-error>
@@ -102,35 +102,35 @@
         <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort>
 
-                <ng-container matColumnDef="id">
+                <ng-container matColumnDef="id" style="width: 10%">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> S.no. </th>
                     <td mat-cell *matCellDef="let row;let i = index;">{{i+1}} </td>
                 </ng-container>
 
 
-                <ng-container matColumnDef="worktype">
+                <ng-container matColumnDef="worktype"  style="width: 20%;">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Work Type </th>
                     <td mat-cell *matCellDef="let row"> {{row.worktype}}</td>
                 </ng-container>
 
 
-                <ng-container matColumnDef="fromdate">
+                <ng-container matColumnDef="fromdate"  style="width: 15%;">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> From Date </th>
                     <td mat-cell *matCellDef="let row"> {{row.fromdate}} </td>
                 </ng-container>
 
 
-                <ng-container matColumnDef="todate">
+                <ng-container matColumnDef="todate"  style="width: 15%;">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>
                     <td mat-cell *matCellDef="let row"> {{row.todate}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="reason">
+                <ng-container matColumnDef="reason"  >
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
-                    <td mat-cell *matCellDef="let row"> {{row.reason}} </td>
+                    <td mat-cell *matCellDef="let row" style="width: 30%; word-break: break-all;padding-right: 20px;"> {{row.reason}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="status">
+                <ng-container matColumnDef="status"  style="width: 10%;">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                     <td mat-cell *matCellDef="let row" [style.color]="row.status"> {{row.status}} </td>
                 </ng-container>
