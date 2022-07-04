@@ -3,7 +3,7 @@ import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog'; 
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
-
+// import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-companylogo',
   templateUrl: './companylogo.component.html',
@@ -86,19 +86,16 @@ export class CompanylogoComponent implements OnInit {
         console.log('File Image',this.formData.getAll('file'))
         this.file=null;
         this.LM.setUploadImage(this.formData,12).subscribe((data) => {
-          console.log(data);
-          // this.toastr.success(data.message);
-          
           this.file=null;
           this.fileImageToggler();
           this.getUploadImage();
           this.isRemoveImage=true;
+          this.formData.delete('file');
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             disableClose: true,
             data:data.message
           });
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["/Admin/CompanyLogo"]));
+         
         });}
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
