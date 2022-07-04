@@ -247,6 +247,9 @@ export class EmployeeMasterToAddComponent implements OnInit {
           this.employeeAddForm.controls.ppincode.setValue('')
         }        
       })
+      this.employeeAddForm.get('paddress')?.valueChanges.subscribe(selectedValue=>{
+        
+      })
      /**get state details for residance address */
       this.employeeAddForm.get('country')?.valueChanges.subscribe(selectedValue => {
         this.stateDetails= [];
@@ -514,7 +517,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
             contactnumber: familydata[i].contactnumber,
             status: familydata[i].status,
             relationship: familydata[i].relationship,
-            dateofbirth: this.pipe.transform(familydata[i].dateofbirth, 'yyyy-MM-dd')
+            dateofbirth: familydata[i].dateofbirth!="null"?this.pipe.transform(familydata[i].dateofbirth, 'yyyy-MM-dd'):'',
           });
         }
         this.dsFamily = new MatTableDataSource(this.familyDetails);
@@ -561,7 +564,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
         this.familyDetails[this.familyindex].contactnumber =  this.employeefamilyAddForm.controls.familycontact.value;
         this.familyDetails[this.familyindex].status = "Alive";
         this.familyDetails[this.familyindex].relationship = this.employeefamilyAddForm.controls.relation.value;
-        this.familyDetails[this.familyindex].dateofbirth =this.pipe.transform(this.employeefamilyAddForm.controls.familydateofbirth.value, 'yyyy-MM-dd')
+        this.familyDetails[this.familyindex].dateofbirth = this.employeefamilyAddForm.controls.familydateofbirth.value!=""?this.pipe.transform(this.employeefamilyAddForm.controls.familydateofbirth.value, 'yyyy-MM-dd'):''
         this.clearfamily();
     }
     else{
@@ -592,6 +595,24 @@ export class EmployeeMasterToAddComponent implements OnInit {
       this.empid=this.employeedata.empid;
 
     }
+    let paddress:any;
+    let pcity:any;
+    let pstate:any;
+    let ppincode:any;
+    let pcountry:any;
+    if(this.employeeAddForm.controls.checked.value==true){
+      paddress:this.employeeAddForm.controls.address.value;
+      pcity:this.employeeAddForm.controls.city.value;
+      pstate:this.employeeAddForm.controls.state.value;
+      ppincode:this.employeeAddForm.controls.pincode.value;
+      pcountry:this.employeeAddForm.controls.country.value;
+    }else{
+      paddress:this.employeeAddForm.controls.paddress.value;
+      pcity:this.employeeAddForm.controls.pcity.value;
+      pstate:this.employeeAddForm.controls.pstate.value;
+      ppincode:this.employeeAddForm.controls.ppincode.value;
+      pcountry:this.employeeAddForm.controls.pcountry.value;
+    }
     let employeeinformation = {
       empid:this.empid,
       firstname:this.employeeAddForm.controls.firstname.value,
@@ -614,16 +635,17 @@ export class EmployeeMasterToAddComponent implements OnInit {
       emergencycontactnumber:this.employeeAddForm.controls.emergencycontactnumber.value,
       emergencycontactrelation:this.employeeAddForm.controls.emergencycontactrelation.value,
       emergencycontactname:this.employeeAddForm.controls.emergencycontactname.value,
+  
       address:this.employeeAddForm.controls.address.value,
       city:this.employeeAddForm.controls.city.value,
       state:this.employeeAddForm.controls.state.value,
       pincode:this.employeeAddForm.controls.pincode.value,
       country:this.employeeAddForm.controls.country.value,
-      paddress:this.employeeAddForm.controls.paddress.value,
-      pcity:this.employeeAddForm.controls.pcity.value,
-      pstate:this.employeeAddForm.controls.pstate.value,
-      ppincode:this.employeeAddForm.controls.ppincode.value,
-      pcountry:this.employeeAddForm.controls.pcountry.value,
+      paddress:paddress,
+      pcity:pcity,
+      pstate:pstate,
+      ppincode:ppincode,
+      pcountry:pcountry,
       aadharnumber:this.employeeAddForm.controls.aadharnumber.value,
       passport:this.employeeAddForm.controls.passport.value,
       bankname:this.employeefamilyAddForm.controls.bankname.value,

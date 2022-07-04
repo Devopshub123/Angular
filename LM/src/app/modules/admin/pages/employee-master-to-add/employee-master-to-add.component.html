@@ -427,7 +427,7 @@
                                 <ng-container>
                                     <div *ngFor="let b of genderDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option value="{{b.id}}">{{b.gender}}</mat-option>
+                                        <mat-option value={{b.gender}}>{{b.gender}}</mat-option>
                                     </div>
 
                                 </ng-container>
@@ -462,7 +462,7 @@
                                 <ng-container>
                                     <div *ngFor="let b of employeeRelationship">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                        <mat-option value={{b.id}}>{{b.relationship}}</mat-option>
+                                        <mat-option value={{b.relationship}}>{{b.relationship}}</mat-option>
                                     </div>
 
                                 </ng-container>
@@ -767,7 +767,7 @@
                         <div formArrayName="edu">
                                     <div  *ngFor="let employee of edu().controls; let empIndex=index">
                                         <div [formGroupName]="empIndex">
-                                            <mat-form-field fxFlex.xs="100" fxFlex="10" class="mx-2 my-2" appearance="outline">
+                                            <mat-form-field fxFlex.xs="100" fxFlex="15" class="mx-2 my-2" appearance="outline">
                                                 <mat-label>Course</mat-label>
                                                 <input type="text" maxlength="100" formControlName="course" matInput placeholder=""
                                                     appRemoveSpace>
@@ -793,7 +793,7 @@
                                                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="etodate"></mat-datepicker-toggle>
                                                 <mat-datepicker #etodate></mat-datepicker>
                                             </mat-form-field>
-                                            <div fxFlex.xs="100" fxFlex="20" style="padding:20px" class="mx-2 my-2 mr2"
+                                            <div fxFlex.xs="100" fxFlex="2" style="padding:20px" class="mx-2 my-2 mr2"
                                                   appearance="outline">                                   
                                                 <!-- <mat-icon (click)="addeducation()">add</mat-icon> -->
                                                 <mat-icon title="Delete" (click)="removeeducation(empIndex)">delete</mat-icon>
@@ -819,12 +819,12 @@
                         <div formArrayName="exp">
                             <div  *ngFor="let experience of exp().controls; let empIndex=index">
                                 <div [formGroupName]="empIndex">
-                                    <mat-form-field fxFlex.xs="100" fxFlex="20" class="mx-2 my-2" appearance="outline">
+                                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Company Name</mat-label>
                                         <input type="text"  maxlength="100" formControlName="companyname" matInput placeholder=""
                                             appRemoveSpace>
                                     </mat-form-field>
-                                    <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
+                                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                                         <mat-label>From </mat-label>
                                         <input matInput readonly [matDatepicker]="wfromdate" [max]="maxDate" placeholder="MM/DD/YYYY"
                                             formControlName="wfromdate">
@@ -832,14 +832,14 @@
                                         </mat-datepicker-toggle>
                                         <mat-datepicker #wfromdate></mat-datepicker>
                                     </mat-form-field>
-                                    <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
+                                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                                         <mat-label>To </mat-label>
                                         <input matInput readonly [matDatepicker]="wtodate" [min]="minwtodate" [max]="maxDate"
                                             placeholder="MM/DD/YYYY" formControlName="wtodate">
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="wtodate"></mat-datepicker-toggle>
                                         <mat-datepicker #wtodate></mat-datepicker>
                                     </mat-form-field>
-                                    <div fxFlex.xs="100" fxFlex="20" style="padding:20px" class="mx-2 my-2 mr2"
+                                    <div fxFlex.xs="100" fxFlex="10" style="padding:20px" class="mx-2 my-2 mr2"
                                         appearance="outline">
                                         <!-- <mat-icon (click)="addexperience()">add</mat-icon> -->
                                         <mat-icon title="Delete" (click)="removeWork(empIndex)">delete</mat-icon>
