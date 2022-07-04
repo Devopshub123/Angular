@@ -127,7 +127,10 @@
                     <span>Save</span>
                 </button>
   
-                <button class="mx-1  mat-stroked-button button-clear text-end" style="background-color:#550534;color:aliceblue" (click)="cancel()">
+                <button class="mx-1  mat-stroked-button button-clear text-end" style="background-color:#550534;color:aliceblue" *ngIf ="!isedit" (click)="cancel()">
+                    <span >Cancel</span>
+                </button>
+                <button class="mx-1  mat-stroked-button button-clear text-end" style="background-color:#550534;color:aliceblue"  *ngIf = "isedit" (click)="canceledit()">
                     <span >Cancel</span>
                 </button>
                 <br />

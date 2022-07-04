@@ -108,13 +108,14 @@ export class SummaryReportComponent implements OnInit {
     this.dataSource.data.map(a => {
       let e: any = {};
       e['Sno'] = i++;
-      e['attendancedate'] = a.date;
-      e['First In'] = a.firstin;
-      e['Last Out'] = a.lastout;
+      e['Employee Name'] = a.empname;
+      e['Attendance Date'] = a.attendancedate;
+      e['First In'] = a.firstlogintime;
+      e['Last Out'] = a.lastlogouttime;
       e['Total Hours'] = a.totalhours;
       e['breaks'] = a.breaks;
       e['Break Time'] = a.breaktime;
-      e['Production Hours'] = a.productionhours;
+      e['Production Hours'] = a.productivehours;
       edata.push(e);
     })
     this.excelService.exportAsExcelFile(edata, '');

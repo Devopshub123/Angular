@@ -157,6 +157,11 @@ export class CompanyinformationComponent implements OnInit {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(["/Admin/Dashboard"]));
   }
+  canceledit(){
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate(["/Admin/CompanyInformation"]));
+
+  }
   edit(){
     this.isview=false;
     this.isadd = true;
