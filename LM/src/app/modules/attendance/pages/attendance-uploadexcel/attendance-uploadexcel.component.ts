@@ -13,6 +13,7 @@ type AOA = any[][];
 export class AttendanceUploadexcelComponent implements OnInit {
   data: AOA = [[], []];
   isview:boolean=false;
+  isadd:boolean=true;
   wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
   fileName: string = 'SheetJS.xlsx';
   @ViewChild('inputFile') inputFile!: ElementRef;
@@ -22,12 +23,10 @@ export class AttendanceUploadexcelComponent implements OnInit {
   ngOnInit(): void {
   }
   onChange(event:any){
-      console.log(event.target.files);
       const selectedFile=event.target.files[0];
       const fileReader= new FileReader();
       fileReader.readAsBinaryString(selectedFile);
       fileReader.onload=(event:any)=>{
-         //   console.log(event);
       let binaryData= event.target.result;
       let workbook= XLSX.read(binaryData,{type:"binary",cellText:false,cellDates:true});
 
@@ -39,27 +38,19 @@ export class AttendanceUploadexcelComponent implements OnInit {
       this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 ,raw:false,dateNF:'yyyy-mm-dd hh:mm:ss'}));
       let data=XLSX.utils.sheet_to_json(ws,{ raw:false,dateNF:'yyyy-mm-dd hh:mm:ss'});
       this.convertedJson=JSON.stringify(data,undefined,4);
-      console.log(this.convertedJson);
-     
-      // workbook.SheetNames.forEach(sheet=>{
-
-      //   console.log(this.convertedJson);
-      // })
-
-
+      this.isview = true;
+      this.isadd = false;
       }
   }
-  upload(){
-    this.isview = true;
-
-  }
+  
   SaveUploadedData(){
-    console.log("gg",this.convertedJson)
     this.attendanceService.excelDataForAttendance(JSON.parse(this.convertedJson)).subscribe(
      (res) => {
       if(res.status){
-       this.isview=false;
        this.removeData();
+       this.isview=false;
+       this.isadd = true;
+      
        
       }else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -76,8 +67,11 @@ export class AttendanceUploadexcelComponent implements OnInit {
   }
   
   removeData() {
+    this.isview = false;
+    this.isadd = true ;
     this.inputFile.nativeElement.value = '';
     this.data=[[], []];
     this.convertedJson = '';
+    
   }
 }
