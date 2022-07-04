@@ -13,12 +13,12 @@
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Shift</mat-label>
-                    <input formControlName="shift" matInput placeholder="Shift" >
+                    <input formControlName="shift" required matInput placeholder="Shift" >
                 </mat-form-field>
                 
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Work Type <span  style="color: red">*</span></mat-label>
+                    <mat-label>Work Type </mat-label>
                     <mat-select formControlName="workType" required>
                         <ng-container *ngFor="let v of workTypeData">
                             <!-- <mat-option *ngIf="v.status=='1'" value={{v.id}}>{{v.name}}</mat-option> -->
@@ -33,8 +33,8 @@
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>From Date <span  style="color: red">*</span></mat-label>
-                    <input matInput readonly [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate" (dateInput)="fromDateChange('input', $event)"
+                    <mat-label>From Date </mat-label>
+                    <input matInput readonly required [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate" (dateInput)="fromDateChange('input', $event)"
                         placeholder="From Date" formControlName="fromDate">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
                     <mat-datepicker #fromDate></mat-datepicker>
@@ -43,8 +43,8 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>To Date <span  style="color: red">*</span></mat-label>
-                    <input matInput readonly [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
+                    <mat-label>To Date </mat-label>
+                    <input matInput readonly required [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
                     (dateInput)="toDateChange('input', $event)" formControlName="toDate">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
                     <mat-datepicker #toDate></mat-datepicker>
@@ -67,8 +67,8 @@
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex="52" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Reason<span  style="color: red">*</span></mat-label>
-                    <textarea formControlName="reason"  maxLenth="250" matInput placeholder="Reason"></textarea>
+                    <mat-label>Reason</mat-label>
+                    <textarea formControlName="reason" required maxlength="250" matInput placeholder="Reason"></textarea>
                     <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
                         Reason is required.
                     </mat-error>
@@ -102,35 +102,35 @@
         <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort>
 
-                <ng-container matColumnDef="id">
+                <ng-container matColumnDef="id" style="width: 10%">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> S.no. </th>
                     <td mat-cell *matCellDef="let row;let i = index;">{{i+1}} </td>
                 </ng-container>
 
 
-                <ng-container matColumnDef="worktype">
+                <ng-container matColumnDef="worktype"  style="width: 20%;">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Work Type </th>
                     <td mat-cell *matCellDef="let row"> {{row.worktype}}</td>
                 </ng-container>
 
 
-                <ng-container matColumnDef="fromdate">
+                <ng-container matColumnDef="fromdate"  style="width: 15%;">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> From Date </th>
                     <td mat-cell *matCellDef="let row"> {{row.fromdate}} </td>
                 </ng-container>
 
 
-                <ng-container matColumnDef="todate">
+                <ng-container matColumnDef="todate"  style="width: 15%;">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>
                     <td mat-cell *matCellDef="let row"> {{row.todate}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="reason">
+                <ng-container matColumnDef="reason"  >
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
-                    <td mat-cell *matCellDef="let row"> {{row.reason}} </td>
+                    <td mat-cell *matCellDef="let row" style="width: 30%; word-break: break-all;padding-right: 20px;"> {{row.reason}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="status">
+                <ng-container matColumnDef="status"  style="width: 10%;">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                     <td mat-cell *matCellDef="let row" [style.color]="row.status"> {{row.status}} </td>
                 </ng-container>

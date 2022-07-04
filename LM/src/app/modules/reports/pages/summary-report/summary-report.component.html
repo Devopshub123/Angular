@@ -69,7 +69,7 @@
           
         </ng-container>
         <ng-container matColumnDef="empname">
-          <mat-header-cell *matHeaderCellDef><b>S.No. </b></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef><b>Employee Name </b></mat-header-cell>
           <mat-cell *matCellDef="let row;">{{row.empname}}</mat-cell>
           
         </ng-container>
@@ -112,7 +112,7 @@
           <mat-cell *matCellDef="let row"> <a style="color: blue" (click)="openDialog(row)"><u>Details</u></a> </mat-cell>
 
         </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true" style=" background-color:#ededed;">
+        <mat-header-row class="headerbox" *matHeaderRowDef="displayedColumns; sticky:true">
         </mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>

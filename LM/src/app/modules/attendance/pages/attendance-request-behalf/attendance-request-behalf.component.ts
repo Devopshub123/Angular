@@ -23,14 +23,14 @@ export class AttendanceRequestBehalfComponent implements OnInit {
 
   requestform!: FormGroup;
   minFromDate: Date;
-  maxFromDate: Date|null ;
+  maxFromDate: Date | null;
   minToDate: Date | null;
   maxToDate: Date;
-  currentDate:Date =new Date();
+  currentDate: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe: any;
-  displayedColumns: string[] = ['id', 'worktype', 'fromdate', 'todate', 'reason', 'status'];
-  dataSource: MatTableDataSource<any>=<any>[];
+  displayedColumns: string[] = ['id', 'applieddate', 'worktype', 'raisedbyname', 'shift', 'fromdate', 'todate', 'reason', 'status'];
+  dataSource: MatTableDataSource<any> = <any>[];
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -46,15 +46,15 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   userData: any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
-    private location:Location) {
-      this.minFromDate = new Date();
-      this.minFromDate.setDate(this.currentDate.getDate()-30);
-      this.maxFromDate = new Date();
-      this.maxFromDate.setDate(this.currentDate.getDate()+30);
-      this.minToDate = new Date();
-      this.minToDate.setDate(this.currentDate.getDate()-30);
-      this.maxToDate = new Date();
-      this.maxToDate.setDate(this.currentDate.getDate()+30);
+    private location: Location) {
+    this.minFromDate = new Date();
+    this.minFromDate.setDate(this.currentDate.getDate() - 30);
+    this.maxFromDate = new Date();
+    this.maxFromDate.setDate(this.currentDate.getDate() + 30);
+    this.minToDate = new Date();
+    this.minToDate.setDate(this.currentDate.getDate() - 30);
+    this.maxToDate = new Date();
+    this.maxToDate.setDate(this.currentDate.getDate() + 30);
   }
 
   ngOnInit(): void {
@@ -62,16 +62,17 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
     this.requestform = this.formBuilder.group(
       {
-        appliedDate: [{value:this.todayWithPipe, disabled: true}, Validators.required],
-        shift: [{value: '', disabled: true}, Validators.required],
+        appliedDate: [{ value: this.todayWithPipe, disabled: true }, Validators.required],
+        shift: [{ value: '', disabled: true }, Validators.required],
         fromDate: ['', Validators.required],
         toDate: ['', Validators.required],
         employeeName: ['', Validators.required],
         workType: ['', Validators.required],
         reason: ['', Validators.required],
+
       });
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
-     this.getWorkypeList();
+    this.getWorkypeList();
     this.getEmployeeListByManagerId()
     this.getAttendanceRequestListByEmpId();
 
@@ -80,22 +81,22 @@ export class AttendanceRequestBehalfComponent implements OnInit {
       this.getEmployeeShiftDetails(selectedValue);
 
     })
-    if(this.userData.userData!=undefined){
+    if (this.userData.userData != undefined) {
       this.getEmployeeShiftDetails(this.userData.userData.empid);
 
       this.requestform = this.formBuilder.group(
         {
-          appliedDate: [{value:this.todayWithPipe, disabled: true}, Validators.required],
-          shift: [{value: '', disabled: true}, Validators.required],
-          fromDate: [{value: new Date(this.userData.userData.attendancedate), disabled: true}, Validators.required],
-          toDate: [{value: new Date(this.userData.userData.attendancedate), disabled: true}, Validators.required],
-          employeeName: [{value: '', disabled: true}, Validators.required],
+          appliedDate: [{ value: this.todayWithPipe, disabled: true }, Validators.required],
+          shift: [{ value: '', disabled: true }, Validators.required],
+          fromDate: [{ value: new Date(this.userData.userData.attendancedate), disabled: true }, Validators.required],
+          toDate: [{ value: new Date(this.userData.userData.attendancedate), disabled: true }, Validators.required],
+          employeeName: [{ value: '', disabled: true }, Validators.required],
           workType: ['', Validators.required],
           reason: ['', Validators.required],
         });
-        this.requestform.controls.employeeName.setValue(this.userData.userData.empid);
-    }else{
-      
+      this.requestform.controls.employeeName.setValue(this.userData.userData.empid);
+    } else {
+
     }
 
   }
@@ -181,7 +182,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     if (this.requestform.invalid) {
       return;
     } else {
-    
+
 
       let obj = {
         "empid": this.requestform.controls.employeeName.value,
@@ -213,9 +214,13 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     }
   }
   resetform() {
-    //this.requestform.reset();
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/Attendance/RequestofEmployee"]));
+    if (this.userData.userData != undefined) {
+      this.router.navigate(["/Attendance/ManagerDashboard"]);
+    } else {
+
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate(["/Attendance/RequestofEmployee"]));
+    }
   }
 }
 

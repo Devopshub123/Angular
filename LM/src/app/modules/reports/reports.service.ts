@@ -25,7 +25,7 @@ export class ReportsService {
     ,  data, this.httpOptions);
   }
   getAttendanceDetailsByAttendanceId(data:any):Observable<any>{
-    return this.http.post(this.mainUrl +'attendance/api/d',
+    return this.http.post(this.mainUrl +'attendance/api/getAttendanceDetailsByAttendanceId',
     data,this.httpOptions
     )
   }
