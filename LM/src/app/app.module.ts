@@ -49,7 +49,6 @@ import { BnNgIdleService } from 'bn-ng-idle';
     ReusableDialogComponent,
     OnlyNumberDirective,
     MainComponent,
-    OnlyNumberDirective,
     EmployeeMasterToAddComponent,
     MainDashboardComponent
   ],

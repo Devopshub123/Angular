@@ -73,9 +73,16 @@ export class AttendanceRequestComponent implements OnInit {
     this.getEmployeeShiftDetails()
     this.getAttendanceRequestListByEmpId();
     if(this.userData.userData!=undefined){
-      this.requestform.controls.fromDate.setValue(new Date(this.userData.userData.attendancedate));
-      this.requestform.controls.toDate.setValue(new Date(this.userData.userData.attendancedate)); 
-      this.requestform.get('fromDate')?.disabled;
+      this.requestform = this.formBuilder.group(
+        {
+          appliedDate: [{value:this.todayWithPipe, disabled: true}, Validators.required],
+          shift: [{value: '', disabled: true}, Validators.required],
+          fromDate: [{value: new Date(this.userData.userData.attendancedate), disabled: true}, Validators.required],
+          toDate: [{value: new Date(this.userData.userData.attendancedate), disabled: true}, Validators.required],
+          workType: ['', Validators.required],
+          reason: ['', Validators.required],
+        });
+      
     }
   }
   ngAfterViewInit() {
@@ -181,7 +188,12 @@ export class AttendanceRequestComponent implements OnInit {
     }
   }
   resetform() {
+    if(this.userData.userData!=undefined){
+      this.router.navigate(["/Attendance/EmployeeDashboard"]);
+    }else{
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(["/Attendance/Request"]));
-  }
+    }
+
+   }
 }

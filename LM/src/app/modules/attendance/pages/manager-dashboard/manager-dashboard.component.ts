@@ -29,7 +29,7 @@ export class ManagerDashboardComponent implements OnInit {
     headerToolbar: {
       left: 'prev,next',
       center: 'title',
-      right: 'dayGridMonth'
+       right: 'dayGridMonth'
     },
     customButtons: {
       next: {
@@ -114,12 +114,10 @@ export class ManagerDashboardComponent implements OnInit {
     this.router.navigate(["/Attendance/RequestofEmployee"], { state: { userData: elment } });
   }
   nextMonth(): void {
-    console.log('nextMonth');
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.next();
     const selectDate = this.calendarApi.getDate();
     if (selectDate.getTime() <= this.currentDate.getTime()) {
-      this.selectedDate = this.pipe.transform(selectDate, 'yyyy-MM-dd');
       this.getemployeeattendancedashboard();
     } else {
       this.attendanceData = [];
@@ -129,12 +127,10 @@ export class ManagerDashboardComponent implements OnInit {
 
   }
   prevMonth(): void {
-    console.log('prevMonth');
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.prev();
     const selectDate = this.calendarApi.getDate();
     if (selectDate.getTime() <= this.currentDate.getTime()) {
-      this.selectedDate = this.pipe.transform(selectDate, 'yyyy-MM-dd');
       this.getemployeeattendancedashboard();
     } else {
       this.attendanceData = [];
@@ -143,11 +139,9 @@ export class ManagerDashboardComponent implements OnInit {
     }
   }
   currentMonth(): void {
-    console.log('currentMonth');
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.today();
     const currentDate = this.calendarApi.getDate();
-    console.log("The current date of the calendar is " + currentDate);
     this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
     this.getemployeeattendancedashboard()
   }

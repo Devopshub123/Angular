@@ -12,6 +12,7 @@ import { CompanyinformationComponent } from './pages/companyinformation/companyi
 import { CompanylogoComponent } from './pages/companylogo/companylogo.component';
 import { RolesPermissionsComponent } from './pages/roles-permissions/roles-permissions.component';
 import { AddRoleModalComponent } from './pages/add-role-modal/add-role-modal.component';
+import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.directive';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { AddRoleModalComponent } from './pages/add-role-modal/add-role-modal.com
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    
   ]
 })
 export class AdminModule { }
