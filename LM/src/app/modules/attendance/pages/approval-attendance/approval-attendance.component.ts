@@ -70,9 +70,10 @@ export class ApprovalAttendanceComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
           
       if(result!=undefined ){
-        this.reason = result.reason;
-        this.saveApproval();
-        
+        if(result !==true){
+          this.reason = result.reason;
+          this.saveApproval();
+        }   
       }
     });
   }
