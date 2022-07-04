@@ -57,12 +57,17 @@ export class AttendanceUploadexcelComponent implements OnInit {
     console.log("gg",this.convertedJson)
     this.attendanceService.excelDataForAttendance(JSON.parse(this.convertedJson)).subscribe(
      (res) => {
+      if(res.status){
+       this.isview=false;
+       this.removeData();
+       
+      }else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
-        disableClose:true,
-        data: "Uploaded successfully"
-     });
-     this.isview=false;
-     this.removeData();
+          disableClose:true,
+          data: res.message
+       });
+       
+      }
      }, 
      error =>{
        error.error.text
