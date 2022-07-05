@@ -34,16 +34,13 @@ getallSubscriptions():Observable<any>{
   return this.hClient.get(this.mainBeUrl + 'savesubscription', { responseType: 'json' });
 }
 getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
-  console.log(errorCode)
   return this.hClient.get(this.mainBeUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size, this.httpOptions);
 }
 Savelogin(data:any): Observable<any> {
-  // console.log("dddd", email,password)
   return this.hClient.post(this.mainBeUrl + 'api/emp_login', JSON.stringify(data) ,this.httpOptions);
 }  
  /* save change password */
 changepassword(changePassword: any): Observable<any> {
-  console.log("jjjj")
   return this.hClient.post(this.mainBeUrl + 'changePassword', JSON.stringify(changePassword), this.httpOptions);
 }
 resetpassword(resetPassword:any) : Observable<any> {

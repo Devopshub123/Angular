@@ -58,12 +58,11 @@ export class ResetPasswordComponent implements OnInit {
     }
     this.newpassword = this.formGroup.controls.newpassword.value;
     this.confirmpassword = this.formGroup.controls.confirmpassword.value;
-    console.log("hhh",resetObj)
     if(this.newpassword === this.confirmpassword  ){
-      console.log("dgsd",resetObj)
       this.tss.resetpassword(resetObj).subscribe((data) => {
         if (data.status) {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
             disableClose: true,
             data: 'Password change succesfully'
           });
@@ -72,6 +71,7 @@ export class ResetPasswordComponent implements OnInit {
   
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
             disableClose: true,
             data: 'Your newpassword cannot be same as the old password'
           });
@@ -82,6 +82,7 @@ export class ResetPasswordComponent implements OnInit {
     }
     else{
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
         disableClose: true,
         data: this.msgLM5
       });
@@ -102,22 +103,18 @@ export class ResetPasswordComponent implements OnInit {
       if(result.status && errorCode == 'LM1')
       {
         this.msgLM1 = result.data[0].errormessage
-        console.log(this.msgLM1)
       }
       else if(result.status && errorCode == 'LM2')
       {
         this.msgLM2 = result.data[0].errormessage
-        console.log(this.msgLM2)
       }
       else if(result.status && errorCode == 'LM4')
       {
         this.msgLM4 = result.data[0].errormessage
-        console.log(this.msgLM4)
       }
       else if(result.status && errorCode == 'LM5')
       {
         this.msgLM5 = result.data[0].errormessage
-        console.log(this.msgLM5)
       }
     
      

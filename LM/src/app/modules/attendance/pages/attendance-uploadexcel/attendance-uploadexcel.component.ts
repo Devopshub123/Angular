@@ -52,12 +52,14 @@ export class AttendanceUploadexcelComponent implements OnInit {
        this.isadd = true;
       
        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
           disableClose:true,
           data: res.message
        });
       }else{
         
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose:true,
           data: res.message
        });

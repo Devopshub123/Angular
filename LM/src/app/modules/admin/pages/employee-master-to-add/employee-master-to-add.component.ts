@@ -312,7 +312,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
         this.minetodate = selectedValue;
       })
       // this.employeeAddForm.get('paddress')?.valueChanges.subscribe(selectedValue => {
-      //   console.log(selectedValue)
       //   this.minetodate = selectedValue;
       //   if(this.employeeAddForm.controls.address == selectedValue){
       //     this.employeeAddForm.controls.checked.setValue(true)
@@ -680,6 +679,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
             this.employeedata=[];  
             this.ngOnInit();
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
               disableClose: true,
               data: 'Employee added successfully'
             });  
@@ -687,6 +687,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
           }
           else{
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
               disableClose: true,
               data: 'Unable to insert employee'
             });
@@ -710,12 +711,14 @@ export class EmployeeMasterToAddComponent implements OnInit {
             this.employeedata=[];
             this.ngOnInit(); 
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
               disableClose: true,
               data: 'Employee updated successfully'
             });
            }
            else{
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
               disableClose: true,
               data: 'Unable to update employee'
             });

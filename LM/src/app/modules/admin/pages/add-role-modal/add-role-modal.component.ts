@@ -32,12 +32,14 @@ export class AddRoleModalComponent implements OnInit {
         this.dialogRef.close(data);
         if(data.status){
             let dialogRef1 = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
               disableClose: true,
               data: this.msgLM87
             });
         }
         else {
             let dialogRef1 = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
               disableClose: true,
               data: this.msgLM93
             });

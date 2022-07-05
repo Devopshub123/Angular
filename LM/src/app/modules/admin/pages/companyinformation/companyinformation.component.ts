@@ -91,10 +91,10 @@ export class CompanyinformationComponent implements OnInit {
       city:this.companyForm.controls.city.value,
       pincode:this.companyForm.controls.pincode.value,
     }
-    console.log("edit",companyinformation)
     this.LMS.putCompanyInformation(companyinformation).subscribe((data)=>{
       if(data.status){
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data: 'Company Information updated successfully'
         });
@@ -103,6 +103,7 @@ export class CompanyinformationComponent implements OnInit {
 
       }else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data: 'Unable to update Company Information'
         });
@@ -135,19 +136,20 @@ export class CompanyinformationComponent implements OnInit {
         if (data.status) {
           this.getCompanyInformation()
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data: 'Company Information added successfully'
         });
 
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
             disableClose: true,
             data: 'Unable to add Company Information'
           });     
         }
       })
     }
-    console.log("companyinformation",companyinformation)
 
   }
   cancel(): void {
@@ -171,8 +173,6 @@ export class CompanyinformationComponent implements OnInit {
   }
   getCompanyInformation(){
     this.LMS.getCompanyInformation('companyinformation',null,1,10,'nandyala_hospitals').subscribe((data)=>{
-      console.log('onddddde',data)
-
       if(data.status && data.data.length!=0) {
         // this.enable=false;
         this.isview=true;
@@ -180,7 +180,6 @@ export class CompanyinformationComponent implements OnInit {
         
      
         this.companyinfo =data.data[0];
-        console.log("inffffffff",this.companyinfo)
         this.companyForm.controls.companyname.setValue(data.data[0].companyname);
         this.companyForm.controls.website.setValue(data.data[0].companywebsite);
         this.companyForm.controls.contact.setValue(data.data[0].primarycontactnumber);

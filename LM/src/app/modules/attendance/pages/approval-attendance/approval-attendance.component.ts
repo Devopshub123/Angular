@@ -90,6 +90,7 @@ export class ApprovalAttendanceComponent implements OnInit {
     this.attendanceService.updateAttendanceRequest(obj).subscribe((res) => {
       if (res.status) {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data: this.titleName=="Reject"?'Attendance request rejected successfully':'Attendance request approved successfully'
         });

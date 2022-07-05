@@ -65,7 +65,6 @@ export class DesignationsComponent implements OnInit {
     );
   }
   validatedesignation(data:any){
-    console.log(this.designationData.length)
     if(this.designationData.length<0){
       this.valid=true;
 
@@ -86,24 +85,24 @@ export class DesignationsComponent implements OnInit {
     if(this.designationForm.valid){
     this.validatedesignation(this.designationForm.controls.designation.value)
     this.designation = this.designationForm.controls.designation.value;
-    console.log(this.designation)
     let designationdata = {
       designationName: this.designation
     }    
       if(this.valid){
-        console.log(designationdata)
         this.LM.setDesignation(designationdata).subscribe((data) => {
           this.valid = false;
           if (data.status) {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
               this.router.navigate(["/Admin/Designation"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
               disableClose: true,
               data: 'Designation added successfully'
             });
            
           } else {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
               disableClose: true,
               data: 'Designation already existed'
             });
@@ -113,6 +112,7 @@ export class DesignationsComponent implements OnInit {
       }
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data: 'Designation already existed'
         });
@@ -134,6 +134,7 @@ export class DesignationsComponent implements OnInit {
       if(result.status){
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data: 'Designation status updated successfully'
         });
@@ -141,6 +142,7 @@ export class DesignationsComponent implements OnInit {
       }else{
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data:'This designation have active employees. So we are unable to inactivate this designation now. Please move those employee to another designation and try again',
         });
@@ -164,7 +166,6 @@ export class DesignationsComponent implements OnInit {
     // this.getDesignation();
   }
   edit(event:any,i:any){
-    console.log(i)
     this.designationForm.controls.designation.setValue('')
     this.enable = i;
     this.isEdit=false;
@@ -184,12 +185,14 @@ export class DesignationsComponent implements OnInit {
           this.enable = null;
           this.getDesignation();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
             disableClose: true,
             data:'Designation updated successfully',
           });
         
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
             disableClose: true,
             data:'Designation alreay existed',
           });
@@ -200,13 +203,13 @@ export class DesignationsComponent implements OnInit {
     else{
       this.ngOnInit();
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
         disableClose: true,
         data:'Designation already existed',
       });
     }        
   }
   canceledit(event:any,id:any){
-    console.log("cancel",id)
     this.enable = null;
     this.isEdit=true;
     this.isSave=false;
@@ -215,7 +218,6 @@ export class DesignationsComponent implements OnInit {
   getDesignation(){
     this.LM.getDesignation('designationsmaster',null,1,100,'nandyala_hospitals').subscribe((info)=>{
       if(info.status && info.data.length !=0) {
-        console.log(info.data);
         this.designationData = info.data;
         this.dataSource = new MatTableDataSource(this.designationData);
         this.dataSource.paginator = this.paginator;

@@ -22,7 +22,7 @@ export class EmployeDashboardComponent implements OnInit {
     headerToolbar: {
       left: 'prev,next',
       center: 'title',
-      right: 'dayGridMonth'
+      right: ''
     }, customButtons: {
       next: {
           click: this.nextMonth.bind(this),

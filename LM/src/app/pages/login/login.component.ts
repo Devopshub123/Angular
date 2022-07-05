@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
     this.getErrorMessages('LM14')
     this.getErrorMessages('LM1')
     this.getErrorMessages('LM2')
-    console.log(this.msgLM1)
   }
   hide = true;
 
@@ -46,7 +45,6 @@ export class LoginComponent implements OnInit {
       password:this.password
     }
     this.tss.Savelogin(data).subscribe((data) =>{
-      console.log(data)
       if(data.status === true){
         let empdata = data.result[0];
         sessionStorage.setItem('user',JSON.stringify(empdata));
@@ -56,6 +54,7 @@ export class LoginComponent implements OnInit {
       else {
         this.router.navigate(['/Login']);
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data: this.msgLM14
         });

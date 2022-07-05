@@ -16,7 +16,6 @@ export class CompanyInformationService {
   constructor(private hClient: HttpClient) { }
 
   setCompanyInformation(info: any):Observable<any>{
-    console.log("hellohsdkhcbhdb",info)
     return this.hClient.post(this.mainBeUrl + 'api/setCompanyInformation', JSON.stringify(info), this.httpOptions);
   }
   getCompanyInformation(tableName: string,status: null,page: string | number,size: string | number,companyName: string):Observable<any>{

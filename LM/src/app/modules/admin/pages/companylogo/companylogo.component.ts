@@ -45,6 +45,7 @@ export class CompanylogoComponent implements OnInit {
     this.isRemoveImage=false; 
     this.LM.removeImage(1,"Apple").subscribe((data) => {});
     let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      position:{top:`70px`},
       disableClose: true,
       data: 'Company logo removed successfully'
     });
@@ -83,7 +84,6 @@ export class CompanylogoComponent implements OnInit {
     this.formData.append('file', this.file);
     if(this.file){
       if(this.file.size<=1024000){
-        console.log('File Image',this.formData.getAll('file'))
         this.file=null;
         this.LM.setUploadImage(this.formData,12).subscribe((data) => {
           this.file=null;
@@ -92,6 +92,7 @@ export class CompanylogoComponent implements OnInit {
           this.isRemoveImage=true;
           this.formData.delete('file');
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
             disableClose: true,
             data:data.message
           });
@@ -99,6 +100,7 @@ export class CompanylogoComponent implements OnInit {
         });}
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data:this.msgLM34
         });
@@ -107,6 +109,7 @@ export class CompanylogoComponent implements OnInit {
       }
     }else{
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
         disableClose: true,
         data:this.msgLM36
       });
@@ -119,7 +122,6 @@ export class CompanylogoComponent implements OnInit {
   }
   getUploadImage(){
     this.LM.getUploadImage(1,"Apple").subscribe((imageData) => {
-      console.log("Image",imageData);
       if(imageData.success){
         let TYPED_ARRAY = new Uint8Array(imageData.image.data);
         const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {

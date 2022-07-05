@@ -34,6 +34,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.tss.verifyEmail(this.email).subscribe((data) => {
       if(data.status){
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data: 'Please check your email for resetPassword'
         });
@@ -41,6 +42,7 @@ export class ForgotPasswordComponent implements OnInit {
       }
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data: 'Please enter valid email for resetPassword'
         });

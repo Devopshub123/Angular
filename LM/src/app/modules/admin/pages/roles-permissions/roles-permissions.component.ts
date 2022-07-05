@@ -109,7 +109,7 @@ export class RolesPermissionsComponent implements OnInit {
           'roleid':this.roleId,
           'moduleid':id
       };
-      this.mainService.getrolescreenfunctionalitiesforrole(data).subscribe((result)=>{
+      this.mainService.getrolescreenfunctionalitiesforrole(data).subscribe((result:any)=>{
 
      this.screenRoles = result;
       this.count = 1;
@@ -601,12 +601,14 @@ export class RolesPermissionsComponent implements OnInit {
 
           if(data.status){
             let dialogRef1 = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
               disableClose: true,
               data: this.msgLM88
             });
           }
           else {
             let dialogRef1 = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
               disableClose: true,
               data: this.msgLM94
             });

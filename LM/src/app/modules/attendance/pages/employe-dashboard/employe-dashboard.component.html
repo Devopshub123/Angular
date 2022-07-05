@@ -9,7 +9,8 @@
                      <div fxFlex="70">
                             <div class='demo-app-main'>
 
-                                   <full-calendar #calendar fxLayout="column"   [options]='calendarOptions'></full-calendar>
+                                   <full-calendar #calendar fxLayout="column" [options]='calendarOptions'>
+                                   </full-calendar>
                             </div>
                             <div class='demo-app-main'>
                                    <mat-icon class="green-icon">check_circle</mat-icon>Present
@@ -34,38 +35,50 @@
                             <div fxLayout="column" fxFlex="50">
 
                                    <div fxLayout="row" fxLayoutAlign="space-between" class="pending-attendance">
-                                          <p>
-                                                 <mat-icon>notifications</mat-icon><b>Pending Attendance</b>
-                                          </p>
+                                          <div style="padding-top:15px;" fxLayout="row">
+                                                 <p>
+                                                        <mat-icon>notifications</mat-icon>
+                                                 </p>
+                                                 <p><b>Pending Attendance</b>
+                                                 </p>
+                                          </div>
 
                                    </div>
-                                   <cdk-virtual-scroll-viewport
-                                   class="example-viewport"
-                                   itemSize="5"
-                                   >
-                                   
-                                   <mat-list class="time-attendance">
-                                     <ng-container *cdkVirtualFor="let item of attendanceData">
-                                      <span *ngIf="item.present_or_absent=='A'">
-                                          <mat-list-item>
-                                                 <h3 matLine> {{ item.attendancedate | date:'longDate'}} </h3>
-                                                
-                                                 <p> <a routerLink="/"
-                                                        (click)="onRequestClick(item)">send a
-                                                       request</a>
-                                             </mat-list-item>
-                                      </span> 
-                                     </ng-container>
-                                   </mat-list>
-                                 </cdk-virtual-scroll-viewport>
-                                   
+                                   <cdk-virtual-scroll-viewport class="example-viewport" itemSize="5">
+
+                                          <mat-list class="time-attendance">
+                                                 <ng-container *cdkVirtualFor="let item of attendanceData">
+                                                        <span *ngIf="item.present_or_absent=='A'">
+                                                               <mat-list-item>
+                                                                      <h3 matLine> {{ item.attendancedate |
+                                                                             date:'dd/MM/yyyy'}} </h3>
+
+                                                                      <p> <a routerLink="/"
+                                                                                    (click)="onRequestClick(item)">Send
+                                                                                    a
+                                                                                    request</a>
+                                                               </mat-list-item>
+                                                        </span>
+                                                 </ng-container>
+                                          </mat-list>
+                                   </cdk-virtual-scroll-viewport>
+
                             </div>
                             <div fxLayout="column">
-                                   <div fxLayout="row" fxLayoutAlign="space-between" class="clock-attendance">
-                                          <p>
-                                                 <mat-icon>alarm</mat-icon><b> Check In/Out</b>
-                                          </p>
-                                          <p><b>{{todayDate}}</b></p>
+                                   <div fxLayout="row" class="clock-attendance">
+                                          <div style="padding-top:15px;" fxFlex="100" fxLayout="row" fxLayoutAlign="space-between" >
+                                                 <div fxLayout="row" fxFlex="50">
+                                                        <p>
+
+                                                               <mat-icon>alarm</mat-icon>
+                                                        </p>
+                                                        <p><b> Check In/Out</b>
+                                                        </p>
+                                                 </div>
+                                                 <div fxLayout="row" fxFlex="50" fxLayoutAlign="end center">
+                                                        <p><b>{{todayDate}}</b></p>
+                                                 </div>
+                                          </div>
                                    </div>
                                    <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
                                           <p> First In {{firstIn}}</p>

@@ -23,7 +23,6 @@ export class UserDashboardService {
         return this.hClient.get(this.mainBeUrl + 'api/getemployeeroles/' + empId, this.httpOptions);
     }
     getleavehistory() :Observable<any>{
-        console.log("ghjg")
         return this.hClient.get(this.mainBeUrl + 'api/getemployeeleaves', this.httpOptions);
     }
 }

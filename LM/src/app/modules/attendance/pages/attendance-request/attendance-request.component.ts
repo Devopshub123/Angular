@@ -116,7 +116,6 @@ export class AttendanceRequestComponent implements OnInit {
     this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res: any) => {
       if (res.status) {
         this.shiftData = res.data[0];
-        console.log(this.shiftData)
         this.requestform.controls.shift.setValue(this.shiftData.shiftname);
       }
     })
@@ -178,6 +177,7 @@ export class AttendanceRequestComponent implements OnInit {
       this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res: any) => {
         if (res.status) {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
             disableClose: true,
             data: res.message
           });

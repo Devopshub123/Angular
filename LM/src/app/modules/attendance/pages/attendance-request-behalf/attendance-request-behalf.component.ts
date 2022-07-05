@@ -77,7 +77,6 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     this.getAttendanceRequestListByEmpId();
 
     this.requestform.get("employeeName")?.valueChanges.subscribe(selectedValue => {
-      console.log(selectedValue)
       this.getEmployeeShiftDetails(selectedValue);
 
     })
@@ -107,7 +106,6 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     return this.requestform.controls;
   }
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    console.log(`${type}: ${event.value}`);
     this.minToDate = event.value;
     if (event.value !== null) {
       this.maxToDate = new Date(
@@ -204,6 +202,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
       this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res) => {
         if (res.status) {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
             disableClose: true,
             data: res.message
           });

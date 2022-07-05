@@ -29,7 +29,7 @@ export class ManagerDashboardComponent implements OnInit {
     headerToolbar: {
       left: 'prev,next',
       center: 'title',
-       right: 'dayGridMonth'
+       right: ''
     },
     customButtons: {
       next: {

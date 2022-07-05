@@ -92,6 +92,7 @@ export class DeparmentComponent implements OnInit {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/Department"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
               disableClose: true,
               data: 'Department added successfully'
             });
@@ -99,6 +100,7 @@ export class DeparmentComponent implements OnInit {
            
           } else {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
               disableClose: true,
               data: 'Department already existed'
             });
@@ -107,6 +109,7 @@ export class DeparmentComponent implements OnInit {
       }
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data: 'Department already existed'
         });
@@ -148,6 +151,7 @@ export class DeparmentComponent implements OnInit {
       if(result.status){
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data: 'Department status updated successfully'
         });
@@ -155,6 +159,7 @@ export class DeparmentComponent implements OnInit {
       }else{
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
           disableClose: true,
           data: 'This department have active employees. So we are unable to inactivate this department now. Please move those employee to another department and try again'
         });
@@ -172,7 +177,6 @@ export class DeparmentComponent implements OnInit {
   }
   save(event:any,id:any,deptname:any){
     this.validatedepartments(deptname)
-    console.log("save",id,deptname)
     this.enable = null;
     this.isEdit=true;
     this.isSave=false;
@@ -185,6 +189,7 @@ export class DeparmentComponent implements OnInit {
             this.router.navigate(["/Admin/Department"]));
           // this.enable = null;
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
             disableClose: true,
             data: 'Department updated succesFully'
           });    
@@ -192,6 +197,7 @@ export class DeparmentComponent implements OnInit {
           
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
             disableClose: true,
             data: 'Department already existed'
           });  
@@ -201,6 +207,7 @@ export class DeparmentComponent implements OnInit {
     else{
       this.ngOnInit();
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
         disableClose: true,
         data: 'Department already existed'
       }); 
@@ -211,7 +218,6 @@ export class DeparmentComponent implements OnInit {
 
   }
   canceledit(event:any,id:any){
-    console.log("cancel",id)
     this.enable = null;
     this.isEdit=true;
     this.isSave=false;
@@ -221,9 +227,7 @@ export class DeparmentComponent implements OnInit {
   getDepartments(){
     this.LM.getDepartments('departmentsmaster',null,1,100,'nandyala_hospitals').subscribe((info)=>{
       if(info.status && info.data.length !=0) {
-        console.log(info.data);
         this.departmentData = info.data;
-      
         this.dataSource = new MatTableDataSource(this.departmentData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

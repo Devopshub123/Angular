@@ -57,20 +57,13 @@ export class ChangePasswordComponent implements OnInit {
       );
     this.usersession =  sessionStorage.getItem('user')
     this.userSession = JSON.parse(this.usersession)
-    console.log(this.userSession)
-    console.log(this.userSession.id)
     this.changePasswordAddObj.empId = this.userSession.id ;
     this.changePasswordAddObj.email = this.userSession.officeemail ;
-    
-    console.log(this.userSession.firstlogin)
     if(this.usersession.firstlogin == 'Y'){
-      console.log("true")
       this.isView=false;      
     }
     else{
-      console.log("false")
       this.isView=true;
-
     }
   
   }
@@ -90,15 +83,17 @@ export class ChangePasswordComponent implements OnInit {
       if(this.changePasswordAddObj.oldPassword !='' && this.changePasswordAddObj.newPassword != '' && this.changePasswordAddObj.confirmPassword !=''){
         if(this.changePasswordAddObj.oldPassword === this.changePasswordAddObj.newPassword){
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
             disableClose: true,
             data: 'Your new password cannot be same as the old password'
           });
         }
         else{
           this.ts.changepassword(this.changePasswordAddObj).subscribe((data) => {
-            console.log(data)
+            
             if (data[0]==0) {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
                 disableClose: true,
                 data: 'Password changed successfully' 
               });
@@ -109,12 +104,14 @@ export class ChangePasswordComponent implements OnInit {
             } 
             else if(data[0]== -1) {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
                 disableClose: true,
                 data: "Please enter correct old password"
               });
             }
             else{
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
                 disableClose: true,
                 data: "Your new password cannot be the same as previous passwords count of 3"
               });
@@ -136,27 +133,22 @@ export class ChangePasswordComponent implements OnInit {
   //     if(result.status && errorCode == 'LM1')
   //     {
   //       this.msgLM1 = result.data[0].errormessage
-  //       console.log(this.msgLM1)
   //     }
   //     else if(result.status && errorCode == 'LM2')
   //     {
   //       this.msgLM2 = result.data[0].errormessage
-  //       console.log(this.msgLM2)
   //     }
   //     else if(result.status && errorCode == 'LM4')
   //     {
   //       this.msgLM4 = result.data[0].errormessage
-  //       console.log(this.msgLM4)
   //     }
   //     else if(result.status && errorCode == 'LM5')
   //     {
   //       this.msgLM5 = result.data[0].errormessage
-  //       console.log(this.msgLM5)
   //     }
   //     else if(result.status && errorCode == 'LM56')
   //     {
   //       this.msgLM56 = result.data[0].errormessage
-  //       console.log(this.msgLM56)
   //     }
      
   //   })
