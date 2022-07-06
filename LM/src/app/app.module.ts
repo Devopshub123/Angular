@@ -30,6 +30,7 @@ import { EmployeeMasterToAddComponent } from './modules/admin/pages/employee-mas
 import { MatTableModule } from '@angular/material/table';
 import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.component';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { CompanyinformationComponent } from './modules/admin/pages/companyinformation/companyinformation.component';
 
  FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -50,6 +51,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
     OnlyNumberDirective,
     MainComponent,
     EmployeeMasterToAddComponent,
+    CompanyinformationComponent,
     MainDashboardComponent
   ],
   imports: [

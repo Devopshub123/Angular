@@ -25,8 +25,6 @@ export class SideNavComponent implements OnInit {
     this.getHeadNav();
     this.baseService.setSideNav("admin");
     this.usersession = JSON.parse(sessionStorage.getItem('user')??'')
-    console.log(this.usersession)
-    console.log(this.usersession.roles[0])
     this.getSideNav();
     this.getToggleSideBar();
     this.getEmployeeRoles();
@@ -48,7 +46,6 @@ export class SideNavComponent implements OnInit {
   getSideNav(): void
   {
     this.baseService.getSideNav().subscribe(message => {
-      console.log(message);
       if (message) {
         this.checkSideNav = message;
       } else {
@@ -95,19 +92,15 @@ export class SideNavComponent implements OnInit {
     });
   }
   getEmployeeRoles() {
-    console.log("sfdsdfs")
     this.UD.getEmployeeRoles(this.usersession.roles[0].employee_id).subscribe((result)=>{
-      console.log(result);
       this.employeeRoles = result;
       this.employeeRoles = this.employeeRoles.data[0];
-      console.log("getEmployeeRoles",this.employeeRoles);
     })
   }
   getScreens(name:any,id:any)
   {
 
     this.RM.getRoleScreenFunctionalities(id).subscribe((result)=>{
-      console.log(result);
       this.rolesScreen = result;
       this.rolesScreen = this.rolesScreen.data[0]
     /*  this.baseService.setRoles(data);*/

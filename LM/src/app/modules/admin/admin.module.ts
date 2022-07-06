@@ -21,7 +21,7 @@ import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.direct
     DesignationsComponent,
     DeparmentComponent,
     AdminDashboardComponent,
-    CompanyinformationComponent,
+    
     CompanylogoComponent,
     RolesPermissionsComponent,
     AddRoleModalComponent

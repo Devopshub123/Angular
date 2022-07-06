@@ -2,11 +2,11 @@
     <mat-icon class="close-icon" color="warn">close</mat-icon>
   </button>
   <div fxLayout="row" fxLayoutAlign="center">
-    <h1 mat-dialog-title >{{data.name}}  Approval</h1>
+    <h1 mat-dialog-title >{{data.name}}</h1>
   </div>
-
+  <form [formGroup]="form" autocomplete="off" >
   <div mat-dialog-content>
-    <form [formGroup]="form" autocomplete="off" >
+
         <div fxLayout fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
       <mat-form-field  fxFlex="100" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
           <mat-label>Reason<span *ngIf="data.name=='Reject'"  style="color: red">*</span> </mat-label>
@@ -15,8 +15,8 @@
               Reason is required.
           </mat-error>
       </mat-form-field>
-  </div>
-  </form>
+      </div>
+ 
   </div>
   <div mat-dialog-actions fxLayoutAlign="center">
     <button class="m-1 mat-stroked-button button-save" (click)="onOkClick()" type="submit">
@@ -26,6 +26,7 @@
   <button class="m-1 mat-stroked-button button-clear"  (click)="onNoClick()">
       <span >Cancel</span>
   </button>
+
   </div>
-  
+</form>  
   

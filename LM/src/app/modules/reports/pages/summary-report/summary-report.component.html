@@ -1,4 +1,4 @@
-<div fxLayout="column">
+<div fxLayout="column" fxFill>
 
   <mat-card>
     <mat-card-header class="heading">
@@ -116,7 +116,7 @@
         </mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
-      <div style="text-align: center;padding-top: 20px;" *ngIf="List.length === 0">No data found in selected date</div>
+      <div style="text-align: center;padding-top: 20px;" *ngIf="List.length === 0">No data found.</div>
     </div>
   </div>
 </div>
