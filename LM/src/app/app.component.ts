@@ -11,9 +11,9 @@ import { BnNgIdleService } from 'bn-ng-idle';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  
+
   title = 'boon-hrms';
-  
+
 constructor(public router:Router,private bnIdle: BnNgIdleService) {
 
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthguardGuard } from './authguard.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
@@ -36,7 +35,8 @@ const routes: Routes = [
     redirectTo: 'Login',
     pathMatch: 'full'
   },
-  {path:'MainDashboard',component:MainDashboardComponent,canActivate:[LMSAccessGuard]}
+  {path:'MainDashboard',component:MainDashboardComponent,canActivate:[LMSAccessGuard]},
+  {path:'LeaveManagement',loadChildren:()=>import('./modules/leaves/leaves.module').then(m=>m.LeavesModule)},
 
 
 ];
