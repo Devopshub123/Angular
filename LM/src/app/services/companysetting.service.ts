@@ -100,6 +100,32 @@ import { environment } from 'src/environments/environment';
     return this.hClient.delete(this.mainBeUrl + 'api/removeImage/' + id+'/'+companyName,this.httpOptions);
   }
   
+
+  setHolidays(info:any,companyName:any):Observable<any>{
+    return this.hClient.post(this.mainBeUrl+'api/setHolidays/'+companyName, JSON.stringify(info), this.httpOptions);
+  }
+
+  setHolidayStatus(info:any){
+    return this.hClient.post(this.mainBeUrl+'api/setHolidayStatus', JSON.stringify(info), this.httpOptions);
+  }
+  putHolidays(info:any,companyName:any):Observable<any>{
+    return this.hClient.put(this.mainBeUrl+'api/putHolidays/'+companyName, JSON.stringify(info), this.httpOptions);
+
+  }
+  getLocation(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
+    return this.hClient.get(this.mainBeUrl+'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+  }
+  deleteHoliday(holidayId:any):Observable<any>{
+    return this.hClient.delete(this.mainBeUrl+'api/deleteHoliday/'+holidayId, this.httpOptions);
+
+  }
+  getHolidaysYearsOrLocation(columnName:any):Observable<any>{
+    return this.hClient.get(this.mainBeUrl+'api/getHolidaysYears/'+columnName, this.httpOptions);
+
+  }
+  getHolidays(year:any,locationId:any,page:any,size:any):Observable<any>{
+    return this.hClient.get(this.mainBeUrl+'api/getHolidysFilter/'+year+'/'+locationId+'/'+page+'/'+size, this.httpOptions);
+  }
   
 
 }

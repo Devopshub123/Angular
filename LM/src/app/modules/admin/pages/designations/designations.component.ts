@@ -216,7 +216,7 @@ export class DesignationsComponent implements OnInit {
     this.ngOnInit();
   }
   getDesignation(){
-    this.LM.getDesignation('designationsmaster',null,1,100,'nandyala_hospitals').subscribe((info)=>{
+    this.LM.getDesignation('designationsmaster',null,1,100,'boon_client').subscribe((info)=>{
       if(info.status && info.data.length !=0) {
         this.designationData = info.data;
         this.dataSource = new MatTableDataSource(this.designationData);
