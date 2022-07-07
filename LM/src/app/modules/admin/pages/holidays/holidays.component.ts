@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
+import { MatSelect } from '@angular/material/select';
 @Component({
   selector: 'app-holidays',
   templateUrl: './holidays.component.html',
@@ -18,9 +19,25 @@ import { MatSort } from '@angular/material/sort';
 })
 export class HolidaysComponent implements OnInit {
   HolidaysForm:any= FormGroup;
+  selectedBranch:any=[];
 
   constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog) { }
+  
+  selectAll(select: MatSelect, values:any, array:any) {
+    select.value = values;
+    array = values;
+    // console.log(this.selectedYears); // selectedYears is still undefined
+  }
 
+  deselectAll(select: MatSelect) {
+    this.selectedBranch = [];
+    select.value = [];
+  }
+  equals(objOne:any, objTwo:any) {
+    if (typeof objOne !== 'undefined' && typeof objTwo !== 'undefined') {
+      // return objOne.id === objTwo.id;
+    }
+  }
   ngOnInit(): void {
     this.HolidaysForm=this.formBuilder.group(
       {
