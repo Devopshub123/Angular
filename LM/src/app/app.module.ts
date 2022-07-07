@@ -7,11 +7,10 @@ import { AttendanceModule } from './modules/attendance/attendance.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FullCalendarModule } from '@fullcalendar/angular'; 
- import dayGridPlugin from '@fullcalendar/daygrid'; 
- import interactionPlugin from '@fullcalendar/interaction'; 
+import { FullCalendarModule } from '@fullcalendar/angular';
+ import dayGridPlugin from '@fullcalendar/daygrid';
+ import interactionPlugin from '@fullcalendar/interaction';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { AuthguardService } from './authguard.service';
 import { LoginComponent } from './pages/login/login.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { HeaderComponent } from './pages/header/header.component';
@@ -32,7 +31,7 @@ import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.co
 import { BnNgIdleService } from 'bn-ng-idle';
 import { CompanyinformationComponent } from './modules/admin/pages/companyinformation/companyinformation.component';
 
- FullCalendarModule.registerPlugins([ 
+ FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin
 ]);
@@ -71,7 +70,7 @@ import { CompanyinformationComponent } from './modules/admin/pages/companyinform
 
   ],
 
-  providers: [AuthguardService,BnNgIdleService],
+  providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
