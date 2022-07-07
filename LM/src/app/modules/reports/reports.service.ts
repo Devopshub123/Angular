@@ -29,4 +29,9 @@ export class ReportsService {
     data,this.httpOptions
     )
   }
+  getAttendanceMonthlyReport(data:any):Observable<any>{
+    return this.http.post(this.mainUrl +'attendance/api/getAttendanceMonthlyReport',
+    data,this.httpOptions
+    )
+  }
 }

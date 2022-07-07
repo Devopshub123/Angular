@@ -23,7 +23,7 @@ import { HolidaysComponent } from './pages/holidays/holidays.component';
     DesignationsComponent,
     DeparmentComponent,
     AdminDashboardComponent,
-    CompanyinformationComponent,
+    
     CompanylogoComponent,
     RolesPermissionsComponent,
     AddRoleModalComponent,

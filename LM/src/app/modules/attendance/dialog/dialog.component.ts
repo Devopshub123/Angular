@@ -16,25 +16,24 @@ export class DialogComponent implements OnInit {
       this.form = this.formBuilder.group({ 
         'reason':['',Validators.maxLength(250)], });
     }
-
+rejectreason='';
   ngOnInit(): void {
     // this.requestform = this.formBuilder.group(
     //   {
     //     reason: ['',[Validators.required]],
     //   });
   }
-  get f(): { [key: string]: AbstractControl } {
-    return this.form.controls;
-  }
+  // get f(): { [key: string]: AbstractControl } {
+  //   return this.form.controls;
+  // }
   onNoClick(): void {
     this.dialogRef.close();
   }
   onOkClick(){
     if(this.data.name == "Reject"){
-        this.form.get('reason')?.clearValidators();
         this.form.get('reason')!.setValidators([Validators.required]);
         this.form.get('reason')!.updateValueAndValidity();
-      
+        this.rejectreason=this.form.controls.reason.value;
         if(this.form.valid && this.form.value){
           this.dialogRef.close(this.form.value);
         }
