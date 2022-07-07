@@ -17,7 +17,7 @@
                     </mat-form-field>
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                         <mat-label>Date </mat-label>
-                        <input matInput readonly [matDatepicker]="date" [max]="maxDate"
+                        <input matInput readonly [matDatepicker]="date" 
                             placeholder="MM/DD/YYYY" formControlName="date" required>
                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
                         </mat-datepicker-toggle>
@@ -111,7 +111,7 @@
                             <td mat-cell *matCellDef="let row">
                                 <span *ngIf="enable != row.id">{{row.date}} </span>
                                 <span *ngIf="enable === row.id">
-                                    <input matInput readonly [matDatepicker]="date" [max]="maxDate"
+                                    <input matInput readonly [matDatepicker]="date" 
                                         placeholder="MM/DD/YYYY" formControlName="date">
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
                                        </mat-datepicker-toggle>

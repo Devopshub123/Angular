@@ -11,6 +11,7 @@ import {LMSAccessGuard} from  '../../LMS-access.guard';
 import { WorklocationComponent } from './pages/worklocation/worklocation.component';
 import { RolesPermissionsComponent } from './pages/roles-permissions/roles-permissions.component';
 import { HolidaysComponent } from './pages/holidays/holidays.component';
+import { LeavepoliciesComponent } from './pages/leavepolicies/leavepolicies.component';
 const routes: Routes = [
   {
     path: '', component: MainComponent,
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'RolesPermissions',component:RolesPermissionsComponent,canActivate:[LMSAccessGuard]},
       { path: 'Worklocation',component:WorklocationComponent,canActivate:[LMSAccessGuard]},
       { path: 'Holidays',component:HolidaysComponent,canActivate:[LMSAccessGuard]},
+      { path: 'Leavepolicies',component:LeavepoliciesComponent,canActivate:[LMSAccessGuard]},
     ]
   }
 

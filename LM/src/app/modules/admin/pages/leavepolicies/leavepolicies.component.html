@@ -1,1 +1,52 @@
-<p>leavepolicies works!</p>
+<div fxLayout="column" >
+    <mat-card>
+        <mat-card-header class="">
+            <mat-card-title class="title"> Leave Policies </mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider><br>
+        <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
+            <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
+                 type="submit">
+                <span>Add New</span><br>
+            </button>
+        </div><br>
+        
+        <!-- <div>
+            <h4 >Common rules for all leave types</h4>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort>
+    
+                    <ng-container matColumnDef="sno">
+                        <th mat-header-cell *matHeaderCellDef> SNo </th>
+                                <td mat-cell *matCellDef="let data; let i = index;"> {{i+1}} </td>
+                        </td>
+                    </ng-container>
+    
+    
+                    <ng-container matColumnDef="configurationrules">
+                        <th mat-header-cell *matHeaderCellDef  style="padding-left: 60px"> Configuration Rules </th>
+                            <td mat-cell *matCellDef="let row">
+                                
+                            </td>
+                    </ng-container>
+    
+    
+                    <ng-container matColumnDef="addditionalinformation">
+                        <th mat-header-cell *matHeaderCellDef > Additional Information </th>
+                        
+                       
+                    </ng-container>
+    
+    
+                    <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    
+                </table>
+            </div>
+
+        </div> -->
+
+    </mat-card>
+        
+
+</div>
