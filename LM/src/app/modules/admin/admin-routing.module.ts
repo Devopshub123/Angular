@@ -8,6 +8,7 @@ import { EmployeeMasterToAddComponent } from './pages/employee-master-to-add/emp
 import { CompanylogoComponent } from './pages/companylogo/companylogo.component';
 import { CompanyinformationComponent } from './pages/companyinformation/companyinformation.component';
 import {LMSAccessGuard} from  '../../LMS-access.guard';
+import { WorklocationComponent } from './pages/worklocation/worklocation.component';
 import { RolesPermissionsComponent } from './pages/roles-permissions/roles-permissions.component';
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'CompanyInformation',component:CompanyinformationComponent,canActivate:[LMSAccessGuard]},
       { path: 'CompanyLogo',component:CompanylogoComponent,canActivate:[LMSAccessGuard]},
       { path: 'RolesPermissions',component:RolesPermissionsComponent,canActivate:[LMSAccessGuard]},
+      { path: 'Worklocation',component:WorklocationComponent,canActivate:[LMSAccessGuard]},
     ]
   }
 

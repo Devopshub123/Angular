@@ -13,6 +13,8 @@ import { CompanylogoComponent } from './pages/companylogo/companylogo.component'
 import { RolesPermissionsComponent } from './pages/roles-permissions/roles-permissions.component';
 import { AddRoleModalComponent } from './pages/add-role-modal/add-role-modal.component';
 import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.directive';
+import { WorklocationComponent } from './pages/worklocation/worklocation.component';
+import { HolidaysComponent } from './pages/holidays/holidays.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.direct
     CompanyinformationComponent,
     CompanylogoComponent,
     RolesPermissionsComponent,
-    AddRoleModalComponent
+    AddRoleModalComponent,
+    WorklocationComponent,
+    HolidaysComponent
   ],
   imports: [
     CommonModule,
