@@ -1,1 +1,20 @@
 
+<div class="example-container">
+    <form [formGroup]="leaveTypeForm" autocomplete="off">
+        <mat-form-field>
+            <input matInput formControlName="leavetypename" placeholder="Leave Type Name">
+          </mat-form-field><br>
+        
+          <mat-form-field>
+            <input matInput formControlName="dispayname" placeholder="Display Name">
+          </mat-form-field><br>
+        
+          <mat-form-field>
+            <mat-select formControlName="color" placeholder="Color">
+              <mat-option value="option">Option</mat-option>
+            </mat-select>
+          </mat-form-field><br>
+
+    </form>
+    
+  </div>

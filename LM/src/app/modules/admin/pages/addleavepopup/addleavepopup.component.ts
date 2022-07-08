@@ -1,7 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { LeavePoliciesService } from 'src/app/services/leave-policies.service'; 
+import { MatDialog ,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/modules/attendance/dialog/dialog.component';
 
+import { LeavePoliciesService } from 'src/app/services/leave-policies.service'; 
+export interface DialogData {
+  leavetypename: string;
+  displayname: string;
+  color:string;
+}
 @Component({
   selector: 'app-addleavepopup',
   templateUrl: './addleavepopup.component.html',
@@ -14,9 +21,16 @@ export class AddleavepopupComponent implements OnInit {
   existingColors:any=[]
   existingDisplayNames:any=[]
 
-  constructor(private LM:LeavePoliciesService,private formBuilder: FormBuilder,) { }
+  constructor(private LM:LeavePoliciesService,private formBuilder:FormBuilder,public dialogRef: MatDialogRef<AddleavepopupComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,) { }
 
   ngOnInit(): void {
+    this.leaveTypeForm = this.formBuilder.group({
+      leavetypename :[""],
+      displayname:["",],
+      color:[""]
+
+    })
   }
   // addNewCustomLeaveType() {
   //   // this.isCustomLeaveSubmitted = true;

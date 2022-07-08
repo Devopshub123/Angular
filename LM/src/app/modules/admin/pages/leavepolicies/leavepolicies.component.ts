@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { LeavePoliciesService } from 'src/app/services/leave-policies.service'; 
+import { AddleavepopupComponent } from '../addleavepopup/addleavepopup.component';
 @Component({
   selector: 'app-leavepolicies',
   templateUrl: './leavepolicies.component.html',
@@ -31,8 +33,8 @@ export class LeavepoliciesComponent implements OnInit {
   arrayValuesWeek:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}];
   displayedColumns: string[] = ['sno','configurationrules','data','addditionalinformation'];
   displayedColumns2: string[] = ['leavetypename','displayname','daysperyear','color','status','action'];
-
-  constructor(private LM:LeavePoliciesService,private formBuilder: FormBuilder,) { }
+ 
+  constructor(private LM:LeavePoliciesService,private dialog: MatDialog,private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
     this.getLeaveRules();
@@ -118,6 +120,16 @@ export class LeavepoliciesComponent implements OnInit {
   addLeaveConfigure(){
     this.isaddnew=false;
   }
+  addnewleave(){
+    console.log("hh")
+   
+      let dialogRef = this.dialog.open(AddleavepopupComponent, {
+        // width: '250px',
+        position:{top:`70px`},
+        
+      })
+  }
+  
   saveDefaultrules(){}
   cancelDefaultRules(){}
   editDefaultRules(){
@@ -125,3 +137,7 @@ export class LeavepoliciesComponent implements OnInit {
   }
 
 }
+function openDialog() {
+  throw new Error('Function not implemented.');
+}
+
