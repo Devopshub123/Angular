@@ -16,6 +16,7 @@ import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.direct
 import { WorklocationComponent } from './pages/worklocation/worklocation.component';
 import { HolidaysComponent } from './pages/holidays/holidays.component';
 import { LeavepoliciesComponent } from './pages/leavepolicies/leavepolicies.component';
+import { AddleavepopupComponent } from './pages/addleavepopup/addleavepopup.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { LeavepoliciesComponent } from './pages/leavepolicies/leavepolicies.comp
     AddRoleModalComponent,
     WorklocationComponent,
     HolidaysComponent,
-    LeavepoliciesComponent
+    LeavepoliciesComponent,
+    AddleavepopupComponent
   ],
   imports: [
     CommonModule,
