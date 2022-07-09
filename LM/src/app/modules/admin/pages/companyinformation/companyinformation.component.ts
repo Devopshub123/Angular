@@ -71,7 +71,7 @@ export class CompanyinformationComponent implements OnInit {
       })
   }
   getCountry(){
-    this.LMS.getCountry('countrymaster',null,1,10,'nandyala_hospitals').subscribe((results)=>{
+    this.LMS.getCountry('countrymaster',null,1,10,'boon_client').subscribe((results)=>{
       this.CountryDetails=results.data;
   
 
@@ -172,7 +172,7 @@ export class CompanyinformationComponent implements OnInit {
 
   }
   getCompanyInformation(){
-    this.LMS.getCompanyInformation('companyinformation',null,1,10,'nandyala_hospitals').subscribe((data)=>{
+    this.LMS.getCompanyInformation('companyinformation',null,1,10,'boon_client').subscribe((data)=>{
       if(data.status && data.data.length!=0) {
         // this.enable=false;
         this.isview=true;

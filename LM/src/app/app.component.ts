@@ -18,11 +18,11 @@ constructor(public router:Router,private bnIdle: BnNgIdleService) {
 
 }
 ngOnInit(): void {
-  this.bnIdle.startWatching(3600000000).subscribe((res) => {
-    if (res) {
-     this.router.navigate(['/Login'])
-    }
-  });
+  // this.bnIdle.startWatching(360).subscribe((res) => {
+  //   if (res) {
+  //    this.router.navigate(['/Login'])
+  //   }
+  // });
 }
 
 
