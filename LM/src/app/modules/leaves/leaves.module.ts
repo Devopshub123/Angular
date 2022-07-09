@@ -6,11 +6,15 @@ import {PendingApprovalsComponent} from "../leaves/pages/pending-approvals/pendi
 import {MaterialModule} from "../../material/material.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { ManagerReviewAndApprovalsComponent } from '../leaves/pages/manager-review-and-approvals/manager-review-and-approvals.component';
+import { ReviewAndApprovalsComponent } from './dialog/review-and-approvals/review-and-approvals.component';
 
 
 @NgModule({
   declarations: [
-    PendingApprovalsComponent
+    PendingApprovalsComponent,
+    ManagerReviewAndApprovalsComponent,
+    ReviewAndApprovalsComponent,
   ],
   imports: [
     CommonModule,
