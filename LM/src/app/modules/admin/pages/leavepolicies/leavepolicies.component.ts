@@ -26,6 +26,7 @@ export class LeavepoliciesComponent implements OnInit {
   dataSource3: MatTableDataSource<any>=<any>[];
   isEditDefaultRules:boolean=false;
   actionflag:boolean=false;
+  tabledata:boolean=false;
   arrayValue:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}]
   arrayValues:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}]
   arrayValuess:any=[{Value:'1',name:'Monthly'},{Value:'3',name:'Quarterly'},{Value:'6',name:'Half-Yearly'},{Value:'12',name:'Yearly'}]
@@ -69,6 +70,7 @@ export class LeavepoliciesComponent implements OnInit {
     
     this.addleaveForm.get('leaveid')?.valueChanges.subscribe((selectedValue:any) => {
       console.log(selectedValue)
+      this.tabledata = true;
       if (selectedValue < 11){
         this.actionflag=false;
       }

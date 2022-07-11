@@ -203,7 +203,7 @@
                     <mat-divider></mat-divider><br>
 
 
-                    <div class="mat-elevation-z8">
+                    <div class="mat-elevation-z8" *ngIf="tabledata">
                         <table mat-table [dataSource]="dataSource3" matSort>
             
                             <ng-container matColumnDef="sno">
@@ -365,10 +365,35 @@
                             <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
                             <tr mat-row *matRowDef="let data; columns: displayedColumns3;"></tr>
                             
-                        </table>
+                        </table><br>
+                      
                         
                     </div><br>
+                   
                 </form>
+                <div *ngIf="tabledata" class="mx-2 my-2">
+                    <div fxLayoutAlign="start">
+                        <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue"  type="submit">
+                            <span>Actvate</span>
+                        </button>
+                        <button class="mx-1  mat-stroked-button button-clear"  style="background-color:#550534;color:aliceblue" >
+                            <span >Deactivate</span>
+                        </button>
+                        
+                    </div>
+                    <div fxLayoutAlign="end" >
+                        <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue"  type="submit">
+                            <span>Submit</span>
+                        </button>
+                    
+                        <button class="mx-1  mat-stroked-button button-clear"  style="background-color:#550534;color:aliceblue" >
+                            <span >Cancel</span>
+                        </button>
+                        <br />
+                    </div>
+
+                </div>
+                
                 
                 
 

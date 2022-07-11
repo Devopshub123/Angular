@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
 import { MatDialog ,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/modules/attendance/dialog/dialog.component';
 
@@ -20,6 +21,7 @@ export class AddleavepopupComponent implements OnInit {
   existingLeaveTypes:any=[]
   existingColors:any=[]
   existingDisplayNames:any=[]
+  public color: ThemePalette = 'primary';
 
   constructor(private LM:LeavePoliciesService,private formBuilder:FormBuilder,public dialogRef: MatDialogRef<AddleavepopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,) { }
@@ -28,28 +30,13 @@ export class AddleavepopupComponent implements OnInit {
     this.leaveTypeForm = this.formBuilder.group({
       leavetypename :[""],
       displayname:["",],
-      color:[""]
+      colors:[""]
 
     })
   }
-  // addNewCustomLeaveType() {
-  //   // this.isCustomLeaveSubmitted = true;
-  //   if(leaveTypeForm.valid && this.isValidLeaveName && this.isValidDisplayname && this.isValidColor) {
+  submit(){}
+  cancel(){}
 
-  //     this.lmsData.displayName=this.lmsData.leaveTypeName;
-  //     this.LM.setNewLeaveType(this.lmsData).subscribe((data) => {
-  //       // this.lmsData=new lmsModalPopup();
-  //       if (data.status) {
-  //         // this.lmsData=new lmsModalPopup();
-      
-  //         this.isCustomLeaveSubmitted=false;
-  //       }
-  //       else {
-  //         // this.toastr.error(this.msgLM42)
-  //       }
-  //     });
-  //   }
-  // }
   /**get all leavetype details */
   getLeavesDetails() {
     this.LM.getLeaveDetails('lm_leavesmaster',null,1,100).subscribe((result) =>{
