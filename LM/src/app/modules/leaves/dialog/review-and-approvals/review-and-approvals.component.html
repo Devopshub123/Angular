@@ -1,10 +1,16 @@
-<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+<button mat-icon-button class="close-button"  [mat-dialog-close]="true" style="float: right">
   <mat-icon class="close-icon" color="warn">close</mat-icon>
 </button>
+<!--<div class="mat-dialog-header">-->
 <div fxLayout="row" fxLayoutAlign="center">
   <h1 mat-dialog-title >{{data.name}}</h1>
+
 </div>
-<form [formGroup]="form" autocomplete="off" >
+
+<!--</div>-->
+<!--<div mat-dialog-content>-->
+
+<form [formGroup]="form" autocomplete="off">
   <div mat-dialog-content>
 
     <div fxLayout fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">

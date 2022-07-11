@@ -26,4 +26,9 @@ export class LeavesService {
     return this.http.get(this.mainUrl +'api/getErrorMessages/' + errorCode + '/' + page + '/' + size, this.httpOptions);
   }
 
+
+  getCompoffForApprovals(id:any): any{
+    return this.http.get(this.mainUrl + 'api/getCompoffsForApproval/'+id,this.httpOptions);
+  }
+
 }

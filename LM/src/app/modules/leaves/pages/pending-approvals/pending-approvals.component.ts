@@ -8,6 +8,8 @@ import {Router} from "@angular/router";
 import {ReviewAndApprovalsComponent} from "../../dialog/review-and-approvals/review-and-approvals.component";
 import {MatDialog} from "@angular/material/dialog";
 import {ReusableDialogComponent} from "../../../../pages/reusable-dialog/reusable-dialog.component";
+import {DatePipe} from "@angular/common";
+import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.component";
 
 @Component({
   selector: 'app-pending-approvals',
@@ -21,11 +23,13 @@ export class PendingApprovalsComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
+  // @Input() search: search;
+
   titleName:any;
   reason:any;
   LM113:any;
   LM114:any;
-
+  pipe = new DatePipe('en-US');
   userSession:any;
   arrayList:any=[];
 
@@ -46,8 +50,15 @@ export class PendingApprovalsComponent implements OnInit {
   getLeavesForApprovals(){
     this.LM.getLeavesForApprovals(this.userSession.id).subscribe((res: any) => {
       if (res.status) {
-        // console.log("hellooo",res.data);
-        this.arrayList = res.data;
+        // this.arrayList = res.data;
+        for(let i = 0; i<res.data.length;i++){
+          var date = new Date();
+          var appliedDate = new Date(res.data[i].appliedon)
+          res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
+          this.arrayList.push(res.data[i])
+        }
+        console.log(this.arrayList,'this.arrayList')
+
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -89,14 +100,14 @@ leaveReview(leave:any){
     this.LM.setApproveOrReject(obj).subscribe((res: any) => {
       if(res && res.status){
         if(res.leaveStatus == 'Approved'){
-          this.dialog.open(ReusableDialogComponent, {width: '500px',height:'250px',
+          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
             position:{top:`70px`},
             disableClose: true,
             data: this.LM113
           });
           this.getLeavesForApprovals();
         }else {
-          this.dialog.open(ReusableDialogComponent, {width: '500px',height:'250px',
+          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
             position:{top:`70px`},
             disableClose: true,
             data: this.LM114
@@ -104,7 +115,7 @@ leaveReview(leave:any){
           this.getLeavesForApprovals();
         }
         }else {
-        this.dialog.open(ReusableDialogComponent, {width: '500px',height:'250px',
+        this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
           position:{top:`70px`},
           disableClose: true,
           data: 'Please try again later'

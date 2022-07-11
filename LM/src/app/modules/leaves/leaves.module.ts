@@ -8,6 +8,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { ManagerReviewAndApprovalsComponent } from '../leaves/pages/manager-review-and-approvals/manager-review-and-approvals.component';
 import { ReviewAndApprovalsComponent } from './dialog/review-and-approvals/review-and-approvals.component';
+import { ManagerDashboardComponent } from './pages/manager-dashboard/manager-dashboard.component';
+import { ConfirmationComponent } from './dialog/confirmation/confirmation.component';
+import { PendingCompoffComponent } from './pages/pending-compoff/pending-compoff.component';
 
 
 @NgModule({
@@ -15,6 +18,9 @@ import { ReviewAndApprovalsComponent } from './dialog/review-and-approvals/revie
     PendingApprovalsComponent,
     ManagerReviewAndApprovalsComponent,
     ReviewAndApprovalsComponent,
+    ManagerDashboardComponent,
+    ConfirmationComponent,
+    PendingCompoffComponent,
   ],
   imports: [
     CommonModule,
