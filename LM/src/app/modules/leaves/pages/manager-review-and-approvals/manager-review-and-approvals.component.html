@@ -1,0 +1,82 @@
+<div fxLayout="column">
+  <form [formGroup]="requestform" autocomplete="off">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title > Review and Approve </mat-card-title>
+      </mat-card-header>
+      <!-- <mat-divider></mat-divider> -->
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+
+        <mat-form-field fxFlex.xs="100" class="mx-7 my-2" appearance="outline">
+          <mat-label>Applied On</mat-label>
+          <input formControlName="appliedOn"  matInput placeholder="Applied Date"readonly>
+        </mat-form-field>
+        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+          <mat-label>Emp Id</mat-label>
+          <input formControlName="empId" required matInput placeholder="Shift" >
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+          <mat-label>Emp Name</mat-label>
+          <input formControlName="empName" required matInput placeholder="Shift" >
+        </mat-form-field>
+        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+          <mat-label>Leave Type</mat-label>
+          <input formControlName="leaveType" required matInput placeholder="Shift" >
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+          <mat-label>From Date</mat-label>
+          <input formControlName="fromDate" required matInput placeholder="Shift" >
+        </mat-form-field>
+        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+          <mat-label>To Date</mat-label>
+          <input formControlName="toDate" required matInput placeholder="Shift" >
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+          <mat-label>No.of Days</mat-label>
+          <input formControlName="noOfDays" required matInput placeholder="Shift" >
+        </mat-form-field>
+        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+          <mat-label>Pending Since</mat-label>
+          <input formControlName="pendingSince" required matInput placeholder="Shift" >
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+          <mat-label>Leave Reason</mat-label>
+          <input formControlName="leaveReason" required matInput placeholder="Shift" >
+        </mat-form-field>
+      </div>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="justify-content: center;">
+      <div fxLayoutAlign="center center" >
+        <button class="m-1 mat-stroked-button button-save" (click)="approval()" type="submit">
+          <span>Approve</span>
+        </button>
+
+        <button class="m-1 mat-stroked-button button-clear"  (click)="reject()">
+          <span >Reject</span>
+        </button>
+        <br />
+      </div>
+      </div>
+    </mat-card>
+  </form>
+</div>
