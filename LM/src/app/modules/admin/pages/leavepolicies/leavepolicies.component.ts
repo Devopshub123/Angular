@@ -23,7 +23,9 @@ export class LeavepoliciesComponent implements OnInit {
   isaddnew:boolean=true;
   dataSource: MatTableDataSource<any>=<any>[];
   dataSource2: MatTableDataSource<any>=<any>[];
+  dataSource3: MatTableDataSource<any>=<any>[];
   isEditDefaultRules:boolean=false;
+  actionflag:boolean=false;
   arrayValue:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}]
   arrayValues:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}]
   arrayValuess:any=[{Value:'1',name:'Monthly'},{Value:'3',name:'Quarterly'},{Value:'6',name:'Half-Yearly'},{Value:'12',name:'Yearly'}]
@@ -32,7 +34,12 @@ export class LeavepoliciesComponent implements OnInit {
   arrayValuesDefalult:any=[{value:'1',name:'Yes'},{value:'0',name:'No'}]
   arrayValuesWeek:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}];
   displayedColumns: string[] = ['sno','configurationrules','data','addditionalinformation'];
+  displayedColumns3: string[] = ['sno','configurationrules','data','addditionalinformation','actions'];
   displayedColumns2: string[] = ['leavetypename','displayname','daysperyear','color','status','action'];
+  leaveConfigure: any;
+  leaveId: any;
+  ispredefined: any;
+  editLeaveInfo: any;
  
   constructor(private LM:LeavePoliciesService,private dialog: MatDialog,private formBuilder: FormBuilder,) { }
 
@@ -51,11 +58,23 @@ export class LeavepoliciesComponent implements OnInit {
     this.addleaveForm = this.formBuilder.group({
       displayname:["",],
       leaveid:["",],
-      advancedleaveid:[""]
+      advancedleaveid:[""],
+      leavecolor:[""],
+      pastdays:["",],
+      leavecountperyear:["",],
+      data:["",],
+      maxcapyear:[""]
 
     });
+    
     this.addleaveForm.get('leaveid')?.valueChanges.subscribe((selectedValue:any) => {
       console.log(selectedValue)
+      if (selectedValue < 11){
+        this.actionflag=false;
+      }
+      else{
+        this.actionflag = true;
+      }
       
       for(let i=0;i<this.leaveTypes.length;i++){
         if(this.leaveTypes[i].id == selectedValue){
@@ -70,6 +89,7 @@ export class LeavepoliciesComponent implements OnInit {
       else{
         this.isadvanced = false;
       }
+      this.changeLeaveType(selectedValue,null);
 
       
 
@@ -124,11 +144,90 @@ export class LeavepoliciesComponent implements OnInit {
     console.log("hh")
    
       let dialogRef = this.dialog.open(AddleavepopupComponent, {
-        // width: '250px',
+        width: '500px',
+        height:'300px',
         position:{top:`70px`},
         
       })
   }
+
+  changeLeaveType(id:any,flag:any){
+    this.leaveId = id;
+  
+
+    // if(this.leaveConfigure.leaveId == 1 && flag == null) {
+    //       // this.advanceLeavetypes =this.getAdvancedLeavetypes();
+    //   this.leaveTypes.findIndex((item: { id: any; display_name: any; }) => {
+    //     if (item.id == id) {
+    //       this.leaveConfigure.displayName = item.display_name;
+    //     }
+    //   });
+
+    //   }
+    //   else {
+
+    //   // if(this.leaveConfigure.leaveId == 1){
+    //   //   this.leaveTypes.findIndex(item => {
+    //   //     if (item.id == id) {
+    //   //       this.leaveConfigure.displayName = item.display_name;
+    //   //     }
+    //   //   })
+    //   // }else{
+    //     this.leaveTypes.findIndex((item: { id: any; display_name: any; }) => {
+    //       if (item.id == id) {
+    //         this.leaveConfigure.displayName = item.display_name;
+    //       }
+    //     })
+    //   // }
+
+    //   /* this.leaveConfigure.displayName =  leave.split('-')[1];*/
+    //   this.ruleInfo = [];
+
+      // this.LM.getLeaveTypes('LM_RuleMaster',1,100).subscribe((data) =>{
+      this.LM.getLeavePolicies(this.leaveId, false, 1, 100).subscribe((result) => {
+        var ruleDetails = JSON.parse(result.data[0].json);
+      console.log("hjsdjhvhh",ruleDetails)
+        if(this.leaveId == 1 && flag === 'edit'){
+          this.leaveConfigure.advancedLeaveId = ruleDetails[0].value;
+
+        }
+        for (let obj of ruleDetails) {
+          if(obj.status === "Inactive"){
+            obj.isselected= false;
+
+          }else{
+            obj.isselected = true;
+
+          }
+
+          obj.isValidate = false;
+        }
+        this.ruleInfo = ruleDetails;
+        this.ruleInfo.push({ruledescription:"Select unique color for each leave type"})
+        console.log(this.ruleInfo)
+        this.dataSource3 = new MatTableDataSource(this.ruleInfo);
+
+        for(let objInfo of this.leaveTypes){
+          if(objInfo.ispredefined && objInfo.status === 'Inactive' && objInfo.id == this.leaveId && this.ruleInfo[0].effectivefromdate != null){
+            this.ispredefined = objInfo.ispredefined;
+            this.editLeaveInfo = objInfo;
+            // console.log("editLeaveInfoeditLeaveInfo",this.editLeaveInfo)
+          }else if(this.ruleInfo[0].effectivefromdate === null){
+            // this.ispredefined = false;
+          }else if(!objInfo.ispredefined){
+            // this.ispredefined = true;
+            // this.editLeaveInfo = objInfo;
+          }
+        }
+
+
+      })
+      // }else{
+
+      // }
+    // }
+
+    }
   
   saveDefaultrules(){}
   cancelDefaultRules(){}
