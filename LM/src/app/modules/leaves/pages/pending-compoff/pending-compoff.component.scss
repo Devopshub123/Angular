@@ -1,1 +1,31 @@
-.red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
+[data-title] {
+  /*outline: red dotted 1px; !*optional styling*!*/
+  /*font-size: 30px; !*optional styling*!*/
+
+  position: relative;
+}
+
+[data-title]:hover::before {
+  content: attr(data-title);
+  position: absolute;
+  top: calc(100% + 10px);
+  display: inline-block;
+  padding: 3px 6px;
+  border-radius: 2px;
+  background: orange;
+  color: #fff;
+  font-size: 12px;
+  font-family: sans-serif;
+  word-break: normal;
+  max-width: 150px;
+}
+[data-title]:hover::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 8px;
+  display: inline-block;
+  color: #fff;
+  border: 8px solid transparent;
+  border-bottom: 8px solid #000;
+}

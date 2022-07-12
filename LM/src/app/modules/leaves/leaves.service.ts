@@ -30,5 +30,9 @@ export class LeavesService {
   getCompoffForApprovals(id:any): any{
     return this.http.get(this.mainUrl + 'api/getCompoffsForApproval/'+id,this.httpOptions);
   }
+  setCompoffForApproveOrReject(data:any): any{
+    console.log("hheheh",data)
+    return this.http.post(this.mainUrl + 'api/setCompoffForApproveOrReject',data,this.httpOptions);
+  }
 
 }

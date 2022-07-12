@@ -84,7 +84,7 @@ export class PendingApprovalsComponent implements OnInit {
  * **/
 
 leaveReview(leave:any){
-    this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: leave } });
+    this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: leave ,isleave:true} });
   }
 
   leaveApprove(leave:any,status:any,approverId:any){
