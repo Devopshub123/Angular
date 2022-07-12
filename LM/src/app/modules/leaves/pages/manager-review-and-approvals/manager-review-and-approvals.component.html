@@ -24,7 +24,11 @@
           <mat-label>Emp Name</mat-label>
           <input formControlName="empName" required matInput placeholder="Shift" >
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+        <mat-form-field *ngIf="!leaveInfo.isleave" fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+          <mat-label>Comp-off Date</mat-label>
+          <input formControlName="fromDate" required matInput placeholder="Shift" >
+        </mat-form-field>
+        <mat-form-field *ngIf="leaveInfo.isleave" fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
           <mat-label>Leave Type</mat-label>
           <input formControlName="leaveType" required matInput placeholder="Shift" >
         </mat-form-field>
@@ -33,11 +37,11 @@
 
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+        <mat-form-field *ngIf="leaveInfo.isleave" fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
           <mat-label>From Date</mat-label>
           <input formControlName="fromDate" required matInput placeholder="Shift" >
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+        <mat-form-field *ngIf="leaveInfo.isleave" fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
           <mat-label>To Date</mat-label>
           <input formControlName="toDate" required matInput placeholder="Shift" >
         </mat-form-field>
@@ -47,7 +51,10 @@
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
         <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
-          <mat-label>No.of Days</mat-label>
+          <mat-label *ngIf="leaveInfo.isleave">No.of Days</mat-label>
+          <mat-label *ngIf="!leaveInfo.isleave">No.of Days</mat-label>
+
+
           <input formControlName="noOfDays" required matInput placeholder="Shift" >
         </mat-form-field>
         <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
@@ -60,13 +67,14 @@
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
         <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
-          <mat-label>Leave Reason</mat-label>
+          <mat-label *ngIf="leaveInfo.isleave">Leave Reason</mat-label>
+          <mat-label *ngIf="!leaveInfo.isleave">Comp-off Reason</mat-label>
           <input formControlName="leaveReason" required matInput placeholder="Shift" >
         </mat-form-field>
       </div>
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="justify-content: center;">
-      <div fxLayoutAlign="center center" >
+      <div *ngIf="leaveInfo.isleave"  fxLayoutAlign="center center" >
         <button class="m-1 mat-stroked-button button-save" (click)="approval()" type="submit">
           <span>Approve</span>
         </button>
@@ -76,6 +84,16 @@
         </button>
         <br />
       </div>
+          <div *ngIf="!leaveInfo.isleave" fxLayoutAlign="center center" >
+            <button class="m-1 mat-stroked-button button-save" (click)="compoffApproval()" type="submit">
+              <span>Approve</span>
+            </button>
+
+            <button class="m-1 mat-stroked-button button-clear"  (click)="reject()">
+              <span >Reject</span>
+            </button>
+            <br />
+          </div>
       </div>
     </mat-card>
   </form>
