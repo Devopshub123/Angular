@@ -75,6 +75,11 @@ export class LeavePoliciesService {
     return this.hClient.post(this.url + 'api/setAdvancedLeaveRuleValues', JSON.stringify(info), this.httpOptions);
 
   }
+  updateLeaveDisplayName(info:any): Observable<any> {
+    console.log(info, "infoinfo")
+    return this.hClient.post(this.url + '/api/updateLeaveDisplayName', JSON.stringify(info), this.httpOptions);
+
+  }
 
     getLeaveDetails(tableName:any,status:any, page:any, size:any): Observable<any> {
         return this.hClient.get(this.url + 'api/getMastertable/' + tableName + '/' + status + '/' + page + '/' + size + '/sreeb', this.httpOptions);

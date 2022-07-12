@@ -169,7 +169,7 @@
                             <mat-select  formControlName="leaveid" required>
                                 <ng-container>
                                     <div *ngFor="let b of leaveTypes">
-                                        <mat-option value={{b.id}}>{{b.leavename}}</mat-option>
+                                        <mat-option [value]="b.id">{{b.leavename}}</mat-option>
                                     </div>
                                 </ng-container>
                             </mat-select>
@@ -222,14 +222,14 @@
                                 <th mat-header-cell *matHeaderCellDef  style="padding-left: 60px"></th>
                                      <td mat-cell *matCellDef="let data ;let i = index;"> 
                                         <div *ngIf="data.rulename == 'LEAVES_MAX_COUNT_PER_YEAR'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="leavecountperyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text"  style="width: 60%;" onlyNumber formControlName="LEAVES_MAX_COUNT_PER_YEAR" matInput placeholder="{{data.value}}" >
                     
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_CREDIT_FREQUENCY'">
-                                            <mat-select formControlName="data" >
+                                            <mat-select formControlName="LEAVES_CREDIT_FREQUENCY" placeholder="{{data.value}}">
                                                 <ng-container>
                                                     <div *ngFor="let b of arrayValuess">
-                                                        <mat-option value={{b.value}}>{{b.name}}</mat-option>
+                                                        <mat-option  [value]="b.Value">{{b.name}}</mat-option>
                                                     </div>
                 
                                                 </ng-container>
@@ -237,10 +237,10 @@
 
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_WEEKENDS_INCLUDED'">
-                                            <mat-select formControlName="data" >
+                                            <mat-select formControlName="LEAVES_WEEKENDS_INCLUDED"  placeholder="{{data.value}}">
                                                 <ng-container>
                                                     <div *ngFor="let b of arrayValues">
-                                                        <mat-option value={{b.value}}>{{b.name}}</mat-option>
+                                                        <mat-option [value]="b.Value">{{b.name}}</mat-option>
                                                     </div>
                 
                                                 </ng-container>
@@ -248,10 +248,10 @@
 
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_COMPANY_HOLIDAYS_INCLUDED'">
-                                            <mat-select formControlName="data" >
+                                            <mat-select formControlName="LEAVES_COMPANY_HOLIDAYS_INCLUDED"  placeholder="{{data.value}}" >
                                                 <ng-container>
                                                     <div *ngFor="let b of arrayValues">
-                                                        <mat-option value={{b.value}}>{{b.name}}</mat-option>
+                                                        <mat-option  [value]="b.Value">{{b.name}}</mat-option>
                                                     </div>
                 
                                                 </ng-container>
@@ -259,39 +259,39 @@
 
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_MAX_CAP_FOR_ONE_INSTANCE'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="maxcapyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text" style="width: 60%;" onlyNumber formControlName="LEAVES_MAX_CAP_FOR_ONE_INSTANCE" matInput placeholder="{{data.value}}" >
                     
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_MIN_SERVICE_ELIGIBILITY'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="maxcapyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text" style="width: 60%;" onlyNumber formControlName="LEAVES_MIN_SERVICE_ELIGIBILITY" matInput placeholder="{{data.value}}" >
                     
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_MIN_DAYS_PRIOR_APPLICATION'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="maxcapyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text" style="width: 60%;" onlyNumber formControlName="LEAVES_MIN_DAYS_PRIOR_APPLICATION" matInput placeholder="{{data.value}}" >
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_COUNT_TO_BE_CARRIED_FORWARD'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="maxcapyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text" style="width: 60%;" onlyNumber formControlName="LEAVES_COUNT_TO_BE_CARRIED_FORWARD" matInput placeholder="{{data.value}}" >
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_MAX_AVAIL_COUNT'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="maxcapyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text" style="width: 60%;" onlyNumber formControlName="LEAVES_MAX_AVAIL_COUNT" matInput placeholder="{{data.value}}" >
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="maxcapyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text" style="width: 60%;" onlyNumber formControlName="LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD" matInput placeholder="{{data.value}}" >
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_GAP_BETWEEN_TERMS'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="maxcapyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text" style="width: 60%;" onlyNumber formControlName="LEAVES_GAP_BETWEEN_TERMS" matInput placeholder="{{data.value}}" >
                                         </div>
                                         <div *ngIf="data.rulename == 'MAX_AVAIL_COUNT'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="maxcapyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text" style="width: 60%;" onlyNumber formControlName="MAX_AVAIL_COUNT" matInput placeholder="{{data.value}}" >
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_MAX_COUNT_PER_TERM'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="maxcapyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text" style="width: 60%;" onlyNumber formControlName="LEAVES_MAX_COUNT_PER_TERM" matInput placeholder="{{data.value}}" >
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_ELIGIBLE_ON_WEEKOFFS'">
-                                            <mat-select formControlName="data" >
+                                            <mat-select formControlName="LEAVES_ELIGIBLE_ON_WEEKOFFS" placeholder="{{data.value}}">
                                                 <ng-container>
                                                     <div *ngFor="let b of arrayValues">
-                                                        <mat-option value={{b.value}}>{{b.name}}</mat-option>
+                                                        <mat-option  [value]="b.Value">{{b.name}}</mat-option>
                                                     </div>
                 
                                                 </ng-container>
@@ -299,10 +299,10 @@
 
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS'">
-                                            <mat-select formControlName="data" >
+                                            <mat-select formControlName="LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS" placeholder="{{data.value}}">
                                                 <ng-container>
                                                     <div *ngFor="let b of arrayValues">
-                                                        <mat-option value={{b.value}}>{{b.name}}</mat-option>
+                                                        <mat-option  [value]="b.Value">{{b.name}}</mat-option>
                                                     </div>
                 
                                                 </ng-container>
@@ -310,10 +310,10 @@
 
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE'">
-                                            <mat-select formControlName="data" >
+                                            <mat-select formControlName="LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE" placeholder="{{data.value}}" >
                                                 <ng-container>
                                                     <div *ngFor="let b of arrayValues">
-                                                        <mat-option value={{b.value}}>{{b.name}}</mat-option>
+                                                        <mat-option  [value]="b.Value">{{b.name}}</mat-option>
                                                     </div>
                 
                                                 </ng-container>
@@ -321,13 +321,13 @@
 
                                         </div>
                                         <div *ngIf="data.rulename == 'COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="maxcapyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text" style="width: 60%;" onlyNumber formControlName="COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY" matInput placeholder="{{data.value}}" >
                                         </div>
                                         <div *ngIf="data.rulename == 'COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="maxcapyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text" style="width: 60%;" onlyNumber formControlName="COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION" matInput placeholder="{{data.value}}" >
                                         </div>
                                         <div *ngIf="data.rulename == 'COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS'">
-                                            <input type="text" style="width: 60%;" onlyNumber formControlName="maxcapyear" matInput placeholder="{{data.value}}" >
+                                            <input type="text" style="width: 60%;" onlyNumber formControlName="COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS" matInput placeholder="{{data.value}}" >
                                         </div>
                                         
                                         <!-- <div *ngIf="i==2">
@@ -382,7 +382,7 @@
                         
                     </div>
                     <div fxLayoutAlign="end" >
-                        <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue"  type="submit">
+                        <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue" (click)="setleavepolicies()" type="submit">
                             <span>Submit</span>
                         </button>
                     
