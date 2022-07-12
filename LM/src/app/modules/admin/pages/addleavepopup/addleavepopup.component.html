@@ -1,20 +1,40 @@
 
 <div class="example-container">
     <form [formGroup]="leaveTypeForm" autocomplete="off">
-        <mat-form-field>
+      <h4 style="text-align: centre;">Add</h4>
+      <!-- <div fxLayout="row" fxLayoutAlign.xs="center center" > -->
+         <!-- <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline"> -->
+          <mat-form-field class="popup" fxFlex.xs="100">
             <input matInput formControlName="leavetypename" placeholder="Leave Type Name">
           </mat-form-field><br>
         
-          <mat-form-field>
-            <input matInput formControlName="dispayname" placeholder="Display Name">
+          <mat-form-field class="popup" fxFlex.xs="100" >
+            <input matInput formControlName="displayname" placeholder="Display Name">
           </mat-form-field><br>
         
-          <mat-form-field>
+          <mat-form-field class="popup" fxFlex.xs="100">
             <mat-select formControlName="color" placeholder="Color">
               <mat-option value="option">Option</mat-option>
             </mat-select>
+            <!-- <input matInput formControlName="color"  [(colorPicker)]=""   [cpOutputFormat]="'rgba'"   value=""  > -->
+
+
           </mat-form-field><br>
+
+      <!-- </div> -->
+  
+       
 
     </form>
     
   </div>
+  <div fxLayoutAlign="end">
+    <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue" (click)="submit()" type="submit">
+        <span>Submit</span>
+    </button>
+
+    <button class="mx-1  mat-stroked-button button-clear"  style="background-color:#550534;color:aliceblue" (click)="cancel()">
+        <span >Cancel</span>
+    </button>
+    <br />
+</div>
