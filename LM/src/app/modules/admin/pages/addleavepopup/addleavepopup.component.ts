@@ -21,7 +21,24 @@ export class AddleavepopupComponent implements OnInit {
   existingLeaveTypes:any=[]
   existingColors:any=[]
   existingDisplayNames:any=[]
-  public color: ThemePalette = 'primary';
+  // public color: ThemePalette = 'primary';
+  // public disabled = false;
+  // public touchUi = false;
+  // colorCtr: AbstractControl = new FormControl(null);
+
+  // public options = [
+  //   { value: true, label: 'True' },
+  //   { value: false, label: 'False' }
+  // ];
+
+  // public listColors = ['primary', 'accent', 'warn'];
+
+  // public codeColorPicker = `
+  // <mat-form-field>
+  //   <input matInput [ngxMatColorPicker]="picker" [formControl]="colorCtr">
+  //   <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+  //   <ngx-mat-color-picker #picker></ngx-mat-color-picker>
+  // </mat-form-field>`;
 
   constructor(private LM:LeavePoliciesService,private formBuilder:FormBuilder,public dialogRef: MatDialogRef<AddleavepopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,) { }

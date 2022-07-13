@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { LeavePoliciesService } from 'src/app/services/leave-policies.service'; 
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AddleavepopupComponent } from '../addleavepopup/addleavepopup.component';
 @Component({
   selector: 'app-leavepolicies',
@@ -65,6 +66,8 @@ export class LeavepoliciesComponent implements OnInit {
   leavesEligibletyMinimumHours:boolean=false;
   maxAvailCount:boolean=false;
   leavesMaxCountPerter:boolean=false;
+  isactivate:boolean=true;
+  isdeactivate:boolean=false;
 
   compoffMinWorkingHoursForEligibility:boolean=false;
   compoffMaxBackDatedDayspermittedForSubmission:boolean=false;
@@ -127,7 +130,7 @@ export class LeavepoliciesComponent implements OnInit {
       else{
         this.actionflag = true;
       }
-      
+      console.log(this.leaveTypes.length)
       for(let i=0;i<this.leaveTypes.length;i++){
         if(this.leaveTypes[i].id == selectedValue){
           this.addleaveForm.controls.displayname.setValue(this.leaveTypes[i].leavename);
@@ -157,18 +160,96 @@ export class LeavepoliciesComponent implements OnInit {
 
     })
   }
-  /**leavetype dropdown */
-  getLeavesDetails() {
-    this.LM.getLeaveDetails('lm_leavesmaster','Inactive',1,100).subscribe((result) =>{
+  /**Edit time get leavetypes */
+  getLeavesDetailsedit(leave:any) {
+    this.LM.getLeaveDetails('lm_leavesmaster','Active',1,100).subscribe((result) =>{
       if(result.status) {
         this.leaveTypes = result.data;
-        console.log('this.leaveTypes',this.leaveTypes)
+        console.log(result.data)
+        this.editLeaveInfo = leave;
+ 
+        this.isaddnew=false;
+        this.isdeactivate = true;
+        this.isactivate =false;
+        this.addleaveForm.controls.leaveid.setValue(leave.id)
+        this.addleaveForm.controls.leaveid.disable()
          // this.advansed = this.getAdvancedLeavetypes();
         // if (this.advanceLeavetypes && this.advanceLeavetypes.length == 0){
         //   this.leaveTypes.shift();
         // }
       }
     });
+  }
+  /**leavetype dropdown */
+  getLeavesDetails() {
+    this.LM.getLeaveDetails('lm_leavesmaster','Inactive',1,100).subscribe((result) =>{
+      if(result.status) {
+        this.leaveTypes = result.data;
+         // this.advansed = this.getAdvancedLeavetypes();
+        // if (this.advanceLeavetypes && this.advanceLeavetypes.length == 0){
+        //   this.leaveTypes.shift();
+        // }
+      }
+    });
+  }
+  cancelLeave(){
+    // this.isShowLeaveConfigure = !this.isShowLeaveConfigure;
+    // this.defaultrules=true;
+    // this.isEditLeaveType= false;
+    // this.isShowCustomLeave=false;
+    // this.leaveConfigure.leaveId='';
+    // this.leaveConfigure.displayName = '';
+    // this.ruleInfo = [];
+  }
+
+  /**Active and Inactive leavetypes */
+  setLeaveStatus(){
+      var info = {
+          id: this.editLeaveInfo.id,
+          leavetype_status:this.editLeaveInfo.status
+      }
+      if(this.editLeaveInfo.status === 'Active') {
+          info.leavetype_status = 'Inactive';
+      }
+      else if(this.editLeaveInfo.status === 'Inactive') {
+          info.leavetype_status = 'Active';
+      }
+      console.log("this.editLeaveInfo.info",info,this.editLeaveInfo)
+     
+      this.LM.setToggleLeaveType(info).subscribe((data) => {
+    
+          if(data.status && this.editLeaveInfo.status == 'Active'){
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: 'Leave type deactivated successfully'
+            });
+              this.editLeaveInfo.status = info.leavetype_status;
+              this.cancelLeave()
+              // window.location.href='AddLeaveConfigure'
+              this.ngOnInit();
+          }
+          else if(data.status && this.editLeaveInfo.status == 'Inactive'){
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: 'Leave type activated successfully'
+            });  
+            // this.toastr.success("Leave type activated successfully")
+              this.editLeaveInfo.status = info.leavetype_status;
+              this.cancelLeave()
+              // window.location.href='AddLeaveConfigure'
+              this.ngOnInit();
+          }
+          // else {
+          //     if(this.isEditLeaveType) {
+          //         this.toastr.error(this.msgLM41)
+          //     }
+          //     else {
+          //         this.toastr.error(this.msgLM40)
+          //     }
+          // }
+      });
   }
   /** */
   validateCustomLeave(ruleData:any){
@@ -339,11 +420,14 @@ export class LeavepoliciesComponent implements OnInit {
       }
     });
   }
+  /**Edit active status leave */
   editLeaveTypeName(leave:any){
-    this.getLeavesDetails();
-    this.isaddnew=false;
-    this.addleaveForm.controls.leaveid.setValue(leave.id)
-    console.log(leave)
+    this.leaveTypes=[];
+    this.getLeavesDetailsedit(leave);
+   
+    // this.addleaveForm.controls.leaveid.disable()
+    
+    
   }
   getLeaveFormatedValue(value:any)
   {
@@ -411,9 +495,9 @@ export class LeavepoliciesComponent implements OnInit {
     else if(this.ruleInfos[i].rulename === "COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS"){
       this.ruleInfos[i].value = this.addleaveForm.controls.COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS.value;
     }
-    // else if(this.ruleInfos[i].rulename === "LEAVES_CREDIT_FREQUENCY"){
-    //   this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_CREDIT_FREQUENCY.value;
-    // }
+    else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_YEAR"){
+      this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.value;
+    }
    
 
 
@@ -422,29 +506,40 @@ export class LeavepoliciesComponent implements OnInit {
     ruleData:this.ruleInfos
   };
   console.log("before",info)
+  
 
 if( this.validateCustomLeave(info.ruleData)) {
+  // for(let m=0;m<info.ruleData.length;m++){
+  //   info.ruleData[m].leavecolor = info.ruleData[0].leavecolor;
+  //   if (info.ruleData[m].status == 'Inactive') {
+  //     info.ruleData[m].status = 'Active'
+  //   } else{
+  //         info.ruleData[m].status = 'Inactive'
+  //   }
+  // }
 
   console.log("hellooo",this.leaveConfigure,this.editLeaveInfo)
   // this.LM.updateLeaveDisplayName(this.leaveConfigure).subscribe((data:any)=>{})
   console.log("afetr",info)
-  // this.LM.setLeaveConfigure(info).subscribe((data) => {
-  //   this.isEditLeaveType = false;
-  //   if (data.status) {
-  //     if(flag == 'submit') {
-  //       this.toastr.success(this.msgLM110)
-  //     }else{
-  //       this.toastr.success(this.msgLM111)
+  this.LM.setLeaveConfigure(info).subscribe((data) => {
+    // this.isEditLeaveType = false;
+    if (data.status) {
+      console.log("submit")
+      // if(flag == 'submit') {
+      //   this.toastr.success(this.msgLM110)
+      // }else{
+      //   this.toastr.success(this.msgLM111)
 
-  //     }
-  //     this.cancelLeave()
-  //     // window.location.href='AddLeaveConfigure'
-  //     this.ngOnInit();
-  //   }
-  //   else {
-  //     this.toastr.error(data.message)
-  //   }
-  // });
+      // }
+      // this.cancelLeave()
+      // window.location.href='AddLeaveConfigure'
+      this.ngOnInit();
+    }
+    else {
+      console.log("failure")
+      // this.toastr.error(data.message)
+    }
+  });
 }
   }
   // validateCustomLeave(data:any){
@@ -560,6 +655,7 @@ if( this.validateCustomLeave(info.ruleData)) {
   cancelDefaultRules(){}
   editDefaultRules(){
     this.isEditDefaultRules=true;
+    
   }
 
 }

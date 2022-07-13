@@ -22,7 +22,7 @@
             
                             <ng-container matColumnDef="sno">
                                 <th mat-header-cell *matHeaderCellDef> SNo </th>
-                                        <td mat-cell *matCellDef="let data; let i = index;"> {{i+1}} </td>
+                                <td mat-cell *matCellDef="let data; let i = index;"> {{i+1}} </td>
                                 
                             </ng-container>
             
@@ -353,8 +353,10 @@
                             </ng-container>
                             <!-- <div > -->
                                 <ng-container matColumnDef="actions">
-                                    <th mat-header-cell *matHeaderCellDef > Action </th>
-                                    <td mat-cell *matCellDef="let data; let i = index;"> <mat-slide-toggle></mat-slide-toggle></td>
+                                    <th mat-header-cell *matHeaderCellDef> </th>
+                                    <td mat-cell *matCellDef="let data; let i = index;">  </td>
+                                    <!-- <th mat-header-cell *matHeaderCellDef > Action </th>
+                                    <td mat-cell *matCellDef="let data; let i = index;"> <mat-slide-toggle></mat-slide-toggle></td> -->
                                    
                                 </ng-container>
 
@@ -371,12 +373,24 @@
                     </div><br>
                    
                 </form>
-                <div *ngIf="tabledata" class="mx-2 my-2">
+                <div *ngIf="tabledata" class="form-group row ml-1 mt-3">
+                    <div class="col-sm-6" style="padding:0px">
+                        <button class="col-md-3 btn btn-primary" (click)="setLeaveStatus()" *ngIf="isactivate">Activate</button>
+                        <button class="col-md-3 btn btn-danger" (click)="setLeaveStatus()" *ngIf="isdeactivate">Deactivate</button>
+                    </div>
+                    <div class="col-sm-6 mr2 text-right">
+                        <!-- <button class="col-md-2 mr-2 btn btn-primary" (click)="setleavepolicies()" 
+                            *ngIf="this.editemployee">Save</button> -->
+                        <button class="col-md-3 mr-2 btn btn-primary" (click)="setleavepolicies()"  >Submit</button>
+                        <button class="col-md-3  btn btn-danger" >Cancel</button>
+                    </div>
+                </div>
+                <!--<div *ngIf="tabledata" class="mx-2 my-2">
                     <div fxLayoutAlign="start">
-                        <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue"  type="submit">
-                            <span>Actvate</span>
+                        <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue" (click)="setLeaveStatus()" *ngIf="isactivate" type="submit">
+                            <span>Activate</span>
                         </button>
-                        <button class="mx-1  mat-stroked-button button-clear"  style="background-color:#550534;color:aliceblue" >
+                        <button class="mx-1  mat-stroked-button button-clear"  style="background-color:#550534;color:aliceblue" (click)="setLeaveStatus()" *ngIf="isdeactivate">
                             <span >Deactivate</span>
                         </button>
                         
@@ -390,9 +404,9 @@
                             <span >Cancel</span>
                         </button>
                         <br />
-                    </div>
+                    </div> 
 
-                </div>
+                </div>-->
                 
                 
                 
