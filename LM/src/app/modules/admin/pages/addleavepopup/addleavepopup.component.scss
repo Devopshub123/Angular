@@ -1,12 +1,22 @@
-// .example-container {
-//     display: flex;
-//     flex-direction: column;
-//   }
-  
-//   .example-container > * {
-//     width: 100%;
-//   }
-.form{
+.example-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     font-size: larger;
-    text-align: centre;
+    overflow: hidden !important;
   }
+  
+.mat-form-field{
+    width:60% !important;
+} 
+.mat-dialog-container{
+  overflow: hidden !important;
+}
+  
+  .example-container > * {
+    width: 100%;
+  }
+// .form{
+//     font-size: larger;
+//     text-align: centre;
+//   }
