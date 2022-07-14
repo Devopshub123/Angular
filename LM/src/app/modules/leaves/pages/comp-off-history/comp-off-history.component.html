@@ -33,8 +33,8 @@
           <td mat-cell *matCellDef="let row" style="width: 10%;" > {{row.comp_off_date | date:'mediumDate'}}</td>
         </ng-container>
         <!--<ng-container matColumnDef="toDate">-->
-          <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>-->
-          <!--<td mat-cell *matCellDef="let row" style="width: 10%;" > {{row.todate  | date:'mediumDate'}}</td>-->
+        <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>-->
+        <!--<td mat-cell *matCellDef="let row" style="width: 10%;" > {{row.todate  | date:'mediumDate'}}</td>-->
         <!--</ng-container>-->
         <!-- Name Column -->
         <ng-container matColumnDef="noOfHours">
@@ -58,10 +58,10 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 15%; padding: 0px;padding-left: 5%;" > Action </th>
           <td mat-cell *matCellDef="let row" style="width: 15%; padding: 0px; text-align: center;  cursor: pointer;">
-            <i class="material-icons mr-1" (click)="compoffApprove(row,'Approved',null)" title="Approve">check_box</i>
-            <i class="material-icons mr-1" (click)="compoffReject(row)" title="Reject">cancel_presentation</i>
-            <i class="material-icons" (click)="compoffReview(row)" title="Review and approve">preview</i>
-            <!--<a routerLink="/" (click)="onApproveClick(row)">Review and Approve</a>-->
+            <!--<i class="material-icons mr-1" (click)="compoffApprove(row,'Approved',null)" title="Approve">check_box</i>-->
+            <!--<i class="material-icons mr-1" (click)="compoffReject(row)" title="Reject">cancel_presentation</i>-->
+            <!--<i class="material-icons" (click)="compoffReview(row)" title="Review and approve">preview</i>-->
+            <!--&lt;!&ndash;<a routerLink="/" (click)="onApproveClick(row)">Review and Approve</a>&ndash;&gt;-->
           </td>
         </ng-container>
         <!-- Color Column -->

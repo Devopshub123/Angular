@@ -74,7 +74,7 @@
       </div>
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="justify-content: center;">
-      <div *ngIf="leaveInfo.isleave"  fxLayoutAlign="center center" >
+      <div *ngIf="leaveInfo.isleaveHistory != 'leave'&& leaveInfo.isleaveHistory != 'compoff'"  fxLayoutAlign="center center" >
         <button class="m-1 mat-stroked-button button-save" (click)="approval()" type="submit">
           <span>Approve</span>
         </button>
@@ -84,14 +84,24 @@
         </button>
         <br />
       </div>
-          <div *ngIf="!leaveInfo.isleave" fxLayoutAlign="center center" >
-            <button class="m-1 mat-stroked-button button-save" (click)="compoffApproval()" type="submit">
-              <span>Approve</span>
+          <!--<div *ngIf="!leaveInfo.isleave && (leaveInfo.isleaveHistory == 'leave'||'compoff')" fxLayoutAlign="center center" >-->
+            <!--<button class="m-1 mat-stroked-button button-save" (click)="compoffApproval()" type="submit">-->
+              <!--<span>Approve</span>-->
+            <!--</button>-->
+
+            <!--<button class="m-1 mat-stroked-button button-clear"  (click)="reject()">-->
+              <!--<span >Reject</span>-->
+            <!--</button>-->
+            <!--<br />-->
+          <!--</div>-->
+          <div *ngIf="leaveInfo.isleaveHistory == 'leave'||leaveInfo.isleaveHistory =='compoff'" fxLayoutAlign="center center" >
+            <button class="m-1 mat-stroked-button button-save" (click)="cancel()" type="submit">
+              <span>Cancel</span>
             </button>
 
-            <button class="m-1 mat-stroked-button button-clear"  (click)="reject()">
-              <span >Reject</span>
-            </button>
+            <!--<button *ngIf="leaveInfo.isleaveHistory == 'compoff'"class="m-1 mat-stroked-button button-clear"  (click)="reject()">-->
+              <!--<span >Cancel</span>-->
+            <!--</button>-->
             <br />
           </div>
       </div>

@@ -35,4 +35,11 @@ export class LeavesService {
     return this.http.post(this.mainUrl + 'api/setCompoffForApproveOrReject',data,this.httpOptions);
   }
 
+  getHandledLeaves(id:any): any{
+    return this.http.get(this.mainUrl + 'api/getHandledLeaves/'+id,this.httpOptions);
+  }
+  getCompoffs(data:any): any{
+    return this.http.post(this.mainUrl + 'api/getCompoffs',data,this.httpOptions);
+  }
+
 }

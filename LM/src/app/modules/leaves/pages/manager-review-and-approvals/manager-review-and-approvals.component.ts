@@ -95,7 +95,14 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   //
   // }
   approval(){
-    this.pendingapprove.leaveApprove(this.leaveInfo.leaveData,'Approved',this.userSession.id)
+    if(this.leaveInfo.isleave) {
+
+      this.pendingapprove.leaveApprove(this.leaveInfo.leaveData, 'Approved', this.userSession.id)
+
+    }else {
+      this.compoffPendingapprove.compoffApprove(this.leaveInfo.leaveData,'Approved',null);
+
+    }
     // this.titleName="Approve"
     //
     // this.openDialog();
@@ -147,12 +154,18 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   }
 
   compoffApproval(){
-    this.compoffPendingapprove.compoffApprove(this.leaveInfo.leaveData,'Approved',null);
 
 
   }
   compoffReject(){
 
+  }
+
+  cancel(){
+    if(this.leaveInfo.isleaveHistory == 'leave'){
+      this.router.navigate(['/LeaveManagement/LeaveHistory'])
+
+    }
   }
 
 
