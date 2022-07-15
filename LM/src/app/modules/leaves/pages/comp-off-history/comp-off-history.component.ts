@@ -56,5 +56,11 @@ export class CompOffHistoryComponent implements OnInit {
 
     });
   }
+  compoffReview(compoff:any){
+    compoff.employeename = compoff.employee_name;
+    console.log("hsfkldkfksjd",compoff);
+    compoff.leavestatus = compoff.status;
+    this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: compoff ,isleave:false,isleaveHistory:'compoff'} });
 
+  }
 }

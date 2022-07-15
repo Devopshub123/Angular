@@ -25,7 +25,7 @@
         </ng-container>
         <ng-container matColumnDef="empName">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Emp Name </th>
-          <td mat-cell *matCellDef="let row" style="width: 15%;" > {{row.employeename}}</td>
+          <td mat-cell *matCellDef="let row" style="width: 15%;" > {{row.employee_name}}</td>
         </ng-container>
         <!-- Progress Column  empid-->
         <ng-container matColumnDef="fromDate">
@@ -44,8 +44,8 @@
 
         <!-- Color Column -->
         <ng-container matColumnDef="pendingSince">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap"> Pending Since </th>
-          <td mat-cell *matCellDef="let row" style="width: 10%;text-align: center;" > {{row.pendingSince}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap"> Status </th>
+          <td mat-cell *matCellDef="let row" style="width: 10%;text-align: center;" > {{row.status}} </td>
         </ng-container>
         <ng-container matColumnDef="reason">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason</th>
@@ -60,7 +60,7 @@
           <td mat-cell *matCellDef="let row" style="width: 15%; padding: 0px; text-align: center;  cursor: pointer;">
             <!--<i class="material-icons mr-1" (click)="compoffApprove(row,'Approved',null)" title="Approve">check_box</i>-->
             <!--<i class="material-icons mr-1" (click)="compoffReject(row)" title="Reject">cancel_presentation</i>-->
-            <!--<i class="material-icons" (click)="compoffReview(row)" title="Review and approve">preview</i>-->
+            <i class="material-icons" (click)="compoffReview(row)" title="Review and approve">preview</i>
             <!--&lt;!&ndash;<a routerLink="/" (click)="onApproveClick(row)">Review and Approve</a>&ndash;&gt;-->
           </td>
         </ng-container>
