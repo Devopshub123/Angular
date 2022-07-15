@@ -20,6 +20,7 @@ export class LeavepoliciesComponent implements OnInit {
   existingColors:any = [];
   leavesTypeData:any = [];
   leaveTypes:any=[];
+  rgbcolor:any=[]
   advanceLeavetypes:any=[];
   isadvanced:boolean=false;
   isaddnew:boolean=true;
@@ -33,7 +34,7 @@ export class LeavepoliciesComponent implements OnInit {
   arrayValues:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}]
   arrayValuess:any=[{Value:'1',name:'Monthly'},{Value:'3',name:'Quarterly'},{Value:'6',name:'Half-Yearly'},{Value:'12',name:'Yearly'}]
   isdisabled:boolean=true;
-  arrayValueOne:any=[{value:'1',name:'Jan-Dec'},{value:'2',name:' Apr-Mar'}]
+  arrayValueOne:any=[{Value:'1',name:'Jan-Dec'},{Value:'2',name:' Apr-Mar'}]
   arrayValuesDefalult:any=[{value:'1',name:'Yes'},{value:'0',name:'No'}]
   arrayValuesWeek:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}];
   displayedColumns: string[] = ['sno','configurationrules','data','addditionalinformation'];
@@ -45,6 +46,11 @@ export class LeavepoliciesComponent implements OnInit {
   leaveConfig: any;
   isLeaveColorAlreadyExists:boolean=false;
   isadvanceLeveflag:boolean=false;
+  DEDUCTION :boolean=false;
+  INCLUDED:boolean=false;
+  MAIL:boolean=false;
+  BACKDATED:boolean=false;
+
 
   leaveMaxCapForOneInstance:boolean=false;
   leaveCreditFrequence:boolean=false;
@@ -446,9 +452,11 @@ export class LeavepoliciesComponent implements OnInit {
     if(this.ruleInfos[i].rulename === "MAX_AVAIL_COUNT"){
       this.ruleInfos[i].value = this.addleaveForm.controls.MAX_AVAIL_COUNT.value;
     }
+    else if(this.ruleInfos[i].rulename ===  "LEAVES_GAP_BETWEEN_TERMS"){
+      this.ruleInfos[i].value =this.addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.value;
+    }
     else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_TERM"){
       this.ruleInfos[i].value =this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.value;
-
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_CREDIT_FREQUENCY"){
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_CREDIT_FREQUENCY.value;
@@ -460,7 +468,7 @@ export class LeavepoliciesComponent implements OnInit {
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_COMPANY_HOLIDAYS_INCLUDED.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_MAX_CAP_FOR_ONE_INSTANCE"){
-      this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_CREDIT_FREQUENCY.value;
+      this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MAX_CAP_FOR_ONE_INSTANCE.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_MIN_SERVICE_ELIGIBILITY"){
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MIN_SERVICE_ELIGIBILITY.value;
@@ -498,9 +506,6 @@ export class LeavepoliciesComponent implements OnInit {
     else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_YEAR"){
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.value;
     }
-   
-
-
   }
   var info = {
     ruleData:this.ruleInfos
@@ -525,6 +530,11 @@ if( this.validateCustomLeave(info.ruleData)) {
     // this.isEditLeaveType = false;
     if (data.status) {
       console.log("submit")
+      // let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      //   position:{top:`70px`},
+      //   disableClose: true,
+      //   data: 'Unable to add holidays'
+      // });
       // if(flag == 'submit') {
       //   this.toastr.success(this.msgLM110)
       // }else{
@@ -561,10 +571,8 @@ if( this.validateCustomLeave(info.ruleData)) {
     this.isaddnew=false;
   }
   addnewleave(){
-    console.log("hh")
-   
       let dialogRef = this.dialog.open(AddleavepopupComponent, {
-        width: '500px',
+        width: '400px',
         height:'300px',
         position:{top:`70px`},
         
@@ -608,6 +616,7 @@ if( this.validateCustomLeave(info.ruleData)) {
         var ruleDetails = JSON.parse(result.data[0].json);
         this.ruleInfos = JSON.parse(result.data[0].json);
       console.log("hjsdjhvhh",ruleDetails)
+      this.rgbsplit(ruleDetails[0].leavecolor)
         if(this.leaveId == 1 && flag === 'edit'){
           this.leaveConfigure.advancedLeaveId = ruleDetails[0].value;
 
@@ -626,7 +635,14 @@ if( this.validateCustomLeave(info.ruleData)) {
         this.ruleInfo = ruleDetails;
         // this.ruleInfos = ruleDetails;
         this.ruleInfo.push({ruledescription:"Select unique color for each leave type"})
-        console.log(this.ruleInfo)
+
+        console.log("hjsdjhvhh",ruleDetails[0].leavecolor)
+        
+        
+        
+        
+        console.log(this.rgbcolor)
+        this.addleaveForm.controls.leavecolor.setValue(this.rgbcolor);
         this.dataSource3 = new MatTableDataSource(this.ruleInfo);
 
         for(let objInfo of this.leaveTypes){
@@ -650,8 +666,90 @@ if( this.validateCustomLeave(info.ruleData)) {
     // }
 
     }
-  
-  saveDefaultrules(){}
+    rgbsplit(data:any){
+      let rgb = data.substring(4, data.length-1)
+                  .replace(/ /g, '')
+                  .split(',');
+      this.rgbcolor = this.rgbToHex(rgb[0],rgb[1],rgb[2]);
+      console.log(this.rgbcolor)
+      this.addleaveForm.controls.leavecolor.setValue(this.rgbcolor);
+     
+    }
+   rgbToHex(r:any, g:any, b:any) {
+    console.log(r,g,b)
+      return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    }
+// hexToRgb(hex:any) {
+//   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+//   if(result){
+//     var r= parseInt(result[1], 16);
+//     var g= parseInt(result[2], 16);
+//     var b= parseInt(result[3], 16);
+//     return r+","+g+","+b;//return 23,14,45 -> reformat if needed 
+// }   
+//   return null;
+// }
+  /**save default rules*/
+  saveDefaultrules(){
+    if(this.validation()){
+      
+      for(let i=0;i<this.defaultRuleInfo.length;i++){
+        if(this.defaultRuleInfo[i].rulename == "LEAVES_DURATION_FOR_BACKDATED_LEAVES"){
+          this.defaultRuleInfo[i].value =this.leavepoliciesForm.controls.pastdays.value;
+        }
+        else if(this.defaultRuleInfo[i].rulename == "LEAVES_IS_MAIL_FACILITY_REQUIRED"){
+          this.defaultRuleInfo[i].value =this.leavepoliciesForm.controls.email.value;
+        }
+        else if (this.defaultRuleInfo[i].rulename == "LEAVE_CYCLE_YEAR"){
+          this.defaultRuleInfo[i].value =this.leavepoliciesForm.controls.leavecycleyear.value;
+        }
+
+      }
+      var info = {
+        ruleData:this.defaultRuleInfo
+      }
+      console.log(info)   
+      this.LM.setLeaveConfigure(info).subscribe((data) => {
+        /*  this.isEditLeaveType = false;*/
+        this.getLeaveRules();
+          if(data.status){
+              // this.toastr.success(data.message)
+            this.isEditDefaultRules = false;
+            this.ngOnInit();
+          }
+          else {
+              // this.toastr.error(this.msgLM41)
+          }
+      });
+
+  }
+  }
+  validation(){
+    var valid = true;
+    for(let i =0; i< this.defaultRuleInfo.length; i++){
+      if(this.defaultRuleInfo[i].value === null || this.defaultRuleInfo[i].value === ''){
+        valid = false;
+        if(this.defaultRuleInfo[i].rulename=='LEAVES_DEFAULT_TYPE_FOR_DEDUCTION'){
+           this.DEDUCTION = true
+
+        }
+        if(this.defaultRuleInfo[i].rulename=='LEAVES_WEEKENDS_INCLUDED'){
+          this.INCLUDED = true;
+
+          }
+        if(this.defaultRuleInfo[i].rulename=='LEAVES_IS_MAIL_FACILITY_REQUIRED'){
+          this.MAIL= true
+
+            }
+            if(this.defaultRuleInfo[i].rulename=='LEAVES_DURATION_FOR_BACKDATED_LEAVES'){
+
+              this.BACKDATED= true
+        }
+        return valid;
+      }
+    }
+    return valid;
+   }
   cancelDefaultRules(){}
   editDefaultRules(){
     this.isEditDefaultRules=true;
