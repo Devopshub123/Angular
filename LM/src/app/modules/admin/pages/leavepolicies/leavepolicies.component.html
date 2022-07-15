@@ -332,7 +332,19 @@
                                         <div *ngIf="data.ruledescription == 'Select unique color for each leave type'">
                                               <input style="width: 50%;" matInput formControlName="leavecolor" value="leavecolor" type="color" >
                                         </div>
-                                        
+                                        <div *ngIf="data.rulename == 'LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY'">
+                                            <input style="width: 50%;" matInput formControlName="LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY"  type="text" >
+                                       </div>
+                                       <div *ngIf="data.rulename == 'SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS'">
+                                        <input style="width: 50%;" matInput formControlName="SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS"  type="text" >
+                                      </div>
+                                      <div *ngIf="data.rulename == 'LEAVES_LAPSE_PERIOD'">
+                                        <input style="width: 50%;" matInput formControlName="LEAVES_LAPSE_PERIOD"  type="text" >
+                                      </div>
+                                      <div *ngIf="data.rulename == 'LEAVES_ELIGIBILITY_MINIMUM_HOURS'">
+                                        <input style="width: 50%;" matInput formControlName="LEAVES_ELIGIBILITY_MINIMUM_HOURS"  type="text" >
+                                      </div>
+                                      
                                         <!-- <input style="width: 50%;" matInput formControlName="colors" type="color"   placeholder="Color" required> -->
 
                                         <!-- <div *ngIf="i==2">
@@ -357,11 +369,11 @@
                                
                             </ng-container>
                             <!-- <div > -->
-                                <ng-container matColumnDef="actions">
-                                    <th mat-header-cell *matHeaderCellDef> </th>
-                                    <td mat-cell *matCellDef="let data; let i = index;">  </td>
-                                    <!-- <th mat-header-cell *matHeaderCellDef > Action </th>
-                                    <td mat-cell *matCellDef="let data; let i = index;"> <mat-slide-toggle></mat-slide-toggle></td> -->
+                                <ng-container matColumnDef="actions" >
+                                    
+                                        <th mat-header-cell *matHeaderCellDef > Action</th>
+                                        <td mat-cell *matCellDef="let data; let i = index;" ><mat-slide-toggle></mat-slide-toggle> </td>
+   
                                    
                                 </ng-container>
 

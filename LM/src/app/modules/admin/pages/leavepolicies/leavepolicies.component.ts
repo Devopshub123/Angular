@@ -20,7 +20,8 @@ export class LeavepoliciesComponent implements OnInit {
   existingColors:any = [];
   leavesTypeData:any = [];
   leaveTypes:any=[];
-  rgbcolor:any=[]
+  rgbcolor:any=[];
+  setleavecolor:any;
   advanceLeavetypes:any=[];
   isadvanced:boolean=false;
   isaddnew:boolean=true;
@@ -38,7 +39,8 @@ export class LeavepoliciesComponent implements OnInit {
   arrayValuesDefalult:any=[{value:'1',name:'Yes'},{value:'0',name:'No'}]
   arrayValuesWeek:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}];
   displayedColumns: string[] = ['sno','configurationrules','data','addditionalinformation'];
-  displayedColumns3: string[] = ['sno','configurationrules','data','addditionalinformation','actions'];
+  displayedColumns4: string[] = ['sno','configurationrules','data','addditionalinformation','actions'];
+  displayedColumns3: any=[];
   displayedColumns2: string[] = ['leavetypename','displayname','daysperyear','color','status','action'];
   leaveConfigure: any;
   leaveId: any;
@@ -118,13 +120,20 @@ export class LeavepoliciesComponent implements OnInit {
       MAX_AVAIL_COUNT:[""],
       LEAVES_MAX_COUNT_PER_TERM:[""],
       LEAVES_ELIGIBLE_ON_WEEKOFFS:[""],
+      LEAVES_ELIGIBILITY_MINIMUM_HOURS:[""],
+      LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY:["",],
+      SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS:[""],
       LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS:["",],
+      LEAVES_LAPSE_PERIOD:[""],
       LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE:[""],
       COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY:["",],
       COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION:[""],
       COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS:[""],
       
 
+    });
+    this.addleaveForm.get('leavecolor')?.valueChanges.subscribe((selectedValue:any) => {
+      this.setleavecolor = "rgb("+this.hexToRgb(selectedValue)+")"
     });
     
     this.addleaveForm.get('leaveid')?.valueChanges.subscribe((selectedValue:any) => {
@@ -144,6 +153,8 @@ export class LeavepoliciesComponent implements OnInit {
         }
 
       }
+      this.displayedColumns3 =  selectedValue > 11 ? this.displayedColumns4 : this.displayedColumns4.filter(column => column !== 'actions');
+
       if(selectedValue == 1){
         this.isadvanced = true;
       }
@@ -152,10 +163,9 @@ export class LeavepoliciesComponent implements OnInit {
       }
       this.changeLeaveType(selectedValue,null);
 
-      
-
     })
   }
+  
   /**Common leave rules */
   getLeaveRules() {
     this.LM.getLeavePolicies(null,true,1,10).subscribe((result) => {
@@ -198,6 +208,7 @@ export class LeavepoliciesComponent implements OnInit {
       }
     });
   }
+  
   cancelLeave(){
     // this.isShowLeaveConfigure = !this.isShowLeaveConfigure;
     // this.defaultrules=true;
@@ -418,6 +429,7 @@ export class LeavepoliciesComponent implements OnInit {
 
 
   }
+  
   /**advance leavetype dropdown*/
   getAdvancedLeavetypes(){
     this.LM.getleavetypesforadvancedleave().subscribe((result) => {
@@ -428,6 +440,8 @@ export class LeavepoliciesComponent implements OnInit {
   }
   /**Edit active status leave */
   editLeaveTypeName(leave:any){
+   
+    this.displayedColumns3 = leave.id > 11 ? this.displayedColumns4 : this.displayedColumns4.filter(column => column !== 'actions');
     this.leaveTypes=[];
     this.getLeavesDetailsedit(leave);
    
@@ -451,59 +465,78 @@ export class LeavepoliciesComponent implements OnInit {
     // console.log(this.ruleInfos[i].rulename)
     if(this.ruleInfos[i].rulename === "MAX_AVAIL_COUNT"){
       this.ruleInfos[i].value = this.addleaveForm.controls.MAX_AVAIL_COUNT.value;
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
     }
     else if(this.ruleInfos[i].rulename ===  "LEAVES_GAP_BETWEEN_TERMS"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value =this.addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_TERM"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value =this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_CREDIT_FREQUENCY"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_CREDIT_FREQUENCY.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_WEEKENDS_INCLUDED"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_WEEKENDS_INCLUDED.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_COMPANY_HOLIDAYS_INCLUDED"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_COMPANY_HOLIDAYS_INCLUDED.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_MAX_CAP_FOR_ONE_INSTANCE"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MAX_CAP_FOR_ONE_INSTANCE.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_MIN_SERVICE_ELIGIBILITY"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MIN_SERVICE_ELIGIBILITY.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_MIN_DAYS_PRIOR_APPLICATION"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MIN_DAYS_PRIOR_APPLICATION.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_COUNT_TO_BE_CARRIED_FORWARD"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_COUNT_TO_BE_CARRIED_FORWARD.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_MAX_AVAIL_COUNT"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MAX_AVAIL_COUNT.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_ELIGIBLE_ON_WEEKOFFS"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_WEEKOFFS.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE.value;
     }
     else if(this.ruleInfos[i].rulename === "COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY.value;
     }
     else if(this.ruleInfos[i].rulename === "COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION.value;
     }
     else if(this.ruleInfos[i].rulename === "COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS.value;
     }
     else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_YEAR"){
+      this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.value;
     }
   }
@@ -670,25 +703,24 @@ if( this.validateCustomLeave(info.ruleData)) {
       let rgb = data.substring(4, data.length-1)
                   .replace(/ /g, '')
                   .split(',');
-      this.rgbcolor = this.rgbToHex(rgb[0],rgb[1],rgb[2]);
-      console.log(this.rgbcolor)
+      this.rgbcolor = this.rgbToHex(parseInt(rgb[0]),parseInt(rgb[1]),parseInt(rgb[2]));
       this.addleaveForm.controls.leavecolor.setValue(this.rgbcolor);
      
     }
    rgbToHex(r:any, g:any, b:any) {
-    console.log(r,g,b)
       return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
     }
-// hexToRgb(hex:any) {
-//   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-//   if(result){
-//     var r= parseInt(result[1], 16);
-//     var g= parseInt(result[2], 16);
-//     var b= parseInt(result[3], 16);
-//     return r+","+g+","+b;//return 23,14,45 -> reformat if needed 
-// }   
-//   return null;
-// }
+hexToRgb(hex:any) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  if(result){
+    var r= parseInt(result[1], 16);
+    var g= parseInt(result[2], 16);
+    var b= parseInt(result[3], 16);
+    return r+","+g+","+b;//return 23,14,45 -> reformat if needed 
+}   
+  return null;
+}
+
   /**save default rules*/
   saveDefaultrules(){
     if(this.validation()){
@@ -757,7 +789,5 @@ if( this.validateCustomLeave(info.ruleData)) {
   }
 
 }
-function openDialog() {
-  throw new Error('Function not implemented.');
-}
+
 
