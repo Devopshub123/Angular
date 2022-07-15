@@ -15,6 +15,7 @@ import { PendingCompoffComponent } from './pages/pending-compoff/pending-compoff
 import { EmployeeLeavesListComponent } from './pages/employee-leaves-list/employee-leaves-list.component';
 import { LeaveHistoryComponent } from './pages/leave-history/leave-history.component';
 import { CompOffHistoryComponent } from './pages/comp-off-history/comp-off-history.component';
+import { DetailedReportForManagerComponent } from './pages/detailed-report-for-manager/detailed-report-for-manager.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { CompOffHistoryComponent } from './pages/comp-off-history/comp-off-histo
     EmployeeLeavesListComponent,
     LeaveHistoryComponent,
     CompOffHistoryComponent,
+    DetailedReportForManagerComponent,
   ],
   imports: [
     CommonModule,
