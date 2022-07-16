@@ -76,6 +76,7 @@ export class LeavepoliciesComponent implements OnInit {
   leavesMaxCountPerter:boolean=false;
   isactivate:boolean=true;
   isdeactivate:boolean=false;
+  disble:boolean=false;
 
   compoffMinWorkingHoursForEligibility:boolean=false;
   compoffMaxBackDatedDayspermittedForSubmission:boolean=false;
@@ -606,10 +607,14 @@ if( this.validateCustomLeave(info.ruleData)) {
   addnewleave(){
       let dialogRef = this.dialog.open(AddleavepopupComponent, {
         width: '400px',
-        height:'300px',
         position:{top:`70px`},
         
       })
+  }
+  /**toggle change */
+  toglechange(element:any) {
+    console.log(element)
+    // element.disable() = !element.disable();
   }
 
   changeLeaveType(id:any,flag:any){
