@@ -82,6 +82,7 @@ export class AddleavepopupComponent implements OnInit {
       leaveColor:"rgb("+this.hexToRgb(this.leaveTypeForm.controls.colors.value)+")",
       leaveTypeName: this.leaveTypeForm.controls.displayname.value
     }
+    if(!this.isLeaveAlreadyExists && !this.isDisplayAlreadyExists && !this.isLeaveColorAlreadyExists){
       this.LM.setNewLeaveType(info).subscribe((data) => {        
         if (data.status) {         
           this.dialogRef.close();
@@ -91,6 +92,9 @@ export class AddleavepopupComponent implements OnInit {
          
         }
       });
+
+    }
+      
   }
 hexToRgb(hex:any) {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -104,50 +108,33 @@ hexToRgb(hex:any) {
 }
   cancel(){}
   checkLeaveTypes(key:any,leaveData:any)
-  {
+  { 
+    console.log(this.existingLeaveTypes.length,key,leaveData)
     for(let i =0; i<this.existingLeaveTypes.length;i++){
-      // if(key === 'leavename' && this.existingLeaveTypes[i].toLowerCase() === leaveData.toLowerCase())
-      // {
-      //   this.isLeaveAlreadyExists = true;
-      //   this.isValidLeaveName = false;
-      //   break
-
-      // }else if(key === 'display_name') {
-      //   // this.leaveTypeForm.controls.displayname.value = leaveData
-      //   if(this.existingDisplayNames[i].toLowerCase() === leaveData.toLowerCase())
-      //   {
-      //     this.isDisplayAlreadyExists = true;
-      //     this.isValidDisplayname = false;
-      //     break;
-      //   }
-      //   else {
-      //     this.isDisplayAlreadyExists = false;
-      //     this.isValidDisplayname =true;
-      //   }
-      //   this.isLeaveAlreadyExists = false;
-      //   this.isValidLeaveName = true;
-      // }if(key === 'display_name' && this.existingDisplayNames[i].toLowerCase() === leaveData.toLowerCase())
-      // {
-      //   this.isDisplayAlreadyExists = true;
-      //   this.isValidDisplayname = false;
-      //   break
-      // }
-      // else if(key === 'display_name'){
-      //   this.isDisplayAlreadyExists = false;
-      //   this.isValidDisplayname =true;
-
-      // }
-      console.log(this.existingLeaveTypes[0])
-      if(key === 'leavecolor' && this.existingColors[i] === leaveData)
-      {
-        console.log("dfsaf")
+      if(key === 'display_name' && this.existingLeaveTypes[i].display_name == leaveData){
+        this.isDisplayAlreadyExists = true;
+        console.log('display_nametrue')
+        break;
+      }
+      else if(key === 'display_name'){
+        this.isDisplayAlreadyExists = false; 
+        console.log('leavenametrue')
+      }
+      if(key === 'leavename' && this.existingLeaveTypes[i].leavename == leaveData){
+        this.isLeaveAlreadyExists = true; 
+        console.log('leavenametrue')
+        break;
+      }
+      else if(key === 'leavename'){
+        this.isLeaveAlreadyExists = false; 
+        console.log('leavenametruefalse')
+      }
+      if(key === 'leavecolor' && this.existingLeaveTypes[i].leavecolor === leaveData){
         this.isLeaveColorAlreadyExists = true;
-        console.log(this.isLeaveColorAlreadyExists)
         this.isValidColor = false
         break;
       }
       else if(key === 'leavecolor'){
-        console.log("else")
         this.isLeaveColorAlreadyExists = false;
         this.isValidColor = true;
         if(this.leavedata.leavecolor){
@@ -161,13 +148,13 @@ hexToRgb(hex:any) {
   /**get all leavetype details */
   getLeavesDetails() {
     this.LM.getLeaveDetails('lm_leavesmaster',null,1,100).subscribe((result) =>{
-      this.leavedata = result.data[0];
-      console.log( this.leavedata)
-      for(let i=0; i<result.data.length;i++) {
-        this.existingLeaveTypes.push(result.data[i].leavename);
-        this.existingColors.push(result.data[i].leavecolor);
-        this.existingDisplayNames.push(result.data[i].display_name);
-      }
+      this.existingLeaveTypes = result.data;
+      console.log( result.data)
+      // for(let i=0; i<result.data.length;i++) {
+      //   this.existingLeaveTypes.push(result.data[i].leavename);
+      //   this.existingColors.push(result.data[i].leavecolor);
+      //   this.existingDisplayNames.push(result.data[i].display_name);
+      // }
 
     });
   }

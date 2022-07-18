@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LeavePoliciesService } from 'src/app/services/leave-policies.service'; 
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AddleavepopupComponent } from '../addleavepopup/addleavepopup.component';
-
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-leavepolicies',
   templateUrl: './leavepolicies.component.html',
@@ -26,6 +26,7 @@ export class LeavepoliciesComponent implements OnInit {
   advanceLeavetypes:any=[];
   isadvanced:boolean=false;
   isaddnew:boolean=true;
+  isaddnewleave:boolean =false;
   dataSource: MatTableDataSource<any>=<any>[];
   dataSource2: MatTableDataSource<any>=<any>[];
   dataSource3: MatTableDataSource<any>=<any>[];
@@ -86,7 +87,7 @@ export class LeavepoliciesComponent implements OnInit {
   msgLM110:any;
   msgLM111:any;
  
-  constructor(private LM:LeavePoliciesService,private dialog: MatDialog,private formBuilder: FormBuilder,) { }
+  constructor(private LM:LeavePoliciesService,private router: Router,private dialog: MatDialog,private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
     this.getLeaveRules();
@@ -101,36 +102,36 @@ export class LeavepoliciesComponent implements OnInit {
       
     });
     this.addleaveForm = this.formBuilder.group({
-      displayname:["",],
-      leaveid:["",],
-      advancedleaveid:[""],
-      leavecolor:[""],
-      pastdays:["",],
-      LEAVES_MAX_COUNT_PER_YEAR:["",],
-      data:["",],
-      maxcapyear:[""],
-      LEAVES_CREDIT_FREQUENCY:[""],
-      LEAVES_WEEKENDS_INCLUDED:["",],
-      LEAVES_COMPANY_HOLIDAYS_INCLUDED:[""],
-      LEAVES_MAX_CAP_FOR_ONE_INSTANCE:[""],
-      LEAVES_MIN_SERVICE_ELIGIBILITY:[""],
-      LEAVES_MIN_DAYS_PRIOR_APPLICATION:[""],
-      LEAVES_COUNT_TO_BE_CARRIED_FORWARD:[""],
-      LEAVES_MAX_AVAIL_COUNT:["",],
-      LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD:["",],
-      LEAVES_GAP_BETWEEN_TERMS:[""],
-      MAX_AVAIL_COUNT:[""],
-      LEAVES_MAX_COUNT_PER_TERM:[""],
-      LEAVES_ELIGIBLE_ON_WEEKOFFS:[""],
-      LEAVES_ELIGIBILITY_MINIMUM_HOURS:[""],
-      LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY:["",],
-      SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS:[""],
-      LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS:["",],
-      LEAVES_LAPSE_PERIOD:[""],
-      LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE:[""],
-      COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY:["",],
-      COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION:[""],
-      COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS:[""],
+      displayname:["",Validators.required],
+      leaveid:["",Validators.required],
+      advancedleaveid:["",Validators.required],
+      leavecolor:["",Validators.required],
+      pastdays:["",Validators.required],
+      LEAVES_MAX_COUNT_PER_YEAR:["",Validators.required],
+      data:["",Validators.required],
+      maxcapyear:["",Validators.required],
+      LEAVES_CREDIT_FREQUENCY:["",Validators.required],
+      LEAVES_WEEKENDS_INCLUDED:["",Validators.required],
+      LEAVES_COMPANY_HOLIDAYS_INCLUDED:["",Validators.required],
+      LEAVES_MAX_CAP_FOR_ONE_INSTANCE:["",Validators.required],
+      LEAVES_MIN_SERVICE_ELIGIBILITY:["",Validators.required],
+      LEAVES_MIN_DAYS_PRIOR_APPLICATION:["",Validators.required],
+      LEAVES_COUNT_TO_BE_CARRIED_FORWARD:["",Validators.required],
+      LEAVES_MAX_AVAIL_COUNT:["",Validators.required],
+      LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD:["",Validators.required],
+      LEAVES_GAP_BETWEEN_TERMS:["",Validators.required],
+      MAX_AVAIL_COUNT:["",Validators.required],
+      LEAVES_MAX_COUNT_PER_TERM:["",Validators.required],
+      LEAVES_ELIGIBLE_ON_WEEKOFFS:["",Validators.required],
+      LEAVES_ELIGIBILITY_MINIMUM_HOURS:["",Validators.required],
+      LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY:["",Validators.required],
+      SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS:["",Validators.required],
+      LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS:["",Validators.required],
+      LEAVES_LAPSE_PERIOD:["",Validators.required],
+      LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE:["",Validators.required],
+      COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY:["",Validators.required],
+      COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION:["",Validators.required],
+      COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS:["",Validators.required],
       
 
     });
@@ -150,7 +151,7 @@ export class LeavepoliciesComponent implements OnInit {
       console.log(this.leaveTypes.length)
       for(let i=0;i<this.leaveTypes.length;i++){
         if(this.leaveTypes[i].id == selectedValue){
-          this.addleaveForm.controls.displayname.setValue(this.leaveTypes[i].leavename);
+          this.addleaveForm.controls.displayname.setValue(this.leaveTypes[i].display_name);
           break;
         }
 
@@ -180,6 +181,7 @@ export class LeavepoliciesComponent implements OnInit {
   }
   /**Edit time get leavetypes */
   getLeavesDetailsedit(leave:any) {
+    this.isaddnewleave = false;
     this.LM.getLeaveDetails('lm_leavesmaster','Active',1,100).subscribe((result) =>{
       if(result.status) {
         this.leaveTypes = result.data;
@@ -187,6 +189,7 @@ export class LeavepoliciesComponent implements OnInit {
         this.editLeaveInfo = leave;
  
         this.isaddnew=false;
+        this.isaddnewleave=true;
         this.isdeactivate = true;
         this.isactivate =false;
         this.addleaveForm.controls.leaveid.setValue(leave.id)
@@ -222,42 +225,51 @@ export class LeavepoliciesComponent implements OnInit {
   }
 
   /**Active and Inactive leavetypes */
-  setLeaveStatus(){
+  setLeaveStatus(data:any){
+    console.log(data)
+    if(data){
       var info = {
-          id: this.editLeaveInfo.id,
-          leavetype_status:this.editLeaveInfo.status
+        id: this.addleaveForm.controls.leaveid.value,
+        leavetype_status:'Active'
       }
-      if(this.editLeaveInfo.status === 'Active') {
-          info.leavetype_status = 'Inactive';
+
+    }
+    else{
+      var info = {
+        id: this.addleaveForm.controls.leaveid.value,
+        leavetype_status:'Inactive'
       }
-      else if(this.editLeaveInfo.status === 'Inactive') {
-          info.leavetype_status = 'Active';
-      }
+
+    }
+    
+      // if(this.editLeaveInfo.status === 'Active') {
+      //     info.leavetype_status = 'Inactive';
+      // }
+      // else if(this.editLeaveInfo.status === 'Inactive') {
+      //     info.leavetype_status = 'Active';
+      // }
+      
       console.log("this.editLeaveInfo.info",info,this.editLeaveInfo)
      
       this.LM.setToggleLeaveType(info).subscribe((data) => {
     
-          if(data.status && this.editLeaveInfo.status == 'Active'){
+          if(data.status && info.leavetype_status == 'Inactive'){
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
               data: 'Leave type deactivated successfully'
             });
-              this.editLeaveInfo.status = info.leavetype_status;
-              this.cancelLeave()
-              // window.location.href='AddLeaveConfigure'
-              this.ngOnInit();
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Admin/Leavepolicies"]));
           }
-          else if(data.status && this.editLeaveInfo.status == 'Inactive'){
+          else if(data.status && info.leavetype_status == 'Active'){
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
               data: 'Leave type activated successfully'
             });  
-            // this.toastr.success("Leave type activated successfully")
-              this.editLeaveInfo.status = info.leavetype_status;
-              this.cancelLeave()
-              // window.location.href='AddLeaveConfigure'
+            this.cancelLeave()
+            
               this.ngOnInit();
           }
           // else {
@@ -443,6 +455,7 @@ export class LeavepoliciesComponent implements OnInit {
   /**Edit active status leave */
   editLeaveTypeName(leave:any){
     console.log(leave)
+    
     this.displayedColumns3 = leave.id > 11 ? this.displayedColumns4 : this.displayedColumns4.filter(column => column !== 'actions');
     this.leaveTypes=[];
     this.getLeavesDetailsedit(leave);
@@ -457,13 +470,14 @@ export class LeavepoliciesComponent implements OnInit {
 
    return this.leaveTypes.find(function(element:any){
       if(element.id == value){
+        console.log(element)
         return element;
       }
     });
   }
   /**setleavepolicies */
   setleavepolicies(){
-    this.leaveConfig = this.getLeaveFormatedValue(this.leaveId);
+    this.leaveConfig = this.getLeaveFormatedValue(this.addleaveForm.controls.leaveid.value);
   for(let i=0;i<this.ruleInfos.length;i++){
     // console.log(this.ruleInfos[i].rulename)
     if(this.ruleInfos[i].rulename === "MAX_AVAIL_COUNT"){
@@ -550,44 +564,26 @@ export class LeavepoliciesComponent implements OnInit {
   
 
 if( this.validateCustomLeave(info.ruleData)) {
-  // for(let m=0;m<info.ruleData.length;m++){
-  //   info.ruleData[m].leavecolor = info.ruleData[0].leavecolor;
-  //   if (info.ruleData[m].status == 'Inactive') {
-  //     info.ruleData[m].status = 'Active'
-  //   } else{
-  //         info.ruleData[m].status = 'Inactive'
-  //   }
-  // }
-
-  console.log("hellooo",this.leaveConfigure,this.editLeaveInfo)
-  // this.LM.updateLeaveDisplayName(this.leaveConfigure).subscribe((data:any)=>{})
+  console.log("hellooo",this.leaveConfig,this.editLeaveInfo)
+  // this.LM.updateLeaveDisplayName(this.leaveConfig).subscribe((data:any)=>{})
   console.log("afetr",info)
   this.LM.setLeaveConfigure(info).subscribe((data) => {
     // this.isEditLeaveType = false;
     if (data.status) {
-      console.log("submit")
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
         disableClose: true,
         data: 'Leave type added successfully'
       });
-      // if(flag == 'submit') {
-      //   this.toastr.success(this.msgLM110)
-      // }else{
-      //   this.toastr.success(this.msgLM111)
-
-      // }
-      // this.cancelLeave();
-      
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Admin/Leavepolicies"])); 
     }
     else {
-      console.log("failure")
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
         disableClose: true,
         data: 'Unable to add Leave type '
       });
-      // this.toastr.error(data.message)
     }
   });
 }
@@ -609,6 +605,7 @@ if( this.validateCustomLeave(info.ruleData)) {
   }
   addLeaveConfigure(){
     this.isaddnew=false;
+    this.isaddnewleave=true;
   }
   addnewleave(){
       let dialogRef = this.dialog.open(AddleavepopupComponent, {

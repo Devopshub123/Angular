@@ -8,6 +8,9 @@
               This field required
             </mat-error>
           </mat-form-field><br>
+          <div class="extra" style="color: red;" *ngIf="isLeaveAlreadyExists">
+            This Leavetype  existed
+          </div>
         
           <mat-form-field class="popup" fxFlex.xs="100" >
             <input matInput formControlName="displayname" placeholder="Display Name" required>
@@ -19,6 +22,9 @@
         </mat-error> -->
           
           </mat-form-field><br>
+          <div class="extra" style="color: red;" *ngIf="isDisplayAlreadyExists">
+            This Displayname  existed
+          </div>
         
           <mat-form-field class="popup" fxFlex.xs="100">
             <input style="width: 50%;" matInput formControlName="colors" type="color"   placeholder="Color" required>
@@ -31,7 +37,7 @@
             </mat-error> -->
            
           </mat-form-field><br>
-          <div style="color: red;" *ngIf="isLeaveColorAlreadyExists">
+          <div class="extra" style="color: red;" *ngIf="isLeaveColorAlreadyExists">
             This color  existed
           </div>
     </form>
