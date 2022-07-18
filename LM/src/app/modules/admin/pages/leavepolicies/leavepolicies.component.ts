@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LeavePoliciesService } from 'src/app/services/leave-policies.service'; 
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AddleavepopupComponent } from '../addleavepopup/addleavepopup.component';
+
 @Component({
   selector: 'app-leavepolicies',
   templateUrl: './leavepolicies.component.html',
@@ -441,13 +442,14 @@ export class LeavepoliciesComponent implements OnInit {
   }
   /**Edit active status leave */
   editLeaveTypeName(leave:any){
-   
+    console.log(leave)
     this.displayedColumns3 = leave.id > 11 ? this.displayedColumns4 : this.displayedColumns4.filter(column => column !== 'actions');
     this.leaveTypes=[];
     this.getLeavesDetailsedit(leave);
+    // this.defaultRuleInfo
    
-    // this.addleaveForm.controls.leaveid.disable()
-    
+
+   
     
   }
   getLeaveFormatedValue(value:any)
@@ -564,23 +566,27 @@ if( this.validateCustomLeave(info.ruleData)) {
     // this.isEditLeaveType = false;
     if (data.status) {
       console.log("submit")
-      // let dialogRef = this.dialog.open(ReusableDialogComponent, {
-      //   position:{top:`70px`},
-      //   disableClose: true,
-      //   data: 'Unable to add holidays'
-      // });
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data: 'Leave type added successfully'
+      });
       // if(flag == 'submit') {
       //   this.toastr.success(this.msgLM110)
       // }else{
       //   this.toastr.success(this.msgLM111)
 
       // }
-      // this.cancelLeave()
-      // window.location.href='AddLeaveConfigure'
-      this.ngOnInit();
+      // this.cancelLeave();
+      
     }
     else {
       console.log("failure")
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data: 'Unable to add Leave type '
+      });
       // this.toastr.error(data.message)
     }
   });
@@ -619,45 +625,12 @@ if( this.validateCustomLeave(info.ruleData)) {
 
   changeLeaveType(id:any,flag:any){
     this.leaveId = id;
-  
-
-    // if(this.leaveConfigure.leaveId == 1 && flag == null) {
-    //       // this.advanceLeavetypes =this.getAdvancedLeavetypes();
-    //   this.leaveTypes.findIndex((item: { id: any; display_name: any; }) => {
-    //     if (item.id == id) {
-    //       this.leaveConfigure.displayName = item.display_name;
-    //     }
-    //   });
-
-    //   }
-    //   else {
-
-    //   // if(this.leaveConfigure.leaveId == 1){
-    //   //   this.leaveTypes.findIndex(item => {
-    //   //     if (item.id == id) {
-    //   //       this.leaveConfigure.displayName = item.display_name;
-    //   //     }
-    //   //   })
-    //   // }else{
-    //     this.leaveTypes.findIndex((item: { id: any; display_name: any; }) => {
-    //       if (item.id == id) {
-    //         this.leaveConfigure.displayName = item.display_name;
-    //       }
-    //     })
-    //   // }
-
-    //   /* this.leaveConfigure.displayName =  leave.split('-')[1];*/
-    //   this.ruleInfo = [];
-
-      // this.LM.getLeaveTypes('LM_RuleMaster',1,100).subscribe((data) =>{
       this.LM.getLeavePolicies(this.leaveId, false, 1, 100).subscribe((result) => {
         var ruleDetails = JSON.parse(result.data[0].json);
         this.ruleInfos = JSON.parse(result.data[0].json);
-      console.log("hjsdjhvhh",ruleDetails)
       this.rgbsplit(ruleDetails[0].leavecolor)
         if(this.leaveId == 1 && flag === 'edit'){
           this.leaveConfigure.advancedLeaveId = ruleDetails[0].value;
-
         }
         for (let obj of ruleDetails) {
           if(obj.status === "Inactive"){
@@ -671,15 +644,86 @@ if( this.validateCustomLeave(info.ruleData)) {
           obj.isValidate = false;
         }
         this.ruleInfo = ruleDetails;
-        // this.ruleInfos = ruleDetails;
         this.ruleInfo.push({ruledescription:"Select unique color for each leave type"})
-
         console.log("hjsdjhvhh",ruleDetails[0].leavecolor)
+        for(let i=0;i<this.ruleInfos.length;i++){
+          // console.log(this.ruleInfos[i].rulename)
+          if(this.ruleInfos[i].rulename === "MAX_AVAIL_COUNT"){
+            this.addleaveForm.controls.MAX_AVAIL_COUNT.setValue(this.ruleInfos[i].value);
+         
+          }
+          else if(this.ruleInfos[i].rulename ===  "LEAVES_GAP_BETWEEN_TERMS"){
+             this.addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_TERM"){
+         
+           this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_CREDIT_FREQUENCY"){
+      
+            this.addleaveForm.controls.LEAVES_CREDIT_FREQUENCY.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_WEEKENDS_INCLUDED"){
         
+            this.addleaveForm.controls.LEAVES_WEEKENDS_INCLUDED.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_COMPANY_HOLIDAYS_INCLUDED"){
         
+             this.addleaveForm.controls.LEAVES_COMPANY_HOLIDAYS_INCLUDED.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_MAX_CAP_FOR_ONE_INSTANCE"){
         
+            this.addleaveForm.controls.LEAVES_MAX_CAP_FOR_ONE_INSTANCE.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_MIN_SERVICE_ELIGIBILITY"){
+          
+            this.addleaveForm.controls.LEAVES_MIN_SERVICE_ELIGIBILITY.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_MIN_DAYS_PRIOR_APPLICATION"){
+            
+            this.addleaveForm.controls.LEAVES_MIN_DAYS_PRIOR_APPLICATION.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_COUNT_TO_BE_CARRIED_FORWARD"){
         
-        console.log(this.rgbcolor)
+            this.addleaveForm.controls.LEAVES_COUNT_TO_BE_CARRIED_FORWARD.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_MAX_AVAIL_COUNT"){
+       
+            this.addleaveForm.controls.LEAVES_MAX_AVAIL_COUNT.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD"){
+            
+            this.addleaveForm.controls.LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_ELIGIBLE_ON_WEEKOFFS"){
+          
+            this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_WEEKOFFS.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS"){
+          
+          this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE"){
+            
+            this.addleaveForm.controls.LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY"){
+       
+            this.addleaveForm.controls.COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION"){
+           
+          this.addleaveForm.controls.COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS"){
+         
+            this.addleaveForm.controls.COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS.setValue(this.ruleInfos[i].value);
+          }
+          else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_YEAR"){
+            
+            this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.setValue(this.ruleInfos[i].value);
+          }
+        }
         this.addleaveForm.controls.leavecolor.setValue(this.rgbcolor);
         this.dataSource3 = new MatTableDataSource(this.ruleInfo);
 
@@ -750,12 +794,21 @@ hexToRgb(hex:any) {
         /*  this.isEditLeaveType = false;*/
         this.getLeaveRules();
           if(data.status){
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: data.message
+            });
               // this.toastr.success(data.message)
             this.isEditDefaultRules = false;
             this.ngOnInit();
           }
           else {
-              // this.toastr.error(this.msgLM41)
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: 'Unable to update leave policies. Please try again.'
+            });
           }
       });
 
@@ -763,6 +816,7 @@ hexToRgb(hex:any) {
   }
   validation(){
     var valid = true;
+    console.log("hjj",this.defaultRuleInfo.length)
     for(let i =0; i< this.defaultRuleInfo.length; i++){
       if(this.defaultRuleInfo[i].value === null || this.defaultRuleInfo[i].value === ''){
         valid = false;
@@ -787,10 +841,36 @@ hexToRgb(hex:any) {
     }
     return valid;
    }
-  cancelDefaultRules(){}
+  cancelDefaultRules(){
+    this.isEditDefaultRules = !this.isEditDefaultRules;
+
+  }
   editDefaultRules(){
     this.isEditDefaultRules=true;
-    
+    console.log()
+    for(let i=0;i<this.defaultRuleInfo.length;i++){
+    //   if(this.defaultRuleInfo[i].rulename=='LEAVES_DEFAULT_TYPE_FOR_DEDUCTION'){
+        
+
+    //  }
+    if(this.defaultRuleInfo[i].rulename=='LEAVES_WEEKENDS_INCLUDED'){
+       
+      // this.leavepoliciesForm.controls.email.SetValue(this.defaultRuleInfo[i].value)
+       }
+     else if(this.defaultRuleInfo[i].rulename=='LEAVES_IS_MAIL_FACILITY_REQUIRED'){
+      this.leavepoliciesForm.controls.email.setValue(this.defaultRuleInfo[i].value)
+
+    }
+    else if(this.defaultRuleInfo[i].rulename=='LEAVES_DURATION_FOR_BACKDATED_LEAVES'){
+      this.leavepoliciesForm.controls.pastdays.setValue(this.defaultRuleInfo[i].value)
+
+    }
+    else if(this.defaultRuleInfo[i].rulename=='LEAVE_CYCLE_YEAR'){
+       
+      this.leavepoliciesForm.controls.leavecycleyear.setValue(this.defaultRuleInfo[i].value)
+   }
+
+    }
   }
 
 }
