@@ -47,6 +47,7 @@ export class WorklocationComponent implements OnInit {
   isdata:boolean=true;
   isadd:boolean=false;
   isview:boolean=false;
+  ishide:boolean=true;
   editworklocation:boolean=false;
   
   displayedColumns: string[] = ['city-branch','prefix','seed','status','Action'];
@@ -190,7 +191,7 @@ export class WorklocationComponent implements OnInit {
     this.isadd=true;
     this.isdata=false;
     this.isview=true;
-    
+    this.ishide=false;
     this.worklocationForm.controls.country.setValue(data.country)  
     this.worklocationForm.controls.address1.setValue(data.address1)      
     this.worklocationForm.controls.address2.setValue(data.address2)   
@@ -218,6 +219,7 @@ export class WorklocationComponent implements OnInit {
     this.isadd=true;
     this.isdata=false;
     this.isview=false;
+    this.ishide=true;
   }
   getCountry(){
     this.LM.getCountry('countrymaster',null,1,10,'nandyala_hospitals').subscribe((data)=>{
