@@ -118,7 +118,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
       width: '500px',position:{top:`70px`},
-      data: {name: this.titleName, reason: this.reason,}
+      data: {name: this.titleName, reason: this.reason}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -170,6 +170,8 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
       this.router.navigate(['/LeaveManagement/LeaveHistory'])
 
     }
+    this.router.navigate([this.leaveInfo.leaveData.url])
+
   }
 
 

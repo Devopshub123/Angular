@@ -36,3 +36,8 @@
   border:2px solid #F5F5DC;
 }
 
+span[data-title]:hover:after{
+  content: attr(data-title);
+  background-color: #1d7af3;
+}
+

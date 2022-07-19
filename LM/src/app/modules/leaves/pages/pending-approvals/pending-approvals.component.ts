@@ -84,7 +84,8 @@ export class PendingApprovalsComponent implements OnInit {
  * **/
 
 leaveReview(leave:any){
-    this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: leave ,isleave:true} });
+  leave.url = '/LeaveManagement/ManagerDashboard'
+  this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: leave ,isleave:true} });
   }
 
   leaveApprove(leave:any,status:any,approverId:any){
@@ -103,14 +104,14 @@ leaveReview(leave:any){
           this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
             position:{top:`70px`},
             disableClose: true,
-            data: this.LM113
+            data: {Message:this.LM113,url: '/LeaveManagement/ManagerDashboard'}
           });
           this.getLeavesForApprovals();
         }else {
           this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
             position:{top:`70px`},
             disableClose: true,
-            data: this.LM114
+            data: {Message:this.LM113,url: '/LeaveManagement/ManagerDashboard'}
           });
           this.getLeavesForApprovals();
         }
@@ -118,7 +119,7 @@ leaveReview(leave:any){
         this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
           position:{top:`70px`},
           disableClose: true,
-          data: 'Please try again later'
+          data: {Message:'Please try again later',url: '/LeaveManagement/ManagerDashboard'}
         });
 
       }

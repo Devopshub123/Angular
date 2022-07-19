@@ -1,1 +1,228 @@
-<p>detailed-report-for-manager works!</p>
+<div fxLayout="column">
+
+  <mat-card>
+    <mat-card-header class="heading">
+      <mat-card-title class="headingtext"> Details Report</mat-card-title>
+    </mat-card-header>
+    <br />
+    <div [formGroup]="searchForm">
+      <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" >
+        <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+          <mat-label>Leave Type</mat-label>
+          <mat-select formControlName="leaveType" required>
+            <mat-option value="All"> All </mat-option>
+            <ng-container *ngFor="let e of leaveTypes">
+              <mat-option [value]="e.id">{{e.leavename}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+          <mat-label>Leave Status</mat-label>
+          <mat-select formControlName="leaveStatus" required>
+            <mat-option value="All"> All</mat-option>
+            <mat-option value="Approved">Approved</mat-option>
+            <mat-option value="Approved"> Submitted</mat-option>
+            <mat-option value="Rejected"> Rejected</mat-option>
+            <mat-option value="Cancel"> Cancelled</mat-option>
+            <mat-option value="Deleted"> Deleted</mat-option>
+          </mat-select>
+
+        </mat-form-field>
+        <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+          <mat-label>Designations</mat-label>
+          <mat-select formControlName="designation" required>
+            <mat-option value="All"> All </mat-option>
+            <ng-container *ngFor="let d of designations">
+              <mat-option [value]="d.id">{{d.designation}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" >
+      <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+        <mat-label>from Date</mat-label>
+        <input matInput readonly [matDatepicker]="fromDate"
+               placeholder="From Date" formControlName="fromDate">
+        <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
+        <mat-datepicker #fromDate></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+        <mat-label>To Date</mat-label>
+        <input matInput readonly [matDatepicker]="toDate"
+               placeholder="To Date" formControlName="toDate">
+        <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
+        <mat-datepicker #toDate></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+        <!--<mat-label>Leave Status</mat-label>-->
+        <mat-select formControlName="DateFormate" required>
+          <mat-option  value="currentWeek"> Current Week</mat-option>
+          <mat-option value="lastWeek">Last Week</mat-option>
+          <mat-option value="currentMonth"> Current Month</mat-option>
+          <mat-option value="lastMonth"> Last Month</mat-option>
+          <mat-option value="quaterOne"> Quater 1(Jan-Mar)</mat-option>
+          <mat-option value="quaterTwo"> Quater 2(Apr-Jun)</mat-option>
+          <mat-option value="quaterThree"> Quater 3(Jul-Sep)</mat-option>
+          <mat-option value="quaterFour"> Quater 4(Oct-Dec)</mat-option>
+          <!--<mat-option value="Deleted"> Current</mat-option>-->
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" >
+      <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+        <mat-label>Employe Name and ID</mat-label>
+        <mat-select formControlName="employeeId" required>
+          <mat-option value="All"> All </mat-option>
+          <ng-container *ngFor="let e of employeeDetails">
+            <mat-option [value]="e.empid">{{e.empname+'  '}}-{{'  '+e.employee_code}}</mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </div>
+      <div fxLayout="row" fxFlex.xs="100%" style="justify-content: center;"  class="showLine">
+                <span>
+                    <button class="mx-2 my-2 button-save" style="height: 44px;" (click)="Searchform()"
+                            mat-stroked-button>
+                        Search
+                    </button>
+                </span>
+        <span class="line" style="color:#1898D5;font-size:16px"></span>
+        <button class="mx-2 my-2 mat-flat-button  button-clear" style="height: 44px;" (click)="resetform()">
+          <span>Clear</span>
+        </button>
+      </div>
+    <!--</div>-->
+
+        <!--<mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">-->
+          <!--<mat-label>Date</mat-label>-->
+          <!--<input matInput readonly [matDatepicker]="fromDate" [min]="minDate" [max]="maxDate"-->
+                 <!--placeholder="From Date" formControlName="fromDate">-->
+          <!--<mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>-->
+          <!--<mat-datepicker #fromDate></mat-datepicker>-->
+        <!--</mat-form-field>-->
+
+
+      <!--</div>-->
+      <!--<div fxLayout="row" fxFlex.xs="100%" class="showLine">-->
+                <!--<span>-->
+                    <!--<button class="mx-2 my-2 button-save" style="height: 44px;" (click)="Searchform()"-->
+                            <!--mat-stroked-button>-->
+                        <!--Show-->
+                    <!--</button>-->
+                <!--</span>-->
+        <!--<span class="line" style="color:#1898D5;font-size:16px"></span>-->
+        <!--<button class="mx-2 my-2 mat-flat-button  button-clear" style="height: 44px;" (click)="resetform()">-->
+          <!--<span>Clear</span>-->
+        <!--</button>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash; <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">-->
+    <!--<div>-->
+      <!--<span class="exlprint"> | </span>-->
+      <!--<a> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">-->
+      <!--</a>-->
+    <!--</div>-->
+  <!--</div> &ndash;&gt;-->
+    </div>
+  </mat-card>
+
+  <!--<div class="p-2">-->
+
+    <!--<div class="example-container mat-elevation-z8">-->
+      <!--&lt;!&ndash; <mat-table #table [dataSource]="dataSource" *ngIf="List.length > 0">-->
+    <!--<ng-container matColumnDef="sno">-->
+      <!--<mat-header-cell *matHeaderCellDef><b>S.No. </b></mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row; let i = index;">{{i+1}}</mat-cell>-->
+      <!---->
+    <!--</ng-container>-->
+    <!--<ng-container matColumnDef="empname">-->
+      <!--<mat-header-cell *matHeaderCellDef><b>Employee Name </b></mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row;">{{row.empname}}</mat-cell>-->
+      <!---->
+    <!--</ng-container>-->
+    <!--<ng-container matColumnDef="attendancedate">-->
+      <!--<mat-header-cell *matHeaderCellDef><b>Date</b></mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row"> {{row.attendancedate}} </mat-cell>-->
+    <!--</ng-container>-->
+    <!--<ng-container matColumnDef="firstlogintime">-->
+      <!--<mat-header-cell *matHeaderCellDef><b> First In</b></mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row"> {{row.firstlogintime}} </mat-cell>-->
+
+    <!--</ng-container>-->
+    <!--<ng-container matColumnDef="lastlogouttime">-->
+      <!--<mat-header-cell *matHeaderCellDef><b>Last Out </b></mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row"> {{row.lastlogouttime}} </mat-cell>-->
+
+    <!--</ng-container>-->
+    <!--<ng-container matColumnDef="totalhours">-->
+      <!--<mat-header-cell *matHeaderCellDef><b>Total Hours </b></mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row"> {{row.totalhours}} </mat-cell>-->
+
+    <!--</ng-container>-->
+    <!--<ng-container matColumnDef="breaks">-->
+      <!--<mat-header-cell *matHeaderCellDef><b>Breaks </b></mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row"> {{row.breaks}} </mat-cell>-->
+
+    <!--</ng-container>-->
+    <!--<ng-container matColumnDef="breaktime">-->
+      <!--<mat-header-cell *matHeaderCellDef><b>Break Time </b></mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row"> {{row.breaktime}} </mat-cell>-->
+
+    <!--</ng-container>-->
+    <!--<ng-container matColumnDef="productivehours">-->
+      <!--<mat-header-cell *matHeaderCellDef><b>Production Hours</b></mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row"> {{row.productivehours}} </mat-cell>-->
+
+    <!--</ng-container>-->
+    <!--<ng-container matColumnDef="action">-->
+      <!--<mat-header-cell *matHeaderCellDef><b>Action</b></mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row"> <a style="color: blue" (click)="openDialog(row)"><u>Details</u></a> </mat-cell>-->
+
+    <!--</ng-container>-->
+    <!--<mat-header-row class="headerbox" *matHeaderRowDef="displayedColumns; sticky:true">-->
+    <!--</mat-header-row>-->
+    <!--<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
+  <!--</mat-table> &ndash;&gt;-->
+
+      <!--<table style="width:100%;">-->
+        <!--<tr>-->
+          <!--<th>Employee</th>-->
+          <!--<th>-->
+            <!--<table style="width:100%;">-->
+              <!--<tr>-->
+                                <!--<span *ngFor="let day of dateDayArray">-->
+                                    <!--<th>{{ day.date | date: 'MMM d' }}</th>-->
+                                <!--</span>-->
+              <!--</tr>-->
+
+              <!--<tr>-->
+                                <!--<span *ngFor="let day of dateDayArray">-->
+                                    <!--<th>{{ day.day }}</th>-->
+                                <!--</span>-->
+              <!--</tr>-->
+            <!--</table>-->
+          <!--</th>-->
+          <!--<th>Presents</th>-->
+        <!--</tr>-->
+        <!--<ng-container *ngFor="let item of List">-->
+          <!--<tr style="width:100%;">-->
+            <!--<td>{{item.empname}}</td>-->
+            <!--<td>-->
+              <!--<table style="width:100%;">-->
+                <!--<tr><span *ngFor="let day of item.attendancedata;let i=index;">-->
+                                        <!--<td>{{ day.present_or_absent }}</td>-->
+                                    <!--</span></tr>-->
+              <!--</table>-->
+            <!--</td>-->
+            <!--<td>40</td>-->
+
+          <!--</tr>-->
+        <!--</ng-container>-->
+
+      <!--</table>-->
+
+      <!--<div style="text-align: center;padding-top: 20px;" *ngIf="List.length === 0">No data found in selected date-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+</div>

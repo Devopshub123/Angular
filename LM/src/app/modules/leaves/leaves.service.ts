@@ -41,5 +41,14 @@ export class LeavesService {
   getCompoffs(data:any): any{
     return this.http.post(this.mainUrl + 'api/getCompoffs',data,this.httpOptions);
   }
+  getMastertable(data:any):Observable<any>{
+    return this.http.post(this.mainUrl + 'api/getMastertables',data,this.httpOptions);
+  }
+  getEmployeesForReportingManager(id:any):Observable<any>{
+    return this.http.get(this.mainUrl + 'api/getEmployeesForReportingManager/'+id,this.httpOptions);
+  }
+  getEmployeeLeaveDetailedReportForManager(data:any):Observable<any>{
+    return this.http.post(this.mainUrl + 'api/getEmployeeLeaveDetailedReportForManager',data,this.httpOptions);
+  }
 
 }

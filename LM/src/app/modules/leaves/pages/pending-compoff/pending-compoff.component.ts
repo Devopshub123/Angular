@@ -85,14 +85,14 @@ export class PendingCompoffComponent implements OnInit {
           this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
             position:{top:`70px`},
             disableClose: true,
-            data: this.LM115
+            data:{Message:this.LM115,url: '/LeaveManagement/ManagerDashboard'}
           });
           this.getCompoffForApprovals();
         }else {
           this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
             position:{top:`70px`},
             disableClose: true,
-            data: this.LM116
+            data: {Message:this.LM116,url: '/LeaveManagement/ManagerDashboard'}
           });
           this.getCompoffForApprovals();
         }
@@ -100,7 +100,7 @@ export class PendingCompoffComponent implements OnInit {
         this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
           position:{top:`70px`},
           disableClose: true,
-          data: 'Please try again later'
+          data: {Message:'Please try again later',url: '/LeaveManagement/ManagerDashboard'}
         });
 
       }
@@ -117,6 +117,10 @@ export class PendingCompoffComponent implements OnInit {
   }
 
   compoffReview(compoff:any){
+    compoff.leavestatus = compoff.status;
+    console.log("hsfkldkfksjd",compoff);
+    compoff.url = '/LeaveManagement/ManagerDashboard'
+
     this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: compoff ,isleave:false} });
 
   }

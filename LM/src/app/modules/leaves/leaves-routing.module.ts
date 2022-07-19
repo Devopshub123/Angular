@@ -7,6 +7,7 @@ import {ManagerDashboardComponent} from "./pages/manager-dashboard/manager-dashb
 import {PendingCompoffComponent} from "./pages/pending-compoff/pending-compoff.component";
 import {LeaveHistoryComponent} from "./pages/leave-history/leave-history.component";
 import {CompOffHistoryComponent} from "./pages/comp-off-history/comp-off-history.component";
+import {DetailedReportForManagerComponent} from "./pages/detailed-report-for-manager/detailed-report-for-manager.component";
 
 const routes: Routes = [
   {path:'',component:MainComponent,children:[
@@ -15,7 +16,8 @@ const routes: Routes = [
       {path:"ManagerDashboard",component:ManagerDashboardComponent},
       {path:"PendingCompoff",component:PendingCompoffComponent},
       {path:"LeaveHistory",component:LeaveHistoryComponent},
-      {path:"CompOffHistory",component:CompOffHistoryComponent}
+      {path:"CompOffHistory",component:CompOffHistoryComponent},
+      {path:'DetailedReport',component:DetailedReportForManagerComponent}
 
     ]}
 ];
