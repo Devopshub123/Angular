@@ -77,23 +77,27 @@ export class AddleavepopupComponent implements OnInit {
   /**add new custom leave types */
   submit(){
     this.isCustomLeaveSubmitted = true
-    let info = {
-      displayName: this.leaveTypeForm.controls.leavetypename.value,
-      leaveColor:"rgb("+this.hexToRgb(this.leaveTypeForm.controls.colors.value)+")",
-      leaveTypeName: this.leaveTypeForm.controls.displayname.value
-    }
-    if(!this.isLeaveAlreadyExists && !this.isDisplayAlreadyExists && !this.isLeaveColorAlreadyExists){
-      this.LM.setNewLeaveType(info).subscribe((data) => {        
-        if (data.status) {         
-          this.dialogRef.close();
+    if(this.leaveTypeForm.valid){
+      let info = {
+        displayName: this.leaveTypeForm.controls.leavetypename.value,
+        leaveColor:"rgb("+this.hexToRgb(this.leaveTypeForm.controls.colors.value)+")",
+        leaveTypeName: this.leaveTypeForm.controls.displayname.value
+      }
+      
+      if(!this.isLeaveAlreadyExists && !this.isDisplayAlreadyExists && !this.isLeaveColorAlreadyExists){
+        this.LM.setNewLeaveType(info).subscribe((data) => {        
+          if (data.status) {         
+            this.dialogRef.close();
+          }
+          else {
+           
+          }
+        });
+         console.log(info)
+      }
 
-        }
-        else {
-         
-        }
-      });
-
     }
+    
       
   }
 hexToRgb(hex:any) {

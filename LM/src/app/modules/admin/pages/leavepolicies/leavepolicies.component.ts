@@ -32,6 +32,7 @@ export class LeavepoliciesComponent implements OnInit {
   dataSource3: MatTableDataSource<any>=<any>[];
   isEditDefaultRules:boolean=false;
   actionflag:boolean=false;
+  ischecked:boolean=false;
   tabledata:boolean=false;
   arrayValue:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}]
   arrayValues:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}]
@@ -146,6 +147,34 @@ export class LeavepoliciesComponent implements OnInit {
         this.actionflag=false;
       }
       else{
+        this.addleaveForm.controls.leavecolor.disable();
+        this.addleaveForm.controls.pastdays.disable();
+        this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.disable();
+        this.addleaveForm.controls.data.disable();
+        this.addleaveForm.controls.maxcapyear.disable();
+        this.addleaveForm.controls.LEAVES_CREDIT_FREQUENCY.disable();
+        this.addleaveForm.controls.LEAVES_WEEKENDS_INCLUDED.disable();
+        this.addleaveForm.controls.LEAVES_COMPANY_HOLIDAYS_INCLUDED.disable();
+        this.addleaveForm.controls.LEAVES_MAX_CAP_FOR_ONE_INSTANCE.disable();
+        this.addleaveForm.controls.LEAVES_MIN_SERVICE_ELIGIBILITY.disable();
+        this.addleaveForm.controls.LEAVES_MIN_DAYS_PRIOR_APPLICATION.disable();
+        this.addleaveForm.controls.LEAVES_COUNT_TO_BE_CARRIED_FORWARD.disable();
+        this.addleaveForm.controls.LEAVES_MAX_AVAIL_COUNT.disable();
+        this.addleaveForm.controls.LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD.disable();
+        this.addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.disable();
+        this.addleaveForm.controls.MAX_AVAIL_COUNT.disable();
+        this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.disable();
+        this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_WEEKOFFS.disable();
+        this.addleaveForm.controls.LEAVES_ELIGIBILITY_MINIMUM_HOURS.disable();
+
+        this.addleaveForm.controls.LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY.disable();
+        this.addleaveForm.controls.SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS.disable();
+        this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS.disable();
+        this.addleaveForm.controls.LEAVES_LAPSE_PERIOD.disable();
+        this.addleaveForm.controls.LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE.disable();
+        this.addleaveForm.controls.COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY.disable();
+        this.addleaveForm.controls.COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION.disable();
+        this.addleaveForm.controls.COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS.disable();
         this.actionflag = true;
       }
       console.log(this.leaveTypes.length)
@@ -615,9 +644,16 @@ if( this.validateCustomLeave(info.ruleData)) {
       })
   }
   /**toggle change */
-  toglechange(element:any) {
-    console.log(element)
-    // element.disable() = !element.disable();
+  toglechange(event:any,element:any) {
+    
+    if(event.checked){
+      this.addleaveForm.get(element.rulename).enable();
+    }
+  
+    
+    else{
+      this.addleaveForm.get(element.rulename).disable();
+    }
   }
 
   changeLeaveType(id:any,flag:any){

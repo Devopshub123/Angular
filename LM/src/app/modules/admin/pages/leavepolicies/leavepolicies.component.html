@@ -222,7 +222,7 @@
                                 <th mat-header-cell *matHeaderCellDef  style="padding-left: 60px"></th>
                                      <td mat-cell *matCellDef="let data "> 
                                         <div *ngIf="data.rulename == 'LEAVES_MAX_COUNT_PER_YEAR'">
-                                            <input type="text"  style="width: 60%;" onlyNumber formControlName="LEAVES_MAX_COUNT_PER_YEAR" matInput>
+                                            <input type="text"  style="width: 60%;" onlyNumber formControlName="LEAVES_MAX_COUNT_PER_YEAR" matInput placeholder="{{data.value}}">
                                             <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.errors?.required">
                                                 This field required
                                             </mat-error>
@@ -416,7 +416,7 @@
                                 <ng-container matColumnDef="actions" >
                                     
                                         <th mat-header-cell *matHeaderCellDef > Action</th>
-                                        <td mat-cell *matCellDef="let data; let i = index;" ><mat-slide-toggle (change)="toglechange(data)"></mat-slide-toggle> </td>
+                                        <td mat-cell *matCellDef="let data; let i = index;" ><mat-slide-toggle [checked]="ischecked" (change)="toglechange($event,data)"></mat-slide-toggle> </td>
    
                                    
                                 </ng-container>
