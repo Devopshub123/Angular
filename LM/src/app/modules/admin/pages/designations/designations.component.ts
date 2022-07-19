@@ -166,8 +166,8 @@ export class DesignationsComponent implements OnInit {
     // this.getDesignation();
   }
   edit(event:any,i:any){
-    this.designationForm.controls.designation.setValue('')
-    this.enable = i;
+    this.designationForm.controls.designation.setValue(i.designation)
+    this.enable = i.id;
     this.isEdit=false;
     this.isSave=true;
 

@@ -167,9 +167,9 @@ export class DeparmentComponent implements OnInit {
     })
   }
   edit(w:any,i:any){
-   
-    this.departmentForm.controls.department.setValue('');
-    this.enable = i;
+   console.log(i.deptname)
+    this.departmentForm.controls.department.setValue(i.deptname);
+    this.enable = i.id;
     this.isEdit=false;
     this.isSave=true;
     // VOFormElement.get('VORows').at(i).get('isEditable').patchValue(false);
