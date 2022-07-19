@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup ,Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MatDialog ,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/modules/attendance/dialog/dialog.component';
+import { Router, RouterModule } from '@angular/router';
 
 import { LeavePoliciesService } from 'src/app/services/leave-policies.service'; 
 export interface DialogData {
@@ -49,7 +50,7 @@ export class AddleavepopupComponent implements OnInit {
   //   <ngx-mat-color-picker #picker></ngx-mat-color-picker>
   // </mat-form-field>`;
 
-  constructor(private LM:LeavePoliciesService,private formBuilder:FormBuilder,public dialogRef: MatDialogRef<AddleavepopupComponent>,
+  constructor(private LM:LeavePoliciesService,private formBuilder:FormBuilder,private router: Router,public dialogRef: MatDialogRef<AddleavepopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,) { }
 
   ngOnInit(): void {
@@ -88,6 +89,8 @@ export class AddleavepopupComponent implements OnInit {
         this.LM.setNewLeaveType(info).subscribe((data) => {        
           if (data.status) {         
             this.dialogRef.close();
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Admin/Leavepolicies"]));
           }
           else {
            

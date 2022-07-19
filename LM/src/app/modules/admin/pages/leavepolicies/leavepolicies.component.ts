@@ -140,6 +140,41 @@ export class LeavepoliciesComponent implements OnInit {
       this.setleavecolor = "rgb("+this.hexToRgb(selectedValue)+")"
     });
     
+    this.addleaveForm.get('advancedleaveid')?.valueChanges.subscribe((selectedValue:any) => {
+      console.log(selectedValue)
+      this.tabledata=true;
+      // this.isaddnew=false;
+      this.changeLeaveType(selectedValue,null);
+      this.addleaveForm.controls.leavecolor.disable();
+      this.addleaveForm.controls.pastdays.disable();
+      this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.disable();
+      this.addleaveForm.controls.data.disable();
+      this.addleaveForm.controls.maxcapyear.disable();
+      this.addleaveForm.controls.LEAVES_CREDIT_FREQUENCY.disable();
+      this.addleaveForm.controls.LEAVES_WEEKENDS_INCLUDED.disable();
+      this.addleaveForm.controls.LEAVES_COMPANY_HOLIDAYS_INCLUDED.disable();
+      this.addleaveForm.controls.LEAVES_MAX_CAP_FOR_ONE_INSTANCE.disable();
+      this.addleaveForm.controls.LEAVES_MIN_SERVICE_ELIGIBILITY.disable();
+      this.addleaveForm.controls.LEAVES_MIN_DAYS_PRIOR_APPLICATION.disable();
+      this.addleaveForm.controls.LEAVES_COUNT_TO_BE_CARRIED_FORWARD.disable();
+      this.addleaveForm.controls.LEAVES_MAX_AVAIL_COUNT.disable();
+      this.addleaveForm.controls.LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD.disable();
+      this.addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.disable();
+      this.addleaveForm.controls.MAX_AVAIL_COUNT.disable();
+      this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.disable();
+      this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_WEEKOFFS.disable();
+      this.addleaveForm.controls.LEAVES_ELIGIBILITY_MINIMUM_HOURS.disable();
+
+      this.addleaveForm.controls.LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY.disable();
+      this.addleaveForm.controls.SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS.disable();
+      this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS.disable();
+      this.addleaveForm.controls.LEAVES_LAPSE_PERIOD.disable();
+      this.addleaveForm.controls.LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE.disable();
+      this.addleaveForm.controls.COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY.disable();
+      this.addleaveForm.controls.COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION.disable();
+      this.addleaveForm.controls.COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS.disable();
+      this.displayedColumns3 =  selectedValue > 11 ? this.displayedColumns4 : this.displayedColumns4.filter(column => column !== 'actions');
+    })
     this.addleaveForm.get('leaveid')?.valueChanges.subscribe((selectedValue:any) => {
       console.log(selectedValue)
       this.tabledata = true;
@@ -185,13 +220,13 @@ export class LeavepoliciesComponent implements OnInit {
         }
 
       }
-      this.displayedColumns3 =  selectedValue > 11 ? this.displayedColumns4 : this.displayedColumns4.filter(column => column !== 'actions');
-
       if(selectedValue == 1){
         this.isadvanced = true;
+        this.tabledata=false;
       }
       else{
         this.isadvanced = false;
+        this.displayedColumns3 =  selectedValue > 11 ? this.displayedColumns4 : this.displayedColumns4.filter(column => column !== 'actions');
       }
       this.changeLeaveType(selectedValue,null);
 
@@ -509,87 +544,115 @@ export class LeavepoliciesComponent implements OnInit {
     this.leaveConfig = this.getLeaveFormatedValue(this.addleaveForm.controls.leaveid.value);
   for(let i=0;i<this.ruleInfos.length;i++){
     // console.log(this.ruleInfos[i].rulename)
-    if(this.ruleInfos[i].rulename === "MAX_AVAIL_COUNT"){
+    if(this.ruleInfos[i].rulename === "MAX_AVAIL_COUNT" && this.addleaveForm.controls.MAX_AVAIL_COUNT.value !=null ){
       this.ruleInfos[i].value = this.addleaveForm.controls.MAX_AVAIL_COUNT.value;
       this.ruleInfos[i].leavecolor = this.setleavecolor;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename ===  "LEAVES_GAP_BETWEEN_TERMS"){
+    else if(this.ruleInfos[i].rulename ===  "LEAVES_GAP_BETWEEN_TERMS" && this.addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.value !=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value =this.addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_TERM"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_TERM" &&this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.value!=null){
+      console.log(this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.value)
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value =this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_CREDIT_FREQUENCY"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_CREDIT_FREQUENCY" && this.addleaveForm.controls.LEAVES_CREDIT_FREQUENCY.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_CREDIT_FREQUENCY.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_WEEKENDS_INCLUDED"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_WEEKENDS_INCLUDED" && this.addleaveForm.controls.LEAVES_WEEKENDS_INCLUDED.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_WEEKENDS_INCLUDED.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_COMPANY_HOLIDAYS_INCLUDED"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_COMPANY_HOLIDAYS_INCLUDED" && this.addleaveForm.controls.LEAVES_COMPANY_HOLIDAYS_INCLUDED.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_COMPANY_HOLIDAYS_INCLUDED.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_MAX_CAP_FOR_ONE_INSTANCE"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_MAX_CAP_FOR_ONE_INSTANCE" && this.addleaveForm.controls.LEAVES_MAX_CAP_FOR_ONE_INSTANCE.value!=null ){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MAX_CAP_FOR_ONE_INSTANCE.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_MIN_SERVICE_ELIGIBILITY"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_MIN_SERVICE_ELIGIBILITY" && this.addleaveForm.controls.LEAVES_MIN_SERVICE_ELIGIBILITY.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MIN_SERVICE_ELIGIBILITY.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_MIN_DAYS_PRIOR_APPLICATION"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_MIN_DAYS_PRIOR_APPLICATION" && this.addleaveForm.controls.LEAVES_MIN_DAYS_PRIOR_APPLICATION.value !=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MIN_DAYS_PRIOR_APPLICATION.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_COUNT_TO_BE_CARRIED_FORWARD"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_COUNT_TO_BE_CARRIED_FORWARD" && this.addleaveForm.controls.LEAVES_COUNT_TO_BE_CARRIED_FORWARD.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_COUNT_TO_BE_CARRIED_FORWARD.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_MAX_AVAIL_COUNT"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_MAX_AVAIL_COUNT" && this.addleaveForm.controls.LEAVES_MAX_AVAIL_COUNT.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MAX_AVAIL_COUNT.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD" && this.addleaveForm.controls.LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_ELIGIBLE_ON_WEEKOFFS"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_ELIGIBLE_ON_WEEKOFFS" &&this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_WEEKOFFS.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_WEEKOFFS.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS" && this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE" && this.addleaveForm.controls.LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY"){
+    else if(this.ruleInfos[i].rulename === "COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY" && this.addleaveForm.controls.COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY.value;
+      this.ruleInfos[i].status = "Active"
     }
-    else if(this.ruleInfos[i].rulename === "COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION"){
+    else if(this.ruleInfos[i].rulename === "COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION" && this.addleaveForm.controls.COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION.value;
+      this.ruleInfos[i].status = "Active"  
     }
-    else if(this.ruleInfos[i].rulename === "COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS"){
+    else if(this.ruleInfos[i].rulename === "COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS" && this.addleaveForm.controls.COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS.value;
+      this.ruleInfos[i].status = "Active"   
     }
-    else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_YEAR"){
+    else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_YEAR" && this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.value!=null){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.value;
+      this.ruleInfos[i].status = "Active"
     }
   }
   var info = {
     ruleData:this.ruleInfos
   };
   console.log("before",info)
+  // for(let m=0;m<info.ruleData.length;m++){
+  //   info.ruleData[m].leavecolor = info.ruleData[0].leavecolor;
+  //   if (info.ruleData[m].isselected) {
+  //     info.ruleData[m].status = 'Active'
+  //   } else{
+  //         info.ruleData[m].status = 'Inactive'
+  //   }
+  // }
   
 
 if( this.validateCustomLeave(info.ruleData)) {
@@ -636,6 +699,10 @@ if( this.validateCustomLeave(info.ruleData)) {
     this.isaddnew=false;
     this.isaddnewleave=true;
   }
+  cancelledleave(){
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/Admin/Leavepolicies"]));
+  }
   addnewleave(){
       let dialogRef = this.dialog.open(AddleavepopupComponent, {
         width: '400px',
@@ -645,7 +712,6 @@ if( this.validateCustomLeave(info.ruleData)) {
   }
   /**toggle change */
   toglechange(event:any,element:any) {
-    
     if(event.checked){
       this.addleaveForm.get(element.rulename).enable();
     }
@@ -677,10 +743,8 @@ if( this.validateCustomLeave(info.ruleData)) {
           obj.isValidate = false;
         }
         this.ruleInfo = ruleDetails;
-        this.ruleInfo.push({ruledescription:"Select unique color for each leave type"})
-        console.log("hjsdjhvhh",ruleDetails[0].leavecolor)
+        this.ruleInfo.push({ruledescription:"Select unique color for each leave type",rulename:"leavecolor"})
         for(let i=0;i<this.ruleInfos.length;i++){
-          // console.log(this.ruleInfos[i].rulename)
           if(this.ruleInfos[i].rulename === "MAX_AVAIL_COUNT"){
             this.addleaveForm.controls.MAX_AVAIL_COUNT.setValue(this.ruleInfos[i].value);
          
