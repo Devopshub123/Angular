@@ -27,6 +27,7 @@
     "@fullcalendar/timegrid": "^5.11.0",
     "bn-ng-idle": "^2.0.1",
     "file-saver": "^2.0.5",
+    "ngx-pagination": "^6.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "xlsx": "^0.18.5",
