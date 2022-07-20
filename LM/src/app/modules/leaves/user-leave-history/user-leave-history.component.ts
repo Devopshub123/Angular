@@ -40,5 +40,7 @@ export class UserLeaveHistoryComponent implements OnInit {
     })
 
   }
-
+view(data:any){
+  console.log(data)
+}
 }
