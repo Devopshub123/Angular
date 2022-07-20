@@ -41,6 +41,8 @@ export class PendingCompoffComponent implements OnInit {
 
 
   getCompoffForApprovals() {
+    this.arrayList= [];
+
     this.LM.getCompoffForApprovals(this.userSession.id).subscribe((res: any) => {
       if (res.status) {
         // this.arrayList = res.data;
