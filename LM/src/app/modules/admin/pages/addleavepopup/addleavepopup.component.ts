@@ -113,7 +113,9 @@ hexToRgb(hex:any) {
 }   
   return null;
 }
-  cancel(){}
+  cancel(){
+    this.dialogRef.close();
+  }
   checkLeaveTypes(key:any,leaveData:any)
   { 
     console.log(this.existingLeaveTypes.length,key,leaveData)

@@ -49,6 +49,7 @@ export class LeavepoliciesComponent implements OnInit {
   leaveId: any;
   editLeaveInfo: any;
   leaveConfig: any;
+  advanceflag:boolean=true;
   isLeaveColorAlreadyExists:boolean=false;
   isadvanceLeveflag:boolean=false;
   DEDUCTION :boolean=false;
@@ -138,12 +139,14 @@ export class LeavepoliciesComponent implements OnInit {
     });
     this.addleaveForm.get('leavecolor')?.valueChanges.subscribe((selectedValue:any) => {
       this.setleavecolor = "rgb("+this.hexToRgb(selectedValue)+")"
+      console.log(this.setleavecolor)
+      this.checkLeaveTypes(this.addleaveForm.controls.leaveid.value,this.setleavecolor);
     });
     
     this.addleaveForm.get('advancedleaveid')?.valueChanges.subscribe((selectedValue:any) => {
       console.log(selectedValue)
       this.tabledata=true;
-      // this.isaddnew=false;
+      this.advanceflag=false
       this.changeLeaveType(selectedValue,null);
       this.addleaveForm.controls.leavecolor.disable();
       this.addleaveForm.controls.pastdays.disable();
@@ -331,7 +334,9 @@ export class LeavepoliciesComponent implements OnInit {
               position:{top:`70px`},
               disableClose: true,
               data: 'Leave type activated successfully'
-            });  
+            });
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Admin/Leavepolicies"]));  
             this.cancelLeave()
             
               this.ngOnInit();
@@ -498,8 +503,8 @@ export class LeavepoliciesComponent implements OnInit {
         valid =true;
         return valid;
       }else{
-        this.isLeaveColorAlreadyExists = true;
-        // this.isLeaveColorAlreadyExists = false;
+        // this.isLeaveColorAlreadyExists = true;
+        this.isLeaveColorAlreadyExists = false;
       }
 
     }
@@ -544,6 +549,7 @@ export class LeavepoliciesComponent implements OnInit {
     this.leaveConfig = this.getLeaveFormatedValue(this.addleaveForm.controls.leaveid.value);
   for(let i=0;i<this.ruleInfos.length;i++){
     // console.log(this.ruleInfos[i].rulename)
+    this.ruleInfos[i].leavecolor = this.setleavecolor;
     if(this.ruleInfos[i].rulename === "MAX_AVAIL_COUNT" && this.addleaveForm.controls.MAX_AVAIL_COUNT.value !=null ){
       this.ruleInfos[i].value = this.addleaveForm.controls.MAX_AVAIL_COUNT.value;
       this.ruleInfos[i].leavecolor = this.setleavecolor;
@@ -644,7 +650,7 @@ export class LeavepoliciesComponent implements OnInit {
   var info = {
     ruleData:this.ruleInfos
   };
-  console.log("before",info)
+ 
   // for(let m=0;m<info.ruleData.length;m++){
   //   info.ruleData[m].leavecolor = info.ruleData[0].leavecolor;
   //   if (info.ruleData[m].isselected) {
@@ -721,7 +727,7 @@ if( this.validateCustomLeave(info.ruleData)) {
       this.addleaveForm.get(element.rulename).disable();
     }
   }
-
+  
   changeLeaveType(id:any,flag:any){
     this.leaveId = id;
       this.LM.getLeavePolicies(this.leaveId, false, 1, 100).subscribe((result) => {
@@ -866,6 +872,7 @@ hexToRgb(hex:any) {
 }   
   return null;
 }
+
 
   /**save default rules*/
   saveDefaultrules(){

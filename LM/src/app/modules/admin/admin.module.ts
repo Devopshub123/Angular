@@ -12,10 +12,10 @@ import { CompanyinformationComponent } from './pages/companyinformation/companyi
 import { CompanylogoComponent } from './pages/companylogo/companylogo.component';
 import { RolesPermissionsComponent } from './pages/roles-permissions/roles-permissions.component';
 import { AddRoleModalComponent } from './pages/add-role-modal/add-role-modal.component';
-import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.directive';
-import { WorklocationComponent } from './pages/worklocation/worklocation.component';
-import { HolidaysComponent } from './pages/holidays/holidays.component';
-import { LeavepoliciesComponent } from './pages/leavepolicies/leavepolicies.component';
+// import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.directive';
+// import { WorklocationComponent } from './pages/worklocation/worklocation.component';
+// import { HolidaysComponent } from './pages/holidays/holidays.component';
+// import { LeavepoliciesComponent } from './pages/leavepolicies/leavepolicies.component';
 import { AddleavepopupComponent } from './pages/addleavepopup/addleavepopup.component';
 
 
@@ -29,9 +29,6 @@ import { AddleavepopupComponent } from './pages/addleavepopup/addleavepopup.comp
     CompanylogoComponent,
     RolesPermissionsComponent,
     AddRoleModalComponent,
-    WorklocationComponent,
-    HolidaysComponent,
-    LeavepoliciesComponent,
     AddleavepopupComponent
   ],
   imports: [

@@ -1,11 +1,11 @@
-<div fxLayout="column" >
+<div fxLayout="column wrap" >
     <form [formGroup]="designationForm" autocomplete="off" >
         <mat-card>
             <mat-card-header class="">
                 <mat-card-title class="title"> Designation </mat-card-title>
             </mat-card-header>
             <mat-divider></mat-divider>
-            <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd">
+            <div fxLayout="column wrap" fxLayout.xs="column" *ngIf="isAdd">
   
                 <mat-form-field fxFlex.xs="100" fxFlex.size="25" class="mx-2 my-2" appearance="outline">
                     <mat-label>Designation</mat-label>
@@ -30,7 +30,7 @@
             </div><br>
             <!-- <mat-divider></mat-divider> -->
             <div  *ngIf="isdata">
-                <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
+                <div fxLayout="row wrap" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
                     <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue" (click)="Add()" type="submit">
                         <span>Add</span>
                     </button>
