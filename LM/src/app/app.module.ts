@@ -72,6 +72,8 @@ import { LeavepoliciesComponent } from './modules/admin/pages/leavepolicies/leav
     HttpClientModule,
     CommonModule,
     MatTableModule,
+    
+
 
   ],
 

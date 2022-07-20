@@ -48,6 +48,7 @@ export class PendingApprovalsComponent implements OnInit {
    * get all pending leave for approvals
    * **/
   getLeavesForApprovals(){
+    this.arrayList= [];
     this.LM.getLeavesForApprovals(this.userSession.id).subscribe((res: any) => {
       if (res.status) {
         // this.arrayList = res.data;

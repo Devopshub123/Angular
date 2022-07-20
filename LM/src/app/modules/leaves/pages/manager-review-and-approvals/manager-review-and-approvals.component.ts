@@ -56,14 +56,14 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
         this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.appliedon), 'mediumDate') , disabled: true }],
-            empId: [{ value: this.leaveInfo.leaveData.empid, disabled: true }],
+            empId: [{ value: this.leaveInfo.leaveData.employee_id, disabled: true }],
             empName: [{ value: this.leaveInfo.leaveData.emp_name, disabled: true }],
             leaveType: [{ value:this.leaveInfo.leaveData.display_name, disabled: true }],
             fromDate: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.fromdate), 'mediumDate') , disabled: true }],
             toDate: [{ value: this.pipe.transform(new Date(this.leaveInfo.leaveData.todate), 'mediumDate') , disabled: true }],
             noOfDays: [{ value: this.leaveInfo.leaveData.leavecount, disabled: true }],
             // workType1: [{ value: this.leaveInfo.leaveDate.leavecount, disabled: true }],
-            pendingSince: [{ value: this.leaveInfo.leaveData.leavecount, disabled: true }],
+            pendingSince: [{ value: this.leaveInfo.leaveData.pendingSince, disabled: true }],
             leaveReason: [{ value: this.leaveInfo.leaveData.leavereason, disabled: true }],
             relation:[{value:this.leaveInfo.leaveData.bereavement_relation, disabled:true }],
             approvedon: [{ value: this.pipe.transform(new Date(this.leaveInfo.leaveData.approvedon), 'mediumDate'),disabled:true}],
@@ -76,7 +76,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
         this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.applied_date), 'mediumDate') , disabled: true }],
-            empId: [{ value: this.leaveInfo.leaveData.empid, disabled: true }],
+            empId: [{ value: this.leaveInfo.leaveData.employee_id, disabled: true }],
             empName: [{ value: this.leaveInfo.leaveData.employeename, disabled: true }],
             // leaveType: [{ value:this.leaveInfo.leaveData.display_name, disabled: true }],
             fromDate: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.comp_off_date), 'mediumDate') , disabled: true }],
