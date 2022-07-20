@@ -8,6 +8,17 @@
     <div [formGroup]="searchForm">
       <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" >
         <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+          <mat-label>Employe Name and ID</mat-label>
+          <mat-select formControlName="employeeId" required>
+            <mat-option value="All"> All </mat-option>
+            <ng-container *ngFor="let e of employeeDetails">
+              <mat-option [value]="e.empid">{{e.empname+'  '}}-{{'  '+e.employee_code}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" >
+        <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
           <mat-label>Leave Type</mat-label>
           <mat-select formControlName="leaveType" required>
             <mat-option value="All"> All </mat-option>
@@ -68,17 +79,17 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" >
-      <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
-        <mat-label>Employe Name and ID</mat-label>
-        <mat-select formControlName="employeeId" required>
-          <mat-option value="All"> All </mat-option>
-          <ng-container *ngFor="let e of employeeDetails">
-            <mat-option [value]="e.empid">{{e.empname+'  '}}-{{'  '+e.employee_code}}</mat-option>
-          </ng-container>
-        </mat-select>
-      </mat-form-field>
-    </div>
+    <!--<div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" >-->
+      <!--<mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">-->
+        <!--<mat-label>Employe Name and ID</mat-label>-->
+        <!--<mat-select formControlName="employeeId" required>-->
+          <!--<mat-option value="All"> All </mat-option>-->
+          <!--<ng-container *ngFor="let e of employeeDetails">-->
+            <!--<mat-option [value]="e.empid">{{e.empname+'  '}}-{{'  '+e.employee_code}}</mat-option>-->
+          <!--</ng-container>-->
+        <!--</mat-select>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
       <div fxLayout="row" fxFlex.xs="100%" style="justify-content: center;"  class="showLine">
                 <span>
                     <button class="mx-2 my-2 button-save" style="height: 44px;" (click)="Searchform()"
@@ -183,46 +194,188 @@
     <!--</mat-header-row>-->
     <!--<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
   <!--</mat-table> &ndash;&gt;-->
+  <mat-card>
+      <table class="table  table-striped">
+        <thead style="background-color: #28acaf;">
+        <tr >
+          <th scope="col" class="space">Name</th>
+          <th scope="col" class="space">Id</th>
+          <th scope="col" class="space">Leave type</th>
+          <th scope="col" class="space">Designation</th>
+          <th scope="col" class="space">Applied Date</th>
+          <th scope="col" class="space">From Date</th>
+          <th scope="col" class="space">To Date</th>
+          <th scope="col" class="space">No.of Days</th>
+          <th scope="col" class="space">Status</th>
+          <th scope="col" class="space">Approved By</th>
 
-      <!--<table style="width:100%;">-->
-        <!--<tr>-->
-          <!--<th>Employee</th>-->
-          <!--<th>-->
-            <!--<table style="width:100%;">-->
-              <!--<tr>-->
-                                <!--<span *ngFor="let day of dateDayArray">-->
-                                    <!--<th>{{ day.date | date: 'MMM d' }}</th>-->
-                                <!--</span>-->
-              <!--</tr>-->
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let item of arrayList| paginate : {
+                  itemsPerPage: tableSize,
+                  currentPage: page,
+                  totalItems: count
+                };index as i;">
 
-              <!--<tr>-->
-                                <!--<span *ngFor="let day of dateDayArray">-->
-                                    <!--<th>{{ day.day }}</th>-->
-                                <!--</span>-->
-              <!--</tr>-->
-            <!--</table>-->
-          <!--</th>-->
-          <!--<th>Presents</th>-->
-        <!--</tr>-->
-        <!--<ng-container *ngFor="let item of List">-->
-          <!--<tr style="width:100%;">-->
-            <!--<td>{{item.empname}}</td>-->
-            <!--<td>-->
-              <!--<table style="width:100%;">-->
-                <!--<tr><span *ngFor="let day of item.attendancedata;let i=index;">-->
-                                        <!--<td>{{ day.present_or_absent }}</td>-->
-                                    <!--</span></tr>-->
-              <!--</table>-->
-            <!--</td>-->
-            <!--<td>40</td>-->
+          <tr scope="row" class="spacetd">
+            <td >{{item.employee_name}}</td>
+            <td>{{item.employee_code}}</td>
+            <td>{{item.leavetype}}</td>
+            <td>{{item.designation}}</td>
+            <td>{{item.appliedon | date:'mediumDate'}}</td>
+            <td>{{item.fromdate | date:'mediumDate'}}</td>
+            <td>{{item.todate | date:'mediumDate'}}</td>
+            <td>{{item.leavecount+' days'}}</td>
+            <td>{{item.leavestatus}}</td>
+            <td>{{item.approvedby}}</td>
+          </tr>
+        </ng-container>
+        <tr *ngIf="arrayList && arrayList.length === 0">
+          <td colspan="10" style="text-align: center;">No Data Found</td>
+        </tr>
+        </tbody>
 
-          <!--</tr>-->
-        <!--</ng-container>-->
+      </table>
+    <div *ngIf="arrayList && arrayList.length  != 0" >
+      <div class="row" *ngIf="count > 10" >
+        <div class="col-md-6" >
+          <div  class="d-flex flex-row-reverse bd-highlight mb-2" style="float: left;">
+            <div class="d-flex justify-content-start">
+              <label class="col-md-4 col-form-label" >Show:</label>
+              <div class="col-md-8" >
+                <select style="width: 150px;" (change)="onTableSizeChange($event)" class="custom-select select1">
+                  <option value="10">
+                    10 Entries
+                  </option>
+                  <option  value="25">
+                    25 Entries
+                  </option>
+                  <option  value="50">
+                    50 Entries
+                  </option>
+                  <option value="{{count}}">
+                    All
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
 
-      <!--</table>-->
+          <div class="d-flex justify-content-end">
+
+            <pagination-controls
+              previousLabel="Prev"
+              nextLabel="Next"
+              (pageChange)="onTableDataChange($event)">
+            </pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
 
       <!--<div style="text-align: center;padding-top: 20px;" *ngIf="List.length === 0">No data found in selected date-->
       <!--</div>-->
     <!--</div>-->
   <!--</div>-->
+  <!--<mat-card>-->
+    <!--<mat-card-header>-->
+      <!--<mat-card-title style="text-align: center"> Pending CompOff </mat-card-title>-->
+    <!--</mat-card-header>-->
+    <!--<mat-divider></mat-divider>-->
+    <!--<div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">-->
+      <!--&lt;!&ndash;<mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">&ndash;&gt;-->
+      <!--&lt;!&ndash;<mat-label>Filter</mat-label>&ndash;&gt;-->
+      <!--&lt;!&ndash;<input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>&ndash;&gt;-->
+      <!--&lt;!&ndash;<mat-icon matSuffix>search</mat-icon>&ndash;&gt;-->
+      <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+    <!--</div>-->
+    <!--<div class="mat-elevation-z8" style="margin-top: 2%;margin-left:20px;margin-bottom:20px; margin-right:20px;">-->
+      <!--<table mat-table [dataSource]="dataSource" matSort>-->
+
+        <!--&lt;!&ndash; ID Column &ndash;&gt;-->
+        <!--<ng-container matColumnDef="employeeName">-->
+          <!--<th mat-header-cell *matHeaderCellDef mat-sort-header class="table" > Employee Name</th>-->
+          <!--<td mat-cell *matCellDef="let row" class="table" >{{row.employee_name}} </td>-->
+        <!--</ng-container>-->
+        <!--<ng-container matColumnDef="employeeId"  >-->
+          <!--<th mat-header-cell *matHeaderCellDef class="table" mat-sort-header> Employee Id</th>-->
+          <!--<td mat-cell *matCellDef="let row"class="table"  > {{row.employee_id}}</td>-->
+        <!--</ng-container>-->
+        <!--<ng-container matColumnDef="leaveType" >-->
+          <!--<th mat-header-cell *matHeaderCellDef class="table" mat-sort-header> Leave Type </th>-->
+          <!--<td mat-cell *matCellDef="let row" class="table"  > {{row.leavetype}}</td>-->
+        <!--</ng-container>-->
+        <!--&lt;!&ndash; Progress Column  empid&ndash;&gt;-->
+        <!--<ng-container matColumnDef="designation" class="table">-->
+          <!--<th mat-header-cell *matHeaderCellDef class="table" mat-sort-header style="white-space: nowrap"> Designation</th>-->
+          <!--<td mat-cell *matCellDef="let row" class="table"> {{row.designation}}</td>-->
+          <!--&lt;!&ndash;<td mat-cell *matCellDef="let row" > {{designation | date:'mediumDate'}}</td>&ndash;&gt;-->
+
+        <!--</ng-container>-->
+        <!--&lt;!&ndash;<ng-container matColumnDef="toDate">&ndash;&gt;-->
+        <!--&lt;!&ndash;<th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>&ndash;&gt;-->
+        <!--&lt;!&ndash;<td mat-cell *matCellDef="let row" style="width: 10%;" > {{row.todate  | date:'mediumDate'}}</td>&ndash;&gt;-->
+        <!--&lt;!&ndash;</ng-container>&ndash;&gt;-->
+        <!--&lt;!&ndash; Name Column &ndash;&gt;-->
+        <!--<ng-container matColumnDef="appliedDate"  >-->
+          <!--<th mat-header-cell *matHeaderCellDef class="table" mat-sort-header style="white-space: nowrap"> Applied Date </th>-->
+          <!--<td mat-cell *matCellDef="let row" class="table"  style="text-align: center;" > {{row.appliedon | date:'mediumDate'}}  </td>-->
+        <!--</ng-container>-->
+
+        <!--&lt;!&ndash; Color Column &ndash;&gt;-->
+        <!--<ng-container matColumnDef="startDate"  >-->
+          <!--<th mat-header-cell *matHeaderCellDef class="table" mat-sort-header style="white-space: nowrap"> Start Date </th>-->
+          <!--<td mat-cell *matCellDef="let row" class="table" style="text-align: center;" > {{row.fromdate | date:'mediumDate'}} </td>-->
+        <!--</ng-container>-->
+        <!--<ng-container matColumnDef="toDate" >-->
+          <!--<th mat-header-cell *matHeaderCellDef mat-sort-header class="table"> To Date</th>-->
+          <!--<td mat-cell *matCellDef="let row" class="table" style="text-align: center;" > {{row.todate | date:'mediumDate'}} </td>-->
+
+        <!--</ng-container>-->
+        <!--<ng-container matColumnDef="noOfDays" >-->
+          <!--<th mat-header-cell *matHeaderCellDef class="table" mat-sort-header> No.Of Days</th>-->
+
+          <!--<td mat-cell *matCellDef="let row" style="text-align: center" class="table"> {{row.leavecount}}</td>-->
+
+        <!--</ng-container>-->
+        <!--<ng-container matColumnDef="status"  >-->
+          <!--<th mat-header-cell *matHeaderCellDef class="table" mat-sort-header> Status</th>-->
+
+          <!--<td mat-cell *matCellDef="let row" class="table" > {{row.leavestatus}}</td>-->
+
+        <!--</ng-container>-->
+        <!--<ng-container matColumnDef="approvedBy"  >-->
+          <!--<th mat-header-cell *matHeaderCellDef class="table"mat-sort-header> Approved By</th>-->
+
+          <!--<td mat-cell *matCellDef="let row" class="table" ><span data-title="{{row.reason}}" ><i class="material-icons" aria-hidden="true">info_outline</i></span>-->
+
+          <!--</td>-->
+        <!--</ng-container>-->
+        <!--&lt;!&ndash; Color Column &ndash;&gt;-->
+        <!--&lt;!&ndash;<ng-container matColumnDef="noOfDays">&ndash;&gt;-->
+          <!--&lt;!&ndash;<th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 15%; padding: 0px;padding-left: 5%;" > No Of Days </th>&ndash;&gt;-->
+          <!--&lt;!&ndash;<td mat-cell *matCellDef="let row" style="width: 15%; padding: 0px; text-align: center;  cursor: pointer;">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<i class="material-icons mr-1" (click)="compoffApprove(row,'Approved',null)" title="Approve">check_box</i>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<i class="material-icons mr-1" (click)="compoffReject(row)" title="Reject">cancel_presentation</i>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<i class="material-icons" (click)="compoffReview(row)" title="Review and approve">preview</i>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<a routerLink="/" (click)="onApproveClick(row)">Review and Approve</a>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+          <!--&lt;!&ndash;</td>&ndash;&gt;-->
+        <!--&lt;!&ndash;</ng-container>&ndash;&gt;-->
+        <!--&lt;!&ndash; Color Column &ndash;&gt;-->
+        <!--<tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+        <!--<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+
+        <!--&lt;!&ndash; Row shown when there is no matching data. &ndash;&gt;-->
+        <!--<tr class="mat-row" *matNoDataRow>-->
+          <!--<td class="mat-cell" colspan="9">No data available</td>-->
+        <!--</tr>-->
+      <!--</table>-->
+
+      <!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>-->
+    <!--</div>-->
+  <!--</mat-card>-->
 </div>

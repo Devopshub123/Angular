@@ -30,6 +30,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.component';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { CompanyinformationComponent } from './modules/admin/pages/companyinformation/companyinformation.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
  FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -67,6 +68,8 @@ import { CompanyinformationComponent } from './modules/admin/pages/companyinform
     HttpClientModule,
     CommonModule,
     MatTableModule,
+    NgxPaginationModule
+
 
   ],
 

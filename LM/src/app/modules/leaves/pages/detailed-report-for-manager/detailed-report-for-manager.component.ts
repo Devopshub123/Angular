@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {LeavesService} from "../../leaves.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {MatTable, MatTableDataSource} from "@angular/material/table";
+import {UserData} from "../../../attendance/models/EmployeeData";
 
 @Component({
   selector: 'app-detailed-report-for-manager',
@@ -16,14 +20,38 @@ export class DetailedReportForManagerComponent implements OnInit {
    //  console.log('jdfjgk',new Date(new Date().setDate(new Date().getDate()-7)))
   }
   searchForm!: FormGroup;
-
-
+  displayedColumns: string[] = ['employeeName','employeeId' ,'leaveType','designation', 'appliedDate','startDate','toDate','noOfDays','status','approvedBy'];
+  dataSource: MatTableDataSource<UserData>=<any>[];
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+  @ViewChild(MatSort)
+  sort!: MatSort;
+  arrayList:any=[];
   userSession:any;
   leaveTypes:any=[];
   // leaveStatus:any=[];
   designations:any=[];
   employeeDetails:any = [];
+  page = 1;
+  count = 0;
+  tableSize = 10;
+  tableSizes = [10, 25, 50, 'All'];
   pipe = new DatePipe('en-US');
+  onTableDataChange(event:any){
+    this.page = event;
+
+    this.Searchform();
+    // this.getHolidays(this.year?this.year:null,this.locationId?this.locationId:null);
+  }
+  onTableSizeChange(event:any){
+    this.tableSize = event.target.value;
+
+    this.page = 1;
+    this.Searchform();
+
+    // this.getHolidays(this.year?this.year:null,this.locationId?this.locationId:null);
+
+  }
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({ leaveType: ['All'] ,leaveStatus:['All'],designation:['All'],fromDate: [new Date()], toDate: [new Date()],DateFormate:['currentWeek'],employeeId:['All'] });
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
@@ -123,6 +151,7 @@ export class DetailedReportForManagerComponent implements OnInit {
     this.searchForm.get('designation')?.valueChanges.subscribe((selectedValue:any) => {
       this.searchForm.controls.employeeId.setValue('All')
     })
+    this.Searchform();
     }
 
 
@@ -169,7 +198,6 @@ export class DetailedReportForManagerComponent implements OnInit {
 
   }
   Searchform(){
-    console.log("this.searchForm",this.searchForm.controls.value)
     let obj = {
       'employeeId':this.searchForm.controls.employeeId.value,
       'managerId':this.userSession.id,
@@ -178,13 +206,25 @@ export class DetailedReportForManagerComponent implements OnInit {
       'designation':this.searchForm.controls.designation.value,
       'fromDate':this.pipe.transform(this.searchForm.controls.fromDate.value, 'yyyy-MM-dd'),
       'toDate':this.pipe.transform(this.searchForm.controls.toDate.value, 'yyyy-MM-dd'),
-      'pageNumber':1,
-      'pageSize':10
+      'pageNumber':this.page,
+      'pageSize':this.tableSize
 
     };
     console.log("obj",obj)
     this.LM.getEmployeeLeaveDetailedReportForManager(obj).subscribe(result =>{
-      console.log("result",result)
+      if (result.status) {
+        this.arrayList = result.data;
+        this.count = this.arrayList[0].total;
+        console.log(this.arrayList,'this.arrayList')
+        this.dataSource = new MatTableDataSource(this.arrayList);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      } else {
+        this.arrayList = [];
+        this.dataSource = new MatTableDataSource(this.arrayList);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
 
     })
 

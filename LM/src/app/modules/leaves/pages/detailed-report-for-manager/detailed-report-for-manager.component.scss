@@ -1,0 +1,31 @@
+.space {
+  width:10%;
+  white-space: nowrap;
+  margin-top: 10px;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.32px;
+  color: #000000;
+}
+.spacetd {
+  margin-top: 10px;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.32px;
+  color: #000000;
+}
+
+table, td{
+  border: 1px solid;
+}
+//
+//table {
+//  width: 100%;
+//  border-collapse: collapse;
+//}

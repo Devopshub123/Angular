@@ -16,6 +16,7 @@ import { EmployeeLeavesListComponent } from './pages/employee-leaves-list/employ
 import { LeaveHistoryComponent } from './pages/leave-history/leave-history.component';
 import { CompOffHistoryComponent } from './pages/comp-off-history/comp-off-history.component';
 import { DetailedReportForManagerComponent } from './pages/detailed-report-for-manager/detailed-report-for-manager.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { DetailedReportForManagerComponent } from './pages/detailed-report-for-m
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    NgxPaginationModule,
   ]
 })
 export class LeavesModule { }
