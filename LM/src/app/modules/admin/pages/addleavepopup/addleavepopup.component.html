@@ -1,18 +1,20 @@
 
 <div class="example-container" style="overflow: hidden;">
     <form [formGroup]="leaveTypeForm" autocomplete="off" style="text-align: centre;">
-      <h4 style="text-align: centre;">Add</h4>
-          <mat-form-field class="popup" fxFlex.xs="100" >
+      <h2 style="text-align: centre;">Add</h2>
+          <mat-form-field class="popup" fxFlex.xs="100" appearance="outline">
+            <mat-label>Leave Type Name</mat-label>
             <input matInput formControlName="leavetypename" placeholder="Leave Type Name" required>
             <mat-error class="con-error" *ngIf="leaveTypeForm.controls.leavetypename.errors?.required">
               This field required
             </mat-error>
           </mat-form-field><br>
           <div class="extra" style="color: red;" *ngIf="isLeaveAlreadyExists">
-            This Leavetype  existed
+            This leavetype  existed
           </div>
         
-          <mat-form-field class="popup" fxFlex.xs="100" >
+          <mat-form-field class="popup" fxFlex.xs="100" appearance="outline">
+            <mat-label>Display Name</mat-label>
             <input matInput formControlName="displayname" placeholder="Display Name" required>
             <mat-error class="con-error" *ngIf="leaveTypeForm.controls.displayname.errors?.required">
               This field required
@@ -23,16 +25,17 @@
           
           </mat-form-field><br>
           <div class="extra" style="color: red;" *ngIf="isDisplayAlreadyExists">
-            This Displayname  existed
+            This displayname  existed
           </div>
         
-          <mat-form-field class="popup" fxFlex.xs="100">
+          <mat-form-field class="popup" fxFlex.xs="100" appearance="outline">
+            <mat-label>Color</mat-label>
             <input style="width: 50%;" matInput formControlName="colors" type="color"   placeholder="Color" required>
-            <!-- <mat-error  *ngIf="leaveTypeForm.controls.colors.errors?.required">
+            <mat-error  *ngIf="leaveTypeForm.controls.colors.errors?.required">
               This field required
-            </mat-error> -->
+            </mat-error>
             
-            <!-- <mat-error *ngIf="isLeaveColorAlreadyExists" >
+            <!-- <mat-error *ngIf="leaveTypeForm.controls.colors.errors?isLeaveColorAlreadyExists" >
               This color  existeddd
             </mat-error> -->
            
@@ -44,10 +47,10 @@
     
   </div>
   <div fxLayoutAlign="end">
-    <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue" (click)="submit()" type="submit">
+    <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue"  (click)="submit()" type="submit">
         <span>Submit</span>
     </button>
-
+    <!-- [disabled]="!leaveTypeForm.valid " -->
     <button class="mx-1  mat-stroked-button button-clear"  style="background-color:#550534;color:aliceblue" (click)="cancel()">
         <span >Cancel</span>
     </button>
