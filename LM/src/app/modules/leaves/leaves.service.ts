@@ -50,5 +50,12 @@ export class LeavesService {
   getEmployeeLeaveDetailedReportForManager(data:any):Observable<any>{
     return this.http.post(this.mainUrl + 'api/getEmployeeLeaveDetailedReportForManager',data,this.httpOptions);
   }
-
+  /**Get Leave History */
+  getleavehistory(empid:any,page:any,size:any) :Observable<any>{
+    return this.http.get(this.mainUrl +'api/getemployeeleaves/'+empid+'/'+page+'/'+size, this.httpOptions);
+}
+/**Leave Balance */
+getLeaveBalance(empid:any): Observable<any> {
+  return this.http.get(this.mainUrl+'api/getLeaveBalance/'+empid,this.httpOptions);
+}
 }

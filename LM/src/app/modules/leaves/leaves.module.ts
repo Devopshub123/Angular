@@ -17,6 +17,8 @@ import { LeaveHistoryComponent } from './pages/leave-history/leave-history.compo
 import { CompOffHistoryComponent } from './pages/comp-off-history/comp-off-history.component';
 import { DetailedReportForManagerComponent } from './pages/detailed-report-for-manager/detailed-report-for-manager.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { UserLeaveHistoryComponent } from './user-leave-history/user-leave-history.component';
+import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balance.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     LeaveHistoryComponent,
     CompOffHistoryComponent,
     DetailedReportForManagerComponent,
+    UserLeaveHistoryComponent,
+    UserLeaveBalanceComponent,
   ],
   imports: [
     CommonModule,
