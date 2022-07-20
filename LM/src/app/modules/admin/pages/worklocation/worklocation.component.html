@@ -121,11 +121,11 @@
                     </mat-form-field>
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                         <mat-label>Prefix</mat-label>
-                        <input formControlName="prefix" matInput placeholder=""  maxlength="100">
+                        <input formControlName="prefix" matInput placeholder=""  maxlength="16">
                     </mat-form-field>
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                         <mat-label>Seed</mat-label>
-                        <input type="text" onlyNumber formControlName="seed" matInput placeholder="" required maxlength="100">
+                        <input type="text" onlyNumber formControlName="seed" matInput placeholder="" required maxlength="11">
                         <mat-error class="con-error" *ngIf="worklocationForm.controls.seed.errors?.required">
                           This field is required
                         </mat-error>

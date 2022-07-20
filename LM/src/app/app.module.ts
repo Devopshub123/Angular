@@ -30,7 +30,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MainDashboardComponent } from './pages/main-dashboard/main-dashboard.component';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { CompanyinformationComponent } from './modules/admin/pages/companyinformation/companyinformation.component';
-
+import { WorklocationComponent } from './modules/admin/pages/worklocation/worklocation.component';
+import { HolidaysComponent } from './modules/admin/pages/holidays/holidays.component';
+import { LeavepoliciesComponent } from './modules/admin/pages/leavepolicies/leavepolicies.component';
  FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin
@@ -51,6 +53,9 @@ import { CompanyinformationComponent } from './modules/admin/pages/companyinform
     MainComponent,
     EmployeeMasterToAddComponent,
     CompanyinformationComponent,
+    WorklocationComponent,
+    HolidaysComponent,
+    LeavepoliciesComponent,
     MainDashboardComponent
   ],
   imports: [

@@ -4,7 +4,7 @@
       <h2 style="text-align: centre;">Add</h2>
           <mat-form-field class="popup" fxFlex.xs="100" appearance="outline">
             <mat-label>Leave Type Name</mat-label>
-            <input matInput formControlName="leavetypename" placeholder="Leave Type Name" required>
+            <input matInput formControlName="leavetypename" placeholder="" required>
             <mat-error class="con-error" *ngIf="leaveTypeForm.controls.leavetypename.errors?.required">
               This field required
             </mat-error>
@@ -15,7 +15,7 @@
         
           <mat-form-field class="popup" fxFlex.xs="100" appearance="outline">
             <mat-label>Display Name</mat-label>
-            <input matInput formControlName="displayname" placeholder="Display Name" required>
+            <input matInput formControlName="displayname" placeholder="" required>
             <mat-error class="con-error" *ngIf="leaveTypeForm.controls.displayname.errors?.required">
               This field required
           </mat-error>
@@ -28,19 +28,19 @@
             This displayname  existed
           </div>
         
-          <mat-form-field class="popup" fxFlex.xs="100" appearance="outline">
+          <mat-form-field class="popup" fxFlex.xs="100" >
             <mat-label>Color</mat-label>
-            <input style="width: 50%;" matInput formControlName="colors" type="color"   placeholder="Color" required>
+            <input style="width: 50%;" matInput formControlName="colors" type="color"   placeholder="" required>
             <mat-error  *ngIf="leaveTypeForm.controls.colors.errors?.required">
               This field required
             </mat-error>
             
-            <!-- <mat-error *ngIf="leaveTypeForm.controls.colors.errors?isLeaveColorAlreadyExists" >
+            <!-- <mat-error *ngIf="isLeaveColorAlreadyExists" >
               This color  existeddd
             </mat-error> -->
            
           </mat-form-field><br>
-          <div class="extra" style="color: red;" *ngIf="isLeaveColorAlreadyExists">
+          <div class="extra" style="color: red;"  *ngIf="isLeaveColorAlreadyExists" >
             This color  existed
           </div>
     </form>
