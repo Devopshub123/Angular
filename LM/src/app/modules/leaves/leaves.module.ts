@@ -19,6 +19,8 @@ import { DetailedReportForManagerComponent } from './pages/detailed-report-for-m
 import {NgxPaginationModule} from 'ngx-pagination';
 import { SummaryReportForManagerComponent } from './pages/summary-report-for-manager/summary-report-for-manager.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { UserLeaveHistoryComponent } from './user-leave-history/user-leave-history.component';
+import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balance.component';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CompOffHistoryComponent,
     DetailedReportForManagerComponent,
     SummaryReportForManagerComponent,
+    UserLeaveHistoryComponent,
+    UserLeaveBalanceComponent,
   ],
   imports: [
     CommonModule,

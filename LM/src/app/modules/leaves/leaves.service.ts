@@ -58,5 +58,21 @@ export class LeavesService {
     return this.http.get(this.mainUrl + 'api/getYearsForReport',this.httpOptions);
   }
 
+  /**Get Leave History */
+  getleavehistory(empid:any,page:any,size:any) :Observable<any>{
+    return this.http.get(this.mainUrl +'api/getemployeeleaves/'+empid+'/'+page+'/'+size, this.httpOptions);
+}
+/**Leave Balance */
+getLeaveBalance(empid:any): Observable<any> {
+  return this.http.get(this.mainUrl+'api/getLeaveBalance/'+empid,this.httpOptions);
+}
+setDeleteLeaveRequest(info:any): Observable<any> {
+  console.log(info)
+  return this.http.post(this.mainUrl+'api/setDeleteLeaveRequest',JSON.stringify(info), this.httpOptions);
+}
+cancelLeaveRequest(info:any): Observable<any> {
+  console.log(info)
+  return this.http.post(this.mainUrl+'api/cancelLeaveRequest',JSON.stringify(info), this.httpOptions);
 
+}
 }

@@ -1,0 +1,38 @@
+<div fxLayout="column" >
+    <mat-card>
+        <mat-card-header class="">
+            <mat-card-title class="title"> Leave History </mat-card-title>
+        </mat-card-header>
+
+        <div class="row wrap"  >
+            <ng-container *ngFor="let leave of leavedata;index as i;">
+                <mat-card style="width:250px; margin:10px;">
+                    <mat-card-title fxLayoutAlign="center">{{leave.leavename}}</mat-card-title>
+                    <mat-divider></mat-divider>
+                    <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">
+                        <mat-label>Used</mat-label>
+                        <mat-label>{{leave.used}}</mat-label>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">
+                        <mat-label>Available</mat-label>
+                        <mat-label>{{leave.leave_balance}}</mat-label>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">
+                        <mat-label>Total</mat-label>
+                        <mat-label>{{leave.total}}</mat-label>
+                    </div>
+        
+                    
+        
+                </mat-card>
+
+            </ng-container>
+            
+            
+
+        </div>
+        
+    </mat-card>
+</div>        
