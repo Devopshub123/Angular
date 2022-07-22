@@ -16,9 +16,12 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 export class UserLeaveHistoryComponent implements OnInit {
   usersession:any;
   leavedata:any;
+  viewdata:any;
   deletedata:any;
   titleName:any;
   reason:any;
+  isview:boolean=false;
+  isdata:boolean=true;
   maxall : number=20;
   displayedColumns: string[] = ['appliedon','leavetype','fromdate','todate','days','status','approver','action'];
   dataSource: MatTableDataSource<any>=<any>[];
@@ -60,7 +63,14 @@ export class UserLeaveHistoryComponent implements OnInit {
      
   }
 view(data:any){
+  this.isview=true;
+  this.isdata=false;
+  this.viewdata = data;
   console.log(data)
+}
+close(){
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/LeaveManagement/UserLeaveHistory"]));
 }
 cancel(data:any){
   this.deletedata = data;
