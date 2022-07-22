@@ -33,6 +33,8 @@ import { CompanyinformationComponent } from './modules/admin/pages/companyinform
 import { WorklocationComponent } from './modules/admin/pages/worklocation/worklocation.component';
 import { HolidaysComponent } from './modules/admin/pages/holidays/holidays.component';
 import { LeavepoliciesComponent } from './modules/admin/pages/leavepolicies/leavepolicies.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
  FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin
@@ -72,7 +74,8 @@ import { LeavepoliciesComponent } from './modules/admin/pages/leavepolicies/leav
     HttpClientModule,
     CommonModule,
     MatTableModule,
-    
+    NgxSpinnerModule
+
 
 
   ],

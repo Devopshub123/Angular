@@ -6,6 +6,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {UserData} from "../../../attendance/models/EmployeeData";
+import * as XLSX from "xlsx";
 
 @Component({
   selector: 'app-detailed-report-for-manager',
@@ -149,7 +150,8 @@ export class DetailedReportForManagerComponent implements OnInit {
 
     })
     this.searchForm.get('designation')?.valueChanges.subscribe((selectedValue:any) => {
-      this.searchForm.controls.employeeId.setValue('All')
+      this.searchForm.controls.employeeId.setValue('All');
+      this.getEmployeesForReportingManager()
     })
     this.Searchform();
     }
@@ -189,7 +191,11 @@ export class DetailedReportForManagerComponent implements OnInit {
   }
 
   getEmployeesForReportingManager(){
-    this.LM.getEmployeesForReportingManager(this.userSession.id).subscribe(result=>{
+    let input ={
+      'managerId' : this.userSession.id,
+      'designationId':this.searchForm.controls.designation.value
+    }
+    this.LM.getEmployeesForReportingManager(input).subscribe(result=>{
       if(result && result.status){
         this.employeeDetails = result.data;
         console.log("hvdsjhjh",this.employeeDetails)
@@ -240,6 +246,14 @@ export class DetailedReportForManagerComponent implements OnInit {
   //
   //   console.log("bkbsdhj",dateName)
   // }
+  exportAsXLSX() {
+    const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(document.getElementById('table'));
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Detailed_Report');
 
+    /* save to file */
+    XLSX.writeFile(wb, 'Detailed_Report.xlsx');
+
+  }
 
 }

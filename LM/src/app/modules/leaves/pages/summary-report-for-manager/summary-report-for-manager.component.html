@@ -1,0 +1,127 @@
+<div fxLayout="column" >
+
+  <mat-card >
+    <div style="flex-flow: nowrap">
+    <mat-card-header class="heading">
+      <mat-card-title class="headingtext"> Details Report</mat-card-title>
+    </mat-card-header>
+    <br />
+    <div [formGroup]="searchForm">
+      <div fxLayout="row" fxLayout.xs="column"   >
+      <mat-form-field fxFlex="33" fxFlex.xs="100"   class="mx-1 my-1" appearance="outline">
+        <mat-label>Designations</mat-label>
+        <mat-select  formControlName="designationId" required>
+          <mat-option value="All"> All </mat-option>
+          <ng-container *ngFor="let d of designations">
+            <mat-option [value]="d.id">{{d.designation}}</mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+
+        <mat-form-field fxFlex="33" fxFlex.xs="100"  class="mx-1 my-1" appearance="outline">
+          <mat-label>Employe Name and ID</mat-label>
+          <mat-select  formControlName="employeeId" required>
+            <mat-option value="All"> All </mat-option>
+            <ng-container *ngFor="let e of employeeDetails">
+              <mat-option [value]="e.empid">{{e.empname+'  '}}-{{'  '+e.employee_code}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field  fxFlex="33" fxFlex.xs="100"  class="mx-1 my-1" appearance="outline">
+          <mat-label>Years</mat-label>
+          <mat-select formControlName="calenderYear" required>
+            <!--<mat-option value="All"> All </mat-option>-->
+            <ng-container *ngFor="let year of calengerYearsdetails">
+              <mat-option [value]="year.year_value">{{year.year_value}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+      <div fxLayout="row"  style="justify-content: center;"  class="showLine">
+                <span>
+                    <button class="mx-2 my-2 button-save" style="height: 44px;" (click)="Searchform()"
+                            mat-stroked-button>
+                        Search
+                    </button>
+                </span>
+        <span class="line" style="color:#1898D5;font-size:16px"></span>
+        <button class="mx-2 my-2 mat-flat-button  button-clear" style="height: 44px;" (click)="resetform()">
+          <span>Clear</span>
+        </button>
+      </div>
+    </div>
+
+
+  </mat-card>
+
+  <mat-card >
+    <div style="margin-bottom: 10px" fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="summaryReports.length > 0">
+      <div>
+        <span class="exlprint"> | </span>
+        <a> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+        </a>
+      </div>
+    </div >
+    <table id ='table' class="table  table-striped">
+      <thead style="background-color: #28acaf;">
+
+      <tr *ngFor="let head of summaryReportTableHeadings">
+        <!--<span *ngFor="let head of summaryReportTableHeadings">-->
+        <!--<th scope="col" class="space">{{head}}</th>-->
+          <th class="space" >{{head.column1}}</th>
+          <th class="space">{{head.column2}}</th>
+           <th class="space">{{head.column3}}</th>
+           <th class="space">{{head.column4}}</th>
+           <th class="space">{{head.column5}}</th>
+           <th class="space">{{head.column6}}</th>
+           <th class="space">{{head.column7}}</th>
+           <th class="space">{{head.column8}}</th>
+           <th class="space">{{head.column9}}</th>
+           <th class="space">{{head.column10}}</th>
+          <th class="space">{{head.column11}}</th>
+           <th class="space">{{head.column12}}</th>
+           <th class="space">{{head.column13}}</th>
+           <th class="space">{{head.column14}}</th>
+        <!--</span>-->
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let val of summaryReports">
+
+
+        <!--<span *ngFor="let val of item">-->
+
+        <!--<td  class="spacetd">{{val}}</td>-->
+         <td  class="spacetd">{{val.column1}}</td>
+          <td class="spacetd">{{val.column2}}</td>
+           <td class="spacetd">{{val.column3}}</td>
+           <td class="spacetd">{{val.column4}}</td>
+           <td class="spacetd">{{val.column5}}</td>
+           <td class="spacetd">{{val.column6}}</td>
+           <td class="spacetd">{{val.column7}}</td>
+           <td class="spacetd">{{val.column8}}</td>
+           <td class="spacetd">{{val.column9}}</td>
+           <td class="spacetd">{{val.column10}}</td>
+          <td class="spacetd">{{val.column11}}</td>
+           <td class="spacetd">{{val.column12}}</td>
+           <td class="spacetd">{{val.column13}}</td>
+           <td class="spacetd">{{val.column14}}</td>
+          <!---->
+        <!--</span>-->
+
+      </tr>
+
+      <tr *ngIf="summaryReports && summaryReports.length === 0">
+        <td colspan="10" style="text-align: center;">No Data Found</td>
+      </tr>
+      </tbody>
+
+    </table>
+
+  </mat-card>
+  <ngx-spinner size="medium" type='ball-fussion'></ngx-spinner>
+
+</div>

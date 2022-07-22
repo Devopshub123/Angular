@@ -8,6 +8,7 @@ import {PendingCompoffComponent} from "./pages/pending-compoff/pending-compoff.c
 import {LeaveHistoryComponent} from "./pages/leave-history/leave-history.component";
 import {CompOffHistoryComponent} from "./pages/comp-off-history/comp-off-history.component";
 import {DetailedReportForManagerComponent} from "./pages/detailed-report-for-manager/detailed-report-for-manager.component";
+import {SummaryReportForManagerComponent} from "./pages/summary-report-for-manager/summary-report-for-manager.component";
 import { UserLeaveHistoryComponent } from './user-leave-history/user-leave-history.component';
 import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balance.component';
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
       {path:"LeaveHistory",component:LeaveHistoryComponent},
       {path:"CompOffHistory",component:CompOffHistoryComponent},
       {path:'DetailedReport',component:DetailedReportForManagerComponent},
+      {path:'SummaryReport',component:SummaryReportForManagerComponent},
       {path:'UserLeaveHistory',component:UserLeaveHistoryComponent},
       {path:'UserLeaveBalance',component:UserLeaveBalanceComponent}
     ]}
