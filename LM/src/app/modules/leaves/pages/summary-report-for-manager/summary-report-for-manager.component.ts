@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,ElementRef, OnInit,ViewChild } from '@angular/core';
 import {LeavesService} from "../../leaves.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import { NgxSpinnerService } from 'ngx-spinner';
+import {ExcelServiceService} from "../../../reports/excel-service.service";
+import * as XLSX from 'xlsx';
+
+
 
 
 @Component({
@@ -21,12 +25,9 @@ export class SummaryReportForManagerComponent implements OnInit {
   summaryReports:any=[];
   calengerYearsdetails :any=[];
   today:any=new Date();
-
-
-  constructor(private LM:LeavesService,public formBuilder: FormBuilder,public spinner :NgxSpinnerService) {
+  constructor(private LM:LeavesService,public formBuilder: FormBuilder,public spinner :NgxSpinnerService, private excelService: ExcelServiceService) {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
   }
-
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({ employeeId: ['All'] ,designationId:['All'] ,calenderYear:[(new Date()).getFullYear()]});
@@ -140,8 +141,6 @@ export class SummaryReportForManagerComponent implements OnInit {
         }
         this.summaryReportTableHeadings.push(obj)
 
-        console.log(" Object.values(result.data[i])",result.data,this.summaryReports, this.summaryReportTableHeadings)
-
       }
     })
 
@@ -159,4 +158,46 @@ export class SummaryReportForManagerComponent implements OnInit {
       }
     })
   }
+
+  exportAsXLSX() {
+    const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(document.getElementById('table'));
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Summary_Report');
+
+    /* save to file */
+    XLSX.writeFile(wb, 'Summary_Report.xlsx');
+
+  }
+
+
+  //
+  // exportAsXLSX() {
+  //   let edata: any = [];
+  //   let i = 1;
+  //   this.summaryReports.map(a=> {
+  //     let e: any = {};
+  //     e['Sno'] = i++;
+  //     e[this.summaryReportTableHeadings[0].column1] = a.column1;
+  //     e[this.summaryReportTableHeadings[0].column2] = a.column2;
+  //     e[this.summaryReportTableHeadings[0].column3] = a.column3;
+  //     e[this.summaryReportTableHeadings[0].column4] = a.column4;
+  //     e[this.summaryReportTableHeadings[0].column5] = a.column5;
+  //     e[this.summaryReportTableHeadings[0].column6] = a.column6;
+  //     e[this.summaryReportTableHeadings[0].column7] = a.column7;
+  //     e[this.summaryReportTableHeadings[0].column8] = a.column8;
+  //     e[this.summaryReportTableHeadings[0].column9] = a.column9;
+  //     e[this.summaryReportTableHeadings[0].column10] = a.column10;
+  //     e[this.summaryReportTableHeadings[0].column11] = a.column11;
+  //     e[this.summaryReportTableHeadings[0].column12] = a.column12;
+  //     e[this.summaryReportTableHeadings[0].column13] = a.column13;
+  //     e[this.summaryReportTableHeadings[0].column14] = a.column14;
+  //
+  //
+  //     edata.push(e);
+  //   });
+  //   this.excelService.exportAsExcelFile(edata, '');
+  // }
+
+
+
 }

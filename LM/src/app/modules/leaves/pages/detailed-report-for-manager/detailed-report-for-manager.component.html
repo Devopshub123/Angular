@@ -194,8 +194,16 @@
     <!--</mat-header-row>-->
     <!--<mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
   <!--</mat-table> &ndash;&gt;-->
+
   <mat-card>
-      <table class="table  table-striped">
+    <div style="margin-bottom: 10px" fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="arrayList.length > 0">
+      <div>
+        <span class="exlprint"> | </span>
+        <a> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+        </a>
+      </div>
+    </div >
+      <table id="table" class="table  table-striped" >
         <thead style="background-color: #28acaf;">
         <tr >
           <th scope="col" class="space">Name</th>

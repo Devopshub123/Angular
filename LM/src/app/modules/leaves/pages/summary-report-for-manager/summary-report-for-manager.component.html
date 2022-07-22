@@ -53,10 +53,18 @@
       </div>
     </div>
 
+
   </mat-card>
 
-  <mat-card>
-    <table class="table  table-striped">
+  <mat-card >
+    <div style="margin-bottom: 10px" fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="summaryReports.length > 0">
+      <div>
+        <span class="exlprint"> | </span>
+        <a> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+        </a>
+      </div>
+    </div >
+    <table id ='table' class="table  table-striped">
       <thead style="background-color: #28acaf;">
 
       <tr *ngFor="let head of summaryReportTableHeadings">

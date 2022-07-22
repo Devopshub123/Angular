@@ -6,6 +6,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {UserData} from "../../../attendance/models/EmployeeData";
+import * as XLSX from "xlsx";
 
 @Component({
   selector: 'app-detailed-report-for-manager',
@@ -245,6 +246,14 @@ export class DetailedReportForManagerComponent implements OnInit {
   //
   //   console.log("bkbsdhj",dateName)
   // }
+  exportAsXLSX() {
+    const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(document.getElementById('table'));
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Detailed_Report');
 
+    /* save to file */
+    XLSX.writeFile(wb, 'Detailed_Report.xlsx');
+
+  }
 
 }
