@@ -17,6 +17,8 @@ import { LeaveHistoryComponent } from './pages/leave-history/leave-history.compo
 import { CompOffHistoryComponent } from './pages/comp-off-history/comp-off-history.component';
 import { DetailedReportForManagerComponent } from './pages/detailed-report-for-manager/detailed-report-for-manager.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { SummaryReportForManagerComponent } from './pages/summary-report-for-manager/summary-report-for-manager.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     LeaveHistoryComponent,
     CompOffHistoryComponent,
     DetailedReportForManagerComponent,
+    SummaryReportForManagerComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +43,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ReactiveFormsModule,
     FlexLayoutModule,
     NgxPaginationModule,
+    NgxSpinnerModule,
+
   ]
 })
 export class LeavesModule { }
