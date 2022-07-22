@@ -1,15 +1,15 @@
 <div fxLayout="column">
 
-  <mat-card>
+  <mat-card style="flex-flow: row wrap;">
     <mat-card-header class="heading">
       <mat-card-title class="headingtext"> Details Report</mat-card-title>
     </mat-card-header>
     <br />
-    <div [formGroup]="searchForm">
-      <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" >
-        <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+    <div [formGroup]="searchForm"  >
+      <div fxLayout="row"  fxLayout.xs="column">
+        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
           <mat-label>Employe Name and ID</mat-label>
-          <mat-select formControlName="employeeId" required>
+          <mat-select fxFlex.xs="100" formControlName="employeeId" required>
             <mat-option value="All"> All </mat-option>
             <ng-container *ngFor="let e of employeeDetails">
               <mat-option [value]="e.empid">{{e.empname+'  '}}-{{'  '+e.employee_code}}</mat-option>
@@ -17,8 +17,8 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" >
-        <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+      <div fxLayout="row"  fxLayout.xs="column">
+        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
           <mat-label>Leave Type</mat-label>
           <mat-select formControlName="leaveType" required>
             <mat-option value="All"> All </mat-option>
@@ -27,7 +27,7 @@
             </ng-container>
           </mat-select>
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+        <mat-form-field fxFlex="33"  class="mx-1 my-1" appearance="outline">
           <mat-label>Leave Status</mat-label>
           <mat-select formControlName="leaveStatus" required>
             <mat-option value="All"> All</mat-option>
@@ -39,7 +39,7 @@
           </mat-select>
 
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
           <mat-label>Designations</mat-label>
           <mat-select formControlName="designation" required>
             <mat-option value="All"> All </mat-option>
@@ -49,22 +49,22 @@
           </mat-select>
         </mat-form-field>
       </div>
-    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" >
-      <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+    <div fxLayout="row"  fxLayout.xs="column" >
+      <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
         <mat-label>from Date</mat-label>
         <input matInput readonly [matDatepicker]="fromDate"
                placeholder="From Date" formControlName="fromDate">
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
         <mat-datepicker #fromDate></mat-datepicker>
       </mat-form-field>
-      <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+      <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
         <mat-label>To Date</mat-label>
         <input matInput readonly [matDatepicker]="toDate"
                placeholder="To Date" formControlName="toDate">
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
         <mat-datepicker #toDate></mat-datepicker>
       </mat-form-field>
-      <mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">
+      <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
         <!--<mat-label>Leave Status</mat-label>-->
         <mat-select formControlName="DateFormate" required>
           <mat-option  value="currentWeek"> Current Week</mat-option>
@@ -90,7 +90,7 @@
         <!--</mat-select>-->
       <!--</mat-form-field>-->
     <!--</div>-->
-      <div fxLayout="row" fxFlex.xs="100%" style="justify-content: center;"  class="showLine">
+      <div fxLayout="row"  style="justify-content: center;"  class="showLine">
                 <span>
                     <button class="mx-2 my-2 button-save" style="height: 44px;" (click)="Searchform()"
                             mat-stroked-button>

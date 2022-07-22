@@ -149,7 +149,8 @@ export class DetailedReportForManagerComponent implements OnInit {
 
     })
     this.searchForm.get('designation')?.valueChanges.subscribe((selectedValue:any) => {
-      this.searchForm.controls.employeeId.setValue('All')
+      this.searchForm.controls.employeeId.setValue('All');
+      this.getEmployeesForReportingManager()
     })
     this.Searchform();
     }
@@ -189,7 +190,11 @@ export class DetailedReportForManagerComponent implements OnInit {
   }
 
   getEmployeesForReportingManager(){
-    this.LM.getEmployeesForReportingManager(this.userSession.id).subscribe(result=>{
+    let input ={
+      'managerId' : this.userSession.id,
+      'designationId':this.searchForm.controls.designation.value
+    }
+    this.LM.getEmployeesForReportingManager(input).subscribe(result=>{
       if(result && result.status){
         this.employeeDetails = result.data;
         console.log("hvdsjhjh",this.employeeDetails)
