@@ -47,7 +47,7 @@
     
   </div>
   <div fxLayoutAlign="end">
-    <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue"  (click)="submit()" type="submit">
+    <button class="mx-1 mat-stroked-button btn btn-primary" [disabled]="!leaveTypeForm.valid"  (click)="submit()">
         <span>Submit</span>
     </button>
     <!-- [disabled]="!leaveTypeForm.valid " -->

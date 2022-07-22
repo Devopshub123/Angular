@@ -19,8 +19,10 @@ export class UserLeaveHistoryComponent implements OnInit {
   deletedata:any;
   titleName:any;
   reason:any;
+  maxall : number=20;
   displayedColumns: string[] = ['appliedon','leavetype','fromdate','todate','days','status','approver','action'];
   dataSource: MatTableDataSource<any>=<any>[];
+  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -31,19 +33,31 @@ export class UserLeaveHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.usersession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.dataSource.paginator = this.paginator;
     this.getleavehistory(null,null);
   }
   getleavehistory(page:any,size:any){
-    this.LM.getleavehistory(this.usersession.id,1,100).subscribe((result:any)=>{
+    this.LM.getleavehistory(this.usersession.id,1,1000).subscribe((result:any)=>{
       this.leavedata=result.data
       this.dataSource = new MatTableDataSource(this.leavedata);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log('gggggggg', result)
+      console.log('gggggggg', result,this.dataSource.paginator.length)
       // this.count = result.data[0].total;
 
     })
 
+  }
+  getPageSizeOptions(): number[] {
+    if (this.dataSource.paginator!.length > this.maxall)
+      return [5, 10, 20,this.leavedata.length];
+  
+    
+    
+    else
+      return [5, 10, 20, this.maxall];
+    
+     
   }
 view(data:any){
   console.log(data)
@@ -72,6 +86,7 @@ openDialogcancel(): void {
     }
   });
 }
+
 delete(data:any){
   this.deletedata = data;
   this.titleName="Do you really want to delete the leave?"

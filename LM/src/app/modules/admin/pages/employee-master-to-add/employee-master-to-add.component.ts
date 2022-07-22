@@ -62,6 +62,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   minDate=new Date('1950/01/01'); 
   maxDate = new Date();
   minwtodate:any;
+  maxall : number=100;
   minetodate:any;
   empid:any;
   mindatofjoin:any;
@@ -553,7 +554,17 @@ export class EmployeeMasterToAddComponent implements OnInit {
     });
 
   }
- 
+  getPageSizeOptions(): number[] {
+    if (this.dataSource.paginator!.length > this.maxall)
+      return [5, 10, 20,100,this.dataSource.paginator!.length];
+  
+    
+    
+    else
+      return [5, 10, 20,100,this.maxall];
+    
+     
+  }
   addfamily(){
     if(this.isfamilyedit){
         this.isfamilyedit = false;
