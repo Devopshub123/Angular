@@ -21,6 +21,7 @@ import { SummaryReportForManagerComponent } from './pages/summary-report-for-man
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { UserLeaveHistoryComponent } from './user-leave-history/user-leave-history.component';
 import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balance.component';
+import { UserCompoffComponent } from './pages/user-compoff/user-compoff.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balan
     SummaryReportForManagerComponent,
     UserLeaveHistoryComponent,
     UserLeaveBalanceComponent,
+    UserCompoffComponent,
   ],
   imports: [
     CommonModule,

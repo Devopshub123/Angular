@@ -23,7 +23,7 @@
                         </mat-datepicker-toggle>
                         <mat-datepicker #date></mat-datepicker>
                         <mat-error class="con-error" *ngIf="HolidayForm.controls.date.errors?.required">
-                            This field is required
+                            Please select an option
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -35,18 +35,17 @@
                         required
                         multiple 
                         #branchSelect>
-                          <mat-option disabled="disabled" class="filter-option">
-                            <button 
-                            mat-raised-button 
-                            class="mat-primary fill text-sm" 
+                         
+                            <mat-option >
+                                <span
+                            *ngIf="!ishide"
                             (click)="selectAll(branchSelect, worklocationDetails, HolidayForm.branch)">Select All
-                            </button>
-                            <button 
-                            mat-raised-button 
-                            class="mat-accent fill text-sm" 
+                          </span>
+                            <span 
+                            *ngIf="ishide"
                             (click)="deselectAll(branchSelect)">
                             Deselect All
-                            </button>
+                           </span>
                           </mat-option>
                           <mat-option *ngFor="let location of worklocationDetails" [value]="location">
                             {{location.cityname}}
@@ -86,7 +85,7 @@
                 <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
                     <mat-form-field fxFlex.xs="100%" appearance="outline">
                         <mat-label>Search</mat-label>
-                        <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="" >
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
                 </div>

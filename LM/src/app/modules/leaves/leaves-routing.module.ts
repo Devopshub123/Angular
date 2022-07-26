@@ -11,6 +11,7 @@ import {DetailedReportForManagerComponent} from "./pages/detailed-report-for-man
 import {SummaryReportForManagerComponent} from "./pages/summary-report-for-manager/summary-report-for-manager.component";
 import { UserLeaveHistoryComponent } from './user-leave-history/user-leave-history.component';
 import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balance.component';
+import { UserCompoffComponent } from './pages/user-compoff/user-compoff.component';
 const routes: Routes = [
   {path:'',component:MainComponent,children:[
       {path:'PendingApprovals',component:PendingApprovalsComponent},
@@ -22,7 +23,9 @@ const routes: Routes = [
       {path:'DetailedReport',component:DetailedReportForManagerComponent},
       {path:'SummaryReport',component:SummaryReportForManagerComponent},
       {path:'UserLeaveHistory',component:UserLeaveHistoryComponent},
-      {path:'UserLeaveBalance',component:UserLeaveBalanceComponent}
+      {path:'UserLeaveBalance',component:UserLeaveBalanceComponent},
+      {path:'UserCompOff',component:UserCompoffComponent},
+
     ]}
 ];
 

@@ -156,6 +156,8 @@ export class DesignationsComponent implements OnInit {
   Add(){
     this.isAdd = true;
     this.isdata = false;
+    this.designationForm.controls.designation.setValue('')
+    
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

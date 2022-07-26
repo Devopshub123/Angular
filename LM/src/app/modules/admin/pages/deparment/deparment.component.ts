@@ -127,6 +127,7 @@ export class DeparmentComponent implements OnInit {
   Add(){
     this.isAdd = true;
     this.isdata = false;
+    this.departmentForm.controls.department.setValue('')
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

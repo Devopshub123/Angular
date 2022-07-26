@@ -103,12 +103,12 @@
     
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>Applied On</mat-label>
-                <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.appliedon}}" >
+                <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.appliedon | date:'mediumDate' }}" >
               
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Approved'">
                 <mat-label>Approved On</mat-label>
-                <input   matInput [readonly]="true"[readonly]="true"  value="{{viewdata.updatedon}}">
+                <input   matInput [readonly]="true"[readonly]="true"  value="{{viewdata.updatedon | date:'mediumDate'}}">
 
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Rejected'">
@@ -118,19 +118,25 @@
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Deleted'">
                 <mat-label>Deleted On</mat-label>
-                <input   matInput [readonly]="true"[readonly]="true" value="{{viewdata.updatedon}}">
+                <input   matInput [readonly]="true"[readonly]="true" value="{{viewdata.updatedon | date:'mediumDate'}}">
 
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Cancelled'">
                 <mat-label>Cancelled On</mat-label>
-                <input   matInput [readonly]="true"[readonly]="true" value="{{viewdata.updatedon}}">
+                <input   matInput [readonly]="true"[readonly]="true" value="{{viewdata.updatedon | date:'mediumDate'}}">
 
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>Type Of Leave</mat-label>
-                <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.leavetype}}" >
+                <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.leavetype }}" >
               
             </mat-form-field>
+            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Submitted'">
+                <mat-label>Leave Count</mat-label>
+                <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.leavecount }}" >
+              
+            </mat-form-field>
+            
             <!-- <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>Branch Location</mat-label>
                 <input formControlName="branch" matInput [readonly]="true"[readonly]="true" value="">
@@ -143,12 +149,12 @@
 
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>From Date</mat-label>
-                <input   matInput [readonly]="true"[readonly]="true"  value="{{viewdata.fromdate  }}">
+                <input   matInput [readonly]="true"[readonly]="true"  value="{{viewdata.fromdate | date:'mediumDate' }}">
 
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>To Date</mat-label>
-                <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.todate  }}">
+                <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.todate | date:'mediumDate'  }}">
                
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
