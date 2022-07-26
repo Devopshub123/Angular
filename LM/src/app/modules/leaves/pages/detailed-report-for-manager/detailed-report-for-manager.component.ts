@@ -7,6 +7,8 @@ import {MatSort} from "@angular/material/sort";
 import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {UserData} from "../../../attendance/models/EmployeeData";
 import * as XLSX from "xlsx";
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-detailed-report-for-manager',
@@ -15,7 +17,7 @@ import * as XLSX from "xlsx";
 })
 export class DetailedReportForManagerComponent implements OnInit {
 
-  constructor(private LM:LeavesService,public formBuilder: FormBuilder) {
+  constructor(private LM:LeavesService,public formBuilder: FormBuilder,public spinner :NgxSpinnerService) {
    // var date = new Date();
    // // date.setDate(date.getDate()-7)
    //  console.log('jdfjgk',new Date(new Date().setDate(new Date().getDate()-7)))
@@ -204,6 +206,7 @@ export class DetailedReportForManagerComponent implements OnInit {
 
   }
   Searchform(){
+    this.spinner.show();
     let obj = {
       'employeeId':this.searchForm.controls.employeeId.value,
       'managerId':this.userSession.id,
@@ -218,6 +221,7 @@ export class DetailedReportForManagerComponent implements OnInit {
     };
     console.log("obj",obj)
     this.LM.getEmployeeLeaveDetailedReportForManager(obj).subscribe(result =>{
+      this.spinner.hide();
       if (result.status) {
         this.arrayList = result.data;
         this.count = this.arrayList[0].total;
