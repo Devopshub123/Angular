@@ -195,7 +195,7 @@ export class DetailedReportForManagerComponent implements OnInit {
   getEmployeesForReportingManager(){
     let input ={
       'managerId' : this.userSession.id,
-      'designationId':this.searchForm.controls.designation.value
+      'departmentId':this.searchForm.controls.designation.value
     }
     this.LM.getEmployeesForReportingManager(input).subscribe(result=>{
       if(result && result.status){
@@ -241,6 +241,8 @@ export class DetailedReportForManagerComponent implements OnInit {
 
   }
   resetform(){
+  this.ngOnInit();
+
 
   }
 
