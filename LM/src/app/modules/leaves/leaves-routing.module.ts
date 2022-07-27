@@ -11,6 +11,7 @@ import {DetailedReportForManagerComponent} from "./pages/detailed-report-for-man
 import {SummaryReportForManagerComponent} from "./pages/summary-report-for-manager/summary-report-for-manager.component";
 import { UserLeaveHistoryComponent } from './user-leave-history/user-leave-history.component';
 import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balance.component';
+import {ManagerDashboardCalenderComponent} from "./pages/manager-dashboard-calender/manager-dashboard-calender.component";
 import { UserCompoffComponent } from './pages/user-compoff/user-compoff.component';
 const routes: Routes = [
   {path:'',component:MainComponent,children:[
@@ -25,6 +26,7 @@ const routes: Routes = [
       {path:'UserLeaveHistory',component:UserLeaveHistoryComponent},
       {path:'UserLeaveBalance',component:UserLeaveBalanceComponent},
       {path:'UserCompOff',component:UserCompoffComponent},
+      {path:"ManagerDashboardCalender",component:ManagerDashboardCalenderComponent}
 
     ]}
 ];
