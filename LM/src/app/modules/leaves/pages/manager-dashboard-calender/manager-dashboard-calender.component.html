@@ -1,0 +1,92 @@
+<div fxLayout="column">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title> User Leave List</mat-card-title>
+    </mat-card-header>
+    <!-- <mat-divider></mat-divider> -->
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+      <div fxFlex="100" class="Sub">
+        <div class='demo-app-main'>
+
+          <full-calendar #calendar fxLayout="column" [options]='calendarOptions'>
+          </full-calendar>
+        </div>
+        <div class='demo-app-main'>
+          <!--<mat-icon class="green-icon">check_circle</mat-icon>Present-->
+          <!--<mat-icon class="red-icon">check_circle</mat-icon> Absent-->
+          <!-- <mat-icon class="blue-icon">check_circle</mat-icon>Week-Off
+          <mat-icon class="yellow-icon">check_circle</mat-icon> Holiday -->
+        </div>
+
+      </div>
+      <!--<div class="sub-section-2" fxLayout="column" fxFlex="40" fxLayoutGap="20px">-->
+        <!--<div fxLayout="column" fxFlex="50">-->
+
+          <!--<div fxLayout="row" fxLayoutAlign="space-between" class="pending-attendance">-->
+            <!--<div style="padding-top:10px; color: white;" fxLayout="row">-->
+              <!--<p>-->
+                <!--<mat-icon>notifications</mat-icon>-->
+              <!--</p>-->
+              <!--<p>-->
+                <!--<b>Request Behalf of-->
+                  <!--Employee</b>-->
+
+              <!--</p>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<cdk-virtual-scroll-viewport class="example-viewport" itemSize="5">-->
+
+            <!--<mat-list class="time-attendance">-->
+              <!--<ng-container *cdkVirtualFor="let item of attendanceData">-->
+                                                        <!--<span *ngIf="item.present_or_absent=='A'">-->
+                                                               <!--<mat-list-item>-->
+                                                                      <!--<h3 matLine> {{ item.empname}} </h3>-->
+                                                                      <!--<p> {{ item.attendancedate | date:'dd/MM/yyyy'}}-->
+                                                                             <!--<a style="padding-left: 10px;"-->
+                                                                                <!--routerLink="/"-->
+                                                                                <!--(click)="onBehalfofRequestClick(item)"> Add a-->
+                                                                                    <!--request </a>-->
+                                                                      <!--</p>-->
+
+                                                               <!--</mat-list-item>-->
+                                                        <!--</span>-->
+              <!--</ng-container>-->
+            <!--</mat-list>-->
+          <!--</cdk-virtual-scroll-viewport>-->
+
+        </div>
+        <!--<div fxLayout="column" fxFlex="50">-->
+
+          <!--<div fxLayout="row" fxLayoutAlign="space-between" class="clock-attendance">-->
+            <!--<div style="padding-top:10px;color: white;">-->
+              <!--<p>-->
+                <!--<b>Pending Approvals</b>-->
+              <!--</p>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<cdk-virtual-scroll-viewport class="example-viewport" itemSize="5">-->
+
+            <!--<mat-list class="time-attendance">-->
+              <!--<ng-container *cdkVirtualFor="let item of arrayList">-->
+
+                <!--<mat-list-item>-->
+                  <!--<h3 matLine> {{ item.raisedbyname}} </h3>-->
+
+                  <!--<p> {{ item.applieddate | date:'dd/MM/yyyy'}}-->
+                    <!--<a style="padding-left: 10px;" routerLink="/"-->
+                       <!--(click)="changeTab(item)"> Approve-->
+                      <!--request </a>-->
+                  <!--</p>-->
+                <!--</mat-list-item>-->
+
+              <!--</ng-container>-->
+            <!--</mat-list>-->
+          <!--</cdk-virtual-scroll-viewport>-->
+
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+  </mat-card>
+</div>

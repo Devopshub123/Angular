@@ -21,6 +21,8 @@ import { SummaryReportForManagerComponent } from './pages/summary-report-for-man
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { UserLeaveHistoryComponent } from './user-leave-history/user-leave-history.component';
 import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balance.component';
+import { ManagerDashboardCalenderComponent } from './pages/manager-dashboard-calender/manager-dashboard-calender.component';
+import {FullCalendarModule} from "@fullcalendar/angular";
 
 
 @NgModule({
@@ -38,6 +40,7 @@ import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balan
     SummaryReportForManagerComponent,
     UserLeaveHistoryComponent,
     UserLeaveBalanceComponent,
+    ManagerDashboardCalenderComponent,
   ],
   imports: [
     CommonModule,
@@ -48,6 +51,8 @@ import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balan
     FlexLayoutModule,
     NgxPaginationModule,
     NgxSpinnerModule,
+    FullCalendarModule,
+
 
   ]
 })
