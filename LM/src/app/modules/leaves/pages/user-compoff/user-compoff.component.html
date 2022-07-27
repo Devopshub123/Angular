@@ -1,31 +1,58 @@
-<div fxLayout="column" >
-    <form [formGroup]="CompoffForm" autocomplete="off" >
+<div fxLayout="column">
     <mat-card fxLayout="column">
         <mat-card-header class="">
             <mat-card-title class="title"> Leave Policies </mat-card-title>
         </mat-card-header>
         <div >
+            <form [formGroup]="CompoffForm" autocomplete="off">
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
 
                 
-                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Worked Date </mat-label>
-                    <input matInput readonly [matDatepicker]="date" 
-                        placeholder="MM/DD/YYYY" formControlName="workeddate" required>
+                    <!-- <input type="text" required  readonly  formControlName="workeddate" placeholder="MM-DD-YYYY"
+                       bsDatepicker [min]="min" [max]="max" [datesEnabled]="compOffDates"
+                       [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY',showWeekNumbers:false }" > -->
+                    <input matInput readonly  [matDatepicker]="date" [min]="min" [max]="max"
+                        placeholder="MM/DD/YYYY" formControlName="workeddate"  required>
+                        
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
                     </mat-datepicker-toggle>
                     <mat-datepicker #date></mat-datepicker>
                     <!-- <mat-error class="con-error" *ngIf="HolidayForm.controls.date.errors?.required">
-                        Please select an option
+                        Please select an option  [datesEnabled]="compOffDates" [matDatepickerFilter]="compOffDates" [min]="min" [max]="max"
                     </mat-error> -->
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Worked Hours & Minutes</mat-label>
-                    <input formControlName="workedtime" matInput placeholder="" required maxlength="100">
+                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Worked Hours</mat-label>
+                    <mat-select formControlName="hours" required>
+                        <ng-container>
+                            <div *ngFor="let b of minimumHours">
+                                <!-- <mat-option value="" disabled selected>Select </mat-option> -->
+                                <mat-option value={{b.value}}>{{b.value}}</mat-option>
+                            </div>
+
+                        </ng-container>
+                    </mat-select>
+                    <!-- <input formControlName="hours"   matInput > -->
                     <!-- <material-timepicker color="primary" label="Hour" [userTime]="exportTime" (change)="onChangeHour($event)" revertLabel="Remove" submitLabel="Ok"></material-timepicker> -->
                     <!-- <mat-error class="con-error" *ngIf="HolidayForm.controls.holiday.errors?.required">
                       This field is required
-                  </mat-error> -->
+                    </mat-error> -->
+                </mat-form-field>
+                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="ishide">
+                    <mat-label>Minutes</mat-label>
+                    <mat-select formControlName="minutes" required>
+                        <ng-container>
+                                <mat-option value="15">15</mat-option>
+                                <mat-option value="30">30</mat-option>
+                                <mat-option value="45">45</mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <!-- <material-timepicker color="primary" label="Hour" [userTime]="exportTime" (change)="onChangeHour($event)" revertLabel="Remove" submitLabel="Ok"></material-timepicker> -->
+                    <!-- <mat-error class="con-error" *ngIf="HolidayForm.controls.holiday.errors?.required">
+                      This field is required
+                    </mat-error> -->
                 </mat-form-field>
                 
                 
@@ -34,7 +61,7 @@
             </div><br>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
 
-                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason</mat-label>
                     <input formControlName="reason" matInput placeholder="" required maxlength="100">
                     <!-- <mat-error class="con-error" *ngIf="HolidayForm.controls.holiday.errors?.required">
@@ -56,9 +83,69 @@
                 </button>
                 <br />
             </div>
+            </form>
 
         </div>
+        <mat-divider></mat-divider>
+        <mat-card>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort>
+                    <ng-container matColumnDef="appliedon">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Applied On </th>
+                        <td mat-cell *matCellDef="let row" > 
+                            <span >{{row.applied_date  | date:'mediumDate'}}</span>
+                        </td>
+                    </ng-container>
+        
+                    
+                    <ng-container matColumnDef="workeddate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Work Date </th>
+                        <td mat-cell *matCellDef="let row">
+                            <span >{{row.comp_off_date}}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="hours">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> No Of Hours</th>
+                        <td mat-cell *matCellDef="let row" > 
+                            <span >{{row.worked_hours}} : {{row.worked_minutes ===0?'00':row.worked_minutes}}</span>
+                        </td>
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                        <td mat-cell *matCellDef="let row" > 
+                            <span >{{row.status}}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="approver">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Approver </th>
+                        <td mat-cell *matCellDef="let row" > 
+                            <span >{{row.approvedby}}</span>
+                        </td>
+                    </ng-container>
+                   
+            
+            
+                    <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+            
+                <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="6">No data found</td>
+                    </tr> 
+                </table>
+            
+                <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+                <!-- <mat-paginator [pageSizeOptions]="getPageSizeOptions()" showFirstLastButtons></mat-paginator> -->
+    </div>
+
+        </mat-card>
+        
+    
+            
+                
+    
     </mat-card>
-    </form>
+  
     
 </div>
