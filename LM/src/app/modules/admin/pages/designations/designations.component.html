@@ -9,7 +9,7 @@
   
                 <mat-form-field fxFlex.xs="100" fxFlex.size="25" class="mx-2 my-2" appearance="outline">
                     <mat-label>Designation</mat-label>
-                    <input formControlName="designation" matInput placeholder="" required maxlength="100" >
+                    <input formControlName="designation"  (input)="designation.setValue(designation.value.toUpperCase())" matInput placeholder="" required maxlength="100" >
                     <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
                       {{errorDesName}}
                   </mat-error>

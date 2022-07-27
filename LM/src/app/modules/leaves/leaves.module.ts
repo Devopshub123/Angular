@@ -23,6 +23,7 @@ import { UserLeaveHistoryComponent } from './user-leave-history/user-leave-histo
 import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balance.component';
 import { ManagerDashboardCalenderComponent } from './pages/manager-dashboard-calender/manager-dashboard-calender.component';
 import {FullCalendarModule} from "@fullcalendar/angular";
+import { UserCompoffComponent } from './pages/user-compoff/user-compoff.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {FullCalendarModule} from "@fullcalendar/angular";
     SummaryReportForManagerComponent,
     UserLeaveHistoryComponent,
     UserLeaveBalanceComponent,
+    UserCompoffComponent,
     ManagerDashboardCalenderComponent,
   ],
   imports: [

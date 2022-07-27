@@ -28,6 +28,8 @@ export class HolidaysComponent implements OnInit {
   isview:boolean=true;
   isEdit:boolean=true;
   isSave:boolean=false;
+  ishide:boolean =false;
+  ischecked:boolean=false;
   enable:any=null;
   selecteditems:any=[];
   page = 1;
@@ -43,12 +45,16 @@ export class HolidaysComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog) { }
   
   selectAll(select: MatSelect, values:any, array:any) {
+    this.ishide = true;
+    this.ischecked = true;
     select.value = values;
     array = values;
     // console.log(this.selectedYears); // selectedYears is still undefined
   }
 
   deselectAll(select: MatSelect) {
+    this.ishide = false;
+    this.ischecked = false
     this.selectedBranch = [];
     select.value = [];
   }
@@ -103,7 +109,7 @@ export class HolidaysComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Holidays added successfully'
+          data: 'Holiday added successfully'
         });
        
         
@@ -112,7 +118,7 @@ export class HolidaysComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Unable to add holidays'
+          data: 'Unable to add holiday'
         });
         
         // Swal.fire({title:data.message,color:"red",showCloseButton: true});

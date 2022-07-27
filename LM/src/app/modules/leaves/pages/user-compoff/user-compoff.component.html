@@ -1,0 +1,64 @@
+<div fxLayout="column" >
+    <form [formGroup]="CompoffForm" autocomplete="off" >
+    <mat-card fxLayout="column">
+        <mat-card-header class="">
+            <mat-card-title class="title"> Leave Policies </mat-card-title>
+        </mat-card-header>
+        <div >
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
+
+                
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Worked Date </mat-label>
+                    <input matInput readonly [matDatepicker]="date" 
+                        placeholder="MM/DD/YYYY" formControlName="workeddate" required>
+                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #date></mat-datepicker>
+                    <!-- <mat-error class="con-error" *ngIf="HolidayForm.controls.date.errors?.required">
+                        Please select an option
+                    </mat-error> -->
+                </mat-form-field>
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Worked Hours & Minutes</mat-label>
+                    <input formControlName="workedtime" matInput placeholder="" required maxlength="100">
+                    <!-- <material-timepicker color="primary" label="Hour" [userTime]="exportTime" (change)="onChangeHour($event)" revertLabel="Remove" submitLabel="Ok"></material-timepicker> -->
+                    <!-- <mat-error class="con-error" *ngIf="HolidayForm.controls.holiday.errors?.required">
+                      This field is required
+                  </mat-error> -->
+                </mat-form-field>
+                
+                
+               
+                
+            </div><br>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
+
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Reason</mat-label>
+                    <input formControlName="reason" matInput placeholder="" required maxlength="100">
+                    <!-- <mat-error class="con-error" *ngIf="HolidayForm.controls.holiday.errors?.required">
+                      This field is required
+                  </mat-error> -->
+                </mat-form-field>
+                
+                
+               
+                
+            </div><br>
+            <div fxLayoutAlign="end">
+                <button class="mx-1 mat-stroked-button btn btn-primary"  (click)="submit()" type="submit">
+                    <span>Submit</span>
+                </button>
+  
+                <button class="mx-1  mat-stroked-button button-clear"  style="background-color:#550534;color:aliceblue" (click)="cancel()">
+                    <span >Cancel</span>
+                </button>
+                <br />
+            </div>
+
+        </div>
+    </mat-card>
+    </form>
+    
+</div>
