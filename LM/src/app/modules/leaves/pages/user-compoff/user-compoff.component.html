@@ -10,17 +10,15 @@
                 
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Worked Date </mat-label>
-                    <!-- <input type="text" required  readonly  formControlName="workeddate" placeholder="MM-DD-YYYY"
-                       bsDatepicker [min]="min" [max]="max" [datesEnabled]="compOffDates"
-                       [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY',showWeekNumbers:false }" > -->
-                    <input matInput readonly  [matDatepicker]="date" [min]="min" [max]="max"
-                        placeholder="MM/DD/YYYY" formControlName="workeddate"  required>
+                    <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
+                    <input matInput readonly  [matDatepicker]="date"  [min]="min" [max]="max"
+                        placeholder="MM/DD/YYYY" formControlName="workeddate"  required> 
                         
-                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
+                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
                     </mat-datepicker-toggle>
                     <mat-datepicker #date></mat-datepicker>
-                    <!-- <mat-error class="con-error" *ngIf="HolidayForm.controls.date.errors?.required">
-                        Please select an option  [datesEnabled]="compOffDates" [matDatepickerFilter]="compOffDates" [min]="min" [max]="max"
+                    <!-- <mat-error class="con-error" *ngIf="CompoffForm.controls.workeddate.errors?.required">  
+                        Please select an option
                     </mat-error> -->
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -74,7 +72,7 @@
                 
             </div><br>
             <div fxLayoutAlign="end">
-                <button class="mx-1 mat-stroked-button btn btn-primary"  (click)="submit()" type="submit">
+                <button class="mx-1 mat-stroked-button btn btn-primary"  (click)="submit()" [disabled]="!CompoffForm.valid" type="submit">
                     <span>Submit</span>
                 </button>
   

@@ -1,21 +1,23 @@
-import { ReviewAndApprovalsComponent } from './../dialog/review-and-approvals/review-and-approvals.component';
-import { DialogComponent } from 'src/app/modules/attendance/dialog/dialog.component';
+import { ReviewAndApprovalsComponent } from './../../dialog/review-and-approvals/review-and-approvals.component';
+import { LeavesService } from './../../leaves.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
+import { DialogComponent } from 'src/app/modules/attendance/dialog/dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { LeavesService } from '../leaves.service';
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 @Component({
-  selector: 'app-user-leave-history',
-  templateUrl: './user-leave-history.component.html',
-  styleUrls: ['./user-leave-history.component.scss']
+  selector: 'app-user-dashboard',
+  templateUrl: './user-dashboard.component.html',
+  styleUrls: ['./user-dashboard.component.scss']
 })
-export class UserLeaveHistoryComponent implements OnInit {
+export class UserDashboardComponent implements OnInit {
+
   usersession:any;
-  leavedata:any;
+  leavedata:any=[];
+  holidaysList:any = [];
   viewdata:any;
   deletedata:any;
   titleName:any;
@@ -23,8 +25,10 @@ export class UserLeaveHistoryComponent implements OnInit {
   isview:boolean=false;
   isdata:boolean=true;
   maxall : number=20;
+  holidaysColumns:string[]=['day','date','holiday']
   displayedColumns: string[] = ['appliedon','leavetype','fromdate','todate','days','status','approver','action'];
   dataSource: MatTableDataSource<any>=<any>[];
+  holidaydatasource:MatTableDataSource<any>=<any>[];
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator)
@@ -38,30 +42,67 @@ export class UserLeaveHistoryComponent implements OnInit {
     this.usersession = JSON.parse(sessionStorage.getItem('user') || '');
     this.dataSource.paginator = this.paginator;
     this.getleavehistory(null,null);
+    this.getHolidaysList();
+    this.getLeaveBalance();
   }
   getleavehistory(page:any,size:any){
     this.LM.getleavehistory(this.usersession.id,1,1000).subscribe((result:any)=>{
-      this.leavedata=result.data
+      for(let i= 0; i<result.data.length;i++){
+        if(result.data.length > 5){
+          if(i === 5){
+            break;
+          }else {
+            this.leavedata.push(result.data[i])
+  
+          }
+
+        }
+        else{
+          this.leavedata.push(result.data[i])
+        }
+        
+      }
       this.dataSource = new MatTableDataSource(this.leavedata);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      console.log('gggggggg', result,this.dataSource.paginator.length)
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
+      // console.log('gggggggg', result,this.dataSource.paginator.length)
       // this.count = result.data[0].total;
 
     })
 
   }
-  getPageSizeOptions(): number[] {
-    if (this.dataSource.paginator!.length > this.maxall)
-      return [5, 10, 20,this.leavedata.length];
-  
-    
-    
-    else
-      return [5, 10, 20, this.maxall];
-    
-     
+  getHolidaysList() {
+    this.LM.getHolidaysList(this.usersession.id).subscribe((result)=>{
+      this.holidaysList = result;
+      console.log(result)
+      this.holidaysList = this.holidaysList.data[0];
+      this.holidaydatasource = new MatTableDataSource(this.holidaysList);
+    })
   }
+  getLeaveBalance(){
+    this.LM.getLeaveBalance(this.usersession.id).subscribe((result)=>{
+      if(result.status){
+        for(let t =0; t<result.data[0].length; t++){
+          if(this.usersession.maritalstatus === "Married" && result.data[0][t].leavename === "Marriage Leave"){
+            result.data[0].splice(t,1);
+            if(this.usersession.gender === 'Male' && result.data[0][t].leavename === 'Maternity Leave'){
+              result.data[0].splice(t,1);
+            }else if(this.usersession.gender === "FeMale" && result.data[0][t].leavename === 'Paternity Leave') {
+              result.data[0].splice(t,1);
+            }
+          }else {
+            if(result.data[0][t].leavename === 'Maternity Leave' || result.data[0][t].leavename === 'Paternity Leave'){
+              result.data[0].splice(t,1)
+            }
+
+          }
+        }
+
+        this.leavedata = result.data[0];
+      }
+    })
+  }
+
 view(data:any){
   this.isview=true;
   this.isdata=false;
@@ -70,7 +111,7 @@ view(data:any){
 }
 close(){
   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate(["/LeaveManagement/UserLeaveHistory"]));
+    this.router.navigate(["/LeaveManagement/UserDashboard"]));
 }
 cancel(data:any){
   this.deletedata = data;

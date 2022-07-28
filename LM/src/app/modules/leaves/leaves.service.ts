@@ -102,4 +102,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     return this.http.get(this.mainUrl+'api/getLeaveCalendarForManager/'+Id, this.httpOptions);
 
   }
+  getHolidaysList(empId:any): Observable<any>{
+    return this.http.get(this.mainUrl+'api/getHolidaysList/' + empId, this.httpOptions);
+}
 }

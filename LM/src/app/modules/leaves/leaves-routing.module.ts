@@ -13,6 +13,7 @@ import { UserLeaveHistoryComponent } from './user-leave-history/user-leave-histo
 import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balance.component';
 import {ManagerDashboardCalenderComponent} from "./pages/manager-dashboard-calender/manager-dashboard-calender.component";
 import { UserCompoffComponent } from './pages/user-compoff/user-compoff.component';
+import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 const routes: Routes = [
   {path:'',component:MainComponent,children:[
       {path:'PendingApprovals',component:PendingApprovalsComponent},
@@ -26,6 +27,7 @@ const routes: Routes = [
       {path:'UserLeaveHistory',component:UserLeaveHistoryComponent},
       {path:'UserLeaveBalance',component:UserLeaveBalanceComponent},
       {path:'UserCompOff',component:UserCompoffComponent},
+      {path:'UserDashboard',component:UserDashboardComponent},
       {path:"ManagerDashboardCalender",component:ManagerDashboardCalenderComponent}
 
     ]}

@@ -67,7 +67,8 @@ export class UserCompoffComponent implements OnInit {
     });
     this.CompoffForm.get('hours')?.valueChanges.subscribe((selectedValue:any) => {
       if(selectedValue == 24){
-       this.ishide = false;
+        this.CompoffForm.controls.minutes.setValue('00')
+        this.ishide = false;
       }
       else{
         this.ishide = true;
@@ -120,14 +121,17 @@ export class UserCompoffComponent implements OnInit {
         // new Date(this.today.setDate(this.today.getDate()-result.data[0].value)
         console.log('result',result)
         for(let i= 0;i<result.data.length;i++){
-          this.compOffDates.push(new Date(result.data[i].edate))
+          // this.compOffDates.push(new Date(result.data[i].edate))
+          this.compOffDates.push((result.data[i].edate))
         }
         console.log(' this.compOffDates', this.compOffDates)
        
-      //   this.compOffDateshide = (d: Date): boolean => {
-      //     const date = d || new Date() ;
+      //   this.compOffDateshide = (d: Date | null): boolean => {
+      //     const date = d|| new Date().getDay();
          
-      //     return !this.compOffDates;
+      //     // return this.compOffDates;
+      //     // return day !== 0
+      //     return !this.compOffDates.find((x:any)=>x==date);
       // }
       }
 
