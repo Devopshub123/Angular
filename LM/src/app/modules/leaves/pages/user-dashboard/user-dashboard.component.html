@@ -344,9 +344,55 @@
     
     </div> 
     <div fxLayout="column"  *ngIf="isholidays">
+        <mat-card-header class="">
+            <mat-card-title class="title"> Holidays List  </mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <div class="mat-elevation-z8"  >
+            <table mat-table [dataSource]="holidaysalldatasource" matSort>
+                <ng-container matColumnDef="day">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Day </th>
+                    <td mat-cell *matCellDef="let row" > 
+                        <span >{{row.day}}</span>
+                    </td>
+                </ng-container>
+        
+                
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header > Date </th>
+                    <td mat-cell *matCellDef="let row">
+                        <span >{{row.date | date:'mediumDate'}}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="holiday">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Holiday</th>
+                    <td mat-cell *matCellDef="let row" > 
+                        <span >{{row.description}}</span>
+                    </td>
+                </ng-container>
+               
+               
+        
+        
+                <tr class="headerbox title" mat-header-row *matHeaderRowDef="holidaysColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: holidaysColumns;"></tr>
+        
+        
+            <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="6">No data found</td>
+                </tr> 
+            </table>
         
 
+        </div><br>
+        <div  fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
+            <button class="col-md-1  btn btn-danger"   (click)="close()">Close</button>
+        </div>
+
+
+    
     </div>
+    
 
 </div>
 

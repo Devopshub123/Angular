@@ -66,12 +66,12 @@ export class UserCompoffComponent implements OnInit {
     this.getDurationforBackdatedCompoffLeave();
     this.CompoffForm=this.formBuilder.group(
       {
-      empId: ["",Validators.required],        
+      empId: [""],        
       empName: ["",],
-      workeddate:[""],
-      hours:["",],
-      minutes:["",],
-      reason:["",]
+      workeddate:["",Validators.required],
+      hours:["",Validators.required],
+      minutes:["",Validators.required],
+      reason:["",Validators.required]
       
     });
     this.CompoffForm.get('hours')?.valueChanges.subscribe((selectedValue:any) => {
@@ -139,7 +139,7 @@ export class UserCompoffComponent implements OnInit {
        
       
     this.myDateFilter = (d: Date): boolean => {
-      let isValid=true;
+      let isValid=false;
       //  const year = (d || new Date()).getDate();
       //  if(year >= this.currentYear -1 && year <= this.currentYear + 1){
       //   isValid=true
@@ -150,8 +150,6 @@ export class UserCompoffComponent implements OnInit {
     this.compOffDates.forEach((e:any) => {
       if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
         isValid=true
-      }else{
-        isValid=false
       }
     });
 

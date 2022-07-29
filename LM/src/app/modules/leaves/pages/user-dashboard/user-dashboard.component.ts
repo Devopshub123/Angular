@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {Router} from "@angular/router";
+import { DatePipe} from '@angular/common';
 import {MatDialog} from "@angular/material/dialog";
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
@@ -19,7 +20,9 @@ export class UserDashboardComponent implements OnInit {
   usersession:any;
   leavedata:any=[];
   holidaysList:any = [];
+  holidaysListall:any = [];
   viewdata:any;
+  allleaves:any=[]
   deletedata:any;
   titleName:any;
   reason:any;
@@ -32,6 +35,8 @@ export class UserDashboardComponent implements OnInit {
   displayedColumns: string[] = ['appliedon','leavetype','fromdate','todate','days','status','approver','action'];
   dataSource: MatTableDataSource<any>=<any>[];
   holidaydatasource:MatTableDataSource<any>=<any>[];
+  holidaysalldatasource:MatTableDataSource<any>=<any>[];
+  pipe = new DatePipe('en-US');
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator)
@@ -39,7 +44,7 @@ export class UserDashboardComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private router: Router,private LM:LeavesService,public dialog: MatDialog) { }
+  constructor(private router: Router,private LM:LeavesService,public datepipe: DatePipe,public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.usersession = JSON.parse(sessionStorage.getItem('user') || '');
@@ -50,6 +55,7 @@ export class UserDashboardComponent implements OnInit {
   }
   getleavehistory(page:any,size:any){
     this.LM.getleavehistory(this.usersession.id,1,1000).subscribe((result:any)=>{
+      this.allleaves = result;
       for(let i= 0; i<result.data.length;i++){
         if(result.data.length > 5){
           if(i === 5){
@@ -124,6 +130,14 @@ view(data:any){
   console.log(data)
 }
 viewall(){
+  
+  this.LM.getHolidays(new Date().getFullYear(),this.usersession.worklocation,1,100).subscribe((result)=>{
+    this.holidaysListall = result;
+    
+    this.holidaysListall = this.holidaysListall.data;
+    console.log(this.holidaysListall )
+    this.holidaysalldatasource = new MatTableDataSource( this.holidaysListall);
+  })
   this.isdata=false;
   this.isholidays=true;
 }
@@ -181,5 +195,14 @@ openDialogdelete(): void {
     }
   });
 }
+myDateFilter = (d: Date): boolean => {
+  let isValid=false;
+this.allleaves.forEach((e:any) => {
+  if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
+    isValid=true
+  }
+});
+  return isValid;
+ } 
 
 }

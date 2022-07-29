@@ -145,8 +145,8 @@ export class LeavepoliciesComponent implements OnInit {
     
     this.addleaveForm.get('advancedleaveid')?.valueChanges.subscribe((selectedValue:any) => {
       console.log(selectedValue)
-      this.tabledata=true;
-      this.advanceflag=false
+      this.tabledata=false;
+      this.advanceflag=true
       this.changeLeaveType(selectedValue,null);
       this.addleaveForm.controls.leavecolor.disable();
       this.addleaveForm.controls.pastdays.disable();
@@ -315,7 +315,6 @@ export class LeavepoliciesComponent implements OnInit {
       // else if(this.editLeaveInfo.status === 'Inactive') {
       //     info.leavetype_status = 'Active';
       // }
-      
       console.log("this.editLeaveInfo.info",info,this.editLeaveInfo)
      
       this.LM.setToggleLeaveType(info).subscribe((data) => {
@@ -546,6 +545,11 @@ export class LeavepoliciesComponent implements OnInit {
   }
   /**setleavepolicies */
   setleavepolicies(){
+    var infodata = {
+      id: this.addleaveForm.controls.leaveid.value,
+      leavetype_status:'Active'
+    }
+    this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
     this.leaveConfig = this.getLeaveFormatedValue(this.addleaveForm.controls.leaveid.value);
   for(let i=0;i<this.ruleInfos.length;i++){
     // console.log(this.ruleInfos[i].rulename)
@@ -671,7 +675,7 @@ if( this.validateCustomLeave(info.ruleData)) {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
         disableClose: true,
-        data: 'Leave type added successfully'
+        data: 'Leave type activated successfully.'
       });
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
               this.router.navigate(["/Admin/Leavepolicies"])); 
@@ -680,7 +684,7 @@ if( this.validateCustomLeave(info.ruleData)) {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
         disableClose: true,
-        data: 'Unable to add Leave type '
+        data: 'Unable to activate leave type. '
       });
     }
   });
