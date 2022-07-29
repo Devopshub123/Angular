@@ -39,6 +39,9 @@ export class UserCompoffComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
+  currentYear = new Date().getDate();
+  myDateFilter:any;
+  pipe = new DatePipe('en-US');
   constructor(private formBuilder: FormBuilder,private router: Router,private LM:LeavesService,public datepipe: DatePipe,public dialog: MatDialog) { 
     this.usersession = JSON.parse(sessionStorage.getItem('user') || '')
     this.year = this.today.getFullYear();
@@ -47,7 +50,13 @@ export class UserCompoffComponent implements OnInit {
     // this.CompoffForm.empId.controls.setValue(this.usersession.id);
     // // this.compOff.empRollnumber=this.usersession.empid;
     // this.CompoffForm.empName.controls.setValue(this.usersession.firstname+' '+ this.usersession.lastname);
+   
+    // this.myDateFilter = (d: Date): boolean => {
+    //  // const year = (d || new Date()).getDate();
+    //   //return year >= this.currentYear -1 && year <= this.currentYear + 1;
 
+    //  return [1, 5, 10, 21].indexOf(+d.getDate()) == -1
+    // } 
   }
 
   ngOnInit(): void {
@@ -110,7 +119,7 @@ export class UserCompoffComponent implements OnInit {
     });
   
   }
-  
+
   getCompoffCalender(){
     this.calender.employeeId=this.usersession.id;
     this.calender.year=this.year.toString()
@@ -121,18 +130,35 @@ export class UserCompoffComponent implements OnInit {
         // new Date(this.today.setDate(this.today.getDate()-result.data[0].value)
         console.log('result',result)
         for(let i= 0;i<result.data.length;i++){
-          // this.compOffDates.push(new Date(result.data[i].edate))
-          this.compOffDates.push((result.data[i].edate))
+          let date=result.data[i].edate +' ' +'00:00:00'
+          this.compOffDates.push(new Date(date))
+          // this.compOffDates.push((result.data[i].edate))
         }
         console.log(' this.compOffDates', this.compOffDates)
        
-      //   this.compOffDateshide = (d: Date | null): boolean => {
-      //     const date = d|| new Date().getDay();
-         
-      //     // return this.compOffDates;
-      //     // return day !== 0
-      //     return !this.compOffDates.find((x:any)=>x==date);
-      // }
+       
+      
+    this.myDateFilter = (d: Date): boolean => {
+      let isValid=true;
+      //  const year = (d || new Date()).getDate();
+      //  if(year >= this.currentYear -1 && year <= this.currentYear + 1){
+      //   isValid=true
+      //  }else{
+      //   isValid=false;
+      //  }
+    //  let index = this.compOffDates.findIndex((e:any) =>this.pipe.transform(e, 'yyyy/MM/dd')=== this.pipe.transform(d, 'yyyy/MM/dd'));
+    this.compOffDates.forEach((e:any) => {
+      if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
+        isValid=true
+      }else{
+        isValid=false
+      }
+    });
+
+      return isValid;
+       
+  
+     } 
       }
 
     })

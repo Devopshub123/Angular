@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
@@ -22,8 +23,10 @@ export class UserDashboardComponent implements OnInit {
   deletedata:any;
   titleName:any;
   reason:any;
+  today:any =new Date()
   isview:boolean=false;
   isdata:boolean=true;
+  isholidays:boolean=false;
   maxall : number=20;
   holidaysColumns:string[]=['day','date','holiday']
   displayedColumns: string[] = ['appliedon','leavetype','fromdate','todate','days','status','approver','action'];
@@ -102,12 +105,27 @@ export class UserDashboardComponent implements OnInit {
       }
     })
   }
-
+  onSelect(event:any){
+    this.today = event;
+  }
+  dateClass() {
+    return (date: Date): MatCalendarCellCssClasses => {
+      if (date.getDate() === 1) {
+        return 'special-date';
+      } else {
+        return 'special-date';
+      }
+    };
+  }
 view(data:any){
   this.isview=true;
   this.isdata=false;
   this.viewdata = data;
   console.log(data)
+}
+viewall(){
+  this.isdata=false;
+  this.isholidays=true;
 }
 close(){
   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

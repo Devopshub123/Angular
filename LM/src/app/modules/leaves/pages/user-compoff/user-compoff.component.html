@@ -11,14 +11,14 @@
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Worked Date </mat-label>
                     <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
-                    <input matInput readonly  [matDatepicker]="date"  [min]="min" [max]="max"
+                    <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date"  [matDatepickerFilter]="myDateFilter"
                         placeholder="MM/DD/YYYY" formControlName="workeddate"  required> 
                         
                      <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
                     </mat-datepicker-toggle>
                     <mat-datepicker #date></mat-datepicker>
                     <!-- <mat-error class="con-error" *ngIf="CompoffForm.controls.workeddate.errors?.required">  
-                        Please select an option
+                        Please select an option [min]="min" [max]="max"
                     </mat-error> -->
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
