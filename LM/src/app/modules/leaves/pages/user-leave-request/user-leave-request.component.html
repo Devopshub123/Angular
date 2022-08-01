@@ -1,0 +1,47 @@
+<div fxLayout="column">
+  <form [formGroup]="editForm" autocomplete="off">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title> New Leave Request</mat-card-title>
+    </mat-card-header>
+     <mat-divider></mat-divider>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+      <mat-form-field fxFlex="33" fxFlex.xs="100"  class="mx-1 my-1" appearance="outline">
+      <mat-label>Leave types</mat-label>
+      <mat-select formControlName="leaveId" required>
+        <ng-container>
+          <mat-option >Hello</mat-option>
+          <mat-option >Two</mat-option>
+          <!--<div *ngFor="let b of cityDetails">-->
+            <!--&lt;!&ndash; <mat-option value="" disabled selected>Select </mat-option> &ndash;&gt;-->
+            <!--<mat-option value={{b.id}}>{{b.location}}</mat-option>-->
+          <!--</div>-->
+
+        </ng-container>
+      </mat-select>
+      </mat-form-field>
+      <!--<mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">-->
+        <!--<mat-label>Zip Code</mat-label>-->
+        <!--<input formControlName="zipCode" required matInput placeholder="Shift" >-->
+      <!--</mat-form-field>-->
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+
+    <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-1 my-1" appearance="outline">
+      <mat-label>Worked Date </mat-label>
+      <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
+      <input matInput readonly  [matDatepicker]="date"
+             placeholder="MM/DD/YYYY" formControlName="fromDate"  required>
+
+      <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
+      </mat-datepicker-toggle>
+      <mat-datepicker #date></mat-datepicker>
+      <!-- <mat-error class="con-error" *ngIf="CompoffForm.controls.workeddate.errors?.required">
+          Please select an option [min]="min" [max]="max"
+      </mat-error> -->
+    </mat-form-field>
+    </div>
+  </mat-card>
+  </form>
+</div>

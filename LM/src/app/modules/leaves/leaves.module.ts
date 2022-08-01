@@ -26,6 +26,7 @@ import { EditProfileComponent } from './pages/edit-profile/edit-profile.componen
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { LeavesForCancellationComponent } from './pages/leaves-for-cancellation/leaves-for-cancellation.component';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
+import { UserLeaveRequestComponent } from './pages/user-leave-request/user-leave-request.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.co
     EditProfileComponent,
     NotificationsComponent,
     LeavesForCancellationComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    UserLeaveRequestComponent
   ],
   imports: [
     CommonModule,
