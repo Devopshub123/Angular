@@ -32,12 +32,12 @@ export class PendingApprovalsComponent implements OnInit {
   pipe = new DatePipe('en-US');
   userSession:any;
   arrayList:any=[];
+  LM119:any;
 
   constructor(private LM:LeavesService, private router: Router,public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    console.log("hello0",this.userSession)
     this.getLeavesForApprovals();
     this.getErrorMessages('LM113')
     this.getErrorMessages('LM114')
@@ -97,6 +97,7 @@ leaveReview(leave:any){
       "approverId":approverId?approverId:this.userSession.id,
       "leaveStatus":status,
       "reason":status == 'Approved' ? null:leave.action_reason ? leave.action_reason:this.reason,
+      "detail":leave.bereavement_id?leave.bereavement_id:leave.worked_date?leave.worked_date:null
     };
 
     this.LM.setApproveOrReject(obj).subscribe((res: any) => {
@@ -112,7 +113,7 @@ leaveReview(leave:any){
           this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
             position:{top:`70px`},
             disableClose: true,
-            data: {Message:this.LM113,url: '/LeaveManagement/ManagerDashboard'}
+            data: {Message:this.LM114,url: '/LeaveManagement/ManagerDashboard'}
           });
           this.getLeavesForApprovals();
         }
@@ -120,7 +121,7 @@ leaveReview(leave:any){
         this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
           position:{top:`70px`},
           disableClose: true,
-          data: {Message:'Please try again later',url: '/LeaveManagement/ManagerDashboard'}
+          data: {Message:this.LM119,url: '/LeaveManagement/ManagerDashboard'}
         });
 
       }
@@ -162,7 +163,10 @@ leaveReview(leave:any){
       {
         this.LM114 = result.data[0].errormessage
       }
-
+      else if(result.status && errorCode == 'LM119')
+      {
+        this.LM119 = result.data[0].errormessage
+      }
     })
   }
 
