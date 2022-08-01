@@ -24,7 +24,6 @@ import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balan
 import { ManagerDashboardCalenderComponent } from './pages/manager-dashboard-calender/manager-dashboard-calender.component';
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { UserCompoffComponent } from './pages/user-compoff/user-compoff.component';
-import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 
 
@@ -57,7 +56,6 @@ import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.co
     NgxPaginationModule,
     NgxSpinnerModule,
     FullCalendarModule,
-    BsDatepickerModule.forRoot(),
 
 
 
