@@ -8,6 +8,8 @@ import {LeavesService} from "../../leaves.service";
 import {PendingApprovalsComponent} from "../pending-approvals/pending-approvals.component";
 import {Router} from "@angular/router";
 import {PendingCompoffComponent} from "../pending-compoff/pending-compoff.component";
+import {LeavesForCancellationComponent} from "../leaves-for-cancellation/leaves-for-cancellation.component";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -23,15 +25,17 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   userSession:any;
   pendingapprove:any;
   compoffPendingapprove:any;
-  constructor(private formBuilder: FormBuilder,private location: Location,public dialog: MatDialog,private LM:LeavesService,private router: Router) {
+  cancellationapprove:any;
+  constructor(private formBuilder: FormBuilder,private location: Location,public dialog: MatDialog,private LM:LeavesService,private router: Router,private spinner:NgxSpinnerService) {
     this.leaveInfo = this.location.getState();
   }
   pipe = new DatePipe('en-US');
 
 
   ngOnInit(): void {
-    this.pendingapprove = new PendingApprovalsComponent(this.LM,this.router,this.dialog);
-    this.compoffPendingapprove = new PendingCompoffComponent(this.LM,this.dialog,this.router,);
+    this.pendingapprove = new PendingApprovalsComponent(this.LM,this.router,this.dialog,this.spinner);
+    this.compoffPendingapprove = new PendingCompoffComponent(this.LM,this.dialog,this.router,this.spinner);
+    this.cancellationapprove = new LeavesForCancellationComponent(this.LM,this.router,this.dialog,this.spinner);
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.pendingapprove.ngOnInit();
     this.compoffPendingapprove.ngOnInit();
@@ -99,7 +103,10 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   //
   // }
   approval(){
-    if(this.leaveInfo.isleave) {
+    if(this.leaveInfo.isCancellation){
+      this.cancellationapprove.leaveCancellationApprove(this.leaveInfo.leaveData,'Cancel Approved',this.userSession.id)
+    }
+    else if(this.leaveInfo.isleave) {
 
       this.pendingapprove.leaveApprove(this.leaveInfo.leaveData, 'Approved', this.userSession.id)
 
@@ -125,8 +132,11 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
 
       if(result!=undefined ){
         if(result !==true){
-          if(this.leaveInfo.isleave){
-
+          if(this.leaveInfo.isCancellation){
+            this.leaveInfo.leaveData.action_reason = result.reason;
+            this.cancellationapprove.leaveCancellationApprove(this.leaveInfo.leaveData,'Cancel Rejected',this.userSession.id)
+          }
+          else if(this.leaveInfo.isleave){
           this.leaveInfo.leaveData.action_reason = result.reason;
           this.pendingapprove.leaveApprove(this.leaveInfo.leaveData,'Rejected',this.userSession.id)
           // this.saveApproval();

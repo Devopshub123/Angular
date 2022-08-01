@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { LeavesRoutingModule } from './leaves-routing.module';
 import {PendingApprovalsComponent} from "./pages/pending-approvals/pending-approvals.component";
 import {MaterialModule} from "../../material/material.module";
@@ -11,7 +10,6 @@ import { ReviewAndApprovalsComponent } from './dialog/review-and-approvals/revie
 import { ManagerDashboardComponent } from './pages/manager-dashboard/manager-dashboard.component';
 import { ConfirmationComponent } from './dialog/confirmation/confirmation.component';
 import { PendingCompoffComponent } from './pages/pending-compoff/pending-compoff.component';
-// import { UserLeavesComponent } from './pages/user-leaves/user-leaves.component';
 import { EmployeeLeavesListComponent } from './pages/employee-leaves-list/employee-leaves-list.component';
 import { LeaveHistoryComponent } from './pages/leave-history/leave-history.component';
 import { CompOffHistoryComponent } from './pages/comp-off-history/comp-off-history.component';
@@ -24,6 +22,12 @@ import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balan
 import { ManagerDashboardCalenderComponent } from './pages/manager-dashboard-calender/manager-dashboard-calender.component';
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { UserCompoffComponent } from './pages/user-compoff/user-compoff.component';
+<<<<<<< HEAD
+=======
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { LeavesForCancellationComponent } from './pages/leaves-for-cancellation/leaves-for-cancellation.component';
+>>>>>>> 632a9b0966a82f514cafa801f24e5ca7714ce757
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 
 
@@ -44,7 +48,10 @@ import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.co
     UserLeaveBalanceComponent,
     UserCompoffComponent,
     ManagerDashboardCalenderComponent,
-    UserDashboardComponent,
+    EditProfileComponent,
+    NotificationsComponent,
+    LeavesForCancellationComponent,
+    UserDashboardComponent
   ],
   imports: [
     CommonModule,
@@ -55,10 +62,14 @@ import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.co
     FlexLayoutModule,
     NgxPaginationModule,
     NgxSpinnerModule,
+<<<<<<< HEAD
     FullCalendarModule,
 
 
 
+=======
+    FullCalendarModule
+>>>>>>> 632a9b0966a82f514cafa801f24e5ca7714ce757
   ]
 })
 export class LeavesModule { }

@@ -39,6 +39,7 @@ export class ManagerDashboardCalenderComponent implements OnInit {
         click: this.currentMonth.bind(this),
       },
     },
+    height:450,
     initialView: 'dayGridMonth',
     weekends: true,
     editable: true,
@@ -87,6 +88,8 @@ export class ManagerDashboardCalenderComponent implements OnInit {
 
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.next();
+    this.spinner.hide()
+
     // const selectDate = this.calendarApi.getDate();
     // console.log("ksjdk",selectDate)
     // if (selectDate.getTime() <= this.currentDate.getTime()) {

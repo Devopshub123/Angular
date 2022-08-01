@@ -1,31 +1,28 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
+import {MatDialog} from "@angular/material/dialog";
+import {Router} from "@angular/router";
+import {LeavesService} from "../../leaves.service";
+import {MatTableDataSource} from "@angular/material/table";
 import {UserData} from "../../../attendance/models/EmployeeData";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
-import {LeavesService} from '../../leaves.service'
-import {Router} from "@angular/router";
-import {ReviewAndApprovalsComponent} from "../../dialog/review-and-approvals/review-and-approvals.component";
-import {MatDialog} from "@angular/material/dialog";
-import {ReusableDialogComponent} from "../../../../pages/reusable-dialog/reusable-dialog.component";
-import {DatePipe} from "@angular/common";
 import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.component";
+import {ReviewAndApprovalsComponent} from "../../dialog/review-and-approvals/review-and-approvals.component";
+import {DatePipe} from "@angular/common";
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-pending-approvals',
-  templateUrl: './pending-approvals.component.html',
-  styleUrls: ['./pending-approvals.component.scss']
+  selector: 'app-leaves-for-cancellation',
+  templateUrl: './leaves-for-cancellation.component.html',
+  styleUrls: ['./leaves-for-cancellation.component.scss']
 })
-export class PendingApprovalsComponent implements OnInit {
+export class LeavesForCancellationComponent implements OnInit {
   displayedColumns: string[] = ['appliedOn','empId' ,'empName','leaveType','fromDate', 'toDate', 'noOfDays','pendingSince','action'];
   dataSource: MatTableDataSource<UserData>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-  // @Input() search: search;
-
   titleName:any;
   reason:any;
   LM113:any;
@@ -33,32 +30,37 @@ export class PendingApprovalsComponent implements OnInit {
   pipe = new DatePipe('en-US');
   userSession:any;
   arrayList:any=[];
+  LM120:any;
+  LM121:any;
   LM119:any;
-
   constructor(private LM:LeavesService, private router: Router,public dialog: MatDialog,public spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    this.getLeavesForApprovals();
-    this.getErrorMessages('LM113')
-    this.getErrorMessages('LM114')
+    this.getLeavesForCancellation();
+    this.getErrorMessages('LM120')
+    this.getErrorMessages('LM121')
     this.getErrorMessages('LM119')
+
 
   }
 
   /**
-   * get all pending leave for approvals
+   * get all pending leave for Cancellation
    * **/
-  getLeavesForApprovals(){
-    this.spinner.show();
+  getLeavesForCancellation(){
+    this.spinner.show()
     this.arrayList= [];
-    this.LM.getLeavesForApprovals(this.userSession.id).subscribe((res: any) => {
-      this.spinner.hide();
+    this.LM.getLeavesForCancellation(this.userSession.id).subscribe((res: any) => {
+      this.spinner.hide()
       if (res.status) {
         // this.arrayList = res.data;
         for(let i = 0; i<res.data.length;i++){
           var date = new Date();
-          var appliedDate = new Date(res.data[i].appliedon)
+          var appliedDate = new Date(res.data[i].updatedon)
+          // appliedDate.setHours(0);
+          // appliedDate.setMinutes(0);
+          // appliedDate.setSeconds(0);
           res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
           this.arrayList.push(res.data[i])
         }
@@ -76,54 +78,47 @@ export class PendingApprovalsComponent implements OnInit {
     })
   }
 
-  applyFilter(event: Event) {
-    // const filterValue = (event.target as HTMLInputElement).value;
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
-    //
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
-  }
-/**
- * on click review and approve
- * **/
+  /**
+   * on click review and approve
+   * **/
 
-leaveReview(leave:any){
-  leave.url = '/LeaveManagement/ManagerDashboard'
-  this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: leave ,isleave:true} });
+  leaveReview(leave:any){
+    leave.url = '/LeaveManagement/ManagerDashboard'
+    this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: leave ,isleave:true,isCancellation:true} });
   }
 
-  leaveApprove(leave:any,status:any,approverId:any){
-    this.spinner.show();
+  leaveCancellationApprove(leave:any,status:any,approverId:any){
+    this.spinner.show()
     let obj = {
       "id":leave.id,
       "leaveId": leave.leave_id,
       "empId":leave.empid,
       "approverId":approverId?approverId:this.userSession.id,
       "leaveStatus":status,
-      "reason":status == 'Approved' ? null:leave.action_reason ? leave.action_reason:this.reason,
+      "reason":status == 'Cancel Approved' ? null:leave.action_reason ? leave.action_reason:this.reason,
       "detail":leave.bereavement_id?leave.bereavement_id:leave.worked_date?leave.worked_date:null
     };
 
     this.LM.setApproveOrReject(obj).subscribe((res: any) => {
-      this.spinner.hide();
+      this.spinner.hide()
       if(res && res.status){
-        if(res.leaveStatus == 'Approved'){
+        console.log("nlsdnjk",res)
+        if(res.leaveStatus == 'Cancel Approved'){
           this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
             position:{top:`70px`},
             disableClose: true,
-            data: {Message:this.LM113,url: '/LeaveManagement/ManagerDashboard'}
+            data: {Message:this.LM120,url: '/LeaveManagement/ManagerDashboard'}
           });
-          this.getLeavesForApprovals();
+          this.getLeavesForCancellation();
         }else {
           this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
             position:{top:`70px`},
             disableClose: true,
-            data: {Message:this.LM114,url: '/LeaveManagement/ManagerDashboard'}
+            data: {Message:this.LM121,url: '/LeaveManagement/ManagerDashboard'}
           });
-          this.getLeavesForApprovals();
+          this.getLeavesForCancellation();
         }
-        }else {
+      }else {
         this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
           position:{top:`70px`},
           disableClose: true,
@@ -138,7 +133,8 @@ leaveReview(leave:any){
   }
   leaveReject(leave:any){
 
-  this.titleName="Reject"
+
+    this.titleName="Reject"
     this.openDialog(leave)
   }
 
@@ -153,26 +149,27 @@ leaveReview(leave:any){
       if(result!=undefined ){
         if(result !==true){
           this.reason = result.reason;
-          this.leaveApprove(leave,'Rejected',null);
+          this.leaveCancellationApprove(leave,'Cancel Rejected',null);
         }
       }
+
     });
   }
 
   getErrorMessages(errorCode:any) {
     this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
-      if(result.status && errorCode == 'LM113')
+      if(result.status && errorCode == 'LM120')
       {
-        this.LM113 = result.data[0].errormessage
+        this.LM120 = result.data[0].errormessage
       }
-      else if(result.status && errorCode == 'LM114')
+      else if(result.status && errorCode == 'LM121')
       {
-        this.LM114 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM119')
+        this.LM121 = result.data[0].errormessage
+      }else if(result.status && errorCode == 'LM119')
       {
         this.LM119 = result.data[0].errormessage
       }
+
     })
   }
 
