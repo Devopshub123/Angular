@@ -129,18 +129,19 @@ export class EditProfileComponent implements OnInit {
 
     }
     this.LM.SetEditProfile(obj).subscribe((res: any) => {
+      console.log("lffjfjf",res)
       if(res && res.status){
         this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
           position:{top:`70px`},
           disableClose: true,
-          data:{Message:this.LM118,url: '/LeaveManagement/ManagerDashboard'}
+          data:{Message:this.LM118,url: '/LeaveManagement/EditProfile'}
         });
 
       }else {
         this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
           position:{top:`70px`},
           disableClose: true,
-          data:{Message:this.LM119,url: '/LeaveManagement/ManagerDashboard'}
+          data:{Message:this.LM119,url: '/LeaveManagement/EditProfile'}
         });
       }
 
@@ -292,6 +293,7 @@ export class EditProfileComponent implements OnInit {
 
   saveImage(flag:boolean)
   {
+    console.log("ssss",flag)
     this.formData.append('file', this.file);
     if(this.file){
       if(this.file.size<=1024000){
@@ -302,7 +304,7 @@ export class EditProfileComponent implements OnInit {
           this.getUploadImage();
           this.isRemoveImage=true;
           this.formData.delete('file');
-          if(flag){
+          if(flag ){
             this.editProfile()
 
           }else {
@@ -316,20 +318,31 @@ export class EditProfileComponent implements OnInit {
         });
       }
       else{
-       this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
-          position:{top:`70px`},
-          disableClose: true,
-          data:{Message:this.LM117,url: '/LeaveManagement/EditProfile'}
-        });
+
+          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+            position:{top:`70px`},
+            disableClose: true,
+            data:{Message:this.LM117,url: '/LeaveManagement/EditProfile'}
+          });
+
+        // }
 
 
       }
     }else{
-     this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
-        position:{top:`70px`},
-        disableClose: true,
-        data:{Message:this.LM119,url: '/LeaveManagement/EditProfile'}
-      });
+      if(flag === true){
+        console.log("sss3333s",flag)
+
+        this.editProfile()
+
+      }else {
+        this.dialog.open(ConfirmationComponent, {
+          width: '500px', height: '250px',
+          position: {top: `70px`},
+          disableClose: true,
+          data: {Message: this.LM119, url: '/LeaveManagement/EditProfile'}
+        });
+      }
       // this.toastr.error("Please select image")
     }
   }
