@@ -39,6 +39,7 @@ export class ManagerDashboardCalenderComponent implements OnInit {
         click: this.currentMonth.bind(this),
       },
     },
+    height:450,
     initialView: 'dayGridMonth',
     weekends: true,
     editable: true,
