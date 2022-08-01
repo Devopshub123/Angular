@@ -1,13 +1,14 @@
 <div fxLayout="column">
   <form [formGroup]="editForm" autocomplete="off">
-  <mat-card>
+  <mat-card style="flex-flow: nowrap">
     <mat-card-header>
       <mat-card-title> New Leave Request</mat-card-title>
     </mat-card-header>
      <mat-divider></mat-divider>
-
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-      <mat-form-field fxFlex="33" fxFlex.xs="100"  class="mx-1 my-1" appearance="outline">
+    <mat-card fxFlex="60">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+      <mat-form-field fxFlex="50" fxFlex.xs="100"  class="mx-1 my-1" appearance="outline">
       <mat-label>Leave types</mat-label>
       <mat-select formControlName="leaveId" required>
         <ng-container>
@@ -28,7 +29,7 @@
     </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
 
-    <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-1 my-1" appearance="outline">
+    <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
       <mat-label>Worked Date </mat-label>
       <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
       <input matInput readonly  [matDatepicker]="date"
@@ -41,6 +42,86 @@
           Please select an option [min]="min" [max]="max"
       </mat-error> -->
     </mat-form-field>
+      <div fxFlex.xs="100" fxFlex="50" class="mx-1 my-1">
+      <mat-checkbox  style="margin-top: 20px;margin-left: 20px;" formControlName="fromDateHalf">Second Half</mat-checkbox>
+      </div>
+
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+
+      <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
+        <mat-label>Worked Date </mat-label>
+        <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
+        <input matInput readonly  [matDatepicker]="date"
+               placeholder="MM/DD/YYYY" formControlName="toDate"  required>
+
+        <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
+        </mat-datepicker-toggle>
+        <mat-datepicker #date></mat-datepicker>
+        <!-- <mat-error class="con-error" *ngIf="CompoffForm.controls.workeddate.errors?.required">
+            Please select an option [min]="min" [max]="max"
+        </mat-error> -->
+      </mat-form-field>
+      <div fxFlex.xs="100" fxFlex="50" class="mx-1 my-1">
+        <mat-checkbox  style="margin-top: 20px;margin-left: 20px;" formControlName="toDateHalf">First Half</mat-checkbox>
+      </div>
+
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+      <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
+      <mat-label>leaveCount</mat-label>
+      <input formControlName="leaveCount" required matInput placeholder="Shift" >
+      </mat-form-field>
+    </div>
+    <div fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px">
+      <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-1 my-1" appearance="outline">
+        <mat-label>Reason</mat-label>
+        <input formControlName="reason" required matInput placeholder="Shift" >
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+      <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-1 my-1" appearance="outline">
+        <mat-label>Contact</mat-label>
+        <input formControlName="contact" required matInput placeholder="Shift" >
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+      <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-1 my-1" appearance="outline">
+        <mat-label>Emergency Email</mat-label>
+        <input formControlName="emergencyEmail" required matInput placeholder="Shift" >
+      </mat-form-field>
+    </div>
+      </mat-card>
+    <mat-card fxFlex="40" style="margin-top: 200px">
+      <mat-card-header>
+        <mat-card-title> Available Leave Balance</mat-card-title>
+      </mat-card-header>
+      <table id="table" class="table  table-striped" >
+        <thead style="background-color: #28acaf;">
+        <tr >
+          <th scope="col" class="space"></th>
+          <th scope="col" class="space">Name</th>
+          <th scope="col" class="space">Id</th>
+          <th scope="col" class="space">Leave type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let item of leavebalance">
+
+          <tr scope="row" class="spacetd">
+            <td >{{item.leavename}}</td>
+            <td>{{item.used}}</td>
+            <td>{{item.leave_balance}}</td>
+            <td>{{item.total}}</td>
+          </tr>
+        </ng-container>
+        <tr *ngIf="leavebalance && leavebalance.length === 0">
+          <td colspan="10" style="text-align: center;">No Data Found</td>
+        </tr>
+        </tbody>
+
+      </table>
+    </mat-card>
     </div>
   </mat-card>
   </form>
