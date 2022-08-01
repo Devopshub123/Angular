@@ -1,21 +1,24 @@
 import { ReviewAndApprovalsComponent } from './../../dialog/review-and-approvals/review-and-approvals.component';
 import { LeavesService } from './../../leaves.service';
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { DialogComponent } from 'src/app/modules/attendance/dialog/dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {Router} from "@angular/router";
 import { DatePipe} from '@angular/common';
 import {MatDialog} from "@angular/material/dialog";
-import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
+import { style } from '@angular/animations';
+// import { ChartOptions, ChartType } from 'chart.js';
+// import { BaseChartDirective } from 'ng2-charts';
+
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
+
 
   usersession:any;
   leavedata:any=[];
@@ -24,8 +27,13 @@ export class UserDashboardComponent implements OnInit {
   viewdata:any;
   allleaves:any=[]
   deletedata:any;
+  datesToBeHighlighted:any;
   titleName:any;
   reason:any;
+  calenderleaves:any=[];
+  currentYear = new Date().getDate();
+  myDateFilter:any;
+  pipe = new DatePipe('en-US');
   today:any =new Date()
   isview:boolean=false;
   isdata:boolean=true;
@@ -36,13 +44,12 @@ export class UserDashboardComponent implements OnInit {
   dataSource: MatTableDataSource<any>=<any>[];
   holidaydatasource:MatTableDataSource<any>=<any>[];
   holidaysalldatasource:MatTableDataSource<any>=<any>[];
-  pipe = new DatePipe('en-US');
-  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
+  // @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
 
   constructor(private router: Router,private LM:LeavesService,public datepipe: DatePipe,public dialog: MatDialog) { }
 
@@ -52,6 +59,52 @@ export class UserDashboardComponent implements OnInit {
     this.getleavehistory(null,null);
     this.getHolidaysList();
     this.getLeaveBalance();
+    this.getuserleavecalender();
+  }
+
+  getuserleavecalender(){
+    this.LM.getuserleavecalender(this.usersession.id).subscribe((result:any)=>{
+      this.calenderleaves = result.data;
+    
+      console.log(this.calenderleaves)
+      this.myDateFilter = (d: Date): boolean => {
+        let isValid=false;
+      this.calenderleaves.forEach((e:any) => {
+        if(this.pipe.transform(e.edate, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
+          isValid=true
+          
+        }
+      });
+  
+        return isValid;
+        // return (e.edate: Date): MatCalendarCellCssClasses => {
+        //   if (date.getDate() === 1) {
+        //     return 'special-date';
+        //   } else {
+        //     return 'special-date';
+        //   }
+        // };
+
+       } 
+  
+    })
+
+    
+
+  }
+ 
+  dateClass() {
+    return (date: Date): MatCalendarCellCssClasses => {
+      return this.calenderleaves.forEach((e: any) => {
+        if (this.pipe.transform(e.edate, 'yyyy/MM/dd') == this.pipe.transform(date, 'yyyy/MM/dd')) {
+          return 'special-date';
+        }
+        else {
+          return date;
+        }
+      });
+     
+    };
   }
   getleavehistory(page:any,size:any){
     this.LM.getleavehistory(this.usersession.id,1,1000).subscribe((result:any)=>{
@@ -72,14 +125,12 @@ export class UserDashboardComponent implements OnInit {
         
       }
       this.dataSource = new MatTableDataSource(this.leavedata);
-      // this.dataSource.paginator = this.paginator;
-      // this.dataSource.sort = this.sort;
-      // console.log('gggggggg', result,this.dataSource.paginator.length)
-      // this.count = result.data[0].total;
+     
 
     })
-
+ 
   }
+
   getHolidaysList() {
     this.LM.getHolidaysList(this.usersession.id).subscribe((result)=>{
       this.holidaysList = result;
@@ -111,18 +162,11 @@ export class UserDashboardComponent implements OnInit {
       }
     })
   }
+
   onSelect(event:any){
     this.today = event;
   }
-  dateClass() {
-    return (date: Date): MatCalendarCellCssClasses => {
-      if (date.getDate() === 1) {
-        return 'special-date';
-      } else {
-        return 'special-date';
-      }
-    };
-  }
+
 view(data:any){
   this.isview=true;
   this.isdata=false;
@@ -141,10 +185,12 @@ viewall(){
   this.isdata=false;
   this.isholidays=true;
 }
+// console.log(this.allleaves)
 close(){
   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
     this.router.navigate(["/LeaveManagement/UserDashboard"]));
 }
+
 cancel(data:any){
   this.deletedata = data;
   this.titleName="Do you really want to cancel the leave?"
@@ -195,14 +241,8 @@ openDialogdelete(): void {
     }
   });
 }
-myDateFilter = (d: Date): boolean => {
-  let isValid=false;
-this.allleaves.forEach((e:any) => {
-  if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
-    isValid=true
-  }
-});
-  return isValid;
- } 
+
 
 }
+
+

@@ -76,33 +76,38 @@ export class LeavesService {
   getLeaveBalance(empid: any): Observable<any> {
     return this.http.get(this.mainUrl + 'api/getLeaveBalance/' + empid, this.httpOptions);
   }
-  setCompOff(info:any): Observable<any> {
-    return this.http.post(this.mainUrl+'api/setCompOff', JSON.stringify(info), this.httpOptions);
-  }
-  getCompOff(employeeId:any,rmid:any): Observable<any>{
+getCompOff(employeeId:any,rmid:any): Observable<any>{
     return this.http.get(this.mainUrl+'api/getCompOff/'+employeeId+'/'+rmid, this.httpOptions);
   }
 
-  getCompOffMinWorkingHours(): Observable<any>{
-    return this.http.get(this.mainUrl+'api/getCompOffMinWorkingHours', this.httpOptions);
+setCompOff(info:any): Observable<any> {
+  return this.http.post(this.mainUrl+'api/setCompOff', JSON.stringify(info), this.httpOptions);
+}
 
-  }
-  getCompoffCalender(info:any): Observable<any>{
-    console.log(info,'info')
-    return this.http.get(this.mainUrl+'api/getCompoffCalender/'+JSON.stringify(info), this.httpOptions);
-  }
-  setCompOffReviewApprove(info:any): Observable<any> {
-    return this.http.post(this.mainUrl+'api/setCompOffReviewApprove', JSON.stringify(info), this.httpOptions);
-  }
+getCompOffMinWorkingHours(): Observable<any>{
+  return this.http.get(this.mainUrl+'api/getCompOffMinWorkingHours', this.httpOptions);
 
-  getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
-    console.log(info,'info3333')
-    return this.http.get(this.mainUrl+'api/getDurationforBackdatedCompoffLeave', this.httpOptions);
+}
+getCompoffCalender(info:any): Observable<any>{
+  console.log(info,'info')
+  return this.http.get(this.mainUrl+'api/getCompoffCalender/'+JSON.stringify(info), this.httpOptions);
+}
+setCompOffReviewApprove(info:any): Observable<any> {
+  return this.http.post(this.mainUrl+'api/setCompOffReviewApprove', JSON.stringify(info), this.httpOptions);
+}
+getuserleavecalender(id:any):Observable<any>{
+  return this.http.post(this.mainUrl+'api/getleavecalender/'+id, this.httpOptions);
 
+}
+
+getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
+  return this.http.get(this.mainUrl+'api/getDurationforBackdatedCompoffLeave', this.httpOptions);
+
+}
+  getLeaveCalendarForManager(Id:any): Observable<any> {
+    return this.http.get(this.mainUrl+'api/getLeaveCalendarForManager/'+Id, this.httpOptions);
   }
-    getLeaveCalendarForManager(Id:any): Observable<any> {
-      return this.http.get(this.mainUrl + 'api/getLeaveCalendarForManager/' + Id, this.httpOptions);
-    }
+   
     setDeleteLeaveRequest(info: any): Observable<any> {
       return this.http.post(this.mainUrl + 'api/setDeleteLeaveRequest', JSON.stringify(info), this.httpOptions);
     }
