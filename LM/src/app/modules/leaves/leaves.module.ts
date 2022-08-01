@@ -22,12 +22,9 @@ import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balan
 import { ManagerDashboardCalenderComponent } from './pages/manager-dashboard-calender/manager-dashboard-calender.component';
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { UserCompoffComponent } from './pages/user-compoff/user-compoff.component';
-<<<<<<< HEAD
-=======
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { LeavesForCancellationComponent } from './pages/leaves-for-cancellation/leaves-for-cancellation.component';
->>>>>>> 632a9b0966a82f514cafa801f24e5ca7714ce757
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 import { UserLeaveRequestComponent } from './pages/user-leave-request/user-leave-request.component';
 
@@ -64,14 +61,7 @@ import { UserLeaveRequestComponent } from './pages/user-leave-request/user-leave
     FlexLayoutModule,
     NgxPaginationModule,
     NgxSpinnerModule,
-<<<<<<< HEAD
-    FullCalendarModule,
-
-
-
-=======
     FullCalendarModule
->>>>>>> 632a9b0966a82f514cafa801f24e5ca7714ce757
   ]
 })
 export class LeavesModule { }
