@@ -90,6 +90,7 @@ openDialogcancel(): void {
       console.log(this.deletedata)
       this.LM.cancelLeaveRequest(this.deletedata).subscribe((data)=>{
         if(data.status){
+          console.log("hi")
         
         }
       })

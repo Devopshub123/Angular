@@ -105,7 +105,7 @@ export class WorklocationComponent implements OnInit {
       this.isnote = false;
       if(selectedValue != "") {
         for (var i = 0; i < this.workLocationDetails.length; i++) {
-          if (this.workLocationDetails[i].prefix == selectedValue) {
+          if (this.workLocationDetails[i].prefix == selectedValue.toUpperCase()) {
             this.worklocationForm.controls.seed.setValue(this.workLocationDetails[i].seed)
             this.ischeckprefix=true;
             this.isViewSeed=true;
@@ -268,7 +268,7 @@ export class WorklocationComponent implements OnInit {
         city:this.worklocationForm.controls.city.value,
         state:this.worklocationForm.controls.state.value,
         country:this.worklocationForm.controls.country.value,
-        prefix:this.worklocationForm.controls.prefix.value,
+        prefix:this.worklocationForm.controls.prefix.value.toUpperCase(),
         seed:this.worklocationForm.controls.seed.value,
         status:'Active'    
             

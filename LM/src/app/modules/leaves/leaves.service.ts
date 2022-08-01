@@ -76,53 +76,79 @@ export class LeavesService {
   getLeaveBalance(empid: any): Observable<any> {
     return this.http.get(this.mainUrl + 'api/getLeaveBalance/' + empid, this.httpOptions);
   }
-
-  setDeleteLeaveRequest(info: any): Observable<any> {
-    return this.http.post(this.mainUrl + 'api/setDeleteLeaveRequest', JSON.stringify(info), this.httpOptions);
+  setCompOff(info:any): Observable<any> {
+    return this.http.post(this.mainUrl+'api/setCompOff', JSON.stringify(info), this.httpOptions);
+  }
+  getCompOff(employeeId:any,rmid:any): Observable<any>{
+    return this.http.get(this.mainUrl+'api/getCompOff/'+employeeId+'/'+rmid, this.httpOptions);
   }
 
-  cancelLeaveRequest(info: any): Observable<any> {
-    return this.http.post(this.mainUrl + 'api/cancelLeaveRequest', JSON.stringify(info), this.httpOptions);
+  getCompOffMinWorkingHours(): Observable<any>{
+    return this.http.get(this.mainUrl+'api/getCompOffMinWorkingHours', this.httpOptions);
 
   }
-
-  getLeaveCalendarForManager(Id: any): Observable<any> {
-    return this.http.get(this.mainUrl + 'api/getLeaveCalendarForManager/' + Id, this.httpOptions);
-
+  getCompoffCalender(info:any): Observable<any>{
+    console.log(info,'info')
+    return this.http.get(this.mainUrl+'api/getCompoffCalender/'+JSON.stringify(info), this.httpOptions);
+  }
+  setCompOffReviewApprove(info:any): Observable<any> {
+    return this.http.post(this.mainUrl+'api/setCompOffReviewApprove', JSON.stringify(info), this.httpOptions);
   }
 
-  SetEditProfile(info: any): Observable<any> {
-    return this.http.post(this.mainUrl + 'api/editProfile', info, this.httpOptions);
+  getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
+    console.log(info,'info3333')
+    return this.http.get(this.mainUrl+'api/getDurationforBackdatedCompoffLeave', this.httpOptions);
 
   }
+    getLeaveCalendarForManager(Id:any): Observable<any> {
+      return this.http.get(this.mainUrl + 'api/getLeaveCalendarForManager/' + Id, this.httpOptions);
+    }
+    setDeleteLeaveRequest(info: any): Observable<any> {
+      return this.http.post(this.mainUrl + 'api/setDeleteLeaveRequest', JSON.stringify(info), this.httpOptions);
+    }
 
-  getStates(id: any): Observable<any> {
-    return this.http.get(this.mainUrl + 'api/getStatesPerCountry/' + id, this.httpOptions)
-  }
+    cancelLeaveRequest(info: any): Observable<any> {
+      return this.http.post(this.mainUrl + 'api/cancelLeaveRequest', JSON.stringify(info), this.httpOptions);
 
-  getCities(id: any): Observable<any> {
-    return this.http.get(this.mainUrl + 'api/getCitiesPerCountry/' + id, this.httpOptions)
-  }
-  getProfileImage(id: any,companyName:any): Observable<any> {
-    // var conpanyName ='Apple'
-    return this.http.get(this.mainUrl + 'api/getProfileImage/' + id+'/'+companyName);
-  }
+    }
+
+    SetEditProfile(info: any): Observable<any> {
+      return this.http.post(this.mainUrl + 'api/editProfile', info, this.httpOptions);
+
+    }
+
+    getStates(id: any): Observable<any> {
+      return this.http.get(this.mainUrl + 'api/getStatesPerCountry/' + id, this.httpOptions)
+    }
+
+    getCities(id: any): Observable<any> {
+      return this.http.get(this.mainUrl + 'api/getCitiesPerCountry/' + id, this.httpOptions)
+    }
+    getProfileImage(id: any,companyName:any): Observable<any> {
+      // var conpanyName ='Apple'
+      return this.http.get(this.mainUrl + 'api/getProfileImage/' + id+'/'+companyName);
+    }
+
+    getLeavesForCancellation(id: any): Observable<any>  {
+      return this.http.get(this.mainUrl + 'api/getLeavesForCancellation/' + id, this.httpOptions);
+    }
 
 
-
-  getLeavesForCancellation(id: any): Observable<any>  {
-    return this.http.get(this.mainUrl + 'api/getLeavesForCancellation/' + id, this.httpOptions);
-  }
-
-
-  getEmployeeInformation(id: any): Observable<any> {
-    return this.http.get(this.mainUrl + 'api/getEmployeeInformation/' + id, this.httpOptions);
-  }
-  setProfileImage(data: FormData,Id: number ,conpanyName:any): Observable<any> {
-    return this.http.post(this.mainUrl + 'api/setProfileImage/'+conpanyName+'/'+Id, data);
-  }
-  removeProfileImage(id: any,companyName:any): Observable<any> {
-    return this.http.delete(this.mainUrl + 'api/removeProfileImage/' + id+'/'+companyName,this.httpOptions);
-  }
+    getEmployeeInformation(id: any): Observable<any> {
+      return this.http.get(this.mainUrl + 'api/getEmployeeInformation/' + id, this.httpOptions);
+    }
+    setProfileImage(data: FormData,Id: number ,conpanyName:any): Observable<any> {
+      return this.http.post(this.mainUrl + 'api/setProfileImage/'+conpanyName+'/'+Id, data);
+    }
+    removeProfileImage(id: any,companyName:any): Observable<any> {
+      return this.http.delete(this.mainUrl + 'api/removeProfileImage/' + id+'/'+companyName,this.httpOptions);
+    }
+    getHolidaysList(empId:any): Observable<any>{
+      return this.http.get(this.mainUrl+'api/getHolidaysList/' + empId, this.httpOptions);
+    }
+    getHolidays(year:any,location:any,page:any,size:any): Observable<any>{
+      console.log(year,location,page,size)
+      return this.http.get(this.mainUrl+'api/getHolidaysFilter/'+ year+'/'+location+'/'+page+'/'+size, this.httpOptions);
+    }
 
 }

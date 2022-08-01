@@ -15,6 +15,7 @@ import {ManagerDashboardCalenderComponent} from "./pages/manager-dashboard-calen
 import { UserCompoffComponent } from './pages/user-compoff/user-compoff.component';
 import {EditProfileComponent} from "./pages/edit-profile/edit-profile.component";
 import {LeavesForCancellationComponent} from "./pages/leaves-for-cancellation/leaves-for-cancellation.component";
+import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 const routes: Routes = [
   {path:'',component:MainComponent,children:[
       {path:'PendingApprovals',component:PendingApprovalsComponent},
@@ -30,8 +31,9 @@ const routes: Routes = [
       {path:'UserCompOff',component:UserCompoffComponent},
       {path:"ManagerDashboardCalender",component:ManagerDashboardCalenderComponent},
       {path:'EditProfile',component:EditProfileComponent},
-      {path:"LeavesForCancellation",component:LeavesForCancellationComponent}
-
+      {path:"LeavesForCancellation",component:LeavesForCancellationComponent},
+      {path:'UserDashboard',component:UserDashboardComponent},
+      {path:"ManagerDashboardCalender",component:ManagerDashboardCalenderComponent}
     ]}
 ];
 

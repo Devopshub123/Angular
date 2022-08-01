@@ -21,7 +21,7 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { PopupComponent} from './pages/popup/popup.component'
 import { ReusableDialogComponent } from './pages/reusable-dialog/reusable-dialog.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker'
 import { CommonModule } from '@angular/common';
 import { OnlyNumberDirective } from './custom-directive/only-number.directive';
 import { MainComponent } from './pages/main/main.component';
@@ -34,6 +34,9 @@ import { WorklocationComponent } from './modules/admin/pages/worklocation/worklo
 import { HolidaysComponent } from './modules/admin/pages/holidays/holidays.component';
 import { LeavepoliciesComponent } from './modules/admin/pages/leavepolicies/leavepolicies.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+
+// import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+
 
  FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -74,12 +77,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     HttpClientModule,
     CommonModule,
     MatTableModule,
-    NgxSpinnerModule
-
-
+    NgxSpinnerModule,
+    MatDatepickerModule,
+    // BsDatepickerModule.forRoot(),
+    // DatepickerModule.forRoot() 
 
   ],
 
+  // providers: [BnNgIdleService, BsDatepickerConfig],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })
