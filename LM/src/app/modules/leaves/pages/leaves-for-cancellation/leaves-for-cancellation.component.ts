@@ -9,6 +9,7 @@ import {MatSort} from "@angular/material/sort";
 import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.component";
 import {ReviewAndApprovalsComponent} from "../../dialog/review-and-approvals/review-and-approvals.component";
 import {DatePipe} from "@angular/common";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-leaves-for-cancellation',
@@ -32,11 +33,15 @@ export class LeavesForCancellationComponent implements OnInit {
   LM120:any;
   LM121:any;
   LM119:any;
-  constructor(private LM:LeavesService, private router: Router,public dialog: MatDialog) { }
+  constructor(private LM:LeavesService, private router: Router,public dialog: MatDialog,public spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    this.getLeavesForCancellation()
+    this.getLeavesForCancellation();
+    this.getErrorMessages('LM120')
+    this.getErrorMessages('LM121')
+    this.getErrorMessages('LM119')
+
 
   }
 
@@ -44,8 +49,10 @@ export class LeavesForCancellationComponent implements OnInit {
    * get all pending leave for Cancellation
    * **/
   getLeavesForCancellation(){
+    this.spinner.show()
     this.arrayList= [];
     this.LM.getLeavesForCancellation(this.userSession.id).subscribe((res: any) => {
+      this.spinner.hide()
       if (res.status) {
         // this.arrayList = res.data;
         for(let i = 0; i<res.data.length;i++){
@@ -81,6 +88,7 @@ export class LeavesForCancellationComponent implements OnInit {
   }
 
   leaveCancellationApprove(leave:any,status:any,approverId:any){
+    this.spinner.show()
     let obj = {
       "id":leave.id,
       "leaveId": leave.leave_id,
@@ -92,7 +100,9 @@ export class LeavesForCancellationComponent implements OnInit {
     };
 
     this.LM.setApproveOrReject(obj).subscribe((res: any) => {
+      this.spinner.hide()
       if(res && res.status){
+        console.log("nlsdnjk",res)
         if(res.leaveStatus == 'Cancel Approved'){
           this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
             position:{top:`70px`},
@@ -123,6 +133,7 @@ export class LeavesForCancellationComponent implements OnInit {
   }
   leaveReject(leave:any){
 
+
     this.titleName="Reject"
     this.openDialog(leave)
   }
@@ -141,6 +152,7 @@ export class LeavesForCancellationComponent implements OnInit {
           this.leaveCancellationApprove(leave,'Cancel Rejected',null);
         }
       }
+
     });
   }
 

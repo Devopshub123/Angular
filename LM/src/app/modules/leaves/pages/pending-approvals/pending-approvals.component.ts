@@ -10,6 +10,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ReusableDialogComponent} from "../../../../pages/reusable-dialog/reusable-dialog.component";
 import {DatePipe} from "@angular/common";
 import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.component";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-pending-approvals',
@@ -34,13 +35,14 @@ export class PendingApprovalsComponent implements OnInit {
   arrayList:any=[];
   LM119:any;
 
-  constructor(private LM:LeavesService, private router: Router,public dialog: MatDialog) { }
+  constructor(private LM:LeavesService, private router: Router,public dialog: MatDialog,public spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getLeavesForApprovals();
     this.getErrorMessages('LM113')
     this.getErrorMessages('LM114')
+    this.getErrorMessages('LM119')
 
   }
 
@@ -48,8 +50,10 @@ export class PendingApprovalsComponent implements OnInit {
    * get all pending leave for approvals
    * **/
   getLeavesForApprovals(){
+    this.spinner.show();
     this.arrayList= [];
     this.LM.getLeavesForApprovals(this.userSession.id).subscribe((res: any) => {
+      this.spinner.hide();
       if (res.status) {
         // this.arrayList = res.data;
         for(let i = 0; i<res.data.length;i++){
@@ -90,6 +94,7 @@ leaveReview(leave:any){
   }
 
   leaveApprove(leave:any,status:any,approverId:any){
+    this.spinner.show();
     let obj = {
       "id":leave.id,
       "leaveId": leave.leave_id,
@@ -101,6 +106,7 @@ leaveReview(leave:any){
     };
 
     this.LM.setApproveOrReject(obj).subscribe((res: any) => {
+      this.spinner.hide();
       if(res && res.status){
         if(res.leaveStatus == 'Approved'){
           this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',

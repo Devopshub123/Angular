@@ -8,6 +8,8 @@ import {ReviewAndApprovalsComponent} from "../../dialog/review-and-approvals/rev
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.component";
 import {Router} from "@angular/router";
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-pending-compoff',
@@ -28,22 +30,28 @@ export class PendingCompoffComponent implements OnInit {
   titleName:any;
   LM115:any;
   LM116:any;
-  constructor(private LM:LeavesService,public dialog: MatDialog,private router: Router) { }
+  LM119:any;
+  constructor(private LM:LeavesService,public dialog: MatDialog,private router: Router,private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getCompoffForApprovals();
     this.getErrorMessages('LM115')
     this.getErrorMessages('LM116')
+    this.getErrorMessages('LM119')
 
 
   }
 
 
   getCompoffForApprovals() {
+    this.spinner.show()
+
     this.arrayList= [];
 
     this.LM.getCompoffForApprovals(this.userSession.id).subscribe((res: any) => {
+      this.spinner.hide();
+
       if (res.status) {
         // this.arrayList = res.data;
         for(let i = 0; i<res.data.length;i++){
@@ -68,6 +76,7 @@ export class PendingCompoffComponent implements OnInit {
   }
 
   compoffApprove(compoff:any,status:any,approverId :any){
+    this.spinner.show();
 
     // let obj = {
     //   "id":compoff.id,
@@ -82,6 +91,7 @@ export class PendingCompoffComponent implements OnInit {
     compoff.remarks = compoff.remarks ?compoff.remarks: null;
 
     this.LM.setCompoffForApproveOrReject(compoff).subscribe((res: any) => {
+      this.spinner.hide();
       if(res && res.status){
         if(res.compoffStatus == 'Approved'){
           this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
@@ -155,6 +165,10 @@ export class PendingCompoffComponent implements OnInit {
       else if(result.status && errorCode == 'LM116')
       {
         this.LM116 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM119')
+      {
+        this.LM119 = result.data[0].errormessage
       }
 
     })

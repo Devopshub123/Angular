@@ -9,6 +9,7 @@ import {PendingApprovalsComponent} from "../pending-approvals/pending-approvals.
 import {Router} from "@angular/router";
 import {PendingCompoffComponent} from "../pending-compoff/pending-compoff.component";
 import {LeavesForCancellationComponent} from "../leaves-for-cancellation/leaves-for-cancellation.component";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -25,16 +26,16 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   pendingapprove:any;
   compoffPendingapprove:any;
   cancellationapprove:any;
-  constructor(private formBuilder: FormBuilder,private location: Location,public dialog: MatDialog,private LM:LeavesService,private router: Router) {
+  constructor(private formBuilder: FormBuilder,private location: Location,public dialog: MatDialog,private LM:LeavesService,private router: Router,private spinner:NgxSpinnerService) {
     this.leaveInfo = this.location.getState();
   }
   pipe = new DatePipe('en-US');
 
 
   ngOnInit(): void {
-    this.pendingapprove = new PendingApprovalsComponent(this.LM,this.router,this.dialog);
-    this.compoffPendingapprove = new PendingCompoffComponent(this.LM,this.dialog,this.router,);
-    this.cancellationapprove = new LeavesForCancellationComponent(this.LM,this.router,this.dialog);
+    this.pendingapprove = new PendingApprovalsComponent(this.LM,this.router,this.dialog,this.spinner);
+    this.compoffPendingapprove = new PendingCompoffComponent(this.LM,this.dialog,this.router,this.spinner);
+    this.cancellationapprove = new LeavesForCancellationComponent(this.LM,this.router,this.dialog,this.spinner);
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.pendingapprove.ngOnInit();
     this.compoffPendingapprove.ngOnInit();
