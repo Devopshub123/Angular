@@ -57,25 +57,35 @@
 
           <input formControlName="noOfDays" required matInput placeholder="Shift" >
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" *ngIf="leaveInfo.leaveData.leavestatus == 'Submitted'"  class="mx-7 my-2" appearance="outline">
           <mat-label>Pending Since</mat-label>
           <input formControlName="pendingSince" required matInput placeholder="Shift" >
         </mat-form-field>
-      </div>
-
-
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-
-      </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        <mat-form-field *ngIf="leaveInfo.leaveData.leavestatus == 'Approved' && leaveInfo.isleaveHistory != 'compoff'" fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" *ngIf="leaveInfo.isCancellation == true"  class="mx-7 my-2" appearance="outline">
+          <mat-label >Reason for Cancel</mat-label>
+          <input formControlName="actionReason" required matInput placeholder="Shift" >
+        </mat-form-field>
+        <mat-form-field *ngIf="leaveInfo.leaveData.leavestatus == 'Approved' && leaveInfo.isleaveHistory != 'compoff' && leaveInfo.isCancellation != true " fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
           <mat-label >ApprovedOn</mat-label>
           <input formControlName="approvedon" required matInput placeholder="Shift" >
         </mat-form-field>
+
+      </div>
+
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+        <!--<mat-form-field *ngIf="leaveInfo.leaveData.leavestatus == 'Approved' && leaveInfo.isleaveHistory != 'compoff' && leaveInfo.isCancellation != true " fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">-->
+          <!--<mat-label >ApprovedOn</mat-label>-->
+          <!--<input formControlName="approvedon" required matInput placeholder="Shift" >-->
+        <!--</mat-form-field>-->
         <mat-form-field fxFlex.xs="100" *ngIf="leaveInfo.leaveData.leavestatus != 'Approved' && leaveInfo.leaveData.leavestatus != 'Submitted' && leaveInfo.leaveData.leavestatus != 'Utilized'  "  class="mx-7 my-2" appearance="outline">
           <mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Deleted'">Reason for Delete</mat-label>
-          <mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Reject'">Reason for Reject</mat-label>
-          <mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Cancel'">Reason for Cancel</mat-label>
+          <mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Rejected'">Reason for Reject</mat-label>
+          <mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Cancelled'">Reason for Cancel</mat-label>
+          <!--<mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Cancel '">Reason for Cancel</mat-label>-->
 
           <input formControlName="actionReason" required matInput placeholder="Shift" >
         </mat-form-field>
