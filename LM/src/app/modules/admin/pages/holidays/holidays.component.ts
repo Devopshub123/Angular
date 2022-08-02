@@ -38,6 +38,8 @@ export class HolidaysComponent implements OnInit {
   tableSizes = [10, 25, 50, 'All'];
   displayedColumns: string[] = ['holiday','date','day','location','action'];
   dataSource: MatTableDataSource<any>=<any>[];
+
+  pageLoading=true;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -154,11 +156,21 @@ export class HolidaysComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.holidaysDetails);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.pageLoading=false;
         // this.count = result.data.length >0?result.data[0].total:0;
       }
 
     })
 
+  }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+
+     return [5, 10, 20];
+    }
   }
   delete(event:any,holidayId:any){
    

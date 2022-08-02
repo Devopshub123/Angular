@@ -1,7 +1,8 @@
-
-<div class="example-container" style="overflow: hidden;">
-    <form [formGroup]="leaveTypeForm" autocomplete="off" style="text-align: centre;">
+<form [formGroup]="leaveTypeForm" autocomplete="off" >
+<div class="example-container" style="overflow: hidden;text-align: centre;">
+    
       <h2 style="text-align: centre;">Add</h2>
+      <div style="text-align: centre;">
           <mat-form-field class="popup" fxFlex.xs="100" appearance="outline">
             <mat-label>Leave Type Name</mat-label>
             <input matInput formControlName="leavetypename" placeholder="" required>
@@ -43,11 +44,12 @@
           <div class="extra" style="color: red;"  *ngIf="isLeaveColorAlreadyExists" >
             This color  existed
           </div>
-    </form>
+        </div>
+
     
   </div>
   <div fxLayoutAlign="end">
-    <button class="mx-1 mat-stroked-button btn btn-primary" [disabled]="!leaveTypeForm.valid"  (click)="submit()">
+    <button class="mx-1 mat-stroked-button btn btn-primary"  (click)="submit()">
         <span>Submit</span>
     </button>
     <!-- [disabled]="!leaveTypeForm.valid " -->
@@ -56,3 +58,4 @@
     </button>
     <br />
 </div>
+</form>

@@ -42,7 +42,9 @@
                             <!-- <td mat-cell *matCellDef="let row" > {{row.deptname}} </td> -->
                             <td mat-cell *matCellDef="let row" > 
                                 <span *ngIf="enable != row.id">{{row.deptname}}&nbsp;</span>
-                                <span *ngIf="enable === row.id"><input formControlName="department" value="row.deptname" matInput placeholder="{{row.deptname}}" ></span>
+                                <mat-form-field appearance="outline" *ngIf="enable === row.id">
+                                    <input formControlName="department" value="row.deptname" matInput placeholder="{{row.deptname}}" >
+                                </mat-form-field>
 
                             </td>
                         </ng-container>
@@ -83,7 +85,8 @@
                         </tr> 
                     </table>
         
-                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+                    <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
                 </div>
             </div>    
         </mat-card>

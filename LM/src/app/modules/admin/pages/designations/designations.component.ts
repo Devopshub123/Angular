@@ -40,7 +40,7 @@ export class DesignationsComponent implements OnInit {
   arrayValue:any=[{Value:'Active',name:'Active '},{Value:'Inactive',name:'Inactive'}];
   enable:any=null;
   dataSource: MatTableDataSource<UserData>;
-
+  pageLoading=true;
   // @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -224,9 +224,20 @@ export class DesignationsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.designationData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.pageLoading=false;
 
       }
     })
+    
+  }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+
+     return [5, 10, 20];
+    }
   }
   getErrorMessages(errorCode:any) {
     this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
