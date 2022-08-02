@@ -11,10 +11,13 @@ import {LeavesService} from "../../leaves.service";
 })
 export class UserLeaveRequestComponent implements OnInit {
   editForm:any= FormGroup;
+  leavebalance:any=[];
+  userSession:any=[];
 
   constructor(private router: Router,private LM:LeavesService,private formBuilder: FormBuilder,private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.editForm = this.formBuilder.group({
       leaveId: ['',Validators.required],
       fromDate:['',Validators.required],
@@ -27,7 +30,42 @@ export class UserLeaveRequestComponent implements OnInit {
       emergencyEmail:['',Validators.required],
 
     })
+    this.getLeaveBalance();
 
   }
 
+  getLeaveBalance() {
+    this.LM.getLeaveBalance(this.userSession.id).subscribe((result) => {
+      if(result && result.status){
+        this.leavebalance = this.leaveTypes(result.data[0])
+      }
+    })
+  }
+  /**
+   * leaveTypes
+   * few leavetypes will display based on  gender and maritalstatus in leave types dropdown
+   **/
+
+  leaveTypes(leaveTypes:any){
+    var data = [];
+    for (var i = 0; i < leaveTypes.length; i++) {
+
+      if (leaveTypes[i].leavename === "Marriage Leave" && this.userSession.maritalstatus === "Single") {
+        data.push(leaveTypes[i])
+
+      } else if (leaveTypes[i].leavename === 'Maternity Leave'&& this.userSession.maritalstatus === "Married") {
+        if (this.userSession.gender === 'Female') {
+          data.push(leaveTypes[i])
+        }
+      } else if (leaveTypes[i].leavename === 'Paternity Leave'&& this.userSession.maritalstatus === "Married") {
+        if (this.userSession.gender === 'Male') {
+          data.push(leaveTypes[i])
+        }
+      }else if(leaveTypes[i].leavename !== 'Paternity Leave' && leaveTypes[i].leavename !== "Marriage Leave" && leaveTypes[i].leavename !== 'Maternity Leave'){
+        data.push(leaveTypes[i])
+      }
+
+    }
+    return data;
+  }
 }

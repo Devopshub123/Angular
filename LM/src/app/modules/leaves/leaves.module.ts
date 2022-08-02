@@ -27,6 +27,7 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 import { LeavesForCancellationComponent } from './pages/leaves-for-cancellation/leaves-for-cancellation.component';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 import { UserLeaveRequestComponent } from './pages/user-leave-request/user-leave-request.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { UserLeaveRequestComponent } from './pages/user-leave-request/user-leave
     FlexLayoutModule,
     NgxPaginationModule,
     NgxSpinnerModule,
-    FullCalendarModule
+    FullCalendarModule,
+    MatCheckboxModule
   ]
 })
 export class LeavesModule { }

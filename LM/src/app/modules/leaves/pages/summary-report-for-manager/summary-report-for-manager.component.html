@@ -8,7 +8,7 @@
     <br />
     <div [formGroup]="searchForm">
       <div fxLayout="row" fxLayout.xs="column"   >
-      <mat-form-field fxFlex="33" fxFlex.xs="100"   class="mx-1 my-1" appearance="outline">
+      <mat-form-field fxFlex="33" fxFlex.xs="100" class="mx-1 my-1" appearance="outline">
         <mat-label>Designations</mat-label>
         <mat-select  formControlName="designationId" required>
           <mat-option value="All"> All </mat-option>
@@ -64,6 +64,7 @@
         </a>
       </div>
     </div >
+    <mat-card-content style="width:100%;overflow-x: auto">
     <table id ='table' class="table  table-striped">
       <thead style="background-color: #28acaf;">
 
@@ -120,6 +121,7 @@
       </tbody>
 
     </table>
+    </mat-card-content>
 
   </mat-card>
   <ngx-spinner size="medium" type='ball-fussion'></ngx-spinner>

@@ -1,5 +1,5 @@
 <div fxLayout="column">
-  <mat-card>
+  <mat-card style="flex-flow: nowrap">
     <mat-card-header>
       <mat-card-title style="text-align: center"> Pending Cancellation Requests </mat-card-title>
     </mat-card-header>
@@ -11,7 +11,10 @@
       <!--<mat-icon matSuffix>search</mat-icon>-->
       <!--</mat-form-field>-->
     </div>
+
     <div class="mat-elevation-z8" style="margin-top: 2%;margin-left:20px;margin-bottom:20px; margin-right:20px;">
+      <mat-card-content style="width:100%;overflow-x: auto">
+
       <table mat-table [dataSource]="dataSource" matSort>
 
         <!-- ID Column -->
@@ -70,9 +73,12 @@
           <td class="mat-cell" colspan="9">No data available</td>
         </tr>
       </table>
+    </mat-card-content>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
   </mat-card>
+
   <ngx-spinner size="medium" type='ball-fussion'></ngx-spinner>
 </div>
