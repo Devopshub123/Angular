@@ -40,7 +40,7 @@ export class DeparmentComponent implements OnInit {
   departmentData:any=[];
   arrayValue:any=[{Value:'Active',name:'Active '},{Value:'Inactive',name:'Inactive'}];
   dataSource: MatTableDataSource<UserData>=<any>[];
-
+  pageLoading=true;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -232,10 +232,20 @@ export class DeparmentComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.departmentData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.pageLoading=false;
       }
 
     })
 
+  }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+
+     return [5, 10, 20];
+    }
   }
 
 
