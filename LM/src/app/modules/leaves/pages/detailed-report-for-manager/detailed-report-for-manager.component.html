@@ -2,14 +2,14 @@
 
   <mat-card style="flex-flow: row wrap;">
     <mat-card-header class="heading">
-      <mat-card-title class="headingtext"> Details Report</mat-card-title>
+      <mat-card-title class="headingtext"> Detailed Report</mat-card-title>
     </mat-card-header>
     <br />
     <div [formGroup]="searchForm"  >
       <div fxLayout="row"  fxLayout.xs="column">
         <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
-          <mat-label>Employe Name and ID</mat-label>
-          <mat-select fxFlex.xs="100" formControlName="employeeId" required>
+          <mat-label>Employee Name and ID</mat-label>
+          <mat-select fxFlex.xs="100" formControlName="employeeId" >
             <mat-option value="All"> All </mat-option>
             <ng-container *ngFor="let e of employeeDetails">
               <mat-option [value]="e.empid">{{e.empname+'  '}}-{{'  '+e.employee_code}}</mat-option>
@@ -20,7 +20,7 @@
       <div fxLayout="row"  fxLayout.xs="column">
         <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
           <mat-label>Leave Type</mat-label>
-          <mat-select formControlName="leaveType" required>
+          <mat-select formControlName="leaveType" >
             <mat-option value="All"> All </mat-option>
             <ng-container *ngFor="let e of leaveTypes">
               <mat-option [value]="e.id">{{e.leavename}}</mat-option>
@@ -29,7 +29,7 @@
         </mat-form-field>
         <mat-form-field fxFlex="33"  class="mx-1 my-1" appearance="outline">
           <mat-label>Leave Status</mat-label>
-          <mat-select formControlName="leaveStatus" required>
+          <mat-select formControlName="leaveStatus" >
             <mat-option value="All"> All</mat-option>
             <mat-option value="Approved">Approved</mat-option>
             <mat-option value="Submitted"> Submitted</mat-option>
@@ -41,7 +41,7 @@
         </mat-form-field>
         <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
           <mat-label>Designations</mat-label>
-          <mat-select formControlName="designation" required>
+          <mat-select formControlName="designation" >
             <mat-option value="All"> All </mat-option>
             <ng-container *ngFor="let d of designations">
               <mat-option [value]="d.id">{{d.designation}}</mat-option>
@@ -51,7 +51,7 @@
       </div>
     <div fxLayout="row"  fxLayout.xs="column" >
       <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
-        <mat-label>from Date</mat-label>
+        <mat-label>From Date</mat-label>
         <input matInput readonly [matDatepicker]="fromDate"
                placeholder="From Date" formControlName="fromDate">
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
@@ -248,7 +248,7 @@
       </table>
     </mat-card-content>
     <div *ngIf="arrayList && arrayList.length  != 0" >
-      <div class="row" *ngIf="count > 10" >
+      <div class="row" *ngIf="count > 5" >
         <div class="col-md-6" >
           <div  class="d-flex flex-row-reverse bd-highlight mb-2" style="float: left;">
             <div class="d-flex justify-content-start">
@@ -256,7 +256,7 @@
               <div class="col-md-8" >
                 <select style="width: 150px;" (change)="onTableSizeChange($event)" class="custom-select select1">
                   <option value="10">
-                    10 Entries
+                    5 Entries
                   </option>
                   <option  value="25">
                     25 Entries

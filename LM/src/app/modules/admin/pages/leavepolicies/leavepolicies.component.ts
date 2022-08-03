@@ -150,12 +150,6 @@ export class LeavepoliciesComponent implements OnInit {
       // this.tabledata=false;
       // this.advanceflag=true;
       this.addadvanced=true;
-      let advancedata ={
-        advancedLeaveId: "2",
-        displayName: "",
-        leaveId: selectedValue
-  
-      }
       // this.changeLeaveType(selectedValue,null);
       // this.addleaveForm.controls.leavecolor.disable();
       // this.addleaveForm.controls.pastdays.disable();

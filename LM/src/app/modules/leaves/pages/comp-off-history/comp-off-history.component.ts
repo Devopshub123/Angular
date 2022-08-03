@@ -14,8 +14,11 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class CompOffHistoryComponent implements OnInit {
   userSession:any;
-  displayedColumns: string[] = ['appliedOn','empId' ,'empName','fromDate', 'noOfHours','pendingSince','reason','action'];
+  // displayedColumns: string[] = ['appliedOn','empId' ,'empName','fromDate', 'noOfHours','pendingSince','reason','action'];
+    displayedColumns: string[] = ['appliedOn','empId' ,'empName','fromDate', 'noOfHours','pendingSince','action'];
+
   dataSource: MatTableDataSource<UserData>=<any>[];
+  pageLoading=true;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -47,14 +50,25 @@ export class CompOffHistoryComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.pageLoading=false;
       } else {
         this.arrayList = [];
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.pageLoading=false;
       }
 
     });
+  }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+
+     return [5, 10, 20];
+    }
   }
   compoffReview(compoff:any){
     compoff.employeename = compoff.employee_name;
