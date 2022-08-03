@@ -121,7 +121,7 @@ export class CompanyinformationComponent implements OnInit {
       primarycontactnumber:this.companyForm.controls.contact.value,
       primarycontactemail:this.companyForm.controls.email.value,
       address1:this.companyForm.controls.address1.value,
-      address2:this.companyForm.controls.address2.value?this.companyForm.controls.fullCompanyName.value:'',
+      address2:this.companyForm.controls.address2.value?this.companyForm.controls.address2.value:'',
       country:this.companyForm.controls.country.value,
       state:this.companyForm.controls.state.value,
       city:this.companyForm.controls.city.value,

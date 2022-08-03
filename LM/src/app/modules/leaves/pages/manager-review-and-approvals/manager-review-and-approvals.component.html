@@ -55,7 +55,15 @@
           <mat-label *ngIf="!leaveInfo.isleave">No.of Days</mat-label>
 
 
-          <input formControlName="noOfDays" required matInput placeholder="Shift" >
+          <input formControlName="noOfDays" required matInput placeholder="" >
+        </mat-form-field>
+        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline" *ngIf="leaveInfo.leaveData.leavestatus == 'Deleted'">
+          <mat-label *ngIf="leaveInfo.isleave">Deleted On</mat-label>
+          <input formControlName="updatedon" required matInput placeholder="" >
+        </mat-form-field>
+        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline" *ngIf="leaveInfo.leaveData.leavestatus == 'Rejected'">
+          <mat-label *ngIf="leaveInfo.isleave">Rejected On</mat-label>
+          <input formControlName="updatedon" required matInput placeholder="" >
         </mat-form-field>
         <mat-form-field fxFlex.xs="100" *ngIf="leaveInfo.leaveData.leavestatus == 'Submitted'"  class="mx-7 my-2" appearance="outline">
           <mat-label>Pending Since</mat-label>

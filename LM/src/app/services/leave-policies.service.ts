@@ -77,7 +77,7 @@ export class LeavePoliciesService {
   }
   updateLeaveDisplayName(info:any): Observable<any> {
     console.log(info, "infoinfo")
-    return this.hClient.post(this.url + '/api/updateLeaveDisplayName', JSON.stringify(info), this.httpOptions);
+    return this.hClient.post(this.url + 'api/updateLeaveDisplayName', JSON.stringify(info), this.httpOptions);
 
   }
 

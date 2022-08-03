@@ -37,8 +37,8 @@ export class DetailedReportForManagerComponent implements OnInit {
   employeeDetails:any = [];
   page = 1;
   count = 0;
-  tableSize = 10;
-  tableSizes = [10, 25, 50, 'All'];
+  tableSize = 5;
+  tableSizes = [5, 25, 50, 'All'];
   pipe = new DatePipe('en-US');
   onTableDataChange(event:any){
     this.page = event;

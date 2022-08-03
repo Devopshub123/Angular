@@ -72,6 +72,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
             relation:[{value:this.leaveInfo.leaveData.bereavement_relation, disabled:true }],
             approvedon: [{ value: this.pipe.transform(new Date(this.leaveInfo.leaveData.approvedon), 'mediumDate'),disabled:true}],
             actionReason:[{value:this.leaveInfo.leaveData.action_reason, disabled:true }],
+            updatedon:[{value: this.pipe.transform(new Date(this.leaveInfo.leaveData.updatedon), 'mediumDate'), disabled:true}]
 
           });
 
@@ -89,6 +90,8 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
             // workType1: [{ value: this.leaveInfo.leaveDate.leavecount, disabled: true }],
             pendingSince: [{ value: this.leaveInfo.leaveData.pendingSince, disabled: true }],
             leaveReason: [{ value: this.leaveInfo.leaveData.reason, disabled: true }],
+            // actionReason:[{value:this.leaveInfo.leaveData.action_reason, disabled:true }],
+            // updatedon:[{value: this.pipe.transform(new Date(this.leaveInfo.leaveData.updatedon), 'mediumDate'), disabled:true}]
           });
 
       }

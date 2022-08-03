@@ -55,7 +55,7 @@ export class PendingCompoffComponent implements OnInit {
       if (res.status) {
         // this.arrayList = res.data;
         for(let i = 0; i<res.data.length;i++){
-          var date = new Date();
+          var date = new Date(); 
           var appliedDate = new Date(res.data[i].applied_date)
           res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
           this.arrayList.push(res.data[i])

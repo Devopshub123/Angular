@@ -409,7 +409,7 @@
                                         </div>
                                         <div *ngIf="data.rulename == 'leavecolor'">
                                               <input required style="width: 50%;" matInput formControlName="leavecolor" value="leavecolor" type="color" >
-                                              <!-- <div class="con-error" *ngIf="isLeaveColorAlreadyExists ">This field required</div> -->
+                                              <div class="con-error" *ngIf="isLeaveColorAlreadyExists "  style="color: red;">This color already existed</div>
                                             </div>
                                         <div *ngIf="data.rulename == 'LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY'">
                                         <mat-form-field appearance="outline">
@@ -492,6 +492,12 @@
                         <button class="col-md-3 mr-2 btn btn-primary" (click)="setleavepolicies()"  >Submit</button>
                         <button class="col-md-3  btn btn-danger"   (click)="cancelledleave()">Cancel</button>
                     </div>
+                </div>
+                <div  class="col-sm-6 mr2 text-right" *ngIf="addadvanced">
+                    <button class="col-md-3 mr-2 btn btn-danger" (click)="setLeaveStatus(false)" *ngIf="isdeactivate">Deactivate</button>
+                    <button class="col-md-3 mr-2 btn btn-primary" (click)="setadvanceleavepolicies()"  >Submit</button>
+                    <button class="col-md-3  btn btn-danger"   (click)="cancelledleave()">Cancel</button>
+               
                 </div>
                 <div *ngIf="tabledata && !advanceflag" >
                     <div  fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
