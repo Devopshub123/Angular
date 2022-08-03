@@ -7,7 +7,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {ReusableDialogComponent} from "../../../../pages/reusable-dialog/reusable-dialog.component";
 import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.component";
 
-
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -91,10 +90,12 @@ export class EditProfileComponent implements OnInit {
       this.LM.getStates(selectedValue).subscribe((result)=>{
         if(result && result.status){
           this.stateDetails=result.data;
+
         }
         if(this.employeedata != null)
         {
           this.editForm.controls.stateId.setValue(this.employeedata.state);
+
         }
       })
     })
@@ -105,48 +106,62 @@ export class EditProfileComponent implements OnInit {
         if(result && result.status){
           console.log("bksbjbs",result)
           this.cityDetails=result.data;
+          this.editForm.controls.cityId.setValue('');
+
         }
-        if(this.employeedata != null)
+        console.log("hello",this.employeedata.state,this.editForm.controls.stateId.value)
+
+        if(this.employeedata.state === this.editForm.controls.stateId.value)
         {
+          console.log("hello")
           this.editForm.controls.cityId.setValue(this.employeedata.city);
         }
+
       })
     })
+
 
   }
 
   editProfile(){
-    var obj = {
-      'id':this.userSession.id,
-      'firstName': this.editForm.controls.firstName.value,
-      'lastName':this.editForm.controls.lastName.value,
-      'email':this.editForm.controls.email.value,
-      'address':this.editForm.controls.address.value,
-      'countryId':this.editForm.controls.countryId.value,
-      'stateId':this.editForm.controls.stateId.value,
-      'cityId':this.editForm.controls.cityId.value,
-      'zipCode':this.editForm.controls.zipCode.value
 
-    }
-    this.LM.SetEditProfile(obj).subscribe((res: any) => {
-      console.log("lffjfjf",res)
-      if(res && res.status){
-        this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
-          position:{top:`70px`},
-          disableClose: true,
-          data:{Message:this.LM118,url: '/LeaveManagement/EditProfile'}
-        });
+    if(this.editForm.valid) {
+      console.log("kjkbjbjkbjkkbj")
 
-      }else {
-        this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
-          position:{top:`70px`},
-          disableClose: true,
-          data:{Message:this.LM119,url: '/LeaveManagement/EditProfile'}
-        });
+      var obj = {
+        'id': this.userSession.id,
+        'firstName': this.editForm.controls.firstName.value,
+        'lastName': this.editForm.controls.lastName.value,
+        'email': this.editForm.controls.email.value,
+        'address': this.editForm.controls.address.value,
+        'countryId': this.editForm.controls.countryId.value,
+        'stateId': this.editForm.controls.stateId.value,
+        'cityId': this.editForm.controls.cityId.value,
+        'zipCode': this.editForm.controls.zipCode.value
+
       }
+      this.LM.SetEditProfile(obj).subscribe((res: any) => {
+        console.log("lffjfjf", res)
+        if (res && res.status) {
+          this.dialog.open(ConfirmationComponent, {
+            width: '500px', height: '250px',
+            position: {top: `70px`},
+            disableClose: true,
+            data: {Message: this.LM118, url: '/LeaveManagement/EditProfile'}
+          });
+
+        } else {
+          this.dialog.open(ConfirmationComponent, {
+            width: '500px', height: '250px',
+            position: {top: `70px`},
+            disableClose: true,
+            data: {Message: this.LM119, url: '/LeaveManagement/EditProfile'}
+          });
+        }
 
 
-    })
+      })
+    }
 
   }
   getCountry(){

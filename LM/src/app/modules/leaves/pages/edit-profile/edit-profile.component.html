@@ -4,149 +4,95 @@
       <mat-card-header>
         <mat-card-title > Edit Profile </mat-card-title>
       </mat-card-header>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-
-
-            <!--<div class="container-fluid">-->
-              <!--<div class="card">-->
-                <!--<div class="card-body">-->
-                  <!--<div class="row">-->
-                    <!--<div class="col-md-12">-->
-                      <!--<div class="card no-value">-->
-                        <!--<div class="card-header no-value no-border">-->
-                          <!--<div class="card-head-row">-->
-                            <!--<div class="row">-->
-                              <!--<div class="col-sm-12">-->
-                                <!--<div class="row">-->
-                                  <!--<div class="card main-title">-->
-                                    <!--<div class="col-md-12">-->
-
-                                    <!--</div>-->
-                                  <!--</div>-->
-                                  <div class="row col-md-12 profileImage">
-                                    <!--<div class="column custom-view-mbt-1">-->
-                                      <div class="productAddfromImages customForImage" *ngFor='let url of imageurls; let i = index'>
-                                        <img class="img-fluid custom-image"  [src]="url.base64String">
-                                        <div class="row "  style="justify-content: center;">
-                                      <span class="btn btn-success btn-file mr-3 mx-2 my-2" *ngIf="!isFileImage">
+      <div fxLayout="row" fxLayout.xs="column" >
+        <div class="row col-md-12 profileImage">
+          <!--<div class="column custom-view-mbt-1">-->
+          <div class="productAddfromImages customForImage" *ngFor='let url of imageurls; let i = index'>
+            <img class="img-fluid custom-image"  [src]="url.base64String">
+            <div class="row "  style="justify-content: center;">
+                                      <span class="btn btn-success btn-file mr-3 mx-2 my-2" >
                                         Change <input type="file"
                                                       class="form-control"
                                                       (change)="onSelectFile($event)"
                                                       accept="image/*" />
                                     </span>
-                                          <span class="btn btn-primary btn-file mr-3 mx-2 my-2 custom-button-save" *ngIf="isFileImage" style="width: fit-content;" (click)="saveImage(false)">
-                                        Save
-                                    </span>
-                                          <span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save" *ngIf="isRemoveImage" style="width: fit-content;" (click)="removeImage()">
-                                      Remove
-                                  </span>
-                                          <span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save"  *ngIf="isFileImage" style="width: fit-content;" (click)="cancelImage()">
-                                    Cancel
-                                </span>
+              <!--<span class="btn btn-primary btn-file mr-3 mx-2 my-2 custom-button-save" *ngIf="isFileImage" style="width: fit-content;" (click)="saveImage(false)">-->
+                                        <!--Save-->
+                                    <!--</span>-->
+              <!--<span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save" *ngIf="isRemoveImage" style="width: fit-content;" (click)="removeImage()">-->
+                                      <!--Remove-->
+                                  <!--</span>-->
+              <!--<span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save"  *ngIf="isFileImage" style="width: fit-content;" (click)="cancelImage()">-->
+                                    <!--Cancel-->
+                                <!--</span>-->
 
-                                        </div>
+            </div>
 
-                                        <!-- <button (click)="removeImage()" class="btn btn-xs btn-danger  mx-2 my-2 custom-font-white"*ngIf="isRemoveImage" >Remove</button> -->
-                                        <!-- <button (click)="cancelImage()"class="btn btn-xs btn-danger  mx-2 my-2 custom-font-white" *ngIf="isFileImage">cancel</button> -->
-                                      </div>
-                                    <!--</div>-->
-                                  </div>
-                                <!--</div>-->
-
-                              <!--</div>-->
-                            <!--</div>-->
-                          <!--</div>-->
-                        <!--</div>-->
-
-                      <!--</div>-->
-                    <!--</div>-->
-
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
+            <!-- <button (click)="removeImage()" class="btn btn-xs btn-danger  mx-2 my-2 custom-font-white"*ngIf="isRemoveImage" >Remove</button> -->
+            <!-- <button (click)="cancelImage()"class="btn btn-xs btn-danger  mx-2 my-2 custom-font-white" *ngIf="isFileImage">cancel</button> -->
+          </div>
           <!--</div>-->
-          <!-- footer starts -->
-          <!--<div id="footer"></div>-->
-          <!-- footer ends -->
-
-        <!--</div>-->
+        </div>
 
       </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
-      <!--<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">-->
-
-        <!--<div class="container">-->
-          <!--<h2>Movies</h2>-->
-          <!--<div-->
-            <!--cdkDropList-->
-            <!--#moviesList="cdkDropList"-->
-            <!--[cdkDropListData]="MoviesList"-->
-            <!--[cdkDropListConnectedTo]="[doneMovieList]"-->
-            <!--class="movie-list"-->
-            <!--(cdkDropListDropped)="onDrop($event)">-->
-            <!--<div class="movie-block" *ngFor="let moviesList of MoviesList" cdkDrag>{{moviesList}}</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="container">-->
-          <!--<h2>Movies Watched</h2>-->
-          <!--<div-->
-            <!--cdkDropList-->
-            <!--#doneMovieList="cdkDropList"-->
-            <!--[cdkDropListData]="MoviesWatched"-->
-            <!--[cdkDropListConnectedTo]="[moviesList]"-->
-            <!--class="movie-list"-->
-            <!--(cdkDropListDropped)="onDrop($event)">-->
-            <!--<div class="movie-block" *ngFor="let moviesWatched of MoviesWatched" cdkDrag>{{moviesWatched}}</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
-      <!--</div>-->
-      <!-- <mat-divider></mat-divider> -->
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="custopmDiv">
-
-        <mat-form-field fxFlex.xs="100" class="mx-7 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>First Name</mat-label>
           <input formControlName="firstName"  matInput placeholder="Applied Date"readonly>
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+          <mat-label>Middle Name</mat-label>
+          <input formControlName="firstName"  matInput placeholder="Applied Date"readonly>
+        </mat-form-field>
+        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Last Name</mat-label>
-          <input formControlName="lastName" required matInput placeholder="Shift" >
+          <input formControlName="lastName" required matInput placeholder="" >
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
       </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center"  class="custopmDiv">
-        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
+        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Email</mat-label>
-          <input formControlName="email" required matInput placeholder="" >
+          <input formControlName="email" required matInput placeholder="" maxlength="100" >
           <mat-error class="con-error" *ngIf="editForm.controls.email.errors?.email">
-            {{LM2}}
+            Please enter valid email
+          </mat-error>
+          <mat-error class="con-error"
+                     *ngIf="editForm.controls.email.errors?.required">
+            This field is required
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field  fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+        <mat-form-field  fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Contact</mat-label>
-          <input formControlName="contact" required matInput placeholder="" >
+          <input formControlName="contact" required matInput placeholder="" maxlength="10"  >
           <mat-error class="con-error"
                      *ngIf="editForm.controls.contact.errors?.required">
-            {{LM1}}
+            This field is required
           </mat-error>
         </mat-form-field>
+        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
+          <mat-label>Address</mat-label>
+          <input formControlName="address" required matInput placeholder="" maxlength="100"  >
+          <mat-error class="con-error"
+                     *ngIf="editForm.controls.address.errors?.required">
+            This field is required
+          </mat-error>
+        </mat-form-field>
+
 
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
       </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center"  class="custopmDiv">
-        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
-          <mat-label>Address</mat-label>
-          <input formControlName="address" required matInput placeholder="Shift" >
-        </mat-form-field>
-        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center"  >
+
+        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <!--<mat-label>Country</mat-label>-->
-          <!--<input formControlName="countryId" required matInput placeholder="Shift" >-->
+          <!--<input formControlName="countryId" required matInput placeholder="" >-->
           <mat-label>Country</mat-label>
           <mat-select required formControlName="countryId" required>
             <ng-container>
@@ -157,16 +103,14 @@
 
             </ng-container>
           </mat-select>
+          <mat-error class="con-error"
+                     *ngIf="editForm.controls.countryId.errors?.required">
+            Please select an option
+          </mat-error>
         </mat-form-field>
-
-      </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
-
-      </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center"  class="custopmDiv">
-        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <!--<mat-label>State</mat-label>-->
-          <!--<input formControlName="stateId" required matInput placeholder="Shift" >-->
+          <!--<input formControlName="stateId" required matInput placeholder="" >-->
           <mat-label>State</mat-label>
           <mat-select formControlName="stateId" required>
             <ng-container>
@@ -177,40 +121,55 @@
 
             </ng-container>
           </mat-select>
+          <mat-error class="con-error"
+                     *ngIf="editForm.controls.stateId.errors?.required">
+            Please select an option
+          </mat-error>
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <!--<mat-label >City</mat-label>-->
-          <!--<input formControlName="cityId" required matInput placeholder="Shift" >-->
+          <!--<input formControlName="cityId" required matInput placeholder="" >-->
           <mat-label>City</mat-label>
           <mat-select formControlName="cityId" required>
             <ng-container>
               <div *ngFor="let b of cityDetails">
-                <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                <mat-option value={{b.id}}>{{b.location}}</mat-option>
+                 <!--<mat-option value=""  selected>Select </mat-option>-->
+                <mat-option value="{{b.id}}">{{b.location}}</mat-option>
               </div>
 
             </ng-container>
           </mat-select>
+
+          <mat-error class="con-error" *ngIf="editForm.controls.cityId.errors?.required">
+            Please select an option
+          </mat-error>
+
         </mat-form-field>
+
       </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center"  class="custopmDiv">
-        <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+
+      <div fxLayout="row" fxLayout.xs="column"  >
+        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Zip Code</mat-label>
-          <input formControlName="zipCode" required matInput placeholder="Shift" >
+          <input formControlName="zipCode" onlyNumber required matInput placeholder="" maxlength="6"  >
+          <mat-error class="con-error"
+                     *ngIf="editForm.controls.zipCode.errors?.required">
+            Please select an option
+          </mat-error>
         </mat-form-field>
         <!--<mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">-->
-          <!--&lt;!&ndash;<mat-label>Zip Code</mat-label>&ndash;&gt;-->
-          <!--&lt;!&ndash;<input formControlName="zipCode" required matInput placeholder="Shift" >&ndash;&gt;-->
+        <!--&lt;!&ndash;<mat-label>Zip Code</mat-label>&ndash;&gt;-->
+        <!--&lt;!&ndash;<input formControlName="zipCode" required matInput placeholder="" >&ndash;&gt;-->
         <!--</mat-form-field>-->
       </div>
 
 
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="justify-content: center;">
-          <button class="col-md-2 mr-2 btn btn-primary" [disabled]="!editForm.valid"(click)="saveImage(true)" type="submit">
-            <span>Submit</span>
-          </button>
-        </div>
+        <button class="col-md-2 mr-2 btn btn-primary" [disabled]="!editForm.valid"(click)="saveImage(true)" type="submit">
+          <span>Submit</span>
+        </button>
+      </div>
       <!--</div>-->
     </mat-card>
   </form>
