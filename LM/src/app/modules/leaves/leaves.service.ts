@@ -107,7 +107,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
   getLeaveCalendarForManager(Id:any): Observable<any> {
     return this.http.get(this.mainUrl+'api/getLeaveCalendarForManager/'+Id, this.httpOptions);
   }
-   
+
     setDeleteLeaveRequest(info: any): Observable<any> {
       return this.http.post(this.mainUrl + 'api/setDeleteLeaveRequest', JSON.stringify(info), this.httpOptions);
     }
@@ -154,6 +154,31 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     getHolidays(year:any,location:any,page:any,size:any): Observable<any>{
       console.log(year,location,page,size)
       return this.http.get(this.mainUrl+'api/getHolidaysFilter/'+ year+'/'+location+'/'+page+'/'+size, this.httpOptions);
+    }
+
+    getLeavesTypeInfo(): Observable<any> {
+      return this.http.get(this.mainUrl + 'api/getLeavesTypeInfo', this.httpOptions);
+
+    }
+    getDaysToBeDisabledFromDate(id:any,leaveId:any): Promise<any> {
+      return this.http.get(this.mainUrl + 'api/getdaystobedisabledfromdate/'+id+'/'+leaveId, this.httpOptions).toPromise();;
+
+    }
+    getDaysToBeDisabledToDate(id:any,leaveId:any): Promise<any> {
+      return this.http.get(this.mainUrl + 'api/getdaystobedisabledtodate/'+id+'/'+leaveId,  this.httpOptions).toPromise();;
+
+    }
+    setValidateLeave(info:any): Observable<any> {
+      return this.http.post(this.mainUrl + 'api/validateleave', JSON.stringify(info), this.httpOptions);
+    }
+
+    setUploadDocument(data:File,empid:any,companyname:any){
+      // let companyname = 'sreeb';
+      // let empid = 188
+      return this.http.post(this.mainUrl+'api/setLeaveDocument/'+companyname+'/'+empid,data);
+    }
+    setEmployeeLeave(info:any): Observable<any> {
+      return this.http.post(this.mainUrl + 'api/setemployeeleave', JSON.stringify(info), this.httpOptions);
     }
 
 }
