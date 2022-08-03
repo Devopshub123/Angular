@@ -11,7 +11,10 @@ import {Router} from "@angular/router";
 export class ConfirmationComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ReusableDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,private router: Router) { }
+              @Inject(MAT_DIALOG_DATA) public data: any,private router: Router) {
+    dialogRef.disableClose = true;
+
+  }
 
   ngOnInit(): void {
   }

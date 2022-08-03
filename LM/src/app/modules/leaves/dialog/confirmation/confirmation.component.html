@@ -1,6 +1,11 @@
-
-<div mat-dialog-content style="text-align: center;margin-top: 15%">
+<div style="overflow: hidden">
+<div *ngIf="data && !data.flag" mat-dialog-content style="text-align: center;margin-top: 15%">
   {{data.Message}}
+</div>
+<div *ngIf="data && data.flag" mat-dialog-content style="margin-top: 15%;" >
+  <ul *ngFor="let error of data.Messages">
+    <li style="color: red">{{error.message}}</li>
+  </ul>
 </div>
 <div mat-dialog-actions
      fxLayout="row" fxLayoutAlign="center" style="margin-top: 10%;">
@@ -11,5 +16,5 @@
     <div class="mat-button-focus-overlay"></div>
   </button>
 </div>
-
+</div>
 
