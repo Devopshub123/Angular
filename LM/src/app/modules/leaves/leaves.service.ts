@@ -180,5 +180,8 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     setEmployeeLeave(info:any): Observable<any> {
       return this.http.post(this.mainUrl + 'api/setemployeeleave', JSON.stringify(info), this.httpOptions);
     }
+    getMastertablesforcalender(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
+      return this.http.get(this.mainUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+    }
 
 }
