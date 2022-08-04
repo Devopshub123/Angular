@@ -25,6 +25,7 @@ export class SummaryReportForManagerComponent implements OnInit {
   summaryReports:any=[];
   calengerYearsdetails :any=[];
   today:any=new Date();
+  ishide:boolean=true;
   constructor(private LM:LeavesService,public formBuilder: FormBuilder,public spinner :NgxSpinnerService, private excelService: ExcelServiceService) {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
   }
@@ -80,8 +81,15 @@ export class SummaryReportForManagerComponent implements OnInit {
     this.LM.getEmployeesForReportingManager(info).subscribe(result=>{
       if(result && result.status){
         this.employeeDetails = result.data;
-        console.log("hvdsjhjh",this.employeeDetails)
+        console.log("hvdsjhjh",this.employeeDetails.length)
+        if(this.employeeDetails.length>0){
+          this.ishide = true;
+        }
+        else{
+          this.ishide = false;
+        }
       }
+
     })
 
   }

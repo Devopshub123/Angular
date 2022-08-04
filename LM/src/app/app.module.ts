@@ -1,3 +1,4 @@
+import { EditProfileComponent } from './modules/leaves/pages/edit-profile/edit-profile.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,6 +36,7 @@ import { HolidaysComponent } from './modules/admin/pages/holidays/holidays.compo
 import { LeavepoliciesComponent } from './modules/admin/pages/leavepolicies/leavepolicies.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+
 // import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 
@@ -61,7 +63,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     WorklocationComponent,
     HolidaysComponent,
     LeavepoliciesComponent,
-    MainDashboardComponent
+    MainDashboardComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,

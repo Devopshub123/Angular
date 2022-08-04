@@ -43,7 +43,7 @@
         </mat-form-field>
         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Middle Name</mat-label>
-          <input formControlName="firstName"  matInput placeholder="Applied Date"readonly>
+          <input formControlName="middlename"  matInput placeholder="Applied Date"readonly>
         </mat-form-field>
         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Last Name</mat-label>
@@ -68,7 +68,7 @@
 
         <mat-form-field  fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Contact</mat-label>
-          <input formControlName="contact" required matInput placeholder="" maxlength="10"  >
+          <input formControlName="contact" onlyNumber required matInput placeholder="" maxlength="10"  >
           <mat-error class="con-error"
                      *ngIf="editForm.controls.contact.errors?.required">
             This field is required
@@ -168,6 +168,9 @@
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="justify-content: center;">
         <button class="col-md-2 mr-2 btn btn-primary" [disabled]="!editForm.valid"(click)="saveImage(true)" type="submit">
           <span>Submit</span>
+        </button>
+        <button class="col-md-2 mr-2 btn btn-danger" (click)="cancel()" type="submit">
+          <span>Cancel</span>
         </button>
       </div>
       <!--</div>-->

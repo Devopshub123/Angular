@@ -18,7 +18,7 @@
         </mat-select>
       </mat-form-field>
 
-        <mat-form-field fxFlex="33" fxFlex.xs="100"  class="mx-1 my-1" appearance="outline">
+        <mat-form-field fxFlex="33" fxFlex.xs="100"  class="mx-1 my-1" appearance="outline" *ngIf="ishide">
           <mat-label>Employee Name and ID</mat-label>
           <mat-select  formControlName="employeeId" required>
             <mat-option value="All"> All </mat-option>
