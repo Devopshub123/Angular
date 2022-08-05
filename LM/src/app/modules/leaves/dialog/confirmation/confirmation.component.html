@@ -3,7 +3,7 @@
   {{data.Message}}
 </div>
 <div *ngIf="data && data.flag" mat-dialog-content style="margin-top: 15%;" >
-  <ul *ngFor="let error of data.Messages">
+  <ul *ngFor="let error of data.Message">
     <li style="color: red">{{error.message}}</li>
   </ul>
 </div>
