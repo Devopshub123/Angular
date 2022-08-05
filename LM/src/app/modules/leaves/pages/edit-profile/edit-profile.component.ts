@@ -54,6 +54,7 @@ export class EditProfileComponent implements OnInit {
       {
         firstName: [{ value:'' , disabled: true }],
         lastName: [{ value:'' , disabled: true }],
+        middlename:[{value:'',disabled:true}],
         email: ['',[Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
         contact: ['',Validators.required],
         address: ['',Validators.required],
@@ -131,6 +132,7 @@ export class EditProfileComponent implements OnInit {
       var obj = {
         'id': this.userSession.id,
         'firstName': this.editForm.controls.firstName.value,
+         'middlename':this.editForm.controls.firstName.value,
         'lastName': this.editForm.controls.lastName.value,
         'email': this.editForm.controls.email.value,
         'address': this.editForm.controls.address.value,
@@ -426,7 +428,10 @@ export class EditProfileComponent implements OnInit {
       });
 
   }
-
+ cancel(){
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/LeaveManagement/UserDashboard"]));
+ }
 
   getErrorMessages(errorCode:any) {
     this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{

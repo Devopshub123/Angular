@@ -130,6 +130,9 @@ export class HolidaysComponent implements OnInit {
   add(){
     this.isview = false;
     this.isadd = true;
+    this.HolidayForm.controls.holiday.setValue()
+    this.HolidayForm.controls.branch.value
+    this.HolidayForm.controls.holiday.value
 
   }
   /**Search functionality */

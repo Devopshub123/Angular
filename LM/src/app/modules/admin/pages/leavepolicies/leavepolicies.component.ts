@@ -24,6 +24,7 @@ export class LeavepoliciesComponent implements OnInit {
   rgbcolor:any=[];
   setleavecolor:any;
   advanceLeavetypes:any=[];
+  isterm:boolean=true
   isadvanced:boolean=false;
   isaddnew:boolean=true;
   isaddnewleave:boolean =false;
@@ -183,6 +184,9 @@ export class LeavepoliciesComponent implements OnInit {
     })
     this.addleaveForm.get('leaveid')?.valueChanges.subscribe((selectedValue:any) => {
       console.log(selectedValue)
+      if(selectedValue==6 || selectedValue==7){
+        this.isterm=false;
+      }
       
       this.tabledata = true;
       if (selectedValue < 11){

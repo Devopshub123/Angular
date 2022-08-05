@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 import {PendingCompoffComponent} from "../pending-compoff/pending-compoff.component";
 import {LeavesForCancellationComponent} from "../leaves-for-cancellation/leaves-for-cancellation.component";
 import { NgxSpinnerService } from 'ngx-spinner';
+import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.component";
 
 
 @Component({
@@ -26,6 +27,9 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   pendingapprove:any;
   compoffPendingapprove:any;
   cancellationapprove:any;
+  LM120:any;
+  LM121:any;
+  LM119:any;
   constructor(private formBuilder: FormBuilder,private location: Location,public dialog: MatDialog,private LM:LeavesService,private router: Router,private spinner:NgxSpinnerService) {
     this.leaveInfo = this.location.getState();
   }
@@ -39,6 +43,8 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.pendingapprove.ngOnInit();
     this.compoffPendingapprove.ngOnInit();
+    this.cancellationapprove.ngOnInit();
+
     this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:'' , disabled: true }],
@@ -164,7 +170,31 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
     };
 
     this.LM.setApproveOrReject(obj).subscribe((res: any) => {
+      if(res && res.status){
+        console.log("nlsdnjk",res)
+        if(res.leaveStatus == 'Cancel Approved'){
+          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+            position:{top:`70px`},
+            disableClose: true,
+            data: {Message:this.LM120,url: '/LeaveManagement/ManagerDashboard'}
+          });
+          
+        }else {
+          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+            position:{top:`70px`},
+            disableClose: true,
+            data: {Message:this.LM121,url: '/LeaveManagement/ManagerDashboard'}
+          });
+          
+        }
+      }else {
+        this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+          position:{top:`70px`},
+          disableClose: true,
+          data: {Message:this.LM119,url: '/LeaveManagement/ManagerDashboard'}
+        });
 
+      }
 
     })
 
@@ -186,6 +216,23 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
     this.router.navigate([this.leaveInfo.leaveData.url])
 
   }
+  getErrorMessages(errorCode:any) {
+    this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+      if(result.status && errorCode == 'LM120')
+      {
+        this.LM120 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM121')
+      {
+        this.LM121 = result.data[0].errormessage
+      }else if(result.status && errorCode == 'LM119')
+      {
+        this.LM119 = result.data[0].errormessage
+      }
+
+    })
+  }
+
 
 
 }

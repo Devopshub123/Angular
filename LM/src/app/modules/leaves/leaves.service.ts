@@ -197,7 +197,10 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
       return this.http.get(this.mainUrl+'api/getEmployeeRelationsForBereavementLeave/'+id,this.httpOptions);
     }
     getMaxCountPerTermValue(id:any):Observable<any> {
-      return this.http.get(this.mainUrl+'api/getMaxCountPerTermValue/'+id,this.httpOptions);
+      return this.http.get(this.mainUrl + 'api/getMaxCountPerTermValue/' + id, this.httpOptions);
+    }
+    getMastertablesforcalender(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
+      return this.http.get(this.mainUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
     }
 
 }

@@ -7,7 +7,7 @@
     <br />
     <div [formGroup]="searchForm"  >
       <div fxLayout="row"  fxLayout.xs="column">
-        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
+        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline"  *ngIf="ishide">
           <mat-label>Employee Name and ID</mat-label>
           <mat-select fxFlex.xs="100" formControlName="employeeId" >
             <mat-option value="All"> All </mat-option>

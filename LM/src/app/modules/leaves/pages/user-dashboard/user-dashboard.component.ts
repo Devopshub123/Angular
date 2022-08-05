@@ -9,6 +9,10 @@ import { DatePipe} from '@angular/common';
 import {MatDialog} from "@angular/material/dialog";
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { style } from '@angular/animations';
+import { CalendarOptions, EventInput, FullCalendarComponent } from '@fullcalendar/angular'; // useful for typechecking
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; 
 // import { ChartOptions, ChartType } from 'chart.js';
 // import { BaseChartDirective } from 'ng2-charts';
 
@@ -18,8 +22,35 @@ import { style } from '@angular/animations';
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
+  @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
+  initialEvents: EventInput[] = [];
+  calendarApi:any;
+  calendarOptions: CalendarOptions = {
+    headerToolbar: {
+      left: 'prev',
+      center: 'title',
+      right: 'next'
+    },
+    customButtons: {
+      next: {
 
+        click: this.nextMonth.bind(this),
+      },
+      prev: {
+        click: this.prevMonth.bind(this),
+      },
+  
+    },
+    height:450,
+    initialView: 'dayGridMonth',
+    weekends: true,
+    editable: true,
+    selectable: true,
+    selectMirror: true,
+    dayMaxEvents: true,
 
+  };
+ 
   usersession:any;
   leavedata:any=[];
   holidaysList:any = [];
@@ -30,7 +61,9 @@ export class UserDashboardComponent implements OnInit {
   datesToBeHighlighted:any;
   titleName:any;
   reason:any;
+  leavsemaster:any=[]
   calenderleaves:any=[];
+  arrayList:any=[];
   currentYear = new Date().getDate();
   myDateFilter:any;
   pipe = new DatePipe('en-US');
@@ -39,6 +72,7 @@ export class UserDashboardComponent implements OnInit {
   isdata:boolean=true;
   isholidays:boolean=false;
   maxall : number=20;
+  
   holidaysColumns:string[]=['day','date','holiday']
   displayedColumns: string[] = ['appliedon','leavetype','fromdate','todate','days','status','approver','action'];
   dataSource: MatTableDataSource<any>=<any>[];
@@ -49,6 +83,7 @@ export class UserDashboardComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
+ 
   // @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
 
   constructor(private router: Router,private LM:LeavesService,public datepipe: DatePipe,public dialog: MatDialog) { }
@@ -63,20 +98,39 @@ export class UserDashboardComponent implements OnInit {
   }
 
   getuserleavecalender(){
+    this.LM.getMastertablesforcalender('lm_leavesmaster','Active',1,100,'boon_client').subscribe(data=>{
+      this.leavsemaster = data.data;
+      
+    })
     this.LM.getuserleavecalender(this.usersession.id).subscribe((result:any)=>{
       this.calenderleaves = result.data;
-    
-      console.log(this.calenderleaves)
-      this.myDateFilter = (d: Date): boolean => {
-        let isValid=false;
-      this.calenderleaves.forEach((e:any) => {
-        if(this.pipe.transform(e.edate, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
-          isValid=true
-          
-        }
+      this.arrayList = result.data;
+      this.arrayList.forEach((e: any) => {
+        let item =
+          {
+            title: e.ltype,
+            start: e.edate, ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
+            // color:e.color,
+            // color:e.color==null?'yellow':e.color,
+            color:e.color,
+            icon:'fa-times-circle'
+           
+          }
+        this.initialEvents.push(item);
       });
+      this.calendarOptions.events = this.initialEvents;
+    
+      // console.log(this.calenderleaves)
+      // this.myDateFilter = (d: Date): boolean => {
+      //   let isValid=false;
+      // this.calenderleaves.forEach((e:any) => {
+      //   if(this.pipe.transform(e.edate, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
+      //     isValid=true
+          
+      //   }
+      // });
   
-        return isValid;
+      //   return isValid;
         // return (e.edate: Date): MatCalendarCellCssClasses => {
         //   if (date.getDate() === 1) {
         //     return 'special-date';
@@ -85,7 +139,7 @@ export class UserDashboardComponent implements OnInit {
         //   }
         // };
 
-       } 
+      //  } 
   
     })
 
@@ -93,17 +147,31 @@ export class UserDashboardComponent implements OnInit {
 
   }
  
+  // dateClass() {
+  //   return (date: Date): MatCalendarCellCssClasses => {
+  //     return this.calenderleaves.forEach((e: any) => {
+  //       if (this.pipe.transform(e.edate, 'yyyy/MM/dd') == this.pipe.transform(date, 'yyyy/MM/dd')) {
+  //         return 'special-date';
+  //       }
+  //       else {
+  //         return date;
+  //       }
+  //     });
+     
+  //   };
+  // }
   dateClass() {
     return (date: Date): MatCalendarCellCssClasses => {
-      return this.calenderleaves.forEach((e: any) => {
-        if (this.pipe.transform(e.edate, 'yyyy/MM/dd') == this.pipe.transform(date, 'yyyy/MM/dd')) {
-          return 'special-date';
-        }
-        else {
-          return date;
-        }
-      });
-     
+      const highlightDate = this.calenderleaves
+        .map((edate:any) => new Date(edate))
+        .some(
+          (d:any) =>
+            d.getDate() === date.getDate() &&
+            d.getMonth() === date.getMonth() &&
+            d.getFullYear() === date.getFullYear()
+        );
+
+      return highlightDate ? 'special-date' : '';
     };
   }
   getleavehistory(page:any,size:any){
@@ -240,6 +308,18 @@ openDialogdelete(): void {
       })
     }
   });
+}
+nextMonth(): void {
+  this.calendarApi = this.calendarComponent.getApi();
+  this.calendarApi.next();
+}
+prevMonth(): void {
+  this.calendarApi = this.calendarComponent.getApi();
+  this.calendarApi.prev();
+}
+currentMonth(): void {
+  this.calendarApi = this.calendarComponent.getApi();
+  this.calendarApi.today();
 }
 
 

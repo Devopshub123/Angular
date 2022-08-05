@@ -90,8 +90,21 @@ openDialogcancel(): void {
       console.log(this.deletedata)
       this.LM.cancelLeaveRequest(this.deletedata).subscribe((data)=>{
         if(data.status){
-          console.log("hi")
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/LeaveManagement/UserLeaveHistory"]));
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: 'Leave request cancelled successfully.'
+          });
         
+        }
+        else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: 'Unable to caancel leave request.'
+          });
         }
       })
     }
@@ -116,7 +129,20 @@ openDialogdelete(): void {
       console.log(this.deletedata)
       this.LM.setDeleteLeaveRequest(this.deletedata).subscribe((data)=>{
         if(data.status){
-          
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/LeaveManagement/UserLeaveHistory"]));
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: 'Leaverequest deleted successfully.'
+            });
+        }
+        else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: 'Unable to delete leaverequest.'
+          });
         }
       })
     }

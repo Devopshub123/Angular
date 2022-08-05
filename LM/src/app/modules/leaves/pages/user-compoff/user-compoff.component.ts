@@ -70,7 +70,7 @@ export class UserCompoffComponent implements OnInit {
       empName: ["",],
       workeddate:["",Validators.required],
       hours:["",Validators.required],
-      minutes:["",Validators.required],
+      minutes:["",],
       reason:["",Validators.required]
       
     });

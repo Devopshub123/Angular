@@ -22,7 +22,7 @@ import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balan
 import { ManagerDashboardCalenderComponent } from './pages/manager-dashboard-calender/manager-dashboard-calender.component';
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { UserCompoffComponent } from './pages/user-compoff/user-compoff.component';
-import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { LeavesForCancellationComponent } from './pages/leaves-for-cancellation/leaves-for-cancellation.component';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
@@ -47,7 +47,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     UserLeaveBalanceComponent,
     UserCompoffComponent,
     ManagerDashboardCalenderComponent,
-    EditProfileComponent,
     NotificationsComponent,
     LeavesForCancellationComponent,
     UserDashboardComponent,

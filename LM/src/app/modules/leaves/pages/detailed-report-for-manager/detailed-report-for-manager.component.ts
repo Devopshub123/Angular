@@ -32,6 +32,7 @@ export class DetailedReportForManagerComponent implements OnInit {
   arrayList:any=[];
   userSession:any;
   leaveTypes:any=[];
+  ishide:boolean=true;
   // leaveStatus:any=[];
   designations:any=[];
   employeeDetails:any = [];
@@ -200,6 +201,12 @@ export class DetailedReportForManagerComponent implements OnInit {
     this.LM.getEmployeesForReportingManager(input).subscribe(result=>{
       if(result && result.status){
         this.employeeDetails = result.data;
+        if(this.employeeDetails.length>0){
+          this.ishide = true;
+        }
+        else{
+          this.ishide = false;
+        }
         console.log("hvdsjhjh",this.employeeDetails)
       }
     })

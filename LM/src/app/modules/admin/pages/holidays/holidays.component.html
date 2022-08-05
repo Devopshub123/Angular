@@ -1,11 +1,12 @@
 <div fxLayout="column" >
-    <form [formGroup]="HolidayForm" autocomplete="off" >
+    
         <mat-card>
             <mat-card-header class="">
                 <mat-card-title class="title"> Holidays </mat-card-title>
             </mat-card-header>
             <mat-divider></mat-divider><br>
             <div *ngIf="isadd">
+                <form [formGroup]="HolidayForm" autocomplete="off" >
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
   
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -36,8 +37,20 @@
                         multiple 
                         #branchSelect>
                          
-                            <mat-option >
-                                <span
+                            <!-- <mat-option disabled="disabled" class="filter-option"> -->
+                                <button 
+                                mat-raised-button 
+                                class="mat-primary fill text-sm" 
+                                (click)="selectAll(branchSelect, worklocationDetails, HolidayForm.branch)" *ngIf="!ishide">Select All
+                                </button>
+                                <button 
+                                mat-raised-button 
+                                class="mat-accent fill text-sm" 
+                                (click)="deselectAll(branchSelect)" *ngIf="ishide">
+                                Deselect All
+                                </button>
+                                <!-- <input type="checkbox"(click)="selectAll(branchSelect, worklocationDetails, HolidayForm.branch)"/> -->
+                                <!-- <span
                             *ngIf="!ishide"
                             (click)="selectAll(branchSelect, worklocationDetails, HolidayForm.branch)">Select All
                           </span>
@@ -45,8 +58,8 @@
                             *ngIf="ishide"
                             (click)="deselectAll(branchSelect)">
                             Deselect All
-                           </span>
-                          </mat-option>
+                           </span>  -->
+                          <!-- </mat-option>  -->
                           <mat-option *ngFor="let location of worklocationDetails" [value]="location">
                             {{location.cityname}}
                           </mat-option>
@@ -73,6 +86,7 @@
                     <br />
                 </div>
 
+            </form>
             </div>
             <div *ngIf="isview">
                 <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
@@ -89,6 +103,7 @@
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
                 </div>
+                <form [formGroup]="HolidayForm" autocomplete="off" >
                 <div class="mat-elevation-z8">
                     <table mat-table [dataSource]="dataSource" matSort>
                         <ng-container matColumnDef="holiday">
@@ -180,9 +195,10 @@
                     <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
                     <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
                 </div>
+                </form>
 
             </div>
     
         </mat-card>
-    </form>
+    
 </div>
