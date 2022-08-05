@@ -99,13 +99,13 @@
 
 
                     <ng-container matColumnDef="workeddate">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Work Date </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Worked Date </th>
                         <td mat-cell *matCellDef="let row">
                             <span >{{row.comp_off_date}}</span>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="hours">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> No Of Hours</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Worked Hours</th>
                         <td mat-cell *matCellDef="let row" >
                             <span >{{row.worked_hours}} : {{row.worked_minutes ===0?'00':row.worked_minutes}}</span>
                         </td>
