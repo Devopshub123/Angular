@@ -180,6 +180,25 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     setEmployeeLeave(info:any): Observable<any> {
       return this.http.post(this.mainUrl + 'api/setemployeeleave', JSON.stringify(info), this.httpOptions);
     }
+    getDurationFoBackDatedLeave(): Observable<any> {
+      return this.http.get(this.mainUrl+'api/getdurationforbackdatedleave', this.httpOptions);
+    }
+    getleavecyclelastmonth(): Observable<any> {
+      return this.http.post(this.mainUrl + 'api/getleavecyclelastmonth',  this.httpOptions);
+
+    }
+    getNextLeaveDate(input:any): Promise<any> {
+      return this.http.get(this.mainUrl+'api/getNextLeaveDate/'+JSON.stringify(input), this.httpOptions).toPromise();
+    }
+    getApprovedCompoffs(id:any):Observable<any> {
+      return this.http.get(this.mainUrl+'api/getApprovedCompoffs/'+id,this.httpOptions);
+    }
+    getEmployeeRelationsForBereavementLeave(id:any):Observable<any> {
+      return this.http.get(this.mainUrl+'api/getEmployeeRelationsForBereavementLeave/'+id,this.httpOptions);
+    }
+    getMaxCountPerTermValue(id:any):Observable<any> {
+      return this.http.get(this.mainUrl + 'api/getMaxCountPerTermValue/' + id, this.httpOptions);
+    }
     getMastertablesforcalender(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
       return this.http.get(this.mainUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
     }
