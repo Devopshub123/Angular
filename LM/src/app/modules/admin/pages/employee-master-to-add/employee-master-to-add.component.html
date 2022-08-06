@@ -18,7 +18,7 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>First Name</mat-label>
-                            <input type="text" formControlName="firstname" matInput placeholder="" maxlength="100"
+                            <input type="text" formControlName="firstname" [readonly]="isviewemployee" matInput placeholder="" maxlength="100"
                                 required>
                             <mat-error class="con-error" *ngIf="employeeAddForm.controls.firstname.errors?.required">
                                 {{msgLM1}}
@@ -27,7 +27,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Last Name</mat-label>
-                            <input type="text" formControlName="lastname" matInput placeholder="" maxlength="100"
+                            <input type="text" formControlName="lastname" [readonly]="isviewemployee" matInput placeholder="" maxlength="100"
                                 required>
                             <mat-error class="con-error" *ngIf="employeeAddForm.controls.lastname.errors?.required">
                                 {{msgLM1}}
@@ -36,7 +36,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Middle Name</mat-label>
-                            <input type="text" formControlName="middlename" matInput placeholder="" maxlength="100">
+                            <input type="text" formControlName="middlename" [readonly]="isviewemployee" matInput placeholder="" maxlength="100">
                             <!-- <input *ngIf="isview"  formControlName="middlename" matInput placeholder="" > -->
                         </mat-form-field>
 
@@ -45,7 +45,7 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Contact Number</mat-label>
-                            <input type="text" onlyNumber formControlName="contactnumber" matInput placeholder=""
+                            <input type="text" onlyNumber formControlName="contactnumber" [readonly]="isviewemployee" matInput placeholder=""
                                 maxlength="10" minlength="10" required>
                             <mat-error class="con-error"
                                 *ngIf="employeeAddForm.controls.contactnumber.errors?.required">
@@ -59,11 +59,11 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Personal Email</mat-label>
-                            <input type="text" formControlName="personalemail" matInput placeholder="" maxlength="100">
-                            <!-- <mat-error class="con-error"
+                            <input type="text" formControlName="personalemail" [readonly]="isviewemployee" matInput placeholder="" maxlength="100">
+                            <mat-error class="con-error"
                                 *ngIf="employeeAddForm.controls.personalemail.errors?.required">
                                 {{msgLM1}}
-                            </mat-error> -->
+                            </mat-error>
                             <mat-error class="con-error" *ngIf="employeeAddForm.controls.personalemail.errors?.email">
                                 {{msgLM2}}
                             </mat-error>
@@ -79,7 +79,7 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Date Of Birth</mat-label>
-                            <input required matInput readonly [matDatepicker]="dateofbirth" [min]="minDate"
+                            <input required matInput readonly [disabled]="isviewemployee" [matDatepicker]="dateofbirth" [min]="minDate"
                                 [max]="maxBirthDate" placeholder="MM/DD/YYYY" formControlName="dateofbirth">
                             <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofbirth">
                             </mat-datepicker-toggle>
@@ -128,13 +128,13 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Emergency Contact</mat-label>
-                            <input type="text" onlyNumber formControlName="emergencycontact" matInput placeholder=""
+                            <input type="text" onlyNumber formControlName="emergencycontact" [readonly]="isviewemployee" matInput placeholder=""
                                 maxlength="10">
 
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Aadhar Number</mat-label>
-                            <input type="text" onlyNumber formControlName="aadharnumber" matInput placeholder=""
+                            <input type="text" onlyNumber formControlName="aadharnumber" [readonly]="isviewemployee" matInput placeholder=""
                                 maxlength="12">
 
                         </mat-form-field>
@@ -161,17 +161,17 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>PAN Number</mat-label>
-                            <input type="text" formControlName="pan" matInput placeholder="" maxlength="10">
+                            <input type="text" formControlName="pan" [readonly]="isviewemployee" matInput placeholder="" maxlength="10">
                             <!-- <input *ngIf="isview"  formControlName="middlename" matInput placeholder="" > -->
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Passport Number</mat-label>
-                            <input type="text" formControlName="passport" matInput placeholder="" maxlength="12">
+                            <input type="text" formControlName="passport" [readonly]="isviewemployee" matInput placeholder="" maxlength="12">
                             <!-- <input *ngIf="isview" formControlName="contactnumber" matInput placeholder="" > -->
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>ESI Number</mat-label>
-                            <input type="text" onlyNumber formControlName="esi" matInput placeholder="" maxlength="17">
+                            <input type="text" onlyNumber formControlName="esi" [readonly]="isviewemployee" matInput placeholder="" maxlength="17">
                             <!-- <input *ngIf="isview"  formControlName="middlename" matInput placeholder="" > -->
                         </mat-form-field>
 
@@ -182,13 +182,13 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>UAN Number</mat-label>
-                            <input type="text" onlyNumber formControlName="uanumber" matInput placeholder=""
+                            <input type="text" onlyNumber formControlName="uanumber" [readonly]="isviewemployee" matInput placeholder=""
                                 maxlength="12">
                             <!-- <input *ngIf="isview" formControlName="contactnumber" matInput placeholder="" > -->
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>PF Number</mat-label>
-                            <input type="text" onlyNumber formControlName="pfaccountnumber" matInput placeholder=""
+                            <input type="text" onlyNumber formControlName="pfaccountnumber" [readonly]="isviewemployee" matInput placeholder=""
                                 maxlength="22">
                             <!-- <input *ngIf="isview"  formControlName="personalemail" matInput placeholder="" > -->
                         </mat-form-field>
@@ -224,7 +224,7 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                             <mat-label>Country</mat-label>
-                            <mat-select required formControlName="country" required>
+                            <mat-select required [disabled]="isviewemployee" formControlName="country" required>
                                 <ng-container>
                                     <div *ngFor="let b of CountryDetails">
 
@@ -255,7 +255,7 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                             <mat-label>State</mat-label>
-                            <mat-select formControlName="state" required>
+                            <mat-select formControlName="state" [disabled]="isviewemployee" required>
                                 <ng-container>
                                     <div *ngFor="let b of stateDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -286,7 +286,7 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                             <mat-label>City</mat-label>
-                            <mat-select formControlName="city" required>
+                            <mat-select formControlName="city" [disabled]="isviewemployee" required>
                                 <ng-container>
                                     <div *ngFor="let b of cityDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -317,7 +317,7 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                             <mat-label>Pincode</mat-label>
-                            <input type="text" onlyNumber formControlName="pincode" matInput placeholder=""
+                            <input type="text" onlyNumber formControlName="pincode" [readonly]="isviewemployee" matInput placeholder=""
                                 maxlength="6" required>
                             <mat-error class="con-error" *ngIf="employeeAddForm.controls.pincode.errors?.required">
                                 {{msgLM1}}
@@ -361,17 +361,17 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Bank Name</mat-label>
-                            <input type="text" formControlName="bankname" matInput placeholder="" maxlength="100">
+                            <input type="text" formControlName="bankname" [readonly]="isviewemployee" matInput placeholder="" maxlength="100">
                             <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>IFSC Code</mat-label>
-                            <input type="text" formControlName="ifsccode" matInput placeholder="" maxlength="10">
+                            <input type="text" formControlName="ifsccode" [readonly]="isviewemployee" matInput placeholder="" maxlength="10">
                             <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Name as per bank Account</mat-label>
-                            <input type="text" formControlName="nameasperbankaccount" matInput placeholder=""
+                            <input type="text" formControlName="nameasperbankaccount" [readonly]="isviewemployee" matInput placeholder=""
                                 maxlength="100">
                             <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
                         </mat-form-field>
@@ -381,12 +381,12 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Branch Name</mat-label>
-                            <input type="text" formControlName="branchname" matInput placeholder="" maxlength="100">
+                            <input type="text" formControlName="branchname" [readonly]="isviewemployee" matInput placeholder="" maxlength="100">
                             <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Account Number</mat-label>
-                            <input type="text" onlyNumber formControlName="bankaccountnumber" matInput placeholder=""
+                            <input type="text" onlyNumber formControlName="bankaccountnumber" [readonly]="isviewemployee" matInput placeholder=""
                                 maxlength="16">
                             <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
                         </mat-form-field>
@@ -397,7 +397,7 @@
                         <mat-card-title class="title"> Family Details </mat-card-title>
                     </mat-card-header>
                     <mat-divider></mat-divider>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" *ngIf="!isviewemployee">
 
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>First Name</mat-label>
@@ -439,7 +439,7 @@
 
                     </div>
 
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" *ngIf="!isviewemployee">
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Contact Number</mat-label>
                             <input type="text" onlyNumber formControlName="familycontact" matInput placeholder=""
@@ -472,10 +472,10 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" *ngIf="!isviewemployee">
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Status</mat-label>
-                            <mat-select required formControlName="familystatus">
+                            <mat-select required  formControlName="familystatus">
                                 <ng-container>
                                     <div>
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -581,8 +581,8 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Date Of Joining</mat-label>
-                            <input required matInput readonly [matDatepicker]="dateofjoin" [min]="mindatofjoin"
-                                [max]="maxDate" placeholder="MM/DD/YYYY" formControlName="dateofjoin">
+                            <input required matInput readonly [matDatepicker]="dateofjoin" [disabled]="isviewemployee" [min]="mindatofjoin"
+                                [max]="maxworkdate" placeholder="MM/DD/YYYY" formControlName="dateofjoin">
                             <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofjoin">
                             </mat-datepicker-toggle>
                             <mat-datepicker #dateofjoin></mat-datepicker>
@@ -593,15 +593,15 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Official Email</mat-label>
-                            <input type="text" maxlength="100" formControlName="officeemail" matInput placeholder="">
+                            <input type="text" maxlength="100" formControlName="officeemail" [readonly]="isviewemployee" matInput placeholder="">
                                 
                             <mat-error class="con-error" *ngIf="employeeworkAddForm.controls.officeemail.errors?.email">
                                 {{msgLM2}}
                             </mat-error>
-                            <!-- <mat-error class="con-error"
+                            <mat-error class="con-error"
                                 *ngIf="employeeworkAddForm.controls.officeemail.errors?.required">
                                 {{msgLM2}}
-                            </mat-error> -->
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -613,7 +613,7 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Employee Status</mat-label>
-                            <mat-select formControlName="status" required>
+                            <mat-select formControlName="status" [disabled]="isviewemployee" required>
                                 <ng-container>
                                     <div>
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -629,7 +629,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Employment Type</mat-label>
-                            <mat-select required formControlName="employmenttype">
+                            <mat-select required [disabled]="isviewemployee" formControlName="employmenttype">
                                 <ng-container>
                                     <div *ngFor="let b of EmploymentTypeDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -645,7 +645,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Designation</mat-label>
-                            <mat-select required formControlName="designation">
+                            <mat-select required [disabled]="isviewemployee" formControlName="designation">
                                 <ng-container>
                                     <div *ngFor="let b of availableDesignations">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -664,7 +664,7 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Department</mat-label>
-                            <mat-select required formControlName="department">
+                            <mat-select required [disabled]="isviewemployee" formControlName="department">
                                 <ng-container>
                                     <div *ngFor="let b of availableDepartments">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -680,7 +680,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Manager</mat-label>
-                            <mat-select required formControlName="reportingmanager">
+                            <mat-select required [disabled]="isviewemployee" formControlName="reportingmanager">
                                 <ng-container>
                                     <div *ngFor="let b of availablereportingmanagers">
                                         <!-- <mat-option value=23>Select </mat-option> -->
@@ -698,7 +698,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Shifts</mat-label>
-                            <mat-select required formControlName="shift">
+                            <mat-select required [disabled]="isviewemployee" formControlName="shift">
                                 <ng-container>
                                     <div *ngFor="let b of availableShifts">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -717,7 +717,7 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Role</mat-label>
-                            <mat-select required formControlName="usertype">
+                            <mat-select required [disabled]="isviewemployee" formControlName="usertype">
                                 <ng-container>
                                     <div *ngFor="let b of availableRole">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -733,7 +733,7 @@
 
                         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                             <mat-label>Company Location</mat-label>
-                            <mat-select required formControlName="companylocation">
+                            <mat-select required [disabled]="isviewemployee" formControlName="companylocation">
                                 <ng-container>
                                     <div *ngFor="let b of worklocationDetails">
                                         <!-- <mat-option value="" disabled selected>Select </mat-option> -->
@@ -755,7 +755,7 @@
                     </div>
                     <mat-card-header class="">
                         <mat-card-title class="title"> Education Details </mat-card-title>
-                        <mat-icon title="Add" fxLayoutAlign="end" (click)="addeducation()">add</mat-icon>
+                        <mat-icon title="Add" fxLayoutAlign="end" (click)="addeducation()" *ngIf="!isviewemployee">add</mat-icon>
                     </mat-card-header>
                     
                     <mat-divider></mat-divider>
@@ -768,17 +768,17 @@
                                         <div [formGroupName]="empIndex">
                                             <mat-form-field fxFlex.xs="100" fxFlex="15" class="mx-2 my-2" appearance="outline">
                                                 <mat-label>Course</mat-label>
-                                                <input type="text" maxlength="100" formControlName="course" matInput placeholder=""
+                                                <input type="text" maxlength="100" formControlName="course" [readonly]="isviewemployee" matInput placeholder=""
                                                     appRemoveSpace>
                                             </mat-form-field>
                                             <mat-form-field fxFlex.xs="100" fxFlex="15" class="mx-2 my-2" appearance="outline">
                                                 <mat-label>Institute Name</mat-label>
-                                                <input type="text" maxlength="100" formControlName="institutename" matInput placeholder=""
+                                                <input type="text" maxlength="100" formControlName="institutename" [readonly]="isviewemployee" matInput placeholder=""
                                                     appRemoveSpace>
                                             </mat-form-field>
                                             <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
                                                 <mat-label>From </mat-label>
-                                                <input matInput readonly [matDatepicker]="efromdate" [max]="maxDate"
+                                                <input matInput readonly [matDatepicker]="efromdate" [disabled]="isviewemployee" [min]="minefromdate" [max]="maxDate"
                                                     placeholder="MM/DD/YYYY" formControlName="efromdate">
                                                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="efromdate">
                                                 </mat-datepicker-toggle>
@@ -787,7 +787,7 @@
                                             </mat-form-field>
                                             <mat-form-field fxFlex.xs="100" fxFlex="25" class="mx-2 my-2" appearance="outline">
                                                 <mat-label>To </mat-label>
-                                                <input matInput readonly [matDatepicker]="etodate" [min]="minetodate" [max]="maxDate"
+                                                <input matInput readonly [matDatepicker]="etodate" [disabled]="isviewemployee" [min]="minetodate" [max]="maxDate"
                                                     placeholder="MM/DD/YYYY" formControlName="etodate">
                                                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="etodate"></mat-datepicker-toggle>
                                                 <mat-datepicker #etodate></mat-datepicker>
@@ -795,7 +795,7 @@
                                             <div fxFlex.xs="100" fxFlex="2" style="padding:20px" class="mx-2 my-2 mr2"
                                                   appearance="outline">                                   
                                                 <!-- <mat-icon (click)="addeducation()">add</mat-icon> -->
-                                                <mat-icon title="Delete" (click)="removeeducation(empIndex)">delete</mat-icon>
+                                                <mat-icon title="Delete" (click)="removeeducation(empIndex)" *ngIf="!isviewemployee">delete</mat-icon>
                                             </div>
                                             
     
@@ -811,7 +811,7 @@
 
                     <mat-card-header class="">
                         <mat-card-title class="title"> Work Experience </mat-card-title>
-                        <mat-icon  title="Add"  (click)="addexperience()">add</mat-icon>
+                        <mat-icon  title="Add"  (click)="addexperience()" *ngIf="!isviewemployee">add</mat-icon>
                     </mat-card-header>
                     <mat-divider></mat-divider>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -820,12 +820,12 @@
                                 <div [formGroupName]="empIndex">
                                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Company Name</mat-label>
-                                        <input type="text"  maxlength="100" formControlName="companyname" matInput placeholder=""
+                                        <input type="text"  maxlength="100" formControlName="companyname" [readonly]="isviewemployee" matInput placeholder=""
                                             appRemoveSpace>
                                     </mat-form-field>
                                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                                         <mat-label>From </mat-label>
-                                        <input matInput readonly [matDatepicker]="wfromdate" [max]="maxDate" placeholder="MM/DD/YYYY"
+                                        <input matInput readonly [matDatepicker]="wfromdate" [disabled]="isviewemployee" [max]="maxDate" placeholder="MM/DD/YYYY"
                                             formControlName="wfromdate">
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="wfromdate">
                                         </mat-datepicker-toggle>
@@ -833,7 +833,7 @@
                                     </mat-form-field>
                                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                                         <mat-label>To </mat-label>
-                                        <input matInput readonly [matDatepicker]="wtodate" [min]="minwtodate" [max]="maxDate"
+                                        <input matInput readonly [matDatepicker]="wtodate" [disabled]="isviewemployee" [min]="minwtodate" [max]="maxDate"
                                             placeholder="MM/DD/YYYY" formControlName="wtodate">
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="wtodate"></mat-datepicker-toggle>
                                         <mat-datepicker #wtodate></mat-datepicker>
@@ -841,7 +841,7 @@
                                     <div fxFlex.xs="100" fxFlex="10" style="padding:20px" class="mx-2 my-2 mr2"
                                         appearance="outline">
                                         <!-- <mat-icon (click)="addexperience()">add</mat-icon> -->
-                                        <mat-icon title="Delete" (click)="removeWork(empIndex)">delete</mat-icon>
+                                        <mat-icon title="Delete" (click)="removeWork(empIndex)" *ngIf="!isviewemployee">delete</mat-icon>
                                     </div>
                                     </div>
                                 </div>
@@ -862,11 +862,16 @@
                             <button class="col-md-2 btn btn-primary" (click)="secondprev()">Prev</button>
                         </div>
                         <div class="col-sm-6 mr2 text-right">
-                            <button class="col-md-2 mr-2 btn btn-primary" (click)="save()"
+                            
+                                <button class="col-md-2 mr-2 btn btn-primary" (click)="save()"
                                 *ngIf="this.editemployee">Save</button>
+
+                            
+                            
                             <button class="col-md-2 mr-2 btn btn-primary" (click)="save()" *ngIf="this.addemployee"
                                 [disabled]="!employeeworkAddForm.valid">Submit</button>
                             <button class="col-md-2  btn btn-danger" (click)="close()">Close</button>
+                            
                         </div>
                     </div>
                 </div>
@@ -941,7 +946,7 @@
                     <!-- <td mat-cell *matCellDef="let row"> {{row.id}} </td> -->
                     <td mat-cell *matCellDef="let row">
                         <mat-icon class="mr-2" title="Edit" (click)="editEmployee(row)">edit</mat-icon>
-                        <!-- <mat-icon class="mr-2" title="view" (click)="employeeview(row)">visibility</mat-icon>  -->
+                        <mat-icon class="mr-2" title="view" (click)="employeeview(row)">visibility</mat-icon> 
     
                     </td>
     
