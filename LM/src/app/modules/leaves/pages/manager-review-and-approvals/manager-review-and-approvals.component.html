@@ -52,7 +52,7 @@
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
         <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
           <mat-label *ngIf="leaveInfo.isleave">No.of Days</mat-label>
-          <mat-label *ngIf="!leaveInfo.isleave">No.of Days</mat-label>
+          <mat-label *ngIf="!leaveInfo.isleave">No.of Hours</mat-label>
 
 
           <input formControlName="noOfDays" required matInput placeholder="" >
@@ -63,6 +63,7 @@
         </mat-form-field>
         <mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline" *ngIf="leaveInfo.leaveData.leavestatus == 'Rejected'">
           <mat-label *ngIf="leaveInfo.isleave">Rejected On</mat-label>
+          <mat-label *ngIf="!leaveInfo.isleave">Rejected On</mat-label>
           <input formControlName="updatedon" required matInput placeholder="" >
         </mat-form-field>
         <mat-form-field fxFlex.xs="100" *ngIf="leaveInfo.leaveData.leavestatus == 'Submitted'"  class="mx-7 my-2" appearance="outline">
@@ -71,11 +72,11 @@
         </mat-form-field>
         <mat-form-field fxFlex.xs="100" *ngIf="leaveInfo.isCancellation == true"  class="mx-7 my-2" appearance="outline">
           <mat-label >Reason for Cancel</mat-label>
-          <input formControlName="actionReason" required matInput placeholder="Shift" >
+          <input formControlName="actionReason" required matInput placeholder="" >
         </mat-form-field>
-        <mat-form-field *ngIf="leaveInfo.leaveData.leavestatus == 'Approved' && leaveInfo.isleaveHistory != 'compoff' && leaveInfo.isCancellation != true " fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
+        <mat-form-field *ngIf="leaveInfo.leaveData.leavestatus == 'Approved'  && leaveInfo.isCancellation != true " fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
           <mat-label >ApprovedOn</mat-label>
-          <input formControlName="approvedon" required matInput placeholder="Shift" >
+          <input formControlName="approvedon" required matInput placeholder="" >
         </mat-form-field>
 
       </div>
@@ -95,13 +96,13 @@
           <mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Cancelled'">Reason for Cancel</mat-label>
           <!--<mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Cancel '">Reason for Cancel</mat-label>-->
 
-          <input formControlName="actionReason" required matInput placeholder="Shift" >
+          <input formControlName="actionReason" required matInput placeholder="" >
         </mat-form-field>
 
         <mat-form-field *ngIf="leaveInfo.leaveData.leavestatus == 'Deleted'" fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
           <mat-label *ngIf="leaveInfo.isleave">Leave Reason</mat-label>
           <mat-label *ngIf="!leaveInfo.isleave">Comp-off Reason</mat-label>
-          <input formControlName="leaveReason" required matInput placeholder="Shift" >
+          <input formControlName="leaveReason" required matInput placeholder="" >
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -110,12 +111,12 @@
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
         <mat-form-field *ngIf="leaveInfo.leaveData.leavetype == 8" fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
           <mat-label >Relation</mat-label>
-          <input formControlName="relation" required matInput placeholder="Shift" >
+          <input formControlName="relation" required matInput placeholder="" >
         </mat-form-field>
         <mat-form-field fxFlex.xs="100" *ngIf="leaveInfo.leaveData.leavestatus != 'Deleted'"  class="mx-7 my-2" appearance="outline">
           <mat-label *ngIf="leaveInfo.isleave">Leave Reason</mat-label>
           <mat-label *ngIf="!leaveInfo.isleave">Comp-off Reason</mat-label>
-          <input formControlName="leaveReason" required matInput placeholder="Shift" >
+          <input formControlName="leaveReason" required matInput placeholder="" >
         </mat-form-field>
       </div>
 

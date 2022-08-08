@@ -94,10 +94,11 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
             // toDate: [{ value: this.pipe.transform(new Date(this.leaveInfo.leaveData.todate), 'mediumDate') , disabled: true }],
             noOfDays: [{ value: this.leaveInfo.leaveData.worked_hours+':'+this.leaveInfo.leaveData.worked_minutes, disabled: true }],
             // workType1: [{ value: this.leaveInfo.leaveDate.leavecount, disabled: true }],
+            approvedon: [{ value: this.pipe.transform(new Date(this.leaveInfo.leaveData.updateddate), 'mediumDate'),disabled:true}],
             pendingSince: [{ value: this.leaveInfo.leaveData.pendingSince, disabled: true }],
             leaveReason: [{ value: this.leaveInfo.leaveData.reason, disabled: true }],
-            // actionReason:[{value:this.leaveInfo.leaveData.action_reason, disabled:true }],
-            // updatedon:[{value: this.pipe.transform(new Date(this.leaveInfo.leaveData.updatedon), 'mediumDate'), disabled:true}]
+            actionReason:[{value:'', disabled:true }],
+            updatedon:[{value: this.pipe.transform(new Date(this.leaveInfo.leaveData.updateddate), 'mediumDate'), disabled:true}]
           });
 
       }

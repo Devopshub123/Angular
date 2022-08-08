@@ -995,6 +995,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
         if(a.country == a.pcountry && a.state == a.pstate && a.city == a.pcity && a.address == a.paddress && a.pincode == a.ppincode ){
           this.employeeAddForm.controls.checked.setValue(true)      
         }
+        this.employeeAddForm.controls.checked.disable()
     
         this.employeeAddForm.controls.aadharnumber.setValue(this.employeedata.aadharnumber);
         this.employeeAddForm.controls.address.setValue(this.employeedata.address);

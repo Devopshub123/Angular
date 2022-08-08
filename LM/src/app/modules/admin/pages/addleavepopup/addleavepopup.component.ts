@@ -30,6 +30,9 @@ export class AddleavepopupComponent implements OnInit {
   isValidDisplayname:boolean=false;
   isValidColor:boolean=false;
   iscolor:boolean=false;
+
+  isleavtypename:boolean=false;
+  isdisaplayname:boolean=false;
   
   // public color: ThemePalette = 'primary';
   // public disabled = false;
@@ -56,7 +59,7 @@ export class AddleavepopupComponent implements OnInit {
   ngOnInit(): void {
     this.getLeavesDetails();
     this.leaveTypeForm = this.formBuilder.group({
-      leavetypename :["",Validators.required],
+      leavetypename :[ "",Validators.required],
       displayname:["",Validators.required],
       colors:["",Validators.required]
 
@@ -64,6 +67,7 @@ export class AddleavepopupComponent implements OnInit {
     this.leaveTypeForm.get('leavetypename')?.valueChanges.subscribe((selectedValue:any) => {
       this.leaveTypeForm.controls.displayname.setValue(selectedValue)
       this.checkLeaveTypes('leavename',selectedValue)
+      
       
     })
     this.leaveTypeForm.get('displayname')?.valueChanges.subscribe((selectedValue:any) => {
@@ -78,7 +82,7 @@ export class AddleavepopupComponent implements OnInit {
   /**add new custom leave types */
   submit(){
     this.isCustomLeaveSubmitted = true
-    if(this.leaveTypeForm.valid){
+    if(this.leaveTypeForm.valid ){
       let info = {
         displayName: this.leaveTypeForm.controls.leavetypename.value,
         leaveColor:"rgb("+this.hexToRgb(this.leaveTypeForm.controls.colors.value)+")",
