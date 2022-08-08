@@ -81,5 +81,5 @@ export class RemoveSpaceDirective implements ControlValueAccessor {
 }
 
 function filterValue(value:any): string {
-    return value.replace(/\s\s+/g, ' ');
+    return value.replace(/\s\s+/g, '');
 }

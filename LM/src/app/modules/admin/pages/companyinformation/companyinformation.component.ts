@@ -190,6 +190,13 @@ export class CompanyinformationComponent implements OnInit {
         this.companyForm.controls.country.setValue(data.data[0].countryid);
         this.companyForm.controls.state.setValue(data.data[0].state);
         this.companyForm.controls.city.setValue(data.data[0].city);
+        // this.companyForm.controls.companyname.disable();
+        // this.companyForm.controls.website.disable();
+        // this.companyForm.controls.contact.disable()
+        // this.companyForm.controls.address1.disable();
+        // this.companyForm.controls.address2.disable();
+        // this.companyForm.controls.pincode.disable();
+        // this.companyForm.controls.email.disable();
 
       
 
