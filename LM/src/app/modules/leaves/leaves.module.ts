@@ -64,7 +64,7 @@ import { RemoveSpaceDirective } from 'src/app/custom-directive/remove-space.dire
     NgxPaginationModule,
     NgxSpinnerModule,
     FullCalendarModule,
-    MatCheckboxModule
+    MatCheckboxModule, 
   ]
 })
 export class LeavesModule { }

@@ -2,7 +2,9 @@
   <form [formGroup]="requestform" autocomplete="off">
     <mat-card>
       <mat-card-header>
-        <mat-card-title > Review and Approve </mat-card-title>
+        <mat-card-title  *ngIf="!leaveInfo.isleave"> Comp Off </mat-card-title>
+        <mat-card-title  *ngIf="leaveInfo.isleave"> {{leaveInfo.leaveData.display_name}}</mat-card-title>
+
       </mat-card-header>
       <!-- <mat-divider></mat-divider> -->
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">

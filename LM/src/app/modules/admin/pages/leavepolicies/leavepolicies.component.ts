@@ -270,6 +270,8 @@ export class LeavepoliciesComponent implements OnInit {
           disableClose: true,
           data: 'Advanceleave type activated successfully.'
         });
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate(["/Admin/Leavepolicies"]));  
 
       }
       else{
@@ -543,8 +545,14 @@ export class LeavepoliciesComponent implements OnInit {
     var valid = true;
     for(let obj of  this.leavesTypeData){
       if(obj.id !== id && obj.leavecolor === color){
+        if(obj.id == 1 && obj.leavecolor === color){
+          this.isLeaveColorAlreadyExists = false;
+        }else{
+          this.isLeaveColorAlreadyExists = true;
 
-        this.isLeaveColorAlreadyExists = true;
+        }
+
+       
         // valid =false;
         valid =true;
         return valid;
@@ -619,7 +627,7 @@ export class LeavepoliciesComponent implements OnInit {
   }
   /**setleavepolicies */
   setleavepolicies(){
-    if(!this.isLeaveColorAlreadyExists){
+    // if(!this.isLeaveColorAlreadyExists){
       var infodata = {
         id: this.addleaveForm.controls.leaveid.value,
         leavetype_status:'Active'
@@ -629,10 +637,12 @@ export class LeavepoliciesComponent implements OnInit {
     for(let i=0;i<this.ruleInfos.length;i++){
       // console.log(this.ruleInfos[i].rulename)
       this.ruleInfos[i].leavecolor = this.setleavecolor;
+      // this.ruleInfos[i].status = "Active"
       if(this.ruleInfos[i].rulename === "MAX_AVAIL_COUNT" && this.addleaveForm.controls.MAX_AVAIL_COUNT.value !=null ){
         this.ruleInfos[i].value = this.addleaveForm.controls.MAX_AVAIL_COUNT.value;
         this.ruleInfos[i].leavecolor = this.setleavecolor;
-        this.ruleInfos[i].status = "Active"
+        this.ruleInfos[i].status = "Active";
+
       }
       else if(this.ruleInfos[i].rulename ===  "LEAVES_GAP_BETWEEN_TERMS" && this.addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.value !=null){
         this.ruleInfos[i].leavecolor = this.setleavecolor;
@@ -765,7 +775,7 @@ export class LeavepoliciesComponent implements OnInit {
     });
   }
 
-    }
+    // }
   
   }
   // validateCustomLeave(data:any){
