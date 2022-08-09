@@ -9,17 +9,20 @@
   
                 <mat-form-field fxFlex.xs="100" fxFlex.size="25" class="mx-2 my-2" appearance="outline">
                     <mat-label>Department</mat-label>
-                    <input formControlName="department" matInput placeholder="" required maxlength="100">
-                    <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.required">
-                      This field is required
-                  </mat-error>
+                    <input formControlName="department" matInput placeholder="" appRemoveSpace required maxlength="100">
+                    <!-- <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.cannotContainSpace">
+                      Please enter valid data
+                  </mat-error> -->
+                  <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.required">
+                    This field is required
+                </mat-error>
                 </mat-form-field>
                 <div fxLayoutAlign="center">
-                    <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue" (click)="setdepartment()"   type="submit">
+                    <button class="col-md-1 btn btn-primary mx-2 my-2"  [disabled]="!departmentForm.valid" (click)="setdepartment()"   type="submit">
                         <span>Submit</span>
                     </button>
       
-                    <button class="mx-1  mat-stroked-button button-clear"  style="background-color:#550534;color:aliceblue" (click)="cancel()">
+                    <button class="col-md-1 btn btn-danger mx-2 my-2"   (click)="cancel()">
                         <span >Cancel</span>
                     </button>
                     <br />

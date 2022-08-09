@@ -103,6 +103,7 @@ export class WorklocationComponent implements OnInit {
     this.worklocationForm.get('prefix')?.valueChanges.subscribe((selectedValue: any) => {
       this.isViewSeed = false;
       this.isnote = false;
+      selectedValue.trim();
       if(selectedValue != "") {
         for (var i = 0; i < this.workLocationDetails.length; i++) {
           if (this.workLocationDetails[i].prefix == selectedValue.toUpperCase()) {

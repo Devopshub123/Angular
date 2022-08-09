@@ -28,6 +28,7 @@ import { LeavesForCancellationComponent } from './pages/leaves-for-cancellation/
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 import { UserLeaveRequestComponent } from './pages/user-leave-request/user-leave-request.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RemoveSpaceDirective } from 'src/app/custom-directive/remove-space.directive';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NotificationsComponent,
     LeavesForCancellationComponent,
     UserDashboardComponent,
-    UserLeaveRequestComponent
+    UserLeaveRequestComponent,
+    RemoveSpaceDirective
   ],
   imports: [
     CommonModule,
@@ -62,7 +64,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NgxPaginationModule,
     NgxSpinnerModule,
     FullCalendarModule,
-    MatCheckboxModule
+    MatCheckboxModule, 
   ]
 })
 export class LeavesModule { }
