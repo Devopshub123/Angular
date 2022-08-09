@@ -126,7 +126,7 @@
                 <button class="col-md-1 btn btn-primary mx-2 my-2" [disabled]="!companyForm.valid"  (click)="save()" *ngIf ="!isedit"   type="submit">
                     <span>Submit</span>
                 </button>
-                <button class="col-md-1 btn btn-primary mx-2 my-2"   (click)="update()" *ngIf = "isedit"  type="submit">
+                <button class="col-md-1 btn btn-primary mx-2 my-2"  [disabled]="!companyForm.valid" (click)="update()" *ngIf = "isedit"  type="submit">
                     <span>Save</span>
                 </button>
   
@@ -139,7 +139,7 @@
                 <br />
             </div>
             <div fxLayoutAlign="end" class="" *ngIf ="isview">
-                <button class="col-md-1 btn btn-primary mx-2 my-2" [disabled]="!companyForm.valid" style="background-color:#3f51b5;color:aliceblue" (click)="edit()"   type="submit">
+                <button class="col-md-1 btn btn-primary mx-2 my-2"  style="background-color:#3f51b5;color:aliceblue" (click)="edit()"   type="submit">
                     <span>Edit</span>
                 </button>
   
