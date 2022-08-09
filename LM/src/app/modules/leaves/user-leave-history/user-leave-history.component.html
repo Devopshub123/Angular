@@ -4,17 +4,17 @@
                 <mat-card-title class="title"> Leave History </mat-card-title>
             </mat-card-header><br>
             <mat-divider></mat-divider>
-       
+
             <div class="mat-elevation-z8">
                 <table mat-table [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="appliedon">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Applied On </th>
-                        <td mat-cell *matCellDef="let row" > 
+                        <td mat-cell *matCellDef="let row" >
                             <span >{{row.appliedon  | date:'mediumDate'}}</span>
                         </td>
                     </ng-container>
-            
-                    
+
+
                     <ng-container matColumnDef="leavetype">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header > Leave Type </th>
                         <td mat-cell *matCellDef="let row">
@@ -23,64 +23,64 @@
                     </ng-container>
                     <ng-container matColumnDef="fromdate">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> From Date</th>
-                        <td mat-cell *matCellDef="let row" > 
+                        <td mat-cell *matCellDef="let row" >
                             <span >{{row.fromdate  | date:'mediumDate'}}</span>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="todate">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>
-                        <td mat-cell *matCellDef="let row" > 
+                        <td mat-cell *matCellDef="let row" >
                             <span >{{row.todate  | date:'mediumDate'}}</span>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="days">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Days </th>
-                        <td mat-cell *matCellDef="let row" > 
+                        <td mat-cell *matCellDef="let row" >
                             <span >{{row.leavecount}}</span>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="status">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                        <td mat-cell *matCellDef="let row" > 
+                        <td mat-cell *matCellDef="let row" >
                             <span >{{row.leavestatus}}</span>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="approver">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Approver </th>
-                        <td mat-cell *matCellDef="let row" > 
+                        <td mat-cell *matCellDef="let row" >
                             <span >{{row.approvedby}}</span>
                         </td>
                     </ng-container>
-                   
+
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
                         <!-- <td mat-cell *matCellDef="let row"> </td> -->
-                        <td mat-cell *matCellDef="let row"> 
+                        <td mat-cell *matCellDef="let row">
                             <mat-icon   title="delete" *ngIf="row.deletable" (click)="delete(row)">delete</mat-icon> &nbsp;
-                            <mat-icon title="Edit" *ngIf="row.editable">edit</mat-icon> &nbsp;
+                            <mat-icon title="Edit" *ngIf="row.editable" (click)="edit(row)">edit</mat-icon> &nbsp;
                             <mat-icon title="Cancel" *ngIf="row.cancellable"  (click)="cancel(row)">cancel</mat-icon>&nbsp;
 
                             <mat-icon   title="view" (click)="view(row)">visibility</mat-icon> &nbsp;
-                            
+
                         </td>
                     </ng-container>
-            
-            
+
+
                     <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            
-            
+
+
                 <tr class="mat-row" *matNoDataRow>
                         <td class="mat-cell" colspan="6">No data found</td>
-                    </tr> 
+                    </tr>
                 </table>
-            
+
                 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                 <!-- <mat-paginator [pageSizeOptions]="getPageSizeOptions()" showFirstLastButtons></mat-paginator> -->
             </div>
 
-        
-            
+
+
 
         </mat-card>
 </div>
@@ -95,16 +95,16 @@
                 <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Submitted'"> Submitted Leave </mat-card-title>
                 <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Rejected'"> Reject Leave </mat-card-title>
             </div>
-           
+
 
         </mat-card-header><br>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-    
-    
+
+
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>Applied On</mat-label>
                 <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.appliedon | date:'mediumDate' }}" >
-              
+
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Approved'">
                 <mat-label>Approved On</mat-label>
@@ -129,16 +129,16 @@
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>Type Of Leave</mat-label>
                 <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.leavetype }}" >
-              
+
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Submitted'">
                 <mat-label>Status</mat-label>
                 <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.leavestatus }}" >
-              
+
             </mat-form-field>
-            
-            
-            
+
+
+
 
         </div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -151,15 +151,15 @@
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>To Date</mat-label>
                 <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.todate | date:'mediumDate'  }}">
-               
+
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" >
                 <mat-label>Leave Count</mat-label>
                 <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.leavecount }}" >
-              
+
             </mat-form-field>
-            
-            
+
+
 
         </div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -172,16 +172,16 @@
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>Email</mat-label>
                 <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.contactemail  }}">
-               
+
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>Reason</mat-label>
                 <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.leavereason}}" >
-              
+
             </mat-form-field>
-           
-           
-            
+
+
+
 
         </div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -194,12 +194,12 @@
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavetype === 'Comp Off Leave'">
                 <mat-label>Worked Date</mat-label>
                 <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.worked_date}}" >
-              
+
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" >
                 <mat-label>Manager</mat-label>
                 <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.approvedby}}" >
-              
+
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Rejected'">
                 <mat-label>Reason for Rejection </mat-label>
@@ -216,8 +216,8 @@
                 <input   matInput [readonly]="true"[readonly]="true" value="{{viewdata.action_reason}}">
 
             </mat-form-field>
-           
-            
+
+
 
         </div>
         <div  fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
@@ -226,5 +226,5 @@
 
     </mat-card>
 
-</div> 
+</div>
 

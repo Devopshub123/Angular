@@ -12,7 +12,7 @@ import { style } from '@angular/animations';
 import { CalendarOptions, EventInput, FullCalendarComponent } from '@fullcalendar/angular'; // useful for typechecking
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
-import interactionPlugin from '@fullcalendar/interaction'; 
+import interactionPlugin from '@fullcalendar/interaction';
 // import { ChartOptions, ChartType } from 'chart.js';
 // import { BaseChartDirective } from 'ng2-charts';
 
@@ -39,7 +39,7 @@ export class UserDashboardComponent implements OnInit {
       prev: {
         click: this.prevMonth.bind(this),
       },
-  
+
     },
     height:450,
     initialView: 'dayGridMonth',
@@ -50,7 +50,7 @@ export class UserDashboardComponent implements OnInit {
     dayMaxEvents: true,
 
   };
- 
+
   usersession:any;
   leavedata:any=[];
   leavebalance:any=[];
@@ -73,7 +73,7 @@ export class UserDashboardComponent implements OnInit {
   isdata:boolean=true;
   isholidays:boolean=false;
   maxall : number=20;
-  
+
   holidaysColumns:string[]=['day','date','holiday']
   displayedColumns: string[] = ['appliedon','leavetype','fromdate','todate','days','status','approver','action'];
   dataSource: MatTableDataSource<any>=<any>[];
@@ -84,7 +84,7 @@ export class UserDashboardComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
- 
+
   // @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
 
   constructor(private router: Router,private LM:LeavesService,public datepipe: DatePipe,public dialog: MatDialog) { }
@@ -101,7 +101,7 @@ export class UserDashboardComponent implements OnInit {
   getuserleavecalender(){
     this.LM.getMastertablesforcalender('lm_leavesmaster','Active',1,100,'boon_client').subscribe(data=>{
       this.leavsemaster = data.data;
-      
+
     })
     this.LM.getuserleavecalender(this.usersession.id).subscribe((result:any)=>{
       this.calenderleaves = result.data;
@@ -115,22 +115,22 @@ export class UserDashboardComponent implements OnInit {
             // color:e.color==null?'yellow':e.color,
             color:e.color,
             icon:'fa-times-circle'
-           
+
           }
         this.initialEvents.push(item);
       });
       this.calendarOptions.events = this.initialEvents;
-    
+
       // console.log(this.calenderleaves)
       // this.myDateFilter = (d: Date): boolean => {
       //   let isValid=false;
       // this.calenderleaves.forEach((e:any) => {
       //   if(this.pipe.transform(e.edate, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
       //     isValid=true
-          
+
       //   }
       // });
-  
+
       //   return isValid;
         // return (e.edate: Date): MatCalendarCellCssClasses => {
         //   if (date.getDate() === 1) {
@@ -140,14 +140,14 @@ export class UserDashboardComponent implements OnInit {
         //   }
         // };
 
-      //  } 
-  
+      //  }
+
     })
 
-    
+
 
   }
- 
+
   // dateClass() {
   //   return (date: Date): MatCalendarCellCssClasses => {
   //     return this.calenderleaves.forEach((e: any) => {
@@ -158,7 +158,7 @@ export class UserDashboardComponent implements OnInit {
   //         return date;
   //       }
   //     });
-     
+
   //   };
   // }
   dateClass() {
@@ -184,20 +184,20 @@ export class UserDashboardComponent implements OnInit {
             break;
           }else {
             this.leavedata.push(result.data[i])
-  
+
           }
 
         }
         else{
           this.leavedata.push(result.data[i])
         }
-        
+
       }
       this.dataSource = new MatTableDataSource(this.leavedata);
-     
+
 
     })
- 
+
   }
 
   getHolidaysList() {
@@ -259,10 +259,10 @@ view(data:any){
   console.log(data)
 }
 viewall(){
-  
+
   this.LM.getHolidays(new Date().getFullYear(),this.usersession.worklocation,1,100).subscribe((result)=>{
     this.holidaysListall = result;
-    
+
     this.holidaysListall = this.holidaysListall.data;
     console.log(this.holidaysListall )
     this.holidaysalldatasource = new MatTableDataSource( this.holidaysListall);
@@ -295,7 +295,7 @@ openDialogcancel(): void {
       this.LM.cancelLeaveRequest(this.deletedata).subscribe((data)=>{
         if(data.status){
           console.log("hi")
-        
+
         }
       })
     }
@@ -320,7 +320,7 @@ openDialogdelete(): void {
       console.log(this.deletedata)
       this.LM.setDeleteLeaveRequest(this.deletedata).subscribe((data)=>{
         if(data.status){
-          
+
         }
       })
     }
@@ -339,7 +339,10 @@ currentMonth(): void {
   this.calendarApi.today();
 }
 
-
+  edit(leave:any){
+    leave.isdashboard = true;
+    this.router.navigate(['/LeaveManagement/LeaveRequest'],{state:{leaveData:leave}});
+  }
 }
 
 

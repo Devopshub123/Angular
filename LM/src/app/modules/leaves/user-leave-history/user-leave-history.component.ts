@@ -54,13 +54,13 @@ export class UserLeaveHistoryComponent implements OnInit {
   getPageSizeOptions(): number[] {
     if (this.dataSource.paginator!.length > this.maxall)
       return [5, 10, 20,this.leavedata.length];
-  
-    
-    
+
+
+
     else
       return [5, 10, 20, this.maxall];
-    
-     
+
+
   }
 view(data:any){
   this.isview=true;
@@ -97,7 +97,7 @@ openDialogcancel(): void {
             disableClose: true,
             data: 'Leave request cancelled successfully.'
           });
-        
+
         }
         else{
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -148,5 +148,11 @@ openDialogdelete(): void {
     }
   });
 }
+
+
+  edit(leave:any){
+    leave.isdashboard = true;
+    this.router.navigate(['/LeaveManagement/LeaveRequest'],{state:{leaveData:leave}});
+  }
 
 }
