@@ -12,13 +12,15 @@
       <mat-label>Leave Types</mat-label>
       <mat-select formControlName="leaveTypeId" required>
         <ng-container>
-          <div *ngFor="let leave of leavesTypeData">
-            <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-            <mat-option value={{leave.id}}>{{leave.leavename}}</mat-option>
-          </div>
+          <div *ngFor="let l of leavesTypeData">
 
+          <mat-option value={{l.id}}>{{l.leavename}}</mat-option>
+          </div>
         </ng-container>
       </mat-select>
+        <!--<mat-error class="con-error" *ngIf="leaveRequestForm.controls.leaveTypeId.errors?.required">-->
+          <!--{{msgLM3}}-->
+        <!--</mat-error>-->
       </mat-form-field>
     </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" *ngIf="leaveRequestForm.controls.leaveTypeId.value == 9||8" >
@@ -33,6 +35,9 @@
 
             </ng-container>
           </mat-select>
+          <mat-error class="con-error" *ngIf="leaveRequestForm.controls.compoffApprovedDate.errors?.required">
+            {{msgLM3}}
+          </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex="50" fxFlex.xs="100" *ngIf="leaveRequestForm.controls.leaveTypeId.value == 8" class="mx-1 my-1" appearance="outline">
           <mat-label>Employee Relations</mat-label>
@@ -44,7 +49,11 @@
               </div>
 
             </ng-container>
+
           </mat-select>
+          <mat-error class="con-error" *ngIf="leaveRequestForm.controls.relation.errors?.required">
+            {{msgLM3}}
+          </mat-error>
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" *ngIf="leaveRequestForm.controls.leaveTypeId.value == 9">
@@ -58,6 +67,9 @@
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker">
           </mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+          <mat-error class="con-error" *ngIf="leaveRequestForm.controls.fromDate.errors?.required">
+            {{msgLM3}}
+          </mat-error>
           <!-- <mat-error class="con-error" *ngIf="CompoffForm.controls.workeddate.errors?.required">
               Please select an option [min]="min" [max]="max"
           </mat-error> -->
@@ -81,6 +93,9 @@
           <!-- <mat-error class="con-error" *ngIf="CompoffForm.controls.workeddate.errors?.required">
               Please select an option [min]="min" [max]="max"
           </mat-error> -->
+          <mat-error class="con-error" *ngIf="leaveRequestForm.controls.toDate.errors?.required">
+            {{msgLM3}}
+          </mat-error>
         </mat-form-field>
         <div fxFlex.xs="100" fxFlex="50" class="mx-1 my-1">
           <mat-checkbox  style="margin-top: 20px;margin-left: 20px;" *ngIf="isFirstHalf" [disabled]="isDisableFirstHalf" formControlName="toDateHalf">First Half</mat-checkbox>
@@ -98,6 +113,10 @@
       <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker">
       </mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+
+      <mat-error class="con-error" *ngIf="leaveRequestForm.controls.fromDate.errors?.required">
+        {{msgLM3}}
+      </mat-error>
       <!-- <mat-error class="con-error" *ngIf="CompoffForm.controls.workeddate.errors?.required">
           Please select an option [min]="min" [max]="max"
       </mat-error> -->
@@ -118,6 +137,9 @@
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker1">
         </mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
+        <mat-error class="con-error" *ngIf="leaveRequestForm.controls.toDate.errors?.required">
+          {{msgLM3}}
+        </mat-error>
         <!-- <mat-error class="con-error" *ngIf="CompoffForm.controls.workeddate.errors?.required">
             Please select an option [min]="min" [max]="max"
         </mat-error> -->
@@ -157,6 +179,9 @@
       <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-1 my-1" appearance="outline">
         <mat-label>Reason</mat-label>
         <input formControlName="reason" required matInput placeholder="Reason" >
+        <mat-error class="con-error" *ngIf="leaveRequestForm.controls.reason.errors?.required">
+          {{msgLM1}}
+        </mat-error>
       </mat-form-field>
     </div>
       <div fxLayout="row" *ngIf="document" fxLayout.xs="column" fxLayoutGap="10px">
@@ -166,23 +191,27 @@
         <label style="margin-left: 10px">Supporting Document</label><br>
           <input style="margin-left: 10px" type="file" formControlName="document" (change)=onSelectFile($event) required single> &nbsp;
            <mat-icon   title="delete" *ngIf="leaveRequestForm.controls.document.value"  (click)="delete()">delete</mat-icon> &nbsp;
-
         <!--<i  style="color : black" class="fa-solid fa-trash-can" (click)="delete()" title="Delete"></i>-->
-
+        <mat-error style="margin-left: 10px" *ngIf="submitted && leaveRequestForm.controls.document.errors?.required" class="invalid-feedback">
+          {{msgLM3}}
+        </mat-error>
       </div>
-        <!--</mat-form-field>-->
+
       </div>
 
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
       <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-1 my-1" appearance="outline">
         <mat-label>Contact</mat-label>
         <input formControlName="contact" required matInput placeholder="Contact Number" >
+        <mat-error class="con-error" *ngIf="leaveRequestForm.controls.contact.errors?.required">
+          {{msgLM1}}
+        </mat-error>
       </mat-form-field>
     </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
       <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-1 my-1" appearance="outline">
         <mat-label>Emergency Email</mat-label>
-        <input formControlName="emergencyEmail"  matInput placeholder="Emergency Email" >
+        <input formControlName="emergencyEmail"  matInput placeholder="Emergency Email(optional)" >
       </mat-form-field>
     </div>
       <div fxLayout="row"  style="justify-content: center;"  class="showLine">
@@ -193,7 +222,7 @@
                     </button>
                 </span>
         <span class="line" style="color:#1898D5;font-size:16px"></span>
-        <button class="mx-2 my-2 mat-flat-button  button-clear" style="height: 44px;" (click)="cancel()">
+        <button class="mx-2 my-2 mat-flat-button  button-clear" style="height: 44px;" (click)="cancel(1)">
           <span>Cancel</span>
         </button>
       </div>
