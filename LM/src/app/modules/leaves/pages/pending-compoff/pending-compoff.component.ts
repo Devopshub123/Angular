@@ -31,6 +31,7 @@ export class PendingCompoffComponent implements OnInit {
   LM115:any;
   LM116:any;
   LM119:any;
+  pageLoading=true;
   constructor(private LM:LeavesService,public dialog: MatDialog,private router: Router,private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
@@ -60,7 +61,7 @@ export class PendingCompoffComponent implements OnInit {
           res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
           this.arrayList.push(res.data[i])
         }
-        console.log(this.arrayList,'this.arrayList')
+        console.log(this.arrayList.length,'this.arrayList')
 
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
@@ -73,6 +74,15 @@ export class PendingCompoffComponent implements OnInit {
       }
 
     });
+  }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+
+     return [5, 10, 20];
+    }
   }
 
   compoffApprove(compoff:any,status:any,approverId :any){
