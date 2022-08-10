@@ -1,6 +1,7 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import {Observable} from "rxjs/index";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class MainService {
   userSession: any;
   httpOptions = {
     headers: new HttpHeaders({'content-Type': 'application/json'})
-  };  
- 
+  };
+
   constructor(private http: HttpClient) {
   }
 /*Get Role Screen Functionalities*/
@@ -25,5 +26,11 @@ export class MainService {
 
     return this.http.post(this.mainBeUrl + 'attendance/api/getrolescreenfunctionalitiesforrole',data, this.httpOptions);
 
+  }
+
+  getProfileImage(id: any,companyName:any): Observable<any> {
+    // var conpanyName ='Apple'
+    console.log("gdvhsgvghgs")
+    return this.http.get(this.mainBeUrl + 'api/getProfileImage/' + id+'/'+companyName);
   }
 }
