@@ -24,6 +24,7 @@ export class LeavepoliciesComponent implements OnInit {
   rgbcolor:any=[];
   setleavecolor:any;
   advanceLeavetypes:any=[];
+  istoggle:boolean=false;
   isterm:boolean=true
   isadvanced:boolean=false;
   isaddnew:boolean=true;
@@ -145,7 +146,79 @@ export class LeavepoliciesComponent implements OnInit {
       console.log(this.setleavecolor)
       this.checkLeaveTypes(this.addleaveForm.controls.leaveid.value,this.setleavecolor);
     });
+    this.addleaveForm.get('LEAVES_MAX_COUNT_PER_YEAR')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_CREDIT_FREQUENCY')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_WEEKENDS_INCLUDED')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
     
+    this.addleaveForm.get('LEAVES_COMPANY_HOLIDAYS_INCLUDED')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_MAX_CAP_FOR_ONE_INSTANCE')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_MIN_SERVICE_ELIGIBILITY')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_MIN_DAYS_PRIOR_APPLICATION')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_COUNT_TO_BE_CARRIED_FORWARD')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_MAX_AVAIL_COUNT')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_GAP_BETWEEN_TERMS')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('MAX_AVAIL_COUNT')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_MAX_COUNT_PER_TERM')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_ELIGIBLE_ON_WEEKOFFS')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_ELIGIBILITY_MINIMUM_HOURS')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_LAPSE_PERIOD')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
+    this.addleaveForm.get('LEAVETYPE_THAT_CAN_BE_AVAILED_IN_ADVANCE')?.valueChanges.subscribe((selectedValue:any) => {
+      this.istoggle = false;
+    });
     this.addleaveForm.get('advancedleaveid')?.valueChanges.subscribe((selectedValue:any) => {
       // console.log(selectedValue)
       // this.tabledata=false;
@@ -290,6 +363,17 @@ export class LeavepoliciesComponent implements OnInit {
     this.LM.getLeavePolicies(null,true,1,10).subscribe((result) => {
 
       this.defaultRuleInfo=JSON.parse(result.data[0].json);
+      for (let obj of this.defaultRuleInfo) {
+        if(obj.status === "Inactive"){
+          obj.isselected= false;
+
+        }else{
+          obj.isselected = true;
+
+        }
+
+        obj.isValidate = false;
+      }
       console.log(this.defaultRuleInfo)
       this.dataSource = new MatTableDataSource(this.defaultRuleInfo);
 
@@ -429,7 +513,7 @@ export class LeavepoliciesComponent implements OnInit {
     console.log("skjsbkd",ruleData)
     for(let obj of ruleData){
 
-      if((obj.value === null && obj.status == 'Active')||(obj.value === '' && obj.status == 'Active') ){
+      if((obj.value === null && this.istoggle)||(obj.value === '' && this.istoggle) ){
         if(obj.rulename == 'LEAVES_MAX_CAP_FOR_ONE_INSTANCE'){
           valid = false;
           this.leaveMaxCapForOneInstance = true;
@@ -628,11 +712,22 @@ export class LeavepoliciesComponent implements OnInit {
   /**setleavepolicies */
   setleavepolicies(){
     // if(!this.isLeaveColorAlreadyExists){
+    //   var info = {
+    //     ruleData:this.ruleInfo
+    // };
       var infodata = {
         id: this.addleaveForm.controls.leaveid.value,
         leavetype_status:'Active'
       }
-      this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
+      // for(let m=0;m<info.ruleData.length;m++){
+      //   info.ruleData[m].leavecolor = info.ruleData[0].leavecolor;
+      //   if (info.ruleData[m].isselected) {
+      //     info.ruleData[m].status = 'Active'
+      //   } else{
+      //         info.ruleData[m].status = 'Inactive'
+      //   }
+      // }
+      // this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
       this.leaveConfig = this.getLeaveFormatedValue(this.addleaveForm.controls.leaveid.value);
     for(let i=0;i<this.ruleInfos.length;i++){
       // console.log(this.ruleInfos[i].rulename)
@@ -811,12 +906,15 @@ export class LeavepoliciesComponent implements OnInit {
   /**toggle change */
   toglechange(event:any,element:any) {
     if(event.checked){
+      
       this.addleaveForm.get(element.rulename).enable();
+      this.istoggle = true;
     }
   
     
     else{
       this.addleaveForm.get(element.rulename).disable();
+      this.istoggle = false;
     }
   }
   

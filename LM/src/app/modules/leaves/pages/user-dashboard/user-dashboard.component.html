@@ -14,7 +14,7 @@
                 <div fxLayout="row" fxLayout.xs="column" fxFlex="70">
                     <marquee width="100%" direction="left"  onmouseover="this.stop();" onmouseout="this.start();" >
                         <div class="row"  style="flex-wrap: nowrap;">
-                            <ng-container *ngFor="let leave of leavedata;index as i;">
+                            <ng-container *ngFor="let leave of leavebalance;index as i;">
                                 <mat-card style="width:200px; margin:10px;" [style.background]="leave.leavecolor">
                                     <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">
                                         <!-- <mat-label>{{leave.leavename}}</mat-label> -->
@@ -24,7 +24,7 @@
                                         <img src="assets/img/advanced-leave-icon.png" *ngIf="leave.leavename == 'Advanced Leave'" alt="" title="" />
                                         <img src="assets/img/earned-lave-icon.png" *ngIf="leave.leavename == 'Earned Leave'" alt="" title="" />
                                         <img src="assets/img/sick-leave-icon.png" *ngIf="leave.leavename == 'Bereavement Leave'" alt="" title="" />
-                                        <!-- <img src="assets/img/mrge.png" *ngIf="leave.leavename == 'Marriage Leave'" alt="" title="" /> -->
+                                        <img src="assets/img/earned-lave-icon.png" *ngIf="leave.leavename == 'Marriage Leave'" alt="" title="" />
                                     </div>
 
                                     <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">

@@ -33,6 +33,7 @@ export class LeavesForCancellationComponent implements OnInit {
   LM120:any;
   LM121:any;
   LM119:any;
+  pageLoading=true;
   constructor(private LM:LeavesService, private router: Router,public dialog: MatDialog,public spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
@@ -155,7 +156,15 @@ export class LeavesForCancellationComponent implements OnInit {
 
     });
   }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
 
+     return [5, 10, 20];
+    }
+  }
   getErrorMessages(errorCode:any) {
     this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
       if(result.status && errorCode == 'LM120')
