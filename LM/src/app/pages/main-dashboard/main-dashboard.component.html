@@ -1,39 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<body >
-    <app-header></app-header>
+    <app-header ></app-header>
+    <!--<div style="height: 90%;padding-top: 0px;padding-left: 0px;padding-right: 0px;">-->
+    <div class="card">
+      <!-- <div class="card-header ">
 
-    <div class="container-fluid" style="padding-top: 70px;">
-        <div class="row"  >
-            <div class="col-md-3 bottom" *ngFor="let module of allModuleDetails; index as i;">
-                <div class="p3 column " 		  (click)="getrolescreenfunctionalities(module.id,module.effectivestartdate)"                >
+          <h4 class="card-title">HRMS Dashboard</h4>
+      </div> -->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row m-0" >
+              <div class="col-md-3" *ngFor="let module of allModuleDetails; index as i;">
+                <div class="card card-stats card-warning casual-leave bg-white h-auto">
+                  <div class="card-body ">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="icon-big text-center" (click)="getrolescreenfunctionalities(module.id,module.effectivestartdate)" >
+                          <img src="assets\img\core-hr-icon.png" *ngIf="module.id === 1" alt="" title="" />
+                          <img src="assets\img\leave-icon-nw.png" *ngIf="module.id === 2" alt="" title="" />
+                          <img src="assets\img\timesheet-icon.png" *ngIf="module.id === 3" alt="" title="" />
+                          <img src="assets\img\attendance-icon.png" *ngIf="module.id === 4" alt="" title="" />
+                          <img src="assets\img\payroll-icon.png" *ngIf="module.id === 5" alt="" title="" />
+                          <img src="assets\img\asset-icon.png" *ngIf="module.id === 6" alt="" title="" />
+                          <img src="assets\img\recruitment-icon.png" *ngIf="module.id === 7" alt="" title="" />
+                          <img src="assets\img\ess-icon.png" *ngIf="module.id === 8" alt="" title="" />
+                          <!-- <img src="assets/img/recruitment-icon.png" alt="" title="" /> -->
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="numbers text-center">
+                          <!-- <h4 class="card-title title">recruitment</h4> -->
+                          <h4 class="card-title title" *ngIf="module.id ==2  " style="color: #28acaf">{{module.modulename}}</h4>
+                          <h4 class="card-title title" *ngIf="module.id ==4  " style="color: #28acaf">{{module.modulename}}</h4>
 
-                <div class="icons" style="padding: 20px;text-align:center;">
-                    <span>   <!-- <mat-icon *ngIf="module.id !== 4">event_note</mat-icon> -->
-                        <i class="material-icons" *ngIf="module.id === 1" style="font-size: 50px;">person_search</i>
+                          <h4 class="card-title title" *ngIf="module.id !=2 && module.id !=4  ">{{module.modulename}}</h4>
 
-                    <mat-icon *ngIf="module.id === 4" style="font-size: 50px; color: #28acaf;">date_range</mat-icon>
-                    <i class="material-icons" *ngIf="module.id === 3" style="font-size: 50px;">edit_calendar</i>
-                    <i class="material-icons" *ngIf="module.id === 2" style="font-size: 50px;">calendar_month</i>
-                    <i class="material-icons" *ngIf="module.id === 5" style="font-size: 50px;">paid</i>
-                    <i class="material-icons" *ngIf="module.id === 6" style="font-size: 50px;">settings_display</i>
-                    <i class="material-icons" *ngIf="module.id === 7" style="font-size: 50px;">person_search</i>
-                    <i class="material-icons" *ngIf="module.id === 8" style="font-size: 50px;">people_alt</i>
-
-                 </span><br/>
-                 <span *ngIf="module.id !== 4" style="font-weight: bold;">{{module.modulename}}</span>
-                 <span *ngIf="module.id === 4" style="font-weight: bold; margin-left: 30px; color:#28acaf;">{{module.modulename}}</span>
-
-                 </div>
-
-
-
+                        </div>
+                        <div class="card-sub-title">
+                          My Actions
+                        </div>
+                        <ul class="b">
+                          <li><a href="#">Configuring of leave policies</a></li>
+                          <li><a href="#">add roles &amp; permissions</a></li>
+                          <li><a href="#">add holidays</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
+
             </div>
 
+          </div>
         </div>
-
+      </div>
     </div>
-</body>
-</html>
+    <!--</div>-->
+    <script src="http://localhost:4200//assets/js/core/jquery.3.2.1.min.js"></script>
+    <script src="http://localhost:4200//assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="http://localhost:4200//assets/js/core/popper.min.js"></script>
+    <script src="http://localhost:4200//assets/js/core/bootstrap.min.js"></script>
+    <!-- Chart JS -->
+    <script src="http://localhost:4200//assets/js/chart.js/chart.min.js"></script>
+    <script src="http://localhost:4200//assets/js/plugin/chartist/chartist.min.js"></script>
+    <script src="http://localhost:4200//assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
+    <script src="http://localhost:4200//assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+    <script src="http://localhost:4200//assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="http://localhost:4200//assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
+    <script src="http://localhost:4200//http://localhost:4200//assets/js/plugin/chart-circle/circles.min.js"></script>
+    <script src="http://localhost:4200//http://localhost:4200//assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <script src="http://localhost:4200//assets/js/main.js"></script>
+
+
+    <!--<div class="container-fluid" style="padding-top: 70px;">-->
+        <!--<div class="row"  >-->
+            <!--<div class="col-md-3 bottom" *ngFor="let module of allModuleDetails; index as i;">-->
+                <!--<div class="p3 column " 		  (click)="getrolescreenfunctionalities(module.id,module.effectivestartdate)"                >-->
+
+                <!--<div class="icons" style="padding: 20px;text-align:center;">-->
+                    <!--<span>   &lt;!&ndash; <mat-icon *ngIf="module.id !== 4">event_note</mat-icon> &ndash;&gt;-->
+                        <!--<i class="material-icons" *ngIf="module.id === 1" style="font-size: 50px;">person_search</i>-->
+
+                    <!--<mat-icon *ngIf="module.id === 4" style="font-size: 50px; color: #28acaf;">date_range</mat-icon>-->
+                    <!--<i class="material-icons" *ngIf="module.id === 3" style="font-size: 50px;">edit_calendar</i>-->
+                    <!--<i class="material-icons" *ngIf="module.id === 2" style="font-size: 50px;">calendar_month</i>-->
+                    <!--<i class="material-icons" *ngIf="module.id === 5" style="font-size: 50px;">paid</i>-->
+                    <!--<i class="material-icons" *ngIf="module.id === 6" style="font-size: 50px;">settings_display</i>-->
+                    <!--<i class="material-icons" *ngIf="module.id === 7" style="font-size: 50px;">person_search</i>-->
+                    <!--<i class="material-icons" *ngIf="module.id === 8" style="font-size: 50px;">people_alt</i>-->
+
+                 <!--</span><br/>-->
+                 <!--<span *ngIf="module.id !== 4" style="font-weight: bold;">{{module.modulename}}</span>-->
+                 <!--<span *ngIf="module.id === 4" style="font-weight: bold; margin-left: 30px; color:#28acaf;">{{module.modulename}}</span>-->
+
+                 <!--</div>-->
+
+
+
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+
+    <!--</div>-->
+

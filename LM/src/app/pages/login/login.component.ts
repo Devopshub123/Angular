@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   msgLM14:any;
   msgLM1:any;
   msgLM2:any;
+  issubmit:boolean= false;
   constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private tss:LoginService,private router: Router,) { }
 
   ngOnInit() {
@@ -38,29 +39,34 @@ export class LoginComponent implements OnInit {
     });
   }
   login(){
+    this.issubmit = true;
     this.email = this.formGroup.controls.username.value;
     this.password = this.formGroup.controls.password.value;
     let data = {
       email:this.email,
       password:this.password
     }
-    this.tss.Savelogin(data).subscribe((data) =>{
-      if(data.status === true){
-        let empdata = data.result[0];
-        sessionStorage.setItem('user',JSON.stringify(empdata));
-        this.router.navigate(['/MainDashboard'])
-                
-      }
-      else {
-        this.router.navigate(['/Login']);
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: this.msgLM14
-        });
-     }
-     
-    });
+    if(this.formGroup.valid){
+      this.tss.Savelogin(data).subscribe((data) =>{
+        if(data.status === true){
+          let empdata = data.result[0];
+          sessionStorage.setItem('user',JSON.stringify(empdata));
+          this.router.navigate(['/MainDashboard'])
+                  
+        }
+        else {
+          this.router.navigate(['/Login']);
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: this.msgLM14
+          });
+       }
+       
+      });
+
+    }
+   
   }
   getErrorMessages(errorCode:any){
     this.tss.getErrorMessages(errorCode,1,100).subscribe((result)=>{

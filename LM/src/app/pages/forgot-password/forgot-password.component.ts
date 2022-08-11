@@ -18,6 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
  
   formGroup: any=FormGroup;
   email:any;
+  issubmit:boolean=false;
   constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private tss:LoginService,private router: Router,) { }
 
   ngOnInit() {
@@ -30,6 +31,7 @@ export class ForgotPasswordComponent implements OnInit {
     });
   }
   submit(){
+    this.issubmit=true;
     this.email = this.formGroup.controls.email.value;
     this.tss.verifyEmail(this.email).subscribe((data) => {
       if(data.status){

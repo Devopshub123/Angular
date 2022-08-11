@@ -12,8 +12,8 @@ padding: 30px;
 
 .bottom{
     margin-bottom: 30px;
-    border: 2 solid black;   
-    text-align: center; 
+    border: 2 solid black;
+    text-align: center;
 
 }
 .icons:hover{
@@ -46,3 +46,9 @@ padding: 30px;
 
 .sibling-fade > *:hover { opacity: 1; transform: scale(1); transition-delay: 0ms, 0ms; }
 /* Fade in the currently hovered item */
+.card-title.title {
+  color: #575962;
+  font-weight: 600;
+  font-size: 22px;
+  text-transform: capitalize;
+}
