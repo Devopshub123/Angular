@@ -29,3 +29,32 @@
   text-decoration: underline;
   transform: rotate(-90deg);
 }
+
+.tab-view {
+  display: flex;
+}
+.mobile-view {
+  display: none;
+}
+@media only screen and (max-width: 1000px) {
+  .tab-view {
+    display: none;
+  }
+  .mobile-view {
+    display: block;
+  }
+  .dropdown-item {
+    display: inline !important;
+  }
+  .custom-mob-icons {
+    width: 75%;
+    justify-content: initial !important;
+  }
+
+  /* rotate caret on hover */
+  .dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+  }
+}
+
