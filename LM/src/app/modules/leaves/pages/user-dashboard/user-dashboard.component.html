@@ -3,16 +3,16 @@
         <marquee  direction="left" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();" loop>
             Birthdays, Anniversaries, Pending Task
         </marquee>
-        <div fxLayout="column" *ngIf="isdata" >
+        <div fxLayout="column" *ngIf="isdata">
+          <mat-card style="flex-flow: nowrap">
 
             <mat-card-header class="">
                 <mat-card-title class="title"> Leave Balance </mat-card-title>
             </mat-card-header><br>
-            <mat-divider></mat-divider>
-            <div fxLayout="row" fxFlex="100">
+            <!--<div fxLayout="row" fxFlex="100">-->
 
-                <div fxLayout="row" fxLayout.xs="column" fxFlex="70">
-                    <marquee width="100%" direction="left"  onmouseover="this.stop();" onmouseout="this.start();" >
+                <mat-card-content fxLayout="row" fxLayout.xs="column" fxFlex="100" fxFlex.xs="100">
+                    <marquee  direction="left"  onmouseover="this.stop();" onmouseout="this.start();" >
                         <div class="row"  style="flex-wrap: nowrap;">
                             <ng-container *ngFor="let leave of leavebalance;index as i;">
                                 <mat-card style="width:200px; margin:10px;" [style.background]="leave.leavecolor">
@@ -46,28 +46,28 @@
 
                     </marquee>
 
-                </div>
-                <div fxLayout="row" fxLayout.xs="column"   style="width:200px; margin:10px;">
-                    <mat-card style="width:300px; margin:10px;" fxLayoutAlign="end">
-                        <!-- <div #chartsss id="test"></div> -->
+                </mat-card-content>
+                <!--<div fxLayout="row" fxLayout.xs="column"   fxFlex="30" fxFlex.xs="100">-->
+                    <!--<mat-card style="width:300px; margin:10px;" fxLayoutAlign="end">-->
+                        <!--&lt;!&ndash; <div #chartsss id="test"></div> &ndash;&gt;-->
 
-                        <!-- <pie-chart width="200" height="200" style="background-color: red;" ></pie-chart> -->
-
-
-                    </mat-card>
-
-                </div>
+                        <!--&lt;!&ndash; <pie-chart width="200" height="200" style="background-color: red;" ></pie-chart> &ndash;&gt;-->
 
 
-            </div>
+                    <!--</mat-card>-->
 
+                <!--</div>-->
+
+
+            <!--</div>-->
+
+          </mat-card>
 
         </div>
         </div>
-        <div  fxLayout="row"  *ngIf="isdata">
-            <div fxLayout="row" fxLayout.xs="column" style="width: 60%;" >
-                <div fxLayout="row" fxFlex="100">
-                    <mat-card style="width: 100%;">
+        <div  fxLayout="column"  *ngIf="isdata">
+                <div fxLayout="row" fxLayout.xs="column"  >
+                    <mat-card fxFlex="60" fxFlex.xs="100">
                         <mat-card-header class="">
                             <mat-card-title class="title" > Calendar  </mat-card-title>
                         </mat-card-header>
@@ -77,67 +77,59 @@
                         <!-- <mat-calender  [selected]="today ()"></mat-calender> [dateFilter]="myDateFilter"[dateFilter]="myDateFilter" -->
 
                     </mat-card>
+                  <mat-card fxFlex="40" fxFlex.xs="100">
+                    <mat-card-header class="">
+                      <mat-card-title class="title"> Holidays List  </mat-card-title>
+                    </mat-card-header><br>
+
+
+                    <mat-card-content >
+                      <table mat-table [dataSource]="holidaydatasource" matSort>
+                        <ng-container matColumnDef="day">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Day </th>
+                          <td mat-cell *matCellDef="let row" >
+                            <span >{{row.day}}</span>
+                          </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="date">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header > Date </th>
+                          <td mat-cell *matCellDef="let row">
+                            <span >{{row.date | date:'mediumDate'}}</span>
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="holiday">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Holiday</th>
+                          <td mat-cell *matCellDef="let row" >
+                            <span >{{row.description}}</span>
+                          </td>
+                        </ng-container>
+
+
+
+
+                        <tr class="headerbox title" mat-header-row *matHeaderRowDef="holidaysColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: holidaysColumns;"></tr>
+
+
+                        <tr class="mat-row" *matNoDataRow>
+                          <td class="mat-cell" colspan="6">No data found</td>
+                        </tr>
+                      </table>
+
+
+                    </mat-card-content><br>
+                    <button  class="col-md-12 btn btn-primary" (click)="viewall()" >View All</button>
+
+
+
+
+                  </mat-card>
                     <mat-divider></mat-divider>
 
-                </div>
-
-
             </div>
-
-            <div fxLayout="row" fxLayout.xs="column" style="width: 40%;"  >
-                <div fxLayout="row">
-                    <mat-card >
-                        <mat-card-header class="">
-                            <mat-card-title class="title"> Holidays List  </mat-card-title>
-                        </mat-card-header>
-
-
-                        <div class="mat-elevation-z8" style="width: 450px;" >
-                            <table mat-table [dataSource]="holidaydatasource" matSort>
-                                <ng-container matColumnDef="day">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Day </th>
-                                    <td mat-cell *matCellDef="let row" >
-                                        <span >{{row.day}}</span>
-                                    </td>
-                                </ng-container>
-
-
-                                <ng-container matColumnDef="date">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header > Date </th>
-                                    <td mat-cell *matCellDef="let row">
-                                        <span >{{row.date | date:'mediumDate'}}</span>
-                                    </td>
-                                </ng-container>
-                                <ng-container matColumnDef="holiday">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Holiday</th>
-                                    <td mat-cell *matCellDef="let row" >
-                                        <span >{{row.description}}</span>
-                                    </td>
-                                </ng-container>
-
-
-
-
-                                <tr class="headerbox title" mat-header-row *matHeaderRowDef="holidaysColumns"></tr>
-                                <tr mat-row *matRowDef="let row; columns: holidaysColumns;"></tr>
-
-
-                            <tr class="mat-row" *matNoDataRow>
-                                    <td class="mat-cell" colspan="6">No data found</td>
-                                </tr>
-                            </table>
-
-
-                        </div><br>
-                        <button  class="col-md-12 btn btn-primary" (click)="viewall()" >View All</button>
-
-
-
-
-                    </mat-card>
-                </div>
-
-        </div><br>
+         <br>
 
         </div>
 
@@ -146,13 +138,11 @@
 
 
     <div fxLayout="column" *ngIf="isdata" >
-        <mat-card>
+        <mat-card fxFlex="100">
             <mat-card-header class="">
                 <mat-card-title class="title"> Leave History </mat-card-title>
             </mat-card-header><br>
-            <mat-divider></mat-divider>
-
-            <div class="mat-elevation-z8">
+            <mat-card-content style="width:100%;overflow-x: auto" >
                 <table mat-table [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="appliedon">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Applied On </th>
@@ -224,7 +214,7 @@
 
                 <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
                 <!-- <mat-paginator [pageSizeOptions]="getPageSizeOptions()" showFirstLastButtons></mat-paginator> -->
-            </div>
+            </mat-card-content>
 
 
 
