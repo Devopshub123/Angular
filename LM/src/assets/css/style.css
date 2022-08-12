@@ -316,3 +316,8 @@ form.is-editing .btn-edit, form.is-readonly .btn-save, form.is-readonly .btn-can
     left: 8px;
 }
 .removeclass {margin:0 auto;}
+.mat-card-header{
+    padding: 10px;
+    background-color: #28acaf;
+    border-bottom: 1px solid #28acaf !important;
+}
