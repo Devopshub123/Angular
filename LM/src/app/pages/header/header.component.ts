@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit {
   logout(){
     sessionStorage.removeItem('user')
     sessionStorage.removeItem('sidemenu');
+    this.router.navigate(['/Login']);
 
   }
 
