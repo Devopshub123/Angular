@@ -13,9 +13,9 @@
               <div class="col-md-3" *ngFor="let module of allModuleDetails; index as i;">
                 <div class="card card-stats card-warning casual-leave bg-white h-auto">
                   <div class="card-body ">
-                    <div class="row">
+                    <div class="row" (click)="getrolescreenfunctionalities(module.id,module.effectivestartdate)">
                       <div class="col-12">
-                        <div class="icon-big text-center" (click)="getrolescreenfunctionalities(module.id,module.effectivestartdate)" >
+                        <div class="icon-big text-center"  >
                           <img src="assets\img\core-hr-icon.png" *ngIf="module.id === 1" alt="" title="" />
                           <img src="assets\img\leave-icon-nw.png" *ngIf="module.id === 2" alt="" title="" />
                           <img src="assets\img\timesheet-icon.png" *ngIf="module.id === 3" alt="" title="" />
@@ -29,11 +29,7 @@
                       </div>
                       <div class="col-12">
                         <div class="numbers text-center">
-                          <!-- <h4 class="card-title title">recruitment</h4> -->
-                          <h4 class="card-title title" *ngIf="module.id ==2  " style="color: #28acaf">{{module.modulename}}</h4>
-                          <h4 class="card-title title" *ngIf="module.id ==4  " style="color: #28acaf">{{module.modulename}}</h4>
-
-                          <h4 class="card-title title" *ngIf="module.id !=2 && module.id !=4  ">{{module.modulename}}</h4>
+                          <h4 class="card-title title" [ngStyle]="module.effectivestartdate ? {'color':'#28acaf'} : {'color':''}">{{module.modulename}}</h4>
 
                         </div>
                         <div class="card-sub-title">
@@ -57,21 +53,20 @@
       </div>
     </div>
     <!--</div>-->
-    <script src="http://localhost:4200//assets/js/core/jquery.3.2.1.min.js"></script>
-    <script src="http://localhost:4200//assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-    <script src="http://localhost:4200//assets/js/core/popper.min.js"></script>
-    <script src="http://localhost:4200//assets/js/core/bootstrap.min.js"></script>
+    <script src="assets/js/core/jquery.3.2.1.min.js"></script>
+    <script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
     <!-- Chart JS -->
-    <script src="http://localhost:4200//assets/js/chart.js/chart.min.js"></script>
-    <script src="http://localhost:4200//assets/js/plugin/chartist/chartist.min.js"></script>
-    <script src="http://localhost:4200//assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
-    <script src="http://localhost:4200//assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
-    <script src="http://localhost:4200//assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
-    <script src="http://localhost:4200//assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
-    <script src="http://localhost:4200//http://localhost:4200//assets/js/plugin/chart-circle/circles.min.js"></script>
-    <script src="http://localhost:4200//http://localhost:4200//assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-
-    <script src="http://localhost:4200//assets/js/main.js"></script>
+    <script src="assets/js/chart.js/chart.min.js"></script>
+    <script src="assets/js/plugin/chartist/chartist.min.js"></script>
+    <script src="assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
+    <script src="assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+    <script src="assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
+    <script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+    <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="assets/js/main.js"></script>
 
 
     <!--<div class="container-fluid" style="padding-top: 70px;">-->
