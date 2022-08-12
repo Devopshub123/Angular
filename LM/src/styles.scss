@@ -397,6 +397,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   min-width: 215px !important;
   width: auto !important;
 }
+
 mat-paginator{
 .mat-form-field-infix{
     width: auto;
@@ -434,11 +435,6 @@ mat-paginator{
   top: 0px;
 }
 
-table {
-  width: 100%;
-}
-
-
 
 /* td, th {
   width: 25%;
@@ -457,6 +453,7 @@ table {
   font-style: normal;
   letter-spacing: 0.32px;
   color: #000000;
+  background-color:#28acaf;
 }
 
 

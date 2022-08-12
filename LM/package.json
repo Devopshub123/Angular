@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4200",
-    "build": "ng build",
+    "start": "ng serve --host 0.0.0.0 --port 7072",
+    "build": "ng build --prod --base-href /hrms/ --deploy-url /hrms/ --output-path dist/META-INF/resources",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -27,6 +27,7 @@
     "@fullcalendar/timegrid": "^5.11.0",
     "bn-ng-idle": "^2.0.1",
     "file-saver": "^2.0.5",
+    "mat-timepicker": "^5.1.5",
     "ngx-pagination": "^6.0.2",
     "ngx-spinner": "^12.0.0",
     "rxjs": "~6.6.0",

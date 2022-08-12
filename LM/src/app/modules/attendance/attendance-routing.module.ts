@@ -10,8 +10,8 @@ import { AttendanceRequestComponent } from './pages/attendance-request/attendanc
 import { MainComponent } from 'src/app/pages/main/main.component';
 import {LMSAccessGuard} from  '../../LMS-access.guard';
 import { ChangePasswordComponent } from '../../pages/change-password/change-password.component'
-// import { ShiftConfigureComponent } from './pages/shift-configure/shift-configure.component';
-// import { ApprovalHistoryComponent } from './pages/approval-history/approval-history.component';
+import { ShiftConfigureComponent } from './pages/shift-configure/shift-configure.component';
+import { ApprovalHistoryComponent } from './pages/approval-history/approval-history.component';
 
 
 const routes: Routes = [
@@ -27,8 +27,8 @@ const routes: Routes = [
       { path: 'ManagerDashboard', component: ManagerDashboardComponent,canActivate:[LMSAccessGuard]},
       { path: 'uploadExcel', component: AttendanceUploadexcelComponent,canActivate:[LMSAccessGuard] },
       { path: 'ChangePassword', component: ChangePasswordComponent,canActivate:[LMSAccessGuard] },
-      // { path: 'ShiftConfigure', component: ShiftConfigureComponent,canActivate:[LMSAccessGuard] },
-      // {path:'ApprovedHistory',component:ApprovalHistoryComponent,canActivate:[LMSAccessGuard]}
+      { path: 'ShiftConfigure', component: ShiftConfigureComponent,canActivate:[LMSAccessGuard] },
+      {path:'ApprovedHistory',component:ApprovalHistoryComponent,canActivate:[LMSAccessGuard]}
     ]
   }];
 
