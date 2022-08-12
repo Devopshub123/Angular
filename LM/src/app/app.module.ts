@@ -35,6 +35,9 @@ import { WorklocationComponent } from './modules/admin/pages/worklocation/worklo
 import { HolidaysComponent } from './modules/admin/pages/holidays/holidays.component';
 import { LeavepoliciesComponent } from './modules/admin/pages/leavepolicies/leavepolicies.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { OnlyCharactorDirective } from './custom-directive/only-charactors.directive';
+import { MappingIdsComponent } from './modules/admin/pages/mapping-ids/mapping-ids.component';
+import { ShiftMasterComponent } from './modules/admin/pages/shift-master/shift-master.component';
 
 
 // import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -65,6 +68,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     LeavepoliciesComponent,
     MainDashboardComponent,
     EditProfileComponent,
+    OnlyCharactorDirective,
+    MappingIdsComponent,
+    ShiftMasterComponent,
   ],
   imports: [
     BrowserModule,

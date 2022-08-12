@@ -1,11 +1,11 @@
-<div fxLayout="column">
+<div fxLayout="column" style="min-height: 700px;">
     <form [formGroup]="requestform" autocomplete="off">
-        <mat-card>
-            <mat-card-header >
+        <mat-card fxFill>
+            <mat-card-header>
                 <mat-card-title class="title"> Approval For Attendance </mat-card-title>
             </mat-card-header>
             <!-- <mat-divider></mat-divider> -->
-            <div  fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Applied Date</mat-label>
@@ -21,7 +21,7 @@
                     <input formControlName="shift" matInput placeholder="Shift" readonly>
                 </mat-form-field>
             </div>
-            <div fxLayout fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            <div fxLayout fxLayout="row wrap" fxLayoutAlign.xs="center center">
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Work Type</mat-label>
@@ -36,22 +36,33 @@
                     <input formControlName="toDate" matInput placeholder="To Date" readonly>
                 </mat-form-field>
             </div>
-            <div fxLayout fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                <mat-form-field  fxFlex="51" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <div fxLayout fxLayout="row wrap" fxLayoutAlign.xs="center center">
+                <mat-form-field fxFlex="42" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason</mat-label>
                     <textarea formControlName="reason" readonly matInput placeholder="Reason"></textarea>
                     <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
                         Reason is required.
                     </mat-error>
                 </mat-form-field>
+                <mat-form-field *ngIf="!isEdit" fxFlex="42" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Comment</mat-label>
+                    <textarea formControlName="comment" readonly matInput placeholder="Comment"></textarea>
+               
+                </mat-form-field>
             </div>
             <div fxLayoutAlign="center">
-                <button class="mx-1 mat-stroked-button button-save"  (click)="acceptApproval()" type="submit">
-                    <span>Approve</span>
-                </button>
+                <ng-container *ngIf="isEdit"> <button class="mx-1 mat-stroked-button button-save" (click)="acceptApproval()"
+                        type="submit">
+                        <span>Approve</span>
+                    </button>
 
-                <button class="mx-1  mat-stroked-button button-clear" (click)="rejectApproval()">
-                    <span >Reject</span>
+                    <button class="mx-1  mat-stroked-button button-clear" (click)="rejectApproval()">
+                        <span>Reject</span>
+                    </button>
+                </ng-container>
+
+                <button class="mx-1  mat-stroked-button button-clear" (click)="backClick()">
+                    <span>Back</span>
                 </button>
                 <br />
             </div>

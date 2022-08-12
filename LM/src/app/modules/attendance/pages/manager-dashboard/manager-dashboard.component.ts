@@ -27,9 +27,9 @@ export class ManagerDashboardComponent implements OnInit {
   Events: any[] = [];
   calendarOptions: CalendarOptions = {
     headerToolbar: {
-      left: 'prev,next',
+      left: 'prev',
       center: 'title',
-       right: ''
+       right: 'next'
     },
     customButtons: {
       next: {
@@ -54,6 +54,7 @@ export class ManagerDashboardComponent implements OnInit {
   pipe = new DatePipe('en-US');
   userSession: any;
   attendanceData: any;
+  notificationsData:any;
   selectedDate: any;
   arrayList: any;
   displayEvent: any;
@@ -66,6 +67,7 @@ export class ManagerDashboardComponent implements OnInit {
     this.todayDate = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getemployeeattendancedashboard();
+    this.getEmployeeAttendanceNotifications();
     this.getPendingAttendanceRequestListByEmpId();
   }
   getemployeeattendancedashboard() {
@@ -82,8 +84,10 @@ export class ManagerDashboardComponent implements OnInit {
           let item =
           {
             title: e.empname,
-            start: e.attendancedate, ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
-            color: e.present_or_absent == 'P' ? '#32cd32' : '#FF3131',
+          //  start: e.attendancedate, ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
+          start:e.firstlogintime !=''? e.firstlogintime : new Date(e.attendancedate), ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
+        //  end:e.lastlogouttime !=''? e.lastlogouttime : e.attendancedate,  
+          color: e.present_or_absent == 'P' ? '#32cd32' : '#FF3131',
             icon: e.present_or_absent == 'P' ? 'fa-check-circle' : 'fa-times-circle'
           }
           this.initialEvents.push(item);
@@ -94,9 +98,25 @@ export class ManagerDashboardComponent implements OnInit {
 
     })
   }
+  getEmployeeAttendanceNotifications() {
+    // this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
+    let data = {
+      'manager_id': this.userSession.id,
+      'employee_id': this.userSession.id,
+      'date': this.selectedDate
+    }
+    this.attendanceService.getEmployeeAttendanceNotifications(data).subscribe((res: any) => {
+      this.notificationsData=[];
+      if (res.status) {
+        this.notificationsData = res.data;
+        }
+
+
+    })
+  }
   getPendingAttendanceRequestListByEmpId() {
     this.arrayList = [];
-    this.attendanceService.getPendingAttendanceListByManagerEmpId(this.userSession.id).subscribe((res) => {
+    this.attendanceService.getPendingAttendanceListByManagerEmpId(this.userSession.id).subscribe((res:any) => {
       if (res.status) {
         this.arrayList = res.data;
 
@@ -107,20 +127,23 @@ export class ManagerDashboardComponent implements OnInit {
     })
   };
   changeTab(elment: UserData) {
-    this.router.navigate(["/Attendance/Approval"], { state: { userData: elment } });
+    this.router.navigate(["/Attendance/Approval"], { state: { userData: elment ,url:'ManagerDashboard' } });
   }
   onBehalfofRequestClick(elment: RequestData) {
 
-    this.router.navigate(["/Attendance/RequestofEmployee"], { state: { userData: elment } });
+    this.router.navigate(["/Attendance/RequestofEmployee"], { state: { userData: elment,url:'ManagerDashboard' } });
   }
   nextMonth(): void {
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.next();
     const selectDate = this.calendarApi.getDate();
     if (selectDate.getTime() <= this.currentDate.getTime()) {
+      this.selectedDate = this.pipe.transform(selectDate, 'yyyy-MM-dd');
       this.getemployeeattendancedashboard();
+      this.getEmployeeAttendanceNotifications();
     } else {
       this.attendanceData = [];
+      this.notificationsData=[];
       this.initialEvents = [];
       this.calendarOptions.events = this.initialEvents;
     }
@@ -131,9 +154,12 @@ export class ManagerDashboardComponent implements OnInit {
     this.calendarApi.prev();
     const selectDate = this.calendarApi.getDate();
     if (selectDate.getTime() <= this.currentDate.getTime()) {
+      this.selectedDate = this.pipe.transform(selectDate, 'yyyy-MM-dd');
       this.getemployeeattendancedashboard();
+      this.getEmployeeAttendanceNotifications();
     } else {
       this.attendanceData = [];
+      this.notificationsData=[];
       this.initialEvents = [];
       this.calendarOptions.events = this.initialEvents;
     }
@@ -144,5 +170,6 @@ export class ManagerDashboardComponent implements OnInit {
     const currentDate = this.calendarApi.getDate();
     this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
     this.getemployeeattendancedashboard()
+    this.getEmployeeAttendanceNotifications();
   }
 }

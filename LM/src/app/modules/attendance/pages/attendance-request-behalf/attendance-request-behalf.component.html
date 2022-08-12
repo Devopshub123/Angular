@@ -1,11 +1,11 @@
-<div fxLayout="column">
+<div fxLayout="column" style="min-height: 700px;">
     <form [formGroup]="requestform" autocomplete="off">
-        <mat-card>
+        <mat-card >
             <mat-card-header>
                 <mat-card-title> Request on Behalf of Employee</mat-card-title>
             </mat-card-header>
             <!-- <mat-divider></mat-divider> -->
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Applied Date</mat-label>
@@ -21,7 +21,7 @@
                         </ng-container>
                     </mat-select>
                     <mat-error class="con-error" *ngIf="requestform.controls.employeeName.errors?.required">
-                        Employee Name is required.
+                       {{requiredOption}}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
@@ -33,55 +33,47 @@
                         </ng-container>
                     </mat-select>
                     <mat-error class="con-error" *ngIf="requestform.controls.workType.errors?.required">
-                        Work Type is required.
+                        {{requiredOption}}
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            <div fxLayout="row wrap"  fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Shift</mat-label>
                     <input formControlName="shift" matInput placeholder="Shift" readonly>
+                    <mat-error *ngIf="requestform.controls['shift'].invalid">
+                        {{requiredOption}}
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>From Date</mat-label>
                     <input matInput readonly [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate" (dateInput)="fromDateChange('input', $event)"
-                        placeholder="From Date" formControlName="fromDate">
+                        placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
                     <mat-datepicker #fromDate></mat-datepicker>
                     <mat-error class="con-error" *ngIf="requestform.controls.fromDate.errors?.required">
-                        From Date is required.
+                       {{requiredOption}}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>To Date</mat-label>
                     <input matInput readonly [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
-                    (dateInput)="toDateChange('input', $event)" formControlName="toDate">
+                    (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="toDate.open()">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
                     <mat-datepicker #toDate></mat-datepicker>
                     <mat-error class="con-error" *ngIf="requestform.controls.toDate.errors?.required">
-                        To Date is required.
+                        {{requiredOption}}
                     </mat-error>
                 </mat-form-field>
-<!-- 
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Work Type</mat-label>
-                    <mat-select formControlName="workType" required>
-                        <ng-container *ngFor="let v of workType">
-                            <mat-option value={{v.id}}>{{v.name}}</mat-option>
-                        </ng-container>
-                    </mat-select>
-                    <mat-error class="con-error" *ngIf="requestform.controls.workType.errors?.required">
-                        Work Type is required.
-                    </mat-error>
-                </mat-form-field> -->
+
             </div>
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex="52" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason </mat-label>
                     <textarea formControlName="reason" required  maxlength="250" matInput placeholder="Reason"></textarea>
                     <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
-                        Reason is required.
+                        {{requiredField}}
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -98,7 +90,7 @@
         </mat-card>
     </form>
     <mat-divider></mat-divider>
-    <mat-card>
+    <mat-card fxLayout="column">
         <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
             <mat-form-field fxFlex.xs="100%" appearance="outline">
                 <mat-label>Filter</mat-label>
@@ -161,8 +153,9 @@
                     <td class="mat-cell" colspan="6">No data available</td>
                 </tr>
             </table>
-
-            <mat-paginator  [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+            
+            <!-- <mat-paginator  [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
         </div>
     </mat-card>
 

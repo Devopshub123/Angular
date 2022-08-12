@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AttendanceService } from '../../attendance.service';
 import { Location } from '@angular/common';
+import { AdminService } from 'src/app/modules/admin/admin.service';
 interface IdName {
   id: string;
   name: string;
@@ -44,20 +45,27 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   shiftData: any;
   employeesData: any;
   userData: any;
+  pageLoading = true;
+  messagesDataList: any = [];
+requiredField: any;
+requiredOption: any;
+dataSaved: any;
+dataNotSaved: any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
-    private location: Location) {
+    private location: Location,private adminService: AdminService) {
     this.minFromDate = new Date();
-    this.minFromDate.setDate(this.currentDate.getDate() - 30);
+    this.minFromDate.setDate(this.currentDate.getDate() - 31);
     this.maxFromDate = new Date();
-    this.maxFromDate.setDate(this.currentDate.getDate() + 30);
+    this.maxFromDate.setDate(this.currentDate.getDate() -1);
     this.minToDate = new Date();
-    this.minToDate.setDate(this.currentDate.getDate() - 30);
+    this.minToDate.setDate(this.currentDate.getDate() - 31);
     this.maxToDate = new Date();
-    this.maxToDate.setDate(this.currentDate.getDate() + 30);
+    this.maxToDate.setDate(this.currentDate.getDate() -1);
   }
 
   ngOnInit(): void {
+    this.getMessagesList()
     this.userData = this.location.getState();
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
     this.requestform = this.formBuilder.group(
@@ -81,23 +89,32 @@ export class AttendanceRequestBehalfComponent implements OnInit {
 
     })
     if (this.userData.userData != undefined) {
-      this.getEmployeeShiftDetails(this.userData.userData.empid);
+      this.getEmployeeShiftDetails(this.userData.userData.emp_id);
 
       this.requestform = this.formBuilder.group(
         {
           appliedDate: [{ value: this.todayWithPipe, disabled: true }, Validators.required],
           shift: [{ value: '', disabled: true }, Validators.required],
-          fromDate: [{ value: new Date(this.userData.userData.attendancedate), disabled: true }, Validators.required],
-          toDate: [{ value: new Date(this.userData.userData.attendancedate), disabled: true }, Validators.required],
+          fromDate: [{ value: new Date(this.userData.userData.absent_date), disabled: true }, Validators.required],
+          toDate: [{ value: new Date(this.userData.userData.absent_date), disabled: true }, Validators.required],
           employeeName: [{ value: '', disabled: true }, Validators.required],
           workType: ['', Validators.required],
           reason: ['', Validators.required],
         });
-      this.requestform.controls.employeeName.setValue(this.userData.userData.empid);
+      this.requestform.controls.employeeName.setValue(this.userData.userData.emp_id);
     } else {
 
     }
-
+    this.requestform.get('workType')?.valueChanges.subscribe(selectedValue => {
+      if (selectedValue) {
+        if (selectedValue == "2") {
+          this.requestform.get('toDate')?.enable();
+        } else {
+          this.requestform.get('toDate')?.disable();
+          this.requestform.get('toDate')?.setValue(this.requestform.get('fromDate')?.value);
+        }
+      }
+    });
   }
   ngAfterViewInit() {
 
@@ -108,11 +125,16 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
     this.minToDate = event.value;
     if (event.value !== null) {
-      this.maxToDate = new Date(
-        event!.value.getFullYear(),
-        event!.value.getMonth(),
-        event!.value.getDate() + 30
-      );
+      // this.maxToDate = new Date(
+      //   event!.value.getFullYear(),
+      //   event!.value.getMonth(),
+      //   event!.value.getDate() + 30
+      // );
+    }
+    if (this.requestform.get('workType')?.value == "2") {
+
+    } else {
+      this.requestform.get('toDate')?.setValue(event.value);
     }
   }
 
@@ -122,7 +144,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
       this.minFromDate = new Date(
         event!.value.getFullYear(),
         event!.value.getMonth(),
-        event!.value.getDate() - 30
+        event!.value.getDate() - 31
       );
     }
   }
@@ -160,6 +182,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.pageLoading=false;
       } else {
         this.arrayList = [];
         this.dataSource = new MatTableDataSource(this.arrayList);
@@ -197,14 +220,20 @@ export class AttendanceRequestBehalfComponent implements OnInit {
         "status": 'Approved'
 
       };
-
-
       this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res) => {
         if (res.status) {
+          let resMessage: any;
+          if (res.message == "notSave") {
+            resMessage = this.dataNotSaved;
+          } else if(res.message == "save"){
+            resMessage = this.dataSaved;
+          } else {
+            resMessage = this.dataNotSaved;
+          }
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: res.message
+            data: resMessage
           });
           this.resetform();
           // this. getAttendanceRequestListByEmpId();
@@ -221,5 +250,41 @@ export class AttendanceRequestBehalfComponent implements OnInit {
         this.router.navigate(["/Attendance/RequestofEmployee"]));
     }
   }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+     return [5, 10, 20];
+    }
+  }
+  getMessagesList() {
+    let data = 
+     {
+       "code": null,
+       "pagenumber":1,
+       "pagesize":100
+   }
+   this.adminService.getMessagesListApi(data).subscribe((res:any)=>{
+     if(res.status) {
+       this.messagesDataList = res.data;
+       this.messagesDataList.forEach((e: any) => {
+        if (e.code == "ATT1") {
+         this.requiredField = e.message
+        } else if (e.code == "ATT2") {
+          this.requiredOption =e.message
+        } else if (e.code == "ATT11") {
+          this.dataSaved =e.message
+        } else if (e.code == "ATT12") {
+          this.dataNotSaved =e.message
+        } 
+      })
+     }
+     else {
+       this.messagesDataList = [];
+     }
+
+   })
+ }
 }
 

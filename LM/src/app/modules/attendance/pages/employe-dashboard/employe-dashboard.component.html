@@ -6,7 +6,7 @@
               <!-- <mat-divider></mat-divider> -->
 
               <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-                     <div fxFlex="70">
+                     <div fxFlex="60">
                             <div class='demo-app-main'>
 
                                    <full-calendar #calendar fxLayout="column" [options]='calendarOptions'>
@@ -20,19 +20,10 @@
                             </div>
 
                      </div>
-                     <div class="sub-section-2" fxLayout="column" fxFlex="30" fxLayoutGap="20px">
-                            <!-- <div fxLayout="column" class='pending-attendance'>
-                                   <div fxLayout="column" fxLayoutAlign="start end">
-                                          Pending attendance 07-jun-2022
-                                          <a routerLink="/Attendance/AttendanceRequest">send a request</a>
-                                   </div>
-                                   <div fxLayout="column" fxLayoutAlign="start end">
-                                          Pending attendance 07-jun-2022
-                                          <a routerLink="/Attendance/AttendanceRequest">send a request</a>
-                                   </div>
 
-                            </div> -->
-                            <div fxLayout="column" fxFlex="50">
+                     <div class="sub-section-2" fxLayout="column" fxFlex="40">
+
+                            <div fxLayout="column" style="height: 440px;">
 
                                    <div fxLayout="row" fxLayoutAlign="space-between" class="pending-attendance">
                                           <div style="padding-top:15px; color: white;" fxLayout="row">
@@ -44,21 +35,19 @@
                                           </div>
 
                                    </div>
-                                   <cdk-virtual-scroll-viewport class="example-viewport" itemSize="5">
+                                   <cdk-virtual-scroll-viewport class="example-viewport" style="height: 300px;"
+                                          itemSize="5">
 
                                           <mat-list class="time-attendance">
-                                                 <ng-container *cdkVirtualFor="let item of attendanceData">
-                                                        <span *ngIf="item.present_or_absent=='A'">
-                                                               <mat-list-item>
-                                                                      <h3 matLine> {{ item.attendancedate |
-                                                                             date:'dd/MM/yyyy'}} </h3>
+                                                 <ng-container *cdkVirtualFor="let item of notificationsData">
+                                                        <mat-list-item>
+                                                               <h3 matLine> {{ item.absent_date |
+                                                                      date:'dd/MM/yyyy'}} </h3>
 
-                                                                      <p> <a routerLink="/"
-                                                                                    (click)="onRequestClick(item)">Send
-                                                                                    a
-                                                                                    request</a>
-                                                               </mat-list-item>
-                                                        </span>
+                                                               <p> <a routerLink="/" (click)="onRequestClick(item)">Send
+                                                                             a
+                                                                             request</a>
+                                                        </mat-list-item>
                                                  </ng-container>
                                           </mat-list>
                                    </cdk-virtual-scroll-viewport>
@@ -66,10 +55,10 @@
                             </div>
                             <div fxLayout="column">
                                    <div fxLayout="row" class="clock-attendance">
-                                          <div style="padding-top:15px; color: white;" fxFlex="100" fxLayout="row" fxLayoutAlign="space-between" >
+                                          <div style="padding-top:15px; color: white;" fxFlex="100" fxLayout="row"
+                                                 fxLayoutAlign="space-between">
                                                  <div fxLayout="row" fxFlex="50">
                                                         <p>
-
                                                                <mat-icon>alarm</mat-icon>
                                                         </p>
                                                         <p><b> Check In/Out</b>
@@ -83,6 +72,30 @@
                                    <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
                                           <p> First In {{firstIn}}</p>
                                           <p>Last Out {{lastOut}}</p>
+                                   </div>
+                            </div>
+                            <div fxLayout="column">
+                                   <div fxLayout="row" class="clock-attendance">
+                                          <div style="padding-top:15px; color: white;" fxFlex="100" fxLayout="row"
+                                                 fxLayoutAlign="space-between">
+                                                 <div fxLayout="row" fxFlex="50">
+                                                        <p>
+                                                        <mat-icon>filter_tilt_shift</mat-icon>
+                                                        </p>
+                                                        <p><b> Shifts</b>
+                                                        </p>
+                                                 </div>
+
+                                          </div>
+                                   </div>
+
+                            </div>
+                            <div fxLayout="column">
+                                   <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
+                                          <div> <span><b>Current Shift</b></span><br /><span> {{firstIn}}</span></div>
+                                          <div><span><b>{{currentShift}}</b></span><br />
+                                                 <span> {{currentShiftStartTime}}-{{currentShiftendTime}}</span>
+                                          </div>
                                    </div>
                             </div>
                      </div>

@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../dialog/dialog.component';
 import { AttendanceService } from '../../attendance.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { AdminService } from 'src/app/modules/admin/admin.service';
 @Component({
   selector: 'app-approval-attendance',
   templateUrl: './approval-attendance.component.html',
@@ -25,9 +26,17 @@ export class ApprovalAttendanceComponent implements OnInit {
   reason: string='';
   titleName: string='';
   userSession: any;
+  isEdit = true;
+  messagesDataList: any = [];
+  reqField: any;
+  reqOption: any;
+  reqSave: any;
+    reqNotSave: any;
+    reqReject: any;
+    reqNotReject: any;
   constructor(private formBuilder: FormBuilder, private activeroute: ActivatedRoute,
     private location:Location,public dialog: MatDialog,private router:Router,
-     private attendanceService: AttendanceService) { }
+     private attendanceService: AttendanceService,private adminService: AdminService) { }
 
   ngOnInit(): void {
     // if (this.activeroute.snapshot.params.userData !=null){
@@ -47,14 +56,18 @@ export class ApprovalAttendanceComponent implements OnInit {
         toDate:[this.userData.userData.todate,Validators.required],
         workType:[this.userData.userData.worktype,Validators.required],
         reason:[this.userData.userData.reason,Validators.required],
-        
+        comment:[this.userData.userData.comment],
       });
+      if(this.userData.userData.status !="Submitted"){
+        this.isEdit=false;
+      }else{
+        this.isEdit=true;
+      }
       this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
       
   }
   acceptApproval(){
     this.titleName="Approve"
-    
     this.openDialog();
   }
   rejectApproval(){
@@ -89,16 +102,58 @@ export class ApprovalAttendanceComponent implements OnInit {
 
     this.attendanceService.updateAttendanceRequest(obj).subscribe((res) => {
       if (res.status) {
+        let resMessage: any;
+        if (res.message == "ApprovalRequest") {
+          if (this.titleName=="Reject") {
+            resMessage=this.reqReject
+          } else {
+            resMessage=this.reqSave
+          }
+        } else if (res.message == "UnableToApprove") {
+          resMessage=this.reqNotSave
+        }
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: this.titleName=="Reject"?'Attendance request rejected successfully':'Attendance request approved successfully'
+          data: resMessage
+          //data: this.titleName=="Reject"?'Attendance request rejected successfully.':'Attendance request approved successfully.'
         });
         this.router.navigate(["/Attendance/ApprovalList"],);  
         
       }
     })
   }
+  backClick(){
+      this.router.navigate(["/Attendance/"+this.userData.url],);  
+
+  }
+
+  getMessagesList() {
+    let data = 
+     {
+       "code": null,
+       "pagenumber":1,
+       "pagesize":100
+   }
+   this.adminService.getMessagesListApi(data).subscribe((res:any)=>{
+    if(res.status) {
+      this.messagesDataList = res.data;
+      this.messagesDataList.forEach((e: any) => {
+       if (e.code == "ATT13") {
+        this.reqSave = e.message
+       }else if (e.code == "ATT14") {
+         this.reqNotSave =e.message
+       }   else if (e.code == "ATT15") {
+         this.reqReject =e.message
+       } 
+     })
+    }
+    else {
+      this.messagesDataList = [];
+    }
+
+  })
+ }
 }
 
 

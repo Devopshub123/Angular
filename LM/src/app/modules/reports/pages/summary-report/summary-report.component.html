@@ -1,6 +1,6 @@
-<div fxLayout="column" fxFill>
+<div fxLayout="column" style="min-height: 600px;">
 
-  <mat-card>
+  <mat-card fxLayout="column" >
     <mat-card-header class="heading">
       <mat-card-title class="headingtext">Summary Report</mat-card-title>
     </mat-card-header>
@@ -18,13 +18,14 @@
         <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
           <mat-label>From Date</mat-label>
           <input matInput readonly [matDatepicker]="fromDate" [min]="minDate" [max]="maxDate" placeholder="From Date"
-            formControlName="fromDate">
+            formControlName="fromDate" (click)="fromDate.open()">
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
           <mat-datepicker #fromDate></mat-datepicker>
         </mat-form-field>
         <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
           <mat-label>To Date</mat-label>
-          <input matInput readonly [matDatepicker]="toDate" placeholder="To Date" formControlName="toDate">
+          <input matInput readonly [matDatepicker]="toDate" placeholder="To Date"
+           formControlName="toDate" (click)="toDate.open()">
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
           <mat-datepicker #toDate></mat-datepicker>
         </mat-form-field>
@@ -33,7 +34,7 @@
           <mat-select formControlName="Users" required>
             <mat-option value="0"> All Employees </mat-option>
             <ng-container *ngFor="let e of employeelist">
-              <mat-option [value]="e.id">{{e.firstname}}</mat-option>
+              <mat-option [value]="e.id">{{e.firstname}}  {{e.lastname}}</mat-option>
             </ng-container>
           </mat-select>
         </mat-form-field>
@@ -41,7 +42,7 @@
       <div fxLayout="row" fxFlex.xs="100%" class="showLine">
         <span>
           <button class="mx-2 my-2 button-save" style="height: 44px;" (click)="Searchform()" mat-stroked-button>
-            Show
+            Search
           </button>
         </span>
         <span class="line" style="color:#1898D5;font-size:16px"></span>
@@ -57,12 +58,12 @@
         </a>
       </div>
     </div>
-  </mat-card>
 
-  <div class="p-2">
+
+  <div class="p-2" fxLayout="column" fxFill>
 
     <div class="example-container mat-elevation-z8">
-      <mat-table #table [dataSource]="dataSource" *ngIf="List.length > 0">
+      <mat-table #table [dataSource]="dataSource" >
         <ng-container matColumnDef="sno">
           <mat-header-cell *matHeaderCellDef><b>S.No. </b></mat-header-cell>
           <mat-cell *matCellDef="let row; let i = index;">{{i+1}}</mat-cell>
@@ -116,7 +117,12 @@
         </mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
+      <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+            
       <div style="text-align: center;padding-top: 20px;" *ngIf="List.length === 0">No data found.</div>
+      <!-- <mat-paginator   [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+
     </div>
   </div>
+</mat-card>
 </div>

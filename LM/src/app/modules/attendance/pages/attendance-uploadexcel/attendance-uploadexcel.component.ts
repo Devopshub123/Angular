@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AdminService } from 'src/app/modules/admin/admin.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import * as XLSX from 'xlsx';
 import { AttendanceService } from '../../attendance.service';
@@ -17,10 +18,17 @@ export class AttendanceUploadexcelComponent implements OnInit {
   wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
   fileName: string = 'SheetJS.xlsx';
   @ViewChild('inputFile') inputFile!: ElementRef;
-  convertedJson!:string;
-  constructor(private attendanceService:AttendanceService,public dialog: MatDialog) { }
+  convertedJson!: string;
+messagesDataList: any = [];
+reqField: any;
+reqOption: any;
+reqSave: any;
+reqNotSave: any;
+isLoading = false;
+  constructor(private attendanceService:AttendanceService,public dialog: MatDialog,private adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.getMessagesList();
   }
   onChange(event:any){
       const selectedFile=event.target.files[0];
@@ -44,24 +52,34 @@ export class AttendanceUploadexcelComponent implements OnInit {
   }
   
   SaveUploadedData(){
+    this.isLoading=true;
     this.attendanceService.excelDataForAttendance(JSON.parse(this.convertedJson)).subscribe(
      (res) => {
-      if(res.status){
+      this.isLoading=false;
+        if (res.status) {
+          let resMessage: any;
+          if (res.message=="excelUploadSave") {
+            resMessage = this.reqSave
+          } else if(res.message=="unableToUpload"){
+            resMessage = this.reqNotSave
+          } else {
+            resMessage=this.reqNotSave
+          }
        this.removeData();
        this.isview=false;
        this.isadd = true;
-      
+
        let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
           disableClose:true,
-          data: res.message
+          data: resMessage
        });
       }else{
         
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose:true,
-          data: res.message
+          data:this.reqNotSave
        });
       }
      }, 
@@ -79,4 +97,28 @@ export class AttendanceUploadexcelComponent implements OnInit {
     this.convertedJson = '';
     
   }
+  getMessagesList() {
+    let data = 
+     {
+       "code": null,
+       "pagenumber":1,
+       "pagesize":100
+   }
+   this.adminService.getMessagesListApi(data).subscribe((res:any)=>{
+    if(res.status) {
+      this.messagesDataList = res.data;
+      this.messagesDataList.forEach((e: any) => {
+       if (e.code == "ATT20") {
+        this.reqSave = e.message
+       }else if (e.code == "ATT21") {
+         this.reqNotSave =e.message
+       }
+     })
+    }
+    else {
+      this.messagesDataList = [];
+    }
+
+  })
+ }
 }

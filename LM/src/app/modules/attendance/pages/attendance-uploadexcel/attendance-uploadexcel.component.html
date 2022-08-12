@@ -1,27 +1,10 @@
-<div fxLayout="column" fxFill>
+<div fxLayout="column" style="min-height: 700px;">
     <mat-card>
         <mat-card-header class="">
             <mat-card-title class="title"> Excel Upload </mat-card-title>
         </mat-card-header>
         <mat-divider></mat-divider>
-        <!-- <div  fxLayout="row" fxLayout.xs="column" class="mx-2 my-2"  fxLayoutAlign.xs="center center"fxLayoutAlign="center">
-
-            <input type="file" (change)="onFileChange($event)" multiple="false" />
-            <button class="btn btn-primary" (click)="uploadFile();">Upload</button>
-        </div>
-        <div  fxLayout="row" fxLayout.xs="column" class="mx-2 my-2"  fxLayoutAlign="center" fxLayoutAlign.xs="center center">
-
-            <table class="sjs-table">
-                <tbody>
-                    <tr *ngFor="let row of data">
-                        <td *ngFor="let val of row">
-                            {{val}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div> -->
-        <div fxLayout="column" class="mx-2 my-2">
+        <div *ngIf="!isLoading" fxLayout="column" class="mx-2 my-2">
             <!-- <h2>File Upload & Image Preview</h2> -->
 
             <!-- Upload  -->
@@ -66,6 +49,13 @@
 
             </div>
         </div>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate"
+            backdropEnabled="true" 
+            >
+            </mat-progress-spinner>
+        </div>
+
     </mat-card>
 
 </div>

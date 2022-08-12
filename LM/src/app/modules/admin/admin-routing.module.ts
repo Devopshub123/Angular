@@ -12,6 +12,9 @@ import { WorklocationComponent } from './pages/worklocation/worklocation.compone
 import { RolesPermissionsComponent } from './pages/roles-permissions/roles-permissions.component';
 import { HolidaysComponent } from './pages/holidays/holidays.component';
 import { LeavepoliciesComponent } from './pages/leavepolicies/leavepolicies.component';
+import { MappingIdsComponent } from './pages/mapping-ids/mapping-ids.component';
+import { ShiftMasterComponent } from './pages/shift-master/shift-master.component';
+import { MessageMasterComponent } from './pages/message-master/message-master.component';
 const routes: Routes = [
   {
     path: '', component: MainComponent,
@@ -26,6 +29,10 @@ const routes: Routes = [
       { path: 'Worklocation',component:WorklocationComponent,canActivate:[LMSAccessGuard]},
       { path: 'Holidays',component:HolidaysComponent,canActivate:[LMSAccessGuard]},
       { path: 'Leavepolicies',component:LeavepoliciesComponent,canActivate:[LMSAccessGuard]},
+      { path: 'Holiday', component: HolidaysComponent, canActivate: [LMSAccessGuard] },
+      { path: 'MappingIds', component: MappingIdsComponent, canActivate: [LMSAccessGuard] },
+      { path: 'Shift', component: ShiftMasterComponent, canActivate: [LMSAccessGuard] },
+       {path:'MessageMaster',component:MessageMasterComponent}
     ]
   }
 

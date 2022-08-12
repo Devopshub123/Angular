@@ -43,7 +43,10 @@ export class DialogDetailComponent implements OnInit {
     this.reportsService.getAttendanceDetailsByAttendanceId(obj).subscribe((res: any)=>{
       if (res.status) {
         this.List=res.data;
-        this.arrString=this.List[0].breaks.split(',')
+        if(this.List[0].breaks!=null){
+          this.arrString=this.List[0].breaks.split(',')
+        }
+
         this.isLoading = false;
         this.dataSource = new MatTableDataSource(this.List);
   

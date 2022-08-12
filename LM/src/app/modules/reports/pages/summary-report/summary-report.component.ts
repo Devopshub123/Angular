@@ -21,33 +21,39 @@ export class SummaryReportComponent implements OnInit {
   employeelist: any;
   Users: any;
   minDate = new Date('1950/01/01'); maxDate = new Date();
+  pageLoading=true;
   constructor(public reportsService: ReportsService, public datePipe: DatePipe, public formBuilder: FormBuilder,
     public dialog: MatDialog, private excelService: ExcelServiceService) { }
   @ViewChild(MatTable) table: MatTable<any> = <any>[];
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sorter!: MatSort;
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+  @ViewChild(MatSort)
+  sort!: MatSort;
   filter = new FormControl();
+  userSession: any;
   searchForm = this.formBuilder.group({ fromDate: [new Date()], toDate: [new Date()], Users: ['0'] });
   dataSource: MatTableDataSource<any> = <any>[];
   displayedColumns: string[] = ['sno','empname', 'attendancedate', 'firstlogintime', 
   'lastlogouttime', 'totalhours', 'breaks', 'breaktime', 'productivehours', 'action'];
   isLoading = false;
   ngOnInit() {
+    this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
      this.Searchform();
     this.getEmployeelist();
   }
-
   getEmployeelist() {
+    let obj={
+     "rm_id":this.userSession.id,
+    };
+this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) => {
+ if (res.status) {
+   this.employeelist = [];
+   this.employeelist = res.data;
+   this.searchForm.controls.Users.setValue('0');
+ }
 
-    this.reportsService.getTotalEmployeslist().subscribe((res: any) => {
-      if (res.status) {
-        this.employeelist = [];
-        this.employeelist = res.data;
-        this.searchForm.controls.Users.setValue('0');
-      }
-
-    });
-  }
+});
+}
   //All Employees API
   Searchform() {
     this.List = [];
@@ -69,7 +75,9 @@ export class SummaryReportComponent implements OnInit {
       this.List=res.data;
       this.isLoading = false;
       this.dataSource = new MatTableDataSource(this.List);
-
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.pageLoading=false;
     }, error => {
       this.isLoading = false;
       error.error.text
@@ -92,7 +100,7 @@ export class SummaryReportComponent implements OnInit {
   }
   openDialog(item:any): void {
     const dialogRef = this.dialog.open(DialogDetailComponent, {
-    //  width: '500px',position:{top:`70px`},
+      width: '1000px',position:{top:`70px`},
       data: {attendanceid:item.attendanceid ,}
     });
 
@@ -120,6 +128,13 @@ export class SummaryReportComponent implements OnInit {
     })
     this.excelService.exportAsExcelFile(edata, '');
   }
-
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+      return [5, 10, 20];
+    }
+  }
 }
 

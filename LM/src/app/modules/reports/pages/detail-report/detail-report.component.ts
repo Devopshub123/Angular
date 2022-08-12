@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,113 +11,16 @@ import { AttendanceService } from 'src/app/modules/attendance/attendance.service
 import { ExcelServiceService } from '../../excel-service.service';
 import { ReportsService } from '../../reports.service';
 import { DialogDetailComponent } from '../dialog-detail/dialog-detail.component';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-detail-report',
   templateUrl: './detail-report.component.html',
   styleUrls: ['./detail-report.component.scss']
 })
 export class DetailReportComponent implements OnInit {
-  
-  List: any[] =  [
-    {'empname':'Balu','attendancedata':[
-          {'attendancedate': '2022-07-01','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-02','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-03','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-04','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-05','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-06','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-07','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-08','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-09','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-10','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-01','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-02','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-03','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-04','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-05','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-06','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-07','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-08','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-09','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-10','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-01','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-02','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-03','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-04','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-05','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-06','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-07','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-08','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-09','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-10','present_or_absent': 'A'},
-           ]},
-    {'empname':'Krishna','attendancedata':[
-          {'attendancedate': '2022-07-01','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-02','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-03','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-04','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-05','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-06','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-07','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-08','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-09','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-10','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-11','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-12','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-13','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-14','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-15','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-16','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-17','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-18','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-19','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-20','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-01','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-02','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-03','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-04','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-05','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-06','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-07','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-08','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-09','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-10','present_or_absent': 'A'},
-           ]},
-    
-    {'empname':'Raju','attendancedata':[
-          {'attendancedate': '2022-07-01','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-02','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-03','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-04','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-05','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-06','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-07','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-08','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-09','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-10','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-11','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-12','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-13','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-14','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-15','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-16','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-17','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-18','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-19','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-20','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-01','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-02','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-03','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-04','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-05','present_or_absent': 'A'},
-          {'attendancedate': '2022-07-06','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-07','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-08','present_or_absent': 'P'},
-          {'attendancedate': '2022-07-09','present_or_absent': 'P'},			
-          {'attendancedate': '2022-07-10','present_or_absent': 'A'},
-           ]},
-    ];
+
+  List: any[] = [
+  ];
   employeelist: any;
   Users: any;
   minDate = new Date('2020/01/01'); maxDate = new Date();
@@ -127,27 +30,28 @@ export class DetailReportComponent implements OnInit {
   lastDay: any;
   startDate = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
   endDate = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
-   dateDayArray:any = [];
-  obj:any;
+  dateDayArray: any = [];
+  obj: any;
+  headersList: any = [];
+  @ViewChild('TABLE') table!: ElementRef;
   constructor(public reportsService: ReportsService, public datePipe: DatePipe, public formBuilder: FormBuilder,
     public dialog: MatDialog, private excelService: ExcelServiceService) { }
-  @ViewChild(MatTable) table: MatTable<any> = <any>[];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sorter!: MatSort;
   filter = new FormControl();
   searchForm = this.formBuilder.group({ fromDate: [new Date()], toDate: [new Date()], Users: ['0'] });
   dataSource: MatTableDataSource<any> = <any>[];
-  displayedColumns: string[] = ['sno','empname', 'attendancedate', 'firstlogintime', 
-  'lastlogouttime', 'totalhours', 'breaks', 'breaktime', 'productivehours', 'action'];
+  displayedColumns: string[] = ['sno', 'empname', 'attendancedate', 'firstlogintime',
+    'lastlogouttime', 'totalhours', 'breaks', 'breaktime', 'productivehours', 'action'];
   isLoading = false;
   ngOnInit() {
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
- //    this.Searchform();
+    this.Searchform();
     this.getEmployeelist();
-    
+
     this.getDateArray(this.startDate, this.endDate);
   }
-  getDateArray(start:any, end:any) {
+  getDateArray(start: any, end: any) {
     const arr = [];
     const dt = new Date(start);
     while (dt <= end) {
@@ -158,18 +62,20 @@ export class DetailReportComponent implements OnInit {
 
     for (const val of arr) {
 
-       this.obj = {
+      this.obj = {
         date: val,
         day: val.toLocaleDateString('en-US', { weekday: 'short' }),
       };
 
       this.dateDayArray.push(this.obj);
     }
-    console.log(this.dateDayArray);
+    // console.log(this.dateDayArray);
   }
   getEmployeelist() {
-
-    this.reportsService.getTotalEmployeslist().subscribe((res: any) => {
+         let obj={
+          "rm_id":this.userSession.id,
+         };
+    this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) => {
       if (res.status) {
         this.employeelist = [];
         this.employeelist = res.data;
@@ -182,25 +88,47 @@ export class DetailReportComponent implements OnInit {
   Searchform() {
     this.List = [];
     this.dataSource = new MatTableDataSource(this.List);
-    let fromDate = this.datePipe.transform(this.searchForm.controls.fromDate.value, "y-MM-d");
+    let fromDate = this.datePipe.transform(this.searchForm.controls.fromDate.value, "y-MM-dd");
     let userId = this.searchForm.controls.Users.value;
+    let data = {};
     if (userId == '0') {
-      userId=null;
-    } 
-    let data = {
-      'manager_employee_id':this.userSession.id,
-      'employee_id': userId,
-      'date': fromDate,
-      
+      userId = null;
+      data = {
+        'manager_employee_id': this.userSession.id,
+        'employee_id': userId,
+        'calendar_date': fromDate,
+
+      }
+    } else {
+      data = {
+        'manager_employee_id': null,
+        'employee_id': userId,
+        'calendar_date': fromDate,
+
+      }
     }
+
     this.isLoading = true;
     this.reportsService.getAttendanceMonthlyReport(data).subscribe((res: any) => {
-      if(res.status){
-        res.data.forEach((e:any)=>{
-       //   this.List.push(JSON.parse(e.result));
+      this.headersList = [];
+      this.List = [];
+      if (res.status) {
+        let i = 0;
+        res.data.forEach((e: any) => {
+          if (i < 2) {
+            let header = JSON.parse(e.result);
+            this.headersList.push(header);
+          } else {
+            let header = JSON.parse(e.result);
+            this.List.push(header);
+          }
+          i++;
+
         });
+        console.log(this.headersList);
+        console.log(this.List);
       }
-      
+
       this.isLoading = false;
       this.dataSource = new MatTableDataSource(this.List);
 
@@ -224,36 +152,38 @@ export class DetailReportComponent implements OnInit {
 
 
   }
-  openDialog(item:any): void {
+  openDialog(item: any): void {
     const dialogRef = this.dialog.open(DialogDetailComponent, {
-    //  width: '500px',position:{top:`70px`},
-      data: {attendanceid:item.attendanceid ,}
+      //  width: '500px',position:{top:`70px`},
+      data: { attendanceid: item.attendanceid, }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-          
-      
+
+
     });
   }
- 
-  exportAsXLSX() {
-    let edata: any = [];
-    let i = 1;
-    this.dataSource.data.map(a => {
-      let e: any = {};
-      e['Sno'] = i++;
-      e['Employee Name'] = a.empname;
-      e['Attendance Date'] = a.attendancedate;
-      e['First In'] = a.firstlogintime;
-      e['Last Out'] = a.lastlogouttime;
-      e['Total Hours'] = a.totalhours;
-      e['breaks'] = a.breaks;
-      e['Break Time'] = a.breaktime;
-      e['Production Hours'] = a.productivehours;
-      edata.push(e);
-    })
-    this.excelService.exportAsExcelFile(edata, '');
-  }
 
+  exportAsXLSX() {
+    const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Monthly_Detail_Report');
+    
+    /* save to file */
+    XLSX.writeFile(wb, 'Monthly_Detail_Report.xlsx');
+    
+  }
+  
+  getColor(i: string): String {
+    let color = ''
+    if (i == "P") {
+      return color = 'green'
+    } else if (i == "A") {
+      return color = 'red';
+    } else {
+      return '';
+    }
+  }
+  
 }
 

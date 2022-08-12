@@ -16,8 +16,11 @@ export class ReportsService {
   constructor(private http: HttpClient) {
 }
   
-  getTotalEmployeslist(): any{
+  getTotalEmployeslist(): Observable<any>{
     return this.http.get(this.mainUrl + 'attendance/api/getallemployeeslist',this.httpOptions);
+  } 
+  getTotalEmployeslistByManagerId(data:any): Observable<any>{
+    return this.http.post(this.mainUrl + 'attendance/api/getallemployeeslistByManagerId',data,this.httpOptions);
   } 
   // ALL USER-WISE COLLECTION DATA API
   getAttendanceSummaryReport(data:any):Observable<any> {
@@ -31,6 +34,11 @@ export class ReportsService {
   }
   getAttendanceMonthlyReport(data:any):Observable<any>{
     return this.http.post(this.mainUrl +'attendance/api/getAttendanceMonthlyReport',
+    data,this.httpOptions
+    )
+  }
+  getEmployeeLateAttendanceReport(data:any):Observable<any>{
+    return this.http.post(this.mainUrl +'attendance/api/getEmployeeLateAttendanceReport',
     data,this.httpOptions
     )
   }

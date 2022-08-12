@@ -1,4 +1,4 @@
-<div fxLayout="column">
+<div fxLayout="column" style="min-height: 700px;">
 
     <mat-card>
         <mat-card-header class="heading">
@@ -12,7 +12,7 @@
                     <mat-select formControlName="Users" required>
                         <mat-option value="0"> All Employees </mat-option>
                         <ng-container *ngFor="let e of employeelist">
-                            <mat-option [value]="e.id">{{e.firstname}}</mat-option>
+                            <mat-option [value]="e.id">{{e.firstname}}  {{e.lastname}}</mat-option>
                         </ng-container>
                     </mat-select>
                 </mat-form-field>
@@ -20,7 +20,7 @@
                 <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
                     <mat-label>Date</mat-label>
                     <input matInput readonly [matDatepicker]="fromDate" [min]="minDate" [max]="maxDate"
-                        placeholder="From Date" formControlName="fromDate">
+                        placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
                     <mat-datepicker #fromDate></mat-datepicker>
                 </mat-form-field>
@@ -31,7 +31,7 @@
                 <span>
                     <button class="mx-2 my-2 button-save" style="height: 44px;" (click)="Searchform()"
                         mat-stroked-button>
-                        Show
+                        Search
                     </button>
                 </span>
                 <span class="line" style="color:#1898D5;font-size:16px"></span>
@@ -40,111 +40,46 @@
                 </button>
             </div>
         </div>
-        <!-- <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">
+        <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">
         <div>
           <span class="exlprint"> | </span>
           <a> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
           </a>
         </div>
-      </div> -->
+      </div>
     </mat-card>
 
     <div class="p-2">
 
-        <div class="example-container mat-elevation-z8">
-            <!-- <mat-table #table [dataSource]="dataSource" *ngIf="List.length > 0">
-          <ng-container matColumnDef="sno">
-            <mat-header-cell *matHeaderCellDef><b>S.No. </b></mat-header-cell>
-            <mat-cell *matCellDef="let row; let i = index;">{{i+1}}</mat-cell>
-            
-          </ng-container>
-          <ng-container matColumnDef="empname">
-            <mat-header-cell *matHeaderCellDef><b>Employee Name </b></mat-header-cell>
-            <mat-cell *matCellDef="let row;">{{row.empname}}</mat-cell>
-            
-          </ng-container>
-          <ng-container matColumnDef="attendancedate">
-            <mat-header-cell *matHeaderCellDef><b>Date</b></mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.attendancedate}} </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="firstlogintime">
-            <mat-header-cell *matHeaderCellDef><b> First In</b></mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.firstlogintime}} </mat-cell>
-  
-          </ng-container>
-          <ng-container matColumnDef="lastlogouttime">
-            <mat-header-cell *matHeaderCellDef><b>Last Out </b></mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.lastlogouttime}} </mat-cell>
-  
-          </ng-container>
-          <ng-container matColumnDef="totalhours">
-            <mat-header-cell *matHeaderCellDef><b>Total Hours </b></mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.totalhours}} </mat-cell>
-  
-          </ng-container>
-          <ng-container matColumnDef="breaks">
-            <mat-header-cell *matHeaderCellDef><b>Breaks </b></mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.breaks}} </mat-cell>
-  
-          </ng-container>
-          <ng-container matColumnDef="breaktime">
-            <mat-header-cell *matHeaderCellDef><b>Break Time </b></mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.breaktime}} </mat-cell>
-  
-          </ng-container>
-          <ng-container matColumnDef="productivehours">
-            <mat-header-cell *matHeaderCellDef><b>Production Hours</b></mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.productivehours}} </mat-cell>
-  
-          </ng-container>
-          <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef><b>Action</b></mat-header-cell>
-            <mat-cell *matCellDef="let row"> <a style="color: blue" (click)="openDialog(row)"><u>Details</u></a> </mat-cell>
-  
-          </ng-container>
-          <mat-header-row class="headerbox" *matHeaderRowDef="displayedColumns; sticky:true">
-          </mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table> -->
-
-            <table style="width:100%;">
-                <tr>
-                    <th>Employee</th>
-                    <th>
-                        <table style="width:100%;">
-                            <tr>
-                                <span *ngFor="let day of dateDayArray">
-                                    <th>{{ day.date | date: 'MMM d' }}</th>
-                                </span>
-                            </tr>
-
-                            <tr>
-                                <span *ngFor="let day of dateDayArray">
-                                    <th>{{ day.day }}</th>
-                                </span>
-                            </tr>
-                        </table>
-                    </th>
-                    <th>Presents</th>
-                </tr>
-                <ng-container *ngFor="let item of List">
-                    <tr style="width:100%;">
-                        <td>{{item.empname}}</td>
-                        <td>
-                            <table style="width:100%;">
-                                <tr><span *ngFor="let day of item.attendancedata;let i=index;">
-                                        <td>{{ day.present_or_absent }}</td>
-                                    </span></tr>
-                            </table>
-                        </td>
-                        <td>40</td> 
-
+        <div class="example-container mat-elevation-z8" style="padding:10px" #TABLE>
+            <table #table style="width:100%;" *ngIf="List.length>0">
+                <thead>
+                    <tr>
+                        <th><span>Employee </span></th>
+                        <ng-container *ngFor="let a of headersList[0]; let i=index;">
+                            <th><u>{{a | date: 'MMM d'}} </u><br>
+                                {{headersList[1][i] | limit : 3}}
+                            </th>
+                        </ng-container>
+                        <th>Presents</th>
                     </tr>
-                </ng-container>
+                </thead>
+                <tbody>
 
+                    <ng-container *ngFor="let item of List">
+                        <tr style="width:100%;">
+                            <ng-container *ngFor="let e of item">
+                                <td>
+                                   <span [ngStyle]="{color: getColor(e)}"> {{e}} </span></td>
+                            </ng-container>
+
+
+                        </tr>
+                    </ng-container>
+                </tbody>
             </table>
 
-            <div style="text-align: center;padding-top: 20px;" *ngIf="List.length === 0">No data found in selected date
+            <div style="text-align: center;padding-top: 20px;" *ngIf="List.length === 0">No data found.
             </div>
         </div>
     </div>

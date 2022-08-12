@@ -20,9 +20,9 @@ export class EmployeDashboardComponent implements OnInit {
   Events: any[] = [];
   calendarOptions: CalendarOptions = {
     headerToolbar: {
-      left: 'prev,next',
+      left: 'prev',
       center: 'title',
-      right: ''
+      right: 'next'
     }, customButtons: {
       next: {
           click: this.nextMonth.bind(this),
@@ -30,10 +30,10 @@ export class EmployeDashboardComponent implements OnInit {
       prev: {
           click: this.prevMonth.bind(this),
       },
-      today: {
+      // today: {
   
-          click: this.currentMonth.bind(this),
-      },
+      //     click: this.currentMonth.bind(this),
+      // },
   },
     initialView: 'dayGridMonth',
     weekends: true,
@@ -43,12 +43,17 @@ export class EmployeDashboardComponent implements OnInit {
     dayMaxEvents: true,
     
   };
+
   pipe = new DatePipe('en-US');
   userSession: any;
   attendanceData:any;
   selectedDate: any;
   calendarApi: any;
-
+  notificationsData:any=[];
+  shiftDetails: any;
+  currentShift="";
+  currentShiftStartTime="";
+  currentShiftendTime="";
   constructor(private attendanceService:AttendanceService,private router:Router) { }
    firstIn:any='00:00';
    lastOut:any='00:00';
@@ -58,6 +63,18 @@ export class EmployeDashboardComponent implements OnInit {
    this.todayDate= this.pipe.transform(Date.now(), 'dd/MM/yyyy');
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getemployeeattendancedashboard();
+    this.getEmployeeAttendanceNotifications();
+    this.getEmployeeShiftDetails();
+   }
+  getEmployeeShiftDetails() {
+    this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res: any) => {
+      if (res.status) {
+        this.shiftDetails = res.data[0];
+        this.currentShift=this.shiftDetails.shiftname;
+        this.currentShiftStartTime=this.shiftDetails.fromtime;
+        this.currentShiftendTime=this.shiftDetails.totime;
+      }
+    })
   }
   getemployeeattendancedashboard(){
     let data={
@@ -69,10 +86,18 @@ export class EmployeDashboardComponent implements OnInit {
       if(res.status){
         this.attendanceData=res.data;
         this.attendanceData.forEach((e:any)=>{
+         
+          let currentDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
+          let selectDate=this.pipe.transform(e.attendancedate, 'yyyy-MM-dd');
+          if(currentDate==selectDate){
+             this.firstIn= this.pipe.transform(e.firstlogintime, 'shortTime');
+             this.lastOut= this.pipe.transform(e.lastlogouttime, 'shortTime');
+          }
           let item=
             {
-              title: e.present_or_absent=='P'?'Present':'Absent',
-              start:e.attendancedate, ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
+              title: e.present_or_absent,
+              start:e.firstlogintime !=''? e.firstlogintime : new Date(e.attendancedate),
+             // end:e.lastlogouttime !=''? e.lastlogouttime : e.attendancedate,
               color: e.present_or_absent=='P'?'#32cd32':'#FF3131',
               icon:e.present_or_absent=='P'? 'fa-check-circle':'fa-times-circle'
                   }
@@ -84,18 +109,37 @@ export class EmployeDashboardComponent implements OnInit {
 
     })
   }
+  getEmployeeAttendanceNotifications(){
+    let data={
+      'manager_id':null,
+      'employee_id':this.userSession.id,
+      'date':this.selectedDate
+    }
+    this.attendanceService.getEmployeeAttendanceNotifications(data).subscribe((res: any) => {
+      this.notificationsData=[];
+      if (res.status) {
+        this.notificationsData = res.data;
+        }
+
+
+    })
+  }
   onRequestClick(elment:RequestData){
   
     this.router.navigate(["/Attendance/Request"],{state: {userData:elment}}); 
   }
+  
   nextMonth(): void {
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.next();
     const selectDate = this.calendarApi.getDate();
     if (selectDate.getTime() <= this.currentDate.getTime()) {
+      this.selectedDate = this.pipe.transform(selectDate, 'yyyy-MM-dd');
       this.getemployeeattendancedashboard();
+      this.getEmployeeAttendanceNotifications();
     } else {
       this.attendanceData = [];
+      this.notificationsData=[];
       this.initialEvents = [];
       this.calendarOptions.events = this.initialEvents;
     }
@@ -105,10 +149,14 @@ export class EmployeDashboardComponent implements OnInit {
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.prev();
     const selectDate = this.calendarApi.getDate();
+
     if (selectDate.getTime() <= this.currentDate.getTime()) {
+      this.selectedDate = this.pipe.transform(selectDate, 'yyyy-MM-dd');
       this.getemployeeattendancedashboard();
+      this.getEmployeeAttendanceNotifications();
     } else {
       this.attendanceData = [];
+      this.notificationsData=[];
       this.initialEvents = [];
       this.calendarOptions.events = this.initialEvents;
     }
@@ -118,6 +166,7 @@ export class EmployeDashboardComponent implements OnInit {
     this.calendarApi.today();
     const currentDate = this.calendarApi.getDate();
     this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
-    this.getemployeeattendancedashboard()
+    this.getemployeeattendancedashboard();
+    this.getEmployeeAttendanceNotifications();
   }
 }

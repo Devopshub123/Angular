@@ -1,0 +1,116 @@
+<div fxLayout="column" style="min-height: 700px;">
+
+    <mat-card>
+        <mat-card-header class="heading">
+            <mat-card-title class="headingtext">Late Attendance Report</mat-card-title>
+        </mat-card-header>
+        <br />
+        <div fxLayout fxLayout="row wrap" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center"
+            [formGroup]="searchForm">
+            <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
+                <mat-label>Employee Name</mat-label>
+                <mat-select formControlName="user" required>
+                    <mat-option value="0"> All Employees </mat-option>
+                    <ng-container *ngFor="let e of employeelist">
+                        <mat-option [value]="e.id">{{e.firstname}}  {{e.lastname}}</mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-label>Shift</mat-label>
+                <mat-select formControlName="shift"  required>
+                    <mat-option value="0"> All Shifts </mat-option>
+                    <ng-container *ngFor="let v of shiftDataList">
+                        <mat-option [value]="v.shiftid">{{v.shiftname}}</mat-option>
+                    </ng-container>
+                </mat-select>
+                
+            </mat-form-field>
+            <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-label>From Date </mat-label>
+                <input matInput readonly required [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate" (dateInput)="fromDateChange('input', $event)"
+                    placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()">
+                <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                <mat-datepicker #fromDate></mat-datepicker>
+                <mat-error class="con-error" *ngIf="searchForm.controls.fromDate.errors?.required">
+                    Please select an option.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-label>To Date </mat-label>
+                <input matInput readonly required [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
+                (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="fromDate.open()">
+                <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
+                <mat-datepicker #toDate></mat-datepicker>
+                <mat-error class="con-error" *ngIf="searchForm.controls.toDate.errors?.required">
+                    Please select an option.
+                </mat-error>
+            </mat-form-field>                  </div>
+        <div fxLayout="row" fxFlex.xs="100%" fxLayoutAlign="center" class="showLine">
+            <span>
+                <button class="mx-2 my-2 button-save" style="height: 44px;" (click)="Searchform()" mat-stroked-button>
+                    Search
+                </button>
+            </span>
+            <span class="line" style="color:#1898D5;font-size:16px"></span>
+            <button class="mx-2 my-2 mat-flat-button  button-clear" style="height: 44px;" (click)="resetform()">
+                <span>Clear</span>
+            </button>
+        </div>
+
+        <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">
+            <div>
+                <span class="exlprint"> | </span>
+                <a> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+                </a>
+            </div>
+        </div>
+    </mat-card>
+
+    <div class="p-2">
+        <div class="example-container mat-elevation-z8" >
+            <mat-table #table [dataSource]="dataSource" >
+                <ng-container matColumnDef="sno">
+                    <mat-header-cell *matHeaderCellDef><b>S.No. </b></mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;">{{i+1}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="empid">
+                    <mat-header-cell *matHeaderCellDef><b>Employee ID </b></mat-header-cell>
+                    <mat-cell *matCellDef="let row;">{{row.empid}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="empname">
+                    <mat-header-cell *matHeaderCellDef><b>Employee Name </b></mat-header-cell>
+                    <mat-cell *matCellDef="let row;">{{row.empname}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="shift">
+                    <mat-header-cell *matHeaderCellDef><b>Shift</b></mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.shiftname}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fromdate">
+                    <mat-header-cell *matHeaderCellDef><b> Date</b></mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.attendancedate}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="todate">
+                    <mat-header-cell *matHeaderCellDef><b>Shift InTime </b></mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.shiftstarttime}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="intime">
+                    <mat-header-cell *matHeaderCellDef><b>In Time </b></mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.actual_in_time}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="latehours">
+                    <mat-header-cell *matHeaderCellDef><b>Late Hours </b></mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.latehours}} </mat-cell>
+                </ng-container>
+                <mat-header-row class="headerbox" *matHeaderRowDef="displayedColumns; sticky:true">
+                </mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+            <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+            
+        </div>
+        <div style="text-align: center;padding-top: 20px;" *ngIf="List.length === 0">No data found.</div>
+        
+    </div>
+</div>
