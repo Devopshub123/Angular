@@ -77,6 +77,7 @@ export class LateAttendanceReportComponent implements OnInit {
     let obj = {
       "rm_id": this.userSession.id,
     };
+    
     this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) => {
       if (res.status) {
         this.employeelist = [];

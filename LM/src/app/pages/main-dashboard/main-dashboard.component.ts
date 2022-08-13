@@ -30,7 +30,7 @@ export class MainDashboardComponent implements OnInit {
    }
 
   getModules(){
-    this.AMS.getModules('modulesmaster',null,1,100,'boon_client').subscribe((result)=>{
+    this.AMS.getModules('modulesmaster',null,1,100,'keerthi_hospitals').subscribe((result)=>{
       if(result && result.status){
         this.allModuleDetails = result.data;
 

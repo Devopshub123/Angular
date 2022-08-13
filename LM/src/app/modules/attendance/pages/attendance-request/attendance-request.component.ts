@@ -89,13 +89,13 @@ export class AttendanceRequestComponent implements OnInit {
       this.requestform = this.formBuilder.group(
         {
           appliedDate: [{ value: this.todayWithPipe, disabled: true }, Validators.required],
-          shift: [{ value: '', disabled: true }, Validators.required],
+          shift: ['', Validators.required],
           fromDate: [{ value: new Date(this.userData.userData.absent_date), disabled: true }, Validators.required],
           toDate: [{ value: new Date(this.userData.userData.absent_date), disabled: true }, Validators.required],
           workType: ['', Validators.required],
           reason: ['', Validators.required],
         });
-
+        this.getEmployeeShiftDetailsByIdWithDates();
     }
     this.requestform.get('workType')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue) {
@@ -190,7 +190,7 @@ export class AttendanceRequestComponent implements OnInit {
   }
   getWorkypeList() {
     this.workTypeData = [];
-    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'boon_client').subscribe((info: any) => {
+    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'keerthi_hospitals').subscribe((info: any) => {
       if (info.status && info.data.length != 0) {
            this.workTypeData = info.data;
       }

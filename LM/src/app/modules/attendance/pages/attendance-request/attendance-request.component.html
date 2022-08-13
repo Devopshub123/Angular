@@ -13,7 +13,7 @@
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Shift</mat-label>
-                    <input formControlName="shift" required matInput placeholder="Shift">
+                    <input formControlName="shift"  readonly required matInput placeholder="Shift">
                     <mat-error *ngIf="requestform.controls['shift'].invalid">
                         {{requiredOption}}
                     </mat-error>

@@ -20,7 +20,7 @@
                     <mat-select formControlName="empid" required>
                       <!-- <mat-option value="0"> All Employees </mat-option> -->
                       <ng-container *ngFor="let e of employeelist">
-                        <mat-option [value]="e.id">{{e.firstname}} {{e.lastname}}</mat-option>
+                        <mat-option [value]="e.id">{{e.emp_name}}</mat-option>
                       </ng-container>
                     </mat-select>
                     <mat-error class="con-error" *ngIf="mappingIdsForm.controls.empid.errors?.required">

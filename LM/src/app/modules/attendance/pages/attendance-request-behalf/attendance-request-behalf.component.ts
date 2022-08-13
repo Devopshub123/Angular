@@ -71,7 +71,7 @@ dataNotSaved: any;
     this.requestform = this.formBuilder.group(
       {
         appliedDate: [{ value: this.todayWithPipe, disabled: true }, Validators.required],
-        shift: [{ value: '', disabled: true }, Validators.required],
+        shift: ['', Validators.required],
         fromDate: ['', Validators.required],
         toDate: ['', Validators.required],
         employeeName: ['', Validators.required],
@@ -94,7 +94,7 @@ dataNotSaved: any;
       this.requestform = this.formBuilder.group(
         {
           appliedDate: [{ value: this.todayWithPipe, disabled: true }, Validators.required],
-          shift: [{ value: '', disabled: true }, Validators.required],
+          shift: ['', Validators.required],
           fromDate: [{ value: new Date(this.userData.userData.absent_date), disabled: true }, Validators.required],
           toDate: [{ value: new Date(this.userData.userData.absent_date), disabled: true }, Validators.required],
           employeeName: [{ value: '', disabled: true }, Validators.required],
@@ -102,6 +102,7 @@ dataNotSaved: any;
           reason: ['', Validators.required],
         });
       this.requestform.controls.employeeName.setValue(this.userData.userData.emp_id);
+      this.getEmployeeShiftDetailsByIdWithDates();
     } else {
 
     }
@@ -202,7 +203,7 @@ dataNotSaved: any;
     });
   }
   getWorkypeList() {
-    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'boon_client').subscribe((info) => {
+    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'keerthi_hospitals').subscribe((info) => {
       if (info.status && info.data.length != 0) {
         this.workTypeData = info.data;
       }
