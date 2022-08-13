@@ -162,7 +162,7 @@ export class WorklocationComponent implements OnInit {
   }
   getWorkLocation(){
     // this.spinner.show();
-    this.LM.getWorkLocation({id:null,companyName:'nandyala_hospitals'}).subscribe((result)=>{
+    this.LM.getWorkLocation({id:null,companyName:'keerthi_hospitals'}).subscribe((result)=>{
       this.workLocationDetails=result.data;
       this.emptyprefix();
       this.dataSource=new MatTableDataSource(this.workLocationDetails);
@@ -223,7 +223,7 @@ export class WorklocationComponent implements OnInit {
     this.ishide=true;
   }
   getCountry(){
-    this.LM.getCountry('countrymaster',null,1,10,'nandyala_hospitals').subscribe((data)=>{
+    this.LM.getCountry('countrymaster',null,1,10,'keerthi_hospitals').subscribe((data)=>{
       this.CountryDetails=data.data;
       console.log(data)
     })

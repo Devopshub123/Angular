@@ -84,61 +84,106 @@ menu:NavItem[] =[];
   //   })
   // }
   getRoleScreenFunctionalities(){
-    let data={
-      'empid':this.usersession.id,
-      'moduleid':4
-    };
+   let data= JSON.parse(sessionStorage.getItem('activeModule')??'');
+    // let data={
+    //   'empid':this.usersession.id,
+    //   'moduleid':4
+    // };
     this.mainService.getRoleScreenFunctionalities(data).subscribe((res:any)=>{
       if(res.status){
         this.menu=[];
-        res.data.forEach((e:any)=>{
+        res.data.forEach((e: any) => {
 
-        if(this.menu.length>0){
-          var isvalid=true;
-          this.menu.forEach((item)=>{
-            if(item.displayName==e.role_name){
-              isvalid=false;
-              var itemnav=    {
-                displayName: e.screen_name,
-                iconName:'',// e.role_name,
-                route: e.routename
+          if (this.menu.length > 0) {
+            var isvalid = true;
+            this.menu.forEach((item) => {
+              if (item.displayName == e.role_name && e.parentrole!=1) {
+                isvalid = false;
+                var itemnav = {
+                  displayName: e.screen_name,
+                  iconName: '',// e.role_name,
+                  route: e.routename
+                }
+                item.children?.push(itemnav);
+              }else{
+                if(item.displayName == 'Self'  && e.parentrole==1 ){
+                  isvalid = false;
+                  var itemnav = {
+                    displayName: e.screen_name,
+                    iconName: '',// e.role_name,
+                    route: e.routename
+                  }
+                  item.children?.push(itemnav);
+                }
               }
-              item.children?.push(itemnav);
+            })
+            if (isvalid == true) {
+              if (e.parentrole == 1) {
+                var navitem = {
+                  displayName: 'Self',
+                  iconName: '',//e.role_name,
+                  children: [
+                    {
+                      displayName: e.screen_name,
+                      iconName: '',// e.role_name,
+                      route: e.routename
+                    }
+
+                  ]
+                };
+                this.menu.push(navitem)
+              } else {
+                var item = {
+                  displayName: e.role_name,
+                  iconName: '',//e.role_name,
+                  children: [
+                    {
+                      displayName: e.screen_name,
+                      iconName: '',// e.role_name,
+                      route: e.routename
+                    }
+
+                  ]
+                };
+                this.menu.push(item)
+              }
+
             }
-          })
-            if(isvalid==true){
-              var navitem= {
-                displayName: e.role_name,
-                iconName:'' ,//e.role_name,
+          } else {
+            if (e.parentrole == 1) {
+              var items = {
+                displayName: 'Self',
+                iconName: '',//e.role_name,
                 children: [
                   {
                     displayName: e.screen_name,
-                    iconName:'',// e.role_name,
+                    iconName: '',// e.role_name,
                     route: e.routename
                   }
 
-                ]};
-                this.menu.push(navitem)
+                ]
+              };
+            //  this.firstRoute = e.routename;
+              this.menu.push(items)
+            } else {
+              var navtem = {
+                displayName: e.role_name,
+                iconName: '',//e.role_name,
+                children: [
+                  {
+                    displayName: e.screen_name,
+                    iconName: '',// e.role_name,
+                    route: e.routename
+                  }
 
+                ]
+              };
+            //  this.firstRoute = e.routename;
+              this.menu.push(navtem)
 
             }
-        }else{
-
-         var navtem= {
-            displayName: e.role_name,
-            iconName: '',//e.role_name,
-            children: [
-              {
-                displayName: e.screen_name,
-                iconName:'',// e.role_name,
-                route: e.routename
-              }
-
-            ]};
-            this.menu.push(navtem)
-
-        }
-       });
+          }
+        });
       }
     })
   }
