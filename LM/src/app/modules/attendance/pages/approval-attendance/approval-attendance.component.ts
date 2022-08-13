@@ -125,7 +125,6 @@ export class ApprovalAttendanceComponent implements OnInit {
   }
   backClick(){
       this.router.navigate(["/Attendance/"+this.userData.url],);  
-
   }
 
   getMessagesList() {

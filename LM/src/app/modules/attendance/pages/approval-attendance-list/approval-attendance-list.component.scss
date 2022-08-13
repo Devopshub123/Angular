@@ -24,6 +24,9 @@ table {
    font-style: normal;
   letter-spacing: 0.32px;
   color: #000000;
+  background-color: #28acaf;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 ::ng-deep {
   .mat-select-panel[aria-label="Items per page:"] {

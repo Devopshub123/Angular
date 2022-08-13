@@ -1,12 +1,12 @@
-<div fxLayout="column">
+<div fxLayout="column" style="min-height: 700px;">
        <mat-card>
               <mat-card-header>
                      <mat-card-title> Attendance Calendar</mat-card-title>
               </mat-card-header>
               <!-- <mat-divider></mat-divider> -->
 
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-                     <div fxFlex="60">
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="1px">
+                     <div fxFlex="60" >
                             <div class='demo-app-main'>
 
                                    <full-calendar #calendar fxLayout="column" [options]='calendarOptions'>
@@ -25,7 +25,7 @@
 
                             <div fxLayout="column" style="height: 440px;">
 
-                                   <div fxLayout="row" fxLayoutAlign="space-between" class="pending-attendance">
+                                   <div fxLayout="row" fxLayoutAlign="space-between" [style.marginTop.px]="mobileQuery.matches ? 0 : 70" class="pending-attendance">
                                           <div style="padding-top:15px; color: white;" fxLayout="row">
                                                  <p>
                                                         <mat-icon>notifications</mat-icon>

@@ -1,6 +1,6 @@
 <div fxLayout="column" style="min-height: 600px;">
 
-  <mat-card fxLayout="column" >
+  <mat-card fxLayout="column">
     <mat-card-header class="heading">
       <mat-card-title class="headingtext">Summary Report</mat-card-title>
     </mat-card-header>
@@ -24,8 +24,8 @@
         </mat-form-field>
         <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
           <mat-label>To Date</mat-label>
-          <input matInput readonly [matDatepicker]="toDate" placeholder="To Date"
-           formControlName="toDate" (click)="toDate.open()">
+          <input matInput readonly [matDatepicker]="toDate" placeholder="To Date" formControlName="toDate"
+            (click)="toDate.open()">
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
           <mat-datepicker #toDate></mat-datepicker>
         </mat-form-field>
@@ -34,7 +34,7 @@
           <mat-select formControlName="Users" required>
             <mat-option value="0"> All Employees </mat-option>
             <ng-container *ngFor="let e of employeelist">
-              <mat-option [value]="e.id">{{e.firstname}}  {{e.lastname}}</mat-option>
+              <mat-option [value]="e.id">{{e.firstname}} {{e.lastname}}</mat-option>
             </ng-container>
           </mat-select>
         </mat-form-field>
@@ -60,69 +60,73 @@
     </div>
 
 
-  <div class="p-2" fxLayout="column" fxFill>
 
-    <div class="example-container mat-elevation-z8">
-      <mat-table #table [dataSource]="dataSource" >
+    <div class="mat-elevation-z8 py-2">
+      <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="sno">
-          <mat-header-cell *matHeaderCellDef><b>S.No. </b></mat-header-cell>
-          <mat-cell *matCellDef="let row; let i = index;">{{i+1}}</mat-cell>
-          
+          <th mat-header-cell *matHeaderCellDef><b>S.No. </b></th>
+          <td mat-cell *matCellDef="let row; let i = index;">{{i+1}}</td>
+
         </ng-container>
         <ng-container matColumnDef="empname">
-          <mat-header-cell *matHeaderCellDef><b>Employee Name </b></mat-header-cell>
-          <mat-cell *matCellDef="let row;">{{row.empname}}</mat-cell>
-          
+          <th mat-header-cell *matHeaderCellDef><b>Employee Name </b></th>
+          <td mat-cell *matCellDef="let row;">{{row.empname}}</td>
+
         </ng-container>
         <ng-container matColumnDef="attendancedate">
-          <mat-header-cell *matHeaderCellDef><b>Date</b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.attendancedate}} </mat-cell>
+          <th mat-header-cell *matHeaderCellDef><b>Date</b></th>
+          <td mat-cell *matCellDef="let row"> {{row.attendancedate}} </td>
         </ng-container>
         <ng-container matColumnDef="firstlogintime">
-          <mat-header-cell *matHeaderCellDef><b> First In</b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.firstlogintime}} </mat-cell>
+          <th mat-header-cell *matHeaderCellDef><b> First In</b></th>
+          <td mat-cell *matCellDef="let row"> {{row.firstlogintime}} </td>
 
         </ng-container>
         <ng-container matColumnDef="lastlogouttime">
-          <mat-header-cell *matHeaderCellDef><b>Last Out </b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.lastlogouttime}} </mat-cell>
+          <th mat-header-cell *matHeaderCellDef><b>Last Out </b></th>
+          <td mat-cell *matCellDef="let row"> {{row.lastlogouttime}} </td>
 
         </ng-container>
         <ng-container matColumnDef="totalhours">
-          <mat-header-cell *matHeaderCellDef><b>Total Hours </b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.totalhours}} </mat-cell>
+          <th mat-header-cell *matHeaderCellDef><b>Total Hours </b></th>
+          <td mat-cell *matCellDef="let row"> {{row.totalhours}} </td>
 
         </ng-container>
         <ng-container matColumnDef="breaks">
-          <mat-header-cell *matHeaderCellDef><b>Breaks </b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.breaks}} </mat-cell>
+          <th mat-header-cell *matHeaderCellDef><b>Breaks </b></th>
+          <td mat-cell *matCellDef="let row"> 
+          <ng-container *ngFor="let number of row.breaks">
+            {{number}}<br>
 
+          </ng-container>
+        </td>
         </ng-container>
         <ng-container matColumnDef="breaktime">
-          <mat-header-cell *matHeaderCellDef><b>Break Time </b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.breaktime}} </mat-cell>
+          <th mat-header-cell *matHeaderCellDef><b>Break Time </b></th>
+          <td mat-cell *matCellDef="let row"> {{row.breaktime}} </td>
 
         </ng-container>
         <ng-container matColumnDef="productivehours">
-          <mat-header-cell *matHeaderCellDef><b>Production Hours</b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.productivehours}} </mat-cell>
+          <th mat-header-cell *matHeaderCellDef><b>Production Hours</b></th>
+          <td mat-cell *matCellDef="let row"> {{row.productivehours}} </td>
 
         </ng-container>
         <ng-container matColumnDef="action">
-          <mat-header-cell *matHeaderCellDef><b>Action</b></mat-header-cell>
-          <mat-cell *matCellDef="let row"> <a style="color: blue" (click)="openDialog(row)"><u>Details</u></a> </mat-cell>
+          <th mat-header-cell *matHeaderCellDef><b>Action</b></th>
+          <td mat-cell *matCellDef="let row"> <a style="color: blue" (click)="openDialog(row)"><u>Details</u></a> </td>
 
         </ng-container>
-        <mat-header-row class="headerbox" *matHeaderRowDef="displayedColumns; sticky:true">
-        </mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
-      <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-            
-      <div style="text-align: center;padding-top: 20px;" *ngIf="List.length === 0">No data found.</div>
-      <!-- <mat-paginator   [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+        <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="10">No data available</td>
+        </tr>
+
+      </table>
+      <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
     </div>
-  </div>
-</mat-card>
+
+  </mat-card>
 </div>

@@ -1,10 +1,25 @@
- <div fxLayout="column" style="min-height: 700px;">
+<div fxLayout="column" style="min-height: 700px;">
     <form [formGroup]="requestform" autocomplete="off">
         <mat-card>
             <mat-card-header>
                 <mat-card-title> Shift Configuration</mat-card-title>
             </mat-card-header>
 
+            <!-- <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
+
+                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Employee Name</mat-label>
+                    <mat-select formControlName="employeeName" required>
+                        <ng-container *ngFor="let v of employeesData">
+                            <mat-option [value]="v.empid">{{v.empname}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error class="con-error" *ngIf="requestform.controls.employeeName.errors?.required">
+                        Please select an option.
+                    </mat-error>
+                </mat-form-field>
+
+            </div> -->
             <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
@@ -70,16 +85,16 @@
                 </div>
             </div>
             <div fxLayout="column">
-                <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
+                <!-- <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
                     <mat-form-field fxFlex.xs="100%" appearance="outline">
                         <mat-label>Filter</mat-label>
                         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
                         <mat-icon matSuffix>search</mat-icon>
                     </mat-form-field>
-                </div>
+                </div> -->
                 <div class="mat-elevation-z8">
                     <table mat-table [dataSource]="dataSource" matSort>
-    
+                        <!-- Checkbox Column -->
                         <ng-container matColumnDef="select">
                             <th mat-header-cell *matHeaderCellDef>
                                 <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue()"
@@ -138,6 +153,7 @@
                         </tr>
                     </table>
                     <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+                    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
                 </div>
             </div>
             <div fxLayoutAlign="center" class="my-2">
@@ -158,4 +174,4 @@
 
 
 
-</div> 
+</div>

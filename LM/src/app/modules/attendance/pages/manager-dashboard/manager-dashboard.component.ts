@@ -1,6 +1,6 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CalendarOptions, EventInput, FullCalendarComponent } from '@fullcalendar/angular'; // useful for typechecking
@@ -10,7 +10,7 @@ import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 import { AttendanceService } from '../../attendance.service';
 import { UserData } from '../../models/EmployeeData';
 import { RequestData } from '../../models/Request';
-
+import { MediaMatcher } from '@angular/cdk/layout';
 @Component({
   selector: 'app-manager-dashboard',
   templateUrl: './manager-dashboard.component.html',
@@ -59,8 +59,14 @@ export class ManagerDashboardComponent implements OnInit {
   arrayList: any;
   displayEvent: any;
   calendarApi: any;
-
-  constructor(private attendanceService: AttendanceService, private router: Router) { }
+  mobileQuery!: MediaQueryList;
+  private _mobileQueryListener: () => void;
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,private attendanceService: AttendanceService
+    , private router: Router) {
+      this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+     }
   currentDate = new Date();
   ngOnInit(): void {
     this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
@@ -69,6 +75,9 @@ export class ManagerDashboardComponent implements OnInit {
     this.getemployeeattendancedashboard();
     this.getEmployeeAttendanceNotifications();
     this.getPendingAttendanceRequestListByEmpId();
+  }
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
   getemployeeattendancedashboard() {
     // this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');

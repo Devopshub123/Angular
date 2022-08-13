@@ -1,10 +1,10 @@
 <div fxLayout="column" style="min-height: 700px;">
 
-    <mat-card>
+    <mat-card fxLayout="column">
         <mat-card-header class="heading">
             <mat-card-title class="headingtext">Late Attendance Report</mat-card-title>
         </mat-card-header>
-        <br />
+    
         <div fxLayout fxLayout="row wrap" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center"
             [formGroup]="searchForm">
             <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
@@ -68,49 +68,53 @@
     </mat-card>
 
     <div class="p-2">
-        <div class="example-container mat-elevation-z8" >
-            <mat-table #table [dataSource]="dataSource" >
+        <div class="mat-elevation-z8" >
+            <table mat-table [dataSource]="dataSource" >
                 <ng-container matColumnDef="sno">
-                    <mat-header-cell *matHeaderCellDef><b>S.No. </b></mat-header-cell>
-                    <mat-cell *matCellDef="let row; let i = index;">{{i+1}}</mat-cell>
+                    <th mat-header-cell *matHeaderCellDef><b>S.No. </b></th>
+                    <td mat-cell *matCellDef="let row; let i = index;">{{i+1}}</td>
                 </ng-container>
                 <ng-container matColumnDef="empid">
-                    <mat-header-cell *matHeaderCellDef><b>Employee ID </b></mat-header-cell>
-                    <mat-cell *matCellDef="let row;">{{row.empid}}</mat-cell>
+                    <th mat-header-cell *matHeaderCellDef><b>Employee ID </b></th>
+                    <td mat-cell *matCellDef="let row;">{{row.empid}}</td>
                 </ng-container>
                 <ng-container matColumnDef="empname">
-                    <mat-header-cell *matHeaderCellDef><b>Employee Name </b></mat-header-cell>
-                    <mat-cell *matCellDef="let row;">{{row.empname}}</mat-cell>
+                    <th mat-header-cell *matHeaderCellDef><b>Employee Name </b></th>
+                    <td mat-cell *matCellDef="let row;">{{row.empname}}</td>
                 </ng-container>
                 <ng-container matColumnDef="shift">
-                    <mat-header-cell *matHeaderCellDef><b>Shift</b></mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.shiftname}} </mat-cell>
+                    <th mat-header-cell *matHeaderCellDef><b>Shift</b></th>
+                    <td mat-cell *matCellDef="let row"> {{row.shiftname}} </td>
                 </ng-container>
                 <ng-container matColumnDef="fromdate">
-                    <mat-header-cell *matHeaderCellDef><b> Date</b></mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.attendancedate}} </mat-cell>
+                    <th mat-header-cell *matHeaderCellDef><b> Date</b></th>
+                    <td mat-cell *matCellDef="let row"> {{row.attendancedate}} </td>
                 </ng-container>
                 <ng-container matColumnDef="todate">
-                    <mat-header-cell *matHeaderCellDef><b>Shift InTime </b></mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.shiftstarttime}} </mat-cell>
+                    <th mat-header-cell *matHeaderCellDef><b>Shift InTime </b></th>
+                    <td mat-cell *matCellDef="let row"> {{row.shiftstarttime}} </td>
                 </ng-container>
                 <ng-container matColumnDef="intime">
-                    <mat-header-cell *matHeaderCellDef><b>In Time </b></mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.actual_in_time}} </mat-cell>
+                    <th mat-header-cell *matHeaderCellDef><b>In Time </b></th>
+                    <td mat-cell *matCellDef="let row"> {{row.actual_in_time}} </td>
                 </ng-container>
                 <ng-container matColumnDef="latehours">
-                    <mat-header-cell *matHeaderCellDef><b>Late Hours </b></mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.latehours}} </mat-cell>
+                    <th mat-header-cell *matHeaderCellDef><b>Late Hours </b></th>
+                    <td mat-cell *matCellDef="let row"> {{row.latehours}} </td>
                 </ng-container>
-                <mat-header-row class="headerbox" *matHeaderRowDef="displayedColumns; sticky:true">
-                </mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-            </mat-table>
+                <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="6">No data available</td>
+                </tr>
+
+            </table>
             <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
             <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
             
         </div>
-        <div style="text-align: center;padding-top: 20px;" *ngIf="List.length === 0">No data found.</div>
-        
+       
     </div>
 </div>

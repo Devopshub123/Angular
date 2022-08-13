@@ -66,6 +66,7 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
       userId=null;
     } 
     let data = {
+      "manager_empid":this.userSession.id,
       'employee': userId,
       'fromdate': fromDate,
       'todate': toDate
@@ -73,6 +74,12 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
     this.isLoading = true;
     this.reportsService.getAttendanceSummaryReport(data).subscribe((res: any) => {
       this.List=res.data;
+      this.List.forEach((e:any)=>{
+        if(e.breaks!=null){
+          e.breaks=e.breaks.split(',')
+        }
+      })
+      
       this.isLoading = false;
       this.dataSource = new MatTableDataSource(this.List);
       this.dataSource.paginator = this.paginator;

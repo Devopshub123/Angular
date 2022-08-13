@@ -5,7 +5,7 @@
               </mat-card-header>
               <!-- <mat-divider></mat-divider> -->
 
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="1px">
                      <div fxFlex="60" fxLayout="column" >
                             <div class='demo-app-main'>
 
@@ -20,10 +20,10 @@
                             </div>
 
                      </div>
-                     <div  fxLayout="column" fxFlex="40" fxFlex.xs="50" fxLayoutGap="20px">
+                     <div  fxLayout="column" fxFlex="40" fxFlex.xs="50" fxLayoutGap="20px" fxLayoutGap.xs="2px">
                             <div fxLayout="column" fxFlex="50">
 
-                                   <div fxLayout="row" fxLayoutAlign="space-between" class="pending-attendance">
+                                   <div fxLayout="row" fxLayoutAlign="space-between" [style.marginTop.px]="mobileQuery.matches ? 0 : 70" class="pending-attendance">
                                           <div style="padding-top:10px; color: white;" fxLayout="row">
                                                  <p>
                                                         <mat-icon>notifications</mat-icon>
@@ -42,12 +42,12 @@
                                                         
                                                                <mat-list-item>
                                                                       <h3 matLine> {{ item.employee_name}} </h3>
-                                                                      <p> {{ item.absent_date | date:'dd/MM/yyyy'}}
-                                                                             <a style="padding-left: 10px;"
-                                                                                    routerLink="/"
-                                                                                    (click)="onBehalfofRequestClick(item)"> Add a
-                                                                                    request </a>
-                                                                      </p>
+                                                                      <div> {{ item.absent_date | date:'dd/MM/yyyy'}} </div>
+                                                                      <div style="padding-left: 10px;">   <a style="padding-left: 10px;"
+                                                                             routerLink="/"
+                                                                             (click)="onBehalfofRequestClick(item)"> Add a
+                                                                             request </a>
+                                                                      </div>
 
                                                                </mat-list-item>
                                                  
@@ -72,12 +72,12 @@
 
                                                         <mat-list-item>
                                                                <h3 matLine> {{ item.raisedbyname}} </h3>
-
-                                                               <p> {{ item.applieddate | date:'dd/MM/yyyy'}}
-                                                                      <a style="padding-left: 10px;" routerLink="/"
-                                                                             (click)="changeTab(item)"> Approve
-                                                                             request </a>
-                                                               </p>
+                                                               <div> {{ item.applieddate | date:'dd/MM/yyyy'}}</div>
+                                                               <div style="padding-left: 10px;">   <a  routerLink="/"
+                                                                         (click)="changeTab(item)"> Approve
+                                                                         request </a>
+                                                                  </div>
+                                               
                                                         </mat-list-item>
 
                                                  </ng-container>

@@ -74,7 +74,7 @@ export class AttendanceRequestComponent implements OnInit {
     this.requestform = this.formBuilder.group(
       {
         appliedDate: [{ value: this.todayWithPipe, disabled: true }, Validators.required],
-        shift: [{ value: '', disabled: true }, Validators.required],
+        shift: ['', Validators.required],
         fromDate: ['', Validators.required],
         toDate: ['', Validators.required],
         workType: ['', Validators.required],
@@ -83,7 +83,7 @@ export class AttendanceRequestComponent implements OnInit {
       });
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getWorkypeList();
-    this.getEmployeeShiftDetails()
+  //  this.getEmployeeShiftDetails()
     this.getAttendanceRequestListByEmpId();
     if (this.userData.userData != undefined) {
       this.requestform = this.formBuilder.group(
@@ -131,6 +131,7 @@ export class AttendanceRequestComponent implements OnInit {
 
     } else {
       this.requestform.get('toDate')?.setValue(event.value);
+      this.getEmployeeShiftDetailsByIdWithDates();
     }
   }
 
@@ -143,6 +144,9 @@ export class AttendanceRequestComponent implements OnInit {
         event!.value.getDate() - 31
       );
     }
+    if (this.requestform.get('workType')?.value == "2") {
+      this.getEmployeeShiftDetailsByIdWithDates();
+    }
   }
   getEmployeeShiftDetails() {
     this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res: any) => {
@@ -151,6 +155,38 @@ export class AttendanceRequestComponent implements OnInit {
         this.requestform.controls.shift.setValue(this.shiftData.shiftname);
       }
     })
+    
+  }
+  getEmployeeShiftDetailsByIdWithDates() {
+    let data={
+      "employee_id":this.userSession.id,
+      "fromd_date": this.pipe.transform(new Date(this.requestform.controls.fromDate.value ?? ''), 'yyyy-MM-dd'),
+      "to_date": this.pipe.transform(new Date(this.requestform.controls.toDate.value ?? ''), 'yyyy-MM-dd'),    }
+    this.attendanceService.getEmployeeShiftByDates(data).subscribe((res:any)=>{
+      if (res.status) {
+
+        if(res.data.length>0){
+             if(res.data.length>1){
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: "Unable to request. please check the configure shift."
+              });
+             }else{
+              this.shiftData = res.data[0];
+              this.requestform.controls.shift.setValue(this.shiftData.shiftname);
+             }
+        }else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Unable to request. please configure the shift before request"
+          });
+        }
+
+
+      }
+    });
   }
   getWorkypeList() {
     this.workTypeData = [];
@@ -260,6 +296,7 @@ export class AttendanceRequestComponent implements OnInit {
         this.requestform.controls.workType.setValue(e.id);
       }
     })
+    this.getEmployeeShiftDetailsByIdWithDates();
   }
   updateRequest(){
     if (this.requestform.invalid) {
@@ -342,6 +379,7 @@ export class AttendanceRequestComponent implements OnInit {
         this.requestform.controls.workType.disable();
       }
     })
+    this.getEmployeeShiftDetailsByIdWithDates();
   }
 
   getMessagesList() {

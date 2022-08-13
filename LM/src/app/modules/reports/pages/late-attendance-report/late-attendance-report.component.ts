@@ -64,13 +64,15 @@ export class LateAttendanceReportComponent implements OnInit {
     this.Searchform();
   }
   getActiveShiftIds() {
-    this.attendanceService.getActiveShiftIds().subscribe((res:any) => {
+    this.attendanceService.getActiveShiftIds().subscribe((res) => {
       if (res.status) {
         this.shiftDataList = res.data;
         this.searchForm.controls.shift.setValue('0');
       }
     })
   }
+  
+  
   getEmployeelist() {
     let obj = {
       "rm_id": this.userSession.id,
@@ -95,6 +97,7 @@ export class LateAttendanceReportComponent implements OnInit {
 
     let data = {};
     data = {
+      "manager_empid":this.userSession.id,
       'employee_id': userId,
       'shift_id': shift,
       'from_date': fromDate,

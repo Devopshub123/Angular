@@ -85,11 +85,11 @@ dataNotSaved: any;
     this.getAttendanceRequestListByEmpId();
 
     this.requestform.get("employeeName")?.valueChanges.subscribe(selectedValue => {
-      this.getEmployeeShiftDetails(selectedValue);
+     // this.getEmployeeShiftDetails(selectedValue);
 
     })
     if (this.userData.userData != undefined) {
-      this.getEmployeeShiftDetails(this.userData.userData.emp_id);
+    //  this.getEmployeeShiftDetails(this.userData.userData.emp_id);
 
       this.requestform = this.formBuilder.group(
         {
@@ -112,6 +112,7 @@ dataNotSaved: any;
         } else {
           this.requestform.get('toDate')?.disable();
           this.requestform.get('toDate')?.setValue(this.requestform.get('fromDate')?.value);
+          this.getEmployeeShiftDetailsByIdWithDates();
         }
       }
     });
@@ -135,6 +136,7 @@ dataNotSaved: any;
 
     } else {
       this.requestform.get('toDate')?.setValue(event.value);
+      this.getEmployeeShiftDetailsByIdWithDates();
     }
   }
 
@@ -147,6 +149,7 @@ dataNotSaved: any;
         event!.value.getDate() - 31
       );
     }
+      this.getEmployeeShiftDetailsByIdWithDates();
   }
   getEmployeeListByManagerId() {
     this.attendanceService.getgetemployeesByMangerId(this.userSession.id).subscribe((res) => {
@@ -166,6 +169,37 @@ dataNotSaved: any;
         this.requestform.controls.shift.disable();
       }
     })
+  }
+  getEmployeeShiftDetailsByIdWithDates() {
+    let data={
+      "employee_id":this.requestform.controls.employeeName.value ?? '',
+      "fromd_date": this.pipe.transform(new Date(this.requestform.controls.fromDate.value ?? ''), 'yyyy-MM-dd'),
+      "to_date": this.pipe.transform(new Date(this.requestform.controls.toDate.value ?? ''), 'yyyy-MM-dd'),    }
+    this.attendanceService.getEmployeeShiftByDates(data).subscribe((res:any)=>{
+      if (res.status) {
+
+        if(res.data.length>0){
+             if(res.data.length>1){
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: "Unable to request. please check the configure shift."
+              });
+             }else{
+              this.shiftData = res.data[0];
+              this.requestform.controls.shift.setValue(this.shiftData.shiftname);
+             }
+        }else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Unable to request. please configure the shift before request"
+          });
+        }
+
+
+      }
+    });
   }
   getWorkypeList() {
     this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'boon_client').subscribe((info) => {

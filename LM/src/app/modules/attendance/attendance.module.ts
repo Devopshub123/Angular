@@ -16,7 +16,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { ApprovalAttendanceListComponent } from './pages/approval-attendance-list/approval-attendance-list.component';
 import { AttendanceRequestBehalfComponent } from './pages/attendance-request-behalf/attendance-request-behalf.component';
 import { AttendanceRequestComponent } from './pages/attendance-request/attendance-request.component';
- import { ShiftConfigureComponent } from './pages/shift-configure/shift-configure.component';
+import { ShiftConfigureComponent } from './pages/shift-configure/shift-configure.component';
 import { ApprovalHistoryComponent } from './pages/approval-history/approval-history.component';
 
  FullCalendarModule.registerPlugins([ 
@@ -44,7 +44,8 @@ import { ApprovalHistoryComponent } from './pages/approval-history/approval-hist
     FormsModule,
     ReactiveFormsModule,
     FullCalendarModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+  
   ],
   providers:[DatePipe]
 })

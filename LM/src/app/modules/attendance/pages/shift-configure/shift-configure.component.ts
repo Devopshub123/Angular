@@ -62,7 +62,27 @@ export class ShiftConfigureComponent implements OnInit {
     this.minToDate.setDate(this.currentDate.getDate()+1);
     this.maxToDate = new Date();
     this.maxToDate.setDate(this.currentDate.getFullYear() + 1);
+    this.arrayList = [];
+    let obj={
+      "manager_empid":this.userSession.id,
+      "department_id":null
+    }
+    this.attendanceService.getEmployeeConfigureShifts(obj).subscribe((res) => {
+      if (res.status) {
+        this.arrayList = res.data;
+        this.dataSource = new MatTableDataSource(this.arrayList);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.pageLoading=false;
+      } else {
+        this.arrayList = [];
+        this.dataSource = new MatTableDataSource(this.arrayList);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
+    })
+    
+  }
   selection = new SelectionModel<any>(true, []);
 
  
@@ -78,7 +98,7 @@ export class ShiftConfigureComponent implements OnInit {
 
     this.getWeekDays();
     this.getActiveShiftIds();
-   this.getEmployeeConfigureShifts();
+//    this.getEmployeeConfigureShifts();
     this.dataSource.paginator = this.paginator;
     }
 

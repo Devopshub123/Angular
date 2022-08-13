@@ -11,7 +11,10 @@
   background: #80286a !important;
   color: white !important;
 }
-
+.mat-list-item.active{ 
+  background: #80286a !important;
+  color: white !important;
+}
 .navbar-nav li:hover > ul.dropdown-menu {
   display: block;
 }

@@ -89,4 +89,7 @@ export class AttendanceService {
     data,this.httpOptions
     )
   }
+  getEmployeeShiftByDates(data:any):Observable<any>{
+    return this.http.post(this.mainUrl+'attendance/api/getEmployeeShiftByDates',data,this.httpOptions)
+  }
 }
