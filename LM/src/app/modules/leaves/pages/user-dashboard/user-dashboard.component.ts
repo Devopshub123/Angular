@@ -99,7 +99,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   getuserleavecalender(){
-    this.LM.getMastertablesforcalender('lm_leavesmaster','Active',1,100,'boon_client').subscribe(data=>{
+    this.LM.getMastertablesforcalender('lm_leavesmaster','Active',1,100,'keerthi_hospitals').subscribe(data=>{
       this.leavsemaster = data.data;
 
     })

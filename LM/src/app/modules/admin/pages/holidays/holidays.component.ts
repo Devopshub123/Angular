@@ -77,7 +77,7 @@ export class HolidaysComponent implements OnInit {
     });
   }
   getWorkLocation(){
-    this.LM.getactiveWorkLocation({id:null,companyName:'boon_client'}).subscribe((result)=>{
+    this.LM.getactiveWorkLocation({id:null,companyName:'keerthi_hospitals'}).subscribe((result)=>{
       this.worklocationDetails=result.data;
       console.log(this.worklocationDetails)
     })
@@ -103,7 +103,7 @@ export class HolidaysComponent implements OnInit {
     });
     console.log(this.selecteditems)
     // if(this.HolidayForm.controls.holiday.value !== null && this.holidays.holidayName !== null ){}
-    this.LM.setHolidays(this.selecteditems,'boon_client').subscribe((data) => {
+    this.LM.setHolidays(this.selecteditems,'keerthi_hospitals').subscribe((data) => {
 
       if(data.status){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -237,7 +237,7 @@ export class HolidaysComponent implements OnInit {
 
     }
     console.log(data)
-    this.LM.putHolidays(data, 'boon_client').subscribe((data) => {
+    this.LM.putHolidays(data, 'keerthi_hospitals').subscribe((data) => {
     
       this.isadd= true;
       if (data.status) {
