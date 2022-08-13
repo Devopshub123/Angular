@@ -94,7 +94,7 @@ dataNotSaved: any;
       this.requestform = this.formBuilder.group(
         {
           appliedDate: [{ value: this.todayWithPipe, disabled: true }, Validators.required],
-          shift: [{ value: '', disabled: true }, Validators.required],
+          shift: ['', Validators.required],
           fromDate: [{ value: new Date(this.userData.userData.absent_date), disabled: true }, Validators.required],
           toDate: [{ value: new Date(this.userData.userData.absent_date), disabled: true }, Validators.required],
           employeeName: [{ value: '', disabled: true }, Validators.required],
