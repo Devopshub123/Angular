@@ -188,7 +188,7 @@ export class UserLeaveRequestComponent implements OnInit {
 
 
 
-
+      this.leaveRequestForm.controls.leaveCount.disable();
     });
     this.leaveRequestForm.get('fromDate')?.valueChanges.subscribe((selectedValue:any) => {
       if(selectedValue) {
@@ -394,9 +394,9 @@ async  getLeavesTypeInfo() {
 
   number:number=0;
   cancel(val:any){
-    this.number += val;
-    if(this.number == 1){
-this.document=false;
+//     this.number += val;
+//     if(this.number == 1){
+// this.document=false;
 
       this.leaveRequestForm = this.formBuilder.group({
         leaveTypeId: ['',Validators.required],
@@ -413,14 +413,16 @@ this.document=false;
         document:['']
 
       })
-      this.leaveRequestForm.controls.markAsPristine()
+    this.leaveRequestForm.controls.leaveCount.disable();
 
-      this.leaveRequestForm.controls.markAsUntouched();
+    // this.leaveRequestForm.controls.markAsPristine()
+      //
+      // this.leaveRequestForm.controls.markAsUntouched();
 
-    }else {
-      this.number=0;
-      this.router.navigate(['/LeaveManagement/UserDashboard'])
-    }
+    // }else {
+    //   this.number=0;
+    //   this.router.navigate(['/LeaveManagement/UserDashboard'])
+    // }
 
 
   }
