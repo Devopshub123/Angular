@@ -815,7 +815,7 @@
                           <mat-icon title="Add" fxLayoutAlign="end" (click)="addeducation()">add</mat-icon>
                       </mat-card-header>
                       <mat-divider></mat-divider>
-                      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center">
 
                           <div formArrayName="edu">
                               <div *ngFor="let employee of edu().controls; let empIndex=index">
