@@ -157,7 +157,7 @@ export class CompanyinformationComponent implements OnInit {
     this.issubmitted=false;
     this.ngOnInit();
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/Admin/Dashboard"]));
+      this.router.navigate(["/Admin/CompanyInformation"]));
   }
   canceledit(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
