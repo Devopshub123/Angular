@@ -141,7 +141,7 @@ export class EditProfileComponent implements OnInit {
         if (res && res.status) {
           this.MainComponent.ngOnInit()
           this.dialog.open(ConfirmationComponent, {
-            width: '500px', height: '250px',
+            // // width: '500px', height: '250px',
             position: {top: `70px`},
             disableClose: true,
             data: {Message: this.LM118, url: '/LeaveManagement/EditProfile'}
@@ -149,7 +149,7 @@ export class EditProfileComponent implements OnInit {
 
         } else {
           this.dialog.open(ConfirmationComponent, {
-            width: '500px', height: '250px',
+            // width: '500px', height: '250px',
             position: {top: `70px`},
             disableClose: true,
             data: {Message: this.LM119, url: '/LeaveManagement/EditProfile'}
@@ -246,8 +246,8 @@ export class EditProfileComponent implements OnInit {
             this.editProfile()
 
           }else {
-            this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
-              position:{top:`70px`},
+            this.dialog.open(ConfirmationComponent, {
+              position: {top: `70px`},
               disableClose: true,
               data:{Message:this.LM118,url: '/LeaveManagement/EditProfile'}
             });
@@ -257,8 +257,8 @@ export class EditProfileComponent implements OnInit {
       }
       else{
 
-          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
-            position:{top:`70px`},
+          this.dialog.open(ConfirmationComponent, {
+            position: {top: `70px`},
             disableClose: true,
             data:{Message:this.LM117,url: '/LeaveManagement/EditProfile'}
           });
@@ -273,7 +273,6 @@ export class EditProfileComponent implements OnInit {
 
       }else {
         this.dialog.open(ConfirmationComponent, {
-          width: '500px', height: '250px',
           position: {top: `70px`},
           disableClose: true,
           data: {Message: this.LM119, url: '/LeaveManagement/EditProfile'}

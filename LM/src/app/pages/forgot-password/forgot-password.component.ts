@@ -15,7 +15,7 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 })
 export class ForgotPasswordComponent implements OnInit {
 
- 
+
   formGroup: any=FormGroup;
   email:any;
   issubmit:boolean=false;
@@ -38,7 +38,7 @@ export class ForgotPasswordComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Please check your email for resetPassword'
+          data: 'Please check your email for reset password'
         });
           this.router.navigate(["/Login"])
       }
@@ -46,14 +46,14 @@ export class ForgotPasswordComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Please enter valid email for resetPassword'
+          data: 'Please enter valid email for reset password'
         });
       }
-  
+
     });
-   
+
   }
- 
+
   cancel(){
     this.router.navigate(['/Login'])
   }

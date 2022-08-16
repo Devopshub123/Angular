@@ -1,14 +1,14 @@
-<div style="overflow: hidden">
-<div *ngIf="data && !data.flag" mat-dialog-content style="text-align: center;margin-top: 15%">
+<div >
+<div *ngIf="data && !data.flag" mat-dialog-content text-right >
   {{data.Message}}
 </div>
-<div *ngIf="data && data.flag" mat-dialog-content style="margin-top: 15%;" >
+<div *ngIf="data && data.flag" mat-dialog-content >
   <ul *ngFor="let error of data.Message">
     <li style="color: red">{{error.message}}</li>
   </ul>
 </div>
 <div mat-dialog-actions
-     fxLayout="row" fxLayoutAlign="center" style="margin-top: 10%;">
+     fxLayout="row" fxLayoutAlign="center" >
   <button [mat-dialog-close] class="m-1 mat-stroked-button button-save" (click)="close()" type="submit" color="primary" >
     <span class="mat-button-wrapper">Ok</span>
     <div class="mat-button-ripple mat-ripple" matripple="" ng-reflect-centered="false" ng-reflect-disabled="false"

@@ -56,12 +56,11 @@ export class PendingCompoffComponent implements OnInit {
       if (res.status) {
         // this.arrayList = res.data;
         for(let i = 0; i<res.data.length;i++){
-          var date = new Date(); 
+          var date = new Date();
           var appliedDate = new Date(res.data[i].applied_date)
           res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
           this.arrayList.push(res.data[i])
         }
-        console.log(this.arrayList.length,'this.arrayList')
 
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
@@ -104,7 +103,7 @@ export class PendingCompoffComponent implements OnInit {
       this.spinner.hide();
       if(res && res.status){
         if(res.compoffStatus == 'Approved'){
-          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+          this.dialog.open(ConfirmationComponent, {
             position:{top:`70px`},
             disableClose: true,
             data:{Message:this.LM115,url: '/LeaveManagement/ManagerDashboard'}
@@ -119,7 +118,7 @@ export class PendingCompoffComponent implements OnInit {
           this.getCompoffForApprovals();
         }
       }else {
-        this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+        this.dialog.open(ConfirmationComponent, {
           position:{top:`70px`},
           disableClose: true,
           data: {Message:'Please try again later',url: '/LeaveManagement/ManagerDashboard'}
@@ -140,7 +139,6 @@ export class PendingCompoffComponent implements OnInit {
 
   compoffReview(compoff:any){
     compoff.leavestatus = compoff.status;
-    console.log("hsfkldkfksjd",compoff);
     compoff.url = '/LeaveManagement/ManagerDashboard'
 
     this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: compoff ,isleave:false} });
@@ -150,7 +148,7 @@ export class PendingCompoffComponent implements OnInit {
 
   openDialog(compoff:any): void {
     const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
-      width: '500px',position:{top:`70px`},
+      position:{top:`70px`},
       data: {name: this.titleName, reason: this.reason,}
     });
 
