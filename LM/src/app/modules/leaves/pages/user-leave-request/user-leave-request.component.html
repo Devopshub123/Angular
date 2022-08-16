@@ -62,7 +62,7 @@
           <mat-label>From Date </mat-label>
           <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
           <input matInput readonly  [min]="minDate" [max]="fromMaxDate" [matDatepicker]="picker" [matDatepickerFilter]="fromDateFilter"
-                 placeholder="MM/DD/YYYY" formControlName="fromDate"  required>
+                 placeholder="MM/DD/YYYY" formControlName="fromDate"  required (click)="fromDate.open()">
 
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker">
           </mat-datepicker-toggle>
@@ -84,8 +84,9 @@
         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
           <mat-label>To Date </mat-label>
           <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
-          <input matInput readonly [disabled]="true" [min]="leaveRequestForm.controls.fromDate.value" [max]="maxDate" [matDatepicker]="picker1" [matDatepickerFilter]="toDateFilter"
-                 placeholder="MM/DD/YYYY" formControlName="toDate"  required>
+          <input matInput readonly [disabled]="true" [min]="leaveRequestForm.controls.fromDate.value" [max]="maxDate"
+          [matDatepicker]="picker1" [matDatepickerFilter]="toDateFilter"
+                 placeholder="MM/DD/YYYY" formControlName="toDate"  required (click)="toDate.open()">
 
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker1">
           </mat-datepicker-toggle>
@@ -107,8 +108,9 @@
     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
       <mat-label>From Date </mat-label>
       <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
-      <input matInput readonly [min]="minDate" [max]="leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7 || leaveRequestForm.controls.leaveTypeId.value == 8 ?'':fromMaxDate" [matDatepicker]="picker" [matDatepickerFilter]="fromDateFilter"
-             placeholder="MM/DD/YYYY" formControlName="fromDate"  required>
+      <input matInput readonly [min]="minDate" [max]="leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7 || leaveRequestForm.controls.leaveTypeId.value == 8 ?'':fromMaxDate"
+           [matDatepicker]="picker" [matDatepickerFilter]="fromDateFilter"
+             placeholder="MM/DD/YYYY" formControlName="fromDate"  required (click)="toDate.open()">
 
       <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker">
       </mat-datepicker-toggle>
@@ -131,8 +133,9 @@
       <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
         <mat-label>To Date </mat-label>
         <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
-        <input matInput readonly [min]="leaveRequestForm.controls.fromDate.value" [max]="leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7 || leaveRequestForm.controls.leaveTypeId.value == 8 ?'':maxDate" [matDatepicker]="picker1" [matDatepickerFilter]="toDateFilter"
-               placeholder="MM/DD/YYYY" formControlName="toDate"  required>
+        <input matInput readonly [min]="leaveRequestForm.controls.fromDate.value" [max]="leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7 || leaveRequestForm.controls.leaveTypeId.value == 8 ?'':maxDate"
+        [matDatepicker]="picker1" [matDatepickerFilter]="toDateFilter"
+               placeholder="MM/DD/YYYY" formControlName="toDate"  required (click)="toDate.open()">
 
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker1">
         </mat-datepicker-toggle>
@@ -154,8 +157,9 @@
         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
           <mat-label>To Date </mat-label>
           <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
-          <input matInput readonly   [disabled]="true"[min]="leaveRequestForm.controls.fromDate.value" [max]="leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7 || leaveRequestForm.controls.leaveTypeId.value == 8 ?'':maxDate" [matDatepicker]="picker1"
-                 placeholder="MM/DD/YYYY" formControlName="toDate"  required>
+          <input matInput readonly   [disabled]="true"[min]="leaveRequestForm.controls.fromDate.value" [max]="leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7 || leaveRequestForm.controls.leaveTypeId.value == 8 ?'':maxDate"
+           [matDatepicker]="picker1"
+                 placeholder="MM/DD/YYYY" formControlName="toDate"  required (click)="toDate.open()">
 
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker1">
           </mat-datepicker-toggle>
