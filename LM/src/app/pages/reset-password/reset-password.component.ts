@@ -23,6 +23,7 @@ export class ResetPasswordComponent implements OnInit {
   resetpwd:any=[];
   newpassword:any;
   confirmpassword:any;
+  issubmit:boolean=false;
   msgLM1:any;
   msgLM2:any;
   msgLM4:any;
@@ -50,6 +51,7 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
   submit(){
+    this.issubmit = true;
   var  resetObj = {
       empid:this.empid,
       email: this.email,

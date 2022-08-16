@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl, FormArray} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PopupComponent,PopupConfig } from '../../../../pages/popup/popup.component';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
 import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.directive';
 import { LoginService } from 'src/app/services/login.service';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
@@ -45,7 +45,7 @@ export class HolidaysComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
   constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog) { }
-  
+
   selectAll(select: MatSelect, values:any, array:any) {
     this.ishide = true;
     this.ischecked = true;
@@ -70,9 +70,9 @@ export class HolidaysComponent implements OnInit {
     this.getHolidays(null,null);
     this.HolidayForm=this.formBuilder.group(
       {
-      holiday: ["",Validators.required],        
+      holiday: ["",Validators.required],
       date: ["",Validators.required],
-      branch: ["",Validators.required],  
+      branch: ["",Validators.required],
       itemdata: this.formBuilder.array([])
     });
   }
@@ -98,7 +98,7 @@ export class HolidaysComponent implements OnInit {
         description: this.HolidayForm.controls.holiday.value,
         date: this.HolidayForm.controls.date.value,
         location:e.city
-        
+
       }));
     });
     console.log(this.selecteditems)
@@ -113,8 +113,8 @@ export class HolidaysComponent implements OnInit {
           disableClose: true,
           data: 'Holiday added successfully'
         });
-       
-        
+
+
 
       }else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -122,7 +122,7 @@ export class HolidaysComponent implements OnInit {
           disableClose: true,
           data: 'Unable to add holiday'
         });
-        
+
         // Swal.fire({title:data.message,color:"red",showCloseButton: true});
       }
     })
@@ -143,15 +143,15 @@ export class HolidaysComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-    
+
   }
   getHolidays(year:any,locationId:any){
-    
+
     this.LM.getHolidays(year,locationId,1,100).subscribe((result)=>{
       console.log(result.data)
       if(result.status) {
         this.holidaysDetails = result.data;
-       
+
         for (let i = 0; i < this.holidaysDetails.length; i++) {
           this.holidaysDetails[i].city = this.holidaysDetails[i].cityname;
           this.holidaysDetails[i].date = (this.holidaysDetails[i].date)
@@ -176,7 +176,7 @@ export class HolidaysComponent implements OnInit {
     }
   }
   delete(event:any,holidayId:any){
-   
+
     this.LM.deleteHoliday(holidayId).subscribe(data=>{
 
       if(data.status){
@@ -193,8 +193,8 @@ export class HolidaysComponent implements OnInit {
           disableClose: true,
           data: 'Unable to to delete holiday'
         });
-        
-       
+
+
 
       }
 
@@ -238,7 +238,7 @@ export class HolidaysComponent implements OnInit {
     }
     console.log(data)
     this.LM.putHolidays(data, 'keerthi_hospitals').subscribe((data) => {
-    
+
       this.isadd= true;
       if (data.status) {
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -248,9 +248,9 @@ export class HolidaysComponent implements OnInit {
           disableClose: true,
           data: 'Holiday updated successfully'
         });
-        
-         
-        
+
+
+
 
       } else {
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -260,7 +260,7 @@ export class HolidaysComponent implements OnInit {
           disableClose: true,
           data: 'Unable to to update holiday'
         });
-        
+
         // Swal.fire({title:this.msgLM49,color:"red",showCloseButton: true});
       }
     })

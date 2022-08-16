@@ -4,8 +4,7 @@
       <div class="logo-header">
         <div class="custom-mob-icons">
 
-          <a href="MainDashboard" class="logo"><img [src]="pic" style="width: 25px;" alt="" class="logo-img mr-2">Sreeb
-            Technologies</a>
+          <a href="MainDashboard" class="logo"><img [src]="pic" style="width: 25px;" alt="" class="logo-img mr-2">{{companyName}}</a>
           <button mat-icon-button (click)="snav.toggle()">
             <mat-icon>menu</mat-icon>
           </button>
@@ -169,7 +168,7 @@
      <mat-expansion-panel [expanded]="true">
        <mat-expansion-panel-header>
          <mat-panel-title>
-           <div fxLayout="row" fxLayoutAlign="space-between center" > 
+           <div fxLayout="row" fxLayoutAlign="space-between center" >
              <mat-icon>{{item.iconName}}</mat-icon>
              {{item.displayName}}
            </div>
@@ -177,7 +176,7 @@
        </mat-expansion-panel-header>
        <span *ngFor="let child of item.children">
          <mat-list-item [routerLink]="child.route" [routerLinkActive]="['active']">
-           <div fxLayout="row" fxLayoutAlign="space-between center" > 
+           <div fxLayout="row" fxLayoutAlign="space-between center" >
              <mat-icon>{{child.iconName}}</mat-icon>
              {{child.displayName}}
            </div>

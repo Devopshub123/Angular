@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -168,12 +167,12 @@ export class DetailReportComponent implements OnInit {
     const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Monthly_Detail_Report');
-    
+
     /* save to file */
     XLSX.writeFile(wb, 'Monthly_Detail_Report.xlsx');
-    
+
   }
-  
+
   getColor(i: string): String {
     let color = ''
     if (i == "P") {
@@ -184,6 +183,6 @@ export class DetailReportComponent implements OnInit {
       return '';
     }
   }
-  
+
 }
 

@@ -1,8 +1,8 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
-import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl} from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { PopupComponent,PopupConfig } from '../../../../pages/popup/popup.component';
-import { MatDialog } from '@angular/material/dialog'; 
+import { PopupComponent, PopupConfig } from '../../../../pages/popup/popup.component';
+import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from 'src/app/services/login.service';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,12 +11,12 @@ import { MatSort } from '@angular/material/sort';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 
 export interface UserData {
-  deptname:string;
+  deptname: string;
   status: string;
-  depthead:string;
+  depthead: string;
   headcount: number;
-  id:number;
-  total:number;
+  id: number;
+  total: number;
 }
 
 @Component({
@@ -26,97 +26,100 @@ export interface UserData {
 })
 export class DeparmentComponent implements OnInit {
   departmentForm!: FormGroup;
-  department:any;
-  issubmitted: boolean=false;
-  isvalid:boolean=false;
-  isView:boolean=false;
-  isAdd:boolean=false;
-  isdata:boolean=true;
-  isEdit:boolean=true;
-  isSave:boolean=false;
-  enable:any=null;
-  valid:boolean = false;
-  displayedColumns: string[] = ['department','status','Action'];
-  departmentData:any=[];
-  arrayValue:any=[{Value:'Active',name:'Active '},{Value:'Inactive',name:'Inactive'}];
-  dataSource: MatTableDataSource<UserData>=<any>[];
-  pageLoading=true;
+  department: any;
+  issubmitted: boolean = false;
+  isvalid: boolean = false;
+  isView: boolean = false;
+  isAdd: boolean = false;
+  isdata: boolean = true;
+  isEdit: boolean = true;
+  isSave: boolean = false;
+  enable: any = null;
+  valid: boolean = false;
+  displayedColumns: string[] = ['department', 'status', 'Action'];
+  departmentData: any = [];
+  arrayValue: any = [{ Value: 'Active', name: 'Active ' }, { Value: 'Inactive', name: 'Inactive' }];
+  dataSource: MatTableDataSource<UserData> = <any>[];
+  pageLoading = true;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private formBuilder: FormBuilder,private router: Router,private dialog: MatDialog,private LM:CompanySettingService) {
-   
+  constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog, private LM: CompanySettingService) {
+
   }
 
   ngOnInit(): void {
     this.getDepartments();
-    this.departmentForm=this.formBuilder.group(
+    this.departmentForm = this.formBuilder.group(
       {
-        department:["",Validators.required],
-        
+        department: ["", Validators.required],
+
       },
     );
   }
-  validatedepartments(data:any){
-    if(this.departmentData.length<0){
+  validatedepartments(data: any) {
+    if (this.departmentData.length < 0) {
       this.valid = true;
 
     }
-    else{
-      for(let i=0;i<this.departmentData.length;i++){
-        if(data === this.departmentData[i].deptname){
-          this.valid = false;
-          break;          
+    else {
+      if (this.departmentData.length > 0) {
+
+        for (let i = 0; i < this.departmentData.length; i++) {
+          if (data === this.departmentData[i].deptname) {
+            this.valid = false;
+            break;
+          }
+          else {
+            this.valid = true;
+          }
         }
-        else{
-          this.valid = true;
-        }
+      }
     }
-    }
-  
+
   }
-  setdepartment(){
+  setdepartment() {
     this.validatedepartments(this.departmentForm.controls.department.value)
     this.department = this.departmentForm.controls.department.value;
     var data = {
-      departmentName:this.department
+      departmentName: this.department
     }
-    
-    if(this.departmentForm.valid){
-      if(this.valid){
+
+    if (this.departmentForm.valid) {
+      if (this.valid) {
         this.LM.setDepartments(data).subscribe((data) => {
           this.valid = false;
           if (data.status) {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/Admin/Department"]));
+              this.router.navigate(["/Admin/Department"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position:{top:`70px`},
+              position: { top: `70px` },
               disableClose: true,
               data: 'Department added successfully'
             });
-    
-           
+
+
           } else {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position:{top:`70px`},
+              position: { top: `70px` },
               disableClose: true,
               data: 'Department already existed'
             });
           }
         })
       }
-      else{
+      else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
+          position: { top: `70px` },
           disableClose: true,
           data: 'Department already existed'
         });
-   
+
 
       }
-      
+
     }
 
   }
@@ -124,12 +127,12 @@ export class DeparmentComponent implements OnInit {
     // this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
   }
-  Add(){
+  Add() {
     this.isAdd = true;
     this.isdata = false;
     this.departmentForm.controls.department.setValue('')
   }
-  cancel(){
+  cancel() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(["/Admin/Department"]));
     // this.enable = null;
@@ -139,100 +142,100 @@ export class DeparmentComponent implements OnInit {
     // this.getDepartments();
 
   }
-  status(status:any,id:any,deptname:any){
-    
+  status(status: any, id: any, deptname: any) {
+
     let data = {
-      deptname:deptname,
-    tableName:'employee',
-    columnName :'department',
-    id:id,
-    status:status
+      deptname: deptname,
+      tableName: 'employee',
+      columnName: 'department',
+      id: id,
+      status: status
     }
-    this.LM.updateStatus(data).subscribe((result)=> {
-      if(result.status){
+    this.LM.updateStatus(data).subscribe((result) => {
+      if (result.status) {
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
+          position: { top: `70px` },
           disableClose: true,
           data: 'Department status updated successfully'
         });
 
-      }else{
+      } else {
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
+          position: { top: `70px` },
           disableClose: true,
           data: 'This department have active employees. So we are unable to inactivate this department now. Please move those employee to another department and try again'
         });
       }
     })
   }
-  edit(w:any,i:any){
-   console.log(i.deptname)
+  edit(w: any, i: any) {
+    console.log(i.deptname)
     this.departmentForm.controls.department.setValue(i.deptname);
     this.enable = i.id;
-    this.isEdit=false;
-    this.isSave=true;
+    this.isEdit = false;
+    this.isSave = true;
     // VOFormElement.get('VORows').at(i).get('isEditable').patchValue(false);
 
   }
-  save(event:any,id:any,deptname:any){
+  save(event: any, id: any, deptname: any) {
     this.validatedepartments(deptname)
     this.enable = null;
-    this.isEdit=true;
-    this.isSave=false;
-    
-    if(this.valid){
-   
-      this.LM.putDepartments({id: id, name: deptname}).subscribe((data) => {
+    this.isEdit = true;
+    this.isSave = false;
+
+    if (this.valid) {
+
+      this.LM.putDepartments({ id: id, name: deptname }).subscribe((data) => {
         if (data.status) {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/Department"]));
           // this.enable = null;
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position:{top:`70px`},
+            position: { top: `70px` },
             disableClose: true,
             data: 'Department updated succesFully'
-          });    
-           this.getDepartments();
-          
+          });
+          this.getDepartments();
+
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position:{top:`70px`},
+            position: { top: `70px` },
             disableClose: true,
             data: 'Department already existed'
-          });  
+          });
         }
       })
     }
-    else{
+    else {
       this.ngOnInit();
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
-        position:{top:`70px`},
+        position: { top: `70px` },
         disableClose: true,
         data: 'Department already existed'
-      }); 
-      
+      });
+
     }
 
-  
+
 
   }
-  canceledit(event:any,id:any){
+  canceledit(event: any, id: any) {
     this.enable = null;
-    this.isEdit=true;
-    this.isSave=false;
+    this.isEdit = true;
+    this.isSave = false;
     this.ngOnInit();
 
   }
-  getDepartments(){
-    this.LM.getDepartments('departmentsmaster',null,1,100,'keerthi_hospitals').subscribe((info)=>{
-      if(info.status && info.data.length !=0) {
+  getDepartments() {
+    this.LM.getDepartments('departmentsmaster', null, 1, 100, 'keerthi_hospitals').subscribe((info) => {
+      if (info.status && info.data.length != 0) {
         this.departmentData = info.data;
         this.dataSource = new MatTableDataSource(this.departmentData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.pageLoading=false;
+        this.pageLoading = false;
       }
 
     })
@@ -244,7 +247,7 @@ export class DeparmentComponent implements OnInit {
     }
     else {
 
-     return [5, 10, 20];
+      return [5, 10, 20];
     }
   }
 

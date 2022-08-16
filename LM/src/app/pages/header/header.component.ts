@@ -23,16 +23,19 @@ export class HeaderComponent implements OnInit {
   empname:any;
   email:any;
   imageurls:any;
-
-
-  constructor(private baseService: BaseService,private mainService:MainService,private LM:CompanyInformationService,private spinner:NgxSpinnerService, public router: Router) { }
+  companyName: any;
+  companyinfo: any;
+  constructor(private baseService: BaseService,private mainService:MainService,
+    private LM:CompanyInformationService,private spinner:NgxSpinnerService, public router: Router) { }
 
   ngOnInit(): void {
+    this.companyName='Sreeb Technologies';
     this.baseService.setHeadNav("admin");
     this.getHeadNav();
     this.getToggleSideBar()
     this.usersession =JSON.parse(sessionStorage.getItem('user')??'');
     this.getUploadImage();
+    this.getCompanyInformation();
     this.empname = this.usersession.firstname;
     this.email = this.usersession.officeemail;
   }
@@ -137,6 +140,23 @@ export class HeaderComponent implements OnInit {
 
       }
     })
+  }
+  getCompanyInformation(){
+    this.LM.getCompanyInformation('companyinformation',null,1,10,'keerthi_hospitals').subscribe((data:any)=>{
+      if(data.status && data.data.length!=0) {
+
+        this.companyinfo =data.data[0];
+        this.companyName=data.data[0].companyname;
+
+      }else {
+        // this.enable=true;
+        // this.isSubmit=true;
+        // this.companyForm=[];
+
+      }
+
+    })
+
   }
 
 }
