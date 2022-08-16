@@ -62,7 +62,6 @@ export class PendingApprovalsComponent implements OnInit {
           res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
           this.arrayList.push(res.data[i])
         }
-        console.log(this.arrayList,'this.arrayList')
 
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
@@ -109,14 +108,14 @@ leaveReview(leave:any){
       this.spinner.hide();
       if(res && res.status){
         if(res.leaveStatus == 'Approved'){
-          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+          this.dialog.open(ConfirmationComponent, {
             position:{top:`70px`},
             disableClose: true,
             data: {Message:this.LM113,url: '/LeaveManagement/ManagerDashboard'}
           });
           this.getLeavesForApprovals();
         }else {
-          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+          this.dialog.open(ConfirmationComponent, {
             position:{top:`70px`},
             disableClose: true,
             data: {Message:this.LM114,url: '/LeaveManagement/ManagerDashboard'}
@@ -124,7 +123,7 @@ leaveReview(leave:any){
           this.getLeavesForApprovals();
         }
         }else {
-        this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+        this.dialog.open(ConfirmationComponent, {
           position:{top:`70px`},
           disableClose: true,
           data: {Message:this.LM119,url: '/LeaveManagement/ManagerDashboard'}
@@ -144,7 +143,7 @@ leaveReview(leave:any){
 
   openDialog(leave:any): void {
     const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
-      width: '500px',position:{top:`70px`},
+      position:{top:`70px`},
       data: {name: this.titleName, reason: this.reason,}
     });
 

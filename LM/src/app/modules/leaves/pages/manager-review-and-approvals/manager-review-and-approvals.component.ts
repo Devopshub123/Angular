@@ -134,7 +134,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
-      width: '500px',position:{top:`70px`},
+      position:{top:`70px`},
       data: {name: this.titleName, reason: this.reason}
     });
 
@@ -172,24 +172,23 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
 
     this.LM.setApproveOrReject(obj).subscribe((res: any) => {
       if(res && res.status){
-        console.log("nlsdnjk",res)
         if(res.leaveStatus == 'Cancel Approved'){
-          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+          this.dialog.open(ConfirmationComponent, {
             position:{top:`70px`},
             disableClose: true,
             data: {Message:this.LM120,url: '/LeaveManagement/ManagerDashboard'}
           });
-          
+
         }else {
-          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+          this.dialog.open(ConfirmationComponent, {
             position:{top:`70px`},
             disableClose: true,
             data: {Message:this.LM121,url: '/LeaveManagement/ManagerDashboard'}
           });
-          
+
         }
       }else {
-        this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+        this.dialog.open(ConfirmationComponent, {
           position:{top:`70px`},
           disableClose: true,
           data: {Message:this.LM119,url: '/LeaveManagement/ManagerDashboard'}

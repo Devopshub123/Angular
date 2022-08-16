@@ -105,14 +105,14 @@ export class LeavesForCancellationComponent implements OnInit {
       if(res && res.status){
         console.log("nlsdnjk",res)
         if(res.leaveStatus == 'Cancel Approved'){
-          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+          this.dialog.open(ConfirmationComponent, {
             position:{top:`70px`},
             disableClose: true,
             data: {Message:this.LM120,url: '/LeaveManagement/ManagerDashboard'}
           });
           this.getLeavesForCancellation();
         }else {
-          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+          this.dialog.open(ConfirmationComponent, {
             position:{top:`70px`},
             disableClose: true,
             data: {Message:this.LM121,url: '/LeaveManagement/ManagerDashboard'}
@@ -120,7 +120,7 @@ export class LeavesForCancellationComponent implements OnInit {
           this.getLeavesForCancellation();
         }
       }else {
-        this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+        this.dialog.open(ConfirmationComponent, {
           position:{top:`70px`},
           disableClose: true,
           data: {Message:this.LM119,url: '/LeaveManagement/ManagerDashboard'}
@@ -141,7 +141,7 @@ export class LeavesForCancellationComponent implements OnInit {
 
   openDialog(leave:any): void {
     const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
-      width: '500px',position:{top:`70px`},
+      position:{top:`70px`},
       data: {name: this.titleName, reason: this.reason,}
     });
 

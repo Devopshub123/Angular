@@ -38,6 +38,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { OnlyCharactorDirective } from './custom-directive/only-charactors.directive';
 import { MappingIdsComponent } from './modules/admin/pages/mapping-ids/mapping-ids.component';
 import { ShiftMasterComponent } from './modules/admin/pages/shift-master/shift-master.component';
+import {UserLeaveRequestComponent} from "./modules/leaves/pages/user-leave-request/user-leave-request.component";
 
 
 // import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -71,6 +72,7 @@ import { ShiftMasterComponent } from './modules/admin/pages/shift-master/shift-m
     OnlyCharactorDirective,
     MappingIdsComponent,
     ShiftMasterComponent,
+    UserLeaveRequestComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,7 +91,7 @@ import { ShiftMasterComponent } from './modules/admin/pages/shift-master/shift-m
     NgxSpinnerModule,
     MatDatepickerModule,
     // BsDatepickerModule.forRoot(),
-    // DatepickerModule.forRoot() 
+    // DatepickerModule.forRoot()
 
   ],
 
