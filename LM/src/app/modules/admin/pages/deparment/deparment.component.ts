@@ -68,7 +68,7 @@ export class DeparmentComponent implements OnInit {
       if (this.departmentData.length > 0) {
 
         for (let i = 0; i < this.departmentData.length; i++) {
-          if (data === this.departmentData[i].deptname) {
+          if (data.toLowerCase() === this.departmentData[i].deptname.toLowerCase() ) {
             this.valid = false;
             break;
           }
@@ -97,7 +97,7 @@ export class DeparmentComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: 'Department added successfully'
+              data: 'Department added successfully.'
             });
 
 
@@ -105,7 +105,7 @@ export class DeparmentComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: 'Department already existed'
+              data: 'Department already existed.'
             });
           }
         })
@@ -114,7 +114,7 @@ export class DeparmentComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: 'Department already existed'
+          data: 'Department already existed.'
         });
 
 
@@ -157,7 +157,7 @@ export class DeparmentComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: 'Department status updated successfully'
+          data: 'Department status updated successfully.'
         });
 
       } else {
@@ -165,7 +165,7 @@ export class DeparmentComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: 'This department have active employees. So we are unable to inactivate this department now. Please move those employee to another department and try again'
+          data: 'This department have active employees. So we are unable to inactivate this department now. Please move those employee to another department and try again.'
         });
       }
     })
@@ -195,7 +195,7 @@ export class DeparmentComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: 'Department updated succesFully'
+            data: 'Department updated succesfully.'
           });
           this.getDepartments();
 
@@ -203,7 +203,7 @@ export class DeparmentComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: 'Department already existed'
+            data: 'Department already existed.'
           });
         }
       })
@@ -213,7 +213,7 @@ export class DeparmentComponent implements OnInit {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
-        data: 'Department already existed'
+        data: 'Department already existed.'
       });
 
     }
