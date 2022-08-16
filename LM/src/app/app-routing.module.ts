@@ -36,7 +36,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {path:'MainDashboard',component:MainDashboardComponent,canActivate:[LMSAccessGuard]},
-  {path:'LeaveManagement',loadChildren:()=>import('./modules/leaves/leaves.module').then(m=>m.LeavesModule)},
+  {path:'LeaveManagement',loadChildren:()=>import('./modules/leaves/leaves.module').then(m=>m.LeavesModule),canActivate:[LMSAccessGuard]},
 
 
 ];
