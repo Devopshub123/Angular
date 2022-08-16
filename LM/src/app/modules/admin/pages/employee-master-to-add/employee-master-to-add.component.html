@@ -692,12 +692,28 @@
                               </mat-error>
                           </mat-form-field>
                           <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                            <mat-label>Role</mat-label>
+                            <mat-select required formControlName="usertype">
+                                <ng-container>
+                                    <div *ngFor="let b of availableRole">
+                                        <!-- <mat-option value="" disabled selected>Select </mat-option> -->
+                                        <mat-option [value]="b.id">{{b.name}}</mat-option>
+                                    </div>
+
+                                </ng-container>
+                            </mat-select>
+                            <mat-error class="con-error"
+                                *ngIf="employeeworkAddForm.controls.usertype.errors?.required">
+                                {{msgLM3}}
+                            </mat-error>
+                        </mat-form-field>
+                          <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                               <mat-label>Manager</mat-label>
                               <mat-select required formControlName="reportingmanager">
                                   <ng-container *ngFor="let b of availablereportingmanagers">
                                       <mat-option [value]="b.id">{{b.employee_name}}</mat-option>
                                   </ng-container>
-                                  <mat-option value="Self">Self</mat-option>
+                                  <mat-option value="Self" *ngIf="isself">Self</mat-option>
                               </mat-select>
                               <mat-error class="con-error"
                                   *ngIf="employeeworkAddForm.controls.reportingmanager.errors?.required">
@@ -720,22 +736,7 @@
                           </mat-form-field> -->
                       </div>
                       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                          <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                              <mat-label>Role</mat-label>
-                              <mat-select required formControlName="usertype">
-                                  <ng-container>
-                                      <div *ngFor="let b of availableRole">
-                                          <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                          <mat-option [value]="b.id">{{b.name}}</mat-option>
-                                      </div>
-
-                                  </ng-container>
-                              </mat-select>
-                              <mat-error class="con-error"
-                                  *ngIf="employeeworkAddForm.controls.usertype.errors?.required">
-                                  {{msgLM3}}
-                              </mat-error>
-                          </mat-form-field>
+                          
 
                           <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                               <mat-label>Company Location</mat-label>

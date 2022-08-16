@@ -30,6 +30,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   wtodate: any;
   states: any;
   add: boolean = false;
+  isself:boolean=false;
   isviewemployee:boolean = false;
   pipe = new DatePipe('en-US');
   bloodGroupdetails: any[] = [];
@@ -316,6 +317,17 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
     this.employeeAddForm.get('dateofbirth')?.valueChanges.subscribe(selectedValue => {
       this.dateofjonupdate(selectedValue)
+
+    })
+    this.employeeworkAddForm.get('usertype')?.valueChanges.subscribe(selectedValue => {
+      console.log(selectedValue)
+      if(selectedValue == 2){
+        this.isself = true;
+      }
+      else{
+        this.isself = false;
+      }
+      
 
     })
 
