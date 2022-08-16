@@ -115,7 +115,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.getGender();
     this.getCountry();
     // this.getShifts();
-    //this.getRoles();
+    this.getRoles();
     this.getMaritalStatusMaster();
     this.getRelationshipMaster();
     this.getEmploymentTypeMaster();
@@ -339,7 +339,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
       let data = {
         id: selectedValue
       }
-      this.getRoles(selectedValue);
       this.LMS.getReportingManagers(data).subscribe(data => {
         this.availablereportingmanagers = data[0]
         if (this.employeedata.length > 0) {
@@ -875,22 +874,26 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
     })
   }
-  getRoles(department_id:any){
-    let data={
-      "department_id":department_id
-    }
-    this.adminService.getRolesByDepartment(data).subscribe((data:any)=>{
+  getRoles(){
+
+    this.LMS.getMastertable('rolesmaster',null,1,1000,'keerthi_hospitals').subscribe(data=>{
       let roledata = data.data;
       this.availableRole=[];
       for(let i=0;i<roledata.length;i++){
+
         if(roledata[i].isEditable == 0){
-          this.availableRole.push(roledata[i]);
+
+          this.availableRole.push(roledata[i])
+
         }
 
+
+
       }
+
     })
+
   }
-  
   getShifts() {
     this.LMS.getMastertable('shiftsmaster', 'Active', 1, 1000, 'nandyala_hospitals').subscribe(data => {
       this.availableShifts = data.data;
@@ -994,10 +997,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
       this.employeedata = JSON.parse(result.data[0][0].json)[0];
       let a = this.employeedata;
       if(a.country == a.pcountry && a.state == a.pstate && a.city == a.pcity && a.address == a.paddress && a.pincode == a.ppincode ){
-        this.employeeAddForm.controls.checked.setValue(true)      
+        this.employeeAddForm.controls.checked.setValue(true)
       }
       this.employeeAddForm.controls.checked.disable()
-  
+
       this.employeeAddForm.controls.aadharnumber.setValue(this.employeedata.aadharnumber);
       this.employeeAddForm.controls.address.setValue(this.employeedata.address);
       this.employeefamilyAddForm.controls.bankaccountnumber.setValue(this.employeedata.bankaccountnumber);
@@ -1099,7 +1102,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
         }
         this.dsFamily = new MatTableDataSource(this.familyDetails);
       }
-      
+
      let education = JSON.parse(this.employeedata.education)
      if(education !=null){
       education.forEach((e:any) => {
@@ -1108,7 +1111,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
           institutename: e.institutename,
           efromdate:new Date(e.fromdate),
           etodate:new Date(e.todate)
-          
+
         }));
       });
 
@@ -1120,20 +1123,20 @@ export class EmployeeMasterToAddComponent implements OnInit {
           companyname: e.companyname,
           wfromdate:new Date(e.fromdate),
           wtodate:new Date(e.todate)
-          
+
         }));
-      });  
+      });
 
 
-   
+
 
      }
-     
-      
-         
+
+
+
     });
 
-  
+
 }
 
 
