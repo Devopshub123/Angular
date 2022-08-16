@@ -1,42 +1,48 @@
 table {
-    width: 100%;
+  width: 100%;
+}
+
+
+/* td, th {
+  width: 25%;
+} */
+.headerbox{
+  padding: 5px;
+  background-color:#28acaf;
+}
+.title{
+  margin-top: 10px;
+  font-family: "Roboto";
+  font-size: 18px;
+  font-weight: normal;
+   font-stretch: normal;
+   font-style: normal;
+  letter-spacing: 0.32px;
+  color: white;
+}
+.mat-header-cell{
+  margin-top: 10px;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: normal;
+   font-stretch: normal;
+   font-style: normal;
+  letter-spacing: 0.32px;
+  color: #000000;
+}
+
+::ng-deep {
+  .mat-select-panel[aria-label="Items per page:"] {
+    mat-option:last-child:before {
+      content: 'All';
+    }
   }
-  
-  .mat-form-field {
-    font-size: 14px;
-    width: 25%;
+}
+
+::ng-deep {
+  .mat-select-panel[aria-label="Items per page:"] {
+    mat-option:last-child .mat-option-text {
+      display: none;
+    }
   }
-  
-  /* td, th {
-    width: 25%;
-  } */
-  .headerbox{
-    padding: 5px;
-    background-color:#28acaf;
-  }
-  .title{
-    margin-top: 10px;
-    font-family: "Roboto";
-    font-size: 18px;
-    font-weight: normal;
-     font-stretch: normal;
-     font-style: normal;
-    letter-spacing: 0.32px;
-    color: white;
-  }
-  .mat-header-cell{
-    margin-top: 10px;
-    font-family: "Roboto";
-    font-size: 16px;
-    font-weight: normal;
-     font-stretch: normal;
-     font-style: normal;
-    letter-spacing: 0.32px;
-    color: #000000;
-  }
-  // ::ng-deep mat-option:last-child:before{
-  //   content: 'All';
-  // }
-  // ::ng-deep mat-option:last-child .mat-option-text{
-  //   display: none;
-  // }
+}

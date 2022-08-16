@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PopupComponent,PopupConfig } from '../../../../pages/popup/popup.component';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from 'src/app/services/login.service';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -47,7 +47,7 @@ export class DeparmentComponent implements OnInit {
   sort!: MatSort;
 
   constructor(private formBuilder: FormBuilder,private router: Router,private dialog: MatDialog,private LM:CompanySettingService) {
-   
+
   }
 
   ngOnInit(): void {
@@ -55,7 +55,7 @@ export class DeparmentComponent implements OnInit {
     this.departmentForm=this.formBuilder.group(
       {
         department:["",Validators.required],
-        
+
       },
     );
   }
@@ -68,14 +68,14 @@ export class DeparmentComponent implements OnInit {
       for(let i=0;i<this.departmentData.length;i++){
         if(data === this.departmentData[i].deptname){
           this.valid = false;
-          break;          
+          break;
         }
         else{
           this.valid = true;
         }
     }
     }
-  
+
   }
   setdepartment(){
     this.validatedepartments(this.departmentForm.controls.department.value)
@@ -83,7 +83,7 @@ export class DeparmentComponent implements OnInit {
     var data = {
       departmentName:this.department
     }
-    
+
     if(this.departmentForm.valid){
       if(this.valid){
         this.LM.setDepartments(data).subscribe((data) => {
@@ -96,8 +96,8 @@ export class DeparmentComponent implements OnInit {
               disableClose: true,
               data: 'Department added successfully'
             });
-    
-           
+
+
           } else {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
@@ -113,10 +113,10 @@ export class DeparmentComponent implements OnInit {
           disableClose: true,
           data: 'Department already existed'
         });
-   
+
 
       }
-      
+
     }
 
   }
@@ -140,7 +140,7 @@ export class DeparmentComponent implements OnInit {
 
   }
   status(status:any,id:any,deptname:any){
-    
+
     let data = {
       deptname:deptname,
     tableName:'employee',
@@ -181,9 +181,9 @@ export class DeparmentComponent implements OnInit {
     this.enable = null;
     this.isEdit=true;
     this.isSave=false;
-    
+
     if(this.valid){
-   
+
       this.LM.putDepartments({id: id, name: deptname}).subscribe((data) => {
         if (data.status) {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -193,15 +193,15 @@ export class DeparmentComponent implements OnInit {
             position:{top:`70px`},
             disableClose: true,
             data: 'Department updated succesFully'
-          });    
+          });
            this.getDepartments();
-          
+
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
             data: 'Department already existed'
-          });  
+          });
         }
       })
     }
@@ -211,11 +211,11 @@ export class DeparmentComponent implements OnInit {
         position:{top:`70px`},
         disableClose: true,
         data: 'Department already existed'
-      }); 
-      
+      });
+
     }
 
-  
+
 
   }
   canceledit(event:any,id:any){

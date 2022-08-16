@@ -71,18 +71,21 @@ export class EmployeDashboardComponent implements OnInit {
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getemployeeattendancedashboard();
     this.getEmployeeAttendanceNotifications();
-    this.getEmployeeShiftDetailsByIdWithDates();
+    this.getEmployeeShiftDetails();
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
   getEmployeeShiftDetails() {
     this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res: any) => {
+      
       if (res.status) {
+        if(res.data.length>0){
         this.shiftDetails = res.data[0];
         this.currentShift = this.shiftDetails.shiftname;
         this.currentShiftStartTime = this.shiftDetails.fromtime;
         this.currentShiftendTime = this.shiftDetails.totime;
+        }
       }
     })
   }

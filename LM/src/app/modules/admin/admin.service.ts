@@ -89,4 +89,7 @@ updateShiftStatus(data:any):Observable<any>{
   updateMessagesData(data:any){
     return this.http.post(this.mainUrl+'admin/api/setAttendenceMessages', JSON.stringify(data), this.httpOptions);
   }
+  getRolesByDepartment(data:any):Observable<any>{
+    return this.http.post(this.mainUrl+'admin/api/getRolesByDepartment',data,this.httpOptions);
+  }
 }

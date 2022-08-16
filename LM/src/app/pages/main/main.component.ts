@@ -8,6 +8,7 @@ import { CompanyInformationService } from 'src/app/services/company-information.
 import { MainService } from 'src/app/services/main.service';
 import { SideMenuService } from 'src/app/services/side-menu.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CompanySettingService } from 'src/app/services/companysetting.service';
 
 
 @Component({
@@ -33,18 +34,23 @@ menu:NavItem[] =[];
   fillerNav = Array.from({ length: 50 }, (_, i) => `Nav Item ${i + 1}`);
   private _mobileQueryListener: () => void;
   employeeRoles: any;
+  companyName: any;
+  companyinfo: any;
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public router: Router,
     private companyInformationService:CompanyInformationService,private mainService:MainService,
-    private sideMenuService:SideMenuService,private baseService: BaseService,private spinner:NgxSpinnerService
+    private sideMenuService:SideMenuService,private baseService: BaseService,
+    private spinner:NgxSpinnerService,private LMS:CompanySettingService
     ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
   ngOnInit(): void {
+    this.companyName='Sreeb Technologies';
     this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.employeeRoles=this.usersession.roles;
     this.getUploadImage();
+    this.getCompanyInformation();
     var data=JSON.parse(sessionStorage.getItem('sidemenu') ?? '');
     this.menu = data;
 
@@ -257,7 +263,23 @@ menu:NavItem[] =[];
       }
     })
   }
+  getCompanyInformation(){
+    this.LMS.getCompanyInformation('companyinformation',null,1,10,'keerthi_hospitals').subscribe((data:any)=>{
+      if(data.status && data.data.length!=0) {
 
+        this.companyinfo =data.data[0];
+        this.companyName=data.data[0].companyname;
+
+      }else {
+        // this.enable=true;
+        // this.isSubmit=true;
+        // this.companyForm=[];
+
+      }
+
+    })
+
+  }
 
 }
 

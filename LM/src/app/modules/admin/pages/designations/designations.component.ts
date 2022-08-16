@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { AdminService } from '../../admin.service';
 
 export interface UserData {
   id:number;
@@ -40,14 +41,14 @@ export class DesignationsComponent implements OnInit {
   arrayValue:any=[{Value:'Active',name:'Active '},{Value:'Inactive',name:'Inactive'}];
   enable:any=null;
   dataSource: MatTableDataSource<UserData>;
-  pageLoading=true;
+
   // @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-
-  constructor(private formBuilder: FormBuilder,private router: Router,private dialog: MatDialog,private LM:CompanySettingService) {
+  pageLoading = true;
+  constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog, private LM: CompanySettingService, private adminService: AdminService) {
     this.getDesignation();
     this.dataSource = new MatTableDataSource(this.designationData);
   }
@@ -60,7 +61,7 @@ export class DesignationsComponent implements OnInit {
     this.designationForm=this.formBuilder.group(
       {
         designation:["",Validators.required],
-        
+
       },
     );
   }
@@ -71,9 +72,9 @@ export class DesignationsComponent implements OnInit {
     }
     else{
       for(let i=0;i<this.designationData.length;i++){
-        if(data===this.designationData[i].designation){
+        if(data.toLowerCase()===this.designationData[i].designation.toLowerCase()){
           this.valid = false;
-          break;          
+          break;
         }
         else{
           this.valid = true;
@@ -87,36 +88,35 @@ export class DesignationsComponent implements OnInit {
     this.designation = this.designationForm.controls.designation.value;
     let designationdata = {
       designationName: this.designation
-    }    
+    }
       if(this.valid){
         this.LM.setDesignation(designationdata).subscribe((data) => {
           this.valid = false;
           if (data.status) {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/Admin/Designation"]));
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            this.router.navigate(["/Admin/Designation"]));
+             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
-              data: 'Designation added successfully'
+              data: data.message
             });
-           
+
           } else {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
-              data: 'Designation already existed'
+              data: 'Designation already existed.'
             });
-                       
-          }  
+          }
         });
       }
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Designation already existed'
+          data: 'Designation already existed.'
         });
-        
+
       }
     }
   }
@@ -126,7 +126,7 @@ export class DesignationsComponent implements OnInit {
       deptname: deptname,
       status:status,
       tableName:'employee',
-      columnName:'department',     
+      columnName:'department',
       depthead: null,
       headcount: null
     }
@@ -136,15 +136,15 @@ export class DesignationsComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Designation status updated successfully'
+          data: 'Designation status updated successfully.'
         });
-     
+
       }else{
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data:'This designation have active employees. So we are unable to inactivate this designation now. Please move those employee to another designation and try again',
+          data:'This designation have active employees. So we are unable to inactivate this designation now. Please move those employee to another designation and try again.',
         });
       }
     })
@@ -154,17 +154,16 @@ export class DesignationsComponent implements OnInit {
   }
 
   Add(){
+    this.designationForm.controls.designation.setValue('');
     this.isAdd = true;
     this.isdata = false;
-    this.designationForm.controls.designation.setValue('')
-    
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(["/Admin/Designation"]));
     // this.designationForm.reset();
     // this.isAdd = false;
-    // this.isdata = true; 
+    // this.isdata = true;
     // this.getDesignation();
   }
   edit(event:any,i:any){
@@ -183,22 +182,23 @@ export class DesignationsComponent implements OnInit {
       this.LM.putDesignation({id: id, name: desname}).subscribe((data) => {
         if (data.status) {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/Admin/Designation"]));
-          this.enable = null;
-          this.getDesignation();
+          this.router.navigate(["/Admin/Designation"]));
+           this.enable = null;
+           this.getDesignation();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data:'Designation updated successfully',
+            data:'Designation updated successfully.',
           });
-        
+
+
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data:'Designation alreay existed',
+            data:'Designation alreay existed.',
           });
-                  
+
         }
       })
     }
@@ -207,9 +207,9 @@ export class DesignationsComponent implements OnInit {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
         disableClose: true,
-        data:'Designation already existed',
+        data:'Designation already existed.',
       });
-    }        
+    }
   }
   canceledit(event:any,id:any){
     this.enable = null;
@@ -218,26 +218,15 @@ export class DesignationsComponent implements OnInit {
     this.ngOnInit();
   }
   getDesignation(){
-    this.LM.getDesignation('designationsmaster',null,1,100,'keerthi_hospitals').subscribe((info)=>{
+    this.LM.getDesignation('designationsmaster',null,1,100,'nandyala_hospitals').subscribe((info)=>{
       if(info.status && info.data.length !=0) {
         this.designationData = info.data;
         this.dataSource = new MatTableDataSource(this.designationData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.pageLoading=false;
-
       }
     })
-    
-  }
-  getPageSizes(): number[] {
-    if (this.dataSource.data.length > 20) {
-      return [5, 10, 20, this.dataSource.data.length];
-    }
-    else {
-
-     return [5, 10, 20];
-    }
   }
   getErrorMessages(errorCode:any) {
     this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
@@ -256,5 +245,13 @@ export class DesignationsComponent implements OnInit {
 
     })
   }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
 
+     return [5, 10, 20];
+    }
+  }
 }
