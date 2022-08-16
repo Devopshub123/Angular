@@ -30,6 +30,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   wtodate: any;
   states: any;
   add: boolean = false;
+  isviewemployee:boolean = false;
   pipe = new DatePipe('en-US');
   bloodGroupdetails: any[] = [];
   genderDetails: any[] = [];
@@ -889,6 +890,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
       }
     })
   }
+  
   getShifts() {
     this.LMS.getMastertable('shiftsmaster', 'Active', 1, 1000, 'nandyala_hospitals').subscribe(data => {
       this.availableShifts = data.data;
@@ -981,6 +983,158 @@ export class EmployeeMasterToAddComponent implements OnInit {
       return [5, 10, 20];
     }
   }
+  employeeview(data:any){
+    this.isviewemployee = true;
+    this.add = false;
+    this.addempdetails= true;
+    this.viewdetails = false;
+    this.editemployee=false;
+    this.addemployee=false;
+    this.LM.getEmployeeMaster(data).subscribe((result)=>{
+      this.employeedata = JSON.parse(result.data[0][0].json)[0];
+      let a = this.employeedata;
+      if(a.country == a.pcountry && a.state == a.pstate && a.city == a.pcity && a.address == a.paddress && a.pincode == a.ppincode ){
+        this.employeeAddForm.controls.checked.setValue(true)      
+      }
+      this.employeeAddForm.controls.checked.disable()
+  
+      this.employeeAddForm.controls.aadharnumber.setValue(this.employeedata.aadharnumber);
+      this.employeeAddForm.controls.address.setValue(this.employeedata.address);
+      this.employeefamilyAddForm.controls.bankaccountnumber.setValue(this.employeedata.bankaccountnumber);
+      this.employeefamilyAddForm.controls.bankname.setValue(this.employeedata.bankname);
+      this.employeeAddForm.controls.bloodgroup.setValue(this.employeedata.bloodgroup);
+      this.employeefamilyAddForm.controls.branchname.setValue(this.employeedata.branchname);
+      this.employeeAddForm.controls.contactnumber.setValue(this.employeedata.contactnumber);
+      this.employeeAddForm.controls.dateofbirth.setValue(new Date(this.employeedata.dateofbirth));
+      this.employeeworkAddForm.controls.dateofjoin.setValue(new Date(this.employeedata.dateofjoin));
+      this.employeeworkAddForm.controls.designation.setValue(this.employeedata.designation);
+      this.employeeworkAddForm.controls.empid.setValue(this.employeedata.empid);
+      this.employeeworkAddForm.controls.usertype.setValue(this.employeedata.usertype);
+      this.employeeAddForm.controls.esi.setValue(this.employeedata.esi);
+      this.employeeAddForm.controls.firstname.setValue(this.employeedata.firstname);
+      this.employeeAddForm.controls.gender.setValue(this.employeedata.gender);
+      this.employeefamilyAddForm.controls.ifsccode.setValue(this.employeedata.ifsccode);
+      this.employeeAddForm.controls.lastname.setValue(this.employeedata.lastname);
+      this.employeeAddForm.controls.maritalstatus.setValue(this.employeedata.maritalstatus);
+      this.employeeAddForm.controls.middlename.setValue(this.employeedata.middlename);
+      this.employeefamilyAddForm.controls.nameasperbankaccount.setValue(this.employeedata.nameasperbankaccount);
+      this.employeeworkAddForm.controls.officeemail.setValue(this.employeedata.officeemail);
+      this.employeeAddForm.controls.paddress.setValue(this.employeedata.paddress);
+      this.employeeAddForm.controls.pan.setValue(this.employeedata.pan);
+      this.employeeAddForm.controls.passport.setValue(this.employeedata.passport);
+      this.employeeAddForm.controls.personalemail.setValue(this.employeedata.personalemail);
+      this.employeeAddForm.controls.pfaccountnumber.setValue(this.employeedata.pfaccountnumber);
+      this.employeeAddForm.controls.pincode.setValue(this.employeedata.pincode);
+      this.employeeAddForm.controls.ppincode.setValue(this.employeedata.ppincode);
+      this.employeeworkAddForm.controls.shift.setValue(this.employeedata.shift);
+      this.employeeworkAddForm.controls.status.setValue(this.employeedata.status);
+      this.employeeAddForm.controls.uanumber.setValue(this.employeedata.uanumber);
+      this.employeeworkAddForm.controls.employmenttype.setValue(this.employeedata.employmenttype);
+      this.employeeworkAddForm.controls.usertype.setValue(this.employeedata.usertype);
+      this.employeeworkAddForm.controls.companylocation.setValue(this.employeedata.worklocation);
+      this.employeeworkAddForm.controls.reportingmanager.setValue(this.employeedata.reportingmanager);
+      this.employeeAddForm.controls.country.setValue(this.employeedata.country);
+      this.employeeAddForm.controls.pcountry.setValue(this.employeedata.pcountry);
+      this.employeeAddForm.controls.state.setValue(this.employeedata.state);
+      this.employeeAddForm.controls.pstate.setValue(this.employeedata.pstate);
+      this.employeeAddForm.controls.city.setValue(this.employeedata.city);
+      this.employeeAddForm.controls.pcity.setValue(this.employeedata.pcity);
+      this.employeeworkAddForm.controls.department.setValue(this.employeedata.department);
+      this.employeeAddForm.controls.aadharnumber.disable();
+      this.employeeAddForm.controls.address.disable();
+      this.employeefamilyAddForm.controls.bankaccountnumber.disable();
+      this.employeefamilyAddForm.controls.bankname.disable();
+      this.employeeAddForm.controls.bloodgroup.disable();
+      this.employeefamilyAddForm.controls.branchname.disable();
+      this.employeeAddForm.controls.contactnumber.disable();
+      this.employeeAddForm.controls.dateofbirth.disable();
+      this.employeeworkAddForm.controls.dateofjoin.disable();
+      this.employeeworkAddForm.controls.designation.disable();
+      this.employeeworkAddForm.controls.empid.disable();
+      this.employeeworkAddForm.controls.usertype.disable();
+      this.employeeAddForm.controls.esi.disable();
+      this.employeeAddForm.controls.firstname.disable();
+      this.employeeAddForm.controls.gender.disable();
+      this.employeefamilyAddForm.controls.ifsccode.disable();
+      this.employeeAddForm.controls.lastname.disable();
+      this.employeeAddForm.controls.maritalstatus.disable();
+      this.employeeAddForm.controls.middlename.disable();
+      this.employeefamilyAddForm.controls.nameasperbankaccount.disable();
+      this.employeeworkAddForm.controls.officeemail.disable();
+      this.employeeAddForm.controls.paddress.disable();
+      this.employeeAddForm.controls.pan.disable();
+      this.employeeAddForm.controls.passport.disable();
+      this.employeeAddForm.controls.personalemail.disable();
+      this.employeeAddForm.controls.pfaccountnumber.disable();
+      this.employeeAddForm.controls.pincode.disable();
+      this.employeeAddForm.controls.ppincode.disable();
+      this.employeeworkAddForm.controls.shift.disable();
+      this.employeeworkAddForm.controls.status.disable();
+      this.employeeAddForm.controls.uanumber.disable();
+      this.employeeworkAddForm.controls.employmenttype.disable();
+      this.employeeworkAddForm.controls.usertype.disable();
+      this.employeeworkAddForm.controls.companylocation.disable();
+      this.employeeworkAddForm.controls.reportingmanager.disable();
+      this.employeeAddForm.controls.country.disable();
+      this.employeeAddForm.controls.pcountry.disable();
+      this.employeeAddForm.controls.state.disable();
+      this.employeeAddForm.controls.pstate.disable();
+      this.employeeAddForm.controls.city.disable();
+      this.employeeAddForm.controls.pcity.disable();
+      this.employeeworkAddForm.controls.department.disable();
+      let x = JSON.parse((this.employeedata.education))
+      let y = JSON.parse((this.employeedata.experience))
+      let familydata = JSON.parse((this.employeedata.relations))
+      if(familydata != null){
+        for(let i = 0;i<familydata.length;i++){
+          this.familyDetails.push({
+            firstname: familydata[i].firstname,
+            lastname: familydata[i].lastname,
+            gender: familydata[i].gender,
+            contactnumber: familydata[i].contactnumber,
+            status: familydata[i].status,
+            relationship: familydata[i].relationship,
+            dateofbirth: familydata[i].dateofbirth!="null"?this.pipe.transform(familydata[i].dateofbirth, 'yyyy-MM-dd'):'',
+          });
+        }
+        this.dsFamily = new MatTableDataSource(this.familyDetails);
+      }
+      
+     let education = JSON.parse(this.employeedata.education)
+     if(education !=null){
+      education.forEach((e:any) => {
+        this.edu().push(this.formBuilder.group({
+          course: e.course,
+          institutename: e.institutename,
+          efromdate:new Date(e.fromdate),
+          etodate:new Date(e.todate)
+          
+        }));
+      });
+
+     }
+     let experience = JSON.parse(this.employeedata.experience)
+     if(experience != null){
+      experience.forEach((e:any) => {
+        this.exp().push(this.formBuilder.group({
+          companyname: e.companyname,
+          wfromdate:new Date(e.fromdate),
+          wtodate:new Date(e.todate)
+          
+        }));
+      });  
+
+
+   
+
+     }
+     
+      
+         
+    });
+
+  
+}
 
 
 }
