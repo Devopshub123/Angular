@@ -57,6 +57,8 @@ export class EmployeDashboardComponent implements OnInit {
   currentShiftendTime = "";
   mobileQuery!: MediaQueryList;
   private _mobileQueryListener: () => void;
+  currentShiftStartDate: any;
+  currentShiftendDate: any;
   constructor(private attendanceService: AttendanceService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -71,36 +73,24 @@ export class EmployeDashboardComponent implements OnInit {
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getemployeeattendancedashboard();
     this.getEmployeeAttendanceNotifications();
-    this.getEmployeeShiftDetails();
+    this.getEmployeeCurrentShifts();
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
-  getEmployeeShiftDetails() {
-    this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res: any) => {
 
-      if (res.status) {
-        if (res.data.length > 0) {
-          this.shiftDetails = res.data[0];
-          this.currentShift = this.shiftDetails.shiftname;
-          this.currentShiftStartTime = this.shiftDetails.fromtime;
-          this.currentShiftendTime = this.shiftDetails.totime;
-        }
-      }
-    })
-  }
-  getEmployeeShiftDetailsByIdWithDates() {
+  getEmployeeCurrentShifts() {
     let data = {
       "employee_id": this.userSession.id,
-      "fromd_date": this.pipe.transform(Date.now(), 'yyyy/MM/dd'),
-      "to_date": this.pipe.transform(Date.now(), 'yyyy/MM/dd'),
     }
-    this.attendanceService.getEmployeeShiftByDates(data).subscribe((res: any) => {
+    this.attendanceService.getEmployeeCurrentShifts(data).subscribe((res: any) => {
       if (res.status) {
-        this.shiftDetails = res.data[0];
-        this.currentShift = this.shiftDetails.shiftname;
-        this.currentShiftStartTime = this.shiftDetails.fromtime;
-        this.currentShiftendTime = this.shiftDetails.totime;
+        this.shiftDetails = res.data;
+        // this.currentShift = this.shiftDetails.shiftname;
+        // this.currentShiftStartDate = this.shiftDetails.fromdate;
+        // this.currentShiftendDate = this.shiftDetails.todate;
+        // this.currentShiftStartTime = this.shiftDetails.fromtime;
+        // this.currentShiftendTime = this.shiftDetails.totime;
       }
     });
   }
@@ -121,12 +111,22 @@ export class EmployeDashboardComponent implements OnInit {
             this.firstIn = this.pipe.transform(e.firstlogintime, 'shortTime');
             this.lastOut = this.pipe.transform(e.lastlogouttime, 'shortTime');
           }
+          let color;
+          if(e.present_or_absent=='P'){
+            color='#32cd32';
+          }else if(e.present_or_absent=='W'){
+            color='#2e0cf3';
+          } else if(e.present_or_absent=='H'){
+            color='#ffff00';
+          } else if(e.present_or_absent=='A'){
+             color='#FF3131';
+          }
           let item =
           {
-            title: e.isweekoff == null ? e.present_or_absent : e.isweekoff,
+            title: e.present_or_absent,
             start: e.firstlogintime != '' ? e.firstlogintime : new Date(e.attendancedate),
             // end:e.lastlogouttime !=''? e.lastlogouttime : e.attendancedate,
-            color: e.isweekoff == null ? e.present_or_absent == 'P' ? '#32cd32' : '#FF3131' : '#2e0cf3',
+            color:color,      //e.isweekoff == null ? e.present_or_absent == 'P' ? '#32cd32' : '#FF3131' : '#2e0cf3',
             icon: e.present_or_absent == 'P' ? 'fa-check-circle' : 'fa-times-circle'
           }
           this.initialEvents.push(item);

@@ -12,8 +12,8 @@ export class AttendanceService {
   userSession: any;
   httpOptions = {
     headers: new HttpHeaders({'content-Type': 'application/json'})
-  };  
- 
+  };
+
   constructor(private http: HttpClient) {
   }
   getMastertable(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
@@ -21,7 +21,7 @@ export class AttendanceService {
   }
   excelDataForAttendance(data:any): Observable<any> {
       return this.http.post(this.mainUrl + 'attendance/api/setEmployeeAttendance',JSON.stringify(data), this.httpOptions);
-  }  
+  }
   getShiftDetailsByEmpId(employee_id:any):Observable<any>{
     return this.http.get(this.mainUrl+'attendance/api/getemployeeshift/'+employee_id, this.httpOptions);
   }
@@ -46,7 +46,7 @@ export class AttendanceService {
   getAttendanceRegularizationByManagerId(manager_employee_id:any):Observable<any>{
     return this.http.get(this.mainUrl+'attendance/api/getAttendanceRegularizationByManagerId/'
     +manager_employee_id, this.httpOptions);
-  }  
+  }
 
   getemployeeattendancedashboard(data:any):Observable<any>{
     return this.http.post(this.mainUrl +'attendance/api/getemployeeattendancedashboard',
@@ -73,7 +73,7 @@ export class AttendanceService {
     data,this.httpOptions
     )
   }
-  
+
   getActiveShiftIds():Observable<any>{
     return this.http.get(this.mainUrl +'admin/api/getActiveShiftIds',
     this.httpOptions
@@ -83,7 +83,7 @@ export class AttendanceService {
   getAttendanceRegularizationsHistoryForManager(employee_id:any): Observable<any>{
     return this.http.get(this.mainUrl + 'attendance/api/getAttendanceRegularizationsHistoryForManager/'+employee_id, this.httpOptions);
   }
-  
+
   deleteAttendanceRequestById(data:any):Observable<any>{
     return this.http.post(this.mainUrl +'attendance/api/deleteAttendanceRequestById',
     data,this.httpOptions
@@ -91,5 +91,8 @@ export class AttendanceService {
   }
   getEmployeeShiftByDates(data:any):Observable<any>{
     return this.http.post(this.mainUrl+'attendance/api/getEmployeeShiftByDates',data,this.httpOptions)
+  }
+  getEmployeeCurrentShifts(data:any):Observable<any>{
+    return this.http.post(this.mainUrl+'attendance/api/getEmployeeCurrentShifts',data,this.httpOptions)
   }
 }

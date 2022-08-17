@@ -71,18 +71,18 @@ export class LateAttendanceReportComponent implements OnInit {
       }
     })
   }
-  
-  
+
+
   getEmployeelist() {
     let obj = {
       "rm_id": this.userSession.id,
     };
-    
+
     this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) => {
       if (res.status) {
         this.employeelist = [];
         this.employeelist = res.data;
-        this.searchForm.controls.Users.setValue('0');
+        this.searchForm.controls.user.setValue('0');
       }
 
     });
