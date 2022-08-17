@@ -78,7 +78,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   dataSource: MatTableDataSource<any> = <any>[];
   dsFamily: MatTableDataSource<any> = <any>[];
   employeedata: any = [];
-  empdisplayedColumns: string[] = ['employeeid', 'employeename', 'status', 'Action'];
+  empdisplayedColumns: string[] = ['employeeid', 'firstname','middlename', 'lastname','status', 'Action'];
   employeedetails: any = [];
   page = 1;
   count = 0;
@@ -327,7 +327,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
       else{
         this.isself = false;
       }
-      
+
 
     })
 
