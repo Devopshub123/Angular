@@ -18,9 +18,9 @@
           </div>
         </ng-container>
       </mat-select>
-        <!--<mat-error class="con-error" *ngIf="leaveRequestForm.controls.leaveTypeId.errors?.required">-->
-          <!--{{msgLM3}}-->
-        <!--</mat-error>-->
+        <mat-error class="con-error" *ngIf="leaveRequestForm.controls.leaveTypeId.errors?.required">
+          {{msgLM3}}
+        </mat-error>
       </mat-form-field>
     </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" *ngIf="leaveRequestForm.controls.leaveTypeId.value == 9||8" >

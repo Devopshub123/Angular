@@ -154,6 +154,7 @@ export class UserLeaveRequestComponent implements OnInit {
          * Event based leaves getting max number of leaves eligible per term
          **/
         if (this.leaveRequestForm.controls.leaveTypeId.value == '5' || '6' || '7' || '8') {
+          console.log("inside functions")
           this.getMaxCountPerTermValue();
 
         }
@@ -289,6 +290,15 @@ async  getLeavesTypeInfo() {
         if (result.status) {
           this.leavesTypeData = this.leaveTypes(result.data);
           this.leaveRequestForm.controls.leaveTypeId.setValue(this.leaveData?this.leaveData.leavetypeid.toString():'',{ emitEvent: false });
+
+          /**
+           * Event based leaves getting max number of leaves eligible per term
+           **/
+          if (this.leaveRequestForm.controls.leaveTypeId.value == '5' || '6' || '7' || '8') {
+            console.log("inside functions")
+            this.getMaxCountPerTermValue();
+
+          }
           for (let i = 0; i < this.leavesTypeData.length; i++) {
             this.existingCount[this.leavesTypeData[i].id] = this.leavesTypeData[i].leavetypecount;
           }
@@ -331,6 +341,7 @@ async  getLeavesTypeInfo() {
 
 
         this.leaveRequestForm.get("fromDate").setValue(this.leaveData?new Date(this.leaveData.fromdate):'',{emitEvent:false})
+
 
         // if(this.leaveData && (!this.leaveRequestForm.controls.toDateHalf.value || !this.leaveRequestForm.controls.fromDateHalf.value )){
         //   if(this.leaveData.leavetypeid == 9){
@@ -394,6 +405,10 @@ async  getLeavesTypeInfo() {
 
   number:number=0;
   cancel(val:any){
+
+    if(this.leaveData){
+      this.router.navigate([this.leaveData.URL])
+    }
     // this.leaveRequestForm.reset();
     // this.leaveRequestForm.clearValidators();
     // this.leaveRequestForm.markAsPristine();
@@ -981,7 +996,9 @@ async  getLeavesTypeInfo() {
         // this.newLeaveRequest.toDate= new Date(featureDate.setDate(featureDate.getDate() + this.maxCountPerTermValue+1))
         this.leaveRequestForm.controls.toDate.setValue(new Date(featureDate.setDate(featureDate.getDate() + this.maxCountPerTermValue+1)),{emitEvent:false})
       }else{
+
         // this.newLeaveRequest.toDate= new Date(featureDate.setDate(featureDate.getDate() + this.maxCountPerTermValue))
+
         this.leaveRequestForm.controls.toDate.setValue(new Date(featureDate.setDate(featureDate.getDate() + this.maxCountPerTermValue)))
 
         // this.changeToDate(this.newLeaveRequest.toDate)
