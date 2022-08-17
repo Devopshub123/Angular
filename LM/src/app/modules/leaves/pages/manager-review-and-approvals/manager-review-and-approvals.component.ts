@@ -37,6 +37,9 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    if(!this.leaveInfo.leaveData){
+      this.router.navigate(['/LeaveManagement/ManagerDashboard'])
+    }
     this.pendingapprove = new PendingApprovalsComponent(this.LM,this.router,this.dialog,this.spinner);
     this.compoffPendingapprove = new PendingCompoffComponent(this.LM,this.dialog,this.router,this.spinner);
     this.cancellationapprove = new LeavesForCancellationComponent(this.LM,this.router,this.dialog,this.spinner);
