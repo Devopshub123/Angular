@@ -52,12 +52,24 @@
   .custom-mob-icons {
     width: 75%;
     justify-content: initial !important;
+    margin-left:40px;
   }
 
   /* rotate caret on hover */
   .dropdown-menu > li > a:hover:after {
     text-decoration: underline;
     transform: rotate(-90deg);
+  }
+  .custom-mob-main-header {
+    display: grid;
+    min-height: 8% !important;
+    margin-top: -14px !important;
+  }
+  .custom-mob-img-circle {
+    margin-left: 65px;
+  }
+  .custom-mob-ul {
+    margin-left:-153px;
   }
 }
 
