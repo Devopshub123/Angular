@@ -1,10 +1,11 @@
-import { ReviewAndApprovalsComponent } from './../dialog/review-and-approvals/review-and-approvals.component';
+// import { ReviewAndApprovalsComponent } from './../dialog/review-and-approvals/review-and-approvals.component';
+import { ReviewAndApprovalsComponent } from '../../dialog/review-and-approvals/review-and-approvals.component';
 import { DialogComponent } from 'src/app/modules/attendance/dialog/dialog.component';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { LeavesService } from '../leaves.service';
+import { LeavesService } from '../../leaves.service';
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
@@ -151,6 +152,7 @@ openDialogdelete(): void {
 
 
   edit(leave:any){
+    leave.URL = '/LeaveManagement/UserLeaveHistory';
     leave.isdashboard = true;
     this.router.navigate(['/LeaveManagement/LeaveRequest'],{state:{leaveData:leave}});
   }

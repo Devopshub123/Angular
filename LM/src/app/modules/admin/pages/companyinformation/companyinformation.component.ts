@@ -3,6 +3,7 @@ import { EmployeeMasterService } from 'src/app/services/employee-master-service'
 import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { MatDialog } from '@angular/material/dialog'; 
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.directive';
 import { PopupComponent, PopupConfig } from '../../../../pages/popup/popup.component';
@@ -23,10 +24,26 @@ export class CompanyinformationComponent implements OnInit {
   isview:boolean=false;
   isadd:boolean=true;
   isedit:boolean=false;
+  msgLM1:any;
+  msgLM2:any;
+  msgLM3:any;
+  msgLM20:any
+  msgLM21:any;
+  msgLM22:any;
+  msgLM57:any;
+  msgLM58:any;
 
-  constructor(private formBuilder: FormBuilder,private router: Router,private LMS:CompanySettingService,private dialog: MatDialog) { }
+  constructor(private formBuilder: FormBuilder,private router: Router,private LMS:CompanySettingService,private dialog: MatDialog,private ts: LoginService) { }
 
   ngOnInit(): void {
+    this.getErrorMessages('LM1')
+    this.getErrorMessages('LM2')
+    this.getErrorMessages('LM3')
+    this.getErrorMessages('LM20')
+    this.getErrorMessages('LM21')
+    this.getErrorMessages('LM22')
+    this.getErrorMessages('LM57')
+    this.getErrorMessages('LM58')
     this.getCountry();
     this.getCompanyInformation();
     this.companyForm=this.formBuilder.group(
@@ -96,7 +113,7 @@ export class CompanyinformationComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Company Information updated successfully'
+          data: this.msgLM58
         });
        
         this.getCompanyInformation()
@@ -105,7 +122,7 @@ export class CompanyinformationComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Unable to update Company Information'
+          data: this.msgLM21
         });
 
       }
@@ -138,14 +155,14 @@ export class CompanyinformationComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Company Information added successfully'
+          data: this.msgLM57
         });
 
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Unable to add Company Information'
+            data: this.msgLM20
           });     
         }
       })
@@ -209,6 +226,41 @@ export class CompanyinformationComponent implements OnInit {
 
     })
 
+  }
+  getErrorMessages(errorCode:any) {
+
+    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+
+      if(result.status && errorCode == 'LM1')
+      {
+        this.msgLM1 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM2')
+      {
+        this.msgLM2 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM3')
+      {
+        this.msgLM3 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM20')
+      {
+        this.msgLM20 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM21')
+      {
+        this.msgLM21 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM57')
+      {
+        this.msgLM57 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM58')
+      {
+        this.msgLM58 = result.data[0].errormessage
+      }
+     
+    })
   }
 
 }

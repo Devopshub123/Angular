@@ -9,8 +9,8 @@ import {LeaveHistoryComponent} from "./pages/leave-history/leave-history.compone
 import {CompOffHistoryComponent} from "./pages/comp-off-history/comp-off-history.component";
 import {DetailedReportForManagerComponent} from "./pages/detailed-report-for-manager/detailed-report-for-manager.component";
 import {SummaryReportForManagerComponent} from "./pages/summary-report-for-manager/summary-report-for-manager.component";
-import { UserLeaveHistoryComponent } from './user-leave-history/user-leave-history.component';
-import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balance.component';
+import { UserLeaveHistoryComponent } from './pages/user-leave-history/user-leave-history.component';
+import { UserLeaveBalanceComponent } from './pages/user-leave-balance/user-leave-balance.component';
 import {ManagerDashboardCalenderComponent} from "./pages/manager-dashboard-calender/manager-dashboard-calender.component";
 import { UserCompoffComponent } from './pages/user-compoff/user-compoff.component';
 import {EditProfileComponent} from "./pages/edit-profile/edit-profile.component";

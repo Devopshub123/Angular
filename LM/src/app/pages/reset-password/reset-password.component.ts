@@ -28,6 +28,7 @@ export class ResetPasswordComponent implements OnInit {
   msgLM2:any;
   msgLM4:any;
   msgLM5:any;
+  msgLM56:any;
   constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private activatedRoute: ActivatedRoute,private tss:LoginService,private router: Router,) { }
 
   ngOnInit() {
@@ -66,7 +67,7 @@ export class ResetPasswordComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Password change succesfully'
+            data: this.msgLM56
           });
           sessionStorage.removeItem('user')
           this.router.navigate(['/Login']);
@@ -117,6 +118,10 @@ export class ResetPasswordComponent implements OnInit {
       else if(result.status && errorCode == 'LM5')
       {
         this.msgLM5 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM55')
+      {
+        this.msgLM56 = result.data[0].errormessage
       }
     
      

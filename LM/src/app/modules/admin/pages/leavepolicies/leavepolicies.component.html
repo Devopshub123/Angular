@@ -184,7 +184,7 @@
                                 </ng-container>
                             </mat-select>
                             <mat-error class="con-error" *ngIf="addleaveForm.controls.leaveid.errors?.required">
-                                Please select an option
+                                {{msgLM3}}
                             </mat-error>
                             
                         </mat-form-field>
@@ -241,7 +241,7 @@
                                             <mat-form-field appearance="outline" >
                                             <input type="text"   onlyNumber formControlName="LEAVES_MAX_COUNT_PER_YEAR" matInput placeholder="" maxlength="2">
                                             <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.errors?.required">
-                                                This field required
+                                                {{msgLM1}}
                                             </mat-error>
                                             </mat-form-field>
                                         </div>
@@ -256,7 +256,7 @@
                                                 </ng-container>
                                             </mat-select>
                                             <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_CREDIT_FREQUENCY.errors?.required">
-                                                Please select an option
+                                                {{msgLM3}}
                                             </mat-error>
                                         </mat-form-field>
 
@@ -272,7 +272,7 @@
                                                 </ng-container>
                                             </mat-select>
                                             <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_WEEKENDS_INCLUDED.errors?.required">
-                                                Please select an option
+                                                {{msgLM3}}
                                             </mat-error>
                                         </mat-form-field>
 
@@ -288,7 +288,7 @@
                                                 </ng-container>
                                             </mat-select>
                                             <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_COMPANY_HOLIDAYS_INCLUDED.errors?.required">
-                                                Please select an option
+                                                {{msgLM3}}
                                             </mat-error>
                                         </mat-form-field>
 
@@ -296,59 +296,59 @@
                                         <div *ngIf="data.rulename == 'LEAVES_MAX_CAP_FOR_ONE_INSTANCE'">
                                             <mat-form-field  appearance="outline">
                                             <input required type="text"  onlyNumber formControlName="LEAVES_MAX_CAP_FOR_ONE_INSTANCE" matInput placeholder="" maxlength="2" >
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MAX_CAP_FOR_ONE_INSTANCE.errors?.required">This field required</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MAX_CAP_FOR_ONE_INSTANCE.errors?.required">{{msgLM1}}</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_MIN_SERVICE_ELIGIBILITY'">
                                             <mat-form-field appearance="outline">
                                             <input required type="text" onlyNumber formControlName="LEAVES_MIN_SERVICE_ELIGIBILITY" matInput placeholder="" required maxlength="2" >
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MIN_SERVICE_ELIGIBILITY.errors?.required">This field required</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MIN_SERVICE_ELIGIBILITY.errors?.required">{{msgLM1}}</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_MIN_DAYS_PRIOR_APPLICATION'">
                                             <mat-form-field appearance="outline">
                                             <input required type="text"  onlyNumber formControlName="LEAVES_MIN_DAYS_PRIOR_APPLICATION" matInput placeholder="" maxlength="2" >
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MIN_DAYS_PRIOR_APPLICATION.errors?.required">This field required</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MIN_DAYS_PRIOR_APPLICATION.errors?.required">{{msgLM1}}</mat-error>
                                            </mat-form-field>
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_COUNT_TO_BE_CARRIED_FORWARD'">
                                             <mat-form-field appearance="outline">
                                             <input required type="text"  onlyNumber formControlName="LEAVES_COUNT_TO_BE_CARRIED_FORWARD" matInput placeholder="" maxlength="2" >
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_COUNT_TO_BE_CARRIED_FORWARD.errors?.required">This field required</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_COUNT_TO_BE_CARRIED_FORWARD.errors?.required">{{msgLM1}}</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_MAX_AVAIL_COUNT'">
                                             <mat-form-field appearance="outline">
                                             <input required type="text"  onlyNumber formControlName="LEAVES_MAX_AVAIL_COUNT" matInput placeholder="" maxlength="2" >
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MAX_AVAIL_COUNT.errors?.required">This field required</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MAX_AVAIL_COUNT.errors?.required">{{msgLM1}}</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD'">
                                             <mat-form-field appearance="outline">
                                             <input required type="text"  onlyNumber formControlName="LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD" matInput placeholder="" maxlength="2" >
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD.errors?.required">This field required</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD.errors?.required">{{msgLM1}}</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_GAP_BETWEEN_TERMS'">
                                             <mat-form-field appearance="outline">
                                             <input required type="text"  onlyNumber formControlName="LEAVES_GAP_BETWEEN_TERMS" matInput placeholder="" maxlength="2">
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.errors?.required">This field required</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.errors?.required">{{msgLM1}}</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div *ngIf="data.rulename == 'MAX_AVAIL_COUNT'">
                                             <mat-form-field appearance="outline">
                                             <input required type="text"  onlyNumber formControlName="MAX_AVAIL_COUNT" matInput placeholder="" maxlength="2" >
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.MAX_AVAIL_COUNT.errors?.required">This field required</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.MAX_AVAIL_COUNT.errors?.required">{{msgLM1}}</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_MAX_COUNT_PER_TERM'">
                                             <mat-form-field appearance="outline" *ngIf="isterm">
                                             <input required type="text"  onlyNumber formControlName="LEAVES_MAX_COUNT_PER_TERM" matInput placeholder="" maxlength="3" >
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.errors?.required">This field required</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.errors?.required">{{msgLM1}}</mat-error>
                                             </mat-form-field>
                                             <mat-form-field appearance="outline" *ngIf="!isterm">
                                                 <input required type="text"  onlyNumber formControlName="LEAVES_MAX_COUNT_PER_TERM" matInput placeholder="" maxlength="2" >
-                                                <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.errors?.required">This field required</mat-error>
+                                                <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.errors?.required">{{msgLM1}}</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div *ngIf="data.rulename == 'LEAVES_ELIGIBLE_ON_WEEKOFFS'">
@@ -361,7 +361,7 @@
                 
                                                 </ng-container>
                                             </mat-select>
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_ELIGIBLE_ON_WEEKOFFS.errors?.required">Please select an option</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_ELIGIBLE_ON_WEEKOFFS.errors?.required">{{msgLM3}}</mat-error>
                                            </mat-form-field>
 
                                         </div>
@@ -375,7 +375,7 @@
                 
                                                 </ng-container>
                                             </mat-select>
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS.errors?.required">Please Select an option</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS.errors?.required">{{msgLM3}}</mat-error>
                                         </mat-form-field>
 
                                         </div>
@@ -389,26 +389,26 @@
                 
                                                 </ng-container>
                                             </mat-select>
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE.errors?.required">Please select an option</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE.errors?.required">{{msgLM3}}</mat-error>
                                         </mat-form-field>
 
                                         </div>
                                         <div *ngIf="data.rulename == 'COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY'">
                                             <mat-form-field appearance="outline">
                                             <input required type="text" style="width: 60%;" onlyNumber formControlName="COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY" matInput placeholder="" maxlength="2">
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY.errors?.required">Please select an option</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY.errors?.required">{{msgLM3}}</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div *ngIf="data.rulename == 'COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION'">
                                             <mat-form-field appearance="outline">
                                             <input required type="text" style="width: 60%;" onlyNumber formControlName="COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION" matInput placeholder="" maxlength="3" >
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION.errors?.required">This field required</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION.errors?.required">{{msgLM1}}</mat-error>
                                             </mat-form-field>
                                         </div>
                                         <div *ngIf="data.rulename == 'COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS'">
                                         <mat-form-field appearance="outline">
                                             <input required type="text" style="width: 60%;" onlyNumber formControlName="COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS" matInput placeholder="" >
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS.errors?.required">This field required</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS.errors?.required">{{msgLM1}}</mat-error>
                                         </mat-form-field>
                                         </div>
                                         <div *ngIf="data.rulename == 'leavecolor'">
@@ -418,25 +418,25 @@
                                         <div *ngIf="data.rulename == 'LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY'">
                                         <mat-form-field appearance="outline">
                                             <input required style="width: 50%;" matInput formControlName="LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY"  type="text" maxlength="2" >
-                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY.errors?.required">This field required</mat-error>
+                                            <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY.errors?.required">{{msgLM1}}</mat-error>
                                         </mat-form-field>
                                         </div>
                                        <div *ngIf="data.rulename == 'SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS'">
                                         <mat-form-field appearance="outline">
                                         <input required style="width: 50%;" matInput formControlName="SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS"  type="text" maxlength="2" >
-                                        <mat-error class="con-error" *ngIf="addleaveForm.controls.SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS.errors?.required">This field required</mat-error>
+                                        <mat-error class="con-error" *ngIf="addleaveForm.controls.SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS.errors?.required">{{msgLM1}}</mat-error>
                                         </mat-form-field>
                                       </div>
                                       <div *ngIf="data.rulename == 'LEAVES_LAPSE_PERIOD'">
                                        <mat-form-field appearance="outline">
                                         <input required style="width: 50%;" matInput formControlName="LEAVES_LAPSE_PERIOD"  type="text" maxlength="2">
-                                        <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_LAPSE_PERIOD.errors?.required">This field required</mat-error>
+                                        <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_LAPSE_PERIOD.errors?.required">{{msgLM1}}</mat-error>
                                       </mat-form-field>  
                                     </div>
                                       <div *ngIf="data.rulename == 'LEAVES_ELIGIBILITY_MINIMUM_HOURS'">
                                         <mat-form-field appearance="outline">
                                         <input required  matInput formControlName="LEAVES_ELIGIBILITY_MINIMUM_HOURS"  type="text" maxlength="2" >
-                                        <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_ELIGIBILITY_MINIMUM_HOURS.errors?.required">This field required</mat-error>
+                                        <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_ELIGIBILITY_MINIMUM_HOURS.errors?.required">{{msgLM1}}</mat-error>
                                      </mat-form-field> 
                                     </div>
                                       

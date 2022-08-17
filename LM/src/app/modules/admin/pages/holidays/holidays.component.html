@@ -13,7 +13,7 @@
                         <mat-label>Holiday Name</mat-label>
                         <input formControlName="holiday" matInput placeholder="" required maxlength="100">
                         <mat-error class="con-error" *ngIf="HolidayForm.controls.holiday.errors?.required">
-                          This field is required
+                            {{msgLM1}}
                       </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -24,7 +24,7 @@
                         </mat-datepicker-toggle>
                         <mat-datepicker #date></mat-datepicker>
                         <mat-error class="con-error" *ngIf="HolidayForm.controls.date.errors?.required">
-                            Please select an option
+                            {{msgLM3}}
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -65,7 +65,7 @@
                           </mat-option>
                         </mat-select>
                         <mat-error class="con-error" *ngIf="HolidayForm.controls.branch.errors?.required">
-                                Please select an option
+                                {{msgLM3}}
                             </mat-error>
 
 

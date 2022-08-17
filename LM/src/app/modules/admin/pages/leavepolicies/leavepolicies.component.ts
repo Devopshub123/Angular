@@ -6,6 +6,7 @@ import { LeavePoliciesService } from 'src/app/services/leave-policies.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AddleavepopupComponent } from '../addleavepopup/addleavepopup.component';
 import { Router, RouterModule } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 @Component({
   selector: 'app-leavepolicies',
   templateUrl: './leavepolicies.component.html',
@@ -29,6 +30,19 @@ export class LeavepoliciesComponent implements OnInit {
   isadvanced:boolean=false;
   isaddnew:boolean=true;
   isaddnewleave:boolean =false;
+  msgLM1:any;
+  msgLM2:any;
+  msgLM3:any;
+  msgLM23:any
+  msgLM21:any;
+  msgLM22:any;
+  msgLM110:any;
+  msgLM111:any;
+  msgLM133:any;
+  msgLM134:any;
+  msgLM135:any;
+  msgLM136:any;
+
   dataSource: MatTableDataSource<any>=<any>[];
   dataSource2: MatTableDataSource<any>=<any>[];
   dataSource3: MatTableDataSource<any>=<any>[];
@@ -36,6 +50,7 @@ export class LeavepoliciesComponent implements OnInit {
   actionflag:boolean=false;
   ischecked:boolean=false;
   tabledata:boolean=false;
+  editingleavetype:boolean=false;
   arrayValue:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}]
   arrayValues:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}]
   arrayValuess:any=[{Value:'1',name:'Monthly'},{Value:'3',name:'Quarterly'},{Value:'6',name:'Half-Yearly'},{Value:'12',name:'Yearly'}]
@@ -89,12 +104,22 @@ export class LeavepoliciesComponent implements OnInit {
   compoffMaxBackDatedDayspermittedForSubmission:boolean=false;
   compoffThresholdDaysToLapesOrConvertLeavesToPerks:boolean=false;
   ispredefined:boolean=false;
-  msgLM110:any;
-  msgLM111:any;
  
-  constructor(private LM:LeavePoliciesService,private router: Router,private dialog: MatDialog,private formBuilder: FormBuilder,) { }
+ 
+  constructor(private LM:LeavePoliciesService,private router: Router,private ts:LoginService,private dialog: MatDialog,private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
+    this.getErrorMessages('LM1')
+    this.getErrorMessages('LM2')
+    this.getErrorMessages('LM3')
+    this.getErrorMessages('LM23')
+    this.getErrorMessages('LM21')
+    this.getErrorMessages('LM22')
+    this.getErrorMessages('LM110')
+    this.getErrorMessages('LM111')
+    this.getErrorMessages('LM133')
+    this.getErrorMessages('LM134')
+    this.getErrorMessages('LM135')
     this.getLeaveRules();
     this.getLeavesTypeInfo();
     this.getLeavesDetails();
@@ -341,7 +366,7 @@ export class LeavepoliciesComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Advanceleave type activated successfully.'
+          data: this.msgLM133
         });
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
         this.router.navigate(["/Admin/Leavepolicies"]));  
@@ -351,7 +376,7 @@ export class LeavepoliciesComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Unable to activate advanceleave.'
+          data: this.msgLM134
         });
 
       }
@@ -456,7 +481,7 @@ export class LeavepoliciesComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
-              data: 'Leave type deactivated successfully'
+              data: this.msgLM135
             });
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
               this.router.navigate(["/Admin/Leavepolicies"]));
@@ -465,7 +490,7 @@ export class LeavepoliciesComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
-              data: 'Leave type activated successfully'
+              data: this.msgLM133
             });
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
               this.router.navigate(["/Admin/Leavepolicies"]));  
@@ -661,6 +686,7 @@ export class LeavepoliciesComponent implements OnInit {
   }
   /**Edit active status leave */
   editLeaveTypeName(leave:any){
+    this.editingleavetype = true;
     console.log(leave)
     if(leave.id == 1){
       this.getLeavesDetailsedit(leave);
@@ -848,23 +874,36 @@ export class LeavepoliciesComponent implements OnInit {
   if( this.validateCustomLeave(info.ruleData)) {
     console.log("hellooo",this.leaveConfig,this.editLeaveInfo)
     // this.LM.updateLeaveDisplayName(this.leaveConfig).subscribe((data:any)=>{})
+    this.LM.setToggleLeaveType(infodata).subscribe((data) => {})
     console.log("afetr",info)
     this.LM.setLeaveConfigure(info).subscribe((data) => {
       // this.isEditLeaveType = false;
       if (data.status) {
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: 'Leave type activated successfully.'
-        });
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                this.router.navigate(["/Admin/Leavepolicies"])); 
+        if(this.editingleavetype){
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: this.msgLM111
+          });
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                  this.router.navigate(["/Admin/Leavepolicies"]));
+        }
+        else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: this.msgLM133
+          });
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                  this.router.navigate(["/Admin/Leavepolicies"]));
+        }
+         
       }
       else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Unable to activate leave type. '
+          data: this.msgLM134
         });
       }
     });
@@ -1168,6 +1207,53 @@ hexToRgb(hex:any) {
    }
 
     }
+  }
+  getErrorMessages(errorCode:any) {
+
+    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+
+      if(result.status && errorCode == 'LM1')
+      {
+        this.msgLM1 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM2')
+      {
+        this.msgLM2 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM3')
+      {
+        this.msgLM3 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM23')
+      {
+        this.msgLM23 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM22')
+      {
+        this.msgLM22 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM110')
+      {
+        this.msgLM110 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM111')
+      {
+        this.msgLM111 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM133')
+      {
+        this.msgLM133 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM134')
+      {
+        this.msgLM134 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM135')
+      {
+        this.msgLM135 = result.data[0].errormessage
+      }
+     
+    })
   }
 
 }

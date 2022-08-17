@@ -51,7 +51,7 @@
                         <mat-label>Branch Location</mat-label>
                         <input formControlName="branch" matInput placeholder=""  maxlength="100">
                         <!-- <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.required">
-                          This field is required
+                          {{msgLM1}}
                         </mat-error> -->
                     </mat-form-field>
                     
@@ -70,7 +70,7 @@
                             </ng-container>
                         </mat-select>
                         <mat-error class="con-error" *ngIf="worklocationForm.controls.country.errors?.required">
-                            Please select an option
+                            {{msgLM3}}
                         </mat-error>
                     </mat-form-field>
       
@@ -89,7 +89,7 @@
                         </mat-select>
                         <mat-error class="con-error" *ngIf="worklocationForm.controls.state
                         .errors?.required">
-                            Please select an option
+                            {{msgLM3}}
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -104,7 +104,7 @@
                             </ng-container>
                         </mat-select>
                         <mat-error class="con-error" *ngIf="worklocationForm.controls.city.errors?.required">
-                            Please select an option
+                            {{msgLM3}}
                         </mat-error>
                     </mat-form-field>
                     
@@ -127,7 +127,7 @@
                         <mat-label>Seed</mat-label>
                         <input type="text" onlyNumber formControlName="seed" matInput placeholder="" required maxlength="11">
                         <mat-error class="con-error" *ngIf="worklocationForm.controls.seed.errors?.required">
-                          This field is required
+                          {{msgLM1}}
                         </mat-error>
                     </mat-form-field>
                  

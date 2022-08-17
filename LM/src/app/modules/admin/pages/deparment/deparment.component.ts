@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { LeavesService } from 'src/app/modules/leaves/leaves.service';
 
 export interface UserData {
   deptname: string;
@@ -36,6 +37,18 @@ export class DeparmentComponent implements OnInit {
   isSave: boolean = false;
   enable: any = null;
   valid: boolean = false;
+  msgLM1:any;
+  msgLM23:any
+  msgLM26:any;
+  msgLM27:any;
+  msgLM57:any;
+  msgLM60:any;
+  msgLM122:any;
+  msgLM123:any;
+  msgLM124:any;
+  msgLM125:any
+  msgLM126:any;
+  msgLM127:any;
   displayedColumns: string[] = ['department', 'status', 'Action'];
   departmentData: any = [];
   arrayValue: any = [{ Value: 'Active', name: 'Active ' }, { Value: 'Inactive', name: 'Inactive' }];
@@ -46,11 +59,23 @@ export class DeparmentComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog, private LM: CompanySettingService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog, private LM: CompanySettingService,private ts:LoginService) {
 
   }
 
   ngOnInit(): void {
+    this.getErrorMessages('LM1')
+    this.getErrorMessages('LM23')
+    this.getErrorMessages('LM26')
+    this.getErrorMessages('LM27')
+    this.getErrorMessages('LM57')
+    this.getErrorMessages('LM60')
+    this.getErrorMessages('LM122')
+    this.getErrorMessages('LM123')
+    this.getErrorMessages('LM124')
+    this.getErrorMessages('LM125')
+    this.getErrorMessages('LM126')
+    this.getErrorMessages('LM127')
     this.getDepartments();
     this.departmentForm = this.formBuilder.group(
       {
@@ -97,7 +122,7 @@ export class DeparmentComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: 'Department added successfully.'
+              data: this.msgLM60
             });
 
 
@@ -105,7 +130,7 @@ export class DeparmentComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: 'Department already existed.'
+              data: this.msgLM26
             });
           }
         })
@@ -114,7 +139,7 @@ export class DeparmentComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: 'Department already existed.'
+          data: this.msgLM127
         });
 
 
@@ -157,7 +182,7 @@ export class DeparmentComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: 'Department status updated successfully.'
+          data: this.msgLM125 
         });
 
       } else {
@@ -165,7 +190,7 @@ export class DeparmentComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: 'This department have active employees. So we are unable to inactivate this department now. Please move those employee to another department and try again.'
+          data: this.msgLM124
         });
       }
     })
@@ -195,7 +220,7 @@ export class DeparmentComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: 'Department updated succesfully.'
+            data: this.msgLM126 
           });
           this.getDepartments();
 
@@ -203,7 +228,7 @@ export class DeparmentComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: 'Department already existed.'
+            data: this.msgLM27
           });
         }
       })
@@ -213,7 +238,7 @@ export class DeparmentComponent implements OnInit {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
-        data: 'Department already existed.'
+        data: this.msgLM127
       });
 
     }
@@ -249,6 +274,57 @@ export class DeparmentComponent implements OnInit {
 
       return [5, 10, 20];
     }
+  }
+  getErrorMessages(errorCode:any) {
+
+    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+
+      if(result.status && errorCode == 'LM1')
+      {
+        this.msgLM1 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM26')
+      {
+        this.msgLM26 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM27')
+      {
+        this.msgLM27 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM57')
+      {
+        this.msgLM57 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM60')
+      {
+        this.msgLM60 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM122')
+      {
+        this.msgLM122 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM123')
+      {
+        this.msgLM123 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM124')
+      {
+        this.msgLM124 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM125')
+      {
+        this.msgLM125 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM126')
+      {
+        this.msgLM126 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM127')
+      {
+        this.msgLM127 = result.data[0].errormessage
+      }
+     
+    })
   }
 
 

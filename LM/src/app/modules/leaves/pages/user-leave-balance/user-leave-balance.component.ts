@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LeavesService } from '../leaves.service';
+import { LeavesService } from '../../leaves.service';
 import {Router} from "@angular/router";
 
 @Component({
