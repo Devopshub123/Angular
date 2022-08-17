@@ -848,6 +848,7 @@ export class LeavepoliciesComponent implements OnInit {
   if( this.validateCustomLeave(info.ruleData)) {
     console.log("hellooo",this.leaveConfig,this.editLeaveInfo)
     // this.LM.updateLeaveDisplayName(this.leaveConfig).subscribe((data:any)=>{})
+    this.LM.setToggleLeaveType(infodata).subscribe((data) => {})
     console.log("afetr",info)
     this.LM.setLeaveConfigure(info).subscribe((data) => {
       // this.isEditLeaveType = false;
