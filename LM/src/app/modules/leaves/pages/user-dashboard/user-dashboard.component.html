@@ -25,6 +25,9 @@
                                         <img src="assets/img/earned-lave-icon.png" *ngIf="leave.leavename == 'Earned Leave'" alt="" title="" />
                                         <img src="assets/img/sick-leave-icon.png" *ngIf="leave.leavename == 'Bereavement Leave'" alt="" title="" />
                                         <img src="assets/img/earned-lave-icon.png" *ngIf="leave.leavename == 'Marriage Leave'" alt="" title="" />
+                                        <img src="assets/img/earned-lave-icon.png" *ngIf="leave.leavename == 'Loss of Pay Leave'" alt="" title="" />
+                                        <img src="assets/img/earned-lave-icon.png" *ngIf="leave.leavename == 'Paternity Leave'" alt="" title="" />
+                                        <img src="assets/img/earned-lave-icon.png" *ngIf="leave.leavename == 'Comp Off Leave'" alt="" title="" />
                                     </div>
 
                                     <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">
@@ -226,11 +229,11 @@
     <mat-card>
         <mat-card-header class="">
             <div style="text-align:center">
-                <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Cancelled'"> Cancelled Leave </mat-card-title>
-                <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Deleted'"> Deleted Leave </mat-card-title>
-                <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Approved'"> Approved Leave </mat-card-title>
-                <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Submitted'"> Submitted Leave </mat-card-title>
-                <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Rejected'"> Reject Leave </mat-card-title>
+                <mat-card-title class="title" >{{viewdata.leavestatus+' Leave'}}  </mat-card-title>
+                <!--<mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Deleted'"> Deleted Leave </mat-card-title>-->
+                <!--<mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Approved'"> Approved Leave </mat-card-title>-->
+                <!--<mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Submitted'"> Submitted Leave </mat-card-title>-->
+                <!--<mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Rejected'"> Reject Leave </mat-card-title>-->
             </div>
 
 

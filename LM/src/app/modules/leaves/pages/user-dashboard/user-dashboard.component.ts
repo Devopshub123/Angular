@@ -176,23 +176,9 @@ export class UserDashboardComponent implements OnInit {
     };
   }
   getleavehistory(page:any,size:any){
-    this.LM.getleavehistory(this.usersession.id,1,1000).subscribe((result:any)=>{
+    this.LM.getleavehistory(this.usersession.id,1,5).subscribe((result:any)=>{
       this.allleaves = result;
-      for(let i= 0; i<result.data.length;i++){
-        if(result.data.length > 5){
-          if(i === 5){
-            break;
-          }else {
-            this.leavedata.push(result.data[i])
-
-          }
-
-        }
-        else{
-          this.leavedata.push(result.data[i])
-        }
-
-      }
+      this.leavedata= result.data;
       this.dataSource = new MatTableDataSource(this.leavedata);
 
 
@@ -214,7 +200,7 @@ export class UserDashboardComponent implements OnInit {
         for(let i =0; i<result.data[0].length; i++){
           if ( result.data[0][i].leavename === "Marriage Leave" && this.usersession.maritalstatus === "Single") {
             this.leavebalance.push( result.data[0][i])
-    
+
           } else if ( result.data[0][i].leavename === 'Maternity Leave'&& this.usersession.maritalstatus === "Married") {
             if (this.usersession.gender === 'Female') {
               this.leavebalance.push( result.data[0][i])
@@ -253,6 +239,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
 view(data:any){
+    console.log("kkvjk",data)
   this.isview=true;
   this.isdata=false;
   this.viewdata = data;
@@ -340,7 +327,7 @@ currentMonth(): void {
 }
 
   edit(leave:any){
-    leave.isdashboard = true;
+    leave.URL = '/LeaveManagement/UserDashboard';
     this.router.navigate(['/LeaveManagement/LeaveRequest'],{state:{leaveData:leave}});
   }
 }
