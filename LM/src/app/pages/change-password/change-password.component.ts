@@ -95,7 +95,7 @@ export class ChangePasswordComponent implements OnInit {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position:{top:`70px`},
                 disableClose: true,
-                data: 'Password changed successfully' 
+                data: this.msgLM56 
               });
               sessionStorage.removeItem('user')
               this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -126,32 +126,32 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
  
-  // getErrorMessages(errorCode:any) {
+  getErrorMessages(errorCode:any) {
 
-  //   this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
 
-  //     if(result.status && errorCode == 'LM1')
-  //     {
-  //       this.msgLM1 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM2')
-  //     {
-  //       this.msgLM2 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM4')
-  //     {
-  //       this.msgLM4 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM5')
-  //     {
-  //       this.msgLM5 = result.data[0].errormessage
-  //     }
-  //     else if(result.status && errorCode == 'LM56')
-  //     {
-  //       this.msgLM56 = result.data[0].errormessage
-  //     }
+      if(result.status && errorCode == 'LM1')
+      {
+        this.msgLM1 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM2')
+      {
+        this.msgLM2 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM4')
+      {
+        this.msgLM4 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM5')
+      {
+        this.msgLM5 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM56')
+      {
+        this.msgLM56 = result.data[0].errormessage
+      }
      
-  //   })
-  // }
+    })
+  }
 
 }

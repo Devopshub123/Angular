@@ -11,17 +11,17 @@
                     <mat-label>Full Company Name</mat-label>
                     <input formControlName="companyname" matInput [readonly]="isview" placeholder="" maxlength="100" required>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.companyname.errors?.required">
-                      This field is required
+                      {{msgLM1}}
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Company website</mat-label>
                     <input formControlName="website" required matInput [readonly]="isview"  placeholder="" maxlength="100"  >
                     <mat-error class="con-error" *ngIf="companyForm.controls.website.errors?.required">
-                        This field is required
+                        {{msgLM1}}
                   </mat-error>
                   <!-- <mat-error class="con-error" *ngIf="companyForm.controls.website.errors?.pattern">
-                    Please enter valid data
+                    {{msgLM2}}
                   </mat-error> -->
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
@@ -34,7 +34,7 @@
                         </ng-container>
                     </mat-select>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.country.errors?.required">
-                        Please select an option
+                        {{msgLM3}}
                     </mat-error>
                 </mat-form-field>   
             </div>
@@ -44,17 +44,17 @@
                     <mat-label>Primary Contact</mat-label>
                     <input type="text" formControlName="contact" onlyNumber matInput [readonly]="isview" placeholder="" minlength="10" maxlength="10" required >
                     <mat-error class="con-error" *ngIf="  companyForm.controls.contact.errors?.required">
-                        Please select an option
+                        {{msgLM3}}
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Primary Contact Email</mat-label>
                     <input formControlName="email"  matInput [readonly]="isview" placeholder="" maxlength="100" required>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.email.errors?.required">
-                      This field is required
+                      {{msgLM1}}
                   </mat-error>
                   <mat-error class="con-error" *ngIf="  companyForm.controls.email.errors?.email">
-                    Please enter valid data
+                    {{msgLM2}}
                 </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -69,7 +69,7 @@
                         </ng-container>
                     </mat-select>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.state.errors?.required">
-                        Please select an option 
+                        {{msgLM3}} 
                     </mat-error>
                 </mat-form-field>   
             </div>
@@ -80,7 +80,7 @@
                     <input formControlName="address1" matInput [readonly]="isview"  placeholder=""  maxlength="100" required >
                     <!-- <input matInput [readonly]="isview"  value="Sushi" [formControl]="foodCtrl" *ngIf="isview"> -->
                     <mat-error class="con-error" *ngIf="  companyForm.controls.address1.errors?.required">
-                      This field is required
+                      {{msgLM1}}
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -102,7 +102,7 @@
                         </ng-container>
                     </mat-select>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.city.errors?.required">
-                        Please select an option
+                        {{msgLM3}}
                     </mat-error>
                 </mat-form-field>   
             </div>
@@ -113,7 +113,7 @@
 
                     <input type="text" onlyNumber formControlName="pincode" matInput [readonly]="isview" placeholder="" minlength="6" maxlength="6" required>             
                     <mat-error class="con-error" *ngIf="  companyForm.controls.pincode.errors?.required">
-                        This field is required
+                        {{msgLM1}}
                     </mat-error>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.pincode.errors?.maxlength || companyForm.controls.pincode.errors?.minlength">
                         This field length should be 6 digits
