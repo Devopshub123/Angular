@@ -57,7 +57,7 @@ export class EmployeDashboardComponent implements OnInit {
   currentShiftendTime = "";
   mobileQuery!: MediaQueryList;
   private _mobileQueryListener: () => void;
-  constructor(private attendanceService: AttendanceService,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router) { 
+  constructor(private attendanceService: AttendanceService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -78,13 +78,13 @@ export class EmployeDashboardComponent implements OnInit {
   }
   getEmployeeShiftDetails() {
     this.attendanceService.getShiftDetailsByEmpId(this.userSession.id).subscribe((res: any) => {
-      
+
       if (res.status) {
-        if(res.data.length>0){
-        this.shiftDetails = res.data[0];
-        this.currentShift = this.shiftDetails.shiftname;
-        this.currentShiftStartTime = this.shiftDetails.fromtime;
-        this.currentShiftendTime = this.shiftDetails.totime;
+        if (res.data.length > 0) {
+          this.shiftDetails = res.data[0];
+          this.currentShift = this.shiftDetails.shiftname;
+          this.currentShiftStartTime = this.shiftDetails.fromtime;
+          this.currentShiftendTime = this.shiftDetails.totime;
         }
       }
     })
@@ -123,10 +123,10 @@ export class EmployeDashboardComponent implements OnInit {
           }
           let item =
           {
-            title: e.present_or_absent,
+            title: e.isweekoff == null ? e.present_or_absent : e.isweekoff,
             start: e.firstlogintime != '' ? e.firstlogintime : new Date(e.attendancedate),
             // end:e.lastlogouttime !=''? e.lastlogouttime : e.attendancedate,
-            color: e.present_or_absent == 'P' ? '#32cd32' : '#FF3131',
+            color: e.isweekoff == null ? e.present_or_absent == 'P' ? '#32cd32' : '#FF3131' : '#2e0cf3',
             icon: e.present_or_absent == 'P' ? 'fa-check-circle' : 'fa-times-circle'
           }
           this.initialEvents.push(item);

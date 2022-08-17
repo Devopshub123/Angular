@@ -36,6 +36,11 @@ export class DesignationsComponent implements OnInit {
   isEdit: boolean = true;
   isSave: boolean = false;
   valid: boolean = false;
+  msgLM128:any;
+  msgLM129:any;
+  msgLM130:any
+  msgLM131:any;
+  msgLM132:any;
   displayedColumns: string[] = ['designation', 'status', 'Action'];
   designationData: any = [];
   arrayValue: any = [{ Value: 'Active', name: 'Active ' }, { Value: 'Inactive', name: 'Inactive' }];
@@ -58,6 +63,11 @@ export class DesignationsComponent implements OnInit {
     this.getErrorMessages('LM1');
     this.getErrorMessages('LM30');
     this.getErrorMessages('LM31');
+    this.getErrorMessages('LM128')
+    this.getErrorMessages('LM129')
+    this.getErrorMessages('LM130')
+    this.getErrorMessages('LM131')
+    this.getErrorMessages('LM132')
     this.designationForm = this.formBuilder.group(
       {
         designation: ["", Validators.required],
@@ -101,14 +111,14 @@ export class DesignationsComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: data.message
+              data:this.msgLM128
             });
 
           } else {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: 'Designation already existed.'
+              data: this.saveResponseMessage
             });
           }
         });
@@ -117,7 +127,7 @@ export class DesignationsComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: 'Designation already existed.'
+          data: this.msgLM129
         });
 
       }
@@ -139,7 +149,7 @@ export class DesignationsComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: 'Designation status updated successfully.'
+          data: this.msgLM131
         });
 
       } else {
@@ -147,7 +157,7 @@ export class DesignationsComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: 'This designation have active employees. So we are unable to inactivate this designation now. Please move those employee to another designation and try again.',
+          data: this.msgLM132
         });
       }
     })
@@ -191,7 +201,7 @@ export class DesignationsComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: 'Designation updated successfully.',
+            data: this.msgLM130
           });
 
 
@@ -199,7 +209,7 @@ export class DesignationsComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: 'Designation alreay existed.',
+            data: this.editResponseMessage
           });
 
         }
@@ -210,7 +220,7 @@ export class DesignationsComponent implements OnInit {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
-        data: 'Designation already existed.',
+        data: this.msgLM129
       });
     }
   }
@@ -241,6 +251,26 @@ export class DesignationsComponent implements OnInit {
       }
       else if (result.status && errorCode == 'LM31') {
         this.editResponseMessage = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM128')
+      {
+        this.msgLM128 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM129')
+      {
+        this.msgLM129 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM130')
+      {
+        this.msgLM130 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM131')
+      {
+        this.msgLM131 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM132')
+      {
+        this.msgLM132 = result.data[0].errormessage
       }
 
     })

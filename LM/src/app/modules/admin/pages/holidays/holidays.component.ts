@@ -10,7 +10,6 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
 import { MatSelect } from '@angular/material/select';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 @Component({
@@ -32,6 +31,16 @@ export class HolidaysComponent implements OnInit {
   ischecked:boolean=false;
   enable:any=null;
   selecteditems:any=[];
+  msgLM1:any;
+  msgLM2:any;
+  msgLM3:any;
+  msgLM23:any
+  msgLM49:any;
+  msgLM48:any;
+  msgLM47:any;
+  msgLM69:any;
+  msgLM106:any;
+  msgLM105:any;
   page = 1;
   count = 0;
   tableSize = 10;
@@ -44,7 +53,7 @@ export class HolidaysComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-  constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog) { }
+  constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog,private ts:LoginService) { }
 
   selectAll(select: MatSelect, values:any, array:any) {
     this.ishide = true;
@@ -66,6 +75,16 @@ export class HolidaysComponent implements OnInit {
   //   }
   // }
   ngOnInit(): void {
+    this.getErrorMessages('LM1')
+    this.getErrorMessages('LM2')
+    this.getErrorMessages('LM3')
+    this.getErrorMessages('LM23')
+    this.getErrorMessages('LM47')
+    this.getErrorMessages('LM48')
+    this.getErrorMessages('LM49')
+    this.getErrorMessages('LM69')
+    this.getErrorMessages('LM105')
+    this.getErrorMessages('LM106')
     this.getWorkLocation();
     this.getHolidays(null,null);
     this.HolidayForm=this.formBuilder.group(
@@ -111,7 +130,7 @@ export class HolidaysComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Holiday added successfully'
+          data: this.msgLM69
         });
 
 
@@ -120,7 +139,7 @@ export class HolidaysComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Unable to add holiday'
+          data: this.msgLM47
         });
 
         // Swal.fire({title:data.message,color:"red",showCloseButton: true});
@@ -183,7 +202,7 @@ export class HolidaysComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Holiday deleted successfully'
+          data: this.msgLM106
         });
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
           this.router.navigate(["/Admin/Holidays"]));
@@ -191,7 +210,7 @@ export class HolidaysComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Unable to to delete holiday'
+          data: this.msgLM48
         });
 
 
@@ -246,7 +265,7 @@ export class HolidaysComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Holiday updated successfully'
+          data: this.msgLM105
         });
 
 
@@ -258,11 +277,54 @@ export class HolidaysComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Unable to to update holiday'
+          data: this.msgLM49
         });
 
         // Swal.fire({title:this.msgLM49,color:"red",showCloseButton: true});
       }
+    })
+  }
+  getErrorMessages(errorCode:any) {
+
+    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+
+      if(result.status && errorCode == 'LM1')
+      {
+        this.msgLM1 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM2')
+      {
+        this.msgLM2 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM3')
+      {
+        this.msgLM3 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM69')
+      {
+        this.msgLM69 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM49')
+      {
+        this.msgLM49 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM47')
+      {
+        this.msgLM47 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM50')
+      {
+        this.msgLM48 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM105')
+      {
+        this.msgLM105 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM106')
+      {
+        this.msgLM106 = result.data[0].errormessage
+      }
+     
     })
   }
 

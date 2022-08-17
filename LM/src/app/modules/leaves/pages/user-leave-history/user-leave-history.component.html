@@ -89,11 +89,11 @@
     <mat-card>
         <mat-card-header class="">
             <div style="text-align:center">
-                <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Cancelled'"> Cancelled Leave </mat-card-title>
-                <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Deleted'"> Deleted Leave </mat-card-title>
+                <mat-card-title class="title"  > {{viewdata.leavestatus+ ' Leave'}} </mat-card-title>
+                <!-- <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Deleted'"> Deleted Leave </mat-card-title>
                 <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Approved'"> Approved Leave </mat-card-title>
                 <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Submitted'"> Submitted Leave </mat-card-title>
-                <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Rejected'"> Reject Leave </mat-card-title>
+                <mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Rejected'"> Reject Leave </mat-card-title> -->
             </div>
 
 
@@ -108,7 +108,7 @@
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Approved'">
                 <mat-label>Approved On</mat-label>
-                <input   matInput [readonly]="true"[readonly]="true"  value="{{viewdata.updatedon | date:'mediumDate'}}">
+                <input   matInput [readonly]="true"[readonly]="true"  value="{{viewdata.approvedon | date:'mediumDate'}}">
 
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Rejected'">
@@ -198,7 +198,7 @@
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" >
                 <mat-label>Manager</mat-label>
-                <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.approvedby}}" >
+                <input matInput [readonly]="true"[readonly]="true" value="{{usersession.roles[0].rm_name}}" >
 
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Rejected'">

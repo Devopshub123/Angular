@@ -25,6 +25,9 @@
                                         <img src="assets/img/earned-lave-icon.png" *ngIf="leave.leavename == 'Earned Leave'" alt="" title="" />
                                         <img src="assets/img/sick-leave-icon.png" *ngIf="leave.leavename == 'Bereavement Leave'" alt="" title="" />
                                         <img src="assets/img/earned-lave-icon.png" *ngIf="leave.leavename == 'Marriage Leave'" alt="" title="" />
+                                        <img src="assets/img/earned-lave-icon.png" *ngIf="leave.leavename == 'Loss of Pay Leave'" alt="" title="" />
+                                        <img src="assets/img/earned-lave-icon.png" *ngIf="leave.leavename == 'Paternity Leave'" alt="" title="" />
+                                        <img src="assets/img/earned-lave-icon.png" *ngIf="leave.leavename == 'Comp Off Leave'" alt="" title="" />
                                     </div>
 
                                     <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">
@@ -245,7 +248,7 @@
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Approved'">
                 <mat-label>Approved On</mat-label>
-                <input   matInput [readonly]="true"[readonly]="true"  value="{{viewdata.updatedon | date:'mediumDate'}}">
+                <input   matInput [readonly]="true"[readonly]="true"  value="{{viewdata.approvedon | date:'mediumDate'}}">
 
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Rejected'">

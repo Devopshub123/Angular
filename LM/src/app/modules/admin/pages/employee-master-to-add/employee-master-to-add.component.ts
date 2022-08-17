@@ -78,7 +78,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   dataSource: MatTableDataSource<any> = <any>[];
   dsFamily: MatTableDataSource<any> = <any>[];
   employeedata: any = [];
-  empdisplayedColumns: string[] = ['employeeid', 'employeename', 'status', 'Action'];
+  empdisplayedColumns: string[] = ['employeeid', 'firstname','middlename', 'lastname','status', 'Action'];
   employeedetails: any = [];
   page = 1;
   count = 0;
@@ -92,6 +92,8 @@ export class EmployeeMasterToAddComponent implements OnInit {
   msgLM54: any = '';
   msgLM38: any = '';
   msgLM39: any = '';
+  msgLM63:any;
+  msgLM64:any;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -130,6 +132,8 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.getErrorMessages('LM54');
     this.getErrorMessages('LM38');
     this.getErrorMessages('LM39');
+    this.getErrorMessages('LM63');
+    this.getErrorMessages('LM64');
     /**page 1 form */
     this.employeeAddForm = this.formBuilder.group(
       {
@@ -327,7 +331,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
       else{
         this.isself = false;
       }
-      
+
 
     })
 
@@ -726,7 +730,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: 'Employee added successfully.'
+            data: this.msgLM63
           });
 
         }
@@ -734,7 +738,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: 'Unable to insert employee.'
+            data: this.msgLM38
           });
         }
 
@@ -758,14 +762,14 @@ export class EmployeeMasterToAddComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: 'Employee updated successfully.'
+            data: this.msgLM63
           });
         }
         else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: 'Unable to update employee.'
+            data: this.msgLM39
           });
         }
 
@@ -800,6 +804,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.employeefamilyAddForm.controls.familygender.setValue(this.familyDetails[i].gender);
   }
   clearfamily() {
+    this.employeefamilyAddForm.controls.familyfirstname.reset();
     this.employeefamilyAddForm.controls.familylastname.reset();
     this.employeefamilyAddForm.controls.relation.reset();
     this.employeefamilyAddForm.controls.familystatus.reset();
@@ -827,17 +832,17 @@ export class EmployeeMasterToAddComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
   getBloodgroups() {
-    this.LMS.getMastertable('bloodgroupmaster', 'Active', 1, 10, 'nandyala_hospitals').subscribe(data => {
+    this.LMS.getMastertable('bloodgroupmaster', 'Active', 1, 10, 'keerthi_hospitals').subscribe(data => {
       this.bloodGroupdetails = data.data;
     })
   }
   getGender() {
-    this.LMS.getMastertable('gendermaster', null, 1, 40, 'nandyala_hospitals').subscribe(data => {
+    this.LMS.getMastertable('gendermaster', null, 1, 40, 'keerthi_hospitals').subscribe(data => {
       this.genderDetails = data.data;
     })
   }
   getWorkLocation() {
-    this.LMS.getactiveWorkLocation({ id: null, companyName: 'nandyala_hospitals' }).subscribe((result) => {
+    this.LMS.getactiveWorkLocation({ id: null, companyName: 'keerthi_hospitals' }).subscribe((result) => {
       this.worklocationDetails = result.data;
     })
 
@@ -854,33 +859,33 @@ export class EmployeeMasterToAddComponent implements OnInit {
   }
 
   getMaritalStatusMaster() {
-    this.LMS.getMastertable('maritalstatusmaster', null, 1, 10, 'nandyala_hospitals').subscribe(data => {
+    this.LMS.getMastertable('maritalstatusmaster', null, 1, 10, 'keerthi_hospitals').subscribe(data => {
       this.maritalStatusDetails = data.data;
 
     })
   }
   getRelationshipMaster() {
-    this.LMS.getMastertable('relationshipmaster', 'Active', 1, 30, 'nandyala_hospitals').subscribe(data => {
+    this.LMS.getMastertable('relationshipmaster', 'Active', 1, 30, 'keerthi_hospitals').subscribe(data => {
       this.employeeRelationship = data.data;
     })
   }
   getEmploymentTypeMaster() {
-    this.LMS.getMastertable('employmenttypemaster', null, 1, 1000, 'nandyala_hospitals').subscribe(data => {
+    this.LMS.getMastertable('employmenttypemaster', null, 1, 1000, 'keerthi_hospitals').subscribe(data => {
       this.EmploymentTypeDetails = data.data;
     })
   }
   getDesignationsMaster() {
-    this.LMS.getMastertable('designationsmaster', 'Active', 1, 1000, 'nandyala_hospitals').subscribe(data => {
+    this.LMS.getMastertable('designationsmaster', 'Active', 1, 1000, 'keerthi_hospitals').subscribe(data => {
       this.availableDesignations = data.data;
     })
   }
   getDepartmentsMaster() {
-    this.LMS.getMastertable('departmentsmaster', 'Active', 1, 1000, 'nandyala_hospitals').subscribe(data => {
+    this.LMS.getMastertable('departmentsmaster', 'Active', 1, 1000, 'keerthi_hospitals').subscribe(data => {
       this.availableDepartments = data.data;
     })
   }
   getCountry() {
-    this.LMS.getCountry('countrymaster', null, 1, 10, 'nandyala_hospitals').subscribe((results) => {
+    this.LMS.getCountry('countrymaster', null, 1, 10, 'keerthi_hospitals').subscribe((results) => {
       this.CountryDetails = results.data;
       this.permanentCountryDetails = results.data;
 
@@ -907,7 +912,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
   }
   getShifts() {
-    this.LMS.getMastertable('shiftsmaster', 'Active', 1, 1000, 'nandyala_hospitals').subscribe(data => {
+    this.LMS.getMastertable('shiftsmaster', 'Active', 1, 1000, 'keerthi_hospitals').subscribe(data => {
       this.availableShifts = data.data;
     })
   }
@@ -969,6 +974,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
       }
       else if (result.status && errorCode == 'LM39') {
         this.msgLM39 = result.data[0].errormessage
+      }
+      else if (result.status && errorCode == 'LM63') {
+        this.msgLM63 = result.data[0].errormessage
+      }
+      else if (result.status && errorCode == 'LM64') {
+        this.msgLM64 = result.data[0].errormessage
       }
     })
   }

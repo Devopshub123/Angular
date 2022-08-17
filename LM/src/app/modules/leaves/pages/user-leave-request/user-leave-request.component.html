@@ -62,7 +62,7 @@
           <mat-label>From Date </mat-label>
           <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
           <input matInput readonly  [min]="minDate" [max]="fromMaxDate" [matDatepicker]="picker" [matDatepickerFilter]="fromDateFilter"
-                 placeholder="MM/DD/YYYY" formControlName="fromDate"  required >
+                 placeholder="MM/DD/YYYY" formControlName="fromDate"  required (click)="picker.open()">
 
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker">
           </mat-datepicker-toggle>
@@ -86,7 +86,7 @@
           <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
           <input matInput readonly [disabled]="true" [min]="leaveRequestForm.controls.fromDate.value" [max]="maxDate"
           [matDatepicker]="picker1" [matDatepickerFilter]="toDateFilter"
-                 placeholder="MM/DD/YYYY" formControlName="toDate"  required >
+                 placeholder="MM/DD/YYYY" formControlName="toDate"  required (click)="picker1.open()">
 
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker1">
           </mat-datepicker-toggle>
@@ -110,7 +110,7 @@
       <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
       <input matInput readonly [min]="minDate" [max]="leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7 || leaveRequestForm.controls.leaveTypeId.value == 8 ?'':fromMaxDate"
            [matDatepicker]="picker" [matDatepickerFilter]="fromDateFilter"
-             placeholder="MM/DD/YYYY" formControlName="fromDate"  required >
+             placeholder="MM/DD/YYYY" formControlName="fromDate"  required (click)="picker.open()">
 
       <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker">
       </mat-datepicker-toggle>
@@ -135,7 +135,7 @@
         <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
         <input matInput readonly [min]="leaveRequestForm.controls.fromDate.value" [max]="leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7 || leaveRequestForm.controls.leaveTypeId.value == 8 ?'':maxDate"
         [matDatepicker]="picker1" [matDatepickerFilter]="toDateFilter"
-               placeholder="MM/DD/YYYY" formControlName="toDate"  required >
+               placeholder="MM/DD/YYYY" formControlName="toDate"  required (click)="picker1.open()">
 
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker1">
         </mat-datepicker-toggle>
@@ -159,7 +159,7 @@
           <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
           <input matInput readonly   [disabled]="true"[min]="leaveRequestForm.controls.fromDate.value" [max]="leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7 || leaveRequestForm.controls.leaveTypeId.value == 8 ?'':maxDate"
            [matDatepicker]="picker1"
-                 placeholder="MM/DD/YYYY" formControlName="toDate"  required >
+                 placeholder="MM/DD/YYYY" formControlName="toDate"  required (click)="picker1.open()">
 
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker1">
           </mat-datepicker-toggle>
@@ -193,7 +193,7 @@
         <!--<mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-1 my-1" appearance="outline">-->
           <!--<mat-label>Supporting Document </mat-label>-->
       <div style="padding-bottom: 1.34375em;margin-left: 10px" >
-        <label style="margin-left: 10px">Supporting Document</label><br>
+        <label style="margin-left: 10px">Supporting Document<mat-icon title="pdf/docx/doc file upto 15MB can be uploaded" class="iconstyle">info</mat-icon></label><br>
           <input style="margin-left: 10px" type="file" formControlName="document" (change)=onSelectFile($event) required single> &nbsp;
            <mat-icon   title="delete" *ngIf="leaveRequestForm.controls.document.value"  (click)="delete()">delete</mat-icon> &nbsp;
         <!--<i  style="color : black" class="fa-solid fa-trash-can" (click)="delete()" title="Delete"></i>-->

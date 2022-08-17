@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
+
 export interface UserData {
   total:number;
   address1: string,
@@ -49,6 +50,17 @@ export class WorklocationComponent implements OnInit {
   isview:boolean=false;
   ishide:boolean=true;
   editworklocation:boolean=false;
+  msgLM1:any;
+  msgLM2:any;
+  msgLM3:any;
+  msgLM23:any
+  msgLM21:any;
+  msgLM22:any;
+  msgLM57:any;
+  msgLM59:any;
+  msgLM122:any;
+  msgLM123:any;
+  
   
   displayedColumns: string[] = ['city-branch','prefix','seed','status','Action'];
   departmentData:any=[];
@@ -56,9 +68,20 @@ export class WorklocationComponent implements OnInit {
   dataSource: MatTableDataSource<UserData>=<any>[];
 
 
-  constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog) { }
+  constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog,private ts:LoginService) { }
 
   ngOnInit(): void {
+    this.getErrorMessages('LM1')
+    this.getErrorMessages('LM2')
+    this.getErrorMessages('LM3')
+    this.getErrorMessages('LM23')
+    this.getErrorMessages('LM21')
+    this.getErrorMessages('LM22')
+    this.getErrorMessages('LM57')
+    this.getErrorMessages('LM59')
+    this.getErrorMessages('LM122')
+    this.getErrorMessages('LM123')
+    
     this.getWorkLocation();
     this.getCountry();
     
@@ -244,7 +267,7 @@ export class WorklocationComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Worklocation status updated successfully'
+          data: this.msgLM123
         });
 
       }else{
@@ -252,7 +275,7 @@ export class WorklocationComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'This worklocation have active employees. So we are unable to inactivate this worklocation now. Please move those employee to another worklocation and try again'
+          data: this.msgLM122
         });
       }
     })
@@ -296,7 +319,7 @@ export class WorklocationComponent implements OnInit {
                     let dialogRef = this.dialog.open(ReusableDialogComponent, {
                       position:{top:`70px`},
                       disableClose: true,
-                      data: 'Unable to update worklocation'
+                      data: this.msgLM23
                     });
                    }
                   
@@ -314,7 +337,7 @@ export class WorklocationComponent implements OnInit {
                     let dialogRef = this.dialog.open(ReusableDialogComponent, {
                       position:{top:`70px`},
                       disableClose: true,
-                      data: 'Worklocation added successfully'
+                      data: this.msgLM59
                     });  
                            
                   }
@@ -322,7 +345,7 @@ export class WorklocationComponent implements OnInit {
                     let dialogRef = this.dialog.open(ReusableDialogComponent, {
                       position:{top:`70px`},
                       disableClose: true,
-                      data: 'Unable to insert worklocation'
+                      data: this.msgLM22
                     });
                    }
                   
@@ -341,5 +364,48 @@ export class WorklocationComponent implements OnInit {
   close(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(["/Admin/Worklocation"]));
+  }
+  getErrorMessages(errorCode:any) {
+
+    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+
+      if(result.status && errorCode == 'LM1')
+      {
+        this.msgLM1 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM2')
+      {
+        this.msgLM2 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM3')
+      {
+        this.msgLM3 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM23')
+      {
+        this.msgLM23 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM22')
+      {
+        this.msgLM22 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM57')
+      {
+        this.msgLM57 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM59')
+      {
+        this.msgLM59 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM122')
+      {
+        this.msgLM122 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM123')
+      {
+        this.msgLM123 = result.data[0].errormessage
+      }
+     
+    })
   }
 }

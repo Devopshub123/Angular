@@ -17,8 +17,8 @@ import { DetailedReportForManagerComponent } from './pages/detailed-report-for-m
 import {NgxPaginationModule} from 'ngx-pagination';
 import { SummaryReportForManagerComponent } from './pages/summary-report-for-manager/summary-report-for-manager.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { UserLeaveHistoryComponent } from './user-leave-history/user-leave-history.component';
-import { UserLeaveBalanceComponent } from './user-leave-balance/user-leave-balance.component';
+import { UserLeaveHistoryComponent } from './pages/user-leave-history/user-leave-history.component';
+import { UserLeaveBalanceComponent } from './pages/user-leave-balance/user-leave-balance.component';
 import { ManagerDashboardCalenderComponent } from './pages/manager-dashboard-calender/manager-dashboard-calender.component';
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { UserCompoffComponent } from './pages/user-compoff/user-compoff.component';
