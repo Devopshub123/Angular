@@ -92,6 +92,7 @@ export class LmMessageMasterComponent implements OnInit {
         disableClose: true,
         data:res.message
       });
+      window.location.reload();
       // if (res.status) {
       //   let resMessage: any;
       //   if (res.data == "dataSaved") {
@@ -141,6 +142,7 @@ export class LmMessageMasterComponent implements OnInit {
     //     "pagesize":1000
     // }
     this.adminService.getErrorMessages(null,1,1000).subscribe((res:any)=>{
+      this.messagesDataList=[];
       if(res.status) {
         this.messagesDataList = res.data;
         this.messagesDataList.forEach((e: any) => {
