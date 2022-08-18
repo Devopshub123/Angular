@@ -175,7 +175,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
           familyfirstname: ["", Validators.required],
           familylastname: ["", Validators.required],
           familydateofbirth: [""],
-          familystatus: ["", Validators.required],
+          familystatus: ["Alive", Validators.required],
           familycontact: [""],
           familygender: ["", Validators.required],
           relation: ["", Validators.required],
@@ -762,7 +762,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.msgLM63
+            data: this.msgLM64
           });
         }
         else {

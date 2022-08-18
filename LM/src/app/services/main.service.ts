@@ -33,4 +33,7 @@ export class MainService {
     console.log("gdvhsgvghgs")
     return this.http.get(this.mainBeUrl + 'api/getProfileImage/' + id+'/'+companyName);
   }
+  getCompoffleavestatus():Observable<any> {
+    return this.http.get(this.mainBeUrl + 'api/getcompoffleavestatus') ;
+  }
 }

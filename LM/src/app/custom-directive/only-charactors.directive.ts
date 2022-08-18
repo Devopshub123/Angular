@@ -3,7 +3,7 @@ import { Directive, HostListener, ElementRef, Input } from '@angular/core';
   selector: '[specialIsAlpha]',
 })
 export class OnlyCharactorDirective {
-  regexStr = '^[a-zA-Z]*$';
+  regexStr = '^[a-zA-Z ]*$';
   @Input() isAlphaNumeric!: boolean;
 
   constructor(private el: ElementRef) {}
@@ -19,7 +19,7 @@ export class OnlyCharactorDirective {
   validateFields(event:any) {
     setTimeout(() => {
       this.el.nativeElement.value = this.el.nativeElement.value
-        .replace(/[^A-Za-z]/g, '')
+        .replace(/[^A-Za-z ]/g, '')
         .replace(/\s/g, '');
       event.preventDefault();
     }, 100);

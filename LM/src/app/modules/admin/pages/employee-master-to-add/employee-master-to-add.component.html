@@ -480,18 +480,18 @@
                       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" *ngIf="!isviewemployee">
                           <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                               <mat-label>Status</mat-label>
-                              <mat-select required formControlName="familystatus">
+                              <!-- <mat-select required formControlName="familystatus">
                                   <ng-container>
                                       <div>
-                                          <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                          <mat-option value="Alive">Alive</mat-option>
+                                          <mat-option value="Alive" disabled selected>Alive</mat-option>
                                       </div>
 
                                   </ng-container>
-                              </mat-select>
+                              </mat-select> -->
+                              <input type="text" readonly formControlName="familystatus" matInput placeholder="">
                               <mat-error class="con-error"
                                   *ngIf="employeefamilyAddForm.controls.familystatus.errors?.required">
-                                  {{msgLM3}}
+                                  {{msgLM1}}
                               </mat-error>
                           </mat-form-field>
                           <div class="col-sm-6 mx-2 my-2 text-right">

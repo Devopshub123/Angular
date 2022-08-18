@@ -202,5 +202,8 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     getMastertablesforcalender(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
       return this.http.get(this.mainUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
     }
+    getCompoffleavestatus():Observable<any> {
+      return this.http.get(this.mainUrl + 'api/getcompoffleavestatus') ;
+    }
 
 }
