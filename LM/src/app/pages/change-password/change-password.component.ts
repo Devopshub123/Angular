@@ -40,11 +40,11 @@ export class ChangePasswordComponent implements OnInit {
    @ViewChild("chngfrm", {static: true}) form: any;
   passwordPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9].{8,20})"
   ngOnInit() {
-    // this.getErrorMessages('LM1')
-    // this.getErrorMessages('LM2')
-    // this.getErrorMessages('LM4')
-    // this.getErrorMessages('LM5')
-    // this.getErrorMessages('LM56')
+    this.getErrorMessages('LM1')
+    this.getErrorMessages('LM2')
+    this.getErrorMessages('LM4')
+    this.getErrorMessages('LM5')
+    this.getErrorMessages('LM56')
     this.changePasswordform=this.formBuilder.group(
       {
         oldPassword:["",Validators.required],

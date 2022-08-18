@@ -30,6 +30,12 @@ export class UserCompoffComponent implements OnInit {
   compOffDetails:any=[];
   year:any;
   month:any;
+  msgLM79: any;
+  msgLM137: any;
+  msgLM1: any;
+  msgLM3: any;
+  msgLM7: any;
+  msgLM136: any;
  
   today:any=new Date();
   ishide:boolean=true;
@@ -60,6 +66,13 @@ export class UserCompoffComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+    this.getErrorMessages('LM1')
+    this.getErrorMessages('LM3')
+    this.getErrorMessages('LM79')
+    this.getErrorMessages('LM76')
+    this.getErrorMessages('LM7')
+    this.getErrorMessages('LM117')
     this.getCompOffMinWorkingHours();
     this.getCompOff();
     this.getCompoffCalender();
@@ -185,14 +198,14 @@ export class UserCompoffComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Compoff registerd successfully.'
+          data: this.msgLM136
         });  
         
       }else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Unable to register compoff.'
+          data: this.msgLM137
         });
       }
       
@@ -204,5 +217,28 @@ export class UserCompoffComponent implements OnInit {
         this.router.navigate(["/LeaveManagement/UserCompOff"]));
   }
   onChangeHour(event:Event){}
+  getErrorMessages(errorCode:any)
+  {
+
+    this.LM.getErrorMessages(errorCode, 1, 1).subscribe((result) => {
+
+      if (result.status && errorCode == 'LM79') {
+        this.msgLM79 = result.data[0].errormessage
+      }
+      else if (result.status && errorCode == 'LM136') {
+        this.msgLM136 = result.data[0].errormessage
+      }
+      else if (result.status && errorCode == 'LM1') {
+        this.msgLM1 = result.data[0].errormessage
+      } else if (result.status && errorCode == 'LM3') {
+        this.msgLM3 = result.data[0].errormessage
+      }else if (result.status && errorCode == 'LM7') {
+        this.msgLM7 = result.data[0].errormessage
+      }else if (result.status && errorCode == 'LM137') {
+        this.msgLM137 = result.data[0].errormessage
+      }
+
+    })
+  }
 
 }
