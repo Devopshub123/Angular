@@ -91,8 +91,6 @@ export class UserLeaveRequestComponent implements OnInit {
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    console.log("this.userSession",this.userSession)
-
     this.leaveRequestForm = this.formBuilder.group({
       leaveTypeId: ['',Validators.required],
       compoffApprovedDate:[''],
@@ -153,8 +151,7 @@ export class UserLeaveRequestComponent implements OnInit {
         /**
          * Event based leaves getting max number of leaves eligible per term
          **/
-        if (this.leaveRequestForm.controls.leaveTypeId.value == '5' || '6' || '7' || '8') {
-          console.log("inside functions")
+        if (this.leaveRequestForm.controls.leaveTypeId.value == '5' || this.leaveRequestForm.controls.leaveTypeId.value =='6' || this.leaveRequestForm.controls.leaveTypeId.value =='7' || this.leaveRequestForm.controls.leaveTypeId.value =='8') {
           this.getMaxCountPerTermValue();
 
         }
@@ -178,12 +175,12 @@ export class UserLeaveRequestComponent implements OnInit {
           this.leaveRequestForm.controls.relation.updateValueAndValidity();
 
         }
-        // else {
-        //   this.leaveRequestForm.controls.compoffApprovedDate.clearValidators();
-        //   this.leaveRequestForm.controls.compoffApprovedDate.updateValueAndValidity();
-        //   this.leaveRequestForm.controls.relation.clearValidators();
-        //   this.leaveRequestForm.controls.relation.updateValueAndValidity();
-        // }
+        else {
+          this.leaveRequestForm.controls.compoffApprovedDate.clearValidators();
+          this.leaveRequestForm.controls.compoffApprovedDate.updateValueAndValidity();
+          this.leaveRequestForm.controls.relation.clearValidators();
+          this.leaveRequestForm.controls.relation.updateValueAndValidity();
+        }
 
       }
 
@@ -294,8 +291,7 @@ async  getLeavesTypeInfo() {
           /**
            * Event based leaves getting max number of leaves eligible per term
            **/
-          if (this.leaveRequestForm.controls.leaveTypeId.value == '5' || '6' || '7' || '8') {
-            console.log("inside functions")
+          if (this.leaveRequestForm.controls.leaveTypeId.value == '5' || this.leaveRequestForm.controls.leaveTypeId.value =='6' || this.leaveRequestForm.controls.leaveTypeId.value =='7' || this.leaveRequestForm.controls.leaveTypeId.value =='8') {
             this.getMaxCountPerTermValue();
 
           }
@@ -843,7 +839,7 @@ async  getLeavesTypeInfo() {
           }
             else {
             this.isFile = false;
-            this.open({'Message': 'File size is must be less than 15MB'},'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
+            this.open('File size is must be less than 15MB','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
 
             // Swal.fire({title: '', text: 'File size is must be less than 15MB', color: "red", position: 'top'});
           }
@@ -919,7 +915,7 @@ async  getLeavesTypeInfo() {
   //   // this.newLeaveRequest.fromDate = myDateString1;
   //   // this.newLeaveRequest.toDate = myDateString2;
   //   this.LM.getOffDaysCount(this.newLeaveRequest).subscribe((result) => {
-  //     this.leavedata = JSON.parse(result.data.count_json)
+  //     this.leavedata = JSON.padrse(result.data.count_json)
   //     if (this.leavedata[0].message == 1) {
   //       this.document = false;
   //       this.newLeaveRequest.leavecount = this.leavedata[0].leavecount
@@ -1040,11 +1036,13 @@ async  getLeavesTypeInfo() {
   onSelectFile(event:any) {
 
     if (event.target.files[0].size <= 15728640) {
+      console.log("vshbsdhhdhdhdhdhhd")
       this.isFile = true;
       const file: File = event.target.files[0];
       this.formData.append('file', file, file.name);
     } else {
       this.isFile = false;
+      this.open('File size is must be less than 15MB','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
       // Swal.fire({title: '', text: 'File size is must be less than 15MB', color: "red", position: 'top'});
 
     }

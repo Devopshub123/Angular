@@ -19,7 +19,7 @@
                         <mat-label>{{leave.leave_balance}}</mat-label>
                     </div>
                     <mat-divider></mat-divider>
-                    <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">
+                    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="leave.total"  style="padding:5px">
                         <mat-label>Total</mat-label>
                         <mat-label>{{leave.total}}</mat-label>
                     </div>

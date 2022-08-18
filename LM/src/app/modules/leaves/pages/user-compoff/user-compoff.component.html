@@ -18,7 +18,7 @@
                     </mat-datepicker-toggle>
                     <mat-datepicker #date></mat-datepicker>
                     <mat-error class="con-error" *ngIf="CompoffForm.controls.workeddate.errors?.required">
-                        Please select an option
+                        {{msgLM3}}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -35,7 +35,7 @@
                     <!-- <input formControlName="hours"   matInput > -->
                     <!-- <material-timepicker color="primary" label="Hour" [userTime]="exportTime" (change)="onChangeHour($event)" revertLabel="Remove" submitLabel="Ok"></material-timepicker> -->
                     <mat-error class="con-error" *ngIf="CompoffForm.controls.hours.errors?.required">
-                      Please Select an option
+                      {{msgLM3}}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="ishide">
@@ -50,7 +50,7 @@
                     </mat-select>
                     <!-- <material-timepicker color="primary" label="Hour" [userTime]="exportTime" (change)="onChangeHour($event)" revertLabel="Remove" submitLabel="Ok"></material-timepicker> -->
                     <!-- <mat-error class="con-error" *ngIf="HolidayForm.controls.holiday.errors?.required">
-                      This field is required
+                      {{msgLM1}}
                     </mat-error> -->
                 </mat-form-field>
 
@@ -64,7 +64,7 @@
                     <mat-label>Reason</mat-label>
                     <input formControlName="reason" matInput placeholder="" required maxlength="100">
                     <mat-error class="con-error" *ngIf="CompoffForm.controls.reason.errors?.required">
-                      This field is required
+                      {{msgLM1}}
                   </mat-error>
                 </mat-form-field>
 
