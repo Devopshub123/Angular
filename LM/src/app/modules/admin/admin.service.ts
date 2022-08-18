@@ -13,8 +13,8 @@ export class AdminService {
   userSession: any;
   httpOptions = {
     headers: new HttpHeaders({'content-Type': 'application/json'})
-  };  
- 
+  };
+
   constructor(private http: HttpClient) {
   }
   setWorkLocation(info:any): Observable<any> {
@@ -24,7 +24,7 @@ export class AdminService {
   getWorkLocation(info:any): Observable<any>{
     return this.http.post(this.mainUrl + 'api/getWorkLocation',JSON.stringify(info), this.httpOptions);
   }
-  
+
   getactiveWorkLocation(info:any): Observable<any>{
     return this.http.post(this.mainUrl + 'api/getactiveWorkLocation',JSON.stringify(info), this.httpOptions);
   }
@@ -92,4 +92,5 @@ updateShiftStatus(data:any):Observable<any>{
   getRolesByDepartment(data:any):Observable<any>{
     return this.http.post(this.mainUrl+'admin/api/getRolesByDepartment',data,this.httpOptions);
   }
+
 }

@@ -1,10 +1,10 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
-import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl} from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AdminService } from '../../admin.service';
 
@@ -16,11 +16,11 @@ export interface UserData {
 }
 
 @Component({
-  selector: 'app-message-master',
-  templateUrl: './message-master.component.html',
-  styleUrls: ['./message-master.component.scss']
+  selector: 'app-lm-message-master',
+  templateUrl: './lm-message-master.component.html',
+  styleUrls: ['./lm-message-master.component.scss']
 })
-export class MessageMasterComponent implements OnInit {
+export class LmMessageMasterComponent implements OnInit {
 
   errorMessagesForm!: FormGroup;
   isEdit:boolean=true;
@@ -64,7 +64,7 @@ export class MessageMasterComponent implements OnInit {
         });
        }
       else {
-        const toSelect = this.messagesDataList.find((res: { message: string; }) => res.message.trim().toLowerCase() ==rmessage.toLowerCase());
+        const toSelect = this.messagesDataList.find((res: { errormessage: string; }) => res.errormessage.trim().toLowerCase() ==rmessage.toLowerCase());
         if(toSelect!=undefined){
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
@@ -81,34 +81,39 @@ export class MessageMasterComponent implements OnInit {
   save(rcode: any, rmessage: any, screenname:any) {
     let dataList =[
       {
-       "code": rcode,
-       "message": rmessage,
-       "screenname": screenname
+       "errorcode": rcode,
+       "screenname": screenname,
+       "errormessage": rmessage,
       }]
 
-    this.adminService.updateMessagesData(dataList).subscribe((res: any) => {
-      if (res.status) {
-        let resMessage: any;
-        if (res.data == "dataSaved") {
-          resMessage = this.dataUpdate
-        } else {
-          resMessage = this.dataNotUpdate
-        }
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data:resMessage
-          });
-          window.location.reload();
-          this.getMessagesList();
-        } else {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: this.dataNotUpdate
-          });
-          this.getMessagesList();
-        }
+    this.adminService.setErrorMessages(dataList).subscribe((res: any) => {
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data:res.message
+      });
+      // if (res.status) {
+      //   let resMessage: any;
+      //   if (res.data == "dataSaved") {
+      //     resMessage = this.dataUpdate
+      //   } else {
+      //     resMessage = this.dataNotUpdate
+      //   }
+      //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      //       position: { top: `70px` },
+      //       disableClose: true,
+      //       data:res.message
+      //     });
+      //     window.location.reload();
+      //     this.getMessagesList();
+      //   } else {
+      //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      //       position: { top: `70px` },
+      //       disableClose: true,
+      //       data: this.dataNotUpdate
+      //     });
+      //     this.getMessagesList();
+      //   }
       }
 
       )
@@ -129,25 +134,26 @@ export class MessageMasterComponent implements OnInit {
 
   }
   getMessagesList() {
-     let data =
-      {
-        "code": null,
-        "pagenumber":1,
-        "pagesize":1000
-    }
-    this.adminService.getMessagesListApi(data).subscribe((res:any)=>{
+    //  let data =
+    //   {
+    //     "code": null,
+    //     "pagenumber":1,
+    //     "pagesize":1000
+    // }
+    this.adminService.getErrorMessages(null,1,1000).subscribe((res:any)=>{
       if(res.status) {
         this.messagesDataList = res.data;
         this.messagesDataList.forEach((e: any) => {
-          if (e.code == "ATT1") {
-           this.requiredField = e.message
-          } else if (e.code == "ATT71") {
-            this.recordExist =e.message
-          }else if (e.code == "ATT72") {
-            this.dataUpdate =e.message
-          } else if (e.code == "ATT73") {
-            this.dataNotUpdate =e.message
+          if (e.errorcode == "LM1") {
+           this.requiredField = e.errormessage
           }
+          // else if (e.code == "ATT71") {
+          //   this.recordExist =e.message
+          // }else if (e.code == "ATT72") {
+          //   this.dataUpdate =e.message
+          // } else if (e.code == "ATT73") {
+          //   this.dataNotUpdate =e.message
+          // }
         })
         this.dataSource = new MatTableDataSource(this.messagesDataList);
         this.dataSource.paginator = this.paginator;
