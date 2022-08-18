@@ -562,13 +562,31 @@ export class EmployeeMasterToAddComponent implements OnInit {
       let familydata = JSON.parse((this.employeedata.relations))
       if (familydata != null) {
         for (let i = 0; i < familydata.length; i++) {
+          let relationship;
+          let relationshipname;
+          this.employeeRelationship.forEach((e:any)=>{
+            if(e.id==familydata[i].relationship){
+              relationship=e.id;
+              relationshipname=e.relationship;
+            }
+          })
+          let gender;
+          let gendername;
+          this.genderDetails.forEach((e:any)=>{
+            if(e.id==familydata[i].gender){
+              gender=e.id;
+              gendername=e.gender;
+            }
+          })
           this.familyDetails.push({
             firstname: familydata[i].firstname,
             lastname: familydata[i].lastname,
-            gender: familydata[i].gender,
+            gender: gender,
+            gendername:gendername,
             contactnumber: familydata[i].contactnumber,
             status: familydata[i].status,
-            relationship: familydata[i].relationship,
+            relationship:relationship ,
+            relationshipname:relationshipname,
             dateofbirth: familydata[i].dateofbirth != "null" ? this.pipe.transform(familydata[i].dateofbirth, 'yyyy-MM-dd') : '',
           });
         }
@@ -612,10 +630,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
       this.isfamilyedit = false;
       this.familyDetails[this.familyindex].firstname = this.employeefamilyAddForm.controls.familyfirstname.value;
       this.familyDetails[this.familyindex].lastname = this.employeefamilyAddForm.controls.familylastname.value;
-      this.familyDetails[this.familyindex].gender = this.employeefamilyAddForm.controls.familygender.value;
+      this.familyDetails[this.familyindex].gender = this.employeefamilyAddForm.controls.familygender.value.id;
+      this.familyDetails[this.familyindex].gendername = this.employeefamilyAddForm.controls.familygender.value.gender;
       this.familyDetails[this.familyindex].contactnumber = this.employeefamilyAddForm.controls.familycontact.value;
-      this.familyDetails[this.familyindex].status = "Alive";
-      this.familyDetails[this.familyindex].relationship = this.employeefamilyAddForm.controls.relation.value;
+      this.familyDetails[this.familyindex].status = this.employeefamilyAddForm.controls.familystatus.value;
+      this.familyDetails[this.familyindex].relationship = this.employeefamilyAddForm.controls.relation.value.id;
+      this.familyDetails[this.familyindex].relationshipname = this.employeefamilyAddForm.controls.relation.value.relationship;
       this.familyDetails[this.familyindex].dateofbirth = this.employeefamilyAddForm.controls.familydateofbirth.value != "" ? this.pipe.transform(this.employeefamilyAddForm.controls.familydateofbirth.value, 'yyyy-MM-dd') : ''
       this.clearfamily();
     }
@@ -624,10 +644,12 @@ export class EmployeeMasterToAddComponent implements OnInit {
         this.familyDetails.push({
           firstname: this.employeefamilyAddForm.controls.familyfirstname.value,
           lastname: this.employeefamilyAddForm.controls.familylastname.value,
-          gender: this.employeefamilyAddForm.controls.familygender.value,
+          gender: this.employeefamilyAddForm.controls.familygender.value.id,
+          gendername: this.employeefamilyAddForm.controls.familygender.value.gender,
           contactnumber: this.employeefamilyAddForm.controls.familycontact.value,
-          status: "Alive",
-          relationship: this.employeefamilyAddForm.controls.relation.value,
+          status: this.employeefamilyAddForm.controls.familystatus.value,
+          relationship: this.employeefamilyAddForm.controls.relation.value.id,
+          relationshipname: this.employeefamilyAddForm.controls.relation.value.relationship,
           dateofbirth: this.pipe.transform(this.employeefamilyAddForm.controls.familydateofbirth.value, 'yyyy-MM-dd')
         });
         this.dsFamily = new MatTableDataSource(this.familyDetails);
@@ -798,10 +820,19 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.employeefamilyAddForm.controls.familyfirstname.setValue(this.familyDetails[i].firstname);
     this.employeefamilyAddForm.controls.familylastname.setValue(this.familyDetails[i].lastname);
     this.employeefamilyAddForm.controls.familydateofbirth.setValue(new Date(this.familyDetails[i].dateofbirth));
-    this.employeefamilyAddForm.controls.relation.setValue(this.familyDetails[i].relationship);
     this.employeefamilyAddForm.controls.familystatus.setValue(this.familyDetails[i].status);
     this.employeefamilyAddForm.controls.familycontact.setValue(this.familyDetails[i].contactnumber);
-    this.employeefamilyAddForm.controls.familygender.setValue(this.familyDetails[i].gender);
+    this.employeeRelationship.forEach((e:any)=>{
+      if(e.id==this.familyDetails[i].relationship){
+        this.employeefamilyAddForm.controls.relation.setValue(e);
+      }
+    })
+    this.genderDetails.forEach((e:any)=>{
+      if(e.id==this.familyDetails[i].gender){
+        this.employeefamilyAddForm.controls.familygender.setValue(e);
+      }
+    })
+
   }
   clearfamily() {
     this.employeefamilyAddForm.controls.familyfirstname.reset();
@@ -1113,14 +1144,32 @@ export class EmployeeMasterToAddComponent implements OnInit {
       let familydata = JSON.parse((this.employeedata.relations))
       if(familydata != null){
         for(let i = 0;i<familydata.length;i++){
+          let relationship;
+          let relationshipname;
+          this.employeeRelationship.forEach((e:any)=>{
+            if(e.id==familydata[i].relationship){
+              relationship=e.id;
+              relationshipname=e.relationship;
+            }
+          })
+          let gender;
+          let gendername;
+          this.genderDetails.forEach((e:any)=>{
+            if(e.id==familydata[i].gender){
+              gender=e.id;
+              gendername=e.gender;
+            }
+          })
           this.familyDetails.push({
             firstname: familydata[i].firstname,
             lastname: familydata[i].lastname,
-            gender: familydata[i].gender,
+            gender: gender,
+            gendername:gendername,
             contactnumber: familydata[i].contactnumber,
             status: familydata[i].status,
-            relationship: familydata[i].relationship,
-            dateofbirth: familydata[i].dateofbirth!="null"?this.pipe.transform(familydata[i].dateofbirth, 'yyyy-MM-dd'):'',
+            relationship:relationship ,
+            relationshipname:relationshipname,
+            dateofbirth: familydata[i].dateofbirth != "null" ? this.pipe.transform(familydata[i].dateofbirth, 'yyyy-MM-dd') : '',
           });
         }
         this.dsFamily = new MatTableDataSource(this.familyDetails);
