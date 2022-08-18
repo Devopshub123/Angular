@@ -15,6 +15,7 @@ import { LeavepoliciesComponent } from './pages/leavepolicies/leavepolicies.comp
 import { MappingIdsComponent } from './pages/mapping-ids/mapping-ids.component';
 import { ShiftMasterComponent } from './pages/shift-master/shift-master.component';
 import { MessageMasterComponent } from './pages/message-master/message-master.component';
+import { LmMessageMasterComponent } from './pages/lm-message-master/lm-message-master.component';
 const routes: Routes = [
   {
     path: '', component: MainComponent,
@@ -32,7 +33,8 @@ const routes: Routes = [
       { path: 'Holiday', component: HolidaysComponent, canActivate: [LMSAccessGuard] },
       { path: 'MappingIds', component: MappingIdsComponent, canActivate: [LMSAccessGuard] },
       { path: 'Shift', component: ShiftMasterComponent, canActivate: [LMSAccessGuard] },
-       {path:'MessageMaster',component:MessageMasterComponent}
+       {path:'MessageMaster',component:MessageMasterComponent},
+       {path:'LM-MessageMaster',component:LmMessageMasterComponent}
     ]
   }
 

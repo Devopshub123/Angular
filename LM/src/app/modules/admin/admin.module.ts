@@ -18,6 +18,7 @@ import { AddRoleModalComponent } from './pages/add-role-modal/add-role-modal.com
 // import { LeavepoliciesComponent } from './pages/leavepolicies/leavepolicies.component';
 import { AddleavepopupComponent } from './pages/addleavepopup/addleavepopup.component';
 import { MessageMasterComponent } from './pages/message-master/message-master.component';
+import { LmMessageMasterComponent } from './pages/lm-message-master/lm-message-master.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { MessageMasterComponent } from './pages/message-master/message-master.co
     AddRoleModalComponent,
     AddleavepopupComponent,
     MessageMasterComponent,
+    LmMessageMasterComponent,
   ],
   imports: [
     CommonModule,

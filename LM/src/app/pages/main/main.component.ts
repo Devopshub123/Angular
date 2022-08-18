@@ -67,6 +67,10 @@ menu:NavItem[] =[];
       this.router.navigate(['/admin/Dashboard'])
     });
   }
+  navigateToMainDashboard(){
+    this.router.navigate(['/MainDashboard']);
+
+  }
   logout() {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('sidemenu');
@@ -78,16 +82,16 @@ menu:NavItem[] =[];
   getLogo()
   {
     this.companyInformationService.getUploadImage(1,"Apple").subscribe((imageData) => {
-  
+
       if(imageData.success){
         let TYPED_ARRAY = new Uint8Array(imageData.image.data);
         const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
           return data + String.fromCharCode(byte);
         }, '');
-  
+
         let base64String= btoa(STRING_CHAR)
         this.pic='data:image/png;base64,'+base64String;
-  
+
       }else{
         this.pic="";
       }
@@ -95,10 +99,10 @@ menu:NavItem[] =[];
   }
   getRoleScreenFunctionalities(){
    let data= JSON.parse(sessionStorage.getItem('activeModule')??'');
-    // let data={
-    //   'empid':this.usersession.id,
-    //   'moduleid':4
-    // };
+    // // let data={
+    // //   'empid':this.usersession.id,
+    // //   'moduleid':4
+    // // };
     this.mainService.getRoleScreenFunctionalities(data).subscribe((res:any)=>{
       if(res.status){ 
         this.menu=[];
