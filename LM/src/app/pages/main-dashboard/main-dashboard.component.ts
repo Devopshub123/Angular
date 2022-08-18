@@ -20,10 +20,12 @@ export class MainDashboardComponent implements OnInit {
   userRoles:any=[];
   menu: NavItem[]=[];
   firstRoute:any;
+  compoff:any;
   showError: boolean = false;
   private unsubscriber: Subject<void> = new Subject<void>();
   constructor(private AMS : LoginService,private mainService:MainService,
     private sideMenuService:SideMenuService,private router:Router) {
+      this.getCompoffleavestatus();
     this.data= sessionStorage.getItem('user')
     this.usersession = JSON.parse(this.data)
   
@@ -38,7 +40,14 @@ export class MainDashboardComponent implements OnInit {
     })
   }
  
-
+  getCompoffleavestatus(){
+    this.mainService.getCompoffleavestatus().subscribe((result)=>{
+     if(result.status){
+       this.compoff = result.data.compoff_status;
+     }
+    })
+   }
+ 
   
 
   getrolescreenfunctionalities(id:any,date:any){
@@ -61,21 +70,51 @@ export class MainDashboardComponent implements OnInit {
                 this.menu.forEach((item) => {
                   if (item.displayName == e.role_name && e.parentrole!=1) {
                     isvalid = false;
-                    var itemnav = {
-                      displayName: e.screen_name,
-                      iconName: '',// e.role_name,
-                      route: e.routename
-                    }
-                    item.children?.push(itemnav);
-                  }else{
-                    if(item.displayName == 'Self'  && e.parentrole==1 ){
-                      isvalid = false;
+                    if(this.compoff){
                       var itemnav = {
                         displayName: e.screen_name,
                         iconName: '',// e.role_name,
                         route: e.routename
                       }
                       item.children?.push(itemnav);
+                      
+                    }
+                    else{
+                      if(e.screen_name == 'Comp off History'){}
+                      else{
+                        var itemnav = {
+                          displayName: e.screen_name,
+                          iconName: '',// e.role_name,
+                          route: e.routename
+                        }
+                        item.children?.push(itemnav);
+                      }
+                    }
+                    
+                  }else{
+                    if(item.displayName == 'Self'  && e.parentrole==1 ){
+                      isvalid = false;
+                      if(this.compoff){
+                        var itemnav = {
+                          displayName: e.screen_name,
+                          iconName: '',// e.role_name,
+                          route: e.routename
+                        }
+                        item.children?.push(itemnav);
+                      }
+                      else{
+                        if(e.screen_name == 'Comp Off'){}
+                        else{
+                          var itemnav = {
+                            displayName: e.screen_name,
+                            iconName: '',// e.role_name,
+                            route: e.routename
+                          }
+                          item.children?.push(itemnav);
+                        }
+                      }
+                     
+                      
                     }
                   }
                 })

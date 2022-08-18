@@ -762,7 +762,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.msgLM63
+            data: this.msgLM64
           });
         }
         else {
