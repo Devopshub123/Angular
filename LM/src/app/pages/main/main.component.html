@@ -1,6 +1,6 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches" style="height:100%" class="h-100">
   <mat-toolbar style="height:10%;padding-top: 0px">
-    <div class="main-header" style="min-height: 10%">
+    <div class="main-header custom-mob-main-header" style="min-height: 10%">
       <div class="logo-header">
         <div class="custom-mob-icons">
 
@@ -16,8 +16,8 @@
               <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img
                   *ngIf="!imageurls" src="assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><img
                   *ngIf="imageurls" [src]="imageurls" width="36"
-                  class="img-circle"><span>{{this.usersession.firstname}}</span></a>
-              <ul class="dropdown-menu dropdown-user">
+                  class="img-circle custom-mob-img-circle"><span>{{this.usersession.firstname}}</span></a>
+              <ul class="dropdown-menu dropdown-user custom-mob-ul">
                 <li>
                   <div class="user-box">
                     <div *ngIf="!imageurls" class="u-img"><img src="assets/img/profile.jpg" alt="user" width="36"

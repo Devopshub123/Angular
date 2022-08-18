@@ -104,7 +104,7 @@ menu:NavItem[] =[];
     // //   'moduleid':4
     // // };
     this.mainService.getRoleScreenFunctionalities(data).subscribe((res:any)=>{
-      if(res.status){
+      if(res.status){ 
         this.menu=[];
         res.data.forEach((e: any) => {
 

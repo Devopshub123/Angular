@@ -869,11 +869,14 @@ export class LeavepoliciesComponent implements OnInit {
     //         info.ruleData[m].status = 'Inactive'
     //   }
     // }
-    
+    var datas = {
+      leaveId:this.addleaveForm.controls.leaveid.value,
+      displayName:this.addleaveForm.controls.displayname.value,
+    }
   
   if( this.validateCustomLeave(info.ruleData)) {
     console.log("hellooo",this.leaveConfig,this.editLeaveInfo)
-    // this.LM.updateLeaveDisplayName(this.leaveConfig).subscribe((data:any)=>{})
+    this.LM.updateLeaveDisplayName(datas).subscribe((data:any)=>{})
     this.LM.setToggleLeaveType(infodata).subscribe((data) => {})
     console.log("afetr",info)
     this.LM.setLeaveConfigure(info).subscribe((data) => {
