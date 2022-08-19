@@ -1,5 +1,6 @@
 import { ReviewAndApprovalsComponent } from './../../dialog/review-and-approvals/review-and-approvals.component';
 import { LeavesService } from './../../leaves.service';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -13,6 +14,7 @@ import { CalendarOptions, EventInput, FullCalendarComponent } from '@fullcalenda
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
+import { LoginService } from 'src/app/services/login.service';
 // import { ChartOptions, ChartType } from 'chart.js';
 // import { BaseChartDirective } from 'ng2-charts';
 
@@ -22,6 +24,7 @@ import interactionPlugin from '@fullcalendar/interaction';
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
+
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
   initialEvents: EventInput[] = [];
   calendarApi:any;
@@ -62,6 +65,10 @@ export class UserDashboardComponent implements OnInit {
   datesToBeHighlighted:any;
   titleName:any;
   reason:any;
+  msgLM16:any;
+  msgLM17:any;
+  msgLM73:any;
+  msgLM74:any;
   leavsemaster:any=[]
   calenderleaves:any=[];
   arrayList:any=[];
@@ -87,9 +94,13 @@ export class UserDashboardComponent implements OnInit {
 
   // @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
 
-  constructor(private router: Router,private LM:LeavesService,public datepipe: DatePipe,public dialog: MatDialog) { }
+  constructor(private router: Router,private LM:LeavesService,private ts :LoginService,public datepipe: DatePipe,public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.getErrorMessages('LM16');
+    this.getErrorMessages('LM17');
+    this.getErrorMessages('LM73');
+    this.getErrorMessages('LM74');
     this.usersession = JSON.parse(sessionStorage.getItem('user') || '');
     this.dataSource.paginator = this.paginator;
     this.getleavehistory(null,null);
@@ -120,8 +131,6 @@ export class UserDashboardComponent implements OnInit {
         this.initialEvents.push(item);
       });
       this.calendarOptions.events = this.initialEvents;
-
-      // console.log(this.calenderleaves)
       // this.myDateFilter = (d: Date): boolean => {
       //   let isValid=false;
       // this.calenderleaves.forEach((e:any) => {
@@ -189,7 +198,6 @@ export class UserDashboardComponent implements OnInit {
   getHolidaysList() {
     this.LM.getHolidaysList(this.usersession.id).subscribe((result)=>{
       this.holidaysList = result;
-      console.log(result)
       this.holidaysList = this.holidaysList.data[0];
       this.holidaydatasource = new MatTableDataSource(this.holidaysList);
     })
@@ -228,8 +236,6 @@ export class UserDashboardComponent implements OnInit {
         //   }
         }
 
-        // this.leavedata = result.data[0];
-        console.log(this.leavedata)
       }
     })
   }
@@ -239,11 +245,9 @@ export class UserDashboardComponent implements OnInit {
   }
 
 view(data:any){
-    console.log("kkvjk",data)
   this.isview=true;
   this.isdata=false;
   this.viewdata = data;
-  console.log(data)
 }
 viewall(){
 
@@ -251,13 +255,11 @@ viewall(){
     this.holidaysListall = result;
 
     this.holidaysListall = this.holidaysListall.data;
-    console.log(this.holidaysListall )
     this.holidaysalldatasource = new MatTableDataSource( this.holidaysListall);
   })
   this.isdata=false;
   this.isholidays=true;
 }
-// console.log(this.allleaves)
 close(){
   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
     this.router.navigate(["/LeaveManagement/UserDashboard"]));
@@ -276,13 +278,24 @@ openDialogcancel(): void {
 
   dialogRef.afterClosed().subscribe(result => {
   this.deletedata.actionreason =result.reason;
-    console.log(this.deletedata)
     if(result!=''){
-      console.log(this.deletedata)
       this.LM.cancelLeaveRequest(this.deletedata).subscribe((data)=>{
         if(data.status){
-          console.log("hi")
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/LeaveManagement/UserDashboard"]));
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: 'Leave request cancelled successfully.'
+          });
 
+        }
+        else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: 'Unable to caancel leave request.'
+          });
         }
       })
     }
@@ -302,12 +315,25 @@ openDialogdelete(): void {
 
   dialogRef.afterClosed().subscribe(result => {
   this.deletedata.actionreason =result.reason;
-    console.log(this.deletedata)
     if(result!=''){
-      console.log(this.deletedata)
       this.LM.setDeleteLeaveRequest(this.deletedata).subscribe((data)=>{
         if(data.status){
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+          this.router.navigate(["/LeaveManagement/UserDashboard"]));
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: 'Leaverequest deleted successfully.'
+          });
 
+        }
+        else
+        {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: 'Unable to delete leaverequest.'
+          });
         }
       })
     }
@@ -330,6 +356,32 @@ currentMonth(): void {
     leave.URL = '/LeaveManagement/UserDashboard';
     this.router.navigate(['/LeaveManagement/LeaveRequest'],{state:{leaveData:leave}});
   }
+
+  getErrorMessages(errorCode:any) {
+
+    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+
+      if(result.status && errorCode == 'LM16')
+      {
+        this.msgLM16 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM17')
+      {
+        this.msgLM17 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM73')
+      {
+        this.msgLM73 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM74')
+      {
+        this.msgLM74 = result.data[0].errormessage
+      }
+      
+     
+    })
+  }
+
 }
 
 

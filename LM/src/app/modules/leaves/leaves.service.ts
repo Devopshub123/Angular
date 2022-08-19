@@ -21,7 +21,6 @@ export class LeavesService {
   }
 
   setApproveOrReject(data: any): any {
-    console.log("hheheh", data)
     return this.http.post(this.mainUrl + 'api/setLeaveStatus', data, this.httpOptions);
   }
 
@@ -35,7 +34,6 @@ export class LeavesService {
   }
 
   setCompoffForApproveOrReject(data: any): any {
-    console.log("hheheh", data)
     return this.http.post(this.mainUrl + 'api/setCompoffForApproveOrReject', data, this.httpOptions);
   }
 
@@ -89,7 +87,6 @@ getCompOffMinWorkingHours(): Observable<any>{
 
 }
 getCompoffCalender(info:any): Observable<any>{
-  console.log(info,'info')
   return this.http.get(this.mainUrl+'api/getCompoffCalender/'+JSON.stringify(info), this.httpOptions);
 }
 setCompOffReviewApprove(info:any): Observable<any> {
@@ -152,7 +149,6 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
       return this.http.get(this.mainUrl+'api/getHolidaysList/' + empId, this.httpOptions);
     }
     getHolidays(year:any,location:any,page:any,size:any): Observable<any>{
-      console.log(year,location,page,size)
       return this.http.get(this.mainUrl+'api/getHolidaysFilter/'+ year+'/'+location+'/'+page+'/'+size, this.httpOptions);
     }
 

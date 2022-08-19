@@ -166,7 +166,6 @@ export class WorklocationComponent implements OnInit {
     })    
   }
   emptyprefix(){
-    console.log(this.worklocationForm.controls.prefix.value)
     if(this.worklocationForm.controls.prefix.value==""){
       for (var i = 0; i < this.workLocationDetails.length; i++) {
         if (this.workLocationDetails[i].prefix == '') {
@@ -189,7 +188,6 @@ export class WorklocationComponent implements OnInit {
       this.workLocationDetails=result.data;
       this.emptyprefix();
       this.dataSource=new MatTableDataSource(this.workLocationDetails);
-      console.log(this.workLocationDetails)
     })
   }
   edit(data:any){
@@ -248,7 +246,6 @@ export class WorklocationComponent implements OnInit {
   getCountry(){
     this.LM.getCountry('countrymaster',null,1,10,'keerthi_hospitals').subscribe((data)=>{
       this.CountryDetails=data.data;
-      console.log(data)
     })
   }
   status(status:any,id:any){
@@ -261,7 +258,6 @@ export class WorklocationComponent implements OnInit {
     status:status
     }
     this.LM.updateStatusall(data).subscribe((result)=> {
-      console.log(result)
       if(result.status){
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -297,8 +293,6 @@ export class WorklocationComponent implements OnInit {
         status:'Active'    
             
       }
-      console.log(data)
-      
       this.LM.setWorkLocation(data).subscribe((data) => {
      
                 /**For edit worklocation */

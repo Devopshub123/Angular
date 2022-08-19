@@ -196,7 +196,6 @@ export class DeparmentComponent implements OnInit {
     })
   }
   edit(w: any, i: any) {
-    console.log(i.deptname)
     this.departmentForm.controls.department.setValue(i.deptname);
     this.enable = i.id;
     this.isEdit = false;

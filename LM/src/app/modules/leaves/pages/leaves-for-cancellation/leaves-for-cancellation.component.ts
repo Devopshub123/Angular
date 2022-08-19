@@ -65,7 +65,6 @@ export class LeavesForCancellationComponent implements OnInit {
           res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
           this.arrayList.push(res.data[i])
         }
-        console.log(this.arrayList,'this.arrayList')
 
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
@@ -103,7 +102,6 @@ export class LeavesForCancellationComponent implements OnInit {
     this.LM.setApproveOrReject(obj).subscribe((res: any) => {
       this.spinner.hide()
       if(res && res.status){
-        console.log("nlsdnjk",res)
         if(res.leaveStatus == 'Cancel Approved'){
           this.dialog.open(ConfirmationComponent, {
             position:{top:`70px`},

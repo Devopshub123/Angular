@@ -61,7 +61,6 @@ export class ManagerDashboardCalenderComponent implements OnInit {
   getLeaveCalendarForManager(){
     this.arrayList= [];
     this.LM.getLeaveCalendarForManager(this.userSession.id).subscribe((res: any) => {
-      console.log("jnkjsadkj",res)
       if (res.status) {
         this.arrayList = res.data;
         this.arrayList.forEach((e: any) => {

@@ -54,7 +54,6 @@ export class SummaryReportForManagerComponent implements OnInit {
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
         this.designations = result.data;
-        // console.log("hvdsjhjh",this.designations)
       }
     })
   }
@@ -69,7 +68,6 @@ export class SummaryReportForManagerComponent implements OnInit {
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
         this.departments = result.data;
-        // console.log("hvdsjhjhdepartments",this.departments)
       }
     })
   }
@@ -81,7 +79,6 @@ export class SummaryReportForManagerComponent implements OnInit {
     this.LM.getEmployeesForReportingManager(info).subscribe(result=>{
       if(result && result.status){
         this.employeeDetails = result.data;
-        console.log("hvdsjhjh",this.employeeDetails.length)
         if(this.employeeDetails.length>0){
           this.ishide = true;
         }
@@ -162,7 +159,6 @@ export class SummaryReportForManagerComponent implements OnInit {
     this.LM.getYearsForReport().subscribe(result=>{
       if(result && result.status){
         this.calengerYearsdetails = result.data;
-        console.log("hvdsjhjhcalengerYears",this.calengerYearsdetails)
       }
     })
   }

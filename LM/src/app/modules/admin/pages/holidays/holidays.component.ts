@@ -60,7 +60,6 @@ export class HolidaysComponent implements OnInit {
     this.ischecked = true;
     select.value = values;
     array = values;
-    // console.log(this.selectedYears); // selectedYears is still undefined
   }
 
   deselectAll(select: MatSelect) {
@@ -98,7 +97,6 @@ export class HolidaysComponent implements OnInit {
   getWorkLocation(){
     this.LM.getactiveWorkLocation({id:null,companyName:'keerthi_hospitals'}).subscribe((result)=>{
       this.worklocationDetails=result.data;
-      console.log(this.worklocationDetails)
     })
 
   }
@@ -106,9 +104,6 @@ export class HolidaysComponent implements OnInit {
     return this.HolidayForm.get("edu") as FormArray
   }
   submit(){
-    console.log(this.HolidayForm.controls.holiday.value)
-    console.log(this.HolidayForm.controls.branch.value)
-    console.log(this.HolidayForm.controls.holiday.value)
     let location = this.HolidayForm.controls.branch.value;
     // let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     location.forEach((e:any) => {
@@ -120,7 +115,6 @@ export class HolidaysComponent implements OnInit {
 
       }));
     });
-    console.log(this.selecteditems)
     // if(this.HolidayForm.controls.holiday.value !== null && this.holidays.holidayName !== null ){}
     this.LM.setHolidays(this.selecteditems,'keerthi_hospitals').subscribe((data) => {
 
@@ -156,7 +150,6 @@ export class HolidaysComponent implements OnInit {
   }
   /**Search functionality */
   applyFilter(event: Event) {
-    console.log(event)
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
@@ -167,7 +160,6 @@ export class HolidaysComponent implements OnInit {
   getHolidays(year:any,locationId:any){
 
     this.LM.getHolidays(year,locationId,1,100).subscribe((result)=>{
-      console.log(result.data)
       if(result.status) {
         this.holidaysDetails = result.data;
 
@@ -231,8 +223,6 @@ export class HolidaysComponent implements OnInit {
         break;
       }
     }
-    // this.HolidayForm.controls.department.setValue('');
-    console.log(row)
     this.enable = row.id;
     this.isEdit=false;
     this.isSave=true;
@@ -255,7 +245,6 @@ export class HolidaysComponent implements OnInit {
       date:date
 
     }
-    console.log(data)
     this.LM.putHolidays(data, 'keerthi_hospitals').subscribe((data) => {
 
       this.isadd= true;
