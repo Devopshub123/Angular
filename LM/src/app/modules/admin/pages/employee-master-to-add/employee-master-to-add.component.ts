@@ -972,17 +972,19 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.family = true;
   }
   close() {
-    this.addemployee = true;
-    this.addempdetails = false;
-    this.viewdetails = true;
-    this.work = false;
-    this.emp = true;
-    this.family = false;
-    this.familyDetails = [];
-    this.Experience = [];
-    this.Educations = [];
-    this.employeedata = [];
-    this.ngOnInit();
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/Employee"]));
+    // this.addemployee = true;
+    // this.addempdetails = false;
+    // this.viewdetails = true;
+    // this.work = false;
+    // this.emp = true;
+    // this.family = false;
+    // this.familyDetails = [];
+    // this.Experience = [];
+    // this.Educations = [];
+    // this.employeedata = [];
+    // this.ngOnInit();
   }
   getErrorMessages(errorCode: any) {
 
