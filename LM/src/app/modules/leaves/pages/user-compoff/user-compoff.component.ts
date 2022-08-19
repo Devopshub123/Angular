@@ -111,10 +111,8 @@ export class UserCompoffComponent implements OnInit {
   // getCompOff(){}
   getCompOff(){
     this.LM.getCompOff(this.usersession.id,this.usersession.rmid).subscribe((result)=> {
-      console.log(result);
       if(result.status){
         this.compOffDetails = result.data;
-        console.log(result.data)
         this.dataSource = new MatTableDataSource(this.compOffDetails);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -141,13 +139,11 @@ export class UserCompoffComponent implements OnInit {
     this.LM.getCompoffCalender(this.calender).subscribe((result)=> {
       if(result.status) {
         // new Date(this.today.setDate(this.today.getDate()-result.data[0].value)
-        console.log('result',result)
         for(let i= 0;i<result.data.length;i++){
           let date=result.data[i].edate +' ' +'00:00:00'
           this.compOffDates.push(new Date(date))
           // this.compOffDates.push((result.data[i].edate))
         }
-        console.log(' this.compOffDates', this.compOffDates)
        
        
       

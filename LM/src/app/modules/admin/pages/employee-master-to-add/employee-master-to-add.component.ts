@@ -197,7 +197,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
           dateofjoin: ["", Validators.required],
           companylocation: ["", Validators.required],
           reportingmanager: ["", Validators.required],
-          status: [""],
+          status: ["Active"],
           shift: [""],
           relations: [""],
 
@@ -324,7 +324,6 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
     })
     this.employeeworkAddForm.get('usertype')?.valueChanges.subscribe(selectedValue => {
-      console.log(selectedValue)
       if(selectedValue == 2){
         this.isself = true;
       }
@@ -838,7 +837,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.employeefamilyAddForm.controls.familyfirstname.reset();
     this.employeefamilyAddForm.controls.familylastname.reset();
     this.employeefamilyAddForm.controls.relation.reset();
-    this.employeefamilyAddForm.controls.familystatus.reset();
+    // this.employeefamilyAddForm.controls.familystatus.reset();
     this.employeefamilyAddForm.controls.familycontact.reset();
     this.employeefamilyAddForm.controls.familydateofbirth.reset();
     this.employeefamilyAddForm.controls.familygender.reset();

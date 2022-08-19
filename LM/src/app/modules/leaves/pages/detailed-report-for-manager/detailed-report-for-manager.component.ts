@@ -20,7 +20,6 @@ export class DetailedReportForManagerComponent implements OnInit {
   constructor(private LM:LeavesService,public formBuilder: FormBuilder,public spinner :NgxSpinnerService) {
    // var date = new Date();
    // // date.setDate(date.getDate()-7)
-   //  console.log('jdfjgk',new Date(new Date().setDate(new Date().getDate()-7)))
   }
   searchForm!: FormGroup;
   displayedColumns: string[] = ['employeeName','employeeId' ,'leaveType','designation', 'appliedDate','startDate','toDate','noOfDays','status','approvedBy'];
@@ -145,12 +144,6 @@ export class DetailedReportForManagerComponent implements OnInit {
       //
       // }
 
-
-
-
-
-      console.log("DateFormate",selectedValue)
-
     })
     this.searchForm.get('designation')?.valueChanges.subscribe((selectedValue:any) => {
       this.searchForm.controls.employeeId.setValue('All');
@@ -188,7 +181,6 @@ export class DetailedReportForManagerComponent implements OnInit {
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
         this.designations = result.data;
-        console.log("hvdsjhjh",this.designations)
       }
     })
   }
@@ -207,7 +199,6 @@ export class DetailedReportForManagerComponent implements OnInit {
         else{
           this.ishide = false;
         }
-        console.log("hvdsjhjh",this.employeeDetails)
       }
     })
 
@@ -226,13 +217,11 @@ export class DetailedReportForManagerComponent implements OnInit {
       'pageSize':this.tableSize
 
     };
-    console.log("obj",obj)
     this.LM.getEmployeeLeaveDetailedReportForManager(obj).subscribe(result =>{
       this.spinner.hide();
       if (result.status) {
         this.arrayList = result.data;
         this.count = this.arrayList[0].total;
-        console.log(this.arrayList,'this.arrayList')
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -253,12 +242,6 @@ export class DetailedReportForManagerComponent implements OnInit {
 
   }
 
-
-
-  // getDates(dateName:any){
-  //
-  //   console.log("bkbsdhj",dateName)
-  // }
   exportAsXLSX() {
     const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(document.getElementById('table'));
     const wb: XLSX.WorkBook = XLSX.utils.book_new();

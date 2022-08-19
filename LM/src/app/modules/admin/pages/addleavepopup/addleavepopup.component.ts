@@ -100,7 +100,6 @@ export class AddleavepopupComponent implements OnInit {
            
           }
         });
-         console.log(info)
       }
 
     }
@@ -122,25 +121,20 @@ hexToRgb(hex:any) {
   }
   checkLeaveTypes(key:any,leaveData:any)
   { 
-    console.log(this.existingLeaveTypes.length,key,leaveData)
     for(let i =0; i<this.existingLeaveTypes.length;i++){
       if(key === 'display_name' && this.existingLeaveTypes[i].display_name == leaveData){
         this.isDisplayAlreadyExists = true;
-        console.log('display_nametrue')
         break;
       }
       else if(key === 'display_name'){
         this.isDisplayAlreadyExists = false; 
-        console.log('leavenametrue')
       }
       if(key === 'leavename' && this.existingLeaveTypes[i].leavename == leaveData){
         this.isLeaveAlreadyExists = true; 
-        console.log('leavenametrue')
         break;
       }
       else if(key === 'leavename'){
         this.isLeaveAlreadyExists = false; 
-        console.log('leavenametruefalse')
       }
       if(key === 'leavecolor' && this.existingLeaveTypes[i].leavecolor === leaveData){
         this.isLeaveColorAlreadyExists = true;
@@ -162,13 +156,6 @@ hexToRgb(hex:any) {
   getLeavesDetails() {
     this.LM.getLeaveDetails('lm_leavesmaster',null,1,100).subscribe((result) =>{
       this.existingLeaveTypes = result.data;
-      console.log( result.data)
-      // for(let i=0; i<result.data.length;i++) {
-      //   this.existingLeaveTypes.push(result.data[i].leavename);
-      //   this.existingColors.push(result.data[i].leavecolor);
-      //   this.existingDisplayNames.push(result.data[i].display_name);
-      // }
-
     });
   }
 

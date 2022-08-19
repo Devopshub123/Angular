@@ -29,8 +29,6 @@ export class MainService {
   }
 
   getProfileImage(id: any,companyName:any): Observable<any> {
-    // var conpanyName ='Apple'
-    console.log("gdvhsgvghgs")
     return this.http.get(this.mainBeUrl + 'api/getProfileImage/' + id+'/'+companyName);
   }
   getCompoffleavestatus():Observable<any> {

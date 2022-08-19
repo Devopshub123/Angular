@@ -37,7 +37,6 @@ export class EmployeeLeavesListComponent implements OnInit {
         //   res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
         //   this.arrayList.push(res.data[i])
         // }
-        console.log(this.arrayList,'this.arrayList')
 
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
