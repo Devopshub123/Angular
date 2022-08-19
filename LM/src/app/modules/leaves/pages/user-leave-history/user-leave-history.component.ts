@@ -51,7 +51,7 @@ export class UserLeaveHistoryComponent implements OnInit {
     this.getleavehistory(null,null);
   }
   getleavehistory(page:any,size:any){
-    this.LM.getleavehistory(this.usersession.id,0,0).subscribe((result:any)=>{
+    this.LM.getleavehistory(this.usersession.id,1,1000).subscribe((result:any)=>{
       this.leavedata=result.data
       this.dataSource = new MatTableDataSource(this.leavedata);
       this.dataSource.paginator = this.paginator;
