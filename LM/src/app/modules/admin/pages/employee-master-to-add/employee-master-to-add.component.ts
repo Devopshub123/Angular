@@ -726,7 +726,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
       uanumber: this.employeeAddForm.controls.uanumber.value,
       pfaccountnumber: this.employeeAddForm.controls.pfaccountnumber.value,
       pan: this.employeeAddForm.controls.pan.value,
-      status: 'Active',
+      status:this.employeeworkAddForm.controls.status.value,
       esi: this.employeeAddForm.controls.esi.value,
       shift: this.employeeworkAddForm.controls.shift.value ?? '',
       relations: this.familyDetails,
