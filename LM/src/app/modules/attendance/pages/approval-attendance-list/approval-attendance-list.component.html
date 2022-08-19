@@ -30,7 +30,7 @@
                 </ng-container>
                 <ng-container matColumnDef="raisedbyname">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
-                    <td mat-cell *matCellDef="let row"> {{row.raisedbyname}}</td>
+                    <td mat-cell *matCellDef="let row"> {{row.empname}}</td>
                 </ng-container>
                 <ng-container matColumnDef="shift">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Shift </th>
@@ -64,7 +64,7 @@
                     <td mat-cell *matCellDef="let row">
                         <mat-icon  class="mr-1"  title="Approve" (click)="acceptApproval(row)">check_circle_outline</mat-icon>
                          <mat-icon  class="mr-1"  title="Reject" (click)="rejectApproval(row)">highlight_off</mat-icon>
-                         <mat-icon  class="mr-1"  title="view" (click)="changeTab(row)">visibility</mat-icon> 
+                         <mat-icon  class="mr-1"  title="view" (click)="changeTab(row)">visibility</mat-icon>
                     </td>
 
                 </ng-container>
