@@ -23,7 +23,7 @@ interface IdName {
   selector: 'app-attendance-request',
   templateUrl: './attendance-request.component.html',
   styleUrls: ['./attendance-request.component.scss'],
-  
+
 })
 export class AttendanceRequestComponent implements OnInit {
   requestform!: FormGroup;
@@ -47,24 +47,30 @@ export class AttendanceRequestComponent implements OnInit {
   userData: any;
   pageLoading = true;
   isRequestView = false;
-  isEditView=false;
+  isEditView = false;
   uniqueId: any = '';
   messagesDataList: any = [];
   requiredField: any;
   requiredOption: any;
   dataSave: any;
   dataNotSave: any;
+  disableDates: any;
+  datesList: any;
+  weekoffs: any;
+  holidays: any;
+  leaves: any;
+  myDateFilter:any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
-    private location: Location,private adminService: AdminService) {
+    private location: Location, private adminService: AdminService) {
     this.minFromDate = new Date();
     this.minFromDate.setDate(this.currentDate.getDate() - 31);
     this.maxFromDate = new Date();
-    this.maxFromDate.setDate(this.currentDate.getDate()-1);
+    this.maxFromDate.setDate(this.currentDate.getDate() - 1);
     this.minToDate = new Date();
     this.minToDate.setDate(this.currentDate.getDate() - 31);
     this.maxToDate = new Date();
-    this.maxToDate.setDate(this.currentDate.getDate()-1);
+    this.maxToDate.setDate(this.currentDate.getDate() - 1);
   }
 
   ngOnInit(): void {
@@ -83,8 +89,9 @@ export class AttendanceRequestComponent implements OnInit {
       });
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getWorkypeList();
-  //  this.getEmployeeShiftDetails()
+    //  this.getEmployeeShiftDetails()
     this.getAttendanceRequestListByEmpId();
+    this.getEmployeeWeekoffsHolidaysForAttendance()
     if (this.userData.userData != undefined) {
       this.requestform = this.formBuilder.group(
         {
@@ -95,14 +102,14 @@ export class AttendanceRequestComponent implements OnInit {
           workType: ['', Validators.required],
           reason: ['', Validators.required],
         });
-        this.getEmployeeShiftDetailsByIdWithDates();
+      this.getEmployeeShiftDetailsByIdWithDates();
     }
     this.requestform.get('workType')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue) {
         if (selectedValue == "2") {
-          if(this.isRequestView == true){
+          if (this.isRequestView == true) {
             this.requestform.get('toDate')?.disable();
-          }else{
+          } else {
             this.requestform.get('toDate')?.enable();
           }
         } else {
@@ -155,28 +162,29 @@ export class AttendanceRequestComponent implements OnInit {
         this.requestform.controls.shift.setValue(this.shiftData.shiftname);
       }
     })
-    
+
   }
   getEmployeeShiftDetailsByIdWithDates() {
-    let data={
-      "employee_id":this.userSession.id,
+    let data = {
+      "employee_id": this.userSession.id,
       "fromd_date": this.pipe.transform(new Date(this.requestform.controls.fromDate.value ?? ''), 'yyyy-MM-dd'),
-      "to_date": this.pipe.transform(new Date(this.requestform.controls.toDate.value ?? ''), 'yyyy-MM-dd'),    }
-    this.attendanceService.getEmployeeShiftByDates(data).subscribe((res:any)=>{
+      "to_date": this.pipe.transform(new Date(this.requestform.controls.toDate.value ?? ''), 'yyyy-MM-dd'),
+    }
+    this.attendanceService.getEmployeeShiftByDates(data).subscribe((res: any) => {
       if (res.status) {
 
-        if(res.data.length>0){
-             if(res.data.length>1){
-              let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                position: { top: `70px` },
-                disableClose: true,
-                data: "Unable to request. please check the configure shift."
-              });
-             }else{
-              this.shiftData = res.data[0];
-              this.requestform.controls.shift.setValue(this.shiftData.shiftname);
-             }
-        }else{
+        if (res.data.length > 0) {
+          if (res.data.length > 1) {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: "Unable to request. please check the configure shift."
+            });
+          } else {
+            this.shiftData = res.data[0];
+            this.requestform.controls.shift.setValue(this.shiftData.shiftname);
+          }
+        } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -188,12 +196,61 @@ export class AttendanceRequestComponent implements OnInit {
       }
     });
   }
+  getEmployeeWeekoffsHolidaysForAttendance() {
+    let data = {
+      "employee_id": this.userSession.id,
+    }
+    this.attendanceService.getEmployeeWeekoffsHolidaysForAttendance(data).subscribe((res: any) => {
+      this.disableDates = [];
+      if (res.status) {
+
+        if (res.data.length > 0) {
+          this.datesList = res.data;
+          this.weekoffs = JSON.parse(this.datesList[0].weekoffs);
+          this.holidays = JSON.parse(this.datesList[0].holidays);
+          this.leaves = JSON.parse(this.datesList[0].leaves);
+          if (this.weekoffs.length > 0) {
+            this.weekoffs.forEach((i: any) => {
+              let date = i + ' ' + '00:00:00'
+              this.disableDates.push(new Date(date));
+            });
+          }
+          if (this.holidays.length > 0) {
+            this.holidays.forEach((i: any) => {
+              let date = i + ' ' + '00:00:00'
+              this.disableDates.push(new Date(date));
+            });
+          }
+          if (this.leaves.length > 0) {
+            this.leaves.forEach((i: any) => {
+              let date = i + ' ' + '00:00:00'
+              this.disableDates.push(new Date(date));
+            });
+          }
+          this.myDateFilter = (d: Date): boolean => {
+            let isValid=false;
+          this.disableDates.forEach((e:any) => {
+            if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
+              isValid=true
+            }
+          });
+
+            return isValid;
+
+
+           }
+        }
+      }
+    });
+  }
+
   getWorkypeList() {
     this.workTypeData = [];
     this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'keerthi_hospitals').subscribe((info: any) => {
       if (info.status && info.data.length != 0) {
-           this.workTypeData = info.data;
+        this.workTypeData = info.data;
       }
+
 
     })
 
@@ -249,7 +306,7 @@ export class AttendanceRequestComponent implements OnInit {
           let resMessage: any;
           if (res.message == "notSave") {
             resMessage = this.dataNotSave;
-          } else if(res.message == "save"){
+          } else if (res.message == "save") {
             resMessage = this.dataSave;
           } else {
             resMessage = this.dataNotSave;
@@ -283,9 +340,9 @@ export class AttendanceRequestComponent implements OnInit {
     }
   }
   editRequest(event: any) {
-    this.uniqueId=event.id;
+    this.uniqueId = event.id;
     this.isRequestView = false;
-    this.isEditView=true;
+    this.isEditView = true;
     this.requestform.controls.appliedDate.setValue(this.pipe.transform(event.applieddate, 'dd/MM/yyyy'));
     this.requestform.controls.shift.setValue(event.shift);
     this.requestform.controls.fromDate.setValue(event.fromdate);
@@ -298,12 +355,12 @@ export class AttendanceRequestComponent implements OnInit {
     })
     this.getEmployeeShiftDetailsByIdWithDates();
   }
-  updateRequest(){
+  updateRequest() {
     if (this.requestform.invalid) {
       return;
     } else {
       let obj = {
-        "id":this.uniqueId,
+        "id": this.uniqueId,
         "empid": this.userSession.id ?? '',
         "shiftid": this.shiftData.shiftid,
         "worktype": this.requestform.controls.workType.value,
@@ -323,10 +380,10 @@ export class AttendanceRequestComponent implements OnInit {
       this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res: any) => {
         if (res.status) {
           let resMessage: any;
-        
+
           if (res.message == "notSave") {
             resMessage = this.dataNotSave;
-          } else if(res.message == "save"){
+          } else if (res.message == "save") {
             resMessage = this.dataSave;
           } else {
             resMessage = this.dataNotSave;
@@ -344,8 +401,8 @@ export class AttendanceRequestComponent implements OnInit {
   }
   deleteRequest(event: any) {
     let obj = {
-      "id":event.id,
-       };
+      "id": event.id,
+    };
 
 
     this.attendanceService.deleteAttendanceRequestById(obj).subscribe((res: any) => {
@@ -362,7 +419,7 @@ export class AttendanceRequestComponent implements OnInit {
   }
   requestView(event: any) {
     this.isRequestView = true;
-    this.isEditView=false;
+    this.isEditView = false;
     this.requestform.controls.appliedDate.setValue(this.pipe.transform(event.applieddate, 'dd/MM/yyyy'));
     this.requestform.controls.shift.setValue(event.shift);
     this.requestform.controls.fromDate.setValue(event.fromdate);
@@ -383,31 +440,31 @@ export class AttendanceRequestComponent implements OnInit {
   }
 
   getMessagesList() {
-    let data = 
-     {
-       "code": null,
-       "pagenumber":1,
-       "pagesize":100
-   }
-   this.adminService.getMessagesListApi(data).subscribe((res:any)=>{
-     if(res.status) {
-       this.messagesDataList = res.data;
-       this.messagesDataList.forEach((e: any) => {
-        if (e.code == "ATT2") {
-         this.requiredOption = e.message
-        } else if (e.code == "ATT1") {
-          this.requiredField =e.message
-        } else if (e.code == "ATT12") {
-          this.dataNotSave =e.message
-        } else if (e.code == "ATT11") {
-          this.dataSave =e.message
-        }
-      })
-     }
-     else {
-       this.messagesDataList = [];
-     }
+    let data =
+    {
+      "code": null,
+      "pagenumber": 1,
+      "pagesize": 100
+    }
+    this.adminService.getMessagesListApi(data).subscribe((res: any) => {
+      if (res.status) {
+        this.messagesDataList = res.data;
+        this.messagesDataList.forEach((e: any) => {
+          if (e.code == "ATT2") {
+            this.requiredOption = e.message
+          } else if (e.code == "ATT1") {
+            this.requiredField = e.message
+          } else if (e.code == "ATT12") {
+            this.dataNotSave = e.message
+          } else if (e.code == "ATT11") {
+            this.dataSave = e.message
+          }
+        })
+      }
+      else {
+        this.messagesDataList = [];
+      }
 
-   })
- }
+    })
+  }
 }

@@ -37,6 +37,7 @@
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>From Date </mat-label>
                     <input matInput readonly required [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate"
+                     [matDatepickerFilter]="myDateFilter"
                         (dateInput)="fromDateChange('input', $event)" placeholder="From Date" (click)="fromDate.open()"
                         formControlName="fromDate">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
@@ -48,7 +49,8 @@
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>To Date </mat-label>
                     <input matInput readonly required [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
-                        (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="toDate.open()">
+                    [matDatepickerFilter]="myDateFilter"
+                    (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="toDate.open()">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
                     <mat-datepicker #toDate></mat-datepicker>
                     <mat-error class="con-error" *ngIf="requestform.controls.toDate.errors?.required">
@@ -160,7 +162,7 @@
             </table>
 
                 <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-            
+
         </div>
     </mat-card>
 

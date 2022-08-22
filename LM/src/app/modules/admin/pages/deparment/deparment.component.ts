@@ -182,7 +182,7 @@ export class DeparmentComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.msgLM125 
+          data: this.msgLM125
         });
 
       } else {
@@ -219,7 +219,7 @@ export class DeparmentComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.msgLM126 
+            data: this.msgLM126
           });
           this.getDepartments();
 
@@ -322,7 +322,7 @@ export class DeparmentComponent implements OnInit {
       {
         this.msgLM127 = result.data[0].errormessage
       }
-     
+
     })
   }
 
