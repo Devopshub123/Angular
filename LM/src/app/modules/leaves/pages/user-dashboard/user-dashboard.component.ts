@@ -96,7 +96,7 @@ export class UserDashboardComponent implements OnInit {
 
   // @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
 
-  constructor(private router: Router,private LM:LeavesService,public datepipe: DatePipe,public dialog: MatDialog,public spinner:NgxSpinnerService) { }
+  constructor(private router: Router,private LM:LeavesService,public datepipe: DatePipe,private ts :LoginService,public dialog: MatDialog,public spinner:NgxSpinnerService) { }
 
 
   ngOnInit(): void {
