@@ -286,6 +286,7 @@ async  getLeavesTypeInfo() {
   await this.LM.getLeavesTypeInfo().subscribe((result) => {
         if (result.status) {
           this.leavesTypeData = this.leaveTypes(result.data);
+          console.log("khdsjhbhbd",this.leavesTypeData)
           this.leaveRequestForm.controls.leaveTypeId.setValue(this.leaveData?this.leaveData.leavetypeid.toString():'',{ emitEvent: false });
 
           /**

@@ -17,6 +17,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { LoginService } from 'src/app/services/login.service';
 // import { ChartOptions, ChartType } from 'chart.js';
 // import { BaseChartDirective } from 'ng2-charts';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-user-dashboard',
@@ -94,7 +96,8 @@ export class UserDashboardComponent implements OnInit {
 
   // @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
 
-  constructor(private router: Router,private LM:LeavesService,private ts :LoginService,public datepipe: DatePipe,public dialog: MatDialog) { }
+  constructor(private router: Router,private LM:LeavesService,public datepipe: DatePipe,private ts :LoginService,public dialog: MatDialog,public spinner:NgxSpinnerService) { }
+
 
   ngOnInit(): void {
     this.getErrorMessages('LM16');
@@ -110,11 +113,13 @@ export class UserDashboardComponent implements OnInit {
   }
 
   getuserleavecalender(){
-    this.LM.getMastertablesforcalender('lm_leavesmaster','Active',1,100,'keerthi_hospitals').subscribe(data=>{
-      this.leavsemaster = data.data;
-
-    })
+    this.spinner.show()
+    // this.LM.getMastertablesforcalender('lm_leavesmaster','Active',1,100,'keerthi_hospitals').subscribe(data=>{
+    //   this.leavsemaster = data.data;
+    //
+    // })
     this.LM.getuserleavecalender(this.usersession.id).subscribe((result:any)=>{
+      this.spinner.hide();
       this.calenderleaves = result.data;
       this.arrayList = result.data;
       this.arrayList.forEach((e: any) => {
@@ -377,8 +382,8 @@ currentMonth(): void {
       {
         this.msgLM74 = result.data[0].errormessage
       }
-      
-     
+
+
     })
   }
 
