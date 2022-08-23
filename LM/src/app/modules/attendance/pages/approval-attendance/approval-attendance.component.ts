@@ -44,14 +44,14 @@ export class ApprovalAttendanceComponent implements OnInit {
     // }
     this.userData = this.location.getState();
    if(this.userData.userData ==null && this.userData.userData ==undefined ){
-    this.router.navigate(["/Attendance/ApprovalList"],);  
+    this.router.navigate(["/Attendance/ApprovalList"],);
    }
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
     this.requestform=this.formBuilder.group(
       {
         appliedDate:[this.userData.userData.applieddate,Validators.required],
         shift:[this.userData.userData.shift,Validators.required],
-        empName:[this.userData.userData.raisedbyname,Validators.required],
+        empName:[this.userData.userData.empname,Validators.required],
         fromDate:[this.userData.userData.fromdate,Validators.required],
         toDate:[this.userData.userData.todate,Validators.required],
         workType:[this.userData.userData.worktype,Validators.required],
@@ -64,7 +64,7 @@ export class ApprovalAttendanceComponent implements OnInit {
         this.isEdit=true;
       }
       this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
-      
+
   }
   acceptApproval(){
     this.titleName="Approve"
@@ -81,12 +81,12 @@ export class ApprovalAttendanceComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-          
+
       if(result!=undefined ){
         if(result !==true){
           this.reason = result.reason;
           this.saveApproval();
-        }   
+        }
       }
     });
   }
@@ -118,17 +118,17 @@ export class ApprovalAttendanceComponent implements OnInit {
           data: resMessage
           //data: this.titleName=="Reject"?'Attendance request rejected successfully.':'Attendance request approved successfully.'
         });
-        this.router.navigate(["/Attendance/ApprovalList"],);  
-        
+        this.router.navigate(["/Attendance/ApprovalList"],);
+
       }
     })
   }
   backClick(){
-      this.router.navigate(["/Attendance/"+this.userData.url],);  
+      this.router.navigate(["/Attendance/"+this.userData.url],);
   }
 
   getMessagesList() {
-    let data = 
+    let data =
      {
        "code": null,
        "pagenumber":1,
@@ -144,7 +144,7 @@ export class ApprovalAttendanceComponent implements OnInit {
          this.reqNotSave =e.message
        }   else if (e.code == "ATT15") {
          this.reqReject =e.message
-       } 
+       }
      })
     }
     else {

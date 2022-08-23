@@ -39,14 +39,6 @@ export class CompOffHistoryComponent implements OnInit {
     this.LM.getCompoffs(Data).subscribe((res: any) => {
       if (res.status) {
         this.arrayList = res.data;
-        // for(let i = 0; i<res.data.length;i++){
-        //   var date = new Date();
-        //   var appliedDate = new Date(res.data[i].applied_date)
-        //   res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
-        //   this.arrayList.push(res.data[i])
-        // }
-        console.log(this.arrayList,'this.arrayList')
-
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -72,7 +64,6 @@ export class CompOffHistoryComponent implements OnInit {
   }
   compoffReview(compoff:any){
     compoff.employeename = compoff.employee_name;
-    console.log("hsfkldkfksjd",compoff);
     compoff.leavestatus = compoff.status;
     compoff.url = "/LeaveManagement/CompOffHistory"
     this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: compoff ,isleave:false,isleaveHistory:'compoff'} });

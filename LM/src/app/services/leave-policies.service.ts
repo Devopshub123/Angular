@@ -45,7 +45,6 @@ export class LeavePoliciesService {
     }
 
     getLeaveRules(Id:any, page:any, size:any): Observable<any> {
-        console.log('pagepagepagepagepage', page, size)
         return this.hClient.get(this.url + 'api/getLeaveRules/' + Id + '/' + page + '/' + size, this.httpOptions);
 
     }
@@ -66,17 +65,14 @@ export class LeavePoliciesService {
     }
 
     setLeaveConfigure(info:any): Observable<any> {
-        console.log(info, "infoinfo")
         return this.hClient.post(this.url + 'api/setLeavePolicies', JSON.stringify(info), this.httpOptions);
 
     }
   setAdvancedLeaveRuleValues(info:any): Observable<any> {
-    console.log(info, "infoinfo")
     return this.hClient.post(this.url + 'api/setAdvancedLeaveRuleValues', JSON.stringify(info), this.httpOptions);
 
   }
   updateLeaveDisplayName(info:any): Observable<any> {
-    console.log(info, "infoinfo")
     return this.hClient.post(this.url + 'api/updateLeaveDisplayName', JSON.stringify(info), this.httpOptions);
 
   }
@@ -86,7 +82,6 @@ export class LeavePoliciesService {
     }
 
     setNewLeaveType(info:any): Observable<any> {
-        console.log(info, "infoinfo")
         return this.hClient.post(this.url + 'api/setNewLeaveType', JSON.stringify(info), this.httpOptions);
     }
 
@@ -95,7 +90,6 @@ export class LeavePoliciesService {
 
     }
     setToggleLeaveType(info:any): Observable<any> {
-        console.log(info, "infoinfo")
         return this.hClient.post(this.url + 'api/setToggleLeaveType', JSON.stringify(info), this.httpOptions);
     }
 

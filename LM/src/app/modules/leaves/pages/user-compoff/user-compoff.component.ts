@@ -36,7 +36,7 @@ export class UserCompoffComponent implements OnInit {
   msgLM3: any;
   msgLM7: any;
   msgLM136: any;
- 
+
   today:any=new Date();
   ishide:boolean=true;
   displayedColumns: string[] = ['appliedon','workeddate','hours','status','approver'];
@@ -48,7 +48,7 @@ export class UserCompoffComponent implements OnInit {
   currentYear = new Date().getDate();
   myDateFilter:any;
   pipe = new DatePipe('en-US');
-  constructor(private formBuilder: FormBuilder,private router: Router,private LM:LeavesService,public datepipe: DatePipe,public dialog: MatDialog) { 
+  constructor(private formBuilder: FormBuilder,private router: Router,private LM:LeavesService,public datepipe: DatePipe,public dialog: MatDialog) {
     this.usersession = JSON.parse(sessionStorage.getItem('user') || '')
     this.year = this.today.getFullYear();
     this.month = this.today.getMonth();
@@ -56,17 +56,17 @@ export class UserCompoffComponent implements OnInit {
     // this.CompoffForm.empId.controls.setValue(this.usersession.id);
     // // this.compOff.empRollnumber=this.usersession.empid;
     // this.CompoffForm.empName.controls.setValue(this.usersession.firstname+' '+ this.usersession.lastname);
-   
+
     // this.myDateFilter = (d: Date): boolean => {
     //  // const year = (d || new Date()).getDate();
     //   //return year >= this.currentYear -1 && year <= this.currentYear + 1;
 
     //  return [1, 5, 10, 21].indexOf(+d.getDate()) == -1
-    // } 
+    // }
   }
 
   ngOnInit(): void {
-    
+
     this.getErrorMessages('LM1')
     this.getErrorMessages('LM3')
     this.getErrorMessages('LM79')
@@ -79,13 +79,13 @@ export class UserCompoffComponent implements OnInit {
     this.getDurationforBackdatedCompoffLeave();
     this.CompoffForm=this.formBuilder.group(
       {
-      empId: [""],        
+      empId: [""],
       empName: ["",],
       workeddate:["",Validators.required],
       hours:["",Validators.required],
       minutes:["",],
       reason:["",Validators.required]
-      
+
     });
     this.CompoffForm.get('hours')?.valueChanges.subscribe((selectedValue:any) => {
       if(selectedValue == 24){
@@ -111,10 +111,8 @@ export class UserCompoffComponent implements OnInit {
   // getCompOff(){}
   getCompOff(){
     this.LM.getCompOff(this.usersession.id,this.usersession.rmid).subscribe((result)=> {
-      console.log(result);
       if(result.status){
         this.compOffDetails = result.data;
-        console.log(result.data)
         this.dataSource = new MatTableDataSource(this.compOffDetails);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -130,7 +128,7 @@ export class UserCompoffComponent implements OnInit {
         this.min = (new Date(this.today.setDate(this.today.getDate()-result.data[0].value)));
       }
     });
-  
+
   }
 
   getCompoffCalender(){
@@ -141,16 +139,13 @@ export class UserCompoffComponent implements OnInit {
     this.LM.getCompoffCalender(this.calender).subscribe((result)=> {
       if(result.status) {
         // new Date(this.today.setDate(this.today.getDate()-result.data[0].value)
-        console.log('result',result)
         for(let i= 0;i<result.data.length;i++){
           let date=result.data[i].edate +' ' +'00:00:00'
           this.compOffDates.push(new Date(date))
           // this.compOffDates.push((result.data[i].edate))
         }
-        console.log(' this.compOffDates', this.compOffDates)
-       
-       
-      
+
+
     this.myDateFilter = (d: Date): boolean => {
       let isValid=false;
       //  const year = (d || new Date()).getDate();
@@ -167,16 +162,16 @@ export class UserCompoffComponent implements OnInit {
     });
 
       return isValid;
-       
-  
-     } 
+
+
+     }
       }
 
     })
 
 
   }
-  
+
   submit(){
     let data={
       rmId:this.usersession.roles[0].rmid,
@@ -199,8 +194,8 @@ export class UserCompoffComponent implements OnInit {
           position:{top:`70px`},
           disableClose: true,
           data: this.msgLM136
-        });  
-        
+        });
+
       }else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
@@ -208,7 +203,7 @@ export class UserCompoffComponent implements OnInit {
           data: this.msgLM137
         });
       }
-      
+
     })
 
   }

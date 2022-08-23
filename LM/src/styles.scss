@@ -462,3 +462,17 @@ table{
 .mat-elevation-z8 {
   overflow-x: scroll;
 }
+
+::ng-deep mat-card{
+	padding: 5px !important;
+}
+::ng-deep mat-toolbar-row mat-toolbar-single-row{
+	padding:0 0px !important
+}
+mat-card-header{
+	padding-top: 10px;
+	color: #fff !important;
+	background-color:#28acaf;
+	border-bottom: 1px solid #28acaf !important;
+
+}

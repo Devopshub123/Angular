@@ -182,7 +182,7 @@ export class DeparmentComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.msgLM125 
+          data: this.msgLM125
         });
 
       } else {
@@ -196,7 +196,6 @@ export class DeparmentComponent implements OnInit {
     })
   }
   edit(w: any, i: any) {
-    console.log(i.deptname)
     this.departmentForm.controls.department.setValue(i.deptname);
     this.enable = i.id;
     this.isEdit = false;
@@ -220,7 +219,7 @@ export class DeparmentComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.msgLM126 
+            data: this.msgLM126
           });
           this.getDepartments();
 
@@ -323,7 +322,7 @@ export class DeparmentComponent implements OnInit {
       {
         this.msgLM127 = result.data[0].errormessage
       }
-     
+
     })
   }
 

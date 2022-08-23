@@ -116,10 +116,10 @@ export class EmployeDashboardComponent implements OnInit {
             color='#32cd32';
           }else if(e.present_or_absent=='W'){
             color='#2e0cf3';
-          } else if(e.present_or_absent=='H'){
+          }else if(e.present_or_absent=='A'){
+            color='#FF3131';
+          } else {
             color='#ffff00';
-          } else if(e.present_or_absent=='A'){
-             color='#FF3131';
           }
           let item =
           {

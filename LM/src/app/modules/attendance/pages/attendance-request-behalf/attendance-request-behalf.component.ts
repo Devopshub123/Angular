@@ -51,6 +51,12 @@ requiredField: any;
 requiredOption: any;
 dataSaved: any;
 dataNotSaved: any;
+  disableDates:any= [];
+  datesList: any;
+  weekoffs: any;
+  holidays: any;
+  leaves: any;
+  myDateFilter: any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
     private location: Location,private adminService: AdminService) {
@@ -102,6 +108,7 @@ dataNotSaved: any;
           reason: ['', Validators.required],
         });
       this.requestform.controls.employeeName.setValue(this.userData.userData.emp_id);
+      this.getEmployeeWeekoffsHolidaysForAttendance();
       this.getEmployeeShiftDetailsByIdWithDates();
     } else {
 
@@ -202,6 +209,53 @@ dataNotSaved: any;
       }
     });
   }
+  getEmployeeWeekoffsHolidaysForAttendance() {
+    let data = {
+      "employee_id": this.requestform.controls.employeeName.value ?? '',
+    }
+    this.attendanceService.getEmployeeWeekoffsHolidaysForAttendance(data).subscribe((res: any) => {
+      this.disableDates = [];
+      if (res.status) {
+
+        if (res.data.length > 0) {
+          this.datesList = res.data;
+          this.weekoffs = JSON.parse(this.datesList[0].weekoffs);
+          this.holidays = JSON.parse(this.datesList[0].holidays);
+          this.leaves = JSON.parse(this.datesList[0].leaves);
+          if (this.weekoffs.length > 0) {
+            this.weekoffs.forEach((i: any) => {
+              let date = i + ' ' + '00:00:00'
+              this.disableDates.push(new Date(date));
+            });
+          }
+          if (this.holidays.length > 0) {
+            this.holidays.forEach((i: any) => {
+              let date = i + ' ' + '00:00:00'
+              this.disableDates.push(new Date(date));
+            });
+          }
+          if (this.leaves.length > 0) {
+            this.leaves.forEach((i: any) => {
+              let date = i + ' ' + '00:00:00'
+              this.disableDates.push(new Date(date));
+            });
+          }
+          this.myDateFilter = (d: Date): boolean => {
+            let isValid=false;
+          this.disableDates.forEach((e:any) => {
+            if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
+              isValid=true
+            }
+          });
+
+            return isValid;
+
+
+           }
+        }
+      }
+    });
+  }
   getWorkypeList() {
     this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'keerthi_hospitals').subscribe((info) => {
       if (info.status && info.data.length != 0) {
@@ -294,7 +348,7 @@ dataNotSaved: any;
     }
   }
   getMessagesList() {
-    let data = 
+    let data =
      {
        "code": null,
        "pagenumber":1,
@@ -312,7 +366,7 @@ dataNotSaved: any;
           this.dataSaved =e.message
         } else if (e.code == "ATT12") {
           this.dataNotSaved =e.message
-        } 
+        }
       })
      }
      else {

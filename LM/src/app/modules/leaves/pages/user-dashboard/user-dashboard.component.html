@@ -7,7 +7,7 @@
           <mat-card style="flex-flow: nowrap">
 
             <mat-card-header class="">
-                <mat-card-title class="title"> Leave Balance </mat-card-title>
+                <mat-card-title > Leave Balance </mat-card-title>
             </mat-card-header><br>
             <!--<div fxLayout="row" fxFlex="100">-->
 
@@ -31,7 +31,7 @@
                                     </div>
 
                                     <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">
-                                        <mat-label>{{leave.leavename}}</mat-label>
+                                        <mat-label>{{leave.display_name}}</mat-label>
 
                                     </div>
                                     <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px;text-align: center;">
@@ -72,7 +72,7 @@
                 <div fxLayout="row" fxLayout.xs="column"  >
                     <mat-card fxFlex="60" fxFlex.xs="100">
                         <mat-card-header class="">
-                            <mat-card-title class="title" > Calendar  </mat-card-title>
+                            <mat-card-title  > Calendar  </mat-card-title>
                         </mat-card-header>
                         <full-calendar #calendar [options]='calendarOptions' style="width: 100%; height: 80%;" >
                         </full-calendar>
@@ -82,7 +82,7 @@
                     </mat-card>
                   <mat-card fxFlex="40" fxFlex.xs="100">
                     <mat-card-header class="">
-                      <mat-card-title class="title"> Holidays List  </mat-card-title>
+                      <mat-card-title > Holidays List  </mat-card-title>
                     </mat-card-header><br>
 
 
@@ -143,7 +143,7 @@
     <div fxLayout="column" *ngIf="isdata" >
         <mat-card fxFlex="100">
             <mat-card-header class="">
-                <mat-card-title class="title"> Leave History </mat-card-title>
+                <mat-card-title > Leave History </mat-card-title>
             </mat-card-header><br>
             <mat-card-content style="width:100%;overflow-x: auto" >
                 <table mat-table [dataSource]="dataSource" matSort>
@@ -229,11 +229,11 @@
     <mat-card>
         <mat-card-header class="">
             <div style="text-align:center">
-                <mat-card-title class="title" >{{viewdata.leavestatus+' Leave'}}  </mat-card-title>
-                <!--<mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Deleted'"> Deleted Leave </mat-card-title>-->
-                <!--<mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Approved'"> Approved Leave </mat-card-title>-->
-                <!--<mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Submitted'"> Submitted Leave </mat-card-title>-->
-                <!--<mat-card-title class="title"  *ngIf="viewdata.leavestatus === 'Rejected'"> Reject Leave </mat-card-title>-->
+                <mat-card-title  >{{viewdata.leavestatus+' Leave'}}  </mat-card-title>
+                <!--<mat-card-title   *ngIf="viewdata.leavestatus === 'Deleted'"> Deleted Leave </mat-card-title>-->
+                <!--<mat-card-title   *ngIf="viewdata.leavestatus === 'Approved'"> Approved Leave </mat-card-title>-->
+                <!--<mat-card-title   *ngIf="viewdata.leavestatus === 'Submitted'"> Submitted Leave </mat-card-title>-->
+                <!--<mat-card-title   *ngIf="viewdata.leavestatus === 'Rejected'"> Reject Leave </mat-card-title>-->
             </div>
 
 
@@ -360,7 +360,7 @@
     </div>
     <div fxLayout="column"  *ngIf="isholidays">
         <mat-card-header class="">
-            <mat-card-title class="title"> Holidays List  </mat-card-title>
+            <mat-card-title > Holidays List  </mat-card-title>
         </mat-card-header>
         <mat-divider></mat-divider>
         <div class="mat-elevation-z8"  >

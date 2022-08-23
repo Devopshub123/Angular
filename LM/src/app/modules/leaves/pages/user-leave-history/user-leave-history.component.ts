@@ -9,6 +9,7 @@ import { LeavesService } from '../../leaves.service';
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { LoginService } from 'src/app/services/login.service';
 @Component({
   selector: 'app-user-leave-history',
   templateUrl: './user-leave-history.component.html',
@@ -24,6 +25,11 @@ export class UserLeaveHistoryComponent implements OnInit {
   isview:boolean=false;
   isdata:boolean=true;
   maxall : number=20;
+  msgLM16:any;
+  msgLM17:any;
+  msgLM73:any;
+  msgLM74:any;
+
   displayedColumns: string[] = ['appliedon','leavetype','fromdate','todate','days','status','approver','action'];
   dataSource: MatTableDataSource<any>=<any>[];
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
@@ -33,15 +39,19 @@ export class UserLeaveHistoryComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private router: Router,private LM:LeavesService,public dialog: MatDialog) { }
+  constructor(private router: Router,private LM:LeavesService,public dialog: MatDialog,private ts :LoginService) { }
 
   ngOnInit(): void {
+    this.getErrorMessages('LM16');
+    this.getErrorMessages('LM17');
+    this.getErrorMessages('LM73');
+    this.getErrorMessages('LM74');
     this.usersession = JSON.parse(sessionStorage.getItem('user') || '');
     this.dataSource.paginator = this.paginator;
     this.getleavehistory(null,null);
   }
   getleavehistory(page:any,size:any){
-    this.LM.getleavehistory(this.usersession.id,0,0).subscribe((result:any)=>{
+    this.LM.getleavehistory(this.usersession.id,1,1000).subscribe((result:any)=>{
       this.leavedata=result.data
       this.dataSource = new MatTableDataSource(this.leavedata);
       this.dataSource.paginator = this.paginator;
@@ -66,7 +76,6 @@ view(data:any){
   this.isview=true;
   this.isdata=false;
   this.viewdata = data;
-  console.log(data)
 }
 close(){
   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -85,7 +94,6 @@ openDialogcancel(): void {
 
   dialogRef.afterClosed().subscribe(result => {
   this.deletedata.actionreason =result.reason;
-    console.log(this.deletedata)
     if(result!=''){
       console.log(this.deletedata)
       this.LM.cancelLeaveRequest(this.deletedata).subscribe((data)=>{
@@ -95,7 +103,7 @@ openDialogcancel(): void {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Leave request cancelled successfully.'
+            data: this.msgLM74
           });
 
         }
@@ -103,7 +111,7 @@ openDialogcancel(): void {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Unable to caancel leave request.'
+            data: this.msgLM17
           });
         }
       })
@@ -124,9 +132,7 @@ openDialogdelete(): void {
 
   dialogRef.afterClosed().subscribe(result => {
   this.deletedata.actionreason =result.reason;
-    console.log(this.deletedata)
     if(result!=''){
-      console.log(this.deletedata)
       this.LM.setDeleteLeaveRequest(this.deletedata).subscribe((data)=>{
         if(data.status){
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -134,14 +140,14 @@ openDialogdelete(): void {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
-              data: 'Leaverequest deleted successfully.'
+              data: this.msgLM73
             });
         }
         else{
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Unable to delete leaverequest.'
+            data: this.msgLM16
           });
         }
       })
@@ -154,6 +160,30 @@ openDialogdelete(): void {
     leave.URL = '/LeaveManagement/UserLeaveHistory';
     leave.isdashboard = true;
     this.router.navigate(['/LeaveManagement/LeaveRequest'],{state:{leaveData:leave}});
+  }
+  getErrorMessages(errorCode:any) {
+
+    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+
+      if(result.status && errorCode == 'LM16')
+      {
+        this.msgLM16 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM17')
+      {
+        this.msgLM17 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM73')
+      {
+        this.msgLM73 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM74')
+      {
+        this.msgLM74 = result.data[0].errormessage
+      }
+      
+     
+    })
   }
 
 }

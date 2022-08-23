@@ -16,7 +16,6 @@ import { environment } from 'src/environments/environment';
       return this.hClient.post(this.mainBeUrl + 'api/validatePrefix', JSON.stringify(info), this.httpOptions);
     }
     setWorkLocation(info:any): Observable<any> {
-      console.log(info)
       return this.hClient.post(this.mainBeUrl + 'api/setWorkLocation', JSON.stringify(info), this.httpOptions);
     }
     getWorkLocation(info:any): Observable<any>{
@@ -69,7 +68,6 @@ import { environment } from 'src/environments/environment';
     return this.hClient.post(this.mainBeUrl + 'api/updateStatus', JSON.stringify(info), this.httpOptions);
   }
   updateStatusall(info:any): Observable<any>{
-    console.log(info)
     return this.hClient.post(this.mainBeUrl + 'api/updateStatusall', JSON.stringify(info), this.httpOptions);
   }
   designationstatus(info:any): Observable<any>{

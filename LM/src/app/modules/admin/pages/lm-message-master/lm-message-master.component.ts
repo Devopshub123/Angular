@@ -85,7 +85,6 @@ export class LmMessageMasterComponent implements OnInit {
        "screenname": screenname,
        "errormessage": rmessage,
       }]
-console.log(dataList)
     this.adminService.setErrorMessages(dataList).subscribe((res: any) => {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
@@ -121,7 +120,6 @@ console.log(dataList)
 }
 
   edit(w: any, res: any) {
-    console.log(res)
     this.errorMessagesForm.controls.message.setValue(res.errormessage);
     this.enable = res.id;
     this.isEdit=false;

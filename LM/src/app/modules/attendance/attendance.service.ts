@@ -95,4 +95,7 @@ export class AttendanceService {
   getEmployeeCurrentShifts(data:any):Observable<any>{
     return this.http.post(this.mainUrl+'attendance/api/getEmployeeCurrentShifts',data,this.httpOptions)
   }
+  getEmployeeWeekoffsHolidaysForAttendance(data:any):Observable<any>{
+    return this.http.post(this.mainUrl+'attendance/api/getEmployeeWeekoffsHolidaysForAttendance',data,this.httpOptions)
+  }
 }

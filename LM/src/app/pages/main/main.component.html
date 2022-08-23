@@ -10,7 +10,10 @@
           </button>
         </div>
         <div class="navbar-nav topbar-nav ml-md-auto mobile-view">
+          <!-- <mat-icon title="Main Dashboard" (click)="navigateToMainDashboard()" >dashboard</mat-icon> -->
+
           <div>
+            <!-- <span class="mx-2 my-2" ><mat-icon title="Main Dashboard" (click)="navigateToMainDashboard()" >dashboard</mat-icon></span> -->
             <!--<ul>-->
             <li class="nav-item dropdown">
               <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img
@@ -160,7 +163,7 @@
 
 
     <mat-sidenav-container class="example-sidenav-container h-100" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
-      <mat-sidenav #snav opened [mode]="mobileQuery.matches ? 'over' : 'side'"
+      <mat-sidenav #snav [opened]="mobileQuery.matches ? false : true" [mode]="mobileQuery.matches ? 'over' : 'side'"
       [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
 <mat-nav-list>
 
