@@ -228,10 +228,10 @@ export class AttendanceRequestComponent implements OnInit {
             });
           }
           this.myDateFilter = (d: Date): boolean => {
-            let isValid=false;
+            let isValid=true;
           this.disableDates.forEach((e:any) => {
             if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
-              isValid=true
+              isValid=false;
             }
           });
 

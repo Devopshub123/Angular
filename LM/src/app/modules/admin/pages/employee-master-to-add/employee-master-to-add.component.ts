@@ -30,8 +30,8 @@ export class EmployeeMasterToAddComponent implements OnInit {
   wtodate: any;
   states: any;
   add: boolean = false;
-  isself:boolean=false;
-  isviewemployee:boolean = false;
+  isself: boolean = false;
+  isviewemployee: boolean = false;
   pipe = new DatePipe('en-US');
   bloodGroupdetails: any[] = [];
   genderDetails: any[] = [];
@@ -78,7 +78,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   dataSource: MatTableDataSource<any> = <any>[];
   dsFamily: MatTableDataSource<any> = <any>[];
   employeedata: any = [];
-  empdisplayedColumns: string[] = ['employeeid', 'firstname','middlename', 'lastname','status', 'Action'];
+  empdisplayedColumns: string[] = ['employeeid', 'firstname', 'middlename', 'lastname', 'status', 'Action'];
   employeedetails: any = [];
   page = 1;
   count = 0;
@@ -92,8 +92,8 @@ export class EmployeeMasterToAddComponent implements OnInit {
   msgLM54: any = '';
   msgLM38: any = '';
   msgLM39: any = '';
-  msgLM63:any;
-  msgLM64:any;
+  msgLM63: any;
+  msgLM64: any;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -107,8 +107,8 @@ export class EmployeeMasterToAddComponent implements OnInit {
   maxall: number = 10;
   pageLoading = true;
   constructor(private formBuilder: FormBuilder, private LMS: CompanySettingService,
-     private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
-     ,private adminService:AdminService) {
+    private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
+    , private adminService: AdminService) {
 
   }
   ngOnInit(): void {
@@ -324,10 +324,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
     })
     this.employeeworkAddForm.get('usertype')?.valueChanges.subscribe(selectedValue => {
-      if(selectedValue == 2){
+      if (selectedValue == 2) {
         this.isself = true;
       }
-      else{
+      else {
         this.isself = false;
       }
 
@@ -563,29 +563,29 @@ export class EmployeeMasterToAddComponent implements OnInit {
         for (let i = 0; i < familydata.length; i++) {
           let relationship;
           let relationshipname;
-          this.employeeRelationship.forEach((e:any)=>{
-            if(e.id==familydata[i].relationship){
-              relationship=e.id;
-              relationshipname=e.relationship;
+          this.employeeRelationship.forEach((e: any) => {
+            if (e.id == familydata[i].relationship) {
+              relationship = e.id;
+              relationshipname = e.relationship;
             }
           })
           let gender;
           let gendername;
-          this.genderDetails.forEach((e:any)=>{
-            if(e.id==familydata[i].gender){
-              gender=e.id;
-              gendername=e.gender;
+          this.genderDetails.forEach((e: any) => {
+            if (e.id == familydata[i].gender) {
+              gender = e.id;
+              gendername = e.gender;
             }
           })
           this.familyDetails.push({
             firstname: familydata[i].firstname,
             lastname: familydata[i].lastname,
             gender: gender,
-            gendername:gendername,
+            gendername: gendername,
             contactnumber: familydata[i].contactnumber,
             status: familydata[i].status,
-            relationship:relationship ,
-            relationshipname:relationshipname,
+            relationship: relationship,
+            relationshipname: relationshipname,
             dateofbirth: familydata[i].dateofbirth != "null" ? this.pipe.transform(familydata[i].dateofbirth, 'yyyy-MM-dd') : '',
           });
         }
@@ -725,79 +725,87 @@ export class EmployeeMasterToAddComponent implements OnInit {
       uanumber: this.employeeAddForm.controls.uanumber.value,
       pfaccountnumber: this.employeeAddForm.controls.pfaccountnumber.value,
       pan: this.employeeAddForm.controls.pan.value,
-      status:this.employeeworkAddForm.controls.status.value,
+      status: this.employeeworkAddForm.controls.status.value,
       esi: this.employeeAddForm.controls.esi.value,
       shift: this.employeeworkAddForm.controls.shift.value ?? '',
       relations: this.familyDetails,
       education: this.Educations,
       experience: this.Experience,
     }
+    let index = this.employeedetails.findIndex((e: any) => (e.officeemail).toLowerCase() === (this.employeeworkAddForm.controls.officeemail.value).toLowerCase());
+    if (index > 0) {
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data: "Office email already exist."
+      });
+    } else {
 
-    this.LM.setEmployeeMaster(employeeinformation).subscribe((data) => {
-      /**For add employee */
-      if (this.addemployee) {
-        if (data.status) {
-          this.addemployee = true;
-          this.addempdetails = false;
-          this.viewdetails = true;
-          this.work = false;
-          this.emp = true;
-          this.family = false;
-          this.familyDetails = [];
-          this.Experience = [];
-          this.Educations = [];
-          this.employeedata = [];
-          this.ngOnInit();
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: this.msgLM63
-          });
+      this.LM.setEmployeeMaster(employeeinformation).subscribe((data) => {
+        /**For add employee */
+        if (this.addemployee) {
+          if (data.status) {
+            this.addemployee = true;
+            this.addempdetails = false;
+            this.viewdetails = true;
+            this.work = false;
+            this.emp = true;
+            this.family = false;
+            this.familyDetails = [];
+            this.Experience = [];
+            this.Educations = [];
+            this.employeedata = [];
+            this.ngOnInit();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.msgLM63
+            });
+
+          }
+          else {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.msgLM38
+            });
+          }
+
+
 
         }
+        /**For edit employee */
         else {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: this.msgLM38
-          });
+          if (data.status) {
+            this.addemployee = true;
+            this.addempdetails = false;
+            this.viewdetails = true;
+            this.work = false;
+            this.emp = true;
+            this.family = false;
+            this.familyDetails = [];
+            this.Experience = [];
+            this.Educations = [];
+            this.employeedata = [];
+            this.ngOnInit();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.msgLM64
+            });
+          }
+          else {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.msgLM39
+            });
+          }
+
         }
 
-
-
-      }
-      /**For edit employee */
-      else {
-        if (data.status) {
-          this.addemployee = true;
-          this.addempdetails = false;
-          this.viewdetails = true;
-          this.work = false;
-          this.emp = true;
-          this.family = false;
-          this.familyDetails = [];
-          this.Experience = [];
-          this.Educations = [];
-          this.employeedata = [];
-          this.ngOnInit();
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: this.msgLM64
-          });
-        }
-        else {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: this.msgLM39
-          });
-        }
-
-      }
-
-    })
-
+      })
+    }
   }
   firstcancel() {
     this.addemployee = true;
@@ -821,13 +829,13 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.employeefamilyAddForm.controls.familydateofbirth.setValue(new Date(this.familyDetails[i].dateofbirth));
     this.employeefamilyAddForm.controls.familystatus.setValue(this.familyDetails[i].status);
     this.employeefamilyAddForm.controls.familycontact.setValue(this.familyDetails[i].contactnumber);
-    this.employeeRelationship.forEach((e:any)=>{
-      if(e.id==this.familyDetails[i].relationship){
+    this.employeeRelationship.forEach((e: any) => {
+      if (e.id == this.familyDetails[i].relationship) {
         this.employeefamilyAddForm.controls.relation.setValue(e);
       }
     })
-    this.genderDetails.forEach((e:any)=>{
-      if(e.id==this.familyDetails[i].gender){
+    this.genderDetails.forEach((e: any) => {
+      if (e.id == this.familyDetails[i].gender) {
         this.employeefamilyAddForm.controls.familygender.setValue(e);
       }
     })
@@ -921,14 +929,14 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
     })
   }
-  getRoles(){
+  getRoles() {
 
-    this.LMS.getMastertable('rolesmaster',null,1,1000,'keerthi_hospitals').subscribe(data=>{
+    this.LMS.getMastertable('rolesmaster', null, 1, 1000, 'keerthi_hospitals').subscribe(data => {
       let roledata = data.data;
-      this.availableRole=[];
-      for(let i=0;i<roledata.length;i++){
+      this.availableRole = [];
+      for (let i = 0; i < roledata.length; i++) {
 
-        if(roledata[i].isEditable == 0){
+        if (roledata[i].isEditable == 0) {
 
           this.availableRole.push(roledata[i])
 
@@ -972,7 +980,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   }
   close() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/Admin/Employee"]));
+      this.router.navigate(["/Admin/Employee"]));
     // this.addemployee = true;
     // this.addempdetails = false;
     // this.viewdetails = true;
@@ -1041,17 +1049,17 @@ export class EmployeeMasterToAddComponent implements OnInit {
       return [5, 10, 20];
     }
   }
-  employeeview(data:any){
+  employeeview(data: any) {
     this.isviewemployee = true;
     this.add = false;
-    this.addempdetails= true;
+    this.addempdetails = true;
     this.viewdetails = false;
-    this.editemployee=false;
-    this.addemployee=false;
-    this.LM.getEmployeeMaster(data).subscribe((result)=>{
+    this.editemployee = false;
+    this.addemployee = false;
+    this.LM.getEmployeeMaster(data).subscribe((result) => {
       this.employeedata = JSON.parse(result.data[0][0].json)[0];
       let a = this.employeedata;
-      if(a.country == a.pcountry && a.state == a.pstate && a.city == a.pcity && a.address == a.paddress && a.pincode == a.ppincode ){
+      if (a.country == a.pcountry && a.state == a.pstate && a.city == a.pcity && a.address == a.paddress && a.pincode == a.ppincode) {
         this.employeeAddForm.controls.checked.setValue(true)
       }
       this.employeeAddForm.controls.checked.disable()
@@ -1143,74 +1151,74 @@ export class EmployeeMasterToAddComponent implements OnInit {
       let x = JSON.parse((this.employeedata.education))
       let y = JSON.parse((this.employeedata.experience))
       let familydata = JSON.parse((this.employeedata.relations))
-      if(familydata != null){
-        for(let i = 0;i<familydata.length;i++){
+      if (familydata != null) {
+        for (let i = 0; i < familydata.length; i++) {
           let relationship;
           let relationshipname;
-          this.employeeRelationship.forEach((e:any)=>{
-            if(e.id==familydata[i].relationship){
-              relationship=e.id;
-              relationshipname=e.relationship;
+          this.employeeRelationship.forEach((e: any) => {
+            if (e.id == familydata[i].relationship) {
+              relationship = e.id;
+              relationshipname = e.relationship;
             }
           })
           let gender;
           let gendername;
-          this.genderDetails.forEach((e:any)=>{
-            if(e.id==familydata[i].gender){
-              gender=e.id;
-              gendername=e.gender;
+          this.genderDetails.forEach((e: any) => {
+            if (e.id == familydata[i].gender) {
+              gender = e.id;
+              gendername = e.gender;
             }
           })
           this.familyDetails.push({
             firstname: familydata[i].firstname,
             lastname: familydata[i].lastname,
             gender: gender,
-            gendername:gendername,
+            gendername: gendername,
             contactnumber: familydata[i].contactnumber,
             status: familydata[i].status,
-            relationship:relationship ,
-            relationshipname:relationshipname,
+            relationship: relationship,
+            relationshipname: relationshipname,
             dateofbirth: familydata[i].dateofbirth != "null" ? this.pipe.transform(familydata[i].dateofbirth, 'yyyy-MM-dd') : '',
           });
         }
         this.dsFamily = new MatTableDataSource(this.familyDetails);
       }
 
-     let education = JSON.parse(this.employeedata.education)
-     if(education !=null){
-      education.forEach((e:any) => {
-        this.edu().push(this.formBuilder.group({
-          course: e.course,
-          institutename: e.institutename,
-          efromdate:new Date(e.fromdate),
-          etodate:new Date(e.todate)
+      let education = JSON.parse(this.employeedata.education)
+      if (education != null) {
+        education.forEach((e: any) => {
+          this.edu().push(this.formBuilder.group({
+            course: e.course,
+            institutename: e.institutename,
+            efromdate: new Date(e.fromdate),
+            etodate: new Date(e.todate)
 
-        }));
-      });
+          }));
+        });
 
-     }
-     let experience = JSON.parse(this.employeedata.experience)
-     if(experience != null){
-      experience.forEach((e:any) => {
-        this.exp().push(this.formBuilder.group({
-          companyname: e.companyname,
-          wfromdate:new Date(e.fromdate),
-          wtodate:new Date(e.todate)
+      }
+      let experience = JSON.parse(this.employeedata.experience)
+      if (experience != null) {
+        experience.forEach((e: any) => {
+          this.exp().push(this.formBuilder.group({
+            companyname: e.companyname,
+            wfromdate: new Date(e.fromdate),
+            wtodate: new Date(e.todate)
 
-        }));
-      });
-
-
+          }));
+        });
 
 
-     }
+
+
+      }
 
 
 
     });
 
 
-}
+  }
 
 
 }
