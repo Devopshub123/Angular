@@ -17,6 +17,36 @@
           </mat-select>
         </mat-form-field>
       </div>
+      <div fxLayout="row"  fxLayout.xs="column" >
+        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
+          <mat-label>From Date</mat-label>
+          <input matInput readonly [matDatepicker]="fromDate"
+                 placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()">
+          <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
+          <mat-datepicker #fromDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
+          <mat-label>To Date</mat-label>
+          <input matInput readonly [matDatepicker]="toDate"
+                 placeholder="To Date" formControlName="toDate" (click)="toDate.open()">
+          <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate" ></mat-datepicker-toggle>
+          <mat-datepicker #toDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
+          <!--<mat-label>Leave Status</mat-label>-->
+          <mat-select formControlName="DateFormate" required>
+            <mat-option  value="currentWeek"> Current Week</mat-option>
+            <mat-option value="lastWeek">Last Week</mat-option>
+            <mat-option value="currentMonth"> Current Month</mat-option>
+            <mat-option value="lastMonth"> Last Month</mat-option>
+            <mat-option value="quaterOne"> Quater 1(Jan-Mar)</mat-option>
+            <mat-option value="quaterTwo"> Quater 2(Apr-Jun)</mat-option>
+            <mat-option value="quaterThree"> Quater 3(Jul-Sep)</mat-option>
+            <mat-option value="quaterFour"> Quater 4(Oct-Dec)</mat-option>
+            <!--<mat-option value="Deleted"> Current</mat-option>-->
+          </mat-select>
+        </mat-form-field>
+      </div>
       <div fxLayout="row"  fxLayout.xs="column">
         <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
           <mat-label>Leave Type</mat-label>
@@ -49,36 +79,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-    <div fxLayout="row"  fxLayout.xs="column" >
-      <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
-        <mat-label>From Date</mat-label>
-        <input matInput readonly [matDatepicker]="fromDate"
-               placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()">
-        <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
-        <mat-datepicker #fromDate></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
-        <mat-label>To Date</mat-label>
-        <input matInput readonly [matDatepicker]="toDate"
-               placeholder="To Date" formControlName="toDate" (click)="toDate.open()">
-        <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate" ></mat-datepicker-toggle>
-        <mat-datepicker #toDate></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
-        <!--<mat-label>Leave Status</mat-label>-->
-        <mat-select formControlName="DateFormate" required>
-          <mat-option  value="currentWeek"> Current Week</mat-option>
-          <mat-option value="lastWeek">Last Week</mat-option>
-          <mat-option value="currentMonth"> Current Month</mat-option>
-          <mat-option value="lastMonth"> Last Month</mat-option>
-          <mat-option value="quaterOne"> Quater 1(Jan-Mar)</mat-option>
-          <mat-option value="quaterTwo"> Quater 2(Apr-Jun)</mat-option>
-          <mat-option value="quaterThree"> Quater 3(Jul-Sep)</mat-option>
-          <mat-option value="quaterFour"> Quater 4(Oct-Dec)</mat-option>
-          <!--<mat-option value="Deleted"> Current</mat-option>-->
-        </mat-select>
-      </mat-form-field>
-    </div>
+    
     <!--<div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" >-->
       <!--<mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">-->
         <!--<mat-label>Employe Name and ID</mat-label>-->
