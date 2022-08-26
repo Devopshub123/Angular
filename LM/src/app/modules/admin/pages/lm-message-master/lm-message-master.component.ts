@@ -91,7 +91,11 @@ export class LmMessageMasterComponent implements OnInit {
         disableClose: true,
         data:res.message
       });
-      window.location.reload();
+      dialogRef.afterClosed().subscribe(result => {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate(["/Admin/LM-MessageMaster"]));
+      });
+
       // if (res.status) {
       //   let resMessage: any;
       //   if (res.data == "dataSaved") {

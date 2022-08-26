@@ -99,7 +99,11 @@ export class MessageMasterComponent implements OnInit {
             disableClose: true,
             data:resMessage
           });
-          window.location.reload();
+        //  window.location.reload();
+          dialogRef.afterClosed().subscribe(result => {
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/MessageMaster"]));
+          });
           this.getMessagesList();
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {

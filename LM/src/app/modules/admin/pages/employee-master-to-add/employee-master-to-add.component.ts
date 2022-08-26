@@ -682,6 +682,19 @@ export class EmployeeMasterToAddComponent implements OnInit {
       this.ppincode = this.employeeAddForm.controls.ppincode.value;
       this.pcountry = this.employeeAddForm.controls.pcountry.value;
     }
+
+    let familyDetailsList: { firstname: any; lastname: any; gender: any; contactnumber: any; status: any; relationship: any; dateofbirth: any; }[]=[];
+    this.familyDetails.forEach((e:any) => {
+      familyDetailsList.push({
+        firstname: e.firstname,
+        lastname: e.lastname,
+        gender: e.gender,
+        contactnumber: e.contactnumber,
+        status: e.status,
+        relationship: e.relationship,
+        dateofbirth: e.dateofbirth,
+      });
+    });
     let employeeinformation = {
       empid: this.empid,
       firstname: this.employeeAddForm.controls.firstname.value,
@@ -728,7 +741,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
       status: this.employeeworkAddForm.controls.status.value,
       esi: this.employeeAddForm.controls.esi.value,
       shift: this.employeeworkAddForm.controls.shift.value ?? '',
-      relations: this.familyDetails,
+      relations: familyDetailsList,
       education: this.Educations,
       experience: this.Experience,
     }
