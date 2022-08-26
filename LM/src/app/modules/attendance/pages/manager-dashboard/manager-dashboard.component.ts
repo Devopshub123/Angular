@@ -88,15 +88,31 @@ export class ManagerDashboardComponent implements OnInit {
     }
     this.attendanceService.getemployeeattendancedashboard(data).subscribe((res: any) => {
       if (res.status) {
+        this.initialEvents = [];
         this.attendanceData = res.data;
         this.attendanceData.forEach((e: any) => {
+          let color;
+          if(e.present_or_absent=='P'){
+            color='#32cd32';
+          }
+            // else if(e.present_or_absent=='W'){
+          //   color='#2e0cf3';
+          // }
+            else if(e.present_or_absent=='A'){
+            color='#FF3131';
+          }else if(e.present_or_absent=='L'){
+            color='#FF8C00';
+          }
+              // else {
+          //   color='#ffff00';
+          // }
           let item =
           {
             title: e.empname,
           //  start: e.attendancedate, ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
           start:e.firstlogintime !=''? e.firstlogintime : new Date(e.attendancedate), ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
-        //  end:e.lastlogouttime !=''? e.lastlogouttime : e.attendancedate,  
-          color: e.present_or_absent == 'P' ? '#32cd32' : '#FF3131',
+        //  end:e.lastlogouttime !=''? e.lastlogouttime : e.attendancedate,
+          color: color,
             icon: e.present_or_absent == 'P' ? 'fa-check-circle' : 'fa-times-circle'
           }
           this.initialEvents.push(item);

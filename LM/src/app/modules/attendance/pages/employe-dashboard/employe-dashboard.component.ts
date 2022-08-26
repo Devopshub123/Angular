@@ -103,6 +103,7 @@ export class EmployeDashboardComponent implements OnInit {
     this.attendanceService.getemployeeattendancedashboard(data).subscribe((res: any) => {
       if (res.status) {
         this.attendanceData = res.data;
+        this.initialEvents=[];
         this.attendanceData.forEach((e: any) => {
 
           let currentDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
@@ -131,6 +132,7 @@ export class EmployeDashboardComponent implements OnInit {
           }
           this.initialEvents.push(item);
         });
+
         this.calendarOptions.events = this.initialEvents;
 
       }
