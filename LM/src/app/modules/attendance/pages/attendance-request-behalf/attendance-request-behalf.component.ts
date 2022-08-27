@@ -78,10 +78,10 @@ dataNotSaved: any;
       {
         appliedDate: [{ value: this.todayWithPipe, disabled: true }, Validators.required],
         shift: ['', Validators.required],
-        fromDate: ['', Validators.required],
-        toDate: ['', Validators.required],
+        fromDate: [{ value: '', disabled: true }, Validators.required],
+        toDate: [{ value: '', disabled: true }, Validators.required],
         employeeName: ['', Validators.required],
-        workType: ['', Validators.required],
+        workType: [{ value: '', disabled: true }, Validators.required],
         reason: ['', Validators.required],
 
       });
@@ -92,6 +92,7 @@ dataNotSaved: any;
 
     this.requestform.get("employeeName")?.valueChanges.subscribe(selectedValue => {
      // this.getEmployeeShiftDetails(selectedValue);
+     this.requestform.get('workType')?.enable();
 
     })
     if (this.userData.userData != undefined) {
@@ -107,6 +108,7 @@ dataNotSaved: any;
           workType: ['', Validators.required],
           reason: ['', Validators.required],
         });
+        this.minToDate=new Date(this.userData.userData.absent_date);
       this.requestform.controls.employeeName.setValue(this.userData.userData.emp_id);
       this.getEmployeeWeekoffsHolidaysForAttendance();
       this.getEmployeeShiftDetailsByIdWithDates();
@@ -115,6 +117,7 @@ dataNotSaved: any;
     }
     this.requestform.get('workType')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue) {
+        this.requestform.get('fromDate')?.enable();
         if (selectedValue == "2") {
           this.requestform.get('toDate')?.enable();
         } else {

@@ -12,7 +12,7 @@
             <div class="row m-0" >
               <div class="col-md-3" *ngFor="let module of allModuleDetails; index as i;">
                 <div class="card card-stats card-warning casual-leave bg-white h-auto">
-                  <div class="card-body ">
+                  <div class="card-body" fxLayout="column" fxLayoutAlign="center center" style="height: 280px;">
                     <div class="row" (click)="getrolescreenfunctionalities(module.id,module.effectivestartdate)">
                       <div class="col-12">
                         <div class="icon-big text-center"  >
@@ -27,19 +27,19 @@
                           <!-- <img src="assets/img/recruitment-icon.png" alt="" title="" /> -->
                         </div>
                       </div>
-                      <div class="col-12">
+                      <div class="col-12" >
                         <div class="numbers text-center">
                           <h4 class="card-title title" [ngStyle]="module.effectivestartdate ? {'color':'#28acaf'} : {'color':''}">{{module.modulename}}</h4>
 
                         </div>
-                        <div class="card-sub-title">
+                        <!-- <div class="card-sub-title">
                           My Actions
                         </div>
                         <ul class="b">
                           <li><a href="#">Configuring of leave policies</a></li>
                           <li><a href="#">add roles &amp; permissions</a></li>
                           <li><a href="#">add holidays</a></li>
-                        </ul>
+                        </ul> -->
                       </div>
                     </div>
                   </div>

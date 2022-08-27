@@ -177,10 +177,15 @@ export class DetailReportComponent implements OnInit {
     let color = ''
     if (i == "P") {
       return color = 'green'
-    } else if (i == "A") {
+    } else if (i == "H") {
+      return color = 'yellow';
+    } else if (i == "W") {
+      return color = 'blue';
+    } else if (i == "L") {
+      return color = 'orange';
+    }
+     else {
       return color = 'red';
-    } else {
-      return '';
     }
   }
 

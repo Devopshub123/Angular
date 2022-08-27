@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { LeavePoliciesService } from 'src/app/services/leave-policies.service'; 
+import { LeavePoliciesService } from 'src/app/services/leave-policies.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AddleavepopupComponent } from '../addleavepopup/addleavepopup.component';
 import { Router, RouterModule } from '@angular/router';
@@ -104,8 +104,8 @@ export class LeavepoliciesComponent implements OnInit {
   compoffMaxBackDatedDayspermittedForSubmission:boolean=false;
   compoffThresholdDaysToLapesOrConvertLeavesToPerks:boolean=false;
   ispredefined:boolean=false;
- 
- 
+
+
   constructor(private LM:LeavePoliciesService,private router: Router,private ts:LoginService,private dialog: MatDialog,private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
@@ -126,10 +126,10 @@ export class LeavepoliciesComponent implements OnInit {
     this.getAdvancedLeavetypes();
     this.leavepoliciesForm=this.formBuilder.group(
       {
-      leavecycleyear: [""],        
+      leavecycleyear: [""],
       email: ["",],
-      pastdays: ["",],  
-      
+      pastdays: ["",],
+
     });
     this.addleaveForm = this.formBuilder.group({
       displayname:["",Validators.required],
@@ -163,7 +163,7 @@ export class LeavepoliciesComponent implements OnInit {
       COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION:["",Validators.required],
       COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS:["",Validators.required],
       LEAVETYPE_THAT_CAN_BE_AVAILED_IN_ADVANCE:["",Validators.required]
-      
+
 
     });
     this.addleaveForm.get('leavecolor')?.valueChanges.subscribe((selectedValue:any) => {
@@ -179,7 +179,7 @@ export class LeavepoliciesComponent implements OnInit {
     this.addleaveForm.get('LEAVES_WEEKENDS_INCLUDED')?.valueChanges.subscribe((selectedValue:any) => {
       this.istoggle = false;
     });
-    
+
     this.addleaveForm.get('LEAVES_COMPANY_HOLIDAYS_INCLUDED')?.valueChanges.subscribe((selectedValue:any) => {
       this.istoggle = false;
     });
@@ -280,7 +280,7 @@ export class LeavepoliciesComponent implements OnInit {
       if(selectedValue==6 || selectedValue==7){
         this.isterm=false;
       }
-      
+
       this.tabledata = true;
       if (selectedValue < 11){
         this.actionflag=false;
@@ -335,7 +335,7 @@ export class LeavepoliciesComponent implements OnInit {
       this.changeLeaveType(selectedValue,null);
       }
     })
-    
+
   }
   setadvanceleavepolicies(){
     let data ={
@@ -345,13 +345,13 @@ export class LeavepoliciesComponent implements OnInit {
       leaveId: this.addleaveForm.controls.leaveid.value,
       advancedLeaveId: this.addleaveForm.controls.advancedleaveid.value,
       displayName: this.addleaveForm.controls.displayname.value
-    
-    }
-   
 
-   
+    }
+
+
+
     this.LM.updateLeaveDisplayName(advancedata).subscribe((data)=>{})
-  
+
 
     this.LM.setAdvancedLeaveRuleValues(data).subscribe((result)=>{
       if(result.status){
@@ -361,7 +361,7 @@ export class LeavepoliciesComponent implements OnInit {
           data: this.msgLM133
         });
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["/Admin/Leavepolicies"]));  
+        this.router.navigate(["/Admin/Leavepolicies"]));
 
       }
       else{
@@ -427,7 +427,7 @@ export class LeavepoliciesComponent implements OnInit {
       }
     });
   }
-  
+
   cancelLeave(){
     // this.isShowLeaveConfigure = !this.isShowLeaveConfigure;
     // this.defaultrules=true;
@@ -453,9 +453,9 @@ export class LeavepoliciesComponent implements OnInit {
         leavetype_status:'Inactive'
       }
 
-    }     
+    }
       this.LM.setToggleLeaveType(info).subscribe((data) => {
-    
+
           if(data.status && info.leavetype_status == 'Inactive'){
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
@@ -472,9 +472,9 @@ export class LeavepoliciesComponent implements OnInit {
               data: this.msgLM133
             });
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/Admin/Leavepolicies"]));  
+              this.router.navigate(["/Admin/Leavepolicies"]));
             this.cancelLeave()
-            
+
               this.ngOnInit();
           }
           // else {
@@ -637,7 +637,7 @@ export class LeavepoliciesComponent implements OnInit {
 
         }
 
-       
+
         // valid =false;
         valid =true;
         return valid;
@@ -651,7 +651,7 @@ export class LeavepoliciesComponent implements OnInit {
 
 
   }
-  
+
   /**advance leavetype dropdown*/
   getAdvancedLeavetypes(){
     this.LM.getleavetypesforadvancedleave().subscribe((result) => {
@@ -680,18 +680,18 @@ export class LeavepoliciesComponent implements OnInit {
     else{
       this.displayedColumns3 = leave.id > 11 ? this.displayedColumns4 : this.displayedColumns4.filter(column => column !== 'actions');
       this.leaveTypes=[];
-    
+
         this.getLeavesDetailsedit(leave);
 
     }
      // if(leave.id!=1){
     // }
-    
-    // this.defaultRuleInfo
-   
 
-   
-    
+    // this.defaultRuleInfo
+
+
+
+
   }
   getLeaveFormatedValue(value:any)
   {
@@ -711,18 +711,31 @@ export class LeavepoliciesComponent implements OnInit {
       this.leaveConfig = this.getLeaveFormatedValue(this.addleaveForm.controls.leaveid.value);
     for(let i=0;i<this.ruleInfos.length;i++){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
+      if(this.ruleInfos[i].effectivefromdate == null) {
+        this.ruleInfos[i].isFromDate = 0;
+      }
+      else if(this.ruleInfos[i].effectivefromdate != null) {
+        this.ruleInfos[i].isFromDate = 1;
+      }
+      if(this.ruleInfos[i].effectivetodate == null) {
+        this.ruleInfos[i].isToDate = 0;
+      }
+      else if(this.ruleInfos[i].effectivetodate != null) {
+        this.ruleInfos[i].isToDate = 1;
+      }
+      delete this.ruleInfos[i].effectivefromdate;
+      delete this.ruleInfos[i].effectivetodate;
       if(this.ruleInfos[i].rulename === "MAX_AVAIL_COUNT" && this.addleaveForm.controls.MAX_AVAIL_COUNT.value !=null ){
         this.ruleInfos[i].value = this.addleaveForm.controls.MAX_AVAIL_COUNT.value;
         this.ruleInfos[i].leavecolor = this.setleavecolor;
         this.ruleInfos[i].status = "Active";
-
       }
       else if(this.ruleInfos[i].rulename ===  "LEAVES_GAP_BETWEEN_TERMS" && this.addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.value !=null){
         this.ruleInfos[i].leavecolor = this.setleavecolor;
         this.ruleInfos[i].value =this.addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.value;
         this.ruleInfos[i].status = "Active"
       }
-      else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_TERM" &&this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.value!=null){
+      else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_TERM" && this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.value!=null){
         this.ruleInfos[i].leavecolor = this.setleavecolor;
         this.ruleInfos[i].value =this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.value;
         this.ruleInfos[i].status = "Active"
@@ -772,7 +785,7 @@ export class LeavepoliciesComponent implements OnInit {
         this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD.value;
         this.ruleInfos[i].status = "Active"
       }
-      else if(this.ruleInfos[i].rulename === "LEAVES_ELIGIBLE_ON_WEEKOFFS" &&this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_WEEKOFFS.value!=null){
+      else if(this.ruleInfos[i].rulename === "LEAVES_ELIGIBLE_ON_WEEKOFFS" && this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_WEEKOFFS.value!=null){
         this.ruleInfos[i].leavecolor = this.setleavecolor;
         this.ruleInfos[i].value = this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_WEEKOFFS.value;
         this.ruleInfos[i].status = "Active"
@@ -795,12 +808,12 @@ export class LeavepoliciesComponent implements OnInit {
       else if(this.ruleInfos[i].rulename === "COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION" && this.addleaveForm.controls.COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION.value!=null){
         this.ruleInfos[i].leavecolor = this.setleavecolor;
         this.ruleInfos[i].value = this.addleaveForm.controls.COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION.value;
-        this.ruleInfos[i].status = "Active"  
+        this.ruleInfos[i].status = "Active"
       }
       else if(this.ruleInfos[i].rulename === "COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS" && this.addleaveForm.controls.COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS.value!=null){
         this.ruleInfos[i].leavecolor = this.setleavecolor;
         this.ruleInfos[i].value = this.addleaveForm.controls.COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS.value;
-        this.ruleInfos[i].status = "Active"   
+        this.ruleInfos[i].status = "Active"
       }
       else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_YEAR" && this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.value!=null){
         this.ruleInfos[i].leavecolor = this.setleavecolor;
@@ -811,15 +824,17 @@ export class LeavepoliciesComponent implements OnInit {
     var info = {
       ruleData:this.ruleInfos
     };
-   
+
     var datas = {
       leaveId:this.addleaveForm.controls.leaveid.value,
       displayName:this.addleaveForm.controls.displayname.value,
     }
-  
+
   if( this.validateCustomLeave(info.ruleData)) {
     this.LM.updateLeaveDisplayName(datas).subscribe((data:any)=>{})
-    this.LM.setToggleLeaveType(infodata).subscribe((data) => {})
+   // this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
+    console.log("setLeaveConfigure",info);
+
     this.LM.setLeaveConfigure(info).subscribe((data) => {
       if (data.status) {
         if(this.editingleavetype){
@@ -840,7 +855,7 @@ export class LeavepoliciesComponent implements OnInit {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                   this.router.navigate(["/Admin/Leavepolicies"]));
         }
-         
+
       }
       else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -851,7 +866,7 @@ export class LeavepoliciesComponent implements OnInit {
       }
     });
   }
-  
+
   }
 
   /**Leavetypes data (Added leave showing table) */
@@ -876,30 +891,30 @@ export class LeavepoliciesComponent implements OnInit {
       let dialogRef = this.dialog.open(AddleavepopupComponent, {
         width: '400px',
         position:{top:`70px`},
-        
+
       })
   }
   /**toggle change */
   toglechange(event:any,element:any) {
     if(event.checked){
-      
+
       this.addleaveForm.get(element.rulename).enable();
       this.istoggle = true;
     }
-  
-    
+
+
     else{
       this.addleaveForm.get(element.rulename).disable();
       this.istoggle = false;
     }
   }
-  
+
   changeLeaveType(id:any,flag:any){
     this.leaveId = id;
       this.LM.getLeavePolicies(this.leaveId, false, 1, 100).subscribe((result) => {
         var ruleDetails = JSON.parse(result.data[0].json);
         this.ruleInfos = JSON.parse(result.data[0].json);
-        
+
       this.rgbsplit(ruleDetails[0].leavecolor)
         if(this.leaveId == 1 && flag === 'edit'){
           this.leaveConfigure.advancedLeaveId = ruleDetails[0].value;
@@ -920,77 +935,77 @@ export class LeavepoliciesComponent implements OnInit {
         for(let i=0;i<this.ruleInfos.length;i++){
           if(this.ruleInfos[i].rulename === "MAX_AVAIL_COUNT"){
             this.addleaveForm.controls.MAX_AVAIL_COUNT.setValue(this.ruleInfos[i].value);
-         
+
           }
           else if(this.ruleInfos[i].rulename ===  "LEAVES_GAP_BETWEEN_TERMS"){
              this.addleaveForm.controls.LEAVES_GAP_BETWEEN_TERMS.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_TERM"){
-         
+
            this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_TERM.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_CREDIT_FREQUENCY"){
-      
+
             this.addleaveForm.controls.LEAVES_CREDIT_FREQUENCY.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_WEEKENDS_INCLUDED"){
-        
+
             this.addleaveForm.controls.LEAVES_WEEKENDS_INCLUDED.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_COMPANY_HOLIDAYS_INCLUDED"){
-        
+
              this.addleaveForm.controls.LEAVES_COMPANY_HOLIDAYS_INCLUDED.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_MAX_CAP_FOR_ONE_INSTANCE"){
-        
+
             this.addleaveForm.controls.LEAVES_MAX_CAP_FOR_ONE_INSTANCE.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_MIN_SERVICE_ELIGIBILITY"){
-          
+
             this.addleaveForm.controls.LEAVES_MIN_SERVICE_ELIGIBILITY.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_MIN_DAYS_PRIOR_APPLICATION"){
-            
+
             this.addleaveForm.controls.LEAVES_MIN_DAYS_PRIOR_APPLICATION.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_COUNT_TO_BE_CARRIED_FORWARD"){
-        
+
             this.addleaveForm.controls.LEAVES_COUNT_TO_BE_CARRIED_FORWARD.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_MAX_AVAIL_COUNT"){
-       
+
             this.addleaveForm.controls.LEAVES_MAX_AVAIL_COUNT.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD"){
-            
+
             this.addleaveForm.controls.LEAVES_MIN_DAYS_FOR_DOCUMENT_UPLOAD.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_ELIGIBLE_ON_WEEKOFFS"){
-          
+
             this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_WEEKOFFS.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS"){
-          
+
           this.addleaveForm.controls.LEAVES_ELIGIBLE_ON_COMPANY_HOLIDAYS.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE"){
-            
+
             this.addleaveForm.controls.LEAVES_LAPSED_CONVERSION_TO_PERKS_APPLICABLE.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY"){
-       
+
             this.addleaveForm.controls.COMPOFF_MIN_WORKING_HOURS_FOR_ELIGIBILITY.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION"){
-           
+
           this.addleaveForm.controls.COMPOFF_MAX_BACKDATED_DAYS_PERMITTED_FOR_SUBMISSION.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS"){
-         
+
             this.addleaveForm.controls.COMPOFF_THRESHOLD_DAYS_TO_LAPSE_OR_CONVERT_LEAVES_TO_PERKS.setValue(this.ruleInfos[i].value);
           }
           else if(this.ruleInfos[i].rulename === "LEAVES_MAX_COUNT_PER_YEAR"){
-            
+
             this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.setValue(this.ruleInfos[i].value);
           }
         }
@@ -998,10 +1013,10 @@ export class LeavepoliciesComponent implements OnInit {
         this.dataSource3 = new MatTableDataSource(this.ruleInfo);
 
         for(let objInfo of this.leaveTypes){
-          if(objInfo.ispredefined && objInfo.status === 'Inactive' && objInfo.id == this.leaveId && this.ruleInfo[0].effectivefromdate != null){
+          if(objInfo.ispredefined && objInfo.status === 'Inactive' && objInfo.id == this.leaveId && this.ruleInfo[0].effectivefromdate != ''){
             this.ispredefined = objInfo.ispredefined;
             this.editLeaveInfo = objInfo;
-          }else if(this.ruleInfo[0].effectivefromdate === null){
+          }else if(this.ruleInfo[0].effectivefromdate === ''){
           }else if(!objInfo.ispredefined){
           }
         }
@@ -1020,7 +1035,7 @@ export class LeavepoliciesComponent implements OnInit {
                   .split(',');
       this.rgbcolor = this.rgbToHex(parseInt(rgb[0]),parseInt(rgb[1]),parseInt(rgb[2]));
       this.addleaveForm.controls.leavecolor.setValue(this.rgbcolor);
-     
+
     }
    rgbToHex(r:any, g:any, b:any) {
       return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
@@ -1031,8 +1046,8 @@ hexToRgb(hex:any) {
     var r= parseInt(result[1], 16);
     var g= parseInt(result[2], 16);
     var b= parseInt(result[3], 16);
-    return r+","+g+","+b;//return 23,14,45 -> reformat if needed 
-}   
+    return r+","+g+","+b;//return 23,14,45 -> reformat if needed
+}
   return null;
 }
 
@@ -1040,7 +1055,7 @@ hexToRgb(hex:any) {
   /**save default rules*/
   saveDefaultrules(){
     if(this.validation()){
-      
+
       for(let i=0;i<this.defaultRuleInfo.length;i++){
         if(this.defaultRuleInfo[i].rulename == "LEAVES_DURATION_FOR_BACKDATED_LEAVES"){
           this.defaultRuleInfo[i].value =this.leavepoliciesForm.controls.pastdays.value;
@@ -1055,7 +1070,8 @@ hexToRgb(hex:any) {
       }
       var info = {
         ruleData:this.defaultRuleInfo
-      } 
+      }
+
       this.LM.setLeaveConfigure(info).subscribe((data) => {
         /*  this.isEditLeaveType = false;*/
         this.getLeaveRules();
@@ -1124,7 +1140,7 @@ hexToRgb(hex:any) {
 
     }
     else if(this.defaultRuleInfo[i].rulename=='LEAVE_CYCLE_YEAR'){
-       
+
       this.leavepoliciesForm.controls.leavecycleyear.setValue(this.defaultRuleInfo[i].value)
    }
 
@@ -1174,10 +1190,9 @@ hexToRgb(hex:any) {
       {
         this.msgLM135 = result.data[0].errormessage
       }
-     
+
     })
   }
 
 }
-
 

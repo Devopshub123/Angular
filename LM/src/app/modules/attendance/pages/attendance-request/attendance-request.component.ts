@@ -102,6 +102,7 @@ export class AttendanceRequestComponent implements OnInit {
           workType: ['', Validators.required],
           reason: ['', Validators.required],
         });
+        this.minToDate=new Date(this.userData.userData.absent_date);
       this.getEmployeeShiftDetailsByIdWithDates();
     }
     this.requestform.get('workType')?.valueChanges.subscribe(selectedValue => {
@@ -110,7 +111,7 @@ export class AttendanceRequestComponent implements OnInit {
           if (this.isRequestView == true) {
             this.requestform.get('toDate')?.disable();
           } else {
-            this.requestform.get('toDate')?.enable();
+                        this.requestform.get('toDate')?.enable();
           }
         } else {
           this.requestform.get('toDate')?.disable();

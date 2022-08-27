@@ -94,15 +94,16 @@ export class ManagerDashboardComponent implements OnInit {
           let color;
           if(e.present_or_absent=='P'){
             color='#32cd32';
-          }
-            // else if(e.present_or_absent=='W'){
-          //   color='#2e0cf3';
-          // }
-            else if(e.present_or_absent=='A'){
+          }else if(e.present_or_absent=='W'){
+            color='#2e0cf3';
+          }else if(e.present_or_absent=='A'){
             color='#FF3131';
+          } else if(e.present_or_absent=='H'){
+            color='#ffff00';
           }else if(e.present_or_absent=='L'){
             color='#FF8C00';
           }
+
               // else {
           //   color='#ffff00';
           // }

@@ -15,27 +15,27 @@ export class EmployeMonthlyDetailReportComponent implements OnInit {
   minDate = new Date('2020/01/01'); maxDate = new Date();
   userSession: any;
   headersList: any=[];
-  @ViewChild('TABLE') table!: ElementRef;  
+  @ViewChild('TABLE') table!: ElementRef;
   constructor(public reportsService: ReportsService, public datePipe: DatePipe, public formBuilder: FormBuilder,) { }
   searchForm = this.formBuilder.group({ fromDate: [new Date()], toDate: [new Date()], Users: ['0'] });
- 
+
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.Searchform();
- 
+
   }
   Searchform() {
     this.List = [];
     let fromDate = this.datePipe.transform(this.searchForm.controls.fromDate.value, "y-MM-dd");
     let data={};
-    
+
       data= {
         'manager_employee_id': null,
         'employee_id': this.userSession.id,
         'calendar_date': fromDate,
-  
+
     }
-    
+
     this.reportsService.getAttendanceMonthlyReport(data).subscribe((res: any) => {
       this.headersList=[];
       this.List=[];
@@ -75,10 +75,15 @@ export class EmployeMonthlyDetailReportComponent implements OnInit {
     let color = ''
     if (i == "P") {
       return color = 'green'
-    } else if (i == "A") {
+    } else if (i == "H") {
+      return color = 'yellow';
+    } else if (i == "W") {
+      return color = 'blue';
+    } else if (i == "L") {
+      return color = 'orange';
+    }
+     else {
       return color = 'red';
-    } else {
-      return '';
     }
   }
 
@@ -86,9 +91,9 @@ export class EmployeMonthlyDetailReportComponent implements OnInit {
     const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Monthly_Detail_Report');
-    
+
     /* save to file */
     XLSX.writeFile(wb, 'Monthly_Detail_Report.xlsx');
-    
+
   }
 }
