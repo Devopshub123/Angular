@@ -119,7 +119,7 @@ dataNotSaved: any;
       if (selectedValue) {
         this.requestform.get('fromDate')?.enable();
         if (selectedValue == "2") {
-          this.requestform.get('toDate')?.enable();
+         // this.requestform.get('toDate')?.enable();
         } else {
           this.requestform.get('toDate')?.disable();
           this.requestform.get('toDate')?.setValue(this.requestform.get('fromDate')?.value);
@@ -144,7 +144,7 @@ dataNotSaved: any;
       // );
     }
     if (this.requestform.get('workType')?.value == "2") {
-
+      this.requestform.get('toDate')?.enable();
     } else {
       this.requestform.get('toDate')?.setValue(event.value);
       this.getEmployeeShiftDetailsByIdWithDates();
