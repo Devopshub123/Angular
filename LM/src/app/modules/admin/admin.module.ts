@@ -20,14 +20,13 @@ import { AddleavepopupComponent } from './pages/addleavepopup/addleavepopup.comp
 import { MessageMasterComponent } from './pages/message-master/message-master.component';
 import { LmMessageMasterComponent } from './pages/lm-message-master/lm-message-master.component';
 
-
 @NgModule({
   declarations: [
-    
+
     DesignationsComponent,
     DeparmentComponent,
     AdminDashboardComponent,
-    
+
     CompanylogoComponent,
     RolesPermissionsComponent,
     AddRoleModalComponent,
@@ -42,7 +41,8 @@ import { LmMessageMasterComponent } from './pages/lm-message-master/lm-message-m
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    
+
+
   ]
 })
 export class AdminModule { }

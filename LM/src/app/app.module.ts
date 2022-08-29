@@ -40,7 +40,6 @@ import { MappingIdsComponent } from './modules/admin/pages/mapping-ids/mapping-i
 import { ShiftMasterComponent } from './modules/admin/pages/shift-master/shift-master.component';
 import {UserLeaveRequestComponent} from "./modules/leaves/pages/user-leave-request/user-leave-request.component";
 
-
 // import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 
@@ -92,6 +91,7 @@ import {UserLeaveRequestComponent} from "./modules/leaves/pages/user-leave-reque
     MatDatepickerModule,
     // BsDatepickerModule.forRoot(),
     // DatepickerModule.forRoot()
+
 
   ],
 
