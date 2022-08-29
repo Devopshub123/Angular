@@ -745,7 +745,14 @@ export class EmployeeMasterToAddComponent implements OnInit {
       education: this.Educations,
       experience: this.Experience,
     }
-    let index = this.employeedetails.findIndex((e: any) => (e.officeemail).toLowerCase() === (this.employeeworkAddForm.controls.officeemail.value).toLowerCase());
+    let index=0;
+    if(this.empid == null){
+      index = this.employeedetails.findIndex((e: any) => (e.officeemail).toLowerCase() === (this.employeeworkAddForm.controls.officeemail.value).toLowerCase());
+    }else{
+      index = this.employeedetails.findIndex((e: any) => (e.officeemail).toLowerCase() === (this.employeeworkAddForm.controls.officeemail.value).toLowerCase()
+       && this.empid !=e.empid );
+    }
+
     if (index > 0) {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },

@@ -93,6 +93,7 @@ dataNotSaved: any;
     this.requestform.get("employeeName")?.valueChanges.subscribe(selectedValue => {
      // this.getEmployeeShiftDetails(selectedValue);
      this.requestform.get('workType')?.enable();
+     this.getEmployeeWeekoffsHolidaysForAttendance();
 
     })
     if (this.userData.userData != undefined) {
@@ -123,7 +124,7 @@ dataNotSaved: any;
         } else {
           this.requestform.get('toDate')?.disable();
           this.requestform.get('toDate')?.setValue(this.requestform.get('fromDate')?.value);
-          this.getEmployeeShiftDetailsByIdWithDates();
+        //  this.getEmployeeShiftDetailsByIdWithDates();
         }
       }
     });

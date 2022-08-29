@@ -81,8 +81,8 @@ export class AttendanceRequestComponent implements OnInit {
       {
         appliedDate: [{ value: this.todayWithPipe, disabled: true }, Validators.required],
         shift: ['', Validators.required],
-        fromDate: ['', Validators.required],
-        toDate: ['', Validators.required],
+        fromDate: [{ value:'', disabled: true }, Validators.required],
+        toDate: [{ value: '', disabled: true }, Validators.required],
         workType: ['', Validators.required],
         reason: ['', [Validators.required]],
         comment: [''],
@@ -107,6 +107,7 @@ export class AttendanceRequestComponent implements OnInit {
     }
     this.requestform.get('workType')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue) {
+        this.requestform.get('fromDate')?.enable()
         if (selectedValue == "2") {
           if (this.isRequestView == true) {
             this.requestform.get('toDate')?.disable();
