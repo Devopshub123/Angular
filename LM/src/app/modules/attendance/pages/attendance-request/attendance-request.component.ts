@@ -111,7 +111,7 @@ export class AttendanceRequestComponent implements OnInit {
           if (this.isRequestView == true) {
             this.requestform.get('toDate')?.disable();
           } else {
-                        this.requestform.get('toDate')?.enable();
+                //        this.requestform.get('toDate')?.enable();
           }
         } else {
           this.requestform.get('toDate')?.disable();
@@ -136,7 +136,11 @@ export class AttendanceRequestComponent implements OnInit {
       // );
     }
     if (this.requestform.get('workType')?.value == "2") {
-
+      if (this.isRequestView == true) {
+        this.requestform.get('toDate')?.disable();
+      } else {
+         this.requestform.get('toDate')?.enable();
+      }
     } else {
       this.requestform.get('toDate')?.setValue(event.value);
       this.getEmployeeShiftDetailsByIdWithDates();
