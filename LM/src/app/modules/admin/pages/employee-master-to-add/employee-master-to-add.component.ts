@@ -750,7 +750,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
       index = this.employeedetails.findIndex((e: any) => (e.officeemail).toLowerCase() === (this.employeeworkAddForm.controls.officeemail.value).toLowerCase());
     }else{
       index = this.employeedetails.findIndex((e: any) => (e.officeemail).toLowerCase() === (this.employeeworkAddForm.controls.officeemail.value).toLowerCase()
-       && this.empid !=e.empid );
+       && this.empid != e.empid );
     }
 
     if (index > 0) {
