@@ -745,6 +745,7 @@ async  getLeavesTypeInfo() {
       'toDateHalf':this.leaveRequestForm.controls.toDateHalf.value,
       'leaveTypeId':this.leaveRequestForm.controls.leaveTypeId.value,
       'document':this.leaveRequestForm.controls.document.value?true:false,
+      'leaveId':this.leaveData?this.leaveData.id:null
     }
 
     this.LM.setValidateLeave(obj).subscribe((result)=>{
