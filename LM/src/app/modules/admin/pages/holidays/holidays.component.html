@@ -1,10 +1,10 @@
 <div fxLayout="column" >
 
-        <mat-card>
+        <mat-card style="flex-flow: row wrap;">
             <mat-card-header class="">
                 <mat-card-title > Holidays </mat-card-title>
             </mat-card-header>
-            <mat-divider></mat-divider><br>
+          <br>
             <div *ngIf="isadd">
                 <form [formGroup]="HolidayForm" autocomplete="off" >
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
@@ -76,7 +76,7 @@
 
                 </div><br>
                 <div fxLayoutAlign="end">
-                    <button class="col-md-1 btn btn-primary" [disabled]="!HolidayForm.valid" (click)="submit()" type="submit">
+                    <button class="mx-1 btn btn-primary" [disabled]="!HolidayForm.valid" (click)="submit()" type="submit">
                         <span>Submit</span>
                     </button>
 
@@ -88,14 +88,14 @@
 
             </form>
             </div>
-            <div *ngIf="isview">
+            <div *ngIf="isview" style="flex-flow: row wrap;">
                 <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
                     <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
                         (click)="add()" type="submit">
                         <span>Add</span><br>
                     </button>
                 </div><br>
-                <mat-divider></mat-divider>
+                <!--<mat-divider></mat-divider>-->
                 <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
                     <mat-form-field fxFlex.xs="100%" appearance="outline">
                         <mat-label>Search</mat-label>
@@ -104,7 +104,7 @@
                     </mat-form-field>
                 </div>
                 <form [formGroup]="HolidayForm" autocomplete="off" >
-                <div class="mat-elevation-z8">
+                <mat-card-content style="overflow-x: auto">
                     <table mat-table [dataSource]="dataSource" matSort>
                         <ng-container matColumnDef="holiday">
                             <th mat-header-cell *matHeaderCellDef> Holiday</th>
@@ -191,10 +191,10 @@
                         <!-- <td class="mat-cell" colspan="6">No data matching the filter "{{input.value}}"</td> -->
                     </tr>
                     </table>
+                </mat-card-content>
 
                     <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
                     <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-                </div>
                 </form>
 
             </div>
