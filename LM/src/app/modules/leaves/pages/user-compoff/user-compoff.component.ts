@@ -73,6 +73,9 @@ export class UserCompoffComponent implements OnInit {
     this.getErrorMessages('LM76')
     this.getErrorMessages('LM7')
     this.getErrorMessages('LM117')
+    this.getErrorMessages('LM136')
+
+    // msgLM136
     this.getCompOffMinWorkingHours();
     this.getCompOff();
     this.getCompoffCalender();
