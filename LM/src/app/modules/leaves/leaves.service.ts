@@ -185,8 +185,8 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     getNextLeaveDate(input:any): Promise<any> {
       return this.http.get(this.mainUrl+'api/getNextLeaveDate/'+JSON.stringify(input), this.httpOptions).toPromise();
     }
-    getApprovedCompoffs(id:any):Observable<any> {
-      return this.http.get(this.mainUrl+'api/getApprovedCompoffs/'+id,this.httpOptions);
+    getApprovedCompoffs(info:any):Observable<any> {
+      return this.http.post(this.mainUrl+'api/getApprovedCompoffs',JSON.stringify(info),this.httpOptions);
     }
     getEmployeeRelationsForBereavementLeave(info:any):Observable<any> {
       return this.http.post(this.mainUrl+'api/getEmployeeRelationsForBereavementLeave',JSON.stringify(info),this.httpOptions);

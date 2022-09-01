@@ -386,7 +386,8 @@ async  getLeavesTypeInfo() {
         this.leaveRequestForm.controls.toDate.setValue(this.leaveData?new Date(this.leaveData.todate):'',{emitEvent:false})
         // this.leaveRequestForm.controls.fromDateHalf.setValue(this.leaveData ? this.leaveData.fromhalfdayleave == '0' ? false : true : false,{emitEvent:false})
         // this.leaveRequestForm.controls.toDateHalf.setValue(this.leaveData ? this.leaveData.tohalfdayleave == '0' ? false : true : false,{emitEvent:false})
-        this.leaveRequestForm.controls.relation.setValue(this.leaveData?this.leaveData.bereavement_id.toString():'',{emitEvent:false})
+        this.leaveRequestForm.controls.relation.setValue(this.leaveData.bereavement_id?this.leaveData.bereavement_id.toString():'',{emitEvent:false})
+        this.leaveRequestForm.controls.compoffApprovedDate.setValue(this.leaveData.worked_date?this.leaveData.worked_date:'',{emitEvent:false})
 
 
       }
@@ -939,8 +940,13 @@ async  getLeavesTypeInfo() {
 
   getApprovedCompoffs()
   {
+    let obj = {
+      id : this.userSession.id,
+      leaveId:this.leaveData?this.leaveData.id:null
 
-    this.LM.getApprovedCompoffs(this.userSession.id).subscribe((result) => {
+    }
+
+    this.LM.getApprovedCompoffs(obj).subscribe((result) => {
       if (result && result.status) {
         this.compOffApprovedDates = result.data;
       }
