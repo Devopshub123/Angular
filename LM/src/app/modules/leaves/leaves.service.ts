@@ -154,7 +154,6 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
 
     getLeavesTypeInfo(): Observable<any> {
       return this.http.get(this.mainUrl + 'api/getLeavesTypeInfo', this.httpOptions);
-
     }
     getDaysToBeDisabledFromDate(id:any,leaveId:any): Promise<any> {
       return this.http.get(this.mainUrl + 'api/getdaystobedisabledfromdate/'+id+'/'+leaveId, this.httpOptions).toPromise();;
@@ -189,8 +188,8 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     getApprovedCompoffs(id:any):Observable<any> {
       return this.http.get(this.mainUrl+'api/getApprovedCompoffs/'+id,this.httpOptions);
     }
-    getEmployeeRelationsForBereavementLeave(id:any):Observable<any> {
-      return this.http.get(this.mainUrl+'api/getEmployeeRelationsForBereavementLeave/'+id,this.httpOptions);
+    getEmployeeRelationsForBereavementLeave(info:any):Observable<any> {
+      return this.http.post(this.mainUrl+'api/getEmployeeRelationsForBereavementLeave',JSON.stringify(info),this.httpOptions);
     }
     getMaxCountPerTermValue(id:any):Observable<any> {
       return this.http.get(this.mainUrl + 'api/getMaxCountPerTermValue/' + id, this.httpOptions);
