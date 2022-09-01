@@ -43,7 +43,7 @@ export class ShiftConfigureComponent implements OnInit {
   workingDays: any = [];
   weekoffs: any=[];
   selectedEmps: any=[];
-  
+
   pageLoading = true;
   messagesDataList: any = [];
   requiredOption: any;
@@ -81,11 +81,11 @@ export class ShiftConfigureComponent implements OnInit {
         this.dataSource.sort = this.sort;
       }
     })
-    
+
   }
   selection = new SelectionModel<any>(true, []);
 
- 
+
   ngOnInit(): void {
     this.getMessagesList();
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
@@ -108,7 +108,7 @@ export class ShiftConfigureComponent implements OnInit {
   get f(): { [key: string]: AbstractControl } {
     return this.requestform.controls;
   }
-  
+
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
     this.minToDate = event.value;
     if (event.value !== null) {
@@ -139,7 +139,7 @@ export class ShiftConfigureComponent implements OnInit {
       }
     })
   }
-  
+
   getWeekDays() {
     this.weekDaysDetails=[];
     this.workingDays=[];
@@ -150,7 +150,7 @@ export class ShiftConfigureComponent implements OnInit {
               let obj={"id":i.id,"name":i.week_name}
               this.workingDays.push(obj);
              })
-         }   
+         }
 
 
     })
@@ -185,7 +185,7 @@ export class ShiftConfigureComponent implements OnInit {
     }
   }
   saveConsultation() {
-    
+
     if (this.requestform.invalid) {
       return;
     } else {
@@ -222,8 +222,8 @@ export class ShiftConfigureComponent implements OnInit {
    }else{
     return;
    }
-      
-    
+
+
     }
   }
   resetform() {
@@ -232,13 +232,13 @@ export class ShiftConfigureComponent implements OnInit {
 
   }
   checkCheckBoxvalue(event: any, data: any) {
-      
+
     if (event.checked == true) {
       this.weekoffs.push(data.id);
       this.workingDays.forEach((e:any,index:any) => {
         if (e.id == data.id){
          this.workingDays.splice(index, 1);
-        } 
+        }
       });
 
     } else {
@@ -283,7 +283,7 @@ export class ShiftConfigureComponent implements OnInit {
     }
   }
   getMessagesList() {
-    let data = 
+    let data =
      {
        "code": null,
        "pagenumber":1,
@@ -299,7 +299,7 @@ export class ShiftConfigureComponent implements OnInit {
           this.dataSave =e.message
         } else if (e.code == "ATT70") {
           this.dataNotSave =e.message
-        } 
+        }
       })
      }
      else {

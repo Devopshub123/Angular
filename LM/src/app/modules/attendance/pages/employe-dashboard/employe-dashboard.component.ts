@@ -128,7 +128,8 @@ export class EmployeDashboardComponent implements OnInit {
           let item =
           {
             title: e.present_or_absent,
-            start: e.firstlogintime != '' ? e.firstlogintime : new Date(e.attendancedate),
+            start: e.present_or_absent == 'P'?e.firstlogintime !=''? e.firstlogintime : new Date(e.attendancedate): e.attendancedate, ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
+           // start: e.firstlogintime != '' ? e.firstlogintime : new Date(e.attendancedate),
             // end:e.lastlogouttime !=''? e.lastlogouttime : e.attendancedate,
             color:color,      //e.isweekoff == null ? e.present_or_absent == 'P' ? '#32cd32' : '#FF3131' : '#2e0cf3',
             icon: e.present_or_absent == 'P' ? 'fa-check-circle' : 'fa-times-circle'

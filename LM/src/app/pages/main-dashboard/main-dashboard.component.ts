@@ -28,7 +28,7 @@ export class MainDashboardComponent implements OnInit {
       this.getCompoffleavestatus();
     this.data= sessionStorage.getItem('user')
     this.usersession = JSON.parse(this.data)
-  
+
    }
 
   getModules(){
@@ -39,7 +39,7 @@ export class MainDashboardComponent implements OnInit {
       }
     })
   }
- 
+
   getCompoffleavestatus(){
     this.mainService.getCompoffleavestatus().subscribe((result)=>{
      if(result.status){
@@ -47,8 +47,8 @@ export class MainDashboardComponent implements OnInit {
      }
     })
    }
- 
-  
+
+
 
   getrolescreenfunctionalities(id:any,date:any){
 
@@ -77,7 +77,7 @@ export class MainDashboardComponent implements OnInit {
                         route: e.routename
                       }
                       item.children?.push(itemnav);
-                      
+
                     }
                     else{
                       if(e.screen_name == 'Comp off History'){}
@@ -90,7 +90,7 @@ export class MainDashboardComponent implements OnInit {
                         item.children?.push(itemnav);
                       }
                     }
-                    
+
                   }else{
                     if(item.displayName == 'Self'  && e.parentrole==1 ){
                       isvalid = false;
@@ -113,8 +113,8 @@ export class MainDashboardComponent implements OnInit {
                           item.children?.push(itemnav);
                         }
                       }
-                     
-                      
+
+
                     }
                   }
                 })
@@ -129,7 +129,7 @@ export class MainDashboardComponent implements OnInit {
                           iconName: '',// e.role_name,
                           route: e.routename
                         }
-  
+
                       ]
                     };
                     this.menu.push(navitem)
@@ -143,12 +143,12 @@ export class MainDashboardComponent implements OnInit {
                           iconName: '',// e.role_name,
                           route: e.routename
                         }
-  
+
                       ]
                     };
                     this.menu.push(item)
                   }
-  
+
                 }
               } else {
                 if (e.parentrole == 1) {
@@ -161,7 +161,7 @@ export class MainDashboardComponent implements OnInit {
                         iconName: '',// e.role_name,
                         route: e.routename
                       }
-  
+
                     ]
                   };
                   this.firstRoute = e.routename;
@@ -176,12 +176,12 @@ export class MainDashboardComponent implements OnInit {
                         iconName: '',// e.role_name,
                         route: e.routename
                       }
-  
+
                     ]
                   };
                   this.firstRoute = e.routename;
                   this.menu.push(navtem)
-  
+
                 }
               }
             });
@@ -191,11 +191,11 @@ export class MainDashboardComponent implements OnInit {
           }else{
           this.router.navigate([this.firstRoute]);
           }
-            
+
           }
 
 
-        
+
         })
   }
 
@@ -213,7 +213,7 @@ export class MainDashboardComponent implements OnInit {
       });
   }
 
-  
+
   ngOnDestroy(): void {
     this.unsubscriber.next();
     this.unsubscriber.complete();

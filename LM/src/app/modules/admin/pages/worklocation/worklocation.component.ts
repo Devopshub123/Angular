@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PopupComponent,PopupConfig } from '../../../../pages/popup/popup.component';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
 import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.directive';
 import { LoginService } from 'src/app/services/login.service';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
@@ -18,7 +18,7 @@ export interface UserData {
   address2: string,
   branchcode: string,
   city: string,
-  cityname: string,          
+  cityname: string,
   country:string,
   currentvalue: number,
   id: number,
@@ -60,8 +60,8 @@ export class WorklocationComponent implements OnInit {
   msgLM59:any;
   msgLM122:any;
   msgLM123:any;
-  
-  
+
+
   displayedColumns: string[] = ['city-branch','prefix','seed','status','Action'];
   departmentData:any=[];
   arrayValue:any=[{Value:'Active',name:'Active '},{Value:'Inactive',name:'Inactive'}];
@@ -81,26 +81,26 @@ export class WorklocationComponent implements OnInit {
     this.getErrorMessages('LM59')
     this.getErrorMessages('LM122')
     this.getErrorMessages('LM123')
-    
+
     this.getWorkLocation();
     this.getCountry();
-    
+
     this.worklocationForm=this.formBuilder.group(
       {
-      address1: ["",],        
+      address1: ["",],
       address2: ["",],
       branch: ["",],
       country: ["",Validators.required],
       state: ["",Validators.required],
       city: ["",Validators.required],
       pincode: ["",],
-      prefix: ["",],        
+      prefix: ["",],
       seed: ["",Validators.required],
       id:[""],
-      
+
     });
-    
-    
+
+
     this.worklocationForm.get('country')?.valueChanges.subscribe((selectedValue: any)  => {
       this.stateDetails= [];
       this.LM.getStatesc(selectedValue).subscribe((data)=>{
@@ -110,7 +110,7 @@ export class WorklocationComponent implements OnInit {
           this.worklocationForm.controls.state.setValue(this.worklocationdata.state);
         }
       })
-      
+
     })
     /**get city details for residance address */
     this.worklocationForm.get('state')?.valueChanges.subscribe((selectedValue: any) => {
@@ -136,8 +136,8 @@ export class WorklocationComponent implements OnInit {
             this.worklocationForm.controls.seed.disable();
             this.isnote = true;
             break;
-          } 
-          else {           
+          }
+          else {
             this.worklocationForm.controls.seed.setValue("")
             // this.isViewSeed=false;
             this.worklocationForm.controls.seed.enable();
@@ -145,7 +145,7 @@ export class WorklocationComponent implements OnInit {
             this.ischeckprefix=true;
             // valid = true;
           }
-  
+
         }
       }else{
         for(let i=0 ; i<this.workLocationDetails.length;i++){
@@ -156,14 +156,14 @@ export class WorklocationComponent implements OnInit {
             this.isnote = true;
             break;
           }
-  
+
         }
-  
+
       }
       // return this.isViewSeed;
       // return this.ischeckprefix;
-    
-    })    
+
+    })
   }
   emptyprefix(){
     if(this.worklocationForm.controls.prefix.value==""){
@@ -175,7 +175,7 @@ export class WorklocationComponent implements OnInit {
           this.worklocationForm.controls.seed.disable();
           this.isnote = true;
           break;
-        } 
+        }
       }
       // return this.isViewSeed;
       this.worklocationForm.controls.seed.disable();
@@ -191,22 +191,22 @@ export class WorklocationComponent implements OnInit {
     })
   }
   edit(data:any){
-  
+
      this.editworklocation = true;
      this.worklocationdata = data;
      this.isadd=true;
      this.isdata=false;
      this.isview=false;
      this.worklocationForm.controls.id.setValue(data.id)
-     this.worklocationForm.controls.address1.setValue(data.address1)      
-     this.worklocationForm.controls.address2.setValue(data.address2)   
-     this.worklocationForm.controls.branch.setValue(data.location)    
-     this.worklocationForm.controls.country.setValue(data.country)    
-     this.worklocationForm.controls. state.setValue(data.state)     
-     this.worklocationForm.controls.city.setValue(data.city)   
-     this.worklocationForm.controls.pincode.setValue(data.pincode)    
-     this.worklocationForm.controls.prefix.setValue(data.prefix)         
-     this.worklocationForm.controls.seed.setValue(data.seed)    
+     this.worklocationForm.controls.address1.setValue(data.address1)
+     this.worklocationForm.controls.address2.setValue(data.address2)
+     this.worklocationForm.controls.branch.setValue(data.location)
+     this.worklocationForm.controls.country.setValue(data.country)
+     this.worklocationForm.controls. state.setValue(data.state)
+     this.worklocationForm.controls.city.setValue(data.city)
+     this.worklocationForm.controls.pincode.setValue(data.pincode)
+     this.worklocationForm.controls.prefix.setValue(data.prefix)
+     this.worklocationForm.controls.seed.setValue(data.seed)
   }
   view(data:any){
     this.worklocationdata = data;
@@ -214,25 +214,25 @@ export class WorklocationComponent implements OnInit {
     this.isdata=false;
     this.isview=true;
     this.ishide=false;
-    this.worklocationForm.controls.country.setValue(data.country)  
-    this.worklocationForm.controls.address1.setValue(data.address1)      
-    this.worklocationForm.controls.address2.setValue(data.address2)   
-    this.worklocationForm.controls.branch.setValue(data.location)    
-      
-    this.worklocationForm.controls. state.setValue(data.state)     
-    this.worklocationForm.controls.city.setValue(data.city)   
-    this.worklocationForm.controls.pincode.setValue(data.pincode)    
-    this.worklocationForm.controls.prefix.setValue(data.prefix)         
-    this.worklocationForm.controls.seed.setValue(data.seed) 
+    this.worklocationForm.controls.country.setValue(data.country)
+    this.worklocationForm.controls.address1.setValue(data.address1)
+    this.worklocationForm.controls.address2.setValue(data.address2)
+    this.worklocationForm.controls.branch.setValue(data.location)
 
-    this.worklocationForm.controls.address1.disable();      
-     this.worklocationForm.controls.address2.disable();  
-     this.worklocationForm.controls.branch.disable();   
-    //  this.worklocationForm.controls.country.disable();   
-    //  this.worklocationForm.controls. state.disable();   
-    //  this.worklocationForm.controls.city.disable();   
-     this.worklocationForm.controls.pincode.disable();    
-     this.worklocationForm.controls.prefix.disable();        
+    this.worklocationForm.controls. state.setValue(data.state)
+    this.worklocationForm.controls.city.setValue(data.city)
+    this.worklocationForm.controls.pincode.setValue(data.pincode)
+    this.worklocationForm.controls.prefix.setValue(data.prefix)
+    this.worklocationForm.controls.seed.setValue(data.seed)
+
+    this.worklocationForm.controls.address1.disable();
+     this.worklocationForm.controls.address2.disable();
+     this.worklocationForm.controls.branch.disable();
+    //  this.worklocationForm.controls.country.disable();
+    //  this.worklocationForm.controls. state.disable();
+    //  this.worklocationForm.controls.city.disable();
+     this.worklocationForm.controls.pincode.disable();
+     this.worklocationForm.controls.prefix.disable();
      this.worklocationForm.controls.seed.disable();
      this.isnote=false;
 
@@ -249,7 +249,7 @@ export class WorklocationComponent implements OnInit {
     })
   }
   status(status:any,id:any){
-    
+
     let data = {
     checktable:'companyworklocationsmaster',
     tableName:'employee_worklocations',
@@ -290,18 +290,18 @@ export class WorklocationComponent implements OnInit {
         country:this.worklocationForm.controls.country.value,
         prefix:this.worklocationForm.controls.prefix.value.toUpperCase(),
         seed:this.worklocationForm.controls.seed.value,
-        status:'Active'    
-            
+        status:'Active'
+
       }
       this.LM.setWorkLocation(data).subscribe((data) => {
-     
+
                 /**For edit worklocation */
                 if(this.editworklocation){
-                  if(data.status){ 
+                  if(data.status){
                     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                    this.router.navigate(["/Admin/Worklocation"]));  
-             
-                    this.ngOnInit(); 
+                    this.router.navigate(["/Admin/Worklocation"]));
+
+                    this.ngOnInit();
                     let dialogRef = this.dialog.open(ReusableDialogComponent, {
                       position:{top:`70px`},
                       disableClose: true,
@@ -309,31 +309,31 @@ export class WorklocationComponent implements OnInit {
                     });
                    }
                    else{
-                    
+
                     let dialogRef = this.dialog.open(ReusableDialogComponent, {
                       position:{top:`70px`},
                       disableClose: true,
                       data: this.msgLM23
                     });
                    }
-                  
-                           
-                          
-        
+
+
+
+
                 }
                 /**For add worklocation */
                 else{
                   if(data.status){
                     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                     this.router.navigate(["/Admin/Worklocation"]));
-                      
+
                     this.ngOnInit();
                     let dialogRef = this.dialog.open(ReusableDialogComponent, {
                       position:{top:`70px`},
                       disableClose: true,
                       data: this.msgLM59
-                    });  
-                           
+                    });
+
                   }
                   else{
                     let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -342,8 +342,8 @@ export class WorklocationComponent implements OnInit {
                       data: this.msgLM22
                     });
                    }
-                  
-        
+
+
                 }
 
       });
@@ -399,7 +399,7 @@ export class WorklocationComponent implements OnInit {
       {
         this.msgLM123 = result.data[0].errormessage
       }
-     
+
     })
   }
 }

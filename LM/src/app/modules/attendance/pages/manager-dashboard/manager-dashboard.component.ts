@@ -110,8 +110,8 @@ export class ManagerDashboardComponent implements OnInit {
           let item =
           {
             title: e.empname,
-          //  start: e.attendancedate, ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
-          start:e.firstlogintime !=''? e.firstlogintime : new Date(e.attendancedate), ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
+            start: e.present_or_absent == 'P'?e.firstlogintime !=''? e.firstlogintime : new Date(e.attendancedate): e.attendancedate, ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
+       //   start:e.firstlogintime !=''? e.firstlogintime : new Date(e.attendancedate), ///new Date(e.attendancedate).toISOString().replace(/T.*$/, ''),
         //  end:e.lastlogouttime !=''? e.lastlogouttime : e.attendancedate,
           color: color,
             icon: e.present_or_absent == 'P' ? 'fa-check-circle' : 'fa-times-circle'
