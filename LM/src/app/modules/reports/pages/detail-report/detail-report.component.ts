@@ -57,8 +57,6 @@ export class DetailReportComponent implements OnInit {
       arr.push(new Date(dt));
       dt.setDate(dt.getDate() + 1);
     }
-    // console.log(arr);
-
     for (const val of arr) {
 
       this.obj = {
@@ -68,7 +66,6 @@ export class DetailReportComponent implements OnInit {
 
       this.dateDayArray.push(this.obj);
     }
-    // console.log(this.dateDayArray);
   }
   getEmployeelist() {
          let obj={
@@ -124,8 +121,6 @@ export class DetailReportComponent implements OnInit {
           i++;
 
         });
-        console.log(this.headersList);
-        console.log(this.List);
       }
 
       this.isLoading = false;

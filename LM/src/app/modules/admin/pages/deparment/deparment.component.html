@@ -31,8 +31,8 @@
 
             </div><br>
             <!-- <mat-divider></mat-divider> -->
-            <div  *ngIf="isdata">
-                <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
+            <div  *ngIf="isdata" fxLayout="column">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end start" fxLayoutAlign.xs="start end">
                     <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue" (click)="Add()" type="submit">
                         <span>Add</span>
                     </button>

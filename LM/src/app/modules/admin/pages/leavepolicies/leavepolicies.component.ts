@@ -836,9 +836,7 @@ export class LeavepoliciesComponent implements OnInit {
   if( this.validateCustomLeave(info.ruleData)) {
     this.LM.updateLeaveDisplayName(datas).subscribe((data:any)=>{})
    // this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
-    console.log("setLeaveConfigure",info);
-
-    this.LM.setLeaveConfigure(info).subscribe((data) => {
+       this.LM.setLeaveConfigure(info).subscribe((data) => {
       if (data.status) {
         if(this.editingleavetype){
           let dialogRef = this.dialog.open(ReusableDialogComponent, {

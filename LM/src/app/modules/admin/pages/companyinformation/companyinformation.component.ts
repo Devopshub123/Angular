@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewChild} from '@angular/core';
 import { EmployeeMasterService } from 'src/app/services/employee-master-service';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
@@ -47,7 +47,7 @@ export class CompanyinformationComponent implements OnInit {
     this.getCountry();
     this.getCompanyInformation();
     this.companyForm=this.formBuilder.group(
-      { 
+      {
         companyname:["",Validators.required],
         address1:["",Validators.required],
         contact:["",[Validators.required]],
@@ -71,8 +71,8 @@ export class CompanyinformationComponent implements OnInit {
 
           }
         })
-      
-         
+
+
       })
       this.companyForm.get('state')?.valueChanges.subscribe(selectedValue => {
         this.cityDetails=[];
@@ -90,7 +90,7 @@ export class CompanyinformationComponent implements OnInit {
   getCountry(){
     this.LMS.getCountry('countrymaster',null,1,10,'keerthi_hospitals').subscribe((results)=>{
       this.CountryDetails=results.data;
-  
+
 
     })
   }
@@ -115,7 +115,7 @@ export class CompanyinformationComponent implements OnInit {
           disableClose: true,
           data: this.msgLM58
         });
-       
+
         this.getCompanyInformation()
 
       }else {
@@ -128,7 +128,7 @@ export class CompanyinformationComponent implements OnInit {
       }
 
     })
-    
+
   }
   save(){
     this.issubmitted=true;
@@ -145,11 +145,11 @@ export class CompanyinformationComponent implements OnInit {
       pincode:this.companyForm.controls.pincode.value,
     }
 
-    
+
     if(true) {
-      
+
       this.LMS.setCompanyInformation(companyinformation).subscribe((data) => {
-      
+
         if (data.status) {
           this.getCompanyInformation()
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -163,7 +163,7 @@ export class CompanyinformationComponent implements OnInit {
             position:{top:`70px`},
             disableClose: true,
             data: this.msgLM20
-          });     
+          });
         }
       })
     }
@@ -185,7 +185,7 @@ export class CompanyinformationComponent implements OnInit {
     this.isview=false;
     this.isadd = true;
     this.isedit=true;
-   
+
 
   }
   getCompanyInformation(){
@@ -194,8 +194,8 @@ export class CompanyinformationComponent implements OnInit {
         // this.enable=false;
         this.isview=true;
         this.isadd=false;
-        
-     
+
+
         this.companyinfo =data.data[0];
         this.companyForm.controls.companyname.setValue(data.data[0].companyname);
         this.companyForm.controls.website.setValue(data.data[0].companywebsite);
@@ -215,7 +215,7 @@ export class CompanyinformationComponent implements OnInit {
         // this.companyForm.controls.pincode.disable();
         // this.companyForm.controls.email.disable();
 
-      
+
 
       }else {
         // this.enable=true;
@@ -259,7 +259,7 @@ export class CompanyinformationComponent implements OnInit {
       {
         this.msgLM58 = result.data[0].errormessage
       }
-     
+
     })
   }
 

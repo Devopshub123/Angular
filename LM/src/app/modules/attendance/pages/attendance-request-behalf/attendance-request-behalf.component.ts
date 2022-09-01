@@ -63,11 +63,11 @@ dataNotSaved: any;
     this.minFromDate = new Date();
     this.minFromDate.setDate(this.currentDate.getDate() - 31);
     this.maxFromDate = new Date();
-    this.maxFromDate.setDate(this.currentDate.getDate() -1);
+    this.maxFromDate.setDate(this.currentDate.getDate());
     this.minToDate = new Date();
     this.minToDate.setDate(this.currentDate.getDate() - 31);
     this.maxToDate = new Date();
-    this.maxToDate.setDate(this.currentDate.getDate() -1);
+    this.maxToDate.setDate(this.currentDate.getDate());
   }
 
   ngOnInit(): void {

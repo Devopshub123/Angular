@@ -313,7 +313,7 @@ export class HolidaysComponent implements OnInit {
       {
         this.msgLM106 = result.data[0].errormessage
       }
-     
+
     })
   }
 
