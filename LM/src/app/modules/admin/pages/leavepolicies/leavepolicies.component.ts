@@ -280,12 +280,15 @@ export class LeavepoliciesComponent implements OnInit {
       if(selectedValue==6 || selectedValue==7){
         this.isterm=false;
       }
+      console.log("selectedValue",selectedValue)
 
       this.tabledata = true;
-      if (selectedValue < 11){
+      if (selectedValue < 10){
         this.actionflag=false;
       }
       else{
+        console.log("else",selectedValue)
+
         this.addleaveForm.controls.leavecolor.disable();
         this.addleaveForm.controls.pastdays.disable();
         this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.disable();
@@ -329,7 +332,7 @@ export class LeavepoliciesComponent implements OnInit {
       }
       else{
         this.isadvanced = false;
-        this.displayedColumns3 =  selectedValue > 11 ? this.displayedColumns4 : this.displayedColumns4.filter(column => column !== 'actions');
+        this.displayedColumns3 =  selectedValue > 10 ? this.displayedColumns4 : this.displayedColumns4.filter(column => column !== 'actions');
       }
       if(selectedValue!=1){
       this.changeLeaveType(selectedValue,null);
