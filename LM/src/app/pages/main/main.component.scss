@@ -11,7 +11,7 @@
   background: #80286a !important;
   color: white !important;
 }
-.mat-list-item.active{ 
+.mat-list-item.active{
   background: #80286a !important;
   color: white !important;
 }
@@ -71,5 +71,8 @@
   .custom-mob-ul {
     margin-left:-153px;
   }
+}
+.mat-list-base {
+  padding-top: 0px !important;
 }
 

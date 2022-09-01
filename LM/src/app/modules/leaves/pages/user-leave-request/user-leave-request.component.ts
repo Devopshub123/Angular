@@ -121,7 +121,7 @@ export class UserLeaveRequestComponent implements OnInit {
     this.leaveRequestForm.controls.contact.setValue(this.leaveData ? this.leaveData.contactnumber : '',{emitEvent:false})
     this.leaveRequestForm.controls.emergencyEmail.setValue(this.leaveData ? this.leaveData.contactemail : '')
     // this.leaveRequestForm.controls.leaveTypeId.setValue(2,{emitEvent:false})
-    this.leaveRequestForm.controls.relation.setValue(this.leaveData?this.leaveData.bereavement_id:'',{emitEvent:false})
+    // this.leaveRequestForm.controls.relation.setValue(this.leaveData?this.leaveData.bereavement_id:'',{emitEvent:false})
 
     this.getLeaveBalance();
     this.getLeavesTypeInfo();
@@ -229,6 +229,7 @@ export class UserLeaveRequestComponent implements OnInit {
     this.getErrorMessages('LM76')
     this.getErrorMessages('LM7')
     this.getErrorMessages('LM117')
+    this.getErrorMessages('msgLM119')
 
     this.leaveRequestForm.controls.contact.setValue(this.userSession.contactnumber)
     this.leaveRequestForm.controls.leaveCount.disable();
@@ -385,6 +386,7 @@ async  getLeavesTypeInfo() {
         this.leaveRequestForm.controls.toDate.setValue(this.leaveData?new Date(this.leaveData.todate):'',{emitEvent:false})
         // this.leaveRequestForm.controls.fromDateHalf.setValue(this.leaveData ? this.leaveData.fromhalfdayleave == '0' ? false : true : false,{emitEvent:false})
         // this.leaveRequestForm.controls.toDateHalf.setValue(this.leaveData ? this.leaveData.tohalfdayleave == '0' ? false : true : false,{emitEvent:false})
+        this.leaveRequestForm.controls.relation.setValue(this.leaveData?this.leaveData.bereavement_id.toString():'',{emitEvent:false})
 
 
       }
@@ -955,11 +957,18 @@ async  getLeavesTypeInfo() {
 
   getEmployeeRelationsForBereavementLeave()
   {
+    let obj = {
+      id : this.userSession.id,
+      leaveId:this.leaveData?this.leaveData.id:null
 
-    this.LM.getEmployeeRelationsForBereavementLeave(this.userSession.id).subscribe((result) => {
+    }
+
+    this.LM.getEmployeeRelationsForBereavementLeave(obj).subscribe((result) => {
       if (result && result.status) {
         this.employeeRelations = result.data;
+
       }
+      // bereavement_id
 
     });
 
