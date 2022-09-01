@@ -88,36 +88,14 @@ export class ManagerDashboardCalenderComponent implements OnInit {
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.next();
     this.spinner.hide()
-
-    // const selectDate = this.calendarApi.getDate();
-    // console.log("ksjdk",selectDate)
-    // if (selectDate.getTime() <= this.currentDate.getTime()) {
-    //   // this.getLeaveCalendarForManager();
-    // } else {
-    //   this.arrayList = [];
-    //   this.initialEvents = [];
-    //   this.calendarOptions.events = this.initialEvents;
-    // }
-
-  }
+ }
   prevMonth(): void {
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.prev();
-    // const selectDate = this.calendarApi.getDate();
-    // if (selectDate.getTime() <= this.currentDate.getTime()) {
-    //   this.getLeaveCalendarForManager();
-    // } else {
-    //   this.arrayList = [];
-    //   this.initialEvents = [];
-    //   this.calendarOptions.events = this.initialEvents;
-    // }
   }
   currentMonth(): void {
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.today();
-    // const currentDate = this.calendarApi.getDate();
-    // this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
-    // this.getLeaveCalendarForManager()
-  }
+     }
 
 }

@@ -95,7 +95,6 @@ openDialogcancel(): void {
   dialogRef.afterClosed().subscribe(result => {
   this.deletedata.actionreason =result.reason;
     if(result!=''){
-      console.log(this.deletedata)
       this.LM.cancelLeaveRequest(this.deletedata).subscribe((data)=>{
         if(data.status){
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -181,8 +180,8 @@ openDialogdelete(): void {
       {
         this.msgLM74 = result.data[0].errormessage
       }
-      
-     
+
+
     })
   }
 

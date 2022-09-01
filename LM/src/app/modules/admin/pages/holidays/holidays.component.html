@@ -88,8 +88,8 @@
 
             </form>
             </div>
-            <div *ngIf="isview">
-                <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
+            <div *ngIf="isview" fxLayout="column" >
+                <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end start" fxLayoutAlign.xs="start end">
                     <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
                         (click)="add()" type="submit">
                         <span>Add</span><br>

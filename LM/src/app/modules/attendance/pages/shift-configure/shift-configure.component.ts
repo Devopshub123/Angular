@@ -271,7 +271,6 @@ export class ShiftConfigureComponent implements OnInit {
   }
 
   isSomeSelected() {
-    console.log(this.selection.selected);
     return this.selection.selected.length > 0;
   }
   getPageSizes(): number[] {

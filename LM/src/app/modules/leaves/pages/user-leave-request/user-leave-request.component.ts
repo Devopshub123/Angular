@@ -286,7 +286,6 @@ async  getLeavesTypeInfo() {
   await this.LM.getLeavesTypeInfo().subscribe((result) => {
         if (result.status) {
           this.leavesTypeData = this.leaveTypes(result.data);
-          console.log("khdsjhbhbd",this.leavesTypeData)
           this.leaveRequestForm.controls.leaveTypeId.setValue(this.leaveData?this.leaveData.leavetypeid.toString():'',{ emitEvent: false });
 
           /**
@@ -1038,7 +1037,6 @@ async  getLeavesTypeInfo() {
   onSelectFile(event:any) {
 
     if (event.target.files[0].size <= 15728640) {
-      console.log("vshbsdhhdhdhdhdhhd")
       this.isFile = true;
       const file: File = event.target.files[0];
       this.formData.append('file', file, file.name);

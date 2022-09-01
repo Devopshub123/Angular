@@ -52,8 +52,6 @@ export class EmployeMonthlyDetailReportComponent implements OnInit {
           i++;
 
         });
-        console.log(this.headersList);
-        console.log(this.List);
       }
 
 

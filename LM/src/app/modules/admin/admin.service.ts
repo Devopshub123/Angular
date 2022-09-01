@@ -18,7 +18,6 @@ export class AdminService {
   constructor(private http: HttpClient) {
   }
   setWorkLocation(info:any): Observable<any> {
-    console.log(info)
     return this.http.post(this.mainUrl + 'api/setWorkLocation', JSON.stringify(info), this.httpOptions);
   }
   getWorkLocation(info:any): Observable<any>{
