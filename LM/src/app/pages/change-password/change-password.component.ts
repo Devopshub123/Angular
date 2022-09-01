@@ -3,7 +3,7 @@ import { changePassword } from 'src/app/models/changepassword';
 import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PopupComponent,PopupConfig } from '../popup/popup.component';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 
 
@@ -33,6 +33,9 @@ export class ChangePasswordComponent implements OnInit {
   msgLM4:any;
   msgLM5:any;
   msgLM56:any;
+  hide1 = true;
+  hide2 = true;
+  hide3 = true;
 
   constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private router: Router,private ts: LoginService) {
     this.changePasswordAddObj =  new changePassword();
@@ -60,17 +63,17 @@ export class ChangePasswordComponent implements OnInit {
     this.changePasswordAddObj.empId = this.userSession.id ;
     this.changePasswordAddObj.email = this.userSession.officeemail ;
     if(this.usersession.firstlogin == 'Y'){
-      this.isView=false;      
+      this.isView=false;
     }
     else{
       this.isView=true;
     }
-  
+
   }
   get f(): { [key: string]: AbstractControl } {
     return this.changePasswordform.controls;
   }
-  cancel(){ 
+  cancel(){
     this.router.navigate(["/MainDashboard"])
   }
   changePassword(){
@@ -79,7 +82,7 @@ export class ChangePasswordComponent implements OnInit {
       this.changePasswordAddObj.oldPassword=this.changePasswordform.controls.oldPassword.value;
       this.changePasswordAddObj.newPassword=this.changePasswordform.controls.password.value;
       this.changePasswordAddObj.confirmPassword=this.changePasswordform.controls.confirmPassword.value;
-     
+
       if(this.changePasswordAddObj.oldPassword !='' && this.changePasswordAddObj.newPassword != '' && this.changePasswordAddObj.confirmPassword !=''){
         if(this.changePasswordAddObj.oldPassword === this.changePasswordAddObj.newPassword){
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -90,18 +93,18 @@ export class ChangePasswordComponent implements OnInit {
         }
         else{
           this.ts.changepassword(this.changePasswordAddObj).subscribe((data) => {
-            
+
             if (data[0]==0) {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position:{top:`70px`},
                 disableClose: true,
-                data: this.msgLM56 
+                data: this.msgLM56
               });
               sessionStorage.removeItem('user')
               this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                 this.router.navigate(["/Login"]));
-      
-            } 
+
+            }
             else if(data[0]== -1) {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position:{top:`70px`},
@@ -121,11 +124,11 @@ export class ChangePasswordComponent implements OnInit {
 
 
         }
-        
+
       }
     }
   }
- 
+
   getErrorMessages(errorCode:any) {
 
     this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
@@ -150,7 +153,7 @@ export class ChangePasswordComponent implements OnInit {
       {
         this.msgLM56 = result.data[0].errormessage
       }
-     
+
     })
   }
 
