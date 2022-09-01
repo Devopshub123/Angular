@@ -99,7 +99,8 @@ export class ManagerDashboardComponent implements OnInit {
           }else if(e.present_or_absent=='A'){
             color='#FF3131';
           } else if(e.present_or_absent=='H'){
-            color='#ffff00';
+            // color='#ffff00';
+            color='#800000'
           }else if(e.present_or_absent=='L'){
             color='#FF8C00';
           }
