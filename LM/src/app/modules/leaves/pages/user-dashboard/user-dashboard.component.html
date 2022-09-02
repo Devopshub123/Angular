@@ -376,11 +376,11 @@
 
   </div>
   <div fxLayout="column" *ngIf="isholidays">
-    <mat-card-header class="">
+    <mat-card-header class="" >
       <mat-card-title> Holidays List </mat-card-title>
     </mat-card-header>
-    <mat-divider></mat-divider>
-    <div class="mat-elevation-z8">
+    <!--<mat-divider></mat-divider>-->
+    <div class="mat-elevation-z8" style="padding-top: 10px">
       <table mat-table [dataSource]="holidaysalldatasource" matSort>
         <ng-container matColumnDef="day">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Day </th>
