@@ -128,7 +128,7 @@ export class UserCompoffComponent implements OnInit {
   getDurationforBackdatedCompoffLeave(){
     this.LM.getDurationforBackdatedCompoffLeave(this.calender).subscribe((result)=> {
       if(result.status){
-        this.min = (new Date(this.today.setDate(this.today.getDate()-result.data[0].value)));
+        this.min = (new Date(this.usersession.dateofjoin)>(new Date(this.today.setDate(this.today.getDate()-result.data[0].value)))) ? new Date(this.usersession.dateofjoin): (new Date(this.today.setDate(this.today.getDate()-result.data[0].value)));
       }
     });
 
