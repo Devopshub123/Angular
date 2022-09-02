@@ -21,6 +21,10 @@ export class UserLeaveBalanceComponent implements OnInit {
     this.LM.getLeaveBalance(this.usersession.id).subscribe((result)=>{
       if(result.status){
         for(let i =0; i<result.data[0].length; i++){
+            let total = result.data[0][i].total.split('.')
+            if(total[1] == '00'){
+              result.data[0][i].total = total[0];
+            }
           if ( result.data[0][i].leavename === "Marriage Leave" && this.usersession.maritalstatus === "Single") {
             this.leavedata.push( result.data[0][i])
 

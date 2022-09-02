@@ -245,7 +245,7 @@ export class UserLeaveRequestComponent implements OnInit {
   getLeaveBalance() {
     this.LM.getLeaveBalance(this.userSession.id).subscribe((result) => {
       if(result && result.status){
-        this.leavebalance = this.leaveTypes(result.data[0])
+        this.leavebalance = this.leaveTypes(result.data[0],true)
       }
     })
   }
@@ -254,10 +254,15 @@ export class UserLeaveRequestComponent implements OnInit {
    * few leavetypes will display based on  gender and maritalstatus in leave types dropdown
    **/
 
-  leaveTypes(leaveTypes:any){
+  leaveTypes(leaveTypes:any,flag:boolean){
     var data = [];
     for (var i = 0; i < leaveTypes.length; i++) {
-
+      if(flag){
+        let total = leaveTypes[i].total.split('.')
+        if(total[1] == '00'){
+          leaveTypes[i].total = total[0];
+        }
+      }
       if (leaveTypes[i].leavename === "Marriage Leave" && this.userSession.maritalstatus === "Single") {
         data.push(leaveTypes[i])
 
@@ -286,7 +291,7 @@ export class UserLeaveRequestComponent implements OnInit {
 async  getLeavesTypeInfo() {
   await this.LM.getLeavesTypeInfo().subscribe((result) => {
         if (result.status) {
-          this.leavesTypeData = this.leaveTypes(result.data);
+          this.leavesTypeData = this.leaveTypes(result.data,false);
           this.leaveRequestForm.controls.leaveTypeId.setValue(this.leaveData?this.leaveData.leavetypeid.toString():'',{ emitEvent: false });
 
           /**
@@ -386,8 +391,8 @@ async  getLeavesTypeInfo() {
         this.leaveRequestForm.controls.toDate.setValue(this.leaveData?new Date(this.leaveData.todate):'',{emitEvent:false})
         // this.leaveRequestForm.controls.fromDateHalf.setValue(this.leaveData ? this.leaveData.fromhalfdayleave == '0' ? false : true : false,{emitEvent:false})
         // this.leaveRequestForm.controls.toDateHalf.setValue(this.leaveData ? this.leaveData.tohalfdayleave == '0' ? false : true : false,{emitEvent:false})
-        this.leaveRequestForm.controls.relation.setValue(this.leaveData.bereavement_id?this.leaveData.bereavement_id.toString():'',{emitEvent:false})
-        this.leaveRequestForm.controls.compoffApprovedDate.setValue(this.leaveData.worked_date?this.leaveData.worked_date:'',{emitEvent:false})
+        this.leaveRequestForm.controls.relation.setValue(this.leaveData ? this.leaveData.bereavement_id?this.leaveData.bereavement_id.toString():'':'',{emitEvent:false})
+        this.leaveRequestForm.controls.compoffApprovedDate.setValue(this.leaveData ? this.leaveData.worked_date?this.leaveData.worked_date:'':'',{emitEvent:false})
 
 
       }
