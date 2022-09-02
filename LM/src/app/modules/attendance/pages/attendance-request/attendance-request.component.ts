@@ -107,7 +107,13 @@ export class AttendanceRequestComponent implements OnInit {
     }
     this.requestform.get('workType')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue) {
-        this.requestform.get('fromDate')?.enable()
+        if (this.userData.userData != undefined) {
+          this.requestform.get('fromDate')?.disable()
+        }
+        else{
+          this.requestform.get('fromDate')?.enable()
+        }
+
         if (selectedValue == "2") {
           if (this.isRequestView == true) {
             this.requestform.get('toDate')?.disable();
