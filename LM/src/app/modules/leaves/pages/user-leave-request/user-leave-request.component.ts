@@ -1016,7 +1016,7 @@ async  getLeavesTypeInfo() {
 
         // this.newLeaveRequest.toDate= new Date(featureDate.setDate(featureDate.getDate() + this.maxCountPerTermValue))
 
-        this.leaveRequestForm.controls.toDate.setValue(new Date(featureDate.setDate(featureDate.getDate() + this.maxCountPerTermValue)))
+        this.leaveRequestForm.controls.toDate.setValue(new Date(featureDate.setDate(featureDate.getDate() + this.maxCountPerTermValue)),{emitEvent:false})
 
         // this.changeToDate(this.newLeaveRequest.toDate)
 
@@ -1060,6 +1060,7 @@ async  getLeavesTypeInfo() {
       this.isFile = true;
       const file: File = event.target.files[0];
       this.formData.append('file', file, file.name);
+      this.setValidateLeave()
     } else {
       this.isFile = false;
       this.open('File size is must be less than 15MB','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
