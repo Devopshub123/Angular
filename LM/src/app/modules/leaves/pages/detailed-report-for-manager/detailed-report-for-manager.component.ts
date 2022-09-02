@@ -157,8 +157,8 @@ export class DetailedReportForManagerComponent implements OnInit {
     let obj={
       tableName:'lm_leavesmaster',
       status:'Active',
-      pageNumber:0,
-      pageSize:0,
+      pageNumber:1,
+      pageSize:1000,
       databaseName:'keerthi_hospitals'
     }
     this.LM.getMastertable(obj).subscribe(result=>{
@@ -174,8 +174,8 @@ export class DetailedReportForManagerComponent implements OnInit {
     let obj={
       tableName:'designationsmaster',
       status:'Active',
-      pageNumber:0,
-      pageSize:0,
+      pageNumber:1,
+      pageSize:1000,
       databaseName:'keerthi_hospitals'
     }
     this.LM.getMastertable(obj).subscribe(result=>{
