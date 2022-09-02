@@ -60,12 +60,12 @@
         <!-- Color Column -->
         <ng-container matColumnDef="action">
           <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 15%; padding: 0px;padding-left: 5%;" > Action </th> -->
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: auto" > Action </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: auto;white-space: nowrap;" > Action </th>
           <td mat-cell *matCellDef="let row" style="width:auto">
             <i class="material-icons mr-1" (click)="compoffApprove(row,'Approved',null)" title="Approve">check_box</i>
             <!-- <i class="material-icons mr-1" (click)="compoffReject(row)" title="Reject">cancel_presentation</i>
             <i class="material-icons" (click)="compoffReview(row)" title="Review and approve">preview</i> -->
-            <mat-icon (click)="compoffReject(row)" title="Reject" >cancel</mat-icon> 
+            <mat-icon (click)="compoffReject(row)" title="Reject" >cancel</mat-icon>
             <mat-icon   title="Review and approve" (click)="compoffReview(row)">visibility</mat-icon>
             <!--<a routerLink="/" (click)="onApproveClick(row)">Review and Approve</a>-->
           </td>
