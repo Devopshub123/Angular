@@ -118,7 +118,13 @@ dataNotSaved: any;
     }
     this.requestform.get('workType')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue) {
-        this.requestform.get('fromDate')?.enable();
+        if (this.userData.userData != undefined) {
+          this.requestform.get('fromDate')?.disable()
+        }
+        else{
+          this.requestform.get('fromDate')?.enable()
+        }
+
         if (selectedValue == "2") {
          // this.requestform.get('toDate')?.enable();
         } else {

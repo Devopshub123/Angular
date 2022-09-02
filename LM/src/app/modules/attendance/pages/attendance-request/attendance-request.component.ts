@@ -60,6 +60,7 @@ export class AttendanceRequestComponent implements OnInit {
   holidays: any;
   leaves: any;
   myDateFilter:any;
+  workeddays: any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
     private location: Location, private adminService: AdminService) {
@@ -107,7 +108,13 @@ export class AttendanceRequestComponent implements OnInit {
     }
     this.requestform.get('workType')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue) {
-        this.requestform.get('fromDate')?.enable()
+        if (this.userData.userData != undefined) {
+          this.requestform.get('fromDate')?.disable()
+        }
+        else{
+          this.requestform.get('fromDate')?.enable()
+        }
+
         if (selectedValue == "2") {
           if (this.isRequestView == true) {
             this.requestform.get('toDate')?.disable();
@@ -215,6 +222,7 @@ export class AttendanceRequestComponent implements OnInit {
           this.weekoffs = JSON.parse(this.datesList[0].weekoffs);
           this.holidays = JSON.parse(this.datesList[0].holidays);
           this.leaves = JSON.parse(this.datesList[0].leaves);
+          this.workeddays=JSON.parse(this.datesList[0].workeddays)
           if (this.weekoffs.length > 0) {
             this.weekoffs.forEach((i: any) => {
               let date = i + ' ' + '00:00:00'
@@ -229,6 +237,12 @@ export class AttendanceRequestComponent implements OnInit {
           }
           if (this.leaves.length > 0) {
             this.leaves.forEach((i: any) => {
+              let date = i + ' ' + '00:00:00'
+              this.disableDates.push(new Date(date));
+            });
+          }
+          if (this.workeddays.length > 0) {
+            this.workeddays.forEach((i: any) => {
               let date = i + ' ' + '00:00:00'
               this.disableDates.push(new Date(date));
             });
