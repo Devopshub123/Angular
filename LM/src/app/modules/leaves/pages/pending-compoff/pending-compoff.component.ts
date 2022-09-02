@@ -54,13 +54,13 @@ export class PendingCompoffComponent implements OnInit {
       this.spinner.hide();
 
       if (res.status) {
-        // this.arrayList = res.data;
-        for(let i = 0; i<res.data.length;i++){
-          var date = new Date();
-          var appliedDate = new Date(res.data[i].applied_date)
-          res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
-          this.arrayList.push(res.data[i])
-        }
+        this.arrayList = res.data;
+        // for(let i = 0; i<res.data.length;i++){
+        //   var date = new Date();
+        //   var appliedDate = new Date(res.data[i].applied_date)
+        //   res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
+        //   this.arrayList.push(res.data[i])
+        // }
 
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;

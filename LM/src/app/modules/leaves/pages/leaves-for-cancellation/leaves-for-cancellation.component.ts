@@ -55,16 +55,16 @@ export class LeavesForCancellationComponent implements OnInit {
     this.LM.getLeavesForCancellation(this.userSession.id).subscribe((res: any) => {
       this.spinner.hide()
       if (res.status) {
-        // this.arrayList = res.data;
-        for(let i = 0; i<res.data.length;i++){
-          var date = new Date();
-          var appliedDate = new Date(res.data[i].updatedon)
-          // appliedDate.setHours(0);
-          // appliedDate.setMinutes(0);
-          // appliedDate.setSeconds(0);
-          res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
-          this.arrayList.push(res.data[i])
-        }
+        this.arrayList = res.data;
+        // for(let i = 0; i<res.data.length;i++){
+        //   var date = new Date();
+        //   var appliedDate = new Date(res.data[i].updatedon)
+        //   // appliedDate.setHours(0);
+        //   // appliedDate.setMinutes(0);
+        //   // appliedDate.setSeconds(0);
+        //   res.data[i].pendingSince = date.getDate() - appliedDate.getDate();
+        //   this.arrayList.push(res.data[i])
+        // }
 
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
