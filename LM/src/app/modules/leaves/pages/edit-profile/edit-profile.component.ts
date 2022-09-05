@@ -50,8 +50,13 @@ export class EditProfileComponent implements OnInit {
 
   }
   userSession:any;
+  activeModule:any
   ngOnInit(): void {
+
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
+    console.log("this.activeModulethis.activeModule",this.activeModule )
+    this.image();
     this.editForm = this.formBuilder.group(
       {
         firstName: [{ value:'' , disabled: true }],
@@ -235,25 +240,85 @@ export class EditProfileComponent implements OnInit {
     this.formData.append('file', this.file);
     if(this.file){
       if(this.file.size<=1024000){
-        this.file=null;
-        this.LM.setProfileImage(this.formData,this.userSession.id,"google").subscribe((data) => {
-          this.file=null;
-          this.fileImageToggler();
-          this.getUploadImage();
-          this.isRemoveImage=true;
-          this.formData.delete('file');
-          if(flag ){
-            this.editProfile()
+        // this.file=null;
+        // this.LM.getFilepathsMaster(this.activeModule.moduleid).subscribe((result) => {
+        //   if(result && result.status){
+        //     let obj = {
+        //       'employeeId':this.userSession.id,
+        //       'filecategory': 'PROFILE',
+        //       'moduleId':this.activeModule.moduleid,
+        //       'documentnumber':'',
+        //       'fileName':this.file.name,
+        //       'modulecode':result.data[0].module_code,
+        //       'requestId':null
+        //     }
+        //     this.LM.setFilesMaster(obj).subscribe((data) => {
+        //
+        //
+        //       // console.log("data",data)
+        //
+        //     })
+        //
+        //
+        //
+        //     }
+        // })
 
-          }else {
-            this.dialog.open(ConfirmationComponent, {
-              position: {top: `70px`},
-              disableClose: true,
-              data:{Message:this.LM118,url: '/LeaveManagement/EditProfile'}
+        let info = {
+          'employeeId':this.userSession.id,
+          'filecategory': 'PROFILE',
+          'moduleId':this.activeModule.moduleid,
+          'requestId':null,
+        }
+
+
+        this.LM.getFilesMaster(info).subscribe((data) => {
+          console.log("helooo",data)
+
+          if(data && data.status) {
+            let info =JSON.stringify(data.data[0])
+
+            this.LM.setProfileImage(this.formData, info).subscribe((data) => {
+              this.file = null;
+              this.fileImageToggler();
+              this.getUploadImage();
+              this.isRemoveImage = true;
+              this.formData.delete('file');
+              if (flag) {
+                // this.editProfile()
+
+              } else {
+                this.dialog.open(ConfirmationComponent, {
+                  position: {top: `70px`},
+                  disableClose: true,
+                  data: {Message: this.LM118, url: '/LeaveManagement/EditProfile'}
+                });
+              }
+
             });
           }
+            });
 
-        });
+
+
+        //   this.LM.setProfileImage(this.formData,this.userSession.id,"google").subscribe((data) => {
+        //   this.file=null;
+        //   this.fileImageToggler();
+        //   this.getUploadImage();
+        //   this.isRemoveImage=true;
+        //   this.formData.delete('file');
+        //   if(flag ){
+        //     // this.editProfile()
+        //
+        //   }else {
+        //     this.dialog.open(ConfirmationComponent, {
+        //       position: {top: `70px`},
+        //       disableClose: true,
+        //       data:{Message:this.LM118,url: '/LeaveManagement/EditProfile'}
+        //     });
+        //   }
+        //
+        // });
       }
       else{
 
@@ -284,6 +349,21 @@ export class EditProfileComponent implements OnInit {
   fileImageToggler()
   {
     this.isFileImage = !this.isFileImage;
+  }
+
+
+  image(){
+    let info = {
+      'employeeId':this.userSession.id,
+      'filecategory': 'PROFILE',
+      'moduleId':this.activeModule.moduleid,
+      'requestId':null,
+    }
+
+    this.LM.getFilesMaster(info).subscribe((result) => {
+      console.log("helooo",result)
+
+    })
   }
 
   getUploadImage(){
@@ -361,5 +441,9 @@ export class EditProfileComponent implements OnInit {
 
     })
   }
+
+
+
+
 
 }

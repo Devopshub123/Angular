@@ -18,7 +18,7 @@ export class LeavePoliciesService {
 
 
     url: any = environment.apiUrl;
-    
+
 
 
     setAddLeaveBalance(info:any) {
@@ -91,6 +91,10 @@ export class LeavePoliciesService {
     }
     setToggleLeaveType(info:any): Observable<any> {
         return this.hClient.post(this.url + 'api/setToggleLeaveType', JSON.stringify(info), this.httpOptions);
+    }
+    getCarryforwardedLeaveMaxCount(leaveId:any): Observable<any> {
+      return this.hClient.get(this.url + 'api/getCarryforwardedLeaveMaxCount/'+leaveId, this.httpOptions);
+
     }
 
 }

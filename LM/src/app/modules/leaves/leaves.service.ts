@@ -139,8 +139,14 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     getEmployeeInformation(id: any): Observable<any> {
       return this.http.get(this.mainUrl + 'api/getEmployeeInformation/' + id, this.httpOptions);
     }
-    setProfileImage(data: FormData,Id: number ,conpanyName:any): Observable<any> {
-      return this.http.post(this.mainUrl + 'api/setProfileImage/'+conpanyName+'/'+Id, data);
+    // setProfileImage(data: FormData,Id: number ,conpanyName:any): Observable<any> {
+    //   return this.http.post(this.mainUrl + 'api/setProfileImage/'+conpanyName+'/'+Id, data);
+    // }
+    setProfileImage(data: FormData,path:any): Observable<any> {
+    // var filename =JSON.stringify(path.filename)
+    // var filepath = JSON.stringify(path.filepath)
+      console.log("path",encodeURI(path))
+      return this.http.post(this.mainUrl + 'api/setProfileImage/'+encodeURI(path), data);
     }
     removeProfileImage(id: any,companyName:any): Observable<any> {
       return this.http.delete(this.mainUrl + 'api/removeProfileImage/' + id+'/'+companyName,this.httpOptions);
@@ -200,5 +206,18 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     getCompoffleavestatus():Observable<any> {
       return this.http.get(this.mainUrl + 'api/getcompoffleavestatus') ;
     }
+
+
+  getFilepathsMaster(moduleId:any):Observable<any>{
+    return this.http.get(this.mainUrl + 'api/getFilepathsMaster/'+moduleId, this.httpOptions);
+  }
+
+  setFilesMaster(info:any): Observable<any> {
+    return this.http.post(this.mainUrl + 'api/setFilesMaster/', info, this.httpOptions);
+  }
+  getFilesMaster(info:any):Observable<any>{
+    return this.http.post(this.mainUrl + 'api/getFilesMaster/', info,this.httpOptions);
+  }
+
 
 }
