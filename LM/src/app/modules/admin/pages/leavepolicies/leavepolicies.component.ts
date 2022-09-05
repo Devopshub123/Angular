@@ -109,6 +109,7 @@ export class LeavepoliciesComponent implements OnInit {
   constructor(private LM:LeavePoliciesService,private router: Router,private ts:LoginService,private dialog: MatDialog,private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
+    this.getLeaveTypesForCarryForword()
     this.getErrorMessages('LM1')
     this.getErrorMessages('LM2')
     this.getErrorMessages('LM3')
@@ -129,8 +130,12 @@ export class LeavepoliciesComponent implements OnInit {
       leavecycleyear: [""],
       email: ["",],
       pastdays: ["",],
+      carrayForwordLeaveTypeId:["",],
+      maxLeavesCarrayForwordValue:['',]
 
     });
+
+    this.getCarryforwardedLeaveMaxCount(2)
     this.addleaveForm = this.formBuilder.group({
       displayname:["",Validators.required],
       leaveid:["",Validators.required],
@@ -280,15 +285,12 @@ export class LeavepoliciesComponent implements OnInit {
       if(selectedValue==6 || selectedValue==7){
         this.isterm=false;
       }
-      console.log("selectedValue",selectedValue)
 
       this.tabledata = true;
       if (selectedValue < 10){
         this.actionflag=false;
       }
       else{
-        console.log("else",selectedValue)
-
         this.addleaveForm.controls.leavecolor.disable();
         this.addleaveForm.controls.pastdays.disable();
         this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.disable();
@@ -338,6 +340,10 @@ export class LeavepoliciesComponent implements OnInit {
       this.changeLeaveType(selectedValue,null);
       }
     })
+
+    this.leavepoliciesForm.get('carrayForwordLeaveTypeId')?.valueChanges.subscribe((selectedValue:any) => {
+      this.getCarryforwardedLeaveMaxCount(selectedValue);
+    });
 
   }
   setadvanceleavepolicies(){
@@ -1067,6 +1073,12 @@ hexToRgb(hex:any) {
         else if (this.defaultRuleInfo[i].rulename == "LEAVE_CYCLE_YEAR"){
           this.defaultRuleInfo[i].value =this.leavepoliciesForm.controls.leavecycleyear.value;
         }
+        else if (this.defaultRuleInfo[i].rulename == "LEAVETYPE_FOR_WHICH_BALANCE_IS_TO_BE_CARRIED_FORWARD"){
+          this.defaultRuleInfo[i].value =this.leavepoliciesForm.controls.activeLeaveTypesForCarryForword.value;
+        }
+        else if (this.defaultRuleInfo[i].rulename == "QUANTITY_OF_LEAVES_TO_BE_CARRIED_FORWARD"){
+          this.defaultRuleInfo[i].value =this.leavepoliciesForm.controls.maxLeavesCarrayForwordValue.value;
+        }
 
       }
       var info = {
@@ -1194,6 +1206,34 @@ hexToRgb(hex:any) {
 
     })
   }
+
+  valuesForCarryForwordleaves:any=[];
+  getCarryforwardedLeaveMaxCount(leaveId:any){
+    this.valuesForCarryForwordleaves = [];
+    this.valuesForCarryForwordleaves.push({value:'',name:'Select'})
+
+    // for(let i=1;i<=12;i++){
+    //   this.valuesForCarryForwordleaves.push({value:i,name:i})
+    // }
+
+    this.LM.getCarryforwardedLeaveMaxCount(leaveId).subscribe((result) => {
+      if(result.status){
+        for(let i=1;i<=parseInt(result.data[0].max_count);i++){
+          this.valuesForCarryForwordleaves.push({value:i,name:i})
+        }
+      }
+    })
+  }
+
+  activeLeaveTypesForCarryForword:any;
+  getLeaveTypesForCarryForword() {
+
+    this.LM.getLeaveDetails('lm_leavesmaster', 'Active', 1, 100).subscribe((result) => {
+      this.activeLeaveTypesForCarryForword =result.data;
+      this.activeLeaveTypesForCarryForword.push({id:'',leavename:'Select'})
+    })
+  }
+
 
 }
 
