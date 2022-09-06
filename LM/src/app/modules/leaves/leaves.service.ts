@@ -126,9 +126,9 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     getCities(id: any): Observable<any> {
       return this.http.get(this.mainUrl + 'api/getCitiesPerCountry/' + id, this.httpOptions)
     }
-    getProfileImage(id: any,companyName:any): Observable<any> {
+    getProfileImage(info:any): Observable<any> {
       // var conpanyName ='Apple'
-      return this.http.get(this.mainUrl + 'api/getProfileImage/' + id+'/'+companyName);
+      return this.http.post(this.mainUrl + 'api/getProfileImage/' ,info,this.httpOptions)
     }
 
     getLeavesForCancellation(id: any): Observable<any>  {
@@ -217,6 +217,9 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
   }
   getFilesMaster(info:any):Observable<any>{
     return this.http.post(this.mainUrl + 'api/getFilesMaster/', info,this.httpOptions);
+  }
+  deleteFilesMaster(id:any):Observable<any>{
+    return this.http.get(this.mainUrl + 'api/deleteFilesMaster/'+id, this.httpOptions);
   }
 
 
