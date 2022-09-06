@@ -3,7 +3,10 @@ import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog'; 
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
-// import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { LeavesService } from '../../../leaves/leaves.service'
+// src\app\modules\leaves\leaves.service.ts
+
 @Component({
   selector: 'app-companylogo',
   templateUrl: './companylogo.component.html',
@@ -27,10 +30,12 @@ export class CompanylogoComponent implements OnInit {
   msgLM37:any;
   msgLM61:any;
   msgLM62:any;
-
-  constructor(private LM:CompanySettingService,private dialog: MatDialog,private router: Router) { }
+  activeModule:any;
+  constructor(private LMS:LeavesService,private LM:CompanySettingService,private dialog: MatDialog,private router: Router,private spinner:NgxSpinnerService) { }
 
   ngOnInit() {
+    this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
     this.getUploadImage();
     this.getErrorMessages('LM37');
     this.getErrorMessages('LM34');
@@ -93,20 +98,70 @@ export class CompanylogoComponent implements OnInit {
     this.formData.append('file', this.file);
     if(this.file){
       if(this.file.size<=1024000){
+        this.spinner.show();
+        this.LMS.getFilepathsMaster(this.activeModule.moduleid).subscribe((result) => {
+          if(result && result.status){
+            let obj = {
+              'employeeId':this.userSession.id,
+              'filecategory': 'LOGO',
+              'moduleId':this.activeModule.moduleid,
+              'documentnumber':'',
+              'fileName':this.file.name,
+              'modulecode':result.data[0].module_code,
+              'requestId':null
+            }
+            this.LMS.setFilesMaster(obj).subscribe((data) => {
+              if(data && data.status) {
+                let info =JSON.stringify(data.data[0])
         this.file=null;
-        this.LM.setUploadImage(this.formData,12).subscribe((data) => {
+        this.LMS.setProfileImage(this.formData,info).subscribe((result) => {
+          this.spinner.hide();
+          if(data && data.status){
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: this.msgLM61
+            });
+          }else{
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: this.msgLM35
+            });
+            // this.dialog.open(ConfirmationComponent, {
+            //   position: {top: `70px`},
+            //   disableClose: true,
+            //   data: {Message: this.LM138, url: '/LeaveManagement/EditProfile'}
+            // });
+          }
           this.file=null;
           this.fileImageToggler();
           this.getUploadImage();
           this.isRemoveImage=true;
           this.formData.delete('file');
+         
+         
+        });
+         }else{
+          this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data:data.message
+            data: this.msgLM35
           });
-         
-        });}
+        }
+        })
+  }else{
+    this.spinner.hide();
+    let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      position:{top:`70px`},
+      disableClose: true,
+      data: this.msgLM35
+    });
+
+  }})
+      
+      }
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
@@ -124,24 +179,35 @@ export class CompanylogoComponent implements OnInit {
       });
       // this.toastr.error("Please select image")
     }
+ 
   }
   fileImageToggler()
   {
     this.isFileImage = !this.isFileImage;
   }
   getUploadImage(){
-    this.LM.getUploadImage(1,"Apple").subscribe((imageData) => {
-      if(imageData.success){
-        let TYPED_ARRAY = new Uint8Array(imageData.image.data);
-        const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-          return data + String.fromCharCode(byte);
-        }, '');
-
-        let base64String= btoa(STRING_CHAR)
-        this.imageurls[0].base64String='data:image/png;base64,'+base64String;
-
-
-      }
+    let info = {
+      'employeeId':this.userSession.id,
+      'filecategory': 'LOGO',
+      'moduleId':this.activeModule.moduleid,
+      'requestId':null,
+    }
+    this.LMS.getFilesMaster(info).subscribe((result) => {
+      if(result && result.status){
+       result.data[0].employeeId=this.userSession.id;
+       let info = result.data[0]
+       this.LMS.getProfileImage(info).subscribe((imageData) => {
+        if(imageData.success){
+          let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+          const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+            return data + String.fromCharCode(byte);
+          }, '');
+  
+          let base64String= btoa(STRING_CHAR)
+          this.imageurls[0].base64String='data:image/png;base64,'+base64String;
+  
+  
+        }
       else{
         this.isRemoveImage=false;
         this.imageurls =[{
@@ -150,6 +216,7 @@ export class CompanylogoComponent implements OnInit {
         
       }
     })
+  }})
   }
 
   getErrorMessages(errorCode:any) {
