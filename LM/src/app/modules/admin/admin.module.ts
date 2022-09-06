@@ -19,6 +19,7 @@ import { AddRoleModalComponent } from './pages/add-role-modal/add-role-modal.com
 import { AddleavepopupComponent } from './pages/addleavepopup/addleavepopup.component';
 import { MessageMasterComponent } from './pages/message-master/message-master.component';
 import { LmMessageMasterComponent } from './pages/lm-message-master/lm-message-master.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { LmMessageMasterComponent } from './pages/lm-message-master/lm-message-m
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    NgxSpinnerModule,
 
 
   ]
