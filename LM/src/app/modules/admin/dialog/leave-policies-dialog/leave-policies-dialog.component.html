@@ -1,0 +1,12 @@
+ 
+  <div mat-dialog-content>
+    {{data.message}}
+   </div>
+   <div mat-dialog-actions 
+   fxLayout="row" style="justify-content: space-between; margin-top: 5px;">
+   <button class="button-yes btn btn-danger" mat-button.danger [mat-dialog-close]="data.YES">Yes</button>
+   <button class="button-no" mat-button [mat-dialog-close]="data.NO" cdkFocusInitial>NO</button>
+   </div>
+  
+  
+   

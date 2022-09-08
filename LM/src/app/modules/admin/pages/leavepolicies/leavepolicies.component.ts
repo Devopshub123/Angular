@@ -7,6 +7,7 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { AddleavepopupComponent } from '../addleavepopup/addleavepopup.component';
 import { Router, RouterModule } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+import {LeavePoliciesDialogComponent} from '../../dialog/leave-policies-dialog/leave-policies-dialog.component'
 @Component({
   selector: 'app-leavepolicies',
   templateUrl: './leavepolicies.component.html',
@@ -42,6 +43,7 @@ export class LeavepoliciesComponent implements OnInit {
   msgLM134:any;
   msgLM135:any;
   msgLM136:any;
+  isCreditfrequence:boolean=true;
 
   dataSource: MatTableDataSource<any>=<any>[];
   dataSource2: MatTableDataSource<any>=<any>[];
@@ -99,6 +101,7 @@ export class LeavepoliciesComponent implements OnInit {
   isdeactivate:boolean=false;
   disble:boolean=false;
   addadvanced:boolean=false;
+  LMS139:any;
 
   compoffMinWorkingHoursForEligibility:boolean=false;
   compoffMaxBackDatedDayspermittedForSubmission:boolean=false;
@@ -121,6 +124,7 @@ export class LeavepoliciesComponent implements OnInit {
     this.getErrorMessages('LM133')
     this.getErrorMessages('LM134')
     this.getErrorMessages('LM135')
+    this.getErrorMessages('LM139')
     this.getLeaveRules();
     this.getLeavesTypeInfo();
     this.getLeavesDetails();
@@ -179,6 +183,24 @@ export class LeavepoliciesComponent implements OnInit {
       this.istoggle = false;
     });
     this.addleaveForm.get('LEAVES_CREDIT_FREQUENCY')?.valueChanges.subscribe((selectedValue:any) => {
+      if(selectedValue == '12' ){
+      this.LM.getLeavePolicies(1, false, 1, 100).subscribe((result) => {
+          let info = JSON.parse(result.data[0].json);
+        if(result){
+          if(info[0].value == this.addleaveForm.controls.leaveid.value ){
+            this.isCreditfrequence=false;
+            
+               }else{
+            this.isCreditfrequence=true;
+          }
+        }
+
+      })
+    }else{
+      this.isCreditfrequence=true;
+
+    }
+
       this.istoggle = false;
     });
     this.addleaveForm.get('LEAVES_WEEKENDS_INCLUDED')?.valueChanges.subscribe((selectedValue:any) => {
@@ -702,6 +724,7 @@ export class LeavepoliciesComponent implements OnInit {
 
 
   }
+
   getLeaveFormatedValue(value:any)
   {
 
@@ -839,41 +862,59 @@ export class LeavepoliciesComponent implements OnInit {
       displayName:this.addleaveForm.controls.displayname.value,
     }
 
-  if( this.validateCustomLeave(info.ruleData)) {
-    this.LM.updateLeaveDisplayName(datas).subscribe((data:any)=>{})
-   // this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
-       this.LM.setLeaveConfigure(info).subscribe((data) => {
-      if (data.status) {
-        if(this.editingleavetype){
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position:{top:`70px`},
-            disableClose: true,
-            data: this.msgLM111
-          });
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                  this.router.navigate(["/Admin/Leavepolicies"]));
+    if(this.isCreditfrequence == false){
+      let dialogRef = this.dialog.open(LeavePoliciesDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data: {message:this.LMS139,YES:'YES',NO:'NO'}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result == 'YES'){
+          this.submitLeavepolices(info,datas)
         }
-        else{
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position:{top:`70px`},
-            disableClose: true,
-            data: this.msgLM133
-          });
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                  this.router.navigate(["/Admin/Leavepolicies"]));
-        }
-
-      }
-      else {
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: this.msgLM134
         });
-      }
-    });
+    }else{
+      this.submitLeavepolices(info,datas)
+    }
+
   }
 
+
+  submitLeavepolices(info:any,datas:any){
+    if( this.validateCustomLeave(info.ruleData)) {
+      this.LM.updateLeaveDisplayName(datas).subscribe((data:any)=>{})
+    // this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
+        this.LM.setLeaveConfigure(info).subscribe((data) => {
+        if (data.status) {
+          if(this.editingleavetype){
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: this.msgLM111
+            });
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                    this.router.navigate(["/Admin/Leavepolicies"]));
+          }
+          else{
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: this.msgLM133
+            });
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                    this.router.navigate(["/Admin/Leavepolicies"]));
+          }
+
+        }
+        else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: this.msgLM134
+          });
+        }
+      });
+    }
   }
 
   /**Leavetypes data (Added leave showing table) */
@@ -1202,6 +1243,10 @@ hexToRgb(hex:any) {
       else if(result.status && errorCode == 'LM135')
       {
         this.msgLM135 = result.data[0].errormessage
+      }
+      else if(result.status && errorCode == 'LM139')
+      {
+        this.LMS139 = result.data[0].errormessage
       }
 
     })

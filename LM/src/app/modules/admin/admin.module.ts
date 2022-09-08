@@ -20,6 +20,7 @@ import { AddleavepopupComponent } from './pages/addleavepopup/addleavepopup.comp
 import { MessageMasterComponent } from './pages/message-master/message-master.component';
 import { LmMessageMasterComponent } from './pages/lm-message-master/lm-message-master.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { LeavePoliciesDialogComponent } from './dialog/leave-policies-dialog/leave-policies-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AddleavepopupComponent,
     MessageMasterComponent,
     LmMessageMasterComponent,
+    LeavePoliciesDialogComponent,
   ],
   imports: [
     CommonModule,
