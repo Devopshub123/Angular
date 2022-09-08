@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LeavesService } from '../../../leaves/leaves.service'
+import { MainComponent } from '../../../../pages/main/main.component'
 // src\app\modules\leaves\leaves.service.ts
 
 @Component({
@@ -31,7 +32,7 @@ export class CompanylogoComponent implements OnInit {
   msgLM61:any;
   msgLM62:any;
   activeModule:any;
-  constructor(private LMS:LeavesService,private LM:CompanySettingService,private dialog: MatDialog,private router: Router,private spinner:NgxSpinnerService) { }
+  constructor(private MainComponent:MainComponent,private LMS:LeavesService,private LM:CompanySettingService,private dialog: MatDialog,private router: Router,private spinner:NgxSpinnerService) { }
 
   ngOnInit() {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
@@ -102,7 +103,7 @@ export class CompanylogoComponent implements OnInit {
         this.LMS.getFilepathsMaster(this.activeModule.moduleid).subscribe((result) => {
           if(result && result.status){
             let obj = {
-              'employeeId':this.userSession.id,
+              'employeeId':0,
               'filecategory': 'LOGO',
               'moduleId':this.activeModule.moduleid,
               'documentnumber':'',
@@ -117,6 +118,7 @@ export class CompanylogoComponent implements OnInit {
         this.LMS.setProfileImage(this.formData,info).subscribe((result) => {
           this.spinner.hide();
           if(data && data.status){
+            this.MainComponent.ngOnInit()
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
@@ -187,14 +189,14 @@ export class CompanylogoComponent implements OnInit {
   }
   getUploadImage(){
     let info = {
-      'employeeId':this.userSession.id,
+      'employeeId':0,
       'filecategory': 'LOGO',
       'moduleId':this.activeModule.moduleid,
       'requestId':null,
     }
     this.LMS.getFilesMaster(info).subscribe((result) => {
       if(result && result.status){
-       result.data[0].employeeId=this.userSession.id;
+       result.data[0].employeeId=0;
        let info = result.data[0]
        this.LMS.getProfileImage(info).subscribe((imageData) => {
         if(imageData.success){
