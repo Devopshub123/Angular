@@ -88,9 +88,12 @@ export class UserLeaveRequestComponent implements OnInit {
 
 
   }
+  activeModule:any;
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
+
     this.leaveRequestForm = this.formBuilder.group({
       leaveTypeId: ['',Validators.required],
       compoffApprovedDate:[''],
@@ -293,7 +296,9 @@ async  getLeavesTypeInfo() {
         if (result.status) {
           this.leavesTypeData = this.leaveTypes(result.data,false);
           this.leaveRequestForm.controls.leaveTypeId.setValue(this.leaveData?this.leaveData.leavetypeid.toString():'',{ emitEvent: false });
-
+          if(this.leaveData && this.leaveData.leavetypeid == 3){
+            this.getUploadImage();
+          }
           /**
            * Event based leaves getting max number of leaves eligible per term
            **/
@@ -827,11 +832,80 @@ async  getLeavesTypeInfo() {
             }
             this.LM.setEmployeeLeave(obj).subscribe((result) => {
               if (result && result.status) {
+                if(!this.file){
+                  console.log("hfbjdhvf",result)
+                  this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
 
+                }else{
+        
+                  this.LM.getFilepathsMaster(this.activeModule.moduleid).subscribe((resultData) => {
+                    if(resultData && resultData.status){
+                      let obj = {
+                        'employeeId':this.userSession.id,
+                        'filecategory': 'SL',
+                        'moduleId':this.activeModule.moduleid,
+                        'documentnumber':'',
+                        'fileName':this.file.name,
+                        'modulecode':resultData.data[0].module_code,
+                        'requestId':result.data[0].last_insert_id
+                      }
+                      this.LM.setFilesMaster(obj).subscribe((data) => {
+                        if(data && data.status) {
+                          let info =JSON.stringify(data.data[0])
+                          this.LM.setProfileImage(this.formData, info).subscribe((data) => {
+                            // this.spinner.hide()
+                            if(data && data.status){
+                              this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
+                              // this.MainComponent.ngOnInit()
+                              // this.dialog.open(ConfirmationComponent, {
+                              //   position: {top: `70px`},
+                              //   disableClose: true,
+                              //   data: {Message: this.LM118, url: '/LeaveManagement/EditProfile'}
+                              // });
+                            }else{
+                              // this.dialog.open(ConfirmationComponent, {
+                              //   position: {top: `70px`},
+                              //   disableClose: true,
+                              //   data: {Message: this.LM138, url: '/LeaveManagement/EditProfile'}
+                              // });
+                            }
+                            this.file = null;
+                            // this.fileImageToggler();
+                            // this.getUploadImage();
+                            // this.isRemoveImage = true;
+                            this.formData.delete('file');
+              
+                          });
+                        }else{
+                          // this.spinner.hide()
+                          this.LM.deleteFilesMaster(result.data[0].id).subscribe(data=>{})
+                          // this.getUploadImage();
+                          // this.dialog.open(ConfirmationComponent, {
+                          //   position: {top: `70px`},
+                          //   disableClose: true,
+                          //   data: {Message: this.LM138, url: '/LeaveManagement/EditProfile'}
+                          // });
+                        }
+                  
+                      })
+                  
+                  
+                  
+                      }
+                      else{
+                        // this.getUploadImage();
+                        // this.spinner.hide()
+                        // this.dialog.open(ConfirmationComponent, {
+                        //   position: {top: `70px`},
+                        //   disableClose: true,
+                        //   data: {Message: this.LM138, url: '/LeaveManagement/EditProfile'}
+                        // });
+                      }
+                  })
+                }
                 // this.cancel(this.leaveRequestForm);
                 // this.document = false;
                 // this.leaveRequestForm.clearValidators();
-                this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
                 // this.leaveRequestForm.leaveTypeId = '';
                 // this.cancel(this.leaveRequestForm);
                 // this.leaveRequestForm.reset();
@@ -848,7 +922,11 @@ async  getLeavesTypeInfo() {
           }
             else {
             this.isFile = false;
-            this.open('File size is must be less than 15MB','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
+            if(this.ispdf){
+              this.open('Only PDF are allowed','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
+            }else{
+              this.open('File size is must be less than 15MB','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
+            }
 
             // Swal.fire({title: '', text: 'File size is must be less than 15MB', color: "red", position: 'top'});
           }
@@ -863,6 +941,39 @@ async  getLeavesTypeInfo() {
     }
   }
 
+  getUploadImage(){
+    let info = {
+      'employeeId':this.userSession.id,
+      'filecategory': 'SL',
+      'moduleId':this.activeModule.moduleid,
+      'requestId':this.leaveData?this.leaveData.id:null,
+    }
+    this.LM.getFilesMaster(info).subscribe((result) => {
+      console.log("result",result.data[0].filename.split('_'))
+      if(result && result.status){
+       result.data[0].employeeId=this.userSession.id;
+       let info = result.data[0]
+        this.LM.getProfileImage(info).subscribe((imageData) => {
+          if(imageData.success){
+            this.document = true;
+
+            let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+              return data + String.fromCharCode(byte);
+            }, '');
+            console.log("helloimageData.image.data",TYPED_ARRAY,STRING_CHAR)
+
+            let base64String= btoa(STRING_CHAR)
+            var info ='data:image/png;base64,'+base64String;
+            this.leaveRequestForm.document = info
+            console.log("hello",info)
+    
+    
+          }
+          else{}
+        })
+      }})
+    }
 
   getErrorMessages(errorCode:any)
   {
@@ -1053,15 +1164,31 @@ async  getLeavesTypeInfo() {
     }
 
   }
+ispdf:boolean=false;
+file:any;
 
   onSelectFile(event:any) {
 
     if (event.target.files[0].size <= 15728640) {
+    //  var pdfArray =[];
+
+      this.file= event.target.files[0];
+      var pdf = this.file.name.split('.');
+
+    if(pdf[pdf.length-1] == 'pdf'){
       this.isFile = true;
-      const file: File = event.target.files[0];
-      this.formData.append('file', file, file.name);
+      this.formData.append('file', this.file, this.file.name);
       this.setValidateLeave()
+    }else{
+      this.ispdf=true;
+      this.isFile = false;
+      this.open('Only PDF are allowed','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
+
+
+    }
+
     } else {
+      this.ispdf=false;
       this.isFile = false;
       this.open('File size is must be less than 15MB','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
       // Swal.fire({title: '', text: 'File size is must be less than 15MB', color: "red", position: 'top'});
