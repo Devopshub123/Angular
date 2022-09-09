@@ -195,9 +195,7 @@
           <!--<mat-label>Supporting Document </mat-label>-->
       <div style="padding-bottom: 1.34375em;margin-left: 10px" >
         <label style="margin-left: 10px">Supporting Document<mat-icon title="Only pdf file upto 15MB can be uploaded" class="iconstyle">info</mat-icon></label><br>
-        <a style="margin-left: 10px" href="{{pdfPAth}}" target="_blank" *ngIf="pdfName">{{pdfName}}</a>
-        <!-- <a (click)="fileView()" *ngIf="pdfName">{{pdfName}}</a> -->
-
+               <button class="link" style="margin-left: 10px"  (click)="fileView()"  *ngIf="pdfName">{{pdfName}}</button>
         <input *ngIf="!pdfName"  style="margin-left: 10px" type="file" formControlName="document" (change)=onSelectFile($event) required single accept="pdf"> &nbsp;
         <mat-icon   title="change" *ngIf="pdfName"  (click)="editdoc()">edit</mat-icon> &nbsp;
   

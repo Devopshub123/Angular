@@ -5,3 +5,14 @@
 .mat-form-field-appearance-outline .mat-form-field-wrapper {
   margin: unset !important;
 }
+
+ button.link {
+    background: transparent;
+    color: blue;
+    border: none;
+    outline: 0;
+    // text-decoration: underline;
+  }
+  button.link:hover {
+    color: #80286a;
+  }

@@ -124,8 +124,7 @@
       <div fxLayout="row" *ngIf="pdfName" fxLayout.xs="column" fxLayoutAlign.xs="center center">
         <div class="mx-7 my-2">
           <p> Document</p>
-
-          <a   href="{{pdfPAth}}">{{pdfName}}</a>
+          <button class="link"   (click)="fileView()"  *ngIf="pdfName">{{pdfName}}</button>
         </div>
       </div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="justify-content: center;">

@@ -21,6 +21,7 @@ import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.comp
 export class ManagerReviewAndApprovalsComponent implements OnInit {
   requestform:any= FormGroup;
   leaveInfo:any;
+  fileURL:any;
   titleName:any;
   reason:any;
   userSession:any;
@@ -31,7 +32,6 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   LM121:any;
   LM119:any;
   activeModule:any;
-  pdfPAth:any;
   pdfName:any=null;
   constructor(private formBuilder: FormBuilder,private location: Location,public dialog: MatDialog,private LM:LeavesService,private router: Router,private spinner:NgxSpinnerService) {
     this.leaveInfo = this.location.getState();
@@ -71,7 +71,9 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
      * **/
     if(this.leaveInfo.leaveData !=undefined){
       if(this.leaveInfo.isleave){
-        this.getUploadDocument()
+        if(this.leaveInfo.leaveData.leavetype == 3 || this.leaveInfo.leaveData.leavetype == 5 ){
+          this.getUploadDocument()
+        }
         this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.appliedon), 'mediumDate') , disabled: true }],
@@ -243,7 +245,13 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   }
   
 
+  fileView(){
+  
+   window.open(this.fileURL);
+  
+}
   getUploadDocument(){
+    this.spinner.show();
     let info = {
       'employeeId':this.leaveInfo.leaveData.empid,
       'filecategory': this.leaveInfo.leaveData.leavetype==3?'SL':'ML',
@@ -253,7 +261,6 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
     this.LM.getFilesMaster(info).subscribe((result) => {
     
       if(result && result.status && result.data.length>0){
-        this.pdfPAth = result.data[0].path
         let documentName = result.data[0].filename.split('_')
         var docArray=[];
         for(let i=0;i<=documentName.length;i++){
@@ -265,28 +272,22 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
        result.data[0].employeeId=this.userSession.id;
        let info = result.data[0]
         this.LM.getProfileImage(info).subscribe((imageData) => {
+          this.spinner.hide();
           if(imageData.success){
-            // this.document = true;
-            // this.leaveRequestForm.controls.document.value=true
-            // this.leaveRequestForm.controls.document.clearValidators();
-            // this.leaveRequestForm.controls.document.updateValueAndValidity();
-            // this.iseditDoc=false;
+          
             let TYPED_ARRAY = new Uint8Array(imageData.image.data);
             const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
               return data + String.fromCharCode(byte);
             }, '');
 
-            let base64String= btoa(STRING_CHAR)
-            // window.open("data:application/pdf;base64," + encodeURI(imageData.image.data)); 
-
-            // var info ='data:image/png;base64,'+base64String;
-            // this.leaveRequestForm.document = info
-            // console.log("hello",info)
+            const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
+            this.fileURL = URL.createObjectURL(file);
     
     
           }
           else{
            
+            this.spinner.hide();
 
           }
         })
