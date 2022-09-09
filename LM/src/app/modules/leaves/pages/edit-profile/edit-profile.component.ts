@@ -143,7 +143,6 @@ export class EditProfileComponent implements OnInit {
         'zipCode': this.editForm.controls.zipCode.value
 
       }
-      console.log("helloo",obj)
       this.spinner.show()
       this.LM.SetEditProfile(obj).subscribe((res: any) => {
         if (res && res.status) {
