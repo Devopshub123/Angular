@@ -110,6 +110,7 @@ export class DeparmentComponent implements OnInit {
     this.department = this.departmentForm.controls.department.value;
     var data = {
       departmentName: this.department
+
     }
 
     if (this.departmentForm.valid) {
