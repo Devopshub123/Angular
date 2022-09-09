@@ -62,7 +62,7 @@ export class EditProfileComponent implements OnInit {
       {
         firstName: ['',Validators.required],
         lastName: ['',Validators.required],
-        middlename:['',Validators.required],
+        middlename:[''],
         email: ['',[Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
         contact: ['',Validators.required],
         address: ['',Validators.required],
@@ -135,6 +135,7 @@ export class EditProfileComponent implements OnInit {
          'middlename':this.editForm.controls.middlename.value,
         'lastName': this.editForm.controls.lastName.value,
         'email': this.editForm.controls.email.value,
+        'contact':this.editForm.controls.contact.value,
         'address': this.editForm.controls.address.value,
         'countryId': this.editForm.controls.countryId.value,
         'stateId': this.editForm.controls.stateId.value,
@@ -142,6 +143,7 @@ export class EditProfileComponent implements OnInit {
         'zipCode': this.editForm.controls.zipCode.value
 
       }
+      console.log("helloo",obj)
       this.spinner.show()
       this.LM.SetEditProfile(obj).subscribe((res: any) => {
         if (res && res.status) {
