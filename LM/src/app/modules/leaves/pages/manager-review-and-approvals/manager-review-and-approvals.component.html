@@ -121,7 +121,13 @@
           <input formControlName="leaveReason" required matInput placeholder="" >
         </mat-form-field>
       </div>
+      <div fxLayout="row" *ngIf="pdfName" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+        <div class="mx-7 my-2">
+          <p> Document</p>
 
+          <a   href="{{pdfPAth}}">{{pdfName}}</a>
+        </div>
+      </div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="justify-content: center;">
       <div *ngIf="leaveInfo.isleaveHistory != 'leave'&& leaveInfo.isleaveHistory != 'compoff'"  fxLayoutAlign="center center" >
         <button class="m-1 mat-stroked-button button-save" (click)="approval()" type="submit">
