@@ -8,6 +8,9 @@ import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.comp
 import { sample } from 'rxjs/operators';
 import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 import {DomSanitizer} from '@angular/platform-browser'
+import { NgxSpinnerService } from 'ngx-spinner';
+
+
 @Component({
   selector: 'app-user-leave-request',
   templateUrl: './user-leave-request.component.html',
@@ -22,6 +25,7 @@ export class UserLeaveRequestComponent implements OnInit {
   fromdate:any=[];
   todate:any=[];
   holidays:any=[];
+  fileURL:any;
   FromDatesHalfDays:any=[];
   ToDatesHalfDays:any=[];
   fromDateFilter:any;
@@ -42,7 +46,6 @@ export class UserLeaveRequestComponent implements OnInit {
   msgLM3: any;
   msgLM7: any;
   msgLM119: any;
-  pdfPAth:any;
   roleValue:any;
   minDate:any;
   maxDate:any;
@@ -59,7 +62,7 @@ export class UserLeaveRequestComponent implements OnInit {
   submitted:boolean=false;
 
 
-  constructor(private sanitizer:DomSanitizer,private router: Router,private location:Location,private LM:LeavesService,private formBuilder: FormBuilder,private dialog: MatDialog) {
+  constructor(private sanitizer:DomSanitizer,private router: Router,private location:Location,private LM:LeavesService,private formBuilder: FormBuilder,private dialog: MatDialog,private spinner: NgxSpinnerService) {
     this.formData = new FormData();
     this.getDurationFoBackDatedLeave();
     this.getleavecyclelastmonth();
@@ -930,15 +933,14 @@ async  getLeavesTypeInfo() {
   }
 
   fileView(){
-    
-   // const one =URL.createObjectURL(this.pdfPAth.changingThisBreaksApplicationSecurity)
- 
-//   const url = window.URL.createObjectURL(this.pdfPAth.changingThisBreaksApplicationSecurity);
-   let tab = window.open();
-   tab!.location.href = this.pdfPAth;
+  
+   window.open(this.fileURL);
+  
 }
 
   getUploadDocument(){
+    this.spinner.show();
+
     let info = {
       'employeeId':this.userSession.id,
       'filecategory': this.leaveData.leavetypeid==3?'SL':'ML',
@@ -946,7 +948,8 @@ async  getLeavesTypeInfo() {
       'requestId':this.leaveData?this.leaveData.id:null,
     }
     this.LM.getFilesMaster(info).subscribe((result) => {
-     this.pdfPAth = result.data[0].path
+
+      if(result && result.status){
         let documentName = result.data[0].filename.split('_')
         var docArray=[];
         for(let i=0;i<=documentName.length;i++){
@@ -955,41 +958,36 @@ async  getLeavesTypeInfo() {
           }
         }
         this.pdfName = docArray.join('')
-        // console.log("hgshhjjkd",docArray.join(''))
-      // var pdfName =
 
-      if(result && result.status){
        result.data[0].employeeId=this.userSession.id;
        let info = result.data[0]
         this.LM.getProfileImage(info).subscribe((imageData) => {
+          this.spinner.hide();
+
           if(imageData.success){
             this.document = true;
-            this.leaveRequestForm.controls.document.value=true
+
+            this.leaveRequestForm.controls.document.value=true;
             this.leaveRequestForm.controls.document.clearValidators();
             this.leaveRequestForm.controls.document.updateValueAndValidity();
             this.iseditDoc=false;
+        
             let TYPED_ARRAY = new Uint8Array(imageData.image.data);
             const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
               return data + String.fromCharCode(byte);
             }, '');
 
-            let base64String= btoa(STRING_CHAR)
-            // window.open("data:application/pdf;base64," + encodeURI(imageData.image.data)); 
-
-            // var info ='data:image/png;base64,'+base64String;
-            // this.leaveRequestForm.document = info
-            // console.log("hello",info)
-    
-    
-          }
-          else{
-            this.leaveRequestForm.controls.document.setValidators([Validators.required])
-            this.leaveRequestForm.controls.document.updateValueAndValidity();
-
-
+            const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
+            this.fileURL = URL.createObjectURL(file);
           }
         })
-      }})
+      }
+      else{
+        this.spinner.hide();
+
+      }
+
+    })
     }
 
   getErrorMessages(errorCode:any)
