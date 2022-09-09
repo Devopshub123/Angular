@@ -28,10 +28,13 @@ export class MainService {
 
   }
 
-  getProfileImage(id: any,companyName:any): Observable<any> {
-    return this.http.get(this.mainBeUrl + 'api/getProfileImage/' + id+'/'+companyName);
+  getProfileImage(info:any): Observable<any> {
+    return this.http.post(this.mainBeUrl + 'api/getProfileImage/', info,this.httpOptions);
   }
   getCompoffleavestatus():Observable<any> {
     return this.http.get(this.mainBeUrl + 'api/getcompoffleavestatus') ;
+  }
+  getFilesMaster(info:any):Observable<any>{
+    return this.http.post(this.mainBeUrl + 'api/getFilesMaster/', info,this.httpOptions);
   }
 }

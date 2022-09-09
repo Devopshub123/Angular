@@ -7,6 +7,7 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { AddleavepopupComponent } from '../addleavepopup/addleavepopup.component';
 import { Router, RouterModule } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+import {LeavePoliciesDialogComponent} from '../../dialog/leave-policies-dialog/leave-policies-dialog.component'
 @Component({
   selector: 'app-leavepolicies',
   templateUrl: './leavepolicies.component.html',
@@ -42,6 +43,7 @@ export class LeavepoliciesComponent implements OnInit {
   msgLM134:any;
   msgLM135:any;
   msgLM136:any;
+  isCreditfrequence:boolean=true;
 
   dataSource: MatTableDataSource<any>=<any>[];
   dataSource2: MatTableDataSource<any>=<any>[];
@@ -99,6 +101,7 @@ export class LeavepoliciesComponent implements OnInit {
   isdeactivate:boolean=false;
   disble:boolean=false;
   addadvanced:boolean=false;
+  LMS139:any;
 
   compoffMinWorkingHoursForEligibility:boolean=false;
   compoffMaxBackDatedDayspermittedForSubmission:boolean=false;
@@ -109,6 +112,7 @@ export class LeavepoliciesComponent implements OnInit {
   constructor(private LM:LeavePoliciesService,private router: Router,private ts:LoginService,private dialog: MatDialog,private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
+    this.getLeaveTypesForCarryForword()
     this.getErrorMessages('LM1')
     this.getErrorMessages('LM2')
     this.getErrorMessages('LM3')
@@ -120,6 +124,7 @@ export class LeavepoliciesComponent implements OnInit {
     this.getErrorMessages('LM133')
     this.getErrorMessages('LM134')
     this.getErrorMessages('LM135')
+    this.getErrorMessages('LM139')
     this.getLeaveRules();
     this.getLeavesTypeInfo();
     this.getLeavesDetails();
@@ -129,8 +134,12 @@ export class LeavepoliciesComponent implements OnInit {
       leavecycleyear: [""],
       email: ["",],
       pastdays: ["",],
+      carrayForwordLeaveTypeId:["",],
+      maxLeavesCarrayForwordValue:['',]
 
     });
+
+    this.getCarryforwardedLeaveMaxCount(2)
     this.addleaveForm = this.formBuilder.group({
       displayname:["",Validators.required],
       leaveid:["",Validators.required],
@@ -174,6 +183,24 @@ export class LeavepoliciesComponent implements OnInit {
       this.istoggle = false;
     });
     this.addleaveForm.get('LEAVES_CREDIT_FREQUENCY')?.valueChanges.subscribe((selectedValue:any) => {
+      if(selectedValue == '12' ){
+      this.LM.getLeavePolicies(1, false, 1, 100).subscribe((result) => {
+          let info = JSON.parse(result.data[0].json);
+        if(result){
+          if(info[0].value == this.addleaveForm.controls.leaveid.value ){
+            this.isCreditfrequence=false;
+            
+               }else{
+            this.isCreditfrequence=true;
+          }
+        }
+
+      })
+    }else{
+      this.isCreditfrequence=true;
+
+    }
+
       this.istoggle = false;
     });
     this.addleaveForm.get('LEAVES_WEEKENDS_INCLUDED')?.valueChanges.subscribe((selectedValue:any) => {
@@ -280,15 +307,12 @@ export class LeavepoliciesComponent implements OnInit {
       if(selectedValue==6 || selectedValue==7){
         this.isterm=false;
       }
-      console.log("selectedValue",selectedValue)
 
       this.tabledata = true;
       if (selectedValue < 10){
         this.actionflag=false;
       }
       else{
-        console.log("else",selectedValue)
-
         this.addleaveForm.controls.leavecolor.disable();
         this.addleaveForm.controls.pastdays.disable();
         this.addleaveForm.controls.LEAVES_MAX_COUNT_PER_YEAR.disable();
@@ -338,6 +362,10 @@ export class LeavepoliciesComponent implements OnInit {
       this.changeLeaveType(selectedValue,null);
       }
     })
+
+    this.leavepoliciesForm.get('carrayForwordLeaveTypeId')?.valueChanges.subscribe((selectedValue:any) => {
+      this.getCarryforwardedLeaveMaxCount(selectedValue);
+    });
 
   }
   setadvanceleavepolicies(){
@@ -696,6 +724,7 @@ export class LeavepoliciesComponent implements OnInit {
 
 
   }
+
   getLeaveFormatedValue(value:any)
   {
 
@@ -833,41 +862,59 @@ export class LeavepoliciesComponent implements OnInit {
       displayName:this.addleaveForm.controls.displayname.value,
     }
 
-  if( this.validateCustomLeave(info.ruleData)) {
-    this.LM.updateLeaveDisplayName(datas).subscribe((data:any)=>{})
-   // this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
-       this.LM.setLeaveConfigure(info).subscribe((data) => {
-      if (data.status) {
-        if(this.editingleavetype){
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position:{top:`70px`},
-            disableClose: true,
-            data: this.msgLM111
-          });
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                  this.router.navigate(["/Admin/Leavepolicies"]));
+    if(this.isCreditfrequence == false){
+      let dialogRef = this.dialog.open(LeavePoliciesDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data: {message:this.LMS139,YES:'YES',NO:'NO'}
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result == 'YES'){
+          this.submitLeavepolices(info,datas)
         }
-        else{
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position:{top:`70px`},
-            disableClose: true,
-            data: this.msgLM133
-          });
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                  this.router.navigate(["/Admin/Leavepolicies"]));
-        }
-
-      }
-      else {
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: this.msgLM134
         });
-      }
-    });
+    }else{
+      this.submitLeavepolices(info,datas)
+    }
+
   }
 
+
+  submitLeavepolices(info:any,datas:any){
+    if( this.validateCustomLeave(info.ruleData)) {
+      this.LM.updateLeaveDisplayName(datas).subscribe((data:any)=>{})
+    // this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
+        this.LM.setLeaveConfigure(info).subscribe((data) => {
+        if (data.status) {
+          if(this.editingleavetype){
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: this.msgLM111
+            });
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                    this.router.navigate(["/Admin/Leavepolicies"]));
+          }
+          else{
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: this.msgLM133
+            });
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                    this.router.navigate(["/Admin/Leavepolicies"]));
+          }
+
+        }
+        else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: this.msgLM134
+          });
+        }
+      });
+    }
   }
 
   /**Leavetypes data (Added leave showing table) */
@@ -1067,6 +1114,12 @@ hexToRgb(hex:any) {
         else if (this.defaultRuleInfo[i].rulename == "LEAVE_CYCLE_YEAR"){
           this.defaultRuleInfo[i].value =this.leavepoliciesForm.controls.leavecycleyear.value;
         }
+        else if (this.defaultRuleInfo[i].rulename == "LEAVETYPE_FOR_WHICH_BALANCE_IS_TO_BE_CARRIED_FORWARD"){
+          this.defaultRuleInfo[i].value =this.leavepoliciesForm.controls.activeLeaveTypesForCarryForword.value;
+        }
+        else if (this.defaultRuleInfo[i].rulename == "QUANTITY_OF_LEAVES_TO_BE_CARRIED_FORWARD"){
+          this.defaultRuleInfo[i].value =this.leavepoliciesForm.controls.maxLeavesCarrayForwordValue.value;
+        }
 
       }
       var info = {
@@ -1191,9 +1244,41 @@ hexToRgb(hex:any) {
       {
         this.msgLM135 = result.data[0].errormessage
       }
+      else if(result.status && errorCode == 'LM139')
+      {
+        this.LMS139 = result.data[0].errormessage
+      }
 
     })
   }
+
+  valuesForCarryForwordleaves:any=[];
+  getCarryforwardedLeaveMaxCount(leaveId:any){
+    this.valuesForCarryForwordleaves = [];
+    this.valuesForCarryForwordleaves.push({value:'',name:'Select'})
+
+    // for(let i=1;i<=12;i++){
+    //   this.valuesForCarryForwordleaves.push({value:i,name:i})
+    // }
+
+    this.LM.getCarryforwardedLeaveMaxCount(leaveId).subscribe((result) => {
+      if(result.status){
+        for(let i=1;i<=parseInt(result.data[0].max_count);i++){
+          this.valuesForCarryForwordleaves.push({value:i,name:i})
+        }
+      }
+    })
+  }
+
+  activeLeaveTypesForCarryForword:any;
+  getLeaveTypesForCarryForword() {
+
+    this.LM.getLeaveDetails('lm_leavesmaster', 'Active', 1, 100).subscribe((result) => {
+      this.activeLeaveTypesForCarryForword =result.data;
+      this.activeLeaveTypesForCarryForword.push({id:'',leavename:'Select'})
+    })
+  }
+
 
 }
 

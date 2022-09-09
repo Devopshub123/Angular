@@ -30,6 +30,9 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   LM120:any;
   LM121:any;
   LM119:any;
+  activeModule:any;
+  pdfPAth:any;
+  pdfName:any=null;
   constructor(private formBuilder: FormBuilder,private location: Location,public dialog: MatDialog,private LM:LeavesService,private router: Router,private spinner:NgxSpinnerService) {
     this.leaveInfo = this.location.getState();
   }
@@ -44,6 +47,8 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
     this.compoffPendingapprove = new PendingCompoffComponent(this.LM,this.dialog,this.router,this.spinner);
     this.cancellationapprove = new LeavesForCancellationComponent(this.LM,this.router,this.dialog,this.spinner);
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
+
     this.pendingapprove.ngOnInit();
     this.compoffPendingapprove.ngOnInit();
     this.cancellationapprove.ngOnInit();
@@ -66,6 +71,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
      * **/
     if(this.leaveInfo.leaveData !=undefined){
       if(this.leaveInfo.isleave){
+        this.getUploadDocument()
         this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.appliedon), 'mediumDate') , disabled: true }],
@@ -235,6 +241,59 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
 
     })
   }
+  
+
+  getUploadDocument(){
+    let info = {
+      'employeeId':this.leaveInfo.leaveData.empid,
+      'filecategory': this.leaveInfo.leaveData.leavetype==3?'SL':'ML',
+      'moduleId':this.activeModule.moduleid,
+      'requestId':this.leaveInfo?this.leaveInfo.leaveData.leave_id:null,
+    }
+    this.LM.getFilesMaster(info).subscribe((result) => {
+    
+      if(result && result.status && result.data.length>0){
+        this.pdfPAth = result.data[0].path
+        let documentName = result.data[0].filename.split('_')
+        var docArray=[];
+        for(let i=0;i<=documentName.length;i++){
+          if(i>2){
+            docArray.push(documentName[i])
+          }
+        }
+        this.pdfName = docArray.join('')
+       result.data[0].employeeId=this.userSession.id;
+       let info = result.data[0]
+        this.LM.getProfileImage(info).subscribe((imageData) => {
+          if(imageData.success){
+            // this.document = true;
+            // this.leaveRequestForm.controls.document.value=true
+            // this.leaveRequestForm.controls.document.clearValidators();
+            // this.leaveRequestForm.controls.document.updateValueAndValidity();
+            // this.iseditDoc=false;
+            let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+              return data + String.fromCharCode(byte);
+            }, '');
+
+            let base64String= btoa(STRING_CHAR)
+            // window.open("data:application/pdf;base64," + encodeURI(imageData.image.data)); 
+
+            // var info ='data:image/png;base64,'+base64String;
+            // this.leaveRequestForm.document = info
+            // console.log("hello",info)
+    
+    
+          }
+          else{
+           
+
+          }
+        })
+      }})
+    }
+
+
 
 
 

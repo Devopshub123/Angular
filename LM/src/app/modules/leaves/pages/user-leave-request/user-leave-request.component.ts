@@ -5,7 +5,9 @@ import {Router} from "@angular/router";
 import {LeavesService} from "../../leaves.service";
 import {DatePipe,Location} from "@angular/common";
 import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.component";
-
+import { sample } from 'rxjs/operators';
+import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
+import {DomSanitizer} from '@angular/platform-browser'
 @Component({
   selector: 'app-user-leave-request',
   templateUrl: './user-leave-request.component.html',
@@ -24,10 +26,12 @@ export class UserLeaveRequestComponent implements OnInit {
   ToDatesHalfDays:any=[];
   fromDateFilter:any;
   toDateFilter:any;
+  iseditDoc:boolean=true;
   pipe = new DatePipe('en-US');
   isFirstHalf: boolean = true;
   isSecondHalf: boolean = true;
   toMaxDate: any;
+  pdfName :any = null;
   isDisableFirstHalf: boolean = false;
   isDisableSecondHalf: boolean = false;
   document: boolean = false;
@@ -38,7 +42,7 @@ export class UserLeaveRequestComponent implements OnInit {
   msgLM3: any;
   msgLM7: any;
   msgLM119: any;
-
+  pdfPAth:any;
   roleValue:any;
   minDate:any;
   maxDate:any;
@@ -55,7 +59,7 @@ export class UserLeaveRequestComponent implements OnInit {
   submitted:boolean=false;
 
 
-  constructor(private router: Router,private location:Location,private LM:LeavesService,private formBuilder: FormBuilder,private dialog: MatDialog) {
+  constructor(private sanitizer:DomSanitizer,private router: Router,private location:Location,private LM:LeavesService,private formBuilder: FormBuilder,private dialog: MatDialog) {
     this.formData = new FormData();
     this.getDurationFoBackDatedLeave();
     this.getleavecyclelastmonth();
@@ -88,9 +92,12 @@ export class UserLeaveRequestComponent implements OnInit {
 
 
   }
+  activeModule:any;
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
+
     this.leaveRequestForm = this.formBuilder.group({
       leaveTypeId: ['',Validators.required],
       compoffApprovedDate:[''],
@@ -111,7 +118,7 @@ export class UserLeaveRequestComponent implements OnInit {
 
     // this.newLeaveRequest.fromDate = this.leaveData ? new Date(this.leaveData.fromdate) : '';
 
-
+    
     // this.leaveRequestForm.controls.formData.setValue(this.leaveData ? new Date(this.leaveData.fromdate) : '')
     // this.leaveRequestForm.controls.toDate.setValue(this.leaveData ? new Date(this.leaveData.toDate) : '')
     this.leaveRequestForm.controls.fromDateHalf.setValue(this.leaveData ? this.leaveData.fromhalfdayleave == '0' ? false : true : false,{emitEvent:false})
@@ -293,7 +300,14 @@ async  getLeavesTypeInfo() {
         if (result.status) {
           this.leavesTypeData = this.leaveTypes(result.data,false);
           this.leaveRequestForm.controls.leaveTypeId.setValue(this.leaveData?this.leaveData.leavetypeid.toString():'',{ emitEvent: false });
-
+          if(this.leaveData && this.leaveData.leavetypeid == 3){
+            this.getUploadDocument();
+          }else if(this.leaveData && this.leaveData.leavetypeid == 5){
+            this.getUploadDocument();
+          }
+          if(this.leaveData){
+            this.isValidateLeave= true;
+          }
           /**
            * Event based leaves getting max number of leaves eligible per term
            **/
@@ -804,10 +818,10 @@ async  getLeavesTypeInfo() {
         this.setValidateLeave();
         if (this.isValidateLeave && this.validEventLeave()) {
           if (this.isFile) {
-            if (this.document) {
-              this.LM.setUploadDocument(this.formData, this.userSession.id, 'google').subscribe((results) => {
-              })
-            }
+            // if (this.document) {
+            //   this.LM.setUploadDocument(this.formData, this.userSession.id, 'google').subscribe((results) => {
+            //   })
+            // }
 
             let obj={
               'id':this.leaveData?this.leaveData.id:'',
@@ -827,11 +841,59 @@ async  getLeavesTypeInfo() {
             }
             this.LM.setEmployeeLeave(obj).subscribe((result) => {
               if (result && result.status) {
+                if(!this.file){
+                  this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
 
+                }else{
+        
+                  this.LM.getFilepathsMaster(this.activeModule.moduleid).subscribe((resultData) => {
+                    if(resultData && resultData.status){
+                      let obj = {
+                        'employeeId':this.userSession.id,
+                        'filecategory': 'SL',
+                        'moduleId':this.activeModule.moduleid,
+                        'documentnumber':'',
+                        'fileName':this.file.name,
+                        'modulecode':resultData.data[0].module_code,
+                        'requestId':result.data[0].last_insert_id
+                      }
+                      this.LM.setFilesMaster(obj).subscribe((data) => {
+                        if(data && data.status) {
+                          let info =JSON.stringify(data.data[0])
+                          this.LM.setProfileImage(this.formData, info).subscribe((data) => {
+                            // this.spinner.hide()
+                            if(data && data.status){
+                              this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
+                             
+                            }else{
+                              this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
+
+                            }
+                            this.file = null;
+                            this.formData.delete('file');
+              
+                          });
+                        }else{
+                          this.LM.deleteFilesMaster(result.data[0].id).subscribe(data=>{})
+                          // this.getUploadImage();
+                          // this.dialog.open(ConfirmationComponent, {
+                          //   position: {top: `70px`},
+                          //   disableClose: true,
+                          //   data: {Message: this.LM138, url: '/LeaveManagement/EditProfile'}
+                          // });
+                        }
+                  
+                      })
+                  
+                  
+                  
+                      }
+                    
+                  })
+                }
                 // this.cancel(this.leaveRequestForm);
                 // this.document = false;
                 // this.leaveRequestForm.clearValidators();
-                this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
                 // this.leaveRequestForm.leaveTypeId = '';
                 // this.cancel(this.leaveRequestForm);
                 // this.leaveRequestForm.reset();
@@ -848,7 +910,11 @@ async  getLeavesTypeInfo() {
           }
             else {
             this.isFile = false;
-            this.open('File size is must be less than 15MB','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
+            if(this.ispdf){
+              this.open('Only PDF are allowed','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
+            }else{
+              this.open('File size is must be less than 15MB','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
+            }
 
             // Swal.fire({title: '', text: 'File size is must be less than 15MB', color: "red", position: 'top'});
           }
@@ -863,6 +929,68 @@ async  getLeavesTypeInfo() {
     }
   }
 
+  fileView(){
+    
+   // const one =URL.createObjectURL(this.pdfPAth.changingThisBreaksApplicationSecurity)
+ 
+//   const url = window.URL.createObjectURL(this.pdfPAth.changingThisBreaksApplicationSecurity);
+   let tab = window.open();
+   tab!.location.href = this.pdfPAth;
+}
+
+  getUploadDocument(){
+    let info = {
+      'employeeId':this.userSession.id,
+      'filecategory': this.leaveData.leavetypeid==3?'SL':'ML',
+      'moduleId':this.activeModule.moduleid,
+      'requestId':this.leaveData?this.leaveData.id:null,
+    }
+    this.LM.getFilesMaster(info).subscribe((result) => {
+     this.pdfPAth = result.data[0].path
+        let documentName = result.data[0].filename.split('_')
+        var docArray=[];
+        for(let i=0;i<=documentName.length;i++){
+          if(i>2){
+            docArray.push(documentName[i])
+          }
+        }
+        this.pdfName = docArray.join('')
+        // console.log("hgshhjjkd",docArray.join(''))
+      // var pdfName =
+
+      if(result && result.status){
+       result.data[0].employeeId=this.userSession.id;
+       let info = result.data[0]
+        this.LM.getProfileImage(info).subscribe((imageData) => {
+          if(imageData.success){
+            this.document = true;
+            this.leaveRequestForm.controls.document.value=true
+            this.leaveRequestForm.controls.document.clearValidators();
+            this.leaveRequestForm.controls.document.updateValueAndValidity();
+            this.iseditDoc=false;
+            let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+              return data + String.fromCharCode(byte);
+            }, '');
+
+            let base64String= btoa(STRING_CHAR)
+            // window.open("data:application/pdf;base64," + encodeURI(imageData.image.data)); 
+
+            // var info ='data:image/png;base64,'+base64String;
+            // this.leaveRequestForm.document = info
+            // console.log("hello",info)
+    
+    
+          }
+          else{
+            this.leaveRequestForm.controls.document.setValidators([Validators.required])
+            this.leaveRequestForm.controls.document.updateValueAndValidity();
+
+
+          }
+        })
+      }})
+    }
 
   getErrorMessages(errorCode:any)
   {
@@ -912,7 +1040,9 @@ async  getLeavesTypeInfo() {
 
   }
 
-
+  editdoc(){
+    this.pdfName=null;
+  }
   // getOffDaysCount()
   // {
   //   this.newLeaveRequest.empid = 27;
@@ -1053,15 +1183,33 @@ async  getLeavesTypeInfo() {
     }
 
   }
+ispdf:boolean=false;
+file:any;
 
   onSelectFile(event:any) {
 
+    this.iseditDoc=true;
+
     if (event.target.files[0].size <= 15728640) {
+    //  var pdfArray =[];
+
+      this.file= event.target.files[0];
+      var pdf = this.file.name.split('.');
+
+    if(pdf[pdf.length-1] == 'pdf'){
       this.isFile = true;
-      const file: File = event.target.files[0];
-      this.formData.append('file', file, file.name);
+      this.formData.append('file', this.file, this.file.name);
       this.setValidateLeave()
+    }else{
+      this.ispdf=true;
+      this.isFile = false;
+      this.open('Only PDF are allowed','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
+
+
+    }
+
     } else {
+      this.ispdf=false;
       this.isFile = false;
       this.open('File size is must be less than 15MB','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
       // Swal.fire({title: '', text: 'File size is must be less than 15MB', color: "red", position: 'top'});

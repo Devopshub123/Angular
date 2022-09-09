@@ -126,9 +126,9 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     getCities(id: any): Observable<any> {
       return this.http.get(this.mainUrl + 'api/getCitiesPerCountry/' + id, this.httpOptions)
     }
-    getProfileImage(id: any,companyName:any): Observable<any> {
+    getProfileImage(info:any): Observable<any> {
       // var conpanyName ='Apple'
-      return this.http.get(this.mainUrl + 'api/getProfileImage/' + id+'/'+companyName);
+      return this.http.post(this.mainUrl + 'api/getProfileImage/' ,info,this.httpOptions)
     }
 
     getLeavesForCancellation(id: any): Observable<any>  {
@@ -139,8 +139,12 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     getEmployeeInformation(id: any): Observable<any> {
       return this.http.get(this.mainUrl + 'api/getEmployeeInformation/' + id, this.httpOptions);
     }
-    setProfileImage(data: FormData,Id: number ,conpanyName:any): Observable<any> {
-      return this.http.post(this.mainUrl + 'api/setProfileImage/'+conpanyName+'/'+Id, data);
+    // setProfileImage(data: FormData,Id: number ,conpanyName:any): Observable<any> {
+    //   return this.http.post(this.mainUrl + 'api/setProfileImage/'+conpanyName+'/'+Id, data);
+    // }
+    setProfileImage(data: FormData,path:any): Observable<any> {
+   
+      return this.http.post(this.mainUrl + 'api/setProfileImage/'+encodeURI(path), data);
     }
     removeProfileImage(id: any,companyName:any): Observable<any> {
       return this.http.delete(this.mainUrl + 'api/removeProfileImage/' + id+'/'+companyName,this.httpOptions);
@@ -200,5 +204,21 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     getCompoffleavestatus():Observable<any> {
       return this.http.get(this.mainUrl + 'api/getcompoffleavestatus') ;
     }
+
+
+  getFilepathsMaster(moduleId:any):Observable<any>{
+    return this.http.get(this.mainUrl + 'api/getFilepathsMaster/'+moduleId, this.httpOptions);
+  }
+
+  setFilesMaster(info:any): Observable<any> {
+    return this.http.post(this.mainUrl + 'api/setFilesMaster/', info, this.httpOptions);
+  }
+  getFilesMaster(info:any):Observable<any>{
+    return this.http.post(this.mainUrl + 'api/getFilesMaster/', info,this.httpOptions);
+  }
+  deleteFilesMaster(id:any):Observable<any>{
+    return this.http.get(this.mainUrl + 'api/deleteFilesMaster/'+id, this.httpOptions);
+  }
+
 
 }

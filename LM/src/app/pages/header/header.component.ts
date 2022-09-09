@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
   imageurls:any;
   companyName: any;
   companyinfo: any;
+  activeModule:any;
   constructor(private baseService: BaseService,private mainService:MainService,
     private LM:CompanyInformationService,private spinner:NgxSpinnerService, public router: Router) { }
 
@@ -34,6 +35,8 @@ export class HeaderComponent implements OnInit {
     this.getHeadNav();
     this.getToggleSideBar()
     this.usersession =JSON.parse(sessionStorage.getItem('user')??'');
+    this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
+
     this.getUploadImage();
     this.getCompanyInformation();
     this.empname = this.usersession.firstname;
@@ -124,8 +127,17 @@ export class HeaderComponent implements OnInit {
   }
 
   getUploadImage(){
-
-    this.mainService.getProfileImage(this.usersession.id,'google').subscribe((imageData) => {
+    let info = {
+      'employeeId':this.usersession.id,
+      'filecategory': 'PROFILE',
+      'moduleId':this.activeModule.moduleid,
+      'requestId':null,
+    }
+    this.mainService.getFilesMaster(info).subscribe((result) => {
+      if(result && result.status){
+       result.data[0].employeeId=this.usersession.id;
+       let info = result.data[0]
+    this.mainService.getProfileImage(info).subscribe((imageData) => {
       if(imageData.success){
         let TYPED_ARRAY = new Uint8Array(imageData.image.data);
         const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
@@ -140,6 +152,7 @@ export class HeaderComponent implements OnInit {
 
       }
     })
+  }})
   }
   getCompanyInformation(){
     this.LM.getCompanyInformation('companyinformation',null,1,10,'keerthi_hospitals').subscribe((data:any)=>{

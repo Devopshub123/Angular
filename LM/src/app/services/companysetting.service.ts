@@ -86,9 +86,8 @@ import { environment } from 'src/environments/environment';
   putCompanyInformation(info: any):Observable<any>{
     return this.hClient.put(this.mainBeUrl + 'api/putCompanyInformation', JSON.stringify(info), this.httpOptions);
   }
-  setUploadImage(data: FormData,Id: number): Observable<any> {
-    var conpanyName ='Apple'
-    return this.hClient.post(this.mainBeUrl + 'api/setUploadImage/'+conpanyName, data);
+  setUploadImage(data: FormData,info:any): Observable<any> {
+    return this.hClient.post(this.mainBeUrl + 'api/setUploadImage/'+encodeURI(info), data);
   }
   getUploadImage(id: any,companyName:any): Observable<any> {
     // var conpanyName ='Apple'
