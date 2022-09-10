@@ -155,12 +155,12 @@ export class EditProfileComponent implements OnInit {
             data: {Message: this.LM118, url: '/LeaveManagement/EditProfile'}
           });
         }else{
-          this.LM.getFilepathsMaster(this.activeModule.moduleid).subscribe((result) => {
+          this.LM.getFilepathsMaster(2).subscribe((result) => {
             if(result && result.status){
               let obj = {
                 'employeeId':this.userSession.id,
                 'filecategory': 'PROFILE',
-                'moduleId':this.activeModule.moduleid,
+                'moduleId':2,
                 'documentnumber':'',
                 'fileName':this.file.name,
                 'modulecode':result.data[0].module_code,
@@ -334,7 +334,7 @@ export class EditProfileComponent implements OnInit {
     let info = {
       'employeeId':this.userSession.id,
       'filecategory': 'PROFILE',
-      'moduleId':this.activeModule.moduleid,
+      'moduleId':2,
       'requestId':null,
     }
     this.LM.getFilesMaster(info).subscribe((result) => {

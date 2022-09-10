@@ -100,12 +100,12 @@ export class CompanylogoComponent implements OnInit {
     if(this.file){
       if(this.file.size<=1024000){
         this.spinner.show();
-        this.LMS.getFilepathsMaster(this.activeModule.moduleid).subscribe((result) => {
+        this.LMS.getFilepathsMaster(2).subscribe((result) => {
           if(result && result.status){
             let obj = {
               'employeeId':0,
               'filecategory': 'LOGO',
-              'moduleId':this.activeModule.moduleid,
+              'moduleId':2,
               'documentnumber':'',
               'fileName':this.file.name,
               'modulecode':result.data[0].module_code,
@@ -191,7 +191,7 @@ export class CompanylogoComponent implements OnInit {
     let info = {
       'employeeId':0,
       'filecategory': 'LOGO',
-      'moduleId':this.activeModule.moduleid,
+      'moduleId':2,
       'requestId':null,
     }
     this.LMS.getFilesMaster(info).subscribe((result) => {

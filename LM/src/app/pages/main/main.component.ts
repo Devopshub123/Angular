@@ -86,7 +86,7 @@ menu:NavItem[] =[];
     let info = {
       'employeeId':0,
       'filecategory': 'LOGO',
-      'moduleId':this.activeModule.moduleid,
+      'moduleId':2,
       'requestId':null,
     }
     this.mainService.getFilesMaster(info).subscribe((result) => {
@@ -289,7 +289,7 @@ menu:NavItem[] =[];
     let info = {
       'employeeId':this.usersession.id,
       'filecategory': 'PROFILE',
-      'moduleId':this.activeModule.moduleid,
+      'moduleId':2,
       'requestId':null,
     }
     this.mainService.getFilesMaster(info).subscribe((result) => {
