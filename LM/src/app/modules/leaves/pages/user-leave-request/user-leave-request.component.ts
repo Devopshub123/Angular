@@ -46,6 +46,8 @@ export class UserLeaveRequestComponent implements OnInit {
   msgLM3: any;
   msgLM7: any;
   msgLM119: any;
+  msgLM140: any;
+  msgLM141: any;
   roleValue:any;
   minDate:any;
   maxDate:any;
@@ -239,7 +241,9 @@ export class UserLeaveRequestComponent implements OnInit {
     this.getErrorMessages('LM76')
     this.getErrorMessages('LM7')
     this.getErrorMessages('LM117')
-    this.getErrorMessages('msgLM119')
+    this.getErrorMessages('LM119')
+    this.getErrorMessages('LM140')
+    this.getErrorMessages('LM141')
 
     this.leaveRequestForm.controls.contact.setValue(this.userSession.contactnumber)
     this.leaveRequestForm.controls.leaveCount.disable();
@@ -914,9 +918,9 @@ async  getLeavesTypeInfo() {
             else {
             this.isFile = false;
             if(this.ispdf){
-              this.open('Only PDF are allowed','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
+              this.open(this.msgLM141,'8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
             }else{
-              this.open('File size is must be less than 15MB','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
+              this.open(this.msgLM140,'8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
             }
 
             // Swal.fire({title: '', text: 'File size is must be less than 15MB', color: "red", position: 'top'});
@@ -1009,6 +1013,10 @@ async  getLeavesTypeInfo() {
         this.msgLM7 = result.data[0].errormessage
       }else if (result.status && errorCode == 'LM119') {
         this.msgLM119 = result.data[0].errormessage
+      }else if (result.status && errorCode == 'LM140') {
+        this.msgLM140 = result.data[0].errormessage
+      }else if (result.status && errorCode == 'LM141') {
+        this.msgLM141 = result.data[0].errormessage
       }
 
     })
@@ -1188,7 +1196,7 @@ file:any;
 
     this.iseditDoc=true;
 
-    if (event.target.files[0].size <= 15728640) {
+    if (event.target.files[0].size <= 5242880) {
     //  var pdfArray =[];
 
       this.file= event.target.files[0];
@@ -1201,7 +1209,8 @@ file:any;
     }else{
       this.ispdf=true;
       this.isFile = false;
-      this.open('Only PDF are allowed','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
+      this.setValidateLeave()
+      this.open(this.msgLM141,'8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
 
 
     }
@@ -1209,7 +1218,8 @@ file:any;
     } else {
       this.ispdf=false;
       this.isFile = false;
-      this.open('File size is must be less than 15MB','8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
+      this.setValidateLeave()
+      this.open(this.msgLM140,'8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
       // Swal.fire({title: '', text: 'File size is must be less than 15MB', color: "red", position: 'top'});
 
     }
