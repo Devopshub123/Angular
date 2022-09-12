@@ -29,6 +29,9 @@ export class ResetPasswordComponent implements OnInit {
   msgLM4:any;
   msgLM5:any;
   msgLM56:any;
+  date:any;
+  URL:boolean=false;
+  currentDate :any=new Date().getFullYear() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getDate();
   constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private activatedRoute: ActivatedRoute,private tss:LoginService,private router: Router,) { }
 
   ngOnInit() {
@@ -36,9 +39,19 @@ export class ResetPasswordComponent implements OnInit {
     this.getErrorMessages('LM2')
     this.getErrorMessages('LM4')
     this.getErrorMessages('LM5')
+    this.getErrorMessages('LM55')
+
     let params: any = this.activatedRoute.snapshot.params;
-    this.email = params.email;
-    this.empid = params.id;  
+    this.email = JSON.parse(atob(params.token)).email;
+    this.empid = JSON.parse(atob(params.token)).id;
+    this.date = JSON.parse(atob(params.token)).date;
+    if(this.date != this.currentDate){
+      this.URL = true
+    }else {
+      this.URL = false
+
+    }
+
     this.createForm();
   }
   hide1 = true;
@@ -57,7 +70,7 @@ export class ResetPasswordComponent implements OnInit {
       empid:this.empid,
       email: this.email,
       newpassword:this.formGroup.controls.newpassword.value,
-      confirmpassword:this.formGroup.controls.confirmpassword.value    
+      confirmpassword:this.formGroup.controls.confirmpassword.value
     }
     this.newpassword = this.formGroup.controls.newpassword.value;
     this.confirmpassword = this.formGroup.controls.confirmpassword.value;
@@ -71,7 +84,7 @@ export class ResetPasswordComponent implements OnInit {
           });
           sessionStorage.removeItem('user')
           this.router.navigate(['/Login']);
-  
+
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
@@ -79,8 +92,8 @@ export class ResetPasswordComponent implements OnInit {
             data: 'Your newpassword cannot be same as the old password'
           });
         }
-        
-  
+
+
       });
     }
     else{
@@ -89,14 +102,14 @@ export class ResetPasswordComponent implements OnInit {
         disableClose: true,
         data: this.msgLM5
       });
-  
+
     }
-    
+
   }
   cancel(){
     this.formGroup.reset();
     this.formGroup.valid = true;
-  
+
 
   }
   getErrorMessages(errorCode:any) {
@@ -123,12 +136,12 @@ export class ResetPasswordComponent implements OnInit {
       {
         this.msgLM56 = result.data[0].errormessage
       }
-    
-     
+
+
     })
   }
 
 
-  
+
 
 }
