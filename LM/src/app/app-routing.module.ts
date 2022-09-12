@@ -13,7 +13,7 @@ const routes: Routes = [
   {path:'Login',component:LoginComponent},
   {path:'ChangePassword',component:ChangePasswordComponent,canActivate:[LMSAccessGuard]},
   // {path:'ResetPassword',component:ResetPasswordComponent},
-  {path:'ResetPassword/:email/:id',component:ResetPasswordComponent},
+  {path:'ResetPassword/:token',component:ResetPasswordComponent},
 
   {path:'ForgotPassword',component:ForgotPasswordComponent},
   // {
