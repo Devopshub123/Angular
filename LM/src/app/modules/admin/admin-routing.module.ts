@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: '', component: MainComponent,
     children: [
-      {path:'Dashboard',component:AdminDashboardComponent,canActivate:[LMSAccessGuard] },
+      { path: 'Dashboard',component:AdminDashboardComponent,canActivate:[LMSAccessGuard] },
       { path: 'Designation', component: DesignationsComponent,canActivate:[LMSAccessGuard] },
       { path: 'Department', component: DeparmentComponent ,canActivate:[LMSAccessGuard]},
       { path: 'Employee', component: EmployeeMasterToAddComponent,canActivate:[LMSAccessGuard] },
@@ -33,8 +33,8 @@ const routes: Routes = [
       { path: 'Holiday', component: HolidaysComponent, canActivate: [LMSAccessGuard] },
       { path: 'MappingIds', component: MappingIdsComponent, canActivate: [LMSAccessGuard] },
       { path: 'Shift', component: ShiftMasterComponent, canActivate: [LMSAccessGuard] },
-       {path:'MessageMaster',component:MessageMasterComponent},
-       {path:'LM-MessageMaster',component:LmMessageMasterComponent}
+      { path: 'MessageMaster',component:MessageMasterComponent},
+      { path: 'LM-MessageMaster',component:LmMessageMasterComponent}
     ]
   }
 

@@ -20,6 +20,7 @@ export class AdminService {
   setWorkLocation(info:any): Observable<any> {
     return this.http.post(this.mainUrl + 'api/setWorkLocation', JSON.stringify(info), this.httpOptions);
   }
+
   getWorkLocation(info:any): Observable<any>{
     return this.http.post(this.mainUrl + 'api/getWorkLocation',JSON.stringify(info), this.httpOptions);
   }
