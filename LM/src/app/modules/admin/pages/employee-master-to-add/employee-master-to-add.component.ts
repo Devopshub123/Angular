@@ -214,28 +214,28 @@ export class EmployeeMasterToAddComponent implements OnInit {
         });
     /**same as present address checkbox */
     this.employeeAddForm.get('checked')?.valueChanges.subscribe(selectedValue => {
-      if (selectedValue) {
-        this.employeeAddForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
+      if (selectedValue != '') {
+        this.employeeAddForm.get('pcountry')?.valueChanges.subscribe(selectedStateValue => {
           this.permanentStateDetails = [];
-          this.LMS.getStatesc(selectedValue).subscribe((data) => {
-            this.permanentStateDetails = data[0]
-            if (this.employeeAddForm.controls.state.value != null) {
-              this.employeeAddForm.controls.pstate.setValue(this.employeeAddForm.controls.state.value);
-
-            }
-
-          })
+          if(selectedStateValue != '') {
+            this.LMS.getStatesc(selectedStateValue).subscribe((data) => {
+              this.permanentStateDetails = data[0]
+              if (this.employeeAddForm.controls.state.value != null) {
+                this.employeeAddForm.controls.pstate.setValue(this.employeeAddForm.controls.state.value);
+              }
+            })
+          }
         })
-        this.employeeAddForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
+        this.employeeAddForm.get('pstate')?.valueChanges.subscribe(selectedCityValue => {
           this.permanentCityDetails = [];
-          this.LMS.getCities(selectedValue).subscribe((data) => {
-            this.permanentCityDetails = data[0]
-            if (this.employeeAddForm.controls.city.value != null) {
-              this.employeeAddForm.controls.pcity.setValue(this.employeeAddForm.controls.city.value);
-
-            }
-
-          })
+          if(selectedCityValue != '') {
+            this.LMS.getCities(selectedCityValue).subscribe((data) => {
+              this.permanentCityDetails = data[0]
+              if (this.employeeAddForm.controls.city.value != null) {
+                this.employeeAddForm.controls.pcity.setValue(this.employeeAddForm.controls.city.value);
+              }
+            });
+          }
         })
 
         this.employeeAddForm.controls.paddress.setValue(this.employeeAddForm.controls.address.value),
@@ -257,52 +257,55 @@ export class EmployeeMasterToAddComponent implements OnInit {
         this.employeeAddForm.controls.ppincode.setValue('')
       }
     })
-    this.employeeAddForm.get('paddress')?.valueChanges.subscribe(selectedValue => {
 
-    })
     /**get state details for residance address */
-    this.employeeAddForm.get('country')?.valueChanges.subscribe(selectedValue => {
+    this.employeeAddForm.get('country')?.valueChanges.subscribe(selectedResidenceStateValue => {
       this.stateDetails = [];
-      this.LMS.getStatesc(selectedValue).subscribe((data) => {
-        this.stateDetails = data[0];
-        if (this.employeedata != null) {
-          this.employeeAddForm.controls.state.setValue(this.employeedata.state);
-        }
-      })
+      if (selectedResidenceStateValue != '') {
+         this.LMS.getStatesc(selectedResidenceStateValue).subscribe((data) => {
+           this.stateDetails = data[0];
+           if (this.employeedata != null) {
+             this.employeeAddForm.controls.state.setValue(this.employeedata.state);
+           }
+         })
+      }
     })
     /**get city details for residance address */
-    this.employeeAddForm.get('state')?.valueChanges.subscribe(selectedValue => {
+    this.employeeAddForm.get('state')?.valueChanges.subscribe(selectedResidenceCityValue => {
       this.cityDetails = [];
-      this.LMS.getCities(selectedValue).subscribe((data) => {
-        this.cityDetails = data[0]
-        if (this.employeedata != null) {
-          this.employeeAddForm.controls.city.setValue(this.employeedata.city);
-        }
-      })
+      if (selectedResidenceCityValue != '') {
+        this.LMS.getCities(selectedResidenceCityValue).subscribe((data) => {
+          this.cityDetails = data[0]
+          if (this.employeedata != null) {
+            this.employeeAddForm.controls.city.setValue(this.employeedata.city);
+          }
+        })
+      }
     })
     /**get state details for present address*/
-    this.employeeAddForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
+    this.employeeAddForm.get('pcountry')?.valueChanges.subscribe(selectedPresentStateValue => {
       this.permanentStateDetails = [];
-      this.LMS.getStatesc(selectedValue).subscribe((data) => {
-        this.permanentStateDetails = data[0]
-        if (this.employeedata != null) {
-          this.employeeAddForm.controls.pstate.setValue(this.employeedata.pstate);
-
-        }
-
-      })
+      if (selectedPresentStateValue != '') {
+        this.LMS.getStatesc(selectedPresentStateValue).subscribe((data) => {
+          this.permanentStateDetails = data[0]
+          if (this.employeedata != null) {
+            this.employeeAddForm.controls.pstate.setValue(this.employeedata.pstate);
+          }
+        })
+      }
     })
     /**get city details for present address */
-    this.employeeAddForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
+    this.employeeAddForm.get('pstate')?.valueChanges.subscribe(selectedPresentCityValue => {
       this.permanentCityDetails = [];
-      this.LMS.getCities(selectedValue).subscribe((data) => {
-        this.permanentCityDetails = data[0]
-        if (this.employeedata != null) {
-          this.employeeAddForm.controls.pcity.setValue(this.employeedata.pcity);
+      if (selectedPresentCityValue != '') {
+        this.LMS.getCities(selectedPresentCityValue).subscribe((data) => {
+          this.permanentCityDetails = data[0]
+          if (this.employeedata != null) {
+            this.employeeAddForm.controls.pcity.setValue(this.employeedata.pcity);
 
-        }
-      })
-
+          }
+        })
+      }
     })
     this.employeeworkAddForm.get('dateofjoin')?.valueChanges.subscribe(selectedValue => {
       this.wemaxDate = new Date(
@@ -1194,7 +1197,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
             lastname: familydata[i].lastname,
             gender: gender,
             gendername: gendername,
-            contactnumber: familydata[i].contactnumber,
+            contactnumber: (familydata[i].contactnumber == "null") ? '':familydata[i].contactnumber,
             status: familydata[i].status,
             relationship: relationship,
             relationshipname: relationshipname,
@@ -1208,29 +1211,23 @@ export class EmployeeMasterToAddComponent implements OnInit {
       if (education != null) {
         education.forEach((e: any) => {
           this.edu().push(this.formBuilder.group({
-            course: e.course,
-            institutename: e.institutename,
-            efromdate: new Date(e.fromdate),
-            etodate: new Date(e.todate)
+            course: {value: e.course, disabled: true},
+            institutename: {value: e.institutename, disabled: true},
+            efromdate: {value: new Date(e.fromdate), disabled: true},
+            etodate: {value: new Date(e.todate), disabled: true}
 
           }));
         });
-
       }
       let experience = JSON.parse(this.employeedata.experience)
       if (experience != null) {
         experience.forEach((e: any) => {
           this.exp().push(this.formBuilder.group({
-            companyname: e.companyname,
-            wfromdate: new Date(e.fromdate),
-            wtodate: new Date(e.todate)
-
+            companyname: {value: e.companyname, disabled: true},
+            wfromdate: {value: new Date(e.fromdate), disabled: true},
+            wtodate: {value: new Date(e.todate), disabled: true},
           }));
         });
-
-
-
-
       }
 
 
