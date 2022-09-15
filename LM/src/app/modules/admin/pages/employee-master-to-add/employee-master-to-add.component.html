@@ -794,7 +794,7 @@
                                       <div fxFlex.xs="100" fxFlex="10" style="padding:20px" class="mx-2 my-2 mr2"
                                           appearance="outline">
                                           <!-- <mat-icon (click)="addexperience()">add</mat-icon> -->
-                                          <mat-icon title="Delete" (click)="removeWork(empIndex)">delete</mat-icon>
+                                          <mat-icon title="Delete" *ngIf="!isviewemployee" (click)="removeWork(empIndex)">delete</mat-icon>
                                       </div>
                                   </div>
                               </div>
