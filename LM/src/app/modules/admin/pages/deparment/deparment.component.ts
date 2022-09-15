@@ -171,8 +171,8 @@ export class DeparmentComponent implements OnInit {
 
     let data = {
       deptname: deptname,
-      tableName: 'employee',
-      columnName: 'department',
+      tableName: 'employee_departments',
+      columnName: 'departmentid',
       id: id,
       status: status
     }

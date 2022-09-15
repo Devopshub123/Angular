@@ -189,7 +189,7 @@ export class LeavepoliciesComponent implements OnInit {
         if(result){
           if(info[0].value == this.addleaveForm.controls.leaveid.value ){
             this.isCreditfrequence=false;
-            
+
                }else{
             this.isCreditfrequence=true;
           }
@@ -309,7 +309,7 @@ export class LeavepoliciesComponent implements OnInit {
       }
 
       this.tabledata = true;
-      if (selectedValue < 10){
+      if (selectedValue <= 10){
         this.actionflag=false;
       }
       else{

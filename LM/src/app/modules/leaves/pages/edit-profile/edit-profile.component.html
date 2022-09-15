@@ -151,7 +151,7 @@
       <div fxLayout="row" fxLayout.xs="column"  >
         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Zip Code</mat-label>
-          <input formControlName="zipCode" onlyNumber required matInput placeholder="" maxlength="6"  >
+          <input formControlName="zipCode" onlyNumber required matInput placeholder="" minlength="6" maxlength="6"  >
           <mat-error class="con-error"
                      *ngIf="editForm.controls.zipCode.errors?.required">
             This field is required

@@ -29,7 +29,7 @@ export class ShiftConfigureComponent implements OnInit {
   todayWithPipe: any;
   displayedColumns: string[] = ["select", 'id', 'empid', 'empname', 'shiftname', 'fromdate', 'todate','weekoffs'];
   dataSource: MatTableDataSource<any> = <any>[];
-
+  ATT74:any;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -220,6 +220,11 @@ export class ShiftConfigureComponent implements OnInit {
       }
     })
    }else{
+     this.dialog.open(ReusableDialogComponent, {
+       position: { top: `70px` },
+       disableClose: true,
+       data: this.ATT74
+     });
     return;
    }
 
@@ -298,6 +303,8 @@ export class ShiftConfigureComponent implements OnInit {
           this.dataSave =e.message
         } else if (e.code == "ATT70") {
           this.dataNotSave =e.message
+        } else if (e.code == "ATT74") {
+          this.ATT74 =e.message
         }
       })
      }

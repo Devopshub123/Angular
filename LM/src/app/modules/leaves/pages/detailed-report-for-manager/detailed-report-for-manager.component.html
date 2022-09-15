@@ -39,10 +39,10 @@
             <mat-option value="lastWeek">Last Week</mat-option>
             <mat-option value="currentMonth"> Current Month</mat-option>
             <mat-option value="lastMonth"> Last Month</mat-option>
-            <mat-option value="quaterOne"> Quater 1(Jan-Mar)</mat-option>
-            <mat-option value="quaterTwo"> Quater 2(Apr-Jun)</mat-option>
-            <mat-option value="quaterThree"> Quater 3(Jul-Sep)</mat-option>
-            <mat-option value="quaterFour"> Quater 4(Oct-Dec)</mat-option>
+            <mat-option value="quaterOne"> Quarter 1(Jan-Mar)</mat-option>
+            <mat-option value="quaterTwo"> Quarter 2(Apr-Jun)</mat-option>
+            <mat-option value="quaterThree"> Quarter 3(Jul-Sep)</mat-option>
+            <mat-option value="quaterFour"> Quarter 4(Oct-Dec)</mat-option>
             <!--<mat-option value="Deleted"> Current</mat-option>-->
           </mat-select>
         </mat-form-field>
@@ -79,7 +79,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-    
+
     <!--<div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" >-->
       <!--<mat-form-field fxFlex.xs="100%" fxFlex="33" class="mx-1 my-1" appearance="outline">-->
         <!--<mat-label>Employe Name and ID</mat-label>-->
@@ -209,7 +209,7 @@
         <thead style="background-color: #28acaf;">
         <tr >
           <th scope="col" class="space">Name</th>
-          <th scope="col" class="space">Id</th>
+          <th scope="col" class="space">Emp ID</th>
           <th scope="col" class="space">Leave type</th>
           <th scope="col" class="space">Designation</th>
           <th scope="col" class="space">Applied Date</th>
@@ -256,7 +256,7 @@
               <label class="col-md-4 col-form-label" >Show:</label>
               <div class="col-md-8" >
                 <select style="width: 150px;" (change)="onTableSizeChange($event)" class="custom-select select1">
-                  <option value="10">
+                  <option value="5">
                     5 Entries
                   </option>
                   <option  value="25">
