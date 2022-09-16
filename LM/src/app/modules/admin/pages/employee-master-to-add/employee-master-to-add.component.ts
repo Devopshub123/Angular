@@ -893,17 +893,17 @@ export class EmployeeMasterToAddComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
   getBloodgroups() {
-    this.LMS.getMastertable('bloodgroupmaster', 'Active', 1, 10, 'keerthi_hospitals').subscribe(data => {
+    this.LMS.getMastertable('bloodgroupmaster', 'Active', 1, 10, 'spryple_sanela').subscribe(data => {
       this.bloodGroupdetails = data.data;
     })
   }
   getGender() {
-    this.LMS.getMastertable('gendermaster', null, 1, 40, 'keerthi_hospitals').subscribe(data => {
+    this.LMS.getMastertable('gendermaster', null, 1, 40, 'spryple_sanela').subscribe(data => {
       this.genderDetails = data.data;
     })
   }
   getWorkLocation() {
-    this.LMS.getactiveWorkLocation({ id: null, companyName: 'keerthi_hospitals' }).subscribe((result) => {
+    this.LMS.getactiveWorkLocation({ id: null, companyName: 'spryple_sanela' }).subscribe((result) => {
       this.worklocationDetails = result.data;
     })
 
@@ -920,33 +920,33 @@ export class EmployeeMasterToAddComponent implements OnInit {
   }
 
   getMaritalStatusMaster() {
-    this.LMS.getMastertable('maritalstatusmaster', null, 1, 10, 'keerthi_hospitals').subscribe(data => {
+    this.LMS.getMastertable('maritalstatusmaster', null, 1, 10, 'spryple_sanela').subscribe(data => {
       this.maritalStatusDetails = data.data;
 
     })
   }
   getRelationshipMaster() {
-    this.LMS.getMastertable('relationshipmaster', 'Active', 1, 30, 'keerthi_hospitals').subscribe(data => {
+    this.LMS.getMastertable('relationshipmaster', 'Active', 1, 30, 'spryple_sanela').subscribe(data => {
       this.employeeRelationship = data.data;
     })
   }
   getEmploymentTypeMaster() {
-    this.LMS.getMastertable('employmenttypemaster', null, 1, 1000, 'keerthi_hospitals').subscribe(data => {
+    this.LMS.getMastertable('employmenttypemaster', null, 1, 1000, 'spryple_sanela').subscribe(data => {
       this.EmploymentTypeDetails = data.data;
     })
   }
   getDesignationsMaster() {
-    this.LMS.getMastertable('designationsmaster', 'Active', 1, 1000, 'keerthi_hospitals').subscribe(data => {
+    this.LMS.getMastertable('designationsmaster', 'Active', 1, 1000, 'spryple_sanela').subscribe(data => {
       this.availableDesignations = data.data;
     })
   }
   getDepartmentsMaster() {
-    this.LMS.getMastertable('departmentsmaster', 'Active', 1, 1000, 'keerthi_hospitals').subscribe(data => {
+    this.LMS.getMastertable('departmentsmaster', 'Active', 1, 1000, 'spryple_sanela').subscribe(data => {
       this.availableDepartments = data.data;
     })
   }
   getCountry() {
-    this.LMS.getCountry('countrymaster', null, 1, 10, 'keerthi_hospitals').subscribe((results) => {
+    this.LMS.getCountry('countrymaster', null, 1, 10, 'spryple_sanela').subscribe((results) => {
       this.CountryDetails = results.data;
       this.permanentCountryDetails = results.data;
 
@@ -954,7 +954,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   }
   getRoles() {
 
-    this.LMS.getMastertable('rolesmaster', null, 1, 1000, 'keerthi_hospitals').subscribe(data => {
+    this.LMS.getMastertable('rolesmaster', null, 1, 1000, 'spryple_sanela').subscribe(data => {
       let roledata = data.data;
       this.availableRole = [];
       for (let i = 0; i < roledata.length; i++) {
@@ -973,7 +973,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
   }
   getShifts() {
-    this.LMS.getMastertable('shiftsmaster', 'Active', 1, 1000, 'keerthi_hospitals').subscribe(data => {
+    this.LMS.getMastertable('shiftsmaster', 'Active', 1, 1000, 'spryple_sanela').subscribe(data => {
       this.availableShifts = data.data;
     })
   }

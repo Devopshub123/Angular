@@ -49,7 +49,7 @@ export class SummaryReportForManagerComponent implements OnInit {
       status:'Active',
       pageNumber:1,
       pageSize:1000,
-      databaseName:'keerthi_hospitals'
+      databaseName:'spryple_sanela'
     }
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
@@ -63,7 +63,7 @@ export class SummaryReportForManagerComponent implements OnInit {
       status:'Active',
       pageNumber:1,
       pageSize:1000,
-      databaseName:'keerthi_hospitals'
+      databaseName:'spryple_sanela'
     }
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
