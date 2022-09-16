@@ -28,3 +28,6 @@ table{
     color: #80286a;
   }
 
+  ::ng-deep .cdk-overlay-container {
+    z-index:1050 !important;
+  }
