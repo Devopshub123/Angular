@@ -10,6 +10,8 @@ import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { LoginService } from 'src/app/services/login.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-user-leave-history',
   templateUrl: './user-leave-history.component.html',
@@ -29,7 +31,9 @@ export class UserLeaveHistoryComponent implements OnInit {
   msgLM17:any;
   msgLM73:any;
   msgLM74:any;
-
+  activeModule:any;
+  fileURL:any;
+  pdfName:any;
   displayedColumns: string[] = ['appliedon','leavetype','fromdate','todate','days','status','approver','action'];
   dataSource: MatTableDataSource<any>=<any>[];
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
@@ -39,7 +43,7 @@ export class UserLeaveHistoryComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private router: Router,private LM:LeavesService,public dialog: MatDialog,private ts :LoginService) { }
+  constructor(private router: Router,private spinner:NgxSpinnerService,private LM:LeavesService,public dialog: MatDialog,private ts :LoginService) { }
 
   ngOnInit(): void {
     this.getErrorMessages('LM16');
@@ -47,6 +51,8 @@ export class UserLeaveHistoryComponent implements OnInit {
     this.getErrorMessages('LM73');
     this.getErrorMessages('LM74');
     this.usersession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
+
     this.dataSource.paginator = this.paginator;
     this.getleavehistory(null,null);
   }
@@ -76,6 +82,10 @@ view(data:any){
   this.isview=true;
   this.isdata=false;
   this.viewdata = data;
+  if(data.leavetypeid == 3 || data.leavetypeid == 5){
+    this.getUploadDocument(data)
+
+  }
 }
 close(){
   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -184,5 +194,59 @@ openDialogdelete(): void {
 
     })
   }
+
+  getUploadDocument(data:any){
+    this.spinner.show();
+
+    let info = {
+      'employeeId':this.usersession.id,
+      'filecategory': data.leavetypeid==3?'SL':'ML',
+      'moduleId':this.activeModule.moduleid,
+      'requestId':data?data.id:null,
+    }
+    this.LM.getFilesMaster(info).subscribe((result) => {
+
+      if(result && result.status){
+        if(result.data && result.data.length>0){
+        let documentName = result.data[0].filename.split('_')
+        var docArray=[];
+        for(let i=0;i<=documentName.length;i++){
+          if(i>2){
+            docArray.push(documentName[i])
+          }
+        }
+        this.pdfName = docArray.join('')
+
+       result.data[0].employeeId=this.usersession.id;
+       let info = result.data[0]
+        this.LM.getProfileImage(info).subscribe((imageData) => {
+          this.spinner.hide();
+          if(imageData.success){
+            let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+              return data + String.fromCharCode(byte);
+            }, '');
+
+            const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
+            this.fileURL = URL.createObjectURL(file);
+          }
+        })
+      }else{
+        this.spinner.hide();
+      }
+      }
+      else{
+        this.spinner.hide();
+
+      }
+
+    })
+    }
+
+    fileView(){
+  
+      window.open(this.fileURL);
+     
+   }
 
 }

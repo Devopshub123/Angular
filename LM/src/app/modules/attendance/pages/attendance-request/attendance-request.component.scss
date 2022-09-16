@@ -2,7 +2,9 @@ table {
   width: 100%;
 }
 
-
+::ng-deep .cdk-overlay-container {
+  z-index:1050 !important;
+}
 
 /* td, th {
     width: 25%;

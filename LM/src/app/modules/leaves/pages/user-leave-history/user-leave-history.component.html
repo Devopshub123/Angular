@@ -220,6 +220,12 @@
 
 
         </div>
+        <div fxLayout="row" *ngIf="pdfName" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            <div>
+              <label style="margin-left: 10px"> Document</label><br>
+              <button class="link" style="margin-left: 10px"  (click)="fileView()"  *ngIf="pdfName">{{pdfName}}</button>
+            </div>
+            </div>
         <div  fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
             <button class="col-md-1  btn btn-danger"   (click)="close()">Close</button>
         </div>
