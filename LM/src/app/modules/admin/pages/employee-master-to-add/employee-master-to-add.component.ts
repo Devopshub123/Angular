@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AdminService } from '../../admin.service';
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 @Component({
   selector: 'app-employee-master-to-add',
   templateUrl: './employee-master-to-add.component.html',
@@ -63,7 +64,10 @@ export class EmployeeMasterToAddComponent implements OnInit {
   minetodate: any;
   wemaxDate = new Date();
   edmaxDate = new Date();
-
+  eduDisableFromDates:any = [];
+  eduDisableToDates:any = [];
+  workDisableFromDates:any = [];
+  workDisableToDates:any = [];
   empid: any;
   mindatofjoin: any;
   work: boolean = false;
@@ -341,6 +345,8 @@ export class EmployeeMasterToAddComponent implements OnInit {
     this.employeeworkAddForm.get('efromdate')?.valueChanges.subscribe(selectedValue => {
       this.minetodate = selectedValue;
     })
+
+    console.log(this.employeeworkAddForm.get('edu'),this.employeeworkAddForm.get('efromdate'));
     // this.employeeAddForm.get('paddress')?.valueChanges.subscribe(selectedValue => {
     //   this.minetodate = selectedValue;
     //   if(this.employeeAddForm.controls.address == selectedValue){
@@ -1238,4 +1244,20 @@ export class EmployeeMasterToAddComponent implements OnInit {
   }
 
 
+  dateChange(type: string, event: MatDatepickerInputEvent<Date>,empIndex: any) {
+    if(type === 'eduFromDate'){
+      this.eduDisableToDates[empIndex] = event.value;
+      console.log(this.eduDisableToDates);
+    }
+    else if(type === 'eduToDate') {
+      this.eduDisableFromDates[empIndex] = event.value;
+      console.log(this.eduDisableFromDates);
+    }
+    else if(type === 'workFromDate'){
+      this.workDisableToDates[empIndex] = event.value;
+    }
+    else if(type === 'workToDate') {
+      this.workDisableFromDates[empIndex] = event.value;
+    }
+  }
 }

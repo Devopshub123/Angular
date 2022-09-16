@@ -42,6 +42,14 @@ table {
   color: #000000;
   background-color: #28acaf;
 }
+.custom-em-course {
+  width: 20%;
+  margin-right: 8px;
+}
+.custom-em-institute {
+  width: 22%;
+  margin-right: 8px;
+}
 ::ng-deep {
   .mat-select-panel[aria-label="Items per page:"] {
     mat-option:last-child:before {
@@ -56,4 +64,8 @@ table {
       display: none;
     }
   }
+  .mat-drawer-content {
+    overflow-x: hidden !important;
+  }
 }
+
