@@ -138,8 +138,8 @@ export class DesignationsComponent implements OnInit {
       id: id,
       deptname: deptname,
       status: status,
-      tableName: 'employee',
-      columnName: 'department',
+      tableName: 'employee_designations',
+      columnName: 'designationid',
       depthead: null,
       headcount: null
     }

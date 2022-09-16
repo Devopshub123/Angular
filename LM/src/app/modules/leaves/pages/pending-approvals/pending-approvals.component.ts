@@ -34,6 +34,7 @@ export class PendingApprovalsComponent implements OnInit {
   userSession:any;
   arrayList:any=[];
   LM119:any;
+  pageLoading=true;
 
   constructor(private LM:LeavesService, private router: Router,public dialog: MatDialog,public spinner:NgxSpinnerService) { }
 
@@ -43,6 +44,7 @@ export class PendingApprovalsComponent implements OnInit {
     this.getErrorMessages('LM113')
     this.getErrorMessages('LM114')
     this.getErrorMessages('LM119')
+    
 
   }
 
@@ -121,6 +123,10 @@ leaveReview(leave:any){
             data: {Message:this.LM114,url: '/LeaveManagement/ManagerDashboard'}
           });
           this.getLeavesForApprovals();
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+
+        this.router.navigate(["/LeaveManagement/ManagerDashboard"]));
+          
         }
         }else {
         this.dialog.open(ConfirmationComponent, {
@@ -173,6 +179,16 @@ leaveReview(leave:any){
         this.LM119 = result.data[0].errormessage
       }
     })
+  }
+
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+
+     return [5, 10, 20];
+    }
   }
 
 }

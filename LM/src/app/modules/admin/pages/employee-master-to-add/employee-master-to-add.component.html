@@ -323,7 +323,7 @@
                           <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                               <mat-label>Pincode</mat-label>
                               <input type="text" onlyNumber formControlName="pincode" matInput placeholder=""
-                                  maxlength="6" required>
+                              minlength="6" maxlength="6" required>
                               <mat-error class="con-error" *ngIf="employeeAddForm.controls.pincode.errors?.required">
                                   {{msgLM1}}
                               </mat-error>
@@ -333,7 +333,7 @@
                           <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                               <mat-label>Pincode</mat-label>
                               <input type="text" onlyNumber formControlName="ppincode" matInput placeholder=""
-                                  maxlength="6">
+                              minlength="6"   maxlength="6">
                               <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
                           </mat-form-field>
 
@@ -776,8 +776,8 @@
                                       <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2"
                                           appearance="outline">
                                           <mat-label>From </mat-label>
-                                          <input matInput readonly [matDatepicker]="wfromdate" [max]="wemaxDate"
-                                              placeholder="MM/DD/YYYY" formControlName="wfromdate" (click)="wfromdate.open()">
+                                          <input matInput readonly [matDatepicker]="wfromdate" [max]="workDisableFromDates[empIndex]"
+                                              placeholder="MM/DD/YYYY" formControlName="wfromdate" (click)="wfromdate.open()" (dateChange)="dateChange('workFromDate', $event,empIndex)">
                                           <mat-datepicker-toggle class="datepicker" matSuffix [for]="wfromdate">
                                           </mat-datepicker-toggle>
                                           <mat-datepicker #wfromdate></mat-datepicker>
@@ -785,8 +785,8 @@
                                       <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2"
                                           appearance="outline">
                                           <mat-label>To </mat-label>
-                                          <input matInput readonly [matDatepicker]="wtodate" [min]="minwtodate"
-                                          [max]="wemaxDate" placeholder="MM/DD/YYYY" formControlName="wtodate" (click)="wtodate.open()">
+                                          <input matInput readonly [matDatepicker]="wtodate" [min]="workDisableToDates[empIndex]"
+                                           placeholder="MM/DD/YYYY" formControlName="wtodate" (click)="wtodate.open()" (dateChange)="dateChange('workToDate', $event,empIndex)">
                                           <mat-datepicker-toggle class="datepicker" matSuffix [for]="wtodate">
                                           </mat-datepicker-toggle>
                                           <mat-datepicker #wtodate></mat-datepicker>
@@ -813,39 +813,39 @@
                           <mat-icon title="Add" fxLayoutAlign="end" (click)="addeducation()">add</mat-icon>
                       </mat-card-header>
                       <mat-divider></mat-divider>
-                      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                      <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center" >
 
-                          <div formArrayName="edu">
+                          <div formArrayName="edu" style="margin-top: 5px;">
                               <div *ngFor="let employee of edu().controls; let empIndex=index">
                                   <div [formGroupName]="empIndex" fxLayout.xs="column">
-                                      <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                                      <mat-form-field fxFlex.xs="100"  class="custom-em-course" appearance="outline">
                                           <mat-label>Course</mat-label>
                                           <input type="text" maxlength="100" formControlName="course" matInput
                                               placeholder="" appRemoveSpace>
                                       </mat-form-field>
-                                      <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                                      <mat-form-field fxFlex.xs="100" class="custom-em-institute"  appearance="outline">
                                           <mat-label>Institute Name</mat-label>
                                           <input type="text" maxlength="100" formControlName="institutename" matInput
                                               placeholder="" appRemoveSpace>
                                       </mat-form-field>
-                                      <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                                      <mat-form-field fxFlex.xs="100"  appearance="outline">
                                           <mat-label>From </mat-label>
-                                          <input matInput readonly [matDatepicker]="efromdate" [max]="edmaxDate"
-                                              placeholder="MM/DD/YYYY" formControlName="efromdate" (click)="efromdate.open()">
+                                          <input matInput readonly [matDatepicker]="efromdate" [max]="eduDisableFromDates[empIndex]"
+                                              placeholder="MM/DD/YYYY" formControlName="efromdate" (click)="efromdate.open()" (dateChange)="dateChange('eduFromDate', $event,empIndex)">
                                           <mat-datepicker-toggle class="datepicker" matSuffix [for]="efromdate">
                                           </mat-datepicker-toggle>
                                           <mat-datepicker #efromdate ></mat-datepicker>
                                           <!-- <mat-datepicker #efromdate startView="multi-year" (monthSelected)="closeDatePicker($event, efromdate)"></mat-datepicker> -->
                                       </mat-form-field>
-                                      <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                                      <mat-form-field fxFlex.xs="100"  appearance="outline">
                                           <mat-label>To </mat-label>
-                                          <input matInput readonly [matDatepicker]="etodate" [min]="minetodate"
-                                              [max]="edmaxDate" placeholder="MM/DD/YYYY" formControlName="etodate" (click)="etodate.open()">
+                                          <input matInput readonly [matDatepicker]="etodate" [min]="eduDisableToDates[empIndex]"
+                                              [max]="edmaxDate" placeholder="MM/DD/YYYY" formControlName="etodate" (click)="etodate.open()" (dateChange)="dateChange('eduToDate', $event,empIndex)">
                                           <mat-datepicker-toggle class="datepicker" matSuffix [for]="etodate">
                                           </mat-datepicker-toggle>
                                           <mat-datepicker #etodate></mat-datepicker>
                                       </mat-form-field>
-                                      <div fxFlex.xs="100" fxFlex="2" style="padding:20px" class="mx-2 my-2 mr2"
+                                      <div fxFlex.xs="100" fxFlex="2" style="padding:20px"
                                           appearance="outline">
                                           <!-- <mat-icon (click)="addeducation()">add</mat-icon> -->
                                           <mat-icon title="Delete" (click)="removeeducation(empIndex)">delete
