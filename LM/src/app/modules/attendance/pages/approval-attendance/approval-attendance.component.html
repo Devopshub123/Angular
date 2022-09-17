@@ -1,4 +1,4 @@
-<div fxLayout="column" style="min-height: 700px;">
+<div fxLayout="column" >
     <form [formGroup]="requestform" autocomplete="off">
         <mat-card fxFill>
             <mat-card-header>
@@ -47,7 +47,7 @@
                 <mat-form-field *ngIf="!isEdit" fxFlex="42" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Comment</mat-label>
                     <textarea formControlName="comment" readonly matInput placeholder="Comment"></textarea>
-               
+
                 </mat-form-field>
             </div>
             <div fxLayoutAlign="center">

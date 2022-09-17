@@ -1,4 +1,4 @@
-<div fxLayout="column" style="min-height: 700px;">
+<div fxLayout="column" >
        <mat-card>
               <mat-card-header>
                      <mat-card-title> Attendance Calendar</mat-card-title>
@@ -23,10 +23,30 @@
                      </div>
 
                      <div class="sub-section-2" fxLayout="column" fxFlex="40">
+                      <div fxLayout="column">
+                        <div fxLayout="row" class="clock-attendance" [style.marginTop.px]="mobileQuery.matches ? 0 : 70">
+                               <div style="padding-top:15px; color: white;" fxFlex="100" fxLayout="row"
+                                      fxLayoutAlign="space-between">
+                                      <div fxLayout="row" fxFlex="50">
+                                             <p>
+                                                    <mat-icon>alarm</mat-icon>
+                                             </p>
+                                             <p><b> Check In/Out</b>
+                                             </p>
+                                      </div>
+                                      <div fxLayout="row" fxFlex="50" fxLayoutAlign="end center">
+                                             <p><b>{{todayDate}}</b></p>
+                                      </div>
+                               </div>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
+                               <p> First In {{firstIn}}</p>
+                               <p>Last Out {{lastOut}}</p>
+                        </div>
+                 </div>
+                            <div fxLayout="column" style="height: 360px;">
 
-                            <div fxLayout="column" style="height: 440px;">
-
-                                   <div fxLayout="row" fxLayoutAlign="space-between" [style.marginTop.px]="mobileQuery.matches ? 0 : 70" class="pending-attendance">
+                                   <div fxLayout="row" fxLayoutAlign="space-between"  class="pending-attendance">
                                           <div style="padding-top:15px; color: white;" fxLayout="row">
                                                  <p>
                                                         <mat-icon>notifications</mat-icon>
@@ -54,27 +74,7 @@
                                    </cdk-virtual-scroll-viewport>
 
                             </div>
-                            <div fxLayout="column">
-                                   <div fxLayout="row" class="clock-attendance">
-                                          <div style="padding-top:15px; color: white;" fxFlex="100" fxLayout="row"
-                                                 fxLayoutAlign="space-between">
-                                                 <div fxLayout="row" fxFlex="50">
-                                                        <p>
-                                                               <mat-icon>alarm</mat-icon>
-                                                        </p>
-                                                        <p><b> Check In/Out</b>
-                                                        </p>
-                                                 </div>
-                                                 <div fxLayout="row" fxFlex="50" fxLayoutAlign="end center">
-                                                        <p><b>{{todayDate}}</b></p>
-                                                 </div>
-                                          </div>
-                                   </div>
-                                   <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
-                                          <p> First In {{firstIn}}</p>
-                                          <p>Last Out {{lastOut}}</p>
-                                   </div>
-                            </div>
+
                             <div fxLayout="column">
                                    <div fxLayout="row" class="clock-attendance">
                                           <div style="padding-top:15px; color: white;" fxFlex="100" fxLayout="row"

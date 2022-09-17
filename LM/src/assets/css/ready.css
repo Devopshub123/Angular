@@ -1158,7 +1158,7 @@ label {
   box-shadow: 0 1px 4px 0 #9191ab !important;
 }
 
-.scroll-wrapper {
+/* .scroll-wrapper {
   overflow: hidden !important;
   padding: 0 !important;
   position: relative;
@@ -1891,7 +1891,7 @@ label {
 }
 .scrollbar-chrome > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_size, .scrollbar-chrome > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_track {
   top: -19px;
-}
+} */
 
 .checkbox label .toggle, .checkbox-inline .toggle {
   margin-left: -20px;
