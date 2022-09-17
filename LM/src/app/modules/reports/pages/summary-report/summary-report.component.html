@@ -1,4 +1,4 @@
-<div fxLayout="column" style="min-height: 600px;">
+<div fxLayout="column" >
 
   <mat-card fxLayout="column">
     <mat-card-header class="heading">
@@ -6,9 +6,9 @@
     </mat-card-header>
     <br />
     <!-- <span *ngIf="isLoading">
-            <div class="overlay">   
+            <div class="overlay">
               <div class="center">
-                <mat-progress-spinner diameter=50  mode="indeterminate"  color="primary">   </mat-progress-spinner> 
+                <mat-progress-spinner diameter=50  mode="indeterminate"  color="primary">   </mat-progress-spinner>
             </div>
              </div>
           </span>
@@ -94,7 +94,7 @@
         </ng-container>
         <ng-container matColumnDef="breaks">
           <th mat-header-cell *matHeaderCellDef><b>Breaks </b></th>
-          <td mat-cell *matCellDef="let row"> 
+          <td mat-cell *matCellDef="let row">
           <ng-container *ngFor="let number of row.breaks">
             {{number}}<br>
 

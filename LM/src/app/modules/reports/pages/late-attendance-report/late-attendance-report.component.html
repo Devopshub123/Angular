@@ -1,10 +1,10 @@
-<div fxLayout="column" style="min-height: 700px;">
+<div fxLayout="column" >
 
     <mat-card fxLayout="column">
         <mat-card-header class="heading">
             <mat-card-title class="headingtext">Late Attendance Report</mat-card-title>
         </mat-card-header>
-    
+
         <div fxLayout fxLayout="row wrap" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center"
             [formGroup]="searchForm">
             <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
@@ -24,7 +24,7 @@
                         <mat-option [value]="v.shiftid">{{v.shiftname}}</mat-option>
                     </ng-container>
                 </mat-select>
-                
+
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>From Date </mat-label>
@@ -113,8 +113,8 @@
             </table>
             <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
             <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-            
+
         </div>
-       
+
     </div>
 </div>
