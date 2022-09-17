@@ -1,4 +1,4 @@
-<div style="min-height: 700px;">
+<div >
   <div fxLayout="column" *ngIf="isdata">
     <!-- <marquee  direction="left" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();" loop>
             Birthdays, Anniversaries, Pending Task
@@ -8,12 +8,12 @@
 
         <mat-card-header class="">
           <mat-card-title> Leave Balance </mat-card-title>
-        </mat-card-header><br>
+        </mat-card-header>
         <!--<div fxLayout="row" fxFlex="100">-->
 
         <mat-card-content fxLayout="row" fxLayout.xs="column" fxFlex="100" fxFlex.xs="100">
-          <marquee direction="left" onmouseover="this.stop();" onmouseout="this.start();">
-            <div class="row" style="flex-wrap: nowrap;">
+          <!--<marquee direction="left" onmouseover="this.stop();" onmouseout="this.start();">-->
+            <div class="row" style="flex-wrap: nowrap;    overflow-x: auto;">
               <ng-container *ngFor="let leave of leavebalance;index as i;">
                 <mat-card style="width:200px; margin:10px;" [style.background]="leave.leavecolor">
                   <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">
@@ -55,7 +55,7 @@
 
 
 
-          </marquee>
+          <!--</marquee>-->
 
         </mat-card-content>
         <!--<div fxLayout="row" fxLayout.xs="column"   fxFlex="30" fxFlex.xs="100">-->
@@ -148,90 +148,90 @@
 
 
 
-  <div fxLayout="column" *ngIf="isdata">
-    <mat-card fxFlex="100">
-      <mat-card-header class="">
-        <mat-card-title> Leave History </mat-card-title>
-      </mat-card-header><br>
-      <mat-card-content style="width:100%;overflow-x: auto">
-        <table mat-table [dataSource]="dataSource" matSort>
-          <ng-container matColumnDef="appliedon">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Applied On </th>
-            <td mat-cell *matCellDef="let row">
-              <span>{{row.appliedon | date:'mediumDate'}}</span>
-            </td>
-          </ng-container>
+  <!--<div fxLayout="column" *ngIf="isdata">-->
+    <!--<mat-card fxFlex="100">-->
+      <!--<mat-card-header class="">-->
+        <!--<mat-card-title> Leave History </mat-card-title>-->
+      <!--</mat-card-header><br>-->
+      <!--<mat-card-content style="width:100%;overflow-x: auto">-->
+        <!--<table mat-table [dataSource]="dataSource" matSort>-->
+          <!--<ng-container matColumnDef="appliedon">-->
+            <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Applied On </th>-->
+            <!--<td mat-cell *matCellDef="let row">-->
+              <!--<span>{{row.appliedon | date:'mediumDate'}}</span>-->
+            <!--</td>-->
+          <!--</ng-container>-->
 
 
-          <ng-container matColumnDef="leavetype">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Leave Type </th>
-            <td mat-cell *matCellDef="let row">
-              <span>{{row.leavetype}}</span>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="fromdate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> From Date</th>
-            <td mat-cell *matCellDef="let row">
-              <span>{{row.fromdate | date:'mediumDate'}}</span>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="todate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>
-            <td mat-cell *matCellDef="let row">
-              <span>{{row.todate | date:'mediumDate'}}</span>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="days">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Days </th>
-            <td mat-cell *matCellDef="let row">
-              <span>{{row.leavecount}}</span>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-            <td mat-cell *matCellDef="let row">
-              <span>{{row.leavestatus}}</span>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="approver">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Approver </th>
-            <td mat-cell *matCellDef="let row">
-              <span>{{row.approvedby}}</span>
-            </td>
-          </ng-container>
+          <!--<ng-container matColumnDef="leavetype">-->
+            <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Leave Type </th>-->
+            <!--<td mat-cell *matCellDef="let row">-->
+              <!--<span>{{row.leavetype}}</span>-->
+            <!--</td>-->
+          <!--</ng-container>-->
+          <!--<ng-container matColumnDef="fromdate">-->
+            <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> From Date</th>-->
+            <!--<td mat-cell *matCellDef="let row">-->
+              <!--<span>{{row.fromdate | date:'mediumDate'}}</span>-->
+            <!--</td>-->
+          <!--</ng-container>-->
+          <!--<ng-container matColumnDef="todate">-->
+            <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>-->
+            <!--<td mat-cell *matCellDef="let row">-->
+              <!--<span>{{row.todate | date:'mediumDate'}}</span>-->
+            <!--</td>-->
+          <!--</ng-container>-->
+          <!--<ng-container matColumnDef="days">-->
+            <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Days </th>-->
+            <!--<td mat-cell *matCellDef="let row">-->
+              <!--<span>{{row.leavecount}}</span>-->
+            <!--</td>-->
+          <!--</ng-container>-->
+          <!--<ng-container matColumnDef="status">-->
+            <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>-->
+            <!--<td mat-cell *matCellDef="let row">-->
+              <!--<span>{{row.leavestatus}}</span>-->
+            <!--</td>-->
+          <!--</ng-container>-->
+          <!--<ng-container matColumnDef="approver">-->
+            <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Approver </th>-->
+            <!--<td mat-cell *matCellDef="let row">-->
+              <!--<span>{{row.approvedby}}</span>-->
+            <!--</td>-->
+          <!--</ng-container>-->
 
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-            <!-- <td mat-cell *matCellDef="let row"> </td> -->
-            <td mat-cell *matCellDef="let row">
-              <mat-icon title="delete" *ngIf="row.deletable" (click)="delete(row)">delete</mat-icon> &nbsp;
-              <mat-icon title="Edit" *ngIf="row.editable" (click)="edit(row)">edit</mat-icon> &nbsp;
-              <mat-icon title="Cancel" *ngIf="row.cancellable" (click)="cancel(row)">cancel</mat-icon>&nbsp;
+          <!--<ng-container matColumnDef="action">-->
+            <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>-->
+            <!--&lt;!&ndash; <td mat-cell *matCellDef="let row"> </td> &ndash;&gt;-->
+            <!--<td mat-cell *matCellDef="let row">-->
+              <!--<mat-icon title="delete" *ngIf="row.deletable" (click)="delete(row)">delete</mat-icon> &nbsp;-->
+              <!--<mat-icon title="Edit" *ngIf="row.editable" (click)="edit(row)">edit</mat-icon> &nbsp;-->
+              <!--<mat-icon title="Cancel" *ngIf="row.cancellable" (click)="cancel(row)">cancel</mat-icon>&nbsp;-->
 
-              <mat-icon title="view" (click)="view(row)">visibility</mat-icon> &nbsp;
+              <!--<mat-icon title="view" (click)="view(row)">visibility</mat-icon> &nbsp;-->
 
-            </td>
-          </ng-container>
-
-
-          <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <!--</td>-->
+          <!--</ng-container>-->
 
 
-          <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="6">No data found</td>
-          </tr>
-        </table>
-
-        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
-        <!-- <mat-paginator [pageSizeOptions]="getPageSizeOptions()" showFirstLastButtons></mat-paginator> -->
-      </mat-card-content>
+          <!--<tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+          <!--<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
 
 
+          <!--<tr class="mat-row" *matNoDataRow>-->
+            <!--<td class="mat-cell" colspan="6">No data found</td>-->
+          <!--</tr>-->
+        <!--</table>-->
+
+        <!--&lt;!&ndash; <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> &ndash;&gt;-->
+        <!--&lt;!&ndash; <mat-paginator [pageSizeOptions]="getPageSizeOptions()" showFirstLastButtons></mat-paginator> &ndash;&gt;-->
+      <!--</mat-card-content>-->
 
 
-    </mat-card>
-  </div>
+
+
+    <!--</mat-card>-->
+  <!--</div>-->
 
   <div fxLayout="column" *ngIf="isview">
     <mat-card>
