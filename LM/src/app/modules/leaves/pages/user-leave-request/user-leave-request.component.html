@@ -1,8 +1,8 @@
 <div fxLayout="column">
   <form [formGroup]="leaveRequestForm" autocomplete="off">
   <mat-card style="flex-flow: nowrap">
-    <mat-card-header>
-      <mat-card-title>Leave Request</mat-card-title>
+    <mat-card-header style="padding-top: 0px">
+      <mat-card-title style="padding-top: 2px"> Leave Request</mat-card-title>
     </mat-card-header>
      <mat-divider></mat-divider>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
@@ -174,7 +174,7 @@
 
       </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-      <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
+      <mat-form-field fxFlex.xs="100" fxFlex="50" appearance="outline">
       <mat-label>Leave Count</mat-label>
       <input formControlName="leaveCount" [disabled]="true" required matInput placeholder="Leave Count" >
       </mat-form-field>
@@ -209,14 +209,14 @@
       </div>
 
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-      <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-1 my-1" appearance="outline">
+      <mat-form-field fxFlex.xs="100" fxFlex="50"   appearance="outline">
         <mat-label>Contact</mat-label>
         <input formControlName="contact" maxlength="10" onlyNumber required matInput placeholder="Contact Number" >
         <mat-error class="con-error" *ngIf="leaveRequestForm.controls.contact.errors?.required">
           {{msgLM1}}
         </mat-error>
       </mat-form-field>
-      <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-1 my-1" appearance="outline">
+      <mat-form-field fxFlex.xs="100" fxFlex="50"   appearance="outline">
         <mat-label>Emergency Email</mat-label>
         <input formControlName="emergencyEmail"  matInput placeholder="Emergency Email(optional)" >
       </mat-form-field>
