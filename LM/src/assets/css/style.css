@@ -322,8 +322,8 @@ form.is-editing .btn-edit, form.is-readonly .btn-save, form.is-readonly .btn-can
     border-bottom: 1px solid #28acaf !important;
 }
 ::-webkit-scrollbar {
-    width: 5px;
-}
+    width: 0px;
+   }
 ::-webkit-scrollbar-thumb {
     background: #888;
 }
