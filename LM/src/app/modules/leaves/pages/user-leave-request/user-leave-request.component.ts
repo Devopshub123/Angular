@@ -48,6 +48,7 @@ export class UserLeaveRequestComponent implements OnInit {
   msgLM119: any;
   msgLM140: any;
   msgLM141: any;
+  msgLM142: any;
   roleValue:any;
   minDate:any;
   maxDate:any;
@@ -123,7 +124,7 @@ export class UserLeaveRequestComponent implements OnInit {
 
     // this.newLeaveRequest.fromDate = this.leaveData ? new Date(this.leaveData.fromdate) : '';
 
-    
+
     // this.leaveRequestForm.controls.formData.setValue(this.leaveData ? new Date(this.leaveData.fromdate) : '')
     // this.leaveRequestForm.controls.toDate.setValue(this.leaveData ? new Date(this.leaveData.toDate) : '')
     this.leaveRequestForm.controls.fromDateHalf.setValue(this.leaveData ? this.leaveData.fromhalfdayleave == '0' ? false : true : false,{emitEvent:false})
@@ -244,6 +245,7 @@ export class UserLeaveRequestComponent implements OnInit {
     this.getErrorMessages('LM119')
     this.getErrorMessages('LM140')
     this.getErrorMessages('LM141')
+    this.getErrorMessages('LM142')
 
     this.leaveRequestForm.controls.contact.setValue(this.userSession.contactnumber)
     this.leaveRequestForm.controls.leaveCount.disable();
@@ -852,7 +854,7 @@ async  getLeavesTypeInfo() {
                   this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
 
                 }else{
-        
+
                   this.LM.getFilepathsMaster(this.activeModule.moduleid).subscribe((resultData) => {
                     if(resultData && resultData.status){
                       let obj = {
@@ -871,14 +873,14 @@ async  getLeavesTypeInfo() {
                             // this.spinner.hide()
                             if(data && data.status){
                               this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
-                             
+
                             }else{
                               this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
 
                             }
                             this.file = null;
                             this.formData.delete('file');
-              
+
                           });
                         }else{
                           this.LM.deleteFilesMaster(result.data[0].id).subscribe(data=>{})
@@ -889,13 +891,13 @@ async  getLeavesTypeInfo() {
                           //   data: {Message: this.LM138, url: '/LeaveManagement/EditProfile'}
                           // });
                         }
-                  
+
                       })
-                  
-                  
-                  
+
+
+
                       }
-                    
+
                   })
                 }
                 // this.cancel(this.leaveRequestForm);
@@ -937,9 +939,9 @@ async  getLeavesTypeInfo() {
   }
 
   fileView(){
-  
+
    window.open(this.fileURL);
-  
+
 }
 
   getUploadDocument(){
@@ -975,7 +977,7 @@ async  getLeavesTypeInfo() {
             this.leaveRequestForm.controls.document.clearValidators();
             this.leaveRequestForm.controls.document.updateValueAndValidity();
             this.iseditDoc=false;
-        
+
             let TYPED_ARRAY = new Uint8Array(imageData.image.data);
             const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
               return data + String.fromCharCode(byte);
@@ -1017,6 +1019,8 @@ async  getLeavesTypeInfo() {
         this.msgLM140 = result.data[0].errormessage
       }else if (result.status && errorCode == 'LM141') {
         this.msgLM141 = result.data[0].errormessage
+      }else if (result.status && errorCode == 'LM142') {
+        this.msgLM142 = result.data[0].errormessage
       }
 
     })
