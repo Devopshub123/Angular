@@ -422,13 +422,16 @@ export class EmployeeMasterToAddComponent implements OnInit {
   addexperience() {
     if (this.exp().controls.length > 0) {
       for (let i = 0; i < this.exp().controls.length; i++) {
+        this.workDisableFromDates[i]=this.workDisableFromDates[i]||this.maxDate;
         this.wemaxDate = this.exp().controls[i].value.wfromdate;
       }
+      this.workDisableFromDates[this.exp().controls.length]=this.maxDate;
     }
+    else this.workDisableFromDates[0]=this.maxDate;
+
     this.exp().push(this.newExperince());
-
-
   }
+
   addexperiencedetils() {
     for (let i = 0; i < this.exp().controls.length; i++) {
       this.Experience.push({
@@ -445,11 +448,14 @@ export class EmployeeMasterToAddComponent implements OnInit {
   addeducation() {
     if (this.edu().controls.length > 0) {
       for (let i = 0; i < this.edu().controls.length; i++) {
+        this.eduDisableFromDates[i]=this.eduDisableFromDates[i]||this.maxDate;
         if (this.edu().controls[i].value.efromdate != null) {
           this.edmaxDate = this.edu().controls[i].value.efromdate
         }
       }
+      this.eduDisableFromDates[this.edu().controls.length]=this.maxDate;
     } else {
+      this.eduDisableFromDates[0]=this.maxDate;
       if (this.exp().controls.length > 0) {
         for (let i = 0; i < this.exp().controls.length; i++) {
           this.edmaxDate = this.exp().controls[i].value.wfromdate;
@@ -612,7 +618,13 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
           }));
         });
-
+        if (this.edu().controls.length > 0) {
+          for (let i = 0; i < this.edu().controls.length; i++) {
+              this.eduDisableFromDates[i]=this.eduDisableFromDates[i]||this.maxDate;
+              if (this.edu().controls[i].value.efromdate != null)
+                  this.edmaxDate = this.edu().controls[i].value.efromdate
+          }
+        }
       }
       let experience = JSON.parse(this.employeedata.experience)
       if (experience != null) {
@@ -625,10 +637,13 @@ export class EmployeeMasterToAddComponent implements OnInit {
           }));
         });
 
+        if (this.exp().controls.length > 0) {
+          for (let i = 0; i < this.exp().controls.length; i++) {
+            this.workDisableFromDates[i] = this.workDisableFromDates[i] || this.maxDate;
+            this.wemaxDate = this.exp().controls[i].value.wfromdate;
+          }
+        }
       }
-
-
-
     });
 
   }

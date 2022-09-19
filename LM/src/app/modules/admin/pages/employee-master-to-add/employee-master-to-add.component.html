@@ -785,7 +785,7 @@
                                       <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2"
                                           appearance="outline">
                                           <mat-label>To </mat-label>
-                                          <input matInput readonly [matDatepicker]="wtodate" [min]="workDisableToDates[empIndex]"
+                                          <input matInput readonly [matDatepicker]="wtodate" [min]="workDisableToDates[empIndex]" [max]="maxDate"
                                            placeholder="MM/DD/YYYY" formControlName="wtodate" (click)="wtodate.open()" (dateChange)="dateChange('workToDate', $event,empIndex)">
                                           <mat-datepicker-toggle class="datepicker" matSuffix [for]="wtodate">
                                           </mat-datepicker-toggle>
@@ -839,8 +839,8 @@
                                       </mat-form-field>
                                       <mat-form-field fxFlex.xs="100"  appearance="outline">
                                           <mat-label>To </mat-label>
-                                          <input matInput readonly [matDatepicker]="etodate" [min]="eduDisableToDates[empIndex]"
-                                              [max]="edmaxDate" placeholder="MM/DD/YYYY" formControlName="etodate" (click)="etodate.open()" (dateChange)="dateChange('eduToDate', $event,empIndex)">
+                                          <input matInput readonly [matDatepicker]="etodate" [min]="eduDisableToDates[empIndex]" [max]="maxDate"
+                                               placeholder="MM/DD/YYYY" formControlName="etodate" (click)="etodate.open()" (dateChange)="dateChange('eduToDate', $event,empIndex)">
                                           <mat-datepicker-toggle class="datepicker" matSuffix [for]="etodate">
                                           </mat-datepicker-toggle>
                                           <mat-datepicker #etodate></mat-datepicker>

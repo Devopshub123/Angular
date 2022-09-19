@@ -2,56 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbc91eb2-408a-4609-acbc-746ac7092c6c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/forgot-password/forgot-password.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/forgot-password/forgot-password.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/forgot-password/forgot-password.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/forgot-password/forgot-password.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/forgot-password/forgot-password.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/forgot-password/forgot-password.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/forgot-password/forgot-password.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/forgot-password/forgot-password.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/header/header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/header/header.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/header/header.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/header/header.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/header/header.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/header/header.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/login/login.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/login/login.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/login/login.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/login/login.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/login/login.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/main-dashboard/main-dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/main-dashboard/main-dashboard.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/app/pages/main-dashboard/main-dashboard.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/pages/main-dashboard/main-dashboard.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/addLeaveConfigure.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/addLeaveConfigure.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/compOffReviewAndApprove.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/compOffReviewAndApprove.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/companyInformation.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/companyInformation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/companyLogo.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/companyLogo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/css/bootstrap.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/css/calender.css" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/css/calender.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/css/ready.css" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/css/ready.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/css/simple-calendar.css" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/css/simple-calendar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/departments.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/departments.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/employeeMasterToAdd.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/employeeMasterToAdd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/employeeMasterUpdate.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/employeeMasterUpdate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/employeeType.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/employeeType.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/fonts/line-awesomeeb4f.svg" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/fonts/line-awesomeeb4f.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/header.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/holidays.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/holidays.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/images/icons/preloader.svg" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/images/icons/preloader.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/chart.js/chart.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/chart.js/chart.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/core/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/core/bootstrap.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/core/jquery.3.2.1.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/core/jquery.3.2.1.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/core/popper.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/core/popper.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/jquery.simple-calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/jquery.simple-calendar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/plugin/chart-circle/circles.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/plugin/chart-circle/circles.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/plugin/chartist/chartist.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/plugin/chartist/chartist.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/plugin/datepicker/bootstrap-datetimepicker.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/plugin/datepicker/bootstrap-datetimepicker.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/plugin/jquery-mapael/jquery.mapael.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/plugin/jquery-mapael/jquery.mapael.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/plugin/jquery-mapael/maps/world_countries.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/plugin/jquery-mapael/maps/world_countries.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/js/plugin/moment/moment.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/js/plugin/moment/moment.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/reviewApprove.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/reviewApprove.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/shifts.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/shifts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/userDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/userDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LM/src/assets/workLocation.js" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/assets/workLocation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -67,47 +20,95 @@
     <favorites_list name="LM-FRONTEND" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="main-dashboard.component.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/LM/src/app/pages/main-dashboard/main-dashboard.component.html">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="employee-master-to-add.component.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="35" column="78" selection-start-line="35" selection-start-column="78" selection-end-line="35" selection-end-column="78" />
+            <state relative-caret-position="262">
+              <caret line="620" column="45" lean-forward="true" selection-start-line="620" selection-start-column="45" selection-end-line="620" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="employee-master-to-add.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="842" column="46" selection-start-line="842" selection-start-column="46" selection-end-line="842" selection-end-column="46" />
               <folding>
-                <element signature="n#style#0;n#h4#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h4#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="side-menu.service.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LM/src/app/services/side-menu.service.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#43#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="side-menu.service.spec.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LM/src/app/services/side-menu.service.spec.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#48#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="role-master.service.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LM/src/app/services/role-master.service.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#43#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.component.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LM/src/app/app.component.html">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="app.module.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LM/src/app/app.module.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-135">
+              <caret column="29" selection-start-column="9" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.service.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LM/src/app/services/login.service.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#43#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LM/src/app/app.component.ts">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>leavetype</find>
-      <find>getleaveb</find>
-      <find>eventbase</find>
-      <find>checkToggleBar</find>
-      <find>aria</find>
-      <find>aria-ex</find>
-      <find>empname</find>
-      <find>mainBeUrl</find>
-      <find>imageurls</find>
-      <find>console.lo</find>
-      <find>.main-header .logo-header .navbar-toggler</find>
-      <find>.main-header .logo-header</find>
-      <find>.logo-header</find>
-      <find>console.log</find>
-      <find>employeeRelations</find>
-      <find>cancel</find>
-      <find>setva</find>
-      <find>logo-header</find>
-      <find>main-header</find>
-      <find>login</find>
-      <find>logut</find>
-      <find>changepass</find>
-      <find>changePassword</find>
       <find>getu</find>
       <find>getuploa</find>
       <find>LM</find>
@@ -115,6 +116,29 @@
       <find>san</find>
       <find>snav</find>
       <find>color</find>
+      <find>fromdate</find>
+      <find>Employee</find>
+      <find>mployee</find>
+      <find>edit</find>
+      <find>Admin/Employee</find>
+      <find>admin/E</find>
+      <find>mindatofjoin</find>
+      <find>dateChange</find>
+      <find>maxdate</find>
+      <find>empIndex</find>
+      <find>wtodate</find>
+      <find>this.workDisableToDates</find>
+      <find>maxDate</find>
+      <find>mat-icon notranslate material-icons mat-icon-no-color</find>
+      <find>wemaxDate</find>
+      <find>addexperience</find>
+      <find>ngOn</find>
+      <find>open</find>
+      <find>exp().controls</find>
+      <find>workDisableFromDates</find>
+      <find>addex</find>
+      <find>edu</find>
+      <find>wfromdate</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/LM/src</dir>
@@ -128,8 +152,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/pages/summary-report-for-manager/summary-report-for-manager.component.ts" />
-        <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/pages/detailed-report-for-manager/detailed-report-for-manager.component.ts" />
         <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/pages/summary-report-for-manager/summary-report-for-manager.component.scss" />
         <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/pages/manager-dashboard-calender/manager-dashboard-calender.component.scss" />
         <option value="$PROJECT_DIR$/LM/src/styles.scss" />
@@ -158,7 +180,6 @@
         <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/pages/manager-review-and-approvals/manager-review-and-approvals.component.ts" />
         <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/dialog/confirmation/confirmation.component.ts" />
         <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/pages/manager-dashboard-calender/manager-dashboard-calender.component.ts" />
-        <option value="$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.ts" />
         <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/leaves.service.ts" />
         <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/pages/user-dashboard/user-dashboard.component.ts" />
         <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/user-leave-history/user-leave-history.component.html" />
@@ -166,7 +187,6 @@
         <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/pages/user-leave-request/user-leave-request.component.scss" />
         <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/pages/user-leave-request/user-leave-request.component.html" />
         <option value="$PROJECT_DIR$/LM/src/app/services/main.service.ts" />
-        <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/pages/edit-profile/edit-profile.component.ts" />
         <option value="$PROJECT_DIR$/LM/src/assets/css/ready.css" />
         <option value="$PROJECT_DIR$/LM/src/app/pages/main/main.component.ts" />
         <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/pages/user-leave-request/user-leave-request.component.ts" />
@@ -179,6 +199,10 @@
         <option value="$PROJECT_DIR$/LM/src/app/pages/header/header.component.html" />
         <option value="$PROJECT_DIR$/LM/src/app/pages/main-dashboard/main-dashboard.component.scss" />
         <option value="$PROJECT_DIR$/LM/src/app/pages/main-dashboard/main-dashboard.component.html" />
+        <option value="$PROJECT_DIR$/LM/src/environments/environment.ts" />
+        <option value="$PROJECT_DIR$/LM/src/app/modules/leaves/pages/edit-profile/edit-profile.component.ts" />
+        <option value="$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.html" />
+        <option value="$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.ts" />
       </list>
     </option>
   </component>
@@ -207,6 +231,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -238,6 +263,25 @@
               <item name="LM" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LM-FRONTEND" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LM-FRONTEND" type="462c0819:PsiDirectoryNode" />
+              <item name="LM" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LM-FRONTEND" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LM-FRONTEND" type="462c0819:PsiDirectoryNode" />
+              <item name="LM" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -246,8 +290,10 @@
               <item name="LM" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="footer" type="462c0819:PsiDirectoryNode" />
+              <item name="employee-master-to-add" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="LM-FRONTEND" type="b2602c69:ProjectViewProjectNode" />
@@ -256,7 +302,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="header" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="LM-FRONTEND" type="b2602c69:ProjectViewProjectNode" />
@@ -264,41 +309,12 @@
               <item name="LM" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="login" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="LM-FRONTEND" type="b2602c69:ProjectViewProjectNode" />
-              <item name="LM-FRONTEND" type="462c0819:PsiDirectoryNode" />
-              <item name="LM" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="LM-FRONTEND" type="b2602c69:ProjectViewProjectNode" />
-              <item name="LM-FRONTEND" type="462c0819:PsiDirectoryNode" />
-              <item name="LM" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="main-dashboard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="LM-FRONTEND" type="b2602c69:ProjectViewProjectNode" />
-              <item name="LM-FRONTEND" type="462c0819:PsiDirectoryNode" />
-              <item name="LM" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="testlogin" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -354,31 +370,41 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="602380000" />
+    <option name="totallyTimeSpent" value="613281000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
-    <editor active="true" />
+    <frame x="72" y="27" width="1368" height="873" extended-state="6" />
     <layout>
-      <window_info anchor="bottom" id="TypeScript" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.66049385" visible="true" weight="0.22926448" />
+      <window_info anchor="bottom" id="TypeScript" order="7" weight="0.3287858" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.66049385" weight="0.3092937" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.5401786" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.5197817" />
       <window_info id="Favorites" order="2" sideWeight="0.33950618" side_tool="true" weight="0.24491392" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.66049385" visible="true" weight="0.22926448" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TypeScript" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Messages" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.5401786" />
+      <window_info id="Favorites" order="2" sideWeight="0.33950618" side_tool="true" weight="0.24491392" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -388,110 +414,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/leave-history/leave-history.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="67" column="80" selection-start-line="67" selection-start-column="80" selection-end-line="67" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/dialog/confirmation/confirmation.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/manager-dashboard-calender/manager-dashboard-calender.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="65" column="34" lean-forward="true" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="123" column="34" lean-forward="true" selection-start-line="123" selection-start-column="34" selection-end-line="123" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/leaves.service.spec.ts">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="88" column="40" lean-forward="true" selection-start-line="86" selection-start-column="28" selection-end-line="88" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/pending-approvals/pending-approvals.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="10" lean-forward="true" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/pending-approvals/pending-approvals.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="83" column="7" lean-forward="true" selection-start-line="83" selection-start-column="7" selection-end-line="83" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/manager-review-and-approvals/manager-review-and-approvals.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="105" lean-forward="true" selection-start-line="105" selection-end-line="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/user-leave-balance/user-leave-balance.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="25" column="76" selection-start-line="25" selection-start-column="71" selection-end-line="25" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/user-leave-balance/user-leave-balance.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="2" lean-forward="true" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/user-leave-history/user-leave-history.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="59" column="91" selection-start-line="59" selection-start-column="91" selection-end-line="59" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/user-dashboard/user-dashboard.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="327" column="3" lean-forward="true" selection-start-line="324" selection-start-column="1" selection-end-line="327" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#113#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/user-leave-history/user-leave-history.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="149" column="1" lean-forward="true" selection-start-line="149" selection-start-column="1" selection-end-line="149" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/user-leave-request/user-leave-request.component.spec.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LM/src/assets/css/bootstrap.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -545,30 +467,10 @@
     <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/edit-profile/edit-profile.component.scss">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/edit-profile/edit-profile.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="10" column="73" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="73" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#mat-card#0;n#form#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LM/src/app/services/main.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/edit-profile/edit-profile.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="362" column="6" lean-forward="true" selection-start-line="362" selection-start-column="6" selection-end-line="362" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -623,46 +525,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/user-dashboard/user-dashboard.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="69" column="58" lean-forward="true" selection-start-line="69" selection-start-column="58" selection-end-line="69" selection-end-column="58" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#mat-card#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#mat-card-content#0;n#mat-card#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="e#9684#9690#0" expanded="true" />
-            <element signature="e#9799#9805#0" expanded="true" />
-            <element signature="e#9923#9929#0" expanded="true" />
-            <element signature="e#10026#10032#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1125">
+          <caret line="75" selection-start-line="75" selection-end-line="75" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/pages/testlogin/testlogin.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="81" column="7" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="81" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/pages/testlogin/testlogin.component.html" />
     <entry file="file://$PROJECT_DIR$/LM/src/app/app-routing.module.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="23" column="18" lean-forward="true" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/pages/testlogin/testlogin.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/pages/testlogin/testlogin.component.ts" />
     <entry file="file://$PROJECT_DIR$/LM/src/app/services/company-information.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -674,9 +550,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
           <caret line="24" column="46" lean-forward="true" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -684,13 +557,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="7" column="47" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="47" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#mat-toolbar#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#mat-toolbar#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#mat-card#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#mat-nav-list#0;n#mat-sidenav#0;n#mat-sidenav-container#0;n#mat-card#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -725,9 +591,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="304" lean-forward="true" selection-start-line="304" selection-end-line="304" />
-          <folding>
-            <element signature="e#6598#6633#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -741,13 +604,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LM/src/app/pages/testlogin/testlogin.component.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="1" lean-forward="true" selection-end-line="5" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/pages/testlogin/testlogin.component.scss" />
     <entry file="file://$PROJECT_DIR$/LM/src/app/pages/main-dashboard/main-dashboard.component.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -770,6 +627,142 @@
             <element signature="n#style#0;n#h4#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h4#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/environments/environment.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/user-dashboard/user-dashboard.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="324" column="24" selection-start-line="324" selection-start-column="24" selection-end-line="324" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#113#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/edit-profile/edit-profile.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="247" column="51" lean-forward="true" selection-start-line="247" selection-start-column="51" selection-end-line="247" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/user-dashboard/user-dashboard.component.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/leaves/pages/edit-profile/edit-profile.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="10" column="73" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="73" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#mat-card#0;n#form#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/main.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/services/side-menu.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/services/side-menu.service.spec.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/services/role-master.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/app.component.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/app.component.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/services/login.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/app.module.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-135">
+          <caret column="29" selection-start-column="9" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/node_modules/@angular/material/datepicker/datepicker-input-base.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="19" column="62" lean-forward="true" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/node_modules/@angular/forms/forms.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="1714" column="4" selection-start-line="1714" selection-start-column="4" selection-end-line="1714" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="842" column="46" selection-start-line="842" selection-start-column="46" selection-end-line="842" selection-end-column="46" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LM/src/app/modules/admin/pages/employee-master-to-add/employee-master-to-add.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="620" column="45" lean-forward="true" selection-start-line="620" selection-start-column="45" selection-end-line="620" selection-end-column="45" />
         </state>
       </provider>
     </entry>
