@@ -38,6 +38,7 @@ export class EditProfileComponent implements OnInit {
   LM118:any='';
   LM119:any='';
   LM138:any='';
+  LM54:any='';
 
   LM2:any = '';
   LM1:any=''
@@ -47,8 +48,10 @@ export class EditProfileComponent implements OnInit {
     this.getErrorMessages('LM117');
     this.getErrorMessages('LM118');
     this.getErrorMessages('LM119');
-    this.getErrorMessages('LM2');
+    this.getErrorMessages('LM3');
+    this.getErrorMessages('LM1');
     this.getErrorMessages('LM138');
+    this.getErrorMessages('LM54');
 
 
   }
@@ -410,16 +413,20 @@ export class EditProfileComponent implements OnInit {
       {
         this.LM119 = result.data[0].errormessage
       }
-      else if(result.status && errorCode == 'LM2')
+      else if(result.status && errorCode == 'LM3')
       {
         this.LM2 = result.data[0].errormessage
       }
       else if(result.status && errorCode == 'LM1')
       {
         this.LM1 = result.data[0].errormessage
+        console.log("dhjvhjfbj",this.LM1)
       } else if(result.status && errorCode == 'LM138')
       {
         this.LM138 = result.data[0].errormessage
+      }else if(result.status && errorCode == 'LM54')
+      {
+        this.LM54 = result.data[0].errormessage
       }
 
     })

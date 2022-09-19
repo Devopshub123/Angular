@@ -327,6 +327,9 @@
                               <mat-error class="con-error" *ngIf="employeeAddForm.controls.pincode.errors?.required">
                                   {{msgLM1}}
                               </mat-error>
+                            <mat-error class="con-error" *ngIf="employeeAddForm.controls.pincode.errors?.minlength">
+                              {{msgLM54}}
+                            </mat-error>
                               <!-- <input *ngIf="isview"  formControlName="firstname" matInput placeholder="" readonly> -->
                           </mat-form-field>
 
@@ -334,8 +337,10 @@
                               <mat-label>Pincode</mat-label>
                               <input type="text" onlyNumber formControlName="ppincode" matInput placeholder=""
                               minlength="6"   maxlength="6">
+
                               <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
                           </mat-form-field>
+
 
                       </div>
                       <div class="form-group row ml-1 mt-3" fxLayout.xs="column" fxLayoutAlign="space-between center" >
