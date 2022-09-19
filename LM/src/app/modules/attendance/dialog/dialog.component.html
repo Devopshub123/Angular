@@ -12,7 +12,7 @@
         <mat-label>Reason<span *ngIf="data.name=='Reject'"  style="color: red">*</span> </mat-label>
         <textarea formControlName="reason"  matInput placeholder="Reason"></textarea>
         <mat-error class="con-error" *ngIf="form.controls.reason.errors?.required">
-            Reason is required.
+            {{ATT1}}
         </mat-error>
     </mat-form-field>
     </div>
@@ -28,4 +28,4 @@
 </button>
 
 </div>
-</form>  
+</form>
