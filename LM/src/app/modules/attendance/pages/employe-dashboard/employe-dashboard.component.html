@@ -44,6 +44,38 @@
                                <p>Last Out {{lastOut}}</p>
                         </div>
                  </div>
+
+                       <div fxLayout="column">
+                         <div fxLayout="row" class="clock-attendance">
+                           <div style="padding-top:15px; color: white;" fxFlex="100" fxLayout="row"
+                                fxLayoutAlign="space-between">
+                             <div fxLayout="row" fxFlex="50">
+                               <p>
+                                 <mat-icon>filter_tilt_shift</mat-icon>
+                               </p>
+                               <p><b> Shifts</b>
+                               </p>
+                             </div>
+
+                           </div>
+                         </div>
+
+                       </div>
+                       <div fxLayout="column">
+                                    <span *ngFor="let item of shiftDetails">
+                                      <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
+                                      <div> <span><b>{{item.duration}}</b></span><br /><span>{{item.fromdate}} to {{item.todate}}</span></div>
+                                      <div><span><b>{{item.shiftname}}</b></span><br />
+                                             <span> {{item.fromtime}}-{{item.totime}}</span>
+                                      </div>
+                                    </div>
+                                    </span>
+
+
+                       </div>
+
+
+
                             <div fxLayout="column" style="height: 360px;">
 
                                    <div fxLayout="row" fxLayoutAlign="space-between"  class="pending-attendance">
@@ -75,34 +107,6 @@
 
                             </div>
 
-                            <div fxLayout="column">
-                                   <div fxLayout="row" class="clock-attendance">
-                                          <div style="padding-top:15px; color: white;" fxFlex="100" fxLayout="row"
-                                                 fxLayoutAlign="space-between">
-                                                 <div fxLayout="row" fxFlex="50">
-                                                        <p>
-                                                        <mat-icon>filter_tilt_shift</mat-icon>
-                                                        </p>
-                                                        <p><b> Shifts</b>
-                                                        </p>
-                                                 </div>
-
-                                          </div>
-                                   </div>
-
-                            </div>
-                            <div fxLayout="column">
-                                    <span *ngFor="let item of shiftDetails">
-                                      <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
-                                      <div> <span><b>{{item.duration}}</b></span><br /><span>{{item.fromdate}} to {{item.todate}}</span></div>
-                                      <div><span><b>{{item.shiftname}}</b></span><br />
-                                             <span> {{item.fromtime}}-{{item.totime}}</span>
-                                      </div>
-                                    </div>
-                                    </span>
-
-
-                            </div>
                      </div>
               </div>
 
