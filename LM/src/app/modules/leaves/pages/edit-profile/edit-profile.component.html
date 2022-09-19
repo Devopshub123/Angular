@@ -40,14 +40,23 @@
         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>First Name</mat-label>
           <input formControlName="firstName"  matInput placeholder="Applied Date">
+          <mat-error class="con-error"
+                     *ngIf="editForm.controls.firstName.errors?.required">
+            {{LM1}}          </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Middle Name</mat-label>
           <input formControlName="middlename"  matInput placeholder="Applied Date">
+          <mat-error class="con-error"
+                     *ngIf="editForm.controls.middlename.errors?.required">
+            {{LM1}}          </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Last Name</mat-label>
           <input formControlName="lastName" required matInput placeholder="" >
+          <mat-error class="con-error"
+                     *ngIf="editForm.controls.lastName.errors?.required">
+            {{LM1}}          </mat-error>
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -62,8 +71,7 @@
           </mat-error>
           <mat-error class="con-error"
                      *ngIf="editForm.controls.email.errors?.required">
-            This field is required
-          </mat-error>
+            {{LM1}}          </mat-error>
         </mat-form-field>
 
         <mat-form-field  fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -71,7 +79,7 @@
           <input formControlName="contact" onlyNumber required matInput placeholder="" maxlength="10"  >
           <mat-error class="con-error"
                      *ngIf="editForm.controls.contact.errors?.required">
-            This field is required
+            {{LM1}}
           </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -79,8 +87,7 @@
           <input formControlName="address" required matInput placeholder="" maxlength="100"  >
           <mat-error class="con-error"
                      *ngIf="editForm.controls.address.errors?.required">
-            This field is required
-          </mat-error>
+            {{LM1}}          </mat-error>
         </mat-form-field>
 
 
@@ -105,7 +112,7 @@
           </mat-select>
           <mat-error class="con-error"
                      *ngIf="editForm.controls.countryId.errors?.required">
-            Please select an option
+            {{LM2}}
           </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -123,7 +130,7 @@
           </mat-select>
           <mat-error class="con-error"
                      *ngIf="editForm.controls.stateId.errors?.required">
-            Please select an option
+            {{LM2}}
           </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -141,7 +148,7 @@
           </mat-select>
 
           <mat-error class="con-error" *ngIf="editForm.controls.cityId.errors?.required">
-            Please select an option
+            {{LM2}}
           </mat-error>
 
         </mat-form-field>
@@ -152,9 +159,19 @@
         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Zip Code</mat-label>
           <input formControlName="zipCode" onlyNumber required matInput placeholder="" minlength="6" maxlength="6"  >
+          <!--<div *ngIf="pincodeno['pincdctrl'].touched && pincodeno['pincdctrl'].invalid" class="show-error">-->
+            <!--<div *ngIf="pincodeno['pincdctrl'].errors?.['required'] && pincodeno['pincdctrl'].dirty">Please enter pin code-->
+            <!--</div>-->
+            <!--<div *ngIf="pincodeno['pincdctrl'].errors?.['pattern'] && pincodeno['pincdctrl'].dirty"> 6 digit pin code required-->
+            <!--</div>-->
+          <!--</div>-->
+
           <mat-error class="con-error"
                      *ngIf="editForm.controls.zipCode.errors?.required">
-            This field is required
+            {{LM1}}
+          </mat-error>
+          <mat-error class="con-error" *ngIf="editForm.controls.zipCode.errors?.minlength">
+           {{LM54}}
           </mat-error>
         </mat-form-field>
         <!--<mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">-->

@@ -46,7 +46,7 @@ export class UserDashboardComponent implements OnInit {
       },
 
     },
-    height:450,
+    height:300,
     initialView: 'dayGridMonth',
     weekends: true,
     editable: true,
@@ -202,9 +202,20 @@ export class UserDashboardComponent implements OnInit {
 
   getHolidaysList() {
     this.LM.getHolidaysList(this.usersession.id).subscribe((result)=>{
-      this.holidaysList = result;
-      this.holidaysList = this.holidaysList.data[0];
-      this.holidaydatasource = new MatTableDataSource(this.holidaysList);
+      console.log("result",result)
+      if(result && result.status){
+        for(let i=0;i<result.data[0].length;i++){
+          if(i<=2){
+            this.holidaysList.push(result.data[0][i])
+            this.holidaydatasource = new MatTableDataSource(this.holidaysList);
+
+          }
+
+        }
+
+      }
+      // this.holidaysList = result;
+      // this.holidaysList = this.holidaysList.data[0];
     })
   }
   getLeaveBalance(){
