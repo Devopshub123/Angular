@@ -57,6 +57,7 @@ dataNotSaved: any;
   holidays: any;
   leaves: any;
   myDateFilter: any;
+  ATT75:any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
     private location: Location,private adminService: AdminService) {
@@ -201,7 +202,9 @@ dataNotSaved: any;
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
-                data: "Unable to request. please check the configure shift."
+                data: this.ATT75
+
+                // data: "Unable to request. please check the configure shift."
               });
              }else{
               this.shiftData = res.data[0];
@@ -376,6 +379,8 @@ dataNotSaved: any;
           this.dataSaved =e.message
         } else if (e.code == "ATT12") {
           this.dataNotSaved =e.message
+        } else if (e.code == "ATT75") {
+          this.ATT75 =e.message
         }
       })
      }
