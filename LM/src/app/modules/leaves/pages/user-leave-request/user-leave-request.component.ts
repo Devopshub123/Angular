@@ -9,6 +9,7 @@ import { sample } from 'rxjs/operators';
 import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 import {DomSanitizer} from '@angular/platform-browser'
 import { NgxSpinnerService } from 'ngx-spinner';
+import {CompanySettingService} from '../../../../services/companysetting.service'
 
 
 @Component({
@@ -63,9 +64,11 @@ export class UserLeaveRequestComponent implements OnInit {
   leaveInfo:any;
   leaveData:any;
   submitted:boolean=false;
+  documentId:any=null;
+  documentInfo:any=null;
 
 
-  constructor(private sanitizer:DomSanitizer,private router: Router,private location:Location,private LM:LeavesService,private formBuilder: FormBuilder,private dialog: MatDialog,private spinner: NgxSpinnerService) {
+  constructor(private sanitizer:DomSanitizer,private router: Router,private location:Location,private LM:LeavesService,private formBuilder: FormBuilder,private dialog: MatDialog,private spinner: NgxSpinnerService,private LMSC:CompanySettingService) {
     this.formData = new FormData();
     this.getDurationFoBackDatedLeave();
     this.getleavecyclelastmonth();
@@ -858,8 +861,9 @@ async  getLeavesTypeInfo() {
                   this.LM.getFilepathsMaster(this.activeModule.moduleid).subscribe((resultData) => {
                     if(resultData && resultData.status){
                       let obj = {
+                        'id':this.documentId?this.documentId:null,
                         'employeeId':this.userSession.id,
-                        'filecategory': 'SL',
+                        'filecategory': this.leaveRequestForm.controls.leaveTypeId.value ==3 ?'SL':'ML',
                         'moduleId':this.activeModule.moduleid,
                         'documentnumber':'',
                         'fileName':this.file.name,
@@ -872,6 +876,9 @@ async  getLeavesTypeInfo() {
                           this.LM.setProfileImage(this.formData, info).subscribe((data) => {
                             // this.spinner.hide()
                             if(data && data.status){
+                              if(this.documentId){
+                                this.LMSC.removeImage(this.documentInfo).subscribe((data) => {})
+                              }
                               this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
 
                             }else{
@@ -956,6 +963,8 @@ async  getLeavesTypeInfo() {
     this.LM.getFilesMaster(info).subscribe((result) => {
 
       if(result && result.status){
+        this.documentId = result.data[0].id;
+        this.documentInfo = JSON.stringify(result.data[0])
         let documentName = result.data[0].filename.split('_')
         var docArray=[];
         for(let i=0;i<=documentName.length;i++){

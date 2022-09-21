@@ -39,21 +39,21 @@
 
         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>First Name</mat-label>
-          <input formControlName="firstName"  matInput placeholder="Applied Date">
+          <input formControlName="firstName"  matInput placeholder="First Name">
           <mat-error class="con-error"
                      *ngIf="editForm.controls.firstName.errors?.required">
             {{LM1}}          </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Middle Name</mat-label>
-          <input formControlName="middlename"  matInput placeholder="Applied Date">
+          <input formControlName="middlename"  matInput placeholder="Middle Name">
           <mat-error class="con-error"
                      *ngIf="editForm.controls.middlename.errors?.required">
             {{LM1}}          </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Last Name</mat-label>
-          <input formControlName="lastName" required matInput placeholder="" >
+          <input formControlName="lastName" required matInput placeholder="Last Name" >
           <mat-error class="con-error"
                      *ngIf="editForm.controls.lastName.errors?.required">
             {{LM1}}          </mat-error>
