@@ -313,8 +313,10 @@ async  getLeavesTypeInfo() {
           this.leavesTypeData = this.leaveTypes(result.data,false);
           this.leaveRequestForm.controls.leaveTypeId.setValue(this.leaveData?this.leaveData.leavetypeid.toString():'',{ emitEvent: false });
           if(this.leaveData && this.leaveData.leavetypeid == 3){
+            this.leaveRequestForm.controls.document.value=true;
             this.getUploadDocument();
           }else if(this.leaveData && this.leaveData.leavetypeid == 5){
+            this.leaveRequestForm.controls.document.value=true;
             this.getUploadDocument();
           }
           if(this.leaveData){
