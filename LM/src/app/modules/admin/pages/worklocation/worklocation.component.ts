@@ -178,9 +178,10 @@ export class WorklocationComponent implements OnInit {
         }
       }
       // return this.isViewSeed;
-      this.worklocationForm.controls.seed.disable();
+    //  this.worklocationForm.controls.seed.disable();
       // return this.ischeckprefix;
     }
+    return this.isViewSeed;
   }
   getWorkLocation(){
     // this.spinner.show();

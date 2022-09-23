@@ -13,14 +13,14 @@ thead{
     background-color: #28acaf;
 }
 th {
-    padding: 2px; 
+    padding: 2px;
     text-align: center;
 
- } 
+ }
 td {
-   padding: 2px; 
+   padding: 2px;
    text-align: center;
 }
-::ng-deep .cdk-overlay-container {
-    z-index:1050 !important;
-  }
+// ::ng-deep .cdk-overlay-container {
+//     z-index:1050 !important;
+//   }

@@ -51,14 +51,14 @@
 
     <div class="p-2">
 
-        <div class="example-container mat-elevation-z8" style="padding:10px" #TABLE>
+        <div class="example-container" style="padding:10px" #TABLE>
             <table #table style="width:100%;" *ngIf="List.length>0">
                 <thead>
                     <tr>
                         <th><span>Employee </span></th>
                         <ng-container *ngFor="let a of headersList[0]; let i=index;">
-                            <th><u>{{a | date: 'MMM d'}} </u><br>
-                                {{headersList[1][i] | limit : 3}}
+                            <th><u>{{a | date: 'd'}} </u><br>
+                                {{headersList[1][i] | limit : 2}}
                             </th>
                         </ng-container>
                         <th>Presents</th>

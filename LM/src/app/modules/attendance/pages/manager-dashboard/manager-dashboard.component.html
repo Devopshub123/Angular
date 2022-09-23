@@ -1,4 +1,4 @@
-<div fxLayout="column" fxFill>
+<div fxLayout="column" >
        <mat-card >
               <mat-card-header>
                      <mat-card-title> Attendance Calendar</mat-card-title>
@@ -6,13 +6,13 @@
               <!-- <mat-divider></mat-divider> -->
 
               <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="1px">
-                     <div fxFlex="60" fxLayout="column" >
+                     <div fxFlex="43" fxLayout="column" fxFill>
                             <div class='demo-app-main'>
 
                                    <full-calendar #calendar fxLayout="column" [options]='calendarOptions'>
                                    </full-calendar>
                             </div>
-                            <div class='demo-app-main'>
+                            <div>
                                    <mat-icon class="green-icon">check_circle</mat-icon>Present
                                    <mat-icon class="red-icon">check_circle</mat-icon> Absent
                                    <mat-icon class="blue-icon">check_circle</mat-icon>Week-Off
@@ -22,10 +22,10 @@
                             </div>
 
                      </div>
-                     <div  fxLayout="column" fxFlex="40" fxFlex.xs="50" fxLayoutGap="20px" fxLayoutGap.xs="2px">
-                            <div fxLayout="column" fxFlex="50">
+                     <div  class="sub-section-2" fxLayout="column" fxFlex="57" fxLayoutGap="10px">
+                            <div fxLayout="column" fxFlex="40">
 
-                                   <div fxLayout="row" fxLayoutAlign="space-between" [style.marginTop.px]="mobileQuery.matches ? 0 : 70" class="pending-attendance">
+                                   <div fxLayout="row" fxLayoutAlign="space-evently" [style.marginTop.px]="mobileQuery.matches ? 0 : 15" class="pending-attendance">
                                           <div style="padding-top:10px; color: white;" fxLayout="row">
                                                  <p>
                                                         <mat-icon>notifications</mat-icon>
@@ -58,7 +58,7 @@
                                    </cdk-virtual-scroll-viewport>
 
                             </div>
-                            <div fxLayout="column" fxFlex="50">
+                            <div fxLayout="column" fxFlex="40">
 
                                    <div fxLayout="row" fxLayoutAlign="space-between" class="clock-attendance">
                                           <div style="padding-top:10px;color: white;">

@@ -6,13 +6,13 @@
               <!-- <mat-divider></mat-divider> -->
 
               <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="1px">
-                     <div fxFlex="60" >
+                     <div fxFlex="43" fxFill>
                             <div class='demo-app-main'>
 
                                    <full-calendar #calendar fxLayout="column" [options]='calendarOptions'>
                                    </full-calendar>
                             </div>
-                            <div class='demo-app-main'>
+                            <div>
                                    <mat-icon class="green-icon">check_circle</mat-icon>Present
                                    <mat-icon class="red-icon">check_circle</mat-icon> Absent
                                    <mat-icon class="blue-icon">check_circle</mat-icon>Week-Off
@@ -22,7 +22,7 @@
 
                      </div>
 
-                     <div class="sub-section-2" fxLayout="column" fxFlex="40">
+                     <div class="sub-section-2" fxLayout="column" fxFlex="57">
                       <div fxLayout="column">
                         <div fxLayout="row" class="clock-attendance" [style.marginTop.px]="mobileQuery.matches ? 0 : 10">
                                <div style="padding-top:15px; color: white;" fxFlex="100" fxLayout="row"
@@ -62,6 +62,7 @@
 
                        </div>
                        <div fxLayout="column">
+                        <div class="time-attendance">
                                     <span *ngFor="let item of shiftDetails">
                                       <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
                                       <div> <span><b>{{item.duration}}</b></span><br /><span>{{item.fromdate}} to {{item.todate}}</span></div>
@@ -70,13 +71,13 @@
                                       </div>
                                     </div>
                                     </span>
-
+                                  </div>
 
                        </div>
 
 
 
-                            <div fxLayout="column" style="height: 360px;">
+                            <div fxLayout="column" style="height: 300px;">
 
                                    <div fxLayout="row" fxLayoutAlign="space-between"  class="pending-attendance">
                                           <div style="padding-top:15px; color: white;" fxLayout="row">
