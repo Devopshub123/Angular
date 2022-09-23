@@ -56,6 +56,7 @@ dataNotSaved: any;
   weekoffs: any;
   holidays: any;
   leaves: any;
+  workeddays:any;
   myDateFilter: any;
   ATT75:any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
@@ -249,6 +250,12 @@ dataNotSaved: any;
           }
           if (this.leaves.length > 0) {
             this.leaves.forEach((i: any) => {
+              let date = i + ' ' + '00:00:00'
+              this.disableDates.push(new Date(date));
+            });
+          }
+          if (this.workeddays.length > 0) {
+            this.workeddays.forEach((i: any) => {
               let date = i + ' ' + '00:00:00'
               this.disableDates.push(new Date(date));
             });
