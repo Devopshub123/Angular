@@ -765,7 +765,7 @@
                       </div>
                       <mat-card-header class="">
                           <mat-card-title > Work Experience </mat-card-title>
-                          <mat-icon title="Add" (click)="addexperience()">add</mat-icon>
+                          <mat-icon title="Add" (click)="addexperience()"  *ngIf="!isviewemployee">add</mat-icon>
                       </mat-card-header>
                       <mat-divider></mat-divider>
                       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
@@ -815,7 +815,7 @@
                       </div>
                       <mat-card-header class="">
                           <mat-card-title > Education Details </mat-card-title>
-                          <mat-icon title="Add" fxLayoutAlign="end" (click)="addeducation()">add</mat-icon>
+                          <mat-icon title="Add" fxLayoutAlign="end" *ngIf="!isviewemployee" (click)="addeducation()">add</mat-icon>
                       </mat-card-header>
                       <mat-divider></mat-divider>
                       <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center" >
