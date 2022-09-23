@@ -236,6 +236,7 @@ dataNotSaved: any;
           this.weekoffs = JSON.parse(this.datesList[0].weekoffs);
           this.holidays = JSON.parse(this.datesList[0].holidays);
           this.leaves = JSON.parse(this.datesList[0].leaves);
+          this.workeddays = JSON.parse(this.datesList[0].workeddays);
           if (this.weekoffs.length > 0) {
             this.weekoffs.forEach((i: any) => {
               let date = i + ' ' + '00:00:00'
