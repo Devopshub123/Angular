@@ -270,7 +270,7 @@ dataNotSaved: any;
     });
   }
   getWorkypeList() {
-    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'spryple_sanela').subscribe((info) => {
+    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'keerthi_hospitals').subscribe((info) => {
       if (info.status && info.data.length != 0) {
         this.workTypeData = info.data;
       }

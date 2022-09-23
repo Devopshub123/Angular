@@ -203,7 +203,7 @@ export class HeaderComponent implements OnInit {
   }})
   }
   getCompanyInformation(){
-    this.LM.getCompanyInformation('companyinformation',null,1,10,'spryple_sanela').subscribe((data:any)=>{
+    this.LM.getCompanyInformation('companyinformation',null,1,10,'keerthi_hospitals').subscribe((data:any)=>{
       if(data.status && data.data.length!=0) {
 
         this.companyinfo =data.data[0];
