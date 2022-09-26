@@ -20,6 +20,7 @@ export class DetailedReportForManagerComponent implements OnInit {
   constructor(private LM:LeavesService,public formBuilder: FormBuilder,public spinner :NgxSpinnerService) {
    // var date = new Date();
    // // date.setDate(date.getDate()-7)
+   
   }
   searchForm!: FormGroup;
   displayedColumns: string[] = ['employeeName','employeeId' ,'leaveType','designation', 'appliedDate','startDate','toDate','noOfDays','status','approvedBy'];
@@ -28,6 +29,8 @@ export class DetailedReportForManagerComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
+  pageLoading = true;
+  
   arrayList:any=[];
   userSession:any;
   leaveTypes:any=[];
@@ -205,6 +208,14 @@ export class DetailedReportForManagerComponent implements OnInit {
 
   }
   Searchform(){
+    
+    this.arrayList = [];
+    this.dataSource = new MatTableDataSource(this.arrayList);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.pageLoading = true;
+        this.paginator.firstPage();
+    this.getPageSizes()
     this.spinner.show();
     let obj = {
       'employeeId':this.searchForm.controls.employeeId.value,
@@ -214,11 +225,12 @@ export class DetailedReportForManagerComponent implements OnInit {
       'designation':this.searchForm.controls.designation.value,
       'fromDate':this.pipe.transform(this.searchForm.controls.fromDate.value, 'yyyy-MM-dd'),
       'toDate':this.pipe.transform(this.searchForm.controls.toDate.value, 'yyyy-MM-dd'),
-      'pageNumber':this.onchangeflag?this.page:1,
-      'pageSize':this.onchangeflag?this.tableSize:5
+      'pageNumber':1,
+      'pageSize':1000
 
     };
     this.LM.getEmployeeLeaveDetailedReportForManager(obj).subscribe(result =>{
+    
       this.spinner.hide();
       if (result.status) {
         this.arrayList = result.data;        
@@ -226,7 +238,7 @@ export class DetailedReportForManagerComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.onchangeflag = false;
+        this.pageLoading = false;
       } else {
         this.arrayList = [];
         this.dataSource = new MatTableDataSource(this.arrayList);
@@ -252,6 +264,14 @@ export class DetailedReportForManagerComponent implements OnInit {
     /* save to file */
     XLSX.writeFile(wb, 'Detailed_Report.xlsx');
 
+  }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+      return [5, 10, 20];
+    }
   }
 
 }

@@ -21,9 +21,9 @@
   color: #000000;
 }
 
-table, td{
-  border: 1px solid;
-}
+// table, td{
+//   border: 0px solid;
+// }
 //
 //table {
 //  width: 100%;
@@ -31,4 +31,19 @@ table, td{
 //}
 ::ng-deep .cdk-overlay-container {
   z-index:1050 !important;
+}
+::ng-deep {
+  .mat-select-panel[aria-label="Items per page:"] {
+    mat-option:last-child:before {
+      content: 'All';
+    }
+  }
+}
+
+::ng-deep {
+  .mat-select-panel[aria-label="Items per page:"] {
+    mat-option:last-child .mat-option-text {
+      display: none;
+    }
+  }
 }
