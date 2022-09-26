@@ -20,7 +20,7 @@ export class DetailedReportForManagerComponent implements OnInit {
   constructor(private LM:LeavesService,public formBuilder: FormBuilder,public spinner :NgxSpinnerService) {
    // var date = new Date();
    // // date.setDate(date.getDate()-7)
-   
+
   }
   searchForm!: FormGroup;
   displayedColumns: string[] = ['employeeName','employeeId' ,'leaveType','designation', 'appliedDate','startDate','toDate','noOfDays','status','approvedBy'];
@@ -30,7 +30,7 @@ export class DetailedReportForManagerComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
   pageLoading = true;
-  
+
   arrayList:any=[];
   userSession:any;
   leaveTypes:any=[];
@@ -46,7 +46,7 @@ export class DetailedReportForManagerComponent implements OnInit {
   pipe = new DatePipe('en-US');
   onTableDataChange(event:any){
     this.onchangeflag = true;
-    this.page = event; 
+    this.page = event;
     this.Searchform();
     // this.getHolidays(this.year?this.year:null,this.locationId?this.locationId:null);
   }
@@ -208,7 +208,7 @@ export class DetailedReportForManagerComponent implements OnInit {
 
   }
   Searchform(){
-    
+
     this.arrayList = [];
     this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
@@ -230,19 +230,21 @@ export class DetailedReportForManagerComponent implements OnInit {
 
     };
     this.LM.getEmployeeLeaveDetailedReportForManager(obj).subscribe(result =>{
-    
+
       this.spinner.hide();
       if (result.status) {
-        this.arrayList = result.data;        
+        this.arrayList = result.data;
         this.count = this.arrayList[0].total;
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator.pageSize=5;
         this.dataSource.sort = this.sort;
         this.pageLoading = false;
       } else {
         this.arrayList = [];
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator.pageSize=5;
         this.dataSource.sort = this.sort;
       }
 
