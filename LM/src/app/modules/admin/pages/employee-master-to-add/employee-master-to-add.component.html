@@ -853,7 +853,7 @@
                                       <div fxFlex.xs="100" fxFlex="2" style="padding:20px"
                                           appearance="outline">
                                           <!-- <mat-icon (click)="addeducation()">add</mat-icon> -->
-                                          <mat-icon title="Delete" (click)="removeeducation(empIndex)">delete
+                                          <mat-icon title="Delete" (click)="removeeducation(empIndex)" *ngIf="!isviewemployee">delete
                                           </mat-icon>
                                       </div>
 
