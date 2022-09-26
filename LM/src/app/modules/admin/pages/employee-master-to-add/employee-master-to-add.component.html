@@ -540,7 +540,7 @@
                           </ng-container>
                           <ng-container matColumnDef="contact">
                               <th mat-header-cell *matHeaderCellDef> Contact Number </th>
-                              <td mat-cell *matCellDef="let data"> {{data.contactnumber}} </td>
+                              <td mat-cell *matCellDef="let data"> {{data.contactnumber!=null?data.contactnumber:''}} </td>
                           </ng-container>
 
 
