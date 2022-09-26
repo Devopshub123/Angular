@@ -247,6 +247,7 @@ dataNotSaved: any;
             this.holidays.forEach((i: any) => {
               let date = i + ' ' + '00:00:00'
               this.disableDates.push(new Date(date));
+
             });
           }
           if (this.leaves.length > 0) {
