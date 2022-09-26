@@ -74,7 +74,7 @@ export class EmployeMonthlyDetailReportComponent implements OnInit {
     if (i == "P") {
       return color = 'green'
     } else if (i == "H") {
-      return color = 'yellow';
+      return color = '#800000';
     } else if (i == "W") {
       return color = 'blue';
     } else if (i == "L") {

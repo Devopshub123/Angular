@@ -597,7 +597,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
             lastname: familydata[i].lastname,
             gender: gender,
             gendername: gendername,
-            contactnumber: familydata[i].contactnumber,
+            contactnumber: familydata[i].contactnumber!= 'null'?familydata[i].contactnumber:'',
             status: familydata[i].status,
             relationship: relationship,
             relationshipname: relationshipname,
