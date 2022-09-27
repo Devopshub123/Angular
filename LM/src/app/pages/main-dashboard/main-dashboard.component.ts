@@ -50,38 +50,65 @@ export class MainDashboardComponent implements OnInit {
 
 
 
-  getrolescreenfunctionalities(id:any,date:any){
+  getrolescreenfunctionalities(id:any,date:any) {
 
-    if(date){
-        let data={
-          'empid':this.usersession.id,
-          'moduleid':id
-        };
-        sessionStorage.setItem('activeModule',JSON.stringify(data));
-        this.mainService.getRoleScreenFunctionalities(data).subscribe((res:any)=>{
-          this.menu=[];
-          if(res.status){
-            this.menu=[];
-            this.firstRoute='';
-            res.data.forEach((e: any) => {
+    if (date) {
+      if(id !=3){
 
-              if (this.menu.length > 0) {
-                var isvalid = true;
-                this.menu.forEach((item) => {
-                  if (item.displayName == e.role_name && e.parentrole!=1) {
-                    isvalid = false;
-                    if(this.compoff){
+        let data = {
+        'empid': this.usersession.id,
+        'moduleid': id
+      };
+      sessionStorage.setItem('activeModule', JSON.stringify(data));
+      this.mainService.getRoleScreenFunctionalities(data).subscribe((res: any) => {
+        this.menu = [];
+        if (res.status) {
+          this.menu = [];
+          this.firstRoute = '';
+          res.data.forEach((e: any) => {
+
+            if (this.menu.length > 0) {
+              var isvalid = true;
+              this.menu.forEach((item) => {
+                if (item.displayName == e.role_name && e.parentrole != 1) {
+                  isvalid = false;
+                  if (this.compoff) {
+                    var itemnav = {
+                      displayName: e.screen_name,
+                      iconName: '',// e.role_name,
+                      route: e.routename
+                    }
+                    item.children?.push(itemnav);
+
+                  }
+                  else {
+                    if (e.screen_name == 'Comp off History') {
+                    }
+                    else {
                       var itemnav = {
                         displayName: e.screen_name,
                         iconName: '',// e.role_name,
                         route: e.routename
                       }
                       item.children?.push(itemnav);
-
                     }
-                    else{
-                      if(e.screen_name == 'Comp off History'){}
-                      else{
+                  }
+
+                } else {
+                  if (item.displayName == 'Self' && e.parentrole == 1) {
+                    isvalid = false;
+                    if (this.compoff) {
+                      var itemnav = {
+                        displayName: e.screen_name,
+                        iconName: '',// e.role_name,
+                        route: e.routename
+                      }
+                      item.children?.push(itemnav);
+                    }
+                    else {
+                      if (e.screen_name == 'Comp Off') {
+                      }
+                      else {
                         var itemnav = {
                           displayName: e.screen_name,
                           iconName: '',// e.role_name,
@@ -91,68 +118,13 @@ export class MainDashboardComponent implements OnInit {
                       }
                     }
 
-                  }else{
-                    if(item.displayName == 'Self'  && e.parentrole==1 ){
-                      isvalid = false;
-                      if(this.compoff){
-                        var itemnav = {
-                          displayName: e.screen_name,
-                          iconName: '',// e.role_name,
-                          route: e.routename
-                        }
-                        item.children?.push(itemnav);
-                      }
-                      else{
-                        if(e.screen_name == 'Comp Off'){}
-                        else{
-                          var itemnav = {
-                            displayName: e.screen_name,
-                            iconName: '',// e.role_name,
-                            route: e.routename
-                          }
-                          item.children?.push(itemnav);
-                        }
-                      }
 
-
-                    }
                   }
-                })
-                if (isvalid == true) {
-                  if (e.parentrole == 1) {
-                    var navitem = {
-                      displayName: 'Self',
-                      iconName: '',//e.role_name,
-                      children: [
-                        {
-                          displayName: e.screen_name,
-                          iconName: '',// e.role_name,
-                          route: e.routename
-                        }
-
-                      ]
-                    };
-                    this.menu.push(navitem)
-                  } else {
-                    var item = {
-                      displayName: e.role_name,
-                      iconName: '',//e.role_name,
-                      children: [
-                        {
-                          displayName: e.screen_name,
-                          iconName: '',// e.role_name,
-                          route: e.routename
-                        }
-
-                      ]
-                    };
-                    this.menu.push(item)
-                  }
-
                 }
-              } else {
+              })
+              if (isvalid == true) {
                 if (e.parentrole == 1) {
-                  var items = {
+                  var navitem = {
                     displayName: 'Self',
                     iconName: '',//e.role_name,
                     children: [
@@ -164,10 +136,9 @@ export class MainDashboardComponent implements OnInit {
 
                     ]
                   };
-                  this.firstRoute = e.routename;
-                  this.menu.push(items)
+                  this.menu.push(navitem)
                 } else {
-                  var navtem = {
+                  var item = {
                     displayName: e.role_name,
                     iconName: '',//e.role_name,
                     children: [
@@ -179,25 +150,61 @@ export class MainDashboardComponent implements OnInit {
 
                     ]
                   };
-                  this.firstRoute = e.routename;
-                  this.menu.push(navtem)
-
+                  this.menu.push(item)
                 }
+
               }
-            });
-          sessionStorage.setItem('sidemenu',JSON.stringify(this.menu));
-                if(this.usersession.firstlogin == 'Y'){
+            } else {
+              if (e.parentrole == 1) {
+                var items = {
+                  displayName: 'Self',
+                  iconName: '',//e.role_name,
+                  children: [
+                    {
+                      displayName: e.screen_name,
+                      iconName: '',// e.role_name,
+                      route: e.routename
+                    }
+
+                  ]
+                };
+                this.firstRoute = e.routename;
+                this.menu.push(items)
+              } else {
+                var navtem = {
+                  displayName: e.role_name,
+                  iconName: '',//e.role_name,
+                  children: [
+                    {
+                      displayName: e.screen_name,
+                      iconName: '',// e.role_name,
+                      route: e.routename
+                    }
+
+                  ]
+                };
+                this.firstRoute = e.routename;
+                this.menu.push(navtem)
+
+              }
+            }
+          });
+          sessionStorage.setItem('sidemenu', JSON.stringify(this.menu));
+          if (this.usersession.firstlogin == 'Y') {
             this.router.navigate(['/ChangePassword']);
-          }else{
-          this.router.navigate([this.firstRoute]);
+          } else {
+            this.router.navigate([this.firstRoute]);
           }
 
-          }
+        }
 
 
+      })
+      }else {
+        window.open('http://122.175.62.210:5050','_blank')
 
-        })
-  }
+      }
+    }
 
   }
 
