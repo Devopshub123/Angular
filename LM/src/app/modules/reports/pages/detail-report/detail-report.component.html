@@ -61,7 +61,7 @@
                                 {{headersList[1][i] | limit : 2}}
                             </th>
                         </ng-container>
-                        <th>Presents</th>
+                        <th>Absents</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,8 +69,10 @@
                     <ng-container *ngFor="let item of List">
                         <tr style="width:100%;">
                             <ng-container *ngFor="let e of item">
-                                <td>
-                                   <span [ngStyle]="{color: getColor(e)}"> {{e}} </span></td>
+                                <td [ngStyle]="{'background-color': (e=='H' || e=='W') ? '#E2E5DE' : '#ffffff'}">
+                                   <span [hidden]="e == 'H' || e == 'W' " [ngStyle]="{color: getColor(e)}"> {{e}}
+                                   </span>
+                                </td>
                             </ng-container>
 
 

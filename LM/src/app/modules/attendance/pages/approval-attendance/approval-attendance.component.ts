@@ -46,6 +46,7 @@ export class ApprovalAttendanceComponent implements OnInit {
    if(this.userData.userData ==null && this.userData.userData ==undefined ){
     this.router.navigate(["/Attendance/ApprovalList"],);
    }
+   this.getMessagesList();
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
     this.requestform=this.formBuilder.group(
       {
