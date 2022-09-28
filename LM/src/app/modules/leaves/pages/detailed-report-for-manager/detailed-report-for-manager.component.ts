@@ -214,7 +214,7 @@ export class DetailedReportForManagerComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.pageLoading = true;
-        this.paginator.firstPage();
+        // this.paginator.firstPage();
     this.getPageSizes()
     this.spinner.show();
     let obj = {
@@ -234,7 +234,7 @@ export class DetailedReportForManagerComponent implements OnInit {
       this.spinner.hide();
       if (result.status) {
         this.arrayList = result.data;
-        this.count = this.arrayList[0].total;
+        // this.count = this.arrayList[0].total;
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.paginator.pageSize=5;

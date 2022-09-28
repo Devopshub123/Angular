@@ -256,7 +256,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
       'employeeId':this.leaveInfo.leaveData.empid,
       'filecategory': this.leaveInfo.leaveData.leavetype==3?'SL':'ML',
       'moduleId':this.activeModule.moduleid,
-      'requestId':this.leaveInfo?this.leaveInfo.leaveData.leave_id:null,
+      'requestId':this.leaveInfo?this.leaveInfo.leaveData.id:null,
     }
     this.LM.getFilesMaster(info).subscribe((result) => {
     

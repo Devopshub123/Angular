@@ -1211,7 +1211,7 @@ file:any;
 
     this.iseditDoc=true;
 
-    if (event.target.files[0].size <= 5242880) {
+    if (event.target.files[0].size <= 1242880) {
     //  var pdfArray =[];
 
       this.file= event.target.files[0];
