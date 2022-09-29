@@ -29,6 +29,7 @@ import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.co
 // import { UserLeaveRequestComponent } from './pages/user-leave-request/user-leave-request.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RemoveSpaceDirective } from 'src/app/custom-directive/remove-space.directive';
+import { EmpPayrollReportComponent } from './pages/emp-payroll-report/emp-payroll-report.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { RemoveSpaceDirective } from 'src/app/custom-directive/remove-space.dire
     LeavesForCancellationComponent,
     UserDashboardComponent,
     // UserLeaveRequestComponent,
-    RemoveSpaceDirective
+    RemoveSpaceDirective,
+    EmpPayrollReportComponent
   ],
   imports: [
     CommonModule,

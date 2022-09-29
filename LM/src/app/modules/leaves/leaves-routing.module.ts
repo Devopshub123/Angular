@@ -17,6 +17,7 @@ import {EditProfileComponent} from "./pages/edit-profile/edit-profile.component"
 import {LeavesForCancellationComponent} from "./pages/leaves-for-cancellation/leaves-for-cancellation.component";
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 import {UserLeaveRequestComponent} from "./pages/user-leave-request/user-leave-request.component";
+import { EmpPayrollReportComponent } from './pages/emp-payroll-report/emp-payroll-report.component';
 const routes: Routes = [
   {path:'',component:MainComponent,children:[
       {path:'PendingApprovals',component:PendingApprovalsComponent},
@@ -35,7 +36,8 @@ const routes: Routes = [
       {path:"LeavesForCancellation",component:LeavesForCancellationComponent},
       {path:'UserDashboard',component:UserDashboardComponent},
       {path:"ManagerDashboardCalender",component:ManagerDashboardCalenderComponent},
-      {path:"LeaveRequest",component:UserLeaveRequestComponent}
+      {path:"LeaveRequest",component:UserLeaveRequestComponent},
+      {path:"payrollreport",component:EmpPayrollReportComponent}
     ]}
 ];
 

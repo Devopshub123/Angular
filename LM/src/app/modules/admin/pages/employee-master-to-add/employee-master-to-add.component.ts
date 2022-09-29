@@ -346,7 +346,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
       this.minetodate = selectedValue;
     })
 
-    console.log(this.employeeworkAddForm.get('edu'),this.employeeworkAddForm.get('efromdate'));
+    // console.log(this.employeeworkAddForm.get('edu'),this.employeeworkAddForm.get('efromdate'));
     // this.employeeAddForm.get('paddress')?.valueChanges.subscribe(selectedValue => {
     //   this.minetodate = selectedValue;
     //   if(this.employeeAddForm.controls.address == selectedValue){
@@ -1262,11 +1262,11 @@ export class EmployeeMasterToAddComponent implements OnInit {
   dateChange(type: string, event: MatDatepickerInputEvent<Date>,empIndex: any) {
     if(type === 'eduFromDate'){
       this.eduDisableToDates[empIndex] = event.value;
-      console.log(this.eduDisableToDates);
+      // console.log(this.eduDisableToDates);
     }
     else if(type === 'eduToDate') {
       this.eduDisableFromDates[empIndex] = event.value;
-      console.log(this.eduDisableFromDates);
+      // console.log(this.eduDisableFromDates);
     }
     else if(type === 'workFromDate'){
       this.workDisableToDates[empIndex] = event.value;

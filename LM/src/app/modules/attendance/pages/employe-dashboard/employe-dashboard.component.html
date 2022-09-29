@@ -35,7 +35,7 @@
                                              </p>
                                       </div>
                                       <div fxLayout="row" fxFlex="50" fxLayoutAlign="end center">
-                                             <p><b>{{todayDate}}</b></p>
+                                             <p><b>{{todayDate }}</b></p>
                                       </div>
                                </div>
                         </div>
@@ -65,7 +65,9 @@
                         <div class="time-attendance">
                                     <span *ngFor="let item of shiftDetails">
                                       <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
-                                      <div> <span><b>{{item.duration}}</b></span><br /><span>{{item.fromdate}} to {{item.todate}}</span></div>
+                                      <div> <span><b>{{item.duration}}</b></span><br /><span>{{item.fromdate |
+                                          date:'dd-MM-yyyy'}} to {{item.todate |
+                                                 date:'dd-MM-yyyy'}}</span></div>
                                       <div><span><b>{{item.shiftname}}</b></span><br />
                                              <span> {{item.fromtime}}-{{item.totime}}</span>
                                       </div>
@@ -96,7 +98,7 @@
                                                  <ng-container *cdkVirtualFor="let item of notificationsData">
                                                         <mat-list-item>
                                                                <h3 matLine> {{ item.absent_date |
-                                                                      date:'dd/MM/yyyy'}} </h3>
+                                                                      date:'dd-MM-yyyy'}} </h3>
 
                                                                <p> <a routerLink="/" (click)="onRequestClick(item)">Send
                                                                              a

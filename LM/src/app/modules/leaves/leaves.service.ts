@@ -219,6 +219,8 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
   deleteFilesMaster(id:any):Observable<any>{
     return this.http.get(this.mainUrl + 'api/deleteFilesMaster/'+id, this.httpOptions);
   }
-
+  getReportForPayrollProcessing(data:any):Observable<any>{
+    return this.http.post(this.mainUrl + 'api/getReportForPayrollProcessing/',data, this.httpOptions);
+  }
 
 }

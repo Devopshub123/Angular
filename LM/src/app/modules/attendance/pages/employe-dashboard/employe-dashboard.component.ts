@@ -69,7 +69,7 @@ export class EmployeDashboardComponent implements OnInit {
   currentDate = new Date();
   ngOnInit(): void {
     this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
-    this.todayDate = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
+    this.todayDate = this.pipe.transform(Date.now(), 'dd-MM-yyyy');
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getemployeeattendancedashboard();
     this.getEmployeeAttendanceNotifications();

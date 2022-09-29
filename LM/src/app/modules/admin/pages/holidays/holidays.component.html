@@ -126,7 +126,7 @@
                             <th mat-header-cell *matHeaderCellDef> Date </th>
                             <!-- <td mat-cell *matCellDef="let row"> {{row.designation}} </td> -->
                             <td mat-cell *matCellDef="let row">
-                                <span *ngIf="enable != row.id">{{row.date}} </span>
+                                <span *ngIf="enable != row.id">{{row.date | date:'dd-MM-yyyy'}} </span>
 
                                     <mat-form-field appearance="outline" *ngIf="enable === row.id">
                                         <input matInput readonly [matDatepicker]="date"

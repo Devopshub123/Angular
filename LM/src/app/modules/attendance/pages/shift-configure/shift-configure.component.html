@@ -132,13 +132,13 @@
 
                         <ng-container matColumnDef="fromdate">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> From Date </th>
-                            <td mat-cell *matCellDef="let row"> {{row.fromdate}} </td>
+                            <td mat-cell *matCellDef="let row"> {{row.fromdate | date:'dd-MM-yyyy'}} </td>
                         </ng-container>
 
 
                         <ng-container matColumnDef="todate">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>
-                            <td mat-cell *matCellDef="let row"> {{row.todate}} </td>
+                            <td mat-cell *matCellDef="let row"> {{row.todate | date:'dd-MM-yyyy'}} </td>
                         </ng-container>
                         <ng-container matColumnDef="weekoffs">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Week Offs </th>
