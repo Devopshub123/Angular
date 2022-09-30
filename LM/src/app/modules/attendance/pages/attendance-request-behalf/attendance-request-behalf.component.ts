@@ -11,6 +11,25 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { AttendanceService } from '../../attendance.service';
 import { Location } from '@angular/common';
 import { AdminService } from 'src/app/modules/admin/admin.service';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
+
+import * as _moment from 'moment';
+// import {default as _rollupMoment} from 'moment';
+const moment =  _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 interface IdName {
   id: string;
   name: string;
@@ -18,7 +37,12 @@ interface IdName {
 @Component({
   selector: 'app-attendance-request-behalf',
   templateUrl: './attendance-request-behalf.component.html',
-  styleUrls: ['./attendance-request-behalf.component.scss']
+  styleUrls: ['./attendance-request-behalf.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class AttendanceRequestBehalfComponent implements OnInit {
 
@@ -160,13 +184,13 @@ dataNotSaved: any;
     }
   }
 
-  toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+  toDateChange(type: string, event: any) {
     this.maxFromDate = event.value;
     if (event.value !== null) {
       this.minFromDate = new Date(
-        event!.value.getFullYear(),
-        event!.value.getMonth(),
-        event!.value.getDate() - 31
+        event.value['_i'].year,
+        event.value['_i'].month,
+        event.value['_i'].date - 31
       );
     }
       this.getEmployeeShiftDetailsByIdWithDates();

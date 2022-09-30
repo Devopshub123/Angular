@@ -8,11 +8,36 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ExcelServiceService } from '../../excel-service.service';
 import { ReportsService } from '../../reports.service';
 import { DialogDetailComponent } from '../dialog-detail/dialog-detail.component';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import * as XLSX from 'xlsx';
+
+
+import * as _moment from 'moment';
+// import {default as _rollupMoment} from 'moment';
+const moment =  _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 @Component({
   selector: 'app-summary-report',
   templateUrl: './summary-report.component.html',
-  styleUrls: ['./summary-report.component.scss']
+  styleUrls: ['./summary-report.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class SummaryReportComponent implements OnInit {
   List: any[] = [
@@ -31,6 +56,9 @@ export class SummaryReportComponent implements OnInit {
   sort!: MatSort;
   filter = new FormControl();
   userSession: any;
+  monthdata:any;
+  year:any;
+  months=[{id:0,month:'Jan'},{id:1,month:'Feb'},{id:2,month:'Mar'},{id:3,month:'Apr'},{id:4,month:'May'},{id:5,month:'Jun'},{id:6,month:'Jul'},{id:7,month:'Aug'},{id:8,month:'Sep'},{id:9,month:'Oct'},{id:10,month:'Nov'},{id:11,month:'Dec'}]
   searchForm = this.formBuilder.group({ fromDate: [new Date()], toDate: [new Date()], Users: ['0'] });
   dataSource: MatTableDataSource<any> = <any>[];
   displayedColumns: string[] = ['sno','empname', 'attendancedate', 'firstlogintime', 
@@ -117,23 +145,42 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
     });
   }
  
+  // exportAsXLSX() {
+  //   console.log("hi")
+  //   let edata: any = [];
+  //   let i = 1;
+  //   this.dataSource.data.map(a => {
+  //     let e: any = {};
+  //     e['Sno'] = i++;
+  //     e['Employee Name'] = a.empname;
+  //     e['Attendance Date'] = a.attendancedate;
+  //     e['First In'] = a.firstlogintime;
+  //     e['Last Out'] = a.lastlogouttime;
+  //     e['Total Hours'] = a.totalhours;
+  //     e['breaks'] = a.breaks;
+  //     e['Break Time'] = a.breaktime;
+  //     e['Production Hours'] = a.productivehours;
+  //     edata.push(e);
+  //   })
+  //   console.log(edata)
+  //   this.excelService.exportAsExcelFile(edata, '');
+  // }
   exportAsXLSX() {
-    let edata: any = [];
-    let i = 1;
-    this.dataSource.data.map(a => {
-      let e: any = {};
-      e['Sno'] = i++;
-      e['Employee Name'] = a.empname;
-      e['Attendance Date'] = a.attendancedate;
-      e['First In'] = a.firstlogintime;
-      e['Last Out'] = a.lastlogouttime;
-      e['Total Hours'] = a.totalhours;
-      e['breaks'] = a.breaks;
-      e['Break Time'] = a.breaktime;
-      e['Production Hours'] = a.productivehours;
-      edata.push(e);
-    })
-    this.excelService.exportAsExcelFile(edata, '');
+    // this.year=this.searchForm.controls.fromDate.value
+    // for(let i =0;i<this.months.length;i++){
+    //   if((this.searchForm.controls.fromDate.value).getMonth()==this.months[i].id){
+    //    this.monthdata = this.months[i].month;
+    //    break;
+    //   }
+    // }
+    console.log('hi')
+    const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(document.getElementById('table'));
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Attendance_Summary_Report');
+    /* save to file */
+    XLSX.writeFile(wb, 'Attendance_Summary_Report.xlsx');
+    console.log('hi')
+
   }
   getPageSizes(): number[] {
     if (this.dataSource.data.length > 20) {

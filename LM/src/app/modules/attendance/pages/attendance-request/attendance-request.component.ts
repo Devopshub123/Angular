@@ -11,6 +11,26 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { AttendanceService } from '../../attendance.service';
 import { Location } from '@angular/common';
 import { AdminService } from 'src/app/modules/admin/admin.service';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
+
+import * as _moment from 'moment';
+// import {default as _rollupMoment} from 'moment';
+const moment =  _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
+
 
 interface IdName {
   id: string;
@@ -23,6 +43,11 @@ interface IdName {
   selector: 'app-attendance-request',
   templateUrl: './attendance-request.component.html',
   styleUrls: ['./attendance-request.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 
 })
 export class AttendanceRequestComponent implements OnInit {
@@ -78,7 +103,7 @@ export class AttendanceRequestComponent implements OnInit {
   ngOnInit(): void {
     this.getMessagesList();
     this.userData = this.location.getState();
-    this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
+    this.todayWithPipe = this.pipe.transform(Date.now(), 'dd-MM-yyyy');
     this.requestform = this.formBuilder.group(
       {
         appliedDate: [{ value: this.todayWithPipe, disabled: true }, Validators.required],
@@ -156,14 +181,19 @@ export class AttendanceRequestComponent implements OnInit {
     }
   }
 
-  toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+  toDateChange(type: string, event: any) {
     this.maxFromDate = event.value;
     if (event.value !== null) {
       this.minFromDate = new Date(
-        event!.value.getFullYear(),
-        event!.value.getMonth(),
-        event!.value.getDate() - 31
-      );
+        event.value['_i'].year,
+        event.value['_i'].month,
+        event.value['_i'].date - 31
+      )
+      // this.minFromDate = new Date(
+      //   event!.value.getFullYear(),
+      //   event!.value.getMonth(),
+      //   event!.value.getDate() - 31
+      // );
     }
     if (this.requestform.get('workType')?.value == "2") {
       this.getEmployeeShiftDetailsByIdWithDates();
@@ -321,6 +351,7 @@ export class AttendanceRequestComponent implements OnInit {
         "status": 'Submitted'
 
       };
+      console.log(obj)
 
 
       this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res: any) => {

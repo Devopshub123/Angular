@@ -16,7 +16,7 @@ import { ReportsService } from 'src/app/modules/reports/reports.service';
 })
 export class EmpPayrollReportComponent implements OnInit {
   searchForm!: FormGroup;
-  displayedColumns: string[] = ['sno','empname','lossofpay'];
+  displayedColumns: string[] = ['sno','empid','empname','lossofpay'];
   dataSource: MatTableDataSource<any>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;

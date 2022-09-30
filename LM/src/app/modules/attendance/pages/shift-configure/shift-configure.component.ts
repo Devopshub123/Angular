@@ -11,11 +11,36 @@ import { Router } from '@angular/router';
 import { AdminService } from 'src/app/modules/admin/admin.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AttendanceService } from '../../attendance.service';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
+
+import * as _moment from 'moment';
+// import {default as _rollupMoment} from 'moment';
+const moment =  _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
+
 
 @Component({
   selector: 'app-shift-configure',
   templateUrl: './shift-configure.component.html',
-  styleUrls: ['./shift-configure.component.scss']
+  styleUrls: ['./shift-configure.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class ShiftConfigureComponent implements OnInit {
 
@@ -109,15 +134,20 @@ export class ShiftConfigureComponent implements OnInit {
     return this.requestform.controls;
   }
 
-  fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.minToDate = event.value;
-    if (event.value !== null) {
+  fromDateChange(type: string, event: any) {
+    this.minToDate = event.value['_d']
+    if (event.value['_d'] !== null) {
       this.maxToDate = new Date(
-        event!.value.getFullYear()+1,
-        event!.value.getMonth(),
-        event!.value.getDate()
+        event.value['_i'].year+1,
+        event.value['_i'].month,
+        event.value['_i'].date - 31
+        // event!.value.getFullYear()+1,
+        // event!.value.getMonth(),
+        // event!.value.getDate()
       );
     }
+    console.log(this.minToDate)
+    console.log(this.maxToDate)
   }
 
   toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {

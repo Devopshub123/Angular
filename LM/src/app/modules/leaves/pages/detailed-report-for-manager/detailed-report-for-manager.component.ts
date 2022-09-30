@@ -8,12 +8,36 @@ import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {UserData} from "../../../attendance/models/EmployeeData";
 import * as XLSX from "xlsx";
 import { NgxSpinnerService } from 'ngx-spinner';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
+
+import * as _moment from 'moment';
+// import {default as _rollupMoment} from 'moment';
+const moment =  _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 
 @Component({
   selector: 'app-detailed-report-for-manager',
   templateUrl: './detailed-report-for-manager.component.html',
-  styleUrls: ['./detailed-report-for-manager.component.scss']
+  styleUrls: ['./detailed-report-for-manager.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class DetailedReportForManagerComponent implements OnInit {
 
