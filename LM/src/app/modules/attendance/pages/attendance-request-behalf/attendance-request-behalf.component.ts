@@ -99,7 +99,7 @@ dataNotSaved: any;
   ngOnInit(): void {
     this.getMessagesList()
     this.userData = this.location.getState();
-    this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
+    this.todayWithPipe = this.pipe.transform(Date.now(), 'dd-MM-yyyy');
     this.requestform = this.formBuilder.group(
       {
         appliedDate: [{ value: this.todayWithPipe, disabled: true }, Validators.required],

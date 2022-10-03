@@ -12,7 +12,7 @@
                     <mat-label>Worked Date </mat-label>
                     <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
                     <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date"  [matDatepickerFilter]="myDateFilter"
-                        placeholder="MM/DD/YYYY" formControlName="workeddate"  required (click)="date.open()">
+                    placeholder="DD-MM-YYYY" formControlName="workeddate"  required (click)="date.open()">
 
                      <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
                     </mat-datepicker-toggle>

@@ -38,7 +38,7 @@
                     <mat-label>From Date </mat-label>
                     <input matInput readonly required [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate"
                      [matDatepickerFilter]="myDateFilter"
-                        (dateInput)="fromDateChange('input', $event)" placeholder="From Date" (click)="fromDate.open()"
+                        (dateInput)="fromDateChange('input', $event)" placeholder="DD-MM-YYYY"  (click)="fromDate.open()"
                         formControlName="fromDate">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
                     <mat-datepicker #fromDate></mat-datepicker>
@@ -49,7 +49,7 @@
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>To Date </mat-label>
                     <input matInput readonly required [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
-                    [matDatepickerFilter]="myDateFilter"
+                    [matDatepickerFilter]="myDateFilter" placeholder="DD-MM-YYYY" 
                     (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="toDate.open()">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
                     <mat-datepicker #toDate></mat-datepicker>

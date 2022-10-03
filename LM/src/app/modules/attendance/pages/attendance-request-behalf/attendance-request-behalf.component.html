@@ -44,7 +44,7 @@
                     <input matInput readonly [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate" (dateInput)="fromDateChange('input', $event)"
                     [matDatepickerFilter]="myDateFilter"
                         (dateInput)="fromDateChange('input', $event)"
-                    placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()">
+                    placeholder="DD-MM-YYYY" formControlName="fromDate" (click)="fromDate.open()">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
                     <mat-datepicker #fromDate></mat-datepicker>
                     <mat-error class="con-error" *ngIf="requestform.controls.fromDate.errors?.required">
@@ -53,7 +53,7 @@
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>To Date</mat-label>
-                    <input matInput readonly [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
+                    <input matInput readonly [min]="minToDate" placeholder="DD-MM-YYYY" [max]="maxToDate" [matDatepicker]="toDate"
                     [matDatepickerFilter]="myDateFilter"
                     (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="toDate.open()">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>

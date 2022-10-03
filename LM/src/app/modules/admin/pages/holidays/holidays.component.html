@@ -19,7 +19,7 @@
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                         <mat-label>Date </mat-label>
                         <input matInput readonly [matDatepicker]="date"
-                            placeholder="MM/DD/YYYY" formControlName="date" required (click)="date.open()">
+                        placeholder="DD-MM-YYYY" formControlName="date" required (click)="date.open()">
                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
                         </mat-datepicker-toggle>
                         <mat-datepicker #date></mat-datepicker>
@@ -130,7 +130,7 @@
 
                                     <mat-form-field appearance="outline" *ngIf="enable === row.id">
                                         <input matInput readonly [matDatepicker]="date"
-                                        placeholder="MM/DD/YYYY" formControlName="date" (click)="date.open()">
+                                        placeholder="DD-MM-YYYY"  formControlName="date" (click)="date.open()">
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
                                        </mat-datepicker-toggle>
                                            <mat-datepicker #date></mat-datepicker>
