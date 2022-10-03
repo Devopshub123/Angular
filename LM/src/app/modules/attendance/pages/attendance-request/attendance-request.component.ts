@@ -396,7 +396,7 @@ export class AttendanceRequestComponent implements OnInit {
     this.uniqueId = event.id;
     this.isRequestView = false;
     this.isEditView = true;
-    this.requestform.controls.appliedDate.setValue(this.pipe.transform(event.applieddate, 'dd/MM/yyyy'));
+    this.requestform.controls.appliedDate.setValue(this.pipe.transform(event.applieddate, 'dd-MM-yyyy'));
     this.requestform.controls.shift.setValue(event.shift);
     this.requestform.controls.fromDate.setValue(event.fromdate);
     this.requestform.controls.toDate.setValue(event.todate);
@@ -473,7 +473,7 @@ export class AttendanceRequestComponent implements OnInit {
   requestView(event: any) {
     this.isRequestView = true;
     this.isEditView = false;
-    this.requestform.controls.appliedDate.setValue(this.pipe.transform(event.applieddate, 'dd/MM/yyyy'));
+    this.requestform.controls.appliedDate.setValue(this.pipe.transform(event.applieddate, 'dd-MM-yyyy'));
     this.requestform.controls.shift.setValue(event.shift);
     this.requestform.controls.fromDate.setValue(event.fromdate);
     this.requestform.controls.fromDate.disable();
