@@ -119,7 +119,7 @@ export class HolidaysComponent implements OnInit {
     });
   }
   getWorkLocation(){
-    this.LM.getactiveWorkLocation({id:null,companyName:'keerthi_hospitals'}).subscribe((result)=>{
+    this.LM.getactiveWorkLocation({id:null,companyName:'ems'}).subscribe((result)=>{
       this.worklocationDetails=result.data;
     })
 
@@ -140,7 +140,7 @@ export class HolidaysComponent implements OnInit {
       }));
     });
     // if(this.HolidayForm.controls.holiday.value !== null && this.holidays.holidayName !== null ){}
-    this.LM.setHolidays(this.selecteditems,'keerthi_hospitals').subscribe((data) => {
+    this.LM.setHolidays(this.selecteditems,'ems').subscribe((data) => {
 
       if(data.status){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -269,7 +269,7 @@ export class HolidaysComponent implements OnInit {
       date:date
 
     }
-    this.LM.putHolidays(data, 'keerthi_hospitals').subscribe((data) => {
+    this.LM.putHolidays(data, 'ems').subscribe((data) => {
 
       this.isadd= true;
       if (data.status) {

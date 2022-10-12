@@ -16,6 +16,10 @@ import { MappingIdsComponent } from './pages/mapping-ids/mapping-ids.component';
 import { ShiftMasterComponent } from './pages/shift-master/shift-master.component';
 import { MessageMasterComponent } from './pages/message-master/message-master.component';
 import { LmMessageMasterComponent } from './pages/lm-message-master/lm-message-master.component';
+import { EmsMessagemasterComponent } from '../ems/pages/ems-messagemaster/ems-messagemaster.component';
+import { TerminationCategoryComponent } from './pages/termination-category/termination-category.component';
+import { ReasonMasterComponent } from './pages/reason-master/reason-master.component';
+
 const routes: Routes = [
   {
     path: '', component: MainComponent,
@@ -34,7 +38,10 @@ const routes: Routes = [
       { path: 'MappingIds', component: MappingIdsComponent, canActivate: [LMSAccessGuard] },
       { path: 'Shift', component: ShiftMasterComponent, canActivate: [LMSAccessGuard] },
       { path: 'MessageMaster',component:MessageMasterComponent},
-      { path: 'LM-MessageMaster',component:LmMessageMasterComponent}
+      { path: 'LM-MessageMaster',component:LmMessageMasterComponent},
+      { path:'EMS-MessageMaster',component:EmsMessagemasterComponent,canActivate:[LMSAccessGuard]},
+      { path:'Termination-Category',component:TerminationCategoryComponent,canActivate:[LMSAccessGuard]},
+      { path:'Reason',component:ReasonMasterComponent,canActivate:[LMSAccessGuard]},
     ]
   }
 

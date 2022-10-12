@@ -1,0 +1,84 @@
+
+.mat-card {
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    display: block;
+    position: relative;
+    padding: 0px;
+    border-radius: 4px;
+    background: #FAFAFA;
+    border: 1px solid #D6D6D6;
+    border-radius: 2px;
+  }
+  
+  
+  
+  ////////////////////////////
+  table {
+      width: 100%;
+    }
+   .headerbox{
+      padding: 5px;
+      background-color:#28acaf;
+    }
+    .title{
+     // margin-top: 10px;
+      font-family: "Roboto";
+      font-size: 18px;
+      font-weight: normal;
+       font-stretch: normal;
+       font-style: normal;
+      letter-spacing: 0.32px;
+      color: white;
+      background-color:#28acaf;
+      height: 55px;
+    }
+    .mat-header-cell{
+      margin-top: 10px;
+      font-family: "Roboto";
+      font-size: 16px;
+      font-weight: normal;
+       font-stretch: normal;
+       font-style: normal;
+      letter-spacing: 0.32px;
+      color: #000000;
+    }
+  .noData-cell{
+    padding-top: 15px;
+    font-size: larger;
+  }
+  .example-container {
+    max-height:500px;
+    overflow-x: auto;
+  }
+  ::ng-deep {
+    .mat-select-panel[aria-label="Items per page:"] {
+      mat-option:last-child:before {
+        content: 'All';
+      }
+    }
+  }
+  ::ng-deep {
+    .mat-select-panel[aria-label="Items per page:"] {
+      mat-option:last-child .mat-option-text {
+        display: none;
+       // content: 'All';
+      }
+    }
+  }
+  .mat-column-sno {
+    max-width: 100px !important;
+   }
+  .mat-column-code {
+    max-width: 120px !important;
+   }
+  .tableP{
+    padding: 10px;
+  }
+
+  .button-cancel{
+    background-color: #9c19da  !important;
+    color:#fcfcfc !important;
+    height: 34px;
+    width: 86px;
+    top: 0px;
+  }

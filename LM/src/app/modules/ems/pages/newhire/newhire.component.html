@@ -1,0 +1,126 @@
+<div fxLayout="column">
+    <form [formGroup]="hireForm" autocomplete="off">
+
+        <mat-card-header>
+          <mat-card-title > Add New Hire </mat-card-title>
+        </mat-card-header>
+        
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+  
+          <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input formControlName="firstname"  matInput placeholder="" required 
+            (keypress)="alphabetKeyPress($event)" maxlength="70">
+            <mat-error class="con-error" *ngIf="hireForm.controls.firstname.errors?.required">
+             {{requiredField}}
+         </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>Middle Name</mat-label>
+            <input formControlName="middlename"  matInput placeholder="" (keypress)="alphabetKeyPress($event)" maxlength="50">
+          </mat-form-field>
+
+          <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lastname" required matInput placeholder="" (keypress)="alphabetKeyPress($event)" maxlength="70">
+            <mat-error class="con-error" *ngIf="hireForm.controls.lastname.errors?.required">
+              {{requiredField}}
+         </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" >
+          <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" required matInput placeholder="" maxlength="100" >
+            <mat-error class="con-error" *ngIf="hireForm.controls.email.errors?.required">
+              {{requiredField}}
+         </mat-error>
+         <mat-error class="con-error"
+         *ngIf="hireForm.controls.email.errors?.email">
+        Please enter valid email
+     </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>Date of Join</mat-label>
+            <input matInput readonly required
+              [matDatepicker]="dateofjoin" 
+              [min]="minDate"
+              [max]="maxDate"
+              placeholder="Date of Join"                        
+              formControlName="dateofjoin">
+           <mat-datepicker-toggle class="datepicker"  matSuffix [for]="dateofjoin"></mat-datepicker-toggle>
+            <mat-datepicker #dateofjoin></mat-datepicker>
+            <mat-error class="con-error" *ngIf="hireForm.controls.dateofjoin.errors?.required">
+              {{requiredOption}}
+         </mat-error>
+            </mat-form-field>
+
+        <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+          <mat-label>Hired On</mat-label>
+      <input matInput readonly required
+        [matDatepicker]="hiredon" 
+        [min]="minDate"
+        [max]="maxDate"
+        placeholder="Hired On" 
+        formControlName="hiredon">
+     <mat-datepicker-toggle class="datepicker"  matSuffix [for]="hiredon"></mat-datepicker-toggle>
+      <mat-datepicker #hiredon></mat-datepicker>
+      <mat-error class="con-error" *ngIf="hireForm.controls.hiredon.errors?.required">
+        {{requiredOption}}
+   </mat-error>
+      </mat-form-field>
+     </div>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center"  >
+  
+          <mat-form-field fxFlex.xs="100" fxFlex="50"   class="mx-2 my-2" appearance="outline">
+            <mat-label>Designation</mat-label>
+            <mat-select formControlName="designation" required>
+              <ng-container>
+                <span *ngFor="let list of designationsList">
+                  <mat-option [value]="list.id">{{list.designation}}</mat-option>
+                </span>
+               </ng-container>
+            </mat-select>
+            <mat-error class="con-error" *ngIf="hireForm.controls.designation.errors?.required">
+              {{requiredOption}}
+         </mat-error>
+          </mat-form-field>
+         
+          <mat-form-field  fxFlex.xs="100" fxFlex="50"   class="mx-2 my-2" appearance="outline">
+            <mat-label>Mobile Number</mat-label>
+            <input formControlName="mobile" maxlength="10" (keypress)=_keyPress($event) required matInput placeholder="">
+            <mat-error class="con-error" *ngIf="hireForm.controls.mobile.errors?.required">
+              {{requiredField}}
+         </mat-error>
+         <mat-error class="con-error" *ngIf="hireForm.get('mobile').hasError('pattern')">
+        Please enter valid mobile number
+     </mat-error>
+          </mat-form-field>
+
+          <mat-form-field  fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>Alternate Number</mat-label>
+            <input formControlName="alternatenumber"  matInput placeholder=""maxlength="10" (keypress)=_keyPress($event)>
+            <mat-error class="con-error" *ngIf="hireForm.get('alternatenumber').hasError('pattern')">
+              Please enter valid mobile number
+           </mat-error>
+         </mat-form-field>
+       </div> 
+
+       <div fxLayoutAlign="center">
+          <button class="col-md-1 btn btn-primary mx-2 my-2" [disabled]="!hireForm.valid"
+              (click)="saveNewHireData()" type="submit">
+              <span>Submit</span>
+          </button>
+
+          <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="cancel()">
+              <span>Cancel</span>
+          </button>
+          <br />
+      </div>
+       
+     </form>
+  </div>

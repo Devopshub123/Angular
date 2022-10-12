@@ -1,0 +1,57 @@
+<div fxLayout="column" fxFill class="custom-pgr-height-auto">
+    <mat-card fxFill class="card">
+        <mat-card-header>
+            <mat-card-title>Raise Ticket</mat-card-title>
+        </mat-card-header>
+    
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center"  class="custom-card">      
+            <div fxLayout="column" fxFlex="40" class="custom-payroll-div">
+                   <form [formGroup]="raiseTicketForm" autocomplete="off">
+                        <p>                           
+                            <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-label>Asset Category</mat-label>
+                                <mat-select formControlName="assetCategory">
+                                    <mat-option value="0">Category1</mat-option>
+                                    <mat-option value="1">Category2</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </p>
+                        <p>                           
+                            <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-label>Asset Type*</mat-label>
+                                <mat-select formControlName="assetType">
+                                    <mat-option value="0">Type1</mat-option>
+                                    <mat-option value="1">Type2</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </p>
+                        <p>                           
+                            <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-label>Asset Name*</mat-label>
+                                <mat-select formControlName="assetName">
+                                    <mat-option value="0">Name1</mat-option>
+                                    <mat-option value="1">Name2</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </p>
+                        <p>                           
+                            <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-label>Report an Issue*</mat-label>
+                                <textarea formControlName="Issue"  matInput placeholder="Issue"></textarea>
+                            </mat-form-field>
+                        </p>
+                        <div fxLayoutAlign="center">
+                            <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue" (click)="setPayGroup()"   type="submit">
+                                <span>Submit</span>
+                            </button>
+              
+                            <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue" (click)="cancel()">
+                                <span >Cancel</span>
+                            </button>
+                            <br />
+                        </div>        
+                    </form>    
+                  </div>
+          </div>
+    </mat-card>
+</div>                    

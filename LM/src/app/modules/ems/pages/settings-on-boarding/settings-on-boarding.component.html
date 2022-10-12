@@ -1,0 +1,111 @@
+<div fxLayout="column">
+  <form [formGroup]="onboardingForm" autocomplete="off">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Onboarding</mat-card-title>
+      </mat-card-header>
+      <div fxLayout="column" class="tableP">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between" style="padding-top: 10px;">
+          <span class="text">Send Automatic Reminders  </span>
+          <mat-slide-toggle formControlName="SEND_AUTOMATIC_REMAINDERS_ONBOARD"
+                            (change)="toglechange('SEND_AUTOMATIC_REMAINDERS_ONBOARD',$event)"
+                            color="primary"></mat-slide-toggle>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"> Remainder to complete
+          incomplete sections in an employee on boarding checklist will be notified to employees in the inbox
+        </div>
+        <br>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+          <span class="text">Probation Period </span>
+          <mat-slide-toggle formControlName="PROBATION_PERIOD" (change)="toglechange('PROBATION_PERIOD',$event)"
+                            color="primary"></mat-slide-toggle>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2">On boarding tasks can be
+          set around the probation period of the company
+        </div>
+        <br *ngIf="onboardingForm.controls.PROBATION_PERIOD.value">
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center"
+             *ngIf="onboardingForm.controls.PROBATION_PERIOD.value">
+          <mat-label style="margin-top: 25px;margin-right: 25px;"><span class="text">Probation Period (In Days)</span>
+          </mat-label>
+          <mat-form-field fxFlex.xs="50" class="mx-2 my-2" appearance="outline">
+            <mat-select formControlName="PROBATION_PERIOD_DAYS">
+              <ng-container>
+                <div *ngFor="let b of days">
+                  <mat-option [value]="b">{{b}}</mat-option>
+                </div>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+          <!--<mat-label style="margin-top: 25px;">in Days</mat-label>-->
+        </div>
+
+        <br>
+        <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+          <span class="text">Customized Email Notifications</span>
+          <mat-slide-toggle formControlName="CUSTOMISED_EMAIL_NOTIFICATIONS"
+                            (change)="toglechange('CUSTOMISED_EMAIL_NOTIFICATIONS',$event)"
+                            color="primary"></mat-slide-toggle>
+        </div> -->
+        <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"> customized email
+          notifications is to create the subject and body of thr email
+        </div> -->
+        <br>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"
+             *ngIf="onboardingForm.controls.CUSTOMISED_EMAIL_NOTIFICATIONS.value">
+          <mat-checkbox class="example-margin" formControlName="ACTIVATION_EMAIL"
+                        (change)="toglechange('ACTIVATION_EMAIL',$event)" color="primary"></mat-checkbox>
+          Activation Email
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"
+             *ngIf="onboardingForm.controls.CUSTOMISED_EMAIL_NOTIFICATIONS.value">
+          <mat-checkbox class="example-margin" formControlName="PROFILE_NOTIFICATIONS"
+                        (change)="toglechange('PROFILE_NOTIFICATIONS',$event)" color="primary"></mat-checkbox>
+          Profile Notifications
+        </div>
+        <ul *ngIf="onboardingForm.controls.PROFILE_NOTIFICATIONS.value">
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"
+               *ngIf="onboardingForm.controls.PROFILE_NOTIFICATIONS.value">
+            <mat-checkbox class="example-margin" formControlName="EMPLOYEE_INFORMATION_UPDATED"
+                          (change)="toglechange('EMPLOYEE_INFORMATION_UPDATED',$event)" color="primary"></mat-checkbox>
+            Employee Information Updated
+          </div>
+        </ul>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"
+             *ngIf="onboardingForm.controls.CUSTOMISED_EMAIL_NOTIFICATIONS.value">
+          <mat-checkbox class="example-margin" formControlName="ONBOARDING" (change)="toglechange('ONBOARDING',$event)"
+                        color="primary"></mat-checkbox>
+          Onboarding
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2">
+          <ul *ngIf="onboardingForm.controls.ONBOARDING.value">
+            <div *ngIf="onboardingForm.controls.ONBOARDING.value">
+              <mat-checkbox class="example-margin " formControlName="NEW_HIRE_ADDED"
+                            (change)="toglechange('NEW_HIRE_ADDED',$event)" color="primary"></mat-checkbox>
+              New Hire Added
+            </div>
+            <div *ngIf="onboardingForm.controls.ONBOARDING.value">
+              <mat-checkbox class="example-margin" formControlName="ON_BOARDING_COMPLETION"
+                            (change)="toglechange('ON_BOARDING_COMPLETION',$event)" color="primary"></mat-checkbox>
+              Onboarding completion
+            </div>
+            <div *ngIf="onboardingForm.controls.ONBOARDING.value">
+              <mat-checkbox class="example-margin" formControlName="EMPLOYEE_NOT_JOINING"
+                            (change)="toglechange('EMPLOYEE_NOT_JOINING',$event)" color="primary"></mat-checkbox>
+              Employee not joining
+            </div>
+          </ul>
+        </div>
+      </div>
+      <div fxLayoutAlign="center">
+        <button class="m-1 mat-stroked-button button-save" (click)="setOnboardingSettings()"
+                type="submit">
+          <span>Submit</span>
+        </button>
+        <br/>
+      </div>
+    </mat-card>
+  </form>
+</div>
+

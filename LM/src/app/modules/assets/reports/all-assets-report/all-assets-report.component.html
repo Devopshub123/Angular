@@ -1,0 +1,154 @@
+<div fxLayout="column" style="min-height: 700px;">
+    <form [formGroup]="approveCabinForm" autocomplete="off">
+        <mat-card fxLayout="column">
+            <mat-card-header>   
+                <mat-card-title>All Assets</mat-card-title>
+            </mat-card-header>
+       <div fxLayout="column" fxLayout.xs="column">
+        <br>
+         <div fxLayout="row wrap mx-2" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="space-between center">
+                <ng-container *ngFor="let item of checklist; let i = index" class="example-section">
+                    <div class="mx-2 my-2">
+                        <mat-checkbox (change)="isAllSelected(item)" [checked]="item.isSelected">
+                          <span style="font-size: large;">{{item.value}}</span>  
+                        </mat-checkbox>
+                    </div>
+                </ng-container>
+                <div>
+                    <a> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+                    </a>
+                    <span class="exlprint"> | </span>
+                    <a> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+                    </a>
+                </div>
+            </div>
+        <div fxLayout="row" fxLayoutAlign.xs="center">
+               <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Asset Category</mat-label>
+                    <mat-select formControlName="newCabinId" >
+                        <ng-container>
+                            <div *ngFor="let b of cabinsList">
+                                 <mat-option value={{b}}>{{b}}</mat-option>
+                            </div>
+                          </ng-container>
+                    </mat-select>
+                </mat-form-field>
+                
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Asset Type</mat-label>
+                    <mat-select formControlName="newCabinId" >
+                        <ng-container>
+                            <div *ngFor="let b of cabinsList">
+                                 <mat-option value={{b}}>{{b}}</mat-option>
+                            </div>
+                          </ng-container>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Cabins</mat-label>
+                    <mat-select formControlName="newCabinId" >
+                        <ng-container>
+                            <div *ngFor="let b of cabinsList">
+                                 <mat-option value={{b}}>{{b}}</mat-option>
+                            </div>
+                          </ng-container>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Locations</mat-label>
+                    <mat-select formControlName="newCabinId" >
+                        <ng-container>
+                            <div *ngFor="let b of cabinsList">
+                                 <mat-option value={{b}}>{{b}}</mat-option>
+                            </div>
+                          </ng-container>
+                    </mat-select>
+                </mat-form-field>
+             </div>
+
+            <div fxLayout="row xs-column" fxLayoutAlign="center">
+                <button class="m-1 mat-stroked-button button-save"    type="submit">
+                    <span>Search</span>
+                </button>
+                <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+                    <span>Cancel</span>
+                </button>
+                <!-- <div>
+                    <span class="exlprint"> | </span>
+                    <a> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+                    </a>
+                </div> -->
+              </div>
+              <!-- <div fxLayout="row xs-column" fxLayoutAlign="end  center" style="margin-right: 3%;">
+               
+            </div> -->
+        </div>
+        </mat-card>
+
+    </form>
+   <!-- <div fxLayout="row" fxLayoutAlign="end" *ngIf="isdata">
+        <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue" (click)="Add()" type="submit">
+            <span>Add</span>
+        </button>
+    </div> -->
+      <div fxLayout="column" class="tableP" *ngIf="isdata">
+    <!-- <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
+            <mat-form-field fxFlex.xs="100%" appearance="outline">
+                <mat-label>Search</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div> -->
+        <div class="mat-elevation-z8">
+            <table mat-table  [dataSource]="dataSource" matSort>
+
+                <ng-container matColumnDef="sno">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> S.No</th>
+                    <td mat-cell *matCellDef="let row ;let i=index"> {{(i+1)}}</td>
+                </ng-container>
+            
+                <ng-container matColumnDef="cname">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Applied Date</th>
+                    <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+                </ng-container>
+                <ng-container matColumnDef="mobile">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name</th>
+                    <td mat-cell *matCellDef="let row"> {{row.mobile}}</td>
+                </ng-container>
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cabin </th>
+                    <td mat-cell *matCellDef="let row"> {{row.email}}</td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                    <td mat-cell *matCellDef="let row"> {{row.address}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-icon  class="mr-2" title="view" (click)="editRequest(row)">
+                            visibility</mat-icon>
+                     
+                    </td>
+                </ng-container>
+
+                <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="6">No data available</td>
+                </tr>
+            </table>
+          
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        
+        </div>
+    </div>
+
+
+
+
+</div>

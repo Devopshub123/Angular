@@ -75,7 +75,7 @@ export class ResetPasswordComponent implements OnInit {
     this.newpassword = this.formGroup.controls.newpassword.value;
     this.confirmpassword = this.formGroup.controls.confirmpassword.value;
     if(this.newpassword === this.confirmpassword  ){
-      this.tss.resetpassword(resetObj).subscribe((data) => {
+      this.tss.resetpassword(resetObj).subscribe((data:any) => {
         if (data.status) {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
@@ -114,7 +114,7 @@ export class ResetPasswordComponent implements OnInit {
   }
   getErrorMessages(errorCode:any) {
 
-    this.tss.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+    this.tss.getErrorMessages(errorCode,1,1).subscribe((result:any)=>{
 
       if(result.status && errorCode == 'LM1')
       {

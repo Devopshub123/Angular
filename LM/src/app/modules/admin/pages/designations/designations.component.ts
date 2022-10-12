@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AdminService } from '../../admin.service';
+import { DatePipe } from '@angular/common';
 
 export interface UserData {
   id: number;
@@ -36,6 +37,8 @@ export class DesignationsComponent implements OnInit {
   isEdit: boolean = true;
   isSave: boolean = false;
   valid: boolean = false;
+  userSession:any;
+  pipe = new DatePipe('en-US');
   msgLM128:any;
   msgLM129:any;
   msgLM130:any
@@ -43,7 +46,7 @@ export class DesignationsComponent implements OnInit {
   msgLM132:any;
   displayedColumns: string[] = ['designation', 'status', 'Action'];
   designationData: any = [];
-  arrayValue: any = [{ Value: 'Active', name: 'Active ' }, { Value: 'Inactive', name: 'Inactive' }];
+  arrayValue: any;
   enable: any = null;
   dataSource: MatTableDataSource<UserData>;
 
@@ -59,7 +62,9 @@ export class DesignationsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getDesignation();
+    this.getstatuslist();
     this.getErrorMessages('LM1');
     this.getErrorMessages('LM30');
     this.getErrorMessages('LM31');
@@ -76,7 +81,7 @@ export class DesignationsComponent implements OnInit {
     );
   }
   validatedesignation(data: any) {
-    if (this.designationData.length < 0) {
+    if (this.designationData.length == 0) {
       this.valid = true;
 
     }
@@ -100,7 +105,9 @@ export class DesignationsComponent implements OnInit {
       this.validatedesignation(this.designationForm.controls.designation.value)
       this.designation = this.designationForm.controls.designation.value;
       let designationdata = {
-        designationName: this.designation
+        designationName: this.designation,
+        created_by:this.userSession.id,
+       created_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
       }
       if (this.valid) {
         this.LM.setDesignation(designationdata).subscribe((data) => {
@@ -186,13 +193,22 @@ export class DesignationsComponent implements OnInit {
     this.isSave = true;
 
   }
-  save(event: any, id: any, desname: any) {
+  save(event: any, id: any, desname: any,datas:any) {
     this.validatedesignation(desname)
     this.enable = null;
     this.isEdit = true;
     this.isSave = false;
     if (this.valid) {
-      this.LM.putDesignation({ id: id, name: desname }).subscribe((data) => {
+      let data={
+        id:id,
+        name:desname,
+        created_by: datas.created_by,
+        created_on:datas.created_on,
+        status:datas.status,
+        updated_by:this.userSession.id,
+        updated_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
+      }
+      this.LM.putDesignation(data).subscribe((data) => {
         if (data.status) {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/Designation"]));
@@ -230,8 +246,17 @@ export class DesignationsComponent implements OnInit {
     this.isSave = false;
     this.ngOnInit();
   }
+  getstatuslist(){
+    this.LM.getstatuslists().subscribe((result:any) => {
+      console.log(result)
+      if(result.status){
+        this.arrayValue = result.data;
+      }
+
+    })
+  }
   getDesignation() {
-    this.LM.getDesignation('designationsmaster', null, 1, 100, 'nandyala_hospitals').subscribe((info) => {
+    this.LM.getDesignation('designationsmaster', null, 1, 100, 'ems').subscribe((info) => {
       if (info.status && info.data.length != 0) {
         this.designationData = info.data;
         this.dataSource = new MatTableDataSource(this.designationData);

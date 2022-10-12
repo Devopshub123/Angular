@@ -7,15 +7,18 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import {MainDashboardComponent} from './pages/main-dashboard/main-dashboard.component'
 import {LMSAccessGuard} from  './LMS-access.guard';
 import { CommonModule } from '@angular/common';
+import { PreOnboardingDetailsComponent } from './pages/pre-onboarding-details/pre-onboarding-details.component';
 
 
 const routes: Routes = [
   {path:'Login',component:LoginComponent},
   {path:'ChangePassword',component:ChangePasswordComponent,canActivate:[LMSAccessGuard]},
   // {path:'ResetPassword',component:ResetPasswordComponent},
-  {path:'ResetPassword/:token',component:ResetPasswordComponent},
+  {path:'ResetPassword/:email/:id',component:ResetPasswordComponent},
 
   {path:'ForgotPassword',component:ForgotPasswordComponent},
+  //{path:':token',component:PreOnboardingDetailsComponent},
+  {path:'pre-onboarding/:token',component:PreOnboardingDetailsComponent},
   // {
   //   path: 'HrmsDashboard',
   //   component:ForgotPasswordComponent
@@ -37,7 +40,8 @@ const routes: Routes = [
   },
   {path:'MainDashboard',component:MainDashboardComponent,canActivate:[LMSAccessGuard]},
   {path:'LeaveManagement',loadChildren:()=>import('./modules/leaves/leaves.module').then(m=>m.LeavesModule),canActivate:[LMSAccessGuard]},
-
+  {path:'Asset',loadChildren:()=>import('./modules/assets/assets.module').then(m=>m.AssetsModule),canActivate:[LMSAccessGuard]},
+  {path:'ems',loadChildren:()=>import('./modules/ems/ems.module').then(m=>m.EMSModule),canActivate:[LMSAccessGuard]}
 
 ];
 

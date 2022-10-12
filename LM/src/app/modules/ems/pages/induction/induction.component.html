@@ -1,0 +1,128 @@
+<div fxLayout="column">
+  <form [formGroup]="inductionForm" autocomplete="off">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title > Induction </mat-card-title>
+      </mat-card-header>
+      <div *ngIf="ishide">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+          <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-label>Program Type</mat-label>
+            <input formControlName="programType"  matInput placeholder="">
+            <mat-error class="con-error" *ngIf="inductionForm.controls.programType.errors?.required || inductionForm.controls.programType.errors?.['whitespace']">
+              {{EM1}}
+            </mat-error>
+          </mat-form-field>
+
+          <!--<mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">-->
+          <!--<mat-label>Status</mat-label>-->
+          <!--<mat-select  formControlName="status" >-->
+          <!--<ng-container>-->
+          <!--<mat-option value="hyd1">Active</mat-option>-->
+          <!--<mat-option value="hyd2">Inactive</mat-option>-->
+
+          <!--</ng-container>-->
+          <!--</mat-select>-->
+          <!--&lt;!&ndash; <input formControlName="topic"  matInput placeholder=""> &ndash;&gt;-->
+          <!--</mat-form-field>-->
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <div fxLayoutAlign="center">
+          <button class="col-md-1 btn btn-primary mx-1 my-1"  (click)="setProgramsMaster()"   type="submit">
+            <span>Submit</span>
+          </button>
+          <button class="col-md-1 btn btn-danger mx-1 my-1"   (click)="close()">
+            <span >Cancel</span>
+          </button>
+
+          <br />
+        </div>
+      </div>
+      <div fxLayout="column" *ngIf="isview">
+        <br>
+        <div fxLayout="row" fxLayoutAlign="end" *ngIf="!enable">
+          <button  class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue" (click)="Add()" type="submit">
+            <span>Add</span>
+          </button>
+        </div><br>
+        <div fxLayout="column" class="tableP">
+          <mat-card-content>
+            <table mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="sno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > S.No </th>
+                <td mat-cell *matCellDef="let row;let i=index" >
+                  <span>{{(i+1)}}</span>
+
+
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="programtype">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                  Program Type </th>
+                <td mat-cell *matCellDef="let row" >
+                  <!-- <span>{{row.programtype}} </span> -->
+                  <span *ngIf="enable != row.id">{{row.description}} </span>
+                  <span *ngIf="enable == row.id">
+                                  <mat-form-field appearance="outline">
+                                  <input formControlName="programType" matInput placeholder="" >
+                                    <!-- <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
+                                        {{errorDesName}}
+                                    </mat-error> -->
+                              </mat-form-field>
+                              </span>
+
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > Status </th>
+                <td mat-cell *matCellDef="let row"  >
+                  <!-- <mat-radio-group >
+                      <mat-radio-button value="{{row.status}}">Active</mat-radio-button> &nbsp;
+                      <mat-radio-button value="{{row.status}}">Inactive</mat-radio-button>
+                    </mat-radio-group> -->
+                  <mat-radio-group  >
+                    <mat-radio-button class="mr-2" color="primary" *ngFor="let halfs of arrayValue;index as i;" (change)="status(halfs.id,row)" [checked]="halfs.id == row.status"  [value]="halfs.id"  >{{halfs.name}}</mat-radio-button>
+                  </mat-radio-group>
+
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header >  </th>
+                <td mat-cell *matCellDef="let row" >
+                  <!-- <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon>
+                  <mat-icon class="mr-2" title="Delete">delete</mat-icon> -->
+                  <mat-icon (click)="edit($event,row)" title="Edit" *ngIf="enable != row.id">edit</mat-icon>
+                  <mat-icon (click)="save($event,row)" title="Save" *ngIf="enable == row.id">save</mat-icon>
+                  <mat-icon (click)="canceledit($event,row.id)" title="Cancel" *ngIf="enable == row.id">cancel</mat-icon>
+
+                </td>
+              </ng-container>
+              <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data found</td>
+              </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+          </mat-card-content>
+        </div>
+      </div>
+
+
+
+    </mat-card>
+  </form>
+</div>

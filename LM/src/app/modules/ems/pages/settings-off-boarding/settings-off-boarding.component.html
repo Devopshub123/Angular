@@ -1,0 +1,63 @@
+<div fxLayout="column">
+  <form [formGroup]="offboardingForm" autocomplete="off">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title> Offboarding</mat-card-title>
+      </mat-card-header>
+      <div class="tableP">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between" style="padding-top: 10px;">
+          <span class="text">Send Automatic Reminders  </span>
+          <mat-slide-toggle formControlName="SEND_AUTOMATIC_REMAINDERS_OFFBOARD"
+                            (change)="toglechange('SEND_AUTOMATIC_REMAINDERS_OFFBOARD',$event)"
+                            color="primary"></mat-slide-toggle>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"> Auto reminders are
+          sent nudge owners via email for the timely completion of employee clearance form
+        </div>
+        <br>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+          <span class="text">Notice Period </span>
+          <mat-slide-toggle formControlName='NOTICE_PERIOD' (change)="toglechange('NOTICE_PERIOD',$event)"
+                            color="primary"></mat-slide-toggle>
+        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2">The suggested exit date
+          by the system is dependent on notice period of company
+        </div>
+        <br>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center"
+             *ngIf="offboardingForm.controls.NOTICE_PERIOD.value">
+          <mat-label style="margin-top: 25px;margin-right: 25px;"><span class="text">Notice Period (In Days)</span>
+          </mat-label>
+          <mat-form-field fxFlex.xs="50" class="mx-2 my-2" appearance="outline">
+            <mat-select formControlName="NOTICE_PERIOD_DAYS">
+              <ng-container>
+                <div *ngFor="let b of days">
+                  <mat-option [value]="b">{{b}}</mat-option>
+                </div>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+          <!-- <mat-label style="margin-top: 25px;">in Days</mat-label>-->
+        </div>
+        <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+          <span class="text">Resignation Approval sequence</span>
+          <mat-slide-toggle formControlName="RESIGNATION_APPROVAL_SEQUENCE"
+                            (change)="toglechange('RESIGNATION_APPROVAL_SEQUENCE',$event)"
+                            color="primary"></mat-slide-toggle>
+        </div> -->
+        <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"> Admin can choose the
+          approvers in resignation workflow here.In any case,Resignation request raised by admin are auto approved
+        </div> -->
+      </div>
+      <div fxLayoutAlign="center">
+        <button class="m-1 mat-stroked-button button-save" (click)="setOffboardingSettings()"
+                type="submit">
+          <span>Submit</span>
+        </button>
+        <br/>
+      </div>
+    </mat-card>
+
+  </form>
+</div>

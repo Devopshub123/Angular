@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseService } from '../../services/base.service';
 import { Subscribable, Subscription } from 'rxjs';
-import {UserDashboardService} from '../../services/user-dashboard.service';
-import {RoleMasterService} from '../../services/role-master.service';
+import { UserDashboardService } from 'src/app/services/user-dashboard.service';
+import { RoleMasterService } from 'src/app/services/role-master.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -45,7 +45,7 @@ export class SideNavComponent implements OnInit {
   }
   getSideNav(): void
   {
-    this.baseService.getSideNav().subscribe(message => {
+    this.baseService.getSideNav().subscribe((message:any) => {
       if (message) {
         this.checkSideNav = message;
       } else {
@@ -55,7 +55,7 @@ export class SideNavComponent implements OnInit {
   }
   getHeadNav(): void
   {
-    this.baseService.getHeadNav().subscribe(message => {
+    this.baseService.getHeadNav().subscribe((message:any) => {
       if (message) {
         this.checkHeadNav = message;
       } else {
@@ -73,7 +73,7 @@ export class SideNavComponent implements OnInit {
   }
   getSubSideNav(): void
   {
-    this.baseService.getSubSideNav().subscribe(message => {
+    this.baseService.getSubSideNav().subscribe((message:any) => {
       if (message) {
         this.checkSubSideNav = message;
       } else {
@@ -83,7 +83,7 @@ export class SideNavComponent implements OnInit {
   }
   getToggleSideBar(): void
   {
-    this.baseService.getToggleSideBar().subscribe(message => {
+    this.baseService.getToggleSideBar().subscribe((message:any) => {
       if (message) {
         this.checkToggleBar = message;
       } else {
@@ -92,7 +92,7 @@ export class SideNavComponent implements OnInit {
     });
   }
   getEmployeeRoles() {
-    this.UD.getEmployeeRoles(this.usersession.roles[0].employee_id).subscribe((result)=>{
+    this.UD.getEmployeeRoles(this.usersession.roles[0].employee_id).subscribe((result:any)=>{
       this.employeeRoles = result;
       this.employeeRoles = this.employeeRoles.data[0];
     })
@@ -100,7 +100,7 @@ export class SideNavComponent implements OnInit {
   getScreens(name:any,id:any)
   {
 
-    this.RM.getRoleScreenFunctionalities(id).subscribe((result)=>{
+    this.RM.getRoleScreenFunctionalities(id).subscribe((result:any)=>{
       this.rolesScreen = result;
       this.rolesScreen = this.rolesScreen.data[0]
     /*  this.baseService.setRoles(data);*/

@@ -1,0 +1,208 @@
+
+<div fxLayout="column" fxLayoutGap="20px" class="header">
+
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px" class="matHeader">
+
+    <!-- <div fxFlex="30" fxFlex.xs="100">
+     <mat-card id="cardbox">
+        <mat-card-header class="mat-header" fxLayoutAlign="space-around center">
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>VENDORS</mat-card-title>
+          <span><mat-icon class="downarrow">arrow_drop_down</mat-icon></span>
+       </mat-card-header>
+        <mat-card-content class="matContent">
+          <span style="font-size: 20px;">Count</span><span 
+            style="color: blue;font-size: 30px;padding-left: 5%;">10</span>
+        </mat-card-content>
+        <mat-card-actions class="cardAction">
+          <a routerLink="/Asset/VendorDetails">ADD</a>
+        </mat-card-actions>
+      </mat-card>
+    </div> -->
+    <div  fxFlex="30" fxFlex.xs="100">
+      <mat-card id="cardbox">
+          <mat-card-header class="mat-header" fxLayoutAlign="space-around center">
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>VENDORS</mat-card-title>
+            <span><mat-icon class="downarrow">arrow_drop_down</mat-icon></span>
+         </mat-card-header>
+         <mat-card-content class="matContent">
+          <span style="font-size: 20px;">Count</span>
+          <span style="color: blue;font-size: 30px;padding-left: 5%;">25</span>
+        </mat-card-content>
+          <mat-card-actions class="cardAction">
+            <a routerLink="/Asset/AssignAsset">ASSIGN</a>
+          </mat-card-actions>
+        </mat-card>
+  </div>
+    
+    <div  fxFlex="30" fxFlex.xs="100">
+    <mat-card id="cardbox">
+        <mat-card-header class="mat-header" fxLayoutAlign="space-around center">
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>ASSETS</mat-card-title>
+           <span><mat-icon class="downarrow">arrow_drop_down</mat-icon></span>
+       </mat-card-header>
+       <mat-card-content class="matContent">
+        <span style="font-size: 20px;">Count</span>
+          <span style="color: blue;font-size: 30px;padding-left: 5%;">20</span>
+      </mat-card-content>
+        <mat-card-actions class="cardAction">
+          <a routerLink="/Asset/AssetType">ADD</a>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    
+    <div  fxFlex="40" fxFlex.xs="100%">
+    <mat-card id="cardbox">
+        <mat-card-header class="mat-header" fxLayoutAlign="space-around center">
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>NOTIFICATIONS</mat-card-title>
+          <span><mat-icon class="downarrow">arrow_drop_down</mat-icon></span>
+       </mat-card-header>
+       <div fxLayout="column"  style="padding-top:25px">
+       <div fxLayout="row" fxLayoutAlign="space-around end">
+        <span>
+          <mat-icon style="font-size: 40px;">album</mat-icon>
+        </span>
+        <span>
+          <mat-icon style="font-size: 40px;">album</mat-icon>
+        </span>
+        <span>
+          <mat-icon style="font-size: 40px;">album</mat-icon>
+        </span>
+       </div>
+       <div fxLayout="row" fxLayoutAlign="space-around end">
+        <span>Asset Request  </span>
+        <span>Change Request </span>
+        <span>Cabin Request </span>
+       </div>
+       </div>
+    
+       </mat-card>
+    </div>
+
+</div>
+
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px">
+
+    <div  fxFlex="30">
+        <mat-card id="cardbox">
+            <mat-card-header class="mat-header" fxLayoutAlign="space-around center">
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>ASSIGNED ASSETS</mat-card-title>
+              <span><mat-icon class="downarrow">arrow_drop_down</mat-icon></span>
+           </mat-card-header>
+           <mat-card-content class="matContent">
+            <span style="font-size: 20px;">Count</span>
+            <span style="color: blue;font-size: 30px;padding-left: 5%;">25</span>
+          </mat-card-content>
+            <mat-card-actions class="cardAction">
+              <a routerLink="/Asset/AssignAsset">ASSIGN</a>
+            </mat-card-actions>
+          </mat-card>
+    </div>
+        
+    <div  fxFlex="30">
+        <mat-card id="cardbox">
+            <mat-card-header class="mat-header" fxLayoutAlign="space-around center">
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>REQUESTED ASSETS</mat-card-title>
+              <span><mat-icon class="downarrow">arrow_drop_down</mat-icon></span>
+           </mat-card-header>
+           <mat-card-content class="matContent">
+            <span style="font-size: 20px;">Count</span>
+            <span style="color: blue;font-size: 30px;padding-left: 5%;">30</span>
+          </mat-card-content>
+            <mat-card-actions class="cardAction">
+              <a routerLink="/Asset/ApproveAsset">APPROVE</a>
+            </mat-card-actions>
+          </mat-card>
+    </div>
+        
+    <div  fxFlex="40">
+        <mat-card id="cardbox">
+            <mat-card-header class="mat-header" fxLayoutAlign="space-around center">
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>EXPIRY NOTIFICATIONS</mat-card-title>
+              <span><mat-icon class="downarrow">arrow_drop_down</mat-icon></span>
+           </mat-card-header>
+           <div fxLayout="column"  style="padding-top:25px">
+            <div fxLayout="row" fxLayoutAlign="space-around end">
+             <span >
+               <mat-icon style="font-size: 40px;">album</mat-icon>
+             </span>
+             <span>
+               <mat-icon style="font-size: 40px;">album</mat-icon>
+             </span>
+           
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-around end">
+             <span>License Expiry </span>
+             <span>Warranty Expiry</span>
+         
+            </div>
+            </div>
+           </mat-card>
+    </div>
+    
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px" style="padding-bottom: 10px;">
+
+        <div  fxFlex="30">
+            <mat-card id="cardbox">
+                <mat-card-header class="mat-header" fxLayoutAlign="space-around center">
+                  <div mat-card-avatar class="example-header-image"></div>
+                  <mat-card-title>ASSIGNED CABINS</mat-card-title>
+                  <span><mat-icon class="downarrow">arrow_drop_down</mat-icon></span>
+               </mat-card-header>
+               <mat-card-content class="matContent">
+                <span style="font-size: 20px;">Count</span>
+                <span style="color: blue;font-size: 30px;padding-left: 5%;">18</span>
+              </mat-card-content>
+                <mat-card-actions class="cardAction">
+                  <a routerLink="/Asset/CabinAllocation">ASSIGN</a>
+                </mat-card-actions>
+              </mat-card>
+        </div>
+            
+        <div  fxFlex="30">
+            <mat-card id="cardbox">
+                <mat-card-header class="mat-header" fxLayoutAlign="space-around center">
+                  <div mat-card-avatar class="example-header-image"></div>
+                  <mat-card-title>REQUESTED CABINS</mat-card-title>
+                  <span><mat-icon class="downarrow">arrow_drop_down</mat-icon></span>
+               </mat-card-header>
+               <mat-card-content class="matContent">
+                <span style="font-size: 20px;">Count</span>
+                <span style="color: blue;font-size: 30px;padding-left: 5%;">29</span>
+              </mat-card-content>
+                <mat-card-actions class="cardAction">
+                  <a routerLink="/Asset/ApproveCabin">APPROVE</a>
+                </mat-card-actions>
+              </mat-card>
+        </div>
+            
+        <div  fxFlex="40">
+            <mat-card id="cardbox">
+                <mat-card-header class="mat-header" fxLayoutAlign="space-around center">
+                  <div mat-card-avatar class="example-header-image"></div>
+                  <mat-card-title>ASSET BY CATEGORY</mat-card-title>
+                  <span><mat-icon class="downarrow">arrow_drop_down</mat-icon></span>
+               </mat-card-header>
+               <div>
+                <!-- <canvas baseChart
+                            [data]="demodoughnutChartData"
+                            [labels]="doughnutChartLabels"
+                            [chartType]="doughnutChartType"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"
+                            [colors]="colors"></canvas> -->
+              </div>
+                </mat-card>
+        </div>
+        
+        </div>
+
+ </div> 

@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -29,26 +29,26 @@ export class ShiftMasterComponent implements OnInit {
   workTypeData: any;
   userSession: any;
   shifDetails: any;
-  arrayValue: any = [{ Value: 'Active', name: 'Active ' }, { Value: 'Inactive', name: 'Inactive' }];
+  arrayValue:any;
   starttime: any;
   endtime: any;
-  overTimeList = [
-    { "id": "00:30:00", "name": "00:30" },
-    { "id": "01:00:00", "name": "01:00" },
-    { "id": "01:30:00", "name": "01:30" },
-    { "id": "02:00:00", "name": "02:00" },
-    { "id": "02:30:00", "name": "02:30" },
-    { "id": "03:00:00", "name": "03:00" },
-    { "id": "03:30:00", "name": "03:30" },
-    { "id": "04:00:00", "name": "04:00" },
-    { "id": "04:30:00", "name": "04:30" },
-    { "id": "05:00:00", "name": "05:00" },
-    { "id": "05:30:00", "name": "05:30" },
-    { "id": "06:00:00", "name": "06:00" },
-    { "id": "06:30:00", "name": "06:30" },
-  ]
-  daysList = ["0.5", "1", "2", "3", "4", "5"]
-  isEdit: boolean = false;
+  overTimeList=[
+    {"id":"00:30:00","name":"00:30"},
+    {"id":"01:00:00","name":"01:00"},
+    {"id":"01:30:00","name":"01:30"},
+    {"id":"02:00:00","name":"02:00"},
+    {"id":"02:30:00","name":"02:30"},
+    {"id":"03:00:00","name":"03:00"},
+    {"id":"03:30:00","name":"03:30"},
+    {"id":"04:00:00","name":"04:00"},
+    {"id":"04:30:00","name":"04:30"},
+    {"id":"05:00:00","name":"05:00"},
+    {"id":"05:30:00","name":"05:30"},
+    {"id":"06:00:00","name":"06:00"},
+    {"id":"06:30:00","name":"06:30"},
+      ]
+  daysList=["0.5","1","2","3","4","5"]
+  isEdit: boolean=false;
   pageLoading = true;
   messagesDataList: any = [];
   requiredField: any;
@@ -69,37 +69,47 @@ export class ShiftMasterComponent implements OnInit {
   }
   employeelist: any;
   ngOnInit(): void {
+    // this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.getstatuslist();
     this.getMessagesList();
     this.todayWithPipe = this.pipe.transform(Date.now(), 'yyyy/MM/dd');
     this.shiftForm = this.formBuilder.group(
       {
-        shift: ['', Validators.required],
+        shift: ['' ,[Validators.required,this.noWhitespaceValidator()]],
         description: [''],
-        startTime: ['', Validators.required],
-        endTime: ['', Validators.required],
-        totalHours: [{ value: '', disabled: true }, Validators.required],
-        graceInTime: ['', Validators.required],
-        graceOutTime: ['', Validators.required],
-        noofTimes: ['', Validators.required],
-        noofDays: ['', Validators.required],
-        leaveType: ['Leave', Validators.required],
-        overTime: ['', Validators.required]
+        startTime:['',Validators.required],
+        endTime:['',Validators.required],
+        totalHours:[{value: '', disabled: true},Validators.required],
+        graceInTime:['',Validators.required],
+        graceOutTime:['',Validators.required],
+        noofTimes:['',Validators.required],
+        noofDays:['',Validators.required],
+        leaveType:['Leave',Validators.required],
+        overTime:['',Validators.required]
       });
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getAllShifts();
     this.shiftForm.get("startTime")?.valueChanges.subscribe(selectedValue => {
 
-      this.starttime = this.pipe.transform(selectedValue, 'dd/MM/yyyy, HH:mm:ss');
+      this.starttime=this.pipe.transform(selectedValue, 'dd/MM/yyyy, HH:mm:ss');
+      console.log(this.starttime);
     })
     this.shiftForm.get("endTime")?.valueChanges.subscribe(selectedValue => {
-      this.endtime = this.pipe.transform(selectedValue, 'dd/MM/yyyy, HH:mm:ss');
-      this.getDifference(this.starttime, this.endtime);
+
+      this.endtime=this.pipe.transform(selectedValue, 'dd/MM/yyyy, HH:mm:ss');
+      console.log(this.endtime);
+        this.getDifference(this.starttime, this.endtime);
     })
   }
   ngAfterViewInit() {
 
   }
-
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return isWhitespace ? { whitespace: true } : null;
+    };
+  }
   getDifference(start: string, stop: string) {
     // getting startTime timestamp:
     let startTimestamp = this.getTimestamp(start);
@@ -111,7 +121,8 @@ export class ShiftMasterComponent implements OnInit {
     let inHhMmSsFormat = new Date(differenceInSecs * 1000)
       .toISOString()
       .slice(11, 19);
-    this.shiftForm.controls.totalHours.setValue(inHhMmSsFormat);
+      this.shiftForm.controls.totalHours.setValue(inHhMmSsFormat);
+    console.log('Difference in hh:mm:ss format: ', inHhMmSsFormat);
 
   }
 
@@ -131,13 +142,13 @@ export class ShiftMasterComponent implements OnInit {
   }
   getAllShifts() {
     this.arrayList = [];
-    this.adminService.getAllShifts().subscribe((res: any) => {
+        this.adminService.getAllShifts().subscribe((res: any) => {
       if (res.status) {
         this.arrayList = res.data;
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.pageLoading = false;
+        this.pageLoading=false;
       } else {
         this.arrayList = [];
         this.dataSource = new MatTableDataSource(this.arrayList);
@@ -155,26 +166,28 @@ export class ShiftMasterComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  changeEndTime(event: any) {
+  changeEndTime(event:any){
+    console.log(event);
+
   }
   saveShiftData() {
     if (this.shiftForm.invalid) {
       return;
     } else {
       if (this.arrayList.length > 0) {
-        let index = this.arrayList.findIndex((e: any) => e.shiftname === this.shiftForm.controls.shift.value);
-        if (index == 0) {
+     let   index = this.arrayList.findIndex((e:any) => e.shiftname === this.shiftForm.controls.shift.value);
+         if(index == 0){
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
             data: this.recordExist
           });
-        } else {
-          let startTime = this.pipe.transform(new Date(this.shiftForm.controls.startTime.value), 'HH:mm:ss')
-          let endTime = this.pipe.transform(new Date(this.shiftForm.controls.endTime.value), 'HH:mm:ss')
-          let graceInTime = this.pipe.transform(new Date(this.shiftForm.controls.graceInTime.value), 'HH:mm:ss')
-          let graceOutTime = this.pipe.transform(new Date(this.shiftForm.controls.graceOutTime.value), 'HH:mm:ss')
-          let overTime = this.shiftForm.controls.overTime.value;
+         }else{
+          let startTime=this.pipe.transform(new Date(this.shiftForm.controls.startTime.value), 'HH:mm:ss')
+          let endTime=this.pipe.transform(new Date(this.shiftForm.controls.endTime.value), 'HH:mm:ss')
+          let graceInTime=this.pipe.transform(new Date(this.shiftForm.controls.graceInTime.value), 'HH:mm:ss')
+          let graceOutTime=this.pipe.transform(new Date(this.shiftForm.controls.graceOutTime.value), 'HH:mm:ss')
+          let overTime=this.shiftForm.controls.overTime.value;
 
           let obj = {
             "shift_name": this.shiftForm.controls.shift.value,
@@ -188,6 +201,8 @@ export class ShiftMasterComponent implements OnInit {
             "leave_deduction_count": this.shiftForm.controls.noofDays.value,
             "leavetype_for_deduction": this.shiftForm.controls.leaveType.value,
             "overtimeduration": overTime,
+            'status':1,
+            'created_by':this.userSession.id
           };
 
           this.adminService.setShiftMaster(obj).subscribe((res: any) => {
@@ -207,14 +222,14 @@ export class ShiftMasterComponent implements OnInit {
               // this. getAttendanceRequestListByEmpId();
             }
           })
-        }
+         }
       }
-      else {
-        let startTime = this.pipe.transform(new Date(this.shiftForm.controls.startTime.value), 'HH:mm:ss')
-        let endTime = this.pipe.transform(new Date(this.shiftForm.controls.endTime.value), 'HH:mm:ss')
-        let graceInTime = this.pipe.transform(new Date(this.shiftForm.controls.graceInTime.value), 'HH:mm:ss')
-        let graceOutTime = this.pipe.transform(new Date(this.shiftForm.controls.graceOutTime.value), 'HH:mm:ss')
-        let overTime = this.shiftForm.controls.overTime.value;
+      else{
+        let startTime=this.pipe.transform(new Date(this.shiftForm.controls.startTime.value), 'HH:mm:ss')
+        let endTime=this.pipe.transform(new Date(this.shiftForm.controls.endTime.value), 'HH:mm:ss')
+        let graceInTime=this.pipe.transform(new Date(this.shiftForm.controls.graceInTime.value), 'HH:mm:ss')
+        let graceOutTime=this.pipe.transform(new Date(this.shiftForm.controls.graceOutTime.value), 'HH:mm:ss')
+        let overTime=this.shiftForm.controls.overTime.value;
 
         let obj = {
           "shift_name": this.shiftForm.controls.shift.value,
@@ -228,16 +243,18 @@ export class ShiftMasterComponent implements OnInit {
           "leave_deduction_count": this.shiftForm.controls.noofDays.value,
           "leavetype_for_deduction": this.shiftForm.controls.leaveType.value,
           "overtimeduration": overTime,
+          'status':1,
+          'created_by':this.userSession.id
         };
 
         this.adminService.setShiftMaster(obj).subscribe((res: any) => {
           if (res.status) {
             let resMessage: any;
-            if (res.message == "dataSave") {
-              resMessage = this.dataSave
-            } else {
-              resMessage = this.dataNotSave
-            }
+              if (res.message == "dataSave") {
+                resMessage = this.dataSave
+              } else {
+                resMessage = this.dataNotSave
+              }
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
@@ -255,19 +272,19 @@ export class ShiftMasterComponent implements OnInit {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(["/Admin/Shift"]));
   }
-  status(status: any, shiftid: any) {
+  status(status:any,shiftid:any){
 
     let data = {
-      "shift_id": shiftid,
-      "status_value": status
+    "shift_id":shiftid,
+    "status_value":status
     }
     let resMessage: any;
     if (status == "Active") {
-      resMessage = this.statusActive
+      resMessage= this.statusActive
     } else {
-      resMessage = this.statusDeactive
+      resMessage= this.statusDeactive
     }
-    this.adminService.updateShiftStatus(data).subscribe((result: any) => {
+    this.adminService.updateShiftStatus(data).subscribe((result:any)=> {
       if (result.status) {
         let response: any;
         if (result.message == "statusUpdated") {
@@ -275,52 +292,61 @@ export class ShiftMasterComponent implements OnInit {
         }
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position: { top: `70px` },
+          position:{top:`70px`},
           disableClose: true,
           data: response
         });
         this.resetform();
-      } else {
+      }else{
         this.resetform();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position: { top: `70px` },
+          position:{top:`70px`},
           disableClose: true,
           data: this.statusNotDeactive
-        });
+          });
       }
     })
   }
-  view(data: any) {
-    this.adminService.getShiftsDetailsById(data.shiftid).subscribe((res: any) => {
-      if (res.status) {
-        this.isEdit = true;
-        this.shifDetails = res.data[0];
+  getstatuslist(){
+    this.adminService.getstatuslists().subscribe((result:any) => {
+      console.log(result)
+      if(result.status){
+        this.arrayValue = result.data;
+      }
+
+    })
+  }
+  view(data:any){
+    this.adminService.getShiftsDetailsById(data.shiftid).subscribe((res:any)=>{
+      if(res.status){
+         this.isEdit=true;
+        this.shifDetails=res.data[0];
         this.shiftForm.controls.shift.setValue(this.shifDetails.shiftname);
         this.shiftForm.controls.shift.disable();
         this.shiftForm.controls.description.setValue(this.shifDetails.shift_description);
         this.shiftForm.controls.description.disable();
-        let fromtime = this.todayWithPipe + ' ' + this.shifDetails.fromtime;
+        let fromtime =this.todayWithPipe +' '+this.shifDetails.fromtime;
         this.shiftForm.controls.startTime.setValue(new Date(fromtime));
         this.shiftForm.controls.startTime.disable();
-        let totime = this.todayWithPipe + ' ' + this.shifDetails.totime;
-        this.shiftForm.controls.endTime.setValue(new Date(totime));
-        this.shiftForm.controls.endTime.disable();
-        this.shiftForm.controls.totalHours.setValue(this.shifDetails.totalhours);
-        this.shiftForm.controls.totalHours.disable();
-        let intime = this.todayWithPipe + ' ' + this.shifDetails.graceperiod_intime;
-        this.shiftForm.controls.graceInTime.setValue(new Date(intime));
-        this.shiftForm.controls.graceInTime.disable();
-        let outtime = this.todayWithPipe + ' ' + this.shifDetails.graceperiod_outtime;
-        this.shiftForm.controls.graceOutTime.setValue(new Date(outtime));
-        this.shiftForm.controls.graceOutTime.disable();
-        this.shiftForm.controls.noofTimes.setValue(this.shifDetails.max_lates_count_per_month);
-        this.shiftForm.controls.noofTimes.disable();
-        this.shiftForm.controls.noofDays.setValue((this.shifDetails.leave_deduction_amount_post_lates_limit).toString());
-        this.shiftForm.controls.noofDays.disable();
-        let overtime = this.todayWithPipe + ' ' + this.shifDetails.min_duration_for_overtime;
-        this.shiftForm.controls.overTime.setValue(overtime);
-        this.shiftForm.controls.overTime.disable();
-      }
+        let totime =this.todayWithPipe +' '+this.shifDetails.totime;
+      this.shiftForm.controls.endTime.setValue(new Date(totime));
+      this.shiftForm.controls.endTime.disable();
+      this.shiftForm.controls.totalHours.setValue(this.shifDetails.totalhours);
+      this.shiftForm.controls.totalHours.disable();
+      let intime =this.todayWithPipe +' '+this.shifDetails.graceperiod_intime;
+      this.shiftForm.controls.graceInTime.setValue(new Date(intime));
+      this.shiftForm.controls.graceInTime.disable();
+      let outtime =this.todayWithPipe +' '+this.shifDetails.graceperiod_outtime;
+      this.shiftForm.controls.graceOutTime.setValue(new Date(outtime));
+      this.shiftForm.controls.graceOutTime.disable();
+      this.shiftForm.controls.noofTimes.setValue(this.shifDetails.max_lates_count_per_month);
+      this.shiftForm.controls.noofTimes.disable();
+      this.shiftForm.controls.noofDays.setValue((this.shifDetails.leave_deduction_amount_post_lates_limit).toString());
+      this.shiftForm.controls.noofDays.disable();
+      let overtime =this.todayWithPipe +' '+this.shifDetails.min_duration_for_overtime;
+      this.shiftForm.controls.overTime.setValue(overtime);
+      this.shiftForm.controls.overTime.disable();
+    }
 
     })
 
@@ -331,45 +357,45 @@ export class ShiftMasterComponent implements OnInit {
     }
     else {
 
-      return [5, 10, 20];
+     return [5, 10, 20];
     }
   }
   getMessagesList() {
     let data =
-    {
-      "code": null,
-      "pagenumber": 1,
-      "pagesize": 100
-    }
-    this.adminService.getMessagesListApi(data).subscribe((res: any) => {
-      if (res.status) {
-        this.messagesDataList = res.data;
-        this.messagesDataList.forEach((e: any) => {
-          if (e.code == "ATT2") {
-            this.requiredOption = e.message
-          } else if (e.code == "ATT1") {
-            this.requiredField = e.message
-          } else if (e.code == "ATT62") {
-            this.recordExist = e.message
-          } else if (e.code == "ATT63") {
-            this.dataSave = e.message
-          } else if (e.code == "ATT64") {
-            this.dataNotSave = e.message
-          } else if (e.code == "ATT65") {
-            this.statusActive = e.message
-          } else if (e.code == "ATT66") {
-            this.statusNotActive = e.message
-          } else if (e.code == "ATT67") {
-            this.statusDeactive = e.message
-          } else if (e.code == "ATT68") {
-            this.statusNotDeactive = e.message
-          }
-        })
-      }
-      else {
-        this.messagesDataList = [];
-      }
+     {
+       "code": null,
+       "pagenumber":1,
+       "pagesize":100
+   }
+   this.adminService.getMessagesListApi(data).subscribe((res:any)=>{
+     if(res.status) {
+       this.messagesDataList = res.data;
+       this.messagesDataList.forEach((e: any) => {
+        if (e.code == "ATT2") {
+         this.requiredOption = e.message
+        } else if (e.code == "ATT1") {
+          this.requiredField =e.message
+        } else if (e.code == "ATT62") {
+          this.recordExist =e.message
+        }  else if (e.code == "ATT63") {
+          this.dataSave =e.message
+        } else if (e.code == "ATT64") {
+          this.dataNotSave =e.message
+         } else if (e.code == "ATT65") {
+          this.statusActive =e.message
+        } else if (e.code == "ATT66") {
+          this.statusNotActive =e.message
+        }else if (e.code == "ATT67") {
+          this.statusDeactive =e.message
+        }else if (e.code == "ATT68") {
+          this.statusNotDeactive =e.message
+        }
+      })
+     }
+     else {
+       this.messagesDataList = [];
+     }
 
-    })
-  }
+   })
+ }
 }

@@ -1,0 +1,69 @@
+
+.mat-card {
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    display: block;
+    position: relative;
+    padding: 0px;
+    border-radius: 4px;
+    background: #FAFAFA;
+    border: 1px solid #D6D6D6;
+    border-radius: 2px;
+  }
+  
+  .mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: 0px 0px 0px -1px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%), 0px 0px 0px 0px rgb(0 0 0 / 12%);
+}
+  
+  ////////////////////////////
+  table {
+      width: 100%;
+    }
+   .headerbox{
+      padding: 5px;
+      background-color:#28acaf;
+    }
+    .title{
+     // margin-top: 10px;
+      font-family: "Roboto";
+      font-size: 18px;
+      font-weight: normal;
+       font-stretch: normal;
+       font-style: normal;
+      letter-spacing: 0.32px;
+      color: white;
+      background-color:#28acaf;
+      height: 55px;
+    }
+    .mat-header-cell{
+      margin-top: 10px;
+      font-family: "Roboto";
+      font-size: 16px;
+      font-weight: normal;
+       font-stretch: normal;
+       font-style: normal;
+      letter-spacing: 0.32px;
+      color: #000000;
+    }
+  .noData-cell{
+    padding-top: 15px;
+    font-size: larger;
+  }
+  .example-container {
+    max-height:500px;
+    overflow-x: auto;
+  }
+  ::ng-deep {
+    .mat-select-panel[aria-label="Items per page:"] {
+      mat-option:last-child:before {
+        content: 'All';
+      }
+    }
+  }
+  ::ng-deep {
+    .mat-select-panel[aria-label="Items per page:"] {
+      mat-option:last-child .mat-option-text {
+        display: none;
+       // content: 'All';
+      }
+    }
+  }

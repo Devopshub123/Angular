@@ -8,8 +8,10 @@ import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { DatePipe } from '@angular/common';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { LeavesService } from 'src/app/modules/leaves/leaves.service';
+import { startTransition } from 'preact/compat';
 
 export interface UserData {
   deptname: string;
@@ -28,6 +30,8 @@ export interface UserData {
 export class DeparmentComponent implements OnInit {
   departmentForm!: FormGroup;
   department: any;
+  userSession:any;
+  pipe = new DatePipe('en-US');
   issubmitted: boolean = false;
   isvalid: boolean = false;
   isView: boolean = false;
@@ -49,9 +53,11 @@ export class DeparmentComponent implements OnInit {
   msgLM125:any
   msgLM126:any;
   msgLM127:any;
+  todayDate:any=new Date();
   displayedColumns: string[] = ['department', 'status', 'Action'];
   departmentData: any = [];
-  arrayValue: any = [{ Value: 'Active', name: 'Active ' }, { Value: 'Inactive', name: 'Inactive' }];
+  arrayValue: any;
+  // arrayValue: any = [{ Value: 'Active', name: 'Active ' }, { Value: 'Inactive', name: 'Inactive' }];
   dataSource: MatTableDataSource<UserData> = <any>[];
   pageLoading = true;
   @ViewChild(MatPaginator)
@@ -64,6 +70,8 @@ export class DeparmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.getstatuslist();
     this.getErrorMessages('LM1')
     this.getErrorMessages('LM23')
     this.getErrorMessages('LM26')
@@ -85,7 +93,8 @@ export class DeparmentComponent implements OnInit {
     );
   }
   validatedepartments(data: any) {
-    if (this.departmentData.length < 0) {
+    console.log(this.departmentData.length)
+    if (this.departmentData.length ==0) {
       this.valid = true;
 
     }
@@ -109,10 +118,10 @@ export class DeparmentComponent implements OnInit {
     this.validatedepartments(this.departmentForm.controls.department.value)
     this.department = this.departmentForm.controls.department.value;
     var data = {
-      departmentName: this.department
-
+      departmentName: this.department,
+      created_by:this.userSession.id,
+      created_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
     }
-
     if (this.departmentForm.valid) {
       if (this.valid) {
         this.LM.setDepartments(data).subscribe((data) => {
@@ -204,15 +213,23 @@ export class DeparmentComponent implements OnInit {
     // VOFormElement.get('VORows').at(i).get('isEditable').patchValue(false);
 
   }
-  save(event: any, id: any, deptname: any) {
+  save(event: any, id: any, deptname: any,datas:any) {
     this.validatedepartments(deptname)
     this.enable = null;
     this.isEdit = true;
     this.isSave = false;
 
     if (this.valid) {
-
-      this.LM.putDepartments({ id: id, name: deptname }).subscribe((data) => {
+      let data={
+        id:id,
+        name:deptname,
+        created_by: datas.created_by,
+        created_on:datas.created_on,
+        status:datas.status,
+        updated_by:this.userSession.id,
+        updated_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
+      }
+      this.LM.putDepartments(data).subscribe((data) => {
         if (data.status) {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/Department"]));
@@ -254,7 +271,7 @@ export class DeparmentComponent implements OnInit {
 
   }
   getDepartments() {
-    this.LM.getDepartments('departmentsmaster', null, 1, 100, 'keerthi_hospitals').subscribe((info) => {
+    this.LM.getDepartments('departmentsmaster', null, 1, 100, 'ems').subscribe((info:any) => {
       if (info.status && info.data.length != 0) {
         this.departmentData = info.data;
         this.dataSource = new MatTableDataSource(this.departmentData);
@@ -274,6 +291,15 @@ export class DeparmentComponent implements OnInit {
 
       return [5, 10, 20];
     }
+  }
+  getstatuslist(){
+    this.LM.getstatuslists().subscribe((result:any) => {
+      console.log(result)
+      if(result.status){
+        this.arrayValue = result.data;
+      }
+
+    })
   }
   getErrorMessages(errorCode:any) {
 

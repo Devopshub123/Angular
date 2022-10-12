@@ -1,5 +1,6 @@
 import { EditProfileComponent } from './modules/leaves/pages/edit-profile/edit-profile.component';
 import { NgModule } from '@angular/core';
+import { EMSModule } from './modules/ems/ems.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,6 +40,11 @@ import { OnlyCharactorDirective } from './custom-directive/only-charactors.direc
 import { MappingIdsComponent } from './modules/admin/pages/mapping-ids/mapping-ids.component';
 import { ShiftMasterComponent } from './modules/admin/pages/shift-master/shift-master.component';
 import {UserLeaveRequestComponent} from "./modules/leaves/pages/user-leave-request/user-leave-request.component";
+import { AssetsModule } from './modules/assets/assets.module';
+import { PreOnboardingDetailsComponent } from './pages/pre-onboarding-details/pre-onboarding-details.component';
+// import { NgChartsModule } from 'ng2-charts';
+import 'chartjs-adapter-date-fns';
+import { ComfirmationDialogComponent } from './pages/comfirmation-dialog/comfirmation-dialog.component';
 
 // import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
@@ -72,6 +78,8 @@ import {UserLeaveRequestComponent} from "./modules/leaves/pages/user-leave-reque
     MappingIdsComponent,
     ShiftMasterComponent,
     UserLeaveRequestComponent,
+    PreOnboardingDetailsComponent,
+    ComfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,9 +97,11 @@ import {UserLeaveRequestComponent} from "./modules/leaves/pages/user-leave-reque
     MatTableModule,
     NgxSpinnerModule,
     MatDatepickerModule,
+    EMSModule,
     // BsDatepickerModule.forRoot(),
     // DatepickerModule.forRoot()
-
+    AssetsModule,
+    // NgChartsModule
 
   ],
 

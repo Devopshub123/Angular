@@ -12,7 +12,7 @@ export class RoleMasterService {
     };
 
     constructor(private hClient: HttpClient) { }
-    
+
     getRoleMaster(){
         return this.hClient.get(this.mainBeUrl + 'api/getrolemaster', this.httpOptions);
     }
@@ -36,4 +36,5 @@ export class RoleMasterService {
     setRoleAccess(info: any): Observable<any> {
         return this.hClient.post(this.mainBeUrl + 'api/setRoleAccess', JSON.stringify(info), this.httpOptions);
     }
+
 }

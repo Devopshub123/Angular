@@ -255,14 +255,14 @@ export class EditProfileComponent implements OnInit {
       status:null,
       pageNumber:1,
       pageSize:10,
-      databaseName:'keerthi_hospitals'
+      databaseName:'ems'
     }
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
           this.CountryDetails=result.data;
       }
     })
-    // this.LMS.getCountry('countrymaster',null,1,10,'keerthi_hospitals').subscribe((results)=>{
+    // this.LMS.getCountry('countrymaster',null,1,10,'ems').subscribe((results)=>{
     //   this.CountryDetails=results.data;
     //   this.permanentCountryDetails=results.data;
     //

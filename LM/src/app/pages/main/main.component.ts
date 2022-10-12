@@ -89,11 +89,11 @@ menu:NavItem[] =[];
       'moduleId':2,
       'requestId':null,
     }
-    this.mainService.getFilesMaster(info).subscribe((result) => {
+    this.mainService.getFilesMaster(info).subscribe((result:any) => {
       if(result && result.status && result.data[0]){
           result.data[0].employeeId=0;
           let info = result.data[0]
-          this.mainService.getProfileImage(info).subscribe((imageData) => {
+          this.mainService.getProfileImage(info).subscribe((imageData:any) => {
             if(imageData.success){
               let TYPED_ARRAY = new Uint8Array(imageData.image.data);
               const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
@@ -297,13 +297,13 @@ menu:NavItem[] =[];
       'moduleId':2,
       'requestId':null,
     }
-    this.mainService.getFilesMaster(info).subscribe((result) => {
+    this.mainService.getFilesMaster(info).subscribe((result:any) => {
       if(result && result.status &&  result.data[0]){
        result.data[0].employeeId=this.usersession.id;
        let info = result.data[0]
 
 
-    this.mainService.getProfileImage(info).subscribe((imageData) => {
+    this.mainService.getProfileImage(info).subscribe((imageData:any) => {
       if(imageData.success){
         let TYPED_ARRAY = new Uint8Array(imageData.image.data);
         const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
@@ -327,7 +327,7 @@ menu:NavItem[] =[];
 })
   }
   getCompanyInformation(){
-    this.LMS.getCompanyInformation('companyinformation',null,1,10,'keerthi_hospitals').subscribe((data:any)=>{
+    this.LMS.getCompanyInformation('companyinformation',null,1,10,'ems').subscribe((data:any)=>{
       if(data.status && data.data.length!=0) {
 
         this.companyinfo =data.data[0];

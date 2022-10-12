@@ -1,0 +1,70 @@
+<div fxLayout="column" style="min-height: 700px;">
+    <form [formGroup]="level2ApprovalForm" autocomplete="off">
+        <mat-card fxLayout="column">
+            <mat-card-header>
+                <mat-card-title>Approve Change Request Level 2</mat-card-title>
+            </mat-card-header>
+       <div fxLayout="column" fxLayout.xs="column">
+       
+            <div fxLayout="row" fxLayoutAlign.xs="center">
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Applied Date</mat-label>                                
+                    <input matInput [matDatepicker]="picker" formControlName="appliedDate">                                
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker> 
+                </mat-form-field>
+              
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Reporting Manager</mat-label>
+                    <input type="text" formControlName="reportManager" matInput placeholder="" maxlength="100">
+                </mat-form-field>
+                
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Employee Name</mat-label>
+                    <input type="text" formControlName="employeeName" matInput placeholder="" maxlength="100">
+                </mat-form-field>
+             </div>
+
+             <div fxLayout="row" fxLayoutAlign.xs="center">
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Asset Name</mat-label>
+                    <input type="text" formControlName="assetName" matInput placeholder="" maxlength="100">
+                </mat-form-field>
+              
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Exisiting Asset ID</mat-label>
+                    <input type="text" formControlName="exisitingId" matInput placeholder="Existing ID" maxlength="100">
+                </mat-form-field>
+                
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Reason</mat-label>
+                  <textarea formControlName="reason" matInput placeholder="" maxlength="100"></textarea>
+                </mat-form-field>
+             </div>
+<div fxLayout="column" fxLayout.xs="column">
+    <mat-label class="mx-2"><b>1st Level Approval</b></mat-label>
+    <div fxLayout="row" fxLayoutAlign.xs="center">
+       
+        <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>Reason</mat-label>
+          <textarea formControlName="approveReason" matInput placeholder="" maxlength="100"></textarea>
+        </mat-form-field>
+     </div>
+</div>
+            <div fxLayoutAlign="center">
+               <button  class="m-1 mat-stroked-button button-save"  (click)="approveRequest()">
+                    <span>Approve</span>
+                </button>
+                <button class="m-1 mat-stroked-button button-clear" (click)="rejectAsset()">
+                    <span>Reject</span>
+                </button>
+                <button class="m-1 mat-stroked-button button-cancel" (click)="cancel()">
+                    <span>Cancel</span>
+                </button>
+                <br />
+            </div>
+        </div>
+        </mat-card>
+
+    </form>
+</div>

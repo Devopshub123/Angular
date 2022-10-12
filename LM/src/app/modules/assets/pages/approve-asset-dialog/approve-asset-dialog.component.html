@@ -1,0 +1,58 @@
+<div fxLayout="column">
+    <form [formGroup]="approveAssetForm" autocomplete="off">
+        <div fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center">
+            <div fxLayout="column"  *ngIf="!data">
+
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>New Asset ID</mat-label>
+                    <mat-select formControlName="assetType" required>
+                        <ng-container>
+                            <div *ngFor="let b of assetTypeList">
+                              <mat-option value={{b}}>{{b}}</mat-option>
+                            </div>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+    
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-label>New Asset Name</mat-label>
+                    <mat-select formControlName="assetName" required>
+                        <ng-container>
+                            <div *ngFor="let b of assetTypeList">
+                              <mat-option value={{b}}>{{b}}</mat-option>
+                            </div>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+    
+                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Reason</mat-label>
+                  <textarea formControlName="remarks" matInput placeholder="reason" maxlength="100"></textarea>
+                </mat-form-field>
+            </div>
+
+
+            <mat-form-field *ngIf="data" fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                <mat-label>Reject Reason</mat-label>
+              <textarea rows="5" [formControl]="rejectReason " matInput placeholder="Reason" maxlength="100"></textarea>
+            </mat-form-field>
+
+            <div fxLayoutAlign="center">
+                <button *ngIf="!data" class="m-1 mat-stroked-button button-save"
+                    type="submit">
+                    <span>Approve</span>
+                </button>
+
+                <button *ngIf="data" class="m-1 mat-stroked-button button-save"
+                type="submit">
+                <span>Reject</span>
+                  </button>
+
+                <button class="m-1 mat-stroked-button button-clear" (click)="close()">
+                    <span>Cancel</span>
+                </button>
+            <br />
+            </div>
+        </div>
+         </form>
+</div>

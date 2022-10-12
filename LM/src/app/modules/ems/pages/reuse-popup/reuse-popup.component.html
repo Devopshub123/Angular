@@ -1,0 +1,63 @@
+<!-- <button mat-icon-button class="close-button"  [mat-dialog-close]="true" style="float: right">
+  <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button> -->
+<!--<div class="mat-dialog-header">-->
+    <div fxLayout="row" fxLayoutAlign="center">
+        <h1 mat-dialog-title >{{data.name}}</h1>
+
+      </div>
+
+      <!--</div>-->
+      <!--<div mat-dialog-content>-->
+
+      <form [formGroup]="form" autocomplete="off">
+        <div mat-dialog-content style="overflow: hidden">
+            <div  fxLayout="initial" fxLayout.xs="column" style="" fxLayoutAlign.xs="center center">
+                <mat-form-field fxFlex='50' fxFlex.xs="100"  class="mx-1 my-1"  appearance="outline">
+                    <mat-label> Request Exit Date </mat-label>
+                    <input matInput readonly
+                        placeholder="MM/DD/YYYY" formControlName="requestdate">
+
+                     <!--<mat-datepicker-toggle class="datepicker" matSuffix [for]="date">-->
+                    <!--</mat-datepicker-toggle>-->
+                    <!--<mat-datepicker #date></mat-datepicker>-->
+                </mat-form-field>
+                <mat-form-field fxFlex='50' fxFlex.xs="100" class="mx-1 my-1" appearance="outline">
+                    <mat-label>Approve Exit Date </mat-label>
+                    <input matInput readonly  [matDatepicker]="date1" [min]="mindate"  [max]="maxdate"
+                        placeholder="MM/DD/YYYY" formControlName="approvedate">
+
+                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="date1">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #date1></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <!--<div fxLayout fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">-->
+
+              <!--</div>-->
+
+          <div  fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            <mat-form-field  fxFlex="100" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+              <mat-label>Reason<span   style="color: red">*</span> </mat-label>
+              <textarea formControlName="reason"  matInput placeholder="Reason"></textarea>
+              <mat-error class="con-error" *ngIf="form.controls.reason.errors?.required">
+                {{data.EM1}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div mat-dialog-actions fxLayoutAlign="center">
+          <button class="m-1 mat-stroked-button button-save" (click)="onOkClick()" type="submit">
+            <span>Submit</span>
+          </button>
+
+          <button class="m-1 mat-stroked-button button-clear"  (click)="onNoClick()">
+            <span >Cancel</span>
+          </button>
+
+        </div>
+
+
+      </form>
+

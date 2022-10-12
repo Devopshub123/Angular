@@ -1,0 +1,40 @@
+.text{
+    font-weight: bold;
+    font-size: large;
+    padding-bottom: 5px;
+}
+.text2{
+    
+     font-size: large;
+}
+.example-margin {
+    margin: 0 12px;
+  }
+  .example-section {
+    list-style-type: none;
+  margin-top: 4px;
+  }
+  ul {
+    list-style-type: none;
+    margin-top: 4px;
+  }
+
+  mat-card {
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+    position: relative;
+    padding: 0px;
+}
+.tableP{
+    padding: 10px;
+  }
+  .input-group-addon.select-input {
+    width: 20%;
+    padding: 0;
+  }
+  
+  .input-group-addon.select-input select {
+    border: groove;
+    height: 38px;
+    width: auto;
+  }

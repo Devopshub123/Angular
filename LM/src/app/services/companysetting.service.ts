@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   export class CompanySettingService {
     httpOptions = {
       headers: new HttpHeaders({ 'content-Type': 'application/json' })
-    };
+    };    
     constructor(private hClient: HttpClient) {}
     mainBeUrl= environment.apiUrl;
     validatePrefix(info:any): Observable<any> {
@@ -26,7 +26,7 @@ import { environment } from 'src/environments/environment';
     }
     getReportingManagers(id:any):Observable<any>{
       return this.hClient.post(this.mainBeUrl + 'api/getReportingManager',JSON.stringify(id), this.httpOptions)
-
+  
     }
     getMastertable(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
       return this.hClient.get(this.mainBeUrl + 'attendance/api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
@@ -45,8 +45,9 @@ import { environment } from 'src/environments/environment';
     }
     setWorkStatus(info:any){
       return this.hClient.post(this.mainBeUrl + 'api/setWorkStatus', JSON.stringify(info), this.httpOptions);
-    }
+    }  
   setDesignation(info:any): Observable<any>{
+    console.log(info)
     return this.hClient.post(this.mainBeUrl + 'attendance/api/setDesignation',  JSON.stringify(info), this.httpOptions);
   }
   getDesignation(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
@@ -76,7 +77,7 @@ import { environment } from 'src/environments/environment';
   getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
     return this.hClient.get(this.mainBeUrl +'api/getErrorMessages/' + errorCode + '/' + page + '/' + size, this.httpOptions);
   }
-
+  
   setCompanyInformation(info: any):Observable<any>{
     return this.hClient.post(this.mainBeUrl + 'api/setCompanyInformation', JSON.stringify(info), this.httpOptions);
   }
@@ -86,8 +87,9 @@ import { environment } from 'src/environments/environment';
   putCompanyInformation(info: any):Observable<any>{
     return this.hClient.put(this.mainBeUrl + 'api/putCompanyInformation', JSON.stringify(info), this.httpOptions);
   }
-  setUploadImage(data: FormData,info:any): Observable<any> {
-    return this.hClient.post(this.mainBeUrl + 'api/setUploadImage/'+encodeURI(info), data);
+  setUploadImage(data: FormData,Id: number): Observable<any> {
+    var conpanyName ='Apple'
+    return this.hClient.post(this.mainBeUrl + 'api/setUploadImage/'+conpanyName, data);
   }
   getUploadImage(id: any,companyName:any): Observable<any> {
     // var conpanyName ='Apple'
@@ -95,8 +97,7 @@ import { environment } from 'src/environments/environment';
   }
   removeImage(info:any): Observable<any> {
     return this.hClient.delete(this.mainBeUrl + 'api/removeImage/'+encodeURI(info),this.httpOptions);
-  }
-
+  } 
 
   setHolidays(info:any,companyName:any):Observable<any>{
     return this.hClient.post(this.mainBeUrl+'api/setHolidays/'+companyName, JSON.stringify(info), this.httpOptions);
@@ -123,6 +124,10 @@ import { environment } from 'src/environments/environment';
   getHolidays(year:any,locationId:any,page:any,size:any):Observable<any>{
     return this.hClient.get(this.mainBeUrl+'api/getHolidysFilter/'+year+'/'+locationId+'/'+page+'/'+size, this.httpOptions);
   }
-
+  getstatuslists(){
+    return this.hClient.post(this.mainBeUrl+'admin/api/getstatuslist', this.httpOptions)
+  }
+  
 
 }
+  

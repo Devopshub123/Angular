@@ -1261,7 +1261,7 @@ hexToRgb(hex:any) {
     //   this.valuesForCarryForwordleaves.push({value:i,name:i})
     // }
 
-    this.LM.getCarryforwardedLeaveMaxCount(leaveId).subscribe((result) => {
+    this.LM.getCarryforwardedLeaveMaxCount(leaveId).subscribe((result:any) => {
       if(result.status){
         for(let i=1;i<=parseInt(result.data[0].max_count);i++){
           this.valuesForCarryForwordleaves.push({value:i,name:i})

@@ -21,7 +21,8 @@ import { MessageMasterComponent } from './pages/message-master/message-master.co
 import { LmMessageMasterComponent } from './pages/lm-message-master/lm-message-master.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LeavePoliciesDialogComponent } from './dialog/leave-policies-dialog/leave-policies-dialog.component';
-
+import { TerminationCategoryComponent } from './pages/termination-category/termination-category.component';
+import { ReasonMasterComponent } from './pages/reason-master/reason-master.component';
 @NgModule({
   declarations: [
 
@@ -36,6 +37,8 @@ import { LeavePoliciesDialogComponent } from './dialog/leave-policies-dialog/lea
     MessageMasterComponent,
     LmMessageMasterComponent,
     LeavePoliciesDialogComponent,
+    TerminationCategoryComponent,
+    ReasonMasterComponent,
   ],
   imports: [
     CommonModule,

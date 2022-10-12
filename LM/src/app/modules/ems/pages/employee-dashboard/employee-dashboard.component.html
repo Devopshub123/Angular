@@ -1,0 +1,321 @@
+<div fxLayout="Column" style="height: 100%;">
+
+
+  <div fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px" style="height:50%;padding: 15px;" >
+    <mat-card fxLayout="Column"   style="background-color: #f3e7f0" fxFlex="50" >
+        <mat-card-header fxLayout="row" fxLayout.xs="row" class="mat-header" fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
+            <div fxFlex="30" fxFlex.xs="50"  fxLayoutAlign.xs="center center">
+                <img  src="assets/img/profile.jpg" width="100" class="img-circle" />
+
+            </div>
+            <div fxLayout="column" fxFlex="70" fxFlex.xs="50" fxLayoutAlign="center center" >
+                <div><p style="font-size: 20px; font-weight: 500">{{employeeNameh}}</p></div>
+                <div><p style="font-size: 16px; font-weight: 500">{{employeeEmail}}</p></div>
+              <a  mat-icon-button (click)="employeeProfile()"><span style="font-size: 16px; font-weight: 500"> View Profile</span></a>
+             </div>
+         </mat-card-header>
+         <mat-card-content fxFlex="50" fxLayout="row" fxLayout.xs="row" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
+        <!-- <div fxLayout="column" style="padding: 15px;"> -->
+            <!-- <p style="font-size: 20px; font-weight: 500">ID:{{employeeCode}}</p> -->
+                <!-- <p style="font-size: 16px; font-weight: 500">Mobile Number:{{employeeMobile}}</p> -->
+                <!-- <p style="font-size: 16px; font-weight: 500">Reporting Manager:</p> -->
+                <!-- <p style="font-size: 16px; font-weight: 500">Department: {{employeeDepartment}}</p> -->
+        <!-- </div> -->
+
+        <div fxLayout="column" style="overflow-y: auto">
+
+          <div fxLayout="row" fxLayout.xs="column" style="padding-left: 15px;">
+            <label >ID:&nbsp;&nbsp;{{employeeCode}}</label><br/>
+          </div>
+          <div fxLayout="row" fxLayout.xs="column" style="padding-left: 15px;">
+            <label >Mobile Number:&nbsp;&nbsp;{{employeeMobile}}</label><br/>
+            <!-- <p style="font-size: 16px; font-weight: 500">Reporting Manager:</p> -->
+          </div>
+          <div fxLayout="row" fxLayout.xs="column" style="padding-left: 15px;">
+            <!-- <p style="font-size: 16px; font-weight: 500">Reporting Manager:</p> -->
+            <label>Department: &nbsp;&nbsp; {{employeeDepartment}}</label>
+          </div>
+          </div>
+
+    </mat-card-content>
+    </mat-card>
+    <mat-card  style="background-color: #f3e7f0" fxLayout="column" fxFlex="50" >
+        <div fxLayout="row" style="padding: 15px;">
+         <span style="font-size: 20px;"><mat-icon>announcement</mat-icon></span>
+          <span style="font-size: 20px; margin-left: 5%;"><b>Announcements</b></span>
+        </div>
+        <!--<div fxLayout="column"   *ngIf="announcementsDetails.length > 0">-->
+            <div style="margin:10px;padding: 5px; overflow-y: auto">
+            <mat-card style="padding: 5px;margin-bottom:10px;background-color: #eef1f0" *ngFor="let item of announcementsDetails">
+
+                <div>
+                    <p><b>{{item.topic}}</b></p>
+                </div>
+                <div>
+                    <span  [innerHtml]="item.description"></span>
+                </div>
+                </mat-card>
+            </div>
+            <!-- <mat-card style="padding: 10px;background-color: #eef1f0">
+                <div>
+                    <p><b>Company News</b></p>
+                </div>
+                <div>
+                    <span>Latest information about company</span>
+                </div>
+            </mat-card> -->
+        <!--</div>-->
+        <div fxLayout="column"   fxLayoutGap="25px" style="padding: 5%;" *ngIf="announcementsDetails.length == 0">
+            <mat-card style="padding: 10px;background-color: #eef1f0">
+                <div>
+                    <p><b>No Announcements</b></p>
+                </div>
+                <div>
+                    <span></span>
+                </div>
+            </mat-card>
+        </div>
+
+
+    </mat-card>
+
+
+</div>
+<!-- </div> -->
+<!-- <div style="height:50%"> -->
+<div  fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px" style="height:50%;padding: 15px;">
+    <mat-card fxLayout="Column"  style="background-color: #f3e7f0" fxFlex="50" >
+      <div style="overflow: auto;">
+        <div fxLayout="row" style="padding: 5px;">
+            <span style="font-size: 20px; margin-left: 5%;"><b>Reporting Manager</b></span>
+          </div>
+
+        <!--<div fxLayout="column" style="padding: 15px;" *ngFor="let rm of reportingManager" >-->
+         <mat-card style="margin: 10px;background-color:#eef1f0;">
+          <p *ngIf='reportingManager.length==0' style="margin-left: 5px">Manager Not Assigned</p>
+          <!--<p style="margin-left: 5px">{{rm.officeemail}}</p>-->
+          <!--<p style="margin-left: 5px">{{rm.contactnumber}}</p>-->
+          <div *ngIf='reportingManager.length!=0'>
+           <span   *ngFor="let rm of reportingManager" >
+
+           <!--<span *ngIf="item.children && item.children.length > 0">-->
+             <mat-accordion >
+               <mat-expansion-panel [expanded]="false" >
+                 <mat-expansion-panel-header style="background-color: #eef1f0">
+                   <mat-panel-title>
+                     <div fxLayout="row" fxLayoutAlign="space-between center" >
+                       {{rm.managername}}
+                     </div>
+                   </mat-panel-title>
+                 </mat-expansion-panel-header>
+                 <span >
+                   <mat-list-item >
+                     <div fxLayout="row" fxLayoutAlign="space-between center" >
+                       {{rm.officeemail}}
+                     </div>
+
+                   </mat-list-item>
+                     <mat-list-item >
+
+                     <div fxLayout="row" fxLayoutAlign="space-between center" >
+                       {{rm.contactnumber}}
+                     </div>
+                   </mat-list-item>
+
+                 </span>
+               </mat-expansion-panel>
+             </mat-accordion>
+             <!--</span>-->
+
+
+
+          </span>
+          </div>
+         </mat-card>
+
+      <div fxLayout="row" style="padding: 5px;">
+        <span style="font-size: 20px; margin-left: 5%;"><b>HR Manager</b></span>
+      </div>
+
+      <!--<div fxLayout="column" style="padding: 15px;" *ngFor="let rm of reportingManager" >-->
+      <mat-card    style="margin:10px; background-color: #eef1f0">
+        <p *ngIf='hrReportingManager.length==0' style="margin-left: 5px">Manager Not Assigned</p>
+        <div *ngIf='hrReportingManager.length !=0'>
+          <span   *ngFor="let item of hrReportingManager">
+
+           <!--<span *ngIf="item.children && item.children.length > 0">-->
+             <mat-accordion>
+               <mat-expansion-panel [expanded]="false">
+                 <mat-expansion-panel-header  style="background-color: #eef1f0">
+                   <mat-panel-title>
+                     <div fxLayout="row" fxLayoutAlign="space-between center" >
+                       {{item.managername}}
+                     </div>
+                   </mat-panel-title>
+                 </mat-expansion-panel-header>
+                 <span >
+                   <mat-list-item >
+                     <div fxLayout="row" fxLayoutAlign="space-between center" >
+                       {{item.officeemail}}
+                     </div>
+                   </mat-list-item>
+                   <mat-list-item >
+                     <div fxLayout="row" fxLayoutAlign="space-between center" >
+                       {{item.contactnumber}}
+                     </div>
+                   </mat-list-item>
+                 </span>
+               </mat-expansion-panel>
+             </mat-accordion>
+           <!--</span>-->
+
+
+
+          </span>
+        </div>
+      </mat-card>
+      <!-- <div fxLayout="row" style="padding: 5px;">
+        <span style="font-size: 20px; margin-left: 5%;"><b>Finance Manager</b></span>
+      </div> -->
+
+      <!--<div fxLayout="column" style="padding: 15px;" *ngFor="let rm of reportingManager" >-->
+      <!-- <mat-card    style="margin:10px; background-color: #eef1f0">
+        <p *ngIf='financeManager.length==0' style="margin-left: 5px">Manager Not Assigned</p>
+        <div *ngIf='financeManager.length!=0'>
+          <span  *ngFor="let item of financeManager">
+
+           <!--<span *ngIf="item.children && item.children.length > 0">-->
+             <!-- <mat-accordion>
+               <mat-expansion-panel [expanded]="false">
+                 <mat-expansion-panel-header  style="background-color: #eef1f0">
+                   <mat-panel-title>
+                     <div fxLayout="row" fxLayoutAlign="space-between center" >
+                       {{item.managername}}
+                     </div>
+                   </mat-panel-title>
+                 </mat-expansion-panel-header>
+                 <span >
+                   <mat-list-item >
+                     <div fxLayout="row" fxLayoutAlign="space-between center" >
+                       {{item.officeemail}}
+                     </div>
+                   </mat-list-item>
+                   <mat-list-item >
+                     <div fxLayout="row" fxLayoutAlign="space-between center" >
+                       {{item.contactnumber}}
+                     </div>
+                   </mat-list-item>
+                 </span>
+               </mat-expansion-panel>
+             </mat-accordion> -->
+            <!--</span>-->
+
+
+
+          <!-- </span>
+</div> -->
+
+      <!-- </mat-card>  -->
+      <!--</div>-->
+    </div>
+    </mat-card>
+
+    <!--<mat-card style="background-color: #f3e7f0"  fxLayout="column"  fxFlex="50" >-->
+        <!--<div fxLayout="column" fxLayoutGap="25px" style="padding: 5%;">-->
+            <!--<mat-card style="padding: 10px;background-color: #eef1f0">-->
+                <!--<div>-->
+                    <!--<p><b>Probation period ends</b></p>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>Date: 25-03-2023</span>-->
+                <!--</div>-->
+            <!--</mat-card>-->
+            <!--<mat-card style="padding: 10px;background-color: #eef1f0">-->
+                <!--<div>-->
+                    <!--<p><b>Notice period</b></p>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>30 Days</span>-->
+                <!--</div>-->
+            <!--</mat-card>-->
+        <!--</div>-->
+    <!--</mat-card>-->
+  <mat-card  style="background-color: #f3e7f0" fxLayout="column" fxFlex="50" >
+    <div >
+    <div fxLayout="row" style="padding: 5px;margin-bottom:0px; ">
+      <span style="font-size: 20px;"><mat-icon>notifications</mat-icon></span>
+      <span style="font-size: 20px; margin-left: 5%;"><b>Induction Program</b></span>
+    </div>
+      <div *ngIf="inductionProgram.length ==0" style="padding: 5px; overflow-y: auto">
+        <mat-card style="padding: 5px;margin-bottom:10px;background-color: #eef1f0">
+          <div style="text-align: center">
+            <span  [innerHtml]="'No Data Found'"> </span>
+          </div>
+          <div>
+            <!--<span  [innerHtml]="item.schedule_date"></span>-->
+          </div>
+        </mat-card>
+      </div>
+    <!--<div fxLayout="column"   *ngIf="announcementsDetails.length > 0">-->
+    <div style="padding: 5px; overflow-y: auto" *ngIf="inductionProgram.length !=0">
+      <mat-card style="padding: 5px;margin-bottom:10px;background-color: #eef1f0" *ngFor="let program of inductionProgram">
+        <div style="justify-content: space-between">
+          <label style="margin-left: 5px"><strong>Date</strong>:&nbsp;&nbsp;{{program.schedule_date | date:'dd-MM-YYYY'}}&nbsp;</label> <label style="float: right;margin-right: 5px" ><strong >Time</strong>:&nbsp;&nbsp;{{program.schedule_starttime }}</label>
+        </div>
+        <div>
+          <!--<span  [innerHtml]="item.schedule_date"></span>-->
+        </div>
+      </mat-card>
+    </div>
+    </div>
+    <!-- <mat-card style="padding: 10px;background-color: #eef1f0">
+        <div>
+            <p><b>Company News</b></p>
+        </div>
+        <div>
+            <span>Latest information about company</span>
+        </div>
+    </mat-card> -->
+    <!--</div>-->
+    <!--<div fxLayout="column"   fxLayoutGap="25px" style="padding: 5%;" *ngIf="announcementsDetails.length == 0">-->
+      <!--<mat-card style="padding: 10px;background-color: #eef1f0">-->
+        <!--<div>-->
+          <!--<p><b>No Induction</b></p>-->
+        <!--</div>-->
+        <!--<div>-->
+          <!--<span></span>-->
+        <!--</div>-->
+      <!--</mat-card>-->
+    <!--</div>-->
+    <!--<div >-->
+    <div fxLayout="row" style="padding: 5px;margin-bottom:0px;justify-content: space-between ">
+      <span style="font-size: 20px; margin-left: 5%;"><b>Onboarding Checklist</b></span>
+      <span *ngIf="onboardingDetails.length!=0" style="font-size: 14px; margin-right: 5%;"><b>{{onboardingDetails.length}} /{{count}} Completed</b></span>
+
+    </div>
+    <div style="padding: 5px; overflow-y: auto">
+      <mat-card style="padding: 5px;margin-bottom:10px;background-color: #eef1f0" *ngIf="onboardingDetails.length==0">
+        <div  style="text-align: center;">
+          <span  [innerHtml]="'No Data Found'"> </span>
+        </div>
+      </mat-card>
+      <div *ngIf="onboardingDetails.length!=0">
+      <mat-card  style="padding: 5px;margin-bottom:10px;background-color: #eef1f0" *ngFor="let B of onboardingDetails">
+        <div  style="justify-content: space-between;">
+          <span style="font-size:14px " [innerHtml]="B.checklist_name">&nbsp;&nbsp; </span>
+          <span style="float: right" [innerHtml]="B.status"> </span>
+        </div>
+        <div>
+          <!--<span  [innerHtml]="item.schedule_date"></span>-->
+        </div>
+      </mat-card>
+      </div>
+    </div>
+    <!--</div>-->
+
+  </mat-card>
+
+
+<!-- </div> -->
+</div>
+</div>

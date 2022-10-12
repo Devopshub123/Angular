@@ -50,6 +50,7 @@ export class WorklocationComponent implements OnInit {
   isview:boolean=false;
   ishide:boolean=true;
   editworklocation:boolean=false;
+  userSession:any;
   msgLM1:any;
   msgLM2:any;
   msgLM3:any;
@@ -71,6 +72,8 @@ export class WorklocationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog,private ts:LoginService) { }
 
   ngOnInit(): void {
+    this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.getstatuslist();
     this.getErrorMessages('LM1')
     this.getErrorMessages('LM2')
     this.getErrorMessages('LM3')
@@ -177,15 +180,24 @@ export class WorklocationComponent implements OnInit {
           break;
         }
       }
-      // return this.isViewSeed;
-    //  this.worklocationForm.controls.seed.disable();
+
+      // this.worklocationForm.controls.seed.disable();
       // return this.ischeckprefix;
     }
     return this.isViewSeed;
   }
+  getstatuslist(){
+    this.LM.getstatuslists().subscribe((result:any) => {
+      console.log(result)
+      if(result.status){
+        this.arrayValue = result.data;
+      }
+
+    })
+  }
   getWorkLocation(){
     // this.spinner.show();
-    this.LM.getWorkLocation({id:null,companyName:'keerthi_hospitals'}).subscribe((result)=>{
+    this.LM.getWorkLocation({id:null,companyName:'ems'}).subscribe((result)=>{
       this.workLocationDetails=result.data;
       this.emptyprefix();
       this.dataSource=new MatTableDataSource(this.workLocationDetails);
@@ -245,7 +257,7 @@ export class WorklocationComponent implements OnInit {
     this.ishide=true;
   }
   getCountry(){
-    this.LM.getCountry('countrymaster',null,1,10,'keerthi_hospitals').subscribe((data)=>{
+    this.LM.getCountry('countrymaster',null,1,10,'ems').subscribe((data)=>{
       this.CountryDetails=data.data;
     })
   }
@@ -279,75 +291,151 @@ export class WorklocationComponent implements OnInit {
   }
   submit(){
     if(this.worklocationForm.valid){
-      let data ={
-        id:this.worklocationForm.controls.id.value,
-        address1:this.worklocationForm.controls.address1.value,
-        branchCode:'',
-        address2:this.worklocationForm.controls.address2.value,
-        location:this.worklocationForm.controls.branch.value,
-        pincode:this.worklocationForm.controls.pincode.value,
-        city:this.worklocationForm.controls.city.value,
-        state:this.worklocationForm.controls.state.value,
-        country:this.worklocationForm.controls.country.value,
-        prefix:this.worklocationForm.controls.prefix.value.toUpperCase(),
-        seed:this.worklocationForm.controls.seed.value,
-        status:'Active'
+      if(this.worklocationForm.controls.id.value =="" || this.worklocationForm.controls.id.value== null){
+        let data ={
+          id:this.worklocationForm.controls.id.value,
+          address1:this.worklocationForm.controls.address1.value,
+          branchCode:'',
+          address2:this.worklocationForm.controls.address2.value,
+          location:this.worklocationForm.controls.branch.value,
+          pincode:this.worklocationForm.controls.pincode.value,
+          city:this.worklocationForm.controls.city.value,
+          state:this.worklocationForm.controls.state.value,
+          country:this.worklocationForm.controls.country.value,
+          prefix:this.worklocationForm.controls.prefix.value.toUpperCase(),
+          seed:this.worklocationForm.controls.seed.value,
+          status:1,
+          created_by:this.userSession.id
+        }
+        this.LM.setWorkLocation(data).subscribe((data) => {
+
+          /**For edit worklocation */
+          if(this.editworklocation){
+            if(data.status){
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Admin/Worklocation"]));
+
+              this.ngOnInit();
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
+                disableClose: true,
+                data: 'Worklocation updated successfully'
+              });
+             }
+             else{
+
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
+                disableClose: true,
+                data: this.msgLM23
+              });
+             }
+
+
+
+
+          }
+          /**For add worklocation */
+          else{
+            if(data.status){
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Admin/Worklocation"]));
+
+              this.ngOnInit();
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
+                disableClose: true,
+                data: this.msgLM59
+              });
+
+            }
+            else{
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
+                disableClose: true,
+                data: this.msgLM22
+              });
+             }
+
+
+          }
+
+});
+      }
+      else{
+        let data ={
+          id:this.worklocationForm.controls.id.value,
+          address1:this.worklocationForm.controls.address1.value,
+          branchCode:'',
+          address2:this.worklocationForm.controls.address2.value,
+          location:this.worklocationForm.controls.branch.value,
+          pincode:this.worklocationForm.controls.pincode.value,
+          city:this.worklocationForm.controls.city.value,
+          state:this.worklocationForm.controls.state.value,
+          country:this.worklocationForm.controls.country.value,
+          prefix:this.worklocationForm.controls.prefix.value.toUpperCase(),
+          seed:this.worklocationForm.controls.seed.value,
+          status:1,
+          updated_by:this.userSession.id
+        }
+        this.LM.setWorkLocation(data).subscribe((data) => {
+
+          /**For edit worklocation */
+          if(this.editworklocation){
+            if(data.status){
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Admin/Worklocation"]));
+
+              this.ngOnInit();
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
+                disableClose: true,
+                data: 'Worklocation updated successfully'
+              });
+             }
+             else{
+
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
+                disableClose: true,
+                data: this.msgLM23
+              });
+             }
+
+
+
+
+          }
+          /**For add worklocation */
+          else{
+            if(data.status){
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Admin/Worklocation"]));
+
+              this.ngOnInit();
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
+                disableClose: true,
+                data: this.msgLM59
+              });
+
+            }
+            else{
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
+                disableClose: true,
+                data: this.msgLM22
+              });
+             }
+
+
+          }
+
+});
 
       }
-      this.LM.setWorkLocation(data).subscribe((data) => {
-
-                /**For edit worklocation */
-                if(this.editworklocation){
-                  if(data.status){
-                    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                    this.router.navigate(["/Admin/Worklocation"]));
-
-                    this.ngOnInit();
-                    let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                      position:{top:`70px`},
-                      disableClose: true,
-                      data: 'Worklocation updated successfully'
-                    });
-                   }
-                   else{
-
-                    let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                      position:{top:`70px`},
-                      disableClose: true,
-                      data: this.msgLM23
-                    });
-                   }
 
 
-
-
-                }
-                /**For add worklocation */
-                else{
-                  if(data.status){
-                    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                    this.router.navigate(["/Admin/Worklocation"]));
-
-                    this.ngOnInit();
-                    let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                      position:{top:`70px`},
-                      disableClose: true,
-                      data: this.msgLM59
-                    });
-
-                  }
-                  else{
-                    let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                      position:{top:`70px`},
-                      disableClose: true,
-                      data: this.msgLM22
-                    });
-                   }
-
-
-                }
-
-      });
 
     }
 
