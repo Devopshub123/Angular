@@ -36,7 +36,7 @@
               <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                   <mat-label>Publish From </mat-label>
                   <input matInput readonly required [matDatepicker]="date" [disabled]="isviewdata"  [min]="min"
-                      placeholder="MM/DD/YYYY" formControlName="fromdate"   (click)="date.open()">
+                      placeholder="" formControlName="fromdate"   (click)="date.open()">
 
                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
                   </mat-datepicker-toggle>
@@ -48,7 +48,7 @@
               <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                   <mat-label>Publish To </mat-label>
                   <input matInput readonly required  [matDatepicker]="date1"  [disabled]="isviewdata" [min]="mindate"
-                      placeholder="MM/DD/YYYY" formControlName="todate"   (click)="date.open()">
+                      placeholder="" formControlName="todate"   (click)="date.open()">
 
                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="date1">
                   </mat-datepicker-toggle>
@@ -85,7 +85,7 @@
 
 
               </div>
-              <mat-error class="con-error" style="font-size: 11px;padding-left: 1%;" *ngIf="issubmit && announcementForm.controls.todate.errors?.required">
+              <mat-error class="con-error" style="font-size: 11px;padding-left: 1%;" *ngIf="issubmit && announcementForm.controls.description.errors?.required">
                 {{EM1}}
               </mat-error>
 

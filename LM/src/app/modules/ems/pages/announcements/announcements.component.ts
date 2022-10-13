@@ -119,7 +119,11 @@ export class AnnouncementsComponent implements OnInit {
     });
 
     this.announcementForm.get('fromdate')?.valueChanges.subscribe((selectedValue:any) => {
-        this.mindate = selectedValue;
+
+        this.mindate = selectedValue._d;
+   
+        this.announcementForm.controls.todate.setValue('')
+        console.log(selectedValue)
     })
   }
   noWhitespaceValidator(): ValidatorFn {

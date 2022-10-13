@@ -36,38 +36,39 @@ const Sample_Data: PeriodicElement[] = [
   styleUrls: ['./users-login.component.scss']
 })
 export class UsersLoginComponent implements OnInit {
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: "15rem",
-    minHeight: "5rem",
-    placeholder: "Enter text ",
-    translate: "no",
-    defaultParagraphSeparator: "p",
-    defaultFontName: "Arial",
-    toolbarHiddenButtons: [["bold"]],
-    customClasses: [
-      {
-        name: "quote",
-        class: "quote"
-      },
-      {
-        name: "redText",
-        class: "redText"
-      },
-      {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1"
-      }
-    ]
-  };
+  // config: AngularEditorConfig = {
+  //   editable: true,
+  //   spellcheck: true,
+  //   height: "15rem",
+  //   minHeight: "5rem",
+  //   placeholder: "Enter text ",
+  //   translate: "no",
+  //   defaultParagraphSeparator: "p",
+  //   defaultFontName: "Arial",
+  //   toolbarHiddenButtons: [["bold"]],
+  //   customClasses: [
+  //     {
+  //       name: "quote",
+  //       class: "quote"
+  //     },
+  //     {
+  //       name: "redText",
+  //       class: "redText"
+  //     },
+  //     {
+  //       name: "titleText",
+  //       class: "titleText",
+  //       tag: "h1"
+  //     }
+  //   ]
+  // };
   usersloginForm:any= FormGroup;
   designations:any=[];
   min:any=new Date();
   max:any=new Date();
   isview:boolean=true;
   ishide:boolean=false;
+  pageLoading = true;
   displayedColumns: string[] = ['sno','empname','email','userid','action'];
   // dataSource = new MatTableDataSource<PeriodicElement>(Sample_Data);
   dataSource: MatTableDataSource<any>=<any>[];
@@ -157,6 +158,13 @@ export class UsersLoginComponent implements OnInit {
     })
     }
   }
-
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+      return [5, 10, 20];
+    }
+  }
 
 }
