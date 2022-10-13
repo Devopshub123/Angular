@@ -138,7 +138,8 @@ export class EmployeeInfoComponent implements OnInit {
   employeeJoinDate: any;
   employeeMobile: any;
   statusList: any;
-  promotionsList: any = [];
+  promotionsGetList: any = [];
+  promotionList: any = [];
   params:any;
   empId:any;
   editFileName:any;
@@ -162,6 +163,8 @@ export class EmployeeInfoComponent implements OnInit {
   file:any;
   familyindex: any;
   educationIndex: any;
+  experienceIndex: any;
+  isExperienceEdit: boolean = false;
   ngOnInit(): void {
 
     this.params = this.activatedRoute.snapshot.params;
@@ -346,7 +349,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.rpincode.setValue(this.loginData.pincode);
 
       this.personalInfoForm.controls.personalemail.setValue(this.loginData.personal_email);
-      if( this.loginData.languages_spoken !='null')
+      if( this.loginData.languages_spoken !='null' || this.loginData.languages_spoken !="null")
       this.personalInfoForm.controls.spokenLanguages.setValue(this.loginData.languages_spoken);
       this.personalInfoForm.controls.paddress.setValue(this.loginData.paddress);
       this.personalInfoForm.controls.pcountry.setValue(this.loginData.pcountry);
@@ -468,7 +471,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.rpincode.setValue(this.employeeInformationData.pincode);
 
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
-      if(this.employeeInformationData.languages_spoken !=null)
+      if(this.employeeInformationData.languages_spoken !=null || this.employeeInformationData.languages_spoken !='null')
       this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken);
       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress);
       this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
@@ -536,7 +539,7 @@ export class EmployeeInfoComponent implements OnInit {
   /** through employee directory login data  */
   getEmployeeJobList() {
     this.employeeJobData = [];
-    this.promotionsList = [];
+    this.promotionsGetList = [];
     this.emsService.getEmployeeJobData(this.employeeId).subscribe((res: any) => {
       this.employeeJobData = JSON.parse(res.data[0].json)[0];
       if(this.employeeJobData.contractname !='null')
@@ -553,14 +556,14 @@ export class EmployeeInfoComponent implements OnInit {
         let promotionsdata = JSON.parse((this.employeeJobData.promotions))
         if (promotionsdata != null) {
           for (let i = 0; i < promotionsdata.length; i++) {
-            this.promotionsList.push({
+            this.promotionsGetList.push({
               newsalary: promotionsdata[i].salary,
               newdescription: promotionsdata[i].description,
               effectivedate: promotionsdata[i].effectivedate != "null" ? this.pipe.transform(promotionsdata[i].effectivedate, 'yyyy-MM-dd') : '',
               annualsalary: promotionsdata[i].annualsalary,
             });
           }
-          this.promotionsDataSource = new MatTableDataSource(this.promotionsList);
+          this.promotionsDataSource = new MatTableDataSource(this.promotionsGetList);
         }
       }
     })
@@ -908,6 +911,7 @@ export class EmployeeInfoComponent implements OnInit {
 
   }
   addfamily() {
+    this.addValidators();
     if (this.isfamilyedit) {
       this.isfamilyedit = false;
       this.familyDetails[this.familyindex].firstname = this.CandidateFamilyForm.controls.familyfirstname.value;
@@ -919,6 +923,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.familyDetails[this.familyindex].relationship = this.CandidateFamilyForm.controls.relation.value.id;
       this.familyDetails[this.familyindex].relationshipname = this.CandidateFamilyForm.controls.relation.value.relationship;
       //this.familyDetails[this.familyindex].dateofbirth = this.CandidateFamilyForm.controls.familydateofbirth.value != "" ? this.pipe.transform(this.CandidateFamilyForm.controls.familydateofbirth.value, 'yyyy-MM-dd') : ''
+      this.clearValidators();
       this.clearfamily();
     } else { 
     if (this.CandidateFamilyForm.valid) {
@@ -934,16 +939,41 @@ export class EmployeeInfoComponent implements OnInit {
         dateofbirth: null
       });
       this.familyDataSource = new MatTableDataSource(this.familyDetails);
+      this.clearValidators();
       this.clearfamily();
+      
     }
   }
   }
+  clearValidators() {
+    this.CandidateFamilyForm.get("familyfirstname").clearValidators();
+    this.CandidateFamilyForm.get("familyfirstname").updateValueAndValidity();
 
+    this.CandidateFamilyForm.get("relation").clearValidators();
+    this.CandidateFamilyForm.get("relation").updateValueAndValidity();
+    
+    this.CandidateFamilyForm.get("familycontact").clearValidators();
+    this.CandidateFamilyForm.get("familycontact").updateValueAndValidity();
+
+    this.CandidateFamilyForm.get("familygender").clearValidators();
+    this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
+  }
+  
+  addValidators() {
+    this.CandidateFamilyForm.get("familyfirstname").setValidators(Validators.required);
+    this.CandidateFamilyForm.get("familyfirstname").updateValueAndValidity();
+
+    this.CandidateFamilyForm.get("relation").setValidators(Validators.required);
+    this.CandidateFamilyForm.get("relation").updateValueAndValidity();
+    
+    this.CandidateFamilyForm.get("familygender").setValidators(Validators.required);
+    this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
+}
   clearfamily() {
-    this.CandidateFamilyForm.controls.familyfirstname.reset();
-    this.CandidateFamilyForm.controls.relation.reset();
-    this.CandidateFamilyForm.controls.familycontact.reset();
-    this.CandidateFamilyForm.controls.familygender.reset();
+    this.CandidateFamilyForm.controls.familyfirstname.setValue('');
+    this.CandidateFamilyForm.controls.relation.setValue('');
+    this.CandidateFamilyForm.controls.familycontact.setValue('');
+    this.CandidateFamilyForm.controls.familygender.setValue('');
     this.isfamilyedit = false;
     this.CandidateFamilyForm.valid = true;
     }
@@ -956,6 +986,7 @@ export class EmployeeInfoComponent implements OnInit {
     //this.CandidateFamilyForm.controls.familylastname.setValue(this.familyDetails[i].lastname);
     //this.CandidateFamilyForm.controls.familydateofbirth.setValue(new Date(this.familyDetails[i].dateofbirth));
     this.CandidateFamilyForm.controls.familystatus.setValue(this.familyDetails[i].status);
+    if(this.familyDetails[i].contactnumber != 'null')
     this.CandidateFamilyForm.controls.familycontact.setValue(this.familyDetails[i].contactnumber);
     this.employeeRelationship.forEach((e:any)=>{
       if(e.id==this.familyDetails[i].relationship){
@@ -977,13 +1008,13 @@ export class EmployeeInfoComponent implements OnInit {
 
   addPromotions() {
     if (this.promotionsForm.valid) {
-      this.promotionsList.push({
+      this.promotionsGetList.push({
         newsalary: this.promotionsForm.controls.newSalary.value,
         newdescription: this.promotionsForm.controls.newDescription.value,
         effectivedate: this.pipe.transform(this.promotionsForm.controls.effectiveDate.value, 'yyyy-MM-dd'),
         annualsalary: this.promotionsForm.controls.annualSalary.value,
       });
-      this.promotionsDataSource = new MatTableDataSource(this.promotionsList);
+      this.promotionsDataSource = new MatTableDataSource(this.promotionsGetList);
       this.clearPromotions();
     } else { }
   }
@@ -996,8 +1027,8 @@ export class EmployeeInfoComponent implements OnInit {
 
   }
   deletePromotions(index: any) {
-    this.promotionsList.splice(index, 1);
-    this.promotionsDataSource = new MatTableDataSource(this.promotionsList);
+    this.promotionsGetList.splice(index, 1);
+    this.promotionsDataSource = new MatTableDataSource(this.promotionsGetList);
    }
   //** */
   saveJobDetails() {
@@ -1009,6 +1040,15 @@ export class EmployeeInfoComponent implements OnInit {
       }
     }
     if (this.employeeCode != undefined || this.employeeCode != null) {
+      if (this.promotionsForm.valid) {
+        this.promotionList.push({
+          newsalary: this.promotionsForm.controls.newSalary.value,
+          newdescription: this.promotionsForm.controls.newDescription.value,
+          effectivedate: this.pipe.transform(this.promotionsForm.controls.effectiveDate.value, 'yyyy-MM-dd'),
+          annualsalary: this.promotionsForm.controls.annualSalary.value,
+        });
+      } else { }
+
        let data = {
         empid: this.employeeCode,
         contractname: this.employeeJobForm.controls.contractName.value,
@@ -1017,7 +1057,7 @@ export class EmployeeInfoComponent implements OnInit {
         fileid: null,
         startdate: this.pipe.transform(this.employeeJobForm.controls.contractStartDate.value, 'yyyy-MM-dd'),
         enddate: this.pipe.transform(this.employeeJobForm.controls.contractEndDate.value, 'yyyy-MM-dd'),
-        promotions: this.promotionsList,
+        promotions: this.promotionList,
       }
      
       this.emsService.saveEmployeeJobDetailsData(data).subscribe((res: any) => {
@@ -1050,6 +1090,17 @@ export class EmployeeInfoComponent implements OnInit {
 
   //** */
   addWorkExperience() {
+    this.addExperienceValidators();
+    if (this.isExperienceEdit) {
+      this.isExperienceEdit = false;
+      this.workExperienceDetails[this.experienceIndex].companyname = this.experienceForm.controls.companyName.value;
+      this.workExperienceDetails[this.experienceIndex].designation =  this.experienceForm.controls.designation.value;
+      this.workExperienceDetails[this.experienceIndex].skills =  this.experienceForm.controls.jobDescription.value;
+      this.workExperienceDetails[this.experienceIndex].fromdate = this.pipe.transform(this.experienceForm.controls.expFromDate.value, 'yyyy-MM-dd'),
+      this.workExperienceDetails[this.experienceIndex].todate =this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
+      this.clearExperienceValidators();
+        this.clearWorkExperience();
+    } else {
     if (this.experienceForm.valid) {
       this.workExperienceDetails.push({
         companyname: this.experienceForm.controls.companyName.value,
@@ -1059,9 +1110,52 @@ export class EmployeeInfoComponent implements OnInit {
         designation: this.experienceForm.controls.designation.value,
       });
       this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
+      this.clearExperienceValidators();
       this.clearWorkExperience();
     } else { }
   }
+  }
+  editExperience(i: any) {
+    this.experienceIndex = i; 
+    this.isExperienceEdit = true;
+    this.experienceForm.controls.companyName.setValue(this.workExperienceDetails[i].companyname);
+    this.experienceForm.controls.designation.setValue(this.workExperienceDetails[i].designation);
+    this.experienceForm.controls.jobDescription.setValue(this.workExperienceDetails[i].skills);
+    this.experienceForm.controls.expFromDate.setValue(this.workExperienceDetails[i].fromdate);
+    this.experienceForm.controls.expToDate.setValue(this.workExperienceDetails[i].todate);
+  }
+  clearExperienceValidators() {
+    this.experienceForm.get("companyName").clearValidators();
+    this.experienceForm.get("companyName").updateValueAndValidity();
+
+    this.experienceForm.get("expFromDate").clearValidators();
+    this.experienceForm.get("expFromDate").updateValueAndValidity();
+    
+    this.experienceForm.get("expToDate").clearValidators();
+    this.experienceForm.get("expToDate").updateValueAndValidity();
+
+    this.experienceForm.get("designation").clearValidators();
+    this.experienceForm.get("designation").updateValueAndValidity();
+
+    this.experienceForm.get("jobDescription").clearValidators();
+    this.experienceForm.get("jobDescription").updateValueAndValidity();
+  }
+  
+  addExperienceValidators() {
+    this.experienceForm.get("companyName").setValidators(Validators.required);
+    this.experienceForm.get("companyName").updateValueAndValidity();
+
+    this.experienceForm.get("expFromDate").setValidators(Validators.required);
+    this.experienceForm.get("expFromDate").updateValueAndValidity();
+    
+    this.experienceForm.get("expToDate").setValidators(Validators.required);
+    this.experienceForm.get("expToDate").updateValueAndValidity();
+
+    this.experienceForm.get("designation").setValidators(Validators.required);
+    this.experienceForm.get("designation").updateValueAndValidity();
+
+}
+
 
   clearWorkExperience() {
     this.experienceForm.controls.companyName.reset();
@@ -1170,15 +1264,16 @@ export class EmployeeInfoComponent implements OnInit {
   }
 
   addEducation() {
+    this.addEducationValidators();
     if (this.isEducationEdit) {
       this.isEducationEdit = false;
       this.educationDetails[this.educationIndex].course = this.educationForm.controls.course.value;
       this.educationDetails[this.educationIndex].institutename =  this.educationForm.controls.instituteName.value;
       this.educationDetails[this.educationIndex].fromdate = this.pipe.transform(this.educationForm.controls.eduFromDate.value, 'yyyy-MM-dd'),
-      this.educationDetails[this.educationIndex].todate =this.pipe.transform(this.educationForm.controls.eduToDate.value, 'yyyy-MM-dd'),
-      this.clearEducation();
+        this.educationDetails[this.educationIndex].todate = this.pipe.transform(this.educationForm.controls.eduToDate.value, 'yyyy-MM-dd'),
+        this.clearEducationValidators();
+        this.clearEducation();
     } else {
-
       if (this.educationForm.valid) {
         this.educationDetails.push({
           course: this.educationForm.controls.course.value,
@@ -1187,8 +1282,9 @@ export class EmployeeInfoComponent implements OnInit {
           todate: this.pipe.transform(this.educationForm.controls.eduToDate.value, 'yyyy-MM-dd'),
         });
         this.educationDataSource = new MatTableDataSource(this.educationDetails);
+        this.clearEducationValidators();
         this.clearEducation();
-      } else { }
+      } 
     }
   }
   editEduction(i: any) {
@@ -1198,6 +1294,34 @@ export class EmployeeInfoComponent implements OnInit {
     this.educationForm.controls.instituteName.setValue(this.educationDetails[i].institutename);
     this.educationForm.controls.eduFromDate.setValue(this.educationDetails[i].fromdate);
     this.educationForm.controls.eduToDate.setValue(this.educationDetails[i].todate);
+  }
+  clearEducationValidators() {
+    this.educationForm.get("course").clearValidators();
+    this.educationForm.get("course").updateValueAndValidity();
+
+    this.educationForm.get("instituteName").clearValidators();
+    this.educationForm.get("instituteName").updateValueAndValidity();
+    
+    this.educationForm.get("eduFromDate").clearValidators();
+    this.educationForm.get("eduFromDate").updateValueAndValidity();
+
+    this.educationForm.get("eduToDate").clearValidators();
+    this.educationForm.get("eduToDate").updateValueAndValidity();
+  }
+  
+  addEducationValidators() {
+    this.educationForm.get("course").setValidators(Validators.required);
+    this.educationForm.get("course").updateValueAndValidity();
+
+    this.educationForm.get("instituteName").setValidators(Validators.required);
+    this.educationForm.get("instituteName").updateValueAndValidity();
+    
+    this.educationForm.get("eduFromDate").setValidators(Validators.required);
+    this.educationForm.get("eduFromDate").updateValueAndValidity();
+
+    this.educationForm.get("eduToDate").setValidators(Validators.required);
+    this.educationForm.get("eduToDate").updateValueAndValidity();
+
 }
   clearEducation() {
     this.educationForm.controls.course.reset();

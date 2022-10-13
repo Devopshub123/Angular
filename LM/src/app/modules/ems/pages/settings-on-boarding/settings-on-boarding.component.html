@@ -11,7 +11,7 @@
                             (change)="toglechange('SEND_AUTOMATIC_REMAINDERS_ONBOARD',$event)"
                             color="primary"></mat-slide-toggle>
         </div>
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"> Remainder to complete
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"> Reminder to complete
           incomplete sections in an employee on boarding checklist will be notified to employees in the inbox
         </div>
         <br>
@@ -20,7 +20,7 @@
           <mat-slide-toggle formControlName="PROBATION_PERIOD" (change)="toglechange('PROBATION_PERIOD',$event)"
                             color="primary"></mat-slide-toggle>
         </div>
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2">On boarding tasks can be
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2">Onboarding tasks can be
           set around the probation period of the company
         </div>
         <br *ngIf="onboardingForm.controls.PROBATION_PERIOD.value">

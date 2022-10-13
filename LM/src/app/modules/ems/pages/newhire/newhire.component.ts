@@ -39,7 +39,7 @@ export class NewhireComponent implements OnInit {
   hireForm: any = FormGroup;
   userSession: any;
   pipe = new DatePipe('en-US');
-  minDate = new Date('2000/01/01'); maxDate = new Date(Date.now() + (8.64e+7 * 90)).toISOString();
+  minDate = new Date('2000/01/01');  maxDate = new Date();
   designationsList: any = [];
   messagesDataList: any = [];
   requiredField: any;

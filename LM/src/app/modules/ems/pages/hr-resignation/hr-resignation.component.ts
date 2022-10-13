@@ -129,7 +129,7 @@ export class HrResignationComponent implements OnInit {
     this.isAdd = true;
     this.isdata = false;
     this.checklistForm.controls.employeeName.setValue(data.empname)
-    this.checklistForm.controls.requestDate.setValue(data.requestdate)
+    this.checklistForm.controls.requestDate.setValue(this.pipe.transform(data.requestdate,'dd-MM-yyyy'))
     this.checklistForm.controls.designation.setValue(data.designation)
     this.employeeId = data.empid;
     this.getEmployeCheckListData();
@@ -151,29 +151,28 @@ export class HrResignationComponent implements OnInit {
       did:this.userSession.deptid,
       cmmt:null,
       status:"Completed",
-      fstatus:"Pending Checklist",
-      category:"Onboarding",
+      fstatus: this.checked == true ? "Completed" :  "Pending Checklist",
+      category:"Offboarding",
       actionBy:this.userSession.id
     }
-console.log(data)
-  //  this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
-  //   if (res.status) {
-  //     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-  //     this.router.navigate(["/ems/hr-onboarding"]));
-  //   let dialogRef = this.dialog.open(ReusableDialogComponent, {
-  //     position: { top: `70px` },
-  //     disableClose: true,
-  //     data:"Data saved successfully"
-  //   });
-  //   }else {
-  //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
-  //       position: { top: `70px` },
-  //       disableClose: true,
-  //      data: "Data is not saved"
-  //     });
-  //   }
+   this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
+    if (res.status) {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate(["/ems/hr-resignation"]));
+    let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data:"Data saved successfully"
+    });
+    }else {
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+       data: "Data is not saved"
+      });
+    }
 
-  // })
+  })
   }
   cancel() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

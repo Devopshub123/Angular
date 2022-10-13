@@ -8,10 +8,32 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { EmsService } from '../../ems.service';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
+import * as _moment from 'moment';
+const moment =  _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-hr-offboarding-checklist',
   templateUrl: './hr-offboarding-checklist.component.html',
-  styleUrls: ['./hr-offboarding-checklist.component.scss']
+  styleUrls: ['./hr-offboarding-checklist.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class HrOffboardingChecklistComponent implements OnInit {
   checklistForm!: FormGroup;
@@ -38,7 +60,9 @@ export class HrOffboardingChecklistComponent implements OnInit {
     return this.checklistForm.controls.selectedChecklist as FormArray;
   }
   employeestatus: any = [];
-  isfrmChecked:any;
+  isfrmChecked: any;
+  datastatus: any;
+  arr:any=[];
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.checklistForm = this.formBuilder.group(
@@ -62,16 +86,7 @@ export class HrOffboardingChecklistComponent implements OnInit {
   private addCheckboxes() {
     this.checklistPoints.forEach(() => this.checklistsFormArray.push(new FormControl(false)));
   }
-  // componentMethodName(event: any, isChecked: boolean) 
-  // {
-  //   if (isChecked) {
-  //     this.selectedchecklists.push(event.target.value)
-  //   }
-  //   else {
-  //     let index = this.selectedchecklists.indexOf(event.target.value);
-  //     this.selectedchecklists.splice(index, 1);
-  //   }
-  // }
+
   saveRequest() {
     const earningselectedIds = this.checklistForm.value.selectedChecklist
     .map((checked:any, i:any) => checked ? this.checklistPoints[i].checklist_id : null)
@@ -150,8 +165,9 @@ getPageSizes(): number[] {
 addChecklistOverview(data: any) {
   this.isAdd = true;
   this.isdata = false;
+  this.datastatus=data.status;
   this.checklistForm.controls.name.setValue(data.empname)
-  this.checklistForm.controls.terminateDate.setValue(data.terminationdate)
+  this.checklistForm.controls.terminateDate.setValue(this.pipe.transform(data.terminationdate,'dd-MM-yyyy'),)
   this.checklistForm.controls.designation.setValue(data.designation)
   this.employeeId = data.empid;
   this.deptId = data.department_id;
@@ -162,6 +178,15 @@ getOffboardingCheckList() {
     if (res.status && res.data.length != 0) {
       this.checklistPoints = res.data;
       this.addCheckboxes();
+      for(let i=0;i<this.checklistPoints.length;i++){
+        if(this.checklistPoints[i].status == 'Completed'){
+          this.arr.push(1)
+        }
+        else{
+          this.arr.push(0)
+        }
+        }
+     this.checklistsFormArray.setValue(this.arr)
 
     }
   })

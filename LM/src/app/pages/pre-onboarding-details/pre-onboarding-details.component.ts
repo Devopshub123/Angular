@@ -162,13 +162,13 @@ export class PreOnboardingDetailsComponent implements OnInit {
       this.getCandidateData();
       this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedValue => {
         this.stateDetails = [];
-        this.companyService.getStatesc(selectedValue).subscribe((data:any) => {
+        this.companyService.getStatesc(selectedValue).subscribe((data) => {
           this.stateDetails = data[0];
         })
       })
       this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedValue => {
         this.cityDetails = [];
-        this.companyService.getCities(selectedValue).subscribe((data:any) => {
+        this.companyService.getCities(selectedValue).subscribe((data) => {
           this.cityDetails = data[0]
         })
       })
@@ -181,7 +181,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       })
       this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
         this.permanentCityDetails = [];
-        this.companyService.getCities(selectedValue).subscribe((data:any) => {
+        this.companyService.getCities(selectedValue).subscribe((data) => {
           this.permanentCityDetails = data[0]
         })
       })
@@ -190,7 +190,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
         if (selectedValue) {
           this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
             this.permanentStateDetails = [];
-            this.companyService.getStatesc(selectedValue).subscribe((data:any) => {
+            this.companyService.getStatesc(selectedValue).subscribe((data) => {
               this.permanentStateDetails = data[0]
               if (this.personalInfoForm.controls.rstate.value != null) {
                 this.personalInfoForm.controls.pstate.setValue(this.personalInfoForm.controls.rstate.value);
@@ -453,38 +453,38 @@ for (let i = 0; i < workExperiencedata.length; i++) {
   }
 
   getBloodgroups() {
-    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems').subscribe((data:any) => {
+    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems').subscribe(data => {
       this.bloodGroupdetails = data.data;
     })
   }
   getGender() {
-    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems').subscribe((data:any) => {
+    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems').subscribe(data => {
       this.genderDetails = data.data;
     })
   }
   getMaritalStatusMaster() {
-    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems').subscribe((data:any) => {
+    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems').subscribe(data => {
       this.maritalStatusDetails = data.data;
     })
   }
   getRelationshipMaster() {
-    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems').subscribe((data:any) => {
+    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems').subscribe(data => {
       this.employeeRelationship = data.data;
     })
   }
 
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe((data:any) => {
+    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe(data => {
       this.availableDesignations = data.data;
     })
   }
   getDepartmentsMaster() {
-    this.companyService.getMastertable('departmentsmaster', '1', 1, 1000, 'ems').subscribe((data:any) => {
+    this.companyService.getMastertable('departmentsmaster', '1', 1, 1000, 'ems').subscribe(data => {
       this.availableDepartments = data.data;
     })
   }
   getWorkLocation() {
-    this.companyService.getactiveWorkLocation({ id: null, companyName: 'ems' }).subscribe((result:any) => {
+    this.companyService.getactiveWorkLocation({ id: null, companyName: 'ems' }).subscribe((result) => {
       this.worklocationDetails = result.data;
     })
 
@@ -570,6 +570,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
   }
 
   addfamily() {
+    this.addValidators();
     if (this.CandidateFamilyForm.valid) {
       this.familyDetails.push({
         firstname: this.CandidateFamilyForm.controls.familyfirstname.value,
@@ -583,6 +584,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
         dateofbirth:null
       });
       this.familyDataSource = new MatTableDataSource(this.familyDetails);
+      this.clearValidators();
       this.clearfamily();
     }else{}
   }
@@ -605,7 +607,30 @@ for (let i = 0; i < workExperiencedata.length; i++) {
   // clearDucument(){
 
   // }
+  clearValidators() {
+    this.CandidateFamilyForm.get("familyfirstname").clearValidators();
+    this.CandidateFamilyForm.get("familyfirstname").updateValueAndValidity();
 
+    this.CandidateFamilyForm.get("relation").clearValidators();
+    this.CandidateFamilyForm.get("relation").updateValueAndValidity();
+    
+    this.CandidateFamilyForm.get("familycontact").clearValidators();
+    this.CandidateFamilyForm.get("familycontact").updateValueAndValidity();
+
+    this.CandidateFamilyForm.get("familygender").clearValidators();
+    this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
+  }
+  
+  addValidators() {
+    this.CandidateFamilyForm.get("familyfirstname").setValidators(Validators.required);
+    this.CandidateFamilyForm.get("familyfirstname").updateValueAndValidity();
+
+    this.CandidateFamilyForm.get("relation").setValidators(Validators.required);
+    this.CandidateFamilyForm.get("relation").updateValueAndValidity();
+    
+    this.CandidateFamilyForm.get("familygender").setValidators(Validators.required);
+    this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
+}
   clearfamily() {
     //this.createFamilyForm();
     this.CandidateFamilyForm.controls.familyfirstname.reset();
@@ -668,6 +693,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
   }
 
   addWorkExperience() {
+    this.addExperienceValidators();
     if (this.employementForm.valid) {
       this.workExperienceDetails.push({
         companyname: this.employementForm.controls.companyName.value,
@@ -677,10 +703,41 @@ for (let i = 0; i < workExperiencedata.length; i++) {
         designation: this.employementForm.controls.designation.value,
         });
       this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
+      this.clearExperienceValidators();
       this.clearWork();
     }else{}
   }
+  clearExperienceValidators() {
+    this.employementForm.get("companyName").clearValidators();
+    this.employementForm.get("companyName").updateValueAndValidity();
 
+    this.employementForm.get("expFromDate").clearValidators();
+    this.employementForm.get("expFromDate").updateValueAndValidity();
+    
+    this.employementForm.get("expToDate").clearValidators();
+    this.employementForm.get("expToDate").updateValueAndValidity();
+
+    this.employementForm.get("designation").clearValidators();
+    this.employementForm.get("designation").updateValueAndValidity();
+
+    this.employementForm.get("jobDescription").clearValidators();
+    this.employementForm.get("jobDescription").updateValueAndValidity();
+  }
+  
+  addExperienceValidators() {
+    this.employementForm.get("companyName").setValidators(Validators.required);
+    this.employementForm.get("companyName").updateValueAndValidity();
+
+    this.employementForm.get("expFromDate").setValidators(Validators.required);
+    this.employementForm.get("expFromDate").updateValueAndValidity();
+    
+    this.employementForm.get("expToDate").setValidators(Validators.required);
+    this.employementForm.get("expToDate").updateValueAndValidity();
+
+    this.employementForm.get("designation").setValidators(Validators.required);
+    this.employementForm.get("designation").updateValueAndValidity();
+
+}
   clearWork() {
     //this.createEmployementForm();
     this.employementForm.controls.companyName.reset();
@@ -740,6 +797,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
   }
 
   addEducation() {
+    this.addEducationValidators();
     if (this.educationForm.valid) {
       this.educationDetails.push({
         course: this.educationForm.controls.course.value,
@@ -748,10 +806,39 @@ for (let i = 0; i < workExperiencedata.length; i++) {
         todate:this.pipe.transform( this.educationForm.controls.eduToDate.value, 'yyyy-MM-dd'),
          });
       this.educationDataSource = new MatTableDataSource(this.educationDetails);
+      this.clearEducationValidators();
       this.clearEducation();
     } else { }
 
   }
+  clearEducationValidators() {
+    this.educationForm.get("course").clearValidators();
+    this.educationForm.get("course").updateValueAndValidity();
+
+    this.educationForm.get("instituteName").clearValidators();
+    this.educationForm.get("instituteName").updateValueAndValidity();
+    
+    this.educationForm.get("eduFromDate").clearValidators();
+    this.educationForm.get("eduFromDate").updateValueAndValidity();
+
+    this.educationForm.get("eduToDate").clearValidators();
+    this.educationForm.get("eduToDate").updateValueAndValidity();
+  }
+  
+  addEducationValidators() {
+    this.educationForm.get("course").setValidators(Validators.required);
+    this.educationForm.get("course").updateValueAndValidity();
+
+    this.educationForm.get("instituteName").setValidators(Validators.required);
+    this.educationForm.get("instituteName").updateValueAndValidity();
+    
+    this.educationForm.get("eduFromDate").setValidators(Validators.required);
+    this.educationForm.get("eduFromDate").updateValueAndValidity();
+
+    this.educationForm.get("eduToDate").setValidators(Validators.required);
+    this.educationForm.get("eduToDate").updateValueAndValidity();
+
+}
   clearEducation() {
     this.educationForm.controls.course.reset();
     this.educationForm.controls.instituteName.reset();
@@ -818,7 +905,7 @@ else{
     // if(this.documentsForm.controls.attachedFile.value || this.editDockinfo){
     // if(this.isFile){
     //   if(this.validateDocument()){
-    this.mainService.getFilepathsMasterForEMS(1).subscribe((resultData:any) => {
+    this.mainService.getFilepathsMasterForEMS(1).subscribe((resultData) => {
       if(resultData && resultData.status){
         let obj = {
           'id':this.documentsForm.controls.documentId.value?this.documentsForm.controls.documentId.value:null,
@@ -832,15 +919,15 @@ else{
           'requestId':null,
           'status':'Submitted'
         }
-        this.mainService.setFilesMasterForEMS(obj).subscribe((data:any) => {
+        this.mainService.setFilesMasterForEMS(obj).subscribe((data) => {
           if(data && data.status) {
             if( obj.fileName != this.editFileName){
             let info =JSON.stringify(data.data[0])
-            this.mainService.setDocumentOrImageForEMS(this.formData, info).subscribe((data:any) => {
+            this.mainService.setDocumentOrImageForEMS(this.formData, info).subscribe((data) => {
               // this.spinner.hide()
               if(data && data.status){
                 if(this.editDockinfo){
-                  this.mainService.removeDocumentOrImagesForEMS(this.editDockinfo).subscribe((data:any) => {})
+                  this.mainService.removeDocumentOrImagesForEMS(this.editDockinfo).subscribe((data) => {})
                 }
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: {top: `70px`},
@@ -1063,7 +1150,7 @@ else{
   fileView(data:any){
     let info = data
     this.spinner.show()
-        this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData:any) => {
+        this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData) => {
 
           if(imageData.success){
 

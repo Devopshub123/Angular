@@ -9,15 +9,11 @@
             <mat-label>Full Name</mat-label>
             <input formControlName="name" matInput placeholder="Full Name" readonly>
           </mat-form-field>
-
           <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
             <mat-label>Terminate Date</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="terminateDate" readonly>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <input type="text" readonly formControlName="terminateDate" matInput placeholder="" maxlength="10" />
           </mat-form-field>
-
-          <mat-form-field fxFlex.gt-xs="50%" fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
+           <mat-form-field fxFlex.gt-xs="50%" fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
             <mat-label>Designation</mat-label>
             <input formControlName="designation" readonly matInput placeholder="Designation">
           </mat-form-field>
@@ -48,7 +44,7 @@
         <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
           <mat-label>Date of Termination</mat-label>
           <input matInput readonly [matDatepicker]="searchDate" [min]="minDate" [max]="maxDate"
-            placeholder="Date of Join" formControlName="searchDate">
+          placeholder="MM/DD/YYYY" formControlName="searchDate">
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="searchDate"></mat-datepicker-toggle>
           <mat-datepicker #searchDate></mat-datepicker>
         </mat-form-field>
@@ -91,7 +87,7 @@
 
             <ng-container matColumnDef="hiredate">
               <th mat-header-cell *matHeaderCellDef> Terminate Date </th>
-              <td mat-cell *matCellDef="let element"> {{element.terminationdate}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.terminationdate | date:'dd-MM-yyyy'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="status">

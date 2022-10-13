@@ -49,7 +49,7 @@
                   <mat-header-cell *matHeaderCellDef> status </mat-header-cell>
                   <mat-cell *matCellDef="let row">
                     <mat-checkbox (click)="$event.stopPropagation()" (change)="toggle($event, row)"
-                      [checked]="selection.isSelected(row)">
+                    [checked]="row.status == 'Completed'">
                     </mat-checkbox>
                   </mat-cell>
                 </ng-container>
@@ -64,7 +64,7 @@
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
               <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                 <mat-label>Add Comments</mat-label>
-                <input type="text" onlyNumber formControlName="remarks" matInput placeholder="" maxlength="10" />
+                <input type="text" onlyNumber formControlName="remarks" matInput placeholder="" maxlength="500" />
               </mat-form-field>
             </div>
           </div>
@@ -88,7 +88,7 @@
           <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
             <mat-label>Date of Join</mat-label>
             <input matInput readonly [matDatepicker]="searchDate" [min]="minDate" [max]="maxDate"
-              placeholder="Date of Join" formControlName="searchDate">
+            placeholder="MM/DD/YYYY"  formControlName="searchDate">
             <mat-datepicker-toggle class="datepicker" matSuffix [for]="searchDate"></mat-datepicker-toggle>
             <mat-datepicker #searchDate></mat-datepicker>
           </mat-form-field>

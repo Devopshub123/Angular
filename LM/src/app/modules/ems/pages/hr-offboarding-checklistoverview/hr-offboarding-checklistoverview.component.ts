@@ -9,18 +9,32 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { EmsService } from '../../ems.service';
-export interface UserData {
-  deptname: string;
-  status: string;
-  depthead: string;
-  headcount: number;
-  id: number;
-  total: number;
-}
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
+import * as _moment from 'moment';
+const moment =  _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-hr-offboarding-checklistoverview',
   templateUrl: './hr-offboarding-checklistoverview.component.html',
-  styleUrls: ['./hr-offboarding-checklistoverview.component.scss']
+  styleUrls: ['./hr-offboarding-checklistoverview.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class HrOffboardingChecklistoverviewComponent implements OnInit {
   hrOnboardingForm:any= FormGroup;
@@ -37,10 +51,10 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
   displayedColumns: string[] = ['sno', 'name', 'hiredate', 'joindate', 'status', 'action'];
   checklistdisplayedColumns: string[] = ['sno', 'dept', 'approver', 'checklist', 'status'];
   visibleList: any = ['Task Completed', 'Revoke new hire', 'Mark as not joining','Remove new hire'];
-  checklistDataSource: MatTableDataSource<UserData> = <any>[];
-  selection = new SelectionModel<UserData>(true, []);
+  checklistDataSource: MatTableDataSource<any> = <any>[];
+  selection = new SelectionModel<any>(true, []);
   public endorsementIds: string[] = [];
-  dataSource: MatTableDataSource<UserData> = <any>[];
+  dataSource: MatTableDataSource<any> = <any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -117,7 +131,7 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
     this.isAdd = true;
     this.isdata = false;
     this.checklistForm.controls.employeeName.setValue(data.empname)
-    this.checklistForm.controls.joiningDate.setValue(data.dateofjoin)
+    this.checklistForm.controls.joiningDate.setValue(this.pipe.transform(data.terminationdate,'dd-MM-yyyy'))
     this.checklistForm.controls.designation.setValue(data.designation)
     this.employeeId = data.empid;
     this.getEmployeCheckListData();
@@ -166,33 +180,33 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
       did:this.userSession.deptid,
       cmmt:null,
       status:"Completed",
-      fstatus:"Pending Checklist",
+      fstatus:this.checked == true ? "Completed" :  "Pending Checklist",
       category:"Onboarding",
       actionBy:this.userSession.id
     }
-console.log(data)
-  //  this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
-  //   if (res.status) {
-  //     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-  //     this.router.navigate(["/ems/hr-onboarding"]));
-  //   let dialogRef = this.dialog.open(ReusableDialogComponent, {
-  //     position: { top: `70px` },
-  //     disableClose: true,
-  //     data:"Data saved successfully"
-  //   });
-  //   }else {
-  //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
-  //       position: { top: `70px` },
-  //       disableClose: true,
-  //      data: "Data is not saved"
-  //     });
-  //   }
 
-  // }) 
+   this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
+    if (res.status) {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate(["/ems/termination-pendinging-checklist"]));
+    let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data:"Data saved successfully"
+    });
+    }else {
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+       data: "Data is not saved"
+      });
+    }
+
+  }) 
   }
   cancel() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate(["/ems/offboarding-checklistoverview"]));
+    this.router.navigate(["/ems/termination-pendinging-checklist"]));
   }
   getPageSizes(): number[] {
     if (this.dataSource.data.length > 20) {

@@ -148,6 +148,7 @@ export class HrOnboardingComponent implements OnInit {
   }
 
   saveRequest() {
+    if(this.selectedChecklists.length > 0){
      let data ={
       cid:this.selectedChecklists,
       eid:this.employeeId,
@@ -177,7 +178,13 @@ export class HrOnboardingComponent implements OnInit {
     }
 
   })
-    
+    } else {
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data:"Please select checklist"
+      });  
+}
   }
   cancel() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

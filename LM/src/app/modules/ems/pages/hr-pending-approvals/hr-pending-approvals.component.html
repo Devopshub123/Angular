@@ -1,158 +1,158 @@
 <div fxLayout="column">
-      <mat-card>
-        <mat-card-header >
-          <mat-card-title > Pending Approvals </mat-card-title>
-        </mat-card-header>
 
-        <div *ngIf="ishide" class="tableP">
-            <br>
-            <div class="mat-elevation-z1">
-                <table mat-table [dataSource]="dataSource" matSort>
-                    <ng-container matColumnDef="sno">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header > S.No </th>
-                        <td mat-cell *matCellDef="let row;let i=index" >
-                            <span>{{(i+1)}}</span>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Employee Name </th>
-                        <td mat-cell *matCellDef="let row" >
-                            <span>{{row.empname}} </span>
+  <mat-card-header >
+    <mat-card-title > Pending Approvals </mat-card-title>
+  </mat-card-header>
 
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="status">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Status </th>
-                        <td mat-cell *matCellDef="let row" >
-                            <span>{{row.status}} </span>
+  <div *ngIf="ishide" class="tableP">
+      <br>
+      <div class="mat-elevation-z1">
+          <table mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="sno">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header > S.No </th>
+                  <td mat-cell *matCellDef="let row;let i=index" >
+                      <span>{{(i+1)}}</span>
+                  </td>
+              </ng-container>
+              <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header > Employee Name </th>
+                  <td mat-cell *matCellDef="let row" >
+                      <span>{{row.empname}} </span>
 
-                        </td>
-                    </ng-container>
+                  </td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header > Status </th>
+                  <td mat-cell *matCellDef="let row" >
+                      <span>{{row.status}} </span>
 
-
+                  </td>
+              </ng-container>
 
 
 
 
-                    <ng-container matColumnDef="Action">
-                        <th mat-header-cell *matHeaderCellDef >  </th>
 
 
-                        <td mat-cell *matCellDef="let row">
-                            <!-- <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon> -->
-                            <mat-icon title="View and Approve" (click)="view($event,row)">visibility</mat-icon>
+              <ng-container matColumnDef="Action">
+                  <th mat-header-cell *matHeaderCellDef >  </th>
 
 
-                        </td>
-
-                    </ng-container>
-
-
-                    <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" colspan="6">No data found</td>
-                    </tr>
-                </table>
-               <mat-paginator *ngIf="arrayList.length>5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                  <td mat-cell *matCellDef="let row">
+                      <!-- <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon> -->
+                      <mat-icon title="View and Approve" (click)="view($event,row)">visibility</mat-icon>
 
 
-            </div>
+                  </td>
+
+              </ng-container>
+
+
+              <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="6">No data found</td>
+              </tr>
+          </table>
+         <mat-paginator *ngIf="arrayList.length>5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+
+      </div>
+
+  </div>
+  <div *ngIf="isview" style="padding-top: 10px;">
+    <form [formGroup]="pendingapprovalForm" autocomplete="off">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+          <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+              <mat-label>Employee Id</mat-label>
+              <input formControlName="empid"  matInput placeholder="" readonly>
+            </mat-form-field>
+          <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+            <mat-label>Employee Name</mat-label>
+            <input formControlName="empname"  matInput placeholder="" readonly>
+          </mat-form-field>
+          <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+              <mat-label>Date of Request Resignation </mat-label>
+              <input matInput  [readonly]="true"
+                  placeholder="MM/DD/YYYY" formControlName="appliedDate">
+
+               <!--<mat-datepicker-toggle  class="datepicker" matSuffix [for]="date">-->
+              <!--</mat-datepicker-toggle>-->
+              <!--<mat-datepicker  #date></mat-datepicker>-->
+          </mat-form-field>
+
 
         </div>
-        <div *ngIf="isview" style="padding-top: 10px;">
-          <form [formGroup]="pendingapprovalForm" autocomplete="off">
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Employee Id</mat-label>
-                    <input formControlName="empid"  matInput placeholder="" readonly>
-                  </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
-                  <mat-label>Employee Name</mat-label>
-                  <input formControlName="empname"  matInput placeholder="" readonly>
-                </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Date of Request Resignation </mat-label>
-                    <input matInput  [readonly]="true"
-                        placeholder="MM/DD/YYYY" formControlName="appliedDate">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+          <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+              <mat-label>Notice Period</mat-label>
+              <input formControlName="noticeperiod"  matInput placeholder="" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+              <mat-label>Relieving Date </mat-label>
+              <input matInput readonly [disabled]="true"
+                  placeholder="MM/DD/YYYY" formControlName="releivingdate"  required >
 
-                     <!--<mat-datepicker-toggle  class="datepicker" matSuffix [for]="date">-->
-                    <!--</mat-datepicker-toggle>-->
-                    <!--<mat-datepicker  #date></mat-datepicker>-->
-                </mat-form-field>
+               <!--<mat-datepicker-toggle class="datepicker" matSuffix [for]="date2">-->
+              <!--</mat-datepicker-toggle>-->
+              <!--<mat-datepicker #date2></mat-datepicker>-->
+          </mat-form-field>
+          <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+              <mat-label> Request Exit Date  </mat-label>
+              <input matInput readonly [disabled]="true"
+                  placeholder="MM/DD/YYYY" formControlName="requestedDate"  required >
 
-
-              </div>
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Notice Period</mat-label>
-                    <input formControlName="noticeperiod"  matInput placeholder="" readonly>
-                  </mat-form-field>
-                  <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Relieving Date </mat-label>
-                    <input matInput readonly [disabled]="true"
-                        placeholder="MM/DD/YYYY" formControlName="releivingdate"  required >
-
-                     <!--<mat-datepicker-toggle class="datepicker" matSuffix [for]="date2">-->
-                    <!--</mat-datepicker-toggle>-->
-                    <!--<mat-datepicker #date2></mat-datepicker>-->
-                </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                    <mat-label> Request Exit Date  </mat-label>
-                    <input matInput readonly [disabled]="true"
-                        placeholder="MM/DD/YYYY" formControlName="requestedDate"  required >
-
-                     <!--<mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">-->
-                    <!--</mat-datepicker-toggle>-->
-                    <!--<mat-datepicker #date3></mat-datepicker>-->
-                </mat-form-field>
+               <!--<mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">-->
+              <!--</mat-datepicker-toggle>-->
+              <!--<mat-datepicker #date3></mat-datepicker>-->
+          </mat-form-field>
 
 
-              </div>
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex.xs="100" fxFlex="62" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Reason</mat-label>
-                    <textarea formControlName="reason"  matInput placeholder="" readonly>
-                    </textarea>
-                </mat-form-field>
-                <mat-form-field *ngIf="pendingapprovalForm.controls.actualRelievingDate.value" fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                  <mat-label> Actual Relieving Date  </mat-label>
-                  <input matInput readonly [disabled]="true"
-                         placeholder="MM/DD/YYYY" formControlName="actualRelievingDate"  required >
-
-                  <!--<mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">-->
-                  <!--</mat-datepicker-toggle>-->
-                  <!--<mat-datepicker #date3></mat-datepicker>-->
-                </mat-form-field>
-
-              </div>
-              <div fxLayout="row" *ngIf="pendingapprovalForm.controls.approverReason.value" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-
-                <mat-form-field fxFlex.xs="100" fxFlex="62" class="mx-2 my-2" appearance="outline">
-                  <mat-label>Approver Reason</mat-label>
-                  <textarea formControlName="approverReason"  matInput placeholder="" readonly>
-                    </textarea>
-                </mat-form-field>
-                <!--<mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">-->
-                <!--<mat-label> Actual Relieving Date  </mat-label>-->
-                <!--<input matInput readonly [disabled]="true"-->
-                       <!--placeholder="MM/DD/YYYY" formControlName="actualRelievingDate"  required >-->
-
-                <!--&lt;!&ndash;<mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">&ndash;&gt;-->
-                <!--&lt;!&ndash;</mat-datepicker-toggle>&ndash;&gt;-->
-                <!--&lt;!&ndash;<mat-datepicker #date3></mat-datepicker>&ndash;&gt;-->
-                <!--</mat-form-field>-->
-
-              </div>
-
-          </form>
-          <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
-            <button *ngIf="pendingapprovalForm.controls.status.value == 'Submitted'" class="col-md-2 mr-2 btn btn-primary" (click)="approve()">Approve</button>
-            <button  *ngIf="pendingapprovalForm.controls.status.value == 'Submitted'" class="col-md-2  btn btn-danger mr-2" (click)="reject()" >Reject</button>
-            <button class="col-md-2  btn btn-danger" (click)="Cancel()" >Cancel</button>
-
-          </div>
         </div>
-        <br>
-      </mat-card>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+          <mat-form-field fxFlex.xs="100" fxFlex="62" class="mx-2 my-2" appearance="outline">
+              <mat-label>Reason</mat-label>
+              <textarea formControlName="reason"  matInput placeholder="" readonly>
+              </textarea>
+          </mat-form-field>
+          <mat-form-field *ngIf="pendingapprovalForm.controls.actualRelievingDate.value" fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-label> Actual Relieving Date  </mat-label>
+            <input matInput readonly [disabled]="true"
+                   placeholder="MM/DD/YYYY" formControlName="actualRelievingDate"  required >
+
+            <!--<mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">-->
+            <!--</mat-datepicker-toggle>-->
+            <!--<mat-datepicker #date3></mat-datepicker>-->
+          </mat-form-field>
+
+        </div>
+        <div fxLayout="row" *ngIf="pendingapprovalForm.controls.approverReason.value" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+
+          <mat-form-field fxFlex.xs="100" fxFlex="62" class="mx-2 my-2" appearance="outline">
+            <mat-label>Approver Reason</mat-label>
+            <textarea formControlName="approverReason"  matInput placeholder="" readonly>
+              </textarea>
+          </mat-form-field>
+          <!--<mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">-->
+          <!--<mat-label> Actual Relieving Date  </mat-label>-->
+          <!--<input matInput readonly [disabled]="true"-->
+                 <!--placeholder="MM/DD/YYYY" formControlName="actualRelievingDate"  required >-->
+
+          <!--&lt;!&ndash;<mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">&ndash;&gt;-->
+          <!--&lt;!&ndash;</mat-datepicker-toggle>&ndash;&gt;-->
+          <!--&lt;!&ndash;<mat-datepicker #date3></mat-datepicker>&ndash;&gt;-->
+          <!--</mat-form-field>-->
+
+        </div>
+
+    </form>
+    <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
+      <button *ngIf="pendingapprovalForm.controls.status.value == 'Submitted'" class="col-md-2 mr-2 btn btn-primary" (click)="approve()">Approve</button>
+      <button  *ngIf="pendingapprovalForm.controls.status.value == 'Submitted'" class="col-md-2  btn btn-danger mr-2" (click)="reject()" >Reject</button>
+      <button class="col-md-2  btn btn-danger" (click)="Cancel()" >Cancel</button>
+
+    </div>
+  </div>
+  <br>
+
 </div>

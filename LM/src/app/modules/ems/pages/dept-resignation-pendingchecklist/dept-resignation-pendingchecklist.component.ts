@@ -9,24 +9,38 @@ import { MatTableDataSource } from '@angular/material/table';
 import { EmsService } from '../../ems.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-export interface UserData {
-  deptname: string;
-  status: string;
-  depthead: string;
-  headcount: number;
-  id: number;
-  total: number;
-}
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
+import * as _moment from 'moment';
+const moment =  _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-dept-resignation-pendingchecklist',
   templateUrl: './dept-resignation-pendingchecklist.component.html',
-  styleUrls: ['./dept-resignation-pendingchecklist.component.scss']
+  styleUrls: ['./dept-resignation-pendingchecklist.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class DeptResignationPendingchecklistComponent implements OnInit {
   checklistForm!: FormGroup;
   hrOnboardingForm!: FormGroup;
   constructor(private formBuilder: FormBuilder, private router: Router,private emsService:EmsService,private dialog: MatDialog) { }
-  dataSource: MatTableDataSource<UserData> = <any>[];
+  dataSource: MatTableDataSource<any> = <any>[];
   displayedColumns: string[] = ['sno', 'name', 'hiredate', 'joindate', 'status', 'action'];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -50,7 +64,9 @@ export class DeptResignationPendingchecklistComponent implements OnInit {
     return this.checklistForm.controls.selectedChecklist as FormArray;
   }
   employeestatus: any = [];
-  isfrmChecked:any;
+  isfrmChecked: any;
+  datastatus: any;
+  arr:any=[];
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.checklistForm = this.formBuilder.group(
@@ -152,8 +168,9 @@ getPageSizes(): number[] {
 addChecklistOverview(data: any) {
   this.isAdd = true;
   this.isdata = false;
+  this.datastatus=data.status;
   this.checklistForm.controls.name.setValue(data.empname)
-  this.checklistForm.controls.joinDate.setValue(data.dateofjoin)
+  this.checklistForm.controls.joinDate.setValue(this.pipe.transform(data.requestdate,'dd-MM-yyyy'),)
   this.checklistForm.controls.designation.setValue(data.designation)
   this.employeeId = data.empid;
   this.deptId = data.department_id;
@@ -164,6 +181,15 @@ getOffboardingCheckList() {
     if (res.status && res.data.length != 0) {
       this.checklistPoints = res.data;
       this.addCheckboxes();
+      for(let i=0;i<this.checklistPoints.length;i++){
+        if(this.checklistPoints[i].status == 'Completed'){
+          this.arr.push(1)
+        }
+        else{
+          this.arr.push(0)
+        }
+       }
+     this.checklistsFormArray.setValue(this.arr)
 
     }
   })
