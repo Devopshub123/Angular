@@ -174,35 +174,43 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
     }
    }
   saveRequest() {
-    let data ={
-      cid:this.selectedChecklists,
-      eid:this.employeeId,
-      did:this.userSession.deptid,
-      cmmt:null,
-      status:"Completed",
-      fstatus:this.checked == true ? "Completed" :  "Pending Checklist",
-      category:"Onboarding",
-      actionBy:this.userSession.id
-    }
+    if (this.selectedChecklists.length > 0) {
+      let data = {
+        cid: this.selectedChecklists,
+        eid: this.employeeId,
+        did: this.userSession.deptid,
+        cmmt: null,
+        status: "Completed",
+        fstatus: this.checked == true ? "Completed" : "Pending Checklist",
+        category: "Onboarding",
+        actionBy: this.userSession.id
+      }
 
-   this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
-    if (res.status) {
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/ems/termination-pendinging-checklist"]));
-    let dialogRef = this.dialog.open(ReusableDialogComponent, {
-      position: { top: `70px` },
-      disableClose: true,
-      data:"Data saved successfully"
-    });
-    }else {
+      this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
+        if (res.status) {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/ems/termination-pendinging-checklist"]));
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data saved successfully"
+          });
+        } else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data is not saved"
+          });
+        }
+
+      })
+    } else {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
-       data: "Data is not saved"
-      });
+        data:"Please select checklist"
+      });  
     }
-
-  }) 
   }
   cancel() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

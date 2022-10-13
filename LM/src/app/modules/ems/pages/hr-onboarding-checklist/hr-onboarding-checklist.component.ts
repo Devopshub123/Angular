@@ -104,7 +104,8 @@ export class HrOnboardingChecklistComponent implements OnInit {
     const earningselectedIds = this.checklistForm.value.selectedChecklist
     .map((checked:any, i:any) => checked ? this.checklistPoints[i].checklist_id : null)
     .filter((v:any) => v !== null);
-    let data ={
+  if(earningselectedIds.length > 0){
+    let data = {
       cid:earningselectedIds,
       eid:this.employeeId,
       did:this.userSession.deptid,
@@ -114,26 +115,33 @@ export class HrOnboardingChecklistComponent implements OnInit {
       category:"Onboarding",
       actionBy:this.userSession.id
     }
-    console.log(earningselectedIds)
-   
-    // this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
-    //   if (res.status) {
-    //     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    //     this.router.navigate(["/ems/onboarding-checklist-department"]));
-    //   let dialogRef = this.dialog.open(ReusableDialogComponent, {
-    //     position: { top: `70px` },
-    //     disableClose: true,
-    //     data:"Data added successfully"
-    //   });
-    //   }else {
-    //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
-    //       position: { top: `70px` },
-    //       disableClose: true,
-    //      data: "Data is not added"
-    //     });
-    //   }
+    console.log(data);
+    this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
+      if (res.status) {
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate(["/ems/onboarding-checklist-department"]));
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data:"Data added successfully"
+      });
+      }else {
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+         data: "Data is not added"
+        });
+      }
 
-    // })
+    })
+  } else {
+    let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data:"Please select checklist"
+    });  
+  }
+
   }
   getPendingChecklist() {
     this.emsService.getEmployePendingChecklist(null,null,null,this.userSession.deptid).subscribe((res: any) => {
