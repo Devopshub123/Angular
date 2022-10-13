@@ -48,9 +48,9 @@
           <input matInput readonly required
             [matDatepicker]="dateofjoin" 
             [min]="minDate"
-            [max]="maxDate"
+            [max]="joinDate"
             placeholder="Date of Join"                        
-            formControlName="dateofjoin">
+            formControlName="dateofjoin" (click)="dateofjoin.open()">
          <mat-datepicker-toggle class="datepicker"  matSuffix [for]="dateofjoin"></mat-datepicker-toggle>
           <mat-datepicker #dateofjoin></mat-datepicker>
           <mat-error class="con-error" *ngIf="hireForm.controls.dateofjoin.errors?.required">
@@ -65,7 +65,7 @@
       [min]="minDate"
       [max]="maxDate"
       placeholder="Hired On" 
-      formControlName="hiredon">
+      formControlName="hiredon" (click)="hiredon.open()">
    <mat-datepicker-toggle class="datepicker"  matSuffix [for]="hiredon"></mat-datepicker-toggle>
     <mat-datepicker #hiredon></mat-datepicker>
     <mat-error class="con-error" *ngIf="hireForm.controls.hiredon.errors?.required">

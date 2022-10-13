@@ -90,7 +90,8 @@ export class HrOffboardingChecklistComponent implements OnInit {
   saveRequest() {
     const earningselectedIds = this.checklistForm.value.selectedChecklist
     .map((checked:any, i:any) => checked ? this.checklistPoints[i].checklist_id : null)
-    .filter((v:any) => v !== null);
+      .filter((v: any) => v !== null);
+
     if (earningselectedIds.length > 0) {
       let data = {
         cid:earningselectedIds,
@@ -102,7 +103,6 @@ export class HrOffboardingChecklistComponent implements OnInit {
         category:"Offboarding",
         actionBy:this.userSession.id
       }
-      console.log(data)
       this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
         if (res.status) {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -110,13 +110,13 @@ export class HrOffboardingChecklistComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data:"Data added successfully"
+          data:"Data saved successfully"
         });
         }else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-           data: "Data is not added"
+           data: "Data is not saved"
           });
         }
   
