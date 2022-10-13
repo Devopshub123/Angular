@@ -52,6 +52,7 @@ export class ResignationComponent implements OnInit {
   resonid:any;
   reason:any;
   editdata:any=[];
+  noticeperiod:any;
   company:any='Sreeb Tech'
   empname:any;
   resignForm:any= FormGroup;
@@ -72,7 +73,7 @@ export class ResignationComponent implements OnInit {
   sort!: MatSort;
 
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private adminService: AdminService,private ES:EmsService,private LM:CompanySettingService) {
-
+    this.getnoticeperiods()
    }
 
   ngOnInit(): void {
@@ -83,7 +84,7 @@ export class ResignationComponent implements OnInit {
     this.resignForm=this.formBuilder.group(
       {
       resigndate: [new Date(),],
-      noticperiod: [30,],
+      noticperiod: ['',],
       releivingdate:[],
       exitdate:[""],
       reason:["",Validators.required],
@@ -91,8 +92,15 @@ export class ResignationComponent implements OnInit {
 
     });
     this.empname = this.userSession.firstname+'  '+this.userSession.lastname;
-    this.max = new Date(new Date().setDate(new Date().getDate() + 30))
-    this.resignForm.controls.releivingdate.setValue(new Date(new Date().setDate(new Date().getDate() + 30)));
+    this.resignForm.get('noticperiod')?.valueChanges.subscribe((selectedValue:any) => {
+      console.log(selectedValue)
+      console.log(new Date().setDate(new Date().getDate() + Number(selectedValue)))
+      this.max= new Date(new Date().setDate(new Date().getDate() + Number(selectedValue)))
+      // this.max = new Date((new Date().setDate(new Date().getDate() + Number(selectedValue)))
+      this.resignForm.controls.releivingdate.setValue(new Date(new Date().setDate(new Date().getDate() + selectedValue)));
+
+    })
+    
 
   }
   submit(){
@@ -161,6 +169,15 @@ export class ResignationComponent implements OnInit {
       }
 
 
+    });
+
+  }
+  getnoticeperiods(){
+    this.ES.getnoticeperiods().subscribe((res: any) => {
+      if(res.status){
+       this.resignForm.controls.noticperiod.setValue(res.data[0].value) 
+       console.log(res.data[0].value)
+      }
     });
 
   }

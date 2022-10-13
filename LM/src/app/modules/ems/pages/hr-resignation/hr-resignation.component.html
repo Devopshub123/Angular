@@ -41,12 +41,12 @@
                 </ng-container>
   
                 <ng-container matColumnDef="checklist">
-                  <mat-header-cell *matHeaderCellDef>checklist</mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef>Checklist</mat-header-cell>
                   <mat-cell *matCellDef="let row">{{row.checklist_name}}</mat-cell>
                 </ng-container>
   
                 <ng-container matColumnDef="status">
-                  <mat-header-cell *matHeaderCellDef> status </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
                   <mat-cell *matCellDef="let row">
                     <mat-checkbox (click)="$event.stopPropagation()" (change)="toggle($event, row)"
                     [checked]="row.status == 'Completed'">

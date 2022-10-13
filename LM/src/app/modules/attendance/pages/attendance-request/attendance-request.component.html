@@ -10,14 +10,7 @@
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Applied Date</mat-label>
                     <input formControlName="appliedDate" matInput placeholder="Applied Date" readonly>
-                </mat-form-field>
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Shift</mat-label>
-                    <input formControlName="shift"  readonly required matInput placeholder="Shift">
-                    <mat-error *ngIf="requestform.controls['shift'].invalid">
-                        {{requiredOption}}
-                    </mat-error>
-                </mat-form-field>
+                </mat-form-field>  
 
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
@@ -31,10 +24,7 @@
                         {{requiredOption}}
                     </mat-error>
                  </mat-form-field>
-            </div>
-            <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
-
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>From Date </mat-label>
                     <input matInput readonly required [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate"
                      [matDatepickerFilter]="myDateFilter"
@@ -57,8 +47,17 @@
                       {{requiredOption}}
                     </mat-error>
                 </mat-form-field>
+                
+                
             </div>
             <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Shift</mat-label>
+                    <input formControlName="shift"  readonly required matInput placeholder="Shift">
+                    <mat-error *ngIf="requestform.controls['shift'].invalid">
+                        {{requiredOption}}
+                    </mat-error>
+                </mat-form-field>
                 <mat-form-field fxFlex="42" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason</mat-label>
                     <textarea formControlName="reason" required maxlength="250" matInput

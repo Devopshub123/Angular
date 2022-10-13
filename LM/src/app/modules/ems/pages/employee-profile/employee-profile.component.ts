@@ -58,7 +58,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   displayedColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
   familyTableColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
-  documentTableColumns = ['position','category','number','name','action'];
+  documentTableColumns = ['position','category','number','status','name','action'];
 
   promotionsTableColumns = ['sno', 'salary', 'fromDate', 'action'];
   workTableColumns = ['sno', 'company','desig', 'fromDate', 'toDate', 'action'];
