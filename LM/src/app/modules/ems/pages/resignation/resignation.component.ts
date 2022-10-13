@@ -93,12 +93,8 @@ export class ResignationComponent implements OnInit {
     });
     this.empname = this.userSession.firstname+'  '+this.userSession.lastname;
     this.resignForm.get('noticperiod')?.valueChanges.subscribe((selectedValue:any) => {
-      console.log(selectedValue)
-      console.log(new Date().setDate(new Date().getDate() + Number(selectedValue)))
       this.max= new Date(new Date().setDate(new Date().getDate() + Number(selectedValue)))
-      // this.max = new Date((new Date().setDate(new Date().getDate() + Number(selectedValue)))
-      this.resignForm.controls.releivingdate.setValue(new Date(new Date().setDate(new Date().getDate() + selectedValue)));
-
+      this.resignForm.controls.releivingdate.setValue(new Date(this.max));
     })
     
 
