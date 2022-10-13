@@ -281,4 +281,9 @@ export class EmsService {
 
     return this.http.get(this.mainUrl + 'ems/api/getHrDetails/',this.httpOptions);
   }
+  getnoticeperiods(): any {
+
+    return this.http.get(this.mainUrl + 'ems/api/getnoticeperiods/',this.httpOptions);
+  }
+  
 }
