@@ -556,7 +556,8 @@
                                 <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Start Date</mat-label>
                                     <input matInput readonly [matDatepicker]="contractStartDate" [min]="minDate"
-                                        [max]="maxDate" placeholder="MM/DD/YYYY" formControlName="contractStartDate" />
+                                        [max]="maxDate" placeholder="MM/DD/YYYY"
+                                         formControlName="contractStartDate" (click)="contractStartDate.open()"/>
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="contractStartDate">
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #contractStartDate></mat-datepicker>
@@ -565,7 +566,8 @@
                                 <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>End Date</mat-label>
                                     <input matInput readonly [matDatepicker]="contractEndDate" [min]="minDate"
-                                        [max]="maxDate" placeholder="MM/DD/YYYY" formControlName="contractEndDate" />
+                                        [max]="maxDate" placeholder="MM/DD/YYYY"
+                                         formControlName="contractEndDate" (click)="contractEndDate.open()"/>
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="contractEndDate">
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #contractEndDate></mat-datepicker>
@@ -722,7 +724,8 @@
                                 <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>From Date</mat-label>
                                     <input matInput required readonly [matDatepicker]="expFromDate" [min]="minDate"
-                                        [max]="maxDate" placeholder="MM/DD/YYYY" formControlName="expFromDate" />
+                                        [max]="maxDate" placeholder="MM/DD/YYYY" 
+                                        formControlName="expFromDate" (click)="expFromDate.open()"/>
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="expFromDate">
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #expFromDate></mat-datepicker>
@@ -735,7 +738,8 @@
                                 <mat-form-field fxFlex.xs="100%" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>To Date</mat-label>
                                     <input required matInput readonly [matDatepicker]="expToDate" [min]="minDate"
-                                        [max]="maxDate" placeholder="MM/DD/YYYY" formControlName="expToDate" />
+                                        [max]="maxDate" placeholder="MM/DD/YYYY"
+                                         formControlName="expToDate"  (click)="expToDate.open()"/>
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="expToDate">
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #expToDate></mat-datepicker>

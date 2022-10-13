@@ -1,7 +1,6 @@
 <div fxLayout="column" >
     <form [formGroup]="worklocationForm" autocomplete="off" >
-        <mat-card>
-            <mat-card-header class="">
+         <mat-card-header class="">
                 <mat-card-title > Work Location </mat-card-title>
             </mat-card-header>
             <mat-divider></mat-divider><br>
@@ -159,6 +158,7 @@
                         <span>Add</span>
                     </button>
                 </div><br>
+                <div fxLayout="column" class="tableP">
                 <div class="mat-elevation-z1">
                     <table mat-table [dataSource]="dataSource" matSort>
         
@@ -218,8 +218,8 @@
         
                     <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
                 </div>
+            </div>
             </div> 
-        </mat-card>
-    </form>
+     </form>
 </div>
 

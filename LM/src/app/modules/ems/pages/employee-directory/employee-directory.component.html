@@ -69,7 +69,7 @@
 
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" >
 
-              <mat-card class="card" *ngFor="let emp of employeeList">
+              <mat-card class="card" *ngFor="let emp of filteredemployeeList">
                 <div fxLayoutAlign="end">
                      <span (click)="editEmployee($event,emp)"> 
                       <button mat-icon-button matTooltip="Edit">

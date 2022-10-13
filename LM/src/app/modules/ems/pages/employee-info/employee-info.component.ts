@@ -1023,7 +1023,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.promotionsForm.controls.newDescription.reset();
     this.promotionsForm.controls.effectiveDate.reset();
     this.promotionsForm.controls.annualSalary.reset();
-    this.promotionsForm.valid = true;
+   // this.promotionsForm.valid = true;
 
   }
   deletePromotions(index: any) {
@@ -1047,6 +1047,7 @@ export class EmployeeInfoComponent implements OnInit {
           effectivedate: this.pipe.transform(this.promotionsForm.controls.effectiveDate.value, 'yyyy-MM-dd'),
           annualsalary: this.promotionsForm.controls.annualSalary.value,
         });
+        this.clearPromotions();
       } else { }
 
        let data = {
@@ -1062,6 +1063,7 @@ export class EmployeeInfoComponent implements OnInit {
      
       this.emsService.saveEmployeeJobDetailsData(data).subscribe((res: any) => {
         if (res.status && res.data[0].statuscode == 0) {
+          this.promotionList = [];
           this.getEmployeeJobList();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
@@ -1792,6 +1794,9 @@ createValidatorForDocument(){
   this.documentsForm.get('documentNumber').updateValueAndValidity();
    this.documentsForm.get('documentName').updateValueAndValidity();
 
-}
+  }
+  educationClear(){}
+  workClear(){}
+  jobClear(){}
 }
 

@@ -1,7 +1,6 @@
 <div fxLayout="column" >
     <form [formGroup]="departmentForm" autocomplete="off" >
-        <mat-card>
-            <mat-card-header class="">
+         <mat-card-header class="">
                 <mat-card-title > Department </mat-card-title>
             </mat-card-header>
             <mat-divider></mat-divider>
@@ -32,11 +31,12 @@
             </div><br>
             <!-- <mat-divider></mat-divider> -->
             <div  *ngIf="isdata">
-                <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
+                <div fxLayout="row" fxLayoutAlign="end">
                     <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue" (click)="Add()" type="submit">
                         <span>Add</span>
                     </button>
                 </div><br>
+                <div fxLayout="column" class="tableP">
                 <div class="mat-elevation-z1">
                     <table mat-table [dataSource]="dataSource" matSort>
 
@@ -92,6 +92,6 @@
                     <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
                 </div>
             </div>
-        </mat-card>
+            </div>
     </form>
 </div>

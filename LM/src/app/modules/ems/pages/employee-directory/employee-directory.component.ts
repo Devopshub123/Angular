@@ -28,6 +28,7 @@ export class EmployeeDirectoryComponent implements OnInit {
   ishideFilter:boolean=false;
   ishideonbord: boolean = false;
   employeeList: any = [];
+  filteredemployeeList: any = [];
   ngOnInit(): void {
     this.employeeDirectoryForm=this.formBuilder.group(
       {
@@ -64,15 +65,18 @@ export class EmployeeDirectoryComponent implements OnInit {
     this.emsService.getEmployeeDirectoryList().subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.employeeList = res.data;
+        this.filteredemployeeList = this.employeeList;
      }
     })
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    this.filteredemployeeList = this.employeeList;
+  //  this.filteredemployeeList.filter = filterValue.trim().toLowerCase();
+       this.filteredemployeeList = this.filteredemployeeList.filter((emp:any) => emp.ename.toLowerCase() ===  filterValue.trim().toLowerCase())
+    // if (this.dataSource.paginator) {
+    //   this.dataSource.paginator.firstPage();
+    // }
   }
   search() {
     
