@@ -74,7 +74,7 @@ export class EmployeeInfoComponent implements OnInit {
 
   isedit:boolean=false;
   minDate = new Date('1950/01/01');
-  maxBirthDate: any;
+  maxBirthDate = new Date();
   bloodGroupdetails: any[] = [];
   genderDetails: any[] = [];
   employeeRelationship: any = [];
