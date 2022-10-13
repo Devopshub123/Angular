@@ -357,8 +357,8 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
       this.personalInfoForm.controls.ppincode.setValue(this.loginData.ppincode);
       this.personalInfoForm.controls.mobileNo.setValue(this.loginData.contact_number);
-      if(this.loginData.emergencycontactnumber !='null')
-      this.personalInfoForm.controls.alternateMobileNo.setValue(this.loginData.emergencycontactnumber);
+      if(this.loginData.emergencycontact_number !='null')
+      this.personalInfoForm.controls.alternateMobileNo.setValue(this.loginData.emergencycontact_number);
       this.personalInfoForm.controls.hireDate.setValue(new Date(this.loginData.hired_date));
       this.personalInfoForm.controls.joinDate.setValue(new Date(this.loginData.dateofjoin));
 

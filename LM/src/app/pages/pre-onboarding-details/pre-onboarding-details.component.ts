@@ -64,7 +64,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   educationForm:  any = FormGroup;
   documentsForm:any = FormGroup;
   minDate = new Date('1950/01/01');
-  maxBirthDate: any;
+  maxBirthDate= new Date();
   bloodGroupdetails: any[] = [];
   genderDetails: any[] = [];
   employeeRelationship: any = [];

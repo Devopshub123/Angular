@@ -57,6 +57,12 @@ export class SettingsAddChecklistComponent implements OnInit {
   messagesDataList: any = [];
   EM1: any;
   EM2: any;
+  EM7: any;
+  EM8: any;
+  EM41: any;
+  EM42: any;
+  EM43: any;
+
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.checklistForm = this.formBuilder.group(
@@ -110,14 +116,14 @@ export class SettingsAddChecklistComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data:"Data saved sucessfully"
+            data:this.EM42
           });
 
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-           data: "Data is not saved"
+           data:this.EM43
           });
         }
       });
@@ -145,14 +151,14 @@ export class SettingsAddChecklistComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data:"Data saved sucessfully"
+            data:this.EM42
           });
 
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-           data: "Data is not saved"
+           data:this.EM43
           });
         }
       });
@@ -180,14 +186,14 @@ export class SettingsAddChecklistComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data:"Data updated sucessfully"
+            data:this.EM7
           });
 
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-           data: "Data is not updated"
+           data: this.EM8
           });
         }
       });
@@ -217,7 +223,7 @@ export class SettingsAddChecklistComponent implements OnInit {
       if(toSelect!=undefined){
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           disableClose:true,
-          data: "Checklist is already exists"
+          data: this.EM41
        });
        this.clearFields();
       }
@@ -313,6 +319,16 @@ export class SettingsAddChecklistComponent implements OnInit {
             this.EM1 =e.message
           } else if (e.code == "EM2") {
             this.EM2 =e.message
+          }else if (e.code == "EM7") {
+            this.EM7 =e.message
+          }else if (e.code == "EM8") {
+            this.EM8 =e.message
+          } else if (e.code == "EM41") {
+            this.EM41 =e.message
+          }else if (e.code == "EM42") {
+            this.EM42 =e.message
+          }else if (e.code == "EM43") {
+            this.EM43 =e.message
           }
         })
       } else {
