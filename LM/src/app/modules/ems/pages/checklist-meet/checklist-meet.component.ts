@@ -118,20 +118,29 @@ export class ChecklistMeetComponent implements OnInit {
     })
        this.checklistForm.get('endtime')?.valueChanges.subscribe(selectedValue => {
       if(this.mintime == selectedValue ){
-        this.checklistForm.controls.endtime.setValue(null);
+        selectedValue='';
+        this.checklistForm.get('endtime')?.setValue('');
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
           data: 'Please change endtime'
-        });  
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          this.checklistForm.get('endtime')?.setValue('');
+
+        });
       }else if(this.pipe.transform(this.mintime, 'HH:mm')==this.pipe.transform(selectedValue, 'HH:mm')){
-        this.checklistForm.controls.endtime.setValue(null);
+
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
           data: 'Please change endtime'
-        });  
-      }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          this.checklistForm.get('endtime')?.setValue('');
+
+        })
+            }
     })
     this.checklistForm.get('department')?.valueChanges.subscribe(selectedValue => {
       this.deptdata=selectedValue;
@@ -375,7 +384,7 @@ ngAfterViewInit() {
         this.allmails.push(this.alldata[i].officeemail)
         this.allempid.push(this.alldata[i].empid)
         this.allesid.push(this.alldata[i].id)
-  
+
       }
       let data = {
         esid:this.allesid,
@@ -394,7 +403,7 @@ ngAfterViewInit() {
        disableClose: true,
        data: 'employee Program schedule updated successfully'
      });
-  
+
    }
    else{
      let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -403,7 +412,7 @@ ngAfterViewInit() {
        data: 'Unable to to update employee program schedule'
      });
    }
-  
+
    })
 
     }else{
@@ -414,8 +423,8 @@ ngAfterViewInit() {
       });
 
     }
-   
- 
+
+
 
   }
 
