@@ -28,10 +28,11 @@ export class EmployeeDirectoryComponent implements OnInit {
   ishideFilter:boolean=false;
   ishideonbord: boolean = false;
   employeeList: any = [];
+  employeeFilteredList: any = [];
   ngOnInit(): void {
     this.employeeDirectoryForm=this.formBuilder.group(
       {
-      dateoftermination: [new Date(),],        
+      dateoftermination: [new Date(),],
       reason: ["",],
       terminatecategory:["",],
       empname:["Sreeb",],
@@ -54,7 +55,7 @@ export class EmployeeDirectoryComponent implements OnInit {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(["/ems/newHire"]));
   }
-  
+
   editEmployee(id:any, data:any) {
     let empId=data.id;
     this.router.navigate(["/ems/empInformation",{empId}])
@@ -64,18 +65,27 @@ export class EmployeeDirectoryComponent implements OnInit {
     this.emsService.getEmployeeDirectoryList().subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.employeeList = res.data;
+        this.employeeFilteredList=this.employeeList;
      }
     })
   }
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+     const filterValue = (event.target as HTMLInputElement).value;
+    let filterdata=this.employeeList.filter((m:any) =>
+      m.ename.toString().toLowerCase().includes(filterValue.trim().toLowerCase()));
+      this.employeeFilteredList=filterdata;
+    // ||m.patientRegistrationBean.medicalRecordNumber.toString().toLowerCase().includes(filterValue)
+    // ||m.patientRegistrationBean.userBean.firstName.toString().toLowerCase().includes(filterValue)
+    // ||m.doctorBean.employeeUserBean.userBean.firstName.toString().toLowerCase().includes(filterValue)
+    // ||m.createdOn.toString().toLowerCase().includes(filterValue)
+
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
+    // if (this.dataSource.paginator) {
+    //   this.dataSource.paginator.firstPage();
+    // }
   }
   search() {
-    
+
   }
   clear() {
     this.ishideFilter = false;

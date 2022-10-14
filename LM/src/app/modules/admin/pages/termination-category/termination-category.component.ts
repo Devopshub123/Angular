@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup,  Validators, FormBuilder,  } from '@angular/forms';
+import { FormGroup,  Validators, FormBuilder, ValidatorFn, AbstractControl, ValidationErrors,  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from 'src/app/services/login.service';
@@ -56,11 +56,16 @@ export class TerminationCategoryComponent implements OnInit {
     this.getDepartments();
     this.terminationCategoryForm = this.formBuilder.group(
       {
-        terminationCategory: ["", Validators.required],
+        terminationCategory: ["",[Validators.required,this.noWhitespaceValidator()]],
       },
     );
   }
-
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return isWhitespace ? { whitespace: true } : null;
+    };
+  }
 
 
   ngAfterViewInit() {
@@ -77,7 +82,7 @@ export class TerminationCategoryComponent implements OnInit {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(["/Admin/Termination-Category"]));
   }
- 
+
   edit(w: any, i: any) {
     this.terminationCategoryForm.controls.terminationCategory.setValue(i.category);
     this.enable = i.id;
@@ -124,7 +129,7 @@ export class TerminationCategoryComponent implements OnInit {
               disableClose: true,
              data:"Data saved sucessfully"
             });
-  
+
           } else {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
@@ -224,9 +229,9 @@ update(name: any,value:any) {
   //         });
   //       }
   //     });
-      
+
   //    } else {
-      
+
   //   }
 
   // }
@@ -266,9 +271,9 @@ update(name: any,value:any) {
   //         });
   //       }
   //     });
-      
+
   //    } else {
-      
+
   //   }
   // }
 
@@ -326,13 +331,13 @@ update(name: any,value:any) {
       if(result.status){
         this.statusList = result.data;
       }
-      
+
     })
   }
 
   getErrorMessages(errorCode:any) {
 
   }
- 
+
 
 }
