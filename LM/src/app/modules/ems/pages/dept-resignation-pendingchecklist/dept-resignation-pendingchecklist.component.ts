@@ -66,7 +66,8 @@ export class DeptResignationPendingchecklistComponent implements OnInit {
   employeestatus: any = [];
   isfrmChecked: any;
   datastatus: any;
-  arr:any=[];
+  arr: any = [];
+  searchdate: any = null;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.checklistForm = this.formBuilder.group(
@@ -85,6 +86,10 @@ export class DeptResignationPendingchecklistComponent implements OnInit {
       searchName: ["",],
      
       });
+      this.hrOnboardingForm.get('searchDate')?.valueChanges.subscribe((selectedValue:any) => {
+        this.searchdate = this.pipe.transform(selectedValue._d,'yyyy-MM-dd'),
+        this.getPendingChecklist();
+      })
       this.getPendingChecklist();
   }
   private addCheckboxes() {
@@ -142,7 +147,13 @@ export class DeptResignationPendingchecklistComponent implements OnInit {
     }
   }
   getPendingChecklist() {
-    this.emsService.getEmployeResignationPendingChecklist(null,null,null,this.userSession.deptid).subscribe((res: any) => {
+    let data = {
+      name: null,
+      date: this.searchdate,
+      eid: null,
+      did:this.userSession.deptid
+    }
+    this.emsService.getEmployeResignationPendingChecklist(data).subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.pendingchecklist = res.data;
         this.dataSource = new MatTableDataSource(this.pendingchecklist);

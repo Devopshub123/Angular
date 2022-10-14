@@ -44,6 +44,7 @@ export class HrOnboardingComponent implements OnInit {
   isEdit: boolean = true;
   isSave: boolean = false;
   enable: any = null;
+  searchdate: any = null;
   istable: boolean = true;
   displayedColumns: string[] = ['sno', 'name', 'hiredate', 'joindate', 'status', 'action'];
   checklistdisplayedColumns: string[] = ['sno', 'dept', 'approver', 'checklist', 'status'];
@@ -82,12 +83,23 @@ export class HrOnboardingComponent implements OnInit {
         searchName: ["",],
 
       });
+      this.hrOnboardingForm.get('searchDate')?.valueChanges.subscribe((selectedValue:any) => {
+        this.searchdate = this.pipe.transform(selectedValue._d,'yyyy-MM-dd')
+        this.getPendingChecklist();
+      })
     this.getPendingChecklist();
     this.dataSource.paginator = this.paginator;
   }
 
   getPendingChecklist() {
-    this.emsService.getEmployePendingChecklist(null, null, null,this.userSession.deptid).subscribe((res: any) => {
+
+    let data = {
+      name: null,
+      date: this.searchdate,
+      eid: null,
+      did:this.userSession.deptid
+    }
+    this.emsService.getEmployePendingChecklist(data).subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.pendingchecklist = res.data;
         this.dataSource = new MatTableDataSource(this.pendingchecklist);
