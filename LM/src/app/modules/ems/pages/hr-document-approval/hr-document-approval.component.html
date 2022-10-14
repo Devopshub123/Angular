@@ -41,7 +41,7 @@
                 
                     <td mat-cell *matCellDef="let row">
                         <!-- <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon> -->
-                        <mat-icon title="Review & Approve" (click)="preview($event,row)">check_box</mat-icon>
+                        <mat-icon title="Review & Approve" (click)="preview($event,row)">visibility</mat-icon>
            
                         
                     </td>
@@ -108,7 +108,7 @@
                 
                     <td mat-cell *matCellDef="let row">
                         <!-- <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon> -->
-                        <mat-icon title="Review & Approve" (click)="approve($event,row)">check_box</mat-icon>
+                        <mat-icon title="Approve" (click)="approve($event,row)">check_box</mat-icon>
                         <mat-icon title="Reject" (click)="reject($event,row)" >cancel</mat-icon>
            
                         

@@ -1,15 +1,15 @@
 <div fxLayout="column">
-    
+
       <mat-card>
         <mat-card-header>
           <mat-card-title > Employee Directory </mat-card-title>
-          
+
         </mat-card-header>
-        
+
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="space-between center">
-          
+
                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                  <mat-icon matSuffix >search</mat-icon> 
+                  <mat-icon matSuffix >search</mat-icon>
                   <mat-label>Search employee</mat-label>
                     <input (keyup)="applyFilter($event)"  matInput placeholder="" maxlength="100" >
                   </mat-form-field>
@@ -30,24 +30,24 @@
         <div *ngIf="ishideFilter" style="margin-left: 1%;">
           <mat-card>
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" >
-           <mat-checkbox class="example-margin"  [checked]="ischecked" (change)="setonboarding($event)" 
+           <mat-checkbox class="example-margin"  [checked]="ischecked" (change)="setonboarding($event)"
            color="primary">
           </mat-checkbox> Designation
           </div>
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"> 
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2">
             <ul *ngIf="ishideonbord">
                 <div  *ngIf="ishideonbord" ><mat-checkbox class="example-margin " color="primary"></mat-checkbox>New Hire Added</div>
                 <div  *ngIf="ishideonbord"><mat-checkbox class="example-margin" color="primary"></mat-checkbox>Onboarding completion</div>
                 <div   *ngIf="ishideonbord"><mat-checkbox class="example-margin" color="primary"></mat-checkbox>Employee not joining</div>
             </ul>
         </div>
-        
+
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" >
-          <mat-checkbox class="example-margin"  [checked]="ischecked" (change)="setonboarding($event)" 
+          <mat-checkbox class="example-margin"  [checked]="ischecked" (change)="setonboarding($event)"
           color="primary">
          </mat-checkbox>Status
          </div>
-         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"> 
+         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2">
            <ul *ngIf="ishideonbord">
                <div  *ngIf="ishideonbord" ><mat-checkbox class="example-margin " color="primary"></mat-checkbox>Active</div>
                <div  *ngIf="ishideonbord"><mat-checkbox class="example-margin" color="primary"></mat-checkbox>Inactive</div>
@@ -62,16 +62,16 @@
       <button class="col-md-1 btn btn-danger mx-2 my-2"   (click)="clear()" >
             <span >Clear</span>
         </button>
-        
+
     </div>
   </mat-card>
       </div>
 
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" >
 
-              <mat-card class="card" *ngFor="let emp of filteredemployeeList">
+              <mat-card class="card" *ngFor="let emp of employeeFilteredList">
                 <div fxLayoutAlign="end">
-                     <span (click)="editEmployee($event,emp)"> 
+                     <span (click)="editEmployee($event,emp)">
                       <button mat-icon-button matTooltip="Edit">
                         <mat-icon class="icon">edit</mat-icon>
                                </button>
@@ -89,5 +89,5 @@
            </div>
           </form>
       </mat-card>
-    
+
 </div>
