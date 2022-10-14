@@ -429,7 +429,7 @@
                         <div fxLayoutAlign="center">
                             <button class="col-md-1 btn btn-primary mx-2 my-2" [disabled]="!personalInfoForm.valid" (click)="savePersonalInfo()"
                                 type="submit">
-                                <span>Submit</span>
+                                <span>Save</span>
                             </button>
                             <!-- <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="personalInfoClear()">
                                 <span>Cancel</span>
@@ -478,7 +478,7 @@
 
                                 <mat-form-field fxFlex.xs="100%" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>To Date</mat-label>
-                                    <input required matInput readonly [matDatepicker]="expToDate" [min]="minDate" [max]="maxDate"
+                                    <input required matInput readonly [matDatepicker]="expToDate" [min]="minExperienceDate" [max]="maxDate"
                                     placeholder="MM/DD/YYYY" formControlName="expToDate" (click)="expToDate.open()"/>
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="expToDate">
                                     </mat-datepicker-toggle>
@@ -564,7 +564,7 @@
                             <div fxLayoutAlign="center" *ngIf="workExperienceDetails.length > 0">
                                 <button class="col-md-1 btn btn-primary mx-2 my-2" (click)="saveWorkExperience()"
                                     type="submit">
-                                    <span>Submit</span>
+                                    <span>Save</span>
                                 </button>
                                 <!-- <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="personalInfoClear()">
                                     <span>Cancel</span>
@@ -615,7 +615,7 @@
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>To Date</mat-label>
-                                    <input matInput readonly [matDatepicker]="eduToDate" [min]="minetodate"
+                                    <input matInput readonly [matDatepicker]="eduToDate" [min]="minEducationDate"
                                         [max]="edmaxDate" placeholder="MM/DD/YYYY" formControlName="eduToDate"
                                         (click)="eduToDate.open()" required />
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="eduToDate">
@@ -687,7 +687,7 @@
                          <div fxLayoutAlign="center" *ngIf="educationDetails.length > 0">
                             <button class="m-1 mat-stroked-button button-save" (click)="saveEducation()"
                                 type="submit">
-                                <span>Submit</span>
+                                <span>Save</span>
                             </button>
                             <!-- <button class="m-1 mat-stroked-button button-clear" (click)="personalInfoClear()">
                                 <span>Cancel</span>

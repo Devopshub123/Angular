@@ -125,7 +125,6 @@ export class HrOnboardingComponent implements OnInit {
         this.selection.deselect(row);
       }
     }
-    console.log(this.selectedChecklists);
   }
 
   ngAfterViewInit() {

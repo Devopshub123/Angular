@@ -72,17 +72,9 @@ export class EmployeeDirectoryComponent implements OnInit {
   applyFilter(event: Event) {
      const filterValue = (event.target as HTMLInputElement).value;
     let filterdata=this.employeeList.filter((m:any) =>
-      m.ename.toString().toLowerCase().includes(filterValue.trim().toLowerCase()));
+      m.ename.toString().toLowerCase().includes(filterValue.trim().toLowerCase())
+      || m.designation.toString().toLowerCase().includes(filterValue.trim().toLowerCase()));
       this.employeeFilteredList=filterdata;
-    // ||m.patientRegistrationBean.medicalRecordNumber.toString().toLowerCase().includes(filterValue)
-    // ||m.patientRegistrationBean.userBean.firstName.toString().toLowerCase().includes(filterValue)
-    // ||m.doctorBean.employeeUserBean.userBean.firstName.toString().toLowerCase().includes(filterValue)
-    // ||m.createdOn.toString().toLowerCase().includes(filterValue)
-
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
   }
   search() {
 

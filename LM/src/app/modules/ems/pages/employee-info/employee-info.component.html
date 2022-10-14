@@ -292,14 +292,14 @@
                                     {{EM2}}
                                 </mat-error>
                                 </mat-form-field>
+                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Notice Period</mat-label>
+                                    <input type="text" readonly formControlName="noticePeriod" matInput placeholder="" />
+                                </mat-form-field>
                             </div>
 
                             <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Notice Period</mat-label>
-                                    <input type="text" onlyNumber formControlName="noticePeriod" matInput placeholder=""
-                                        maxlength="2" />
-                                </mat-form-field>
+                              
                             </div> -->
 
 
@@ -592,7 +592,7 @@
                             <div fxLayoutAlign="center">
                                 <button class="col-md-1 btn btn-primary mx-2 my-2" [disabled]="!personalInfoForm.valid"
                                     (click)="savePersonalInfo()" type="submit">
-                                    <span>Submit</span>
+                                    <span>Save</span>
                                 </button>
                                 <!-- <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="personalInfoClear()">
                                     <span>Cancel</span>
@@ -627,7 +627,7 @@
 
                                 <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>End Date</mat-label>
-                                    <input matInput readonly [matDatepicker]="contractEndDate" [min]="minDate"
+                                    <input matInput readonly [matDatepicker]="contractEndDate" [min]="mincontarctDate"
                                         [max]="maxDate" placeholder="MM/DD/YYYY"
                                          formControlName="contractEndDate" (click)="contractEndDate.open()" />
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="contractEndDate">
@@ -751,7 +751,7 @@
 
                         <div fxLayoutAlign="center">
                             <button class="m-1 mat-stroked-button button-save" (click)="saveJobDetails()">
-                                <span>Submit</span>
+                                <span>Save</span>
                             </button>
                             <!-- <button class="m-1 mat-stroked-button button-clear" (click)="jobClear()">
                                 <span>Cancel</span>
@@ -805,7 +805,7 @@
 
                                 <mat-form-field fxFlex.xs="100%" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>To Date</mat-label>
-                                    <input required matInput readonly [matDatepicker]="expToDate" [min]="minDate"
+                                    <input required matInput readonly [matDatepicker]="expToDate" [min]="minExperienceDate"
                                         [max]="maxDate" placeholder="MM/DD/YYYY"
                                          formControlName="expToDate"  (click)="expToDate.open()"/>
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="expToDate">
@@ -943,7 +943,7 @@
                             <div fxLayoutAlign="center" *ngIf="workExperienceDetails.length > 0">
                                 <button class="m-1 mat-stroked-button button-save" (click)="saveWorkExperience()"
                                     type="submit">
-                                    <span>Submit</span>
+                                    <span>Save</span>
                                 </button>
                                 <!-- <button class="m-1 mat-stroked-button button-clear" (click)="workClear()">
                                     <span>Cancel</span>
@@ -996,7 +996,7 @@
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>To Date</mat-label>
-                                    <input required matInput readonly [matDatepicker]="eduToDate" [min]="minetodate"
+                                    <input required matInput readonly [matDatepicker]="eduToDate" [min]="minEducationDate"
                                         [max]="edmaxDate" placeholder="MM/DD/YYYY" formControlName="eduToDate"
                                         (click)="eduToDate.open()" />
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="eduToDate">
@@ -1068,7 +1068,7 @@
                         </form>
                         <div fxLayoutAlign="center">
                             <button class="m-1 mat-stroked-button button-save" (click)="saveEducation()" type="submit">
-                                <span>Submit</span>
+                                <span>Save</span>
                             </button>
                             <!-- <button class="m-1 mat-stroked-button button-clear" (click)="educationClear()">
                                 <span>Cancel</span>

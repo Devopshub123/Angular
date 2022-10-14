@@ -10,31 +10,24 @@ import { ReviewAndApprovalsComponent } from 'src/app/modules/leaves/dialog/revie
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 
 import {EmsService} from '../../ems.service'
-import { DatePipe } from "@angular/common";
-import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import * as _moment from 'moment';
-const moment =  _moment;
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'DD-MM-YYYY',
-    monthYearLabel: 'YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'YYYY',
-  },
-};
+import {DatePipe} from "@angular/common";
+export interface PeriodicElement {
+  id: number;
+  name: string;
+  empid: string;
+  status: string;
+  date: string;
+  reason:string;
+  noticeperiod:string;
+  releivingdate:string;
+  requestexitdate:string;
+  // notes:string;
+}
 
 @Component({
   selector: 'app-hr-pending-approvals',
   templateUrl: './hr-pending-approvals.component.html',
-  styleUrls: ['./hr-pending-approvals.component.scss'],
-  providers: [
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-  ],
+  styleUrls: ['./hr-pending-approvals.component.scss']
 })
 export class HrPendingApprovalsComponent implements OnInit {
   pendingapprovalForm:any= FormGroup;
@@ -89,10 +82,10 @@ export class HrPendingApprovalsComponent implements OnInit {
     this.pendingapprovalForm.controls.employeeId.setValue(data.empid)
     this.pendingapprovalForm.controls.empid.setValue(data.empcode)
     this.pendingapprovalForm.controls.empname.setValue(data.empname)
-    this.pendingapprovalForm.controls.appliedDate.setValue(this.pipe.transform(data.applied_date,'dd-MM-yyyy'))
-    this.pendingapprovalForm.controls.actualRelievingDate.setValue(this.pipe.transform(data.actual_relieving_date,'dd-MM-yyyy'))
-    this.pendingapprovalForm.controls.releivingdate.setValue(this.pipe.transform(data.original_relieving_date,'dd-MM-yyyy'))
-    this.pendingapprovalForm.controls.requestedDate.setValue(this.pipe.transform(data.requested_relieving_date,'dd-MM-yyyy'))
+    this.pendingapprovalForm.controls.appliedDate.setValue(this.pipe.transform(data.applied_date,'MM/dd/YYYY'))
+    this.pendingapprovalForm.controls.actualRelievingDate.setValue(this.pipe.transform(data.actual_relieving_date,'MM/dd/YYYY'))
+    this.pendingapprovalForm.controls.releivingdate.setValue(this.pipe.transform(data.original_relieving_date,'MM/dd/YYYY'))
+    this.pendingapprovalForm.controls.requestedDate.setValue(this.pipe.transform(data.requested_relieving_date,'MM/dd/YYYY'))
     this.pendingapprovalForm.controls.noticeperiod.setValue(data.notice_period)
     this.pendingapprovalForm.controls.reason.setValue(data.reason);
     this.pendingapprovalForm.controls.reasonId.setValue(data.reason_id);
@@ -179,6 +172,8 @@ export class HrPendingApprovalsComponent implements OnInit {
     }
 
     this.emsService.setEmployeeResignation(data).subscribe((res: any) => {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/ems/hr-pending-approval"]));
 
       if(res.status && res.data == 0){
         this.dialog.open(ReusableDialogComponent, {
@@ -223,9 +218,11 @@ export class HrPendingApprovalsComponent implements OnInit {
   })
   }
 
-  Cancel(){
-    console.log("jhvfjdhs")
-    this.ishide=true;
-    this.isview=false;
+  Cancel() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/ems/hr-pending-approval"]));
+    // console.log("jhvfjdhs")
+    // this.ishide=true;
+    // this.isview=false;
   }
 }
