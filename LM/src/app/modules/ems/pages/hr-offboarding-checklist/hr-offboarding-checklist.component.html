@@ -11,7 +11,7 @@
           </mat-form-field>
           <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
             <mat-label>Terminate Date</mat-label>
-            <input type="text" readonly formControlName="terminateDate" matInput placeholder="" maxlength="10" />
+            <input type="text" readonly formControlName="terminateDate" matInput placeholder="" />
           </mat-form-field>
            <mat-form-field fxFlex.gt-xs="50%" fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
             <mat-label>Designation</mat-label>
@@ -97,9 +97,11 @@
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef> Action </th>
               <td mat-cell *matCellDef="let row">
-                <button mat-icon-button matTooltip="Checklist Overview" (click)="addChecklistOverview(row)">
+                <button mat-icon-button matTooltip="Checklist Overview" *ngIf="row.final_status != 'Completed' " 
+                 (click)="addChecklistOverview(row)">
                   <mat-icon>edit</mat-icon>
                 </button>
+                <mat-icon title="Completed" *ngIf="row.final_status == 'Completed' ">edit</mat-icon>
               </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

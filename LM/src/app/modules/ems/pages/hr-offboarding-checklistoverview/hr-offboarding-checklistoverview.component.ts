@@ -182,7 +182,7 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
         this.selection.deselect(row);
       }
     }
-   }
+  }
   saveRequest() {
     if (this.selectedChecklists.length > 0) {
       let data = {

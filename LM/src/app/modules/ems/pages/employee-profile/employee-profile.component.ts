@@ -407,8 +407,7 @@ export class EmployeeProfileComponent implements OnInit {
 
     })
   }
-
-  /** through employee directory login data  */
+/** through employee directory login data  */
   getEmployeeJobList() {
     this.employeeJobData = [];
     this.emsService.getEmployeeJobData(this.employeeId).subscribe((res: any) => {
