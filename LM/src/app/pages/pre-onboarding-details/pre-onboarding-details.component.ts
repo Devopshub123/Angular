@@ -39,6 +39,8 @@ export const MY_FORMATS = {
   ],
 })
 export class PreOnboardingDetailsComponent implements OnInit {
+  minExperienceDate: any;
+  minEducationDate: any;
 
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,private spinner:NgxSpinnerService,
     private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
@@ -184,6 +186,12 @@ export class PreOnboardingDetailsComponent implements OnInit {
         this.companyService.getCities(selectedValue).subscribe((data) => {
           this.permanentCityDetails = data[0]
         })
+      })
+      this.employementForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
+        this.minExperienceDate = selectedValue._d;
+      })  
+      this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
+        this.minEducationDate = selectedValue._d;
       })
       //////////
       this.personalInfoForm.get('checked')?.valueChanges.subscribe(selectedValue => {

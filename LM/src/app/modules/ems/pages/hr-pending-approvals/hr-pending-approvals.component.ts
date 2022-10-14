@@ -224,7 +224,6 @@ export class HrPendingApprovalsComponent implements OnInit {
   }
 
   Cancel(){
-    console.log("jhvfjdhs")
     this.ishide=true;
     this.isview=false;
   }

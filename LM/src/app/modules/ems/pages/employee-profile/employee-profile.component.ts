@@ -41,6 +41,8 @@ export const MY_FORMATS = {
   ],
 })
 export class EmployeeProfileComponent implements OnInit {
+  minExperienceDate: any;
+  minEducationDate: any;
 
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private dialog: MatDialog, private mainService:MainService,private spinner:NgxSpinnerService, private router: Router, private activeroute: ActivatedRoute,
@@ -259,6 +261,12 @@ export class EmployeeProfileComponent implements OnInit {
         this.personalInfoForm.controls.ppincode.setValue('')
         this.personalInfoForm.controls.ppincode.enable()
       }
+    })
+    this.experienceForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
+      this.minExperienceDate = selectedValue._d;
+    })  
+    this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
+      this.minEducationDate = selectedValue._d;
     })
     this.personalInfoForm.get('usertype')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue == 2) {

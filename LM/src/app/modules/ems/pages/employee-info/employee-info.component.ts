@@ -44,6 +44,9 @@ export const MY_FORMATS = {
   ],
 })
 export class EmployeeInfoComponent implements OnInit {
+  minEducationDate: any;
+  minExperienceDate: any;
+  
 
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private dialog: MatDialog, private mainService:MainService, private router: Router, private activeroute: ActivatedRoute,
@@ -165,6 +168,7 @@ export class EmployeeInfoComponent implements OnInit {
   educationIndex: any;
   experienceIndex: any;
   isExperienceEdit: boolean = false;
+  mincontarctDate: any;
   ngOnInit(): void {
 
     this.params = this.activatedRoute.snapshot.params;
@@ -220,7 +224,16 @@ export class EmployeeInfoComponent implements OnInit {
         this.permanentCityDetails = data[0]
       })
     })
-    //////////
+    this.employeeJobForm.get('contractStartDate')?.valueChanges.subscribe((selectedValue: any) => {
+      this.mincontarctDate = selectedValue._d;
+    })
+    this.experienceForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
+      this.minExperienceDate = selectedValue._d;
+    })  
+    this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
+      this.minEducationDate = selectedValue._d;
+    })
+    /////////
     this.personalInfoForm.get('checked')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue) {
         this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
