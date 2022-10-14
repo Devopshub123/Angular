@@ -62,7 +62,8 @@ export class HrOffboardingChecklistComponent implements OnInit {
   employeestatus: any = [];
   isfrmChecked: any;
   datastatus: any;
-  arr:any=[];
+  arr: any = [];
+  searchdate: any = null;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.checklistForm = this.formBuilder.group(
@@ -81,6 +82,10 @@ export class HrOffboardingChecklistComponent implements OnInit {
       searchName: ["",],
      
       });
+      this.hrOnboardingForm.get('searchDate')?.valueChanges.subscribe((selectedValue:any) => {
+        this.searchdate = this.pipe.transform(selectedValue._d,'yyyy-MM-dd'),
+        this.getPendingChecklist();
+      })
       this.getPendingChecklist();
   }
   private addCheckboxes() {
@@ -90,7 +95,8 @@ export class HrOffboardingChecklistComponent implements OnInit {
   saveRequest() {
     const earningselectedIds = this.checklistForm.value.selectedChecklist
     .map((checked:any, i:any) => checked ? this.checklistPoints[i].checklist_id : null)
-    .filter((v:any) => v !== null);
+      .filter((v: any) => v !== null);
+
     if (earningselectedIds.length > 0) {
       let data = {
         cid:earningselectedIds,
@@ -102,7 +108,6 @@ export class HrOffboardingChecklistComponent implements OnInit {
         category:"Offboarding",
         actionBy:this.userSession.id
       }
-      console.log(data)
       this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
         if (res.status) {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -110,13 +115,13 @@ export class HrOffboardingChecklistComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data:"Data added successfully"
+          data:"Data saved successfully"
         });
         }else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-           data: "Data is not added"
+           data: "Data is not saved"
           });
         }
   
@@ -132,7 +137,13 @@ export class HrOffboardingChecklistComponent implements OnInit {
 
   }
   getPendingChecklist() {
-    this.emsService.getEmployeTerminationPendingChecklist(null,null,null,this.userSession.deptid).subscribe((res: any) => {
+    let data = {
+      name: null,
+      date: this.searchdate,
+      eid: null,
+      did:this.userSession.deptid
+    }
+    this.emsService.getEmployeTerminationPendingChecklist(data).subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.pendingchecklist = res.data;
         this.dataSource = new MatTableDataSource(this.pendingchecklist);

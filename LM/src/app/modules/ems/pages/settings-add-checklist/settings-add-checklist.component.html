@@ -34,7 +34,7 @@
 
                     <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                         <mat-label>Checklist Name</mat-label>
-                        <input type="text" formControlName="description" matInput placeholder="checklist Name" required>
+                        <input type="text" formControlName="description" matInput placeholder="Checklist Name" required>
                          <mat-error class="con-error"
                                   *ngIf="checklistForm.controls.description.errors?.required || checklistForm.controls.description.errors?.['whitespace']">
                                {{EM1}}
@@ -54,7 +54,7 @@
                             padding-right: 20%;
                             font-size: initial;">{{list.description}}</span>
                             <a (click)="removeText(i)"><mat-icon style="color: rgb(247, 115, 115);
-                                font-size: 23px;">delete_forever</mat-icon></a>
+                                font-size: 23px;" title="Delete">delete_forever</mat-icon></a>
                         </mat-list-item>
                       </mat-list>
                    </div>

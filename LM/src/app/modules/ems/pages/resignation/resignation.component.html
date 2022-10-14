@@ -77,7 +77,7 @@
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                         <mat-label>Request Exit Date  </mat-label>
                         <input matInput   [matDatepicker]="date3" [max]="max" [min]="min"
-                            placeholder="MM/DD/YYYY" formControlName="exitdate" [disabled]="isviewdata"  >
+                            placeholder="MM/DD/YYYY" formControlName="exitdate" (click)="date3.open()"  [disabled]="isviewdata"  >
             
                          <mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">
                         </mat-datepicker-toggle>

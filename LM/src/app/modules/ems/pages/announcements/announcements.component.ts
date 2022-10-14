@@ -81,6 +81,7 @@ export class AnnouncementsComponent implements OnInit {
   isviewdata:boolean=false;
   iseditingdata:boolean=false;
   announcementlist:any=[];
+  pageLoading = true;
   mindate:any;
   issavedraft:boolean=true;
   displayedColumns: string[] = ['sno','topic','title','publishedon','publishedTo','status','action'];
@@ -213,8 +214,9 @@ export class AnnouncementsComponent implements OnInit {
   getAnnouncements(){
     this.ES.getAnnouncements(null).subscribe((res:any)=>{
       if(res.status ){
-        console.log(res.data)
-        this.dataSource = new MatTableDataSource(res.data)
+        this.dataSource = new MatTableDataSource(res.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }
     })
 
@@ -428,6 +430,14 @@ export class AnnouncementsComponent implements OnInit {
     this.announcementForm.controls.todate.setValue(new Date(data.todate));
     this.announcementForm.controls.description.setValue(data.description);
     this.announcementForm.controls.id.setValue(data.id)
+  }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+      return [5, 10, 20];
+    }
   }
   getMessageList(){
     let info={

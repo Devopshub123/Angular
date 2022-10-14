@@ -41,12 +41,12 @@
             </ng-container>
 
             <ng-container matColumnDef="checklist">
-              <mat-header-cell *matHeaderCellDef>checklist</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Checklist</mat-header-cell>
               <mat-cell *matCellDef="let row">{{row.checklist_name}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="status">
-              <mat-header-cell *matHeaderCellDef> status </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <mat-checkbox (click)="$event.stopPropagation()"
                     (change)="toggle($event, row)"
@@ -91,7 +91,7 @@
       <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
         <mat-label>Date of Join</mat-label>
         <input matInput readonly [matDatepicker]="searchDate" [min]="minDate" [max]="maxDate" placeholder="MM/DD/YYYY" 
-          formControlName="searchDate">
+          formControlName="searchDate" (click)="searchDate.open()">
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="searchDate"></mat-datepicker-toggle>
         <mat-datepicker #searchDate></mat-datepicker>
       </mat-form-field>
@@ -159,6 +159,9 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;">
           </tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="6" style="text-align: center;">No data found</td>
+        </tr>
         </table>
         <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
       </div>

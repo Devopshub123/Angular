@@ -222,8 +222,8 @@ export class EmsService {
   getOffboardingSettings(): Observable<any> {
     return this.http.get(this.mainUrl + 'ems/api/getOffboardingSettings/',this.httpOptions);
   }
-  getEmployePendingChecklist(name:any,date:any,eid:any,did:any): any {
-        return this.http.get(this.mainUrl + 'ems/api/getEmployeesPendingChecklists/'+name+'/'+date+'/'+eid +'/'+did , this.httpOptions);
+  getEmployePendingChecklist(data:any): any {
+        return this.http.post(this.mainUrl + 'ems/api/getEmployeesPendingChecklists/',data, this.httpOptions);
       }
  /**set Offboarding Settings */
  setOffboardingSettings(data:any){
@@ -265,12 +265,12 @@ export class EmsService {
     return this.http.post(this.mainUrl + 'ems/api/setEmployeeChecklists',data,this.httpOptions);
   }
 
-  getEmployeTerminationPendingChecklist(name:any,date:any,eid:any,did:any): any {
-    return this.http.get(this.mainUrl + 'ems/api/getEmpOffboardTerminationChecklists/'+name+'/'+date+'/'+eid +'/'+did , this.httpOptions);
+  getEmployeTerminationPendingChecklist(data:any): any {
+    return this.http.post(this.mainUrl + 'ems/api/getEmpOffboardTerminationChecklists/',data , this.httpOptions);
   }
 
-  getEmployeResignationPendingChecklist(name:any,date:any,eid:any,did:any): any {
-    return this.http.get(this.mainUrl + 'ems/api/getEmpResignationPendingChecklists/'+name+'/'+date+'/'+eid +'/'+did , this.httpOptions);
+  getEmployeResignationPendingChecklist(data:any): any {
+    return this.http.post(this.mainUrl + 'ems/api/getEmpResignationPendingChecklists/',data , this.httpOptions);
   }
 
   getReportingManagerForEmp(eid: any): any {
@@ -281,4 +281,9 @@ export class EmsService {
 
     return this.http.get(this.mainUrl + 'ems/api/getHrDetails/',this.httpOptions);
   }
+  getnoticeperiods(): any {
+
+    return this.http.get(this.mainUrl + 'ems/api/getnoticeperiods/',this.httpOptions);
+  }
+  
 }

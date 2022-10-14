@@ -69,6 +69,7 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
   employeeId: any;
   public selectedChecklists: any = [];
   userSession: any;
+  searchdate: any = null;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.checklistForm = this.formBuilder.group(
@@ -84,9 +85,12 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
       searchDate: [],        
       statusUpdate: ["",],
       searchName: ["",],
-     
       });
-    this.getPendingChecklist(null,null,null,null);
+      this.hrOnboardingForm.get('searchDate')?.valueChanges.subscribe((selectedValue:any) => {
+        this.searchdate = this.pipe.transform(selectedValue._d,'yyyy-MM-dd'),
+        this.getPendingChecklist();
+      })
+    this.getPendingChecklist();
       this.dataSource.paginator = this.paginator;
   }
 
@@ -137,8 +141,14 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
     this.getEmployeCheckListData();
   }
 
-  getPendingChecklist(ename:any,date:any,eid:any,did:any) {
-    this.emsService.getEmployeTerminationPendingChecklist(ename,date,eid,did).subscribe((res: any) => {
+  getPendingChecklist() {
+    let data = {
+      name: null,
+      date: this.searchdate,
+      eid: null,
+      did:this.userSession.deptid
+    }
+    this.emsService.getEmployeTerminationPendingChecklist(data).subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.pendingchecklist = res.data;
         this.dataSource = new MatTableDataSource(this.pendingchecklist);
@@ -174,35 +184,43 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
     }
    }
   saveRequest() {
-    let data ={
-      cid:this.selectedChecklists,
-      eid:this.employeeId,
-      did:this.userSession.deptid,
-      cmmt:null,
-      status:"Completed",
-      fstatus:this.checked == true ? "Completed" :  "Pending Checklist",
-      category:"Onboarding",
-      actionBy:this.userSession.id
-    }
+    if (this.selectedChecklists.length > 0) {
+      let data = {
+        cid: this.selectedChecklists,
+        eid: this.employeeId,
+        did: this.userSession.deptid,
+        cmmt: null,
+        status: "Completed",
+        fstatus: this.checked == true ? "Completed" : "Pending Checklist",
+        category: "Onboarding",
+        actionBy: this.userSession.id
+      }
 
-   this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
-    if (res.status) {
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/ems/termination-pendinging-checklist"]));
-    let dialogRef = this.dialog.open(ReusableDialogComponent, {
-      position: { top: `70px` },
-      disableClose: true,
-      data:"Data saved successfully"
-    });
-    }else {
+      this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
+        if (res.status) {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/ems/termination-pendinging-checklist"]));
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data saved successfully"
+          });
+        } else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data is not saved"
+          });
+        }
+
+      })
+    } else {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
-       data: "Data is not saved"
-      });
+        data:"Please select checklist"
+      });  
     }
-
-  }) 
   }
   cancel() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

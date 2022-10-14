@@ -117,19 +117,20 @@ export class ChecklistMeetComponent implements OnInit {
 
     })
        this.checklistForm.get('endtime')?.valueChanges.subscribe(selectedValue => {
-      if(this.mintime == selectedValue ){ 
+      if(this.mintime == selectedValue ){
+        this.checklistForm.controls.endtime.setValue(null);
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
           data: 'Please change endtime'
         });  
       }else if(this.pipe.transform(this.mintime, 'HH:mm')==this.pipe.transform(selectedValue, 'HH:mm')){
+        this.checklistForm.controls.endtime.setValue(null);
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
           data: 'Please change endtime'
         });  
-
       }
     })
     this.checklistForm.get('department')?.valueChanges.subscribe(selectedValue => {

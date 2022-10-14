@@ -66,7 +66,8 @@ export class DeptResignationPendingchecklistComponent implements OnInit {
   employeestatus: any = [];
   isfrmChecked: any;
   datastatus: any;
-  arr:any=[];
+  arr: any = [];
+  searchdate: any = null;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.checklistForm = this.formBuilder.group(
@@ -85,6 +86,10 @@ export class DeptResignationPendingchecklistComponent implements OnInit {
       searchName: ["",],
      
       });
+      this.hrOnboardingForm.get('searchDate')?.valueChanges.subscribe((selectedValue:any) => {
+        this.searchdate = this.pipe.transform(selectedValue._d,'yyyy-MM-dd'),
+        this.getPendingChecklist();
+      })
       this.getPendingChecklist();
   }
   private addCheckboxes() {
@@ -104,38 +109,51 @@ export class DeptResignationPendingchecklistComponent implements OnInit {
     const earningselectedIds = this.checklistForm.value.selectedChecklist
     .map((checked:any, i:any) => checked ? this.checklistPoints[i].checklist_id : null)
     .filter((v:any) => v !== null);
-    let data ={
-      cid:earningselectedIds,
-      eid:this.employeeId,
-      did:this.deptId,
-      cmmt:null,
-      status:"Completed",
-      fstatus:"Pending Checklist",
-      category:"Offboarding",
-      actionBy:this.userSession.id
-    }
-    console.log(data);
-    this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
-      if (res.status) {
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["/ems/resignation-pendingchecklist-department"]));
+    if (earningselectedIds.length > 0) {
+      let data = {
+        cid: earningselectedIds,
+        eid: this.employeeId,
+        did: this.deptId,
+        cmmt: null,
+        status: "Completed",
+        fstatus: "Pending Checklist",
+        category: "Offboarding",
+        actionBy: this.userSession.id
+      }
+      this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
+        if (res.status) {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/ems/resignation-pendingchecklist-department"]));
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data added successfully"
+          });
+        } else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data is not added"
+          });
+        }
+
+      })
+    } else {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
-        data:"Data added successfully"
-      });
-      }else {
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
-         data: "Data is not added"
-        });
-      }
-
-    })
+        data:"Please select checklist"
+      }); 
+    }
   }
   getPendingChecklist() {
-    this.emsService.getEmployeResignationPendingChecklist(null,null,null,this.userSession.deptid).subscribe((res: any) => {
+    let data = {
+      name: null,
+      date: this.searchdate,
+      eid: null,
+      did:this.userSession.deptid
+    }
+    this.emsService.getEmployeResignationPendingChecklist(data).subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.pendingchecklist = res.data;
         this.dataSource = new MatTableDataSource(this.pendingchecklist);
