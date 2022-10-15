@@ -144,7 +144,7 @@ export class HrOffboardingChecklistComponent implements OnInit {
       did:this.userSession.deptid
     }
     this.emsService.getEmployeTerminationPendingChecklist(data).subscribe((res: any) => {
-      if (res.status && res.data.length != 0) {
+      if (res.status) {
         this.pendingchecklist = res.data;
         this.dataSource = new MatTableDataSource(this.pendingchecklist);
         this.dataSource.paginator = this.paginator;

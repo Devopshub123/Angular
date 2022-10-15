@@ -51,6 +51,7 @@ export class EmployeeInfoComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private dialog: MatDialog, private mainService: MainService, private router: Router, private activeroute: ActivatedRoute,
     private adminService: AdminService, private spinner: NgxSpinnerService, private activatedRoute: ActivatedRoute, private emsService: EmsService) {
+      this.getCountry();
       this.formData = new FormData();
   }
   personalInfoForm!: FormGroup;
@@ -196,7 +197,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.getDesignationsMaster();
     this.getDepartmentsMaster();
     this.getWorkLocation();
-    this.getCountry();
+   
     this.getEmploymentTypeMaster();
     this.getRoles();
     this.getstatuslist();
@@ -908,6 +909,9 @@ export class EmployeeInfoComponent implements OnInit {
         if (res.status) {
           this.employeeId = res.data;
           this.getEmployeeInformationList();
+          this.getEmployeeJobList();
+          this.getEmployeeEmploymentList();
+          this.getEmployeeEducationList();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
