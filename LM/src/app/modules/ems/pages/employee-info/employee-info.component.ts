@@ -492,7 +492,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.rpincode.setValue(this.employeeInformationData.pincode);
 
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
-      if (this.employeeInformationData.languages_spoken != null || this.employeeInformationData.languages_spoken != 'null')
+      if (this.employeeInformationData.languages_spoken != 'null' || this.employeeInformationData.languages_spoken != "null")
         this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken);
       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress);
       this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);

@@ -166,7 +166,7 @@ export class HrOnboardingComponent implements OnInit {
       did:this.userSession.deptid,
       cmmt:null,
       status:"Completed",
-      fstatus:"Pending Checklist",
+      fstatus:this.checked == true ? "Completed" : "Pending Checklist",
       category:"Onboarding",
       actionBy:this.userSession.id
     }
