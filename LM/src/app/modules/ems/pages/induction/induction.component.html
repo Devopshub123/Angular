@@ -8,7 +8,7 @@
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
           <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
             <mat-label>Program Type</mat-label>
-            <input formControlName="programType"  matInput placeholder="" required>
+            <input formControlName="programType"  matInput placeholder="" maxlength="100" required>
             <mat-error class="con-error" *ngIf="inductionForm.controls.programType.errors?.required || inductionForm.controls.programType.errors?.['whitespace']">
               {{EM1}}
             </mat-error>
@@ -75,7 +75,7 @@
                   <span *ngIf="enable != row.id">{{row.description}} </span>
                   <span *ngIf="enable == row.id">
                                   <mat-form-field appearance="outline">
-                                  <input formControlName="programType" matInput placeholder="" >
+                                  <input formControlName="programType" matInput placeholder="" maxlength="100">
                                     <!-- <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
                                         {{errorDesName}}
                                     </mat-error> -->

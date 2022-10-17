@@ -51,6 +51,7 @@ export class EmployeeInfoComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private dialog: MatDialog, private mainService: MainService, private router: Router, private activeroute: ActivatedRoute,
     private adminService: AdminService, private spinner: NgxSpinnerService, private activatedRoute: ActivatedRoute, private emsService: EmsService) {
+      this.getCountry();
       this.formData = new FormData();
   }
   personalInfoForm!: FormGroup;
@@ -196,7 +197,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.getDesignationsMaster();
     this.getDepartmentsMaster();
     this.getWorkLocation();
-    this.getCountry();
+   
     this.getEmploymentTypeMaster();
     this.getRoles();
     this.getstatuslist();
@@ -492,7 +493,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.rpincode.setValue(this.employeeInformationData.pincode);
 
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
-      if (this.employeeInformationData.languages_spoken != null || this.employeeInformationData.languages_spoken != 'null')
+      if (this.employeeInformationData.languages_spoken != 'null' || this.employeeInformationData.languages_spoken != "null")
         this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken);
       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress);
       this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
@@ -908,6 +909,9 @@ export class EmployeeInfoComponent implements OnInit {
         if (res.status) {
           this.employeeId = res.data;
           this.getEmployeeInformationList();
+          this.getEmployeeJobList();
+          this.getEmployeeEmploymentList();
+          this.getEmployeeEducationList();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,

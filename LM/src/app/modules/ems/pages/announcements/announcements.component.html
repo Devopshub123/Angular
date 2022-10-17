@@ -22,7 +22,7 @@
                  </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                   <mat-label>Title</mat-label>
-                  <input formControlName="title" required [readonly]="iseditingdata" matInput placeholder="">
+                  <input formControlName="title" required [readonly]="iseditingdata" matInput placeholder="" maxlength="100">
                   <mat-error class="con-error" *ngIf="announcementForm.controls.title.errors?.required">
                     {{EM1}}
                   </mat-error>
@@ -48,7 +48,7 @@
               <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                   <mat-label>Publish To </mat-label>
                   <input matInput readonly required  [matDatepicker]="date1"  [disabled]="isviewdata" [min]="mindate"
-                      placeholder="" formControlName="todate"   (click)="date.open()">
+                      placeholder="" formControlName="todate"   (click)="date1.open()">
 
                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="date1">
                   </mat-datepicker-toggle>

@@ -154,7 +154,7 @@ export class DeptResignationPendingchecklistComponent implements OnInit {
       did:this.userSession.deptid
     }
     this.emsService.getEmployeResignationPendingChecklist(data).subscribe((res: any) => {
-      if (res.status && res.data.length != 0) {
+      if (res.status) {
         this.pendingchecklist = res.data;
         this.dataSource = new MatTableDataSource(this.pendingchecklist);
         this.dataSource.paginator = this.paginator;

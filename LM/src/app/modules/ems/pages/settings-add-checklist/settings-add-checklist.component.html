@@ -34,7 +34,7 @@
 
                     <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                         <mat-label>Checklist Name</mat-label>
-                        <input type="text" formControlName="description" matInput placeholder="Checklist Name" required>
+                        <input type="text" formControlName="description" matInput placeholder="Checklist Name" maxlength="100" required>
                          <mat-error class="con-error"
                                   *ngIf="checklistForm.controls.description.errors?.required || checklistForm.controls.description.errors?.['whitespace']">
                                {{EM1}}
@@ -115,7 +115,7 @@
                             <span *ngIf="enable != row.id">{{row.description}} </span>
                             <span *ngIf="enable === row.id">
                                 <mat-form-field appearance="outline">
-                                <input formControlName="description" matInput placeholder="{{row.description}}" >
+                                <input formControlName="description" matInput maxlength="100" placeholder="{{row.description}}" >
                                 <mat-error class="con-error" *ngIf="checklistForm.controls.description.errors?.required">
                                     {{EM1}}
                                 </mat-error>

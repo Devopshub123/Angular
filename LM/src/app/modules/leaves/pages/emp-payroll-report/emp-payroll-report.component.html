@@ -2,7 +2,7 @@
 
     <mat-card style="flex-flow: row wrap;">
       <mat-card-header class="heading">
-        <mat-card-title class="headingtext"> Employee Payroll Report</mat-card-title>
+        <mat-card-title class="headingtext"> Monthly Payroll Report</mat-card-title>
       </mat-card-header>
       <br />
       <div [formGroup]="searchForm"  >
@@ -70,12 +70,12 @@
         <td mat-cell *matCellDef="let row" ><span >{{row.lopcount}} </span></td>
           </ng-container>
           <ng-container matColumnDef="totalleaves">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header >total Absents </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header >Total Absents </th>
             <td mat-cell *matCellDef="let row" ><span >{{row.total_absents}} </span></td>
               </ng-container>
               <ng-container matColumnDef="totalleavebalance">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header >total Leave Balance </th>
-                <td mat-cell *matCellDef="let row" ><span >{{row.total_leave_balance}} </span></td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header >Total Leave Balance </th>
+                <td mat-cell *matCellDef="let row" ><span >{{row.total_leaves_balance}} </span></td>
                   </ng-container>
           <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

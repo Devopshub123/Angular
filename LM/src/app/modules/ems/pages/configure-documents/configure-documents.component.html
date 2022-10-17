@@ -83,13 +83,13 @@
                                     <mat-icon (click)="edit($event,row)">edit</mat-icon>
                                 </button>
 
-                                <button mat-icon-button matTooltip="Update" *ngIf="enable == row.id">
+                                <button mat-icon-button matTooltip="Save" *ngIf="enable == row.id">
                                     <mat-icon
                                         (click)="updateData(documentTypeForm.controls.document.value,row)">
                                         save</mat-icon>
                                 </button>
 
-                                <button mat-icon-button *ngIf="enable == row.id" matTooltip="Cancel Edit">
+                                <button mat-icon-button *ngIf="enable == row.id" matTooltip="Cancel">
                                     <mat-icon (click)="canceledit($event,row.id)" *ngIf="enable == row.id">cancel
                                     </mat-icon>
                                 </button>

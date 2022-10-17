@@ -61,7 +61,7 @@ export class ChangePasswordComponent implements OnInit {
     this.usersession =  sessionStorage.getItem('user')
     this.userSession = JSON.parse(this.usersession)
     this.changePasswordAddObj.empId = this.userSession.id ;
-    this.changePasswordAddObj.email = this.userSession.officeemail ;
+    this.changePasswordAddObj.email = this.userSession.uesrid ;
     if(this.usersession.firstlogin == 'Y'){
       this.isView=false;
     }

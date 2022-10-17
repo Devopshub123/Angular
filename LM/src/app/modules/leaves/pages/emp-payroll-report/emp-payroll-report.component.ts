@@ -8,11 +8,36 @@ import * as XLSX from "xlsx";
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LeavesService } from '../../leaves.service';
 import { ReportsService } from 'src/app/modules/reports/reports.service';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
+
+import * as _moment from 'moment';
+// import {default as _rollupMoment} from 'moment';
+const moment =  _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
+
 
 @Component({
   selector: 'app-emp-payroll-report',
   templateUrl: './emp-payroll-report.component.html',
-  styleUrls: ['./emp-payroll-report.component.scss']
+  styleUrls: ['./emp-payroll-report.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class EmpPayrollReportComponent implements OnInit {
   searchForm!: FormGroup;

@@ -78,9 +78,6 @@ export class ResignationComponent implements OnInit {
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    this.getReasons();
-    this.getCompanyInformation();
-    this.getEmployeesResignation();
     this.resignForm=this.formBuilder.group(
       {
       resigndate: [new Date(),],
@@ -90,7 +87,10 @@ export class ResignationComponent implements OnInit {
       reason:["",Validators.required],
       notice:["",],
 
-    });
+      });
+      this.getReasons();
+      this.getCompanyInformation();
+      this.getEmployeesResignation();
     this.empname = this.userSession.firstname+'  '+this.userSession.lastname;
     this.resignForm.get('noticperiod')?.valueChanges.subscribe((selectedValue:any) => {
       this.max= new Date(new Date().setDate(new Date().getDate() + Number(selectedValue)))
@@ -133,7 +133,6 @@ export class ResignationComponent implements OnInit {
 
       this.ES.setEmployeeResignation(data).subscribe((res: any) => {
         if(res.status && res.data == 0){
-          console.log(res.data)
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/ems/resignation"]));
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -160,7 +159,6 @@ export class ResignationComponent implements OnInit {
   getEmployeesResignation(){
     this.ES.getEmployeesResignation(this.userSession.id).subscribe((res: any) => {
       if(res.status){
-        console.log(res.data)
         this.dataSource = new MatTableDataSource(res.data)
       }
 
@@ -172,7 +170,6 @@ export class ResignationComponent implements OnInit {
     this.ES.getnoticeperiods().subscribe((res: any) => {
       if(res.status){
        this.resignForm.controls.noticperiod.setValue(res.data[0].value)
-       console.log(res.data[0].value)
       }
     });
 
@@ -196,14 +193,12 @@ export class ResignationComponent implements OnInit {
     this.adminService.getAllReasonsList().subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.reasondata=res.data;
-        console.log(res.data)
-      }
+       }
     })
   }
   edit(event:any,data:any){
     this.isadd=false;
     this.editing=true;
-    console.log(data)
     this.editdata = data;
     this.resignForm.controls.resigndate.setValue(new Date(data.applied_date));
     this.resignForm.controls.releivingdate.setValue(new Date(data.applied_date));
@@ -212,8 +207,7 @@ export class ResignationComponent implements OnInit {
     for(let i=0;i<this.reasondata.length;i++){
       if(data.reason == this.reasondata[i].reason){
         this.resignForm.controls.reason.setValue(this.reasondata[i].id);
-        console.log(this.reasondata[i].id)
-        break;
+       break;
       }
     }
 
@@ -269,8 +263,6 @@ export class ResignationComponent implements OnInit {
     this.isEdit = true;
     this.isSave = false;
 
-    console.log(id)
-
   }
   view($event:any,data:any){
     this.isviewdata=true;
@@ -284,14 +276,12 @@ export class ResignationComponent implements OnInit {
     for(let i=0;i<this.reasondata.length;i++){
       if(data.reason == this.reasondata[i].reason){
         this.resignForm.controls.reason.setValue(this.reasondata[i].id);
-        console.log(this.reasondata[i].id)
-        break;
+         break;
       }
     }
 
   }
   cancelresignation(event: any,data:any){
-    console.log(data)
     for(let i=0;i<this.reasondata.length;i++){
       if(data.reason == this.reasondata[i].reason){
         this.resonid=this.reasondata[i].id
@@ -329,9 +319,7 @@ export class ResignationComponent implements OnInit {
     this.canceldata.resg_comment =result.reason;
     this.canceldata.resg_status = 'Cancelled'
       if(result!=''){
-        console.log(this.canceldata)
         this.ES.setEmployeeResignation(this.canceldata).subscribe((res: any) => {
-          console.log(res.data)
             if(res.status && res.data == 0){
               this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                 this.router.navigate(["/ems/resignation"]));
