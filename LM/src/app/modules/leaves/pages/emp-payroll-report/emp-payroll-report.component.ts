@@ -16,7 +16,7 @@ import { ReportsService } from 'src/app/modules/reports/reports.service';
 })
 export class EmpPayrollReportComponent implements OnInit {
   searchForm!: FormGroup;
-  displayedColumns: string[] = ['sno','empid','empname','lossofpay'];
+  displayedColumns: string[] = ['sno','empid','empname','lossofpay','totalleaves','totalleavebalance'];
   dataSource: MatTableDataSource<any>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -35,9 +35,9 @@ export class EmpPayrollReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.getallEmployeesList();
-    this.searchForm = this.formBuilder.group({ 
+    this.searchForm = this.formBuilder.group({
       fromDate:[new Date()],
-      employeeId:['All'] 
+      employeeId:['All']
     });
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.dataSource = new MatTableDataSource(this.arrayList)
@@ -65,7 +65,7 @@ export class EmpPayrollReportComponent implements OnInit {
       if(res.status && res.data.length>0){
         this.employeeDetails = res.data;
       }
-     
+
     })
   }
   Searchform(){

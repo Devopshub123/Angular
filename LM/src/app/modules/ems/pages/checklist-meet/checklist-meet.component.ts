@@ -159,21 +159,21 @@ export class ChecklistMeetComponent implements OnInit {
 
   }
   getDesignationsMaster() {
-    this.companyServices.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyServices.getMastertable('designationsmaster', 1, 1, 1000, 'ems_qa').subscribe(data => {
       if(data.status){
       this.availableDesignations = data.data;
       }
     })
   }
   getDepartmentsMaster() {
-    this.companyServices.getMastertable('departmentsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyServices.getMastertable('departmentsmaster', 1, 1, 1000, 'ems_qa').subscribe(data => {
       if(data.status){
         this.availableDepartments = data.data;
       }
     })
   }
   getProgramsMaster(pId:any){
-    this.companyServices.getMastertable('ems_programs_master', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyServices.getMastertable('ems_programs_master', 1, 1, 1000, 'ems_qa').subscribe(data => {
       if(data.status){
         this.availableprogramtypes = data.data;
       }

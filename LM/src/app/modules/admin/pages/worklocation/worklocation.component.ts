@@ -257,7 +257,7 @@ export class WorklocationComponent implements OnInit {
     this.ishide=true;
   }
   getCountry(){
-    this.LM.getCountry('countrymaster',null,1,10,'ems').subscribe((data)=>{
+    this.LM.getCountry('countrymaster',null,1,10,'ems_qa').subscribe((data)=>{
       this.CountryDetails=data.data;
     })
   }
