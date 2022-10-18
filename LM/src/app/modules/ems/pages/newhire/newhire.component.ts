@@ -69,7 +69,7 @@ export class NewhireComponent implements OnInit {
       this.getMessagesList();
   }
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', '1', 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('designationsmaster', '1', 1, 1000, 'ems_qa').subscribe(data => {
       this.designationsList = data.data;
     })
   }
@@ -132,7 +132,7 @@ export class NewhireComponent implements OnInit {
        "pagenumber":1,
        "pagesize":100
     }
- 
+
    this.adminService.getEMSMessagesList(data).subscribe((res:any)=>{
      if(res.status) {
        this.messagesDataList = res.data;
@@ -154,7 +154,7 @@ export class NewhireComponent implements OnInit {
 
    })
 
-    
+
   }
 
   alphabetKeyPress(event: any,) {

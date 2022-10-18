@@ -189,7 +189,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       })
       this.employementForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
         this.minExperienceDate = selectedValue._d;
-      })  
+      })
       this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
         this.minEducationDate = selectedValue._d;
       })
@@ -369,7 +369,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
 }
   getCountry() {
   this.countryDetails =[]
-  this.companyService.getCountry('countrymaster', null, 1, 10, 'ems').subscribe(result => {
+  this.companyService.getCountry('countrymaster', null, 1, 10, 'ems_qa').subscribe(result => {
     this.countryDetails = result.data;
     this.permanentCountryDetails = result.data;
    })
@@ -461,33 +461,33 @@ for (let i = 0; i < workExperiencedata.length; i++) {
   }
 
   getBloodgroups() {
-    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems').subscribe(data => {
+    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems_qa').subscribe(data => {
       this.bloodGroupdetails = data.data;
     })
   }
   getGender() {
-    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems').subscribe(data => {
+    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems_qa').subscribe(data => {
       this.genderDetails = data.data;
     })
   }
   getMaritalStatusMaster() {
-    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems').subscribe(data => {
+    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems_qa').subscribe(data => {
       this.maritalStatusDetails = data.data;
     })
   }
   getRelationshipMaster() {
-    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems').subscribe(data => {
+    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems_qa').subscribe(data => {
       this.employeeRelationship = data.data;
     })
   }
 
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems_qa').subscribe(data => {
       this.availableDesignations = data.data;
     })
   }
   getDepartmentsMaster() {
-    this.companyService.getMastertable('departmentsmaster', '1', 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('departmentsmaster', '1', 1, 1000, 'ems_qa').subscribe(data => {
       this.availableDepartments = data.data;
     })
   }
@@ -621,21 +621,21 @@ for (let i = 0; i < workExperiencedata.length; i++) {
 
     this.CandidateFamilyForm.get("relation").clearValidators();
     this.CandidateFamilyForm.get("relation").updateValueAndValidity();
-    
+
     this.CandidateFamilyForm.get("familycontact").clearValidators();
     this.CandidateFamilyForm.get("familycontact").updateValueAndValidity();
 
     this.CandidateFamilyForm.get("familygender").clearValidators();
     this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
   }
-  
+
   addValidators() {
     this.CandidateFamilyForm.get("familyfirstname").setValidators(Validators.required);
     this.CandidateFamilyForm.get("familyfirstname").updateValueAndValidity();
 
     this.CandidateFamilyForm.get("relation").setValidators(Validators.required);
     this.CandidateFamilyForm.get("relation").updateValueAndValidity();
-    
+
     this.CandidateFamilyForm.get("familygender").setValidators(Validators.required);
     this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
 }
@@ -721,7 +721,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
 
     this.employementForm.get("expFromDate").clearValidators();
     this.employementForm.get("expFromDate").updateValueAndValidity();
-    
+
     this.employementForm.get("expToDate").clearValidators();
     this.employementForm.get("expToDate").updateValueAndValidity();
 
@@ -731,14 +731,14 @@ for (let i = 0; i < workExperiencedata.length; i++) {
     this.employementForm.get("jobDescription").clearValidators();
     this.employementForm.get("jobDescription").updateValueAndValidity();
   }
-  
+
   addExperienceValidators() {
     this.employementForm.get("companyName").setValidators(Validators.required);
     this.employementForm.get("companyName").updateValueAndValidity();
 
     this.employementForm.get("expFromDate").setValidators(Validators.required);
     this.employementForm.get("expFromDate").updateValueAndValidity();
-    
+
     this.employementForm.get("expToDate").setValidators(Validators.required);
     this.employementForm.get("expToDate").updateValueAndValidity();
 
@@ -825,21 +825,21 @@ for (let i = 0; i < workExperiencedata.length; i++) {
 
     this.educationForm.get("instituteName").clearValidators();
     this.educationForm.get("instituteName").updateValueAndValidity();
-    
+
     this.educationForm.get("eduFromDate").clearValidators();
     this.educationForm.get("eduFromDate").updateValueAndValidity();
 
     this.educationForm.get("eduToDate").clearValidators();
     this.educationForm.get("eduToDate").updateValueAndValidity();
   }
-  
+
   addEducationValidators() {
     this.educationForm.get("course").setValidators(Validators.required);
     this.educationForm.get("course").updateValueAndValidity();
 
     this.educationForm.get("instituteName").setValidators(Validators.required);
     this.educationForm.get("instituteName").updateValueAndValidity();
-    
+
     this.educationForm.get("eduFromDate").setValidators(Validators.required);
     this.educationForm.get("eduFromDate").updateValueAndValidity();
 

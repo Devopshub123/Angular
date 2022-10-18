@@ -264,7 +264,7 @@ export class EmployeeProfileComponent implements OnInit {
     })
     this.experienceForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
       this.minExperienceDate = selectedValue._d;
-    })  
+    })
     this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
       this.minEducationDate = selectedValue._d;
     })
@@ -496,7 +496,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   getCountry() {
     this.countryDetails = []
-    this.companyService.getCountry('countrymaster', null, 1, 10, 'ems').subscribe(result => {
+    this.companyService.getCountry('countrymaster', null, 1, 10, 'ems_qa').subscribe(result => {
       this.countryDetails = result.data;
       this.permanentCountryDetails = result.data;
     })
@@ -629,39 +629,39 @@ export class EmployeeProfileComponent implements OnInit {
 
 
   getBloodgroups() {
-    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems').subscribe(data => {
+    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems_qa').subscribe(data => {
       this.bloodGroupdetails = data.data;
     })
   }
   getGender() {
-    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems').subscribe(data => {
+    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems_qa').subscribe(data => {
       this.genderDetails = data.data;
     })
   }
   getMaritalStatusMaster() {
-    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems').subscribe(data => {
+    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems_qa').subscribe(data => {
       this.maritalStatusDetails = data.data;
     })
   }
   getRelationshipMaster() {
-    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems').subscribe(data => {
+    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems_qa').subscribe(data => {
       this.employeeRelationship = data.data;
     })
   }
   getEmploymentTypeMaster() {
-    this.companyService.getMastertable('employmenttypemaster', null, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('employmenttypemaster', null, 1, 1000, 'ems_qa').subscribe(data => {
       this.EmploymentTypeDetails = data.data;
     })
   }
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems_qa').subscribe(data => {
       if (data.status) {
         this.availableDesignations = data.data;
       }
     })
   }
   getDepartmentsMaster() {
-    this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, 'ems_qa').subscribe(data => {
       if (data.status) {
         this.availableDepartments = data.data;
       }
@@ -674,7 +674,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   }
   getRoles() {
-    this.companyService.getMastertable('rolesmaster', null, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('rolesmaster', null, 1, 1000, 'ems_qa').subscribe(data => {
       let roledata = data.data;
       this.availableRole = [];
       for (let i = 0; i < roledata.length; i++) {
@@ -757,7 +757,7 @@ export class EmployeeProfileComponent implements OnInit {
           disableClose: true,
           data: "Data saved sucessfully"
         });
-        
+
       } else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
@@ -817,21 +817,21 @@ export class EmployeeProfileComponent implements OnInit {
 
     this.CandidateFamilyForm.get("relation").clearValidators();
     this.CandidateFamilyForm.get("relation").updateValueAndValidity();
-    
+
     this.CandidateFamilyForm.get("familycontact").clearValidators();
     this.CandidateFamilyForm.get("familycontact").updateValueAndValidity();
 
     this.CandidateFamilyForm.get("familygender").clearValidators();
     this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
   }
-  
+
   addValidators() {
     this.CandidateFamilyForm.get("familyfirstname").setValidators(Validators.required);
     this.CandidateFamilyForm.get("familyfirstname").updateValueAndValidity();
 
     this.CandidateFamilyForm.get("relation").setValidators(Validators.required);
     this.CandidateFamilyForm.get("relation").updateValueAndValidity();
-    
+
     this.CandidateFamilyForm.get("familygender").setValidators(Validators.required);
     this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
 }
@@ -964,7 +964,7 @@ export class EmployeeProfileComponent implements OnInit {
   }
   }
   editExperience(i: any) {
-    this.experienceIndex = i; 
+    this.experienceIndex = i;
     this.isExperienceEdit = true;
     this.experienceForm.controls.companyName.setValue(this.workExperienceDetails[i].companyname);
     this.experienceForm.controls.designation.setValue(this.workExperienceDetails[i].designation);
@@ -978,7 +978,7 @@ clearExperienceValidators() {
 
   this.experienceForm.get("expFromDate").clearValidators();
   this.experienceForm.get("expFromDate").updateValueAndValidity();
-  
+
   this.experienceForm.get("expToDate").clearValidators();
   this.experienceForm.get("expToDate").updateValueAndValidity();
 
@@ -995,7 +995,7 @@ addExperienceValidators() {
 
   this.experienceForm.get("expFromDate").setValidators(Validators.required);
   this.experienceForm.get("expFromDate").updateValueAndValidity();
-  
+
   this.experienceForm.get("expToDate").setValidators(Validators.required);
   this.experienceForm.get("expToDate").updateValueAndValidity();
 
@@ -1117,7 +1117,7 @@ addExperienceValidators() {
     }
   }
   editEduction(i: any) {
-    this.educationIndex = i; 
+    this.educationIndex = i;
     this.isEducationEdit = true;
     this.educationForm.controls.course.setValue(this.educationDetails[i].course);
     this.educationForm.controls.instituteName.setValue(this.educationDetails[i].institutename);
@@ -1130,7 +1130,7 @@ clearEducationValidators() {
 
   this.educationForm.get("instituteName").clearValidators();
   this.educationForm.get("instituteName").updateValueAndValidity();
-  
+
   this.educationForm.get("eduFromDate").clearValidators();
   this.educationForm.get("eduFromDate").updateValueAndValidity();
 
@@ -1144,7 +1144,7 @@ addEducationValidators() {
 
   this.educationForm.get("instituteName").setValidators(Validators.required);
   this.educationForm.get("instituteName").updateValueAndValidity();
-  
+
   this.educationForm.get("eduFromDate").setValidators(Validators.required);
   this.educationForm.get("eduFromDate").updateValueAndValidity();
 

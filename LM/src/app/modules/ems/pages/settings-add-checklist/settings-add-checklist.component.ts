@@ -258,7 +258,7 @@ export class SettingsAddChecklistComponent implements OnInit {
     this.addChecklistData.splice(index, 1);
   }
   getDepartmentsData() {
-    this.companyServices.getMastertable('departmentsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyServices.getMastertable('departmentsmaster', 1, 1, 1000, 'ems_qa').subscribe(data => {
       if(data.status){
         this.departmentList = data.data;
       }

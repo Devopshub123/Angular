@@ -271,7 +271,7 @@ export class DeparmentComponent implements OnInit {
 
   }
   getDepartments() {
-    this.LM.getDepartments('departmentsmaster', null, 1, 100, 'ems').subscribe((info:any) => {
+    this.LM.getDepartments('departmentsmaster', null, 1, 100, 'ems_qa').subscribe((info:any) => {
       if (info.status && info.data.length != 0) {
         this.departmentData = info.data;
         this.dataSource = new MatTableDataSource(this.departmentData);

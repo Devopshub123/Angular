@@ -24,7 +24,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { PopupComponent} from './pages/popup/popup.component'
 import { ReusableDialogComponent } from './pages/reusable-dialog/reusable-dialog.component';
 import { MatDatepickerModule } from '@angular/material/datepicker'
-import { CommonModule } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { OnlyNumberDirective } from './custom-directive/only-number.directive';
 import { MainComponent } from './pages/main/main.component';
 import { EmployeeMasterToAddComponent } from './modules/admin/pages/employee-master-to-add/employee-master-to-add.component';
@@ -106,7 +106,7 @@ import { ComfirmationDialogComponent } from './pages/comfirmation-dialog/comfirm
   ],
 
   // providers: [BnNgIdleService, BsDatepickerConfig],
-  providers: [BnNgIdleService],
+  providers: [BnNgIdleService,{provide:LocationStrategy,useClass:HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

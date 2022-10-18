@@ -303,7 +303,7 @@ dataNotSaved: any;
     });
   }
   getWorkypeList() {
-    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'ems').subscribe((info) => {
+    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'ems_qa').subscribe((info) => {
       if (info.status && info.data.length != 0) {
         this.workTypeData = info.data;
       }

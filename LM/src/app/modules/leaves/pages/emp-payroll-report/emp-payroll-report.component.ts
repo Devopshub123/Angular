@@ -60,9 +60,9 @@ export class EmpPayrollReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.getallEmployeesList();
-    this.searchForm = this.formBuilder.group({ 
+    this.searchForm = this.formBuilder.group({
       fromDate:[new Date()],
-      employeeId:['All'] 
+      employeeId:['All']
     });
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.dataSource = new MatTableDataSource(this.arrayList)
@@ -90,7 +90,7 @@ export class EmpPayrollReportComponent implements OnInit {
       if(res.status && res.data.length>0){
         this.employeeDetails = res.data;
       }
-     
+
     })
   }
   Searchform(){

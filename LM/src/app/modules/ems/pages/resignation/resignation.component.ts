@@ -96,7 +96,7 @@ export class ResignationComponent implements OnInit {
       this.max= new Date(new Date().setDate(new Date().getDate() + Number(selectedValue)))
       this.resignForm.controls.releivingdate.setValue(new Date(this.max));
     })
-    
+
 
   }
   submit(){
@@ -169,13 +169,13 @@ export class ResignationComponent implements OnInit {
   getnoticeperiods(){
     this.ES.getnoticeperiods().subscribe((res: any) => {
       if(res.status){
-       this.resignForm.controls.noticperiod.setValue(res.data[0].value) 
+       this.resignForm.controls.noticperiod.setValue(res.data[0].value)
       }
     });
 
   }
   getCompanyInformation(){
-    this.LM.getCompanyInformation('companyinformation',null,1,10,'ems').subscribe((data:any)=>{
+    this.LM.getCompanyInformation('companyinformation',null,1,10,'ems_qa').subscribe((data:any)=>{
       if(data.status && data.data.length!=0) {
         this.company=data.data[0].companyname;
 

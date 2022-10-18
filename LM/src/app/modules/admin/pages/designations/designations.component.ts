@@ -256,7 +256,7 @@ export class DesignationsComponent implements OnInit {
     })
   }
   getDesignation() {
-    this.LM.getDesignation('designationsmaster', null, 1, 100, 'ems').subscribe((info) => {
+    this.LM.getDesignation('designationsmaster', null, 1, 100, 'ems_qa').subscribe((info) => {
       if (info.status && info.data.length != 0) {
         this.designationData = info.data;
         this.dataSource = new MatTableDataSource(this.designationData);
