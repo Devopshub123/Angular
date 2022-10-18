@@ -73,8 +73,8 @@ financeManager:any=[]
         history.pushState(null, '');
         this.showError = true;
       });
-    
-     
+
+
       this.getDepartmentsMaster();
       this.getEmployeeInformationList();
       this.getEmpAnnouncements();
@@ -83,7 +83,7 @@ financeManager:any=[]
     this.getEmployeeAttendanceNotifications();
   }
   getModules(){
-    this.AMS.getModules('modulesmaster',null,1,100,'ems_qa').subscribe((result)=>{
+    this.AMS.getModules('modulesmaster',null,1,100,'ems').subscribe((result)=>{
       if(result && result.status){
         this.allModuleDetails = result.data;
 
@@ -292,7 +292,7 @@ financeManager:any=[]
     })
   }
   getDepartmentsMaster() {
-    this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, 'ems_qa').subscribe(data => {
+    this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, 'ems').subscribe(data => {
       if (data.status) {
         this.availableDepartments = data.data;
       }
@@ -318,7 +318,7 @@ getReportingManagerForEmp(){
     }
   });
   }
-  
+
   getLeaveBalance() {
     this.LM.getLeaveBalance(this.usersession.id).subscribe((result) => {
       if(result && result.status){

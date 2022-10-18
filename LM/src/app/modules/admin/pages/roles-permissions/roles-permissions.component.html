@@ -1,91 +1,138 @@
 <div class="wrapper">
 
-    <div class="custom-main-panel">
-        <div class="content">
-            <div class="container-fluid">
-                <div class="card">
-                    <div class="card-header ">
-                        <h4 class="card-title">Roles &amp; Permissions</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card no-value">
-                                    <div class="card-header no-value no-border">
-                                        <div class="card-head-row">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <form>
-                                                        <div class="form-group pl-0 text-right">
-                                                            <a style="padding-left:2px;" class="col-md-2 btn btn-primary text-white" (click)="openModalForm()">Add</a>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <form>
-                                                        <div class="form-group row col-sm-12">
-                                                            <label for="" class="col-sm-2 col-form-label">Role Name*</label>
-                                                            <div class="col-sm-4">
-                                                                <select id="year" class="form-control" name="year" (change)="getRoleScreenFunctionalities('4')" [(ngModel)]="roleId">
-                                                                    <option value="" disabled selected>Role Name</option>
-                                                                    <option *ngFor="let role of roleMasters;"
-                                                                            value="{{role.id}}">{{role.name}}
-                                                                    </option>                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-
-                                                </div>
-                                            </div>
-                                            <div class="table-responsive" *ngIf="rolesLength > 0">
-                                                <table class="table table-head-bg-success table-striped table-hover">
-                                                    <thead>
-                                                    <tr >
-                                                        <th scope="col">S.No.</th>
-                                                        <th scope="col">Name of the Screen</th>
-                                                        <th style="text-align:center;" scope="col" *ngFor="let a of functionalityMaster; index as i;">{{ a.functionalityname }}</th>
-                                                    </tr>
-                                                    </thead>
-
-                                                    <tbody *ngIf="rolesLength > 0">
-                                                    <tr *ngFor="let item of roles" >
-                                                        <td>{{ item.countIndex+1 }}</td>
-                                                        <td>{{item.key}}</td>
-                                                        <td align="center" *ngFor="let permission of item.value[0].permissions">
-                                                            <input type="checkbox" name="add1" value="" *ngIf="isEditRule == 1 && permission.status == true" [(ngModel)]="permission.status">
-                                                            <input type="checkbox" name="add1" value="" *ngIf="isEditRule == 1 && permission.status == undefined || isEditRule == 1 && permission.status == false" [(ngModel)]="permission.status">
-                                                            <input type="checkbox" name="add1" value="" *ngIf="isEditRule == 0 && permission.status != 'NA'" [disabled]="true" [checked]="true">
-                                                        </td>
-
-
-                                                    </tr>
-                                                    </tbody>
-                                                    <tbody *ngIf="rolesLength == 0">
-                                                    <tr>
-                                                        <td colspan="11" style="text-align: center">No Screen Rules Found</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                <div class="form-group pl-0 text-right" *ngIf='isdisplay'>
-                                                    <button id="submit" name="submit" class="col-md-2 btn btn-primary mr-2" (click)="submitRole()">Save</button>
-                                                    <button id="cancel" name="cancel" class="col-md-2 btn btn-default" (click)="cancelRole()">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
+  <div class="custom-main-panel">
+    <div class="content">
+      <div class="container-fluid">
+        <div class="card">
+          <div class="card-header ">
+            <h4 class="card-title">Roles &amp; Permissions</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card no-value">
+                  <div class="card-header no-value no-border">
+                    <div class="card-head-row">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <form>
+                            <div class="form-group pl-0 text-right">
+                              <a style="padding-left:2px;" class="col-md-2 btn btn-primary text-white"
+                                 (click)="openModalForm()">Add</a>
                             </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <form>
+                            <div class="form-group row col-sm-12">
+                              <label for="" class="col-sm-2 col-form-label">Role Name*</label>
+                              <div class="col-sm-4">
+                                <select id="year" class="form-control" name="year"
+                                        (change)="getRoleScreenfunctionalitiesByRoleId()" [(ngModel)]="roleId">
+                                  <option value="" disabled selected>Role Name</option>
+                                  <option *ngFor="let role of roleMasters;"
+                                          value="{{role.id}}">{{role.name}}
+                                  </option>
+                                </select>
+                              </div>
+                            </div>
+                            <ul class="form-group row col-sm-12" style="margin:auto;"
+                                *ngFor="let module of modulesScreens;index as moduleIndex;">
+                              <p>
+                                <mat-checkbox [ngClass]="{'custom-disable-cursor' : !module.isDisabledCheckBox}"
+                                              color="primary" [checked]="module.checked"
+                                              [disabled]="!module.isDisabledCheckBox"
+                                              (change)="checkBoxStatus($event,moduleIndex)">{{module.modulename}}</mat-checkbox>
+                              </p>
+                              <mat-accordion *ngIf="rolesLength[module.modulename] > 0 && module.isChecked"
+                                             style="width:100%;">
+
+                                <mat-expansion-panel>
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                      Screens
+                                    </mat-panel-title>
+
+                                  </mat-expansion-panel-header>
+                                  <div class="table-responsive"
+                                       *ngIf="rolesLength[module.modulename] > 0 && module.isChecked">
+                                    <table class="table table-head-bg-success table-striped table-hover">
+                                      <thead>
+                                      <tr>
+                                        <th scope="col">S.No.</th>
+                                        <th scope="col">Name of the Screen</th>
+                                        <th style="text-align:center;" scope="col"
+                                            *ngFor="let a of functionalityMaster; index as i;">{{ a.functionalityname }}</th>
+                                      </tr>
+                                      </thead>
+
+                                      <tbody *ngIf="rolesLength[module.modulename] > 0">
+                                      <tr *ngFor="let item of roles[module.modulename]">
+                                        <td>{{ item.countIndex + 1 }}</td>
+                                        <td>{{item.key}}</td>
+                                        <td align="center" *ngFor="let permission of item.value[0].permissions">
+
+                                          <input type="checkbox" class="{{ module.roleClassName }}" name="add1" value=""
+                                                 *ngIf="isEditRule == 1 && permission.status == true"
+                                                 [(ngModel)]="istrue">
+                                          <input type="checkbox" name="add1" value=""
+                                                 *ngIf="isEditRule == 1 && permission.status == 'undefined' || isEditRule == 1 && permission.status == 'false'"
+                                                 [(ngModel)]="permission.status">
+                                          <input type="checkbox" name="add1" value=""
+                                                 *ngIf="isEditRule == 0 && permission.status != 'NA'" [disabled]="true"
+                                                 [checked]="true">
+                                          <input type="checkbox" name="add1" value=""
+                                                 *ngIf="isEditRule == 1 && permission.status == false"
+                                                 [(ngModel)]="permission.status">
+
+                                        </td>
+
+
+                                      </tr>
+                                      </tbody>
+                                      <tbody *ngIf="rolesLength[module.modulename] == 0">
+                                      <tr>
+                                        <td colspan="11" style="text-align: center">No Screen Rules Found</td>
+                                      </tr>
+                                      </tbody>
+                                    </table>
+
+                                  </div>
+
+                                </mat-expansion-panel>
+                              </mat-accordion>
+                              <div class="table-responsive" *ngIf="(modulesScreens.length-1) == moduleIndex">
+                                <div class="form-group pl-0 text-right" *ngIf='(isEditRule == 1) && isdisplay'>
+                                  <button id="submit" name="submit" class="col-md-2 btn btn-primary mr-2"
+                                          (click)="submitRoleV2()">Save
+                                  </button>
+                                  <button id="cancel" name="cancel" class="col-md-2 btn btn-default"
+                                          (click)="cancelRole()">Cancel
+                                  </button>
+                                </div>
+                              </div>
+
+                            </ul>
+
+                          </form>
 
                         </div>
+                      </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                  </div>
 
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+  </div>
 
 
 </div>
