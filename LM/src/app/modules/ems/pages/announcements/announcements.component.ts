@@ -100,6 +100,8 @@ export class AnnouncementsComponent implements OnInit {
   EM31:any;
   EM32:any;
   EM33:any;
+  EM44: any;
+  EM45: any;
 
 
   constructor(private formBuilder: FormBuilder,private router: Router,private ES:EmsService,public dialog: MatDialog,private EM:AdminService) { }
@@ -370,7 +372,7 @@ export class AnnouncementsComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Announcemenyt Cancel successfully'
+            data:  this.EM44
           });
 
         }
@@ -378,7 +380,7 @@ export class AnnouncementsComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Unable to stop announcement.'
+            data:  this.EM45
           });
 
        }
@@ -484,6 +486,15 @@ export class AnnouncementsComponent implements OnInit {
 
           }else if(result.data[i].code =='EM33'){
             this.EM33=result.data[i].message;
+
+
+          }
+          else if(result.data[i].code =='EM44'){
+            this.EM44=result.data[i].message;
+
+
+          }else if(result.data[i].code =='EM45'){
+            this.EM45=result.data[i].message;
 
 
           }

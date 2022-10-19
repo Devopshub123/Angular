@@ -262,7 +262,7 @@ export class EditProfileComponent implements OnInit {
           this.CountryDetails=result.data;
       }
     })
-    // this.LMS.getCountry('countrymaster',null,1,10,'ems_qa').subscribe((results)=>{
+    // this.LMS.getCountry('countrymaster',null,1,10,'ems').subscribe((results)=>{
     //   this.CountryDetails=results.data;
     //   this.permanentCountryDetails=results.data;
     //

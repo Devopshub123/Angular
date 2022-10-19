@@ -92,50 +92,51 @@ updateShiftStatus(data:any):Observable<any>{
   getRolesByDepartment(data:any):Observable<any>{
     return this.http.post(this.mainUrl+'admin/api/getRolesByDepartment',data,this.httpOptions);
   }
-	
-  getEMSMessagesList(data:any){	
-    return this.http.post(this.mainUrl+'admin/api/getEMSMessages', JSON.stringify(data), this.httpOptions);	
-  }	
-  updateEMSMessagesData(data:any){	
-    return this.http.post(this.mainUrl+'admin/api/setEMSMessages', JSON.stringify(data), this.httpOptions);	
-  }	
-  getstatuslists(){	
-    return this.http.post(this.mainUrl+'admin/api/getstatuslist', this.httpOptions)	
-  }	
-  //// save reason	
- saveReasonData(data:any){	
-    return this.http.post(this.mainUrl+'ems/api/setReasonMaster', JSON.stringify(data), this.httpOptions);	
-  }	
-  /// get all reasons	
-  getAllReasonsList(){	
-    return this.http.get(this.mainUrl+'ems/api/getReasonMasterData/:reasonid', this.httpOptions)	
-  }	
- /// get  reasons list	
-  getReasonsList(){	
-    return this.http.get(this.mainUrl+'ems/api/getActiveReasonList', this.httpOptions)	
-  }	
- //// save termination category	
- saveTerminationCategory(data:any){	
-  return this.http.post(this.mainUrl+'ems/api/setTerminationCategory', JSON.stringify(data), this.httpOptions);	
-}	
-/// get  termination category list	
-getTerminationCategoryList(){	
-  return this.http.get(this.mainUrl+'ems/api/getTerminationCategory', this.httpOptions)	
-}	
-/// get Modules Screens Functionalitiesmaster	
-getModulesScreensFunctionalitiesmaster(){	
-  return this.http.get(this.mainUrl+'api/getModulesScreensFunctionalitiesmaster', this.httpOptions)	
-}	
-/// get Modules Screens	
-getModulesWithScreens(){	
-  return this.http.get(this.mainUrl+'api/getModulesWithScreens', this.httpOptions)	
-}	
-/// get Modules Screens Functionalitiesmaster	
-getScreenWithFunctionalities(){	
-  return this.http.get(this.mainUrl+'api/getScreenWithFunctionalities', this.httpOptions)	
-}	
-//getRoleScreenfunctionalitiesByRoleId	
-getRoleScreenfunctionalitiesByRoleId(roleId: Observable<any>){	
-  return this.http.get(this.mainUrl+'api/getRoleScreenfunctionalitiesByRoleId/' + roleId, this.httpOptions)	
+
+  getEMSMessagesList(data:any){
+    return this.http.post(this.mainUrl+'admin/api/getEMSMessages', JSON.stringify(data), this.httpOptions);
+  }
+  updateEMSMessagesData(data:any){
+    return this.http.post(this.mainUrl+'admin/api/setEMSMessages', JSON.stringify(data), this.httpOptions);
+  }
+  getstatuslists(){
+    return this.http.post(this.mainUrl+'admin/api/getstatuslist', this.httpOptions)
+  }
+  //// save reason
+ saveReasonData(data:any){
+    return this.http.post(this.mainUrl+'ems/api/setReasonMaster', JSON.stringify(data), this.httpOptions);
+  }
+  /// get all reasons
+  getAllReasonsList(){
+    return this.http.get(this.mainUrl+'ems/api/getReasonMasterData/:reasonid', this.httpOptions)
+  }
+ /// get  reasons list
+  getReasonsList(){
+    return this.http.get(this.mainUrl+'ems/api/getActiveReasonList', this.httpOptions)
+  }
+ //// save termination category
+ saveTerminationCategory(data:any){
+  return this.http.post(this.mainUrl+'ems/api/setTerminationCategory', JSON.stringify(data), this.httpOptions);
+}
+/// get  termination category list
+getTerminationCategoryList(){
+  return this.http.get(this.mainUrl+'ems/api/getTerminationCategory', this.httpOptions)
+}
+/// get Modules Screens Functionalitiesmaster
+getModulesScreensFunctionalitiesmaster(){
+  return this.http.get(this.mainUrl+'api/getModulesScreensFunctionalitiesmaster', this.httpOptions)
+}
+/// get Modules Screens
+getModulesWithScreens(){
+  return this.http.get(this.mainUrl+'api/getModulesWithScreens', this.httpOptions)
+}
+/// get Modules Screens Functionalitiesmaster
+getScreenWithFunctionalities(moduleId:any){
+  console.log("Module",moduleId);
+  return this.http.get(this.mainUrl+'api/getScreenWithFunctionalities/'+moduleId, this.httpOptions)
+}
+//getRoleScreenfunctionalitiesByRoleId
+getRoleScreenfunctionalitiesByRoleId(roleId: Observable<any>){
+  return this.http.get(this.mainUrl+'api/getRoleScreenfunctionalitiesByRoleId/' + roleId, this.httpOptions)
 }
 }

@@ -173,7 +173,7 @@ export class ShiftConfigureComponent implements OnInit {
   getWeekDays() {
     this.weekDaysDetails=[];
     this.workingDays=[];
-    this.attendanceService.getMastertable('week_master', null, 1, 10, 'ems_qa').subscribe(data => {
+    this.attendanceService.getMastertable('week_master', null, 1, 10, 'ems').subscribe(data => {
          if(data.status){
           this.weekDaysDetails = data.data;
              data.data.forEach((i:any)=>{

@@ -20,11 +20,11 @@ import { environment } from 'src/environments/environment';
       };
         httpOptionsOne = {
           headers: new HttpHeaders({'content-Type': 'multipart/form-data'})
-        };        
-   
+        };
+
     constructor(private hClient: HttpClient) {
         this.userSession = ((sessionStorage.getItem('user')))
-  
+
     }
 
 
@@ -38,7 +38,7 @@ getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
 }
 Savelogin(data:any): Observable<any> {
   return this.hClient.post(this.mainBeUrl + 'api/emp_login', JSON.stringify(data) ,this.httpOptions);
-}  
+}
  /* save change password */
 changepassword(changePassword: any): Observable<any> {
   return this.hClient.post(this.mainBeUrl + 'changePassword', JSON.stringify(changePassword), this.httpOptions);
@@ -62,4 +62,4 @@ getrolescreenfunctionalities(empId:any,moduleId:any): Observable<any>{
   return this.hClient.get(this.mainBeUrl + 'attendance/api/getrolescreenfunctionalities/'+empId+'/'+moduleId, this.httpOptions);
 }
 
-}    
+}

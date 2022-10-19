@@ -114,6 +114,11 @@ export class ResignationComponent implements OnInit {
     this.resignForm.controls.notice.setValue('')
 
   }
+  close(){
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/MainDashboard"]));
+
+  }
   saved(){
     if(this.resignForm.valid){
       let data = {
@@ -175,7 +180,7 @@ export class ResignationComponent implements OnInit {
 
   }
   getCompanyInformation(){
-    this.LM.getCompanyInformation('companyinformation',null,1,10,'ems_qa').subscribe((data:any)=>{
+    this.LM.getCompanyInformation('companyinformation',null,1,10,'ems').subscribe((data:any)=>{
       if(data.status && data.data.length!=0) {
         this.company=data.data[0].companyname;
 

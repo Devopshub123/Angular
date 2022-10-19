@@ -86,7 +86,7 @@ financeManager:any=[]
       })
     }
     getDepartmentsMaster() {
-      this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, 'ems_qa').subscribe(data => {
+      this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, 'ems').subscribe(data => {
         if (data.status) {
           this.availableDepartments = data.data;
         }

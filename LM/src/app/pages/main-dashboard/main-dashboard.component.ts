@@ -445,7 +445,7 @@ export class MainDashboardComponent implements OnInit {
   }
 
   trimString(text:any, length:any) {
-    return text.length > length ? 
+    return text.length > length ?
            text.substring(0, length) + '...' :
            text;
   }
