@@ -85,6 +85,15 @@
                 </button>
             </div><br> -->
             <div fxLayout="column" class="tableP">
+              
+              <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
+                <mat-form-field fxFlex.xs="100%" appearance="outline">
+                    <mat-label>Search</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </div>
+              
             <div class="mat-elevation-z1">
                 <table mat-table [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="sno">
