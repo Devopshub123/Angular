@@ -64,6 +64,18 @@ mat-card {
     position: relative;
     padding: 0px;
 }
+.card {
+  transition: all .25s linear;
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+  display: block;
+  display: inline-block;
+}
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0px 0px 0px -1px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%), 0px 0px 0px 0px rgb(0 0 0 / 12%);
+}
+.card:hover{
+  box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
+}
 .mat-header{
 display: flex;
 background-color:#28acaf;
@@ -186,11 +198,7 @@ padding-top:1%
     height: 32px;
     overflow: hidden;
   }
-  
-  .show {
-    overflow: visible;
-    height: auto;
-  }
+
 //////////@at-root
 .scroller {
     width: 100%;
@@ -217,3 +225,178 @@ padding-top:1%
   ::-webkit-scrollbar-thumb:hover {
     background: #28acaf;
   }
+
+  //////////////////////////@at-root
+  .container {
+    width: 100%;
+    height:100vh;
+  }
+  .sidenav {
+  height: 100vh;
+  border: none;
+  width:250px;
+  -webkit-box-shadow: -1px 0px 11px 0px  rgba(3,3,3,1);
+  -moz-box-shadow: -1px 0px 11px 0px rgba(3,3,3,1);
+  box-shadow: -1px 0px 11px 0px rgba(3,3,3,1);
+  }
+  .content-container{
+    padding:20px;
+  }
+  
+  .toogleSidenav {
+   width:120px;
+    
+  }
+  .show{
+    display:block;
+  }
+  .hide{
+    display: none;
+  }
+
+  /////////////////image upload
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    //min-width: 100%;
+    //min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+  }
+
+  .iconStyle{
+    padding-left: 5%;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  
+///////////@at-root
+.avatar-upload {
+  position: inherit;
+  max-width: 170px;
+  margin: 0px auto 0px;
+}
+
+.avatar-upload .avatar-edit {
+  position: absolute;
+  right: 19px;
+  z-index: 1;
+  top: 13px;
+}
+
+.avatar-upload .avatar-edit input {
+  display: none;
+}
+
+.avatar-upload .avatar-edit .custom-label {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 0;
+  border-radius: 100%;
+  background: #3efc78;
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+}
+
+.avatar-upload .avatar-edit .upload-image {
+  background: #3efc78;
+}
+
+.avatar-upload .avatar-edit .remove-image {
+  background: #E91E63;
+}
+
+.avatar-upload .avatar-edit .custom-label:hover {
+  opacity: 1;
+}
+
+.avatar-upload .avatar-edit .custom-label:after {
+  position: absolute;
+  text-align: center;
+  margin: auto;
+  top: 8px;
+  right: 0;
+  left: 2px;
+  width: 18px;
+}
+
+.avatar-upload .avatar-edit .upload-image:after {
+  content: url('/assets/edit.svg');
+}
+
+.avatar-upload .avatar-edit .remove-image:after {
+  content: url('/assets/close.svg');
+  left: 0px !important;
+}
+
+.avatar-upload .avatar-preview {
+  width: 170px;
+  height: 180px;
+  position: relative;
+  border-radius: 100%;
+  overflow: hidden;
+  border: 5px solid #fff;
+  -webkit-box-shadow: 0 0 45px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 0 0 45px rgba(0, 0, 0, .2);
+  box-shadow: 0 0 45px rgba(0, 0, 0, .2);
+}
+
+.avatar-upload .avatar-preview>div {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.scrollbox {
+  overflow: auto;
+  visibility: hidden;
+}
+.scrollbox-content,
+.scrollbox:hover,
+.scrollbox:focus {
+  visibility: visible;
+}
+
+.scrollbox_delayed {
+  transition: visibility 0.2s;
+}
+.scrollbox_delayed:hover {
+  transition: visibility 0s 0.2s;
+}
+
+///////@at-root
+mat-button-toggle-group {
+  margin-left: 12px;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #28acaf;
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+  background-color: #28acaf;
+}
+
+.btn {
+  padding: 0px 15px;
+  font-size: 16px;
+  opacity: 0.9;
+  border-radius: 3px;
+}

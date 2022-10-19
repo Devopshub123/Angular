@@ -107,7 +107,7 @@ export class UsersLoginComponent implements OnInit {
     console.log(data)
     this.usersloginForm.controls.empname.setValue(data.empname);
     this.usersloginForm.controls.email.setValue(data.officeemail);
-    this.usersloginForm.controls.userid.setValue(data.userid);
+    this.usersloginForm.controls.userid.setValue(data.login==null?data.officeemail:data.login);
     this.usersloginForm.controls.status.setValue('Active');
     this.usersloginForm.controls.empid.setValue(data.id);
 
