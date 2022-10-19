@@ -196,12 +196,13 @@ export class ResignationComponent implements OnInit {
        }
     })
   }
-  edit(event:any,data:any){
+  edit(event: any, data: any) {
+    console.log(data)
     this.isadd=false;
     this.editing=true;
     this.editdata = data;
     this.resignForm.controls.resigndate.setValue(new Date(data.applied_date));
-    this.resignForm.controls.releivingdate.setValue(new Date(data.applied_date));
+    this.resignForm.controls.releivingdate.setValue(new Date(data.original_relieving_date));
     this.resignForm.controls.exitdate.setValue(new Date(data.requested_relieving_date));
     this.resignForm.controls.notice.setValue(data.comment);
     for(let i=0;i<this.reasondata.length;i++){

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavItem } from 'src/app/models/navItem';
 import { LoginService } from 'src/app/services/login.service';
@@ -20,21 +20,21 @@ import { RequestData } from 'src/app/modules/attendance/models/Request';
   styleUrls: ['./main-dashboard.component.scss']
 })
 export class MainDashboardComponent implements OnInit {
-  allModuleDetails:any=[];
-  usersession:any;
-  data :any;
-  userRoles:any=[];
-  menu: NavItem[]=[];
-  firstRoute:any;
-  compoff:any;
+  allModuleDetails: any = [];
+  usersession: any;
+  data: any;
+  userRoles: any = [];
+  menu: NavItem[] = [];
+  firstRoute: any;
+  compoff: any;
   showError: boolean = false;
   private unsubscriber: Subject<void> = new Subject<void>();
-  constructor(private AMS : LoginService,private mainService:MainService,
+  constructor(private AMS: LoginService, private mainService: MainService,
     private sideMenuService: SideMenuService, private router: Router,
     private emsService: EmsService, private companyService: CompanySettingService,
-    private LM:LeavesService,private attendanceService: AttendanceService,) {
-      this.getCompoffleavestatus();
-    this.data= sessionStorage.getItem('user')
+    private LM: LeavesService, private attendanceService: AttendanceService,) {
+    this.getCompoffleavestatus();
+    this.data = sessionStorage.getItem('user')
     this.usersession = JSON.parse(this.data)
 
   }
@@ -46,25 +46,30 @@ export class MainDashboardComponent implements OnInit {
   employeeDesignation: any;
   employeeJoinDate: any;
   employeeMobile: any;
-  employeeDepartment: any;
+  empReportingManager: any;
   employeeEmail: any;
   userSession: any;
-  announcementsDetails:any=[];
-  onboardingDetails:any=[];
-  inductionProgram:any=[];
-  reportingManager:any=[];
-  hrReportingManager:any=[];
-financeManager:any=[]
-  count:any;
+  announcementsDetails: any = [];
+  onboardingDetails: any = [];
+  inductionProgram: any = [];
+  reportingManager: any = [];
+  hrReportingManager: any = [];
+  financeManager: any = []
+  count: any;
   availableDepartments: any = [];
   leavebalance: any = [];
   notificationsData: any = [];
   selectedDate: any;
   pipe = new DatePipe('en-US');
+  availableDesignations: any = [];
+  isReadMore = false;
+  events: string[] = [];
+  opened: boolean = true;
   ////////////////
   ngOnInit(): void {
     this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
     this.getModules();
+    this.getDesignationsMaster();
     history.pushState(null, '');
 
     fromEvent(window, 'popstate')
@@ -75,78 +80,58 @@ financeManager:any=[]
       });
 
 
-      this.getDepartmentsMaster();
-      this.getEmployeeInformationList();
-      this.getEmpAnnouncements();
     this.getReportingManagerForEmp();
+    this.getEmployeeInformationList();
+    this.getEmpAnnouncements();
+
     this.getLeaveBalance();
     this.getEmployeeAttendanceNotifications();
+    this.announcementsDetails = this.announcementsDetails.map((item: any) => ({
+      ...item,
+      showMore:false,
+    }));
+
   }
-  getModules(){
-    this.AMS.getModules('modulesmaster',null,1,100,'ems').subscribe((result)=>{
-      if(result && result.status){
+  getModules() {
+    this.AMS.getModules('modulesmaster', null, 1, 100, 'ems').subscribe((result) => {
+      if (result && result.status) {
         this.allModuleDetails = result.data;
 
       }
     })
   }
 
-  getCompoffleavestatus(){
-    this.mainService.getCompoffleavestatus().subscribe((result)=>{
-     if(result.status){
-       this.compoff = result.data.compoff_status;
-     }
+  getCompoffleavestatus() {
+    this.mainService.getCompoffleavestatus().subscribe((result) => {
+      if (result.status) {
+        this.compoff = result.data.compoff_status;
+      }
     })
-   }
+  }
 
 
 
-  getrolescreenfunctionalities(id:any,date:any) {
+  getrolescreenfunctionalities(id: any, date: any) {
 
     if (date) {
-      if(id !=3){
+      if (id != 3) {
 
         let data = {
-        'empid': this.usersession.id,
-        'moduleid': id
-      };
-      sessionStorage.setItem('activeModule', JSON.stringify(data));
-      this.mainService.getRoleScreenFunctionalities(data).subscribe((res: any) => {
-        this.menu = [];
-        if (res.status) {
+          'empid': this.usersession.id,
+          'moduleid': id
+        };
+        sessionStorage.setItem('activeModule', JSON.stringify(data));
+        this.mainService.getRoleScreenFunctionalities(data).subscribe((res: any) => {
           this.menu = [];
-          this.firstRoute = '';
-          res.data.forEach((e: any) => {
+          if (res.status) {
+            this.menu = [];
+            this.firstRoute = '';
+            res.data.forEach((e: any) => {
 
-            if (this.menu.length > 0) {
-              var isvalid = true;
-              this.menu.forEach((item) => {
-                if (item.displayName == e.role_name && e.parentrole != 1) {
-                  isvalid = false;
-                  if (this.compoff) {
-                    var itemnav = {
-                      displayName: e.screen_name,
-                      iconName: '',// e.role_name,
-                      route: e.routename
-                    }
-                    item.children?.push(itemnav);
-
-                  }
-                  else {
-                    if (e.screen_name == 'Comp off History') {
-                    }
-                    else {
-                      var itemnav = {
-                        displayName: e.screen_name,
-                        iconName: '',// e.role_name,
-                        route: e.routename
-                      }
-                      item.children?.push(itemnav);
-                    }
-                  }
-
-                } else {
-                  if (item.displayName == 'Self' && e.parentrole == 1) {
+              if (this.menu.length > 0) {
+                var isvalid = true;
+                this.menu.forEach((item) => {
+                  if (item.displayName == e.role_name && e.parentrole != 1) {
                     isvalid = false;
                     if (this.compoff) {
                       var itemnav = {
@@ -155,9 +140,10 @@ financeManager:any=[]
                         route: e.routename
                       }
                       item.children?.push(itemnav);
+
                     }
                     else {
-                      if (e.screen_name == 'Comp Off') {
+                      if (e.screen_name == 'Comp off History') {
                       }
                       else {
                         var itemnav = {
@@ -169,13 +155,69 @@ financeManager:any=[]
                       }
                     }
 
+                  } else {
+                    if (item.displayName == 'Self' && e.parentrole == 1) {
+                      isvalid = false;
+                      if (this.compoff) {
+                        var itemnav = {
+                          displayName: e.screen_name,
+                          iconName: '',// e.role_name,
+                          route: e.routename
+                        }
+                        item.children?.push(itemnav);
+                      }
+                      else {
+                        if (e.screen_name == 'Comp Off') {
+                        }
+                        else {
+                          var itemnav = {
+                            displayName: e.screen_name,
+                            iconName: '',// e.role_name,
+                            route: e.routename
+                          }
+                          item.children?.push(itemnav);
+                        }
+                      }
 
+
+                    }
                   }
+                })
+                if (isvalid == true) {
+                  if (e.parentrole == 1) {
+                    var navitem = {
+                      displayName: 'Self',
+                      iconName: '',//e.role_name,
+                      children: [
+                        {
+                          displayName: e.screen_name,
+                          iconName: '',// e.role_name,
+                          route: e.routename
+                        }
+
+                      ]
+                    };
+                    this.menu.push(navitem)
+                  } else {
+                    var item = {
+                      displayName: e.role_name,
+                      iconName: '',//e.role_name,
+                      children: [
+                        {
+                          displayName: e.screen_name,
+                          iconName: '',// e.role_name,
+                          route: e.routename
+                        }
+
+                      ]
+                    };
+                    this.menu.push(item)
+                  }
+
                 }
-              })
-              if (isvalid == true) {
+              } else {
                 if (e.parentrole == 1) {
-                  var navitem = {
+                  var items = {
                     displayName: 'Self',
                     iconName: '',//e.role_name,
                     children: [
@@ -187,9 +229,10 @@ financeManager:any=[]
 
                     ]
                   };
-                  this.menu.push(navitem)
+                  this.firstRoute = e.routename;
+                  this.menu.push(items)
                 } else {
-                  var item = {
+                  var navtem = {
                     displayName: e.role_name,
                     iconName: '',//e.role_name,
                     children: [
@@ -201,58 +244,25 @@ financeManager:any=[]
 
                     ]
                   };
-                  this.menu.push(item)
+                  this.firstRoute = e.routename;
+                  this.menu.push(navtem)
+
                 }
-
               }
+            });
+            sessionStorage.setItem('sidemenu', JSON.stringify(this.menu));
+            if (this.usersession.firstlogin == 'Y') {
+              this.router.navigate(['/ChangePassword']);
             } else {
-              if (e.parentrole == 1) {
-                var items = {
-                  displayName: 'Self',
-                  iconName: '',//e.role_name,
-                  children: [
-                    {
-                      displayName: e.screen_name,
-                      iconName: '',// e.role_name,
-                      route: e.routename
-                    }
-
-                  ]
-                };
-                this.firstRoute = e.routename;
-                this.menu.push(items)
-              } else {
-                var navtem = {
-                  displayName: e.role_name,
-                  iconName: '',//e.role_name,
-                  children: [
-                    {
-                      displayName: e.screen_name,
-                      iconName: '',// e.role_name,
-                      route: e.routename
-                    }
-
-                  ]
-                };
-                this.firstRoute = e.routename;
-                this.menu.push(navtem)
-
-              }
+              this.router.navigate([this.firstRoute]);
             }
-          });
-          sessionStorage.setItem('sidemenu', JSON.stringify(this.menu));
-          if (this.usersession.firstlogin == 'Y') {
-            this.router.navigate(['/ChangePassword']);
-          } else {
-            this.router.navigate([this.firstRoute]);
+
           }
 
-        }
 
-
-      })
-      }else {
-        window.open('http://122.175.62.210:5050','_blank')
+        })
+      } else {
+        window.open('http://122.175.62.210:5050', '_blank')
 
       }
     }
@@ -266,87 +276,69 @@ financeManager:any=[]
     this.unsubscriber.next();
     this.unsubscriber.complete();
   }
-
-
-
   ///////////////
   getEmployeeInformationList() {
     this.employeeInformationData = [];
     this.emsService.getEmployeeInformationData(this.usersession.id,).subscribe((res: any) => {
 
       this.employeeInformationData = JSON.parse(res.data[0].json)[0];
-
-      this.employeeNameh = this.employeeInformationData.firstname +' '+ this.employeeInformationData.lastname;
-     this.employeeCode = this.employeeInformationData.empid;
-     this.employeeJoinDate = this.employeeInformationData.dateofjoin;
-     this.employeeMobile = this.employeeInformationData.contactnumber;
-     this.employeeEmail = this.employeeInformationData.officeemail;
-      this.employeeEmail = this.employeeInformationData.officeemail;
-      //this.employeeDepartment =
-      this.availableDepartments.forEach((e:any)=> {
-        if (e.id ==  this.employeeInformationData.department) {
-          this.employeeDepartment = e.deptname;
-      }
+      this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.lastname;
+      this.employeeCode = this.employeeInformationData.empid;
+      this.employeeJoinDate = this.employeeInformationData.dateofjoin;
+      this.employeeMobile = this.employeeInformationData.contactnumber;
+      this.availableDesignations.forEach((e: any) => {
+        if (e.id == this.employeeInformationData.designation) {
+          this.employeeDesignation = e.designation;
+        }
       });
-
-    })
+      })
   }
-  getDepartmentsMaster() {
-    this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, 'ems').subscribe(data => {
-      if (data.status) {
-        this.availableDepartments = data.data;
+
+  getEmpAnnouncements() {
+    this.emsService.getEmpAnnouncements().subscribe((res: any) => {
+      if (res && res.status) {
+        this.announcementsDetails = res.data;
       }
-    })
+    });
   }
-employeeProfile() {
-  let empId=this.usersession.id
-  this.router.navigate(["/ems/employee-profile",{empId}])
-}
 
-getEmpAnnouncements(){
-this.emsService.getEmpAnnouncements().subscribe((res: any) => {
-  if(res && res.status){
-    this.announcementsDetails = res.data;
-   }
-});
-}
-
-getReportingManagerForEmp(){
-  this.emsService.getReportingManagerForEmp(this.usersession.id).subscribe((res: any) => {
-    if(res && res.status){
-      this.reportingManager=res.data;
-    }
-  });
+  getReportingManagerForEmp() {
+    this.emsService.getReportingManagerForEmp(this.usersession.id).subscribe((res: any) => {
+      if (res && res.status) {
+        this.reportingManager = res.data;
+        this.empReportingManager = this.reportingManager[0].managername;
+      }
+    });
   }
 
   getLeaveBalance() {
     this.LM.getLeaveBalance(this.usersession.id).subscribe((result) => {
-      if(result && result.status){
-        this.leavebalance = this.leaveTypes(result.data[0],true)
+      if (result && result.status) {
+        this.leavebalance = this.leaveTypes(result.data[0], true)
       }
     })
   }
-  leaveTypes(leaveTypes:any,flag:boolean){
+  leaveTypes(leaveTypes: any, flag: boolean) {
     var data = [];
     for (var i = 0; i < leaveTypes.length; i++) {
-      if(flag){
+      if (flag) {
         let total = leaveTypes[i].total.split('.')
-        if(total[1] == '00'){
+        if (total[1] == '00') {
           leaveTypes[i].total = total[0];
         }
       }
       if (leaveTypes[i].leavename === "Marriage Leave" && this.usersession.maritalstatus === "Single") {
         data.push(leaveTypes[i])
 
-      } else if (leaveTypes[i].leavename === 'Maternity Leave'&& this.usersession.maritalstatus === "Married") {
+      } else if (leaveTypes[i].leavename === 'Maternity Leave' && this.usersession.maritalstatus === "Married") {
         if (this.usersession.gender === 'Female') {
           data.push(leaveTypes[i])
         }
-      } else if (leaveTypes[i].leavename === 'Paternity Leave'&& this.usersession.maritalstatus === "Married") {
+      } else if (leaveTypes[i].leavename === 'Paternity Leave' && this.usersession.maritalstatus === "Married") {
         if (this.usersession.gender === 'Male') {
           data.push(leaveTypes[i])
         }
-      }else if(leaveTypes[i].leavename !== 'Paternity Leave' && leaveTypes[i].leavename !== "Marriage Leave" && leaveTypes[i].leavename !== 'Maternity Leave'){
+      } else if (leaveTypes[i].leavename !== 'Paternity Leave' && leaveTypes[i].leavename !== "Marriage Leave" && leaveTypes[i].leavename !== 'Maternity Leave') {
         data.push(leaveTypes[i])
       }
 
@@ -372,4 +364,17 @@ getReportingManagerForEmp(){
 
     this.router.navigate(["/Attendance/Request"], { state: { userData: elment } });
   }
+  getDesignationsMaster() {
+    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+      if (data.status) {
+        this.availableDesignations = data.data;
+      }
+    })
+  }
+
+  trimString(text:any, length:any) {
+    return text.length > length ?
+           text.substring(0, length) + '...' :
+           text;
+}
 }

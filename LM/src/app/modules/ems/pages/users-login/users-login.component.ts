@@ -8,26 +8,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { EmsService } from '../../ems.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
-export interface PeriodicElement {
-  id: number;
-  empname: string; 
-  email:string;
-  userid: string;
-
-}
-const Sample_Data: PeriodicElement[] = [
-  {id: 1, empname: 'Sreeb Tech',email:'sreeb@gmail.com', userid:'sreeb'},
-  {id: 2, empname: 'Sanela',email:'sreeb@gmail.com',  userid:''},
-  {id: 3, empname: 'Sriram Hardwaress',email:'sreeb@gmail.com', userid:''},
-  {id: 4, empname: 'ABC Tech',email:'sreeb@gmail.com', userid:''},
-  {id: 5, empname: 'Soft Soluntions',email:'sreeb@gmail.com',  userid:''},
-  {id: 6, empname: 'Dell ',email:'sreeb@gmail.com',   userid:''},
-  {id: 7, empname: 'Tech Mahindra', email:'sreeb@gmail.com',  userid:''},
-  {id: 8, empname: 'Wipro', email:'sreeb@gmail.com',userid:''},
-  {id: 9, empname: 'Accenture', email:'sreeb@gmail.com', userid:''},
-  {id: 10, empname: 'TATA ', email:'sreeb@gmail.com', userid:''},
-  {id: 11, empname: 'Cognizent',email:'sreeb@gmail.com', userid:''},
-];
 
 
 @Component({
@@ -36,32 +16,6 @@ const Sample_Data: PeriodicElement[] = [
   styleUrls: ['./users-login.component.scss']
 })
 export class UsersLoginComponent implements OnInit {
-  // config: AngularEditorConfig = {
-  //   editable: true,
-  //   spellcheck: true,
-  //   height: "15rem",
-  //   minHeight: "5rem",
-  //   placeholder: "Enter text ",
-  //   translate: "no",
-  //   defaultParagraphSeparator: "p",
-  //   defaultFontName: "Arial",
-  //   toolbarHiddenButtons: [["bold"]],
-  //   customClasses: [
-  //     {
-  //       name: "quote",
-  //       class: "quote"
-  //     },
-  //     {
-  //       name: "redText",
-  //       class: "redText"
-  //     },
-  //     {
-  //       name: "titleText",
-  //       class: "titleText",
-  //       tag: "h1"
-  //     }
-  //   ]
-  // };
   usersloginForm:any= FormGroup;
   designations:any=[];
   min:any=new Date();
@@ -76,7 +30,7 @@ export class UsersLoginComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
- 
+
 
   constructor(private formBuilder: FormBuilder,private router: Router,private ES:EmsService,public dialog: MatDialog) { }
 
@@ -84,13 +38,13 @@ export class UsersLoginComponent implements OnInit {
     this.getUserLoginData();
     this.usersloginForm=this.formBuilder.group(
       {
-        empname: [""],  
+        empname: [""],
         email:["",] ,
         userid:["",Validators.required],
-        password:["",Validators.required],    
+        password:["",Validators.required],
         status: [""],
         empid:[""],
-    
+
     });
   }
   // Add(){
@@ -107,11 +61,11 @@ export class UsersLoginComponent implements OnInit {
     console.log(data)
     this.usersloginForm.controls.empname.setValue(data.empname);
     this.usersloginForm.controls.email.setValue(data.officeemail);
-    this.usersloginForm.controls.userid.setValue(data.userid);
+    this.usersloginForm.controls.userid.setValue(data.login=null?data.officeemail:data.login);
     this.usersloginForm.controls.status.setValue('Active');
     this.usersloginForm.controls.empid.setValue(data.id);
 
-    
+
   }
   delete(){}
 
@@ -144,7 +98,7 @@ export class UsersLoginComponent implements OnInit {
           disableClose: true,
           data: 'Password  updated successfully. '
         });
-          
+
       }
       else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {

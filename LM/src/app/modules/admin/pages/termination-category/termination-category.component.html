@@ -9,7 +9,8 @@
                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                         <mat-label>Termination Category</mat-label>
                         <input formControlName="terminationCategory" matInput placeholder="" appRemoveSpace required maxlength="100">
-                       <mat-error class="con-error" *ngIf="terminationCategoryForm.controls.terminationCategory.errors?.required">
+                       <mat-error class="con-error" 
+                       *ngIf="terminationCategoryForm.controls.terminationCategory.errors?.required || terminationCategoryForm.controls.terminationCategory.errors?.['whitespace']">
                        Please enter name
                     </mat-error>
                     </mat-form-field>

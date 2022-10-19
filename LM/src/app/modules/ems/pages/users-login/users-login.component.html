@@ -3,7 +3,7 @@
        <mat-card-header>
           <mat-card-title > Users Login </mat-card-title>
         </mat-card-header>
-        <div *ngIf="ishide">
+        <div >
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Employee Name</mat-label>
@@ -21,10 +21,10 @@
                       This Field is Required
                      </mat-error>
                   </mat-form-field>
-  
-             
-                
-                
+
+
+
+
               </div>
               <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -38,7 +38,7 @@
                       Minimum 8 characters in length (20 characters max).
                      </mat-error>
                   </mat-form-field>
-  
+
                 <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                   <mat-label>Status</mat-label>
                   <input formControlName="status"  readonly matInput placeholder="">
@@ -49,13 +49,13 @@
 
                     </ng-container>
                   </mat-select> -->
-              
+
                 </mat-form-field>
-                
-                
+
+
               </div>
               <div fxLayoutAlign="center">
-                
+
                 <button  class="m-1 mat-stroked-button button-save"type="submit" (click)="submit()">
                     <span>Submit</span>
                 </button>
@@ -64,20 +64,20 @@
                 </button>
                 <br />
             </div>
-      
-              
-              
-             
-          
-              
-      
-        
-        
-        
-             
+
+
+
+
+
+
+
+
+
+
+
         </div>
-      
-        <div fxLayout="column" *ngIf="isview">
+
+        <div fxLayout="column" >
             <br>
             <!-- <div fxLayout="row" fxLayoutAlign="end">
                 <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue" (click)="Add()" type="submit">
@@ -90,8 +90,8 @@
                     <ng-container matColumnDef="sno">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header > S.No </th>
                         <td mat-cell *matCellDef="let row;let i=index" >
-                            <span>{{(i+1)}}</span> 
-                            
+                            <span>{{(i+1)}}</span>
+
 
                         </td>
                     </ng-container>
@@ -109,11 +109,11 @@
 
                         </td>
                     </ng-container>
-                  
+
                     <ng-container matColumnDef="userid">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header > User ID </th>
                         <td mat-cell *matCellDef="let row" >
-                            <span>{{row.userid}} </span>
+                            <span>{{row.login}} </span>
 
                         </td>
                     </ng-container>

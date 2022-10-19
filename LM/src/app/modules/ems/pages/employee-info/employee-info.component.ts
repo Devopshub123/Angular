@@ -172,15 +172,13 @@ export class EmployeeInfoComponent implements OnInit {
   isExperienceEdit: boolean = false;
   mincontarctDate: any;
   ngOnInit(): void {
-
     this.params = this.activatedRoute.snapshot.params;
-
     if (this.params) {
       this.empId = this.params.empId;
     }
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getDocumentsEMS();
-    this.getFilecategoryMasterForEMS()
+    this.getFilecategoryMasterForEMS();
     this.createPersonalInfoForm();
     this.createFamilyForm();
     this.createEmployeeJobForm();

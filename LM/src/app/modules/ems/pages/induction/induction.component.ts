@@ -136,7 +136,7 @@ export class InductionComponent implements OnInit {
   // }
 
   validateData(obj:any){
-    if(this.arrayList.length >0) {
+    if(this.arrayList.length ==0) {
       for (let i = 0; i < this.arrayList.length; i++) {
         if (obj.pid == null && obj.programType == this.arrayList[i].description) {
           return false;

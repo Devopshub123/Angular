@@ -185,7 +185,7 @@ export class AnnouncementsComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Announcemenyt deleted successfully'
+            data: 'Announcement deleted successfully'
           });
 
         }
