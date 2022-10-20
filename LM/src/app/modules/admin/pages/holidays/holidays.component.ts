@@ -65,6 +65,7 @@ export class HolidaysComponent implements OnInit {
   msgLM69:any;
   msgLM106:any;
   msgLM105:any;
+  pipe = new DatePipe('en-US');
   page = 1;
   count = 0;
   tableSize = 10;
@@ -77,6 +78,7 @@ export class HolidaysComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
+  userSession: any;
   constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog,private ts:LoginService) { }
 
   selectAll(select: MatSelect, values:any, array:any) {
@@ -110,6 +112,7 @@ export class HolidaysComponent implements OnInit {
     this.getErrorMessages('LM106')
     this.getWorkLocation();
     this.getHolidays(null,null);
+    this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.HolidayForm=this.formBuilder.group(
       {
       holiday: ["",Validators.required],
@@ -135,7 +138,9 @@ export class HolidaysComponent implements OnInit {
         id:'',
         description: this.HolidayForm.controls.holiday.value,
         date: new Date(this.HolidayForm.controls.date.value),
-        location:e.city
+        location:e.city,
+        created_by:this.userSession.id,
+        created_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
 
       }));
     });

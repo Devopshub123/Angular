@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import { Router, RouterModule } from '@angular/router';
 import {MatTable, MatTableDataSource} from "@angular/material/table";
 import * as XLSX from "xlsx";
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -53,17 +54,20 @@ export class EmpPayrollReportComponent implements OnInit {
   userSession:any;
   employeeDetails: any;
   year:any;
+  max = new Date()
   months=[{id:0,month:'Jan'},{id:1,month:'Feb'},{id:2,month:'Mar'},{id:3,month:'Apr'},{id:4,month:'May'},{id:5,month:'Jun'},{id:6,month:'Jul'},{id:7,month:'Aug'},{id:8,month:'Sep'},{id:9,month:'Oct'},{id:10,month:'Nov'},{id:11,month:'Dec'}]
   monthdata: any;;
 
-  constructor(private LM:LeavesService,public formBuilder: FormBuilder,public spinner :NgxSpinnerService,private RS:ReportsService) { }
+  constructor(private LM:LeavesService,private router: Router,public formBuilder: FormBuilder,public spinner :NgxSpinnerService,private RS:ReportsService) { }
 
   ngOnInit(): void {
     this.getallEmployeesList();
+    
     this.searchForm = this.formBuilder.group({
       fromDate:[new Date()],
       employeeId:['All']
     });
+    this.Searchform();
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.dataSource = new MatTableDataSource(this.arrayList)
   }
@@ -119,7 +123,8 @@ export class EmpPayrollReportComponent implements OnInit {
 
   }
   resetform(){
-    this.ngOnInit();
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+          this.router.navigate(["/LeaveManagement/payrollreport"]));
     }
   getPageSizes(): number[] {
     if (this.dataSource.data.length > 20) {

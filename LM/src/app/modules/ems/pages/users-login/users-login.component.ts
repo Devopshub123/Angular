@@ -52,18 +52,21 @@ export class UsersLoginComponent implements OnInit {
   //   this.isview = false;
   // }
   close(){
-    this.ishide = false;
-    this.isview = true;
+    // this.ishide = false;
+    // this.isview = true;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+          this.router.navigate(["/ems/users-login"]));
+
   }
   edit(event:any,data:any){
     this.ishide = true;
     this.isview = false;
-    console.log(data)
     this.usersloginForm.controls.empname.setValue(data.empname);
     this.usersloginForm.controls.email.setValue(data.officeemail);
-    this.usersloginForm.controls.userid.setValue(data.login=null?data.officeemail:data.login);
+    this.usersloginForm.controls.userid.setValue(data.login=null?data.login:data.officeemail);
     this.usersloginForm.controls.status.setValue('Active');
     this.usersloginForm.controls.empid.setValue(data.id);
+    
 
 
   }
