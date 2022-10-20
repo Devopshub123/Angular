@@ -106,7 +106,11 @@ import { ComfirmationDialogComponent } from './pages/comfirmation-dialog/comfirm
   ],
 
   // providers: [BnNgIdleService, BsDatepickerConfig],
-  providers: [BnNgIdleService,{provide:LocationStrategy,useClass:HashLocationStrategy}],
+  providers: [BnNgIdleService,
+  //   {
+  //     provide: LocationStrategy,useClass: HashLocationStrategy
+  // }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

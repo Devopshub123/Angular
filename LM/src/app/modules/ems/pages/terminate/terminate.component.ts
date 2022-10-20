@@ -115,9 +115,10 @@ export class TerminateComponent implements OnInit {
     this.isSave = true;
     this.terminateForm.controls.editdate.setValue(new Date(i.termination_date));
   }
-  close(){
-    this.isterminate=false;
-    this.istable=true;
+  close() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+          this.router.navigate(["/ems/terminate"]));
+    
   }
   view($event:any,rowdata:any){
     this.isterminate=true;

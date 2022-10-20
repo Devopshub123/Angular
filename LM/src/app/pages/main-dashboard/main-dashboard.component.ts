@@ -329,7 +329,7 @@ export class MainDashboardComponent implements OnInit {
     this.emsService.getEmployeeInformationData(this.usersession.id,).subscribe((res: any) => {
 
       this.employeeInformationData = JSON.parse(res.data[0].json)[0];
-      this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.lastname;
+      this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.middlename + ' ' + this.employeeInformationData.lastname;
       this.employeeCode = this.employeeInformationData.empid;
       this.employeeJoinDate = this.employeeInformationData.dateofjoin;
       this.employeeMobile = this.employeeInformationData.contactnumber;

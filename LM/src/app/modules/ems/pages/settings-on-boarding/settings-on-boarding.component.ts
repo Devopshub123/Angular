@@ -111,23 +111,8 @@ export class SettingsOnBoardingComponent implements OnInit {
     this.onboardingForm.controls.NEW_HIRE_ADDED.setValue(Number(this.onboardingForm.controls.NEW_HIRE_ADDED.value)*(this.onboardingForm.controls.ONBOARDING.value?1:0));
     this.onboardingForm.controls.ON_BOARDING_COMPLETION.setValue(Number(this.onboardingForm.controls.ON_BOARDING_COMPLETION.value)*(this.onboardingForm.controls.ONBOARDING.value?1:0));
     this.onboardingForm.controls.EMPLOYEE_NOT_JOINING.setValue(Number(this.onboardingForm.controls.EMPLOYEE_NOT_JOINING.value)*(this.onboardingForm.controls.ONBOARDING.value?1:0));
+}
 
-    //this.consoles();
-  }
-  consoles() {
-    console.log('SEND_AUTOMATIC_REMAINDERS_ONBOARD', this.onboardingForm.controls.SEND_AUTOMATIC_REMAINDERS_ONBOARD.value);
-    console.log('PROBATION_PERIOD', this.onboardingForm.controls.PROBATION_PERIOD.value);
-    console.log('PROBATION_PERIOD_DAYS', this.onboardingForm.controls.PROBATION_PERIOD_DAYS.value);
-    console.log('CUSTOMISED_EMAIL_NOTIFICATIONS', this.onboardingForm.controls.CUSTOMISED_EMAIL_NOTIFICATIONS.value);
-    console.log('ACTIVATION_EMAIL', this.onboardingForm.controls.ACTIVATION_EMAIL.value);
-    console.log('PROFILE_NOTIFICATIONS', this.onboardingForm.controls.PROFILE_NOTIFICATIONS.value);
-    console.log('EMPLOYEE_INFORMATION_UPDATED', this.onboardingForm.controls.EMPLOYEE_INFORMATION_UPDATED.value);
-    console.log('ONBOARDING', this.onboardingForm.controls.ONBOARDING.value);
-    console.log('NEW_HIRE_ADDED', this.onboardingForm.controls.NEW_HIRE_ADDED.value);
-    console.log('ON_BOARDING_COMPLETION', this.onboardingForm.controls.ON_BOARDING_COMPLETION.value);
-    console.log('EMPLOYEE_NOT_JOINING', this.onboardingForm.controls.EMPLOYEE_NOT_JOINING.value);
-
-  }
   getMessageList(){
     let info={
       "code": null,
@@ -137,11 +122,11 @@ export class SettingsOnBoardingComponent implements OnInit {
     this.EM.getEMSMessagesList(info).subscribe((result: any) => {
       if(result && result.status){
         for(let i=0;i<result.data.length;i++){
-          if(result.data[i].code =='EM26'){
+          if(result.data[i].code =='EM28'){
             this.EM28=result.data[i].message;
 
           }
-          else if(result.data[i].code =='EM27'){
+          else if(result.data[i].code =='EM29'){
             this.EM29=result.data[i].message;
 
           }

@@ -36,7 +36,8 @@
                                         (keypress)="alphabetKeyPress($event)" matInput placeholder="First Name"
                                         maxlength="100" required />
                                     <mat-error class="reg-error"
-                                        *ngIf="personalInfoForm.controls.firstname.errors?.required">
+                                        *ngIf="personalInfoForm.controls.firstname.errors?.required || 
+                                        personalInfoForm.controls.firstname.errors?.['whitespace']">
                                         {{EM1}}
                                     </mat-error>
                                 </mat-form-field>
@@ -52,7 +53,8 @@
                                     <input formControlName="lastname" specialIsAlpha matInput placeholder=""
                                         maxlength="70" required (keypress)="alphabetKeyPress($event)"/>
                                     <mat-error class="reg-error"
-                                        *ngIf="personalInfoForm.controls.lastname.errors?.required">
+                                        *ngIf="personalInfoForm.controls.lastname.errors?.required || 
+                                        personalInfoForm.controls.lastname.errors?.['whitespace']">
                                         {{EM1}}
                                     </mat-error>
                                 </mat-form-field>
@@ -151,7 +153,7 @@
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Alternate Mobile</mat-label>
+                                    <mat-label>Alternate Mobile Number</mat-label>
                                     <input type="text" onlyNumber formControlName="alternateMobileNo" matInput
                                         placeholder="" maxlength="10" (keypress)=_keyPress($event) />
                                     <!-- <mat-error class="con-error"
@@ -172,11 +174,11 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Official Email</mat-label>
                                     <input type="text" maxlength="100" formControlName="officeemail" matInput
-                                        placeholder="" required />
-                                    <mat-error class="con-error"
+                                        placeholder="" />
+                                    <!-- <mat-error class="con-error"
                                         *ngIf="personalInfoForm.controls.officeemail.errors?.required">
                                         {{EM1}}
-                                    </mat-error>
+                                    </mat-error> -->
                                 </mat-form-field>
 
                                 <!-- <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
@@ -605,7 +607,7 @@
                 <!-- job tab -->
                 <mat-tab label="Job">
                     <div fxLayout="column" style="padding: 10px;">
-                        <form [formGroup]="employeeJobForm">
+                        <form [formGroup]="employeeJobForm" *ngIf="isContractData">
                             <div class="section"><b>Employee Contract</b></div>
                             <mat-divider></mat-divider>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
@@ -650,6 +652,7 @@
                                 </mat-form-field>
                             </div>
                         </form>
+                       
                         <div class="section"><b>Promotions</b></div>
                         <mat-divider></mat-divider>
                         <form [formGroup]="promotionsForm">
@@ -753,14 +756,8 @@
                             <button class="m-1 mat-stroked-button button-save" (click)="saveJobDetails()">
                                 <span>Save</span>
                             </button>
-                            <!-- <button class="m-1 mat-stroked-button button-clear" (click)="jobClear()">
-                                <span>Cancel</span>
-                            </button> -->
-                            <br />
+                             <br />
                         </div>
-
-
-
                     </div>
 
                 </mat-tab>
@@ -832,7 +829,7 @@
                                             (click)="addWorkExperience()">
                                             <span> Add </span>
                                         </button>
-                                        <button class="m-1 mat-stroked-button button-clear" (click)="clearfamily()">
+                                        <button class="m-1 mat-stroked-button button-clear" (click)="clearWorkExperience()">
                                             Clear
                                         </button>
                                     </span>
@@ -1065,7 +1062,7 @@
                                     <tr mat-row *matRowDef="let row; columns: educationTableColumns"></tr>
                                 </table>
                             </div>
-                        </form>
+                       
                         <div fxLayoutAlign="center">
                             <button class="m-1 mat-stroked-button button-save" (click)="saveEducation()" type="submit">
                                 <span>Save</span>
@@ -1075,7 +1072,7 @@
                             </button> -->
                             <br />
                         </div>
-
+                    </form>
                     </div>
                 </mat-tab>
 

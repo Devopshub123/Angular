@@ -11,7 +11,7 @@
                         <input formControlName="terminationCategory" matInput placeholder="" appRemoveSpace required maxlength="100">
                        <mat-error class="con-error" 
                        *ngIf="terminationCategoryForm.controls.terminationCategory.errors?.required || terminationCategoryForm.controls.terminationCategory.errors?.['whitespace']">
-                       Please enter name
+                       This field is required
                     </mat-error>
                     </mat-form-field>
                 </div>
@@ -49,8 +49,8 @@
                             <span *ngIf="enable != row.id">{{row.category}}&nbsp;</span>
                             <mat-form-field appearance="outline" *ngIf="enable === row.id">
                                 <input formControlName="terminationCategory" value="row.category" matInput placeholder="" >
-                                <mat-error class="con-error" *ngIf="terminationCategoryForm.controls.terminationCategory.errors?.required">
-                                    Please enter name
+                                <mat-error class="con-error" *ngIf="terminationCategoryForm.controls.terminationCategory.errors?.required || terminationCategoryForm.controls.terminationCategory.errors?.['whitespace']">
+                                    This field is required
                                 </mat-error>
                             </mat-form-field>
                         </td>
@@ -75,11 +75,11 @@
                             <mat-icon (click)="edit($event,row)"  title="Edit" *ngIf="enable != row.id">edit</mat-icon>
                         </button>
 
-                           <button mat-icon-button matTooltip="Update" *ngIf="enable == row.id">
-                            <mat-icon (click)="update(terminationCategoryForm.controls.terminationCategory.value,row)"  title="Save" *ngIf="enable == row.id">save</mat-icon>
+                           <button mat-icon-button matTooltip="Save" *ngIf="enable == row.id">
+                            <mat-icon (click)="update(terminationCategoryForm.controls.terminationCategory.value,row)"  *ngIf="enable == row.id">save</mat-icon>
                         </button>
 
-                            <button mat-icon-button *ngIf="enable == row.id" matTooltip="Cancel Edit">
+                            <button mat-icon-button *ngIf="enable == row.id" matTooltip="Cancel">
                                 <mat-icon (click)="canceledit($event,row.id)"  title="Cancel"  *ngIf="enable == row.id">cancel</mat-icon>
                         </button>
                         </td>
@@ -89,7 +89,7 @@
                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
      
                      <tr class="mat-row" *matNoDataRow>
-                         <td class="mat-cell" colspan="6">No data available</td>
+                         <td class="mat-cell" colspan="6"  style="text-align: center;">No data found</td>
                      </tr>
                  </table>
                

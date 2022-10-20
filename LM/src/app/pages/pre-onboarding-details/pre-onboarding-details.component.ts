@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -253,52 +253,54 @@ export class PreOnboardingDetailsComponent implements OnInit {
   this.familyDetails = [];
   this.workExperienceDetails = [];
   this.educationDetails = [];
-  this.mainService.getPreonboardCandidateData(this.candidateId).subscribe((res: any) => {
-    this.loginData = JSON.parse(res.data[0].json)[0];
-    if (this.loginData.id != null) {
-      this.preOnboardId = this.loginData.id;
-    }
-    this.availableDesignations.forEach((e:any)=> {
-        if (e.id ==  this.loginData.designation) {
+    this.mainService.getPreonboardCandidateData(this.candidateId).subscribe((res: any) => {
+      this.loginData = JSON.parse(res.data[0].json)[0];
+      if (this.loginData.id != null) {
+        this.preOnboardId = this.loginData.id;
+      }
+      this.availableDesignations.forEach((e: any) => {
+        if (e.id == this.loginData.designation) {
           this.employeeDesignation = e.designation;
-      }
+        }
       });
-     this.employeeNameh = this.loginData.firstname +' '+ this.loginData.lastname;
-    this.employeeJoinDate = this.loginData.dateofjoin;
-    this.employeeMobile = this.loginData.contact_number;
-    this.designationId = this.loginData.designation;
-    this.loginCandidateId = this.loginData.candidateid;
-    this.designationId = this.loginData.designation;
-    this.personalInfoForm.controls.firstname.setValue(this.loginData.firstname);
-    this.personalInfoForm.controls.middlename.setValue(this.loginData.middlename);
-    this.personalInfoForm.controls.lastname.setValue(this.loginData.lastname);
-    if (this.loginData.dateofbirth != null) {
-      this.personalInfoForm.controls.dateofbirth.setValue(new Date(this.loginData.dateofbirth));
-    }
-    for (let i = 0; i < this.bloodGroupdetails.length; i++){
-      if(this.bloodGroupdetails[i].id==this.loginData.bloodgroup){
-        this.personalInfoForm.controls.bloodgroup.setValue(this.bloodGroupdetails[i].id)
-        break;
+      this.employeeNameh = this.loginData.firstname + ' ' + this.loginData.middlename + ' ' + this.loginData.lastname;
+      this.employeeJoinDate = this.loginData.dateofjoin;
+      this.employeeMobile = this.loginData.contact_number;
+      this.designationId = this.loginData.designation;
+      this.loginCandidateId = this.loginData.candidateid;
+      this.designationId = this.loginData.designation;
+      this.personalInfoForm.controls.firstname.setValue(this.loginData.firstname);
+      this.personalInfoForm.controls.middlename.setValue(this.loginData.middlename);
+      this.personalInfoForm.controls.lastname.setValue(this.loginData.lastname);
+      if (this.loginData.dateofbirth != null) {
+        this.personalInfoForm.controls.dateofbirth.setValue(new Date(this.loginData.dateofbirth));
       }
-    }
-    this.personalInfoForm.controls.gender.setValue(this.loginData.gender);
-    this.personalInfoForm.controls.maritalstatus.setValue(this.loginData.maritalstatus);
-    this.personalInfoForm.controls.aadharNumber.setValue(this.loginData.aadharnumber);
-    this.personalInfoForm.controls.raddress.setValue(this.loginData.address);
-    this.personalInfoForm.controls.rcountry.setValue(this.loginData.country);
-    this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
-    this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
+      for (let i = 0; i < this.bloodGroupdetails.length; i++) {
+        if (this.bloodGroupdetails[i].id == this.loginData.bloodgroup) {
+          this.personalInfoForm.controls.bloodgroup.setValue(this.bloodGroupdetails[i].id)
+          break;
+        }
+      }
+      this.personalInfoForm.controls.gender.setValue(this.loginData.gender);
+      this.personalInfoForm.controls.maritalstatus.setValue(this.loginData.maritalstatus);
+      if (this.loginData.aadharnumber != 'null')
+        this.personalInfoForm.controls.aadharNumber.setValue(this.loginData.aadharnumber);
+      this.personalInfoForm.controls.raddress.setValue(this.loginData.address);
+      this.personalInfoForm.controls.rcountry.setValue(this.loginData.country);
+      this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
+      this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
 
-    this.personalInfoForm.controls.rpincode.setValue(this.loginData.pincode);
-    this.personalInfoForm.controls.personalemail.setValue(this.loginData.personal_email);
-    this.personalInfoForm.controls.spokenLanguages.setValue(this.loginData.languages_spoken);
-    this.personalInfoForm.controls.paddress.setValue(this.loginData.paddress);
-    this.personalInfoForm.controls.pcountry.setValue(this.loginData.pcountry);
-    this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
-    this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
-    this.personalInfoForm.controls.ppincode.setValue(this.loginData.ppincode);
-    this.personalInfoForm.controls.mobileNo.setValue(this.loginData.contact_number);
-    if (this.loginData.emergencycontact_number != null) {
+      this.personalInfoForm.controls.rpincode.setValue(this.loginData.pincode);
+      this.personalInfoForm.controls.personalemail.setValue(this.loginData.personal_email);
+      if (this.loginData.languages_spoken != 'null')
+        this.personalInfoForm.controls.spokenLanguages.setValue(this.loginData.languages_spoken);
+      this.personalInfoForm.controls.paddress.setValue(this.loginData.paddress);
+      this.personalInfoForm.controls.pcountry.setValue(this.loginData.pcountry);
+      this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
+      this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
+      this.personalInfoForm.controls.ppincode.setValue(this.loginData.ppincode);
+      this.personalInfoForm.controls.mobileNo.setValue(this.loginData.contact_number);
+      if (this.loginData.emergencycontact_number != null || this.loginData.emergencycontact_number != 'null') {
       this.personalInfoForm.controls.alternateMobileNo.setValue(this.loginData.emergencycontact_number);
      }
     this.personalInfoForm.controls.hireDate.setValue(this.loginData.hired_date);
@@ -379,8 +381,8 @@ for (let i = 0; i < workExperiencedata.length; i++) {
   createPersonalInfoForm(){
     this.personalInfoForm = this.formBuilder.group(
       {
-        firstname: [""],
-        lastname: ["", ],
+        firstname: ["",[Validators.required,this.noWhitespaceValidator()]],
+        lastname: ["", [Validators.required,this.noWhitespaceValidator()]],
       middlename: [""],
       dateofbirth: ["", ],
       bloodgroup: [""],
@@ -390,7 +392,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
       panNumber: [""],
       uanNumber: ["", Validators.maxLength(12)],
       /// address controls
-      raddress: ["", ],
+      raddress: ["",[Validators.required,this.noWhitespaceValidator()] ],
       rcountry: ["", ],
       rstate: ["", ],
       rcity: ["", ],
@@ -565,11 +567,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
         }
       });
     } else {
-      let dialogRef = this.dialog.open(ReusableDialogComponent, {
-        position: { top: `70px` },
-        disableClose: true,
-        data:"Please enter data"
-      });
+     
     }
   }
 
@@ -1316,6 +1314,11 @@ else{
    this.documentsForm.get('documentName').updateValueAndValidity();
 
 }
-
+noWhitespaceValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    return isWhitespace ? { whitespace: true } : null;
+  };
+}
 }
 

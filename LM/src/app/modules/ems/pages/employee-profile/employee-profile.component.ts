@@ -306,6 +306,7 @@ export class EmployeeProfileComponent implements OnInit {
   /** through employee directory login data  */
   getEmployeeInformationList() {
     this.employeeInformationData = [];
+    this.familyDetails = [];
     this.emsService.getEmployeeInformationData(this.employeeId).subscribe((res: any) => {
       this.employeeInformationData = JSON.parse(res.data[0].json)[0];
 
@@ -316,7 +317,7 @@ export class EmployeeProfileComponent implements OnInit {
       if (a.rcountry == a.pcountry && a.rstate == a.pstate && a.rcity == a.pcity && a.raddress == a.paddress && a.rpincode == a.ppincode) {
         this.personalInfoForm.controls.checked.setValue(true)
       }
-      this.employeeNameh = this.employeeInformationData.firstname +' '+ this.employeeInformationData.lastname;
+      this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.middlename +' '+ this.employeeInformationData.lastname;
       this.employeeCode = this.employeeInformationData.empid;
       this.availableDesignations.forEach((e:any)=> {
         if (e.id ==  this.employeeInformationData.designation) {
@@ -334,7 +335,7 @@ export class EmployeeProfileComponent implements OnInit {
       this.personalInfoForm.controls.bloodgroup.setValue(this.employeeInformationData.bloodgroup);
       this.personalInfoForm.controls.gender.setValue(this.employeeInformationData.gender);
       this.personalInfoForm.controls.maritalstatus.setValue(this.employeeInformationData.maritalstatus);
-
+if(this.employeeInformationData.aadharnumber !='null' || this.employeeInformationData.aadharnumber !=null)
       this.personalInfoForm.controls.aadharNumber.setValue(this.employeeInformationData.aadharnumber);
       this.personalInfoForm.controls.raddress.setValue(this.employeeInformationData.address);
       this.personalInfoForm.controls.rcountry.setValue(this.employeeInformationData.country);
@@ -387,7 +388,7 @@ export class EmployeeProfileComponent implements OnInit {
                 gendername = e.gender;
               }
             })
-
+           
             this.familyDetails.push({
               firstname: familydata[i].firstname,
               lastname: familydata[i].lastname,
