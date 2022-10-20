@@ -37,7 +37,7 @@
                     <span *ngIf="enable != row.id">{{row.message}}&nbsp;</span>
                     <span *ngIf="enable === row.id">
                         <mat-form-field appearance="outline">
-                            <input minlength="10" formControlName="message" value={{row.message}} matInput placeholder="{{row.message}}" maxlength="250">
+                            <input minlength="10" formControlName="message" value={{row.message}} matInput placeholder="" maxlength="250">
                             <mat-error class="con-error" *ngIf="errorMessagesForm.controls.message.errors?.required">
                             {{requiredField}}
                             </mat-error>
