@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -171,6 +171,7 @@ export class EmployeeInfoComponent implements OnInit {
   experienceIndex: any;
   isExperienceEdit: boolean = false;
   mincontarctDate: any;
+  isContractData: boolean = false;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params) {
@@ -292,6 +293,15 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
 
+    this.personalInfoForm.get('employmentType')?.valueChanges.subscribe(selectedValue => {
+      if (selectedValue == 3) {
+        this.isContractData = true;
+      }
+      else {
+        this.isContractData = false;
+      }
+    })
+
     this.personalInfoForm.get('department')?.valueChanges.subscribe(selectedValue => {
       this.availablereportingmanagers = []
       let data = {
@@ -341,7 +351,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.personalInfoForm.controls.checked.setValue(true)
       }
       this.loginCandidateId = this.loginData.candidateid;
-      this.employeeNameh = this.loginData.firstname + ' ' + this.loginData.lastname;
+      this.employeeNameh = this.loginData.firstname + ' ' + this.loginData.middlename + ' '+this.loginData.lastname;
       this.employeeCode = this.loginData.empid;
       this.availableDesignations.forEach((e: any) => {
         if (e.id == this.loginData.designation) {
@@ -465,7 +475,7 @@ export class EmployeeInfoComponent implements OnInit {
       if (a.rcountry == a.pcountry && a.rstate == a.pstate && a.rcity == a.pcity && a.raddress == a.paddress && a.rpincode == a.ppincode) {
         this.personalInfoForm.controls.checked.setValue(true)
       }
-      this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.lastname;
+      this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.middlename  + ' ' + this.employeeInformationData.lastname;
       this.employeeCode = this.employeeInformationData.empid;
       this.availableDesignations.forEach((e: any) => {
         if (e.id == this.employeeInformationData.designation) {
@@ -475,6 +485,10 @@ export class EmployeeInfoComponent implements OnInit {
       this.employeeJoinDate = this.employeeInformationData.dateofjoin;
       this.employeeMobile = this.employeeInformationData.contactnumber;
       this.designationId = this.employeeInformationData.designation;
+      if (this.employeeInformationData.employmenttype == 3) {
+        this.isContractData = true;
+      }
+
 
       this.personalInfoForm.controls.firstname.setValue(this.employeeInformationData.firstname);
       this.personalInfoForm.controls.middlename.setValue(this.employeeInformationData.middlename);
@@ -854,7 +868,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     }
     if (this.personalInfoForm.valid) {
-
+      this.spinner.show();
       let data = {
         condidateid: this.loginCandidateId,
         empid: this.employeeCode != undefined || this.employeeCode != null ? this.employeeCode : null,
@@ -910,6 +924,7 @@ export class EmployeeInfoComponent implements OnInit {
           this.getEmployeeJobList();
           this.getEmployeeEmploymentList();
           this.getEmployeeEducationList();
+          this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -917,6 +932,7 @@ export class EmployeeInfoComponent implements OnInit {
           });
 
         } else {
+          this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -1056,13 +1072,7 @@ export class EmployeeInfoComponent implements OnInit {
   }
   //** */
   saveJobDetails() {
-    const invalid = [];
-    const controls = this.employeeJobForm.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        invalid.push(name);
-      }
-    }
+   
     if (this.employeeCode != undefined || this.employeeCode != null) {
       if (this.promotionsForm.valid) {
         this.promotionList.push({
@@ -1073,7 +1083,7 @@ export class EmployeeInfoComponent implements OnInit {
         });
         this.clearPromotions();
       } else { }
-
+      this.spinner.show();
       let data = {
         empid: this.employeeCode,
         contractname: this.employeeJobForm.controls.contractName.value,
@@ -1087,6 +1097,7 @@ export class EmployeeInfoComponent implements OnInit {
 
       this.emsService.saveEmployeeJobDetailsData(data).subscribe((res: any) => {
         if (res.status && res.data[0].statuscode == 0) {
+          this.spinner.hide();
           this.promotionList = [];
           this.getEmployeeJobList();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1096,6 +1107,7 @@ export class EmployeeInfoComponent implements OnInit {
           });
 
         } else {
+          this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -1103,7 +1115,9 @@ export class EmployeeInfoComponent implements OnInit {
           });
         }
       });
+
     } else {
+      this.spinner.hide();
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
@@ -1196,15 +1210,9 @@ export class EmployeeInfoComponent implements OnInit {
     this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
   }
   saveWorkExperience() {
-    const invalid = [];
-    const controls = this.employementForm.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        invalid.push(name);
-      }
-    }
+   
     if (this.employeeCode != undefined || this.employeeCode != null) {
-
+      this.spinner.show();
       let data = {
         empid: this.employeeCode,
         bankname: this.employementForm.controls.bankName.value,
@@ -1220,6 +1228,7 @@ export class EmployeeInfoComponent implements OnInit {
 
       this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
         if (res.status && res.data[0].statuscode == 0) {
+          this.spinner.hide();
           this.getEmployeeEmploymentList();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
@@ -1228,6 +1237,7 @@ export class EmployeeInfoComponent implements OnInit {
           });
 
         } else {
+          this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -1236,6 +1246,7 @@ export class EmployeeInfoComponent implements OnInit {
         }
       });
     } else {
+      this.spinner.hide();
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
@@ -1248,38 +1259,39 @@ export class EmployeeInfoComponent implements OnInit {
 
   //** */
   saveEducation() {
-    const invalid = [];
-    const controls = this.employementForm.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        invalid.push(name);
-      }
-    }
+    
     if (this.employeeCode != undefined || this.employeeCode != null) {
+      if (this.educationForm.valid) {
+        this.spinner.show();
+        let data = {
+          empid: this.employeeCode,
+          education: this.educationDetails,
+        }
 
-      let data = {
-        empid: this.employeeCode,
-        education: this.educationDetails,
+        this.emsService.saveEmployeeEducationData(data).subscribe((res: any) => {
+          if (res.status && res.data[0].statuscode == 0) {
+            this.getEmployeeEducationList();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: "Data saved sucessfully"
+            });
+            this.spinner.hide();
+          } else {
+            this.spinner.hide();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: "Data is not saved"
+            });
+          }
+        });
+      } else {
+        this.spinner.hide();
       }
 
-      this.emsService.saveEmployeeEducationData(data).subscribe((res: any) => {
-        if (res.status && res.data[0].statuscode == 0) {
-          this.getEmployeeEducationList();
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: "Data saved sucessfully"
-          });
-
-        } else {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: "Data is not saved"
-          });
-        }
-      });
     } else {
+      this.spinner.hide();
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
@@ -1354,7 +1366,6 @@ export class EmployeeInfoComponent implements OnInit {
     this.educationForm.controls.instituteName.reset();
     this.educationForm.controls.eduFromDate.reset();
     this.educationForm.controls.eduToDate.reset();
-    this.educationForm.valid = true;
   }
   deleteEducation(index: any) {
     this.educationDetails.splice(index, 1);
@@ -1398,7 +1409,9 @@ export class EmployeeInfoComponent implements OnInit {
       // this.createEmployementForm();
     } else if (event.index == 2) {
       //this.createEducationForm();
-    } else {
+    } else if(event.index == 3){
+      //this.createDocumentsForm();
+    }  else if(event.index == 4){
       //this.createDocumentsForm();
     }
 
@@ -1822,5 +1835,11 @@ export class EmployeeInfoComponent implements OnInit {
   educationClear() { }
   workClear() { }
   jobClear() { }
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return isWhitespace ? { whitespace: true } : null;
+    };
+  }
 }
 

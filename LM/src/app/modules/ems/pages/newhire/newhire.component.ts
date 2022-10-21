@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl, FormArray} from '@angular/forms';
+import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl, FormArray, ValidationErrors, ValidatorFn} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, RouterModule } from '@angular/router';
 import { AdminService } from 'src/app/modules/admin/admin.service';
@@ -11,6 +11,7 @@ import { EmsService } from '../../ems.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import * as _moment from 'moment';
+import { NgxSpinnerService } from 'ngx-spinner';
 const moment =  _moment;
 export const MY_FORMATS = {
   parse: {
@@ -34,8 +35,9 @@ export const MY_FORMATS = {
 })
 export class NewhireComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private adminService: AdminService,
-              private companyService: CompanySettingService,private dialog: MatDialog,private emsService: EmsService,) { }
+  constructor(private formBuilder: FormBuilder, private router: Router,
+    private adminService: AdminService, private companyService: CompanySettingService,
+    private dialog: MatDialog, private emsService: EmsService,public spinner:NgxSpinnerService) { }
   hireForm: any = FormGroup;
   userSession: any;
   pipe = new DatePipe('en-US');
@@ -49,14 +51,15 @@ export class NewhireComponent implements OnInit {
   dataSave: any;
   dataNotSave: any;
   isvalid: boolean = false;
+  minHireDate: any;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     // this.userSession.deptid
     this.hireForm=this.formBuilder.group(
       {
-      firstname: ["",[Validators.required,]],
-      lastname: ["",[Validators.required,]],
-      middlename:["",],
+      firstname: ["",[Validators.required,this.noWhitespaceValidator()]],
+      lastname: ["",[Validators.required,this.noWhitespaceValidator()]],
+      middlename:["",[this.noWhitespaceValidator()]],
       email:["",[Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       dateofjoin:["",[Validators.required,]],
       hiredon:["",[Validators.required,]],
@@ -66,7 +69,10 @@ export class NewhireComponent implements OnInit {
 
       });
       this.getDesignationsMaster();
-      this.getMessagesList();
+    this.getMessagesList();
+    this.hireForm.get('hiredon')?.valueChanges.subscribe((selectedValue: any) => {
+      this.minHireDate = selectedValue._d;
+    })
   }
   getDesignationsMaster() {
     this.companyService.getMastertable('designationsmaster', '1', 1, 1000, 'ems').subscribe(data => {
@@ -82,6 +88,7 @@ export class NewhireComponent implements OnInit {
       }
     }
     if (this.hireForm.valid) {
+      this.spinner.show()
       let data = {
         firstname: this.hireForm.controls.firstname.value,
         middlename: this.hireForm.controls.middlename.value,
@@ -98,6 +105,7 @@ export class NewhireComponent implements OnInit {
 
       this.emsService.saveNewHireData(data).subscribe((res: any) => {
         if (res.status) {
+       this.spinner.hide();
            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/ems/new-hired-list"]));
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -107,6 +115,7 @@ export class NewhireComponent implements OnInit {
           });
 
         } else {
+       this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -117,7 +126,7 @@ export class NewhireComponent implements OnInit {
 
 
     } else {
-
+      this.spinner.hide();
     }
   }
 
@@ -142,12 +151,7 @@ export class NewhireComponent implements OnInit {
         } else if (e.code == "EM2") {
           this.requiredOption =e.message
         }
-        // else if (e.code == "ATT11") {
-        //   this.dataSave =e.message
-        // } else if (e.code == "ATT12") {
-        //   this.dataNotSave =e.message
-        // }
-      })
+         })
      } else {
        this.messagesDataList = [];
      }
@@ -180,5 +184,11 @@ export class NewhireComponent implements OnInit {
         event.preventDefault();
 
     }
-}
+  }
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return isWhitespace ? { whitespace: true } : null;
+    };
+  }
 }

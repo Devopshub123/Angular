@@ -114,6 +114,11 @@ export class ResignationComponent implements OnInit {
     this.resignForm.controls.notice.setValue('')
 
   }
+  close(){
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/MainDashboard"]));
+
+  }
   saved(){
     if(this.resignForm.valid){
       let data = {

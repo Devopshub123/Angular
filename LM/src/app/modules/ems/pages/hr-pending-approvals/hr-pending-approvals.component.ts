@@ -77,7 +77,8 @@ export class HrPendingApprovalsComponent implements OnInit {
   sendrelivingdate: any;
   sendrequestdate: any;
   mindate:any=new Date();
-  maxdate:any=new Date();
+  maxdate: any = new Date();
+  pageLoading = true;
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private emsService:EmsService) { }
 
   ngOnInit(): void {
@@ -177,6 +178,7 @@ export class HrPendingApprovalsComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.pageLoading = false;
 
       }
 
@@ -185,10 +187,7 @@ export class HrPendingApprovalsComponent implements OnInit {
   }
 
   setApproveOrReject() {
-    console.log("original--",this.pendingapprovalForm.controls.releivingdate.value);
-    console.log("Sample--",new Date(this.pendingapprovalForm.controls.releivingdate.value))
-  
-    let data = {
+     let data = {
       resgid:this.pendingapprovalForm.controls.regId.value,
       empid:this.pendingapprovalForm.controls.employeeId.value,
       applied_date:this.pipe.transform(this.pendingapprovalForm.controls.appliedDate.value,'yyyy-MM-dd')+' '+this.pipe.transform(this.pendingapprovalForm.controls.appliedDate.value, 'HH:mm:ss'),
@@ -202,9 +201,7 @@ export class HrPendingApprovalsComponent implements OnInit {
       approver_comment:this.pendingapprovalForm.controls.approverReason.value,
       actionby:this.userSession.id
     }
-    console.log(data)
-
-    this.emsService.setEmployeeResignation(data).subscribe((res: any) => {
+     this.emsService.setEmployeeResignation(data).subscribe((res: any) => {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/ems/hr-pending-approval"]));
 
@@ -254,8 +251,14 @@ export class HrPendingApprovalsComponent implements OnInit {
   Cancel() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/ems/hr-pending-approval"]));
-    // console.log("jhvfjdhs")
-    // this.ishide=true;
-    // this.isview=false;
+  }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+
+     return [5, 10, 20];
+    }
   }
 }

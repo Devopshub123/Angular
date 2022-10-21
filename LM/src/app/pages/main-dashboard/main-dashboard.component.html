@@ -1,103 +1,367 @@
+<app-header></app-header>
+<!--<div style="height: 90%;padding-top: 0px;padding-left: 0px;padding-right: 0px;">-->
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav class="sidenav" #sidenav [mode]="mode" [opened]="openSidenav">
+    <mat-nav-list>
+      <div style="padding-top: 2%">
+        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(1, true)">
+          <img src="assets\img\ems-icon.png" style="height: 35px" />
+          <span class="iconStyle">Employee Management</span>
+        </a>
+      </div>
 
-    <app-header ></app-header>
-    <!--<div style="height: 90%;padding-top: 0px;padding-left: 0px;padding-right: 0px;">-->
-    <div class="card">
-      <!-- <div class="card-header ">
+      <div style="padding-top: 4%">
+        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(4, true)">
+          <img src="assets\img\new-calendar.png" style="height: 35px" />
+          <span class="iconStyle">Attendance</span>
+        </a>
+      </div>
 
-          <h4 class="card-title">HRMS Dashboard</h4>
+      <div style="padding-top: 4%">
+        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(2, true)">
+          <img src="assets\img\new-leaves.png" style="height: 40px" />
+          <span class="iconStyle">Leaves</span>
+        </a>
+      </div>
+
+      <!-- <div style="padding-top: 4%;">
+        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(3,true)">
+          <img src="assets\img\ems02.png" style="height: 50px;" />Timesheet
+        </a>
       </div> -->
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row m-0" >
-              <div class="col-md-3" *ngFor="let module of allModuleDetails; index as i;">
-                <div class="card card-stats card-warning casual-leave bg-white h-auto">
-                  <div class="card-body" fxLayout="column" fxLayoutAlign="center center" style="height: 280px;">
-                    <div class="row" (click)="getrolescreenfunctionalities(module.id,module.effectivestartdate)">
-                      <div class="col-12">
-                        <div class="icon-big text-center"  >
-                          <img src="assets\img\core-hr-icon.png" *ngIf="module.id === 1" alt="" title="" />
-                          <img src="assets\img\leave-icon-nw.png" *ngIf="module.id === 2" alt="" title="" />
-                          <img src="assets\img\timesheet-icon.png" *ngIf="module.id === 3" alt="" title="" />
-                          <img src="assets\img\attendance-icon.png" *ngIf="module.id === 4" alt="" title="" />
-                          <img src="assets\img\payroll-icon.png" *ngIf="module.id === 5" alt="" title="" />
-                          <img src="assets\img\asset-icon.png" *ngIf="module.id === 6" alt="" title="" />
-                          <img src="assets\img\recruitment-icon.png" *ngIf="module.id === 7" alt="" title="" />
-                          <img src="assets\img\ess-icon.png" *ngIf="module.id === 8" alt="" title="" />
-                          <!-- <img src="assets/img/recruitment-icon.png" alt="" title="" /> -->
-                        </div>
-                      </div>
-                      <div class="col-12" >
-                        <div class="numbers text-center">
-                          <h4 class="card-title title" [ngStyle]="module.effectivestartdate ? {'color':'#28acaf'} : {'color':''}">{{module.modulename}}</h4>
 
-                        </div>
-                        <!-- <div class="card-sub-title">
-                          My Actions
-                        </div>
-                        <ul class="b">
-                          <li><a href="#">Configuring of leave policies</a></li>
-                          <li><a href="#">add roles &amp; permissions</a></li>
-                          <li><a href="#">add holidays</a></li>
-                        </ul> -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <div style="padding-top: 4%">
+        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(5, true)">
+          <img src="assets\img\new-payroll.png" style="height: 35px" />
+          <span class="iconStyle">Payroll</span>
+        </a>
+      </div>
 
+      <div style="padding-top: 4%">
+        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(6, true)">
+          <img src="assets\img\new-asset.png" style="height: 35px" />
+          <span class="iconStyle">Asset</span>
+        </a>
+      </div>
+
+      <div style="padding-top: 4%">
+        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(7, true)">
+          <img src="assets\img\new-claims.png" style="height: 35px" />
+          <span class="iconStyle">Claims</span>
+        </a>
+      </div>
+
+      <div style="padding-top: 4%;">
+        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(8,true)">
+          <img src="assets\img\ess-icon.png" style="height: 50px;" />ESS
+        </a>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div fxLayout="Column" style="background-color: white">
+      <button mat-icon-button color="primary" (click)="sidenav.toggle()" class="toogleSidenav" [ngClass]="showToggle">
+        <mat-icon>menu</mat-icon>Menu
+      </button>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" style="padding-left: 2%;padding-right: 2%;padding-top: 1%;">
+        <mat-card fxLayout="row" fxLayout.xs="column" style="background-color: #28acaf; height: 215px"
+          class="card outline" fxFlex="50">
+          <div fxFlex="40">
+            <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
+              <img class="avatar-preview" [src]="url.base64String" />
             </div>
+            <span style="padding-left: 30%;">
+              <button class="m-1 btn btn-file">
+                <input type="file" (change)="onSelectFile($event)" accept="image/*" />
+                Upload
+              </button>
+
+            </span>
 
           </div>
-        </div>
+
+          <div fxLayout="column" fxLayoutAlign="space-between" fxFlex="60" fxFlex.xs="50"
+            style="overflow: auto; padding-top: 3%">
+            <div fxLayout="column">
+              <span class="heading1"><b>{{ employeeNameh }}</b></span>
+              <span class="heading">{{ employeeCode }}</span>
+              <span class="heading">{{
+                employeeJoinDate | date: "dd-MM-YYYY"
+                }}</span>
+              <span class="heading">{{ employeeDesignation }}</span>
+            </div>
+            <div fxLayout="column" style="font-size: 16px;">
+              <span class="heading"><b>Reporting Manager</b></span>
+              <span class="heading">{{ empReportingManager }}</span>
+            </div>
+          </div>
+        </mat-card>
+
+        <mat-card fxLayout="Column" style="background-color: #ffffff; height: 215px" class="card outline" fxFlex="50">
+          <div style="overflow: auto">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+              <span style="
+                  font-size: 20px;
+                  padding-top: 2%;
+                  padding-left: 2%;
+                  color: #28acaf;
+                ">
+                <span *ngIf="!teamLeavesData"><b>Leaves</b></span>
+                <span *ngIf="teamLeavesData"><b>Leave Requests</b></span>
+              </span>
+              <span *ngIf="isManager">
+                <mat-radio-group>
+                  <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true' (click)="getLeaveBalance()">
+                    <span style="font-size: 16px;font-weight: 500;">Self</span>
+                  </mat-radio-button>
+                  <mat-radio-button class="mx2 my-2 mr-2" value="team" (click)="getLeavesForApprovals()">
+                    <span style="font-size: 16px;font-weight: 500;">Team</span>
+                  </mat-radio-button>
+                </mat-radio-group>
+              </span>
+            </div>
+            <div style="width: 100%; overflow-x: auto" *ngIf="!teamLeavesData">
+              <table id="table" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col" class="space">Leave Type</th>
+                    <th scope="col" class="space">Used</th>
+                    <th scope="col" class="space">Available</th>
+                    <!-- <th scope="col" class="space">Total</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let item of leavebalance">
+                    <tr scope="row" class="spacetd">
+                      <td>{{ item.display_name }}</td>
+                      <td>{{ item.used }}</td>
+                      <td>{{ item.leave_balance }}</td>
+                      <!-- <td>{{ item.total }}</td> -->
+                    </tr>
+                  </ng-container>
+                  <tr *ngIf="leavebalance && leavebalance.length === 0">
+                    <td colspan="10" style="text-align: center">
+                      No Data Found
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <div *ngIf="teamLeavesData" class="scrollbox-content">
+                <mat-list class="time-attendance">
+                  <ng-container *ngFor="let item of leavesRequestData">
+                    <mat-list-item>
+                      <h3 matLine> {{ item.emp_name}} </h3>
+                      <h3 matLine> {{ item.appliedon | date: "dd-MM-yyyy" }}
+                      </h3>
+                      <p>
+                        <a routerLink="/" (click)="leaveReview(item)">Approve request</a>
+                      </p>
+                    </mat-list-item>
+                  </ng-container>
+                </mat-list>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" style="padding-left: 2%;padding-right: 2%;">
+        <mat-card style="background-color: #ffffff" class="card outline" fxLayout="column" fxFlex="50">
+          <div fxLayout="row">
+            <span style="
+                font-size: 20px;
+                padding-top: 2%;
+                padding-left: 2%;
+                color: #28acaf;
+              "><b>Announcements</b></span>
+          </div>
+
+          <div class="scrollbox" style="margin: 10px; padding: 2px; height: 250px">
+            <div class="scrollbox-content">
+              <mat-card style="
+                  padding: 2px;
+                  margin-bottom: 10px;
+                  background-color: #ffffff;
+                " *ngFor="let items of announcementsDetails">
+                <div>
+                  <p style="color: #295062; font-size: 18px">
+                    <b>{{ items.topic }}</b>
+                  </p>
+                </div>
+                <span *ngIf="!items.showMore" [innerHtml]>
+                  <span [innerHtml]="trimString(items.description, 200)"></span>
+                </span>
+
+                <span *ngIf="items.showMore">
+                  <span [innerHtml]="items.description"></span>
+                </span>
+                <div style="text-align: end" *ngIf="items.description.length > 200"
+                  (click)="items.showMore = !items.showMore">
+                  <span style="color: #28acaf">
+                    Show
+                    <span>{{ items.showMore ? "less" : "More" }}</span>
+                  </span>
+                </div>
+              </mat-card>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutGap="25px" style="padding: 5%" *ngIf="announcementsDetails.length == 0">
+            <mat-card style="padding: 10px; background-color: #ffffff">
+              <div>
+                <p><b>No Announcements</b></p>
+              </div>
+            </mat-card>
+          </div>
+        </mat-card>
+
+        <mat-card style="background-color: #ffffff" class="card outline" fxLayout="column" fxFlex="50">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span style="
+                font-size: 20px;
+                padding-top: 2%;
+                padding-left: 2%;
+                color: #28acaf;
+              ">
+              <span *ngIf="!teamAttendanceData"><b>Attendance Alerts</b></span>
+              <span *ngIf="teamAttendanceData"><b>Attendance Requests</b></span>
+            </span>
+            <span *ngIf="isManager">
+              <mat-radio-group>
+                <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true'
+                  (click)="getEmployeeAttendanceNotifications()">
+                  <span style="font-size: 16px;font-weight: 500;">Self</span></mat-radio-button>
+                <mat-radio-button class="mx2 my-2 mr-2" value="team" (click)="getPendingAttendanceRequestListByEmpId()">
+                  <span style="font-size: 16px;font-weight: 500;">Team</span></mat-radio-button>
+              </mat-radio-group>
+            </span>
+          </div>
+          <div class="scrollbox">
+            <div class="scrollbox-content">
+              <div style="height: 250px; padding-top: 1%">
+                <div *ngIf="!teamAttendanceData">
+                  <mat-list class="time-attendance">
+                    <ng-container *ngFor="let item of notificationsData">
+                      <mat-list-item>
+                        <h3 matLine> {{ item.absent_date | date: "dd-MM-yyyy" }}
+                        </h3>
+                        <p>
+                          <a routerLink="/" (click)="attendanceRequest(item)">Send a request</a>
+                        </p>
+                      </mat-list-item>
+                    </ng-container>
+                  </mat-list>
+                </div>
+                <div *ngIf="teamAttendanceData">
+                  <mat-list class="time-attendance">
+                    <ng-container *ngFor="let item of notificationsData">
+                      <mat-list-item>
+                        <h3 matLine> {{ item.empname}} </h3>
+                        <h3 matLine> {{ item.applieddate | date: "dd-MM-yyyy" }}
+                        </h3>
+                        <p>
+                          <a routerLink="/" (click)="approveRequest(item)">Approve request</a>
+                        </p>
+                      </mat-list-item>
+                    </ng-container>
+                  </mat-list>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+
+        <!-- </div> -->
       </div>
     </div>
-    <!--</div>-->
-    <script src="assets/js/core/jquery.3.2.1.min.js"></script>
-    <script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-    <script src="assets/js/core/popper.min.js"></script>
-    <script src="assets/js/core/bootstrap.min.js"></script>
-    <!-- Chart JS -->
-    <script src="assets/js/chart.js/chart.min.js"></script>
-    <script src="assets/js/plugin/chartist/chartist.min.js"></script>
-    <script src="assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
-    <script src="assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
-    <script src="assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
-    <script src="assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
-    <script src="assets/js/plugin/chart-circle/circles.min.js"></script>
-    <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-    <script src="assets/js/main.js"></script>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
+<!-- <div class="card">
+ <div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row m-0" >
+          <div class="col-md-3" *ngFor="let module of allModuleDetails; index as i;">
+            <div class="card card-stats card-warning casual-leave bg-white h-auto">
+              <div class="card-body" fxLayout="column" fxLayoutAlign="center center" style="height: 280px;">
+                <div class="row" (click)="getrolescreenfunctionalities(module.id,module.effectivestartdate)">
+                  <div class="col-12">
+                    <div class="icon-big text-center"  >
+                      <img src="assets\img\core-hr-icon.png" *ngIf="module.id === 1" alt="" title="" />
+                      <img src="assets\img\leave-icon-nw.png" *ngIf="module.id === 2" alt="" title="" />
+                      <img src="assets\img\timesheet-icon.png" *ngIf="module.id === 3" alt="" title="" />
+                      <img src="assets\img\attendance-icon.png" *ngIf="module.id === 4" alt="" title="" />
+                      <img src="assets\img\payroll-icon.png" *ngIf="module.id === 5" alt="" title="" />
+                      <img src="assets\img\asset-icon.png" *ngIf="module.id === 6" alt="" title="" />
+                      <img src="assets\img\recruitment-icon.png" *ngIf="module.id === 7" alt="" title="" />
+                      <img src="assets\img\ess-icon.png" *ngIf="module.id === 8" alt="" title="" />
+                    </div>
+                  </div>
+                  <div class="col-12" >
+                    <div class="numbers text-center">
+                      <h4 class="card-title title" [ngStyle]="module.effectivestartdate ? {'color':'#28acaf'} : {'color':''}">{{module.modulename}}</h4>
 
-    <!--<div class="container-fluid" style="padding-top: 70px;">-->
-        <!--<div class="row"  >-->
-            <!--<div class="col-md-3 bottom" *ngFor="let module of allModuleDetails; index as i;">-->
-                <!--<div class="p3 column " 		  (click)="getrolescreenfunctionalities(module.id,module.effectivestartdate)"                >-->
+                    </div>
+                     </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                <!--<div class="icons" style="padding: 20px;text-align:center;">-->
-                    <!--<span>   &lt;!&ndash; <mat-icon *ngIf="module.id !== 4">event_note</mat-icon> &ndash;&gt;-->
-                        <!--<i class="material-icons" *ngIf="module.id === 1" style="font-size: 50px;">person_search</i>-->
+        </div>
 
-                    <!--<mat-icon *ngIf="module.id === 4" style="font-size: 50px; color: #28acaf;">date_range</mat-icon>-->
-                    <!--<i class="material-icons" *ngIf="module.id === 3" style="font-size: 50px;">edit_calendar</i>-->
-                    <!--<i class="material-icons" *ngIf="module.id === 2" style="font-size: 50px;">calendar_month</i>-->
-                    <!--<i class="material-icons" *ngIf="module.id === 5" style="font-size: 50px;">paid</i>-->
-                    <!--<i class="material-icons" *ngIf="module.id === 6" style="font-size: 50px;">settings_display</i>-->
-                    <!--<i class="material-icons" *ngIf="module.id === 7" style="font-size: 50px;">person_search</i>-->
-                    <!--<i class="material-icons" *ngIf="module.id === 8" style="font-size: 50px;">people_alt</i>-->
+      </div>
+    </div>
+  </div>
+</div> -->
 
-                 <!--</span><br/>-->
-                 <!--<span *ngIf="module.id !== 4" style="font-weight: bold;">{{module.modulename}}</span>-->
-                 <!--<span *ngIf="module.id === 4" style="font-weight: bold; margin-left: 30px; color:#28acaf;">{{module.modulename}}</span>-->
+<!--</div>-->
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<!-- Chart JS -->
+<script src="assets/js/chart.js/chart.min.js"></script>
+<script src="assets/js/plugin/chartist/chartist.min.js"></script>
+<script src="assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
+<script src="assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<script src="assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
+<script src="assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
+<script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+<script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="assets/js/main.js"></script>
 
-                 <!--</div>-->
+<!--<div class="container-fluid" style="padding-top: 70px;">-->
+<!--<div class="row"  >-->
+<!--<div class="col-md-3 bottom" *ngFor="let module of allModuleDetails; index as i;">-->
+<!--<div class="p3 column " 		  (click)="getrolescreenfunctionalities(module.id,module.effectivestartdate)"                >-->
 
+<!--<div class="icons" style="padding: 20px;text-align:center;">-->
+<!--<span>   &lt;!&ndash; <mat-icon *ngIf="module.id !== 4">event_note</mat-icon> &ndash;&gt;-->
+<!--<i class="material-icons" *ngIf="module.id === 1" style="font-size: 50px;">person_search</i>-->
 
+<!--<mat-icon *ngIf="module.id === 4" style="font-size: 50px; color: #28acaf;">date_range</mat-icon>-->
+<!--<i class="material-icons" *ngIf="module.id === 3" style="font-size: 50px;">edit_calendar</i>-->
+<!--<i class="material-icons" *ngIf="module.id === 2" style="font-size: 50px;">calendar_month</i>-->
+<!--<i class="material-icons" *ngIf="module.id === 5" style="font-size: 50px;">paid</i>-->
+<!--<i class="material-icons" *ngIf="module.id === 6" style="font-size: 50px;">settings_display</i>-->
+<!--<i class="material-icons" *ngIf="module.id === 7" style="font-size: 50px;">person_search</i>-->
+<!--<i class="material-icons" *ngIf="module.id === 8" style="font-size: 50px;">people_alt</i>-->
 
-                <!--</div>-->
-            <!--</div>-->
+<!--</span><br/>-->
+<!--<span *ngIf="module.id !== 4" style="font-weight: bold;">{{module.modulename}}</span>-->
+<!--<span *ngIf="module.id === 4" style="font-weight: bold; margin-left: 30px; color:#28acaf;">{{module.modulename}}</span>-->
 
-        <!--</div>-->
+<!--</div>-->
 
-    <!--</div>-->
+<!--</div>-->
+<!--</div>-->
 
+<!--</div>-->
+
+<!--</div>-->

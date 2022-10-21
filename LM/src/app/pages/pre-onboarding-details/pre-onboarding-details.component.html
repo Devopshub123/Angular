@@ -33,7 +33,8 @@
                                     <input type="text" formControlName="firstname" #firstname
                                         (keypress)="alphabetKeyPress($event)" matInput placeholder="First Name"
                                         maxlength="60" required />
-                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.firstname.hasError('required')">
+                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.firstname.errors?.required || 
+                                    personalInfoForm.controls.firstname.errors?.['whitespace']">
                                         {{EM1}}
                                     </mat-error>
                                 </mat-form-field>
@@ -48,7 +49,8 @@
                                     <mat-label>Last Name</mat-label>
                                     <input formControlName="lastname" specialIsAlpha matInput placeholder=""
                                         maxlength="50" required />
-                                        <mat-error class="reg-error" *ngIf="personalInfoForm.controls.lastname.hasError('required')">
+                                        <mat-error class="reg-error" *ngIf="personalInfoForm.controls.lastname.errors?.required || 
+                                        personalInfoForm.controls.lastname.errors?.['whitespace']">
                                             {{EM1}}
                                         </mat-error>
                                 </mat-form-field>
@@ -176,7 +178,8 @@
                                     <mat-label>Residence Address</mat-label>
                                     <input type="text" formControlName="raddress" matInput placeholder="" maxlength="100"
                                         required>
-                                        <mat-error class="reg-error" *ngIf="personalInfoForm.controls.raddress.hasError('required')">
+                                        <mat-error class="reg-error" *ngIf="personalInfoForm.controls.raddress.hasError('required') || 
+                                        personalInfoForm.controls.raddress.errors?.['whitespace']">
                                             {{EM1}}
                                         </mat-error>
                                    </mat-form-field>
@@ -427,7 +430,7 @@
                             </div>
                         </form>
                         <div fxLayoutAlign="center">
-                            <button class="col-md-1 btn btn-primary mx-2 my-2" [disabled]="!personalInfoForm.valid" (click)="savePersonalInfo()"
+                            <button class="col-md-1 btn btn-primary mx-2 my-2" (click)="savePersonalInfo()"
                                 type="submit">
                                 <span>Save</span>
                             </button>

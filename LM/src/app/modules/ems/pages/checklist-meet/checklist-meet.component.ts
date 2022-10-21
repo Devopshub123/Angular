@@ -440,7 +440,7 @@ ngAfterViewInit() {
         esid:null,
         scheduleid:this.scheduleid,
         empid:this.allempid,
-        status:'pending',
+        status:'Pending',
         actionby:this.userSession.id,
         email:this.allmails
       }

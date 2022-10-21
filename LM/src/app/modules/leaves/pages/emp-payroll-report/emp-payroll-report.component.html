@@ -17,9 +17,9 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
-            <mat-label>From Date</mat-label>
+            <mat-label>Date</mat-label>
             <input matInput readonly [matDatepicker]="fromDate"
-                   placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()">
+                   placeholder="From Date" formControlName="fromDate" [max]="max" (click)="fromDate.open()">
             <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
             <mat-datepicker #fromDate></mat-datepicker>
           </mat-form-field>
@@ -42,7 +42,7 @@
       <div style="margin-bottom: 10px" fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="arrayList.length > 0">
         <div>
           <span class="exlprint"> | </span>
-          <a> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+          <a title="Download"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
           </a>
         </div>
       </div >
