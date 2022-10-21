@@ -10,34 +10,6 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { MainService } from 'src/app/services/main.service';
 import {NgxSpinnerService} from "ngx-spinner";
 
-export interface PeriodicElement {
-  id: number;
-  name: string;
-  empid: string;
-  
-}
-export interface PeriodicElement2 {
-  id: number;
-  document: string;
-  documentnumber: string;
-  file:string;
-  
-}
-const Sample_Data: PeriodicElement[] = [
-  {id: 1, name: 'Sreeb Tech',empid:'SBT001'},
-  {id: 2, name: 'Sanela',empid:'SBT002'},
-  {id: 3, name: 'Sriram Hardwaress',empid:'SBT003'},
-  {id: 4, name: 'ABC Tech',empid:'SBT004'},
-  {id: 5, name: 'Soft Soluntions',empid:'SBT005'},
-  {id: 6, name: 'Dell ',empid:'SBT006'},
-  {id: 7, name: 'Tech Mahindra',empid:'SBT007'},
-];
-const Sample_Data2:PeriodicElement2[] = [
-  {id: 1, document: 'Adhar',documentnumber:'543767676776767',file:'Attachment'},
-  {id: 2, document: 'PAN',documentnumber:'SBT002FDFGHGHJ',file:'Attachment'},
-  
-]
-
 @Component({
   selector: 'app-hr-document-approval',
   templateUrl: './hr-document-approval.component.html',
@@ -88,16 +60,11 @@ export class HrDocumentApprovalComponent implements OnInit {
   getFilesForApproval(){
     this.ES.getFilesForApproval().subscribe((res:any)=>{
       if(res.status && res.data){
-        console.log(res.data)
         this.emplist=(res.data)
-        // for(let i=0;i<res.data.length;i++){
-        //   if(res.data[i].empid){
-        //     this.emplist.push(res.data[i])
-        //   }
-        // }
         this.dataSource = new MatTableDataSource(res.data)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+
 
       }
     })
