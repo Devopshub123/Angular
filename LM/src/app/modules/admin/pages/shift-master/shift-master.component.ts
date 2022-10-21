@@ -343,7 +343,7 @@ export class ShiftMasterComponent implements OnInit {
       this.shiftForm.controls.noofTimes.disable();
       this.shiftForm.controls.noofDays.setValue((this.shifDetails.leave_deduction_amount_post_lates_limit).toString());
       this.shiftForm.controls.noofDays.disable();
-      let overtime =this.todayWithPipe +' '+this.shifDetails.min_duration_for_overtime;
+      let overtime =this.shifDetails.min_duration_for_overtime;
       this.shiftForm.controls.overTime.setValue(overtime);
       this.shiftForm.controls.overTime.disable();
     }

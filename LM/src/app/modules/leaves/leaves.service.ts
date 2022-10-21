@@ -94,7 +94,6 @@ setCompOffReviewApprove(info:any): Observable<any> {
 }
 getuserleavecalender(id:any):Observable<any>{
   return this.http.post(this.mainUrl+'api/getleavecalender/'+id, this.httpOptions);
-
 }
 
 getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
@@ -143,7 +142,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     //   return this.http.post(this.mainUrl + 'api/setProfileImage/'+conpanyName+'/'+Id, data);
     // }
     setProfileImage(data: FormData,path:any): Observable<any> {
-   
+
       return this.http.post(this.mainUrl + 'api/setProfileImage/'+encodeURI(path), data);
     }
     removeProfileImage(id: any,companyName:any): Observable<any> {

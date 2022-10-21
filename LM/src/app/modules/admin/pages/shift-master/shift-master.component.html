@@ -30,7 +30,7 @@
 
                     <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                         <mat-label>Start Time</mat-label>
-                        <input formControlName="startTime" matTimepicker />
+                        <input formControlName="startTime" matTimepicker  />
                         <mat-error class="con-error" *ngIf="shiftForm.controls.startTime.errors?.required">
                             {{requiredField}}
                         </mat-error>
@@ -56,7 +56,7 @@
                 <div fxLayout="row wrap">
 
                     <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                        <mat-label>In Time</mat-label>
+                        <mat-label>In Time <span style="color: red;">*</span></mat-label>
                         <input formControlName="graceInTime" matTimepicker />
                         <mat-error class="con-error" *ngIf="shiftForm.controls.graceInTime.errors?.required">
                             {{requiredField}}
