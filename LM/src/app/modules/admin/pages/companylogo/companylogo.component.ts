@@ -148,7 +148,8 @@ export class CompanylogoComponent implements OnInit {
               'documentnumber':'',
               'fileName':this.file.name,
               'modulecode':result.data[0].module_code,
-              'requestId':null
+              'requestId':null,
+              'status':'Submitted'
             }
             this.LMS.setFilesMaster(obj).subscribe((data) => {
               if(data && data.status) {
@@ -158,7 +159,6 @@ export class CompanylogoComponent implements OnInit {
                         this.spinner.hide();
                         if(data && data.status){
                           if(this.logoId){
-                            console.log(this.imageInfo)
                             this.LM.removeImage(this.imageInfo).subscribe((data) => {})
                           }
                           this.MainComponent.ngOnInit()
@@ -232,10 +232,15 @@ export class CompanylogoComponent implements OnInit {
   }
   getUploadImage(){
     let info = {
-      'employeeId':0,
-      'filecategory': 'LOGO',
-      'moduleId':2,
-      'requestId':null,
+
+      'employeeId': 0,
+      "candidateId": null,
+      "moduleId": 2,
+      "filecategory": 'LOGO',
+      "requestId": null,
+      'status': 'Submitted'
+
+     
     }
     this.LMS.getFilesMaster(info).subscribe((result) => {
       if(result && result.status && result.data[0]){
