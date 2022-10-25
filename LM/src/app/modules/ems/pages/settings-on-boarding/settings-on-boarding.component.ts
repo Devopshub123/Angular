@@ -39,7 +39,7 @@ export class SettingsOnBoardingComponent implements OnInit {
         ON_BOARDING_COMPLETION:[""],
         EMPLOYEE_NOT_JOINING:[""]
     });
-    this.days = [0,15,30,45,60,75,90];
+    this.days = [1,2,3,4,5,6,7,8,9,10,11,12];
     this.getOnboardingSettings();
     this.onboardingForm.get('PROBATION_PERIOD_DAYS')?.valueChanges.subscribe((selectedValue:any) => {
       for(let i=0;i<this.onboardrules.length;i++){

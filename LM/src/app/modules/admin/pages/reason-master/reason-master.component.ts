@@ -37,6 +37,7 @@ export class ReasonMasterComponent implements OnInit {
   isSave: boolean = false;
   enable: any = null;
   valid: boolean = false;
+  PageLoading = true;
   displayedColumns: string[] = ['sno','termination', 'status', 'Action'];
   reasonsDataList: any = [];
   statusList: any;
@@ -366,6 +367,15 @@ export class ReasonMasterComponent implements OnInit {
   if (event.keyCode != 8 && !pattern.test(inputChar)) {
     event.preventDefault();
    }
+}
+getPageSizes(): number[] {
+  if (this.dataSource.data.length > 20) {
+    return [5, 10, 20, this.dataSource.data.length];
+  }
+  else {
+
+    return [5, 10, 20];
+  }
 }
 
 }
