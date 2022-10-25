@@ -8,8 +8,8 @@
             <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Shift Name</mat-label>
-                    <input formControlName="shift" required matInput  maxlength="50"
+                    <mat-label>Shift Name <span style="color: red;">*</span></mat-label>
+                    <input formControlName="shift" matInput  maxlength="50"
                         placeholder="Shift Name">
                     <mat-error class="con-error"
                     *ngIf="shiftForm.controls.shift.errors?.required || shiftForm.controls.shift.errors?.['whitespace']">
@@ -29,14 +29,14 @@
                 <div fxLayout="row wrap">
 
                     <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                        <mat-label>Start Time</mat-label>
+                        <mat-label>Start Time <span style="color: red;">*</span></mat-label>
                         <input formControlName="startTime" matTimepicker  />
                         <mat-error class="con-error" *ngIf="shiftForm.controls.startTime.errors?.required">
                             {{requiredField}}
                         </mat-error>
                       </mat-form-field>
                     <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
-                        <mat-label>End Time</mat-label>
+                        <mat-label>End Time <span style="color: red;">*</span></mat-label>
                         <input formControlName="endTime" matTimepicker (change)="changeEndTime($event)" />
                         <mat-error class="con-error" *ngIf="shiftForm.controls.endTime.errors?.required">
                             {{requiredField}}
@@ -64,8 +64,8 @@
                     </mat-form-field>
 
                     <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
-                        <mat-label>Out Time</mat-label>
-                        <input formControlName="graceOutTime" matTimepicker />
+                        <mat-label>Out Time <span style="color: red;">*</span></mat-label>
+                        <input formControlName="graceOutTime"  matTimepicker />
                         <mat-error class="con-error" *ngIf="shiftForm.controls.graceOutTime.errors?.required">
                             {{requiredField}}
                         </mat-error>
@@ -105,8 +105,8 @@
                 <div class="row wrap">
                     <mat-label class="mx-4 my-4">Allow minimum number of work hours per day</mat-label>
                     <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
-                        <mat-label>Over Time</mat-label>
-                        <mat-select  required formControlName="overTime">
+                        <mat-label>Over Time <span style="color: red;">*</span></mat-label>
+                        <mat-select   formControlName="overTime">
                             <ng-container *ngFor="let b of overTimeList">
                                     <mat-option value={{b.id}}>{{b.name}}</mat-option>
                             </ng-container>

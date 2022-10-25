@@ -1072,7 +1072,7 @@ export class EmployeeInfoComponent implements OnInit {
   }
   //** */
   saveJobDetails() {
-   
+
     if (this.employeeCode != undefined || this.employeeCode != null) {
       if (this.promotionsForm.valid) {
         this.promotionList.push({
@@ -1210,7 +1210,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
   }
   saveWorkExperience() {
-   
+
     if (this.employeeCode != undefined || this.employeeCode != null) {
       this.spinner.show();
       let data = {
@@ -1259,7 +1259,7 @@ export class EmployeeInfoComponent implements OnInit {
 
   //** */
   saveEducation() {
-    
+
     if (this.employeeCode != undefined || this.employeeCode != null) {
       if (this.educationForm.valid) {
         this.spinner.show();

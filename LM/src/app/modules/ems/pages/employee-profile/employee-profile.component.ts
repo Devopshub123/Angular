@@ -388,7 +388,7 @@ if(this.employeeInformationData.aadharnumber !='null' || this.employeeInformatio
                 gendername = e.gender;
               }
             })
-           
+
             this.familyDetails.push({
               firstname: familydata[i].firstname,
               lastname: familydata[i].lastname,

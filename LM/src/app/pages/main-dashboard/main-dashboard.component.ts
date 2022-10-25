@@ -449,7 +449,7 @@ export class MainDashboardComponent implements OnInit {
            text.substring(0, length) + '...' :
            text;
   }
-  
+
   @HostListener('window:resize', ['$event'])
   onResize(event:any) {
     this.screenWidth$.next(event.target.innerWidth);
@@ -502,17 +502,17 @@ export class MainDashboardComponent implements OnInit {
                             const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
                               return data + String.fromCharCode(byte);
                             }, '');
-                
+
                             let base64String= btoa(STRING_CHAR)
                             this.imageurls[0].base64String='data:image/png;base64,'+base64String;
-                
-                
+
+
                           }
                           else{
                             this.isRemoveImage=false;
                             this.imageurls =[{
                               base64String:"assets/img/profile.jpg" }];
-                
+
                           }
         })
       }
@@ -613,8 +613,8 @@ export class MainDashboardComponent implements OnInit {
 
 
 
-      
-  
+
+
 
   }
 

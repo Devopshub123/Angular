@@ -37,7 +37,6 @@ const routes: Routes = [
     path: '',
     redirectTo: 'Login',
     pathMatch: 'full'
-
   },
   {path:'MainDashboard',component:MainDashboardComponent,canActivate:[LMSAccessGuard]},
   {path:'LeaveManagement',loadChildren:()=>import('./modules/leaves/leaves.module').then(m=>m.LeavesModule),canActivate:[LMSAccessGuard]},
