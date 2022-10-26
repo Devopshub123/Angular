@@ -69,10 +69,10 @@ export class HrPendingApprovalsComponent implements OnInit {
   pipe = new DatePipe('en-US');
   userSession:any;
   EM1:any;
-  EM24:any;
-  EM25:any;
-  EM26:any;
-  EM27:any;
+  EM46:any;
+  EM47:any;
+  EM48:any;
+  EM49:any;
   messagesDataList:any=[];
   sendrelivingdate: any;
   sendrequestdate: any;
@@ -209,13 +209,13 @@ export class HrPendingApprovalsComponent implements OnInit {
         this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: res.statusCode == 'Approved'?this.EM24:this.EM25
+          data: res.statusCode == 'Approved'?this.EM46:this.EM47
         });
       }else{
         this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: res.statusCode == 'Approved'?this.EM26:this.EM27
+          data: res.statusCode == 'Approved'?this.EM48:this.EM49
         });
       }
     })
@@ -226,7 +226,7 @@ export class HrPendingApprovalsComponent implements OnInit {
       {
         "code": null,
         "pagenumber": 1,
-        "pagesize": 100
+        "pagesize": 1000
       }
     this.emsService.getMessagesListApi(data).subscribe((res: any) => {
       if (res.status) {
@@ -234,14 +234,14 @@ export class HrPendingApprovalsComponent implements OnInit {
         this.messagesDataList.forEach((e: any) => {
           if (e.code == "EM1") {
             this.EM1 = e.message
-          }else if (e.code == "EM24") {
-            this.EM24 = e.message
-          }else if (e.code == "EM25") {
-            this.EM25 = e.message
-          }else if (e.code == "EM26") {
-            this.EM26 = e.message
-          }else if (e.code == "EM27") {
-            this.EM27 = e.message
+          }else if (e.code == "EM46") {
+            this.EM46 = e.message
+          }else if (e.code == "EM47") {
+            this.EM47 = e.message
+          }else if (e.code == "EM48") {
+            this.EM48 = e.message
+          }else if (e.code == "EM49") {
+            this.EM49 = e.message
           }
         })
       }

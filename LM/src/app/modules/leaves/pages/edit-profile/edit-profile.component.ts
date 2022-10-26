@@ -81,7 +81,6 @@ export class EditProfileComponent implements OnInit {
       });
 
     this.getUploadImage();
-    this.getEmployeeInformation();
     this.getCountry();
 
 
@@ -98,6 +97,7 @@ export class EditProfileComponent implements OnInit {
     //     zipCode: [{ value:this.employeedata.zipCode}],
     //   });
 
+    this.getEmployeeInformation();
 
 
 
@@ -107,13 +107,14 @@ export class EditProfileComponent implements OnInit {
       this.LM.getStates(selectedValue).subscribe((result)=>{
         if(result && result.status){
           this.stateDetails=result.data;
+          if(this.employeedata != null)
+          {
+            this.editForm.controls.stateId.setValue(this.employeedata.state);
+  
+          }
 
         }
-        if(this.employeedata != null)
-        {
-          this.editForm.controls.stateId.setValue(this.employeedata.state);
-
-        }
+       
       })
     })
     /**get city details for residance address */
@@ -123,11 +124,12 @@ export class EditProfileComponent implements OnInit {
         if(result && result.status){
           this.cityDetails=result.data;
           this.editForm.controls.cityId.setValue('');
+          if(this.employeedata.state === this.editForm.controls.stateId.value)
+          {
+            this.editForm.controls.cityId.setValue(this.employeedata.city);
+          }
         }
-        if(this.employeedata.state === this.editForm.controls.stateId.value)
-        {
-          this.editForm.controls.cityId.setValue(this.employeedata.city);
-        }
+       
 
       })
     })
@@ -169,11 +171,13 @@ export class EditProfileComponent implements OnInit {
                 'id':this.profileId?this.profileId:null,
                 'employeeId':this.userSession.id,
                 'filecategory': 'PROFILE',
-                'moduleId':2,
+                'moduleId':1,
                 'documentnumber':'',
                 'fileName':this.file.name,
                 'modulecode':result.data[0].module_code,
-                'requestId':null
+                'requestId':null,
+                'status':'Submitted'
+
               }
               this.LM.setFilesMaster(obj).subscribe((data) => {
                 if(data && data.status) {
@@ -345,9 +349,11 @@ export class EditProfileComponent implements OnInit {
   getUploadImage(){
     let info = {
       'employeeId':this.userSession.id,
+      "candidateId": null,
       'filecategory': 'PROFILE',
-      'moduleId':2,
+      'moduleId':1,
       'requestId':null,
+      'status':'Submitted'
     }
     this.LM.getFilesMaster(info).subscribe((result) => {
       if(result && result.status && result.data[0]){
@@ -406,6 +412,9 @@ export class EditProfileComponent implements OnInit {
           this.editForm.controls.countryId.setValue(this.employeedata.country);
           this.editForm.controls.zipCode.setValue(this.employeedata.pincode);
           // this.editForm.controls.stateId.setValue(this.employeedata.state);
+          // this.editForm.controls.cityId.setValue(this.employeedata.city);
+
+          console.log("helloo",this.employeedata)
 
 
         }
