@@ -30,7 +30,7 @@
             <ng-container>
               <div *ngFor="let compoff of compOffApprovedDates">
                 <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                <mat-option value={{compoff.comp_off_date}}>{{compoff.comp_off_date}}</mat-option>
+                <mat-option value={{compoff.comp_off_date}}>{{compoff.comp_off_date | date: 'dd-MM-yyyy'}}</mat-option>
               </div>
 
             </ng-container>
