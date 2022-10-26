@@ -3,15 +3,24 @@
         <div style="padding: 10px;">
             <mat-card style="background-color: #e7eaf3">
                 <div fxLayout="row" style="padding: 15px">
-                    <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center" class="circle">
-                        <img src="assets/img/profile.jpg" />
-                    </div>
+                    <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center">
+                        <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
+                            <img class="avatar-preview" [src]="url.base64String" />
+                          </div>
+                          <!-- <span style="padding-left: 30%;">
+                            <button class="m-1 btn btn-file">
+                              <input type="file" (change)="onSelectFile($event)" accept="image/*" />
+                              Upload
+                            </button>
+                         </span> -->
+                     </div>
 
                     <div fxFlex="70" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="start">
                         <span>
                             <p class="subh"><span class="heading">{{employeeNameh}}</span></p>
                             <p class="subh">Designation: <span class="heading1">{{employeeDesignation}}</span> </p>
-                            <p class="subh">Date of join: <span class="heading1"> {{employeeJoinDate | date:'dd-MM-yyyy'}}</span> </p>
+                            <p class="subh">Date of join: <span class="heading1"> {{employeeJoinDate | date:
+                                    'dd-MM-YYYY'}}</span> </p>
                             <p class="subh">Mobile: <span class="heading1">{{employeeMobile}} </span></p>
                         </span>
                     </div>

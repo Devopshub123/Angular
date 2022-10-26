@@ -17,6 +17,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import * as _moment from 'moment';
+import { LeavesService } from 'src/app/modules/leaves/leaves.service';
 // import {default as _rollupMoment} from 'moment';
 const moment = _moment;
 
@@ -50,7 +51,8 @@ export class EmployeeInfoComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private dialog: MatDialog, private mainService: MainService, private router: Router, private activeroute: ActivatedRoute,
-    private adminService: AdminService, private spinner: NgxSpinnerService, private activatedRoute: ActivatedRoute, private emsService: EmsService) {
+    private adminService: AdminService, private spinner: NgxSpinnerService,
+    private LM: LeavesService,private activatedRoute: ActivatedRoute, private emsService: EmsService) {
       this.getCountry();
       this.formData = new FormData();
   }
@@ -172,6 +174,19 @@ export class EmployeeInfoComponent implements OnInit {
   isExperienceEdit: boolean = false;
   mincontarctDate: any;
   isContractData: boolean = false;
+  profileId:any=null;
+  profileInfo:any=null;
+  imageurls = [{
+    base64String: "assets/img/profile.jpg"
+  }];
+  base64String: any;
+  name: any;
+  imagePath: any;
+  isFileImage:boolean=false;
+  progressInfos:any=[];
+  selectedFiles:any;
+  previews: any = [];
+  isRemoveImage:boolean=true;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params) {
@@ -325,7 +340,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.getEmployeeEmploymentList();
       this.getEmployeeEducationList();
     }
-
+    this.getEmployeeImage();
   }
   getnoticeperiods() {
     this.emsService.getnoticeperiods().subscribe((res: any) => {
@@ -336,6 +351,7 @@ export class EmployeeInfoComponent implements OnInit {
   }
   //////////
   getLoginCandidateData() {
+    this.spinner.show();
     this.loginData = [];
     this.emsService.getPreonboardCandidateData(this.candidateId).subscribe((res: any) => {
       this.loginData = JSON.parse(res.data[0].json)[0];
@@ -385,6 +401,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.pcountry.setValue(this.loginData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
       this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
+      if (this.loginData.ppincode != 'null')
       this.personalInfoForm.controls.ppincode.setValue(this.loginData.ppincode);
       this.personalInfoForm.controls.mobileNo.setValue(this.loginData.contact_number);
       if (this.loginData.emergencycontact_number != 'null')
@@ -458,11 +475,12 @@ export class EmployeeInfoComponent implements OnInit {
       }
 
     })
-
+    this.spinner.hide();
   }
 
   /** through employee directory login data  */
   getEmployeeInformationList() {
+    this.spinner.show();
     this.employeeInformationData = [];
     this.familyDetails = [];
     this.emsService.getEmployeeInformationData(this.employeeId).subscribe((res: any) => {
@@ -511,6 +529,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
       this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
+      if (this.employeeInformationData.ppincode != 'null')
       this.personalInfoForm.controls.ppincode.setValue(this.employeeInformationData.ppincode);
       this.personalInfoForm.controls.mobileNo.setValue(this.employeeInformationData.contactnumber);
       this.employeeInformationData.emergencycontactnumber != 'null' ? this.personalInfoForm.controls.alternateMobileNo.setValue(this.employeeInformationData.emergencycontactnumber) : this.personalInfoForm.controls.alternateMobileNo.setValue(''),
@@ -568,6 +587,7 @@ export class EmployeeInfoComponent implements OnInit {
 
 
     })
+    this.spinner.hide();
   }
 
   /** through employee directory login data  */
@@ -1840,6 +1860,38 @@ export class EmployeeInfoComponent implements OnInit {
       const isWhitespace = (control.value || '').trim().length === 0;
       return isWhitespace ? { whitespace: true } : null;
     };
+  }
+
+
+  getEmployeeImage() {
+    let input = {
+      'employeeId': this.empId,
+      "candidateId": 0,
+      "moduleId": 1,
+      "filecategory": 'PROFILE',
+      "requestId": null,
+      'status': null
+    }
+    this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
+      if (result.data.length > 0 && result.status) {
+                this.profileId = result.data[0].id;
+                this.profileInfo = JSON.stringify(result.data[0]);
+               this.mainService.getDocumentOrImagesForEMS(result.data[0]).subscribe((imageData) => {
+                 if(imageData.success){
+                            let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+                            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+                              return data + String.fromCharCode(byte);
+                            }, '');
+                            let base64String= btoa(STRING_CHAR)
+                            this.imageurls[0].base64String='data:image/png;base64,'+base64String;
+                          }
+                          else{
+                            this.isRemoveImage=false;
+                            this.imageurls =[{base64String:"assets/img/profile.jpg" }];
+                          }
+        })
+      }
+    })
   }
 }
 

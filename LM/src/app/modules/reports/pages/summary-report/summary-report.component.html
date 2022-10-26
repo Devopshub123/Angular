@@ -64,36 +64,36 @@
     <div class="mat-elevation-z8 py-2">
       <table id="table" mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="sno">
-          <th mat-header-cell *matHeaderCellDef><b>S.No. </b></th>
+          <th mat-header-cell *matHeaderCellDef>S.No.</th>
           <td mat-cell *matCellDef="let row; let i = index;">{{i+1}}</td>
 
         </ng-container>
         <ng-container matColumnDef="empname">
-          <th mat-header-cell *matHeaderCellDef><b>Employee Name </b></th>
+          <th mat-header-cell *matHeaderCellDef>Employee Name</th>
           <td mat-cell *matCellDef="let row;">{{row.empname}}</td>
 
         </ng-container>
         <ng-container matColumnDef="attendancedate">
-          <th mat-header-cell *matHeaderCellDef><b>Date</b></th>
+          <th mat-header-cell *matHeaderCellDef>Date</th>
           <td mat-cell *matCellDef="let row"> {{row.attendancedate | date:'dd-MM-yyyy'}} </td>
         </ng-container>
         <ng-container matColumnDef="firstlogintime">
-          <th mat-header-cell *matHeaderCellDef><b> First In</b></th>
+          <th mat-header-cell *matHeaderCellDef>First In</th>
           <td mat-cell *matCellDef="let row"> {{row.firstlogintime | date:'dd-MM-yyyy'}} {{row.firstlogintime | date:'hh:mm:ss'}} </td>
 
         </ng-container>
         <ng-container matColumnDef="lastlogouttime">
-          <th mat-header-cell *matHeaderCellDef><b>Last Out </b></th>
+          <th mat-header-cell *matHeaderCellDef>Last Out</th>
           <td mat-cell *matCellDef="let row"> {{row.lastlogouttime | date:'dd-MM-yyyy'}} {{row.lastlogouttime | date:'hh:mm:ss' }} </td>
 
         </ng-container>
         <ng-container matColumnDef="totalhours">
-          <th mat-header-cell *matHeaderCellDef><b>Total Hours </b></th>
+          <th mat-header-cell *matHeaderCellDef>Total Hours</th>
           <td mat-cell *matCellDef="let row"> {{row.totalhours}} </td>
 
         </ng-container>
         <ng-container matColumnDef="breaks">
-          <th mat-header-cell *matHeaderCellDef><b>Breaks </b></th>
+          <th mat-header-cell *matHeaderCellDef>Breaks</th>
           <td mat-cell *matCellDef="let row">
           <ng-container *ngFor="let number of row.breaks">
             {{number}}<br>
@@ -102,17 +102,17 @@
         </td>
         </ng-container>
         <ng-container matColumnDef="breaktime">
-          <th mat-header-cell *matHeaderCellDef><b>Break Time </b></th>
+          <th mat-header-cell *matHeaderCellDef>Break Time</th>
           <td mat-cell *matCellDef="let row"> {{row.breaktime}} </td>
 
         </ng-container>
         <ng-container matColumnDef="productivehours">
-          <th mat-header-cell *matHeaderCellDef><b>Production Hours</b></th>
+          <th mat-header-cell *matHeaderCellDef>Production Hours</th>
           <td mat-cell *matCellDef="let row"> {{row.productivehours}} </td>
 
         </ng-container>
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef><b>Action</b></th>
+          <th mat-header-cell *matHeaderCellDef>Action</th>
           <td mat-cell *matCellDef="let row"> <a style="color: blue" (click)="openDialog(row)"><u>Details</u></a> </td>
 
         </ng-container>

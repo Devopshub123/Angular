@@ -86,8 +86,8 @@
  
      
  
-       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-        <form [formGroup]="hrOnboardingForm" autocomplete="off" *ngIf="isdata">
+       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" *ngIf="isdata">
+        <form [formGroup]="hrOnboardingForm" autocomplete="off">
          <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
            <mat-label>Date of Join</mat-label>
            <input matInput readonly [matDatepicker]="searchDate" [min]="minDate" [max]="maxDate"
@@ -113,11 +113,11 @@
          <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
            <mat-label>Search Employee</mat-label>
            <input  (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
-           <mat-icon matSuffix>search</mat-icon>
+           <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
          </mat-form-field>
  
        </div>
-       <div class="tableP">
+       <div class="tableP" *ngIf="isdata">
          <div class="mat-elevation-z1">
            <table mat-table [dataSource]="dataSource" matSort>
              <ng-container matColumnDef="sno">

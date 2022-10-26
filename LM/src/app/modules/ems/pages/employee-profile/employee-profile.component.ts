@@ -18,6 +18,7 @@ import { ThemeService } from 'ng2-charts';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import * as _moment from 'moment';
+import { LeavesService } from 'src/app/modules/leaves/leaves.service';
 const moment =  _moment;
 export const MY_FORMATS = {
   parse: {
@@ -46,7 +47,8 @@ export class EmployeeProfileComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private dialog: MatDialog, private mainService:MainService,private spinner:NgxSpinnerService, private router: Router, private activeroute: ActivatedRoute,
-    private adminService: AdminService, private emsService: EmsService) { this.formData = new FormData();}
+    private adminService: AdminService, private emsService: EmsService,private LM: LeavesService,
+  ) { this.formData = new FormData(); }
   personalInfoForm!: FormGroup;
   CandidateFamilyForm: any = FormGroup;
   employeeJobForm: any = FormGroup;
@@ -163,6 +165,20 @@ export class EmployeeProfileComponent implements OnInit {
   experienceIndex: any;
   isExperienceEdit: boolean = false;
   isEducationEdit: boolean = false;
+
+  profileId:any=null;
+  profileInfo:any=null;
+  imageurls = [{
+    base64String: "assets/img/profile.jpg"
+  }];
+  base64String: any;
+  name: any;
+  imagePath: any;
+  isFileImage:boolean=false;
+  progressInfos:any=[];
+  selectedFiles:any;
+  previews:any=[];
+  isRemoveImage:boolean=true;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.empId=this.userSession.id
@@ -300,7 +316,7 @@ export class EmployeeProfileComponent implements OnInit {
       this.getEmployeeEmploymentList();
       this.getEmployeeEducationList();
     }
-
+    this.getEmployeeImage();
   }
 
   /** through employee directory login data  */
@@ -1521,22 +1537,6 @@ saveDocument() {
         }
       });
     }});
-//   }
-//   }else{
-//     let dialogRef = this.dialog.open(ReusableDialogComponent, {
-//       position: {top: `70px`},
-//       disableClose: true,
-//       data: this.EM13
-//     });
-//   }
-// }
-// else{
-//   let dialogRef = this.dialog.open(ReusableDialogComponent, {
-//     position: {top: `70px`},
-//     disableClose: true,
-//     data: this.EM18
-//   });
-// }
 
 }
 
@@ -1555,10 +1555,7 @@ onSelectFile(event:any) {
         disableClose: true,
         data: this.EM13
       });
-      // this.open(this.msgLM141,'8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
-
-
-    }
+   }
   } else {
     this.isFile = false;
     let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1600,28 +1597,6 @@ clearDock(){
   this.documentsForm.get('attachedFile').clearValidators();
   this.documentsForm.get('attachedFile').updateValueAndValidity();
 
-
-
-  // this.documentsForm.controls.documentId.setValidators([Validators.required])
-  // this.documentsForm.controls.documentNumber.setValidators([Validators.required])
-  // this.documentsForm.controls.documentName.setValidators([Validators.required])
-  // this.documentsForm.controls.attachedFile.setValidators([Validators.required])
-  // this.documentsForm.get('documentNumber').updateValueAndValidity();
-  // this.documentsForm.get('documentId').updateValueAndValidity();
-  // this.documentsForm.get('attachedFile').updateValueAndValidity();
-  // this.documentsForm.get('documentName').updateValueAndValidity();
-
-
-
-//   this.documentsForm.controls['documentName'].setErrors(null);
-//   this.documentsForm.controls['documentNumber'].setErrors(null);
-//   this.documentsForm.controls['attachedFile'].setErrors(null);
-//   this.documentsForm.controls['documentId'].setErrors(null);
-// this.createDocumentsForm()
-//   // this.documentsForm.controls.documentName.reset();
-  // this.documentsForm.controls.documentNumber.reset();
-  // this.documentsForm.controls.attachedFile.reset();
-
 }
 delete()
 {
@@ -1633,5 +1608,160 @@ createValidatorForDocument(){
   this.documentsForm.get('documentNumber').updateValueAndValidity();
    this.documentsForm.get('documentName').updateValueAndValidity();
 
-}
+  }
+  
+
+
+  onSelectImage(event:any) {
+    this.isRemoveImage=false;
+    this.imageurls = [];
+    this.file=null;
+    this.file = event.target.files[0];
+    this.fileImageToggler();
+    if (event.target.files && event.target.files[0]) {
+      var filesAmount = event.target.files.length;
+      for (let i = 0; i < filesAmount; i++) {
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.imageurls.push({ base64String: event.target.result, });
+        }
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.saveImage(true);
+    }
+  }
+
+  fileImageToggler()
+  {
+    this.isFileImage = !this.isFileImage;
+  }
+
+  getEmployeeImage() {
+    let input = {
+      'employeeId': this.empId,
+      "candidateId": 0,
+      "moduleId": 1,
+      "filecategory": 'PROFILE',
+      "requestId": null,
+      'status': null
+    }
+    this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
+     
+      if (result && result.status) {
+                this.profileId = result.data[0].id;
+                this.profileInfo = JSON.stringify(result.data[0]);
+               this.mainService.getDocumentOrImagesForEMS(result.data[0]).subscribe((imageData) => {
+                 if(imageData.success){
+                            let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+                            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+                              return data + String.fromCharCode(byte);
+                            }, '');
+
+                            let base64String= btoa(STRING_CHAR)
+                            this.imageurls[0].base64String='data:image/png;base64,'+base64String;
+
+
+                          }
+                          else{
+                            this.isRemoveImage=false;
+                            this.imageurls =[{
+                              base64String:"assets/img/profile.jpg" }];
+
+                          }
+        })
+      }
+
+
+    })
+  }
+
+  saveImage(flag:boolean)
+  {
+    this.formData.append('file', this.file);
+    if(this.file){
+      if (this.file.size <= 1024000) {
+        console.log("file name--",this.file.name)
+        this.editProfile()
+      }
+      else{
+        }
+    }else{
+     }
+  }
+  editProfile(){
+      this.spinner.show()
+      {
+      this.LM.getFilepathsMaster(1).subscribe((result) => {
+             if(result && result.status){
+              let data = {
+                'id':this.profileId?this.profileId:null,
+                'employeeId':this.empId,
+                'candidateId': 0,
+                'filecategory': 'PROFILE',
+                'moduleId':1,
+                'documentnumber':'',
+                'fileName':this.file.name,
+                'modulecode':result.data[0].module_code,
+                'requestId':null,
+                'status': 'Submitted'
+              }
+              this.mainService.setFilesMasterForEMS(data).subscribe((res) => {
+                  if(res && res.status) {
+                  let info =JSON.stringify(res.data[0])
+                  this.LM.setProfileImage(this.formData, info).subscribe((res) => {
+                   this.spinner.hide()
+                    if (res && res.status) {
+                      if (this.profileId) {
+                        this.companyService.removeImage(this.profileInfo).subscribe((res) => {})
+                      }
+                      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                        position: { top: `70px` },
+                        disableClose: true,
+                        data: "Image uploaded successfully"
+                      });
+                    }else{
+                      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                        position: { top: `70px` },
+                        disableClose: true,
+                        data: "Image uploading failed"
+                      });
+                    }
+                    this.file = null;
+                    this.getEmployeeImage();
+                    this.isRemoveImage = true;
+                    this.formData.delete('file');
+
+                  });
+                }else{
+                  this.spinner.hide()
+                  this.LM.deleteFilesMaster(result.data[0].id).subscribe(data=>{})
+                  this.getEmployeeImage();
+                  let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                    position: { top: `70px` },
+                    disableClose: true,
+                    data: "Image uploading failed"
+                  });
+                }
+
+              })
+              }
+              else{
+                this.spinner.hide()
+                let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                  position: { top: `70px` },
+                  disableClose: true,
+                  data: "Image uploading failed"
+                });
+              }
+          })
+
+        }
+
+
+
+
+
+
+
+  }
 }

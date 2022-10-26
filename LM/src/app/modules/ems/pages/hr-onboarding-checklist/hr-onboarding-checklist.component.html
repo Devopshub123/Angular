@@ -41,17 +41,18 @@
     </form>
   </div>
 
-  <form [formGroup]="hrOnboardingForm" autocomplete="off" *ngIf="isdata">
+  
 
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-      <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" *ngIf="isdata">
+      <form [formGroup]="hrOnboardingForm" autocomplete="off" >
+      <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
         <mat-label>Date of Join</mat-label>
         <input matInput readonly [matDatepicker]="searchDate" [min]="minDate" [max]="maxDate"
           placeholder="Date of Join" formControlName="searchDate" (click)="searchDate.open()">
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="searchDate"></mat-datepicker-toggle>
         <mat-datepicker #searchDate></mat-datepicker>
       </mat-form-field>
-
+    </form>
       <!-- <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
             <mat-label>Select Status</mat-label>
             <mat-select formControlName="statusUpdate" required>
@@ -69,11 +70,11 @@
       <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
         <mat-label>Search Employee</mat-label>
         <input formControlName="searchName" (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
-        <mat-icon matSuffix>search</mat-icon>
+        <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
       </mat-form-field>
 
     </div>
-    <div class="tableP">
+    <div class="tableP" *ngIf="isdata">
       <div class="mat-elevation-z1">
         <table mat-table [dataSource]="dataSource" matSort>
 
@@ -130,5 +131,5 @@
         <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
       </div>
     </div>
-  </form>
+ 
 </div>

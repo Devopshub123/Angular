@@ -51,11 +51,11 @@
         </a>
       </div>
 
-      <div style="padding-top: 4%;">
+      <!-- <div style="padding-top: 4%;">
         <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(8,true)">
           <img src="assets\img\ess-icon.png" style="height: 50px;" />ESS
         </a>
-      </div>
+      </div> -->
     </mat-nav-list>
   </mat-sidenav>
 
@@ -212,7 +212,7 @@
 
           <div fxLayout="column" fxLayoutGap="25px" style="padding: 5%" *ngIf="announcementsDetails.length == 0">
             <mat-card style="padding: 10px; background-color: #ffffff">
-              <div>
+              <div fxLayoutAlign="center">
                 <p><b>No Announcements</b></p>
               </div>
             </mat-card>
@@ -255,6 +255,13 @@
                       </mat-list-item>
                     </ng-container>
                   </mat-list>
+                  <div  style="padding: 5%" *ngIf="notificationsData.length == 0">
+                     <div>
+                        <p><b>No Attendance</b></p>
+                      </div>
+                   </div>
+
+
                 </div>
                 <div *ngIf="teamAttendanceData">
                   <mat-list class="time-attendance">
@@ -269,6 +276,11 @@
                       </mat-list-item>
                     </ng-container>
                   </mat-list>
+                  <div  style="padding: 5%" *ngIf="notificationsData.length == 0">
+                    <div>
+                       <p><b>No Attendance</b></p>
+                     </div>
+                  </div>
                 </div>
               </div>
             </div>

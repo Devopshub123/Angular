@@ -476,3 +476,16 @@ mat-card-header{
 	border-bottom: 1px solid #28acaf !important;
 
 }
+
+::ng-deep .mat-icon {
+  user-select: none;
+  background-repeat: no-repeat;
+  fill: currentColor;
+  height: 24px;
+  width: 24px;
+  color: #28acaf;
+}
+.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon, .mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon {
+  display: block;
+  color: #28acaf;
+}
