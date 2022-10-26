@@ -3,9 +3,11 @@
         <div>
             <mat-card style="background-color: #ffffff">
                 <div fxLayout="row" style="padding: 15px">
-                    <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center" class="circle">
-                        <img src="assets/img/profile.jpg" />
-                    </div>
+                    <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center">
+                        <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
+                            <img class="avatar-preview" [src]="url.base64String" />
+                          </div>
+                     </div>
 
                     <div fxFlex="70" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="start">
                         <span>

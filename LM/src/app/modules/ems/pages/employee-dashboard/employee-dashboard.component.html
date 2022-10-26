@@ -5,8 +5,9 @@
     <mat-card fxLayout="Column"   style="background-color: #f3e7f0" fxFlex="50" >
         <mat-card-header fxLayout="row" fxLayout.xs="row" class="mat-header" fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
             <div fxFlex="30" fxFlex.xs="50"  fxLayoutAlign.xs="center center">
-                <img  src="assets/img/profile.jpg" width="100" class="img-circle" />
-
+              <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
+                <img class="avatar-preview" [src]="url.base64String" />
+              </div> 
             </div>
             <div fxLayout="column" fxFlex="70" fxFlex.xs="50" fxLayoutAlign="center center" >
                 <div><p style="font-size: 20px; font-weight: 500">{{employeeNameh}}</p></div>
@@ -15,30 +16,21 @@
              </div>
          </mat-card-header>
          <mat-card-content fxFlex="50" fxLayout="row" fxLayout.xs="row" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-        <!-- <div fxLayout="column" style="padding: 15px;"> -->
-            <!-- <p style="font-size: 20px; font-weight: 500">ID:{{employeeCode}}</p> -->
-                <!-- <p style="font-size: 16px; font-weight: 500">Mobile Number:{{employeeMobile}}</p> -->
-                <!-- <p style="font-size: 16px; font-weight: 500">Reporting Manager:</p> -->
-                <!-- <p style="font-size: 16px; font-weight: 500">Department: {{employeeDepartment}}</p> -->
-        <!-- </div> -->
-
-        <div fxLayout="column" style="overflow-y: auto">
-
+          <div fxLayout="column" style="overflow-y: auto;padding-top: 1%;">
           <div fxLayout="row" fxLayout.xs="column" style="padding-left: 15px;">
             <label >ID:&nbsp;&nbsp;{{employeeCode}}</label><br/>
           </div>
           <div fxLayout="row" fxLayout.xs="column" style="padding-left: 15px;">
             <label >Mobile Number:&nbsp;&nbsp;{{employeeMobile}}</label><br/>
-            <!-- <p style="font-size: 16px; font-weight: 500">Reporting Manager:</p> -->
-          </div>
+           </div>
           <div fxLayout="row" fxLayout.xs="column" style="padding-left: 15px;">
-            <!-- <p style="font-size: 16px; font-weight: 500">Reporting Manager:</p> -->
             <label>Department: &nbsp;&nbsp; {{employeeDepartment}}</label>
           </div>
           </div>
 
     </mat-card-content>
     </mat-card>
+
     <mat-card  style="background-color: #f3e7f0" fxLayout="column" fxFlex="50" >
         <div fxLayout="row" style="padding: 15px;">
          <span style="font-size: 20px;"><mat-icon>announcement</mat-icon></span>

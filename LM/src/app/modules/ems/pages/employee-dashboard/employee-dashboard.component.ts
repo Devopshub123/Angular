@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { AdminService } from 'src/app/modules/admin/admin.service';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
+import { MainService } from 'src/app/services/main.service';
 import { EmsService } from '../../ems.service';
 
 @Component({
@@ -13,8 +14,10 @@ import { EmsService } from '../../ems.service';
 })
 export class EmployeeDashboardComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private adminService: AdminService,
-    private emsService: EmsService,private companyService: CompanySettingService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router,
+    private adminService: AdminService,
+    private emsService: EmsService, private companyService: CompanySettingService,
+    private mainService: MainService,) { }
   employeeInformationData: any = [];
   employeeId: any;
   employeeNameh: any;
@@ -33,6 +36,15 @@ export class EmployeeDashboardComponent implements OnInit {
 financeManager:any=[]
   count:any;
   availableDepartments: any = [];
+
+  profileId:any=null;
+  profileInfo:any=null;
+  imageurls = [{
+    base64String: "assets/img/profile.jpg"
+  }];
+  base64String: any;
+  imagePath: any;
+  isRemoveImage:boolean=true;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getDepartmentsMaster();
@@ -42,6 +54,7 @@ financeManager:any=[]
     this.getallEmployeeProgramSchedules();
     this.getReportingManagerForEmp();
     this.getHrDetails();
+    this.getEmployeeImage();
   }
   public barChartType: ChartType = 'bar';
 
@@ -145,5 +158,34 @@ financeManager:any=[]
       }
     });
   }
-
+  getEmployeeImage() {
+    let input = {
+      'employeeId': this.userSession.id,
+      "candidateId": 0,
+      "moduleId": 1,
+      "filecategory": 'PROFILE',
+      "requestId": null,
+      'status': null
+    }
+    this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
+      if (result.data.length > 0 && result.status) {
+                this.profileId = result.data[0].id;
+                this.profileInfo = JSON.stringify(result.data[0]);
+               this.mainService.getDocumentOrImagesForEMS(result.data[0]).subscribe((imageData) => {
+                 if(imageData.success){
+                            let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+                            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+                              return data + String.fromCharCode(byte);
+                            }, '');
+                            let base64String= btoa(STRING_CHAR)
+                            this.imageurls[0].base64String='data:image/png;base64,'+base64String;
+                          }
+                          else{
+                            this.isRemoveImage=false;
+                            this.imageurls =[{base64String:"assets/img/profile.jpg" }];
+                          }
+        })
+      }
+    })
+  }
 }
