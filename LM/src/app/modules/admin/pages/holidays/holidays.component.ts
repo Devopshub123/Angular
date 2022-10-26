@@ -82,10 +82,13 @@ export class HolidaysComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog,private ts:LoginService) { }
 
   selectAll(select: MatSelect, values:any, array:any) {
-    this.ishide = true;
+        this.ishide = true;
     this.ischecked = true;
     select.value = values;
     array = values;
+    this.HolidayForm.controls.branch.setValue(array)
+
+    
   }
 
   deselectAll(select: MatSelect) {
@@ -93,6 +96,8 @@ export class HolidaysComponent implements OnInit {
     this.ischecked = false
     this.selectedBranch = [];
     select.value = [];
+    this.HolidayForm.controls.branch.setValue('')
+
   }
   // equals(objOne:any, objTwo:any) {
   //   if (typeof objOne !== 'undefined' && typeof objTwo !== 'undefined') {

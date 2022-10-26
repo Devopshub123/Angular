@@ -293,9 +293,11 @@ menu:NavItem[] =[];
   getUploadImage(){
     let info = {
       'employeeId':this.usersession.id,
+      "candidateId": null,
       'filecategory': 'PROFILE',
-      'moduleId':2,
+      'moduleId':1,
       'requestId':null,
+      'status':'Submitted'
     }
     this.mainService.getFilesMaster(info).subscribe((result:any) => {
       if(result && result.status &&  result.data[0]){
