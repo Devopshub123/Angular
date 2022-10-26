@@ -102,8 +102,11 @@ export class EmpPayrollReportComponent implements OnInit {
       empid:this.searchForm.controls.employeeId.value=="All"?null:this.searchForm.controls.employeeId.value,
       date:this.pipe.transform(this.searchForm.controls.fromDate.value, 'yyyy-MM-dd')
     }
+    this.spinner.show();
     this.LM.getReportForPayrollProcessing(data).subscribe((res:any)=>{
-      console.log(res)
+      this.spinner.hide();
+
+      this.arrayList=[]
       if(res.status && res.data.length>0){
         this.arrayList = res.data;
         this.dataSource = new MatTableDataSource(this.arrayList);
