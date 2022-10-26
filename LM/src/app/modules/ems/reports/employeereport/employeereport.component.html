@@ -170,7 +170,7 @@
                 </div>
                
                
-                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[0])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[0]==1"  (change)="empstatus($event,0)" color="primary"></mat-checkbox>Employee Status</div>
+                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[0])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[0]==1" [indeterminate]="ishiding[0]==0"  (change)="empstatus($event,0)" color="primary"></mat-checkbox>Employee Status</div>
                     <ul *ngIf="ishiding[0] && (arrlist[0])=='1'" >
                         <p formArrayName="empstatus" *ngFor="let order of employeestatusFormArray.controls; let i = index">
                             <input type="checkbox" [formControlName]="i">
@@ -180,7 +180,7 @@
                                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" ><mat-checkbox class="example-margin" color="primary"></mat-checkbox> {{b}}</div>
                             </div> -->
                     </ul>
-                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[1])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[1]==1" (change)="empstatus($event,1)" color="primary" ></mat-checkbox>Employee Type </div>
+                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[1])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[1]==1" [indeterminate]="ishiding[1]==0" (change)="empstatus($event,1)" color="primary" ></mat-checkbox>Employee Type </div>
                     <ul *ngIf="ishiding[1] && (arrlist[1])=='1'" >
                         <p formArrayName="emptype" *ngFor="let order of emptypeFormArray.controls; let i = index">
                             <input type="checkbox" [formControlName]="i">
@@ -190,7 +190,7 @@
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" ><mat-checkbox class="example-margin" color="primary"></mat-checkbox> {{b}}</div>
                         </div> -->
                     </ul>
-                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[2])=='1'">  <mat-checkbox class="example-margin" [checked]="ishiding[2]==1" (change)="empstatus($event,2)" color="primary"></mat-checkbox>Department </div>
+                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[2])=='1'">  <mat-checkbox class="example-margin" [checked]="ishiding[2]==1" [indeterminate]="ishiding[2]==0" (change)="empstatus($event,2)" color="primary"></mat-checkbox>Department </div>
                     <ul *ngIf="ishiding[2] && (arrlist[2])=='1'" >
                         <p formArrayName="department" *ngFor="let order of deptFormArray.controls; let i = index">
                             <input type="checkbox" [formControlName]="i">
@@ -200,7 +200,7 @@
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" ><mat-checkbox class="example-margin" color="primary"></mat-checkbox> {{b}}</div>
                         </div> -->
                     </ul>
-                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[3])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[3]==1" (change)="empstatus($event,3)" color="primary"></mat-checkbox>Designation </div>
+                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[3])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[3]==1" [indeterminate]="ishiding[3]==0" (change)="empstatus($event,3)" color="primary"></mat-checkbox>Designation </div>
                     <ul *ngIf="ishiding[3] && (arrlist[3])=='1'" >
                         <p formArrayName="designation" *ngFor="let order of desgFormArray.controls; let i = index">
                             <input type="checkbox" [formControlName]="i">
@@ -210,7 +210,7 @@
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" ><mat-checkbox class="example-margin" color="primary"></mat-checkbox> {{b}}</div>
                         </div> -->
                     </ul>
-                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[4])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[4]==1" (change)="empstatus($event,4)" color="primary"></mat-checkbox>Office Location </div>
+                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[4])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[4]==1" [indeterminate]="ishiding[4]==0" (change)="empstatus($event,4)" color="primary"></mat-checkbox>Office Location </div>
                     <ul *ngIf="ishiding[4] && (arrlist[4])=='1'" >
                         <p formArrayName="location" *ngFor="let order of locationFormArray.controls; let i = index">
                             <input type="checkbox" [formControlName]="i">
@@ -220,7 +220,7 @@
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" ><mat-checkbox class="example-margin" color="primary"></mat-checkbox> {{b}}</div>
                         </div> -->
                     </ul>
-                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[5])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[5]==1" (change)="empstatus($event,5)" color="primary"></mat-checkbox>Gender  </div>
+                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[5])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[5]==1" [indeterminate]="ishiding[5]==0" (change)="empstatus($event,5)" color="primary"></mat-checkbox>Gender  </div>
                     <ul *ngIf="ishiding[5] && (arrlist[5])=='1'" >
                         <p formArrayName="gender" *ngFor="let order of genderFormArray.controls; let i = index">
                             <input type="checkbox" [formControlName]="i">
@@ -230,7 +230,7 @@
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" ><mat-checkbox class="example-margin" color="primary"></mat-checkbox> {{b}}</div>
                         </div> -->
                     </ul>
-                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[6])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[6]==1"  (change)="empstatus($event,6)" color="primary"></mat-checkbox>Blood Group </div>
+                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[6])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[6]==1" [indeterminate]="ishiding[6]==0"  (change)="empstatus($event,6)" color="primary"></mat-checkbox>Blood Group </div>
                     <ul *ngIf="ishiding[6] && (arrlist[6])=='1'" >
                         <p formArrayName="bloodgroup" *ngFor="let order of bloodgroupFormArray.controls; let i = index">
                             <input type="checkbox" [formControlName]="i">
@@ -240,7 +240,7 @@
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" ><mat-checkbox class="example-margin" color="primary"></mat-checkbox> {{b}}</div>
                         </div> -->
                     </ul>
-                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[7])=='1'"> <mat-checkbox class="example-margin"  [checked]="ishiding[7]==1" (change)="empstatus($event,7)" color="primary"></mat-checkbox>Marital Status</div>
+                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[7])=='1'"> <mat-checkbox class="example-margin"  [checked]="ishiding[7]==1" [indeterminate]="ishiding[7]==0" (change)="empstatus($event,7)" color="primary"></mat-checkbox>Marital Status</div>
                     <ul *ngIf="ishiding[7] && (arrlist[7])=='1' " >
                         <p formArrayName="maritalstatus" *ngFor="let order of maritalstatusFormArray.controls; let i = index">
                             <input type="checkbox" [formControlName]="i">
@@ -250,7 +250,7 @@
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" ><mat-checkbox class="example-margin" color="primary"></mat-checkbox> {{b}}</div>
                         </div> -->
                     </ul>
-                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[8])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[8]==1"  (change)="empstatus($event,8)" color="primary"></mat-checkbox>Shifts</div>
+                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[8])=='1'"> <mat-checkbox class="example-margin" [checked]="ishiding[8]==1" [indeterminate]="ishiding[8]==0"  (change)="empstatus($event,8)" color="primary"></mat-checkbox>Shifts</div>
                     <ul *ngIf="ishiding[8] && (arrlist[8])=='1'" >
                         <p formArrayName="shift" *ngFor="let order of shiftFormArray.controls; let i = index">
                             <input type="checkbox" [formControlName]="i">
@@ -260,7 +260,7 @@
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" ><mat-checkbox class="example-margin" color="primary"></mat-checkbox> {{b}}</div>
                         </div> -->
                     </ul>
-                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[9])=='1'"> <mat-checkbox class="example-margin"  [checked]="ishiding[9]==1" (change)="empstatus($event,9)"  color="primary" ></mat-checkbox>Reporting Manager</div>
+                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" *ngIf="(arrlist[9])=='1'"> <mat-checkbox class="example-margin"  [checked]="ishiding[9]==1" [indeterminate]="ishiding[9]==0" (change)="empstatus($event,9)"  color="primary" ></mat-checkbox>Reporting Manager</div>
                     <ul *ngIf="ishiding[9] &&  (arrlist[9])=='1'" >
                         <p formArrayName="manager" *ngFor="let order of managerFormArray.controls; let i = index">
                             <input type="checkbox" [formControlName]="i">
