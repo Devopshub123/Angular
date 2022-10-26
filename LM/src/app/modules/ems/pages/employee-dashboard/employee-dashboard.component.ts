@@ -137,6 +137,10 @@ financeManager:any=[]
   getallEmployeeProgramSchedules(){
     this.emsService.getallEmployeeProgramSchedules(this.userSession.id,null).subscribe((res: any) => {
       if(res && res.status){
+        for(let i=0;i<res.data.length;i++){
+          let array = res.data[i].schedule_starttime.split(':')
+          res.data[i].schedule_starttime =array[0]+':'+array[1]
+        }
         this.inductionProgram=res.data;
 
         // this.onboardingDetails=res.data;

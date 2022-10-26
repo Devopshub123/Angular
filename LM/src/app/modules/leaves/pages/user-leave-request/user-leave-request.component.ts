@@ -889,12 +889,14 @@ async  getLeavesTypeInfo() {
                       let obj = {
                         'id':this.documentId?this.documentId:null,
                         'employeeId':this.userSession.id,
+                        'candidateId':null,
                         'filecategory': this.leaveRequestForm.controls.leaveTypeId.value ==3 ?'SL':'ML',
                         'moduleId':this.activeModule.moduleid,
                         'documentnumber':'',
                         'fileName':this.file.name,
                         'modulecode':resultData.data[0].module_code,
-                        'requestId':result.data[0].last_insert_id
+                        'requestId':result.data[0].last_insert_id,
+                        'status':'Submitted'
                       }
                       this.LM.setFilesMaster(obj).subscribe((data) => {
                         if(data && data.status) {
@@ -982,9 +984,11 @@ async  getLeavesTypeInfo() {
 
     let info = {
       'employeeId':this.userSession.id,
+      'candidateId':null,
       'filecategory': this.leaveData.leavetypeid==3?'SL':'ML',
       'moduleId':this.activeModule.moduleid,
       'requestId':this.leaveData?this.leaveData.id:null,
+      'status':'Submitted'
     }
     this.LM.getFilesMaster(info).subscribe((result) => {
 
