@@ -23,7 +23,7 @@ export class UsersLoginComponent implements OnInit {
   isview:boolean=true;
   ishide:boolean=false;
   pageLoading = true;
-  displayedColumns: string[] = ['sno','empname','email','userid','action'];
+  displayedColumns: string[] = ['sno','empname','email','userid','status','action'];
   // dataSource = new MatTableDataSource<PeriodicElement>(Sample_Data);
   dataSource: MatTableDataSource<any>=<any>[];
   @ViewChild(MatPaginator)
@@ -66,6 +66,7 @@ export class UsersLoginComponent implements OnInit {
     this.usersloginForm.controls.userid.setValue(data.login=null?data.login:data.officeemail);
     this.usersloginForm.controls.status.setValue('Active');
     this.usersloginForm.controls.empid.setValue(data.id);
+    // window.scrollTo(0,0);
     
 
 
@@ -74,6 +75,7 @@ export class UsersLoginComponent implements OnInit {
 
   getUserLoginData(){
     this.ES.getUserLoginData().subscribe((res: any) => {
+      console.log(res)
       if (res.status && res.data.length != 0) {
         this.dataSource = new MatTableDataSource(res.data)
         this.dataSource.paginator = this.paginator;
