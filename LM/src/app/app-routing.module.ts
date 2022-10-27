@@ -42,7 +42,6 @@ const routes: Routes = [
   {path:'LeaveManagement',loadChildren:()=>import('./modules/leaves/leaves.module').then(m=>m.LeavesModule),canActivate:[LMSAccessGuard]},
   {path:'Asset',loadChildren:()=>import('./modules/assets/assets.module').then(m=>m.AssetsModule),canActivate:[LMSAccessGuard]},
   {path:'ems',loadChildren:()=>import('./modules/ems/ems.module').then(m=>m.EMSModule),canActivate:[LMSAccessGuard]}
-
 ];
 
 @NgModule({

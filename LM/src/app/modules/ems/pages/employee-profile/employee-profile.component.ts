@@ -513,7 +513,7 @@ if(this.employeeInformationData.aadharnumber !='null' || this.employeeInformatio
 
   getCountry() {
     this.countryDetails = []
-    this.companyService.getCountry('countrymaster', null, 1, 10, 'ems').subscribe(result => {
+    this.companyService.getCountry('countrymaster', null, 1, 10, 'ems_qa').subscribe(result => {
       this.countryDetails = result.data;
       this.permanentCountryDetails = result.data;
     })
@@ -646,52 +646,52 @@ if(this.employeeInformationData.aadharnumber !='null' || this.employeeInformatio
 
 
   getBloodgroups() {
-    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems').subscribe(data => {
+    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems_qa').subscribe(data => {
       this.bloodGroupdetails = data.data;
     })
   }
   getGender() {
-    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems').subscribe(data => {
+    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems_qa').subscribe(data => {
       this.genderDetails = data.data;
     })
   }
   getMaritalStatusMaster() {
-    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems').subscribe(data => {
+    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems_qa').subscribe(data => {
       this.maritalStatusDetails = data.data;
     })
   }
   getRelationshipMaster() {
-    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems').subscribe(data => {
+    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems_qa').subscribe(data => {
       this.employeeRelationship = data.data;
     })
   }
   getEmploymentTypeMaster() {
-    this.companyService.getMastertable('employmenttypemaster', null, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('employmenttypemaster', null, 1, 1000, 'ems_qa').subscribe(data => {
       this.EmploymentTypeDetails = data.data;
     })
   }
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems_qa').subscribe(data => {
       if (data.status) {
         this.availableDesignations = data.data;
       }
     })
   }
   getDepartmentsMaster() {
-    this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, 'ems_qa').subscribe(data => {
       if (data.status) {
         this.availableDepartments = data.data;
       }
     })
   }
   getWorkLocation() {
-    this.companyService.getactiveWorkLocation({ id: null, companyName: 'ems' }).subscribe((result) => {
+    this.companyService.getactiveWorkLocation({ id: null, companyName: 'ems_qa' }).subscribe((result) => {
       this.worklocationDetails = result.data;
     })
 
   }
   getRoles() {
-    this.companyService.getMastertable('rolesmaster', null, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('rolesmaster', null, 1, 1000, 'ems_qa').subscribe(data => {
       let roledata = data.data;
       this.availableRole = [];
       for (let i = 0; i < roledata.length; i++) {
@@ -1609,7 +1609,7 @@ createValidatorForDocument(){
    this.documentsForm.get('documentName').updateValueAndValidity();
 
   }
-  
+
 
 
   onSelectImage(event:any) {
@@ -1646,7 +1646,7 @@ createValidatorForDocument(){
       'status': null
     }
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
-     
+
       if (result && result.status) {
                 this.profileId = result.data[0].id;
                 this.profileInfo = JSON.stringify(result.data[0]);

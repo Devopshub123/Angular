@@ -298,7 +298,7 @@ export class AttendanceRequestComponent implements OnInit {
 
   getWorkypeList() {
     this.workTypeData = [];
-    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'ems').subscribe((info: any) => {
+    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'ems_qa').subscribe((info: any) => {
       if (info.status && info.data.length != 0) {
         this.workTypeData = info.data;
       }

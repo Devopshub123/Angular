@@ -88,7 +88,7 @@ export class HolidaysComponent implements OnInit {
     array = values;
     this.HolidayForm.controls.branch.setValue(array)
 
-    
+
   }
 
   deselectAll(select: MatSelect) {
@@ -127,7 +127,7 @@ export class HolidaysComponent implements OnInit {
     });
   }
   getWorkLocation(){
-    this.LM.getactiveWorkLocation({id:null,companyName:'ems'}).subscribe((result)=>{
+    this.LM.getactiveWorkLocation({id:null,companyName:'ems_qa'}).subscribe((result)=>{
       this.worklocationDetails=result.data;
     })
 
@@ -150,7 +150,7 @@ export class HolidaysComponent implements OnInit {
       }));
     });
     // if(this.HolidayForm.controls.holiday.value !== null && this.holidays.holidayName !== null ){}
-    this.LM.setHolidays(this.selecteditems,'ems').subscribe((data) => {
+    this.LM.setHolidays(this.selecteditems,'ems_qa').subscribe((data) => {
 
       if(data.status){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -279,7 +279,7 @@ export class HolidaysComponent implements OnInit {
       date:date
 
     }
-    this.LM.putHolidays(data, 'ems').subscribe((data) => {
+    this.LM.putHolidays(data, 'ems_qa').subscribe((data) => {
 
       this.isadd= true;
       if (data.status) {

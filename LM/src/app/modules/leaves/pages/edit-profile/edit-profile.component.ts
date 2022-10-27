@@ -108,11 +108,11 @@ export class EditProfileComponent implements OnInit {
           if(this.employeedata != null)
           {
             this.editForm.controls.stateId.setValue(this.employeedata.state);
-  
+
           }
 
         }
-       
+
       })
     })
     /**get city details for residance address */
@@ -127,7 +127,7 @@ export class EditProfileComponent implements OnInit {
             this.editForm.controls.cityId.setValue(this.employeedata.city);
           }
         }
-       
+
 
       })
     })
@@ -257,7 +257,7 @@ export class EditProfileComponent implements OnInit {
       status:null,
       pageNumber:1,
       pageSize:10,
-      databaseName:'ems'
+      databaseName:'ems_qa'
     }
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
@@ -265,7 +265,7 @@ export class EditProfileComponent implements OnInit {
 
       }
     })
-    // this.LMS.getCountry('countrymaster',null,1,10,'ems').subscribe((results)=>{
+    // this.LMS.getCountry('countrymaster',null,1,10,'ems_qa').subscribe((results)=>{
     //   this.CountryDetails=results.data;
     //   this.permanentCountryDetails=results.data;
     //

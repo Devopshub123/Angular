@@ -75,7 +75,7 @@ export class NewhireComponent implements OnInit {
     })
   }
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', '1', 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('designationsmaster', '1', 1, 1000, 'ems_qa').subscribe(data => {
       this.designationsList = data.data;
     })
   }

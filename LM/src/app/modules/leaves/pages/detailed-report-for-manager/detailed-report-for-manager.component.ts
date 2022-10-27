@@ -187,7 +187,7 @@ export class DetailedReportForManagerComponent implements OnInit {
       status:'Active',
       pageNumber:1,
       pageSize:1000,
-      databaseName:'ems'
+      databaseName:'ems_qa'
     }
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
@@ -204,7 +204,7 @@ export class DetailedReportForManagerComponent implements OnInit {
       status:'Active',
       pageNumber:1,
       pageSize:1000,
-      databaseName:'ems'
+      databaseName:'ems_qa'
     }
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
