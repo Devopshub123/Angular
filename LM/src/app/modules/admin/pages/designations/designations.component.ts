@@ -109,6 +109,7 @@ export class DesignationsComponent implements OnInit {
         designationName: this.designation,
         created_by:this.userSession.id,
        created_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
+        companyDBName:this.companyDBName
       }
       if (this.valid) {
         this.LM.setDesignation(designationdata).subscribe((data) => {

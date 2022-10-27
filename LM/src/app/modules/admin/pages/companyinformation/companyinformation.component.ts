@@ -144,6 +144,7 @@ export class CompanyinformationComponent implements OnInit {
       state:this.companyForm.controls.state.value,
       city:this.companyForm.controls.city.value,
       pincode:this.companyForm.controls.pincode.value,
+      companyDBName:this.companyDBName
     }
 
 

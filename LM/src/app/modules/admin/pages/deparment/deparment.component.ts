@@ -121,6 +121,7 @@ export class DeparmentComponent implements OnInit {
       departmentName: this.department,
       created_by:this.userSession.id,
       created_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
+      companyDBName:this.companyDBName
     }
     if (this.departmentForm.valid) {
       if (this.valid) {
