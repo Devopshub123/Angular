@@ -67,6 +67,7 @@ export class HrOnboardingComponent implements OnInit {
   employeeId: any;
   userSession: any;
   deptId: any;
+  isdisable:boolean=false;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.checklistForm = this.formBuilder.group(
@@ -138,7 +139,7 @@ export class HrOnboardingComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  
+
   addChecklistOverview(data: any) {
     this.isAdd = true;
     this.isdata = false;
@@ -156,9 +157,11 @@ export class HrOnboardingComponent implements OnInit {
         this.employeeChecklists = res.data;
         for (let i = 0; i < res.data.length; i++){
           if (res.data[i].status != 'Completed') {
-            this.hide = true;
+            this.isdisable = true;
+          }else{
+            this.selectedChecklists.push(res.data[i].checklist_id);
           }
-          
+
         }
         this.checklistDataSource = new MatTableDataSource(this.employeeChecklists);
       }
@@ -171,7 +174,7 @@ export class HrOnboardingComponent implements OnInit {
       cid:this.selectedChecklists,
       eid:this.employeeId,
       did:this.userSession.deptid,
-      cmmt:null,
+      cmmt:this.checklistForm.controls.remarks.value,
       status:"Completed",
       fstatus:this.checked == true ? "Completed" : "Pending Checklist",
       category:"Onboarding",
@@ -201,7 +204,7 @@ export class HrOnboardingComponent implements OnInit {
         position: { top: `70px` },
         disableClose: true,
         data:"Please select checklist"
-      });  
+      });
 }
   }
   cancel() {
