@@ -192,7 +192,7 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
         cmmt: null,
         status: "Completed",
         fstatus: this.checked == true ? "Completed" : "Pending Checklist",
-        category: "Onboarding",
+        category: "Offboarding",
         actionBy: this.userSession.id
       }
 

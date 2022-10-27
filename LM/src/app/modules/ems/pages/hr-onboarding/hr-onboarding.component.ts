@@ -46,6 +46,7 @@ export class HrOnboardingComponent implements OnInit {
   enable: any = null;
   searchdate: any = null;
   istable: boolean = true;
+  hide: boolean = false;
   displayedColumns: string[] = ['sno', 'name', 'hiredate', 'joindate', 'status', 'action'];
   checklistdisplayedColumns: string[] = ['sno', 'dept', 'approver', 'checklist', 'status'];
   visibleList: any = ['Task Completed', 'Revoke new hire', 'Mark as not joining', 'Remove new hire'];
@@ -153,6 +154,12 @@ export class HrOnboardingComponent implements OnInit {
     this.emsService.getEmployeeBoardingCheckList(this.employeeId, "Onboarding", null).subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.employeeChecklists = res.data;
+        for (let i = 0; i < res.data.length; i++){
+          if (res.data[i].status != 'Completed') {
+            this.hide = true;
+          }
+          
+        }
         this.checklistDataSource = new MatTableDataSource(this.employeeChecklists);
       }
     })

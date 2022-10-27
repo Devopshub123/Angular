@@ -116,7 +116,7 @@ export class ResignationComponent implements OnInit {
   }
   close(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/MainDashboard"]));
+            this.router.navigate(["ems/employeeDashboard"]));
 
   }
   saved(){

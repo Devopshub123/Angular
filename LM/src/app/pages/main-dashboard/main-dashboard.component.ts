@@ -412,7 +412,8 @@ export class MainDashboardComponent implements OnInit {
     })
   }
   attendanceRequest(elment: RequestData) {
-    this.router.navigate(["/Attendance/Request"], { state: { userData: elment } });
+    this.getrolescreenfunctionalities(4, true);
+     this.router.navigate(["/Attendance/Request"], { state: { userData: elment } });
   }
 
   getPendingAttendanceRequestListByEmpId() {
