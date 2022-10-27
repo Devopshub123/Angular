@@ -1,11 +1,10 @@
 <div fxLayout="column" *ngIf="isdata" >
-        <mat-card>
-            <mat-card-header class="">
+         <mat-card-header class="">
                 <mat-card-title > Leave History </mat-card-title>
             </mat-card-header><br>
             <mat-divider></mat-divider>
-
-            <div class="mat-elevation-z8">
+<div class="tableP">
+            <div class="mat-elevation-z1">
                 <table mat-table [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="appliedon">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Applied On </th>
@@ -78,16 +77,12 @@
                 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                 <!-- <mat-paginator [pageSizeOptions]="getPageSizeOptions()" showFirstLastButtons></mat-paginator> -->
             </div>
-
-
-
-
-        </mat-card>
+        </div>
 </div>
 
 <div fxLayout="column"  *ngIf="isview">
-    <mat-card>
-        <mat-card-header class="">
+ 
+        <mat-card-header>
             <!-- <div style="text-align:center"> -->
                 <mat-card-title style="position:center"  > {{viewdata.leavestatus+ ' Leave'}} </mat-card-title>
                 <!-- <mat-card-title   *ngIf="viewdata.leavestatus === 'Deleted'"> Deleted Leave </mat-card-title>
@@ -226,11 +221,8 @@
               <button class="link" style="margin-left: 10px"  (click)="fileView()"  *ngIf="pdfName">{{pdfName}}</button>
             </div>
             </div>
-        <div  fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
+        <div  fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="center">
             <button class="col-md-1  btn btn-danger"   (click)="close()">Close</button>
         </div>
-
-    </mat-card>
-
 </div>
 

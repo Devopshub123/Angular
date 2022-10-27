@@ -1,5 +1,5 @@
-<div fxLayout="column">
-  <mat-card style="flex-flow: nowrap">
+<div fxLayout="column" style="background-color: white;">
+
     <mat-card-header>
       <mat-card-title style="text-align: center"> Leave history </mat-card-title>
     </mat-card-header>
@@ -11,7 +11,7 @@
       <!--<mat-icon matSuffix>search</mat-icon>-->
       <!--</mat-form-field>-->
     </div>
-    <div class="mat-elevation-z8" style="margin-top: 2%;margin-left:20px;margin-bottom:20px; margin-right:20px;">
+    <div class="mat-elevation-z1" style="margin-top: 2%;margin-left:20px;margin-bottom:20px; margin-right:20px;">
       <mat-card-content style="width:100%;overflow-x: auto">
 
       <table mat-table [dataSource]="dataSource" matSort>
@@ -87,5 +87,5 @@
       <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
       <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
     </div>
-  </mat-card>
+
 </div>

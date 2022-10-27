@@ -53,6 +53,8 @@ export class NewhireComponent implements OnInit {
   dataNotSave: any;
   isvalid: boolean = false;
   minHireDate: any;
+  EM43: any;
+  EM55: any;
   companyDBName:any = environment.dbName;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
@@ -61,7 +63,7 @@ export class NewhireComponent implements OnInit {
       {
       firstname: ["",[Validators.required,this.noWhitespaceValidator()]],
       lastname: ["",[Validators.required,this.noWhitespaceValidator()]],
-      middlename:["",[this.noWhitespaceValidator()]],
+      middlename:[""],
       email:["",[Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       dateofjoin:["",[Validators.required,]],
       hiredon:["",[Validators.required,]],
@@ -108,20 +110,21 @@ export class NewhireComponent implements OnInit {
       this.emsService.saveNewHireData(data).subscribe((res: any) => {
         if (res.status) {
        this.spinner.hide();
-           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/ems/new-hired-list"]));
+           
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data:"Added new hire sucessfully"
+            data:this.EM55
           });
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+          this.router.navigate(["/ems/new-hired-list"]));
 
         } else {
        this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-           data: "Data is not saved"
+           data: this.EM43
           });
         }
       });
@@ -152,6 +155,10 @@ export class NewhireComponent implements OnInit {
          this.requiredField = e.message
         } else if (e.code == "EM2") {
           this.requiredOption =e.message
+        }else if (e.code == "EM43") {
+          this.EM43 =e.message
+        }else if (e.code == "EM55") {
+          this.EM55 =e.message
         }
          })
      } else {
