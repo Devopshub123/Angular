@@ -99,7 +99,7 @@
     </form>
       <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
         <mat-label>Search Employee</mat-label>
-        <input formControlName="searchName" (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
+        <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
       </mat-form-field>
 

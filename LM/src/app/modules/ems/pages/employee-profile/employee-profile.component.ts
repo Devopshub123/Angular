@@ -351,8 +351,9 @@ export class EmployeeProfileComponent implements OnInit {
       this.personalInfoForm.controls.bloodgroup.setValue(this.employeeInformationData.bloodgroup);
       this.personalInfoForm.controls.gender.setValue(this.employeeInformationData.gender);
       this.personalInfoForm.controls.maritalstatus.setValue(this.employeeInformationData.maritalstatus);
-if(this.employeeInformationData.aadharnumber !='null' || this.employeeInformationData.aadharnumber !=null)
-      this.personalInfoForm.controls.aadharNumber.setValue(this.employeeInformationData.aadharnumber);
+      if (this.employeeInformationData.aadharnumber != 'null' || this.employeeInformationData.aadharnumber != null || this.employeeInformationData.aadharnumber != "null") {
+        this.personalInfoForm.controls.aadharNumber.setValue(this.employeeInformationData.aadharnumber);
+        }
       this.personalInfoForm.controls.raddress.setValue(this.employeeInformationData.address);
       this.personalInfoForm.controls.rcountry.setValue(this.employeeInformationData.country);
       this.personalInfoForm.controls.rstate.setValue(this.employeeInformationData.state);

@@ -6,16 +6,26 @@
                     <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center">
                         <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
                             <img class="avatar-preview" [src]="url.base64String" />
-                          </div>
-                     </div>
+                        </div>
+                    </div>
 
                     <div fxFlex="70" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="start">
                         <span>
-                            <p class="subh"><span class="heading">{{employeeNameh}}</span></p>
-                            <p class="subh">Designation: <span class="heading1">{{employeeDesignation}}</span> </p>
-                            <p class="subh">Date of join: <span class="heading1"> {{employeeJoinDate | date:
-                                    'dd-MM-YYYY'}}</span> </p>
-                            <p class="subh">Mobile: <span class="heading1">{{employeeMobile}} </span></p>
+                            <p class="subh">
+                                <span class="heading">{{ employeeNameh }}</span>
+                            </p>
+                            <p class="subh">
+                                Designation:
+                                <span class="heading1">{{ employeeDesignation }}</span>
+                            </p>
+                            <p class="subh">
+                                Date of join:
+                                <span class="heading1">
+                                    {{ employeeJoinDate | date: "dd-MM-YYYY" }}</span>
+                            </p>
+                            <p class="subh">
+                                Mobile: <span class="heading1">{{ employeeMobile }} </span>
+                            </p>
                         </span>
                     </div>
                 </div>
@@ -37,27 +47,25 @@
                                     <input type="text" formControlName="firstname" #firstname
                                         (keypress)="alphabetKeyPress($event)" matInput placeholder="First Name"
                                         maxlength="100" required />
-                                    <mat-error class="reg-error"
-                                        *ngIf="personalInfoForm.controls.firstname.errors?.required || 
+                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.firstname.errors?.required || 
                                         personalInfoForm.controls.firstname.errors?.['whitespace']">
-                                        {{EM1}}
+                                        {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Middle Name</mat-label>
                                     <input type="text" (keypress)="alphabetKeyPress($event)" specialIsAlpha
-                                        formControlName="middlename" matInput placeholder="" maxlength="70" />
+                                        formControlName="middlename" matInput placeholder="" maxlength="100" />
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Last Name</mat-label>
                                     <input formControlName="lastname" specialIsAlpha matInput placeholder=""
-                                        maxlength="70" required (keypress)="alphabetKeyPress($event)"/>
-                                    <mat-error class="reg-error"
-                                        *ngIf="personalInfoForm.controls.lastname.errors?.required || 
+                                    maxlength="100" required (keypress)="alphabetKeyPress($event)" />
+                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.lastname.errors?.required || 
                                         personalInfoForm.controls.lastname.errors?.['whitespace']">
-                                        {{EM1}}
+                                        {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
                             </div>
@@ -66,14 +74,15 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Date of Birth</mat-label>
                                     <input required matInput readonly [matDatepicker]="dateofbirth" [min]="minDate"
-                                        [max]="maxBirthDate" placeholder="MM/DD/YYYY" formControlName="dateofbirth"
+                                        [max]="maxBirthDate" placeholder="DD-MM-YYYY" formControlName="dateofbirth"
                                         (click)="dateofbirth.open()" />
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofbirth">
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #dateofbirth></mat-datepicker>
-                                    <mat-error class="reg-error"
-                                        *ngIf="personalInfoForm.controls.dateofbirth.errors?.required">
-                                        {{EM2}}
+                                    <mat-error class="reg-error" *ngIf="
+                      personalInfoForm.controls.dateofbirth.errors?.required
+                    ">
+                                        {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
 
@@ -82,7 +91,7 @@
                                     <mat-select formControlName="bloodgroup">
                                         <ng-container>
                                             <div *ngFor="let b of bloodGroupdetails">
-                                                <mat-option [value]="b.id">{{b.bloodgroup}}</mat-option>
+                                                <mat-option value={{b.id}}>{{ b.bloodgroup }}</mat-option>
                                             </div>
                                         </ng-container>
                                     </mat-select>
@@ -93,13 +102,13 @@
                                     <mat-select formControlName="gender" required>
                                         <ng-container>
                                             <div *ngFor="let b of genderDetails">
-                                                <mat-option [value]="b.id">{{b.gender}}</mat-option>
+                                                <mat-option [value]="b.id">{{ b.gender }}</mat-option>
                                             </div>
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="reg-error"
                                         *ngIf="personalInfoForm.controls.gender.errors?.required">
-                                        {{EM2}}
+                                        {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
                             </div>
@@ -116,25 +125,32 @@
                                             </div>
                                         </ng-container>
                                     </mat-select>
-                                    <mat-error class="reg-error"
-                                        *ngIf="personalInfoForm.controls.maritalstatus.errors?.required">
-                                        {{EM2}}
+                                    <mat-error class="reg-error" *ngIf="
+                      personalInfoForm.controls.maritalstatus.errors?.required
+                    ">
+                                        {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Aadhar Number</mat-label>
-                                    <input #aadharnumber type="text" onlyNumber (keypress)=numberOnly($event)
-                                        formControlName="aadharNumber" matInput maxlength="12"
+                                    <input #aadharnumber type="text" onlyNumber (keypress)="numberOnly($event)"
+                                        formControlName="aadharNumber" matInput maxlength="12" minlength="12"
                                         placeholder="Aadhar Number" />
+                                        <mat-error class="reg-error" 
+                                        *ngIf="personalInfoForm.controls.aadharNumber.errors?.minlength || 
+                                        personalInfoForm.controls.aadharNumber.errors?.maxlength">
+                                        Please enter 12 digit valid number
+                                    </mat-error>
                                 </mat-form-field>
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Personal Email</mat-label>
                                     <input type="text" formControlName="personalemail" matInput placeholder=""
-                                        required />
-                                    <mat-error class="reg-error"
-                                        *ngIf="personalInfoForm.controls.personalemail.errors?.required">
-                                        {{EM1}}
+                                        required maxlength="50"/>
+                                    <mat-error class="reg-error" *ngIf="
+                      personalInfoForm.controls.personalemail.errors?.required
+                    ">
+                                        {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
                             </div>
@@ -142,26 +158,32 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.sm="50" class="mx-2 my-2"
                                     appearance="outline">
                                     <mat-label>Languages Spoken</mat-label>
-                                    <input type="text" formControlName="spokenLanguages" matInput placeholder="" />
+                                    <input type="text" formControlName="spokenLanguages" matInput placeholder="" maxlength="100"/>
                                 </mat-form-field>
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Mobile Number</mat-label>
                                     <input type="text" onlyNumber formControlName="mobileNo" matInput placeholder=""
-                                        maxlength="10" (keypress)=_keyPress($event) required />
+                                        maxlength="10" minlength="10" (keypress)="_keyPress($event)" required />
                                     <mat-error class="con-error"
                                         *ngIf="personalInfoForm.controls.mobileNo.errors?.required">
-                                        {{EM1}}
+                                        {{ EM1 }}
                                     </mat-error>
+                                    <mat-error class="reg-error" 
+                                    *ngIf="personalInfoForm.controls.mobileNo.errors?.minlength || 
+                                    personalInfoForm.controls.mobileNo.errors?.maxlength">
+                                    Please enter  valid number
+                                </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Alternate Mobile Number</mat-label>
                                     <input type="text" onlyNumber formControlName="alternateMobileNo" matInput
-                                        placeholder="" maxlength="10" (keypress)=_keyPress($event) />
-                                    <!-- <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.alternateMobileNo.errors?.required">
-                                        {{EM1}}
-                                    </mat-error> -->
+                                        placeholder="" maxlength="10" minlength="10" (keypress)="_keyPress($event)" />
+                                        <mat-error class="reg-error" 
+                                        *ngIf="personalInfoForm.controls.alternateMobileNo.errors?.minlength || 
+                                        personalInfoForm.controls.alternateMobileNo.errors?.maxlength">
+                                        Please enter  valid number
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
 
@@ -208,16 +230,15 @@
                                             </div>
                                         </ng-container>
                                     </mat-select>
-                                    <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.employmentType.errors?.required">
-                                        {{EM2}}
+                                    <mat-error class="con-error" *ngIf="
+                      personalInfoForm.controls.employmentType.errors?.required
+                    ">
+                                        {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
                             </div>
 
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                               
-
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Role</mat-label>
                                     <mat-select required formControlName="usertype">
@@ -229,7 +250,7 @@
                                     </mat-select>
                                     <mat-error class="con-error"
                                         *ngIf="personalInfoForm.controls.usertype.errors?.required">
-                                        {{EM2}}
+                                        {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
 
@@ -242,9 +263,10 @@
                                             </div>
                                         </ng-container>
                                     </mat-select>
-                                    <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.companylocation.errors?.required">
-                                        {{EM2}}
+                                    <mat-error class="con-error" *ngIf="
+                      personalInfoForm.controls.companylocation.errors?.required
+                    ">
+                                        {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
@@ -258,16 +280,15 @@
                                             </div>
                                         </ng-container>
                                     </mat-select>
-                                    <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.designation.errors?.required">
-                                        {{EM2}}
+                                    <mat-error class="con-error" *ngIf="
+                      personalInfoForm.controls.designation.errors?.required
+                    ">
+                                        {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
                             </div>
 
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                               
-
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Department</mat-label>
                                     <mat-select required formControlName="department">
@@ -277,9 +298,10 @@
                                             </div>
                                         </ng-container>
                                     </mat-select>
-                                    <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.department.errors?.required">
-                                        {{EM2}}
+                                    <mat-error class="con-error" *ngIf="
+                      personalInfoForm.controls.department.errors?.required
+                    ">
+                                        {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
 
@@ -287,18 +309,23 @@
                                     <mat-label>Reporting Manager</mat-label>
                                     <mat-select formControlName="reportingmanager" required>
                                         <ng-container *ngFor="let b of availablereportingmanagers">
-                                            <mat-option [value]="b.id">{{b.employee_name}}</mat-option>
+                                            <mat-option [value]="b.id">{{
+                                                b.employee_name
+                                                }}</mat-option>
                                         </ng-container>
                                         <mat-option value="Self" *ngIf="isself">Self</mat-option>
                                     </mat-select>
-                                    <mat-error class="con-error"
-                                    *ngIf="personalInfoForm.controls.reportingmanager.errors?.required">
-                                    {{EM2}}
-                                </mat-error>
+                                    <mat-error class="con-error" *ngIf="
+                      personalInfoForm.controls.reportingmanager.errors
+                        ?.required
+                    ">
+                                        {{ EM2 }}
+                                    </mat-error>
                                 </mat-form-field>
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Notice Period</mat-label>
-                                    <input type="text" readonly formControlName="noticePeriod" matInput placeholder="" />
+                                    <input type="text" readonly formControlName="noticePeriod" matInput
+                                        placeholder="" />
                                 </mat-form-field>
                             </div>
 
@@ -306,49 +333,44 @@
                               
                             </div> -->
 
-
                             <div class="section"><b>Personal Contact Information</b></div>
                             <mat-divider></mat-divider>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end"
-                                style="padding-top:1% ;padding-bottom:1% ;">
-
+                                style="padding-top: 1%; padding-bottom: 1%">
                                 <mat-slide-toggle formControlName="checked" color="primary"><b>Same as residence
                                         address</b></mat-slide-toggle>
                             </div>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Residence Address</mat-label>
                                     <input type="text" formControlName="raddress" matInput placeholder=""
-                                        maxlength="100" required>
+                                        maxlength="100" required />
                                     <mat-error class="con-error"
                                         *ngIf="personalInfoForm.controls.raddress.errors?.required">
-                                        {{EM1}}
+                                        {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Permanent Address</mat-label>
                                     <input type="text" formControlName="paddress" matInput placeholder=""
-                                        maxlength="100">
+                                        maxlength="100" />
                                     <!-- <input *ngIf="isview" formControlName="lastname" matInput placeholder="" readonly> -->
                                 </mat-form-field>
-
                             </div>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Country</mat-label>
                                     <mat-select required formControlName="rcountry" required>
                                         <ng-container>
                                             <div *ngFor="let b of countryDetails">
-                                                <mat-option [value]="b.id">{{b.country}}</mat-option>
+                                                <mat-option [value]="b.id">{{ b.country }}</mat-option>
                                             </div>
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="con-error"
                                         *ngIf="personalInfoForm.controls.rcountry.errors?.required">
-                                        {{EM2}}
+                                        {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
 
@@ -357,27 +379,25 @@
                                     <mat-select formControlName="pcountry">
                                         <ng-container>
                                             <div *ngFor="let b of permanentCountryDetails">
-                                                <mat-option [value]="b.id">{{b.country}}</mat-option>
+                                                <mat-option [value]="b.id">{{ b.country }}</mat-option>
                                             </div>
-
                                         </ng-container>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>State</mat-label>
                                     <mat-select formControlName="rstate" required>
                                         <ng-container>
                                             <div *ngFor="let b of stateDetails">
-                                                <mat-option [value]="b.id">{{b.state}}</mat-option>
+                                                <mat-option [value]="b.id">{{ b.state }}</mat-option>
                                             </div>
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="con-error"
                                         *ngIf="personalInfoForm.controls.rstate.errors?.required">
-                                        {{EM2}}
+                                        {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
 
@@ -386,27 +406,25 @@
                                     <mat-select formControlName="pstate">
                                         <ng-container>
                                             <div *ngFor="let b of permanentStateDetails">
-                                                <mat-option [value]="b.id">{{b.state}}</mat-option>
+                                                <mat-option [value]="b.id">{{ b.state }}</mat-option>
                                             </div>
-
                                         </ng-container>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>City</mat-label>
                                     <mat-select formControlName="rcity" required>
                                         <ng-container>
                                             <div *ngFor="let b of cityDetails">
-                                                <mat-option [value]="b.id">{{b.location}}</mat-option>
+                                                <mat-option [value]="b.id">{{ b.location }}</mat-option>
                                             </div>
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="con-error"
                                         *ngIf="personalInfoForm.controls.rcity.errors?.required">
-                                        {{EM2}}
+                                        {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
 
@@ -415,43 +433,42 @@
                                     <mat-select formControlName="pcity">
                                         <ng-container>
                                             <div *ngFor="let b of permanentCityDetails">
-                                                <mat-option [value]="b.id">{{b.location}}</mat-option>
+                                                <mat-option [value]="b.id">{{ b.location }}</mat-option>
                                             </div>
-
                                         </ng-container>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Pincode</mat-label>
                                     <input type="text" onlyNumber formControlName="rpincode" matInput placeholder=""
-                                        maxlength="6"  minlength="6" required>
+                                        maxlength="6" minlength="6" required />
                                     <mat-error class="con-error"
                                         *ngIf="personalInfoForm.controls.rpincode.errors?.required">
-                                        {{EM1}}
+                                        {{ EM1 }}
                                     </mat-error>
-                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.rpincode.errors?.minlength">
+                                    <mat-error class="reg-error"
+                                        *ngIf="personalInfoForm.controls.rpincode.errors?.minlength">
                                         Pincode should be 6 digits
-                                     </mat-error>
+                                    </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Pincode</mat-label>
                                     <input type="text" onlyNumber formControlName="ppincode" matInput placeholder=""
-                                    maxlength="6"  minlength="6">
-                                        <mat-error class="reg-error" *ngIf="personalInfoForm.controls.ppincode.errors?.minlength">
-                                            Pincode should be 6 digits
-                                         </mat-error>
+                                        maxlength="6" minlength="6" />
+                                    <mat-error class="reg-error"
+                                        *ngIf="personalInfoForm.controls.ppincode.errors?.minlength">
+                                        Pincode should be 6 digits
+                                    </mat-error>
                                 </mat-form-field>
-
                             </div>
 
                             <form [formGroup]="CandidateFamilyForm">
                                 <div class="section" fxLayout="row">
                                     <span><b>Family Details : </b></span>
-                                    <span style="padding-top:3px; padding-left: 1%;">
+                                    <span style="padding-top: 3px; padding-left: 1%">
                                         <mat-icon title="Add" (click)="addingFamilyView()">add_box</mat-icon>
                                     </span>
                                 </div>
@@ -464,9 +481,11 @@
                                             <mat-label>First Name</mat-label>
                                             <input type="text" formControlName="familyfirstname" matInput placeholder=""
                                                 maxlength="100" required />
-                                            <mat-error class="con-error"
-                                                *ngIf="CandidateFamilyForm.controls.familyfirstname.errors?.required">
-                                                {{EM1}}
+                                            <mat-error class="con-error" *ngIf="
+                          CandidateFamilyForm.controls.familyfirstname.errors
+                            ?.required
+                        ">
+                                                {{ EM1 }}
                                             </mat-error>
                                         </mat-form-field>
 
@@ -487,10 +506,12 @@
                                                     </div>
                                                 </ng-container>
                                             </mat-select>
-                                            <mat-error class="con-error"
-                                            *ngIf="CandidateFamilyForm.controls.familygender.errors?.required">
-                                            {{EM2}}
-                                        </mat-error>
+                                            <mat-error class="con-error" *ngIf="
+                          CandidateFamilyForm.controls.familygender.errors
+                            ?.required
+                        ">
+                                                {{ EM2 }}
+                                            </mat-error>
                                         </mat-form-field>
                                     </div>
 
@@ -508,10 +529,11 @@
                                                     </div>
                                                 </ng-container>
                                             </mat-select>
-                                            <mat-error class="con-error"
-                                            *ngIf="CandidateFamilyForm.controls.relation.errors?.required">
-                                            {{EM2}}
-                                        </mat-error>
+                                            <mat-error class="con-error" *ngIf="
+                          CandidateFamilyForm.controls.relation.errors?.required
+                        ">
+                                                {{ EM2 }}
+                                            </mat-error>
                                         </mat-form-field>
 
                                         <mat-form-field fxFlex.xs="100" fxFlex.sm="50" fxFlex="32" class="mx-2 my-2"
@@ -525,7 +547,7 @@
                                                 </ng-container>
                                             </mat-select>
                                         </mat-form-field>
-                                       
+
                                         <div fxLayout="row" fxLayoutAlign=" center">
                                             <button class="m-1 mat-stroked-button button-save" (click)="addfamily()">
                                                 <span> Add </span>
@@ -540,8 +562,10 @@
                                 <div class="mat-elevation-z1" *ngIf="familyDetails.length > 0">
                                     <table mat-table [dataSource]="familyDataSource">
                                         <ng-container matColumnDef="position">
-                                            <th mat-header-cell *matHeaderCellDef> S No </th>
-                                            <td mat-cell *matCellDef="let data; let i = index;"> {{i+1}} </td>
+                                            <th mat-header-cell *matHeaderCellDef>S No</th>
+                                            <td mat-cell *matCellDef="let data; let i = index">
+                                                {{ i + 1 }}
+                                            </td>
                                         </ng-container>
 
                                         <ng-container matColumnDef="name">
@@ -594,8 +618,8 @@
                                 <br />
                             </form>
                             <div fxLayoutAlign="center">
-                                <button class="col-md-1 btn btn-primary mx-2 my-2" 
-                                    (click)="savePersonalInfo()" type="submit">
+                                <button class="col-md-1 btn btn-primary mx-2 my-2" (click)="savePersonalInfo()"
+                                    type="submit">
                                     <span>Save</span>
                                 </button>
                                 <!-- <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="personalInfoClear()">
@@ -608,135 +632,216 @@
                 </mat-tab>
                 <!-- job tab -->
                 <mat-tab label="Job">
-                    <div fxLayout="column" style="padding: 10px;">
-                        <form [formGroup]="employeeJobForm" *ngIf="isContractData">
-                            <div class="section"><b>Employee Contract</b></div>
-                            <mat-divider></mat-divider>
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Contract Name</mat-label>
-                                    <input type="text" formControlName="contractName" matInput placeholder=""
-                                        maxlength="100" />
-                                </mat-form-field>
-
-                                <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Start Date</mat-label>
-                                    <input matInput readonly [matDatepicker]="contractStartDate" [min]="minDate"
-                                        [max]="maxDate" placeholder="MM/DD/YYYY"
-                                         formControlName="contractStartDate" (click)="contractStartDate.open()" />
-                                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="contractStartDate">
-                                    </mat-datepicker-toggle>
-                                    <mat-datepicker #contractStartDate></mat-datepicker>
-                                </mat-form-field>
-
-                                <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>End Date</mat-label>
-                                    <input matInput readonly [matDatepicker]="contractEndDate" [min]="mincontarctDate"
-                                        [max]="maxDate" placeholder="MM/DD/YYYY"
-                                         formControlName="contractEndDate" (click)="contractEndDate.open()" />
-                                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="contractEndDate">
-                                    </mat-datepicker-toggle>
-                                    <mat-datepicker #contractEndDate></mat-datepicker>
-                                </mat-form-field>
-                            </div>
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                                <!-- <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                    <div fxLayout="column" style="padding: 10px">
+                        <!-- contract with promotions -->
+                        <div *ngIf="isContractData">
+                            <form [formGroup]="employeeJobForm" *ngIf="isContractData">
+                                <div class="section"><b>Employee Contract</b></div>
+                                <mat-divider></mat-divider>
+                                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                                    <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                        <mat-label>Contract Name</mat-label>
+                                        <input type="text" formControlName="contractName" matInput placeholder=""
+                                            maxlength="100" required />
+                                        <mat-error class="con-error" *ngIf="
+                        employeeJobForm.controls.contractName.errors?.required
+                      ">
+                                            {{ EM1 }}
+                                        </mat-error>
+                                    </mat-form-field>
+                                    <!-- new date -->
+                                    <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                        <mat-label>Start Date</mat-label>
+                                        <input required matInput readonly [matDatepicker]="contractStartDate" [max]="edmaxDate"
+                                            placeholder="DD-MM-YYYY" formControlName="contractStartDate"
+                                            (click)="contractStartDate.open()" />
+                                        <mat-datepicker-toggle class="datepicker" matSuffix [for]="contractStartDate">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #contractStartDate></mat-datepicker>
+                                        <mat-error class="con-error" 
+                                        *ngIf="employeeJobForm.controls.contractStartDate.errors?.required">
+                                            {{ EM2 }}
+                                        </mat-error>
+                                    </mat-form-field>
+<!-- start date -->
+                                    <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                        <mat-label>End Date</mat-label>
+                                        <input matInput readonly [matDatepicker]="contractEndDate"
+                                            [min]="mincontarctDate" [max]="maxDate" placeholder="DD-MM-YYYY"
+                                            formControlName="contractEndDate" (click)="contractEndDate.open()"
+                                            required />
+                                        <mat-datepicker-toggle class="datepicker" matSuffix [for]="contractEndDate">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #contractEndDate></mat-datepicker>
+                                        <mat-error class="con-error" 
+                                        *ngIf="employeeJobForm.controls.contractEndDate.errors?.required">
+                                            {{ EM2 }}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                                    <!-- <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Attach File</mat-label>
                                     <input type="text" onlyNumber formControlName="contractFile" matInput placeholder=""
                                         maxlength="6" />
                                 </mat-form-field> -->
-                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Contract Notes</mat-label>
-                                    <textarea formControlName="contractNotes" matInput placeholder=""
-                                    maxlength="500"></textarea>
-                                    <!-- <input type="text" formControlName="contractNotes" matInput
-                                        placeholder="" maxlength="500" /> -->
-                                </mat-form-field>
-                            </div>
-                        </form>
-                       
-                        <div class="section"><b>Promotions</b></div>
-                        <mat-divider></mat-divider>
-                        <form [formGroup]="promotionsForm">
+                                    <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                        <mat-label>Contract Notes</mat-label>
+                                        <textarea formControlName="contractNotes" matInput placeholder=""
+                                            maxlength="500"></textarea>
+                                    </mat-form-field>
+                                </div>
 
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Description</mat-label>
-                                    <input type="text" onlyNumber formControlName="newDescription" matInput
-                                        placeholder="" required />
-                                    <mat-error class="con-error"
+                                <div class="section"><b>Promotions</b></div>
+                                <mat-divider></mat-divider>
+                                <form [formGroup]="promotionsForm">
+                                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                                        <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2"
+                                            appearance="outline">
+                                            <mat-label>Description</mat-label>
+                                            <input type="text" onlyNumber formControlName="newDescription" matInput
+                                                placeholder="" />
+                                        </mat-form-field>
+
+                                        <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2"
+                                            appearance="outline">
+                                            <mat-label>New Salary</mat-label>
+                                            <input type="text" onlyNumber (keypress)="numberOnly($event)"
+                                                formControlName="newSalary" matInput placeholder="" maxlength="7" />
+                                        </mat-form-field>
+
+                                        <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2"
+                                            appearance="outline">
+                                            <mat-label>Effective Date</mat-label>
+                                            <input matInput readonly [matDatepicker]="effectiveDate" [min]="minDate"
+                                                [max]="maxDate" placeholder="MM/DD/YYYY" formControlName="effectiveDate"
+                                                (click)="effectiveDate.open()" />
+                                            <mat-datepicker-toggle class="datepicker" matSuffix [for]="effectiveDate">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #effectiveDate></mat-datepicker>
+                                        </mat-form-field>
+
+                                        <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2"
+                                            appearance="outline">
+                                            <mat-label>Annual Salary</mat-label>
+                                            <input type="text" onlyNumber maxlength="7" (keypress)="numberOnly($event)"
+                                                formControlName="annualSalary" matInput placeholder="" />
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="mat-elevation-z1" *ngIf="promotionsGetList.length > 0">
+                                        <table mat-table [dataSource]="promotionsDataSource">
+                                            <ng-container matColumnDef="sno">
+                                                <th mat-header-cell *matHeaderCellDef>S No</th>
+                                                <td mat-cell *matCellDef="let data; let i = index">
+                                                    {{ i + 1 }}
+                                                </td>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="salary">
+                                                <th mat-header-cell *matHeaderCellDef>Annual Salary</th>
+                                                <td mat-cell *matCellDef="let data">
+                                                    {{ data.annualsalary }}
+                                                </td>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="fromDate">
+                                                <th mat-header-cell *matHeaderCellDef>Effective Date</th>
+                                                <td mat-cell *matCellDef="let data">
+                                                    {{ data.effectivedate | date: "dd-MM-yyyy" }}
+                                                </td>
+                                            </ng-container>
+                                            <tr mat-header-row *matHeaderRowDef="promotionsTableColumns"></tr>
+                                            <tr mat-row *matRowDef="let row; columns: promotionsTableColumns"></tr>
+                                        </table>
+                                    </div>
+                                </form>
+                                <div fxLayoutAlign="center">
+                                    <button class="m-1 mat-stroked-button button-save" (click)="saveJobDetails()">
+                                        <span>Save</span>
+                                    </button>
+                                    <br />
+                                </div>
+                            </form>
+                        </div>
+                        <!-- only promotions -->
+                        <div *ngIf="isPromotionsOnly">
+                            <div class="section"><b>Promotions</b></div>
+                            <mat-divider></mat-divider>
+                            <form [formGroup]="promotionsForm">
+                                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                                    <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                        <mat-label>Description</mat-label>
+                                        <input type="text" onlyNumber formControlName="newDescription" matInput
+                                            placeholder="" required />
+                                        <mat-error class="con-error" 
                                         *ngIf="promotionsForm.controls.newDescription.errors?.required">
-                                        {{EM1}}
-                                    </mat-error>
-                                </mat-form-field>
+                                            {{ EM1 }}
+                                        </mat-error>
+                                    </mat-form-field>
 
-                                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>New Salary</mat-label>
-                                    <input type="text" onlyNumber (keypress)=numberOnly($event)
-                                        formControlName="newSalary" matInput placeholder="" maxlength="7" required />
-                                    <mat-error class="con-error"
-                                        *ngIf="promotionsForm.controls.newSalary.errors?.required">
-                                        {{EM1}}
-                                    </mat-error>
-                                </mat-form-field>
+                                    <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                        <mat-label>New Salary</mat-label>
+                                        <input type="text" onlyNumber (keypress)="numberOnly($event)"
+                                            formControlName="newSalary" matInput placeholder="" maxlength="7"
+                                            required />
+                                        <mat-error class="con-error"
+                                            *ngIf="promotionsForm.controls.newSalary.errors?.required">
+                                            {{ EM1 }}
+                                        </mat-error>
+                                    </mat-form-field>
 
-                                <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Effective Date</mat-label>
-                                    <input matInput readonly [matDatepicker]="effectiveDate" [min]="minDate"
-                                        [max]="maxDate" placeholder="MM/DD/YYYY" formControlName="effectiveDate"
-                                        required (click)="effectiveDate.open()"  />
-                                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="effectiveDate">
-                                    </mat-datepicker-toggle>
-                                    <mat-datepicker #effectiveDate></mat-datepicker>
-                                    <mat-error class="con-error"
-                                        *ngIf="promotionsForm.controls.effectiveDate.errors?.required">
-                                        Please select date
-                                    </mat-error>
-                                </mat-form-field>
+                                    <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                        <mat-label>Effective Date</mat-label>
+                                        <input matInput readonly [matDatepicker]="effectiveDate" [min]="minDate"
+                                            [max]="maxDate" placeholder="MM/DD/YYYY" formControlName="effectiveDate"
+                                            required (click)="effectiveDate.open()" />
+                                        <mat-datepicker-toggle class="datepicker" matSuffix [for]="effectiveDate">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #effectiveDate></mat-datepicker>
+                                        <mat-error class="con-error" *ngIf="
+                        promotionsForm.controls.effectiveDate.errors?.required
+                      ">
+                                            Please select date
+                                        </mat-error>
+                                    </mat-form-field>
 
-                                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Annual Salary</mat-label>
-                                    <input type="text" onlyNumber maxlength="7" (keypress)=numberOnly($event)
-                                        formControlName="annualSalary" matInput placeholder="" required />
-                                    <mat-error class="con-error"
-                                        *ngIf="promotionsForm.controls.annualSalary.errors?.required">
-                                        {{EM1}}
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                            <!-- <div fxLayout="row" fxLayoutAlign="end">
-                                <button class="m-1 mat-stroked-button button-save" (click)="addPromotions()">
-                                    <span> Add </span>
-                                </button>
-                                <button class="m-1 mat-stroked-button button-clear" (click)="clearPromotions()">
-                                    Clear
-                                </button>
-                            </div> -->
+                                    <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                        <mat-label>Annual Salary</mat-label>
+                                        <input type="text" onlyNumber maxlength="7" (keypress)="numberOnly($event)"
+                                            formControlName="annualSalary" matInput placeholder="" required />
+                                        <mat-error class="con-error" *ngIf="
+                        promotionsForm.controls.annualSalary.errors?.required
+                      ">
+                                            {{ EM1 }}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
 
-                            <div class="mat-elevation-z1" *ngIf="promotionsGetList.length > 0">
-                                <table mat-table [dataSource]="promotionsDataSource">
-                                    <ng-container matColumnDef="sno">
-                                        <th mat-header-cell *matHeaderCellDef>S No</th>
-                                        <td mat-cell *matCellDef="let data; let i = index">
-                                            {{ i + 1 }}
-                                        </td>
-                                    </ng-container>
+                                <div class="mat-elevation-z1" *ngIf="promotionsGetList.length > 0">
+                                    <table mat-table [dataSource]="promotionsDataSource">
+                                        <ng-container matColumnDef="sno">
+                                            <th mat-header-cell *matHeaderCellDef>S No</th>
+                                            <td mat-cell *matCellDef="let data; let i = index">
+                                                {{ i + 1 }}
+                                            </td>
+                                        </ng-container>
 
-                                    <ng-container matColumnDef="salary">
-                                        <th mat-header-cell *matHeaderCellDef>Annual Salary</th>
-                                        <td mat-cell *matCellDef="let data">
-                                            {{ data.annualsalary }}
-                                        </td>
-                                    </ng-container>
+                                        <ng-container matColumnDef="salary">
+                                            <th mat-header-cell *matHeaderCellDef>Annual Salary</th>
+                                            <td mat-cell *matCellDef="let data">
+                                                {{ data.annualsalary }}
+                                            </td>
+                                        </ng-container>
 
-                                    <ng-container matColumnDef="fromDate">
-                                        <th mat-header-cell *matHeaderCellDef>Start Date</th>
-                                        <td mat-cell *matCellDef="let data">
-                                            {{ data.effectivedate | date:'dd-MM-yyyy'}}
-                                        </td>
-                                    </ng-container>
+                                        <ng-container matColumnDef="fromDate">
+                                            <th mat-header-cell *matHeaderCellDef>Start Date</th>
+                                            <td mat-cell *matCellDef="let data">
+                                                {{ data.effectivedate | date: "dd-MM-yyyy" }}
+                                            </td>
+                                        </ng-container>
 
-                                    <!-- <ng-container matColumnDef="action">
+                                        <!-- <ng-container matColumnDef="action">
                                         <th mat-header-cell *matHeaderCellDef>Action</th>
                                         <td mat-cell *matCellDef="let element; let i = index">
                                             <mat-icon title="Edit" (click)="editfamily(i)" *ngIf="!isviewemployee">edit
@@ -747,21 +852,19 @@
                                         </td>
                                     </ng-container> -->
 
-                                    <tr mat-header-row *matHeaderRowDef="promotionsTableColumns"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: promotionsTableColumns"></tr>
-                                </table>
-                            </div>
-                        </form>
-
-
-                        <div fxLayoutAlign="center">
-                            <button class="m-1 mat-stroked-button button-save" (click)="saveJobDetails()">
-                                <span>Save</span>
-                            </button>
-                             <br />
+                                        <tr mat-header-row *matHeaderRowDef="promotionsTableColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: promotionsTableColumns"></tr>
+                                    </table>
+                                </div>
+                                <div fxLayoutAlign="center">
+                                    <button class="m-1 mat-stroked-button button-save" (click)="saveJobDetails()">
+                                        <span>Save</span>
+                                    </button>
+                                    <br />
+                                </div>
+                            </form>
                         </div>
                     </div>
-
                 </mat-tab>
                 <!-- employement tab -->
                 <mat-tab label="Employment">
@@ -776,23 +879,25 @@
                                         placeholder="" maxlength="100" required />
                                     <mat-error class="con-error"
                                         *ngIf="experienceForm.controls.companyName.errors?.required">
-                                        {{EM1}}
+                                        {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Designation</mat-label>
                                     <input type="text" required formControlName="designation" specialIsAlpha matInput
                                         placeholder="" maxlength="100" />
-                                        <mat-error class="reg-error" *ngIf="experienceForm.controls.designation.hasError('required')">
-                                            {{EM1}}
-                                        </mat-error>   
+                                    <mat-error class="reg-error" *ngIf="
+                      experienceForm.controls.designation.hasError('required')
+                    ">
+                                        {{ EM1 }}
+                                    </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>From Date</mat-label>
                                     <input matInput required readonly [matDatepicker]="expFromDate" [min]="minDate"
-                                        [max]="maxDate" placeholder="MM/DD/YYYY"
-                                         formControlName="expFromDate" (click)="expFromDate.open()" />
+                                        [max]="maxDate" placeholder="MM/DD/YYYY" formControlName="expFromDate"
+                                        (click)="expFromDate.open()" />
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="expFromDate">
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #expFromDate></mat-datepicker>
@@ -804,9 +909,9 @@
 
                                 <mat-form-field fxFlex.xs="100%" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>To Date</mat-label>
-                                    <input required matInput readonly [matDatepicker]="expToDate" [min]="minExperienceDate"
-                                        [max]="maxDate" placeholder="MM/DD/YYYY"
-                                         formControlName="expToDate"  (click)="expToDate.open()"/>
+                                    <input required matInput readonly [matDatepicker]="expToDate"
+                                        [min]="minExperienceDate" [max]="maxDate" placeholder="MM/DD/YYYY"
+                                        formControlName="expToDate" (click)="expToDate.open()" />
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="expToDate">
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #expToDate></mat-datepicker>
@@ -831,11 +936,11 @@
                                             (click)="addWorkExperience()">
                                             <span> Add </span>
                                         </button>
-                                        <button class="m-1 mat-stroked-button button-clear" (click)="clearWorkExperience()">
+                                        <button class="m-1 mat-stroked-button button-clear"
+                                            (click)="clearWorkExperience()">
                                             Clear
                                         </button>
                                     </span>
-
                                 </div>
                             </div>
                             <div class="mat-elevation-z1" *ngIf="workExperienceDetails.length > 0">
@@ -862,20 +967,21 @@
                                     <ng-container matColumnDef="fromDate">
                                         <th mat-header-cell *matHeaderCellDef>From Date</th>
                                         <td mat-cell *matCellDef="let data">
-                                            {{ data.fromdate | date:'dd-MM-yyyy'}}
+                                            {{ data.fromdate | date: "dd-MM-yyyy" }}
                                         </td>
                                     </ng-container>
                                     <ng-container matColumnDef="toDate">
                                         <th mat-header-cell *matHeaderCellDef>To Date</th>
                                         <td mat-cell *matCellDef="let data">
-                                            {{ data.todate | date:'dd-MM-yyyy'}}
+                                            {{ data.todate | date: "dd-MM-yyyy" }}
                                         </td>
                                     </ng-container>
 
                                     <ng-container matColumnDef="action">
                                         <th mat-header-cell *matHeaderCellDef>Action</th>
                                         <td mat-cell *matCellDef="let element; let i = index">
-                                            <mat-icon title="Edit" (click)="editExperience(i)" *ngIf="!isviewemployee">edit
+                                            <mat-icon title="Edit" (click)="editExperience(i)" *ngIf="!isviewemployee">
+                                                edit
                                             </mat-icon>
                                             <mat-icon title="Delete" (click)="deleteExperience(i)"
                                                 *ngIf="!isviewemployee">
@@ -927,7 +1033,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>UAN Number</mat-label>
                                     <input type="text" (keypress)="numberOnly($event)" formControlName="uanNumber"
-                                        matInput placeholder="" maxlength="15"/>
+                                        matInput placeholder="" maxlength="15" />
                                 </mat-form-field>
                             </div>
 
@@ -937,7 +1043,6 @@
                                     <input type="text" maxlength="15" (keypress)="alphaNumberOnly($event)"
                                         formControlName="panNumber" matInput placeholder="" />
                                 </mat-form-field>
-
                             </div>
                             <div fxLayoutAlign="center">
                                 <button class="m-1 mat-stroked-button button-save" (click)="saveWorkExperience()"
@@ -965,7 +1070,7 @@
                                     <input required type="text" maxlength="100" (keypress)="alphabetKeyPress($event)"
                                         formControlName="course" matInput placeholder="" appRemoveSpace />
                                     <mat-error class="con-error" *ngIf="educationForm.controls.course.errors?.required">
-                                        {{EM1}}
+                                        {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
 
@@ -973,16 +1078,17 @@
                                     <mat-label>Institute Name</mat-label>
                                     <input required type="text" maxlength="100" (keypress)="alphabetKeyPress($event)"
                                         formControlName="instituteName" matInput placeholder="" appRemoveSpace />
-                                    <mat-error class="con-error"
-                                        *ngIf="educationForm.controls.instituteName.errors?.required">
-                                        {{EM1}}
+                                    <mat-error class="con-error" *ngIf="
+                      educationForm.controls.instituteName.errors?.required
+                    ">
+                                        {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>From Date</mat-label>
                                     <input required matInput readonly [matDatepicker]="eduFromDate" [max]="edmaxDate"
-                                        placeholder="MM/DD/YYYY" formControlName="eduFromDate"
+                                        placeholder="DD-MM-YYYY" formControlName="eduFromDate"
                                         (click)="eduFromDate.open()" />
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="eduFromDate">
                                     </mat-datepicker-toggle>
@@ -995,9 +1101,9 @@
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>To Date</mat-label>
-                                    <input required matInput readonly [matDatepicker]="eduToDate" [min]="minEducationDate"
-                                        [max]="edmaxDate" placeholder="MM/DD/YYYY" formControlName="eduToDate"
-                                        (click)="eduToDate.open()" />
+                                    <input required matInput readonly [matDatepicker]="eduToDate"
+                                        [min]="minEducationDate" [max]="edmaxDate" placeholder="DD-MM-YYYY"
+                                        formControlName="eduToDate" (click)="eduToDate.open()" />
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="eduToDate">
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #eduToDate></mat-datepicker>
@@ -1040,19 +1146,20 @@
                                     <ng-container matColumnDef="fromDate">
                                         <th mat-header-cell *matHeaderCellDef>From Date</th>
                                         <td mat-cell *matCellDef="let data">
-                                            {{ data.fromdate | date:'dd-MM-yyyy'}}
+                                            {{ data.fromdate | date: "dd-MM-yyyy" }}
                                         </td>
                                     </ng-container>
                                     <ng-container matColumnDef="toDate">
                                         <th mat-header-cell *matHeaderCellDef>To Date</th>
                                         <td mat-cell *matCellDef="let data">
-                                            {{ data.todate | date:'dd-MM-yyyy'}}
+                                            {{ data.todate | date: "dd-MM-yyyy" }}
                                         </td>
                                     </ng-container>
                                     <ng-container matColumnDef="action">
                                         <th mat-header-cell *matHeaderCellDef>Action</th>
                                         <td mat-cell *matCellDef="let element; let i = index">
-                                            <mat-icon title="Edit" (click)="editEduction(i)" *ngIf="!isviewemployee">edit
+                                            <mat-icon title="Edit" (click)="editEduction(i)" *ngIf="!isviewemployee">
+                                                edit
                                             </mat-icon>
                                             <mat-icon title="Delete" (click)="deleteEducation(i)"
                                                 *ngIf="!isviewemployee">
@@ -1064,17 +1171,18 @@
                                     <tr mat-row *matRowDef="let row; columns: educationTableColumns"></tr>
                                 </table>
                             </div>
-                       
-                        <div fxLayoutAlign="center">
-                            <button class="m-1 mat-stroked-button button-save" (click)="saveEducation()" type="submit">
-                                <span>Save</span>
-                            </button>
-                            <!-- <button class="m-1 mat-stroked-button button-clear" (click)="educationClear()">
+
+                            <div fxLayoutAlign="center">
+                                <button class="m-1 mat-stroked-button button-save" (click)="saveEducation()"
+                                    type="submit">
+                                    <span>Save</span>
+                                </button>
+                                <!-- <button class="m-1 mat-stroked-button button-clear" (click)="educationClear()">
                                 <span>Cancel</span>
                             </button> -->
-                            <br />
-                        </div>
-                    </form>
+                                <br />
+                            </div>
+                        </form>
                     </div>
                 </mat-tab>
 
@@ -1090,13 +1198,15 @@
                                     <mat-select required formControlName="documentName">
                                         <ng-container>
                                             <div *ngFor="let b of documentTypeList">
-                                                <mat-option value="{{ b.category }}">{{ b.description }}</mat-option>
+                                                <mat-option value="{{ b.category }}">{{
+                                                    b.description
+                                                    }}</mat-option>
                                             </div>
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="reg-error"
                                         *ngIf="documentsForm.controls.documentName.errors?.required">
-                                        {{EM2}}
+                                        {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
 
@@ -1104,26 +1214,30 @@
                                     <mat-label>Document Number</mat-label>
                                     <input type="text" minlength="6" maxlength="14" formControlName="documentNumber"
                                         matInput placeholder="" required />
-                                    <mat-error class="reg-error"
-                                        *ngIf="documentsForm.controls.documentNumber.errors?.required">
-                                        {{EM1}}
+                                    <mat-error class="reg-error" *ngIf="
+                      documentsForm.controls.documentNumber.errors?.required
+                    ">
+                                        {{ EM1 }}
                                     </mat-error>
-                                    <mat-error class="reg-error"
-                                        *ngIf="documentsForm.controls.documentNumber.errors?.minlength">
-                                        {{EM22}}
+                                    <mat-error class="reg-error" *ngIf="
+                      documentsForm.controls.documentNumber.errors?.minlength
+                    ">
+                                        {{ EM22 }}
                                     </mat-error>
                                 </mat-form-field>
 
                                 <div fxLayout="row" style="align-items: center">
-                                    <input style="margin-left: 10px" type="file" *ngIf='!isedit'
+                                    <input style="margin-left: 10px" type="file" *ngIf="!isedit"
                                         formControlName="attachedFile" (change)="onSelectFile($event)" single />
 
-                                    <button class="link" *ngIf='isedit'>{{ editFileName }}</button>
+                                    <button class="link" *ngIf="isedit">
+                                        {{ editFileName }}
+                                    </button>
 
                                     &nbsp;
                                     <!-- <mat-icon title="cancel"  *ngIf='!isedit && editFileName' 
                                         (click)="delete()">cancel</mat-icon> -->
-                                    <mat-icon title="edit" *ngIf='isedit' (click)="delete()">edit</mat-icon>
+                                    <mat-icon title="edit" *ngIf="isedit" (click)="delete()">edit</mat-icon>
                                     &nbsp;
                                 </div>
                             </div>
@@ -1144,7 +1258,7 @@
                                     <ng-container matColumnDef="category">
                                         <th mat-header-cell *matHeaderCellDef>Document Name</th>
                                         <td mat-cell *matCellDef="let data">
-                                            {{ data.description}}
+                                            {{ data.description }}
                                         </td>
                                     </ng-container>
 
@@ -1157,9 +1271,9 @@
                                     <ng-container matColumnDef="name">
                                         <th mat-header-cell *matHeaderCellDef>Document</th>
                                         <td mat-cell *matCellDef="let data">
-
-                                            <button class="link" (click)="fileView(data)">{{ data.pdfName }}</button>
-
+                                            <button class="link" (click)="fileView(data)">
+                                                {{ data.pdfName }}
+                                            </button>
                                         </td>
                                     </ng-container>
                                     <ng-container matColumnDef="action">
@@ -1168,7 +1282,8 @@
                                             <mat-icon (click)="editDock(data)" title="Edit"
                                                 *ngIf="data.status == 'Submitted'">edit</mat-icon>
                                             <mat-icon (click)="deleteDock(data)" title="Delete"
-                                                *ngIf="data.status == 'Submitted'"> delete</mat-icon>
+                                                *ngIf="data.status == 'Submitted'">
+                                                delete</mat-icon>
                                         </td>
                                     </ng-container>
 
@@ -1179,9 +1294,8 @@
                         </form>
                     </div>
                 </mat-tab>
-
             </mat-tab-group>
         </div>
     </mat-card>
 </div>
-<ngx-spinner size="medium" type='ball-fussion'></ngx-spinner>
+<ngx-spinner size="medium" type="ball-fussion"></ngx-spinner>
