@@ -131,6 +131,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   EM22:any;
   EM2:any;
   EM1:any;
+  EM61:any;
   isedit:boolean=false;
   editFileName:any;
   employeeNameh: any;
@@ -852,6 +853,19 @@ for (let i = 0; i < workExperiencedata.length; i++) {
     this.educationForm.controls.eduToDate.reset();
     this.educationForm.valid = true;
   }
+
+  DeleteEducationPopup(event: any){
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position:{top:`70px`},
+      disableClose: true,
+      data: {message:this.EM61,YES:'YES',NO:'NO'}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'YES'){
+        this.deleteEducation(event)
+      }
+      });
+  }
   deleteEducation(index: any) {
     this.educationDetails.splice(index, 1);
     this.educationDataSource = new MatTableDataSource(this.educationDetails);
@@ -1284,6 +1298,10 @@ else{
           this.EM1 =e.message
         }else if (e.code == "EM2") {
           this.EM2 =e.message
+        }
+        else if (e.code == "EM61") {
+          this.EM61 =e.message
+          console.log("hello",this.EM61)
         }
 
       })
