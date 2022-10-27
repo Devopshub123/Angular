@@ -15,7 +15,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
-
+import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
@@ -79,6 +79,7 @@ export class HolidaysComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
   userSession: any;
+  companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog,private ts:LoginService) { }
 
   selectAll(select: MatSelect, values:any, array:any) {
@@ -127,7 +128,7 @@ export class HolidaysComponent implements OnInit {
     });
   }
   getWorkLocation(){
-    this.LM.getactiveWorkLocation({id:null,companyName:'ems'}).subscribe((result)=>{
+    this.LM.getactiveWorkLocation({id:null,companyName:this.companyDBName}).subscribe((result)=>{
       this.worklocationDetails=result.data;
     })
 
@@ -150,7 +151,7 @@ export class HolidaysComponent implements OnInit {
       }));
     });
     // if(this.HolidayForm.controls.holiday.value !== null && this.holidays.holidayName !== null ){}
-    this.LM.setHolidays(this.selecteditems,'ems').subscribe((data) => {
+    this.LM.setHolidays(this.selecteditems,this.companyDBName).subscribe((data) => {
 
       if(data.status){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -279,7 +280,7 @@ export class HolidaysComponent implements OnInit {
       date:date
 
     }
-    this.LM.putHolidays(data, 'ems').subscribe((data) => {
+    this.LM.putHolidays(data, this.companyDBName).subscribe((data) => {
 
       this.isadd= true;
       if (data.status) {

@@ -11,7 +11,7 @@ import {MainComponent} from "../../../../pages/main/main.component";
 import { multiplyDuration } from '@fullcalendar/angular';
 import { ThirdPartyDraggable } from '@fullcalendar/interaction';
 import {CompanySettingService} from '../../../../services/companysetting.service'
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -45,6 +45,7 @@ export class EditProfileComponent implements OnInit {
 
   LM2:any = '';
   LM1:any=''
+  companyDBName:any = environment.dbName;
   // displayedColumns: string[] = ['firstname','lastName','email','contact','address','countryId','stateId','cityId','zipCode'];
   constructor(private router: Router,private LM:LeavesService,private LMS:CompanySettingService,private formBuilder: FormBuilder,private dialog: MatDialog,private spinner:NgxSpinnerService,private MainComponent:MainComponent) {
     this.spinner.hide();
@@ -257,7 +258,7 @@ export class EditProfileComponent implements OnInit {
       status:null,
       pageNumber:1,
       pageSize:10,
-      databaseName:'ems'
+      databaseName:this.companyDBName
     }
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
@@ -265,7 +266,7 @@ export class EditProfileComponent implements OnInit {
 
       }
     })
-    // this.LMS.getCountry('countrymaster',null,1,10,'ems').subscribe((results)=>{
+    // this.LMS.getCountry('countrymaster',null,1,10,this.companyDBName).subscribe((results)=>{
     //   this.CountryDetails=results.data;
     //   this.permanentCountryDetails=results.data;
     //

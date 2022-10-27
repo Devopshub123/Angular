@@ -13,7 +13,7 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { ReviewAndApprovalsComponent } from 'src/app/modules/leaves/dialog/review-and-approvals/review-and-approvals.component';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
+import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
@@ -71,7 +71,7 @@ export class ResignationComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-
+  companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private adminService: AdminService,private ES:EmsService,private LM:CompanySettingService) {
     this.getnoticeperiods()
    }
@@ -180,7 +180,7 @@ export class ResignationComponent implements OnInit {
 
   }
   getCompanyInformation(){
-    this.LM.getCompanyInformation('companyinformation',null,1,10,'ems').subscribe((data:any)=>{
+    this.LM.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
       if(data.status && data.data.length!=0) {
         this.company=data.data[0].companyname;
 

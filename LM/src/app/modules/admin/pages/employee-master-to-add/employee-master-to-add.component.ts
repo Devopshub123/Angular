@@ -13,7 +13,7 @@ import { AdminService } from '../../admin.service';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
+import { environment } from 'src/environments/environment';
 
 import * as _moment from 'moment';
 // import {default as _rollupMoment} from 'moment';
@@ -134,6 +134,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   empdataa: any = [];
   maxall: number = 10;
   pageLoading = true;
+  companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder, private LMS: CompanySettingService,
     private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
     , private adminService: AdminService) {
@@ -938,17 +939,17 @@ export class EmployeeMasterToAddComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
   getBloodgroups() {
-    this.LMS.getMastertable('bloodgroupmaster', 'Active', 1, 10, 'ems').subscribe(data => {
+    this.LMS.getMastertable('bloodgroupmaster', 'Active', 1, 10, this.companyDBName).subscribe(data => {
       this.bloodGroupdetails = data.data;
     })
   }
   getGender() {
-    this.LMS.getMastertable('gendermaster', null, 1, 40, 'ems').subscribe(data => {
+    this.LMS.getMastertable('gendermaster', null, 1, 40, this.companyDBName).subscribe(data => {
       this.genderDetails = data.data;
     })
   }
   getWorkLocation() {
-    this.LMS.getactiveWorkLocation({ id: null, companyName: 'ems' }).subscribe((result) => {
+    this.LMS.getactiveWorkLocation({ id: null, companyName: this.companyDBName }).subscribe((result) => {
       this.worklocationDetails = result.data;
     })
 
@@ -965,33 +966,33 @@ export class EmployeeMasterToAddComponent implements OnInit {
   }
 
   getMaritalStatusMaster() {
-    this.LMS.getMastertable('maritalstatusmaster', null, 1, 10, 'ems').subscribe(data => {
+    this.LMS.getMastertable('maritalstatusmaster', null, 1, 10, this.companyDBName).subscribe(data => {
       this.maritalStatusDetails = data.data;
 
     })
   }
   getRelationshipMaster() {
-    this.LMS.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems').subscribe(data => {
+    this.LMS.getMastertable('relationshipmaster', 'Active', 1, 30, this.companyDBName).subscribe(data => {
       this.employeeRelationship = data.data;
     })
   }
   getEmploymentTypeMaster() {
-    this.LMS.getMastertable('employmenttypemaster', null, 1, 1000, 'ems').subscribe(data => {
+    this.LMS.getMastertable('employmenttypemaster', null, 1, 1000, this.companyDBName).subscribe(data => {
       this.EmploymentTypeDetails = data.data;
     })
   }
   getDesignationsMaster() {
-    this.LMS.getMastertable('designationsmaster', 'Active', 1, 1000, 'ems').subscribe(data => {
+    this.LMS.getMastertable('designationsmaster', 'Active', 1, 1000, this.companyDBName).subscribe(data => {
       this.availableDesignations = data.data;
     })
   }
   getDepartmentsMaster() {
-    this.LMS.getMastertable('departmentsmaster', 'Active', 1, 1000, 'ems').subscribe(data => {
+    this.LMS.getMastertable('departmentsmaster', 'Active', 1, 1000, this.companyDBName).subscribe(data => {
       this.availableDepartments = data.data;
     })
   }
   getCountry() {
-    this.LMS.getCountry('countrymaster', null, 1, 10, 'ems').subscribe((results) => {
+    this.LMS.getCountry('countrymaster', null, 1, 10, this.companyDBName).subscribe((results) => {
       this.CountryDetails = results.data;
       this.permanentCountryDetails = results.data;
 
@@ -999,7 +1000,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
   }
   getRoles() {
 
-    this.LMS.getMastertable('rolesmaster', null, 1, 1000, 'ems').subscribe(data => {
+    this.LMS.getMastertable('rolesmaster', null, 1, 1000, this.companyDBName).subscribe(data => {
       let roledata = data.data;
       this.availableRole = [];
       for (let i = 0; i < roledata.length; i++) {
@@ -1018,7 +1019,7 @@ export class EmployeeMasterToAddComponent implements OnInit {
 
   }
   getShifts() {
-    this.LMS.getMastertable('shiftsmaster', 'Active', 1, 1000, 'ems').subscribe(data => {
+    this.LMS.getMastertable('shiftsmaster', 'Active', 1, 1000, this.companyDBName).subscribe(data => {
       this.availableShifts = data.data;
     })
   }

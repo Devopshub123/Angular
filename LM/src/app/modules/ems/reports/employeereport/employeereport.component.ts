@@ -9,6 +9,8 @@ import { ReportpopupComponent } from '../../pages/reportpopup/reportpopup.compon
 import { EmsService } from '../../ems.service';
 import * as XLSX from "xlsx";
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 
 export interface PeriodicElement {
   id: number;
@@ -65,6 +67,16 @@ shift:any=[];
 manager:any=[]
 maritalstatus:any=[];
 empstatusids:any=[];
+  emptypeids: any=[];
+  departmentids: any=[];
+  designationids: any=[];
+  locationid: any=[];
+  genderid: any=[];
+  shiftid: any=[];
+  bloodgroupid: any=[];
+  managerid: any=[];
+  maritalstatusid: any=[];
+  valid:boolean=true;
 get employeestatusFormArray() {
   return this.reportForm.controls.empstatus as FormArray;
 }
@@ -131,33 +143,73 @@ get maritalstatusFormArray() {
   }
   private addCheckempstatusboxes() {
     this.employeestatus.forEach(() => this.employeestatusFormArray.push(new FormControl(false)));
+    if( this.arrlist[0]=='1'){
+      this.employeestatusFormArray.setValue(this.empstatusids)
+    }
+      // this.arrlist[0]='1'?this.employeestatusFormArray.setValue(this.empstatusids):this.employeestatusFormArray.setValue([]);
   }
   private addemptypecheckbox() {
     this.emptype.forEach(() => this.emptypeFormArray.push(new FormControl(false)));
+    if( this.arrlist[1]=='1'){
+      this.emptypeFormArray.setValue(this.emptypeids)
+    }
+    // this.arrlist[1]='1' ?this.emptypeFormArray.setValue(this.emptypeids):this.emptypeFormArray.setValue([]);
   }
   private adddeptcheckbox() {
     this.department.forEach(() => this.deptFormArray.push(new FormControl(false)));
+    if( this.arrlist[2]=='1'){
+      this.deptFormArray.setValue(this.departmentids)
+    }
+    // this.arrlist[2]='1' ?this.deptFormArray.setValue(this.departmentids):this.deptFormArray.setValue([]);
   }
   private adddescheckbox() {
     this.designation.forEach(() => this.desgFormArray.push(new FormControl(false)));
+    if( this.arrlist[3]=='1'){
+      this.desgFormArray.setValue(this.designationids)
+    }
+    // this.arrlist[3]='1' ?this.desgFormArray.setValue(this.designationids):this.desgFormArray.setValue([]);
   }
   private addlocationcheckbox() {
     this.location.forEach(() => this.locationFormArray.push(new FormControl(false)));
+    if( this.arrlist[4]=='1'){
+      this.locationFormArray.setValue(this.locationid)
+    }
+    // this.arrlist[4]='1' ?this.locationFormArray.setValue(this.locationid):this.locationFormArray.setValue([]);
   }
   private addgender() {
     this.gender.forEach(() => this.genderFormArray.push(new FormControl(false)));
+    if( this.arrlist[5]=='1'){
+      this.genderFormArray.setValue(this.genderid)
+    }
+    // this.arrlist[5]='1' ?this.genderFormArray.setValue(this.genderid):this.genderFormArray.setValue([]);
   }
   private addbloodgroup() {
     this.bloodgroup.forEach(() => this.bloodgroupFormArray.push(new FormControl(false)));
+    if( this.arrlist[6]=='1'){
+      this.bloodgroupFormArray.setValue(this.bloodgroupid)
+    }
+    // this.arrlist[6]='1' ?this.bloodgroupFormArray.setValue(this.bloodgroupid):this.bloodgroupFormArray.setValue([]);
   }
   private addmaritalstatus() {
     this.maritalstatus.forEach(() => this.maritalstatusFormArray.push(new FormControl(false)));
+    if( this.arrlist[7]=='1'){
+      this.maritalstatusFormArray.setValue(this.maritalstatusid)
+    }
+    // this.arrlist[7]='1' ?this.maritalstatusFormArray.setValue(this.maritalstatusid):this.maritalstatusFormArray.setValue([]);
   }
   private addshift() {
     this.shift.forEach(() => this.shiftFormArray.push(new FormControl(false)));
+    if( this.arrlist[8]=='1'){
+      this.shiftFormArray.setValue(this.shiftid)
+    }
+    // this.arrlist[8]='1' ?this.shiftFormArray.setValue(this.shiftid):this.shiftFormArray.setValue([]);
   }
   private addmanager() {
     this.manager.forEach(() => this.managerFormArray.push(new FormControl(false)));
+    if( this.arrlist[9]=='1'){
+      this.managerFormArray.setValue(this.managerid)
+    }
+    // this.arrlist[9]='1' ?this.managerFormArray.setValue(this.managerid):this.managerFormArray.setValue([]);
   }
   empstatus(event:any,id:any){
     if(event.checked){
@@ -249,37 +301,46 @@ get maritalstatusFormArray() {
         }
         if(result.data[i].column_name == 'Employee Type'){
           this.emptype.push(result.data[i]);
+          this.emptypeids.push(result.data[i].id)
           
          }
          if(result.data[i].column_name == "Department"){
           this.department.push(result.data[i]);
+          this.departmentids.push(result.data[i].id);
          }
          if(result.data[i].column_name == 'Designation'){
           this.designation.push(result.data[i])
+          this.designationids.push(result.data[i].id)
          }
          if(result.data[i].column_name == 'Location'){
           this.location.push(result.data[i])
+          this.locationid.push(result.data[i].id)
          }
          if(result.data[i].column_name == 'Gender'){
           this.gender.push(result.data[i])
+          this.genderid.push(result.data[i].id)
          }
          if(result.data[i].column_name == 'Blood Group'){
           this.bloodgroup.push(result.data[i])
+          this.bloodgroupid.push(result.data[i].id)
          }
          if(result.data[i].column_name == 'Shift'){
           this.shift.push(result.data[i])
+          this.shiftid.push(result.data[i].id)
          }
          if(result.data[i].column_name == 'Reporting Manager'){
           this.manager.push(result.data[i])
+          this.managerid.push(result.data[i].id)
          }
          if(result.data[i].column_name == 'Marital Status'){
           this.maritalstatus.push(result.data[i])
+          this.maritalstatusid.push(result.data[i].id)
          }
         //  this.employeestatusFormArray.setValue(this.empstatusids)
       }
       // this.bloodgroupFormArray.setValue([1,2])
       // console.log(this.empstatusids)
-      // this.employeestatusFormArray.setValue(this.empstatusids)
+      // return this.employeestatusFormArray.setValue(this.empstatusids)
       
       
    
@@ -319,6 +380,7 @@ get maritalstatusFormArray() {
       const manager = this.reportForm.value.manager
       .map((checked:any, i:any) => checked ? this.manager[i].id : null)
       .filter((v:any) => v !== null);
+      
 
      let data2 ={
       empid:this.userSession.id,
@@ -335,11 +397,8 @@ get maritalstatusFormArray() {
 
 
      }
-     console.log(data2)
+
       this.ES.getEmsEmployeeDataForReports(data2).subscribe((res:any)=>{
-        // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-        //   this.router.navigate(["/ems/emloyee-report"]));
-        console.log(res.data)
         if(res.status && res.data.length != 0)
         this.dataSource = new MatTableDataSource(res.data)
         this.allfilterdata = res.data;
@@ -360,7 +419,7 @@ get maritalstatusFormArray() {
         // this.getEmsEmployeeColumnConfigurationValue();
         
       })
-    
+   
   }
   getEmsEmployeeColumnConfigurationValue(){
     this.ES.getEmsEmployeeColumnConfigurationValue(this.userSession.id).subscribe((result:any)=>{
