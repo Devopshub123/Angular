@@ -14,7 +14,7 @@ import { AdminService } from 'src/app/modules/admin/admin.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {LeavePoliciesDialogComponent} from '../../../admin/dialog/leave-policies-dialog/leave-policies-dialog.component'
-
+import { environment } from 'src/environments/environment';
 
 import * as _moment from 'moment';
 // import {default as _rollupMoment} from 'moment';
@@ -89,6 +89,7 @@ export class AttendanceRequestComponent implements OnInit {
   workeddays: any;
   ATT75:any;
   ATT74:any;
+  companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
     private location: Location, private adminService: AdminService) {
@@ -300,7 +301,7 @@ export class AttendanceRequestComponent implements OnInit {
 
   getWorkypeList() {
     this.workTypeData = [];
-    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, 'ems').subscribe((info: any) => {
+    this.attendanceService.getWorkypeList('attendancetypesmaster', 'active', 1, 100, this.companyDBName).subscribe((info: any) => {
       if (info.status && info.data.length != 0) {
         this.workTypeData = info.data;
       }

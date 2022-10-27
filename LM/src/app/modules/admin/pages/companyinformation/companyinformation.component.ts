@@ -8,6 +8,7 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.directive';
 import { PopupComponent, PopupConfig } from '../../../../pages/popup/popup.component';
 import { FormGroup,FormControl,Validators, FormBuilder,FormArray, AbstractControl} from '@angular/forms';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-companyinformation',
   templateUrl: './companyinformation.component.html',
@@ -32,7 +33,7 @@ export class CompanyinformationComponent implements OnInit {
   msgLM22:any;
   msgLM57:any;
   msgLM58:any;
-
+  companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder,private router: Router,private LMS:CompanySettingService,private dialog: MatDialog,private ts: LoginService) { }
 
   ngOnInit(): void {
@@ -88,7 +89,7 @@ export class CompanyinformationComponent implements OnInit {
       })
   }
   getCountry(){
-    this.LMS.getCountry('countrymaster',null,1,10,'ems').subscribe((results)=>{
+    this.LMS.getCountry('countrymaster',null,1,10,this.companyDBName).subscribe((results)=>{
       this.CountryDetails=results.data;
 
 
@@ -189,7 +190,7 @@ export class CompanyinformationComponent implements OnInit {
 
   }
   getCompanyInformation(){
-    this.LMS.getCompanyInformation('companyinformation',null,1,10,'ems').subscribe((data)=>{
+    this.LMS.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data)=>{
       if(data.status && data.data.length!=0) {
         // this.enable=false;
         this.isview=true;

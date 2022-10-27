@@ -9,7 +9,7 @@ import { MainService } from 'src/app/services/main.service';
 import { SideMenuService } from 'src/app/services/side-menu.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
-
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main',
@@ -37,6 +37,7 @@ menu:NavItem[] =[];
   employeeRoles: any;
   companyName: any;
   companyinfo: any;
+  companyDBName:any = environment.dbName;
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public router: Router,
     private companyInformationService:CompanyInformationService,private mainService:MainService,
     private sideMenuService:SideMenuService,private baseService: BaseService,
@@ -329,7 +330,7 @@ menu:NavItem[] =[];
 })
   }
   getCompanyInformation(){
-    this.LMS.getCompanyInformation('companyinformation',null,1,10,'ems').subscribe((data:any)=>{
+    this.LMS.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
       if(data.status && data.data.length!=0) {
 
         this.companyinfo =data.data[0];

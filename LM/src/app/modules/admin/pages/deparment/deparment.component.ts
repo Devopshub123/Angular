@@ -12,7 +12,7 @@ import { DatePipe } from '@angular/common';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { LeavesService } from 'src/app/modules/leaves/leaves.service';
 import { startTransition } from 'preact/compat';
-
+import { environment } from 'src/environments/environment';
 export interface UserData {
   deptname: string;
   status: string;
@@ -64,7 +64,7 @@ export class DeparmentComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-
+  companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog, private LM: CompanySettingService,private ts:LoginService) {
 
   }
@@ -271,7 +271,7 @@ export class DeparmentComponent implements OnInit {
 
   }
   getDepartments() {
-    this.LM.getDepartments('departmentsmaster', null, 1, 100, 'ems').subscribe((info:any) => {
+    this.LM.getDepartments('departmentsmaster', null, 1, 100, this.companyDBName).subscribe((info:any) => {
       if (info.status && info.data.length != 0) {
         this.departmentData = info.data;
         this.dataSource = new MatTableDataSource(this.departmentData);

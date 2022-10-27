@@ -18,7 +18,7 @@ import { ConfirmationComponent } from 'src/app/modules/leaves/dialog/confirmatio
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReusableDialogComponent } from '../reusable-dialog/reusable-dialog.component';
-
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -35,6 +35,7 @@ export class MainDashboardComponent implements OnInit {
   compoff: any;
   showError: boolean = false;
   private unsubscriber: Subject<void> = new Subject<void>();
+  companyDBName:any = environment.dbName;
   constructor(private AMS: LoginService, private mainService: MainService,
     private sideMenuService: SideMenuService, private router: Router,
     private emsService: EmsService, private companyService: CompanySettingService,
@@ -139,7 +140,7 @@ export class MainDashboardComponent implements OnInit {
     this.spinner.hide();
   }
   getModules() {
-    this.AMS.getModules('modulesmaster', null, 1, 100, 'ems').subscribe((result) => {
+    this.AMS.getModules('modulesmaster', null, 1, 100, this.companyDBName).subscribe((result) => {
       if (result && result.status) {
         this.allModuleDetails = result.data;
 
@@ -437,7 +438,7 @@ export class MainDashboardComponent implements OnInit {
 
 
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
       if (data.status) {
         this.availableDesignations = data.data;
       }

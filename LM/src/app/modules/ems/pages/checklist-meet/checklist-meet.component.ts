@@ -14,7 +14,7 @@ import { isThisSecond } from 'date-fns';
 // import { ResourceLimits } from 'worker_threads';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
+import { environment } from 'src/environments/environment';
 
 import * as _moment from 'moment';
 // import {default as _rollupMoment} from 'moment';
@@ -86,6 +86,7 @@ export class ChecklistMeetComponent implements OnInit {
   companyList: any = ['Attended','Not Attended'];
   rolesList: any = ['Manager', 'Admin', 'HR', 'Staff'];
   minDate = new Date('2000/01/01'); maxDate = new Date("2200/01/01");
+  companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private companyServices: CompanySettingService,private EMS:EmsService) {
 
   }
@@ -159,21 +160,21 @@ export class ChecklistMeetComponent implements OnInit {
 
   }
   getDesignationsMaster() {
-    this.companyServices.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyServices.getMastertable('designationsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
       if(data.status){
       this.availableDesignations = data.data;
       }
     })
   }
   getDepartmentsMaster() {
-    this.companyServices.getMastertable('departmentsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyServices.getMastertable('departmentsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
       if(data.status){
         this.availableDepartments = data.data;
       }
     })
   }
   getProgramsMaster(pId:any){
-    this.companyServices.getMastertable('ems_programs_master', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyServices.getMastertable('ems_programs_master', 1, 1, 1000, this.companyDBName).subscribe(data => {
       if(data.status){
         this.availableprogramtypes = data.data;
       }

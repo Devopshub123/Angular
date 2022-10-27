@@ -11,7 +11,7 @@ import { MatSort } from '@angular/material/sort';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AdminService } from '../../admin.service';
 import { DatePipe } from '@angular/common';
-
+import { environment } from 'src/environments/environment';
 export interface UserData {
   id: number;
   designation: string;
@@ -56,6 +56,7 @@ export class DesignationsComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
   pageLoading = true;
+  companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog, private LM: CompanySettingService, private adminService: AdminService) {
     this.getDesignation();
     this.dataSource = new MatTableDataSource(this.designationData);
@@ -256,7 +257,7 @@ export class DesignationsComponent implements OnInit {
     })
   }
   getDesignation() {
-    this.LM.getDesignation('designationsmaster', null, 1, 100, 'ems').subscribe((info) => {
+    this.LM.getDesignation('designationsmaster', null, 1, 100, this.companyDBName).subscribe((info) => {
       if (info.status && info.data.length != 0) {
         this.designationData = info.data;
         this.dataSource = new MatTableDataSource(this.designationData);

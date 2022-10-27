@@ -6,7 +6,7 @@ import { AdminService } from 'src/app/modules/admin/admin.service';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { MainService } from 'src/app/services/main.service';
 import { EmsService } from '../../ems.service';
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-employee-dashboard',
   templateUrl: './employee-dashboard.component.html',
@@ -45,6 +45,7 @@ financeManager:any=[]
   base64String: any;
   imagePath: any;
   isRemoveImage:boolean=true;
+  companyDBName:any = environment.dbName;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getDepartmentsMaster();
@@ -99,7 +100,7 @@ financeManager:any=[]
       })
     }
     getDepartmentsMaster() {
-      this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+      this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
         if (data.status) {
           this.availableDepartments = data.data;
         }
