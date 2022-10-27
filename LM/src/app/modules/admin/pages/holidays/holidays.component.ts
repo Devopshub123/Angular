@@ -88,7 +88,7 @@ export class HolidaysComponent implements OnInit {
     array = values;
     this.HolidayForm.controls.branch.setValue(array)
 
-    
+
   }
 
   deselectAll(select: MatSelect) {

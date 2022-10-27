@@ -108,11 +108,11 @@ export class EditProfileComponent implements OnInit {
           if(this.employeedata != null)
           {
             this.editForm.controls.stateId.setValue(this.employeedata.state);
-  
+
           }
 
         }
-       
+
       })
     })
     /**get city details for residance address */
@@ -127,7 +127,7 @@ export class EditProfileComponent implements OnInit {
             this.editForm.controls.cityId.setValue(this.employeedata.city);
           }
         }
-       
+
 
       })
     })

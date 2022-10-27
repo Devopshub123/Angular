@@ -1610,7 +1610,7 @@ createValidatorForDocument(){
    this.documentsForm.get('documentName').updateValueAndValidity();
 
   }
-  
+
 
 
   onSelectImage(event:any) {
@@ -1647,7 +1647,7 @@ createValidatorForDocument(){
       'status': null
     }
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
-     
+
       if (result && result.status) {
                 this.profileId = result.data[0].id;
                 this.profileInfo = JSON.stringify(result.data[0]);

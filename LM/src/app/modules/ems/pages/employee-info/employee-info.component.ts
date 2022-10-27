@@ -1117,7 +1117,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.promotionsForm.controls.newDescription.reset();
     this.promotionsForm.controls.effectiveDate.reset();
     this.promotionsForm.controls.annualSalary.reset();
-   
+
   }
   clearPromotionValidators() {
     this.promotionsForm.get("newSalary").clearValidators();
@@ -1151,7 +1151,7 @@ export class EmployeeInfoComponent implements OnInit {
           });
           this.clearPromotions();
           isValid = true;
-         } 
+         }
         if ( isValid == true) {
           this.spinner.show();
           let data = {
@@ -1174,7 +1174,7 @@ export class EmployeeInfoComponent implements OnInit {
                 disableClose: true,
                 data: "Data saved sucessfully"
               });
-    
+
             } else {
               this.spinner.hide();
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1196,7 +1196,7 @@ export class EmployeeInfoComponent implements OnInit {
             annualsalary: this.promotionsForm.controls.annualSalary.value,
           });
         isValid = true;
-        } 
+        }
         if (isValid == true) {
           this.spinner.show();
           let data = {
@@ -1220,7 +1220,7 @@ export class EmployeeInfoComponent implements OnInit {
                 disableClose: true,
                 data: "Data saved sucessfully"
               });
-    
+
             } else {
               this.spinner.hide();
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
