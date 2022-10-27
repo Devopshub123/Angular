@@ -401,6 +401,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.personalemail.setValue(this.loginData.personal_email);
       if (this.loginData.languages_spoken != 'null' || this.loginData.languages_spoken != "null")
         this.personalInfoForm.controls.spokenLanguages.setValue(this.loginData.languages_spoken);
+        if (this.loginData.paddress != 'null')
       this.personalInfoForm.controls.paddress.setValue(this.loginData.paddress);
       this.personalInfoForm.controls.pcountry.setValue(this.loginData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);

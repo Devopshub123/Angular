@@ -289,18 +289,20 @@ export class PreOnboardingDetailsComponent implements OnInit {
       this.personalInfoForm.controls.rcountry.setValue(this.loginData.country);
       this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
       this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
-
+     
       this.personalInfoForm.controls.rpincode.setValue(this.loginData.pincode);
       this.personalInfoForm.controls.personalemail.setValue(this.loginData.personal_email);
       if (this.loginData.languages_spoken != 'null')
         this.personalInfoForm.controls.spokenLanguages.setValue(this.loginData.languages_spoken);
+        if (this.loginData.paddress != 'null')
       this.personalInfoForm.controls.paddress.setValue(this.loginData.paddress);
       this.personalInfoForm.controls.pcountry.setValue(this.loginData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
       this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
+      if (this.loginData.ppincode != 'null')
       this.personalInfoForm.controls.ppincode.setValue(this.loginData.ppincode);
       this.personalInfoForm.controls.mobileNo.setValue(this.loginData.contact_number);
-      if (this.loginData.emergencycontact_number != null || this.loginData.emergencycontact_number != 'null') {
+      if (this.loginData.emergencycontact_number != 'null') {
       this.personalInfoForm.controls.alternateMobileNo.setValue(this.loginData.emergencycontact_number);
      }
     this.personalInfoForm.controls.hireDate.setValue(this.loginData.hired_date);
