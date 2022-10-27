@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   apiUrl:'http://localhost:6060/', //dev Env
   // apiUrl:'http://122.175.62.210:6464/'
-  dbName:'ems_qa'
+  dbName:'ems'
 };
 
 /*

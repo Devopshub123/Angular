@@ -251,7 +251,7 @@ export class InductionComponent implements OnInit {
 
   }
   getProgramsMaster(pId:any){
-    this.companyServices.getMastertable('ems_programs_master', 1, 1, 1000, 'ems_qa').subscribe(data => {
+    this.companyServices.getMastertable('ems_programs_master', 1, 1, 1000, 'ems').subscribe(data => {
       if(data.status){
         this.arrayList=data.data
         this.dataSource = new MatTableDataSource(this.arrayList);

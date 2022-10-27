@@ -371,7 +371,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
 }
   getCountry() {
   this.countryDetails =[]
-  this.companyService.getCountry('countrymaster', null, 1, 10, 'ems_qa').subscribe(result => {
+  this.companyService.getCountry('countrymaster', null, 1, 10, 'ems').subscribe(result => {
     this.countryDetails = result.data;
     this.permanentCountryDetails = result.data;
    })
@@ -463,38 +463,38 @@ for (let i = 0; i < workExperiencedata.length; i++) {
   }
 
   getBloodgroups() {
-    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems_qa').subscribe(data => {
+    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems').subscribe(data => {
       this.bloodGroupdetails = data.data;
     })
   }
   getGender() {
-    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems_qa').subscribe(data => {
+    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems').subscribe(data => {
       this.genderDetails = data.data;
     })
   }
   getMaritalStatusMaster() {
-    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems_qa').subscribe(data => {
+    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems').subscribe(data => {
       this.maritalStatusDetails = data.data;
     })
   }
   getRelationshipMaster() {
-    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems_qa').subscribe(data => {
+    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems').subscribe(data => {
       this.employeeRelationship = data.data;
     })
   }
 
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems_qa').subscribe(data => {
+    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe(data => {
       this.availableDesignations = data.data;
     })
   }
   getDepartmentsMaster() {
-    this.companyService.getMastertable('departmentsmaster', '1', 1, 1000, 'ems_qa').subscribe(data => {
+    this.companyService.getMastertable('departmentsmaster', '1', 1, 1000, 'ems').subscribe(data => {
       this.availableDepartments = data.data;
     })
   }
   getWorkLocation() {
-    this.companyService.getactiveWorkLocation({ id: null, companyName: 'ems_qa' }).subscribe((result) => {
+    this.companyService.getactiveWorkLocation({ id: null, companyName: 'ems' }).subscribe((result) => {
       this.worklocationDetails = result.data;
     })
 
