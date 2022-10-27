@@ -555,8 +555,7 @@ export class RolesPermissionsComponent implements OnInit {
     }
     /* this.isDisabledCheckBox =true;*/
     this.adminService.getRoleScreenfunctionalitiesByRoleId(this.roleId).subscribe((res: any) => {
-
-      if (res.status) {
+      if (res.status && res.data[0].length != 0) {
         for (var i = 0; i < res.data[0].length; i++) {
 
           if (!this.screensNames.includes(res.data[0][i].screen_name)) {
@@ -564,8 +563,13 @@ export class RolesPermissionsComponent implements OnInit {
             this.enableCheckBox(res.data[0][i].modulename);
           }
           this.moduleRoleScreens[res.data[0][i].modulename][res.data[0][i].screen_name] = res.data[0][i];
+          if(i === res.data[0].length-1 ){
+            this.autoRolesCheckBoxesChecked();
+          }
         }
-
+      }
+      else if(res.status && res.data[0].length === 0){
+        this.autoRolesCheckBoxesChecked();
       }
     })
   }
@@ -725,6 +729,21 @@ export class RolesPermissionsComponent implements OnInit {
       if (this.modulesScreens[j].modulename === moduleName && this.modulesScreens[j].isDisabledCheckBox === false) {
         this.modulesScreens[j].isDisabledCheckBox = true;
       }
+
+      if(this.roleId < 8){
+        this.modulesScreens[j].checked = true;
+        this.modulesScreens[j].isChecked = true;
+      }
+    }
+  }
+  autoRolesCheckBoxesChecked(){
+    for (var j = 0; j < this.modulesScreens.length; j++) {
+        if(this.roleId > 7){
+          this.modulesScreens[j].isDisabledCheckBox = true;
+        }
+        this.modulesScreens[j].checked = true;
+        this.modulesScreens[j].isChecked = true;
+        this.getScreenWithFunctionalities(this.modulesScreens[j].moduleid, this.modulesScreens[j].modulename, j, this.modulesScreens[j].isChecked);
     }
   }
 }

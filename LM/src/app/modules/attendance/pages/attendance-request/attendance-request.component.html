@@ -144,7 +144,7 @@
                         <mat-icon *ngIf="row.status=='Submitted'" class="mr-2" title="Edit" (click)="editRequest(row)">
                             edit</mat-icon>
                         <mat-icon *ngIf="row.status=='Submitted'" class="mr-2" title="Delete"
-                            (click)="deleteRequest(row)">delete</mat-icon>
+                            (click)="DeleteRequestPopup(row)">delete</mat-icon>
                         <mat-icon *ngIf="row.status!='Submitted'" class="mr-2" title="view" (click)="requestView(row)">
                             visibility</mat-icon>
 

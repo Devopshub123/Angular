@@ -11,8 +11,8 @@ import { LeavesService } from '../../leaves.service';
 import { ReportsService } from 'src/app/modules/reports/reports.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
-
+import {MatDatepicker} from '@angular/material/datepicker';
+import { Moment} from 'moment';
 import * as _moment from 'moment';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
@@ -22,7 +22,7 @@ export const MY_FORMATS = {
     dateInput: 'LL',
   },
   display: {
-    dateInput: 'DD-MM-YYYY',
+    dateInput: 'MM-YYYY',
     monthYearLabel: 'YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'YYYY',
@@ -41,6 +41,14 @@ export const MY_FORMATS = {
   ],
 })
 export class EmpPayrollReportComponent implements OnInit {
+  date = new FormControl(moment());
+  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date.value!;
+    ctrlValue.month(normalizedMonthAndYear.month());
+    ctrlValue.year(normalizedMonthAndYear.year());
+    this.date.setValue(ctrlValue);
+    datepicker.close();
+  }
   searchForm!: FormGroup;
   displayedColumns: string[] = ['sno','empid','empname','lossofpay','totalleaves','totalleavebalance'];
   dataSource: MatTableDataSource<any>=<any>[];
@@ -102,8 +110,11 @@ export class EmpPayrollReportComponent implements OnInit {
       empid:this.searchForm.controls.employeeId.value=="All"?null:this.searchForm.controls.employeeId.value,
       date:this.pipe.transform(this.searchForm.controls.fromDate.value, 'yyyy-MM-dd')
     }
+    this.spinner.show();
     this.LM.getReportForPayrollProcessing(data).subscribe((res:any)=>{
-      console.log(res)
+      this.spinner.hide();
+
+      this.arrayList=[]
       if(res.status && res.data.length>0){
         this.arrayList = res.data;
         this.dataSource = new MatTableDataSource(this.arrayList);
