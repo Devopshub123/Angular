@@ -43,7 +43,7 @@
                   <ng-container matColumnDef="time">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header > Time </th>
                     <td mat-cell *matCellDef="let row" >
-                        <span>{{row.schedule_starttime}} </span>
+                        <span>{{row.schedule_starttime.substring(0,5)}} </span>
                       </td>
                 </ng-container>
 
