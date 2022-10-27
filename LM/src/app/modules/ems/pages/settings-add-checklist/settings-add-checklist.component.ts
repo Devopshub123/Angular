@@ -9,6 +9,7 @@ import { EmsService } from '../../ems.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { environment } from 'src/environments/environment';
 export interface UserData {
   deptname: string;
   status: string;
@@ -31,6 +32,7 @@ export class SettingsAddChecklistComponent implements OnInit {
   isDeductions:boolean = true;
   expandedElement:any;
   Educations:any;
+  companyDBName:any = environment.dbName;
   constructor(private router: Router, private formBuilder: FormBuilder,private dialog: MatDialog,private emsService: EmsService,
     private companyServices: CompanySettingService) {
     // this.addtext();
@@ -259,7 +261,7 @@ export class SettingsAddChecklistComponent implements OnInit {
     this.addChecklistData.splice(index, 1);
   }
   getDepartmentsData() {
-    this.companyServices.getMastertable('departmentsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyServices.getMastertable('departmentsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
       if(data.status){
         this.departmentList = data.data;
       }

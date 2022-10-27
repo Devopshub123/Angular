@@ -12,6 +12,7 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import * as _moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from 'src/environments/environment';
 const moment =  _moment;
 export const MY_FORMATS = {
   parse: {
@@ -54,6 +55,7 @@ export class NewhireComponent implements OnInit {
   minHireDate: any;
   EM43: any;
   EM55: any;
+  companyDBName:any = environment.dbName;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     // this.userSession.deptid
@@ -77,7 +79,7 @@ export class NewhireComponent implements OnInit {
     })
   }
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', '1', 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('designationsmaster', '1', 1, 1000, this.companyDBName).subscribe(data => {
       this.designationsList = data.data;
     })
   }

@@ -5,7 +5,7 @@ import {CompanyInformationService} from "../../services/company-information.serv
 import {NgxSpinnerService} from "ngx-spinner";
 import {Router} from "@angular/router";
 import {MainService} from "../../services/main.service";
-
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit {
   companyName: any;
   companyinfo: any;
   activeModule:any;
+  companyDBName:any = environment.dbName;
   constructor(private baseService: BaseService,private mainService:MainService,
     private LM:CompanyInformationService,private spinner:NgxSpinnerService, public router: Router) { }
 
@@ -212,7 +213,7 @@ export class HeaderComponent implements OnInit {
 })
   }
   getCompanyInformation(){
-    this.LM.getCompanyInformation('companyinformation',null,1,10,'ems').subscribe((data:any)=>{
+    this.LM.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
       if(data.status && data.data.length!=0) {
 
         this.companyinfo =data.data[0];

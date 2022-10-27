@@ -19,6 +19,7 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import * as _moment from 'moment';
 import { LeavesService } from 'src/app/modules/leaves/leaves.service';
+import { environment } from 'src/environments/environment';
 const moment =  _moment;
 export const MY_FORMATS = {
   parse: {
@@ -44,7 +45,7 @@ export const MY_FORMATS = {
 export class EmployeeProfileComponent implements OnInit {
   minExperienceDate: any;
   minEducationDate: any;
-
+  companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private dialog: MatDialog, private mainService:MainService,private spinner:NgxSpinnerService, private router: Router, private activeroute: ActivatedRoute,
     private adminService: AdminService, private emsService: EmsService,private LM: LeavesService,
@@ -514,7 +515,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   getCountry() {
     this.countryDetails = []
-    this.companyService.getCountry('countrymaster', null, 1, 10, 'ems').subscribe(result => {
+    this.companyService.getCountry('countrymaster', null, 1, 10, this.companyDBName).subscribe(result => {
       this.countryDetails = result.data;
       this.permanentCountryDetails = result.data;
     })
@@ -647,52 +648,52 @@ export class EmployeeProfileComponent implements OnInit {
 
 
   getBloodgroups() {
-    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems').subscribe(data => {
+    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, this.companyDBName).subscribe(data => {
       this.bloodGroupdetails = data.data;
     })
   }
   getGender() {
-    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems').subscribe(data => {
+    this.companyService.getMastertable('gendermaster', null, 1, 40, this.companyDBName).subscribe(data => {
       this.genderDetails = data.data;
     })
   }
   getMaritalStatusMaster() {
-    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems').subscribe(data => {
+    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, this.companyDBName).subscribe(data => {
       this.maritalStatusDetails = data.data;
     })
   }
   getRelationshipMaster() {
-    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems').subscribe(data => {
+    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, this.companyDBName).subscribe(data => {
       this.employeeRelationship = data.data;
     })
   }
   getEmploymentTypeMaster() {
-    this.companyService.getMastertable('employmenttypemaster', null, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('employmenttypemaster', null, 1, 1000, this.companyDBName).subscribe(data => {
       this.EmploymentTypeDetails = data.data;
     })
   }
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
       if (data.status) {
         this.availableDesignations = data.data;
       }
     })
   }
   getDepartmentsMaster() {
-    this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
       if (data.status) {
         this.availableDepartments = data.data;
       }
     })
   }
   getWorkLocation() {
-    this.companyService.getactiveWorkLocation({ id: null, companyName: 'ems' }).subscribe((result) => {
+    this.companyService.getactiveWorkLocation({ id: null, companyName: this.companyDBName }).subscribe((result) => {
       this.worklocationDetails = result.data;
     })
 
   }
   getRoles() {
-    this.companyService.getMastertable('rolesmaster', null, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('rolesmaster', null, 1, 1000, this.companyDBName).subscribe(data => {
       let roledata = data.data;
       this.availableRole = [];
       for (let i = 0; i < roledata.length; i++) {
@@ -1610,7 +1611,7 @@ createValidatorForDocument(){
    this.documentsForm.get('documentName').updateValueAndValidity();
 
   }
-  
+
 
 
   onSelectImage(event:any) {
@@ -1647,7 +1648,7 @@ createValidatorForDocument(){
       'status': null
     }
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
-     
+
       if (result && result.status) {
                 this.profileId = result.data[0].id;
                 this.profileInfo = JSON.stringify(result.data[0]);

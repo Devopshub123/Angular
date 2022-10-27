@@ -12,7 +12,7 @@ import {AdminService} from'../../../admin/admin.service';
 import {ReusableDialogComponent} from '../../../../pages/reusable-dialog/reusable-dialog.component'
 import {ConfirmationComponent} from "../../../leaves/dialog/confirmation/confirmation.component";
 import { CompanySettingService } from 'src/app/services/companysetting.service';
-
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -48,7 +48,7 @@ export class InductionComponent implements OnInit {
   EM1:any;
   EM9:any;
   EM10:any;
-
+  companyDBName:any = environment.dbName;
 
   constructor(private dialog:MatDialog,private formBuilder: FormBuilder,private companyServices: CompanySettingService,private router: Router,private EMS:EmsService,private EM:AdminService) { }
 
@@ -251,7 +251,7 @@ export class InductionComponent implements OnInit {
 
   }
   getProgramsMaster(pId:any){
-    this.companyServices.getMastertable('ems_programs_master', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyServices.getMastertable('ems_programs_master', 1, 1, 1000, this.companyDBName).subscribe(data => {
       if(data.status){
         this.arrayList=data.data
         this.dataSource = new MatTableDataSource(this.arrayList);

@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import { NgxSpinnerService } from 'ngx-spinner';
 import {ExcelServiceService} from "../../../reports/excel-service.service";
 import * as XLSX from 'xlsx';
-
+import { environment } from 'src/environments/environment';
 
 
 
@@ -26,6 +26,7 @@ export class SummaryReportForManagerComponent implements OnInit {
   calengerYearsdetails :any=[];
   today:any=new Date();
   ishide:boolean=true;
+  companyDBName:any = environment.dbName;
   constructor(private LM:LeavesService,public formBuilder: FormBuilder,public spinner :NgxSpinnerService, private excelService: ExcelServiceService) {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
   }
@@ -49,7 +50,7 @@ export class SummaryReportForManagerComponent implements OnInit {
       status:'Active',
       pageNumber:1,
       pageSize:1000,
-      databaseName:'ems'
+      databaseName:this.companyDBName
     }
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
@@ -63,7 +64,7 @@ export class SummaryReportForManagerComponent implements OnInit {
       status:'Active',
       pageNumber:1,
       pageSize:1000,
-      databaseName:'ems'
+      databaseName:this.companyDBName
     }
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){

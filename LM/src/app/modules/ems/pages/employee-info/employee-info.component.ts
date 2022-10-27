@@ -15,7 +15,7 @@ import { ComfirmationDialogComponent } from '../../../../pages/comfirmation-dial
 import { NgxSpinnerService } from "ngx-spinner";
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-
+import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 import { LeavesService } from 'src/app/modules/leaves/leaves.service';
 // import {default as _rollupMoment} from 'moment';
@@ -188,6 +188,7 @@ export class EmployeeInfoComponent implements OnInit {
   previews: any = [];
   isRemoveImage: boolean = true;
   isPromotionsOnly:boolean=true;
+  companyDBName:any = environment.dbName;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params) {
@@ -693,7 +694,7 @@ export class EmployeeInfoComponent implements OnInit {
 
   getCountry() {
     this.countryDetails = []
-    this.companyService.getCountry('countrymaster', null, 1, 10, 'ems').subscribe(result => {
+    this.companyService.getCountry('countrymaster', null, 1, 10, this.companyDBName).subscribe(result => {
       this.countryDetails = result.data;
       this.permanentCountryDetails = result.data;
     })
@@ -827,52 +828,52 @@ export class EmployeeInfoComponent implements OnInit {
 
 
   getBloodgroups() {
-    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems').subscribe(data => {
+    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, this.companyDBName).subscribe(data => {
       this.bloodGroupdetails = data.data;
     })
   }
   getGender() {
-    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems').subscribe(data => {
+    this.companyService.getMastertable('gendermaster', null, 1, 40, this.companyDBName).subscribe(data => {
       this.genderDetails = data.data;
     })
   }
   getMaritalStatusMaster() {
-    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems').subscribe(data => {
+    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, this.companyDBName).subscribe(data => {
       this.maritalStatusDetails = data.data;
     })
   }
   getRelationshipMaster() {
-    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems').subscribe(data => {
+    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, this.companyDBName).subscribe(data => {
       this.employeeRelationship = data.data;
     })
   }
   getEmploymentTypeMaster() {
-    this.companyService.getMastertable('employmenttypemaster', null, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('employmenttypemaster', null, 1, 1000, this.companyDBName).subscribe(data => {
       this.EmploymentTypeDetails = data.data;
     })
   }
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
       if (data.status) {
         this.availableDesignations = data.data;
       }
     })
   }
   getDepartmentsMaster() {
-    this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('departmentsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
       if (data.status) {
         this.availableDepartments = data.data;
       }
     })
   }
   getWorkLocation() {
-    this.companyService.getactiveWorkLocation({ id: null, companyName: 'ems' }).subscribe((result) => {
+    this.companyService.getactiveWorkLocation({ id: null, companyName: this.companyDBName }).subscribe((result) => {
       this.worklocationDetails = result.data;
     })
 
   }
   getRoles() {
-    this.companyService.getMastertable('rolesmaster', null, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('rolesmaster', null, 1, 1000, this.companyDBName).subscribe(data => {
       let roledata = data.data;
       this.availableRole = [];
       for (let i = 0; i < roledata.length; i++) {
@@ -1118,7 +1119,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.promotionsForm.controls.newDescription.reset();
     this.promotionsForm.controls.effectiveDate.reset();
     this.promotionsForm.controls.annualSalary.reset();
-   
+
   }
   clearPromotionValidators() {
     this.promotionsForm.get("newSalary").clearValidators();
@@ -1152,7 +1153,7 @@ export class EmployeeInfoComponent implements OnInit {
           });
           this.clearPromotions();
           isValid = true;
-         } 
+         }
         if ( isValid == true) {
           this.spinner.show();
           let data = {
@@ -1175,7 +1176,7 @@ export class EmployeeInfoComponent implements OnInit {
                 disableClose: true,
                 data: "Data saved sucessfully"
               });
-    
+
             } else {
               this.spinner.hide();
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1197,7 +1198,7 @@ export class EmployeeInfoComponent implements OnInit {
             annualsalary: this.promotionsForm.controls.annualSalary.value,
           });
         isValid = true;
-        } 
+        }
         if (isValid == true) {
           this.spinner.show();
           let data = {
@@ -1221,7 +1222,7 @@ export class EmployeeInfoComponent implements OnInit {
                 disableClose: true,
                 data: "Data saved sucessfully"
               });
-    
+
             } else {
               this.spinner.hide();
               let dialogRef = this.dialog.open(ReusableDialogComponent, {

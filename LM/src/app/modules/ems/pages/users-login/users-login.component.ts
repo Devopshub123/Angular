@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component,HostListener, OnInit, ViewChild  } from '@angular/core';
 import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl, FormArray} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,6 +16,7 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
   styleUrls: ['./users-login.component.scss']
 })
 export class UsersLoginComponent implements OnInit {
+  @HostListener('window:scroll')
   usersloginForm:any= FormGroup;
   designations:any=[];
   min:any=new Date();
@@ -59,14 +60,19 @@ export class UsersLoginComponent implements OnInit {
 
   }
   edit(event:any,data:any){
+    console.log(data)
     this.ishide = true;
     this.isview = false;
     this.usersloginForm.controls.empname.setValue(data.empname);
     this.usersloginForm.controls.email.setValue(data.officeemail);
-    this.usersloginForm.controls.userid.setValue(data.login=null?data.login:data.officeemail);
+    this.usersloginForm.controls.userid.setValue(data.login='null'?data.login:data.officeemail);
     this.usersloginForm.controls.status.setValue('Active');
     this.usersloginForm.controls.empid.setValue(data.id);
-    // window.scrollTo(0,0);
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
     
 
 

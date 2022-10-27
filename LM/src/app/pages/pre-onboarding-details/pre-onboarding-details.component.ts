@@ -16,6 +16,7 @@ import {EmsService} from '../../modules/ems/ems.service';
 import { ComfirmationDialogComponent } from '../comfirmation-dialog/comfirmation-dialog.component'
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 const moment =  _moment;
 export const MY_FORMATS = {
@@ -131,12 +132,14 @@ export class PreOnboardingDetailsComponent implements OnInit {
   EM22:any;
   EM2:any;
   EM1:any;
+  EM61:any;
   isedit:boolean=false;
   editFileName:any;
   employeeNameh: any;
   employeeDesignation: any;
   employeeJoinDate: any;
   employeeMobile: any;
+  companyDBName:any = environment.dbName;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if(this.params && this.params.token) {
@@ -373,7 +376,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
 }
   getCountry() {
   this.countryDetails =[]
-  this.companyService.getCountry('countrymaster', null, 1, 10, 'ems').subscribe(result => {
+  this.companyService.getCountry('countrymaster', null, 1, 10, this.companyDBName).subscribe(result => {
     this.countryDetails = result.data;
     this.permanentCountryDetails = result.data;
    })
@@ -465,38 +468,38 @@ for (let i = 0; i < workExperiencedata.length; i++) {
   }
 
   getBloodgroups() {
-    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, 'ems').subscribe(data => {
+    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, this.companyDBName).subscribe(data => {
       this.bloodGroupdetails = data.data;
     })
   }
   getGender() {
-    this.companyService.getMastertable('gendermaster', null, 1, 40, 'ems').subscribe(data => {
+    this.companyService.getMastertable('gendermaster', null, 1, 40, this.companyDBName).subscribe(data => {
       this.genderDetails = data.data;
     })
   }
   getMaritalStatusMaster() {
-    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, 'ems').subscribe(data => {
+    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, this.companyDBName).subscribe(data => {
       this.maritalStatusDetails = data.data;
     })
   }
   getRelationshipMaster() {
-    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, 'ems').subscribe(data => {
+    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, this.companyDBName).subscribe(data => {
       this.employeeRelationship = data.data;
     })
   }
 
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
       this.availableDesignations = data.data;
     })
   }
   getDepartmentsMaster() {
-    this.companyService.getMastertable('departmentsmaster', '1', 1, 1000, 'ems').subscribe(data => {
+    this.companyService.getMastertable('departmentsmaster', '1', 1, 1000, this.companyDBName).subscribe(data => {
       this.availableDepartments = data.data;
     })
   }
   getWorkLocation() {
-    this.companyService.getactiveWorkLocation({ id: null, companyName: 'ems' }).subscribe((result) => {
+    this.companyService.getactiveWorkLocation({ id: null, companyName: this.companyDBName }).subscribe((result) => {
       this.worklocationDetails = result.data;
     })
 
@@ -853,6 +856,19 @@ for (let i = 0; i < workExperiencedata.length; i++) {
     this.educationForm.controls.eduFromDate.reset();
     this.educationForm.controls.eduToDate.reset();
     this.educationForm.valid = true;
+  }
+
+  DeleteEducationPopup(event: any){
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position:{top:`70px`},
+      disableClose: true,
+      data: {message:this.EM61,YES:'YES',NO:'NO'}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'YES'){
+        this.deleteEducation(event)
+      }
+      });
   }
   deleteEducation(index: any) {
     this.educationDetails.splice(index, 1);
@@ -1286,6 +1302,10 @@ else{
           this.EM1 =e.message
         }else if (e.code == "EM2") {
           this.EM2 =e.message
+        }
+        else if (e.code == "EM61") {
+          this.EM61 =e.message
+          console.log("hello",this.EM61)
         }
 
       })

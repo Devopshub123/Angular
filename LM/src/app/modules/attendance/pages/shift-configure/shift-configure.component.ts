@@ -13,7 +13,7 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { AttendanceService } from '../../attendance.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
+import { environment } from 'src/environments/environment';
 
 import * as _moment from 'moment';
 // import {default as _rollupMoment} from 'moment';
@@ -75,6 +75,7 @@ export class ShiftConfigureComponent implements OnInit {
   dataSave: any;
   dataNotSave: any;
   recordExist: any;
+  companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router,private adminService: AdminService
   ) {
@@ -173,7 +174,7 @@ export class ShiftConfigureComponent implements OnInit {
   getWeekDays() {
     this.weekDaysDetails=[];
     this.workingDays=[];
-    this.attendanceService.getMastertable('week_master', null, 1, 10, 'ems').subscribe(data => {
+    this.attendanceService.getMastertable('week_master', null, 1, 10, this.companyDBName).subscribe(data => {
          if(data.status){
           this.weekDaysDetails = data.data;
              data.data.forEach((i:any)=>{

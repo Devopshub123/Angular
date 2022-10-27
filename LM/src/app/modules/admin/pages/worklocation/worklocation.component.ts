@@ -10,7 +10,7 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
+import { environment } from 'src/environments/environment';
 
 export interface UserData {
   total:number;
@@ -67,7 +67,7 @@ export class WorklocationComponent implements OnInit {
   departmentData:any=[];
   arrayValue:any=[{Value:'Active',name:'Active '},{Value:'Inactive',name:'Inactive'}];
   dataSource: MatTableDataSource<UserData>=<any>[];
-
+  companyDBName:any = environment.dbName;
 
   constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog,private ts:LoginService) { }
 
@@ -197,7 +197,7 @@ export class WorklocationComponent implements OnInit {
   }
   getWorkLocation(){
     // this.spinner.show();
-    this.LM.getWorkLocation({id:null,companyName:'ems'}).subscribe((result)=>{
+    this.LM.getWorkLocation({id:null,companyName:this.companyDBName}).subscribe((result)=>{
       this.workLocationDetails=result.data;
       this.emptyprefix();
       this.dataSource=new MatTableDataSource(this.workLocationDetails);
@@ -257,7 +257,7 @@ export class WorklocationComponent implements OnInit {
     this.ishide=true;
   }
   getCountry(){
-    this.LM.getCountry('countrymaster',null,1,10,'ems').subscribe((data)=>{
+    this.LM.getCountry('countrymaster',null,1,10,this.companyDBName).subscribe((data)=>{
       this.CountryDetails=data.data;
     })
   }

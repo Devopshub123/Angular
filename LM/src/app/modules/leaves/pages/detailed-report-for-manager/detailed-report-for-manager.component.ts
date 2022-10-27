@@ -10,7 +10,7 @@ import * as XLSX from "xlsx";
 import { NgxSpinnerService } from 'ngx-spinner';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
+import { environment } from 'src/environments/environment';
 
 import * as _moment from 'moment';
 // import {default as _rollupMoment} from 'moment';
@@ -68,6 +68,7 @@ export class DetailedReportForManagerComponent implements OnInit {
   tableSize = 5;
   tableSizes = [5, 25, 50, 'All'];
   pipe = new DatePipe('en-US');
+  companyDBName:any = environment.dbName;
   onTableDataChange(event:any){
     this.onchangeflag = true;
     this.page = event;
@@ -187,7 +188,7 @@ export class DetailedReportForManagerComponent implements OnInit {
       status:'Active',
       pageNumber:1,
       pageSize:1000,
-      databaseName:'ems'
+      databaseName:this.companyDBName
     }
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
@@ -204,7 +205,7 @@ export class DetailedReportForManagerComponent implements OnInit {
       status:'Active',
       pageNumber:1,
       pageSize:1000,
-      databaseName:'ems'
+      databaseName:this.companyDBName
     }
     this.LM.getMastertable(obj).subscribe(result=>{
       if(result && result.status){
