@@ -162,6 +162,12 @@
                       </p>
                     </mat-list-item>
                   </ng-container>
+                  <div  style="padding: 5%" *ngIf="leavesRequestData.length == 0">
+                    <div fxLayoutAlign="center">
+                       <p><b>No data found</b></p>
+                     </div>
+                  </div>
+
                 </mat-list>
               </div>
             </div>
@@ -180,7 +186,7 @@
               "><b>Announcements</b></span>
           </div>
 
-          <div class="scrollbox" style="margin: 10px; padding: 2px; height: 250px">
+          <div class="scrollbox" style="margin: 10px; padding: 2px; height: 250px" *ngIf="announcementsDetails.length > 0">
             <div class="scrollbox-content">
               <mat-card style="
                   padding: 2px;
@@ -244,6 +250,7 @@
             <div class="scrollbox-content">
               <div style="height: 250px; padding-top: 1%">
                 <div *ngIf="!teamAttendanceData">
+                  <div *ngIf="notificationsData.length > 0">
                   <mat-list class="time-attendance">
                     <ng-container *ngFor="let item of notificationsData">
                       <mat-list-item>
@@ -255,15 +262,17 @@
                       </mat-list-item>
                     </ng-container>
                   </mat-list>
+                </div>
                   <div  style="padding: 5%" *ngIf="notificationsData.length == 0">
-                     <div>
-                        <p><b>No Attendance</b></p>
+                     <div fxLayoutAlign="center">
+                        <p><b>No data found</b></p>
                       </div>
                    </div>
 
 
                 </div>
                 <div *ngIf="teamAttendanceData">
+                  <div *ngIf="notificationsData.length > 0">
                   <mat-list class="time-attendance">
                     <ng-container *ngFor="let item of notificationsData">
                       <mat-list-item>
@@ -276,9 +285,10 @@
                       </mat-list-item>
                     </ng-container>
                   </mat-list>
+                </div>
                   <div  style="padding: 5%" *ngIf="notificationsData.length == 0">
-                    <div>
-                       <p><b>No Attendance</b></p>
+                    <div fxLayoutAlign="center">
+                       <p><b>No data found</b></p>
                      </div>
                   </div>
                 </div>

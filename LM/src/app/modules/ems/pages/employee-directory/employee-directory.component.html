@@ -78,13 +78,18 @@
                           <!-- <mat-icon class="icon">edit</mat-icon> -->
                         </span>
                      </div>
-                <div fxLayoutAlign="center" style="height: 105px;"> <img mat-card-sm-image src="assets/img/profile.jpg" ></div>
+                <div fxLayoutAlign="center" style="height: 100px;"> <img mat-card-sm-image src="assets/img/profile.jpg" ></div>
                 <div fxLayout="row" style="padding: 5px;" fxLayoutAlign="space-around center">
                     <span class="fontSize ">{{emp.ename}}</span>
                    </div>
                 <div fxLayoutAlign="center">
-                    <p style="color: black;">{{emp.designation}}</p>
+                  <span>{{emp.designation}}</span>,
+                  <span>{{emp.location}}</span>
+                    <!-- <p style="color: black;"></p> -->
                 </div>
+                <!-- <span fxLayoutAlign="center">
+                  <p style="color: black;">{{emp.location}}</p>
+              </span> -->
               </mat-card>
            </div>
           </form>

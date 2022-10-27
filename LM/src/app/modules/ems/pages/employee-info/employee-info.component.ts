@@ -186,7 +186,8 @@ export class EmployeeInfoComponent implements OnInit {
   progressInfos:any=[];
   selectedFiles:any;
   previews: any = [];
-  isRemoveImage:boolean=true;
+  isRemoveImage: boolean = true;
+  isPromotionsOnly:boolean=true;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params) {
@@ -311,9 +312,11 @@ export class EmployeeInfoComponent implements OnInit {
     this.personalInfoForm.get('employmentType')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue == 3) {
         this.isContractData = true;
+        this.isPromotionsOnly = false;
       }
       else {
         this.isContractData = false;
+        this.isPromotionsOnly = true;
       }
     })
 
@@ -359,13 +362,13 @@ export class EmployeeInfoComponent implements OnInit {
       if (this.loginData.id != null) {
         this.preOnboardId = this.loginData.id;
       }
-      let a = this.loginData;
-      if (a.rcountry == null) {
-        this.personalInfoForm.controls.checked.setValue(false)
-      }
-      else if (a.rcountry == a.pcountry && a.rstate == a.pstate && a.rcity == a.pcity && a.raddress == a.paddress && a.rpincode == a.ppincode) {
-        this.personalInfoForm.controls.checked.setValue(true)
-      }
+      // let a = this.loginData;
+      // if (a.rcountry == null) {
+      //   this.personalInfoForm.controls.checked.setValue(false)
+      // }
+      // else if (a.rcountry == a.pcountry && a.rstate == a.pstate && a.rcity == a.pcity && a.raddress == a.paddress && a.rpincode == a.ppincode) {
+      //   this.personalInfoForm.controls.checked.setValue(true)
+      // }
       this.loginCandidateId = this.loginData.candidateid;
       this.employeeNameh = this.loginData.firstname + ' ' + this.loginData.middlename + ' '+this.loginData.lastname;
       this.employeeCode = this.loginData.empid;
@@ -384,6 +387,7 @@ export class EmployeeInfoComponent implements OnInit {
       if (this.loginData.dateofbirth != null)
         this.personalInfoForm.controls.dateofbirth.setValue(new Date(this.loginData.dateofbirth));
       this.personalInfoForm.controls.bloodgroup.setValue(this.loginData.bloodgroup);
+      this.personalInfoForm.controls.designation.setValue(this.loginData.designation);
       this.personalInfoForm.controls.gender.setValue(this.loginData.gender);
       this.personalInfoForm.controls.maritalstatus.setValue(this.loginData.maritalstatus);
 
@@ -489,10 +493,10 @@ export class EmployeeInfoComponent implements OnInit {
       if (this.employeeInformationData.id != null) {
         this.preOnboardId = this.employeeInformationData.id;
       }
-      let a = this.employeeInformationData;
-      if (a.rcountry == a.pcountry && a.rstate == a.pstate && a.rcity == a.pcity && a.raddress == a.paddress && a.rpincode == a.ppincode) {
-        this.personalInfoForm.controls.checked.setValue(true)
-      }
+      // let a = this.employeeInformationData;
+      // if (a.rcountry == a.pcountry && a.rstate == a.pstate && a.rcity == a.pcity && a.raddress == a.paddress && a.rpincode == a.ppincode) {
+      //   this.personalInfoForm.controls.checked.setValue(true)
+      // }
       this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.middlename  + ' ' + this.employeeInformationData.lastname;
       this.employeeCode = this.employeeInformationData.empid;
       this.availableDesignations.forEach((e: any) => {
@@ -505,6 +509,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.designationId = this.employeeInformationData.designation;
       if (this.employeeInformationData.employmenttype == 3) {
         this.isContractData = true;
+        this.isPromotionsOnly = false;
       }
 
 
@@ -628,13 +633,19 @@ export class EmployeeInfoComponent implements OnInit {
     this.workExperienceDetails = [];
     this.emsService.getEmployeeEmployement(this.employeeId).subscribe((res: any) => {
       this.employeeEmployementData = JSON.parse(res.data[0].json)[0];
-
-      this.employementForm.controls.bankName.setValue(this.employeeEmployementData.bankname);
+      if (this.employeeEmployementData.bankname != 'null')
+        this.employementForm.controls.bankName.setValue(this.employeeEmployementData.bankname);
+        if (this.employeeEmployementData.nameasperbankaccount != 'null')
       this.employementForm.controls.bankAccountName.setValue(this.employeeEmployementData.nameasperbankaccount);
+      if (this.employeeEmployementData.bankaccountnumber != 'null')
       this.employementForm.controls.bankAccountNumber.setValue(this.employeeEmployementData.bankaccountnumber);
-      this.employementForm.controls.ifscCode.setValue(this.employeeEmployementData.ifsccode);
-      this.employementForm.controls.branchName.setValue(this.employeeEmployementData.branchname);
-      this.employementForm.controls.uanNumber.setValue(this.employeeEmployementData.uanumber);
+      if (this.employeeEmployementData.ifsccode != 'null')
+        this.employementForm.controls.ifscCode.setValue(this.employeeEmployementData.ifsccode);
+        if (this.employeeEmployementData.branchname != 'null')
+        this.employementForm.controls.branchName.setValue(this.employeeEmployementData.branchname);
+        if (this.employeeEmployementData.uanumber != 'null')
+        this.employementForm.controls.uanNumber.setValue(this.employeeEmployementData.uanumber);
+        if (this.employeeEmployementData.pan != 'null')
       this.employementForm.controls.panNumber.setValue(this.employeeEmployementData.pan);
 
       if (this.employeeEmployementData.experience != null) {
@@ -698,7 +709,7 @@ export class EmployeeInfoComponent implements OnInit {
         bloodgroup: [""],
         gender: ["",],
         maritalstatus: ["",],
-        aadharNumber: ["", Validators.maxLength(12)],
+        aadharNumber: ["", [Validators.minLength(12), Validators.maxLength(12)]],
         panNumber: [""],
         uanNumber: ["", Validators.maxLength(12)],
         /// address controls
@@ -715,8 +726,8 @@ export class EmployeeInfoComponent implements OnInit {
         pstate: ["",],
         pcity: ["",],
         ppincode: ["", [Validators.minLength(6), Validators.maxLength(6)]],
-        mobileNo: ["",],
-        alternateMobileNo: ["",],
+        mobileNo: ["",[Validators.minLength(10), Validators.maxLength(10)]],
+        alternateMobileNo: ["",[Validators.minLength(10), Validators.maxLength(10)]],
         officeemail: ["", [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
         usertype: ["",],
         designation: ["",],
@@ -1065,7 +1076,29 @@ export class EmployeeInfoComponent implements OnInit {
     this.familyDataSource = new MatTableDataSource(this.familyDetails);
     this.isfamilyedit = false;
   }
+//////////////
+  clearContract() {
+    this.clearContractValidators();
+  this.employeeJobForm.controls.contractName.reset();
+  this.employeeJobForm.controls.contractStartDate.reset();
+  this.employeeJobForm.controls.contractEndDate.reset();
+    this.employeeJobForm.controls.contractNotes.reset();
+ this.clearPromotions();
 
+  }
+  clearContractValidators() {
+    this.employeeJobForm.get("contractName").clearValidators();
+    this.employeeJobForm.get("contractName").updateValueAndValidity();
+
+    this.employeeJobForm.get("contractStartDate").clearValidators();
+    this.employeeJobForm.get("contractStartDate").updateValueAndValidity();
+
+    this.employeeJobForm.get("contractEndDate").clearValidators();
+    this.employeeJobForm.get("contractEndDate").updateValueAndValidity();
+
+    this.employeeJobForm.get("contractNotes").clearValidators();
+    this.employeeJobForm.get("contractNotes").updateValueAndValidity();
+  }
   addPromotions() {
     if (this.promotionsForm.valid) {
       this.promotionsGetList.push({
@@ -1079,12 +1112,25 @@ export class EmployeeInfoComponent implements OnInit {
     } else { }
   }
   clearPromotions() {
+    this.clearPromotionValidators();
     this.promotionsForm.controls.newSalary.reset();
     this.promotionsForm.controls.newDescription.reset();
     this.promotionsForm.controls.effectiveDate.reset();
     this.promotionsForm.controls.annualSalary.reset();
-    // this.promotionsForm.valid = true;
+   
+  }
+  clearPromotionValidators() {
+    this.promotionsForm.get("newSalary").clearValidators();
+    this.promotionsForm.get("newSalary").updateValueAndValidity();
 
+    this.promotionsForm.get("newDescription").clearValidators();
+    this.promotionsForm.get("newDescription").updateValueAndValidity();
+
+    this.promotionsForm.get("effectiveDate").clearValidators();
+    this.promotionsForm.get("effectiveDate").updateValueAndValidity();
+
+    this.promotionsForm.get("annualSalary").clearValidators();
+    this.promotionsForm.get("annualSalary").updateValueAndValidity();
   }
   deletePromotions(index: any) {
     this.promotionsGetList.splice(index, 1);
@@ -1094,48 +1140,97 @@ export class EmployeeInfoComponent implements OnInit {
   saveJobDetails() {
 
     if (this.employeeCode != undefined || this.employeeCode != null) {
-      if (this.promotionsForm.valid) {
-        this.promotionList.push({
-          newsalary: this.promotionsForm.controls.newSalary.value,
-          newdescription: this.promotionsForm.controls.newDescription.value,
-          effectivedate: this.pipe.transform(this.promotionsForm.controls.effectiveDate.value, 'yyyy-MM-dd'),
-          annualsalary: this.promotionsForm.controls.annualSalary.value,
-        });
-        this.clearPromotions();
-      } else { }
-      this.spinner.show();
-      let data = {
-        empid: this.employeeCode,
-        contractname: this.employeeJobForm.controls.contractName.value,
-        notes: this.employeeJobForm.controls.contractNotes.value,
-        //fileid: this.employeeJobForm.controls.contractFile.value,
-        fileid: null,
-        startdate: this.pipe.transform(this.employeeJobForm.controls.contractStartDate.value, 'yyyy-MM-dd'),
-        enddate: this.pipe.transform(this.employeeJobForm.controls.contractEndDate.value, 'yyyy-MM-dd'),
-        promotions: this.promotionList,
-      }
-
-      this.emsService.saveEmployeeJobDetailsData(data).subscribe((res: any) => {
-        if (res.status && res.data[0].statuscode == 0) {
-          this.spinner.hide();
-          this.promotionList = [];
-          this.getEmployeeJobList();
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: "Data saved sucessfully"
+      if (this.isPromotionsOnly == true) {
+        let isValid = false;
+         if (this.promotionsForm.valid) {
+          this.promotionList.push({
+            newsalary: this.promotionsForm.controls.newSalary.value,
+            newdescription: this.promotionsForm.controls.newDescription.value,
+            effectivedate: this.pipe.transform(this.promotionsForm.controls.effectiveDate.value, 'yyyy-MM-dd'),
+            annualsalary: this.promotionsForm.controls.annualSalary.value,
           });
-
-        } else {
-          this.spinner.hide();
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: "Data is not saved"
+          this.clearPromotions();
+          isValid = true;
+         } 
+        if ( isValid == true) {
+          this.spinner.show();
+          let data = {
+            empid: this.employeeCode,
+            contractname: this.employeeJobForm.controls.contractName.value,
+            notes: this.employeeJobForm.controls.contractNotes.value,
+            //fileid: this.employeeJobForm.controls.contractFile.value,
+            fileid: null,
+            startdate: this.pipe.transform(this.employeeJobForm.controls.contractStartDate.value, 'yyyy-MM-dd'),
+            enddate: this.pipe.transform(this.employeeJobForm.controls.contractEndDate.value, 'yyyy-MM-dd'),
+            promotions: this.promotionList,
+          }
+          this.emsService.saveEmployeeJobDetailsData(data).subscribe((res: any) => {
+            if (res.status && res.data[0].statuscode == 0) {
+              this.spinner.hide();
+              this.promotionList = [];
+              this.getEmployeeJobList();
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: "Data saved sucessfully"
+              });
+    
+            } else {
+              this.spinner.hide();
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: "Data is not saved"
+              });
+            }
           });
         }
-      });
 
+      }else {
+         let isValid = false;
+        if (this.employeeJobForm.valid) {
+          this.promotionList.push({
+            newsalary: this.promotionsForm.controls.newSalary.value,
+            newdescription: this.promotionsForm.controls.newDescription.value,
+            effectivedate: this.pipe.transform(this.promotionsForm.controls.effectiveDate.value, 'yyyy-MM-dd'),
+            annualsalary: this.promotionsForm.controls.annualSalary.value,
+          });
+        isValid = true;
+        } 
+        if (isValid == true) {
+          this.spinner.show();
+          let data = {
+            empid: this.employeeCode,
+            contractname: this.employeeJobForm.controls.contractName.value,
+            notes: this.employeeJobForm.controls.contractNotes.value,
+            //fileid: this.employeeJobForm.controls.contractFile.value,
+            fileid: null,
+            startdate: this.pipe.transform(this.employeeJobForm.controls.contractStartDate.value, 'yyyy-MM-dd'),
+            enddate: this.pipe.transform(this.employeeJobForm.controls.contractEndDate.value, 'yyyy-MM-dd'),
+            promotions: this.promotionList,
+          }
+          this.emsService.saveEmployeeJobDetailsData(data).subscribe((res: any) => {
+            if (res.status && res.data[0].statuscode == 0) {
+              this.spinner.hide();
+              this.promotionList = [];
+              this.clearContract();
+              this.getEmployeeJobList();
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: "Data saved sucessfully"
+              });
+    
+            } else {
+              this.spinner.hide();
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: "Data is not saved"
+              });
+            }
+          });
+        }  }
     } else {
       this.spinner.hide();
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1245,7 +1340,7 @@ export class EmployeeInfoComponent implements OnInit {
         pan: this.employementForm.controls.panNumber.value,
         experience: this.workExperienceDetails,
       }
-
+console.log("data-",data)
       this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
         if (res.status && res.data[0].statuscode == 0) {
           this.spinner.hide();

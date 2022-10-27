@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 import { AdminService } from 'src/app/modules/admin/admin.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {LeavePoliciesDialogComponent} from '../../../admin/dialog/leave-policies-dialog/leave-policies-dialog.component'
 
 
 import * as _moment from 'moment';
@@ -87,6 +88,7 @@ export class AttendanceRequestComponent implements OnInit {
   myDateFilter:any;
   workeddays: any;
   ATT75:any;
+  ATT74:any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
     private location: Location, private adminService: AdminService) {
@@ -452,6 +454,21 @@ export class AttendanceRequestComponent implements OnInit {
       })
     }
   }
+
+
+  DeleteRequestPopup(event: any){
+    let dialogRef = this.dialog.open(LeavePoliciesDialogComponent, {
+      position:{top:`70px`},
+      disableClose: true,
+      data: {message:this.ATT74,YES:'YES',NO:'NO'}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == 'YES'){
+        this.deleteRequest(event)
+      }
+      });
+  }
+
   deleteRequest(event: any) {
     let obj = {
       "id": event.id,
@@ -514,6 +531,9 @@ export class AttendanceRequestComponent implements OnInit {
           }
           else if (e.code == "ATT75") {
             this.ATT75 = e.message
+          }
+          else if (e.code == "ATT74") {
+            this.ATT74 = e.message
           }
         })
       }

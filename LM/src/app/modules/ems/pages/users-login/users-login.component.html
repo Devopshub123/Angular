@@ -1,9 +1,10 @@
 <div fxLayout="column">
-    <form [formGroup]="usersloginForm" autocomplete="off">
+    
        <mat-card-header>
           <mat-card-title > Users Login </mat-card-title>
         </mat-card-header>
         <div >
+            <form [formGroup]="usersloginForm" autocomplete="off">
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Employee Name</mat-label>
@@ -64,6 +65,7 @@
                 </button>
                 <br />
             </div>
+        </form>
 
 
 
@@ -125,10 +127,17 @@
 
                         </td>
                     </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Status </th>
+                        <td mat-cell *matCellDef="let row" >
+                            <span>{{row.status}} </span>
+
+                        </td>
+                    </ng-container>
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header >  </th>
                         <td mat-cell *matCellDef="let row" >
-                            <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon>
+                            <mat-icon title="Edit"  (click)="edit($event,row)" *ngIf="row.status!='Inactive'">edit</mat-icon>
                             <!-- <mat-icon class="mr-2" title="Delete">delete</mat-icon> -->
 
                         </td>
@@ -144,6 +153,6 @@
             </div>
         </div>
         </div>
-         </form>
+         
   </div>
 
