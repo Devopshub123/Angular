@@ -218,41 +218,6 @@ export class EmployeeInfoComponent implements OnInit {
     this.getRoles();
     this.getstatuslist();
     this.getnoticeperiods();
-    this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedValue => {
-      this.stateDetails = [];
-      this.companyService.getStatesc(selectedValue).subscribe((data) => {
-        this.stateDetails = data[0];
-      })
-    })
-    this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedValue => {
-      this.cityDetails = [];
-      this.companyService.getCities(selectedValue).subscribe((data) => {
-        this.cityDetails = data[0]
-      })
-    })
-
-    this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
-      this.permanentStateDetails = [];
-      this.companyService.getStatesc(selectedValue).subscribe((data) => {
-        this.permanentStateDetails = data[0];
-      })
-    })
-    this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
-      this.permanentCityDetails = [];
-      this.companyService.getCities(selectedValue).subscribe((data) => {
-        this.permanentCityDetails = data[0]
-      })
-    })
-    this.employeeJobForm.get('contractStartDate')?.valueChanges.subscribe((selectedValue: any) => {
-      this.mincontarctDate = selectedValue._d;
-    })
-    this.experienceForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
-      this.minExperienceDate = selectedValue._d;
-    })
-    this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
-      this.minEducationDate = selectedValue._d;
-    })
-    /////////
     this.personalInfoForm.get('checked')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue) {
         this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
@@ -301,6 +266,42 @@ export class EmployeeInfoComponent implements OnInit {
         this.personalInfoForm.controls.ppincode.enable()
       }
     })
+    this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedValue => {
+      this.stateDetails = [];
+      this.companyService.getStatesc(selectedValue).subscribe((data) => {
+        this.stateDetails = data[0];
+      })
+    })
+    this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedValue => {
+      this.cityDetails = [];
+      this.companyService.getCities(selectedValue).subscribe((data) => {
+        this.cityDetails = data[0]
+      })
+    })
+
+    this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
+      this.permanentStateDetails = [];
+      this.companyService.getStatesc(selectedValue).subscribe((data) => {
+        this.permanentStateDetails = data[0];
+      })
+    })
+    this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
+      this.permanentCityDetails = [];
+      this.companyService.getCities(selectedValue).subscribe((data) => {
+        this.permanentCityDetails = data[0]
+      })
+    })
+    this.employeeJobForm.get('contractStartDate')?.valueChanges.subscribe((selectedValue: any) => {
+      this.mincontarctDate = selectedValue._d;
+    })
+    this.experienceForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
+      this.minExperienceDate = selectedValue._d;
+    })
+    this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
+      this.minEducationDate = selectedValue._d;
+    })
+    /////////
+
     this.personalInfoForm.get('usertype')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue == 2 || selectedValue == 6) {
         this.isself = true;
@@ -363,13 +364,13 @@ export class EmployeeInfoComponent implements OnInit {
       if (this.loginData.id != null) {
         this.preOnboardId = this.loginData.id;
       }
-      // let a = this.loginData;
-      // if (a.rcountry == null) {
-      //   this.personalInfoForm.controls.checked.setValue(false)
-      // }
-      // else if (a.rcountry == a.pcountry && a.rstate == a.pstate && a.rcity == a.pcity && a.raddress == a.paddress && a.rpincode == a.ppincode) {
-      //   this.personalInfoForm.controls.checked.setValue(true)
-      // }
+      let a = this.loginData;
+      if (a.rcountry == null) {
+        this.personalInfoForm.controls.checked.setValue(false)
+      }
+      else if (a.rcountry == a.pcountry && a.rstate == a.pstate && a.rcity == a.pcity && a.raddress == a.paddress && a.rpincode == a.ppincode) {
+        this.personalInfoForm.controls.checked.setValue(true)
+      }
       this.loginCandidateId = this.loginData.candidateid;
       this.employeeNameh = this.loginData.firstname + ' ' + this.loginData.middlename + ' '+this.loginData.lastname;
       this.employeeCode = this.loginData.empid;
@@ -495,10 +496,10 @@ export class EmployeeInfoComponent implements OnInit {
       if (this.employeeInformationData.id != null) {
         this.preOnboardId = this.employeeInformationData.id;
       }
-      // let a = this.employeeInformationData;
-      // if (a.rcountry == a.pcountry && a.rstate == a.pstate && a.rcity == a.pcity && a.raddress == a.paddress && a.rpincode == a.ppincode) {
-      //   this.personalInfoForm.controls.checked.setValue(true)
-      // }
+      let a = this.employeeInformationData;
+      if (a.country == a.pcountry && a.state == a.pstate && a.city == a.pcity && a.address == a.paddress && a.pincode == a.ppincode) {
+        this.personalInfoForm.controls.checked.setValue(true)
+      }
       this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.middlename  + ' ' + this.employeeInformationData.lastname;
       this.employeeCode = this.employeeInformationData.empid;
       this.availableDesignations.forEach((e: any) => {
@@ -1342,7 +1343,7 @@ export class EmployeeInfoComponent implements OnInit {
         pan: this.employementForm.controls.panNumber.value,
         experience: this.workExperienceDetails,
       }
-console.log("data-",data)
+
       this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
         if (res.status && res.data[0].statuscode == 0) {
           this.spinner.hide();

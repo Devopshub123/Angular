@@ -186,8 +186,9 @@
               "><b>Announcements</b></span>
           </div>
 
-          <div class="scrollbox" style="margin: 10px; padding: 2px; height: 250px" *ngIf="announcementsDetails.length > 0">
+          <div class="scrollbox" style="margin: 10px; padding: 2px; height: 250px">
             <div class="scrollbox-content">
+              <div *ngIf="announcementsDetails.length > 0">
               <mat-card style="
                   padding: 2px;
                   margin-bottom: 10px;
@@ -214,15 +215,18 @@
                 </div>
               </mat-card>
             </div>
+            <div fxLayout="column" fxLayoutGap="25px" style="padding-top: 15%"  fxLayoutAlign="center center"
+            *ngIf="announcementsDetails.length == 0">
+              <mat-card style="padding: 10px; background-color: #ffffff">
+                <div>
+                  <p><b>No Announcements</b></p>
+                </div>
+              </mat-card>
+            </div>
+            </div>
           </div>
 
-          <div fxLayout="column" fxLayoutGap="25px" style="padding: 5%" *ngIf="announcementsDetails.length == 0">
-            <mat-card style="padding: 10px; background-color: #ffffff">
-              <div fxLayoutAlign="center">
-                <p><b>No Announcements</b></p>
-              </div>
-            </mat-card>
-          </div>
+         
         </mat-card>
 
         <mat-card style="background-color: #ffffff" class="card outline" fxLayout="column" fxFlex="50">

@@ -64,6 +64,7 @@ export class HrResignationComponent implements OnInit {
   employeeId: any;
   userSession: any;
   searchdate: any = null;
+  isdisable:boolean=false;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.checklistForm = this.formBuilder.group(
@@ -150,6 +151,14 @@ export class HrResignationComponent implements OnInit {
     this.emsService.getEmployeeBoardingCheckList(this.employeeId, "Offboarding", null).subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.employeeChecklists = res.data;
+        for (let i = 0; i < res.data.length; i++){
+          if (res.data[i].status != 'Completed') {
+            this.isdisable = true;
+          }else{
+            this.selectedChecklists.push(res.data[i].checklist_id);
+          }
+
+        }
         this.checklistDataSource = new MatTableDataSource(this.employeeChecklists);
       }
     })
@@ -161,7 +170,7 @@ export class HrResignationComponent implements OnInit {
         cid: this.selectedChecklists,
         eid: this.employeeId,
         did: this.userSession.deptid,
-        cmmt: null,
+        cmmt: this.checklistForm.controls.remarks.value,
         status: "Completed",
         fstatus: this.checked == true ? "Completed" : "Pending Checklist",
         category: "Offboarding",

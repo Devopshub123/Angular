@@ -1011,18 +1011,14 @@
                                     <tr mat-row *matRowDef="let row; columns: educationTableColumns"></tr>
                                 </table>
                             </div>
+                            <div fxLayoutAlign="center">
+                                <button class="m-1 mat-stroked-button button-save" (click)="saveEducation()" type="submit">
+                                    <span>Save</span>
+                                </button>
+                                <br />
+                            </div>
                         </form>
-                        <div fxLayoutAlign="center">
-                            <button class="m-1 mat-stroked-button button-save" (click)="saveEducation()" type="submit">
-                                <span>Save</span>
-                            </button>
-                            <!-- <button class="m-1 mat-stroked-button button-clear" (click)="personalInfoClear()">
-                                <span>Cancel</span>
-                            </button> -->
-                            <br />
-                        </div>
-
-                    </div>
+                       </div>
                 </mat-tab>
 
                 <!-- document tab -->
