@@ -50,7 +50,7 @@ export class EmpPayrollReportComponent implements OnInit {
     datepicker.close();
   }
   searchForm!: FormGroup;
-  displayedColumns: string[] = ['sno','empid','empname','lossofpay','totalleaves','totalleavebalance'];
+  displayedColumns: string[] = ['sno','empid','empname','totalleavebalance','lossofpay','totalleaves'];
   dataSource: MatTableDataSource<any>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
