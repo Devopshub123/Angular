@@ -53,8 +53,7 @@ export class EmployeeInfoComponent implements OnInit {
     private dialog: MatDialog, private mainService: MainService, private router: Router, private activeroute: ActivatedRoute,
     private adminService: AdminService, private spinner: NgxSpinnerService,
     private LM: LeavesService,private activatedRoute: ActivatedRoute, private emsService: EmsService) {
-      this.getCountry();
-      this.formData = new FormData();
+    this.formData = new FormData();
   }
   personalInfoForm!: FormGroup;
   CandidateFamilyForm: any = FormGroup;
@@ -213,34 +212,35 @@ export class EmployeeInfoComponent implements OnInit {
     this.getDesignationsMaster();
     this.getDepartmentsMaster();
     this.getWorkLocation();
-
+    this.getCountry();
     this.getEmploymentTypeMaster();
     this.getRoles();
     this.getstatuslist();
     this.getnoticeperiods();
+    /**same as present address checkbox */
     this.personalInfoForm.get('checked')?.valueChanges.subscribe(selectedValue => {
-      if (selectedValue) {
-        this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
+      if (selectedValue != '') {
+        this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedStateValue => {
           this.permanentStateDetails = [];
-          this.companyService.getStatesc(selectedValue).subscribe((data) => {
-            this.permanentStateDetails = data[0]
-            if (this.personalInfoForm.controls.rstate.value != null) {
-              this.personalInfoForm.controls.pstate.setValue(this.personalInfoForm.controls.rstate.value);
-
-            }
-
-          })
+          if(selectedStateValue != '') {
+            this.companyService.getStatesc(selectedStateValue).subscribe((data) => {
+              this.permanentStateDetails = data[0]
+              if (this.personalInfoForm.controls.rstate.value != null) {
+                this.personalInfoForm.controls.pstate.setValue(this.personalInfoForm.controls.rstate.value);
+              }
+            })
+          }
         })
-        this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
+        this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedCityValue => {
           this.permanentCityDetails = [];
-          this.companyService.getCities(selectedValue).subscribe((data) => {
-            this.permanentCityDetails = data[0]
-            if (this.personalInfoForm.controls.rcity.value != null) {
-              this.personalInfoForm.controls.pcity.setValue(this.personalInfoForm.controls.rcity.value);
-
-            }
-
-          })
+          if(selectedCityValue != '') {
+            this.companyService.getCities(selectedCityValue).subscribe((data) => {
+              this.permanentCityDetails = data[0]
+              if (this.personalInfoForm.controls.rcity.value != null) {
+                this.personalInfoForm.controls.pcity.setValue(this.personalInfoForm.controls.rcity.value);
+              }
+            });
+          }
         })
 
         this.personalInfoForm.controls.paddress.setValue(this.personalInfoForm.controls.raddress.value),
@@ -255,42 +255,71 @@ export class EmployeeInfoComponent implements OnInit {
       }
       else {
         this.personalInfoForm.controls.paddress.setValue('')
-        this.personalInfoForm.controls.paddress.enable()
         this.personalInfoForm.controls.pcountry.setValue('')
-        this.personalInfoForm.controls.pcountry.enable()
         this.personalInfoForm.controls.pstate.setValue('')
-        this.personalInfoForm.controls.pstate.enable()
+        this.personalInfoForm.controls.pstate.setValue('')
         this.personalInfoForm.controls.pcity.setValue('')
-        this.personalInfoForm.controls.pcity.enable()
         this.personalInfoForm.controls.ppincode.setValue('')
-        this.personalInfoForm.controls.ppincode.enable()
       }
     })
-    this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedValue => {
+    /**get state details for residance address */
+    this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedResidenceStateValue => {
       this.stateDetails = [];
-      this.companyService.getStatesc(selectedValue).subscribe((data) => {
-        this.stateDetails = data[0];
-      })
+      if (selectedResidenceStateValue != '') {
+         this.companyService.getStatesc(selectedResidenceStateValue).subscribe((data) => {
+           this.stateDetails = data[0];
+           if (this.employeeInformationData != null) {
+             this.personalInfoForm.controls.rstate.setValue(this.employeeInformationData.state);
+           } else {
+            this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
+           }
+         })
+      }
     })
-    this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedValue => {
+    /**get city details for residance address */
+    this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedResidenceCityValue => {
       this.cityDetails = [];
-      this.companyService.getCities(selectedValue).subscribe((data) => {
-        this.cityDetails = data[0]
-      })
+      if (selectedResidenceCityValue != '') {
+        this.companyService.getCities(selectedResidenceCityValue).subscribe((data) => {
+          this.cityDetails = data[0]
+          if (this.employeeInformationData != null) {
+            this.personalInfoForm.controls.rcity.setValue(this.employeeInformationData.city);
+          } else {
+            this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
+          }
+        })
+      }
+    })
+    /**get state details for present address*/
+    this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedPresentStateValue => {
+      this.permanentStateDetails = [];
+      if (selectedPresentStateValue != '') {
+        this.companyService.getStatesc(selectedPresentStateValue).subscribe((data) => {
+          this.permanentStateDetails = data[0]
+          if (this.employeeInformationData != null) {
+            this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
+          } else {
+            this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
+          }
+        })
+      }
+    })
+    /**get city details for present address */
+    this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedPresentCityValue => {
+      this.permanentCityDetails = [];
+      if (selectedPresentCityValue != '') {
+        this.companyService.getCities(selectedPresentCityValue).subscribe((data) => {
+          this.permanentCityDetails = data[0]
+          if (this.employeeInformationData != null) {
+            this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
+          } else {
+            this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
+          }
+        })
+      }
     })
 
-    this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
-      this.permanentStateDetails = [];
-      this.companyService.getStatesc(selectedValue).subscribe((data) => {
-        this.permanentStateDetails = data[0];
-      })
-    })
-    this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
-      this.permanentCityDetails = [];
-      this.companyService.getCities(selectedValue).subscribe((data) => {
-        this.permanentCityDetails = data[0]
-      })
-    })
+
     this.employeeJobForm.get('contractStartDate')?.valueChanges.subscribe((selectedValue: any) => {
       this.mincontarctDate = selectedValue._d;
     })
