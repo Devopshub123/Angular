@@ -51,7 +51,7 @@ export class InductionComponent implements OnInit {
   companyDBName:any = environment.dbName;
 
   constructor(private dialog:MatDialog,private formBuilder: FormBuilder,private companyServices: CompanySettingService,private router: Router,private EMS:EmsService,private EM:AdminService) { }
-
+  pageLoading = true;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getProgramsMaster(null);
@@ -257,6 +257,7 @@ export class InductionComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.pageLoading = false;
       }
     })
   }
@@ -311,5 +312,13 @@ export class InductionComponent implements OnInit {
     })
 
   }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
 
+      return [5, 10, 20];
+    }
+  }
 }

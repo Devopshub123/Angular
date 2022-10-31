@@ -31,21 +31,24 @@
       </div> -->
 
       <div style="padding-top: 4%">
-        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(5, true)">
+        <a mat-list-item routerLinkActive="active-list-item" style="pointer-events: none">
+          <!-- (click)="getrolescreenfunctionalities(5, true)" -->
           <img src="assets\img\new-payroll.png" style="height: 35px" />
           <span class="iconStyle">Payroll</span>
         </a>
       </div>
 
       <div style="padding-top: 4%">
-        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(6, true)">
+        <a mat-list-item routerLinkActive="active-list-item" style="pointer-events: none">
+          <!-- (click)="getrolescreenfunctionalities(6, true)" -->
           <img src="assets\img\new-asset.png" style="height: 35px" />
           <span class="iconStyle">Asset</span>
         </a>
       </div>
 
       <div style="padding-top: 4%">
-        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(7, true)">
+        <a mat-list-item routerLinkActive="active-list-item" style="pointer-events: none">
+          <!-- (click)="getrolescreenfunctionalities(7, true)" -->
           <img src="assets\img\new-claims.png" style="height: 35px" />
           <span class="iconStyle">Claims</span>
         </a>
@@ -99,7 +102,7 @@
           </div>
         </mat-card>
 
-        <mat-card fxLayout="Column" style="background-color: #ffffff; height: 215px" class="card outline" fxFlex="50">
+        <mat-card fxLayout="Column" style="height: 215px" class="card outline" fxFlex="50">
           <div style="overflow: auto">
             <div fxLayout="row" fxLayoutAlign="space-between center">
               <span style="
@@ -176,7 +179,7 @@
       </div>
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" style="padding-left: 2%;padding-right: 2%;">
-        <mat-card style="background-color: #ffffff" class="card outline" fxLayout="column" fxFlex="50">
+        <mat-card  class="card outline" fxLayout="column" fxFlex="50">
           <div fxLayout="row">
             <span style="
                 font-size: 20px;
@@ -191,8 +194,7 @@
               <div *ngIf="announcementsDetails.length > 0">
               <mat-card style="
                   padding: 2px;
-                  margin-bottom: 10px;
-                  background-color: #ffffff;
+                  margin-bottom: 10px
                 " *ngFor="let items of announcementsDetails">
                 <div>
                   <p style="color: #295062; font-size: 18px">
@@ -217,7 +219,7 @@
             </div>
             <div fxLayout="column" fxLayoutGap="25px" style="padding-top: 15%"  fxLayoutAlign="center center"
             *ngIf="announcementsDetails.length == 0">
-              <mat-card style="padding: 10px; background-color: #ffffff">
+              <mat-card style="padding: 10px">
                 <div>
                   <p><b>No Announcements</b></p>
                 </div>
@@ -229,7 +231,7 @@
          
         </mat-card>
 
-        <mat-card style="background-color: #ffffff" class="card outline" fxLayout="column" fxFlex="50">
+        <mat-card  class="card outline" fxLayout="column" fxFlex="50">
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <span style="
                 font-size: 20px;

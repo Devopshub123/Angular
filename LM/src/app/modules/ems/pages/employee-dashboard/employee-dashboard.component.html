@@ -2,7 +2,7 @@
 
 
   <div fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px" style="height:50%;padding: 15px;" >
-    <mat-card fxLayout="Column"   style="background-color: #ffffff" fxFlex="50" >
+    <mat-card fxLayout="Column"  fxFlex="50" class="card outline">
         <mat-card-header fxLayout="row" fxLayout.xs="row" class="mat-header" fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
             <div fxFlex="30" fxFlex.xs="50"  fxLayoutAlign.xs="center center">
               <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
@@ -31,7 +31,7 @@
     </mat-card-content>
     </mat-card>
 
-    <mat-card  style="background-color: #ffffff" fxLayout="column" fxFlex="50" >
+    <mat-card  fxLayout="column" fxFlex="50" class="card outline">
         <div fxLayout="row" style="padding: 15px;">
          <span style="font-size: 20px;"><mat-icon>announcement</mat-icon></span>
           <span style="font-size: 20px; margin-left: 5%;"><b>Announcements</b></span>
@@ -74,15 +74,14 @@
 
 </div>
 <!-- </div> -->
-<!-- <div style="height:50%"> -->
+
 <div  fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px" style="height:50%;padding: 15px;">
-    <mat-card fxLayout="Column"  style="background-color: #ffffff" fxFlex="50" >
+    <mat-card fxLayout="Column" class="card outline" fxFlex="50" >
       <div style="overflow: auto;">
         <div fxLayout="row" style="padding: 5px;">
             <span style="font-size: 20px; margin-left: 5%;"><b>Reporting Manager</b></span>
           </div>
 
-        <!--<div fxLayout="column" style="padding: 15px;" *ngFor="let rm of reportingManager" >-->
          <mat-card style="margin: 10px;background-color:#eef1f0;">
           <p *ngIf='reportingManager.length==0' style="margin-left: 5px">Manager Not Assigned</p>
           <!--<p style="margin-left: 5px">{{rm.officeemail}}</p>-->
@@ -129,8 +128,7 @@
         <span style="font-size: 20px; margin-left: 5%;"><b>HR Manager</b></span>
       </div>
 
-      <!--<div fxLayout="column" style="padding: 15px;" *ngFor="let rm of reportingManager" >-->
-      <mat-card    style="margin:10px; background-color: #eef1f0">
+       <mat-card    style="margin:10px; background-color: #eef1f0">
         <p *ngIf='hrReportingManager.length==0' style="margin-left: 5px">Manager Not Assigned</p>
         <div *ngIf='hrReportingManager.length !=0'>
           <span   *ngFor="let item of hrReportingManager">
@@ -166,73 +164,11 @@
           </span>
         </div>
       </mat-card>
-      <!-- <div fxLayout="row" style="padding: 5px;">
-        <span style="font-size: 20px; margin-left: 5%;"><b>Finance Manager</b></span>
-      </div> -->
-
-      <!--<div fxLayout="column" style="padding: 15px;" *ngFor="let rm of reportingManager" >-->
-      <!-- <mat-card    style="margin:10px; background-color: #eef1f0">
-        <p *ngIf='financeManager.length==0' style="margin-left: 5px">Manager Not Assigned</p>
-        <div *ngIf='financeManager.length!=0'>
-          <span  *ngFor="let item of financeManager">
-
-           <!--<span *ngIf="item.children && item.children.length > 0">-->
-             <!-- <mat-accordion>
-               <mat-expansion-panel [expanded]="false">
-                 <mat-expansion-panel-header  style="background-color: #eef1f0">
-                   <mat-panel-title>
-                     <div fxLayout="row" fxLayoutAlign="space-between center" >
-                       {{item.managername}}
-                     </div>
-                   </mat-panel-title>
-                 </mat-expansion-panel-header>
-                 <span >
-                   <mat-list-item >
-                     <div fxLayout="row" fxLayoutAlign="space-between center" >
-                       {{item.officeemail}}
-                     </div>
-                   </mat-list-item>
-                   <mat-list-item >
-                     <div fxLayout="row" fxLayoutAlign="space-between center" >
-                       {{item.contactnumber}}
-                     </div>
-                   </mat-list-item>
-                 </span>
-               </mat-expansion-panel>
-             </mat-accordion> -->
-            <!--</span>-->
-
-
-
-          <!-- </span>
-</div> -->
-
-      <!-- </mat-card>  -->
-      <!--</div>-->
+      
     </div>
     </mat-card>
 
-    <!--<mat-card style="background-color: #ffffff"  fxLayout="column"  fxFlex="50" >-->
-        <!--<div fxLayout="column" fxLayoutGap="25px" style="padding: 5%;">-->
-            <!--<mat-card style="padding: 10px;background-color: #eef1f0">-->
-                <!--<div>-->
-                    <!--<p><b>Probation period ends</b></p>-->
-                <!--</div>-->
-                <!--<div>-->
-                    <!--<span>Date: 25-03-2023</span>-->
-                <!--</div>-->
-            <!--</mat-card>-->
-            <!--<mat-card style="padding: 10px;background-color: #eef1f0">-->
-                <!--<div>-->
-                    <!--<p><b>Notice period</b></p>-->
-                <!--</div>-->
-                <!--<div>-->
-                    <!--<span>30 Days</span>-->
-                <!--</div>-->
-            <!--</mat-card>-->
-        <!--</div>-->
-    <!--</mat-card>-->
-  <mat-card  style="background-color: #ffffff" fxLayout="column" fxFlex="50" >
+  <mat-card  fxLayout="column" fxFlex="50" class="card outline" style="padding: 5px; overflow-y: auto">
     <div >
     <div fxLayout="row" style="padding: 5px;margin-bottom:0px; ">
       <span style="font-size: 20px;"><mat-icon>notifications</mat-icon></span>
@@ -260,26 +196,7 @@
       </mat-card>
     </div>
     </div>
-    <!-- <mat-card style="padding: 10px;background-color: #eef1f0">
-        <div>
-            <p><b>Company News</b></p>
-        </div>
-        <div>
-            <span>Latest information about company</span>
-        </div>
-    </mat-card> -->
-    <!--</div>-->
-    <!--<div fxLayout="column"   fxLayoutGap="25px" style="padding: 5%;" *ngIf="announcementsDetails.length == 0">-->
-      <!--<mat-card style="padding: 10px;background-color: #eef1f0">-->
-        <!--<div>-->
-          <!--<p><b>No Induction</b></p>-->
-        <!--</div>-->
-        <!--<div>-->
-          <!--<span></span>-->
-        <!--</div>-->
-      <!--</mat-card>-->
-    <!--</div>-->
-    <!--<div >-->
+
     <div fxLayout="row" style="padding: 5px;margin-bottom:0px;justify-content: space-between ">
       <span style="font-size: 20px; margin-left: 5%;"><b>Onboarding Checklist</b></span>
       <span *ngIf="onboardingDetails.length!=0" style="font-size: 14px; margin-right: 5%;"><b>{{onboardingDetails.length}} /{{count}} Completed</b></span>

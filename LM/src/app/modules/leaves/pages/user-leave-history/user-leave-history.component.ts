@@ -44,7 +44,7 @@ export class UserLeaveHistoryComponent implements OnInit {
   sort!: MatSort;
 
   constructor(private router: Router,private spinner:NgxSpinnerService,private LM:LeavesService,public dialog: MatDialog,private ts :LoginService) { }
-
+  pageLoading = true;
   ngOnInit(): void {
     this.getErrorMessages('LM16');
     this.getErrorMessages('LM17');
@@ -62,22 +62,12 @@ export class UserLeaveHistoryComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.leavedata);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      // this.count = result.data[0].total;
+      this.pageLoading = false;
 
     })
 
   }
-  getPageSizeOptions(): number[] {
-    if (this.dataSource.paginator!.length > this.maxall)
-      return [5, 10, 20,this.leavedata.length];
 
-
-
-    else
-      return [5, 10, 20, this.maxall];
-
-
-  }
 view(data:any){
   this.isview=true;
   this.isdata=false;
@@ -247,6 +237,15 @@ openDialogdelete(): void {
   
       window.open(this.fileURL);
      
-   }
+  }
+  
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+      return [5, 10, 20];
+    }
+  }
 
 }

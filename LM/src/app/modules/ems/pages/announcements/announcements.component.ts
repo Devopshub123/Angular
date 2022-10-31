@@ -142,6 +142,8 @@ export class AnnouncementsComponent implements OnInit {
   close(){
     this.ishide = false;
     this.isview = true;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/ems/announcement"]));
   }
   edit(event:any,data:any){
     this.iseditingdata=true;
