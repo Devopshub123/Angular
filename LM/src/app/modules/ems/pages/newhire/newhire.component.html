@@ -99,8 +99,11 @@
       </mat-form-field>
 
       <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-        <mat-label>Alternate Mobile Number</mat-label>
-        <input formControlName="alternatenumber" matInput placeholder="" maxlength="10" (keypress)=_keyPress($event)>
+        <mat-label>Emergency Contact Number</mat-label>
+        <input formControlName="alternatenumber" matInput placeholder="" required maxlength="10" (keypress)=_keyPress($event)>
+        <mat-error class="con-error" *ngIf="hireForm.controls.alternatenumber.errors?.required">
+          {{requiredField}}
+        </mat-error>
         <mat-error class="con-error" *ngIf="hireForm.get('alternatenumber').hasError('pattern')">
           Please enter valid mobile number
         </mat-error>

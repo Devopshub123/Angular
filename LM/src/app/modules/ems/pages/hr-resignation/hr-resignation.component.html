@@ -8,17 +8,17 @@
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
               <mat-label>Employee Name</mat-label>
-              <input type="text" formControlName="employeeName" matInput placeholder="" maxlength="100" readonly />
+              <input type="text" formControlName="employeeName" matInput placeholder="" readonly />
             </mat-form-field>
   
             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
               <mat-label>Date of Resignation</mat-label>
-              <input type="text" readonly formControlName="requestDate" matInput placeholder="" maxlength="10" />
+              <input type="text" readonly formControlName="requestDate" matInput placeholder=""/>
             </mat-form-field>
   
             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
               <mat-label>Designation</mat-label>
-              <input type="text" readonly formControlName="designation" matInput placeholder="" maxlength="10" />
+              <input type="text" readonly formControlName="designation" matInput placeholder=""/>
             </mat-form-field>
           </div>
   
@@ -58,7 +58,7 @@
               </mat-table>
             </div>
             <section style="padding-top: 1%;padding-left:1%">
-              <mat-checkbox class="example-margin" formControlName="isChecked" [(ngModel)]="checked">No Due</mat-checkbox>
+              <mat-checkbox class="example-margin"  [disabled]="isdisable" formControlName="isChecked" [(ngModel)]="checked">No Due</mat-checkbox>
             </section>
   
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">

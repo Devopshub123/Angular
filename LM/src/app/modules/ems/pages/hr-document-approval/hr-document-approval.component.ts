@@ -158,6 +158,9 @@ export class HrDocumentApprovalComponent implements OnInit {
 
   })
  }
-
+  cancel() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/ems/hr-document-approval"]));
+ }
 
 }

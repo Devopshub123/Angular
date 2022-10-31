@@ -165,38 +165,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
       this.getWorkLocation();
       this.getCountry();
       this.getCandidateData();
-      this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedValue => {
-        this.stateDetails = [];
-        this.companyService.getStatesc(selectedValue).subscribe((data) => {
-          this.stateDetails = data[0];
-        })
-      })
-      this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedValue => {
-        this.cityDetails = [];
-        this.companyService.getCities(selectedValue).subscribe((data) => {
-          this.cityDetails = data[0]
-        })
-      })
-
-      this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
-        this.permanentStateDetails = [];
-        this.companyService.getStatesc(selectedValue).subscribe((data) => {
-          this.permanentStateDetails = data[0];
-        })
-      })
-      this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
-        this.permanentCityDetails = [];
-        this.companyService.getCities(selectedValue).subscribe((data) => {
-          this.permanentCityDetails = data[0]
-        })
-      })
-      this.employementForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
-        this.minExperienceDate = selectedValue._d;
-      })
-      this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
-        this.minEducationDate = selectedValue._d;
-      })
-      //////////
       this.personalInfoForm.get('checked')?.valueChanges.subscribe(selectedValue => {
         if (selectedValue) {
           this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
@@ -245,6 +213,39 @@ export class PreOnboardingDetailsComponent implements OnInit {
           this.personalInfoForm.controls.ppincode.enable()
         }
       })
+      this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedValue => {
+        this.stateDetails = [];
+        this.companyService.getStatesc(selectedValue).subscribe((data) => {
+          this.stateDetails = data[0];
+        })
+      })
+      this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedValue => {
+        this.cityDetails = [];
+        this.companyService.getCities(selectedValue).subscribe((data) => {
+          this.cityDetails = data[0]
+        })
+      })
+
+      this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
+        this.permanentStateDetails = [];
+        this.companyService.getStatesc(selectedValue).subscribe((data) => {
+          this.permanentStateDetails = data[0];
+        })
+      })
+      this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
+        this.permanentCityDetails = [];
+        this.companyService.getCities(selectedValue).subscribe((data) => {
+          this.permanentCityDetails = data[0]
+        })
+      })
+      this.employementForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
+        this.minExperienceDate = selectedValue._d;
+      })
+      this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
+        this.minEducationDate = selectedValue._d;
+      })
+      //////////
+
     }else {
       this.router.navigate(['/Login'])
     }
@@ -266,6 +267,13 @@ export class PreOnboardingDetailsComponent implements OnInit {
           this.employeeDesignation = e.designation;
         }
       });
+      let a = this.loginData;
+      if (a.rcountry == null) {
+        this.personalInfoForm.controls.checked.setValue(false)
+      }
+      else if (a.rcountry == a.pcountry && a.rstate == a.pstate && a.rcity == a.pcity && a.raddress == a.paddress && a.rpincode == a.ppincode) {
+        this.personalInfoForm.controls.checked.setValue(true)
+      }
       this.employeeNameh = this.loginData.firstname + ' ' + this.loginData.middlename + ' ' + this.loginData.lastname;
       this.employeeJoinDate = this.loginData.dateofjoin;
       this.employeeMobile = this.loginData.contact_number;

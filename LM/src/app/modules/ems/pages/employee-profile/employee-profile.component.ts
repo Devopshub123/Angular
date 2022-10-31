@@ -205,32 +205,6 @@ export class EmployeeProfileComponent implements OnInit {
     this.getEmploymentTypeMaster();
     this.getRoles();
     this.getstatuslist();
-    this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedValue => {
-      this.stateDetails = [];
-      this.companyService.getStatesc(selectedValue).subscribe((data) => {
-        this.stateDetails = data[0];
-      })
-    })
-    this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedValue => {
-      this.cityDetails = [];
-      this.companyService.getCities(selectedValue).subscribe((data) => {
-        this.cityDetails = data[0]
-      })
-    })
-
-    this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
-      this.permanentStateDetails = [];
-      this.companyService.getStatesc(selectedValue).subscribe((data) => {
-        this.permanentStateDetails = data[0];
-      })
-    })
-    this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
-      this.permanentCityDetails = [];
-      this.companyService.getCities(selectedValue).subscribe((data) => {
-        this.permanentCityDetails = data[0]
-      })
-    })
-    //////////
     this.personalInfoForm.get('checked')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue) {
         this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
@@ -279,6 +253,33 @@ export class EmployeeProfileComponent implements OnInit {
         this.personalInfoForm.controls.ppincode.enable()
       }
     })
+    this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedValue => {
+      this.stateDetails = [];
+      this.companyService.getStatesc(selectedValue).subscribe((data) => {
+        this.stateDetails = data[0];
+      })
+    })
+    this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedValue => {
+      this.cityDetails = [];
+      this.companyService.getCities(selectedValue).subscribe((data) => {
+        this.cityDetails = data[0]
+      })
+    })
+
+    this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedValue => {
+      this.permanentStateDetails = [];
+      this.companyService.getStatesc(selectedValue).subscribe((data) => {
+        this.permanentStateDetails = data[0];
+      })
+    })
+    this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedValue => {
+      this.permanentCityDetails = [];
+      this.companyService.getCities(selectedValue).subscribe((data) => {
+        this.permanentCityDetails = data[0]
+      })
+    })
+    //////////
+
     this.experienceForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
       this.minExperienceDate = selectedValue._d;
     })
@@ -331,7 +332,7 @@ export class EmployeeProfileComponent implements OnInit {
         this.preOnboardId = this.employeeInformationData.id;
       }
       let a = this.employeeInformationData;
-      if (a.rcountry == a.pcountry && a.rstate == a.pstate && a.rcity == a.pcity && a.raddress == a.paddress && a.rpincode == a.ppincode) {
+      if (a.country == a.pcountry && a.state == a.pstate && a.city == a.pcity && a.address == a.paddress && a.pincode == a.ppincode) {
         this.personalInfoForm.controls.checked.setValue(true)
       }
       this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.middlename +' '+ this.employeeInformationData.lastname;
@@ -429,6 +430,7 @@ export class EmployeeProfileComponent implements OnInit {
 /** through employee directory login data  */
   getEmployeeJobList() {
     this.employeeJobData = [];
+    this.promotionsList = [];
     this.emsService.getEmployeeJobData(this.employeeId).subscribe((res: any) => {
       this.employeeJobData = JSON.parse(res.data[0].json)[0];
       if(this.employeeJobData.contractname != 'null')
@@ -462,15 +464,22 @@ export class EmployeeProfileComponent implements OnInit {
   /** through employee directory login data  */
   getEmployeeEmploymentList() {
     this.employeeEmployementData = [];
+    this.workExperienceDetails = [];
     this.emsService.getEmployeeEmployement(this.employeeId).subscribe((res: any) => {
       this.employeeEmployementData = JSON.parse(res.data[0].json)[0];
-
-      this.employementForm.controls.bankName.setValue(this.employeeEmployementData.bankname);
+      if (this.employeeEmployementData.bankname != 'null')
+        this.employementForm.controls.bankName.setValue(this.employeeEmployementData.bankname);
+        if (this.employeeEmployementData.nameasperbankaccount != 'null')
       this.employementForm.controls.bankAccountName.setValue(this.employeeEmployementData.nameasperbankaccount);
+      if (this.employeeEmployementData.bankaccountnumber != 'null')
       this.employementForm.controls.bankAccountNumber.setValue(this.employeeEmployementData.bankaccountnumber);
+      if (this.employeeEmployementData.ifsccode != 'null')
       this.employementForm.controls.ifscCode.setValue(this.employeeEmployementData.ifsccode);
+      if (this.employeeEmployementData.branchname != 'null')
       this.employementForm.controls.branchName.setValue(this.employeeEmployementData.branchname);
+      if (this.employeeEmployementData.uanumber != 'null')
       this.employementForm.controls.uanNumber.setValue(this.employeeEmployementData.uanumber);
+      if (this.employeeEmployementData.pan != 'null')
       this.employementForm.controls.panNumber.setValue(this.employeeEmployementData.pan);
 
       if (this.employeeEmployementData.experience != null) {
@@ -479,6 +488,7 @@ export class EmployeeProfileComponent implements OnInit {
           for (let i = 0; i < employementdata.length; i++) {
             this.workExperienceDetails.push({
               companyname: employementdata[i].companyname,
+              designation: employementdata[i].designation,
               fromdate: employementdata[i].fromdate != "null" ? this.pipe.transform(employementdata[i].fromdate, 'yyyy-MM-dd') : '',
               todate: employementdata[i].todate != "null" ? this.pipe.transform(employementdata[i].todate, 'yyyy-MM-dd') : '',
               skills: employementdata[i].skills,
@@ -493,6 +503,7 @@ export class EmployeeProfileComponent implements OnInit {
   /** through employee directory login data  */
   getEmployeeEducationList() {
     this.employeeEducationData = [];
+    this.educationDetails = [];
     this.emsService.getEmployeeEducationData(this.employeeId).subscribe((res: any) => {
       this.employeeEducationData = JSON.parse(res.data[0].json)[0];
 
@@ -1028,7 +1039,6 @@ addExperienceValidators() {
     this.experienceForm.controls.expToDate.reset();
     this.experienceForm.controls.designation.reset();
     this.experienceForm.controls.jobDescription.reset();
-    this.experienceForm.valid = true;
   }
   deleteExperience(index: any) {
     this.workExperienceDetails.splice(index, 1);
@@ -1079,35 +1089,34 @@ addExperienceValidators() {
 
   //** */
   saveEducation() {
-    const invalid = [];
-    const controls = this.employementForm.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        invalid.push(name);
+    if (this.educationForm.valid) {
+      this.spinner.show();
+      let data = {
+        empid: this.employeeCode,
+        education: this.educationDetails,
       }
+
+      this.emsService.saveEmployeeEducationData(data).subscribe((res: any) => {
+        if (res.status && res.data[0].statuscode == 0) {
+          this.getEmployeeEducationList();
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data saved sucessfully"
+          });
+          this.spinner.hide();
+        } else {
+          this.spinner.hide();
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data is not saved"
+          });
+        }
+      });
+    } else {
+      this.spinner.hide();
     }
-    let data = {
-      empid: this.employeeCode,
-      education: this.educationDetails,
-    }
-
-    this.emsService.saveEmployeeEducationData(data).subscribe((res: any) => {
-      if (res.status && res.data[0].statuscode == 0) {
-
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
-          data: "Data saved sucessfully"
-        });
-
-      } else {
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
-          data: "Data is not saved"
-        });
-      }
-    });
   }
 
   addEducation() {
@@ -1176,7 +1185,6 @@ addEducationValidators() {
     this.educationForm.controls.instituteName.reset();
     this.educationForm.controls.eduFromDate.reset();
     this.educationForm.controls.eduToDate.reset();
-    this.educationForm.valid = true;
   }
   deleteEducation(index: any) {
     this.educationDetails.splice(index, 1);

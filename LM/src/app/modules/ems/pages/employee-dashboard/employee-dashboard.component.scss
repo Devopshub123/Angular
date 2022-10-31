@@ -161,3 +161,39 @@ a:active {
   background-repeat: no-repeat;
   background-position: center;
 }
+.outline{
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #28acaf;
+  background-color: #ffffff
+}
+.card {
+  transition: all .25s linear;
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+  display: block;
+  display: inline-block;
+}
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0px 0px 0px -1px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%), 0px 0px 0px 0px rgb(0 0 0 / 12%);
+}
+.card:hover{
+  box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
+}
+
+.scrollbox {
+  overflow: auto;
+  visibility: hidden;
+}
+.scrollbox-content,
+.scrollbox:hover,
+.scrollbox:focus {
+  visibility: visible;
+}
+
+.scrollbox_delayed {
+  transition: visibility 0.2s;
+}
+.scrollbox_delayed:hover {
+  transition: visibility 0s 0.2s;
+}
