@@ -708,9 +708,9 @@ export class EmployeeProfileComponent implements OnInit {
       let roledata = data.data;
       this.availableRole = [];
       for (let i = 0; i < roledata.length; i++) {
-        if (roledata[i].isEditable == 0) {
+     //   if (roledata[i].isEditable == 0) {
           this.availableRole.push(roledata[i])
-        }
+       // }
       }
     })
   }
