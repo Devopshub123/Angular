@@ -17,9 +17,9 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field fxFlex="25" class="mx-1 my-1" appearance="outline">
-            <mat-label>Date</mat-label>
+            <mat-label>Month and Year</mat-label>
             <input matInput readonly [matDatepicker]="fromDate"
-                   placeholder="From Date" formControlName="fromDate" [max]="max" (click)="fromDate.open()">
+                   placeholder="From Date" [formControl]="date" [max]="max" (click)="fromDate.open()">
             <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
             <mat-datepicker #fromDate
             startView="multi-year"

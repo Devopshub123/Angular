@@ -108,7 +108,7 @@ export class EmpPayrollReportComponent implements OnInit {
   Searchform(){
     let data ={
       empid:this.searchForm.controls.employeeId.value=="All"?null:this.searchForm.controls.employeeId.value,
-      date:this.pipe.transform(this.searchForm.controls.fromDate.value, 'yyyy-MM-dd')
+      date:this.pipe.transform( this.date.value._d, 'yyyy-MM-dd')
     }
     this.spinner.show();
     this.LM.getReportForPayrollProcessing(data).subscribe((res:any)=>{
