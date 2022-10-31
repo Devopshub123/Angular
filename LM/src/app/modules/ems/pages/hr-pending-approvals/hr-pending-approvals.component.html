@@ -60,7 +60,7 @@
         </mat-form-field>
         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Date of Request Resignation </mat-label>
-          <input matInput [readonly]="true" placeholder="MM/DD/YYYY" formControlName="appliedDate" [disabled]="true"
+          <input matInput [readonly]="true" placeholder="DD-MM-YYYY" formControlName="appliedDate" [disabled]="true"
             [matDatepicker]="date" [min]="mindate" [max]="maxdate" />
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
           </mat-datepicker-toggle>
@@ -76,7 +76,7 @@
         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Relieving Date </mat-label>
           <input matInput readonly [disabled]="true" [matDatepicker]="date2" [min]="mindate" [max]="maxdate"
-            placeholder="MM/DD/YYYY" formControlName="releivingdate" />
+            placeholder="DD-MM-YYYY" formControlName="releivingdate" />
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="date2">
           </mat-datepicker-toggle>
           <mat-datepicker #date2></mat-datepicker>
@@ -85,7 +85,7 @@
         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label> Request Exit Date </mat-label>
           <input matInput readonly [disabled]="true" [matDatepicker]="date3" [min]="mindate" [max]="maxdate"
-            placeholder="MM/DD/YYYY" formControlName="requestedDate" required />
+            placeholder="DD-MM-YYYY" formControlName="requestedDate" required />
 
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">
           </mat-datepicker-toggle>
@@ -103,7 +103,7 @@
           class="mx-2 my-2" appearance="outline">
           <mat-label> Actual Relieving Date </mat-label>
           <input matInput readonly [disabled]="true" [matDatepicker]="date3" [min]="mindate" [max]="maxdate"
-            placeholder="MM/DD/YYYY" formControlName="actualRelievingDate" />
+            placeholder="DD-MM-YYYY" formControlName="actualRelievingDate" />
 
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">
           </mat-datepicker-toggle>
@@ -120,7 +120,7 @@
         <!--<mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">-->
         <!--<mat-label> Actual Relieving Date  </mat-label>-->
         <!--<input matInput readonly [disabled]="true"-->
-        <!--placeholder="MM/DD/YYYY" formControlName="actualRelievingDate"  required >-->
+        <!--placeholder="DD-MM-YYYY" formControlName="actualRelievingDate"  required >-->
 
         <!--&lt;!&ndash;<mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">&ndash;&gt;-->
         <!--&lt;!&ndash;</mat-datepicker-toggle>&ndash;&gt;-->

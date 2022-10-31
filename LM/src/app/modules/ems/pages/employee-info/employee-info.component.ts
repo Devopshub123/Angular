@@ -187,7 +187,7 @@ export class EmployeeInfoComponent implements OnInit {
   previews: any = [];
   isRemoveImage: boolean = true;
   isPromotionsOnly:boolean=true;
-  companyDBName:any = environment.dbName;
+  companyDBName: any = environment.dbName;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params) {
@@ -993,7 +993,7 @@ export class EmployeeInfoComponent implements OnInit {
             disableClose: true,
             data: "Data saved sucessfully"
           });
-
+          this.selectedtab.setValue(1);
         } else {
           this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1206,7 +1206,7 @@ export class EmployeeInfoComponent implements OnInit {
                 disableClose: true,
                 data: "Data saved sucessfully"
               });
-
+              this.selectedtab.setValue(2);
             } else {
               this.spinner.hide();
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1252,7 +1252,7 @@ export class EmployeeInfoComponent implements OnInit {
                 disableClose: true,
                 data: "Data saved sucessfully"
               });
-
+              this.selectedtab.setValue(2);
             } else {
               this.spinner.hide();
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1382,7 +1382,7 @@ export class EmployeeInfoComponent implements OnInit {
             disableClose: true,
             data: "Data saved sucessfully"
           });
-
+          this.selectedtab.setValue(3);
         } else {
           this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1424,6 +1424,7 @@ export class EmployeeInfoComponent implements OnInit {
               data: "Data saved sucessfully"
             });
             this.spinner.hide();
+            this.selectedtab.setValue(4);
           } else {
             this.spinner.hide();
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1849,6 +1850,7 @@ export class EmployeeInfoComponent implements OnInit {
                   });
                   this.getDocumentsEMS();
                   this.clearDock();
+                  this.selectedtab.setValue(0);
                 } else {
                   let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: { top: `70px` },

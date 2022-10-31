@@ -13,19 +13,23 @@
       <form [formGroup]="form" autocomplete="off">
         <div mat-dialog-content style="overflow: hidden">
             <div  fxLayout="initial" fxLayout.xs="column"  fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex='50' fxFlex.xs="100"  class="mx-1 my-1"  appearance="outline">
-                    <mat-label> Request Exit Date </mat-label>
-                    <input matInput readonly
-                        placeholder="MM/DD/YYYY" formControlName="requestdate">
+               
+              
+              <mat-form-field fxFlex='50' fxFlex.xs="100" class="mx-1 my-1" appearance="outline">
+                <mat-label>Request Exit Date </mat-label>
+                <input matInput readonly  [matDatepicker]="date" [min]="mindate"  [max]="maxdate"
+                    placeholder="DD-MM-YYYY" formControlName="requestdate">
+                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
+                </mat-datepicker-toggle>
+                <mat-datepicker #date></mat-datepicker>
+            </mat-form-field>
 
-                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
-                    </mat-datepicker-toggle>
-                    <mat-datepicker #date></mat-datepicker>
-                </mat-form-field>
+
+
                 <mat-form-field fxFlex='50' fxFlex.xs="100" class="mx-1 my-1" appearance="outline">
                     <mat-label>Approve Exit Date </mat-label>
                     <input matInput readonly  [matDatepicker]="date1" [min]="mindate"  [max]="maxdate"
-                        placeholder="MM/DD/YYYY" formControlName="approvedate">
+                        placeholder="DD-MM-YYYY" formControlName="approvedate">
 
                      <mat-datepicker-toggle class="datepicker" matSuffix [for]="date1">
                     </mat-datepicker-toggle>

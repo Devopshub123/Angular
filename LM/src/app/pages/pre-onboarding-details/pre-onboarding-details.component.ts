@@ -569,7 +569,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
             disableClose: true,
             data:"Data saved sucessfully"
           });
-
+          this.selectedtab.setValue(1);
 
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -693,7 +693,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
           disableClose: true,
           data:"Data saved sucessfully"
         });
-
+        this.selectedtab.setValue(2);
       } else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
@@ -796,7 +796,7 @@ for (let i = 0; i < workExperiencedata.length; i++) {
             disableClose: true,
             data: "Data saved sucessfully"
           });
-
+          this.selectedtab.setValue(3);
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
@@ -885,7 +885,6 @@ for (let i = 0; i < workExperiencedata.length; i++) {
   }
   validateDocument(){
     this.createValidatorForDocument();
-console.log("hhhhhhhh",this.documentsForm)
     if(this.documentsForm.valid){
     if(this.documentsForm.controls.attachedFile.value || this.editDockinfo){
       if(this.isFile){
@@ -967,7 +966,8 @@ else{
                     data: this.EM11
                   });
                   this.getDocumentsEMS();
-                  this.clearDock();
+                this.clearDock();
+                this.selectedtab.setValue(0);
               }else{
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {
                   position: {top: `70px`},
