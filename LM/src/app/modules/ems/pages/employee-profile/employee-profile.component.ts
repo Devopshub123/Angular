@@ -787,7 +787,7 @@ export class EmployeeProfileComponent implements OnInit {
           disableClose: true,
           data: "Data saved sucessfully"
         });
-
+        this.selectedtab.setValue(1);
       } else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
@@ -955,7 +955,7 @@ export class EmployeeProfileComponent implements OnInit {
           disableClose: true,
           data: "Data saved sucessfully"
         });
-
+        this.selectedtab.setValue(2);
       } else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
@@ -1074,7 +1074,7 @@ addExperienceValidators() {
           disableClose: true,
           data: "Data saved sucessfully"
         });
-
+        this.selectedtab.setValue(3);
       } else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
@@ -1105,6 +1105,7 @@ addExperienceValidators() {
             data: "Data saved sucessfully"
           });
           this.spinner.hide();
+          this.selectedtab.setValue(4);
         } else {
           this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1509,7 +1510,8 @@ saveDocument() {
                   data: this.EM11
                 });
                 this.getDocumentsEMS();
-                this.clearDock();
+              this.clearDock();
+              this.selectedtab.setValue(0);
             }else{
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: {top: `70px`},

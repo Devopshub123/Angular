@@ -72,15 +72,15 @@
           </ng-container>
           <ng-container matColumnDef="lossofpay">
         <th mat-header-cell *matHeaderCellDef mat-sort-header >Loss of Pay Count </th>
-        <td mat-cell *matCellDef="let row" ><span >{{row.lopcount}} </span></td>
+        <td mat-cell *matCellDef="let row" ><span >{{row.lopcount==null?0:row.lopcount}} </span></td>
           </ng-container>
           <ng-container matColumnDef="totalleaves">
             <th mat-header-cell *matHeaderCellDef mat-sort-header >Absents </th>
-            <td mat-cell *matCellDef="let row" ><span >{{row.absents}} </span></td>
+            <td mat-cell *matCellDef="let row" ><span >{{row.absents==null?0:row.absents}} </span></td>
               </ng-container>
               <ng-container matColumnDef="totalleavebalance">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header >Leaves Approved</th>
-                <td mat-cell *matCellDef="let row" ><span >{{row.approved_leaves}} </span></td>
+                <td mat-cell *matCellDef="let row" ><span >{{row.approved_leaves==null?0:row.approved_leaves}} </span></td>
                   </ng-container>
           <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

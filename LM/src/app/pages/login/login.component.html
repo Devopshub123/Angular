@@ -26,7 +26,7 @@
 
                                     <div class="mb-3">
                                         <label for="emailaddress" class="form-label">Email address</label>
-                                        <input class="form-control" type="email" formControlName="username" id="emailaddress" formc required="" placeholder="Enter your email">
+                                        <input class="form-control" type="email" formControlName="username" id="emailaddress" formc required="" placeholder="Enter your email" maxlength="30">
                                         <div class="extra" style="color: red;"  *ngIf="issubmit && formGroup.controls['username'].invalid " >
                                             {{msgLM1}}
                                           </div>
@@ -38,7 +38,7 @@
 
                                         <label for="password" class="form-label">Password</label>
                                         <div class="input-group input-group-merge">
-                                            <input id="password-field"[type]="hide ? 'password' : 'text'" formControlName="password"  class="form-control" name="password" placeholder="Enter your password">
+                                            <input id="password-field"[type]="hide ? 'password' : 'text'" formControlName="password"  class="form-control" name="password" placeholder="Enter your password" maxlength="30">
                                             <div class="input-group-text" data-password="false">
 												<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                                                 <!-- <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span> -->

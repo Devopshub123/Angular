@@ -10,7 +10,7 @@
       <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
         <mat-label>First Name</mat-label>
         <input formControlName="firstname" matInput placeholder="" required (keypress)="alphabetKeyPress($event)"
-          maxlength="70">
+          maxlength="100">
         <mat-error class="con-error" *ngIf="hireForm.controls.firstname.errors?.required || 
         hireForm.controls.firstname.errors?.['whitespace']">
           {{requiredField}}
@@ -20,13 +20,13 @@
       <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
         <mat-label>Middle Name</mat-label>
         <input formControlName="middlename" matInput placeholder="" (keypress)="alphabetKeyPress($event)"
-          maxlength="50">
+          maxlength="100">
       </mat-form-field>
 
       <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
         <mat-label>Last Name</mat-label>
         <input formControlName="lastname" required matInput placeholder="" (keypress)="alphabetKeyPress($event)"
-          maxlength="70">
+          maxlength="100">
         <mat-error class="con-error" *ngIf="hireForm.controls.lastname.errors?.required 
         || 
         hireForm.controls.lastname.errors?.['whitespace']">
@@ -38,10 +38,10 @@
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
       <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
         <mat-label>Email</mat-label>
-        <input formControlName="email" required matInput placeholder="" maxlength="100">
-        <mat-error class="con-error" *ngIf="hireForm.controls.email.errors?.required">
+        <input formControlName="email" matInput placeholder="" maxlength="50">
+        <!-- <mat-error class="con-error" *ngIf="hireForm.controls.email.errors?.required">
           {{requiredField}}
-        </mat-error>
+        </mat-error> -->
         <mat-error class="con-error" *ngIf="hireForm.controls.email.errors?.email">
           Please enter valid data
         </mat-error>
@@ -49,7 +49,7 @@
       <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
         <mat-label>Hired On</mat-label>
         <input matInput readonly required [matDatepicker]="hiredon" [min]="minDate" [max]="maxDate"
-          placeholder="Hired On" formControlName="hiredon" (click)="hiredon.open()">
+          placeholder="DD-MM-YYYY" formControlName="hiredon" (click)="hiredon.open()">
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="hiredon"></mat-datepicker-toggle>
         <mat-datepicker #hiredon></mat-datepicker>
         <mat-error class="con-error" *ngIf="hireForm.controls.hiredon.errors?.required">
@@ -60,7 +60,7 @@
       <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
         <mat-label>Date of Join</mat-label>
         <input matInput readonly required [matDatepicker]="dateofjoin" [min]="minHireDate" [max]="joinDate"
-          placeholder="Date of Join" formControlName="dateofjoin" (click)="dateofjoin.open()">
+          placeholder="DD-MM-YYYY" formControlName="dateofjoin" (click)="dateofjoin.open()">
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofjoin"></mat-datepicker-toggle>
         <mat-datepicker #dateofjoin></mat-datepicker>
         <mat-error class="con-error" *ngIf="hireForm.controls.dateofjoin.errors?.required">
