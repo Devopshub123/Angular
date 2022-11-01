@@ -47,10 +47,10 @@ export class EmployeereportComponent implements OnInit {
   ischecked:boolean=false;
   ishidestatus:boolean=false;
   addflagcheckboxes:boolean=false;
-  ishiding=[0,0,0,0,0,0,0,0,0]
+  ishiding=[0,0,0,0,0,0,0,0,0,0]
   ids=[0,1,2,3,4,5,6,7,8,9]
   arrlist:any=[];
-  allfilterdata=[];
+  allfilterdata: any = [];
   displayedColumns2: string[] = [];
   displayedColumns3:string[] = [];
   filterlist:any=[];
@@ -108,8 +108,8 @@ get maritalstatusFormArray() {
   return this.reportForm.controls.maritalstatus as FormArray;
 }
   arr: string[] = ['sno','name','email','mobile'];
-  // dataSource = new MatTableDataSource<PeriodicElement>(Sample_Data);
-  dataSource: MatTableDataSource<any>=<any>[];
+  dataSource : MatTableDataSource<any> = <any>[];
+  
  
   
   @ViewChild('TABLE') table!: ElementRef;  
@@ -398,10 +398,13 @@ get maritalstatusFormArray() {
 
      }
 
-      this.ES.getEmsEmployeeDataForReports(data2).subscribe((res:any)=>{
-        if(res.status && res.data.length != 0)
-        this.dataSource = new MatTableDataSource(res.data)
+    this.ES.getEmsEmployeeDataForReports(data2).subscribe((res: any) => {
+        this.allfilterdata = []
+      if (res.status && res.data.length != 0) {
         this.allfilterdata = res.data;
+        this.dataSource = new MatTableDataSource(this.allfilterdata);
+         }
+        
         
         this.ishide = true;
         this.isview = false;
