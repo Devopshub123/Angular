@@ -140,17 +140,6 @@ get maritalstatusFormArray() {
         manager:new FormArray([]),
         // empstatus: new FormArray([]),
     });
-    this.reportForm.get('emptype')?.valueChanges.subscribe((selectedValue:any) => {
-      
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position:{top:`70px`},
-            disableClose: true,
-            data: 'Please select atleast one employee status'
-          });
-
-        
-      
-    })
   }
   private addCheckempstatusboxes() {
     this.employeestatus.forEach(() => this.employeestatusFormArray.push(new FormControl(false)));
