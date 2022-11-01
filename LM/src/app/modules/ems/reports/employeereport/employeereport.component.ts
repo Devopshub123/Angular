@@ -140,6 +140,17 @@ get maritalstatusFormArray() {
         manager:new FormArray([]),
         // empstatus: new FormArray([]),
     });
+    this.reportForm.get('emptype')?.valueChanges.subscribe((selectedValue:any) => {
+      
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: 'Please select atleast one employee status'
+          });
+
+        
+      
+    })
   }
   private addCheckempstatusboxes() {
     this.employeestatus.forEach(() => this.employeestatusFormArray.push(new FormControl(false)));
@@ -250,6 +261,7 @@ get maritalstatusFormArray() {
       this.addemptypecheckbox();
       this.addbloodgroup();
       this.addgender();
+      this.search();
 
     }
    
@@ -336,15 +348,8 @@ get maritalstatusFormArray() {
           this.maritalstatus.push(result.data[i])
           this.maritalstatusid.push(result.data[i].id)
          }
-        //  this.employeestatusFormArray.setValue(this.empstatusids)
       }
-      // this.bloodgroupFormArray.setValue([1,2])
-      // console.log(this.empstatusids)
-      // return this.employeestatusFormArray.setValue(this.empstatusids)
-      
-      
-   
-
+      this.filter()
     })
 
   }
