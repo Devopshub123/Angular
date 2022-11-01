@@ -12,11 +12,13 @@ export class MainService {
   httpOptions = {
     headers: new HttpHeaders({'content-Type': 'application/json'})
   };
-
+  companyName:any;
   constructor(private http: HttpClient) {
+    this.companyName= sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
   }
 /*Get Role Screen Functionalities*/
   getRoleScreenFunctionalities(data: any) {
+    data.companyName= this.companyName;
 
     return this.http.post(this.mainBeUrl + 'attendance/api/getrolescreenfunctionalities',data, this.httpOptions);
 
@@ -32,9 +34,10 @@ export class MainService {
     return this.http.post(this.mainBeUrl + 'api/getProfileImage/', info,this.httpOptions);
   }
   getCompoffleavestatus():Observable<any> {
-    return this.http.get(this.mainBeUrl + 'api/getcompoffleavestatus') ;
+    return this.http.get(this.mainBeUrl + 'api/getcompoffleavestatus/'+this.companyName) ;
   }
   getFilesMaster(info:any):Observable<any>{
+    info.companyName=this.companyName
     return this.http.post(this.mainBeUrl + 'api/getFilesMaster/', info,this.httpOptions);
   }
 
@@ -74,10 +77,11 @@ export class MainService {
     return this.http.post(this.mainBeUrl + 'ems/api/setFilesMasterForEMS/', info, this.httpOptions);
   }
   setDocumentOrImageForEMS(data: FormData,path:any): Observable<any> {
-   
+
     return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/'+encodeURI(path), data);
   }
   getDocumentsForEMS(input:any){
+    input.companyName=this.companyName;
     return this.http.post(this.mainBeUrl+'ems/api/getDocumentsForEMS', JSON.stringify(input), this.httpOptions);
 
   }

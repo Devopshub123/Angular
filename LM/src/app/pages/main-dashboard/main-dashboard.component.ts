@@ -143,7 +143,7 @@ export class MainDashboardComponent implements OnInit {
     this.spinner.hide();
   }
   getModules() {
-    this.AMS.getModules('modulesmaster', null, 1, 100, this.companyDBName).subscribe((result) => {
+    this.AMS.getModules('modulesmaster', null, 1, 100).subscribe((result) => {
       if (result && result.status) {
         this.allModuleDetails = result.data;
 
@@ -455,7 +455,7 @@ export class MainDashboardComponent implements OnInit {
   }
 
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
+    this.AMS.getModules('designationsmaster', 1, 1, 1000).subscribe(data => {
       if (data.status) {
         this.availableDesignations = data.data;
       }

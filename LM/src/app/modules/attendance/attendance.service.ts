@@ -13,8 +13,9 @@ export class AttendanceService {
   httpOptions = {
     headers: new HttpHeaders({'content-Type': 'application/json'})
   };
-
+  companyName:any;
   constructor(private http: HttpClient) {
+    this.companyName=sessionStorage.getItem('companyName')
   }
   getMastertable(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
     return this.http.get(this.mainUrl+'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
@@ -59,6 +60,7 @@ export class AttendanceService {
     )
   }
   getEmployeeAttendanceNotifications(data:any):Observable<any>{
+    data.companyName=this.companyName;
     return this.http.post(this.mainUrl +'attendance/api/getEmployeeAttendanceNotifications',
     data,this.httpOptions
     )

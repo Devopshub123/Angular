@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
   export class LoginService {
     mainBeUrl= environment.apiUrl;
       userSession: any;
+  companyName:any;
       httpOptions = {
         headers: new HttpHeaders({'content-Type': 'application/json'})
       };
@@ -24,6 +25,8 @@ import { environment } from 'src/environments/environment';
 
     constructor(private hClient: HttpClient) {
         this.userSession = ((sessionStorage.getItem('user')))
+        this.companyName=sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null;
+      console.log("this.companyName",this.companyName)
 
     }
 
@@ -55,8 +58,8 @@ verifyEmail(email: any): Observable<any> {
 // getModules(): Observable<any> {
 //   return this.hClient.get(this.mainBeUrl + 'attendance/api/getModules',this.httpOptions);
 // }
-getModules(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
-  return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+getModules(tableName:any,status:any,page:any,size:any): Observable<any>{
+  return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
 }
 getrolescreenfunctionalities(empId:any,moduleId:any): Observable<any>{
   return this.hClient.get(this.mainBeUrl + 'attendance/api/getrolescreenfunctionalities/'+empId+'/'+moduleId, this.httpOptions);

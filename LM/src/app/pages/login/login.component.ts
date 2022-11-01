@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
 import { PopupComponent,PopupConfig } from '../popup/popup.component';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 
 
@@ -22,9 +22,12 @@ export class LoginComponent implements OnInit {
   msgLM1:any;
   msgLM2:any;
   issubmit:boolean= false;
-  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private tss:LoginService,private router: Router,) { }
+  companyName:any;
+  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private tss:LoginService,private router: Router,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
+    let params: any = this.activatedRoute.snapshot.params;
+    this.companyName = params.companyName;
     this.createForm();
     this.getErrorMessages('LM14')
     this.getErrorMessages('LM1')
@@ -44,15 +47,18 @@ export class LoginComponent implements OnInit {
     this.password = this.formGroup.controls.password.value;
     let data = {
       email:this.email,
-      password:this.password
+      password:this.password,
+      companyName:this.companyName
     }
     if(this.formGroup.valid){
       this.tss.Savelogin(data).subscribe((data) =>{
         if(data.status === true){
           let empdata = data.result[0];
           sessionStorage.setItem('user',JSON.stringify(empdata));
+          sessionStorage.setItem('companyName',this.companyName);
+
           this.router.navigate(['/MainDashboard'])
-                  
+
         }
         else {
           this.router.navigate(['/Login']);
@@ -62,15 +68,15 @@ export class LoginComponent implements OnInit {
             data: this.msgLM14
           });
        }
-       
+
       });
 
     }
-   
+
   }
   getErrorMessages(errorCode:any){
     this.tss.getErrorMessages(errorCode,1,100).subscribe((result)=>{
-     
+
       if(result.status && errorCode == 'LM1')
       {
         this.msgLM1 = result.data[0].errormessage
@@ -83,10 +89,10 @@ export class LoginComponent implements OnInit {
       {
         this.msgLM14 = result.data[0].errormessage
       }
-      
-  
+
+
     })
-  
+
   }
 
   // getError(el:any) {

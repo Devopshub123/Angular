@@ -11,7 +11,7 @@ import { PreOnboardingDetailsComponent } from './pages/pre-onboarding-details/pr
 
 
 const routes: Routes = [
-  {path:'Login',component:LoginComponent},
+  {path:'Login/:companyName',component:LoginComponent},
   {path:'ChangePassword',component:ChangePasswordComponent,canActivate:[LMSAccessGuard]},
   // {path:'ResetPassword',component:ResetPasswordComponent},
   {path:'ResetPassword/:email/:id',component:ResetPasswordComponent},

@@ -14,8 +14,9 @@ export class EmsService {
   httpOptions = {
     headers: new HttpHeaders({ 'content-Type': 'application/json' })
   };
-
+ companyName:any
   constructor(private http: HttpClient) {
+    this.companyName = sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
   }
   //// save new hire
   saveNewHireData(data: any) {
@@ -149,7 +150,7 @@ export class EmsService {
 
   /** */
   getEmployeeInformationData(id: any): Observable<any> {
-    return this.http.get(this.mainUrl + 'ems/api/getEmpPersonalInfo/' + id);
+    return this.http.get(this.mainUrl + 'ems/api/getEmpPersonalInfo/' + id+'/'+this.companyName);
   }
   /** */
   setselectEmployeesProgramSchedules(data: any): any {
@@ -245,7 +246,7 @@ export class EmsService {
   }
 
   getEmpAnnouncements(): Observable<any>{
-    return this.http.get(this.mainUrl + 'ems/api/getEmpAnnouncements/',this.httpOptions);
+    return this.http.get(this.mainUrl + 'ems/api/getEmpAnnouncements/'+this.companyName,this.httpOptions);
 
     }
       /**getFilesForApproval */
@@ -275,7 +276,7 @@ export class EmsService {
 
   getReportingManagerForEmp(eid: any): any {
 
-    return this.http.get(this.mainUrl + 'ems/api/getReportingManagerForEmp/' + eid , this.httpOptions);
+    return this.http.get(this.mainUrl + 'ems/api/getReportingManagerForEmp/' + eid+'/'+this.companyName , this.httpOptions);
   }
   getHrDetails(): any {
 
@@ -285,5 +286,5 @@ export class EmsService {
 
     return this.http.get(this.mainUrl + 'ems/api/getnoticeperiods/',this.httpOptions);
   }
-  
+
 }
