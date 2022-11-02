@@ -17,6 +17,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
+import { ComfirmationDialogComponent } from 'src/app/pages/comfirmation-dialog/comfirmation-dialog.component';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 
@@ -221,7 +222,19 @@ export class HolidaysComponent implements OnInit {
      return [5, 10, 20];
     }
   }
-  delete(event:any,holidayId:any){
+  deleteHolidayPopup(event:any,holidayId:any) {
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data: { message: "Are you sure you want to delete ?", YES: 'YES', NO: 'NO' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'YES') {
+        this.deleteHoliday(event,holidayId)
+      }
+    });
+  }
+  deleteHoliday(event:any,holidayId:any){
 
     this.LM.deleteHoliday(holidayId).subscribe(data=>{
 

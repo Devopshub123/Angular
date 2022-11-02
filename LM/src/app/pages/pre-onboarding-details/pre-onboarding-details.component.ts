@@ -692,6 +692,19 @@ export class PreOnboardingDetailsComponent implements OnInit {
 
   }
 
+
+  deleteFamilyPopup(event: any) {
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data: { message: this.EM61, YES: 'YES', NO: 'NO' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'YES') {
+        this.deletefamily(event)
+      }
+    });
+  }
   deletefamily(index: any) {
     this.familyDetails.splice(index, 1);
     this.familyDataSource = new MatTableDataSource(this.familyDetails);
@@ -800,6 +813,19 @@ export class PreOnboardingDetailsComponent implements OnInit {
     this.employementForm.controls.jobDescription.reset();
     this.isfamilyedit = false;
   }
+
+  deleteExperiencePopup(event: any) {
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data: { message: this.EM61, YES: 'YES', NO: 'NO' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'YES') {
+        this.deleteExperience(event)
+      }
+    });
+  }
   deleteExperience(index: any) {
     this.workExperienceDetails.splice(index, 1);
     this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
@@ -899,7 +925,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
     this.educationForm.controls.eduToDate.reset();
   }
 
-  DeleteEducationPopup(event: any) {
+  deleteEducationPopup(event: any) {
     let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
       position: { top: `70px` },
       disableClose: true,
