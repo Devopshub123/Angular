@@ -250,6 +250,7 @@ get maritalstatusFormArray() {
       this.addemptypecheckbox();
       this.addbloodgroup();
       this.addgender();
+      this.search();
 
     }
    
@@ -336,15 +337,8 @@ get maritalstatusFormArray() {
           this.maritalstatus.push(result.data[i])
           this.maritalstatusid.push(result.data[i].id)
          }
-        //  this.employeestatusFormArray.setValue(this.empstatusids)
       }
-      // this.bloodgroupFormArray.setValue([1,2])
-      // console.log(this.empstatusids)
-      // return this.employeestatusFormArray.setValue(this.empstatusids)
-      
-      
-   
-
+      this.filter()
     })
 
   }
