@@ -354,7 +354,6 @@ export class AttendanceRequestComponent implements OnInit {
         "status": 'Submitted'
 
       };
-      console.log(obj)
 
 
       this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res: any) => {

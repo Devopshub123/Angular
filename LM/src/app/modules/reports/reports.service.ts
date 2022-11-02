@@ -11,17 +11,20 @@ export class ReportsService {
   userSession: any;
   httpOptions = {
     headers: new HttpHeaders({'content-Type': 'application/json'})
-  };  
- 
+  };
+
+  companyName:any;
+
   constructor(private http: HttpClient) {
+    this.companyName = sessionStorage.getItem("companyName")
 }
-  
+
   getTotalEmployeslist(): Observable<any>{
-    return this.http.get(this.mainUrl + 'attendance/api/getallemployeeslist',this.httpOptions);
-  } 
+    return this.http.get(this.mainUrl + 'attendance/api/getallemployeeslist/'+this.companyName,this.httpOptions);
+  }
   getTotalEmployeslistByManagerId(data:any): Observable<any>{
     return this.http.post(this.mainUrl + 'attendance/api/getallemployeeslistByManagerId',data,this.httpOptions);
-  } 
+  }
   // ALL USER-WISE COLLECTION DATA API
   getAttendanceSummaryReport(data:any):Observable<any> {
     return this.http.post(this.mainUrl + 'attendance/api/getAttendanceSummaryReport'
@@ -33,6 +36,7 @@ export class ReportsService {
     )
   }
   getAttendanceMonthlyReport(data:any):Observable<any>{
+    data.companyName =this.companyName;
     return this.http.post(this.mainUrl +'attendance/api/getAttendanceMonthlyReport',
     data,this.httpOptions
     )

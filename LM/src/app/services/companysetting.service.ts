@@ -19,12 +19,15 @@ import { environment } from 'src/environments/environment';
       return this.hClient.post(this.mainBeUrl + 'api/validatePrefix', JSON.stringify(info), this.httpOptions);
     }
     setWorkLocation(info:any): Observable<any> {
+      info.companyName =this.companyName;
       return this.hClient.post(this.mainBeUrl + 'api/setWorkLocation', JSON.stringify(info), this.httpOptions);
     }
     getWorkLocation(info:any): Observable<any>{
+      info.companyName =this.companyName;
       return this.hClient.post(this.mainBeUrl + 'api/getWorkLocation',JSON.stringify(info), this.httpOptions);
     }
     getactiveWorkLocation(info:any): Observable<any>{
+      info.companyName=this.companyName;
       return this.hClient.post(this.mainBeUrl + 'api/getactiveWorkLocation',JSON.stringify(info), this.httpOptions);
     }
     getReportingManagers(id:any):Observable<any>{
@@ -41,53 +44,61 @@ import { environment } from 'src/environments/environment';
       return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
     }
     getStatesc(id:any):Observable<any>{
-      return this.hClient.get(this.mainBeUrl + 'api/getStates/'+id,this.httpOptions)
+      return this.hClient.get(this.mainBeUrl + 'api/getStates/'+id+'/'+this.companyName,this.httpOptions)
     }
     getCities(id:any):Observable<any>{
-      return this.hClient.get(this.mainBeUrl + 'api/getCities/'+id,this.httpOptions)
+      return this.hClient.get(this.mainBeUrl + 'api/getCities/'+id+'/'+this.companyName,this.httpOptions)
     }
     setWorkStatus(info:any){
       return this.hClient.post(this.mainBeUrl + 'api/setWorkStatus', JSON.stringify(info), this.httpOptions);
     }
-  setDesignation(info:any): Observable<any>{
-    console.log(info)
-    return this.hClient.post(this.mainBeUrl + 'attendance/api/setDesignation',  JSON.stringify(info), this.httpOptions);
-  }
+    setDesignation(info:any): Observable<any>{
+      info.companyName = this.companyName;
+      return this.hClient.post(this.mainBeUrl + 'api/setDesignation',  JSON.stringify(info), this.httpOptions);
+    }
   getDesignation(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
-    return this.hClient.get(this.mainBeUrl + 'attendance/api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
+    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
   }
   setDepartments(info:any): Observable<any>{
+      info.companyName= this.companyName;
     return this.hClient.post(this.mainBeUrl + 'api/setDepartments', JSON.stringify(info), this.httpOptions);
   }
   getDepartments(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
     return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
   }
   putDepartments(info:any):Observable<any>{
+      info.companyName=this.companyName;
     return this.hClient.put(this.mainBeUrl + 'api/putDepartments', JSON.stringify(info), this.httpOptions);
   }
   putDesignation(info:any):Observable<any>{
+      info.companyName=this.companyName;
     return this.hClient.put(this.mainBeUrl + 'api/putDesignation', JSON.stringify(info), this.httpOptions);
   }
   updateStatus(info:any): Observable<any>{
+      info.companyName = this.companyName;
     return this.hClient.post(this.mainBeUrl + 'api/updateStatus', JSON.stringify(info), this.httpOptions);
   }
   updateStatusall(info:any): Observable<any>{
+    info.companyName = this.companyName;
     return this.hClient.post(this.mainBeUrl + 'api/updateStatusall', JSON.stringify(info), this.httpOptions);
   }
   designationstatus(info:any): Observable<any>{
+      info.companyName= this.companyName;
     return this.hClient.post(this.mainBeUrl + 'api/designationstatus', JSON.stringify(info), this.httpOptions);
   }
   getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
-    return this.hClient.get(this.mainBeUrl +'api/getErrorMessages/' + errorCode + '/' + page + '/' + size, this.httpOptions);
+    return this.hClient.get(this.mainBeUrl +'api/getErrorMessages/' + errorCode + '/' + page + '/' + size+'/'+this.companyName, this.httpOptions);
   }
 
   setCompanyInformation(info: any):Observable<any>{
+    info.companyName= this.companyName;
     return this.hClient.post(this.mainBeUrl + 'api/setCompanyInformation', JSON.stringify(info), this.httpOptions);
   }
   getCompanyInformation(tableName: string,status: null,page: string | number,size: string | number,companyName: string):Observable<any>{
     return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+null+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
   }
   putCompanyInformation(info: any):Observable<any>{
+      info.companyName = this.companyName;
     return this.hClient.put(this.mainBeUrl + 'api/putCompanyInformation', JSON.stringify(info), this.httpOptions);
   }
   setUploadImage(data: FormData,Id: number): Observable<any> {
@@ -103,21 +114,24 @@ import { environment } from 'src/environments/environment';
   }
 
   setHolidays(info:any,companyName:any):Observable<any>{
-    return this.hClient.post(this.mainBeUrl+'api/setHolidays/'+companyName, JSON.stringify(info), this.httpOptions);
+      info.companyName= this.companyName;
+
+    return this.hClient.post(this.mainBeUrl+'api/setHolidays', JSON.stringify(info), this.httpOptions);
   }
 
   setHolidayStatus(info:any){
     return this.hClient.post(this.mainBeUrl+'api/setHolidayStatus', JSON.stringify(info), this.httpOptions);
   }
   putHolidays(info:any,companyName:any):Observable<any>{
-    return this.hClient.put(this.mainBeUrl+'api/putHolidays/'+companyName, JSON.stringify(info), this.httpOptions);
+      info.companyName = this.companyName;
+    return this.hClient.put(this.mainBeUrl+'api/putHolidays', JSON.stringify(info), this.httpOptions);
 
   }
   getLocation(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
     return this.hClient.get(this.mainBeUrl+'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
   }
   deleteHoliday(holidayId:any):Observable<any>{
-    return this.hClient.delete(this.mainBeUrl+'api/deleteHoliday/'+holidayId, this.httpOptions);
+    return this.hClient.delete(this.mainBeUrl+'api/deleteHoliday/'+holidayId+'/'+this.companyName, this.httpOptions);
 
   }
   getHolidaysYearsOrLocation(columnName:any):Observable<any>{
@@ -125,10 +139,10 @@ import { environment } from 'src/environments/environment';
 
   }
   getHolidays(year:any,locationId:any,page:any,size:any):Observable<any>{
-    return this.hClient.get(this.mainBeUrl+'api/getHolidysFilter/'+year+'/'+locationId+'/'+page+'/'+size, this.httpOptions);
+    return this.hClient.get(this.mainBeUrl+'api/getHolidysFilter/'+year+'/'+locationId+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
   }
   getstatuslists(){
-    return this.hClient.post(this.mainBeUrl+'admin/api/getstatuslist', this.httpOptions)
+    return this.hClient.post(this.mainBeUrl+'api/getstatuslist/'+this.companyName, this.httpOptions)
   }
 
 

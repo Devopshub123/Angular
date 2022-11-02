@@ -30,19 +30,20 @@ export class AttendanceService {
     return this.http.get(this.mainUrl+'attendance/api/getEmployeesByManagerId/'+employee_id, this.httpOptions);
   }
   getWorkypeList(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
-    return this.http.get(this.mainUrl+'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+    return this.http.get(this.mainUrl+'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
   }
   setemployeeattendanceregularization(data:any):Observable<any>{
+    data.companyName = this.companyName;
     return this.http.post(this.mainUrl+'attendance/api/setemployeeattendanceregularization',JSON.stringify(data),this.httpOptions);
   }
   updateAttendanceRequest(data:any):Observable<any>{
     return this.http.post(this.mainUrl+'attendance/api/setattendanceapprovalstatus',JSON.stringify(data),this.httpOptions);
   }
   getAttendanceRequestListByEmpId(employee_id:any): Observable<any>{
-    return this.http.get(this.mainUrl + 'attendance/api/getemployeeattendanceregularization/'+employee_id, this.httpOptions);
+    return this.http.get(this.mainUrl + 'attendance/api/getemployeeattendanceregularization/'+employee_id+'/'+this.companyName, this.httpOptions);
   }
   getPendingAttendanceListByManagerEmpId(employee_id:any): Observable<any>{
-    return this.http.get(this.mainUrl + 'attendance/api/getpendingattendanceregularizations/'+employee_id, this.httpOptions);
+    return this.http.get(this.mainUrl + 'attendance/api/getpendingattendanceregularizations/'+employee_id+'/'+this.companyName, this.httpOptions);
   }
   getAttendanceRegularizationByManagerId(manager_employee_id:any):Observable<any>{
     return this.http.get(this.mainUrl+'attendance/api/getAttendanceRegularizationByManagerId/'
@@ -50,6 +51,7 @@ export class AttendanceService {
   }
 
   getemployeeattendancedashboard(data:any):Observable<any>{
+    data.companyName = this.companyName;
     return this.http.post(this.mainUrl +'attendance/api/getemployeeattendancedashboard',
     data,this.httpOptions
     )
@@ -87,17 +89,21 @@ export class AttendanceService {
   }
 
   deleteAttendanceRequestById(data:any):Observable<any>{
+    data.companyName = this.companyName;
     return this.http.post(this.mainUrl +'attendance/api/deleteAttendanceRequestById',
     data,this.httpOptions
     )
   }
   getEmployeeShiftByDates(data:any):Observable<any>{
+    data.companyName=this.companyName
     return this.http.post(this.mainUrl+'attendance/api/getEmployeeShiftByDates',data,this.httpOptions)
   }
   getEmployeeCurrentShifts(data:any):Observable<any>{
+    data.companyName =this.companyName
     return this.http.post(this.mainUrl+'attendance/api/getEmployeeCurrentShifts',data,this.httpOptions)
   }
   getEmployeeWeekoffsHolidaysForAttendance(data:any):Observable<any>{
+    data.companyName =this.companyName
     return this.http.post(this.mainUrl+'attendance/api/getEmployeeWeekoffsHolidaysForAttendance',data,this.httpOptions)
   }
 }

@@ -11,11 +11,13 @@ import { environment } from 'src/environments/environment';
 export class AdminService {
   mainUrl= environment.apiUrl;
   userSession: any;
+  companyName:any;
   httpOptions = {
     headers: new HttpHeaders({'content-Type': 'application/json'})
   };
 
   constructor(private http: HttpClient) {
+    this.companyName= sessionStorage.getItem('companyName')
   }
   setWorkLocation(info:any): Observable<any> {
     return this.http.post(this.mainUrl + 'api/setWorkLocation', JSON.stringify(info), this.httpOptions);
@@ -54,16 +56,19 @@ export class AdminService {
     return this.http.get(this.mainUrl+'api/getHolidysFilter/'+year+'/'+locationId+'/'+page+'/'+size, this.httpOptions);
   }
   getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
-    return this.http.get(this.mainUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size, this.httpOptions);
+    return this.http.get(this.mainUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size+'/'+this.companyName, this.httpOptions);
 }
 setErrorMessages(info:any): Observable<any> {
+    info[0].companyName = this.companyName;
     return this.http.post(this.mainUrl + 'api/setErrorMessages', JSON.stringify(info), this.httpOptions);
 }
 
 setIntegrationEmpidsLookup(data:any): Observable<any> {
+  data.companyName = this.companyName;
   return this.http.post(this.mainUrl + 'admin/api/setIntegrationEmpidsLookup', data, this.httpOptions);
 }
 getIntegrationEmpidsLookup(data:any): Observable<any> {
+    data.companyName = this.companyName
   return this.http.post(this.mainUrl + 'admin/api/getIntegrationEmpidsLookup', data, this.httpOptions);
 }
 setShiftMaster(data:any):Observable<any>{
@@ -83,10 +88,12 @@ updateShiftStatus(data:any):Observable<any>{
   }
   //// get messages list
   getMessagesListApi(data:any){
+    data.companyName = this.companyName;
     return this.http.post(this.mainUrl+'admin/api/getAttendenceMessages', JSON.stringify(data), this.httpOptions);
   }
   //// update messages data
   updateMessagesData(data:any){
+    data[0].companyName = this.companyName;
     return this.http.post(this.mainUrl+'admin/api/setAttendenceMessages', JSON.stringify(data), this.httpOptions);
   }
   getRolesByDepartment(data:any):Observable<any>{

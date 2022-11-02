@@ -18,10 +18,11 @@ export class LeavesService {
   }
 
   getLeavesForApprovals(id: any): any {
-    return this.http.get(this.mainUrl + 'api/getLeavesForApprovals/' + id, this.httpOptions);
+    return this.http.get(this.mainUrl + 'api/getLeavesForApprovals/' + id+'/'+this.companyName, this.httpOptions);
   }
 
   setApproveOrReject(data: any): any {
+    data.companyName= this.companyName;
     return this.http.post(this.mainUrl + 'api/setLeaveStatus', data, this.httpOptions);
   }
 
@@ -31,10 +32,11 @@ export class LeavesService {
 
 
   getCompoffForApprovals(id: any): any {
-    return this.http.get(this.mainUrl + 'api/getCompoffsForApproval/' + id, this.httpOptions);
+    return this.http.get(this.mainUrl + 'api/getCompoffsForApproval/' + id+'/'+this.companyName, this.httpOptions);
   }
 
   setCompoffForApproveOrReject(data: any): any {
+    data.companyName = this.companyName;
     return this.http.post(this.mainUrl + 'api/setCompoffForApproveOrReject', data, this.httpOptions);
   }
 
@@ -43,22 +45,27 @@ export class LeavesService {
   }
 
   getCompoffs(data: any): any {
+    data.companyName=this.companyName;
     return this.http.post(this.mainUrl + 'api/getCompoffs', data, this.httpOptions);
   }
 
   getMastertable(data: any): Observable<any> {
+    data.companyName=this.companyName;
     return this.http.post(this.mainUrl + 'api/getMastertables', data, this.httpOptions);
   }
 
   getEmployeesForReportingManager(data: any): Observable<any> {
+    data.companyName =this.companyName;
     return this.http.post(this.mainUrl + 'api/getEmployeesForReportingManager', data, this.httpOptions);
   }
 
   getEmployeeLeaveDetailedReportForManager(data: any): Observable<any> {
+    data.companyName= this.companyName;
     return this.http.post(this.mainUrl + 'api/getEmployeeLeaveDetailedReportForManager', data, this.httpOptions);
   }
 
   getSummaryReportForManager(data: any): Observable<any> {
+    data.companyName=this.companyName;
     return this.http.post(this.mainUrl + 'api/getSummaryReportForManager', data, this.httpOptions);
   }
 
@@ -104,7 +111,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
 
 }
   getLeaveCalendarForManager(Id:any): Observable<any> {
-    return this.http.get(this.mainUrl+'api/getLeaveCalendarForManager/'+Id, this.httpOptions);
+    return this.http.get(this.mainUrl+'api/getLeaveCalendarForManager/'+Id+'/'+this.companyName, this.httpOptions);
   }
 
     setDeleteLeaveRequest(info: any): Observable<any> {
@@ -112,6 +119,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     }
 
     cancelLeaveRequest(info: any): Observable<any> {
+    info.companyName = this.companyName;
       return this.http.post(this.mainUrl + 'api/cancelLeaveRequest', JSON.stringify(info), this.httpOptions);
 
     }
@@ -134,7 +142,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     }
 
     getLeavesForCancellation(id: any): Observable<any>  {
-      return this.http.get(this.mainUrl + 'api/getLeavesForCancellation/' + id, this.httpOptions);
+      return this.http.get(this.mainUrl + 'api/getLeavesForCancellation/' + id+'/'+this.companyName, this.httpOptions);
     }
 
 
@@ -145,7 +153,6 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     //   return this.http.post(this.mainUrl + 'api/setProfileImage/'+conpanyName+'/'+Id, data);
     // }
     setProfileImage(data: FormData,path:any): Observable<any> {
-
       return this.http.post(this.mainUrl + 'api/setProfileImage/'+encodeURI(path), data);
     }
     removeProfileImage(id: any,companyName:any): Observable<any> {
@@ -209,12 +216,12 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
       return this.http.get(this.mainUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
     }
     getCompoffleavestatus():Observable<any> {
-      return this.http.get(this.mainUrl + 'api/getcompoffleavestatus') ;
+      return this.http.get(this.mainUrl + 'api/getcompoffleavestatus/'+this.companyName) ;
     }
 
 
   getFilepathsMaster(moduleId:any):Observable<any>{
-    return this.http.get(this.mainUrl + 'api/getFilepathsMaster/'+moduleId, this.httpOptions);
+    return this.http.get(this.mainUrl + 'api/getFilepathsMaster/'+moduleId+'/'+this.companyName, this.httpOptions);
   }
 
   setFilesMaster(info:any): Observable<any> {
@@ -229,6 +236,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     return this.http.get(this.mainUrl + 'ems/api/deleteFilesMaster/'+id+'/'+this.companyName, this.httpOptions);
   }
   getReportForPayrollProcessing(data:any):Observable<any>{
+    data.companyName=this.companyName;
     return this.http.post(this.mainUrl + 'api/getReportForPayrollProcessing/',data, this.httpOptions);
   }
 

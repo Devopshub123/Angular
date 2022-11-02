@@ -133,7 +133,7 @@ export class UserCompoffComponent implements OnInit {
   }
   // getCompOff(){}
   getCompOff(){
-    this.LM.getCompOff(this.usersession.id,this.usersession.rmid).subscribe((result)=> {
+    this.LM.getCompOff(this.usersession.id,null).subscribe((result)=> {
       if(result.status){
         this.compOffDetails = result.data;
         this.dataSource = new MatTableDataSource(this.compOffDetails);
