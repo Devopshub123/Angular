@@ -276,6 +276,7 @@
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" ><mat-checkbox class="example-margin" color="primary" formControlName="manager" value="2"></mat-checkbox> {{b}}</div>
                         </div> -->
                     </ul>
+                    <h3 style="text-align:center;color: red;" *ngIf="arrlist.length>0">Note:Please select at least one option while filtering a field.</h3>
                     <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
                         <button class="col-md-2 mr-2 btn btn-primary" (click)="search()">Search</button>
                         <button class="col-md-2  btn btn-danger" (click)="clearreport()">Clear</button>
