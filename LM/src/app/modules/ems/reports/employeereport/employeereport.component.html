@@ -25,7 +25,7 @@
             </div>
             
              
-                <div class="mat-elevation-z8" *ngIf="allfilterdata.length>0">
+                <div class="mat-elevation-z8">
                     <table id="table" mat-table [dataSource]="dataSource" matSort>
                         <ng-container matColumnDef="sno">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header > S.No </th>
@@ -157,11 +157,10 @@
                             <td class="mat-cell" colspan="10" style="text-align: center;">No data found</td>
                         </tr>
                     </table>
-                    
                 </div>
-              <div *ngIf="allfilterdata.length == 0" fxLayoutAlign="center">
+              <!-- <div *ngIf="allfilterdata.length == 0" fxLayoutAlign="center">
                 <p>No data found</p>
-              </div>
+              </div> -->
                 
                 
         </div>

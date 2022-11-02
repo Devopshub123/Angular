@@ -47,8 +47,8 @@
                                     <input type="text" formControlName="firstname" #firstname
                                         (keypress)="alphabetKeyPress($event)" matInput placeholder="First Name"
                                         maxlength="100" required />
-                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.firstname.errors?.required || 
-                                        personalInfoForm.controls.firstname.errors?.['whitespace']">
+                                    <mat-error class="reg-error" *ngIf="personalForm.firstname.errors?.required || 
+                                        personalForm.firstname.errors?.['whitespace']">
                                         {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
@@ -62,9 +62,9 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Last Name</mat-label>
                                     <input formControlName="lastname" specialIsAlpha matInput placeholder=""
-                                    maxlength="100" required (keypress)="alphabetKeyPress($event)" />
-                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.lastname.errors?.required || 
-                                        personalInfoForm.controls.lastname.errors?.['whitespace']">
+                                        maxlength="100" required (keypress)="alphabetKeyPress($event)" />
+                                    <mat-error class="reg-error" *ngIf="personalForm.lastname.errors?.required || 
+                                        personalForm.lastname.errors?.['whitespace']">
                                         {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
@@ -80,7 +80,7 @@
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #dateofbirth></mat-datepicker>
                                     <mat-error class="reg-error" *ngIf="
-                      personalInfoForm.controls.dateofbirth.errors?.required
+                      personalForm.dateofbirth.errors?.required
                     ">
                                         {{ EM2 }}
                                     </mat-error>
@@ -107,7 +107,7 @@
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="reg-error"
-                                        *ngIf="personalInfoForm.controls.gender.errors?.required">
+                                        *ngIf="personalForm.gender.errors?.required">
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
@@ -126,7 +126,7 @@
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="reg-error" *ngIf="
-                      personalInfoForm.controls.maritalstatus.errors?.required
+                      personalForm.maritalstatus.errors?.required
                     ">
                                         {{ EM2 }}
                                     </mat-error>
@@ -137,57 +137,54 @@
                                     <input #aadharnumber type="text" onlyNumber (keypress)="numberOnly($event)"
                                         formControlName="aadharNumber" matInput maxlength="12" minlength="12"
                                         placeholder="Aadhar Number" />
-                                        <mat-error class="reg-error" 
-                                        *ngIf="personalInfoForm.controls.aadharNumber.errors?.minlength || 
-                                        personalInfoForm.controls.aadharNumber.errors?.maxlength">
+                                    <mat-error class="reg-error" *ngIf="personalForm.aadharNumber.errors?.minlength || 
+                                        personalForm.aadharNumber.errors?.maxlength">
                                         Please enter 12 digit valid number
                                     </mat-error>
                                 </mat-form-field>
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Personal Email</mat-label>
-                                    <input type="text" formControlName="personalemail" matInput placeholder=""
-                                        required maxlength="50"/>
-                                    <mat-error class="reg-error" *ngIf="
-                      personalInfoForm.controls.personalemail.errors?.required
-                    ">
+                                    <input type="text" formControlName="personalemail" matInput placeholder="" maxlength="50" />
+                                    <!-- <mat-error class="reg-error" 
+                                    *ngIf="personalForm.personalemail.errors?.required">
                                         {{ EM1 }}
-                                    </mat-error>
+                                    </mat-error> -->
                                 </mat-form-field>
                             </div>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.sm="50" class="mx-2 my-2"
                                     appearance="outline">
                                     <mat-label>Languages Spoken</mat-label>
-                                    <input type="text" formControlName="spokenLanguages" matInput placeholder="" maxlength="100"/>
+                                    <input type="text" formControlName="spokenLanguages" matInput placeholder=""
+                                        maxlength="100" />
                                 </mat-form-field>
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Mobile Number</mat-label>
-                                    <input type="text" onlyNumber formControlName="mobileNo" matInput placeholder=""
-                                        maxlength="10" minlength="10" (keypress)="_keyPress($event)" required />
+                                    <input type="text" formControlName="mobileNo" matInput placeholder="" maxlength="10"
+                                        minlength="10" (keypress)="_keyPress($event)" required />
                                     <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.mobileNo.errors?.required">
+                                        *ngIf="personalForm.mobileNo.errors?.required">
                                         {{ EM1 }}
                                     </mat-error>
-                                    <mat-error class="reg-error" 
-                                    *ngIf="personalInfoForm.controls.mobileNo.errors?.minlength || 
-                                    personalInfoForm.controls.mobileNo.errors?.maxlength">
-                                    Please enter  valid number
-                                </mat-error>
+                                    <mat-error class="reg-error" *ngIf="personalForm.mobileNo.errors?.minlength || 
+                                    personalForm.mobileNo.errors?.maxlength">
+                                        Please enter valid number
+                                    </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Emergency Contact Number</mat-label>
                                     <input type="text" onlyNumber formControlName="alternateMobileNo" matInput
-                                        placeholder="" maxlength="10" minlength="10" (keypress)="_keyPress($event)" required/>
-                                        <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.alternateMobileNo.errors?.required">
+                                        placeholder="" maxlength="10" minlength="10" (keypress)="_keyPress($event)"
+                                        required />
+                                    <mat-error class="con-error"
+                                        *ngIf="personalForm.alternateMobileNo.errors?.required">
                                         {{ EM1 }}
                                     </mat-error>
-                                    <mat-error class="reg-error" 
-                                    *ngIf="personalInfoForm.controls.alternateMobileNo.errors?.minlength || 
-                                    personalInfoForm.controls.alternateMobileNo.errors?.maxlength">
-                                    Please enter  valid number
-                                </mat-error>
+                                    <mat-error class="reg-error" *ngIf="personalForm.alternateMobileNo.errors?.minlength || 
+                                    personalForm.alternateMobileNo.errors?.maxlength">
+                                        Please enter valid number
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
 
@@ -204,7 +201,7 @@
                                     <input type="text" maxlength="100" formControlName="officeemail" matInput
                                         placeholder="" />
                                     <!-- <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.officeemail.errors?.required">
+                                        *ngIf="personalForm.officeemail.errors?.required">
                                         {{EM1}}
                                     </mat-error> -->
                                 </mat-form-field>
@@ -219,7 +216,7 @@
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.empStatus.errors?.required">
+                                        *ngIf="personalForm.empStatus.errors?.required">
                                         {{EM2}}
                                     </mat-error>
                                 </mat-form-field> -->
@@ -235,7 +232,7 @@
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="con-error" *ngIf="
-                      personalInfoForm.controls.employmentType.errors?.required
+                      personalForm.employmentType.errors?.required
                     ">
                                         {{ EM2 }}
                                     </mat-error>
@@ -253,7 +250,7 @@
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.usertype.errors?.required">
+                                        *ngIf="personalForm.usertype.errors?.required">
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
@@ -268,7 +265,7 @@
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="con-error" *ngIf="
-                      personalInfoForm.controls.companylocation.errors?.required
+                      personalForm.companylocation.errors?.required
                     ">
                                         {{ EM2 }}
                                     </mat-error>
@@ -285,7 +282,7 @@
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="con-error" *ngIf="
-                      personalInfoForm.controls.designation.errors?.required
+                      personalForm.designation.errors?.required
                     ">
                                         {{ EM2 }}
                                     </mat-error>
@@ -303,7 +300,7 @@
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="con-error" *ngIf="
-                      personalInfoForm.controls.department.errors?.required
+                      personalForm.department.errors?.required
                     ">
                                         {{ EM2 }}
                                     </mat-error>
@@ -320,7 +317,7 @@
                                         <mat-option value="Self" *ngIf="isself">Self</mat-option>
                                     </mat-select>
                                     <mat-error class="con-error" *ngIf="
-                      personalInfoForm.controls.reportingmanager.errors
+                      personalForm.reportingmanager.errors
                         ?.required
                     ">
                                         {{ EM2 }}
@@ -350,7 +347,7 @@
                                     <input type="text" formControlName="raddress" matInput placeholder=""
                                         maxlength="100" required />
                                     <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.raddress.errors?.required">
+                                        *ngIf="personalForm.raddress.errors?.required">
                                         {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
@@ -373,7 +370,7 @@
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.rcountry.errors?.required">
+                                        *ngIf="personalForm.rcountry.errors?.required">
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
@@ -400,7 +397,7 @@
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.rstate.errors?.required">
+                                        *ngIf="personalForm.rstate.errors?.required">
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
@@ -427,7 +424,7 @@
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.rcity.errors?.required">
+                                        *ngIf="personalForm.rcity.errors?.required">
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
@@ -449,11 +446,11 @@
                                     <input type="text" onlyNumber formControlName="rpincode" matInput placeholder=""
                                         maxlength="6" minlength="6" required />
                                     <mat-error class="con-error"
-                                        *ngIf="personalInfoForm.controls.rpincode.errors?.required">
+                                        *ngIf="personalForm.rpincode.errors?.required">
                                         {{ EM1 }}
                                     </mat-error>
                                     <mat-error class="reg-error"
-                                        *ngIf="personalInfoForm.controls.rpincode.errors?.minlength">
+                                        *ngIf="personalForm.rpincode.errors?.minlength">
                                         Pincode should be 6 digits
                                     </mat-error>
                                 </mat-form-field>
@@ -463,13 +460,13 @@
                                     <input type="text" onlyNumber formControlName="ppincode" matInput placeholder=""
                                         maxlength="6" minlength="6" />
                                     <mat-error class="reg-error"
-                                        *ngIf="personalInfoForm.controls.ppincode.errors?.minlength">
+                                        *ngIf="personalForm.ppincode.errors?.minlength">
                                         Pincode should be 6 digits
                                     </mat-error>
                                 </mat-form-field>
                             </div>
 
-                            <form [formGroup]="CandidateFamilyForm">
+                            <form [formGroup]="candidateFamilyForm">
                                 <div class="section" fxLayout="row">
                                     <span><b>Family Details : </b></span>
                                     <span style="padding-top: 3px; padding-left: 1%">
@@ -486,7 +483,7 @@
                                             <input type="text" formControlName="familyfirstname" matInput placeholder=""
                                                 maxlength="100" required />
                                             <mat-error class="con-error" *ngIf="
-                          CandidateFamilyForm.controls.familyfirstname.errors
+                          candidateFamilyForm.controls.familyfirstname.errors
                             ?.required
                         ">
                                                 {{ EM1 }}
@@ -496,8 +493,12 @@
                                         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2"
                                             appearance="outline">
                                             <mat-label>Contact Number</mat-label>
-                                            <input type="text" onlyNumber formControlName="familycontact" matInput
-                                                placeholder="" maxlength="10" />
+                                            <input type="text" formControlName="familycontact" matInput placeholder=""
+                                                maxlength="10" minlength="10" (keypress)="_keyPress($event)" />
+                                            <mat-error class="reg-error" *ngIf="candidateFamilyForm.controls.familycontact.errors?.minlength || 
+                                                candidateFamilyForm.controls.familycontact.errors?.maxlength">
+                                                Please enter valid number
+                                            </mat-error>
                                         </mat-form-field>
 
                                         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2"
@@ -511,7 +512,7 @@
                                                 </ng-container>
                                             </mat-select>
                                             <mat-error class="con-error" *ngIf="
-                          CandidateFamilyForm.controls.familygender.errors
+                          candidateFamilyForm.controls.familygender.errors
                             ?.required
                         ">
                                                 {{ EM2 }}
@@ -534,7 +535,7 @@
                                                 </ng-container>
                                             </mat-select>
                                             <mat-error class="con-error" *ngIf="
-                          CandidateFamilyForm.controls.relation.errors?.required
+                          candidateFamilyForm.controls.relation.errors?.required
                         ">
                                                 {{ EM2 }}
                                             </mat-error>
@@ -609,7 +610,7 @@
                                                 <mat-icon title="Edit" (click)="editfamily(i)" *ngIf="!isviewemployee">
                                                     edit
                                                 </mat-icon>
-                                                <mat-icon title="Delete" (click)="deletefamily(i)"
+                                                <mat-icon title="Delete" (click)="deleteFamilyPopup(i)"
                                                     *ngIf="!isviewemployee">
                                                     delete</mat-icon>
                                             </td>
@@ -621,17 +622,16 @@
                                 </div>
                                 <br />
                             </form>
+                            
                             <div fxLayoutAlign="center">
                                 <button class="col-md-1 btn btn-primary mx-2 my-2" (click)="savePersonalInfo()"
                                     type="submit">
                                     <span>Save</span>
                                 </button>
-                                <!-- <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="personalInfoClear()">
-                                    <span>Cancel</span>
-                                </button> -->
                                 <br />
                             </div>
                         </form>
+                        
                     </div>
                 </mat-tab>
                 <!-- job tab -->
@@ -656,18 +656,18 @@
                                     <!-- new date -->
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Start Date</mat-label>
-                                        <input required matInput readonly [matDatepicker]="contractStartDate" [max]="edmaxDate"
-                                            placeholder="DD-MM-YYYY" formControlName="contractStartDate"
-                                            (click)="contractStartDate.open()" />
+                                        <input required matInput readonly [matDatepicker]="contractStartDate"
+                                            [max]="edmaxDate" placeholder="DD-MM-YYYY"
+                                            formControlName="contractStartDate" (click)="contractStartDate.open()" />
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="contractStartDate">
                                         </mat-datepicker-toggle>
                                         <mat-datepicker #contractStartDate></mat-datepicker>
-                                        <mat-error class="con-error" 
-                                        *ngIf="employeeJobForm.controls.contractStartDate.errors?.required">
+                                        <mat-error class="con-error"
+                                            *ngIf="employeeJobForm.controls.contractStartDate.errors?.required">
                                             {{ EM2 }}
                                         </mat-error>
                                     </mat-form-field>
-<!-- start date -->
+                                    <!-- start date -->
                                     <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>End Date</mat-label>
                                         <input matInput readonly [matDatepicker]="contractEndDate"
@@ -677,8 +677,8 @@
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="contractEndDate">
                                         </mat-datepicker-toggle>
                                         <mat-datepicker #contractEndDate></mat-datepicker>
-                                        <mat-error class="con-error" 
-                                        *ngIf="employeeJobForm.controls.contractEndDate.errors?.required">
+                                        <mat-error class="con-error"
+                                            *ngIf="employeeJobForm.controls.contractEndDate.errors?.required">
                                             {{ EM2 }}
                                         </mat-error>
                                     </mat-form-field>
@@ -703,8 +703,8 @@
                                         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2"
                                             appearance="outline">
                                             <mat-label>Description</mat-label>
-                                            <input type="text" formControlName="newDescription" matInput
-                                                placeholder="" maxlength="400"/>
+                                            <input type="text" formControlName="newDescription" matInput placeholder=""
+                                                maxlength="400" />
                                         </mat-form-field>
 
                                         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2"
@@ -776,10 +776,10 @@
                                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Description</mat-label>
-                                        <input type="text" formControlName="newDescription" matInput
-                                            placeholder="" required maxlength="400"/>
-                                        <mat-error class="con-error" 
-                                        *ngIf="promotionsForm.controls.newDescription.errors?.required">
+                                        <input type="text" formControlName="newDescription" matInput placeholder=""
+                                            required maxlength="400" />
+                                        <mat-error class="con-error"
+                                            *ngIf="issubmit && promotionsForm.controls.newDescription.errors?.required">
                                             {{ EM1 }}
                                         </mat-error>
                                     </mat-form-field>
@@ -790,7 +790,7 @@
                                             formControlName="newSalary" matInput placeholder="" maxlength="8"
                                             required />
                                         <mat-error class="con-error"
-                                            *ngIf="promotionsForm.controls.newSalary.errors?.required">
+                                            *ngIf=" issubmit && promotionsForm.controls.newSalary.errors?.required">
                                             {{ EM1 }}
                                         </mat-error>
                                     </mat-form-field>
@@ -803,7 +803,7 @@
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="effectiveDate">
                                         </mat-datepicker-toggle>
                                         <mat-datepicker #effectiveDate></mat-datepicker>
-                                        <mat-error class="con-error" *ngIf="
+                                        <mat-error class="con-error" *ngIf=" issubmit &&
                         promotionsForm.controls.effectiveDate.errors?.required
                       ">
                                             Please select date
@@ -814,7 +814,7 @@
                                         <mat-label>Annual Salary</mat-label>
                                         <input type="text" onlyNumber maxlength="8" (keypress)="numberOnly($event)"
                                             formControlName="annualSalary" matInput placeholder="" required />
-                                        <mat-error class="con-error" *ngIf="
+                                        <mat-error class="con-error" *ngIf="issubmit &&
                         promotionsForm.controls.annualSalary.errors?.required
                       ">
                                             {{ EM1 }}
@@ -948,7 +948,7 @@
                                 </div>
                             </div>
                             <div class="mat-elevation-z1" *ngIf="workExperienceDetails.length > 0">
-                                <table mat-table [dataSource]="workExperienceDataSource">
+                                <table mat-table [dataSource]="workExperienceDataSource" class="w-100">
                                     <ng-container matColumnDef="sno">
                                         <th mat-header-cell *matHeaderCellDef>S No</th>
                                         <td mat-cell *matCellDef="let data; let i = index">
@@ -958,7 +958,7 @@
 
                                     <ng-container matColumnDef="company">
                                         <th mat-header-cell *matHeaderCellDef>Company Name</th>
-                                        <td mat-cell *matCellDef="let data">
+                                        <td mat-cell *matCellDef="let data" class="truncate-cell">
                                             {{ data.companyname }}
                                         </td>
                                     </ng-container>
@@ -987,7 +987,7 @@
                                             <mat-icon title="Edit" (click)="editExperience(i)" *ngIf="!isviewemployee">
                                                 edit
                                             </mat-icon>
-                                            <mat-icon title="Delete" (click)="deleteExperience(i)"
+                                            <mat-icon title="Delete" (click)="deleteExperiencePopup(i)"
                                                 *ngIf="!isviewemployee">
                                                 delete</mat-icon>
                                         </td>
@@ -1031,7 +1031,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Branch Name</mat-label>
                                     <input type="text" (keypress)="alphabetKeyPress($event)"
-                                        formControlName="branchName" matInput placeholder="" maxlength="50"/>
+                                        formControlName="branchName" matInput placeholder="" maxlength="50" />
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
@@ -1165,7 +1165,7 @@
                                             <mat-icon title="Edit" (click)="editEduction(i)" *ngIf="!isviewemployee">
                                                 edit
                                             </mat-icon>
-                                            <mat-icon title="Delete" (click)="deleteEducation(i)"
+                                            <mat-icon title="Delete" (click)="deleteEducationPopup(i)"
                                                 *ngIf="!isviewemployee">
                                                 delete</mat-icon>
                                         </td>
@@ -1181,7 +1181,7 @@
                                     type="submit">
                                     <span>Save</span>
                                 </button>
-                                 <br />
+                                <br />
                             </div>
                         </form>
                     </div>

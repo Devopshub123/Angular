@@ -51,7 +51,7 @@ export class EmployeeProfileComponent implements OnInit {
     private adminService: AdminService, private emsService: EmsService,private LM: LeavesService,
   ) { this.formData = new FormData(); }
   personalInfoForm!: FormGroup;
-  CandidateFamilyForm: any = FormGroup;
+  candidateFamilyForm: any = FormGroup;
   employeeJobForm: any = FormGroup;
   promotionsForm: any = FormGroup;
   employementForm!: FormGroup;
@@ -65,7 +65,7 @@ export class EmployeeProfileComponent implements OnInit {
   familyTableColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
   documentTableColumns = ['position','category','number','status','name','action'];
 
-  promotionsTableColumns = ['sno', 'salary', 'fromDate', 'action'];
+  promotionsTableColumns = ['sno', 'salary', 'fromDate'];
   workTableColumns = ['sno', 'company','desig', 'fromDate', 'toDate', 'action'];
   educationTableColumns = ['sno', 'course', 'college', 'fromDate', 'toDate', 'action'];
   familyDataSource: MatTableDataSource<any> = <any>[];
@@ -157,7 +157,8 @@ export class EmployeeProfileComponent implements OnInit {
   EM19:any;
   EM20:any;
   EM21:any;
-  EM22:any;
+  EM22: any;
+  EM61: any;
   fileURL:any;
   file:any;
   documentDetails:any=[];
@@ -578,7 +579,7 @@ export class EmployeeProfileComponent implements OnInit {
       })
   }
   createFamilyForm() {
-    this.CandidateFamilyForm = this.formBuilder.group(
+    this.candidateFamilyForm = this.formBuilder.group(
       {
         familyfirstname: ["",],
         familycontact: [""],
@@ -810,29 +811,29 @@ export class EmployeeProfileComponent implements OnInit {
     this.addValidators();
     if (this.isfamilyedit) {
       this.isfamilyedit = false;
-      this.familyDetails[this.familyindex].firstname = this.CandidateFamilyForm.controls.familyfirstname.value;
-      //this.familyDetails[this.familyindex].lastname = this.CandidateFamilyForm.controls.familylastname.value;
-      this.familyDetails[this.familyindex].gender = this.CandidateFamilyForm.controls.familygender.value.id;
-      this.familyDetails[this.familyindex].gendername = this.CandidateFamilyForm.controls.familygender.value.gender;
-     this.familyDetails[this.familyindex].contactnumber = this.CandidateFamilyForm.controls.familycontact.value;
-      this.familyDetails[this.familyindex].status = this.CandidateFamilyForm.controls.familystatus.value;
-      this.familyDetails[this.familyindex].relationship = this.CandidateFamilyForm.controls.relation.value.id;
-      this.familyDetails[this.familyindex].relationshipname = this.CandidateFamilyForm.controls.relation.value.relationship;
-      //this.familyDetails[this.familyindex].dateofbirth = this.CandidateFamilyForm.controls.familydateofbirth.value != "" ? this.pipe.transform(this.CandidateFamilyForm.controls.familydateofbirth.value, 'yyyy-MM-dd') : ''
+      this.familyDetails[this.familyindex].firstname = this.candidateFamilyForm.controls.familyfirstname.value;
+      //this.familyDetails[this.familyindex].lastname = this.candidateFamilyForm.controls.familylastname.value;
+      this.familyDetails[this.familyindex].gender = this.candidateFamilyForm.controls.familygender.value.id;
+      this.familyDetails[this.familyindex].gendername = this.candidateFamilyForm.controls.familygender.value.gender;
+     this.familyDetails[this.familyindex].contactnumber = this.candidateFamilyForm.controls.familycontact.value;
+      this.familyDetails[this.familyindex].status = this.candidateFamilyForm.controls.familystatus.value;
+      this.familyDetails[this.familyindex].relationship = this.candidateFamilyForm.controls.relation.value.id;
+      this.familyDetails[this.familyindex].relationshipname = this.candidateFamilyForm.controls.relation.value.relationship;
+      //this.familyDetails[this.familyindex].dateofbirth = this.candidateFamilyForm.controls.familydateofbirth.value != "" ? this.pipe.transform(this.candidateFamilyForm.controls.familydateofbirth.value, 'yyyy-MM-dd') : ''
       this.clearValidators();
       this.clearfamily();
     } else {
 
-      if (this.CandidateFamilyForm.valid) {
+      if (this.candidateFamilyForm.valid) {
         this.familyDetails.push({
-          firstname: this.CandidateFamilyForm.controls.familyfirstname.value,
+          firstname: this.candidateFamilyForm.controls.familyfirstname.value,
           lastname: null,
-          gender: this.CandidateFamilyForm.controls.familygender.value.id,
-          gendername: this.CandidateFamilyForm.controls.familygender.value.gender,
-          contactnumber: this.CandidateFamilyForm.controls.familycontact.value,
-          status: this.CandidateFamilyForm.controls.familystatus.value,
-          relationship: this.CandidateFamilyForm.controls.relation.value.id,
-          relationshipname: this.CandidateFamilyForm.controls.relation.value.relationship,
+          gender: this.candidateFamilyForm.controls.familygender.value.id,
+          gendername: this.candidateFamilyForm.controls.familygender.value.gender,
+          contactnumber: this.candidateFamilyForm.controls.familycontact.value,
+          status: this.candidateFamilyForm.controls.familystatus.value,
+          relationship: this.candidateFamilyForm.controls.relation.value.id,
+          relationshipname: this.candidateFamilyForm.controls.relation.value.relationship,
           dateofbirth: null
         });
         this.familyDataSource = new MatTableDataSource(this.familyDetails);
@@ -842,36 +843,36 @@ export class EmployeeProfileComponent implements OnInit {
     }
   }
   clearValidators() {
-    this.CandidateFamilyForm.get("familyfirstname").clearValidators();
-    this.CandidateFamilyForm.get("familyfirstname").updateValueAndValidity();
+    this.candidateFamilyForm.get("familyfirstname").clearValidators();
+    this.candidateFamilyForm.get("familyfirstname").updateValueAndValidity();
 
-    this.CandidateFamilyForm.get("relation").clearValidators();
-    this.CandidateFamilyForm.get("relation").updateValueAndValidity();
+    this.candidateFamilyForm.get("relation").clearValidators();
+    this.candidateFamilyForm.get("relation").updateValueAndValidity();
 
-    this.CandidateFamilyForm.get("familycontact").clearValidators();
-    this.CandidateFamilyForm.get("familycontact").updateValueAndValidity();
+    this.candidateFamilyForm.get("familycontact").clearValidators();
+    this.candidateFamilyForm.get("familycontact").updateValueAndValidity();
 
-    this.CandidateFamilyForm.get("familygender").clearValidators();
-    this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
+    this.candidateFamilyForm.get("familygender").clearValidators();
+    this.candidateFamilyForm.get("familygender").updateValueAndValidity();
   }
 
   addValidators() {
-    this.CandidateFamilyForm.get("familyfirstname").setValidators(Validators.required);
-    this.CandidateFamilyForm.get("familyfirstname").updateValueAndValidity();
+    this.candidateFamilyForm.get("familyfirstname").setValidators(Validators.required);
+    this.candidateFamilyForm.get("familyfirstname").updateValueAndValidity();
 
-    this.CandidateFamilyForm.get("relation").setValidators(Validators.required);
-    this.CandidateFamilyForm.get("relation").updateValueAndValidity();
+    this.candidateFamilyForm.get("relation").setValidators(Validators.required);
+    this.candidateFamilyForm.get("relation").updateValueAndValidity();
 
-    this.CandidateFamilyForm.get("familygender").setValidators(Validators.required);
-    this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
+    this.candidateFamilyForm.get("familygender").setValidators(Validators.required);
+    this.candidateFamilyForm.get("familygender").updateValueAndValidity();
 }
   clearfamily() {
     //this.createFamilyForm();
-    this.CandidateFamilyForm.controls.familyfirstname.reset();
-    this.CandidateFamilyForm.controls.relation.reset();
-    this.CandidateFamilyForm.controls.familycontact.reset();
-    this.CandidateFamilyForm.controls.familygender.reset();
-    this.CandidateFamilyForm.valid = true;
+    this.candidateFamilyForm.controls.familyfirstname.reset();
+    this.candidateFamilyForm.controls.relation.reset();
+    this.candidateFamilyForm.controls.familycontact.reset();
+    this.candidateFamilyForm.controls.familygender.reset();
+    this.candidateFamilyForm.valid = true;
     this.isfamilyedit = false;
   }
 
@@ -879,23 +880,35 @@ export class EmployeeProfileComponent implements OnInit {
     this.familyindex = i;
     this.isfamilyedit = true;
     this.addFamilyView = true
-    this.CandidateFamilyForm.controls.familyfirstname.setValue(this.familyDetails[i].firstname);
-    //this.CandidateFamilyForm.controls.familylastname.setValue(this.familyDetails[i].lastname);
-    //this.CandidateFamilyForm.controls.familydateofbirth.setValue(new Date(this.familyDetails[i].dateofbirth));
-    this.CandidateFamilyForm.controls.familystatus.setValue(this.familyDetails[i].status);
+    this.candidateFamilyForm.controls.familyfirstname.setValue(this.familyDetails[i].firstname);
+    //this.candidateFamilyForm.controls.familylastname.setValue(this.familyDetails[i].lastname);
+    //this.candidateFamilyForm.controls.familydateofbirth.setValue(new Date(this.familyDetails[i].dateofbirth));
+    this.candidateFamilyForm.controls.familystatus.setValue(this.familyDetails[i].status);
     if(this.familyDetails[i].contactnumber !='null')
-     this.CandidateFamilyForm.controls.familycontact.setValue(this.familyDetails[i].contactnumber);
+     this.candidateFamilyForm.controls.familycontact.setValue(this.familyDetails[i].contactnumber);
     this.employeeRelationship.forEach((e:any)=>{
       if(e.id==this.familyDetails[i].relationship){
-        this.CandidateFamilyForm.controls.relation.setValue(e);
+        this.candidateFamilyForm.controls.relation.setValue(e);
       }
     })
     this.genderDetails.forEach((e:any)=>{
       if(e.id==this.familyDetails[i].gender){
-        this.CandidateFamilyForm.controls.familygender.setValue(e);
+        this.candidateFamilyForm.controls.familygender.setValue(e);
       }
     })
 
+  }
+  deleteFamilyPopup(event: any) {
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data: { message: this.EM61, YES: 'YES', NO: 'NO' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'YES') {
+        this.deletefamily(event)
+      }
+    });
   }
   deletefamily(index: any) {
     this.familyDetails.splice(index, 1);
@@ -1039,6 +1052,18 @@ addExperienceValidators() {
     this.experienceForm.controls.expToDate.reset();
     this.experienceForm.controls.designation.reset();
     this.experienceForm.controls.jobDescription.reset();
+  }
+  deleteExperiencePopup(event: any) {
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data: { message: this.EM61, YES: 'YES', NO: 'NO' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'YES') {
+        this.deleteExperience(event)
+      }
+    });
   }
   deleteExperience(index: any) {
     this.workExperienceDetails.splice(index, 1);
@@ -1187,6 +1212,18 @@ addEducationValidators() {
     this.educationForm.controls.eduFromDate.reset();
     this.educationForm.controls.eduToDate.reset();
   }
+  deleteEducationPopup(event: any) {
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data: { message: this.EM61, YES: 'YES', NO: 'NO' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'YES') {
+        this.deleteEducation(event)
+      }
+    });
+  }
   deleteEducation(index: any) {
     this.educationDetails.splice(index, 1);
     this.educationDataSource = new MatTableDataSource(this.educationDetails);
@@ -1263,7 +1300,9 @@ addEducationValidators() {
              this.EM20 =e.message
            }else if (e.code == "EM21") {
              this.EM21 =e.message
-           }
+           }else if (e.code == "EM61") {
+            this.EM61 = e.message
+          }
         })
       } else {
         this.messagesDataList = [];

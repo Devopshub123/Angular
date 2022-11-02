@@ -25,4 +25,12 @@ mat-card {
   // ::ng-deep .mat-form-field-outline-end {
   //   border-radius: 0 28px 28px 0 !important;
   // }
+
+  .truncate-cell {
+    max-width: 120px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
   

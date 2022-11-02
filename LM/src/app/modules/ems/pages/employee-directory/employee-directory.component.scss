@@ -22,7 +22,13 @@ mat-card {
         font-size:18px;
         text-size-adjust: auto ;
         color: black;
+        }
+      .textLength {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
+
 .icon{
     font-size: 20px;
     padding-top: 8px;

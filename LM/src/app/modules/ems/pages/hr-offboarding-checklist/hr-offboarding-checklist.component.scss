@@ -21,3 +21,9 @@ mat-card {
 .tableP{
   padding: 10px;
 }
+.truncate-cell {
+  max-width: 120px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
