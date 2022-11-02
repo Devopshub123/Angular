@@ -624,7 +624,7 @@
                             </form>
                             
                             <div fxLayoutAlign="center">
-                                <button class="col-md-1 btn btn-primary mx-2 my-2" (click)="savePersonalInfo()"
+                                <button class="col-md-1 btn btn-primary mx-2 my-2" form="personalInfoForm" (click)="savePersonalInfo()"
                                     type="submit">
                                     <span>Save</span>
                                 </button>
@@ -931,7 +931,7 @@
                                     <mat-form-field fxFlex="100" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Job Description</mat-label>
                                         <textarea formControlName="jobDescription" matInput placeholder=""
-                                            maxlength="500"></textarea>
+                                            maxlength="400"></textarea>
                                     </mat-form-field>
                                 </div>
                                 <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="end">

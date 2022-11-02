@@ -982,18 +982,27 @@ export class EmployeeInfoComponent implements OnInit {
 
       this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
         if (res.status) {
-          this.employeeId = res.data;
-          this.getEmployeeInformationList();
-          this.getEmployeeJobList();
-          this.getEmployeeEmploymentList();
-          this.getEmployeeEducationList();
-          this.spinner.hide();
+          if (res.data.email == null) {
+            this.employeeId = res.data.empid;
+            this.getEmployeeInformationList();
+            this.getEmployeeJobList();
+            this.getEmployeeEmploymentList();
+            this.getEmployeeEducationList();
+            this.spinner.hide();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.EM42
+            });
+            this.selectedtab.setValue(1);
+          } else {
+            this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.EM42
+            data: res.data.email
           });
-          this.selectedtab.setValue(1);
+          }
         } else {
           this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
