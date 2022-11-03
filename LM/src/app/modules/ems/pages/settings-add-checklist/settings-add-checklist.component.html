@@ -116,7 +116,7 @@
                             <span *ngIf="enable === row.id">
                                 <mat-form-field appearance="outline">
                                 <input formControlName="description" matInput maxlength="100" placeholder="{{row.description}}" >
-                                <mat-error class="con-error" *ngIf="checklistForm.controls.description.errors?.required">
+                                <mat-error class="con-error" *ngIf="checklistForm.controls.description.errors?.required || checklistForm.controls.description.errors?.['whitespace']">
                                     {{EM1}}
                                 </mat-error>
                             </mat-form-field>
