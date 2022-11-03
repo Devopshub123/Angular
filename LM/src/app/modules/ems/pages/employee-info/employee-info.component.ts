@@ -1087,7 +1087,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.candidateFamilyForm.controls.familycontact.setValue('');
     this.candidateFamilyForm.controls.familygender.setValue('');
     this.isfamilyedit = false;
-    this.candidateFamilyForm.valid = true;
+    //this.candidateFamilyForm.valid = true;
   }
 
   editfamily(i: any) {
@@ -1229,7 +1229,6 @@ export class EmployeeInfoComponent implements OnInit {
                 
               });
               this.selectedtab.setValue(2);
-              this.createPromotionsForm();
               this.issubmit= false;
             } else {
               this.spinner.hide();
@@ -1374,7 +1373,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.experienceForm.controls.expToDate.reset();
     this.experienceForm.controls.designation.reset();
     this.experienceForm.controls.jobDescription.reset();
-    this.experienceForm.valid = true;
+    //this.experienceForm.valid = true;
   }
   deleteExperiencePopup(event: any) {
     let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
@@ -2027,7 +2026,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.isedit = false;
   }
   createValidatorForDocument() {
-    this.documentsForm.controls.documentNumber.setValidators([Validators.required, Validators.minLength(6), Validators.maxLength(14)])
+    this.documentsForm.controls.documentNumber.setValidators([Validators.required, Validators.minLength(6), Validators.maxLength(30)])
     this.documentsForm.controls.documentName.setValidators([Validators.required])
     this.documentsForm.get('documentNumber').updateValueAndValidity();
     this.documentsForm.get('documentName').updateValueAndValidity();

@@ -624,7 +624,7 @@
                             </form>
                             
                             <div fxLayoutAlign="center">
-                                <button class="col-md-1 btn btn-primary mx-2 my-2" form="personalInfoForm" (click)="savePersonalInfo()"
+                                <button class="col-md-1 btn btn-primary mx-2 my-2" (click)="savePersonalInfo()"
                                     type="submit">
                                     <span>Save</span>
                                 </button>
@@ -822,44 +822,7 @@
                                     </mat-form-field>
                                 </div>
 
-                                <div class="mat-elevation-z1" *ngIf="promotionsGetList.length > 0">
-                                    <table mat-table [dataSource]="promotionsDataSource">
-                                        <ng-container matColumnDef="sno">
-                                            <th mat-header-cell *matHeaderCellDef>S No</th>
-                                            <td mat-cell *matCellDef="let data; let i = index">
-                                                {{ i + 1 }}
-                                            </td>
-                                        </ng-container>
-
-                                        <ng-container matColumnDef="salary">
-                                            <th mat-header-cell *matHeaderCellDef>Annual Salary</th>
-                                            <td mat-cell *matCellDef="let data">
-                                                {{ data.annualsalary }}
-                                            </td>
-                                        </ng-container>
-
-                                        <ng-container matColumnDef="fromDate">
-                                            <th mat-header-cell *matHeaderCellDef>Start Date</th>
-                                            <td mat-cell *matCellDef="let data">
-                                                {{ data.effectivedate | date: "dd-MM-yyyy" }}
-                                            </td>
-                                        </ng-container>
-
-                                        <!-- <ng-container matColumnDef="action">
-                                        <th mat-header-cell *matHeaderCellDef>Action</th>
-                                        <td mat-cell *matCellDef="let element; let i = index">
-                                            <mat-icon title="Edit" (click)="editfamily(i)" *ngIf="!isviewemployee">edit
-                                            </mat-icon>
-                                            <mat-icon title="Delete" (click)="deletePromotions(i)"
-                                                *ngIf="!isviewemployee">
-                                                delete</mat-icon>
-                                        </td>
-                                    </ng-container> -->
-
-                                        <tr mat-header-row *matHeaderRowDef="promotionsTableColumns"></tr>
-                                        <tr mat-row *matRowDef="let row; columns: promotionsTableColumns"></tr>
-                                    </table>
-                                </div>
+                               
                                 <div fxLayoutAlign="center">
                                     <button class="m-1 mat-stroked-button button-save" (click)="saveJobDetails()">
                                         <span>Save</span>
@@ -867,6 +830,44 @@
                                     <br />
                                 </div>
                             </form>
+                            <div class="mat-elevation-z1" *ngIf="promotionsGetList.length > 0">
+                                <table mat-table [dataSource]="promotionsDataSource">
+                                    <ng-container matColumnDef="sno">
+                                        <th mat-header-cell *matHeaderCellDef>S No</th>
+                                        <td mat-cell *matCellDef="let data; let i = index">
+                                            {{ i + 1 }}
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="salary">
+                                        <th mat-header-cell *matHeaderCellDef>Annual Salary</th>
+                                        <td mat-cell *matCellDef="let data">
+                                            {{ data.annualsalary }}
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="fromDate">
+                                        <th mat-header-cell *matHeaderCellDef>Start Date</th>
+                                        <td mat-cell *matCellDef="let data">
+                                            {{ data.effectivedate | date: "dd-MM-yyyy" }}
+                                        </td>
+                                    </ng-container>
+
+                                    <!-- <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                                    <td mat-cell *matCellDef="let element; let i = index">
+                                        <mat-icon title="Edit" (click)="editfamily(i)" *ngIf="!isviewemployee">edit
+                                        </mat-icon>
+                                        <mat-icon title="Delete" (click)="deletePromotions(i)"
+                                            *ngIf="!isviewemployee">
+                                            delete</mat-icon>
+                                    </td>
+                                </ng-container> -->
+
+                                    <tr mat-header-row *matHeaderRowDef="promotionsTableColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: promotionsTableColumns"></tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </mat-tab>
@@ -1215,14 +1216,10 @@
                                     <mat-label>Document Number</mat-label>
                                     <input type="text" minlength="6" maxlength="30" formControlName="documentNumber"
                                         matInput placeholder="" required />
-                                    <mat-error class="reg-error" *ngIf="
-                      documentsForm.controls.documentNumber.errors?.required
-                    ">
+                                    <mat-error class="reg-error" *ngIf="documentsForm.controls.documentNumber.errors?.required">
                                         {{ EM1 }}
                                     </mat-error>
-                                    <mat-error class="reg-error" *ngIf="
-                      documentsForm.controls.documentNumber.errors?.minlength
-                    ">
+                                    <mat-error class="reg-error" *ngIf="documentsForm.controls.documentNumber.errors?.minlength">
                                         {{ EM22 }}
                                     </mat-error>
                                 </mat-form-field>
