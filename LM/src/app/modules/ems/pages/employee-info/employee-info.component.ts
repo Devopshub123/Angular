@@ -55,7 +55,7 @@ export class EmployeeInfoComponent implements OnInit {
     private LM: LeavesService,private activatedRoute: ActivatedRoute, private emsService: EmsService) {
     this.formData = new FormData();
   }
-  personalInfoForm!: FormGroup;
+  personalInfoForm: any = FormGroup;
   candidateFamilyForm: any = FormGroup;
   employeeJobForm: any = FormGroup;
   promotionsForm: any = FormGroup;
@@ -166,6 +166,7 @@ export class EmployeeInfoComponent implements OnInit {
   EM2: any;
   EM61: any;
   EM42: any;
+  EM43: any;
 
   fileURL: any;
   file: any;
@@ -222,9 +223,9 @@ export class EmployeeInfoComponent implements OnInit {
     this.getstatuslist();
     this.getnoticeperiods();
     /**same as present address checkbox */
-    this.personalInfoForm.get('checked')?.valueChanges.subscribe(selectedValue => {
+    this.personalInfoForm.get('checked')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != '') {
-        this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedStateValue => {
+        this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedStateValue: any) => {
           this.permanentStateDetails = [];
           if(selectedStateValue != '') {
             this.companyService.getStatesc(selectedStateValue).subscribe((data) => {
@@ -235,7 +236,7 @@ export class EmployeeInfoComponent implements OnInit {
             })
           }
         })
-        this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedCityValue => {
+        this.personalInfoForm.get('pstate')?.valueChanges.subscribe((selectedCityValue: any) => {
           this.permanentCityDetails = [];
           if(selectedCityValue != '') {
             this.companyService.getCities(selectedCityValue).subscribe((data) => {
@@ -267,7 +268,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
     /**get state details for residance address */
-    this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedResidenceStateValue => {
+    this.personalInfoForm.get('rcountry')?.valueChanges.subscribe((selectedResidenceStateValue: any) => {
       this.stateDetails = [];
       if (selectedResidenceStateValue != '') {
          this.companyService.getStatesc(selectedResidenceStateValue).subscribe((data) => {
@@ -281,7 +282,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
     /**get city details for residance address */
-    this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedResidenceCityValue => {
+    this.personalInfoForm.get('rstate')?.valueChanges.subscribe((selectedResidenceCityValue: any) => {
       this.cityDetails = [];
       if (selectedResidenceCityValue != '') {
         this.companyService.getCities(selectedResidenceCityValue).subscribe((data) => {
@@ -295,7 +296,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
     /**get state details for present address*/
-    this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedPresentStateValue => {
+    this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedPresentStateValue: any) => {
       this.permanentStateDetails = [];
       if (selectedPresentStateValue != '') {
         this.companyService.getStatesc(selectedPresentStateValue).subscribe((data) => {
@@ -309,7 +310,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
     /**get city details for present address */
-    this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedPresentCityValue => {
+    this.personalInfoForm.get('pstate')?.valueChanges.subscribe((selectedPresentCityValue: any) => {
       this.permanentCityDetails = [];
       if (selectedPresentCityValue != '') {
         this.companyService.getCities(selectedPresentCityValue).subscribe((data) => {
@@ -335,7 +336,7 @@ export class EmployeeInfoComponent implements OnInit {
     })
     /////////
 
-    this.personalInfoForm.get('usertype')?.valueChanges.subscribe(selectedValue => {
+    this.personalInfoForm.get('usertype')?.valueChanges.subscribe((selectedValue: number) => {
       if (selectedValue == 2 || selectedValue == 6) {
         this.isself = true;
       }
@@ -344,7 +345,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
 
-    this.personalInfoForm.get('employmentType')?.valueChanges.subscribe(selectedValue => {
+    this.personalInfoForm.get('employmentType')?.valueChanges.subscribe((selectedValue: number) => {
       if (selectedValue == 3) {
         this.isContractData = true;
         this.isPromotionsOnly = false;
@@ -355,7 +356,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
 
-    this.personalInfoForm.get('department')?.valueChanges.subscribe(selectedValue => {
+    this.personalInfoForm.get('department')?.valueChanges.subscribe((selectedValue: any) => {
       this.availablereportingmanagers = []
       let data = {
         id: selectedValue
@@ -380,6 +381,7 @@ export class EmployeeInfoComponent implements OnInit {
     }
     this.getEmployeeImage();
   }
+  
   getnoticeperiods() {
     this.emsService.getnoticeperiods().subscribe((res: any) => {
       if (res.status) {
@@ -925,11 +927,12 @@ export class EmployeeInfoComponent implements OnInit {
       this.availablereportingmanagers = data[0]
     })
   }
-  get personalForm(): { [key: string]: AbstractControl } {
-    return this.personalInfoForm.controls;
-  }
+  // get personalForm(): { [key: string]: AbstractControl } {
+  //   return this.personalInfoForm.controls;
+  // }
   savePersonalInfo() {
     this.submitted = true;
+    this.addPersonalInfoValidators();
     if (this.personalInfoForm.valid) {
       this.spinner.show();
       let data = {
@@ -1008,7 +1011,7 @@ export class EmployeeInfoComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data is not saved"
+            data: this.EM43
           });
         }
       });
@@ -1172,6 +1175,20 @@ export class EmployeeInfoComponent implements OnInit {
     this.promotionsForm.controls.annualSalary.reset();
 
   }
+  addPromotionValidators() {
+    this.promotionsForm.get("newSalary").setValidators(Validators.required);
+    this.promotionsForm.get("newSalary").updateValueAndValidity();
+
+    this.promotionsForm.get("newDescription").setValidators(Validators.required);
+    this.promotionsForm.get("newDescription").updateValueAndValidity();
+
+    this.promotionsForm.get("effectiveDate").setValidators(Validators.required);
+    this.promotionsForm.get("effectiveDate").updateValueAndValidity();
+
+    this.promotionsForm.get("annualSalary").setValidators(Validators.required);
+    this.promotionsForm.get("annualSalary").updateValueAndValidity();
+
+  }
   clearPromotionValidators() {
     this.promotionsForm.get("newSalary").clearValidators();
     this.promotionsForm.get("newSalary").updateValueAndValidity();
@@ -1195,6 +1212,7 @@ export class EmployeeInfoComponent implements OnInit {
     if (this.employeeCode != undefined || this.employeeCode != null) {
       if (this.isPromotionsOnly == true) {
         let isValid = false;
+        this.addPromotionValidators();
          if (this.promotionsForm.valid) {
           this.promotionList.push({
             newsalary: this.promotionsForm.controls.newSalary.value,
@@ -1202,8 +1220,10 @@ export class EmployeeInfoComponent implements OnInit {
             effectivedate: this.pipe.transform(this.promotionsForm.controls.effectiveDate.value, 'yyyy-MM-dd'),
             annualsalary: this.promotionsForm.controls.annualSalary.value,
           });
-          this.clearPromotions();
-          isValid = true;
+          this.addPromotionValidators();
+           this.clearPromotions();
+           isValid = true;
+           
          }
         if ( isValid == true) {
           this.spinner.show();
@@ -1225,7 +1245,7 @@ export class EmployeeInfoComponent implements OnInit {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
-                data: "Data saved sucessfully"
+                data: this.EM42
                 
               });
               this.selectedtab.setValue(2);
@@ -1235,7 +1255,7 @@ export class EmployeeInfoComponent implements OnInit {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
-                data: "Data is not saved"
+                data: this.EM43
               });
             }
           });
@@ -1273,7 +1293,7 @@ export class EmployeeInfoComponent implements OnInit {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
-                data: "Data saved sucessfully"
+                data: this.EM42
               });
               this.selectedtab.setValue(2);
             } else {
@@ -1281,7 +1301,7 @@ export class EmployeeInfoComponent implements OnInit {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
-                data: "Data is not saved"
+                data: this.EM43
               });
             }
           });
@@ -1415,7 +1435,7 @@ export class EmployeeInfoComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data saved sucessfully"
+            data: this.EM42
           });
           this.selectedtab.setValue(3);
         } else {
@@ -1423,7 +1443,7 @@ export class EmployeeInfoComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data is not saved"
+            data: this.EM43
           });
         }
       });
@@ -1456,7 +1476,7 @@ export class EmployeeInfoComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: "Data saved sucessfully"
+              data: this.EM42
             });
             this.spinner.hide();
             this.selectedtab.setValue(4);
@@ -1465,7 +1485,7 @@ export class EmployeeInfoComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: "Data is not saved"
+              data: this.EM43
             });
           }
         });
@@ -1656,6 +1676,8 @@ export class EmployeeInfoComponent implements OnInit {
             this.EM61 = e.message
           }else if (e.code == "EM42") {
             this.EM42 = e.message
+          }else if (e.code == "EM43") {
+            this.EM43 = e.message
           }
         })
       } else {
@@ -2072,6 +2094,63 @@ export class EmployeeInfoComponent implements OnInit {
         })
       }
     })
+  }
+
+  addPersonalInfoValidators() {
+    this.personalInfoForm.get("firstname").setValidators(Validators.required);
+    this.personalInfoForm.get("firstname").updateValueAndValidity();
+
+    this.personalInfoForm.get("lastname").setValidators(Validators.required);
+    this.personalInfoForm.get("lastname").updateValueAndValidity();
+
+    this.personalInfoForm.get("dateofbirth").setValidators(Validators.required);
+    this.personalInfoForm.get("dateofbirth").updateValueAndValidity();
+
+    this.personalInfoForm.get("gender").setValidators(Validators.required);
+    this.personalInfoForm.get("gender").updateValueAndValidity();
+
+    this.personalInfoForm.get("maritalstatus").setValidators(Validators.required);
+    this.personalInfoForm.get("maritalstatus").updateValueAndValidity();
+
+    this.personalInfoForm.get("mobileNo").setValidators(Validators.required);
+    this.personalInfoForm.get("mobileNo").updateValueAndValidity();
+
+    this.personalInfoForm.get("alternateMobileNo").setValidators(Validators.required);
+    this.personalInfoForm.get("alternateMobileNo").updateValueAndValidity();
+
+    this.personalInfoForm.get("employmentType").setValidators(Validators.required);
+    this.personalInfoForm.get("employmentType").updateValueAndValidity();
+
+    this.personalInfoForm.get("usertype").setValidators(Validators.required);
+    this.personalInfoForm.get("usertype").updateValueAndValidity();
+
+    this.personalInfoForm.get("companylocation").setValidators(Validators.required);
+    this.personalInfoForm.get("companylocation").updateValueAndValidity();
+
+    this.personalInfoForm.get("designation").setValidators(Validators.required);
+    this.personalInfoForm.get("designation").updateValueAndValidity();
+
+    this.personalInfoForm.get("department").setValidators(Validators.required);
+    this.personalInfoForm.get("department").updateValueAndValidity();
+
+    this.personalInfoForm.get("reportingmanager").setValidators(Validators.required);
+    this.personalInfoForm.get("reportingmanager").updateValueAndValidity();
+
+    this.personalInfoForm.get("raddress").setValidators(Validators.required);
+    this.personalInfoForm.get("raddress").updateValueAndValidity();
+
+    this.personalInfoForm.get("rcountry").setValidators(Validators.required);
+    this.personalInfoForm.get("rcountry").updateValueAndValidity();
+
+    this.personalInfoForm.get("rstate").setValidators(Validators.required);
+    this.personalInfoForm.get("rstate").updateValueAndValidity();
+
+    this.personalInfoForm.get("rcity").setValidators(Validators.required);
+    this.personalInfoForm.get("rcity").updateValueAndValidity();
+
+    this.personalInfoForm.get("rpincode").setValidators(Validators.required);
+    this.personalInfoForm.get("rpincode").updateValueAndValidity();
+
   }
 }
 

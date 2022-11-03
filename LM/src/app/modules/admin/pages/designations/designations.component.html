@@ -10,7 +10,8 @@
                 <mat-form-field fxFlex.xs="100" fxFlex.size="25" class="mx-2 my-2" appearance="outline">
                     <mat-label>Designation</mat-label>
                     <input formControlName="designation" matInput placeholder="" required maxlength="100" >
-                    <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
+                    <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.require ||
+                    designationForm.controls.designation.errors?.['whitespace']">
                         {{errorDesName}}
                   </mat-error>
                 </mat-form-field>
@@ -45,8 +46,8 @@
                                 <span *ngIf="enable != row.id">{{row.designation}} </span>
                                 <span *ngIf="enable === row.id">
                                     <mat-form-field appearance="outline">
-                                    <input formControlName="designation" matInput placeholder="{{row.designation}}" >
-                                    <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
+                                    <input formControlName="designation" matInput placeholder="{{row.designation}}" maxlength="100">
+                                    <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required || designationForm.controls.designation.errors?.['whitespace']">
                                         {{errorDesName}}
                                     </mat-error>
                                 </mat-form-field>

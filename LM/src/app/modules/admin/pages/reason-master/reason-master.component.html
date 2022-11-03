@@ -52,7 +52,7 @@
                                 <span *ngIf="enable != row.id">{{row.reason}} </span>
                                 <span *ngIf="enable === row.id">
                                     <mat-form-field appearance="outline">
-                                    <input formControlName="reason" matInput placeholder="{{row.reason}}"  (keypress)="alphabetKeyPress($event)">
+                                    <input formControlName="reason" matInput placeholder="{{row.reason}}"  (keypress)="alphabetKeyPress($event)" maxlength="100">
                                     <mat-error class="con-error" *ngIf="reasonsForm.controls.reason.errors?.required">
                                         {{requiredField}}
                                     </mat-error>

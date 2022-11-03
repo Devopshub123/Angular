@@ -149,19 +149,17 @@ export class SettingsAddChecklistComponent implements OnInit {
           this.emsService.setChecklistsMaster(data).subscribe((res: any) => {
             if (res.status) {
               this.getCheckListData(this.checklistForm.controls.onboardCategory.value);
-        //  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-        //     this.router.navigate(["/ems/settings-checklist"]));
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+         let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data:this.EM42
+            data:"Checklist status updated successfully"
           });
 
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-           data:this.EM43
+           data:this.EM8
           });
         }
       });

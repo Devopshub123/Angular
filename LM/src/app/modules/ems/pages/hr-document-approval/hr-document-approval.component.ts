@@ -24,17 +24,20 @@ export class HrDocumentApprovalComponent implements OnInit {
   fileURL:any;
   displayedColumns: string[] = ['sno','empid','name','Action'];
   displayedColumns2: string[] = ['sno','document','documentnumber','file','Action'];
-  // dataSource = new MatTableDataSource<PeriodicElement>(Sample_Data);
+  
   dataSource: MatTableDataSource<any>=<any>[];
   datadocumentsSource: MatTableDataSource<any>=<any>[];
-  // datadocumentsSource = new MatTableDataSource<PeriodicElement2>(Sample_Data2);
+  
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
+  @ViewChild(MatPaginator)
+  paginator2!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
   constructor(private formBuilder: FormBuilder,private router: Router,private spinner:NgxSpinnerService,private ES:EmsService,public dialog: MatDialog,private mainService:MainService,) { }
-
+  pageLoading = true;
+  pageLoading2 = true;
   ngOnInit(): void {
     this.getFilesForApproval();
     this.approvalForm = this.formBuilder.group(
@@ -54,8 +57,9 @@ export class HrDocumentApprovalComponent implements OnInit {
       }
     }
     this.datadocumentsSource = new MatTableDataSource(this.fileslist)
-    this.datadocumentsSource.paginator = this.paginator;
+   // this.datadocumentsSource.paginator = this.paginator2;
     this.datadocumentsSource.sort = this.sort;
+    this.pageLoading2 = false;
   }
   getFilesForApproval(){
     this.ES.getFilesForApproval().subscribe((res:any)=>{
@@ -64,7 +68,7 @@ export class HrDocumentApprovalComponent implements OnInit {
         this.dataSource = new MatTableDataSource(res.data)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-
+        this.pageLoading = false;
 
       }
     })
@@ -74,8 +78,6 @@ export class HrDocumentApprovalComponent implements OnInit {
     let info = data;
     this.spinner.show()
         this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData:any) => {
-          console.log('sfagf',imageData);
-          console.log('sfagfggf',imageData.image.data)
           if(imageData.success){
             this.spinner.hide();
             // let TYPED_ARRAY = new Uint8Array(imageData.image.data);
@@ -137,7 +139,6 @@ export class HrDocumentApprovalComponent implements OnInit {
     id:data.fileid,
     status:'Reject',
   }
-  console.log(updatedata)
   this.ES.documentApproval(updatedata).subscribe((res:any)=>{
     if(res.status){
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -162,5 +163,23 @@ export class HrDocumentApprovalComponent implements OnInit {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
     this.router.navigate(["/ems/hr-document-approval"]));
  }
+ getPageSizes(): number[] {
+  if (this.dataSource.data.length > 20) {
+    return [5, 10, 20, this.dataSource.data.length];
+  }
+  else {
 
+   return [5, 10, 20];
+  }
+  }
+  getPageSizes2(): number[] {
+    console.log("hello")
+    if (this.datadocumentsSource.data.length > 20) {
+      return [5, 10, 20, this.datadocumentsSource.data.length];
+    }
+    else {
+  
+     return [5, 10, 20];
+    }
+  }
 }
