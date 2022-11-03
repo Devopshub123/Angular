@@ -69,7 +69,7 @@
                     </ng-container>
      
                      <ng-container matColumnDef="Action">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
                        <td mat-cell *matCellDef="let row">
                         <button mat-icon-button matTooltip="Edit" *ngIf="enable != row.id">
                             <mat-icon (click)="edit($event,row)"  title="Edit" *ngIf="enable != row.id">edit</mat-icon>

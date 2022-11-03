@@ -139,7 +139,7 @@
                     <td mat-cell *matCellDef="let row" [style.color]="row.status"> {{row.status}} </td>
                 </ng-container>
                 <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let row">
                         <mat-icon *ngIf="row.status=='Submitted'" class="mr-2" title="Edit" (click)="editRequest(row)">
                             edit</mat-icon>
