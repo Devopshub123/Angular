@@ -1804,6 +1804,7 @@ export class EmployeeInfoComponent implements OnInit {
 
 
   fileView(data: any) {
+   
     let info = data
     this.spinner.show()
     this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData) => {
@@ -1834,6 +1835,8 @@ export class EmployeeInfoComponent implements OnInit {
 
       }
     })
+    this.createValidatorForDocument();
+    this.clearDock();
   }
 
 

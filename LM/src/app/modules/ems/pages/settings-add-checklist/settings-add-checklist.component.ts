@@ -209,9 +209,17 @@ export class SettingsAddChecklistComponent implements OnInit {
 
     })
   }
+  onChangeRadio() {
+    this.addChecklistData = [];
+    this.clearFields();
+    this.checklistForm.controls.department.setValue();
+    this.checklistForm.controls.department.clearValidators();
+    this.checklistForm.controls.department.updateValueAndValidity();
+   
+  }
   departmentChange() {
-    this.addChecklistData = []
-
+    this.addChecklistData = [];
+   
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -219,7 +227,7 @@ export class SettingsAddChecklistComponent implements OnInit {
   }
 
   add() {
-    if(this.addChecklistData!=undefined){
+    if(this.addChecklistData !=undefined){
       const toSelect = this.addChecklistData.find((name:any) => name.description.trim().toLowerCase() == this.checklistForm.controls.description.value.trim().toLowerCase());
       if(toSelect!=undefined){
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -242,18 +250,17 @@ export class SettingsAddChecklistComponent implements OnInit {
       this.addChecklistData.push({
         //id: this.checklistForm.controls.checklistId.value,
         name:null,
-        description: this.checklistForm.controls.description.value.trim(),
+        description: this.checklistForm.controls.description.value,
         status: "Active",
       });
       this.clearFields();
-    }else{}
+    }
 
   }
   clearFields() {
     this.checklistForm.controls.description.setValue();
     this.checklistForm.controls.description.clearValidators();
-    this.checklistForm.controls.description.updateValueAndValidity()
-
+    this.checklistForm.controls.description.updateValueAndValidity();
 }
   removeText(index:number) {
     this.addChecklistData.splice(index, 1);

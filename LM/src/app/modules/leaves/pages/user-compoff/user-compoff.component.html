@@ -62,7 +62,7 @@
 
                 <mat-form-field fxFlex.xs="100" fxFlex="62" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason</mat-label>
-                    <textarea formControlName="reason" matInput placeholder="" required maxlength="500"> </textarea>
+                    <textarea formControlName="reason" matInput placeholder="" required maxlength="250"> </textarea>
                     <mat-error class="con-error" *ngIf="CompoffForm.controls.reason.errors?.required">
                         {{msgLM1}}
                     </mat-error>

@@ -46,10 +46,14 @@
                     <mat-error class="con-error" *ngIf="  companyForm.controls.contact.errors?.required">
                         {{msgLM3}}
                   </mat-error>
+                  <mat-error class="reg-error" *ngIf="companyForm.controls.contact.errors?.minlength || 
+                  companyForm.controls.contact.errors?.maxlength">
+                      Please enter valid number
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Primary Contact Email</mat-label>
-                    <input formControlName="email"  matInput [readonly]="isview" placeholder="" maxlength="100" required>
+                    <input formControlName="email"  matInput [readonly]="isview" placeholder="" maxlength="50" required>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.email.errors?.required">
                       {{msgLM1}}
                   </mat-error>

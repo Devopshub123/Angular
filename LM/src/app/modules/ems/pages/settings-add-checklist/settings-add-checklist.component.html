@@ -11,7 +11,7 @@
 
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                     <span style="padding-top: 20px;padding-left: 20px;">
-                       <mat-radio-group  formControlName="onboardCategory">
+                       <mat-radio-group  formControlName="onboardCategory" (change)="onChangeRadio()">
                                 <mat-radio-button class="mx2 my-2 mr-2" value="Onboarding" [checked]='true'>Onboarding</mat-radio-button>
                                 <mat-radio-button class="mx2 my-2 mr-2" value="Offboarding">Offboarding</mat-radio-button>
                              </mat-radio-group>

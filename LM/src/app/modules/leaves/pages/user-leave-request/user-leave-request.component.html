@@ -183,7 +183,7 @@
     <div fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px">
       <mat-form-field fxFlex="100"   class="mx-1 my-1" appearance="outline">
         <mat-label>Reason</mat-label>
-        <textarea formControlName="reason" required matInput placeholder="Reason" maxlength="500"></textarea>
+        <textarea formControlName="reason" required matInput placeholder="Reason" maxlength="250"></textarea>
         <mat-error class="con-error" *ngIf="leaveRequestForm.controls.reason.errors?.required">
           {{msgLM1}}
         </mat-error>
@@ -211,14 +211,18 @@
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
       <mat-form-field fxFlex.xs="100" fxFlex="50"   appearance="outline">
         <mat-label>Contact</mat-label>
-        <input formControlName="contact" maxlength="10" onlyNumber required matInput placeholder="Contact Number" >
+        <input formControlName="contact" maxlength="10" minlength="10" onlyNumber required matInput placeholder="" >
         <mat-error class="con-error" *ngIf="leaveRequestForm.controls.contact.errors?.required">
           {{msgLM1}}
+        </mat-error>
+        <mat-error class="reg-error" *ngIf="leaveRequestForm.controls.contact.errors?.minlength || 
+        leaveRequestForm.controls.contact.errors?.maxlength">
+            Please enter valid number
         </mat-error>
       </mat-form-field>
       <mat-form-field fxFlex.xs="100" fxFlex="50"   appearance="outline">
         <mat-label>Emergency Email</mat-label>
-        <input formControlName="emergencyEmail"  matInput placeholder="Emergency Email(optional)" >
+        <input formControlName="emergencyEmail" maxlength="50" matInput placeholder="" >
       </mat-form-field>
     </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">

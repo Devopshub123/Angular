@@ -9,7 +9,7 @@
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Shift Name <span style="color: red;">*</span></mat-label>
-                    <input formControlName="shift" matInput  maxlength="50"
+                    <input formControlName="shift" matInput  maxlength="100"
                         placeholder="Shift Name">
                     <mat-error class="con-error"
                     *ngIf="shiftForm.controls.shift.errors?.required || shiftForm.controls.shift.errors?.['whitespace']">

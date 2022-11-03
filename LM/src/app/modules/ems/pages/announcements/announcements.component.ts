@@ -402,7 +402,7 @@ export class AnnouncementsComponent implements OnInit {
       this.isrepublish = false;
 
     }
-    console.log(data)
+
     this.ishide = true;
     this.isview = false;
     this.isedit = false;
