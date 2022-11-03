@@ -352,7 +352,8 @@ export class EmployeereportComponent implements OnInit {
      }
      if(this.reportForm.valid){
          this.ES.getEmsEmployeeDataForReports(data2).subscribe((res: any) => {
-        this.allfilterdata = []
+        this.allfilterdata = [];
+        this.dataSource = new MatTableDataSource(<any>[]);
       if (res.status && res.data.length != 0) {
         this.allfilterdata = res.data;
         this.dataSource = new MatTableDataSource(this.allfilterdata);
