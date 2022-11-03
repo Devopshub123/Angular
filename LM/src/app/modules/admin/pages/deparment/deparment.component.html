@@ -12,12 +12,12 @@
                     <!-- <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.cannotContainSpace">
                       Please enter valid data
                   </mat-error> -->
-                  <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.required">
+                  <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.required ||departmentForm.controls.department.errors?.['whitespace']">
                     {{msgLM1}}
                 </mat-error>
                 </mat-form-field>
                 <div fxLayoutAlign="center">
-                    <button class="col-md-1 btn btn-primary mx-2 my-2"  [disabled]="!departmentForm.valid" (click)="setdepartment()"   type="submit">
+                    <button class="col-md-1 btn btn-primary mx-2 my-2"  (click)="setdepartment()"   type="submit">
                         <span>Submit</span>
                     </button>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PopupComponent, PopupConfig } from '../../../../pages/popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -87,7 +87,7 @@ export class DeparmentComponent implements OnInit {
     this.getDepartments();
     this.departmentForm = this.formBuilder.group(
       {
-        department: ["", Validators.required],
+        department: ["",[Validators.required,this.noWhitespaceValidator()]],
 
       },
     );
@@ -353,6 +353,11 @@ export class DeparmentComponent implements OnInit {
 
     })
   }
-
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return isWhitespace ? { whitespace: true } : null;
+    };
+}
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl, FormArray} from '@angular/forms';
+import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl, FormArray, ValidationErrors, ValidatorFn} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PopupComponent,PopupConfig } from '../../../../pages/popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -122,7 +122,7 @@ export class HolidaysComponent implements OnInit {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.HolidayForm=this.formBuilder.group(
       {
-      holiday: ["",Validators.required],
+      holiday: ["",[Validators.required,this.noWhitespaceValidator()]],
       date: ["",Validators.required],
       branch: ["",Validators.required],
       itemdata: this.formBuilder.array([])
@@ -137,44 +137,48 @@ export class HolidaysComponent implements OnInit {
   itemdata(): FormArray {
     return this.HolidayForm.get("edu") as FormArray
   }
-  submit(){
-    let location = this.HolidayForm.controls.branch.value;
-    // let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    location.forEach((e:any) => {
-      this.selecteditems.push(({
-        id:'',
-        description: this.HolidayForm.controls.holiday.value,
-        date: new Date(this.HolidayForm.controls.date.value),
-        location:e.city,
-        created_by:this.userSession.id,
-        created_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
+  submit() {
+    console.log("hello")
+    if (this.HolidayForm.valid) {
+      let location = this.HolidayForm.controls.branch.value;
+      // let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      location.forEach((e: any) => {
+        this.selecteditems.push(({
+          id: '',
+          description: this.HolidayForm.controls.holiday.value,
+          date: new Date(this.HolidayForm.controls.date.value),
+          location: e.city,
+          created_by: this.userSession.id,
+          created_on: this.pipe.transform(new Date(), 'yyyy-MM-dd') + ' ' + this.pipe.transform(new Date(), 'HH:mm:ss'),
 
-      }));
-    });
-    // if(this.HolidayForm.controls.holiday.value !== null && this.holidays.holidayName !== null ){}
-    this.LM.setHolidays(this.selecteditems,this.companyDBName).subscribe((data) => {
+        }));
+      });
+      // if(this.HolidayForm.controls.holiday.value !== null && this.holidays.holidayName !== null ){}
+      this.LM.setHolidays(this.selecteditems, this.companyDBName).subscribe((data) => {
 
-      if(data.status){
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["/Admin/Holidays"]));
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: this.msgLM69
-        });
+        if (data.status) {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/Holidays"]));
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.msgLM69
+          });
 
 
 
-      }else {
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: this.msgLM47
-        });
+        } else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.msgLM47
+          });
 
-        // Swal.fire({title:data.message,color:"red",showCloseButton: true});
-      }
-    })
+          // Swal.fire({title:data.message,color:"red",showCloseButton: true});
+        }
+      })
+    }
+
   }
   add(){
     this.isview = false;
@@ -364,6 +368,11 @@ export class HolidaysComponent implements OnInit {
 
     })
   }
-
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return isWhitespace ? { whitespace: true } : null;
+    };
+}
 
 }
