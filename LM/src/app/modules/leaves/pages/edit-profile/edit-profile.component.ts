@@ -104,8 +104,8 @@ export class EditProfileComponent implements OnInit {
     this.editForm.get('countryId')?.valueChanges.subscribe((selectedValue:any)=> {
       this.stateDetails= [];
       this.LM.getStates(selectedValue).subscribe((result)=>{
-        if(result && result.status){
-          this.stateDetails=result.data;
+        if(result){
+          this.stateDetails=result[0];
           if(this.employeedata != null)
           {
             this.editForm.controls.stateId.setValue(this.employeedata.state);
@@ -120,8 +120,8 @@ export class EditProfileComponent implements OnInit {
     this.editForm.get('stateId')?.valueChanges.subscribe((selectedValue:any) => {
       this.cityDetails=[];
       this.LM.getCities(selectedValue).subscribe((result)=>{
-        if(result && result.status){
-          this.cityDetails=result.data;
+        if(result){
+          this.cityDetails=result[0];
           this.editForm.controls.cityId.setValue('');
           if(this.employeedata.state === this.editForm.controls.stateId.value)
           {
@@ -161,7 +161,7 @@ export class EditProfileComponent implements OnInit {
           this.dialog.open(ConfirmationComponent, {
             position: {top: `70px`},
             disableClose: true,
-            data: {Message: this.LM118, url: '/LeaveManagement/EditProfile'}
+            data: {Message: this.LM118, url: '/EditProfile'}
           });
         }else{
           this.LM.getFilepathsMaster(2).subscribe((result) => {
@@ -191,13 +191,13 @@ export class EditProfileComponent implements OnInit {
                       this.dialog.open(ConfirmationComponent, {
                         position: {top: `70px`},
                         disableClose: true,
-                        data: {Message: this.LM118, url: '/LeaveManagement/EditProfile'}
+                        data: {Message: this.LM118, url: '/EditProfile'}
                       });
                     }else{
                       this.dialog.open(ConfirmationComponent, {
                         position: {top: `70px`},
                         disableClose: true,
-                        data: {Message: this.LM138, url: '/LeaveManagement/EditProfile'}
+                        data: {Message: this.LM138, url: '/EditProfile'}
                       });
                     }
                     this.file = null;
@@ -214,7 +214,7 @@ export class EditProfileComponent implements OnInit {
                   this.dialog.open(ConfirmationComponent, {
                     position: {top: `70px`},
                     disableClose: true,
-                    data: {Message: this.LM138, url: '/LeaveManagement/EditProfile'}
+                    data: {Message: this.LM138, url: '/EditProfile'}
                   });
                 }
 
@@ -229,7 +229,7 @@ export class EditProfileComponent implements OnInit {
                 this.dialog.open(ConfirmationComponent, {
                   position: {top: `70px`},
                   disableClose: true,
-                  data: {Message: this.LM138, url: '/LeaveManagement/EditProfile'}
+                  data: {Message: this.LM138, url: '/EditProfile'}
                 });
               }
           })
@@ -243,7 +243,7 @@ export class EditProfileComponent implements OnInit {
             // width: '500px', height: '250px',
             position: {top: `70px`},
             disableClose: true,
-            data: {Message: this.LM119, url: '/LeaveManagement/EditProfile'}
+            data: {Message: this.LM119, url: '/EditProfile'}
           });
         }
 
@@ -284,24 +284,24 @@ export class EditProfileComponent implements OnInit {
 
 
 
-  removeImage() {
-    this.isRemoveImage=false;
-    this.LM.removeProfileImage(this.userSession.id,"google").subscribe((data) => {});
-    let dialogRef = this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
-      position:{top:`70px`},
-      disableClose: true,
-      data: {Message:'Removed profile picture successfully',url: '/LeaveManagement/EditProfile'}
-    });
-    this.imageurls =null;
-    // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    //   this.router.navigate(["/LeaveManagement/EditProfile"]));
-
-  }
-  cancelImage(){
-    this.isRemoveImage=true;
-    // this.getUploadImage();
-    this.fileImageToggler();
-  }
+  // removeImage() {
+  //   this.isRemoveImage=false;
+  //   this.LM.removeProfileImage(this.userSession.id,"google").subscribe((data) => {});
+  //   let dialogRef = this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+  //     position:{top:`70px`},
+  //     disableClose: true,
+  //     data: {Message:'Removed profile picture successfully',url: '/LeaveManagement/EditProfile'}
+  //   });
+  //   this.imageurls =null;
+  //   // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+  //   //   this.router.navigate(["/LeaveManagement/EditProfile"]));
+  //
+  // }
+  // cancelImage(){
+  //   this.isRemoveImage=true;
+  //   // this.getUploadImage();
+  //   this.fileImageToggler();
+  // }
   onSelectFile(event:any) {
     this.isRemoveImage=false;
     this.imageurls = null;
@@ -331,7 +331,7 @@ export class EditProfileComponent implements OnInit {
           this.dialog.open(ConfirmationComponent, {
             position: {top: `70px`},
             disableClose: true,
-            data:{Message:this.LM117,url: '/LeaveManagement/EditProfile'}
+            data:{Message:this.LM117,url: '/EditProfile'}
           });
       }
     }else{

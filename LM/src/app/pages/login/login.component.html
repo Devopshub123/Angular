@@ -48,8 +48,8 @@
                                         <div class="extra" style="color: red;"  *ngIf=" issubmit && formGroup.controls['password'].invalid" >
 											{{msgLM1}}
                                           </div>
-                                          <a href="ForgotPassword" class="text-muted float-end"><small>Forgot your password?</small></a>
-                                       
+                                          <a (click)="ForgotPassword()" class="text-muted float-end"><small>Forgot your password?</small></a>
+
 
                                     </div>
 

@@ -27,7 +27,7 @@ export class LeavesService {
   }
 
   getErrorMessages(errorCode: any, page: any, size: any): Observable<any> {
-    return this.http.get(this.mainUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size, this.httpOptions);
+    return this.http.get(this.mainUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size+'/'+this.companyName, this.httpOptions);
   }
 
 
@@ -125,16 +125,17 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     }
 
     SetEditProfile(info: any): Observable<any> {
+      info.companyName = this.companyName;
       return this.http.post(this.mainUrl + 'api/editProfile', info, this.httpOptions);
 
     }
 
     getStates(id: any): Observable<any> {
-      return this.http.get(this.mainUrl + 'api/getStatesPerCountry/' + id, this.httpOptions)
+      return this.http.get(this.mainUrl + 'api/getStates/' + id+'/'+this.companyName, this.httpOptions)
     }
 
     getCities(id: any): Observable<any> {
-      return this.http.get(this.mainUrl + 'api/getCitiesPerCountry/' + id, this.httpOptions)
+      return this.http.get(this.mainUrl + 'api/getCities/' + id+'/'+this.companyName, this.httpOptions)
     }
     getProfileImage(info:any): Observable<any> {
       // var conpanyName ='Apple'
@@ -147,7 +148,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
 
 
     getEmployeeInformation(id: any): Observable<any> {
-      return this.http.get(this.mainUrl + 'api/getEmployeeInformation/' + id, this.httpOptions);
+      return this.http.get(this.mainUrl + 'api/getEmployeeInformation/' + id+'/'+this.companyName, this.httpOptions);
     }
     // setProfileImage(data: FormData,Id: number ,conpanyName:any): Observable<any> {
     //   return this.http.post(this.mainUrl + 'api/setProfileImage/'+conpanyName+'/'+Id, data);

@@ -74,6 +74,10 @@ export class LoginComponent implements OnInit {
     }
 
   }
+
+  ForgotPassword(){
+    this.router.navigate(['ForgotPassword'],{state:{companyName:'sprypleems'}} )
+  }
   getErrorMessages(errorCode:any){
     this.tss.getErrorMessages(errorCode,1,100).subscribe((result)=>{
 

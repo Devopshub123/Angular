@@ -95,7 +95,7 @@
                 }}</span>
               <span class="heading">{{ employeeDesignation }}</span>
             </div>
-            <div fxLayout="column" style="font-size: 16px;">
+            <div fxLayout="column" style="font-size: 16px;" *ngIf="empReportingManager">
               <span class="heading"><b>Reporting Manager</b></span>
               <span class="heading">{{ empReportingManager }}</span>
             </div>
@@ -228,7 +228,7 @@
             </div>
           </div>
 
-         
+
         </mat-card>
 
         <mat-card  class="card outline" fxLayout="column" fxFlex="50">

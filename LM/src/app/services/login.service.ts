@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
   export class LoginService {
     mainBeUrl= environment.apiUrl;
       userSession: any;
-  companyName:any;
+      companyName:any;
       httpOptions = {
         headers: new HttpHeaders({'content-Type': 'application/json'})
       };
@@ -26,7 +26,6 @@ import { environment } from 'src/environments/environment';
     constructor(private hClient: HttpClient) {
         this.userSession = ((sessionStorage.getItem('user')))
         this.companyName=sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null;
-      console.log("this.companyName",this.companyName)
 
     }
 
@@ -37,22 +36,23 @@ getallSubscriptions():Observable<any>{
   return this.hClient.get(this.mainBeUrl + 'savesubscription', { responseType: 'json' });
 }
 getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
-  return this.hClient.get(this.mainBeUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size, this.httpOptions);
+  return this.hClient.get(this.mainBeUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size+'/'+'spryple_client', this.httpOptions);
 }
 Savelogin(data:any): Observable<any> {
   return this.hClient.post(this.mainBeUrl + 'api/emp_login', JSON.stringify(data) ,this.httpOptions);
 }
  /* save change password */
 changepassword(changePassword: any): Observable<any> {
-  return this.hClient.post(this.mainBeUrl + 'changePassword', JSON.stringify(changePassword), this.httpOptions);
+  changePassword.companyName = this.companyName;
+  return this.hClient.post(this.mainBeUrl + 'api/changePassword', JSON.stringify(changePassword), this.httpOptions);
 }
 resetpassword(resetPassword:any) : Observable<any> {
-  return this.hClient.post(this.mainBeUrl + 'attendance/api/resetpassword', JSON.stringify(resetPassword), this.httpOptions);
+  return this.hClient.post(this.mainBeUrl + 'api/resetpassword', JSON.stringify(resetPassword), this.httpOptions);
 
 }
 // forgot password
-verifyEmail(email: any): Observable<any> {
-  return this.hClient.get(this.mainBeUrl + 'attendance/api/forgetpassword/'+email,this.httpOptions);
+  verifyEmail(email: any,companyName:any): Observable<any> {
+  return this.hClient.get(this.mainBeUrl + 'api/forgetpassword/'+email+'/'+companyName,this.httpOptions);
 }
 // forgot password
 // getModules(): Observable<any> {

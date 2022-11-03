@@ -23,14 +23,17 @@ export class ReportsService {
     return this.http.get(this.mainUrl + 'attendance/api/getallemployeeslist/'+this.companyName,this.httpOptions);
   }
   getTotalEmployeslistByManagerId(data:any): Observable<any>{
+    data.companyName = this.companyName;
     return this.http.post(this.mainUrl + 'attendance/api/getallemployeeslistByManagerId',data,this.httpOptions);
   }
   // ALL USER-WISE COLLECTION DATA API
   getAttendanceSummaryReport(data:any):Observable<any> {
+    data.companyName = this.companyName;
     return this.http.post(this.mainUrl + 'attendance/api/getAttendanceSummaryReport'
     ,  data, this.httpOptions);
   }
   getAttendanceDetailsByAttendanceId(data:any):Observable<any>{
+    data.companyName = this.companyName;
     return this.http.post(this.mainUrl +'attendance/api/getAttendanceDetailsByAttendanceId',
     data,this.httpOptions
     )
@@ -42,6 +45,7 @@ export class ReportsService {
     )
   }
   getEmployeeLateAttendanceReport(data:any):Observable<any>{
+    data.companyName =this.companyName;
     return this.http.post(this.mainUrl +'attendance/api/getEmployeeLateAttendanceReport',
     data,this.httpOptions
     )

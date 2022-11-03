@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   imageurls:any;
   companyName: any;
   companyinfo: any;
-  activeModule:any;
+  // activeModule:any;
   companyDBName:any = environment.dbName;
   constructor(private baseService: BaseService,private mainService:MainService,
     private LM:CompanyInformationService,private spinner:NgxSpinnerService, public router: Router) { }
@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
     this.getHeadNav();
     this.getToggleSideBar()
     this.usersession =JSON.parse(sessionStorage.getItem('user')??'');
-    this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
+    // this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
     this.getLogo()
     this.getUploadImage();
     this.getCompanyInformation();
@@ -46,7 +46,10 @@ export class HeaderComponent implements OnInit {
   logout(){
     sessionStorage.removeItem('user')
     sessionStorage.removeItem('sidemenu');
-    this.router.navigate(['/Login']);
+    sessionStorage.removeItem('activeModule');
+    var login = '/Login/'+sessionStorage.getItem('companyName')
+    this.router.navigate([login]);
+    sessionStorage.removeItem('companyName');
 
   }
 

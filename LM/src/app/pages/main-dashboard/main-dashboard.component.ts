@@ -356,7 +356,7 @@ export class MainDashboardComponent implements OnInit {
       .subscribe((res: any) => {
         if (res && res.status) {
           this.reportingManager = res.data;
-          this.empReportingManager = this.reportingManager[0].managername;
+          this.empReportingManager = this.reportingManager[0] ? this.reportingManager[0].managername:null;
         }
       });
   }
