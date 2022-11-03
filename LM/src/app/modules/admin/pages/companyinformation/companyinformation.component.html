@@ -1,10 +1,11 @@
 <div fxLayout="column" >
-    <form [formGroup]="companyForm" autocomplete="off" >
+    
         <mat-card>
             <mat-card-header class="">
                 <mat-card-title > Company Information </mat-card-title>
             </mat-card-header>
             <mat-divider></mat-divider>
+            <form [formGroup]="companyForm" autocomplete="off" >
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
   
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -142,6 +143,7 @@
                 </button>
                 <br />
             </div>
+        </form>
             <div fxLayoutAlign="end" class="" *ngIf ="isview">
                 <button class="col-md-1 btn btn-primary mx-2 my-2"  style="background-color:#3f51b5;color:aliceblue" (click)="edit()"   type="submit">
                     <span>Edit</span>
@@ -152,5 +154,5 @@
             </div>
           
         </mat-card>
-    </form>
+   
 </div>
