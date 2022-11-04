@@ -193,6 +193,7 @@ export class EmployeeInfoComponent implements OnInit {
   companyDBName: any = environment.dbName;
   submitted: boolean = false;
   issubmit: boolean = false;
+  submitsavepersonal: boolean = false;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params) {
@@ -931,6 +932,7 @@ export class EmployeeInfoComponent implements OnInit {
   //   return this.personalInfoForm.controls;
   // }
   savePersonalInfo() {
+    this.submitsavepersonal = true;
     this.submitted = true;
     this.addPersonalInfoValidators();
     if (this.personalInfoForm.valid) {
@@ -1895,6 +1897,7 @@ export class EmployeeInfoComponent implements OnInit {
     // if(this.documentsForm.controls.attachedFile.value || this.editDockinfo){
     // if(this.isFile){
     //   if(this.validateDocument()){
+    this.spinner.show();
     this.mainService.getFilepathsMasterForEMS(1).subscribe((resultData) => {
       if (resultData && resultData.status) {
         let obj = {
@@ -1924,10 +1927,12 @@ export class EmployeeInfoComponent implements OnInit {
                     disableClose: true,
                     data: this.EM11
                   });
+                  this.spinner.hide();
                   this.getDocumentsEMS();
                   this.clearDock();
                   this.selectedtab.setValue(0);
                 } else {
+                  this.spinner.hide();
                   let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: { top: `70px` },
                     disableClose: true,
@@ -1943,6 +1948,7 @@ export class EmployeeInfoComponent implements OnInit {
 
               });
             } else {
+              this.spinner.hide();
               this.getDocumentsEMS();
               this.clearDock();
               this.editDockinfo = null;
@@ -1956,6 +1962,7 @@ export class EmployeeInfoComponent implements OnInit {
               });
             }
           } else {
+            this.spinner.hide();
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
@@ -1963,6 +1970,7 @@ export class EmployeeInfoComponent implements OnInit {
             });
           }
         });
+        this.spinner.hide();
       }
     });
     //   }

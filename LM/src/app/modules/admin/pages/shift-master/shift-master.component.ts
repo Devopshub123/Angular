@@ -72,11 +72,13 @@ export class ShiftMasterComponent implements OnInit {
   dataNotSave: any;
   recordExist: any;
 
-  statusActive: any;
-  statusNotActive: any;
-  statusDeactive: any;
-  statusNotDeactive: any;
+  ATT65: any;
+  ATT66: any;
+  ATT67: any;
+  ATT68: any;
   statusEmployeExist: any;
+  ATT75: any;
+  ATT76: any;
   mintime: any;
   constructor(
     private formBuilder: FormBuilder,
@@ -113,7 +115,6 @@ export class ShiftMasterComponent implements OnInit {
         selectedValue,
         'dd/MM/yyyy, HH:mm:ss'
       );
-      console.log(this.starttime);
     });
     // this.shiftForm.get('endTime')?.valueChanges.subscribe((selectedValue) => {
     //   this.endtime = this.pipe.transform(selectedValue, 'dd/MM/yyyy, HH:mm:ss');
@@ -149,7 +150,6 @@ export class ShiftMasterComponent implements OnInit {
           selectedValue,
           'dd/MM/yyyy, HH:mm:ss'
         );
-        console.log(this.endtime);
         this.getDifference(this.starttime, this.endtime);
       }
     });
@@ -173,8 +173,7 @@ export class ShiftMasterComponent implements OnInit {
       .toISOString()
       .slice(11, 19);
     this.shiftForm.controls.totalHours.setValue(inHhMmSsFormat);
-    console.log('Difference in hh:mm:ss format: ', inHhMmSsFormat);
-  }
+     }
 
   getTimestamp(time: string) {
     let timeFirst = time.split(', ')[0].split('/');
@@ -217,7 +216,6 @@ export class ShiftMasterComponent implements OnInit {
     }
   }
   changeEndTime(event: any) {
-    console.log(event);
   }
   saveShiftData() {
     if (this.shiftForm.invalid) {
@@ -347,15 +345,15 @@ export class ShiftMasterComponent implements OnInit {
       .then(() => this.router.navigate(['/Admin/Shift']));
   }
   status(status: any, shiftid: any) {
-    let data = {
+     let data = {
       shift_id: shiftid,
       status_value: status,
     };
     let resMessage: any;
-    if (status == 'Active') {
-      resMessage = this.statusActive;
+    if (status == '1') {
+      resMessage = this.ATT65;
     } else {
-      resMessage = this.statusDeactive;
+      resMessage = this.ATT67;
     }
     this.adminService.updateShiftStatus(data).subscribe((result: any) => {
       if (result.status) {
@@ -375,14 +373,13 @@ export class ShiftMasterComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.statusNotDeactive,
+          data: this.ATT68,
         });
       }
     });
   }
   getstatuslist() {
     this.adminService.getstatuslists().subscribe((result: any) => {
-      console.log(result);
       if (result.status) {
         this.arrayValue = result.data;
       }
@@ -461,13 +458,13 @@ export class ShiftMasterComponent implements OnInit {
           } else if (e.code == 'ATT64') {
             this.dataNotSave = e.message;
           } else if (e.code == 'ATT65') {
-            this.statusActive = e.message;
+            this.ATT65 = e.message;
           } else if (e.code == 'ATT66') {
-            this.statusNotActive = e.message;
+            this.ATT66 = e.message;
           } else if (e.code == 'ATT67') {
-            this.statusDeactive = e.message;
+            this.ATT67 = e.message;
           } else if (e.code == 'ATT68') {
-            this.statusNotDeactive = e.message;
+            this.ATT68 = e.message;
           }
         });
       } else {

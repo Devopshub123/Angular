@@ -126,7 +126,7 @@
                     </mat-form-field>
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                         <mat-label>Seed</mat-label>
-                        <input type="text" onlyNumber formControlName="seed" matInput placeholder="" required maxlength="11">
+                        <input type="text" onlyNumber formControlName="seed" matInput placeholder="" required maxlength="10">
                         <mat-error class="con-error" *ngIf="worklocationForm.controls.seed.errors?.required">
                           {{msgLM1}}
                         </mat-error>

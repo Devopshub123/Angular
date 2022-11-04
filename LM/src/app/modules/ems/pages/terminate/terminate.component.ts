@@ -137,7 +137,7 @@ export class TerminateComponent implements OnInit {
         break;
       }
     }
-    this.terminateForm.controls.empname.setValue(this.employee);
+    this.terminateForm.controls.empname.setValue(rowdata.empname);
     this.terminateForm.controls.dateoftermination.setValue(new Date(rowdata.termination_date));
     this.terminateForm.controls.terminatecategory.setValue(this.categiry);
     this.terminateForm.controls.reason.setValue(rowdata.comment);

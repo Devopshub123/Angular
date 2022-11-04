@@ -1,13 +1,12 @@
-<div fxLayout="column" >
+<div fxLayout="column" style="background-color: white;">
     <form [formGroup]="designationForm" autocomplete="off" >
-        <mat-card style="min-height: 700px;" fxLayout="column">
             <mat-card-header >
                 <mat-card-title> Designation </mat-card-title>
             </mat-card-header>
             <mat-divider></mat-divider>
             <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd">
-  
-                <mat-form-field fxFlex.xs="100" fxFlex.size="25" class="mx-2 my-2" appearance="outline">
+                <div fxLayout="row" fxLayout.xs="row">
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                     <mat-label>Designation</mat-label>
                     <input formControlName="designation" matInput placeholder="" required maxlength="100" >
                     <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.require ||
@@ -15,6 +14,7 @@
                         {{errorDesName}}
                   </mat-error>
                 </mat-form-field>
+                </div>
                 <div fxLayoutAlign="center">
                     <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue" (click)="setdesignations()"   type="submit">
                         <span>Submit</span>
@@ -36,6 +36,7 @@
                         <span>Add</span>
                     </button>
                 </div><br>
+                <div fxLayout="column" class="tableP">
                 <div class="mat-elevation-z1">
                     <table mat-table [dataSource]="dataSource" matSort>
   
@@ -92,8 +93,9 @@
   
                     <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
                 </div>
+                </div>
             </div>
-        </mat-card>
+    
     </form>
   </div>
   

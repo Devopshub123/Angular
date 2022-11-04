@@ -82,7 +82,9 @@ export class AnnouncementsComponent implements OnInit {
   iseditingdata:boolean=false;
   announcementlist:any=[];
   pageLoading = true;
-  mindate:any;
+  mindate: any;
+  minAnounceDate:any=new Date();
+  
   issavedraft:boolean=true;
   displayedColumns: string[] = ['sno','topic','title','publishedon','publishedTo','status','action'];
   dataSource: MatTableDataSource<any>=<any>[];
@@ -123,10 +125,7 @@ export class AnnouncementsComponent implements OnInit {
 
     this.announcementForm.get('fromdate')?.valueChanges.subscribe((selectedValue:any) => {
 
-        this.mindate = selectedValue._d;
-   
-        this.announcementForm.controls.todate.setValue('')
-        console.log(selectedValue)
+        this.minAnounceDate = selectedValue._d;
     })
   }
   noWhitespaceValidator(): ValidatorFn {
@@ -145,7 +144,8 @@ export class AnnouncementsComponent implements OnInit {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/ems/announcement"]));
   }
-  edit(event:any,data:any){
+  edit(event: any, data: any) {
+    this.minAnounceDate = new Date(data.fromdate)
     this.iseditingdata=true;
     if(data.status == 'Published'){
       this.issavedraft =false;
@@ -159,7 +159,8 @@ export class AnnouncementsComponent implements OnInit {
     this.ishide = true;
     this.isview = false;
     this.isedit = false;
-    this.isviewdata=false;
+    this.isviewdata = false;
+    
     // this.announcementForm.controls.topic.setvalue(data.topicid)
     this.announcementForm.controls.topic.setValue(data.topicid);
     this.announcementForm.controls.title.setValue(data.title);

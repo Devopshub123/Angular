@@ -1,12 +1,12 @@
-<div fxLayout="column" >
+<div fxLayout="column" style="background-color: white;">
     <form [formGroup]="departmentForm" autocomplete="off" >
          <mat-card-header class="">
                 <mat-card-title > Department </mat-card-title>
             </mat-card-header>
             <mat-divider></mat-divider>
             <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd">
-
-                <mat-form-field fxFlex.xs="100" fxFlex.size="25" class="mx-2 my-2" appearance="outline">
+                <div fxLayout="row" fxLayout.xs="row">
+                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                     <mat-label>Department</mat-label>
                     <input formControlName="department" matInput placeholder="" appRemoveSpace required maxlength="100">
                     <!-- <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.cannotContainSpace">
@@ -16,6 +16,7 @@
                     {{msgLM1}}
                 </mat-error>
                 </mat-form-field>
+            </div>
                 <div fxLayoutAlign="center">
                     <button class="col-md-1 btn btn-primary mx-2 my-2"  (click)="setdepartment()"   type="submit">
                         <span>Submit</span>
