@@ -124,8 +124,9 @@ export class AnnouncementsComponent implements OnInit {
     });
 
     this.announcementForm.get('fromdate')?.valueChanges.subscribe((selectedValue:any) => {
-
-        this.minAnounceDate = selectedValue._d;
+    
+      this.minAnounceDate = selectedValue._d==undefined?this.minAnounceDate:selectedValue._d;
+      console.log(this.minAnounceDate)
     })
   }
   noWhitespaceValidator(): ValidatorFn {
@@ -145,6 +146,7 @@ export class AnnouncementsComponent implements OnInit {
             this.router.navigate(["/ems/announcement"]));
   }
   edit(event: any, data: any) {
+    console.log(this.minAnounceDate)
     this.minAnounceDate = new Date(data.fromdate)
     this.iseditingdata=true;
     if(data.status == 'Published'){
