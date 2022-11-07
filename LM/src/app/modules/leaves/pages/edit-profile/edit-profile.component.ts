@@ -64,7 +64,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(): void {
 
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
+    //this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
     this.editForm = this.formBuilder.group(
       {
         firstName: ['',Validators.required],
