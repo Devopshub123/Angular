@@ -159,6 +159,8 @@ export class EmployeeProfileComponent implements OnInit {
   EM21:any;
   EM22: any;
   EM61: any;
+  EM42: any;
+  EM43: any;
   fileURL:any;
   file:any;
   documentDetails:any=[];
@@ -364,7 +366,7 @@ export class EmployeeProfileComponent implements OnInit {
       this.personalInfoForm.controls.rpincode.setValue(this.employeeInformationData.pincode);
 
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
-      if(this.employeeInformationData.languages_spoken !=null || this.employeeInformationData.languages_spoken !='null')
+      if(this.employeeInformationData.languages_spoken !=null || this.employeeInformationData.languages_spoken !='null' || this.employeeInformationData.languages_spoken !="null")
       this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken);
       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress);
       this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
@@ -725,14 +727,7 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   savePersonalInfo() {
-    const invalid = [];
-    const controls = this.personalInfoForm.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        invalid.push(name);
-      }
-    }
-    if(this.personalInfoForm.valid){
+     if(this.personalInfoForm.valid){
     let data = {
       condidateid:this.loginCandidateId,
       empid: this.employeeCode != undefined || this.employeeCode != null ? this.employeeCode: null,
@@ -777,23 +772,38 @@ export class EmployeeProfileComponent implements OnInit {
       department: this.personalInfoForm.controls.department.value,
       employmenttype: this.personalInfoForm.controls.employmentType.value,
       companylocation: this.personalInfoForm.controls.companylocation.value,
-      reportingmanager: "Self",
+      reportingmanager:this.personalInfoForm.controls.reportingmanager.value,
     }
 
     this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
       if (res.status) {
-        this.getEmployeeInformationList();
+        if (res.data.email == null) {
+          this.employeeId = res.data.empid;
+          this.getEmployeeInformationList();
+          this.getEmployeeJobList();
+          this.getEmployeeEmploymentList();
+          this.getEmployeeEducationList();
+          this.spinner.hide();
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.EM42
+          });
+          this.selectedtab.setValue(1);
+        } else {
+          this.spinner.hide();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: "Data saved sucessfully"
+          data: res.data.email
         });
-        this.selectedtab.setValue(1);
+        }
       } else {
+        this.spinner.hide();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: "Data is not saved"
+          data: this.EM43
         });
       }
     });
@@ -1302,6 +1312,10 @@ addEducationValidators() {
              this.EM21 =e.message
            }else if (e.code == "EM61") {
             this.EM61 = e.message
+          }else if (e.code == "EM42") {
+            this.EM42 = e.message
+          }else if (e.code == "EM43") {
+            this.EM43 = e.message
           }
         })
       } else {

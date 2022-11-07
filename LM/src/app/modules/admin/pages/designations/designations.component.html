@@ -8,7 +8,7 @@
                 <div fxLayout="row" fxLayout.xs="row">
                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                     <mat-label>Designation</mat-label>
-                    <input formControlName="designation" matInput placeholder="" required maxlength="100" >
+                    <input formControlName="designation" matInput placeholder="" required maxlength="64" >
                     <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.require ||
                     designationForm.controls.designation.errors?.['whitespace']">
                         {{errorDesName}}

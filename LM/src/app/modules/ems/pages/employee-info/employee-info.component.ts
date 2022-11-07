@@ -191,7 +191,6 @@ export class EmployeeInfoComponent implements OnInit {
   isRemoveImage: boolean = true;
   isPromotionsOnly:boolean=true;
   companyDBName: any = environment.dbName;
-  submitted: boolean = false;
   issubmit: boolean = false;
   submitsavepersonal: boolean = false;
   ngOnInit(): void {
@@ -933,8 +932,7 @@ export class EmployeeInfoComponent implements OnInit {
   // }
   savePersonalInfo() {
     this.submitsavepersonal = true;
-    this.submitted = true;
-    this.addPersonalInfoValidators();
+     this.addPersonalInfoValidators();
     if (this.personalInfoForm.valid) {
       this.spinner.show();
       let data = {

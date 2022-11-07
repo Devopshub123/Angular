@@ -144,6 +144,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   employmentDataChange: boolean = false;
   educationDataChange: boolean = false;
   documentDataChange: boolean = false;
+isDeleted: boolean = false;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params && this.params.token) {
@@ -587,8 +588,9 @@ export class PreOnboardingDetailsComponent implements OnInit {
             data: "Details submitted successfully"
           });
           if (this.personalInfoDataChange == true) {
-            this.selectedtab.setValue(0);
             this.ngOnInit();
+            this.selectedtab.setValue(0);
+            
           } else {
             this.getCandidateData();
             this.selectedtab.setValue(1);
@@ -703,7 +705,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
     this.familyDetails.splice(index, 1);
     this.familyDataSource = new MatTableDataSource(this.familyDetails);
     this.isfamilyedit = false;
-  }
+   }
 
   saveWorkExperience() {
 
@@ -716,9 +718,16 @@ export class PreOnboardingDetailsComponent implements OnInit {
       }
       this.mainService.savePreOnboardingCandidateExperience(data).subscribe((res: any) => {
         if (res.status && res.data[0].statuscode == 0) {
-          this.addExperienceValidators();
-          this.clearExperienceValidators();
-          this.clearWork();
+          if (this.isDeleted ==true) {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: "Record is removed successfully"
+            });
+            this.getCandidateData();
+            this.isDeleted = false;
+          } else {
+            
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -726,12 +735,18 @@ export class PreOnboardingDetailsComponent implements OnInit {
           });
           if (this.employmentDataChange == true) {
             this.employmentDataChange = false;
-            this.ngOnInit();
-            this.selectedtab.setValue(1);
-          } else {
+            this.clearExperienceValidators();
+            this.clearWork();
             this.getCandidateData();
             this.selectedtab.setValue(2);
+             
+          } else {
+            this.clearExperienceValidators();
+            this.clearWork();
+            this.getCandidateData();
             this.employmentDataChange = false;
+            this.selectedtab.setValue(2);
+          }
           }
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -823,7 +838,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
   deleteExperience(index: any) {
     this.workExperienceDetails.splice(index, 1);
     this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
-    this.isfamilyedit = false;
+    this.isDeleted = true;
+    this.saveWorkExperience();
   }
 
   saveEducation() {
@@ -837,23 +853,34 @@ export class PreOnboardingDetailsComponent implements OnInit {
       }
       this.mainService.savePreOnboardingCandidateEducation(data).subscribe((res: any) => {
         if (res.status && res.data[0].statuscode == 0) {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: "Details submitted successfully"
-          });
-          // this.addEducationValidators();
-          // this.clearEducationValidators();
-          // this.clearEducation();
-          if (this.educationDataChange == true) {
-            this.educationDataChange = false;
-            this.ngOnInit();
-            this.selectedtab.setValue(2);
+          if (this.isDeleted == true) {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: "Record is removed successfully"
+            });
             this.getCandidateData();
+            this.isDeleted = false;
           } else {
-            this.getCandidateData();
-            this.selectedtab.setValue(3);
-            this.educationDataChange = false;
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: "Details submitted successfully"
+            });
+         
+            if (this.educationDataChange == true) {
+              this.educationDataChange = false;
+              this.clearEducationValidators();
+              this.clearEducation();
+              this.getCandidateData();
+              this.selectedtab.setValue(3);
+            } else {
+              this.clearEducationValidators();
+              this.clearEducation();
+              this.getCandidateData();
+              this.selectedtab.setValue(3);
+              this.educationDataChange = false;
+            }
           }
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -935,7 +962,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
   deleteEducation(index: any) {
     this.educationDetails.splice(index, 1);
     this.educationDataSource = new MatTableDataSource(this.educationDetails);
-    this.isfamilyedit = false;
+    this.isDeleted = true;
+    this.saveEducation();
   }
   validateDocument() {
     this.createValidatorForDocument();
@@ -1203,6 +1231,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
         this.personalInfoForm.controls.joinDate.dirty ||
         this.personalInfoForm.controls.alternateMobileNo.dirty
       ) {
+        console.log("tab-1");
         this.personalInfoDataChange = true;
         if (this.personalInfoDataChange == true) {
           let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
