@@ -414,7 +414,7 @@ export class EditProfileComponent implements OnInit {
   }
  cancel(){
   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate(["/LeaveManagement/UserDashboard"]));
+    this.router.navigate(["/MainDashboard"]));
  }
 
   getErrorMessages(errorCode:any) {

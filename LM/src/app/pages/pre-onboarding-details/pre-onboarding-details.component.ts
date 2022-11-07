@@ -539,13 +539,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
 
   savePersonalInfo() {
-    const invalid = [];
-    const controls = this.personalInfoForm.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        invalid.push(name);
-      }
-    }
+   
     if (this.personalInfoForm.valid) {
       let data = {
         preid: this.preOnboardId != null ? this.preOnboardId : null,
@@ -590,7 +584,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data saved sucessfully"
+            data: "Details submitted successfully"
           });
           if (this.personalInfoDataChange == true) {
             this.selectedtab.setValue(0);
@@ -728,7 +722,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data saved sucessfully"
+            data: "Details submitted successfully"
           });
           if (this.employmentDataChange == true) {
             this.employmentDataChange = false;
@@ -846,15 +840,16 @@ export class PreOnboardingDetailsComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data saved sucessfully"
+            data: "Details submitted successfully"
           });
-          this.addEducationValidators();
-          this.clearEducationValidators();
-          this.clearEducation();
+          // this.addEducationValidators();
+          // this.clearEducationValidators();
+          // this.clearEducation();
           if (this.educationDataChange == true) {
             this.educationDataChange = false;
             this.ngOnInit();
             this.selectedtab.setValue(2);
+            this.getCandidateData();
           } else {
             this.getCandidateData();
             this.selectedtab.setValue(3);
