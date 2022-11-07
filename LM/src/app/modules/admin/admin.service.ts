@@ -72,18 +72,20 @@ getIntegrationEmpidsLookup(data:any): Observable<any> {
   return this.http.post(this.mainUrl + 'admin/api/getIntegrationEmpidsLookup', data, this.httpOptions);
 }
 setShiftMaster(data:any):Observable<any>{
+  data.companyName = this.companyName
   return this.http.post(this.mainUrl+ 'admin/api/setShiftMaster',data,this.httpOptions);
 }
 getAllShifts(): Observable<any>{
-  return this.http.get(this.mainUrl + 'admin/api/getAllShifts', this.httpOptions);
+  return this.http.get(this.mainUrl + 'admin/api/getAllShifts/'+this.companyName, this.httpOptions);
 }
 getShiftsDetailsById(shift_id:any): Observable<any>{
-  return this.http.get(this.mainUrl + 'admin/api/getShiftsDetailsById/'+shift_id, this.httpOptions);
+  return this.http.get(this.mainUrl + 'admin/api/getShiftsDetailsById/'+shift_id+'/'+this.companyName, this.httpOptions);
 }
 getActiveShiftIds(): Observable<any>{
   return this.http.get(this.mainUrl + 'admin/api/getActiveShiftIds', this.httpOptions);
 }
 updateShiftStatus(data:any):Observable<any>{
+  data.companyName = this.companyName
   return this.http.post(this.mainUrl+'admin/api/updateShiftStatus',data,this.httpOptions);
   }
   //// get messages list
@@ -107,7 +109,7 @@ updateShiftStatus(data:any):Observable<any>{
     return this.http.post(this.mainUrl+'admin/api/setEMSMessages', JSON.stringify(data), this.httpOptions);
   }
   getstatuslists(){
-    return this.http.post(this.mainUrl+'admin/api/getstatuslist', this.httpOptions)
+    return this.http.post(this.mainUrl+'admin/api/getstatuslist/'+this.companyName, this.httpOptions)
   }
   //// save reason
  saveReasonData(data:any){
