@@ -77,7 +77,10 @@ menu:NavItem[] =[];
   logout() {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('sidemenu');
-    this.router.navigate(['/Login']);
+    var login = '/Login/'+sessionStorage.getItem('companyName')
+    this.router.navigate([login]);
+    sessionStorage.removeItem('companyName');
+    // this.router.navigate(['/Login']);
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

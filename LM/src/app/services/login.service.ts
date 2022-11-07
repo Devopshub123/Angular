@@ -36,7 +36,7 @@ getallSubscriptions():Observable<any>{
   return this.hClient.get(this.mainBeUrl + 'savesubscription', { responseType: 'json' });
 }
 getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
-  return this.hClient.get(this.mainBeUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size+'/'+'spryple_client', this.httpOptions);
+  return this.hClient.get(this.mainBeUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size+'/'+this.companyName, this.httpOptions);
 }
 Savelogin(data:any): Observable<any> {
   return this.hClient.post(this.mainBeUrl + 'api/emp_login', JSON.stringify(data) ,this.httpOptions);

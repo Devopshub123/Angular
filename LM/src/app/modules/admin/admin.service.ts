@@ -113,23 +113,25 @@ updateShiftStatus(data:any):Observable<any>{
   }
   //// save reason
  saveReasonData(data:any){
+    data.companyName =this.companyName;
     return this.http.post(this.mainUrl+'ems/api/setReasonMaster', JSON.stringify(data), this.httpOptions);
   }
   /// get all reasons
   getAllReasonsList(){
-    return this.http.get(this.mainUrl+'ems/api/getReasonMasterData/:reasonid', this.httpOptions)
+    return this.http.get(this.mainUrl+'ems/api/getReasonMasterData/'+this.companyName, this.httpOptions)
   }
  /// get  reasons list
   getReasonsList(){
-    return this.http.get(this.mainUrl+'ems/api/getActiveReasonList', this.httpOptions)
+    return this.http.get(this.mainUrl+'ems/api/getActiveReasonList/'+this.companyName, this.httpOptions)
   }
  //// save termination category
  saveTerminationCategory(data:any){
-  return this.http.post(this.mainUrl+'ems/api/setTerminationCategory', JSON.stringify(data), this.httpOptions);
+   data.companyName =this.companyName;
+   return this.http.post(this.mainUrl+'ems/api/setTerminationCategory/', JSON.stringify(data), this.httpOptions);
 }
 /// get  termination category list
 getTerminationCategoryList(){
-  return this.http.get(this.mainUrl+'ems/api/getTerminationCategory', this.httpOptions)
+  return this.http.get(this.mainUrl+'ems/api/getTerminationCategory/'+this.companyName, this.httpOptions)
 }
 /// get Modules Screens Functionalitiesmaster
 getModulesScreensFunctionalitiesmaster(){
@@ -137,15 +139,14 @@ getModulesScreensFunctionalitiesmaster(){
 }
 /// get Modules Screens
 getModulesWithScreens(){
-  return this.http.get(this.mainUrl+'api/getModulesWithScreens', this.httpOptions)
+  return this.http.get(this.mainUrl+'api/getModulesWithScreens/'+this.companyName, this.httpOptions)
 }
 /// get Modules Screens Functionalitiesmaster
 getScreenWithFunctionalities(moduleId:any){
-  console.log("Module",moduleId);
-  return this.http.get(this.mainUrl+'api/getScreenWithFunctionalities/'+moduleId, this.httpOptions)
+  return this.http.get(this.mainUrl+'api/getScreenWithFunctionalities/'+moduleId+'/'+this.companyName, this.httpOptions)
 }
 //getRoleScreenfunctionalitiesByRoleId
 getRoleScreenfunctionalitiesByRoleId(roleId: Observable<any>){
-  return this.http.get(this.mainUrl+'api/getRoleScreenfunctionalitiesByRoleId/' + roleId, this.httpOptions)
+  return this.http.get(this.mainUrl+'api/getRoleScreenfunctionalitiesByRoleId/' + roleId+'/'+this.companyName, this.httpOptions)
 }
 }

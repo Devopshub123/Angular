@@ -173,7 +173,7 @@ financeManager:any=[]
       'status': null
     }
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
-      if (result.data.length > 0 && result.status) {
+      if ( result.status && result.data.length > 0 ) {
                 this.profileId = result.data[0].id;
                 this.profileInfo = JSON.stringify(result.data[0]);
                this.mainService.getDocumentOrImagesForEMS(result.data[0]).subscribe((imageData) => {

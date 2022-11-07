@@ -9,6 +9,10 @@ import {LMSAccessGuard} from  './LMS-access.guard';
 import { CommonModule } from '@angular/common';
 import { PreOnboardingDetailsComponent } from './pages/pre-onboarding-details/pre-onboarding-details.component';
 
+var Login :string;
+ var comp = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):'';
+Login = 'Login/'+comp;
+
 
 const routes: Routes = [
   {path:'Login/:companyName',component:LoginComponent},
@@ -35,7 +39,7 @@ const routes: Routes = [
   {path:'Reports',loadChildren:()=>import('./modules/reports/reports.module').then(m=>m.ReportsModule)},
   {
     path: '',
-    redirectTo: 'Login',
+    redirectTo: Login,
     pathMatch: 'full'
   },
   {path:'MainDashboard',component:MainDashboardComponent,canActivate:[LMSAccessGuard]},

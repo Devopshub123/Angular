@@ -25,6 +25,7 @@ export class MainService {
   }
 /*Get Role Screen Functionalities Based on RoleId*/
   getrolescreenfunctionalitiesforrole(data: any) {
+    data.companyName= this.companyName;
 
     return this.http.post(this.mainBeUrl + 'attendance/api/getrolescreenfunctionalitiesforrole',data, this.httpOptions);
 
