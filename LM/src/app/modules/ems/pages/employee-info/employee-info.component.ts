@@ -1018,9 +1018,6 @@ export class EmployeeInfoComponent implements OnInit {
     }
   }
 
-  personalInfoClear() {
-
-  }
   addingFamilyView() {
     this.addFamilyView = true
 

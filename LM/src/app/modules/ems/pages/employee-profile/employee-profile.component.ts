@@ -810,9 +810,6 @@ export class EmployeeProfileComponent implements OnInit {
   }
   }
 
-  personalInfoClear() {
-
-  }
   addingFamilyView() {
     this.addFamilyView = true
 
@@ -953,13 +950,7 @@ export class EmployeeProfileComponent implements OnInit {
   }
   //** */
   saveJobDetails() {
-    const invalid = [];
-    const controls = this.employeeJobForm.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        invalid.push(name);
-      }
-    }
+    
     let data = {
       empid: this.employeeCode,
       contractname: this.employeeJobForm.controls.contractName.value,
@@ -1397,7 +1388,7 @@ addEducationValidators() {
 }
 
 editDock(data:any){
-  this.createValidatorForDocument();
+  //this.createValidatorForDocument();
   this.isedit = true;
   this.editFileName=data.fname;
   this.editDockinfo = JSON.stringify(data)
