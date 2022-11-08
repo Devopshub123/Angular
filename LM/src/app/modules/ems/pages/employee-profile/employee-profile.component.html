@@ -161,7 +161,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Emergency Contact Number</mat-label>
                                     <input type="text" onlyNumber formControlName="alternateMobileNo" matInput
-                                        placeholder="" maxlength="10" (keypress)=_keyPress($event) required />
+                                        placeholder="" maxlength="10" minlength="10" (keypress)=_keyPress($event) required />
                                         <mat-error class="con-error"
                                         *ngIf="personalInfoForm.controls.alternateMobileNo.errors?.required">
                                         {{ EM1 }}
