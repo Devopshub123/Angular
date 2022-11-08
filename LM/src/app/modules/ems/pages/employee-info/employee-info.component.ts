@@ -225,6 +225,7 @@ export class EmployeeInfoComponent implements OnInit {
     /**same as present address checkbox */
     this.personalInfoForm.get('checked')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != '') {
+        this.spinner.show();
         this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedStateValue: any) => {
           this.permanentStateDetails = [];
           if(selectedStateValue != '') {
@@ -257,6 +258,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.personalInfoForm.controls.pstate.disable();
         this.personalInfoForm.controls.pcity.disable();
         this.personalInfoForm.controls.ppincode.disable();
+        this.spinner.hide();
       }
       else {
         this.personalInfoForm.controls.paddress.setValue('')
@@ -568,8 +570,9 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
       if (this.employeeInformationData.languages_spoken != 'null' || this.employeeInformationData.languages_spoken != "null")
         this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken);
-      this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress);
-      this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
+      if (this.employeeInformationData.paddress != null || this.employeeInformationData.paddress != 'null' || this.employeeInformationData.paddress != "null") 
+       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress); 
+    this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
       this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
       if (this.employeeInformationData.ppincode != 'null')
