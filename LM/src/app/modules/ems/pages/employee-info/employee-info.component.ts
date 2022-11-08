@@ -64,7 +64,7 @@ export class EmployeeInfoComponent implements OnInit {
   educationForm: any = FormGroup;
   documentsForm: any = FormGroup;
   documentTypeList: any;
- 
+
   displayedColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
   familyTableColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
   documentTableColumns = ['position', 'category', 'number', 'name', 'action'];
@@ -382,7 +382,7 @@ export class EmployeeInfoComponent implements OnInit {
     }
     this.getEmployeeImage();
   }
-  
+
   getnoticeperiods() {
     this.emsService.getnoticeperiods().subscribe((res: any) => {
       if (res.status) {
@@ -914,9 +914,9 @@ export class EmployeeInfoComponent implements OnInit {
       let roledata = data.data;
       this.availableRole = [];
       for (let i = 0; i < roledata.length; i++) {
-        //if (roledata[i].isEditable == 0) {
+        if (roledata[i].isEditable == 0) {
           this.availableRole.push(roledata[i])
-       // }
+        }
       }
     })
   }
@@ -1225,7 +1225,7 @@ export class EmployeeInfoComponent implements OnInit {
           this.addPromotionValidators();
            this.clearPromotions();
            isValid = true;
-           
+
          }
         if ( isValid == true) {
           this.spinner.show();
@@ -1248,7 +1248,7 @@ export class EmployeeInfoComponent implements OnInit {
                 position: { top: `70px` },
                 disableClose: true,
                 data: this.EM42
-                
+
               });
               this.selectedtab.setValue(2);
               this.issubmit= false;
@@ -1806,7 +1806,7 @@ export class EmployeeInfoComponent implements OnInit {
 
 
   fileView(data: any) {
-   
+
     let info = data
     this.spinner.show()
     this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData) => {
