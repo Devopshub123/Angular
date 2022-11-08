@@ -286,10 +286,13 @@ menu:NavItem[] =[];
     this.router.navigate(['Attendance/ChangePassword'])
   }
 
-  editProfile(){
-    this.spinner.show();
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate(["/EditProfile"]));  }
+  editProfile() {
+    // this.spinner.show();
+    this.router.navigate(['LeaveManagement/EditProfile']);
+  }
+
+    // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    // this.router.navigate(["/EditProfile"]));  }
 
 
 
