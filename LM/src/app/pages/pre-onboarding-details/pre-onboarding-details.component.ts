@@ -144,7 +144,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
   employmentDataChange: boolean = false;
   educationDataChange: boolean = false;
   documentDataChange: boolean = false;
-isDeleted: boolean = false;
+  isDeleted: boolean = false;
+  toSelectTab = 0;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params && this.params.token) {
@@ -405,8 +406,9 @@ isDeleted: boolean = false;
         }
         this.educationDataSource = new MatTableDataSource(this.educationDetails);
       }
+      //this.selectedtab.setValue(this.toSelectTab);
     })
-
+    
   }
   getCountry() {
     this.countryDetails = []
@@ -587,15 +589,11 @@ isDeleted: boolean = false;
             disableClose: true,
             data: "Details submitted successfully"
           });
-          if (this.personalInfoDataChange == true) {
-            this.ngOnInit();
-            this.selectedtab.setValue(0);
-            
+          this.personalInfoForm.reset();
+          this.toSelectTab = 1;
+          this.getCandidateData();
+          this.selectedtab.setValue(this.toSelectTab);
           } else {
-            this.getCandidateData();
-            this.selectedtab.setValue(1);
-          }
-        } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -608,9 +606,6 @@ isDeleted: boolean = false;
     }
   }
 
-  personalInfoClear() {
-
-  }
 
   addfamily() {
     this.addValidators();
@@ -1171,280 +1166,6 @@ isDeleted: boolean = false;
     return false;
   }
 
-  tabClick(event: any) {
-    if (event.index == 0) {
-      //////////////// employment
-      if (this.employmentDataChange == true) {
-        let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
-          data: { message: "Employement data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          if (result == 'YES') {
-            this.saveWorkExperience()
-          }
-        });
-      } else {
-        this.employmentDataChange = false;
-      }
-      //////////// education
-      if (this.educationDataChange == true) {
-        let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
-          data: { message: "Education data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          if (result == 'YES') {
-            this.saveEducation()
-          }
-        });
-      } else {
-        this.educationDataChange = false;
-      }
-
-    } else if (event.index == 1) {
-      this.personalInfoDataChange = false;
-      if (this.personalInfoForm.controls.firstname.dirty ||
-        this.personalInfoForm.controls.middlename.dirty ||
-        this.personalInfoForm.controls.lastname.dirty ||
-        this.personalInfoForm.controls.dateofbirth.dirty ||
-        this.personalInfoForm.controls.bloodgroup.dirty ||
-        this.personalInfoForm.controls.gender.dirty ||
-        this.personalInfoForm.controls.maritalstatus.dirty ||
-        this.personalInfoForm.controls.aadharNumber.dirty ||
-        this.personalInfoForm.controls.raddress.dirty ||
-        this.personalInfoForm.controls.rcity.dirty ||
-        this.personalInfoForm.controls.rstate.dirty ||
-        this.personalInfoForm.controls.rpincode.dirty ||
-        this.personalInfoForm.controls.rcountry.dirty ||
-        this.personalInfoForm.controls.paddress.dirty ||
-        this.personalInfoForm.controls.pcity.dirty ||
-        this.personalInfoForm.controls.pstate.dirty ||
-        this.personalInfoForm.controls.ppincode.dirty ||
-        this.personalInfoForm.controls.pcountry.dirty ||
-        this.personalInfoForm.controls.personalemail.dirty ||
-        this.personalInfoForm.controls.spokenLanguages.dirty ||
-        this.personalInfoForm.controls.mobileNo.dirty ||
-        this.personalInfoForm.controls.hireDate.dirty ||
-        this.personalInfoForm.controls.joinDate.dirty ||
-        this.personalInfoForm.controls.alternateMobileNo.dirty
-      ) {
-        console.log("tab-1");
-        this.personalInfoDataChange = true;
-        if (this.personalInfoDataChange == true) {
-          let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: { message: "Personal Info data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
-          });
-          dialogRef.afterClosed().subscribe(result => {
-            if (result == 'YES') {
-              this.savePersonalInfo()
-            }
-          });
-        }
-      } else {
-        this.personalInfoDataChange = false;
-      }
-      //////////// education
-      if (this.educationDataChange == true) {
-        let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
-          data: { message: "Education data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          if (result == 'YES') {
-            this.saveEducation()
-          } else {
-            this.getCandidateData();
-          }
-        });
-      } else {
-        this.educationDataChange = false;
-      }
-
-    } else if (event.index == 2) {
-      ////// personal info
-      this.personalInfoDataChange = false;
-      if (this.personalInfoForm.controls.firstname.dirty ||
-        this.personalInfoForm.controls.middlename.dirty ||
-        this.personalInfoForm.controls.lastname.dirty ||
-        this.personalInfoForm.controls.dateofbirth.dirty ||
-        this.personalInfoForm.controls.bloodgroup.dirty ||
-        this.personalInfoForm.controls.gender.dirty ||
-        this.personalInfoForm.controls.maritalstatus.dirty ||
-        this.personalInfoForm.controls.aadharNumber.dirty ||
-        this.personalInfoForm.controls.raddress.dirty ||
-        this.personalInfoForm.controls.rcity.dirty ||
-        this.personalInfoForm.controls.rstate.dirty ||
-        this.personalInfoForm.controls.rpincode.dirty ||
-        this.personalInfoForm.controls.rcountry.dirty ||
-        this.personalInfoForm.controls.paddress.dirty ||
-        this.personalInfoForm.controls.pcity.dirty ||
-        this.personalInfoForm.controls.pstate.dirty ||
-        this.personalInfoForm.controls.ppincode.dirty ||
-        this.personalInfoForm.controls.pcountry.dirty ||
-        this.personalInfoForm.controls.personalemail.dirty ||
-        this.personalInfoForm.controls.spokenLanguages.dirty ||
-        this.personalInfoForm.controls.mobileNo.dirty ||
-        this.personalInfoForm.controls.hireDate.dirty ||
-        this.personalInfoForm.controls.joinDate.dirty ||
-        this.personalInfoForm.controls.alternateMobileNo.dirty
-      ) {
-        this.personalInfoDataChange = true;
-        if (this.personalInfoDataChange == true) {
-          let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: { message: "Personal Info data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
-          });
-          dialogRef.afterClosed().subscribe(result => {
-            if (result == 'YES') {
-              this.savePersonalInfo()
-            }
-          });
-        }
-      } else {
-        this.personalInfoDataChange = false;
-      }
-      //////////////// employment
-      if (this.employmentDataChange == true) {
-        let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
-          data: { message: "Employement data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          if (result == 'YES') {
-            this.saveWorkExperience()
-          } else {
-            this.employmentDataChange = false;
-            this.getCandidateData();
-          }
-        });
-      } else {
-        this.employmentDataChange = false;
-      }
-
-
-
-    } else if (event.index == 3) {
-      ////// personal info
-      this.personalInfoDataChange = false;
-      if (this.personalInfoForm.controls.firstname.dirty ||
-        this.personalInfoForm.controls.middlename.dirty ||
-        this.personalInfoForm.controls.lastname.dirty ||
-        this.personalInfoForm.controls.dateofbirth.dirty ||
-        this.personalInfoForm.controls.bloodgroup.dirty ||
-        this.personalInfoForm.controls.gender.dirty ||
-        this.personalInfoForm.controls.maritalstatus.dirty ||
-        this.personalInfoForm.controls.aadharNumber.dirty ||
-        this.personalInfoForm.controls.raddress.dirty ||
-        this.personalInfoForm.controls.rcity.dirty ||
-        this.personalInfoForm.controls.rstate.dirty ||
-        this.personalInfoForm.controls.rpincode.dirty ||
-        this.personalInfoForm.controls.rcountry.dirty ||
-        this.personalInfoForm.controls.paddress.dirty ||
-        this.personalInfoForm.controls.pcity.dirty ||
-        this.personalInfoForm.controls.pstate.dirty ||
-        this.personalInfoForm.controls.ppincode.dirty ||
-        this.personalInfoForm.controls.pcountry.dirty ||
-        this.personalInfoForm.controls.personalemail.dirty ||
-        this.personalInfoForm.controls.spokenLanguages.dirty ||
-        this.personalInfoForm.controls.mobileNo.dirty ||
-        this.personalInfoForm.controls.hireDate.dirty ||
-        this.personalInfoForm.controls.joinDate.dirty ||
-        this.personalInfoForm.controls.alternateMobileNo.dirty
-      ) {
-        this.personalInfoDataChange = true;
-        if (this.personalInfoDataChange == true) {
-          let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: { message: "Personal Info data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
-          });
-          dialogRef.afterClosed().subscribe(result => {
-            if (result == 'YES') {
-              this.savePersonalInfo()
-            }
-          });
-        }
-      } else {
-        this.personalInfoDataChange = false;
-      }
-      //////////////// employment
-      if (this.employmentDataChange == true) {
-        let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
-          data: { message: "Employement data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          if (result == 'YES') {
-            this.saveWorkExperience()
-          } else {
-            this.employmentDataChange = false;
-            this.getCandidateData();
-          }
-        });
-      } else {
-        this.employmentDataChange = false;
-      }
-      ///////// education
-      if (this.educationDataChange == true) {
-        let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
-          data: { message: "Education data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          if (result == 'YES') {
-            this.saveEducation()
-          } else {
-            this.educationDataChange = false;
-            this.getCandidateData();
-          }
-        });
-      } else {
-        this.educationDataChange = false;
-      }
-
-
-    }
-
-  }
-
-  //   getMessagesList() {
-  //     let data =
-  //      {
-  //        "code": null,
-  //        "pagenumber":1,
-  //        "pagesize":100
-  //    }
-  //    this.adminService.getMessagesListApi(data).subscribe((res:any)=>{
-  //      if(res.status) {
-  //        this.messagesDataList = res.data;
-  //        this.messagesDataList.forEach((e: any) => {
-  //         if (e.code == "ATT1") {
-  //          this.requiredField = e.message
-  //         } else if (e.code == "ATT2") {
-  //           this.requiredOption =e.message
-  //         } else if (e.code == "ATT11") {
-  //           this.dataSave =e.message
-  //         } else if (e.code == "ATT12") {
-  //           this.dataNotSave =e.message
-  //         }
-  //       })
-  //      } else {
-  //        this.messagesDataList = [];
-  //      }
-
-  //    })
-  //  }
-
   getDocumentsEMS() {
 
     let input = {
@@ -1663,6 +1384,169 @@ isDeleted: boolean = false;
       const isWhitespace = (control.value || '').trim().length === 0;
       return isWhitespace ? { whitespace: true } : null;
     };
+  }
+
+  tabClick(event: any) {
+    if (event.index == 0) {
+      // //////////////// employment
+      // if (this.employmentDataChange == true) {
+      //   let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      //     position: { top: `70px` },
+      //     disableClose: true,
+      //     data: { message: "Employement data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
+      //   });
+      //   dialogRef.afterClosed().subscribe(result => {
+      //     if (result == 'YES') {
+      //       this.saveWorkExperience()
+      //     }
+      //   });
+      // } else {
+      //   this.employmentDataChange = false;
+      // }
+      // //////////// education
+      // if (this.educationDataChange == true) {
+      //   let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      //     position: { top: `70px` },
+      //     disableClose: true,
+      //     data: { message: "Education data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
+      //   });
+      //   dialogRef.afterClosed().subscribe(result => {
+      //     if (result == 'YES') {
+      //       this.saveEducation()
+      //     }
+      //   });
+      // } else {
+      //   this.educationDataChange = false;
+      // }
+
+    } else if (event.index == 1) {
+      this.personalInfoDataChange = false;
+      if (this.personalInfoForm.controls.firstname.dirty ||
+        this.personalInfoForm.controls.middlename.dirty ||
+        this.personalInfoForm.controls.lastname.dirty ||
+        this.personalInfoForm.controls.dateofbirth.dirty ||
+        this.personalInfoForm.controls.bloodgroup.dirty ||
+        this.personalInfoForm.controls.gender.dirty ||
+        this.personalInfoForm.controls.maritalstatus.dirty ||
+        this.personalInfoForm.controls.aadharNumber.dirty ||
+        this.personalInfoForm.controls.raddress.dirty ||
+        this.personalInfoForm.controls.rcity.dirty ||
+        this.personalInfoForm.controls.rstate.dirty ||
+        this.personalInfoForm.controls.rpincode.dirty ||
+        this.personalInfoForm.controls.rcountry.dirty ||
+        this.personalInfoForm.controls.paddress.dirty ||
+        this.personalInfoForm.controls.pcity.dirty ||
+        this.personalInfoForm.controls.pstate.dirty ||
+        this.personalInfoForm.controls.ppincode.dirty ||
+        this.personalInfoForm.controls.pcountry.dirty ||
+        this.personalInfoForm.controls.personalemail.dirty ||
+        this.personalInfoForm.controls.spokenLanguages.dirty ||
+        this.personalInfoForm.controls.mobileNo.dirty ||
+        this.personalInfoForm.controls.hireDate.dirty ||
+        this.personalInfoForm.controls.joinDate.dirty ||
+        this.personalInfoForm.controls.alternateMobileNo.dirty
+      ) {
+        this.personalInfoDataChange = true;
+        if (this.personalInfoDataChange == true) {
+          let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: { message: "Personal Info data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            if (result == 'YES') {
+              this.savePersonalInfoTab();
+              this.personalInfoDataChange = false;
+            } else {
+              this.personalInfoDataChange = false;
+              this.getCandidateData();
+            }
+          });
+        }
+      } else {
+        this.personalInfoDataChange = false;
+      }
+      //////////// education
+      if (this.educationDataChange == true) {
+        let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+          data: { message: "Education data is not saved." + ' ' + "Do you want save ?", YES: 'YES', NO: 'NO' }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result == 'YES') {
+            this.saveEducation()
+          } else {
+            this.getCandidateData();
+          }
+        });
+      } else {
+        this.educationDataChange = false;
+      }
+
+    }
+
+  }
+
+  savePersonalInfoTab() {
+    if (this.personalInfoForm.valid) {
+      let data = {
+        preid: this.preOnboardId != null ? this.preOnboardId : null,
+        candidateid: parseInt(this.loginCandidateId),
+        firstname: this.personalInfoForm.controls.firstname.value,
+        middlename: this.personalInfoForm.controls.middlename.value,
+        lastname: this.personalInfoForm.controls.lastname.value,
+        dateofbirth: this.pipe.transform(this.personalInfoForm.controls.dateofbirth.value, 'yyyy-MM-dd hh:mm:ss'),
+        bloodgroup: parseInt(this.personalInfoForm.controls.bloodgroup.value),
+        gender: parseInt(this.personalInfoForm.controls.gender.value),
+        maritalstatus: parseInt(this.personalInfoForm.controls.maritalstatus.value),
+        aadharnumber: this.personalInfoForm.controls.aadharNumber.value,
+        address: this.personalInfoForm.controls.raddress.value,
+        city: parseInt(this.personalInfoForm.controls.rcity.value),
+        state: parseInt(this.personalInfoForm.controls.rstate.value),
+        pincode: this.personalInfoForm.controls.rpincode.value,
+        country: parseInt(this.personalInfoForm.controls.rcountry.value),
+        paddress: this.personalInfoForm.controls.paddress.value,
+        pcity: parseInt(this.personalInfoForm.controls.pcity.value),
+        pstate: parseInt(this.personalInfoForm.controls.pstate.value),
+        ppincode: this.personalInfoForm.controls.ppincode.value,
+        pcountry: parseInt(this.personalInfoForm.controls.pcountry.value),
+        passport: null,
+        personal_email: this.personalInfoForm.controls.personalemail.value,
+        languages_spoken: this.personalInfoForm.controls.spokenLanguages.value,
+        contact_number: this.personalInfoForm.controls.mobileNo.value,
+        hired_date: this.pipe.transform(this.personalInfoForm.controls.hireDate.value, 'yyyy-MM-dd hh:mm:ss'),
+        dateofjoin: this.pipe.transform(this.personalInfoForm.controls.joinDate.value, 'yyyy-MM-dd hh:mm:ss'),
+        noticeperiod: 0,
+        designation: parseInt(this.designationId),
+        emergencycontact_number: this.personalInfoForm.controls.alternateMobileNo.value,
+        emergencycontact_relation: null,
+        emergencycontactname: null,
+        relations: this.familyDetails,
+        stepcompleted: 1,
+        actionby: parseInt(this.loginCandidateId),
+      }
+      this.mainService.savePreOnboardingCandidateInfo(data).subscribe((res: any) => {
+        if (res.status && res.data[0].statuscode == 0) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Details submitted successfully"
+          });
+          this.personalInfoForm.reset();
+          this.getCandidateData();
+          this.selectedtab.setValue(1);
+        } else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data is not saved"
+          });
+        }
+      });
+    } else {
+
+    }
   }
 }
 

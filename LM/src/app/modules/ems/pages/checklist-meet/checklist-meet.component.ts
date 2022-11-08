@@ -87,6 +87,7 @@ export class ChecklistMeetComponent implements OnInit {
   rolesList: any = ['Manager', 'Admin', 'HR', 'Staff'];
   minDate = new Date('2000/01/01'); maxDate = new Date("2200/01/01");
   companyDBName:any = environment.dbName;
+  getdata: any;
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private companyServices: CompanySettingService,private EMS:EmsService) {
 
   }
@@ -96,8 +97,7 @@ export class ChecklistMeetComponent implements OnInit {
     this.getDesignationsMaster();
     this.getProgramsMaster(null);
     this.getProgramSchedules(null,null);
-    this.getnewHiredDetails();
-  this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;
     this.checklistForm = this.formBuilder.group(
       {
         programType: ['',Validators.required],
@@ -272,7 +272,6 @@ ngAfterViewInit() {
     this.isAddChecklist = false;
     this.isdata = false;
     this.isAdd = false;
-    console.log(data)
     this.scheduleid=data.id;
     this.EMS.getallEmployeeProgramSchedules(null,data.id).subscribe((res: any) => {
       this.dataSource2 = new MatTableDataSource(res.data)
@@ -332,13 +331,16 @@ ngAfterViewInit() {
     this.isUpdateChecklist = false;
     this.isdata = false;
     this.isAdd = false;
-    console.log(event)
-    this.scheduleid=event.id;
+     this.scheduleid = event.id;
+    // this.EMS.getallEmployeeProgramSchedules(null,event.id).subscribe((res: any) => {
+    //   this.getdata = res.data
+    // })
+
     this.EMS.getEmployeesForProgramSchedule(event.id).subscribe((result:any)=>{
-      console.log(result)
       this.dataSource2 = new MatTableDataSource(result.data)
       this.selection = new SelectionModel(result.data)
     })
+  
   }
   Add(){
     //this.checklistForm.controls.companyName.setValue('');
@@ -354,14 +356,7 @@ ngAfterViewInit() {
     })
 
   }
-  getnewHiredDetails(){
-    // this.EMS.getEmployeesForProgramSchedule(null).subscribe((result:any)=>{
-    //   console.log(result)
-    //   this.dataSource2 = new MatTableDataSource(result.data)
-    //   // this.selection = new SelectionModel(result.data)(true, []);
-    //   this.selection = new SelectionModel(result.data)
-    // })
-  }
+
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(["/ems/induction-program"]));
