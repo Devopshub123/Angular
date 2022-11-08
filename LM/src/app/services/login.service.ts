@@ -47,6 +47,7 @@ changepassword(changePassword: any): Observable<any> {
   return this.hClient.post(this.mainBeUrl + 'api/changePassword', JSON.stringify(changePassword), this.httpOptions);
 }
 resetpassword(resetPassword:any) : Observable<any> {
+  resetPassword.companyName = this.companyName;
   return this.hClient.post(this.mainBeUrl + 'api/resetpassword', JSON.stringify(resetPassword), this.httpOptions);
 
 }

@@ -67,14 +67,18 @@ export class MainService {
   }
 
   getFilecategoryMasterForEMS(input:any){
+    input.companyName=this.companyName;
     return this.http.post(this.mainBeUrl+'ems/api/getFilecategoryMasterForEMS', JSON.stringify(input), this.httpOptions);
 
   }
   getFilepathsMasterForEMS(moduleId:any):Observable<any>{
-    return this.http.get(this.mainBeUrl + 'ems/api/getFilepathsMasterForEMS/'+moduleId, this.httpOptions);
+
+    return this.http.get(this.mainBeUrl + 'ems/api/getFilepathsMasterForEMS/'+moduleId+'/'+this.companyName, this.httpOptions);
   }
 
   setFilesMasterForEMS(info:any): Observable<any> {
+    info.companyName=this.companyName;
+
     return this.http.post(this.mainBeUrl + 'ems/api/setFilesMasterForEMS/', info, this.httpOptions);
   }
   setDocumentOrImageForEMS(data: FormData,path:any): Observable<any> {
