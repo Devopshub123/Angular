@@ -55,7 +55,8 @@ export class NewhireComponent implements OnInit {
   minHireDate: any;
   EM43: any;
   EM55: any;
-  companyDBName:any = environment.dbName;
+  companyDBName: any = environment.dbName;
+  newHiredList: any = [];
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     // this.userSession.deptid
@@ -72,25 +73,36 @@ export class NewhireComponent implements OnInit {
       alternatenumber:["",[Validators.pattern('[4-9]\\d{9}')]]
 
       });
+      this.getNewHiredList();
       this.getDesignationsMaster();
     this.getMessagesList();
     this.hireForm.get('hiredon')?.valueChanges.subscribe((selectedValue: any) => {
       this.minHireDate = selectedValue._d;
     })
+    
   }
   getDesignationsMaster() {
     this.companyService.getMastertable('designationsmaster', '1', 1, 1000, this.companyDBName).subscribe(data => {
       this.designationsList = data.data;
     })
   }
-  saveNewHireData() {
-    const invalid = [];
-    const controls = this.hireForm.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-          invalid.push(name);
+
+  submit() {
+    if (this.newHiredList != undefined) {
+      const email = this.newHiredList.find((value: any) => value.personal_email.trim().toLowerCase() == this.hireForm.controls.email.value.trim().toLowerCase());
+      if (email != undefined) {
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          disableClose: true,
+          data: "Email is already exist"
+        });
+      } else {
+        this.saveNewHireData()
       }
+    } else {
+      this.saveNewHireData()
     }
+  }
+  saveNewHireData() {
     if (this.hireForm.valid) {
       this.spinner.show()
       let data = {
@@ -132,13 +144,22 @@ export class NewhireComponent implements OnInit {
 
     } else {
       this.spinner.hide();
-    }
+      }
+    
   }
 
   cancel() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
     this.router.navigate(["/ems/newHire"]));
   }
+  getNewHiredList() {
+    this.emsService.getNewHiredEmployeeList(null).subscribe((res: any) => {
+      if (res.status && res.data.length != 0) {
+        this.newHiredList = res.data;
+      }
+    })
+  }
+  
   getMessagesList() {
     let data =
      {

@@ -45,20 +45,19 @@ export class NewHireListComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-  onboardingCheckList: any = [];
-  inductionProgramList: any = [];
+  newHiredList: any = [];
   userSession:any;
   pageLoading = true;
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    this.getOnboardingCheckList();
+    this.getNewHiredList();
   }
-  getOnboardingCheckList() {
+  getNewHiredList() {
     this.emsService.getNewHiredEmployeeList(null).subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
-        this.onboardingCheckList = res.data;
-        this.dataSource = new MatTableDataSource(this.onboardingCheckList);
+        this.newHiredList = res.data;
+        this.dataSource = new MatTableDataSource(this.newHiredList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.pageLoading = false;
