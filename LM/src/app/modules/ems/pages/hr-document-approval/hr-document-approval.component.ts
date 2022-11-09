@@ -74,37 +74,41 @@ export class HrDocumentApprovalComponent implements OnInit {
     })
 
   }
-  fileView(data:any){
-    let info = data;
+  fileView(data: any) {
+
+    let info = data
     this.spinner.show()
-        this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData:any) => {
-          if(imageData.success){
-            this.spinner.hide();
-            // let TYPED_ARRAY = new Uint8Array(imageData.image.data);
-            // const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-            //   return data + String.fromCharCode(byte);
-            // }, '');
-            let TYPED_ARRAY = new Uint8Array(imageData.image.data);
-            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-              return data + String.fromCharCode(byte);
-            }, '');
-            const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
-            this.fileURL = URL.createObjectURL(file);
-            window.open(this.fileURL);
-            // let base64String= btoa(STRING_CHAR)
-            //   var documentName= data.pdfName.split('.')
-            // if(documentName[documentName.length-1]=='pdf'){
-            // const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
-            // window.open(this.fileURL);
-            // this.fileURL = URL.createObjectURL(file);
-            // }else{
-            //   this.fileURL='data:image/png;base64,'+base64String;
-            //   window.open(this.fileURL);
-            // }
-            
-          }
-        })
+    this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData) => {
+
+      if (imageData.success) {
+
+
+        this.spinner.hide();
+
+        let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+        const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
+          return data + String.fromCharCode(byte);
+        }, '');
+        let base64String = btoa(STRING_CHAR)
+        var documentName = data.fname.split('.')
+
+        if (documentName[documentName.length - 1] == 'pdf') {
+          const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
+          this.fileURL = URL.createObjectURL(file);
+          window.open(this.fileURL);
+
+        } else {
+          this.fileURL = new Blob([TYPED_ARRAY], { type: "image/png" })
+          let url = URL.createObjectURL(this.fileURL)
+          window.open(url, '_blank');
+
+        }
+
+      }
+    })
+ 
   }
+
  approve(event:any,data:any){
   console.log(data)
   let updatedata=

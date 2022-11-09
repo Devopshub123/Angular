@@ -225,6 +225,7 @@ export class EmployeeInfoComponent implements OnInit {
     /**same as present address checkbox */
     this.personalInfoForm.get('checked')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != '') {
+        this.spinner.show();
         this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedStateValue: any) => {
           this.permanentStateDetails = [];
           if(selectedStateValue != '') {
@@ -257,6 +258,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.personalInfoForm.controls.pstate.disable();
         this.personalInfoForm.controls.pcity.disable();
         this.personalInfoForm.controls.ppincode.disable();
+        this.spinner.hide();
       }
       else {
         this.personalInfoForm.controls.paddress.setValue('')
@@ -568,8 +570,9 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
       if (this.employeeInformationData.languages_spoken != 'null' || this.employeeInformationData.languages_spoken != "null")
         this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken);
-      this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress);
-      this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
+      if (this.employeeInformationData.paddress != null || this.employeeInformationData.paddress != 'null' || this.employeeInformationData.paddress != "null") 
+       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress); 
+    this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
       this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
       if (this.employeeInformationData.ppincode != 'null')
@@ -1732,18 +1735,18 @@ export class EmployeeInfoComponent implements OnInit {
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
       this.documentDetails = [];
       if (result && result.status) {
-        for (let k = 0; k < result.data.length; k++) {
-          let documentName = result.data[k].filename.split('_')
-          var docArray = [];
-          var pdfName;
-          for (let i = 0; i <= documentName.length; i++) {
-            if (i > 2) {
-              docArray.push(documentName[i])
-            }
-          }
-          pdfName = docArray.join('')
-          result.data[k].pdfName = pdfName
-        }
+        // for (let k = 0; k < result.data.length; k++) {
+        //   let documentName = result.data[k].filename.split('_')
+        //   var docArray = [];
+        //   var pdfName;
+        //   for (let i = 0; i <= documentName.length; i++) {
+        //     if (i > 2) {
+        //       docArray.push(documentName[i])
+        //     }
+        //   }
+        //   pdfName = docArray.join('')
+        //   result.data[k].pdfName = pdfName
+        // }
         this.documentDetails = result.data
         this.documentDataSource = new MatTableDataSource(this.documentDetails)
       }
@@ -1816,7 +1819,7 @@ export class EmployeeInfoComponent implements OnInit {
           return data + String.fromCharCode(byte);
         }, '');
         let base64String = btoa(STRING_CHAR)
-        var documentName = data.pdfName.split('.')
+        var documentName = data.fname.split('.')
 
         if (documentName[documentName.length - 1] == 'pdf') {
           const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
@@ -2049,6 +2052,10 @@ export class EmployeeInfoComponent implements OnInit {
     this.documentsForm.get('attachedFile').clearValidators();
     this.documentsForm.get('attachedFile').updateValueAndValidity();
 
+  }
+  deleteIcon(){
+    this.isedit = false;
+    this.documentsForm.controls.attachedFile.setValue('')
   }
   delete() {
     this.isedit = false;

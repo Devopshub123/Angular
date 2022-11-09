@@ -102,36 +102,33 @@ export class ChecklistMeetComponent implements OnInit {
   userSession: any;
   companyList: any = ['Attended', 'Not Attended'];
   rolesList: any = ['Manager', 'Admin', 'HR', 'Staff'];
-  minDate = new Date('2000/01/01');
-  maxDate = new Date('2200/01/01');
-  companyDBName: any = environment.dbName;
+  minDate = new Date('2000/01/01'); maxDate = new Date("2200/01/01");
+  companyDBName:any = environment.dbName;
+  getdata: any;
   scheduleEmployees: any=[];
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    public dialog: MatDialog,
-    private companyServices: CompanySettingService,
-    private EMS: EmsService
-  ) {}
+  constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private companyServices: CompanySettingService,private EMS:EmsService) {
+
+  }
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getDepartmentsMaster();
     this.getDesignationsMaster();
     this.getProgramsMaster(null);
-    this.getProgramSchedules(null, null);
-    this.getnewHiredDetails();
+    this.getProgramSchedules(null,null);
     this.dataSource.paginator = this.paginator;
-    this.checklistForm = this.formBuilder.group({
-      programType: ['', Validators.required],
-      department: ['', Validators.required],
-      conductBy: ['', Validators.required],
-      date: ['', Validators.required],
-      starttime: ['', Validators.required],
-      endtime: ['', Validators.required],
-      designation: ['', Validators.required],
-      description: [],
-      updatestatus: ['Attended'],
-    });
+    this.checklistForm = this.formBuilder.group(
+      {
+        programType: ['',Validators.required],
+        department: ['',Validators.required],
+        conductBy: ['',Validators.required],
+        date: ['',Validators.required],
+        starttime: ['',Validators.required],
+        endtime:['',Validators.required],
+        designation: ['',Validators.required],
+        description: [],
+        updatestatus:['Attended']
+
+      });
     // this.checklistForm.controls.date.setValue(new Date()  );
     this.checklistForm
       .get('starttime')
@@ -313,14 +310,12 @@ export class ChecklistMeetComponent implements OnInit {
     this.isAddChecklist = false;
     this.isdata = false;
     this.isAdd = false;
-    console.log(data);
-    this.scheduleid = data.id;
-    this.EMS.getallEmployeeProgramSchedules(null, data.id).subscribe(
-      (res: any) => {
-        this.dataSource2 = new MatTableDataSource(res.data);
-        this.selection = new SelectionModel(res.data);
-      }
-    );
+    this.scheduleid=data.id;
+    this.EMS.getallEmployeeProgramSchedules(null,data.id).subscribe((res: any) => {
+      this.dataSource2 = new MatTableDataSource(res.data)
+      this.selection = new SelectionModel(res.data)
+
+    })
     // get_employee_program_schedules
     //get_employees_for_program_schedule
   }
@@ -421,18 +416,10 @@ export class ChecklistMeetComponent implements OnInit {
       }
     );
   }
-  getnewHiredDetails() {
-    // this.EMS.getEmployeesForProgramSchedule(null).subscribe((result:any)=>{
-    //   console.log(result)
-    //   this.dataSource2 = new MatTableDataSource(result.data)
-    //   // this.selection = new SelectionModel(result.data)(true, []);
-    //   this.selection = new SelectionModel(result.data)
-    // })
-  }
-  cancel() {
-    this.router
-      .navigateByUrl('/', { skipLocationChange: true })
-      .then(() => this.router.navigate(['/ems/induction-program']));
+
+  cancel(){
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate(["/ems/induction-program"]));
   }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -442,9 +429,10 @@ export class ChecklistMeetComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource2.data.forEach((row) => this.selection.select(row));
+    console.log(this.selection)
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource2.data.forEach(row => this.selection.select(row));
   }
   logSelections() {
     if (this.selection.selected.length > 0) {

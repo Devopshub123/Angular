@@ -1061,7 +1061,7 @@
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Document Number</mat-label>
-                                    <input type="text"  minlength="6" maxlength="14" formControlName="documentNumber" matInput
+                                    <input type="text"  minlength="6" maxlength="30" formControlName="documentNumber" matInput
                                         placeholder=""  required/>
                                         <mat-error class="reg-error"
                                         *ngIf="documentsForm.controls.documentNumber.errors?.required">
@@ -1080,8 +1080,8 @@
                                             <button class="link" *ngIf='isedit' >{{ editFileName }}</button> 
                 
                                         &nbsp;
-                                        <!-- <mat-icon title="cancel"  *ngIf='!isedit && editFileName' 
-                                        (click)="delete()">cancel</mat-icon> -->
+                                        <mat-icon title="cancel"  *ngIf='!isedit && editFileName' 
+                                        (click)="deleteIcon()">delete</mat-icon>
                                         <mat-icon title="edit"  *ngIf='isedit' 
                                             (click)="delete()">edit</mat-icon>
                                         &nbsp;
@@ -1124,7 +1124,7 @@
                                         <th mat-header-cell *matHeaderCellDef>Document</th>
                                         <td mat-cell *matCellDef="let data">
 
-                                            <button class="link" (click)="fileView(data)" >{{ data.pdfName }}</button> 
+                                            <button class="link" (click)="fileView(data)" >{{ data.fname }}</button> 
                                             
                                         </td>
                                     </ng-container>
