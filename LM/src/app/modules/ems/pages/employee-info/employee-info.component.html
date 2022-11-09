@@ -47,7 +47,7 @@
                                     <input type="text" formControlName="firstname" #firstname
                                         (keypress)="alphabetKeyPress($event)" matInput placeholder="First Name"
                                         maxlength="100" required />
-                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.firstname.errors?.required || 
+                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.firstname.errors?.required ||
                                         personalInfoForm.controls.firstname.errors?.['whitespace']">
                                         {{ EM1 }}
                                     </mat-error>
@@ -63,7 +63,7 @@
                                     <mat-label>Last Name</mat-label>
                                     <input formControlName="lastname" specialIsAlpha matInput placeholder=""
                                         maxlength="100" required (keypress)="alphabetKeyPress($event)" />
-                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.lastname.errors?.required || 
+                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.lastname.errors?.required ||
                                         personalInfoForm.controls.lastname.errors?.['whitespace']">
                                         {{ EM1 }}
                                     </mat-error>
@@ -137,7 +137,7 @@
                                     <input #aadharnumber type="text" onlyNumber (keypress)="numberOnly($event)"
                                         formControlName="aadharNumber" matInput maxlength="12" minlength="12"
                                         placeholder="Aadhar Number" />
-                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.aadharNumber.errors?.minlength || 
+                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.aadharNumber.errors?.minlength ||
                                         personalInfoForm.controls.aadharNumber.errors?.maxlength">
                                         Please enter 12 digit valid number
                                     </mat-error>
@@ -145,7 +145,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Personal Email</mat-label>
                                     <input type="text" formControlName="personalemail" matInput placeholder="" maxlength="50" />
-                                    <!-- <mat-error class="reg-error" 
+                                    <!-- <mat-error class="reg-error"
                                     *ngIf="personalInfoForm.controls.personalemail.errors?.required">
                                         {{ EM1 }}
                                     </mat-error> -->
@@ -166,7 +166,7 @@
                                         *ngIf="personalInfoForm.controls.mobileNo.errors?.required">
                                         {{ EM1 }}
                                     </mat-error>
-                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.mobileNo.errors?.minlength || 
+                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.mobileNo.errors?.minlength ||
                                     personalInfoForm.controls.mobileNo.errors?.maxlength">
                                         Please enter valid number
                                     </mat-error>
@@ -181,7 +181,7 @@
                                         *ngIf="personalInfoForm.controls.alternateMobileNo.errors?.required">
                                         {{ EM1 }}
                                     </mat-error>
-                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.alternateMobileNo.errors?.minlength || 
+                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.alternateMobileNo.errors?.minlength ||
                                     personalInfoForm.controls.alternateMobileNo.errors?.maxlength">
                                         Please enter valid number
                                     </mat-error>
@@ -331,7 +331,7 @@
                             </div>
 
                             <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                              
+
                             </div> -->
 
                             <div class="section"><b>Personal Contact Information</b></div>
@@ -495,7 +495,7 @@
                                             <mat-label>Contact Number</mat-label>
                                             <input type="text" formControlName="familycontact" matInput placeholder=""
                                                 maxlength="10" minlength="10" (keypress)="_keyPress($event)" />
-                                            <mat-error class="reg-error" *ngIf="candidateFamilyForm.controls.familycontact.errors?.minlength || 
+                                            <mat-error class="reg-error" *ngIf="candidateFamilyForm.controls.familycontact.errors?.minlength ||
                                                 candidateFamilyForm.controls.familycontact.errors?.maxlength">
                                                 Please enter valid number
                                             </mat-error>
@@ -628,9 +628,9 @@
                                     <span>Save</span>
                                 </button>
                                 <br />
-                            </div>  
+                            </div>
                         </form>
-                        
+
                     </div>
                 </mat-tab>
                 <!-- job tab -->
@@ -821,7 +821,7 @@
                                     </mat-form-field>
                                 </div>
 
-                               
+
                                 <div fxLayoutAlign="center">
                                     <button class="m-1 mat-stroked-button button-save" (click)="saveJobDetails()">
                                         <span>Save</span>
@@ -1232,7 +1232,7 @@
                                     </button>
 
                                     &nbsp;
-                                    <mat-icon title="cancel"  *ngIf='documentsForm.controls.attachedFile.value' 
+                                    <mat-icon title="cancel"  *ngIf='documentsForm.controls.attachedFile.value'
                                         (click)="deleteIcon()">delete</mat-icon>
                                     <mat-icon title="remove" *ngIf="isedit" (click)="delete()">cancel</mat-icon>
                                     &nbsp;

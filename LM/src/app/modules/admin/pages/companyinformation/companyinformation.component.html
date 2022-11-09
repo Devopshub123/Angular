@@ -1,5 +1,5 @@
 <div fxLayout="column" >
-    
+
         <mat-card>
             <mat-card-header class="">
                 <mat-card-title > Company Information </mat-card-title>
@@ -7,7 +7,7 @@
             <mat-divider></mat-divider>
             <form [formGroup]="companyForm" autocomplete="off" >
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-  
+
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Full Company Name</mat-label>
                     <input formControlName="companyname" matInput [readonly]="isview" placeholder="" maxlength="100" required>
@@ -29,7 +29,7 @@
                     <mat-label>Country</mat-label>
                     <mat-select [disabled]="isview"  formControlName="country" required  >
                         <ng-container >
-                            <div *ngFor="let b of CountryDetails">    
+                            <div *ngFor="let b of CountryDetails">
                                 <mat-option    [value]="b.id">{{b.country}}</mat-option>
                             </div>
                         </ng-container>
@@ -37,17 +37,17 @@
                     <mat-error class="con-error" *ngIf="  companyForm.controls.country.errors?.required">
                         {{msgLM3}}
                     </mat-error>
-                </mat-form-field>   
+                </mat-form-field>
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
-  
+
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Primary Contact</mat-label>
                     <input type="text" formControlName="contact" onlyNumber matInput [readonly]="isview" placeholder="" minlength="10" maxlength="10" required >
                     <mat-error class="con-error" *ngIf="  companyForm.controls.contact.errors?.required">
                         {{msgLM3}}
                   </mat-error>
-                  <mat-error class="reg-error" *ngIf="companyForm.controls.contact.errors?.minlength || 
+                  <mat-error class="reg-error" *ngIf="companyForm.controls.contact.errors?.minlength ||
                   companyForm.controls.contact.errors?.maxlength">
                       Please enter valid number
                   </mat-error>
@@ -67,19 +67,19 @@
                     <mat-select [disabled]="isview"  required formControlName="state"  >
                         <ng-container >
                             <div *ngFor="let b of stateDetails">
-                                
+
                                 <mat-option   [value]="b.id">{{b.state}}</mat-option>
                             </div>
 
                         </ng-container>
                     </mat-select>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.state.errors?.required">
-                        {{msgLM3}} 
+                        {{msgLM3}}
                     </mat-error>
-                </mat-form-field>   
+                </mat-form-field>
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
-  
+
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Address1</mat-label>
                     <input formControlName="address1" matInput [readonly]="isview"  placeholder=""  maxlength="100" required >
@@ -100,7 +100,7 @@
                     <mat-select required [disabled]="isview"  formControlName="city"  required>
                         <ng-container >
                             <div *ngFor="let b of cityDetails">
-                                
+
                                 <mat-option   [value]="b.id">{{b.location}}</mat-option>
                             </div>
 
@@ -109,14 +109,14 @@
                     <mat-error class="con-error" *ngIf="  companyForm.controls.city.errors?.required">
                         {{msgLM3}}
                     </mat-error>
-                </mat-form-field>   
+                </mat-form-field>
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
-  
+
                 <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Pincode</mat-label>
 
-                    <input type="text" onlyNumber formControlName="pincode" matInput [readonly]="isview" placeholder="" minlength="6" maxlength="6" required>             
+                    <input type="text" onlyNumber formControlName="pincode" matInput [readonly]="isview" placeholder="" minlength="6" maxlength="6" required>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.pincode.errors?.required">
                         {{msgLM1}}
                     </mat-error>
@@ -125,16 +125,16 @@
                     </mat-error>
                     <!-- <input *ngIf="isview"  formControlName="firstname" matInput [readonly]="isview" placeholder="" readonly> -->
                 </mat-form-field>
-                
+
             </div>
             <div fxLayoutAlign="end" class="" *ngIf = "isadd">
-                <button class="col-md-1 btn btn-primary mx-2 my-2" [disabled]="!companyForm.valid"  (click)="save()" *ngIf ="!isedit"   type="submit">
+                <button class="col-md-1 btn btn-primary mx-2 my-2" [disabled]="!companyForm.valid"  (click)="save()" *ngIf ="!isedit"   type="button">
                     <span>Submit</span>
                 </button>
-                <button class="col-md-1 btn btn-primary mx-2 my-2"  [disabled]="!companyForm.valid" (click)="update()" *ngIf = "isedit"  type="submit">
+                <button class="col-md-1 btn btn-primary mx-2 my-2"  [disabled]="!companyForm.valid" (click)="update()" *ngIf = "isedit"  type="button">
                     <span>Save</span>
                 </button>
-  
+
                 <button class="col-md-1 btn btn-danger mx-2 my-2"  *ngIf ="!isedit" (click)="cancel()">
                     <span >Cancel</span>
                 </button>
@@ -148,11 +148,11 @@
                 <button class="col-md-1 btn btn-primary mx-2 my-2"  style="background-color:#3f51b5;color:aliceblue" (click)="edit()"   type="submit">
                     <span>Edit</span>
                 </button>
-  
- 
+
+
                 <br />
             </div>
-          
+
         </mat-card>
-   
+
 </div>
