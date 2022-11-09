@@ -590,7 +590,11 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.companylocation.setValue(this.employeeInformationData.worklocation);
       this.personalInfoForm.controls.designation.setValue(this.employeeInformationData.designation);
       this.personalInfoForm.controls.department.setValue(this.employeeInformationData.department);
-      this.personalInfoForm.controls.reportingmanager.setValue(this.employeeInformationData.reportingmanager);
+      if (this.employeeInformationData.reportingmanager == 77) {
+        this.personalInfoForm.controls.reportingmanager.setValue("Self")
+      } else {
+        this.personalInfoForm.controls.reportingmanager.setValue(this.employeeInformationData.reportingmanager);
+      }
       //this.personalInfoForm.controls.noticePeriod.setValue(this.employeeInformationData.noticeperiod);
 
       if (this.employeeInformationData.relations != null) {
