@@ -1232,8 +1232,8 @@
                                     </button>
 
                                     &nbsp;
-                                    <!-- <mat-icon title="cancel"  *ngIf='!isedit && editFileName' 
-                                        (click)="delete()">cancel</mat-icon> -->
+                                    <mat-icon title="cancel"  *ngIf='documentsForm.controls.attachedFile.value' 
+                                        (click)="deleteIcon()">delete</mat-icon>
                                     <mat-icon title="remove" *ngIf="isedit" (click)="delete()">cancel</mat-icon>
                                     &nbsp;
                                 </div>

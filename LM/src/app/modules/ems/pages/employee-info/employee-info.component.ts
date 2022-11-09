@@ -1735,18 +1735,18 @@ export class EmployeeInfoComponent implements OnInit {
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
       this.documentDetails = [];
       if (result && result.status) {
-        for (let k = 0; k < result.data.length; k++) {
-          let documentName = result.data[k].filename.split('_')
-          var docArray = [];
-          var pdfName;
-          for (let i = 0; i <= documentName.length; i++) {
-            if (i > 2) {
-              docArray.push(documentName[i])
-            }
-          }
-          pdfName = docArray.join('')
-          result.data[k].pdfName = pdfName
-        }
+        // for (let k = 0; k < result.data.length; k++) {
+        //   let documentName = result.data[k].filename.split('_')
+        //   var docArray = [];
+        //   var pdfName;
+        //   for (let i = 0; i <= documentName.length; i++) {
+        //     if (i > 2) {
+        //       docArray.push(documentName[i])
+        //     }
+        //   }
+        //   pdfName = docArray.join('')
+        //   result.data[k].pdfName = pdfName
+        // }
         this.documentDetails = result.data
         this.documentDataSource = new MatTableDataSource(this.documentDetails)
       }
@@ -1819,7 +1819,7 @@ export class EmployeeInfoComponent implements OnInit {
           return data + String.fromCharCode(byte);
         }, '');
         let base64String = btoa(STRING_CHAR)
-        var documentName = data.pdfName.split('.')
+        var documentName = data.fname.split('.')
 
         if (documentName[documentName.length - 1] == 'pdf') {
           const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
@@ -2052,6 +2052,10 @@ export class EmployeeInfoComponent implements OnInit {
     this.documentsForm.get('attachedFile').clearValidators();
     this.documentsForm.get('attachedFile').updateValueAndValidity();
 
+  }
+  deleteIcon(){
+    this.isedit = false;
+    this.documentsForm.controls.attachedFile.setValue('')
   }
   delete() {
     this.isedit = false;
