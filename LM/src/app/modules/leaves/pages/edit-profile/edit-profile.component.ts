@@ -285,7 +285,7 @@ export class EditProfileComponent implements OnInit {
 
   submit() {}
 
-  }
+
 
 
 
@@ -337,17 +337,10 @@ export class EditProfileComponent implements OnInit {
         this.editProfile();
       } else {
         this.dialog.open(ConfirmationComponent, {
-          position: { top: `70px` },
+          position: {top: `70px`},
           disableClose: true,
-          data: { Message: this.LM117, url: '/LeaveManagement/EditProfile' },
+          data: {Message: this.LM117, url: '/LeaveManagement/EditProfile'},
         });
-      }
-      else{
-          this.dialog.open(ConfirmationComponent, {
-            position: {top: `70px`},
-            disableClose: true,
-            data:{Message:this.LM117,url: '/EditProfile'}
-          });
       }
     }else{
         this.editProfile()
@@ -393,7 +386,7 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  getEmployeeInformation() {
+  getEmployeeInformation(){
     this.LM.getEmployeeInformation(this.userSession.id).subscribe((result) => {
       if (result && result.status) {
         this.employeedata = JSON.parse(result.data[0].json)[0];
@@ -440,3 +433,4 @@ export class EditProfileComponent implements OnInit {
     });
   }
 }
+
