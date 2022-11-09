@@ -67,7 +67,7 @@
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
           <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
             <mat-label>Add Comments</mat-label>
-            <input type="text" formControlName="remarks" matInput placeholder="" maxlength="500" />
+            <input type="text" formControlName="remarks" matInput placeholder="" maxlength="250" />
           </mat-form-field>
         </div>
       </div>
@@ -157,7 +157,7 @@
             </td>
           </ng-container>
           <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let row">
               <button mat-icon-button matTooltip="Checklist Overview" *ngIf="row.final_status != 'Completed' "
                (click)="addChecklistOverview(row)">

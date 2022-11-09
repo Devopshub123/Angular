@@ -317,5 +317,9 @@ export class EmsService {
 
     return this.http.get(this.mainUrl + 'ems/api/getnoticeperiods/'+this.companyName,this.httpOptions);
   }
-
+  
+  /** setProgramsMasterStatus*/
+  setProgramsMasterStatus(data: any): any {
+    return this.http.post(this.mainUrl + 'ems/api/setprogramspasterstatus', data, this.httpOptions);
+  }
 }

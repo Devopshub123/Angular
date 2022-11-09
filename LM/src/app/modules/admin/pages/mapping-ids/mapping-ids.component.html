@@ -9,7 +9,7 @@
 
                 <mat-form-field fxFlex.xs="100"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Bio-Metric Id</mat-label>
-                    <input formControlName="biometricid" required matInput onlyNumber maxlength="10" placeholder="Bio-Metric Id" >
+                    <input formControlName="biometricid" required matInput onlyNumber maxlength="3" placeholder="Bio-Metric Id" >
                     <mat-error class="con-error" *ngIf="mappingIdsForm.controls.biometricid.errors?.required">
                         This field is required.
                     </mat-error>

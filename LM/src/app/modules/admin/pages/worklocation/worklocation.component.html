@@ -116,7 +116,9 @@
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                         <mat-label>Pincode</mat-label>
                         <input type="text" onlyNumber formControlName="pincode" matInput placeholder=""  minlength="6" maxlength="6">
-
+                        <mat-error class="con-error" *ngIf="  worklocationForm.controls.pincode.errors?.maxlength || worklocationForm.controls.pincode.errors?.minlength">
+                            This field length should be 6 digits
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                         <mat-label>Prefix</mat-label>
@@ -124,7 +126,7 @@
                     </mat-form-field>
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                         <mat-label>Seed</mat-label>
-                        <input type="text" onlyNumber formControlName="seed" matInput placeholder="" required maxlength="11">
+                        <input type="text" onlyNumber formControlName="seed" matInput placeholder="" required maxlength="10">
                         <mat-error class="con-error" *ngIf="worklocationForm.controls.seed.errors?.required">
                           {{msgLM1}}
                         </mat-error>
@@ -198,7 +200,7 @@
         
         
                         <ng-container matColumnDef="Action">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
                            
                             <td mat-cell *matCellDef="let row"> 
                                 <mat-icon (click)="edit(row)"  title="Edit" >edit</mat-icon>  &nbsp;                              

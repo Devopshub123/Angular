@@ -11,7 +11,7 @@
 
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                     <span style="padding-top: 20px;padding-left: 20px;">
-                       <mat-radio-group  formControlName="onboardCategory">
+                       <mat-radio-group  formControlName="onboardCategory" (change)="onChangeRadio()">
                                 <mat-radio-button class="mx2 my-2 mr-2" value="Onboarding" [checked]='true'>Onboarding</mat-radio-button>
                                 <mat-radio-button class="mx2 my-2 mr-2" value="Offboarding">Offboarding</mat-radio-button>
                              </mat-radio-group>
@@ -116,7 +116,7 @@
                             <span *ngIf="enable === row.id">
                                 <mat-form-field appearance="outline">
                                 <input formControlName="description" matInput maxlength="100" placeholder="{{row.description}}" >
-                                <mat-error class="con-error" *ngIf="checklistForm.controls.description.errors?.required">
+                                <mat-error class="con-error" *ngIf="checklistForm.controls.description.errors?.required || checklistForm.controls.description.errors?.['whitespace']">
                                     {{EM1}}
                                 </mat-error>
                             </mat-form-field>
@@ -137,7 +137,7 @@
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
                         <td mat-cell *matCellDef="let row">
                             <mat-icon (click)="edit($event,row)"  title="Edit" *ngIf="enable != row.id">edit</mat-icon>
                             <mat-icon (click)="updateData(checklistForm.controls.description.value,row)"  title="Save" *ngIf="enable == row.id">save</mat-icon>

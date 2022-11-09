@@ -74,7 +74,7 @@
         </mat-form-field>
         <mat-form-field fxFlex.xs="100" *ngIf="leaveInfo.isCancellation == true"  class="mx-7 my-2" appearance="outline">
           <mat-label >Reason for Cancel</mat-label>
-          <input formControlName="actionReason" required matInput placeholder="" >
+          <input formControlName="actionReason" required matInput placeholder="" maxlength="250">
         </mat-form-field>
         <mat-form-field *ngIf="leaveInfo.leaveData.leavestatus == 'Approved'  && leaveInfo.isCancellation != true " fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
           <mat-label >ApprovedOn</mat-label>
@@ -98,13 +98,13 @@
           <mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Cancelled'">Reason for Cancel</mat-label>
           <!--<mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Cancel '">Reason for Cancel</mat-label>-->
 
-          <input formControlName="actionReason" required matInput placeholder="" >
+          <input formControlName="actionReason" required matInput placeholder="" maxlength="250">
         </mat-form-field>
 
         <mat-form-field *ngIf="leaveInfo.leaveData.leavestatus == 'Deleted'" fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
           <mat-label *ngIf="leaveInfo.isleave">Leave Reason</mat-label>
           <mat-label *ngIf="!leaveInfo.isleave">Comp-off Reason</mat-label>
-          <input formControlName="leaveReason" required matInput placeholder="" >
+          <input formControlName="leaveReason" required matInput placeholder="" maxlength="250">
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -118,7 +118,7 @@
         <mat-form-field fxFlex.xs="100" *ngIf="leaveInfo.leaveData.leavestatus != 'Deleted'"  class="mx-7 my-2" appearance="outline">
           <mat-label *ngIf="leaveInfo.isleave">Leave Reason</mat-label>
           <mat-label *ngIf="!leaveInfo.isleave">Comp-off Reason</mat-label>
-          <input formControlName="leaveReason" required matInput placeholder="" >
+          <input formControlName="leaveReason" required matInput placeholder="" maxlength="250">
         </mat-form-field>
       </div>
       <div fxLayout="row" *ngIf="pdfName" fxLayout.xs="column" fxLayoutAlign.xs="center center">

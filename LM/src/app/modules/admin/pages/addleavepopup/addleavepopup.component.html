@@ -5,7 +5,7 @@
       <div style="text-align: centre;">
           <mat-form-field class="popup" fxFlex.xs="100" appearance="outline">
             <mat-label>Leave Type Name</mat-label>
-            <input matInput formControlName="leavetypename" placeholder="" required>
+            <input matInput formControlName="leavetypename" placeholder="" required maxlength="50">
             <mat-error class="con-error" *ngIf="leaveTypeForm.controls.leavetypename.errors?.required">
               This field required
             </mat-error>
@@ -16,7 +16,7 @@
         
           <mat-form-field class="popup" fxFlex.xs="100" appearance="outline">
             <mat-label>Display Name</mat-label>
-            <input matInput formControlName="displayname" placeholder="" required>
+            <input matInput formControlName="displayname" placeholder="" required maxlength="100">
             <mat-error class="con-error" *ngIf="leaveTypeForm.controls.displayname.errors?.required">
               This field required
           </mat-error>

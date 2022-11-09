@@ -49,6 +49,7 @@ export class InductionComponent implements OnInit {
   EM9:any;
   EM10:any;
   companyDBName:any = environment.dbName;
+  EM65: any;
 
   constructor(private dialog:MatDialog,private formBuilder: FormBuilder,private companyServices: CompanySettingService,private router: Router,private EMS:EmsService,private EM:AdminService) { }
   pageLoading = true;
@@ -230,28 +231,37 @@ export class InductionComponent implements OnInit {
   }
 
   status(status: any, info:any) {
-    if(info.isActive == 1){                                 /** Based on IsActive flag status is updated **/
-      this.dialog.open(ReusableDialogComponent, {
-        position: {top: `70px`},
-        disableClose: true,
-        data: this.EM10
-      });
-      this.getProgramsMaster(null);
-
-    }else {
       let obj = {
         'pid': info.id,
-        'programType': info.name,
-        'pDescription': null,
         'pStatus': status,
         'actionby': this.userSession.id,
       }
-      this.EMS.setProgramsMaster(obj).subscribe((result: any) => {})
-    }
+      this.EMS.setProgramsMasterStatus(obj).subscribe((result: any) => {
+        if(result.status){
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["ems/induction"]));
+          this.dialog.open(ReusableDialogComponent, {
+            position: {top: `70px`},
+            disableClose: true,
+            data: this.EM65
+          });
+
+        }else{
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["ems/induction"]));
+          this.dialog.open(ReusableDialogComponent, {
+            position: {top: `70px`},
+            disableClose: true,
+            data: this.EM10
+          });
+          
+        }
+      })
+    
 
   }
   getProgramsMaster(pId:any){
-    this.companyServices.getMastertable('ems_programs_master', 1, 1, 1000, this.companyDBName).subscribe(data => {
+    this.companyServices.getMastertable('ems_programs_master', null, 1, 1000, this.companyDBName).subscribe(data => {
       if(data.status){
         this.arrayList=data.data
         this.dataSource = new MatTableDataSource(this.arrayList);
@@ -302,8 +312,9 @@ export class InductionComponent implements OnInit {
 
           }else if(result.data[i].code =='EM10'){
             this.EM10=result.data[i].message;
-
-
+          }
+          else if(result.data[i].code =='EM65'){
+            this.EM65=result.data[i].message;
           }
         }
 

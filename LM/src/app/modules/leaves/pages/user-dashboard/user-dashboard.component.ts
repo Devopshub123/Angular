@@ -1,7 +1,7 @@
 import { ReviewAndApprovalsComponent } from './../../dialog/review-and-approvals/review-and-approvals.component';
 import { LeavesService } from './../../leaves.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef,Renderer2 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -82,7 +82,8 @@ export class UserDashboardComponent implements OnInit {
   isdata:boolean=true;
   isholidays:boolean=false;
   maxall : number=20;
-
+  sampleElement: any;
+  calendarCount: any = [];
   holidaysColumns:string[]=['day','date','holiday']
   displayedColumns: string[] = ['appliedon','leavetype','fromdate','todate','days','status','approver','action'];
   dataSource: MatTableDataSource<any>=<any>[];
@@ -96,7 +97,7 @@ export class UserDashboardComponent implements OnInit {
 
   // @ViewChild(BaseChartDirective) chart!: BaseChartDirective;
 
-  constructor(private router: Router,private LM:LeavesService,public datepipe: DatePipe,private ts :LoginService,public dialog: MatDialog,public spinner:NgxSpinnerService) { }
+  constructor(private router: Router,private LM:LeavesService,public datepipe: DatePipe,private ts :LoginService,public dialog: MatDialog,public spinner:NgxSpinnerService, private element: ElementRef,private renderer: Renderer2) { }
 
 
   ngOnInit(): void {
@@ -132,6 +133,7 @@ export class UserDashboardComponent implements OnInit {
         this.initialEvents.push(item);
       });
       this.calendarOptions.events = this.initialEvents;
+      this.calendarCountViewNoMore();
       // this.myDateFilter = (d: Date): boolean => {
       //   let isValid=false;
       // this.calenderleaves.forEach((e:any) => {
@@ -393,7 +395,41 @@ currentMonth(): void {
 
     })
   }
+  calendarCountViewNoMore() {
+    setTimeout(() => {
 
+      this.sampleElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link');
+      var closeElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link.fc-more-link');
+      console.log(this.sampleElement);
+      for(var j=0;j<this.sampleElement.length;j++)
+      {
+        this.calendarCount[j] = this.sampleElement[j].innerHTML.substring(0, this.sampleElement[j].innerHTML.length - 4)
+        this.sampleElement[j].innerHTML =  this.calendarCount[j];
+      }
+      console.log(this.calendarCount);
+      for(var k=0;k<closeElement.length;k++) {
+        if (closeElement[k] != null) {
+          this.renderer.listen(closeElement[k], 'click', () => {
+            this.closePopUpOver();
+          });
+        }
+      }
+
+    }, 1000);
+  }
+  closePopUpOver(){
+    var openElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-popover-close.fc-icon.fc-icon-x');
+    setTimeout(() => {
+      for(var k=0;k<openElement.length;k++) {
+        this.renderer.listen(openElement[k], 'click', () => {
+          this.sampleElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link');
+          for (var j = 0; j < this.sampleElement.length; j++) {
+            this.sampleElement[j].innerHTML = this.calendarCount[j];
+          }
+        });
+      }
+    }, 500);
+  }
 }
 
 

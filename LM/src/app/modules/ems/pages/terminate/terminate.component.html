@@ -9,7 +9,7 @@
         <div *ngIf="isterminate">
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
             
-                <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="50" *ngIf="isview"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Employee Name</mat-label>
                     <mat-select required formControlName="empname" [disabled]="!isview" required>
                         <ng-container>
@@ -24,7 +24,17 @@
                      </mat-error>
                     <!-- <input formControlName="empname" readonly matInput placeholder="" maxlength="100" > -->
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+
+                <mat-form-field fxFlex.xs="100" fxFlex="50" *ngIf="!isview" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Employee Name</mat-label>
+                    <input formControlName="empname" matInput placeholder="" [readonly]="!isview">
+                 </mat-form-field>
+
+
+
+
+
+                <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Date of Termination </mat-label>
                     <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date"  
                         placeholder="MM/DD/YYYY" formControlName="dateoftermination" [disabled]="true" required >
@@ -34,7 +44,7 @@
                     <mat-datepicker #date></mat-datepicker>
                 </mat-form-field>
                 
-                <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
                   <mat-label>Termination Category</mat-label>
                   <mat-select required formControlName="terminatecategory" [disabled]="!isview" required>
                     <ng-container>
@@ -52,10 +62,11 @@
       
                 </div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
-                  <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                  <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
                       <mat-label>Reason</mat-label>
-                      <input type="textarea" formControlName="reason" [readonly]="!isview" matInput placeholder="" maxlength="100" >
-                    </mat-form-field>
+                      <textarea type="text" formControlName="reason"  [readonly]="!isview" matInput placeholder="" maxlength="250">
+                    </textarea>
+                     </mat-form-field>
                 </div>
                 <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
                   <button class="col-md-3 mr-2 btn btn-primary" (click)="terminatesave()" *ngIf="isview" >Terminate</button>
@@ -133,7 +144,7 @@
   
   
                         <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef  style="padding-left: 60px"> Status </th>
+                            <th mat-header-cell *matHeaderCellDef> Status </th>
                             <td mat-cell *matCellDef="let row" >
                                 <span >{{row.status}} </span>
     

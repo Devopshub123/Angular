@@ -126,7 +126,7 @@
                <img *ngIf="!imageurls" src="assets/img/profile.jpg" alt="user-img" width="36" 
                class="img-circle"><img *ngIf="imageurls" [src]="imageurls"  width="36" 
                class="img-circle">
-               <span >{{this.usersession.firstname}}{{this.usersession.middlename}}
+               <span >{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}
                 {{this.usersession.lastname}}</span></a>
               <ul class="dropdown-menu dropdown-user">
                 <li>
@@ -134,7 +134,7 @@
                     <div *ngIf="!imageurls" class="u-img"><img src="assets/img/profile.jpg" alt="user" width="36" class="img-circle"></div>
                     <div *ngIf="imageurls" class="u-img" ><img [src]="imageurls"  width="36" class="img-circle"></div>
                     <div class="u-text">
-                      <h4>{{this.usersession.firstname}}{{this.usersession.middlename}}
+                      <h4>{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}
                         {{this.usersession.lastname}}
                       </h4>
                       <p class="text-muted">{{this.usersession.officeemail}}</p>
@@ -233,7 +233,7 @@
               alt="user-img" width="36" class="img-circle">
               <img *ngIf="imageurls" [src]="imageurls"  width="36" 
               class="img-circle">
-              <span >{{this.usersession.firstname}}{{this.usersession.middlename}}
+              <span >{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}
                 {{this.usersession.lastname}}
               </span>
             </a>
@@ -243,7 +243,7 @@
                     <div *ngIf="!imageurls" class="u-img"><img src="assets/img/profile.jpg" alt="user" width="36" class="img-circle"></div>
                     <div *ngIf="imageurls" class="u-img" ><img [src]="imageurls"  width="36" class="img-circle"></div>
                     <div class="u-text">
-                      <h4>{{this.usersession.firstname}}{{this.usersession.middlename}}
+                      <h4>{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}
                         {{this.usersession.lastname}}
                       </h4>
                       <p class="text-muted">{{this.usersession.officeemail}}</p>

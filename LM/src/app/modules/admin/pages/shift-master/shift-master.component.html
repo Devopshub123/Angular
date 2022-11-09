@@ -9,7 +9,7 @@
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Shift Name <span style="color: red;">*</span></mat-label>
-                    <input formControlName="shift" matInput  maxlength="50"
+                    <input formControlName="shift" matInput  maxlength="64"
                         placeholder="Shift Name">
                     <mat-error class="con-error"
                     *ngIf="shiftForm.controls.shift.errors?.required || shiftForm.controls.shift.errors?.['whitespace']">
@@ -182,7 +182,7 @@
                         </td>
                 </ng-container>
                 <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
 
                     <td mat-cell *matCellDef="let row">
                         <mat-icon (click)="view(row)"  title="View" >visibility</mat-icon>

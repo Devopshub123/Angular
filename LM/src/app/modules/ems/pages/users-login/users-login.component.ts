@@ -68,12 +68,12 @@ export class UsersLoginComponent implements OnInit {
     this.usersloginForm.controls.userid.setValue(data.login='null'?data.login:data.officeemail);
     this.usersloginForm.controls.status.setValue('Active');
     this.usersloginForm.controls.empid.setValue(data.id);
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
-    
+
 
 
   }
@@ -86,6 +86,9 @@ export class UsersLoginComponent implements OnInit {
         this.dataSource = new MatTableDataSource(res.data)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        if(res.data.length > 20) {
+          this.pageLoading = false;
+        }
       }
     })
   }

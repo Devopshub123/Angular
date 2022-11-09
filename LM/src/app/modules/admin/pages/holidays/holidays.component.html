@@ -10,7 +10,8 @@
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Holiday Name</mat-label>
                     <input formControlName="holiday" matInput placeholder="" required maxlength="100">
-                    <mat-error class="con-error" *ngIf="HolidayForm.controls.holiday.errors?.required">
+                    <mat-error class="con-error" *ngIf="HolidayForm.controls.holiday.errors?.required ||
+                    HolidayForm.controls.holiday.errors?.['whitespace'] ">
                         {{msgLM1}}
                     </mat-error>
                 </mat-form-field>
@@ -59,7 +60,7 @@
                 </mat-form-field>
             </div><br>
             <div fxLayoutAlign="center">
-                <button class="m-1 mat-stroked-button button-save" [disabled]="!HolidayForm.valid" (click)="submit()"
+                <button class="m-1 mat-stroked-button button-save" (click)="submit()"
                     type="submit">
                     <span>Submit</span>
                 </button>
@@ -97,7 +98,11 @@
                         <td mat-cell *matCellDef="let row">
                             <span *ngIf="enable != row.id">{{row.description}} </span>
                             <mat-form-field appearance="outline" *ngIf="enable === row.id">
-                                <input formControlName="holiday" matInput placeholder="{{row.description}}">
+                                <input formControlName="holiday" matInput placeholder="{{row.description}}" maxlength="100">
+                                <mat-error class="con-error" *ngIf="HolidayForm.controls.holiday.errors?.required ||
+                                HolidayForm.controls.holiday.errors?.['whitespace'] ">
+                                    {{msgLM1}}
+                                </mat-error>
                             </mat-form-field>
                         </td>
                     </ng-container>
@@ -139,11 +144,11 @@
                         </td>
                     </ng-container>
                    <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef> Action </th>
+                        <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let row">
                             <mat-icon class="mr-2" title="Edit" (click)="edit($event,row)" *ngIf="enable != row.id">edit
                             </mat-icon>
-                            <mat-icon class="mr-2" title="Delete" (click)="delete($event,row.id)"
+                            <mat-icon class="mr-2" title="Delete" (click)="deleteHolidayPopup($event,row.id)"
                                 *ngIf="enable != row.id">delete</mat-icon>
                             <mat-icon title="Save"
                                 (click)="update($event,row.id,this.HolidayForm.controls.holiday.value,this.HolidayForm.controls.branch.value,this.HolidayForm.controls.date.value)"

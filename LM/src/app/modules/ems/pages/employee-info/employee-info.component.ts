@@ -55,8 +55,8 @@ export class EmployeeInfoComponent implements OnInit {
     private LM: LeavesService,private activatedRoute: ActivatedRoute, private emsService: EmsService) {
     this.formData = new FormData();
   }
-  personalInfoForm!: FormGroup;
-  CandidateFamilyForm: any = FormGroup;
+  personalInfoForm: any = FormGroup;
+  candidateFamilyForm: any = FormGroup;
   employeeJobForm: any = FormGroup;
   promotionsForm: any = FormGroup;
   employementForm!: FormGroup;
@@ -164,6 +164,9 @@ export class EmployeeInfoComponent implements OnInit {
   EM22: any;
   EM1: any;
   EM2: any;
+  EM61: any;
+  EM42: any;
+  EM43: any;
 
   fileURL: any;
   file: any;
@@ -188,6 +191,8 @@ export class EmployeeInfoComponent implements OnInit {
   isRemoveImage: boolean = true;
   isPromotionsOnly:boolean=true;
   companyDBName: any = environment.dbName;
+  issubmit: boolean = false;
+  submitsavepersonal: boolean = false;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params) {
@@ -218,9 +223,10 @@ export class EmployeeInfoComponent implements OnInit {
     this.getstatuslist();
     this.getnoticeperiods();
     /**same as present address checkbox */
-    this.personalInfoForm.get('checked')?.valueChanges.subscribe(selectedValue => {
+    this.personalInfoForm.get('checked')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != '') {
-        this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedStateValue => {
+        this.spinner.show();
+        this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedStateValue: any) => {
           this.permanentStateDetails = [];
           if(selectedStateValue != '') {
             this.companyService.getStatesc(selectedStateValue).subscribe((data) => {
@@ -231,7 +237,7 @@ export class EmployeeInfoComponent implements OnInit {
             })
           }
         })
-        this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedCityValue => {
+        this.personalInfoForm.get('pstate')?.valueChanges.subscribe((selectedCityValue: any) => {
           this.permanentCityDetails = [];
           if(selectedCityValue != '') {
             this.companyService.getCities(selectedCityValue).subscribe((data) => {
@@ -252,6 +258,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.personalInfoForm.controls.pstate.disable();
         this.personalInfoForm.controls.pcity.disable();
         this.personalInfoForm.controls.ppincode.disable();
+        this.spinner.hide();
       }
       else {
         this.personalInfoForm.controls.paddress.setValue('')
@@ -263,7 +270,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
     /**get state details for residance address */
-    this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedResidenceStateValue => {
+    this.personalInfoForm.get('rcountry')?.valueChanges.subscribe((selectedResidenceStateValue: any) => {
       this.stateDetails = [];
       if (selectedResidenceStateValue != '') {
          this.companyService.getStatesc(selectedResidenceStateValue).subscribe((data) => {
@@ -277,7 +284,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
     /**get city details for residance address */
-    this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedResidenceCityValue => {
+    this.personalInfoForm.get('rstate')?.valueChanges.subscribe((selectedResidenceCityValue: any) => {
       this.cityDetails = [];
       if (selectedResidenceCityValue != '') {
         this.companyService.getCities(selectedResidenceCityValue).subscribe((data) => {
@@ -291,7 +298,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
     /**get state details for present address*/
-    this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedPresentStateValue => {
+    this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedPresentStateValue: any) => {
       this.permanentStateDetails = [];
       if (selectedPresentStateValue != '') {
         this.companyService.getStatesc(selectedPresentStateValue).subscribe((data) => {
@@ -305,7 +312,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
     /**get city details for present address */
-    this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedPresentCityValue => {
+    this.personalInfoForm.get('pstate')?.valueChanges.subscribe((selectedPresentCityValue: any) => {
       this.permanentCityDetails = [];
       if (selectedPresentCityValue != '') {
         this.companyService.getCities(selectedPresentCityValue).subscribe((data) => {
@@ -331,7 +338,7 @@ export class EmployeeInfoComponent implements OnInit {
     })
     /////////
 
-    this.personalInfoForm.get('usertype')?.valueChanges.subscribe(selectedValue => {
+    this.personalInfoForm.get('usertype')?.valueChanges.subscribe((selectedValue: number) => {
       if (selectedValue == 2 || selectedValue == 6) {
         this.isself = true;
       }
@@ -340,7 +347,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
 
-    this.personalInfoForm.get('employmentType')?.valueChanges.subscribe(selectedValue => {
+    this.personalInfoForm.get('employmentType')?.valueChanges.subscribe((selectedValue: number) => {
       if (selectedValue == 3) {
         this.isContractData = true;
         this.isPromotionsOnly = false;
@@ -351,7 +358,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     })
 
-    this.personalInfoForm.get('department')?.valueChanges.subscribe(selectedValue => {
+    this.personalInfoForm.get('department')?.valueChanges.subscribe((selectedValue: any) => {
       this.availablereportingmanagers = []
       let data = {
         id: selectedValue
@@ -376,6 +383,7 @@ export class EmployeeInfoComponent implements OnInit {
     }
     this.getEmployeeImage();
   }
+
   getnoticeperiods() {
     this.emsService.getnoticeperiods().subscribe((res: any) => {
       if (res.status) {
@@ -562,8 +570,9 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
       if (this.employeeInformationData.languages_spoken != 'null' || this.employeeInformationData.languages_spoken != "null")
         this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken);
-      this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress);
-      this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
+      if (this.employeeInformationData.paddress != null || this.employeeInformationData.paddress != 'null' || this.employeeInformationData.paddress != "null") 
+       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress); 
+    this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
       this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
       if (this.employeeInformationData.ppincode != 'null')
@@ -581,7 +590,11 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.companylocation.setValue(this.employeeInformationData.worklocation);
       this.personalInfoForm.controls.designation.setValue(this.employeeInformationData.designation);
       this.personalInfoForm.controls.department.setValue(this.employeeInformationData.department);
-      this.personalInfoForm.controls.reportingmanager.setValue(this.employeeInformationData.reportingmanager);
+      if (this.employeeInformationData.reportingmanager == 77) {
+        this.personalInfoForm.controls.reportingmanager.setValue("Self")
+      } else {
+        this.personalInfoForm.controls.reportingmanager.setValue(this.employeeInformationData.reportingmanager);
+      }
       //this.personalInfoForm.controls.noticePeriod.setValue(this.employeeInformationData.noticeperiod);
 
       if (this.employeeInformationData.relations != null) {
@@ -777,7 +790,7 @@ export class EmployeeInfoComponent implements OnInit {
       })
   }
   createFamilyForm() {
-    this.CandidateFamilyForm = this.formBuilder.group(
+    this.candidateFamilyForm = this.formBuilder.group(
       {
         familyfirstname: ["",],
         familycontact: [""],
@@ -907,9 +920,9 @@ export class EmployeeInfoComponent implements OnInit {
       let roledata = data.data;
       this.availableRole = [];
       for (let i = 0; i < roledata.length; i++) {
-        //if (roledata[i].isEditable == 0) {
+        if (roledata[i].isEditable == 0) {
           this.availableRole.push(roledata[i])
-       // }
+        }
       }
     })
   }
@@ -921,15 +934,12 @@ export class EmployeeInfoComponent implements OnInit {
       this.availablereportingmanagers = data[0]
     })
   }
-
+  // get personalForm(): { [key: string]: AbstractControl } {
+  //   return this.personalInfoForm.controls;
+  // }
   savePersonalInfo() {
-    const invalid = [];
-    const controls = this.personalInfoForm.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        invalid.push(name);
-      }
-    }
+    this.submitsavepersonal = true;
+     this.addPersonalInfoValidators();
     if (this.personalInfoForm.valid) {
       this.spinner.show();
       let data = {
@@ -982,33 +992,39 @@ export class EmployeeInfoComponent implements OnInit {
 
       this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
         if (res.status) {
-          this.employeeId = res.data;
-          this.getEmployeeInformationList();
-          this.getEmployeeJobList();
-          this.getEmployeeEmploymentList();
-          this.getEmployeeEducationList();
-          this.spinner.hide();
+          if (res.data.email == null) {
+            this.employeeId = res.data.empid;
+            this.getEmployeeInformationList();
+            this.getEmployeeJobList();
+            this.getEmployeeEmploymentList();
+            this.getEmployeeEducationList();
+            this.spinner.hide();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.EM42
+            });
+            this.selectedtab.setValue(1);
+          } else {
+            this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data saved sucessfully"
+            data: res.data.email
           });
-          this.selectedtab.setValue(1);
+          }
         } else {
           this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data is not saved"
+            data: this.EM43
           });
         }
       });
     }
   }
 
-  personalInfoClear() {
-
-  }
   addingFamilyView() {
     this.addFamilyView = true
 
@@ -1017,28 +1033,28 @@ export class EmployeeInfoComponent implements OnInit {
     this.addValidators();
     if (this.isfamilyedit) {
       this.isfamilyedit = false;
-      this.familyDetails[this.familyindex].firstname = this.CandidateFamilyForm.controls.familyfirstname.value;
-      //this.familyDetails[this.familyindex].lastname = this.CandidateFamilyForm.controls.familylastname.value;
-      this.familyDetails[this.familyindex].gender = this.CandidateFamilyForm.controls.familygender.value.id;
-      this.familyDetails[this.familyindex].gendername = this.CandidateFamilyForm.controls.familygender.value.gender;
-      this.familyDetails[this.familyindex].contactnumber = this.CandidateFamilyForm.controls.familycontact.value;
-      this.familyDetails[this.familyindex].status = this.CandidateFamilyForm.controls.familystatus.value;
-      this.familyDetails[this.familyindex].relationship = this.CandidateFamilyForm.controls.relation.value.id;
-      this.familyDetails[this.familyindex].relationshipname = this.CandidateFamilyForm.controls.relation.value.relationship;
-      //this.familyDetails[this.familyindex].dateofbirth = this.CandidateFamilyForm.controls.familydateofbirth.value != "" ? this.pipe.transform(this.CandidateFamilyForm.controls.familydateofbirth.value, 'yyyy-MM-dd') : ''
+      this.familyDetails[this.familyindex].firstname = this.candidateFamilyForm.controls.familyfirstname.value;
+      //this.familyDetails[this.familyindex].lastname = this.candidateFamilyForm.controls.familylastname.value;
+      this.familyDetails[this.familyindex].gender = this.candidateFamilyForm.controls.familygender.value.id;
+      this.familyDetails[this.familyindex].gendername = this.candidateFamilyForm.controls.familygender.value.gender;
+      this.familyDetails[this.familyindex].contactnumber = this.candidateFamilyForm.controls.familycontact.value;
+      this.familyDetails[this.familyindex].status = this.candidateFamilyForm.controls.familystatus.value;
+      this.familyDetails[this.familyindex].relationship = this.candidateFamilyForm.controls.relation.value.id;
+      this.familyDetails[this.familyindex].relationshipname = this.candidateFamilyForm.controls.relation.value.relationship;
+      //this.familyDetails[this.familyindex].dateofbirth = this.candidateFamilyForm.controls.familydateofbirth.value != "" ? this.pipe.transform(this.candidateFamilyForm.controls.familydateofbirth.value, 'yyyy-MM-dd') : ''
       this.clearValidators();
       this.clearfamily();
     } else {
-      if (this.CandidateFamilyForm.valid) {
+      if (this.candidateFamilyForm.valid) {
         this.familyDetails.push({
-          firstname: this.CandidateFamilyForm.controls.familyfirstname.value,
+          firstname: this.candidateFamilyForm.controls.familyfirstname.value,
           lastname: null,
-          gender: this.CandidateFamilyForm.controls.familygender.value.id,
-          gendername: this.CandidateFamilyForm.controls.familygender.value.gender,
-          contactnumber: this.CandidateFamilyForm.controls.familycontact.value,
-          status: this.CandidateFamilyForm.controls.familystatus.value,
-          relationship: this.CandidateFamilyForm.controls.relation.value.id,
-          relationshipname: this.CandidateFamilyForm.controls.relation.value.relationship,
+          gender: this.candidateFamilyForm.controls.familygender.value.id,
+          gendername: this.candidateFamilyForm.controls.familygender.value.gender,
+          contactnumber: this.candidateFamilyForm.controls.familycontact.value,
+          status: this.candidateFamilyForm.controls.familystatus.value,
+          relationship: this.candidateFamilyForm.controls.relation.value.id,
+          relationshipname: this.candidateFamilyForm.controls.relation.value.relationship,
           dateofbirth: null
         });
         this.familyDataSource = new MatTableDataSource(this.familyDetails);
@@ -1049,59 +1065,71 @@ export class EmployeeInfoComponent implements OnInit {
     }
   }
   clearValidators() {
-    this.CandidateFamilyForm.get("familyfirstname").clearValidators();
-    this.CandidateFamilyForm.get("familyfirstname").updateValueAndValidity();
+    this.candidateFamilyForm.get("familyfirstname").clearValidators();
+    this.candidateFamilyForm.get("familyfirstname").updateValueAndValidity();
 
-    this.CandidateFamilyForm.get("relation").clearValidators();
-    this.CandidateFamilyForm.get("relation").updateValueAndValidity();
+    this.candidateFamilyForm.get("relation").clearValidators();
+    this.candidateFamilyForm.get("relation").updateValueAndValidity();
 
-    this.CandidateFamilyForm.get("familycontact").clearValidators();
-    this.CandidateFamilyForm.get("familycontact").updateValueAndValidity();
+    this.candidateFamilyForm.get("familycontact").clearValidators();
+    this.candidateFamilyForm.get("familycontact").updateValueAndValidity();
 
-    this.CandidateFamilyForm.get("familygender").clearValidators();
-    this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
+    this.candidateFamilyForm.get("familygender").clearValidators();
+    this.candidateFamilyForm.get("familygender").updateValueAndValidity();
   }
 
   addValidators() {
-    this.CandidateFamilyForm.get("familyfirstname").setValidators(Validators.required);
-    this.CandidateFamilyForm.get("familyfirstname").updateValueAndValidity();
+    this.candidateFamilyForm.get("familyfirstname").setValidators(Validators.required);
+    this.candidateFamilyForm.get("familyfirstname").updateValueAndValidity();
 
-    this.CandidateFamilyForm.get("relation").setValidators(Validators.required);
-    this.CandidateFamilyForm.get("relation").updateValueAndValidity();
+    this.candidateFamilyForm.get("relation").setValidators(Validators.required);
+    this.candidateFamilyForm.get("relation").updateValueAndValidity();
 
-    this.CandidateFamilyForm.get("familygender").setValidators(Validators.required);
-    this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
+    this.candidateFamilyForm.get("familygender").setValidators(Validators.required);
+    this.candidateFamilyForm.get("familygender").updateValueAndValidity();
   }
   clearfamily() {
-    this.CandidateFamilyForm.controls.familyfirstname.setValue('');
-    this.CandidateFamilyForm.controls.relation.setValue('');
-    this.CandidateFamilyForm.controls.familycontact.setValue('');
-    this.CandidateFamilyForm.controls.familygender.setValue('');
+    this.candidateFamilyForm.controls.familyfirstname.setValue('');
+    this.candidateFamilyForm.controls.relation.setValue('');
+    this.candidateFamilyForm.controls.familycontact.setValue('');
+    this.candidateFamilyForm.controls.familygender.setValue('');
     this.isfamilyedit = false;
-    this.CandidateFamilyForm.valid = true;
+    //this.candidateFamilyForm.valid = true;
   }
 
   editfamily(i: any) {
     this.familyindex = i;
     this.isfamilyedit = true;
     this.addFamilyView = true
-    this.CandidateFamilyForm.controls.familyfirstname.setValue(this.familyDetails[i].firstname);
-    //this.CandidateFamilyForm.controls.familylastname.setValue(this.familyDetails[i].lastname);
-    //this.CandidateFamilyForm.controls.familydateofbirth.setValue(new Date(this.familyDetails[i].dateofbirth));
-    this.CandidateFamilyForm.controls.familystatus.setValue(this.familyDetails[i].status);
+    this.candidateFamilyForm.controls.familyfirstname.setValue(this.familyDetails[i].firstname);
+    //this.candidateFamilyForm.controls.familylastname.setValue(this.familyDetails[i].lastname);
+    //this.candidateFamilyForm.controls.familydateofbirth.setValue(new Date(this.familyDetails[i].dateofbirth));
+    this.candidateFamilyForm.controls.familystatus.setValue(this.familyDetails[i].status);
     if (this.familyDetails[i].contactnumber != 'null')
-      this.CandidateFamilyForm.controls.familycontact.setValue(this.familyDetails[i].contactnumber);
+      this.candidateFamilyForm.controls.familycontact.setValue(this.familyDetails[i].contactnumber);
     this.employeeRelationship.forEach((e: any) => {
       if (e.id == this.familyDetails[i].relationship) {
-        this.CandidateFamilyForm.controls.relation.setValue(e);
+        this.candidateFamilyForm.controls.relation.setValue(e);
       }
     })
     this.genderDetails.forEach((e: any) => {
       if (e.id == this.familyDetails[i].gender) {
-        this.CandidateFamilyForm.controls.familygender.setValue(e);
+        this.candidateFamilyForm.controls.familygender.setValue(e);
       }
     })
 
+  }
+  deleteFamilyPopup(event: any) {
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data: { message: this.EM61, YES: 'YES', NO: 'NO' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'YES') {
+        this.deletefamily(event)
+      }
+    });
   }
   deletefamily(index: any) {
     this.familyDetails.splice(index, 1);
@@ -1151,6 +1179,20 @@ export class EmployeeInfoComponent implements OnInit {
     this.promotionsForm.controls.annualSalary.reset();
 
   }
+  addPromotionValidators() {
+    this.promotionsForm.get("newSalary").setValidators(Validators.required);
+    this.promotionsForm.get("newSalary").updateValueAndValidity();
+
+    this.promotionsForm.get("newDescription").setValidators(Validators.required);
+    this.promotionsForm.get("newDescription").updateValueAndValidity();
+
+    this.promotionsForm.get("effectiveDate").setValidators(Validators.required);
+    this.promotionsForm.get("effectiveDate").updateValueAndValidity();
+
+    this.promotionsForm.get("annualSalary").setValidators(Validators.required);
+    this.promotionsForm.get("annualSalary").updateValueAndValidity();
+
+  }
   clearPromotionValidators() {
     this.promotionsForm.get("newSalary").clearValidators();
     this.promotionsForm.get("newSalary").updateValueAndValidity();
@@ -1170,10 +1212,11 @@ export class EmployeeInfoComponent implements OnInit {
   }
   //** */
   saveJobDetails() {
-
+    this.issubmit= true;
     if (this.employeeCode != undefined || this.employeeCode != null) {
       if (this.isPromotionsOnly == true) {
         let isValid = false;
+        this.addPromotionValidators();
          if (this.promotionsForm.valid) {
           this.promotionList.push({
             newsalary: this.promotionsForm.controls.newSalary.value,
@@ -1181,8 +1224,10 @@ export class EmployeeInfoComponent implements OnInit {
             effectivedate: this.pipe.transform(this.promotionsForm.controls.effectiveDate.value, 'yyyy-MM-dd'),
             annualsalary: this.promotionsForm.controls.annualSalary.value,
           });
-          this.clearPromotions();
-          isValid = true;
+          this.addPromotionValidators();
+           this.clearPromotions();
+           isValid = true;
+
          }
         if ( isValid == true) {
           this.spinner.show();
@@ -1204,15 +1249,17 @@ export class EmployeeInfoComponent implements OnInit {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
-                data: "Data saved sucessfully"
+                data: this.EM42
+
               });
               this.selectedtab.setValue(2);
+              this.issubmit= false;
             } else {
               this.spinner.hide();
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
-                data: "Data is not saved"
+                data: this.EM43
               });
             }
           });
@@ -1250,7 +1297,7 @@ export class EmployeeInfoComponent implements OnInit {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
-                data: "Data saved sucessfully"
+                data: this.EM42
               });
               this.selectedtab.setValue(2);
             } else {
@@ -1258,7 +1305,7 @@ export class EmployeeInfoComponent implements OnInit {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
-                data: "Data is not saved"
+                data: this.EM43
               });
             }
           });
@@ -1350,7 +1397,19 @@ export class EmployeeInfoComponent implements OnInit {
     this.experienceForm.controls.expToDate.reset();
     this.experienceForm.controls.designation.reset();
     this.experienceForm.controls.jobDescription.reset();
-    this.experienceForm.valid = true;
+    //this.experienceForm.valid = true;
+  }
+  deleteExperiencePopup(event: any) {
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data: { message: this.EM61, YES: 'YES', NO: 'NO' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'YES') {
+        this.deleteExperience(event)
+      }
+    });
   }
   deleteExperience(index: any) {
     this.workExperienceDetails.splice(index, 1);
@@ -1380,7 +1439,7 @@ export class EmployeeInfoComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data saved sucessfully"
+            data: this.EM42
           });
           this.selectedtab.setValue(3);
         } else {
@@ -1388,7 +1447,7 @@ export class EmployeeInfoComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data is not saved"
+            data: this.EM43
           });
         }
       });
@@ -1421,7 +1480,7 @@ export class EmployeeInfoComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: "Data saved sucessfully"
+              data: this.EM42
             });
             this.spinner.hide();
             this.selectedtab.setValue(4);
@@ -1430,7 +1489,7 @@ export class EmployeeInfoComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: "Data is not saved"
+              data: this.EM43
             });
           }
         });
@@ -1514,6 +1573,18 @@ export class EmployeeInfoComponent implements OnInit {
     this.educationForm.controls.instituteName.reset();
     this.educationForm.controls.eduFromDate.reset();
     this.educationForm.controls.eduToDate.reset();
+  }
+  deleteEducationPopup(event: any) {
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data: { message: this.EM61, YES: 'YES', NO: 'NO' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'YES') {
+        this.deleteEducation(event)
+      }
+    });
   }
   deleteEducation(index: any) {
     this.educationDetails.splice(index, 1);
@@ -1605,6 +1676,12 @@ export class EmployeeInfoComponent implements OnInit {
             this.EM22 = e.message
           } else if (e.code == "EM2") {
             this.EM2 = e.message
+          } else if (e.code == "EM61") {
+            this.EM61 = e.message
+          }else if (e.code == "EM42") {
+            this.EM42 = e.message
+          }else if (e.code == "EM43") {
+            this.EM43 = e.message
           }
         })
       } else {
@@ -1662,18 +1739,18 @@ export class EmployeeInfoComponent implements OnInit {
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
       this.documentDetails = [];
       if (result && result.status) {
-        for (let k = 0; k < result.data.length; k++) {
-          let documentName = result.data[k].filename.split('_')
-          var docArray = [];
-          var pdfName;
-          for (let i = 0; i <= documentName.length; i++) {
-            if (i > 2) {
-              docArray.push(documentName[i])
-            }
-          }
-          pdfName = docArray.join('')
-          result.data[k].pdfName = pdfName
-        }
+        // for (let k = 0; k < result.data.length; k++) {
+        //   let documentName = result.data[k].filename.split('_')
+        //   var docArray = [];
+        //   var pdfName;
+        //   for (let i = 0; i <= documentName.length; i++) {
+        //     if (i > 2) {
+        //       docArray.push(documentName[i])
+        //     }
+        //   }
+        //   pdfName = docArray.join('')
+        //   result.data[k].pdfName = pdfName
+        // }
         this.documentDetails = result.data
         this.documentDataSource = new MatTableDataSource(this.documentDetails)
       }
@@ -1731,6 +1808,7 @@ export class EmployeeInfoComponent implements OnInit {
 
 
   fileView(data: any) {
+
     let info = data
     this.spinner.show()
     this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData) => {
@@ -1745,7 +1823,7 @@ export class EmployeeInfoComponent implements OnInit {
           return data + String.fromCharCode(byte);
         }, '');
         let base64String = btoa(STRING_CHAR)
-        var documentName = data.pdfName.split('.')
+        var documentName = data.fname.split('.')
 
         if (documentName[documentName.length - 1] == 'pdf') {
           const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
@@ -1761,6 +1839,8 @@ export class EmployeeInfoComponent implements OnInit {
 
       }
     })
+    this.createValidatorForDocument();
+    this.clearDock();
   }
 
 
@@ -1819,6 +1899,7 @@ export class EmployeeInfoComponent implements OnInit {
     // if(this.documentsForm.controls.attachedFile.value || this.editDockinfo){
     // if(this.isFile){
     //   if(this.validateDocument()){
+    this.spinner.show();
     this.mainService.getFilepathsMasterForEMS(1).subscribe((resultData) => {
       if (resultData && resultData.status) {
         let obj = {
@@ -1848,10 +1929,12 @@ export class EmployeeInfoComponent implements OnInit {
                     disableClose: true,
                     data: this.EM11
                   });
+                  this.spinner.hide();
                   this.getDocumentsEMS();
                   this.clearDock();
                   this.selectedtab.setValue(0);
                 } else {
+                  this.spinner.hide();
                   let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: { top: `70px` },
                     disableClose: true,
@@ -1867,6 +1950,7 @@ export class EmployeeInfoComponent implements OnInit {
 
               });
             } else {
+              this.spinner.hide();
               this.getDocumentsEMS();
               this.clearDock();
               this.editDockinfo = null;
@@ -1880,6 +1964,7 @@ export class EmployeeInfoComponent implements OnInit {
               });
             }
           } else {
+            this.spinner.hide();
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
@@ -1887,6 +1972,7 @@ export class EmployeeInfoComponent implements OnInit {
             });
           }
         });
+        this.spinner.hide();
       }
     });
     //   }
@@ -1971,11 +2057,15 @@ export class EmployeeInfoComponent implements OnInit {
     this.documentsForm.get('attachedFile').updateValueAndValidity();
 
   }
+  deleteIcon(){
+    this.isedit = false;
+    this.documentsForm.controls.attachedFile.setValue('')
+  }
   delete() {
     this.isedit = false;
   }
   createValidatorForDocument() {
-    this.documentsForm.controls.documentNumber.setValidators([Validators.required, Validators.minLength(6), Validators.maxLength(14)])
+    this.documentsForm.controls.documentNumber.setValidators([Validators.required, Validators.minLength(6), Validators.maxLength(30)])
     this.documentsForm.controls.documentName.setValidators([Validators.required])
     this.documentsForm.get('documentNumber').updateValueAndValidity();
     this.documentsForm.get('documentName').updateValueAndValidity();
@@ -2021,6 +2111,63 @@ export class EmployeeInfoComponent implements OnInit {
         })
       }
     })
+  }
+
+  addPersonalInfoValidators() {
+    this.personalInfoForm.get("firstname").setValidators(Validators.required);
+    this.personalInfoForm.get("firstname").updateValueAndValidity();
+
+    this.personalInfoForm.get("lastname").setValidators(Validators.required);
+    this.personalInfoForm.get("lastname").updateValueAndValidity();
+
+    this.personalInfoForm.get("dateofbirth").setValidators(Validators.required);
+    this.personalInfoForm.get("dateofbirth").updateValueAndValidity();
+
+    this.personalInfoForm.get("gender").setValidators(Validators.required);
+    this.personalInfoForm.get("gender").updateValueAndValidity();
+
+    this.personalInfoForm.get("maritalstatus").setValidators(Validators.required);
+    this.personalInfoForm.get("maritalstatus").updateValueAndValidity();
+
+    this.personalInfoForm.get("mobileNo").setValidators(Validators.required);
+    this.personalInfoForm.get("mobileNo").updateValueAndValidity();
+
+    this.personalInfoForm.get("alternateMobileNo").setValidators(Validators.required);
+    this.personalInfoForm.get("alternateMobileNo").updateValueAndValidity();
+
+    this.personalInfoForm.get("employmentType").setValidators(Validators.required);
+    this.personalInfoForm.get("employmentType").updateValueAndValidity();
+
+    this.personalInfoForm.get("usertype").setValidators(Validators.required);
+    this.personalInfoForm.get("usertype").updateValueAndValidity();
+
+    this.personalInfoForm.get("companylocation").setValidators(Validators.required);
+    this.personalInfoForm.get("companylocation").updateValueAndValidity();
+
+    this.personalInfoForm.get("designation").setValidators(Validators.required);
+    this.personalInfoForm.get("designation").updateValueAndValidity();
+
+    this.personalInfoForm.get("department").setValidators(Validators.required);
+    this.personalInfoForm.get("department").updateValueAndValidity();
+
+    this.personalInfoForm.get("reportingmanager").setValidators(Validators.required);
+    this.personalInfoForm.get("reportingmanager").updateValueAndValidity();
+
+    this.personalInfoForm.get("raddress").setValidators(Validators.required);
+    this.personalInfoForm.get("raddress").updateValueAndValidity();
+
+    this.personalInfoForm.get("rcountry").setValidators(Validators.required);
+    this.personalInfoForm.get("rcountry").updateValueAndValidity();
+
+    this.personalInfoForm.get("rstate").setValidators(Validators.required);
+    this.personalInfoForm.get("rstate").updateValueAndValidity();
+
+    this.personalInfoForm.get("rcity").setValidators(Validators.required);
+    this.personalInfoForm.get("rcity").updateValueAndValidity();
+
+    this.personalInfoForm.get("rpincode").setValidators(Validators.required);
+    this.personalInfoForm.get("rpincode").updateValueAndValidity();
+
   }
 }
 

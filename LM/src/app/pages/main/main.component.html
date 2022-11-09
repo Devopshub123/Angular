@@ -5,7 +5,7 @@
         <div class="custom-mob-icons">
 
           <a href="MainDashboard" class="logo"><img [src]="pic" style="width: 35px;" alt="" class="logo-img mr-2">{{companyName}}</a>
-          <button mat-icon-button (click)="snav.toggle()">
+          <button mat-icon-button style="z-index: 1111;" (click)="snav.toggle()">
             <mat-icon>menu</mat-icon>
           </button>
         </div>
@@ -19,8 +19,8 @@
               <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img
                   *ngIf="!imageurls" src="assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><img
                   *ngIf="imageurls" [src]="imageurls" width="36"
-                  class="img-circle custom-mob-img-circle"><span>{{this.usersession.firstname}}
-                    {{this.usersession.middlename}}{{this.usersession.lastname}}</span></a>
+                  class="img-circle custom-mob-img-circle"><span>{{this.usersession.firstname}}{{" "}}
+                    {{this.usersession.middlename}}{{""}}{{this.usersession.lastname}}</span></a>
               <ul class="dropdown-menu dropdown-user custom-mob-ul">
                 <li>
                   <div class="user-box">
@@ -28,7 +28,7 @@
                         class="img-circle"></div>
                     <div *ngIf="imageurls" class="u-img"><img [src]="imageurls" width="36" class="img-circle"></div>
                     <div class="u-text">
-                      <h4>{{this.usersession.firstname}}{{this.usersession.middlename}}{{this.usersession.lastname}}</h4>
+                      <h4>{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}{{this.usersession.lastname}}</h4>
                       <p class="text-muted">{{this.usersession.officeemail}}</p>
                       <a (click)="editProfile()" class="btn btn-rounded btn-danger btn-sm">Edit Profile</a>
                     </div>
@@ -126,7 +126,7 @@
               <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img
                   *ngIf="!imageurls" src="assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><img
                   *ngIf="imageurls" [src]="imageurls" width="36"
-                  class="img-circle"><span>{{this.usersession.firstname}}{{this.usersession.middlename}}{{this.usersession.lastname}}</span></a>
+                  class="img-circle"><span>{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}{{this.usersession.lastname}}</span></a>
               <ul class="dropdown-menu dropdown-user">
                 <li>
                   <div class="user-box">
@@ -134,7 +134,7 @@
                         class="img-circle"></div>
                     <div *ngIf="imageurls" class="u-img"><img [src]="imageurls" width="36" class="img-circle"></div>
                     <div class="u-text">
-                      <h4>{{this.usersession.firstname}}{{this.usersession.middlename}}{{this.usersession.lastname}}</h4>
+                      <h4>{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}{{this.usersession.lastname}}</h4>
                       <p class="text-muted">{{this.usersession.officeemail}}</p>
                       <a (click)="editProfile()" class="btn btn-rounded btn-danger btn-sm">Edit Profile</a>
                     </div>

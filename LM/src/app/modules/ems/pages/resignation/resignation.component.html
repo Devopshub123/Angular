@@ -44,7 +44,7 @@
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
               <mat-label>Date of Request Resignation </mat-label>
-              <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date1" placeholder="MM/DD/YYYY"
+              <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date1" placeholder="DD-MM-YYYY"
                 formControlName="resigndate" [disabled]="true" />
 
               <mat-datepicker-toggle class="datepicker" matSuffix [for]="date1">
@@ -53,11 +53,11 @@
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
               <mat-label>Notice Period</mat-label>
-              <input formControlName="noticperiod" readonly matInput placeholder="" maxlength="100" />
+              <input formControlName="noticperiod" readonly matInput placeholder="" maxlength="3" />
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
               <mat-label>Releiving Date </mat-label>
-              <input matInput readonly [matDatepicker]="date2" placeholder="MM/DD/YYYY" formControlName="releivingdate"
+              <input matInput readonly [matDatepicker]="date2" placeholder="DD-MM-YYYY" formControlName="releivingdate"
                 [disabled]="true" />
 
               <mat-datepicker-toggle class="datepicker" matSuffix [for]="date2">
@@ -68,7 +68,7 @@
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
               <mat-label>Request Exit Date </mat-label>
-              <input matInput [matDatepicker]="date3" [max]="max" [min]="min" placeholder="MM/DD/YYYY"
+              <input matInput [matDatepicker]="date3" [max]="max" [min]="min" placeholder="DD-MM-YYYY"
                 formControlName="exitdate" (click)="date3.open()" [disabled]="isviewdata" />
 
               <mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">
@@ -93,7 +93,7 @@
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
               <mat-label>Notes</mat-label>
               <textarea formControlName="notice" matInput placeholder="" [readonly]="isviewdata"
-                maxlength="100"></textarea>
+                maxlength="250"></textarea>
             </mat-form-field>
           </div>
           <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">

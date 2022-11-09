@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild,ElementRef,Renderer2 } from '@angular/core';
 import { CalendarOptions, EventInput, FullCalendarComponent } from '@fullcalendar/angular'; // useful for typechecking
 import { AttendanceService } from '../../attendance.service';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
@@ -59,7 +59,9 @@ export class EmployeDashboardComponent implements OnInit {
   private _mobileQueryListener: () => void;
   currentShiftStartDate: any;
   currentShiftendDate: any;
-  constructor(private attendanceService: AttendanceService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router) {
+  sampleElement: any;
+  calendarCount: any = [];
+  constructor(private attendanceService: AttendanceService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router, private element: ElementRef,private renderer: Renderer2) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -140,7 +142,7 @@ export class EmployeDashboardComponent implements OnInit {
         });
 
         this.calendarOptions.events = this.initialEvents;
-
+        this.calendarCountViewNoMore();
       }
 
     })
@@ -204,5 +206,40 @@ export class EmployeDashboardComponent implements OnInit {
     this.selectedDate = this.pipe.transform(currentDate, 'yyyy-MM-dd');
     this.getemployeeattendancedashboard();
     this.getEmployeeAttendanceNotifications();
+  }
+  calendarCountViewNoMore() {
+    setTimeout(() => {
+
+      this.sampleElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link');
+      var closeElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link.fc-more-link');
+      console.log(this.sampleElement);
+      for(var j=0;j<this.sampleElement.length;j++)
+      {
+        this.calendarCount[j] = this.sampleElement[j].innerHTML.substring(0, this.sampleElement[j].innerHTML.length - 4)
+        this.sampleElement[j].innerHTML =  this.calendarCount[j];
+      }
+      console.log(this.calendarCount);
+      for(var k=0;k<closeElement.length;k++) {
+        if (closeElement[k] != null) {
+          this.renderer.listen(closeElement[k], 'click', () => {
+            this.closePopUpOver();
+          });
+        }
+      }
+
+    }, 1000);
+  }
+  closePopUpOver(){
+    var openElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-popover-close.fc-icon.fc-icon-x');
+    setTimeout(() => {
+      for(var k=0;k<openElement.length;k++) {
+        this.renderer.listen(openElement[k], 'click', () => {
+          this.sampleElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link');
+          for (var j = 0; j < this.sampleElement.length; j++) {
+            this.sampleElement[j].innerHTML = this.calendarCount[j];
+          }
+        });
+      }
+    }, 500);
   }
 }
