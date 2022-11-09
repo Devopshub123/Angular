@@ -137,7 +137,7 @@ export class RolesPermissionsComponent implements OnInit {
           this.roles[count].key = this.screenMaster[i].name;
           this.screensIndex[this.screenMaster[i].name] = count;
           this.roles[count].countIndex = count
-          this.roles[count].value = [{permissions: [{label: 'Add'}, {label: 'Edit'}, {label: 'View'}, {label: 'Cancel'}, {label: 'Delete'}, {label: 'Approvals'}]}];
+          this.roles[count].value = [{permissions: [{label: 'Add'}, {label: 'Edit'}, {label: 'View'}, {label: 'Cancel'}, {label: 'Delete'}, {label: 'Approval'}]}];
           this.roles[count].value[0].screenname = this.screenMaster[i].name;
           this.roles[count].value[0].screenid = this.screenMaster[i].id;
           count++;
@@ -166,7 +166,7 @@ export class RolesPermissionsComponent implements OnInit {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].id = json[q].functionalityid;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].name = json[q].functionalityname;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = true;
-                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "View" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Edit" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approvals") {
+                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "View" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Edit" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approval") {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = 'NA';
                 }
               }
@@ -182,7 +182,7 @@ export class RolesPermissionsComponent implements OnInit {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].id = json[q].functionalityid;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].name = json[q].functionalityname;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = true;
-                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Add" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Edit" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approvals") {
+                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Add" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Edit" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approval") {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = 'NA';
                 }
               }
@@ -198,7 +198,7 @@ export class RolesPermissionsComponent implements OnInit {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].id = json[q].functionalityid;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].name = json[q].functionalityname;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = true;
-                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Add" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Edit" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approvals") {
+                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Add" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Edit" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approval") {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = 'NA';
                 }
               }
@@ -214,7 +214,7 @@ export class RolesPermissionsComponent implements OnInit {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].id = json[q].functionalityid;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].name = json[q].functionalityname;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = true;
-                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approvals") {
+                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approval") {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = 'NA';
                 }
               }
@@ -230,7 +230,7 @@ export class RolesPermissionsComponent implements OnInit {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].id = json[q].functionalityid;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].name = json[q].functionalityname;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = true;
-                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approvals") {
+                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approval") {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = 'NA';
                 }
               }
@@ -243,7 +243,7 @@ export class RolesPermissionsComponent implements OnInit {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].id = json[q].functionalityid;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].name = json[q].functionalityname;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = true;
-                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "View" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approvals") {
+                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "View" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approval") {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = 'NA';
                 }
               }
@@ -257,7 +257,7 @@ export class RolesPermissionsComponent implements OnInit {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].id = json[q].functionalityid;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].name = json[q].functionalityname;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = true;
-                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approvals") {
+                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approval") {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = 'NA';
                 }
               }
@@ -270,7 +270,7 @@ export class RolesPermissionsComponent implements OnInit {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].id = json[q].functionalityid;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].name = json[q].functionalityname;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = true;
-                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approvals") {
+                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approval") {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = 'NA';
                 }
               }
@@ -283,7 +283,7 @@ export class RolesPermissionsComponent implements OnInit {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].id = json[q].functionalityid;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].name = json[q].functionalityname;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = true;
-                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "View" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approvals") {
+                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "View" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approval") {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = 'NA';
                 }
               }
@@ -297,7 +297,7 @@ export class RolesPermissionsComponent implements OnInit {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].id = json[q].functionalityid;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].name = json[q].functionalityname;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = true;
-                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Add" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Edit" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approvals") {
+                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Add" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Edit" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approval") {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = 'NA';
                 }
               }
@@ -313,7 +313,7 @@ export class RolesPermissionsComponent implements OnInit {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].id = json[q].functionalityid;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].name = json[q].functionalityname;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = true;
-                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "View" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Edit" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approvals") {
+                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "View" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Edit" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approval") {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = 'NA';
                 }
               }
@@ -345,7 +345,7 @@ export class RolesPermissionsComponent implements OnInit {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].id = json[q].functionalityid;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].name = json[q].functionalityname;
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = true;
-                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approvals") {
+                } else if (this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Cancel" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Delete" || this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].label == "Approval") {
                   this.roles[this.screensIndex[this.screenRoles.data[i].screen_name]].value[0].permissions[p].status = 'NA';
                 }
               }
@@ -367,60 +367,60 @@ export class RolesPermissionsComponent implements OnInit {
         if (!this.screensNames.includes(this.roles[key1].value[0].screenname)) {
           if (this.roles[key1].value[0].screenname == 'Department') {
             for (var p = 0; p < this.roles[key1].value[0].permissions.length; p++) {
-              if (this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approvals") {
+              if (this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approval") {
                 this.roles[key1].value[0].permissions[p].status = 'NA';
               }
             }
           } else if (this.roles[key1].value[0].screenname == 'Attendance Request') {
             for (var p = 0; p < this.roles[key1].value[0].permissions.length; p++) {
-              if (this.roles[key1].value[0].permissions[p].label == "Edit" || this.roles[key1].value[0].permissions[p].label == "View" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approvals") {
+              if (this.roles[key1].value[0].permissions[p].label == "Edit" || this.roles[key1].value[0].permissions[p].label == "View" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approval") {
                 this.roles[key1].value[0].permissions[p].status = 'NA';
               }
             }
           } else if (this.roles[key1].value[0].screenname == 'Designation') {
             for (var p = 0; p < this.roles[key1].value[0].permissions.length; p++) {
-              if (this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approvals") {
+              if (this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approval") {
                 this.roles[key1].value[0].permissions[p].status = 'NA';
               }
             }
           } else if (this.roles[key1].value[0].screenname == 'Company Logo') {
             for (var p = 0; p < this.roles[key1].value[0].permissions.length; p++) {
-              if (this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Approvals") {
+              if (this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Approval") {
                 this.roles[key1].value[0].permissions[p].status = 'NA';
               }
 
             }
           } else if (this.roles[key1].value[0].screenname == 'Company Information') {
             for (var p = 0; p < this.roles[key1].value[0].permissions.length; p++) {
-              if (this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approvals") {
+              if (this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approval") {
                 this.roles[key1].value[0].permissions[p].status = 'NA';
               }
 
             }
           } else if (this.roles[key1].value[0].screenname == 'Employee Master') {
             for (var p = 0; p < this.roles[key1].value[0].permissions.length; p++) {
-              if (this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approvals") {
+              if (this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approval") {
                 this.roles[key1].value[0].permissions[p].status = 'NA';
               }
 
             }
           } else if (this.roles[key1].value[0].screenname == 'Roles & Permissions') {
             for (var p = 0; p < this.roles[key1].value[0].permissions.length; p++) {
-              if (this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "View" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Approvals") {
+              if (this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "View" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Approval") {
                 this.roles[key1].value[0].permissions[p].status = 'NA';
               }
 
             }
           } else if (this.roles[key1].value[0].screenname == 'EmployeeDashBoard') {
             for (var p = 0; p < this.roles[key1].value[0].permissions.length; p++) {
-              if (this.roles[key1].value[0].permissions[p].label == "Edit" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Add" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Approvals") {
+              if (this.roles[key1].value[0].permissions[p].label == "Edit" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Add" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Approval") {
                 this.roles[key1].value[0].permissions[p].status = 'NA';
               }
 
             }
           } else if (this.roles[key1].value[0].screenname == 'Excel Upload') {
             for (var p = 0; p < this.roles[key1].value[0].permissions.length; p++) {
-              if (this.roles[key1].value[0].permissions[p].label == "Edit" || this.roles[key1].value[0].permissions[p].label == "View" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approvals") {
+              if (this.roles[key1].value[0].permissions[p].label == "Edit" || this.roles[key1].value[0].permissions[p].label == "View" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approval") {
                 this.roles[key1].value[0].permissions[p].status = 'NA';
               }
             }
@@ -432,19 +432,19 @@ export class RolesPermissionsComponent implements OnInit {
             }
           } else if (this.roles[key1].value[0].screenname == 'Request on Behalf of Employee') {
             for (var p = 0; p < this.roles[key1].value[0].permissions.length; p++) {
-              if (this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approvals") {
+              if (this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approval") {
                 this.roles[key1].value[0].permissions[p].status = 'NA';
               }
             }
           } else if (this.roles[key1].value[0].screenname == 'Summary Report') {
             for (var p = 0; p < this.roles[key1].value[0].permissions.length; p++) {
-              if (this.roles[key1].value[0].permissions[p].label == "Edit" || this.roles[key1].value[0].permissions[p].label == "Add" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approvals") {
+              if (this.roles[key1].value[0].permissions[p].label == "Edit" || this.roles[key1].value[0].permissions[p].label == "Add" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approval") {
                 this.roles[key1].value[0].permissions[p].status = 'NA';
               }
             }
           } else if (this.roles[key1].value[0].screenname == 'Detailed Report') {
             for (var p = 0; p < this.roles[key1].value[0].permissions.length; p++) {
-              if (this.roles[key1].value[0].permissions[p].label == "Edit" || this.roles[key1].value[0].permissions[p].label == "Add" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approvals") {
+              if (this.roles[key1].value[0].permissions[p].label == "Edit" || this.roles[key1].value[0].permissions[p].label == "Add" || this.roles[key1].value[0].permissions[p].label == "Cancel" || this.roles[key1].value[0].permissions[p].label == "Delete" || this.roles[key1].value[0].permissions[p].label == "Approval") {
                 this.roles[key1].value[0].permissions[p].status = 'NA';
               }
             }
@@ -592,7 +592,7 @@ export class RolesPermissionsComponent implements OnInit {
       this.roles[name][count].key = this.screenWithFunctionalities[name][i].screenname;
       this.screensIndex[name][this.screenWithFunctionalities[name][i].screenname] = count;
       this.roles[name][count].countIndex = count
-      this.roles[name][count].value = [{permissions: [{label: 'Add'}, {label: 'Edit'}, {label: 'View'}, {label: 'Cancel'}, {label: 'Delete'}, {label: 'Approvals'}]}];
+      this.roles[name][count].value = [{permissions: [{label: 'Add'}, {label: 'Edit'}, {label: 'View'}, {label: 'Cancel'}, {label: 'Delete'}, {label: 'Approval'}]}];
       this.roles[name][count].value[0].screenname = this.screenWithFunctionalities[name][i].screenname;
       this.roles[name][count].value[0].screenid = this.screenWithFunctionalities[name][i].screenid;
       /* this.roles[name][count].defaultPermissions = this.getDefaultPermissions(this.screenWithFunctionalities[name][i].screenname)*/
