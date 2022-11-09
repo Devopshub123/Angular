@@ -88,19 +88,20 @@ export class NewhireComponent implements OnInit {
   }
 
   submit() {
-    if (this.newHiredList != undefined) {
-      const email = this.newHiredList.find((value: any) => value.personal_email.trim().toLowerCase() == this.hireForm.controls.email.value.trim().toLowerCase());
-      if (email != undefined) {
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          disableClose: true,
-          data: "Email is already exist"
-        });
-      } else {
-        this.saveNewHireData()
-      }
-    } else {
-      this.saveNewHireData()
-    }
+    // if (this.newHiredList != undefined) {
+    //   const email = this.newHiredList.find((value: any) => value.personal_email.trim().toLowerCase() == this.hireForm.controls.email.value.trim().toLowerCase());
+    //   if (email != undefined) {
+    //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
+    //       disableClose: true,
+    //       data: "Email is already exist"
+    //     });
+    //   } else {
+    //     this.saveNewHireData()
+    //   }
+    // } else {
+    //   this.saveNewHireData()
+    // }
+    this.saveNewHireData()
   }
   saveNewHireData() {
     if (this.hireForm.valid) {
@@ -121,18 +122,25 @@ export class NewhireComponent implements OnInit {
 
       this.emsService.saveNewHireData(data).subscribe((res: any) => {
         if (res.status) {
-       this.spinner.hide();
-           
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data:this.EM55
-          });
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["/ems/new-hired-list"]));
-
+          if (res.data.email == null) { 
+            this.spinner.hide();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data:this.EM55
+            });
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/ems/new-hired-list"]));
+          } else {
+            this.spinner.hide();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+             data:  res.data.email
+            });
+          }
         } else {
-       this.spinner.hide();
+          this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
