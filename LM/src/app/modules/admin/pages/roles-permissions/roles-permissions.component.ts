@@ -8,6 +8,7 @@ import {ReusableDialogComponent} from 'src/app/pages/reusable-dialog/reusable-di
 import {MainService} from 'src/app/services/main.service';
 import {AdminService} from '../../admin.service';
 import {Observable} from "rxjs";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-roles-permissions',
@@ -19,7 +20,7 @@ export class RolesPermissionsComponent implements OnInit {
   data: any;
   module: any;
 
-  constructor(private mainService: MainService,
+  constructor(private mainService: MainService,private router:Router,
               private adminService: AdminService, private CS: CompanySettingService,
               private RM: RoleMasterService, public dialog: MatDialog) {
     this.data = sessionStorage.getItem('user')
@@ -535,7 +536,8 @@ export class RolesPermissionsComponent implements OnInit {
           data: this.msgLM94
         });
       }
-
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate(["/Admin/RolesPermissions"]));
     });
   }
 

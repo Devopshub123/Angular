@@ -13,14 +13,14 @@
                  </span>
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-  
+
                 <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                   <mat-label>Department</mat-label>
                   <input formControlName="department"  matInput readonly required>
                 </mat-form-field>
                 <mat-icon style="padding-top: 25px;" title="Add" fxLayoutAlign="end"  (click)="addtext()" >add</mat-icon>
-               
-                
+
+
               </div>
               <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                 <div formArrayName="text">
@@ -29,17 +29,17 @@
                             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Text Input</mat-label>
                                 <input type="text" formControlName="textinput"  matInput placeholder="">
-                                
+
                                </mat-form-field>
                                <mat-icon style="padding-top: 25px;" title="Delete" (click)="removetext(empIndex)">delete</mat-icon>
                                <!-- <mat-icon style="padding-top: 25px;" title="Add" fxLayoutAlign="end"  (click)="addtext()" >add</mat-icon> -->
                         </div>
                     </div>
-                </div>       
-                
+                </div>
+
           </div>
 
-              
+
               <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
                 <button class="col-md-2 mr-2 btn btn-primary" >Submit</button>
                 <button class="col-md-2  btn btn-danger" (click)="close()" >Cancel</button>
@@ -49,7 +49,7 @@
           <div fxLayout="column" *ngIf="isview">
             <br>
             <div fxLayout="row" fxLayoutAlign="end">
-                <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue" (click)="Add()" type="submit">
+                <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue" (click)="Add()" type="button">
                     <span>Add</span>
                 </button>
             </div><br>
@@ -59,8 +59,8 @@
                     <ng-container matColumnDef="sno">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header > S.No </th>
                         <td mat-cell *matCellDef="let row;let i=index" >
-                            <span>{{(i+1)}}</span> 
-                            
+                            <span>{{(i+1)}}</span>
+
 
                         </td>
                     </ng-container>
@@ -71,8 +71,8 @@
 
                         </td>
                     </ng-container>
-                  
-                    
+
+
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header >  </th>
                         <td mat-cell *matCellDef="let row" >
@@ -90,8 +90,8 @@
         </div>
 
         </div>
-          
+
 
         </mat-card>
-    </form>    
+    </form>
 </div>
