@@ -592,7 +592,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
           this.personalInfoForm.reset();
           this.toSelectTab = 1;
           this.getCandidateData();
-          this.selectedtab.setValue(this.toSelectTab);
+          //this.selectedtab.setValue(this.toSelectTab);
           } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },

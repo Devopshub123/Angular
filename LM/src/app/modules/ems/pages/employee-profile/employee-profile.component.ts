@@ -11,16 +11,16 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { EmployeeMasterService } from 'src/app/services/employee-master-service';
 import { EmsService } from '../../ems.service';
-import {MainService} from '../../../../services/main.service'
-import {ComfirmationDialogComponent} from '../../../../pages/comfirmation-dialog/comfirmation-dialog.component'
-import {NgxSpinnerService} from "ngx-spinner";
+import { MainService } from '../../../../services/main.service'
+import { ComfirmationDialogComponent } from '../../../../pages/comfirmation-dialog/comfirmation-dialog.component'
+import { NgxSpinnerService } from "ngx-spinner";
 import { ThemeService } from 'ng2-charts';
-import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import * as _moment from 'moment';
 import { LeavesService } from 'src/app/modules/leaves/leaves.service';
 import { environment } from 'src/environments/environment';
-const moment =  _moment;
+const moment = _moment;
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
@@ -38,17 +38,17 @@ export const MY_FORMATS = {
   templateUrl: './employee-profile.component.html',
   styleUrls: ['./employee-profile.component.scss'],
   providers: [
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
 export class EmployeeProfileComponent implements OnInit {
   minExperienceDate: any;
   minEducationDate: any;
-  companyDBName:any = environment.dbName;
+  companyDBName: any = environment.dbName;
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
-    private dialog: MatDialog, private mainService:MainService,private spinner:NgxSpinnerService, private router: Router, private activeroute: ActivatedRoute,
-    private adminService: AdminService, private emsService: EmsService,private LM: LeavesService,
+    private dialog: MatDialog, private mainService: MainService, private spinner: NgxSpinnerService, private router: Router, private activeroute: ActivatedRoute,
+    private adminService: AdminService, private emsService: EmsService, private LM: LeavesService,
   ) { this.formData = new FormData(); }
   personalInfoForm!: FormGroup;
   candidateFamilyForm: any = FormGroup;
@@ -57,16 +57,16 @@ export class EmployeeProfileComponent implements OnInit {
   employementForm!: FormGroup;
   experienceForm: any = FormGroup;
   educationForm: any = FormGroup;
-  documentsForm:any= FormGroup;
-  documentTypeList: any =[];
-  isedit:boolean=false;
+  documentsForm: any = FormGroup;
+  documentTypeList: any = [];
+  isedit: boolean = false;
 
   displayedColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
   familyTableColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
-  documentTableColumns = ['position','category','number','status','name','action'];
+  documentTableColumns = ['position', 'category', 'number', 'status', 'name', 'action'];
 
   promotionsTableColumns = ['sno', 'salary', 'fromDate'];
-  workTableColumns = ['sno', 'company','desig', 'fromDate', 'toDate', 'action'];
+  workTableColumns = ['sno', 'company', 'desig', 'fromDate', 'toDate', 'action'];
   educationTableColumns = ['sno', 'course', 'college', 'fromDate', 'toDate', 'action'];
   familyDataSource: MatTableDataSource<any> = <any>[];
   promotionsDataSource: MatTableDataSource<any> = <any>[];
@@ -141,51 +141,51 @@ export class EmployeeProfileComponent implements OnInit {
   employeeMobile: any;
   statusList: any;
   promotionsList: any = [];
-  empId:any;
-  editFileName:any;
-  editDockinfo:any;
-  EM1:any;
-  EM2:any;
-  EM11:any
-  EM12:any;
-  EM13:any;
-  EM14:any;
-  EM15:any;
-  EM16:any;
-  EM17:any;
-  EM18:any;
-  EM19:any;
-  EM20:any;
-  EM21:any;
+  empId: any;
+  editFileName: any;
+  editDockinfo: any;
+  EM1: any;
+  EM2: any;
+  EM11: any
+  EM12: any;
+  EM13: any;
+  EM14: any;
+  EM15: any;
+  EM16: any;
+  EM17: any;
+  EM18: any;
+  EM19: any;
+  EM20: any;
+  EM21: any;
   EM22: any;
   EM61: any;
   EM42: any;
   EM43: any;
-  fileURL:any;
-  file:any;
-  documentDetails:any=[];
+  fileURL: any;
+  file: any;
+  documentDetails: any = [];
   familyindex: any;
   educationIndex: any;
   experienceIndex: any;
   isExperienceEdit: boolean = false;
   isEducationEdit: boolean = false;
 
-  profileId:any=null;
-  profileInfo:any=null;
+  profileId: any = null;
+  profileInfo: any = null;
   imageurls = [{
     base64String: "assets/img/profile.jpg"
   }];
   base64String: any;
   name: any;
   imagePath: any;
-  isFileImage:boolean=false;
-  progressInfos:any=[];
-  selectedFiles:any;
-  previews:any=[];
-  isRemoveImage:boolean=true;
+  isFileImage: boolean = false;
+  progressInfos: any = [];
+  selectedFiles: any;
+  previews: any = [];
+  isRemoveImage: boolean = true;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    this.empId=this.userSession.id
+    this.empId = this.userSession.id
     this.getDocumentsEMS();
     this.getFilecategoryMasterForEMS();
     this.createPersonalInfoForm();
@@ -307,7 +307,7 @@ export class EmployeeProfileComponent implements OnInit {
         this.availablereportingmanagers = data[0]
       })
     })
-  /** through employee directory */
+    /** through employee directory */
     if (this.activeroute.snapshot.params.empId != 0 && this.activeroute.snapshot.params.empId != null) {
       this.employeeId = this.activeroute.snapshot.params.empId
       this.getEmployeeInformationList();
@@ -338,12 +338,12 @@ export class EmployeeProfileComponent implements OnInit {
       if (a.country == a.pcountry && a.state == a.pstate && a.city == a.pcity && a.address == a.paddress && a.pincode == a.ppincode) {
         this.personalInfoForm.controls.checked.setValue(true)
       }
-      this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.middlename +' '+ this.employeeInformationData.lastname;
+      this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.middlename + ' ' + this.employeeInformationData.lastname;
       this.employeeCode = this.employeeInformationData.empid;
-      this.availableDesignations.forEach((e:any)=> {
-        if (e.id ==  this.employeeInformationData.designation) {
+      this.availableDesignations.forEach((e: any) => {
+        if (e.id == this.employeeInformationData.designation) {
           this.employeeDesignation = e.designation;
-       }
+        }
       });
       this.employeeJoinDate = this.employeeInformationData.dateofjoin;
       this.employeeMobile = this.employeeInformationData.contactnumber;
@@ -358,7 +358,7 @@ export class EmployeeProfileComponent implements OnInit {
       this.personalInfoForm.controls.maritalstatus.setValue(this.employeeInformationData.maritalstatus);
       if (this.employeeInformationData.aadharnumber != 'null' || this.employeeInformationData.aadharnumber != null || this.employeeInformationData.aadharnumber != "null") {
         this.personalInfoForm.controls.aadharNumber.setValue(this.employeeInformationData.aadharnumber);
-        }
+      }
       this.personalInfoForm.controls.raddress.setValue(this.employeeInformationData.address);
       this.personalInfoForm.controls.rcountry.setValue(this.employeeInformationData.country);
       this.personalInfoForm.controls.rstate.setValue(this.employeeInformationData.state);
@@ -367,16 +367,16 @@ export class EmployeeProfileComponent implements OnInit {
 
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
 
-        this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken=='null' || null?'':this.employeeInformationData.languages_spoken);
-      
-      this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress);
+      this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken == 'null' || null ? '' : this.employeeInformationData.languages_spoken);
+
+      this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress == 'null' || null ?'':this.employeeInformationData.paddress);
       this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
       this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
       this.personalInfoForm.controls.ppincode.setValue(this.employeeInformationData.ppincode);
       this.personalInfoForm.controls.mobileNo.setValue(this.employeeInformationData.contactnumber);
-      if(this.employeeInformationData.emergencycontactnumber !='null')
-      this.personalInfoForm.controls.alternateMobileNo.setValue(this.employeeInformationData.emergencycontactnumber);
+      if (this.employeeInformationData.emergencycontactnumber != 'null')
+        this.personalInfoForm.controls.alternateMobileNo.setValue(this.employeeInformationData.emergencycontactnumber);
       this.personalInfoForm.controls.hireDate.setValue(new Date(this.employeeInformationData.hired_date));
       // /**work information */
       this.personalInfoForm.controls.empid.setValue(this.employeeInformationData.empid);
@@ -431,22 +431,22 @@ export class EmployeeProfileComponent implements OnInit {
 
     })
   }
-/** through employee directory login data  */
+  /** through employee directory login data  */
   getEmployeeJobList() {
     this.employeeJobData = [];
     this.promotionsList = [];
     this.emsService.getEmployeeJobData(this.employeeId).subscribe((res: any) => {
       this.employeeJobData = JSON.parse(res.data[0].json)[0];
-      if(this.employeeJobData.contractname != 'null')
-      this.employeeJobForm.controls.contractName.setValue(this.employeeJobData.contractname);
-      if(this.employeeJobData.fileid != 'null')
+      if (this.employeeJobData.contractname != 'null')
+        this.employeeJobForm.controls.contractName.setValue(this.employeeJobData.contractname);
+      if (this.employeeJobData.fileid != 'null')
         this.employeeJobForm.controls.contractFile.setValue(this.employeeJobData.fileid);
-        if(this.employeeJobData.notes != 'null')
-      this.employeeJobForm.controls.contractNotes.setValue(this.employeeJobData.notes);
-      if (this.employeeJobData.startdate !=null) {
+      if (this.employeeJobData.notes != 'null')
+        this.employeeJobForm.controls.contractNotes.setValue(this.employeeJobData.notes);
+      if (this.employeeJobData.startdate != null) {
         this.employeeJobForm.controls.contractStartDate.setValue(new Date(this.employeeJobData.startdate));
       }
-      if (this.employeeJobData.enddate !=null) {
+      if (this.employeeJobData.enddate != null) {
         this.employeeJobForm.controls.contractEndDate.setValue(new Date(this.employeeJobData.enddate));
       }
       if (this.employeeJobData.promotions != null) {
@@ -473,18 +473,18 @@ export class EmployeeProfileComponent implements OnInit {
       this.employeeEmployementData = JSON.parse(res.data[0].json)[0];
       if (this.employeeEmployementData.bankname != 'null')
         this.employementForm.controls.bankName.setValue(this.employeeEmployementData.bankname);
-        if (this.employeeEmployementData.nameasperbankaccount != 'null')
-      this.employementForm.controls.bankAccountName.setValue(this.employeeEmployementData.nameasperbankaccount);
+      if (this.employeeEmployementData.nameasperbankaccount != 'null')
+        this.employementForm.controls.bankAccountName.setValue(this.employeeEmployementData.nameasperbankaccount);
       if (this.employeeEmployementData.bankaccountnumber != 'null')
-      this.employementForm.controls.bankAccountNumber.setValue(this.employeeEmployementData.bankaccountnumber);
+        this.employementForm.controls.bankAccountNumber.setValue(this.employeeEmployementData.bankaccountnumber);
       if (this.employeeEmployementData.ifsccode != 'null')
-      this.employementForm.controls.ifscCode.setValue(this.employeeEmployementData.ifsccode);
+        this.employementForm.controls.ifscCode.setValue(this.employeeEmployementData.ifsccode);
       if (this.employeeEmployementData.branchname != 'null')
-      this.employementForm.controls.branchName.setValue(this.employeeEmployementData.branchname);
+        this.employementForm.controls.branchName.setValue(this.employeeEmployementData.branchname);
       if (this.employeeEmployementData.uanumber != 'null')
-      this.employementForm.controls.uanNumber.setValue(this.employeeEmployementData.uanumber);
+        this.employementForm.controls.uanNumber.setValue(this.employeeEmployementData.uanumber);
       if (this.employeeEmployementData.pan != 'null')
-      this.employementForm.controls.panNumber.setValue(this.employeeEmployementData.pan);
+        this.employementForm.controls.panNumber.setValue(this.employeeEmployementData.pan);
 
       if (this.employeeEmployementData.experience != null) {
         let employementdata = JSON.parse((this.employeeEmployementData.experience))
@@ -654,8 +654,8 @@ export class EmployeeProfileComponent implements OnInit {
     this.documentsForm = this.formBuilder.group(
       {
         documentId: [""],
-        documentName: ["",Validators.required],
-        documentNumber: ["",Validators.required],
+        documentName: ["", Validators.required],
+        documentNumber: ["", Validators.required],
         attachedFile: [""],
 
       });
@@ -728,87 +728,87 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   savePersonalInfo() {
-     if(this.personalInfoForm.valid){
-    let data = {
-      condidateid:this.loginCandidateId,
-      empid: this.employeeCode != undefined || this.employeeCode != null ? this.employeeCode: null,
-      firstname: this.personalInfoForm.controls.firstname.value,
-      middlename: this.personalInfoForm.controls.middlename.value,
-      lastname: this.personalInfoForm.controls.lastname.value,
-      dateofbirth: this.pipe.transform(this.personalInfoForm.controls.dateofbirth.value, 'yyyy-MM-dd hh:mm:ss'),
-      bloodgroup: parseInt(this.personalInfoForm.controls.bloodgroup.value),
-      gender: parseInt(this.personalInfoForm.controls.gender.value),
-      maritalstatus: parseInt(this.personalInfoForm.controls.maritalstatus.value),
-      aadharnumber: this.personalInfoForm.controls.aadharNumber.value,
-      address: this.personalInfoForm.controls.raddress.value,
-      city: parseInt(this.personalInfoForm.controls.rcity.value),
-      state: parseInt(this.personalInfoForm.controls.rstate.value),
-      pincode: this.personalInfoForm.controls.rpincode.value,
-      country: parseInt(this.personalInfoForm.controls.rcountry.value),
-      paddress: this.personalInfoForm.controls.paddress.value,
-      pcity: parseInt(this.personalInfoForm.controls.pcity.value),
-      pstate: parseInt(this.personalInfoForm.controls.pstate.value),
-      ppincode: this.personalInfoForm.controls.ppincode.value,
-      pcountry: parseInt(this.personalInfoForm.controls.pcountry.value),
-      passport: null,
-      personalemail: this.personalInfoForm.controls.personalemail.value,
-      languages_spoken: this.personalInfoForm.controls.spokenLanguages.value,
-      contactnumber: this.personalInfoForm.controls.mobileNo.value,
-      hiredon: this.pipe.transform(this.personalInfoForm.controls.hireDate.value, 'yyyy-MM-dd hh:mm:ss'),
-      dateofjoin: this.pipe.transform(this.employeeJoinDate, 'yyyy-MM-dd hh:mm:ss'),
-      noticeperiod: parseInt(this.personalInfoForm.controls.noticePeriod.value),
-      //noticeperiod: 0,
-      designation: parseInt(this.designationId),
-      emergencycontactnumber: this.personalInfoForm.controls.alternateMobileNo.value,
-      emergencycontactrelation: null,
-      emergencycontactname: null,
-      relations: this.familyDetails,
-      education: this.educationDetails.length > 0 ? this.educationDetails: null,
-      experience: this.workExperienceDetails.length > 0 ? this.workExperienceDetails: null,
-      status: 1,
-      actionby: parseInt(this.userSession.id),
-      ///////
-      officeemail: this.personalInfoForm.controls.officeemail.value,
-      usertype: this.personalInfoForm.controls.usertype.value,
-      department: this.personalInfoForm.controls.department.value,
-      employmenttype: this.personalInfoForm.controls.employmentType.value,
-      companylocation: this.personalInfoForm.controls.companylocation.value,
-      reportingmanager:this.personalInfoForm.controls.reportingmanager.value,
-    }
+    if (this.personalInfoForm.valid) {
+      let data = {
+        condidateid: this.loginCandidateId,
+        empid: this.employeeCode != undefined || this.employeeCode != null ? this.employeeCode : null,
+        firstname: this.personalInfoForm.controls.firstname.value,
+        middlename: this.personalInfoForm.controls.middlename.value,
+        lastname: this.personalInfoForm.controls.lastname.value,
+        dateofbirth: this.pipe.transform(this.personalInfoForm.controls.dateofbirth.value, 'yyyy-MM-dd hh:mm:ss'),
+        bloodgroup: parseInt(this.personalInfoForm.controls.bloodgroup.value),
+        gender: parseInt(this.personalInfoForm.controls.gender.value),
+        maritalstatus: parseInt(this.personalInfoForm.controls.maritalstatus.value),
+        aadharnumber: this.personalInfoForm.controls.aadharNumber.value,
+        address: this.personalInfoForm.controls.raddress.value,
+        city: parseInt(this.personalInfoForm.controls.rcity.value),
+        state: parseInt(this.personalInfoForm.controls.rstate.value),
+        pincode: this.personalInfoForm.controls.rpincode.value,
+        country: parseInt(this.personalInfoForm.controls.rcountry.value),
+        paddress: this.personalInfoForm.controls.paddress.value,
+        pcity: parseInt(this.personalInfoForm.controls.pcity.value),
+        pstate: parseInt(this.personalInfoForm.controls.pstate.value),
+        ppincode: this.personalInfoForm.controls.ppincode.value,
+        pcountry: parseInt(this.personalInfoForm.controls.pcountry.value),
+        passport: null,
+        personalemail: this.personalInfoForm.controls.personalemail.value,
+        languages_spoken: this.personalInfoForm.controls.spokenLanguages.value,
+        contactnumber: this.personalInfoForm.controls.mobileNo.value,
+        hiredon: this.pipe.transform(this.personalInfoForm.controls.hireDate.value, 'yyyy-MM-dd hh:mm:ss'),
+        dateofjoin: this.pipe.transform(this.employeeJoinDate, 'yyyy-MM-dd hh:mm:ss'),
+        noticeperiod: parseInt(this.personalInfoForm.controls.noticePeriod.value),
+        //noticeperiod: 0,
+        designation: parseInt(this.designationId),
+        emergencycontactnumber: this.personalInfoForm.controls.alternateMobileNo.value,
+        emergencycontactrelation: null,
+        emergencycontactname: null,
+        relations: this.familyDetails,
+        education: this.educationDetails.length > 0 ? this.educationDetails : null,
+        experience: this.workExperienceDetails.length > 0 ? this.workExperienceDetails : null,
+        status: 1,
+        actionby: parseInt(this.userSession.id),
+        ///////
+        officeemail: this.personalInfoForm.controls.officeemail.value,
+        usertype: this.personalInfoForm.controls.usertype.value,
+        department: this.personalInfoForm.controls.department.value,
+        employmenttype: this.personalInfoForm.controls.employmentType.value,
+        companylocation: this.personalInfoForm.controls.companylocation.value,
+        reportingmanager: this.personalInfoForm.controls.reportingmanager.value,
+      }
 
-    this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
-      if (res.status) {
-        if (res.data.email == null) {
-          this.employeeId = res.data.empid;
-          this.getEmployeeInformationList();
-          this.getEmployeeJobList();
-          this.getEmployeeEmploymentList();
-          this.getEmployeeEducationList();
+      this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
+        if (res.status) {
+          if (res.data.email == null) {
+            this.employeeId = res.data.empid;
+            this.getEmployeeInformationList();
+            this.getEmployeeJobList();
+            this.getEmployeeEmploymentList();
+            this.getEmployeeEducationList();
+            this.spinner.hide();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.EM42
+            });
+            this.selectedtab.setValue(1);
+          } else {
+            this.spinner.hide();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: res.data.email
+            });
+          }
+        } else {
           this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.EM42
+            data: this.EM43
           });
-          this.selectedtab.setValue(1);
-        } else {
-          this.spinner.hide();
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
-          data: res.data.email
-        });
         }
-      } else {
-        this.spinner.hide();
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
-          data: this.EM43
-        });
-      }
-    });
-  }
+      });
+    }
   }
 
   addingFamilyView() {
@@ -823,7 +823,7 @@ export class EmployeeProfileComponent implements OnInit {
       //this.familyDetails[this.familyindex].lastname = this.candidateFamilyForm.controls.familylastname.value;
       this.familyDetails[this.familyindex].gender = this.candidateFamilyForm.controls.familygender.value.id;
       this.familyDetails[this.familyindex].gendername = this.candidateFamilyForm.controls.familygender.value.gender;
-     this.familyDetails[this.familyindex].contactnumber = this.candidateFamilyForm.controls.familycontact.value;
+      this.familyDetails[this.familyindex].contactnumber = this.candidateFamilyForm.controls.familycontact.value;
       this.familyDetails[this.familyindex].status = this.candidateFamilyForm.controls.familystatus.value;
       this.familyDetails[this.familyindex].relationship = this.candidateFamilyForm.controls.relation.value.id;
       this.familyDetails[this.familyindex].relationshipname = this.candidateFamilyForm.controls.relation.value.relationship;
@@ -873,7 +873,7 @@ export class EmployeeProfileComponent implements OnInit {
 
     this.candidateFamilyForm.get("familygender").setValidators(Validators.required);
     this.candidateFamilyForm.get("familygender").updateValueAndValidity();
-}
+  }
   clearfamily() {
     //this.createFamilyForm();
     this.candidateFamilyForm.controls.familyfirstname.reset();
@@ -892,15 +892,15 @@ export class EmployeeProfileComponent implements OnInit {
     //this.candidateFamilyForm.controls.familylastname.setValue(this.familyDetails[i].lastname);
     //this.candidateFamilyForm.controls.familydateofbirth.setValue(new Date(this.familyDetails[i].dateofbirth));
     this.candidateFamilyForm.controls.familystatus.setValue(this.familyDetails[i].status);
-    if(this.familyDetails[i].contactnumber !='null')
-     this.candidateFamilyForm.controls.familycontact.setValue(this.familyDetails[i].contactnumber);
-    this.employeeRelationship.forEach((e:any)=>{
-      if(e.id==this.familyDetails[i].relationship){
+    if (this.familyDetails[i].contactnumber != 'null')
+      this.candidateFamilyForm.controls.familycontact.setValue(this.familyDetails[i].contactnumber);
+    this.employeeRelationship.forEach((e: any) => {
+      if (e.id == this.familyDetails[i].relationship) {
         this.candidateFamilyForm.controls.relation.setValue(e);
       }
     })
-    this.genderDetails.forEach((e:any)=>{
-      if(e.id==this.familyDetails[i].gender){
+    this.genderDetails.forEach((e: any) => {
+      if (e.id == this.familyDetails[i].gender) {
         this.candidateFamilyForm.controls.familygender.setValue(e);
       }
     })
@@ -951,7 +951,7 @@ export class EmployeeProfileComponent implements OnInit {
   }
   //** */
   saveJobDetails() {
-    
+
     let data = {
       empid: this.employeeCode,
       contractname: this.employeeJobForm.controls.contractName.value,
@@ -987,26 +987,28 @@ export class EmployeeProfileComponent implements OnInit {
     if (this.isExperienceEdit) {
       this.isExperienceEdit = false;
       this.workExperienceDetails[this.experienceIndex].companyname = this.experienceForm.controls.companyName.value;
-      this.workExperienceDetails[this.experienceIndex].designation =  this.experienceForm.controls.designation.value;
-      this.workExperienceDetails[this.experienceIndex].skills =  this.experienceForm.controls.jobDescription.value;
+      this.workExperienceDetails[this.experienceIndex].designation = this.experienceForm.controls.designation.value;
+      this.workExperienceDetails[this.experienceIndex].skills = this.experienceForm.controls.jobDescription.value;
       this.workExperienceDetails[this.experienceIndex].fromdate = this.pipe.transform(this.experienceForm.controls.expFromDate.value, 'yyyy-MM-dd'),
-      this.workExperienceDetails[this.experienceIndex].todate =this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
-      this.clearExperienceValidators();
-        this.clearWorkExperience();
-    } else {
-    if (this.experienceForm.valid) {
-      this.workExperienceDetails.push({
-        companyname: this.experienceForm.controls.companyName.value,
-        fromdate: this.pipe.transform(this.experienceForm.controls.expFromDate.value, 'yyyy-MM-dd'),
-        todate: this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
-        skills: this.experienceForm.controls.jobDescription.value,
-        designation: this.experienceForm.controls.designation.value,
-      });
-      this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
+        this.workExperienceDetails[this.experienceIndex].todate = this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
+        this.saveWorkExperience();
       this.clearExperienceValidators();
       this.clearWorkExperience();
-    } else { }
-  }
+    } else {
+      if (this.experienceForm.valid) {
+        this.workExperienceDetails.push({
+          companyname: this.experienceForm.controls.companyName.value,
+          fromdate: this.pipe.transform(this.experienceForm.controls.expFromDate.value, 'yyyy-MM-dd'),
+          todate: this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
+          skills: this.experienceForm.controls.jobDescription.value,
+          designation: this.experienceForm.controls.designation.value,
+        });
+        this.saveWorkExperience();
+        this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
+        this.clearExperienceValidators();
+        this.clearWorkExperience();
+      } else { }
+    }
   }
   editExperience(i: any) {
     this.experienceIndex = i;
@@ -1016,38 +1018,38 @@ export class EmployeeProfileComponent implements OnInit {
     this.experienceForm.controls.jobDescription.setValue(this.workExperienceDetails[i].skills);
     this.experienceForm.controls.expFromDate.setValue(this.workExperienceDetails[i].fromdate);
     this.experienceForm.controls.expToDate.setValue(this.workExperienceDetails[i].todate);
-}
-clearExperienceValidators() {
-  this.experienceForm.get("companyName").clearValidators();
-  this.experienceForm.get("companyName").updateValueAndValidity();
+  }
+  clearExperienceValidators() {
+    this.experienceForm.get("companyName").clearValidators();
+    this.experienceForm.get("companyName").updateValueAndValidity();
 
-  this.experienceForm.get("expFromDate").clearValidators();
-  this.experienceForm.get("expFromDate").updateValueAndValidity();
+    this.experienceForm.get("expFromDate").clearValidators();
+    this.experienceForm.get("expFromDate").updateValueAndValidity();
 
-  this.experienceForm.get("expToDate").clearValidators();
-  this.experienceForm.get("expToDate").updateValueAndValidity();
+    this.experienceForm.get("expToDate").clearValidators();
+    this.experienceForm.get("expToDate").updateValueAndValidity();
 
-  this.experienceForm.get("designation").clearValidators();
-  this.experienceForm.get("designation").updateValueAndValidity();
+    this.experienceForm.get("designation").clearValidators();
+    this.experienceForm.get("designation").updateValueAndValidity();
 
-  this.experienceForm.get("jobDescription").clearValidators();
-  this.experienceForm.get("jobDescription").updateValueAndValidity();
-}
+    this.experienceForm.get("jobDescription").clearValidators();
+    this.experienceForm.get("jobDescription").updateValueAndValidity();
+  }
 
-addExperienceValidators() {
-  this.experienceForm.get("companyName").setValidators(Validators.required);
-  this.experienceForm.get("companyName").updateValueAndValidity();
+  addExperienceValidators() {
+    this.experienceForm.get("companyName").setValidators(Validators.required);
+    this.experienceForm.get("companyName").updateValueAndValidity();
 
-  this.experienceForm.get("expFromDate").setValidators(Validators.required);
-  this.experienceForm.get("expFromDate").updateValueAndValidity();
+    this.experienceForm.get("expFromDate").setValidators(Validators.required);
+    this.experienceForm.get("expFromDate").updateValueAndValidity();
 
-  this.experienceForm.get("expToDate").setValidators(Validators.required);
-  this.experienceForm.get("expToDate").updateValueAndValidity();
+    this.experienceForm.get("expToDate").setValidators(Validators.required);
+    this.experienceForm.get("expToDate").updateValueAndValidity();
 
-  this.experienceForm.get("designation").setValidators(Validators.required);
-  this.experienceForm.get("designation").updateValueAndValidity();
+    this.experienceForm.get("designation").setValidators(Validators.required);
+    this.experienceForm.get("designation").updateValueAndValidity();
 
-}
+  }
   clearWorkExperience() {
     this.experienceForm.controls.companyName.reset();
     this.experienceForm.controls.expFromDate.reset();
@@ -1073,23 +1075,8 @@ addExperienceValidators() {
     this.isfamilyedit = false;
   }
   saveWorkExperience() {
-    const invalid = [];
-    const controls = this.employementForm.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        invalid.push(name);
-      }
-    }
     let data = {
       empid: this.employeeCode,
-      bankname: this.employementForm.controls.bankName.value,
-      ifsccode: this.employementForm.controls.ifscCode.value,
-      nameasperbankaccount: this.employementForm.controls.bankAccountName.value,
-      branchname: this.employementForm.controls.branchName.value,
-      bankaccountnumber: this.employementForm.controls.bankAccountNumber.value,
-      uanumber: this.employementForm.controls.uanNumber.value,
-      //pfaccountnumber: this.employementForm.controls.contractFile.value,
-      pan: this.employementForm.controls.panNumber.value,
       experience: this.workExperienceDetails,
     }
 
@@ -1099,21 +1086,19 @@ addExperienceValidators() {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: "Data saved sucessfully"
+          data: this.EM42
         });
         this.selectedtab.setValue(3);
       } else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: "Data is not saved"
+          data: this.EM43
         });
       }
     });
 
   }
-
-
   //** */
   saveEducation() {
     if (this.educationForm.valid) {
@@ -1129,7 +1114,7 @@ addExperienceValidators() {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data saved sucessfully"
+            data: this.EM42
           });
           this.spinner.hide();
           this.selectedtab.setValue(4);
@@ -1138,7 +1123,7 @@ addExperienceValidators() {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data is not saved"
+            data: this.EM43
           });
         }
       });
@@ -1152,11 +1137,11 @@ addExperienceValidators() {
     if (this.isEducationEdit) {
       this.isEducationEdit = false;
       this.educationDetails[this.educationIndex].course = this.educationForm.controls.course.value;
-      this.educationDetails[this.educationIndex].institutename =  this.educationForm.controls.instituteName.value;
+      this.educationDetails[this.educationIndex].institutename = this.educationForm.controls.instituteName.value;
       this.educationDetails[this.educationIndex].fromdate = this.pipe.transform(this.educationForm.controls.eduFromDate.value, 'yyyy-MM-dd'),
-      this.educationDetails[this.educationIndex].todate =this.pipe.transform(this.educationForm.controls.eduToDate.value, 'yyyy-MM-dd'),
-      this.clearEducationValidators();
-        this.clearEducation();
+        this.educationDetails[this.educationIndex].todate = this.pipe.transform(this.educationForm.controls.eduToDate.value, 'yyyy-MM-dd'),
+        this.clearEducationValidators();
+      this.clearEducation();
     } else {
 
       if (this.educationForm.valid) {
@@ -1179,35 +1164,35 @@ addExperienceValidators() {
     this.educationForm.controls.instituteName.setValue(this.educationDetails[i].institutename);
     this.educationForm.controls.eduFromDate.setValue(this.educationDetails[i].fromdate);
     this.educationForm.controls.eduToDate.setValue(this.educationDetails[i].todate);
-}
-clearEducationValidators() {
-  this.educationForm.get("course").clearValidators();
-  this.educationForm.get("course").updateValueAndValidity();
+  }
+  clearEducationValidators() {
+    this.educationForm.get("course").clearValidators();
+    this.educationForm.get("course").updateValueAndValidity();
 
-  this.educationForm.get("instituteName").clearValidators();
-  this.educationForm.get("instituteName").updateValueAndValidity();
+    this.educationForm.get("instituteName").clearValidators();
+    this.educationForm.get("instituteName").updateValueAndValidity();
 
-  this.educationForm.get("eduFromDate").clearValidators();
-  this.educationForm.get("eduFromDate").updateValueAndValidity();
+    this.educationForm.get("eduFromDate").clearValidators();
+    this.educationForm.get("eduFromDate").updateValueAndValidity();
 
-  this.educationForm.get("eduToDate").clearValidators();
-  this.educationForm.get("eduToDate").updateValueAndValidity();
-}
+    this.educationForm.get("eduToDate").clearValidators();
+    this.educationForm.get("eduToDate").updateValueAndValidity();
+  }
 
-addEducationValidators() {
-  this.educationForm.get("course").setValidators(Validators.required);
-  this.educationForm.get("course").updateValueAndValidity();
+  addEducationValidators() {
+    this.educationForm.get("course").setValidators(Validators.required);
+    this.educationForm.get("course").updateValueAndValidity();
 
-  this.educationForm.get("instituteName").setValidators(Validators.required);
-  this.educationForm.get("instituteName").updateValueAndValidity();
+    this.educationForm.get("instituteName").setValidators(Validators.required);
+    this.educationForm.get("instituteName").updateValueAndValidity();
 
-  this.educationForm.get("eduFromDate").setValidators(Validators.required);
-  this.educationForm.get("eduFromDate").updateValueAndValidity();
+    this.educationForm.get("eduFromDate").setValidators(Validators.required);
+    this.educationForm.get("eduFromDate").updateValueAndValidity();
 
-  this.educationForm.get("eduToDate").setValidators(Validators.required);
-  this.educationForm.get("eduToDate").updateValueAndValidity();
+    this.educationForm.get("eduToDate").setValidators(Validators.required);
+    this.educationForm.get("eduToDate").updateValueAndValidity();
 
-}
+  }
   clearEducation() {
     this.educationForm.controls.course.reset();
     this.educationForm.controls.instituteName.reset();
@@ -1275,38 +1260,38 @@ addEducationValidators() {
         this.messagesDataList.forEach((e: any) => {
           if (e.code == "EM15") {
             this.EM15 = e.message
-           }  else if (e.code == "EM1") {
-            this.EM1 =e.message
+          } else if (e.code == "EM1") {
+            this.EM1 = e.message
           } else if (e.code == "EM22") {
-            this.EM22 =e.message
+            this.EM22 = e.message
           } else if (e.code == "EM2") {
-            this.EM2 =e.message
-          }else if (e.code == "EM11") {
-             this.EM11 =e.message
-           } else if (e.code == "EM12") {
-             this.EM12 =e.message
-           }else if (e.code == "EM13") {
-             this.EM13 =e.message
-           } else if (e.code == "EM14") {
-             this.EM14 =e.message
-           }
-           else if (e.code == "EM16") {
-             this.EM16 =e.message
-           } else if (e.code == "EM17") {
-             this.EM17 =e.message
-           } else if (e.code == "EM18") {
-             this.EM18 =e.message
-           }else if (e.code == "EM19") {
-             this.EM19 =e.message
-           }else if (e.code == "EM20") {
-             this.EM20 =e.message
-           }else if (e.code == "EM21") {
-             this.EM21 =e.message
-           }else if (e.code == "EM61") {
+            this.EM2 = e.message
+          } else if (e.code == "EM11") {
+            this.EM11 = e.message
+          } else if (e.code == "EM12") {
+            this.EM12 = e.message
+          } else if (e.code == "EM13") {
+            this.EM13 = e.message
+          } else if (e.code == "EM14") {
+            this.EM14 = e.message
+          }
+          else if (e.code == "EM16") {
+            this.EM16 = e.message
+          } else if (e.code == "EM17") {
+            this.EM17 = e.message
+          } else if (e.code == "EM18") {
+            this.EM18 = e.message
+          } else if (e.code == "EM19") {
+            this.EM19 = e.message
+          } else if (e.code == "EM20") {
+            this.EM20 = e.message
+          } else if (e.code == "EM21") {
+            this.EM21 = e.message
+          } else if (e.code == "EM61") {
             this.EM61 = e.message
-          }else if (e.code == "EM42") {
+          } else if (e.code == "EM42") {
             this.EM42 = e.message
-          }else if (e.code == "EM43") {
+          } else if (e.code == "EM43") {
             this.EM43 = e.message
           }
         })
@@ -1324,7 +1309,7 @@ addEducationValidators() {
 
     })
   }
-  numberOnly(event:any): boolean {
+  numberOnly(event: any): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
@@ -1337,15 +1322,15 @@ addEducationValidators() {
     const pattern = /[0-9]/;
     let inputChar = String.fromCharCode(event.charCode);
     if (!pattern.test(inputChar)) {
-        event.preventDefault();
+      event.preventDefault();
 
     }
   }
-  alphaNumberOnly (e:any) {  // Accept only alpha numerics, not special characters
+  alphaNumberOnly(e: any) {  // Accept only alpha numerics, not special characters
     var regex = new RegExp("^[a-zA-Z0-9 ]+$");
     var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
     if (regex.test(str)) {
-        return true;
+      return true;
     }
 
     e.preventDefault();
@@ -1354,18 +1339,18 @@ addEducationValidators() {
 
 
 
-  getDocumentsEMS(){
+  getDocumentsEMS() {
     let input = {
-      'employeeId':this.empId,
-      "candidateId":0,
-      "moduleId":1,
-      "filecategory":null,
-      "requestId":null,
-      'status':null
+      'employeeId': this.empId,
+      "candidateId": 0,
+      "moduleId": 1,
+      "filecategory": null,
+      "requestId": null,
+      'status': null
     }
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
-      this.documentDetails=[];
-      if(result && result.status){
+      this.documentDetails = [];
+      if (result && result.status) {
         // for(let k=0;k<result.data.length;k++){
         //   let documentName = result.data[k].filename.split('_')
         //   var docArray=[];
@@ -1378,7 +1363,7 @@ addEducationValidators() {
         //   pdfName = docArray.join('')
         //   result.data[k].pdfName=pdfName
         // }
-        this.documentDetails=result.data
+        this.documentDetails = result.data
         this.documentDataSource = new MatTableDataSource(this.documentDetails)
       }
 
@@ -1386,297 +1371,296 @@ addEducationValidators() {
     })
     this.isedit = false;
 
-}
+  }
 
-editDock(data:any){
-  //this.createValidatorForDocument();
-  this.isedit = true;
-  this.editFileName=data.fname;
-  this.editDockinfo = JSON.stringify(data)
-  this.documentsForm.controls.documentId.setValue(data.id,{emitEvent:false}) ;
-  this.documentsForm.controls.documentName.setValue(data.file_category,{emitEvent:false});
-  this.documentsForm.controls.documentNumber.setValue(data.document_number,{emitEvent:false});
-}
+  editDock(data: any) {
+    //this.createValidatorForDocument();
+    this.isedit = true;
+    this.editFileName = data.fname;
+    this.editDockinfo = JSON.stringify(data)
+    this.documentsForm.controls.documentId.setValue(data.id, { emitEvent: false });
+    this.documentsForm.controls.documentName.setValue(data.file_category, { emitEvent: false });
+    this.documentsForm.controls.documentNumber.setValue(data.document_number, { emitEvent: false });
+  }
 
-deleteDock(data:any){
-  let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
-    position:{top:`70px`},
-    disableClose: true,
-    data: {message:this.EM16,YES:'YES',NO:'NO'}
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    if(result == 'YES'){
-      this.mainService.deleteFilesMaster(data.id).subscribe((res:any)=>{
-        if(res && res.status){
-          var info = JSON.stringify(data)
-          this.mainService.removeDocumentOrImagesForEMS(info).subscribe((result:any) => {})
-          // this.mainService.removeDocumentOrImagesForEMS(data).subscribe(result => {})
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: {top: `70px`},
-            disableClose: true,
-            data: this.EM15
-          });
-          this.getDocumentsEMS()
+  deleteDock(data: any) {
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position: { top: `70px` },
+      disableClose: true,
+      data: { message: this.EM16, YES: 'YES', NO: 'NO' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'YES') {
+        this.mainService.deleteFilesMaster(data.id).subscribe((res: any) => {
+          if (res && res.status) {
+            var info = JSON.stringify(data)
+            this.mainService.removeDocumentOrImagesForEMS(info).subscribe((result: any) => { })
+            // this.mainService.removeDocumentOrImagesForEMS(data).subscribe(result => {})
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.EM15
+            });
+            this.getDocumentsEMS()
 
-        }else{
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: {top: `70px`},
-            disableClose: true,
-            data: this.EM17
-          });
-        }
+          } else {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.EM17
+            });
+          }
 
-      });
+        });
 
-    }
+      }
     });
 
 
 
 
-}
+  }
 
 
-fileView(data:any){
-  let info = data
-  this.spinner.show()
-      this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData) => {
+  fileView(data: any) {
+    let info = data
+    this.spinner.show()
+    this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData) => {
 
-        if(imageData.success){
+      if (imageData.success) {
 
 
-          this.spinner.hide();
+        this.spinner.hide();
 
-          let TYPED_ARRAY = new Uint8Array(imageData.image.data);
-          const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-            return data + String.fromCharCode(byte);
-          }, '');
-          let base64String= btoa(STRING_CHAR)
-            var documentName= data.fname.split('.')
+        let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+        const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
+          return data + String.fromCharCode(byte);
+        }, '');
+        let base64String = btoa(STRING_CHAR)
+        var documentName = data.fname.split('.')
 
-          if(documentName[documentName.length-1]=='pdf'){
+        if (documentName[documentName.length - 1] == 'pdf') {
           const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
           this.fileURL = URL.createObjectURL(file);
           window.open(this.fileURL);
-          }else{
-            this.fileURL=new Blob([TYPED_ARRAY], { type: "image/png" })
-              let url = URL.createObjectURL(this.fileURL)
-              window.open( url, '_blank' );
-
-          }
+        } else {
+          this.fileURL = new Blob([TYPED_ARRAY], { type: "image/png" })
+          let url = URL.createObjectURL(this.fileURL)
+          window.open(url, '_blank');
 
         }
-      })
-}
 
-
-validateDocument(){
-  this.createValidatorForDocument()
-  if(this.documentsForm.valid){
-  if(this.documentsForm.controls.attachedFile.value || this.editDockinfo){
-    if(this.isFile){
-  var valid =true
-  var ReplaceDocument:any;
-  if(this.documentDetails.length !=0 && !this.editDockinfo){
-  for(let i=0;i<this.documentDetails.length;i++){
-    if(this.documentsForm.controls.documentName.value == this.documentDetails[i].file_category){
-      valid = false;
-      ReplaceDocument = this.documentDetails[i];
-      break;
-    }
-  }
-}
-  if(!valid){
-    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
-      position:{top:`70px`},
-      disableClose: true,
-      data: {message:ReplaceDocument.description +' '+this.EM21,YES:'YES',NO:'NO'}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if(result == 'YES'){
-        this.documentsForm.controls.documentId.setValue(ReplaceDocument.id,{emitEvent:false}) ;
-        this.editDockinfo=JSON.stringify(ReplaceDocument);
-        this.saveDocument();
       }
-      });
-  }else{
-    this.saveDocument();
+    })
   }
-}else{
-  let dialogRef = this.dialog.open(ReusableDialogComponent, {
-    position: {top: `70px`},
-    disableClose: true,
-    data: this.EM13
-  });
-}
-}
-else{
-let dialogRef = this.dialog.open(ReusableDialogComponent, {
-  position: {top: `70px`},
-  disableClose: true,
-  data: this.EM18
-});
-}
-  }
-}
 
 
-saveDocument() {
-  // if(this.documentsForm.controls.attachedFile.value || this.editDockinfo){
-  // if(this.isFile){
-  //   if(this.validateDocument()){
-  this.mainService.getFilepathsMasterForEMS(1).subscribe((resultData) => {
-    if(resultData && resultData.status){
-      let obj = {
-        'id':this.documentsForm.controls.documentId.value?this.documentsForm.controls.documentId.value:null,
-        'employeeId':this.empId,
-        'candidateId':0,
-        'filecategory': this.documentsForm.controls.documentName.value,
-        'moduleId':1,
-        'documentnumber':this.documentsForm.controls.documentNumber.value,
-        'fileName':this.file?this.file.name:this.editFileName,
-        'modulecode':resultData.data[0].module_code,
-        'requestId':null,
-        'status':'Submitted'
-      }
-      this.mainService.setFilesMasterForEMS(obj).subscribe((data) => {
-        if(data && data.status) {
-          if( obj.fileName != this.editFileName){
-          let info =JSON.stringify(data.data[0])
-          this.mainService.setDocumentOrImageForEMS(this.formData, info).subscribe((data) => {
-            // this.spinner.hide()
-            if(data && data.status){
-              if(this.editDockinfo){
-                this.mainService.removeDocumentOrImagesForEMS(this.editDockinfo).subscribe((data) => {})
+  validateDocument() {
+    this.createValidatorForDocument()
+    if (this.documentsForm.valid) {
+      if (this.documentsForm.controls.attachedFile.value || this.editDockinfo) {
+        if (this.isFile) {
+          var valid = true
+          var ReplaceDocument: any;
+          if (this.documentDetails.length != 0 && !this.editDockinfo) {
+            for (let i = 0; i < this.documentDetails.length; i++) {
+              if (this.documentsForm.controls.documentName.value == this.documentDetails[i].file_category) {
+                valid = false;
+                ReplaceDocument = this.documentDetails[i];
+                break;
               }
-              let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                  position: {top: `70px`},
-                  disableClose: true,
-                  data: this.EM11
-                });
-                this.getDocumentsEMS();
-              this.clearDock();
-              this.selectedtab.setValue(0);
-            }else{
-              let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                position: {top: `70px`},
-                disableClose: true,
-                data: this.EM12
-              });
-              // this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
-
             }
-            this.file = null;
-            this.formData.delete('file');
-            this.editDockinfo=null;
-            this.editFileName= null;
-
-          });
-        }else{
-          this.getDocumentsEMS();
-          this.clearDock();
-          this.editDockinfo=null;
-          this.editFileName= null;
-          this.file = null;
-            this.formData.delete('file');
+          }
+          if (!valid) {
+            let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: { message: ReplaceDocument.description + ' ' + this.EM21, YES: 'YES', NO: 'NO' }
+            });
+            dialogRef.afterClosed().subscribe(result => {
+              if (result == 'YES') {
+                this.documentsForm.controls.documentId.setValue(ReplaceDocument.id, { emitEvent: false });
+                this.editDockinfo = JSON.stringify(ReplaceDocument);
+                this.saveDocument();
+              }
+            });
+          } else {
+            this.saveDocument();
+          }
+        } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: {top: `70px`},
+            position: { top: `70px` },
             disableClose: true,
-            data: this.EM19
+            data: this.EM13
           });
         }
-        }else{
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: {top: `70px`},
-            disableClose: true,
-            data: this.EM17
-          });
-        }
-      });
-    }});
-
-}
-
-onSelectFile(event:any) {
-  if(event.target.files.length!=0){
-  if (event.target.files[0].size <=	2097152) {
-    this.file = event.target.files[0];
-    var pdf = this.file.name.split('.');
-    if(pdf[pdf.length-1] == 'pdf' || pdf[pdf.length-1] == 'jpg' || pdf[pdf.length-1] == 'png'){
-      this.isFile = true;
-      this.formData.append('file', this.file, this.file.name);
-    }else{
-      this.isFile = false;
-      let dialogRef = this.dialog.open(ReusableDialogComponent, {
-        position: {top: `70px`},
-        disableClose: true,
-        data: this.EM13
-      });
-   }
-  } else {
-    this.isFile = false;
-    let dialogRef = this.dialog.open(ReusableDialogComponent, {
-      position: {top: `70px`},
-      disableClose: true,
-      data: this.EM14
-    });
-  }
-}else{
-  let dialogRef = this.dialog.open(ReusableDialogComponent, {
-    position: {top: `70px`},
-    disableClose: true,
-    data: this.EM18
-  });
-  // th
-}
-}
-getFilecategoryMasterForEMS() {
-  let input = {
-    'id':null,
-    "moduleId":1,
-  }
-  this.mainService.getFilecategoryMasterForEMS(input).subscribe((result: any) => {
-    if(result && result.status){
-      this.documentTypeList = result.data;
+      }
+      else {
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+          data: this.EM18
+        });
+      }
     }
-  })
-}
+  }
 
-clearDock(){
-  // this.documentsForm.resetForm({resetType:ResetFormType.ControlsOnly})
-  this.documentsForm.reset();
-  this.documentsForm.get('documentName').clearValidators();
-  this.documentsForm.get('documentName').updateValueAndValidity();
-  this.documentsForm.get('documentNumber').clearValidators();
-  this.documentsForm.get('documentNumber').updateValueAndValidity();
-  this.documentsForm.get('documentId').clearValidators();
-  this.documentsForm.get('documentId').updateValueAndValidity();
-  this.documentsForm.get('attachedFile').clearValidators();
-  this.documentsForm.get('attachedFile').updateValueAndValidity();
 
-}
-delete()
-{
-  this.isedit =false;
-}
-deleteIcon()
-{
-  this.documentsForm.controls.attachedFile.setValue('')
-}
-createValidatorForDocument(){
-  this.documentsForm.controls.documentNumber.setValidators([Validators.required,Validators.minLength(6), Validators.maxLength(14)])
-  this.documentsForm.controls.documentName.setValidators([Validators.required])
-  this.documentsForm.get('documentNumber').updateValueAndValidity();
-   this.documentsForm.get('documentName').updateValueAndValidity();
+  saveDocument() {
+    // if(this.documentsForm.controls.attachedFile.value || this.editDockinfo){
+    // if(this.isFile){
+    //   if(this.validateDocument()){
+    this.mainService.getFilepathsMasterForEMS(1).subscribe((resultData) => {
+      if (resultData && resultData.status) {
+        let obj = {
+          'id': this.documentsForm.controls.documentId.value ? this.documentsForm.controls.documentId.value : null,
+          'employeeId': this.empId,
+          'candidateId': 0,
+          'filecategory': this.documentsForm.controls.documentName.value,
+          'moduleId': 1,
+          'documentnumber': this.documentsForm.controls.documentNumber.value,
+          'fileName': this.file ? this.file.name : this.editFileName,
+          'modulecode': resultData.data[0].module_code,
+          'requestId': null,
+          'status': 'Submitted'
+        }
+        this.mainService.setFilesMasterForEMS(obj).subscribe((data) => {
+          if (data && data.status) {
+            if (obj.fileName != this.editFileName) {
+              let info = JSON.stringify(data.data[0])
+              this.mainService.setDocumentOrImageForEMS(this.formData, info).subscribe((data) => {
+                // this.spinner.hide()
+                if (data && data.status) {
+                  if (this.editDockinfo) {
+                    this.mainService.removeDocumentOrImagesForEMS(this.editDockinfo).subscribe((data) => { })
+                  }
+                  let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                    position: { top: `70px` },
+                    disableClose: true,
+                    data: this.EM11
+                  });
+                  this.getDocumentsEMS();
+                  this.clearDock();
+                  this.selectedtab.setValue(0);
+                } else {
+                  let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                    position: { top: `70px` },
+                    disableClose: true,
+                    data: this.EM12
+                  });
+                  // this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
+
+                }
+                this.file = null;
+                this.formData.delete('file');
+                this.editDockinfo = null;
+                this.editFileName = null;
+
+              });
+            } else {
+              this.getDocumentsEMS();
+              this.clearDock();
+              this.editDockinfo = null;
+              this.editFileName = null;
+              this.file = null;
+              this.formData.delete('file');
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: this.EM19
+              });
+            }
+          } else {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.EM17
+            });
+          }
+        });
+      }
+    });
+
+  }
+
+  onSelectFile(event: any) {
+    if (event.target.files.length != 0) {
+      if (event.target.files[0].size <= 2097152) {
+        this.file = event.target.files[0];
+        var pdf = this.file.name.split('.');
+        if (pdf[pdf.length - 1] == 'pdf' || pdf[pdf.length - 1] == 'jpg' || pdf[pdf.length - 1] == 'png') {
+          this.isFile = true;
+          this.formData.append('file', this.file, this.file.name);
+        } else {
+          this.isFile = false;
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.EM13
+          });
+        }
+      } else {
+        this.isFile = false;
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+          data: this.EM14
+        });
+      }
+    } else {
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data: this.EM18
+      });
+      // th
+    }
+  }
+  getFilecategoryMasterForEMS() {
+    let input = {
+      'id': null,
+      "moduleId": 1,
+    }
+    this.mainService.getFilecategoryMasterForEMS(input).subscribe((result: any) => {
+      if (result && result.status) {
+        this.documentTypeList = result.data;
+      }
+    })
+  }
+
+  clearDock() {
+    // this.documentsForm.resetForm({resetType:ResetFormType.ControlsOnly})
+    this.documentsForm.reset();
+    this.documentsForm.get('documentName').clearValidators();
+    this.documentsForm.get('documentName').updateValueAndValidity();
+    this.documentsForm.get('documentNumber').clearValidators();
+    this.documentsForm.get('documentNumber').updateValueAndValidity();
+    this.documentsForm.get('documentId').clearValidators();
+    this.documentsForm.get('documentId').updateValueAndValidity();
+    this.documentsForm.get('attachedFile').clearValidators();
+    this.documentsForm.get('attachedFile').updateValueAndValidity();
+
+  }
+  delete() {
+    this.isedit = false;
+  }
+  deleteIcon() {
+    this.documentsForm.controls.attachedFile.setValue('')
+  }
+  createValidatorForDocument() {
+    this.documentsForm.controls.documentNumber.setValidators([Validators.required, Validators.minLength(6), Validators.maxLength(14)])
+    this.documentsForm.controls.documentName.setValidators([Validators.required])
+    this.documentsForm.get('documentNumber').updateValueAndValidity();
+    this.documentsForm.get('documentName').updateValueAndValidity();
 
   }
 
 
 
-  onSelectImage(event:any) {
-    this.isRemoveImage=false;
+  onSelectImage(event: any) {
+    this.isRemoveImage = false;
     this.imageurls = [];
-    this.file=null;
+    this.file = null;
     this.file = event.target.files[0];
     this.fileImageToggler();
     if (event.target.files && event.target.files[0]) {
@@ -1692,8 +1676,7 @@ createValidatorForDocument(){
     }
   }
 
-  fileImageToggler()
-  {
+  fileImageToggler() {
     this.isFileImage = !this.isFileImage;
   }
 
@@ -1709,26 +1692,27 @@ createValidatorForDocument(){
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
 
       if (result && result.status) {
-                this.profileId = result.data[0].id;
-                this.profileInfo = JSON.stringify(result.data[0]);
-               this.mainService.getDocumentOrImagesForEMS(result.data[0]).subscribe((imageData) => {
-                 if(imageData.success){
-                            let TYPED_ARRAY = new Uint8Array(imageData.image.data);
-                            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-                              return data + String.fromCharCode(byte);
-                            }, '');
+        this.profileId = result.data[0].id;
+        this.profileInfo = JSON.stringify(result.data[0]);
+        this.mainService.getDocumentOrImagesForEMS(result.data[0]).subscribe((imageData) => {
+          if (imageData.success) {
+            let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
+              return data + String.fromCharCode(byte);
+            }, '');
 
-                            let base64String= btoa(STRING_CHAR)
-                            this.imageurls[0].base64String='data:image/png;base64,'+base64String;
+            let base64String = btoa(STRING_CHAR)
+            this.imageurls[0].base64String = 'data:image/png;base64,' + base64String;
 
 
-                          }
-                          else{
-                            this.isRemoveImage=false;
-                            this.imageurls =[{
-                              base64String:"assets/img/profile.jpg" }];
+          }
+          else {
+            this.isRemoveImage = false;
+            this.imageurls = [{
+              base64String: "assets/img/profile.jpg"
+            }];
 
-                          }
+          }
         })
       }
 
@@ -1736,87 +1720,86 @@ createValidatorForDocument(){
     })
   }
 
-  saveImage(flag:boolean)
-  {
+  saveImage(flag: boolean) {
     this.formData.append('file', this.file);
-    if(this.file){
+    if (this.file) {
       if (this.file.size <= 1024000) {
-        console.log("file name--",this.file.name)
+        console.log("file name--", this.file.name)
         this.editProfile()
       }
-      else{
-        }
-    }else{
-     }
+      else {
+      }
+    } else {
+    }
   }
-  editProfile(){
-      this.spinner.show()
-      {
+  editProfile() {
+    this.spinner.show()
+    {
       this.LM.getFilepathsMaster(1).subscribe((result) => {
-             if(result && result.status){
-              let data = {
-                'id':this.profileId?this.profileId:null,
-                'employeeId':this.empId,
-                'candidateId': 0,
-                'filecategory': 'PROFILE',
-                'moduleId':1,
-                'documentnumber':'',
-                'fileName':this.file.name,
-                'modulecode':result.data[0].module_code,
-                'requestId':null,
-                'status': 'Submitted'
-              }
-              this.mainService.setFilesMasterForEMS(data).subscribe((res) => {
-                  if(res && res.status) {
-                  let info =JSON.stringify(res.data[0])
-                  this.LM.setProfileImage(this.formData, info).subscribe((res) => {
-                   this.spinner.hide()
-                    if (res && res.status) {
-                      if (this.profileId) {
-                        this.companyService.removeImage(this.profileInfo).subscribe((res) => {})
-                      }
-                      let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                        position: { top: `70px` },
-                        disableClose: true,
-                        data: "Image uploaded successfully"
-                      });
-                    }else{
-                      let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                        position: { top: `70px` },
-                        disableClose: true,
-                        data: "Image uploading failed"
-                      });
-                    }
-                    this.file = null;
-                    this.getEmployeeImage();
-                    this.isRemoveImage = true;
-                    this.formData.delete('file');
-
+        if (result && result.status) {
+          let data = {
+            'id': this.profileId ? this.profileId : null,
+            'employeeId': this.empId,
+            'candidateId': 0,
+            'filecategory': 'PROFILE',
+            'moduleId': 1,
+            'documentnumber': '',
+            'fileName': this.file.name,
+            'modulecode': result.data[0].module_code,
+            'requestId': null,
+            'status': 'Submitted'
+          }
+          this.mainService.setFilesMasterForEMS(data).subscribe((res) => {
+            if (res && res.status) {
+              let info = JSON.stringify(res.data[0])
+              this.LM.setProfileImage(this.formData, info).subscribe((res) => {
+                this.spinner.hide()
+                if (res && res.status) {
+                  if (this.profileId) {
+                    this.companyService.removeImage(this.profileInfo).subscribe((res) => { })
+                  }
+                  let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                    position: { top: `70px` },
+                    disableClose: true,
+                    data: "Image uploaded successfully"
                   });
-                }else{
-                  this.spinner.hide()
-                  this.LM.deleteFilesMaster(result.data[0].id).subscribe(data=>{})
-                  this.getEmployeeImage();
+                } else {
                   let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: { top: `70px` },
                     disableClose: true,
                     data: "Image uploading failed"
                   });
                 }
+                this.file = null;
+                this.getEmployeeImage();
+                this.isRemoveImage = true;
+                this.formData.delete('file');
 
-              })
-              }
-              else{
-                this.spinner.hide()
-                let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                  position: { top: `70px` },
-                  disableClose: true,
-                  data: "Image uploading failed"
-                });
-              }
+              });
+            } else {
+              this.spinner.hide()
+              this.LM.deleteFilesMaster(result.data[0].id).subscribe(data => { })
+              this.getEmployeeImage();
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: "Image uploading failed"
+              });
+            }
+
           })
-
         }
+        else {
+          this.spinner.hide()
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Image uploading failed"
+          });
+        }
+      })
+
+    }
 
 
 

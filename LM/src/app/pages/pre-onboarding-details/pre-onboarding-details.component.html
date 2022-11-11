@@ -22,7 +22,7 @@
             <mat-tab-group animationDuration="0ms" [selectedIndex]="selectedtab.value" (selectedTabChange)="tabClick($event)"
             (selectedIndexChange)="selectedtab.setValue($event)" mat-stretch-tabs>
                 <!-- personal info tab -->
-                <mat-tab label="Personal">
+                <mat-tab label="Personal Info">
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="personalInfoForm">
                             <div class="section"><b>Personal Information</b></div>
@@ -443,7 +443,7 @@
                     </div>
                 </mat-tab>
                  <!-- employement tab -->
-                <mat-tab label="Employment">
+                <mat-tab label="Work Experience">
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="employementForm">
                             <div class="section"><b>Work Experience</b></div>
@@ -701,7 +701,7 @@
                 </mat-tab>
 
                 <!-- document tab -->
-                <mat-tab label="Document">
+                <mat-tab label="Document Approval">
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="documentsForm">
                             <div class="section"><b>Add Documents</b></div>
