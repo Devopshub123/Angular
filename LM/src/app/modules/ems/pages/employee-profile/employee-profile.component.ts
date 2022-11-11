@@ -1724,7 +1724,6 @@ export class EmployeeProfileComponent implements OnInit {
     this.formData.append('file', this.file);
     if (this.file) {
       if (this.file.size <= 1024000) {
-        console.log("file name--", this.file.name)
         this.editProfile()
       }
       else {

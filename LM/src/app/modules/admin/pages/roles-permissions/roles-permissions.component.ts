@@ -9,6 +9,7 @@ import {MainService} from 'src/app/services/main.service';
 import {AdminService} from '../../admin.service';
 import {Observable} from "rxjs";
 import { Router } from '@angular/router';
+import {watchMode} from "@angular/compiler-cli/src/main";
 
 @Component({
   selector: 'app-roles-permissions',
@@ -587,6 +588,7 @@ export class RolesPermissionsComponent implements OnInit {
     this.isdisplay = true;
     var count = 0;
 
+
     for (var i = 0; i < this.screenWithFunctionalities[name].length; i++) {
 
       this.roles[name][count] = {};
@@ -621,7 +623,6 @@ export class RolesPermissionsComponent implements OnInit {
       }
     }
     this.rolesLength[name] = Object.keys(this.roles[name]).length
-
     Object.entries(this.roles[name]).forEach(([key1, data]) => {
       for (var p = 0; p < this.roles[name][key1].value[0].permissions.length; p++) {
         if (this.isEditRule == 0 && this.roles[name][key1].value[0].permissions[p].status === undefined) {
@@ -643,6 +644,13 @@ export class RolesPermissionsComponent implements OnInit {
         }
       }, 1000);
 
+    }
+    for (var j = 0; j < this.modulesScreens.length; j++) {
+      if (this.roleId > 7) {
+        this.modulesScreens[j].isDisabledCheckBox = true;
+      }
+      this.modulesScreens[j].checked = true;
+      this.modulesScreens[j].isChecked = true;
     }
   }
 
