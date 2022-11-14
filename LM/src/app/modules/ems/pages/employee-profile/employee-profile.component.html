@@ -1,18 +1,12 @@
 <div fxLayout="column">
     <mat-card>
-        <div style="padding: 10px;">
+        <!-- <div style="padding: 10px;">
             <mat-card style="background-color: #e7eaf3">
                 <div fxLayout="row" style="padding: 15px">
                     <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center">
                         <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
                             <img class="avatar-preview" [src]="url.base64String" />
                           </div>
-                          <!-- <span style="padding-left: 30%;">
-                            <button class="m-1 btn btn-file">
-                              <input type="file" (change)="onSelectFile($event)" accept="image/*" />
-                              Upload
-                            </button>
-                         </span> -->
                      </div>
 
                     <div fxFlex="70" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="start">
@@ -26,13 +20,13 @@
                     </div>
                 </div>
             </mat-card>
-        </div>
+        </div> -->
         <div>
             <mat-tab-group animationDuration="0ms" [selectedIndex]="selectedtab.value"
                 (selectedTabChange)="tabClick($event)" (selectedIndexChange)="selectedtab.setValue($event)"
                 mat-stretch-tabs>
                 <!-- personal info tab -->
-                <mat-tab label="Personal">
+                <mat-tab label="Personal Info">
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="personalInfoForm">
                             <div class="section"><b>Personal Information</b></div>
@@ -166,8 +160,8 @@
                                         *ngIf="personalInfoForm.controls.alternateMobileNo.errors?.required">
                                         {{ EM1 }}
                                     </mat-error>
-                                    <mat-error class="reg-error" 
-                                    *ngIf="personalInfoForm.controls.alternateMobileNo.errors?.minlength || 
+                                    <mat-error class="reg-error"
+                                    *ngIf="personalInfoForm.controls.alternateMobileNo.errors?.minlength ||
                                     personalInfoForm.controls.alternateMobileNo.errors?.maxlength">
                                     Please enter  valid number
                                 </mat-error>
@@ -439,7 +433,7 @@
                                     <mat-label>Contact Number</mat-label>
                                     <input type="text" formControlName="familycontact" matInput placeholder=""
                                         maxlength="10" minlength="10" (keypress)="_keyPress($event)" />
-                                    <mat-error class="reg-error" *ngIf="candidateFamilyForm.controls.familycontact.errors?.minlength || 
+                                    <mat-error class="reg-error" *ngIf="candidateFamilyForm.controls.familycontact.errors?.minlength ||
                                         candidateFamilyForm.controls.familycontact.errors?.maxlength">
                                         Please enter valid number
                                     </mat-error>
@@ -559,7 +553,7 @@
                             <br />
                         </form>
                         <div fxLayoutAlign="center">
-                            <button class="col-md-1 btn btn-primary mx-2 my-2" [disabled]="!personalInfoForm.valid"
+                            <button class="col-md-1 btn btn-primary mx-2 my-2"
                                 (click)="savePersonalInfo()" type="submit">
                                 <span>Save</span>
                             </button>
@@ -571,7 +565,7 @@
                     </div>
                 </mat-tab>
                 <!-- job tab -->
-                <mat-tab label="Job">
+                <mat-tab label="Contract Details">
                     <div fxLayout="column" style="padding: 10px;">
                         <form [formGroup]="employeeJobForm">
                             <div class="section"><b>Employee Contract</b></div>
@@ -604,15 +598,15 @@
                                 </mat-form-field>
                             </div>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                <!-- <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Attach File</mat-label>
                                     <input type="text" readonly formControlName="contractFile" matInput placeholder=""
-                                        maxlength="6" />
-                                </mat-form-field>
-                                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                        />
+                                </mat-form-field> -->
+                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Contract Notes</mat-label>
-                                    <input type="text" readonly formControlName="contractNotes" matInput placeholder=""
-                                        maxlength="200" />
+                                    <textarea readonly formControlName="contractNotes" matInput placeholder=""
+                                        maxlength="400"></textarea>
                                 </mat-form-field>
                             </div>
                         </form>
@@ -727,7 +721,7 @@
 
                 </mat-tab>
                 <!-- employement tab -->
-                <mat-tab label="Employment">
+                <mat-tab label="Work Experience">
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="experienceForm">
                             <div class="section"><b>Work Experience</b></div>
@@ -748,13 +742,13 @@
                                         placeholder="" maxlength="100" />
                                         <mat-error class="reg-error" *ngIf="experienceForm.controls.designation.hasError('required')">
                                             {{EM1}}
-                                        </mat-error>   
+                                        </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>From Date</mat-label>
                                     <input matInput required readonly [matDatepicker]="expFromDate" [min]="minDate"
-                                        [max]="maxDate" placeholder="MM/DD/YYYY" 
+                                        [max]="maxDate" placeholder="MM/DD/YYYY"
                                         formControlName="expFromDate" (click)="expFromDate.open()"/>
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="expFromDate">
                                     </mat-datepicker-toggle>
@@ -792,7 +786,7 @@
                                     <span>
                                         <button class="m-1 mat-stroked-button button-save"
                                             (click)="addWorkExperience()">
-                                            <span> Add </span>
+                                            <span> Save </span>
                                         </button>
                                         <button class="m-1 mat-stroked-button button-clear" (click)="clearWorkExperience()">
                                             Clear
@@ -850,7 +844,19 @@
                                     <tr mat-row *matRowDef="let row; columns: workTableColumns"></tr>
                                 </table>
                             </div>
+                            <!-- <div fxLayoutAlign="center">
+                                <button class="m-1 mat-stroked-button button-save" (click)="saveWorkExperience()"
+                                    type="submit">
+                                    <span>Save</span>
+                                </button>
+                                <br />
+                            </div> -->
                         </form>
+                    </div>
+                </mat-tab>
+                <!-- bank details tab -->
+                <mat-tab label="Bank Details">
+                    <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="employementForm">
                             <div class="section"><b>Bank Details</b></div>
                             <mat-divider></mat-divider>
@@ -902,16 +908,13 @@
                                 </mat-form-field>
 
                             </div>
-                            <div fxLayoutAlign="center" *ngIf="workExperienceDetails.length > 0">
+                            <!-- <div fxLayoutAlign="center">
                                 <button class="m-1 mat-stroked-button button-save" (click)="saveWorkExperience()"
                                     type="submit">
                                     <span>Save</span>
                                 </button>
-                                <!-- <button class="m-1 mat-stroked-button button-clear" (click)="personalInfoClear()">
-                                    <span>Cancel</span>
-                                </button> -->
                                 <br />
-                            </div>
+                            </div> -->
                         </form>
                     </div>
                 </mat-tab>
@@ -1038,7 +1041,7 @@
                 </mat-tab>
 
                 <!-- document tab -->
-                <mat-tab label="Document">
+                <mat-tab label="Document Approval">
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="documentsForm">
                             <div class="section"><b>Add Documents</b></div>
@@ -1076,13 +1079,13 @@
                                     <div fxLayout="row" style="align-items: center">
                                         <input style="margin-left: 10px" type="file" *ngIf='!isedit' formControlName="attachedFile"
                                             (change)="onSelectFile($event)"  single />
-    
-                                            <button class="link" *ngIf='isedit' >{{ editFileName }}</button> 
-                
+
+                                            <button class="link" *ngIf='isedit' >{{ editFileName }}</button>
+
                                         &nbsp;
-                                        <mat-icon title="cancel"  *ngIf='!isedit && editFileName' 
+                                        <mat-icon title="cancel"  *ngIf='documentsForm.controls.attachedFile.value'
                                         (click)="deleteIcon()">delete</mat-icon>
-                                        <mat-icon title="edit"  *ngIf='isedit' 
+                                        <mat-icon title="edit"  *ngIf='isedit'
                                             (click)="delete()">edit</mat-icon>
                                         &nbsp;
                                     </div>
@@ -1124,8 +1127,8 @@
                                         <th mat-header-cell *matHeaderCellDef>Document</th>
                                         <td mat-cell *matCellDef="let data">
 
-                                            <button class="link" (click)="fileView(data)" >{{ data.fname }}</button> 
-                                            
+                                            <button class="link" (click)="fileView(data)" >{{ data.fname }}</button>
+
                                         </td>
                                     </ng-container>
                                     <ng-container matColumnDef="action" >
@@ -1135,7 +1138,7 @@
                                         <mat-icon (click)="deleteDock(data)" title="Delete" *ngIf="data.status == 'Submitted'"> delete</mat-icon>
                                         </td>
                                     </ng-container>
-                            
+
                                     <tr mat-header-row *matHeaderRowDef="documentTableColumns"></tr>
                                     <tr mat-row *matRowDef="let row; columns: documentTableColumns"></tr>
                                 </table>

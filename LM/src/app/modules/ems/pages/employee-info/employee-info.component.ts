@@ -272,13 +272,13 @@ export class EmployeeInfoComponent implements OnInit {
     /**get state details for residance address */
     this.personalInfoForm.get('rcountry')?.valueChanges.subscribe((selectedResidenceStateValue: any) => {
       this.stateDetails = [];
-      if (selectedResidenceStateValue != '') {
+      if (selectedResidenceStateValue != '' ) {
          this.companyService.getStatesc(selectedResidenceStateValue).subscribe((data) => {
            this.stateDetails = data[0];
-           if (this.employeeInformationData != null) {
+          if (this.employeeInformationData.length>0) {
              this.personalInfoForm.controls.rstate.setValue(this.employeeInformationData.state);
            } else {
-            this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
+             this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
            }
          })
       }
@@ -289,7 +289,7 @@ export class EmployeeInfoComponent implements OnInit {
       if (selectedResidenceCityValue != '') {
         this.companyService.getCities(selectedResidenceCityValue).subscribe((data) => {
           this.cityDetails = data[0]
-          if (this.employeeInformationData != null) {
+          if (this.employeeInformationData.length > 0 ) {
             this.personalInfoForm.controls.rcity.setValue(this.employeeInformationData.city);
           } else {
             this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
@@ -297,13 +297,14 @@ export class EmployeeInfoComponent implements OnInit {
         })
       }
     })
+    
     /**get state details for present address*/
     this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedPresentStateValue: any) => {
       this.permanentStateDetails = [];
       if (selectedPresentStateValue != '') {
         this.companyService.getStatesc(selectedPresentStateValue).subscribe((data) => {
           this.permanentStateDetails = data[0]
-          if (this.employeeInformationData != null) {
+          if (this.employeeInformationData.length >0) {
             this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
           } else {
             this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
@@ -311,13 +312,14 @@ export class EmployeeInfoComponent implements OnInit {
         })
       }
     })
+
     /**get city details for present address */
     this.personalInfoForm.get('pstate')?.valueChanges.subscribe((selectedPresentCityValue: any) => {
       this.permanentCityDetails = [];
       if (selectedPresentCityValue != '') {
         this.companyService.getCities(selectedPresentCityValue).subscribe((data) => {
           this.permanentCityDetails = data[0]
-          if (this.employeeInformationData != null) {
+          if (this.employeeInformationData.length > 0) {
             this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
           } else {
             this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
@@ -394,6 +396,7 @@ export class EmployeeInfoComponent implements OnInit {
   //////////
   getLoginCandidateData() {
     this.spinner.show();
+     
     this.loginData = [];
     this.emsService.getPreonboardCandidateData(this.candidateId).subscribe((res: any) => {
       this.loginData = JSON.parse(res.data[0].json)[0];
@@ -433,15 +436,16 @@ export class EmployeeInfoComponent implements OnInit {
       this.loginData.aadharnumber != 'null' ? this.personalInfoForm.controls.aadharNumber.setValue(this.loginData.aadharnumber) : this.personalInfoForm.controls.aadharNumber.setValue(''),
         this.personalInfoForm.controls.raddress.setValue(this.loginData.address);
       this.personalInfoForm.controls.rcountry.setValue(this.loginData.country);
-      this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
-      this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
+  
+     // this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
+
+      //this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
+
       this.personalInfoForm.controls.rpincode.setValue(this.loginData.pincode);
 
       this.personalInfoForm.controls.personalemail.setValue(this.loginData.personal_email);
-      if (this.loginData.languages_spoken != 'null' || this.loginData.languages_spoken != "null")
-        this.personalInfoForm.controls.spokenLanguages.setValue(this.loginData.languages_spoken);
-        if (this.loginData.paddress != 'null')
-      this.personalInfoForm.controls.paddress.setValue(this.loginData.paddress);
+      this.personalInfoForm.controls.spokenLanguages.setValue(this.loginData.languages_spoken=='null' || null?'':this.loginData.languages_spoken);
+      this.personalInfoForm.controls.paddress.setValue(this.loginData.paddress=='null' || null?'':this.loginData.paddress);
       this.personalInfoForm.controls.pcountry.setValue(this.loginData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
       this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
@@ -570,8 +574,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
       if (this.employeeInformationData.languages_spoken != 'null' || this.employeeInformationData.languages_spoken != "null")
         this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken);
-      if (this.employeeInformationData.paddress != null || this.employeeInformationData.paddress != 'null' || this.employeeInformationData.paddress != "null") 
-       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress); 
+       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress == 'null' || null ? '' : this.employeeInformationData.paddress); 
     this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
       this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
@@ -1418,6 +1421,48 @@ export class EmployeeInfoComponent implements OnInit {
   saveWorkExperience() {
 
     if (this.employeeCode != undefined || this.employeeCode != null) {
+      if (this.workExperienceDetails.length > 0) {
+        this.spinner.show();
+        let data = {
+          empid: this.employeeCode,
+          experience: this.workExperienceDetails,
+        }
+  
+        this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
+          if (res.status && res.data[0].statuscode == 0) {
+            this.spinner.hide();
+            this.getEmployeeEmploymentList();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.EM42
+            });
+            this.selectedtab.setValue(3);
+          } else {
+            this.spinner.hide();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.EM43
+            });
+          }
+        });
+     }
+
+    } else {
+      this.spinner.hide();
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data: "Please complete personal details first"
+      });
+    }
+
+  }
+  saveBankDetails() {
+
+    if (this.employeeCode != undefined || this.employeeCode != null) {
+    if(this.employementForm.valid){
       this.spinner.show();
       let data = {
         empid: this.employeeCode,
@@ -1429,7 +1474,6 @@ export class EmployeeInfoComponent implements OnInit {
         uanumber: this.employementForm.controls.uanNumber.value,
         //pfaccountnumber: this.employementForm.controls.contractFile.value,
         pan: this.employementForm.controls.panNumber.value,
-        experience: this.workExperienceDetails,
       }
 
       this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
@@ -1441,7 +1485,7 @@ export class EmployeeInfoComponent implements OnInit {
             disableClose: true,
             data: this.EM42
           });
-          this.selectedtab.setValue(3);
+          this.selectedtab.setValue(4);
         } else {
           this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1451,6 +1495,8 @@ export class EmployeeInfoComponent implements OnInit {
           });
         }
       });
+    }
+
     } else {
       this.spinner.hide();
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1461,7 +1507,6 @@ export class EmployeeInfoComponent implements OnInit {
     }
 
   }
-
 
   //** */
   saveEducation() {
@@ -1483,7 +1528,7 @@ export class EmployeeInfoComponent implements OnInit {
               data: this.EM42
             });
             this.spinner.hide();
-            this.selectedtab.setValue(4);
+            this.selectedtab.setValue(5);
           } else {
             this.spinner.hide();
             let dialogRef = this.dialog.open(ReusableDialogComponent, {

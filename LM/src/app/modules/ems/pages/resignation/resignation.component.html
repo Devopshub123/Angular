@@ -35,7 +35,6 @@
             <button class="col-md-2 mr-2 btn btn-primary" (click)="submit()">
               Okay
             </button>
-            <button class="col-md-2 btn btn-danger" (click)="close()">Cancel</button>
           </div>
           <br />
          </div>
@@ -69,11 +68,14 @@
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
               <mat-label>Request Exit Date </mat-label>
               <input matInput [matDatepicker]="date3" [max]="max" [min]="min" placeholder="DD-MM-YYYY"
-                formControlName="exitdate" (click)="date3.open()" [disabled]="isviewdata" />
+                formControlName="exitdate" (click)="date3.open()" [disabled]="isviewdata" required/>
 
               <mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">
               </mat-datepicker-toggle>
               <mat-datepicker #date3></mat-datepicker>
+               <mat-error class="con-error" *ngIf="resignForm.controls.exitdate.errors?.required">
+                Please select an option
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">

@@ -408,7 +408,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       }
       //this.selectedtab.setValue(this.toSelectTab);
     })
-    
+
   }
   getCountry() {
     this.countryDetails = []
@@ -542,7 +542,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
 
   savePersonalInfo() {
-   
+
     if (this.personalInfoForm.valid) {
       let data = {
         preid: this.preOnboardId != null ? this.preOnboardId : null,
@@ -592,7 +592,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
           this.personalInfoForm.reset();
           this.toSelectTab = 1;
           this.getCandidateData();
-          this.selectedtab.setValue(this.toSelectTab);
+          //this.selectedtab.setValue(this.toSelectTab);
           } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
@@ -722,7 +722,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
             this.getCandidateData();
             this.isDeleted = false;
           } else {
-            
+
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -829,7 +829,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
 
   saveEducation() {
-  
+
     if (this.educationDetails.length > 0) {
       let data = {
         preid: this.preOnboardId != null ? this.preOnboardId : null,
@@ -853,7 +853,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
               disableClose: true,
               data: "Details submitted successfully"
             });
-         
+
              this.clearEducationValidators();
               this.clearEducation();
               this.getCandidateData();
@@ -1128,7 +1128,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
   deleteIcon(){
     this.isedit = false;
-    this.documentsForm.controls.editFileName.setValue('')
+    this.documentsForm.controls.attachedFile.setValue('')
   }
 
   delete() {
@@ -1546,7 +1546,7 @@ if (this.documentDataChange == true ||
 } else {
   this.documentDataChange = false;
 }
-    } 
+    }
       // tab 3
     else if (event.index == 2) {
       ////// personal info

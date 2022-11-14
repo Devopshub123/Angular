@@ -34,7 +34,7 @@ export class UserLeaveHistoryComponent implements OnInit {
   activeModule:any;
   fileURL:any;
   pdfName:any;
-  displayedColumns: string[] = ['appliedon','leavetype','fromdate','todate','days','status','approver','action'];
+  displayedColumns: string[] = ['sno','appliedon','leavetype','fromdate','todate','days','status','approver','action'];
   dataSource: MatTableDataSource<any>=<any>[];
   // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 

@@ -1,12 +1,11 @@
 <div fxLayout="column">
   <form [formGroup]="inductionForm" autocomplete="off">
-    <mat-card>
-      <mat-card-header>
+     <mat-card-header>
         <mat-card-title > Induction </mat-card-title>
       </mat-card-header>
       <div *ngIf="ishide">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-          <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
             <mat-label>Program Type</mat-label>
             <input formControlName="programType"  matInput placeholder="" maxlength="100" required>
             <mat-error class="con-error" *ngIf="inductionForm.controls.programType.errors?.required || inductionForm.controls.programType.errors?.['whitespace']">
@@ -119,7 +118,5 @@
       </div>
 
 
-
-    </mat-card>
-  </form>
+ </form>
 </div>

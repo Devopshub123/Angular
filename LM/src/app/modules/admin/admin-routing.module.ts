@@ -19,6 +19,7 @@ import { LmMessageMasterComponent } from './pages/lm-message-master/lm-message-m
 import { EmsMessagemasterComponent } from '../ems/pages/ems-messagemaster/ems-messagemaster.component';
 import { TerminationCategoryComponent } from './pages/termination-category/termination-category.component';
 import { ReasonMasterComponent } from './pages/reason-master/reason-master.component';
+import { ReimbursementMasterComponent } from './pages/reimbursement-master/reimbursement-master.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,7 @@ const routes: Routes = [
       { path:'EMS-MessageMaster',component:EmsMessagemasterComponent,canActivate:[LMSAccessGuard]},
       { path:'Termination-Category',component:TerminationCategoryComponent,canActivate:[LMSAccessGuard]},
       { path:'Reason',component:ReasonMasterComponent,canActivate:[LMSAccessGuard]},
+      { path:'Reimbursement',component:ReimbursementMasterComponent,canActivate:[LMSAccessGuard]},
     ]
   }
 

@@ -21,7 +21,6 @@ import { HrOnboardingChecklistComponent } from './pages/hr-onboarding-checklist/
 import { HrOffboardingChecklistComponent } from './pages/hr-offboarding-checklist/hr-offboarding-checklist.component';
 import { ChecklistMeetComponent } from './pages/checklist-meet/checklist-meet.component';
 import { HrOffboardingChecklistoverviewComponent } from './pages/hr-offboarding-checklistoverview/hr-offboarding-checklistoverview.component';
-import { HrOnboardingChecklistoverviewComponent } from './pages/hr-onboarding-checklistoverview/hr-onboarding-checklistoverview.component';
 import { AnnouncementsComponent } from './pages/announcements/announcements.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { AssignChecklistComponent } from './pages/assign-checklist/assign-checklist.component';
@@ -36,7 +35,6 @@ import { NgChartsModule } from 'ng2-charts';
 import 'chartjs-adapter-date-fns';
 import { InductionComponent } from './pages/induction/induction.component';
 import { UsersLoginComponent } from './pages/users-login/users-login.component';
-import { InductionProgramComponent } from './pages/induction-program/induction-program.component';
 import { NewHireListComponent } from './pages/new-hire-list/new-hire-list.component';
 import { ReportpopupComponent } from './pages/reportpopup/reportpopup.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -60,7 +58,6 @@ import { DeptResignationPendingchecklistComponent } from './pages/dept-resignati
     HrOffboardingChecklistComponent,
     ChecklistMeetComponent,
     HrOffboardingChecklistoverviewComponent,
-    HrOnboardingChecklistoverviewComponent,
     AnnouncementsComponent,
     AssignChecklistComponent,
     HrDocumentApprovalComponent,
@@ -72,7 +69,6 @@ import { DeptResignationPendingchecklistComponent } from './pages/dept-resignati
     EmployeeProfileComponent,
     InductionComponent,
     UsersLoginComponent,
-    InductionProgramComponent,
     NewHireListComponent,
     ReportpopupComponent,
     DeptResignationPendingchecklistComponent,
