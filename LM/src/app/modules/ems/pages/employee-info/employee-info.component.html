@@ -421,9 +421,7 @@
                                     <mat-select formControlName="pstate">
                                         <ng-container>
                                             <div *ngFor="let b of permanentStateDetails">
-                                                <mat-option [value]=" b.id ">{{
-                                                    b.state
-                                                    }}</mat-option>
+                                                <mat-option [value]="b.id">{{ b.state }}</mat-option>
                                             </div>
                                         </ng-container>
                                     </mat-select>
@@ -435,9 +433,7 @@
                                     <mat-select formControlName="rcity" required>
                                         <ng-container>
                                             <div *ngFor="let b of cityDetails">
-                                                <mat-option [value]=" b.id ">{{
-                                                    b.location
-                                                    }}</mat-option>
+                                                <mat-option [value]="b.id">{{ b.location }}</mat-option>
                                             </div>
                                         </ng-container>
                                     </mat-select>
@@ -1051,8 +1047,8 @@
                                     <mat-label>Bank Name</mat-label>
                                     <input type="text" (keypress)="alphabetKeyPress($event)" formControlName="bankName"
                                         matInput placeholder="" maxlength="50" required />
-                                    <mat-error class="con-error" *ngIf="
-                                        employementForm.controls.bankName.errors?.required">
+                                    <mat-error class="con-error"
+                                        *ngIf="employementForm.controls.bankName.errors?.required">
                                         {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
@@ -1062,8 +1058,9 @@
                                     <input type="text" (keypress)="alphabetKeyPress($event)"
                                         formControlName="bankAccountName" matInput placeholder="" maxlength="50"
                                         required />
-                                        <mat-error class="con-error" *ngIf="
-                                        employementForm.controls.bankAccountName.errors?.required">
+                                    <mat-error class="con-error" *ngIf="
+                      employementForm.controls.bankAccountName.errors?.required
+                    ">
                                         {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
@@ -1073,8 +1070,10 @@
                                     <input type="text" (keypress)="numberOnly($event)"
                                         formControlName="bankAccountNumber" matInput placeholder="" maxlength="15"
                                         required />
-                                        <mat-error class="con-error" *ngIf="
-                                        employementForm.controls.bankAccountNumber.errors?.required">
+                                    <mat-error class="con-error" *ngIf="
+                      employementForm.controls.bankAccountNumber.errors
+                        ?.required
+                    ">
                                         {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
@@ -1085,8 +1084,8 @@
                                     <mat-label>Bank Code</mat-label>
                                     <input type="text" maxlength="11" (keypress)="alphaNumberOnly($event)"
                                         formControlName="ifscCode" matInput placeholder="" required />
-                                        <mat-error class="con-error" *ngIf="
-                                        employementForm.controls.ifscCode.errors?.required">
+                                    <mat-error class="con-error"
+                                        *ngIf="employementForm.controls.ifscCode.errors?.required">
                                         {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>
@@ -1095,8 +1094,8 @@
                                     <mat-label>Branch Name</mat-label>
                                     <input type="text" (keypress)="alphabetKeyPress($event)"
                                         formControlName="branchName" matInput placeholder="" maxlength="50" required />
-                                        <mat-error class="con-error" *ngIf="
-                                        employementForm.controls.branchName.errors?.required">
+                                    <mat-error class="con-error"
+                                        *ngIf="employementForm.controls.branchName.errors?.required">
                                         {{ EM1 }}
                                     </mat-error>
                                 </mat-form-field>

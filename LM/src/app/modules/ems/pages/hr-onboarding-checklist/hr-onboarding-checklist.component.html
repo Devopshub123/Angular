@@ -7,8 +7,8 @@
     <form [formGroup]="checklistForm" autocomplete="off">
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
         <mat-form-field fxFlex.gt-xs="50%" fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
-          <mat-label>Full Name</mat-label>
-          <input formControlName="name" matInput placeholder="Full Name" readonly>
+          <mat-label>Employee Name</mat-label>
+          <input formControlName="name" matInput placeholder="" readonly>
         </mat-form-field>
 
         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
@@ -86,7 +86,7 @@
 
 
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Full Name </th>
+            <th mat-header-cell *matHeaderCellDef>Employee Name</th>
             <td mat-cell *matCellDef="let element"> {{element.empname}} </td>
           </ng-container>
 

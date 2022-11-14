@@ -45,6 +45,7 @@ import { PreOnboardingDetailsComponent } from './pages/pre-onboarding-details/pr
 // import { NgChartsModule } from 'ng2-charts';
 import 'chartjs-adapter-date-fns';
 import { ComfirmationDialogComponent } from './pages/comfirmation-dialog/comfirmation-dialog.component';
+import { ReimbursementModule } from './modules/reimbursement/reimbursement.module';
 
 // import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
@@ -101,7 +102,8 @@ import { ComfirmationDialogComponent } from './pages/comfirmation-dialog/comfirm
     // BsDatepickerModule.forRoot(),
     // DatepickerModule.forRoot()
     AssetsModule,
-    // NgChartsModule
+    // NgChartsModule,
+    ReimbursementModule
 
   ],
 

@@ -1,1 +1,190 @@
-<p>reimbursement-request works!</p>
+<div fxLayout="column" style="background-color: #ffff;">
+
+    <mat-card-header class="">
+        <mat-card-title> Reimbursement Request </mat-card-title>
+    </mat-card-header>
+    <div *ngIf="isadd">
+        <form [formGroup]="reimbursementForm">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Reimbursement Type</mat-label>
+                    <mat-select required formControlName="reimbursementType">
+                        <ng-container>
+                            <div *ngFor="let r of reimbursementTypeList">
+                                <mat-option [value]="r.id" >{{r.name}}</mat-option>
+                            </div>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error class="con-error" *ngIf="reimbursementForm.controls.reimbursementType.errors?.required">
+                        {{EM2}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Request Date </mat-label>
+                    <input formControlName="requestDate" matInput readonly [matDatepicker]="requestDate" placeholder="DD-MM-YYYY"
+                        required (click)="requestDate.open()">
+                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="requestDate">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #requestDate></mat-datepicker>
+                    <mat-error class="con-error" *ngIf="reimbursementForm.controls.requestDate.errors?.required">
+                        {{EM2}}
+                    </mat-error>
+                </mat-form-field>
+               
+                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Bill Date </mat-label>
+                    <input matInput formControlName="billDate" readonly [matDatepicker]="billDate" placeholder="DD-MM-YYYY"
+                        required (click)="billDate.open()">
+                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="billDate">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #billDate></mat-datepicker>
+                    <mat-error class="con-error" *ngIf="reimbursementForm.controls.billDate.errors?.required">
+                        {{EM2}}
+                    </mat-error>
+                </mat-form-field>
+
+                     
+
+                 </div>
+               <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+               
+                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Bill Number</mat-label>
+                    <input formControlName="billNum" matInput placeholder="" maxlength="30">
+                </mat-form-field>
+                
+                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Bill Amount</mat-label>
+                    <input formControlName="billAmount" matInput placeholder="Amount per month" required 
+                    (keypress)="numberOnly($event)" minlength="2" maxlength="6">
+                    <mat-error class="con-error" *ngIf="reimbursementForm.controls.billAmount.errors?.required ||
+                    reimbursementForm.controls.billAmount.errors?.['whitespace'] ">
+                        {{EM1}}
+                    </mat-error>
+                </mat-form-field>
+  
+               </div>
+
+               <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" *ngIf="this.isEmployees == true">
+                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-" appearance="outline"
+                >
+                    <mat-label>Employees</mat-label>
+                    <mat-select placeholder="" formControlName="employess" required multiple #branchSelect>
+                        <button mat-raised-button class="mat-primary fill text-sm"
+                            (click)="selectAll(branchSelect, employesList, reimbursementForm.employess)"
+                            *ngIf="!ishide">Select All
+                        </button>
+                        <button mat-raised-button class="mat-accent fill text-sm" (click)="deselectAll(branchSelect)"
+                            *ngIf="ishide">
+                            Deselect All
+                        </button>
+                        <mat-option *ngFor="let e of employesList" [value]="e.id">
+                            {{e.name}}
+                        </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+               </div>
+               <div fxLayout="row" *ngIf="this.isEmployees == true || this.isinvoice == true" style="align-items: center">
+                <input style="margin-left: 10px" type="file" formControlName="attachedFile"
+                    (change)="onSelectFile($event)"  single />
+                 </div>
+               <br>
+
+            <div fxLayoutAlign="center">
+                <button class="m-1 mat-stroked-button button-save" (click)="submit()"
+                    type="submit">
+                    <span>Submit</span>
+                </button>
+
+                <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+                    <span>Cancel</span>
+                </button>
+                <br />
+            </div>
+
+        </form>
+    </div>
+
+    <div *ngIf="isview">
+        <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center">
+           <span style="padding-left: 1%">
+            <mat-form-field fxFlex fxFlex.xs="100%" appearance="outline">
+                <mat-label>Search</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="" >
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </span>
+        <span style="padding-right: 1%">
+            <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
+                (click)="add()" type="button">
+                <span>Request</span><br>
+            </button>
+        </span>
+        </div>
+        <div class="tableP">
+        <div class="mat-elevation-z1 ">
+            <table mat-table  [dataSource]="dataSource" matSort >
+                <ng-container matColumnDef="sno">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> S.No</th>
+                    <td mat-cell *matCellDef="let row ;let i=index"> {{(i+1)}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="id">
+                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Request ID</th>
+                   <td mat-cell *matCellDef="let row" >
+                 </td>
+               </ng-container>
+
+               <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Request Date </th>
+                <td mat-cell *matCellDef="let row" >
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount </th>
+                <td mat-cell *matCellDef="let row" >
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="approvedAmount">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Approved Amount</th>
+                <td mat-cell *matCellDef="let row" >
+                </td>
+              </ng-container>
+
+                <ng-container matColumnDef="status">
+                   <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding-left: 60px"> Status </th>
+                   <td mat-cell *matCellDef="let row">
+                    </td>
+               </ng-container>
+
+                <ng-container matColumnDef="action">
+                   <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                  <td mat-cell *matCellDef="let row">
+                   <button mat-icon-button matTooltip="Edit">
+                       <mat-icon>edit</mat-icon>
+                   </button>
+
+                      <button mat-icon-button matTooltip="Save">
+                       <mat-icon>save</mat-icon>
+                   </button>
+
+                    </td>
+               </ng-container>
+
+                <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="6"  style="text-align: center;">No data found</td>
+                </tr>
+            </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+
+        </div>
+    </div>
+    </div>
+</div>

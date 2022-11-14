@@ -58,7 +58,7 @@ export class TerminateComponent implements OnInit {
   pipe = new DatePipe('en-US');
   isterminate:boolean=false;
   istable:boolean=true;
-  displayedColumns: string[] = ['fullname','manager','terminatedate','status','Action'];
+  displayedColumns: string[] = ['sno','fullname','manager','terminatedate','status','Action'];
   dataSource: MatTableDataSource<any>=<any>[];
   // dataSource = new MatTableDataSource<PeriodicElement>(Sample_Data);
   @ViewChild(MatPaginator)

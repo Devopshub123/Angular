@@ -184,11 +184,11 @@
 
 
 
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="justify-content: center;">
-        <button class="col-md-2 mr-2 btn btn-primary" [disabled]="!editForm.valid"(click)="saveImage(true)" type="submit">
+      <div fxLayout="row" fxLayoutAlign="center" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+        <button class="m-1 mat-stroked-button button-save" [disabled]="!editForm.valid"(click)="saveImage(true)" type="submit">
           <span>Submit</span>
         </button>
-        <button class="col-md-2 mr-2 btn btn-danger" (click)="cancel()" type="submit">
+        <button class="m-1 mat-stroked-button button-clear" (click)="cancel()" type="submit">
           <span>Cancel</span>
         </button>
       </div>

@@ -1,17 +1,13 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl, FormArray, ValidationErrors, ValidatorFn} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { PopupComponent,PopupConfig } from '../../../../pages/popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
-import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.directive';
 import { LoginService } from 'src/app/services/login.service';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatSelect } from '@angular/material/select';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
@@ -19,7 +15,6 @@ import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 import { ComfirmationDialogComponent } from 'src/app/pages/comfirmation-dialog/comfirmation-dialog.component';
 import { EmsService } from 'src/app/modules/ems/ems.service';
-// import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 
 export const MY_FORMATS = {
@@ -45,9 +40,6 @@ export const MY_FORMATS = {
 })
 export class ReimbursementMasterComponent implements OnInit {
   reimbursementForm:any= FormGroup;
-  selectedBranch:any=[];
-  worklocationDetails:any=[];
-  holidaysDetails:any=[];
   maxDate = new Date();
   isadd:boolean=false;
   isview:boolean=true;
@@ -55,18 +47,6 @@ export class ReimbursementMasterComponent implements OnInit {
   isSave:boolean=false;
   ishide:boolean =false;
   ischecked:boolean=false;
-  enable:any=null;
-  selecteditems:any=[];
-  msgLM1:any;
-  msgLM2:any;
-  msgLM3:any;
-  msgLM23:any
-  msgLM49:any;
-  msgLM48:any;
-  msgLM47:any;
-  msgLM69:any;
-  msgLM106:any;
-  msgLM105:any;
   pipe = new DatePipe('en-US');
   page = 1;
   count = 0;
@@ -109,10 +89,6 @@ export class ReimbursementMasterComponent implements OnInit {
   add(){
     this.isview = false;
     this.isadd = true;
-    this.reimbursementForm.controls.holiday.setValue()
-    this.reimbursementForm.controls.branch.value
-    this.reimbursementForm.controls.holiday.value
-
   }
   submit() {
     

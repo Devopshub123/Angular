@@ -8,6 +8,13 @@ import { DetailYearlyReportComponent } from './reports/detail-yearly-report/deta
 import { EmployeeWiseReportComponent } from './reports/employee-wise-report/employee-wise-report.component';
 import { ReimbursementTypeWiseReportComponent } from './reports/reimbursement-type-wise-report/reimbursement-type-wise-report.component';
 import { SummaryReportComponent } from './reports/summary-report/summary-report.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { NgChartsModule } from 'ng2-charts';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { MaterialModule } from 'src/app/material/material.module';
 
 
 @NgModule({
@@ -21,7 +28,15 @@ import { SummaryReportComponent } from './reports/summary-report/summary-report.
   ],
   imports: [
     CommonModule,
-    ReimbursementRoutingModule
+    ReimbursementRoutingModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FullCalendarModule,
+    FlexLayoutModule,
+    AngularEditorModule,
+    NgChartsModule,
+    NgxSpinnerModule
   ]
 })
 export class ReimbursementModule { }

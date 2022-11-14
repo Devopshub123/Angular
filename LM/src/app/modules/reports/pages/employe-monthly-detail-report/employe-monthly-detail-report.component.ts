@@ -113,13 +113,16 @@ export class EmployeMonthlyDetailReportComponent implements OnInit {
   }
 
   exportAsXLSX() {
-    this.year=this.searchForm.controls.fromDate.value.getFullYear();
+    console.log("old year-",this.searchForm.controls.fromDate.value.getFullYear())
+    this.year = this.searchForm.controls.fromDate.value.getFullYear();
+    console.log("1st year-",this.year)
     for(let i =0;i<this.months.length;i++){
       if((this.searchForm.controls.fromDate.value).getMonth()==this.months[i].id){
        this.monthdata = this.months[i].month;
        break;
       }
     }
+    console.log("1st month-",this.monthdata)
     const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Monthly_Detail_Report');
