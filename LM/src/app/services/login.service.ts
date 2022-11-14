@@ -26,7 +26,7 @@ import { environment } from 'src/environments/environment';
     constructor(private hClient: HttpClient) {
         this.userSession = ((sessionStorage.getItem('user')))
         this.companyName=sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null;
-
+        console.log("this.companyName",this.companyName)
     }
 
 
@@ -43,6 +43,7 @@ Savelogin(data:any): Observable<any> {
 }
  /* save change password */
 changepassword(changePassword: any): Observable<any> {
+
   changePassword.companyName = this.companyName;
   return this.hClient.post(this.mainBeUrl + 'api/changePassword', JSON.stringify(changePassword), this.httpOptions);
 }

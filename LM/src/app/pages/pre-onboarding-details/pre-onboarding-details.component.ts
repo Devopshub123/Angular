@@ -42,13 +42,6 @@ export const MY_FORMATS = {
 export class PreOnboardingDetailsComponent implements OnInit {
   minExperienceDate: any;
   minEducationDate: any;
-
-  constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService, private spinner: NgxSpinnerService,
-    private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
-    , private EMS: EmsService, private adminService: AdminService, private mainService: MainService, private activatedRoute: ActivatedRoute) {
-    this.formData = new FormData();
-  }
-
   displayedColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
   familyTableColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
   documentTableColumns = ['position', 'category', 'number', 'name', 'action'];
@@ -146,12 +139,24 @@ export class PreOnboardingDetailsComponent implements OnInit {
   documentDataChange: boolean = false;
   isDeleted: boolean = false;
   toSelectTab = 0;
+  companyName :any;
+  constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService, private spinner: NgxSpinnerService,
+    private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
+    , private EMS: EmsService, private adminService: AdminService, private mainService: MainService, private activatedRoute: ActivatedRoute) {
+    this.formData = new FormData();
+    this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
+    sessionStorage.setItem('companyName',this.companyName);
+
+  }
+
+
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params && this.params.token) {
       this.email = JSON.parse(atob(this.params.token)).email;
       this.candidateId = JSON.parse(atob(this.params.token)).candidateId;
       this.date = JSON.parse(atob(this.params.token)).date;
+      // this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
 
       //this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
       this.getDocumentsEMS();
@@ -408,7 +413,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       }
       //this.selectedtab.setValue(this.toSelectTab);
     })
-    
+
   }
   getCountry() {
     this.countryDetails = []
@@ -542,7 +547,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
 
   savePersonalInfo() {
-   
+
     if (this.personalInfoForm.valid) {
       let data = {
         preid: this.preOnboardId != null ? this.preOnboardId : null,
@@ -722,7 +727,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
             this.getCandidateData();
             this.isDeleted = false;
           } else {
-            
+
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -829,7 +834,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
 
   saveEducation() {
-  
+
     if (this.educationDetails.length > 0) {
       let data = {
         preid: this.preOnboardId != null ? this.preOnboardId : null,
@@ -853,7 +858,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
               disableClose: true,
               data: "Details submitted successfully"
             });
-         
+
              this.clearEducationValidators();
               this.clearEducation();
               this.getCandidateData();
@@ -1128,7 +1133,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
   deleteIcon(){
     this.isedit = false;
-    this.documentsForm.controls.editFileName.setValue('')
+    this.documentsForm.controls.attachedFile.setValue('')
   }
 
   delete() {
@@ -1546,7 +1551,7 @@ if (this.documentDataChange == true ||
 } else {
   this.documentDataChange = false;
 }
-    } 
+    }
       // tab 3
     else if (event.index == 2) {
       ////// personal info

@@ -44,20 +44,26 @@ export class MainService {
 
    /** save candidate information */
     savePreOnboardingCandidateInfo(data:any){
-      return this.http.post(this.mainBeUrl+'ems/api/setPreonboardCandidateInformation', JSON.stringify(data), this.httpOptions);
+     data.companyName=this.companyName
+
+     return this.http.post(this.mainBeUrl+'ems/api/setPreonboardCandidateInformation', JSON.stringify(data), this.httpOptions);
   }
 
   getPreonboardCandidateData(id: any): Observable<any> {
-    return this.http.get(this.mainBeUrl + 'ems/api/getCandidateDetails/' + id);
+    return this.http.get(this.mainBeUrl + 'ems/api/getCandidateDetails/' + id+'/'+this.companyName);
   }
 
     /** save candidate information */
       savePreOnboardingCandidateExperience(data:any){
-        return this.http.post(this.mainBeUrl+'ems/api/setCandidateExperience', JSON.stringify(data), this.httpOptions);
+      data.companyName=this.companyName
+
+      return this.http.post(this.mainBeUrl+'ems/api/setCandidateExperience', JSON.stringify(data), this.httpOptions);
   }
 
   /** save candidate education */
   savePreOnboardingCandidateEducation(data:any){
+    data.companyName=this.companyName
+
     return this.http.post(this.mainBeUrl+'ems/api/setCandidateEducation', JSON.stringify(data), this.httpOptions);
 }
 

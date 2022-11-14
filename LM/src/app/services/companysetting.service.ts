@@ -30,8 +30,9 @@ import { environment } from 'src/environments/environment';
       info.companyName=this.companyName;
       return this.hClient.post(this.mainBeUrl + 'api/getactiveWorkLocation',JSON.stringify(info), this.httpOptions);
     }
-    getReportingManagers(id:any):Observable<any>{
-      return this.hClient.post(this.mainBeUrl + 'api/getReportingManager',JSON.stringify(id), this.httpOptions)
+    getReportingManagers(data:any):Observable<any>{
+      data.companyName=this.companyName;
+      return this.hClient.post(this.mainBeUrl + 'api/getReportingManager',JSON.stringify(data), this.httpOptions)
 
     }
     getMastertable(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
@@ -114,7 +115,7 @@ import { environment } from 'src/environments/environment';
   }
 
   setHolidays(info:any,companyName:any):Observable<any>{
-      info.companyName= this.companyName;
+      info[0].companyName= this.companyName;
 
     return this.hClient.post(this.mainBeUrl+'api/setHolidays', JSON.stringify(info), this.httpOptions);
   }

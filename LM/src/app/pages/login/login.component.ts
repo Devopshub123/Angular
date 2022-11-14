@@ -29,9 +29,12 @@ export class LoginComponent implements OnInit {
     let params: any = this.activatedRoute.snapshot.params;
     this.companyName = params.companyName;
     this.createForm();
-    this.getErrorMessages('LM14')
-    this.getErrorMessages('LM1')
-    this.getErrorMessages('LM2')
+    this.msgLM1 = "This field is required."
+    this.msgLM2 = "This field is required.";
+    this.msgLM14 ="The username and/or password you entered did not match our records. Please double-check and try again.";
+   // this.getErrorMessages('LM14')
+   //  this.getErrorMessages('LM1')
+   //  this.getErrorMessages('LM2')
   }
   hide = true;
 
@@ -76,10 +79,11 @@ export class LoginComponent implements OnInit {
   }
 
   ForgotPassword(){
-    this.router.navigate(['ForgotPassword'],{state:{companyName:'sprypleems'}} )
+    this.router.navigate(['ForgotPassword'],{state:{companyName:this.companyName}} )
   }
   getErrorMessages(errorCode:any){
     this.tss.getErrorMessages(errorCode,1,100).subscribe((result)=>{
+
 
       if(result.status && errorCode == 'LM1')
       {

@@ -33,7 +33,7 @@
                                     <input type="text" formControlName="firstname" #firstname
                                         (keypress)="alphabetKeyPress($event)" matInput placeholder="First Name"
                                         maxlength="60" required />
-                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.firstname.errors?.required || 
+                                    <mat-error class="reg-error" *ngIf="personalInfoForm.controls.firstname.errors?.required ||
                                     personalInfoForm.controls.firstname.errors?.['whitespace']">
                                         {{EM1}}
                                     </mat-error>
@@ -49,7 +49,7 @@
                                     <mat-label>Last Name</mat-label>
                                     <input formControlName="lastname" specialIsAlpha matInput placeholder=""
                                         maxlength="50" required />
-                                        <mat-error class="reg-error" *ngIf="personalInfoForm.controls.lastname.errors?.required || 
+                                        <mat-error class="reg-error" *ngIf="personalInfoForm.controls.lastname.errors?.required ||
                                         personalInfoForm.controls.lastname.errors?.['whitespace']">
                                             {{EM1}}
                                         </mat-error>
@@ -67,7 +67,7 @@
                                     <mat-datepicker #dateofbirth></mat-datepicker>
                                     <mat-error class="reg-error" *ngIf="personalInfoForm.controls.dateofbirth.hasError('required')">
                                         {{EM2}}
-                                    </mat-error> 
+                                    </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
@@ -178,7 +178,7 @@
                                     <mat-label>Residence Address</mat-label>
                                     <input type="text" formControlName="raddress" matInput placeholder="" maxlength="100"
                                         required>
-                                        <mat-error class="reg-error" *ngIf="personalInfoForm.controls.raddress.hasError('required') || 
+                                        <mat-error class="reg-error" *ngIf="personalInfoForm.controls.raddress.hasError('required') ||
                                         personalInfoForm.controls.raddress.errors?.['whitespace']">
                                             {{EM1}}
                                         </mat-error>
@@ -298,7 +298,7 @@
                                 </mat-form-field>
 
                             </div>
-                       
+
                     <form [formGroup]="CandidateFamilyForm">
                             <div class="section"><b>Family Details</b></div>
                             <mat-divider></mat-divider>
@@ -455,7 +455,7 @@
                                         placeholder="" maxlength="150" required />
                                         <mat-error class="reg-error" *ngIf="employementForm.controls.companyName.hasError('required')">
                                             {{EM1}}
-                                        </mat-error>    
+                                        </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
@@ -464,7 +464,7 @@
                                         placeholder="" maxlength="100" />
                                         <mat-error class="reg-error" *ngIf="employementForm.controls.designation.hasError('required')">
                                             {{EM1}}
-                                        </mat-error>   
+                                        </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
@@ -476,7 +476,7 @@
                                     <mat-datepicker #expFromDate></mat-datepicker>
                                     <mat-error class="reg-error" *ngIf="employementForm.controls.expFromDate.hasError('required')">
                                         {{EM1}}
-                                    </mat-error>   
+                                    </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100%" fxFlex="32" class="mx-2 my-2" appearance="outline">
@@ -488,7 +488,7 @@
                                     <mat-datepicker #expToDate></mat-datepicker>
                                     <mat-error class="reg-error" *ngIf="employementForm.controls.expToDate.hasError('required')">
                                         {{EM1}}
-                                    </mat-error>   
+                                    </mat-error>
                                 </mat-form-field>
                             </div>
 
@@ -562,7 +562,7 @@
                                     <tr mat-row *matRowDef="let row; columns: workTableColumns"></tr>
                                 </table>
                             </div>
-                       
+
                         <br>
                             <div fxLayoutAlign="center" *ngIf="workExperienceDetails.length > 0">
                                 <button class="col-md-1 btn btn-primary mx-2 my-2" (click)="saveWorkExperience()"
@@ -574,7 +574,7 @@
                                 </button> -->
                                 <br />
                             </div>
-                        </form>  
+                        </form>
                     </div>
                 </mat-tab>
 
@@ -686,7 +686,7 @@
                                 </table>
                             </div>
                             <br>
-                      
+
                          <div fxLayoutAlign="center" *ngIf="educationDetails.length > 0">
                             <button class="m-1 mat-stroked-button button-save" (click)="saveEducation()"
                                 type="submit">
@@ -740,12 +740,12 @@
                                     <input style="margin-left: 10px" type="file" *ngIf='!isedit' formControlName="attachedFile"
                                         (change)="onSelectFile($event)"  single />
 
-                                        <button class="link" *ngIf='isedit' >{{ editFileName }}</button> 
-            
+                                        <button class="link" *ngIf='isedit' >{{ editFileName }}</button>
+
                                     &nbsp;
-                                    <mat-icon title="cancel"  *ngIf=' documentsForm.controls.editFileName.value' 
+                                    <mat-icon title="cancel"  *ngIf='documentsForm.controls.attachedFile.value'
                                     (click)="deleteIcon()">delete</mat-icon>
-                                    <mat-icon title="edit"  *ngIf='isedit' 
+                                    <mat-icon title="edit"  *ngIf='isedit'
                                         (click)="delete()">edit</mat-icon>
                                     &nbsp;
                                 </div>
@@ -784,8 +784,8 @@
                                         <th mat-header-cell *matHeaderCellDef>Document</th>
                                         <td mat-cell *matCellDef="let data">
 
-                                            <button class="link" (click)="fileView(data)" >{{ data.fname }}</button> 
-                                            
+                                            <button class="link" (click)="fileView(data)" >{{ data.fname }}</button>
+
                                         </td>
                                     </ng-container>
                                     <ng-container matColumnDef="action">
@@ -795,7 +795,7 @@
                                         <mat-icon (click)="deleteDock(data)" title="Delete" *ngIf="data.status == 'Submitted'"> delete</mat-icon>
                                         </td>
                                     </ng-container>
-                            
+
                                     <tr mat-header-row *matHeaderRowDef="documentTableColumns"></tr>
                                     <tr mat-row *matRowDef="let row; columns: documentTableColumns"></tr>
                                 </table>
