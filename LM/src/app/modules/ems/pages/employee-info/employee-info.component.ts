@@ -110,7 +110,7 @@ export class EmployeeInfoComponent implements OnInit {
   documentDetails: any = [];
   expFromDate: any;
   expToDate: any;
-  maxDate = new Date();
+  maxDate : any;
   minetodate: any;
 
   edmaxDate = new Date();
@@ -1271,6 +1271,7 @@ export class EmployeeInfoComponent implements OnInit {
       }else {
          let isValid = false;
         if (this.employeeJobForm.valid) {
+          this.promotionList = [];
           this.promotionList.push({
             newsalary: this.promotionsForm.controls.newSalary.value,
             newdescription: this.promotionsForm.controls.newDescription.value,
@@ -1291,6 +1292,7 @@ export class EmployeeInfoComponent implements OnInit {
             enddate: this.pipe.transform(this.employeeJobForm.controls.contractEndDate.value, 'yyyy-MM-dd'),
             promotions: this.promotionList,
           }
+          console.log("data-",data)
           this.emsService.saveEmployeeJobDetailsData(data).subscribe((res: any) => {
             if (res.status && res.data[0].statuscode == 0) {
               this.spinner.hide();

@@ -113,6 +113,11 @@
             <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
             <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
           </mat-form-field>
+          <span fxLayoutAlign="center" style="margin-top: 17px;">
+            <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+             <span>Clear</span>
+           </button>
+         </span>
   
         </div>
         <div class="tableP" *ngIf="isdata">

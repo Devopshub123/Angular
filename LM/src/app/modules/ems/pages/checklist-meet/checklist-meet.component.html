@@ -55,20 +55,7 @@
                 </div>
 
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                    <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                        <mat-label>Conduct By</mat-label>
-                        <mat-select required formControlName="conductBy" required>
-                            <ng-container>
-                                <div *ngFor="let r of conductlist">
-                                    <mat-option [value]="r.id">{{r.empname}}</mat-option>
-                                </div>
-
-                            </ng-container>
-                        </mat-select>
-                        <mat-error class="con-error" *ngIf="checklistForm.controls.conductBy.errors?.required">
-                            Please select an option
-                        </mat-error>
-                    </mat-form-field>
+             
 
                     <mat-form-field fxFlex="50" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                         <mat-label>Date</mat-label>
@@ -88,12 +75,27 @@
                             Please select an option
                         </mat-error>
                     </mat-form-field>
-                </div>
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                     <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                         <mat-label>End Time<span>*</span></mat-label>
                         <input formControlName="endtime" matTimepicker [min]="mintime" placeholder="Time" />
                         <mat-error class="con-error" *ngIf="checklistForm.controls.endtime.errors?.required">
+                            Please select an option
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                  
+                    <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                        <mat-label>Conduct By</mat-label>
+                        <mat-select required formControlName="conductBy" required>
+                            <ng-container>
+                                <div *ngFor="let r of conductlist">
+                                    <mat-option [value]="r.id">{{r.empname}}</mat-option>
+                                </div>
+
+                            </ng-container>
+                        </mat-select>
+                        <mat-error class="con-error" *ngIf="checklistForm.controls.conductBy.errors?.required">
                             Please select an option
                         </mat-error>
                     </mat-form-field>

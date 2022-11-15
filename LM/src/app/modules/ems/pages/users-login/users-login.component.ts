@@ -34,14 +34,14 @@ export class UsersLoginComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,private router: Router,private ES:EmsService,public dialog: MatDialog) { }
-
+  userLoginList: any = [];
   ngOnInit(): void {
     this.getUserLoginData();
     this.usersloginForm=this.formBuilder.group(
       {
         empname: [""],
         email:["",] ,
-        userid:["",Validators.required],
+        userid:["",[Validators.required,Validators.minLength(3), Validators.maxLength(30)]],
         password:["",Validators.required],
         status: [""],
         empid:[""],
@@ -60,7 +60,6 @@ export class UsersLoginComponent implements OnInit {
 
   }
   edit(event:any,data:any){
-    console.log(data)
     this.ishide = true;
     this.isview = false;
     this.usersloginForm.controls.empname.setValue(data.empname);
@@ -81,8 +80,9 @@ export class UsersLoginComponent implements OnInit {
 
   getUserLoginData(){
     this.ES.getUserLoginData().subscribe((res: any) => {
-      console.log(res)
+    
       if (res.status && res.data.length != 0) {
+        this.userLoginList = res.data;
         this.dataSource = new MatTableDataSource(res.data)
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -92,7 +92,24 @@ export class UsersLoginComponent implements OnInit {
       }
     })
   }
-  submit(){
+  submit() {
+    if (this.userLoginList != undefined) {
+      const email = this.userLoginList.find((value: any) => value.login == this.usersloginForm.controls.userid.value.trim().toLowerCase());
+      if (email != undefined) {
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          disableClose: true,
+          data: "User ID is already exist"
+        });
+      } else {
+        this.saveUserLogin()
+      }
+    } else {
+      this.saveUserLogin()
+    }
+    //this.saveNewHireData()
+  }
+  saveUserLogin() {
+    
     if(this.usersloginForm.valid){
       let data ={
         empid:this.usersloginForm.controls.empid.value,
@@ -102,7 +119,6 @@ export class UsersLoginComponent implements OnInit {
     }
     this.ES.usersLogin(data).subscribe((res:any)=>{
       if(res.status){
-        console.log("HI")
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
           this.router.navigate(["/ems/users-login"]));
           this.ishide = true;

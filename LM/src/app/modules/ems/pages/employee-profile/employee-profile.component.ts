@@ -106,7 +106,7 @@ export class EmployeeProfileComponent implements OnInit {
 
   expFromDate: any;
   expToDate: any;
-  maxDate = new Date();
+  maxDate :any;
   minetodate: any;
 
   edmaxDate = new Date();

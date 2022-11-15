@@ -142,7 +142,7 @@ export class UserLeaveRequestComponent implements OnInit {
       leaveCount:['',Validators.required],
       reason:['',Validators.required],
       contact:[this.userSession.contactnumber,Validators.required],
-      emergencyEmail:[''],
+      emergencyEmail:['',[Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       document:['']
 
     });

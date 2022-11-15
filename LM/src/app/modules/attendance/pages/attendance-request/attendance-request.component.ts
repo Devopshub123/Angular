@@ -139,6 +139,8 @@ export class AttendanceRequestComponent implements OnInit {
       if (selectedValue) {
         if (this.userData.userData != undefined) {
           this.requestform.get('fromDate')?.disable()
+        } else if (this.isRequestView ==true) {
+          this.requestform.get('fromDate')?.disable()
         }
         else{
           this.requestform.get('fromDate')?.enable()
