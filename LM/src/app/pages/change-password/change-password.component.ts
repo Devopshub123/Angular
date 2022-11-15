@@ -9,8 +9,7 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 
 
 import { LoginService } from 'src/app/services/login.service';
-import Validation from '../confirm-password.validator';
-
+import { ConfirmPasswordValidator} from '../confirm-password.validator';
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
@@ -55,7 +54,8 @@ export class ChangePasswordComponent implements OnInit {
         confirmPassword: [""],
         },
         {
-          validators: [Validation.match('password', 'confirmPassword')]
+          // validators: [Validation.match('password', 'confirmPassword')]
+          validator: ConfirmPasswordValidator("password", "confirmPassword")
         }
       );
     this.usersession =  sessionStorage.getItem('user')

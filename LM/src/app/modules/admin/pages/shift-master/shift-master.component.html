@@ -80,7 +80,9 @@
                 <mat-form-field fxFlex="50px" class="select" fxFlex.xs="100" >
                     <!-- <mat-label>No Of times</mat-label> -->
                     <input type="text" onlyNumber formControlName="noofTimes" matInput placeholder=""  minlength="1" maxlength="2">
-
+                    <mat-error class="con-error" *ngIf="shiftForm.controls.noofTimes.errors?.required">
+                        {{requiredField}}
+                    </mat-error>
                 </mat-form-field>
                 <mat-label class="mx-2 my-2">per month</mat-label>
             </div>

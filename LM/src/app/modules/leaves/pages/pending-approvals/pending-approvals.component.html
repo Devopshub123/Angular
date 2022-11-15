@@ -76,11 +76,9 @@
           <td class="mat-cell" colspan="9"  style="text-align: center;">No data found</td>
         </tr>
       </table>
-      </mat-card-content>
-       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-      <!--<mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]" *ngIf="arrayList.length>5"></mat-paginator>-->
-
-    </div>
+      <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+    </mat-card-content>
+     </div>
   </mat-card>
 </div>
 <ngx-spinner size="medium" type='ball-fussion'></ngx-spinner>

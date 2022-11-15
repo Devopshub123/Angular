@@ -28,7 +28,8 @@
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>From Date </mat-label>
-                <input matInput readonly required [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate" (dateInput)="fromDateChange('input', $event)"
+                <input matInput readonly required [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate"
+                 (dateInput)="fromDateChange('input', $event)"
                     placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()">
                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
                 <mat-datepicker #fromDate></mat-datepicker>
@@ -36,10 +37,11 @@
                     Please select an option.
                 </mat-error>
             </mat-form-field>
+
             <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>To Date </mat-label>
                 <input matInput readonly required [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
-                (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="fromDate.open()">
+                (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="toDate.open()">
                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
                 <mat-datepicker #toDate></mat-datepicker>
                 <mat-error class="con-error" *ngIf="searchForm.controls.toDate.errors?.required">

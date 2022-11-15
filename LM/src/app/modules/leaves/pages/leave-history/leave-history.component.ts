@@ -14,7 +14,7 @@ import { Router } from "@angular/router";
 export class LeaveHistoryComponent implements OnInit {
 
   constructor(private router: Router, private LM: LeavesService) { }
-  displayedColumns: string[] = ['appliedOn', 'empId', 'empName', 'leaveType', 'fromDate', 'toDate', 'noOfDays', 'pendingSince', 'status', 'action'];
+  displayedColumns: string[] = ['sno','appliedOn', 'empId', 'empName', 'leaveType', 'fromDate', 'toDate', 'noOfDays', 'pendingSince', 'status', 'action'];
   dataSource: MatTableDataSource<UserData> = <any>[];
   pageLoading = true;
   @ViewChild(MatPaginator)

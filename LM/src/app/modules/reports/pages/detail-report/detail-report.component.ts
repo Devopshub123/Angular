@@ -185,19 +185,20 @@ export class DetailReportComponent implements OnInit {
   }
 
   exportAsXLSX() {
-    this.year=this.searchForm.controls.fromDate.value.getFullYear();
-    for(let i =0;i<this.months.length;i++){
-      if((this.searchForm.controls.fromDate.value).getMonth()==this.months[i].id){
-       this.monthdata = this.months[i].month;
-       break;
-      }
-    }
+    // this.year=this.searchForm.controls.fromDate.value.getFullYear();
+    // for(let i =0;i<this.months.length;i++){
+    //   if((this.searchForm.controls.fromDate.value).getMonth()==this.months[i].id){
+    //    this.monthdata = this.months[i].month;
+    //    break;
+    //   }
+    // }
     const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Monthly_Detail_Report');
 
     /* save to file */
-    XLSX.writeFile(wb, 'Monthly_Detail_Report_for_manager_'+this.monthdata+'_'+this.year+'.xlsx');
+    //XLSX.writeFile(wb, 'Monthly_Detail_Report_for_manager_'+this.monthdata+'_'+this.year+'.xlsx');
+    XLSX.writeFile(wb, 'Monthly_Detail_Report_for_manager.xlsx');
 
   }
 

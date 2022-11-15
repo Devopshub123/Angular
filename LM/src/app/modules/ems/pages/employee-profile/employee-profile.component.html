@@ -183,19 +183,6 @@
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Employee Status</mat-label>
-                                    <mat-select formControlName="empStatus" [disabled]="true">
-                                        <ng-container>
-                                            <div *ngFor="let b of statusList">
-                                                <mat-option [value]="b.id">{{b.name}}</mat-option>
-                                            </div>
-                                        </ng-container>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Employment Type</mat-label>
                                     <mat-select [disabled]="true" formControlName="employmentType">
                                         <ng-container>
@@ -207,6 +194,21 @@
                                         </ng-container>
                                     </mat-select>
                                 </mat-form-field>
+
+                                <!-- <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Employee Status</mat-label>
+                                    <mat-select formControlName="empStatus" [disabled]="true">
+                                        <ng-container>
+                                            <div *ngFor="let b of statusList">
+                                                <mat-option [value]="b.id">{{b.name}}</mat-option>
+                                            </div>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field> -->
+                            </div>
+
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                               
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Role</mat-label>
@@ -229,9 +231,7 @@
                                         </ng-container>
                                     </mat-select>
                                 </mat-form-field>
-                            </div>
 
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Designation</mat-label>
                                     <mat-select [disabled]="true" formControlName="designation">
@@ -242,6 +242,10 @@
                                         </ng-container>
                                     </mat-select>
                                 </mat-form-field>
+                            </div>
+
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                                
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Department</mat-label>
@@ -263,16 +267,13 @@
                                         <mat-option value="Self" *ngIf="isself">Self</mat-option>
                                     </mat-select>
                                 </mat-form-field>
-                            </div>
-
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Notice Period</mat-label>
                                     <input type="text" readonly formControlName="noticePeriod" matInput placeholder=""
                                         maxlength="3" />
                                 </mat-form-field>
                             </div>
-                            <div class="section"><b>Personal Contact Information</b></div>
+                             <div class="section"><b>Personal Contact Information</b></div>
                             <mat-divider></mat-divider>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end"
                                 style="padding-top:1% ;padding-bottom:1% ;">

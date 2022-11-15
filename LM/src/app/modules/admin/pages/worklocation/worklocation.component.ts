@@ -61,14 +61,15 @@ export class WorklocationComponent implements OnInit {
   msgLM59:any;
   msgLM122:any;
   msgLM123:any;
+  pageLoading = true;
 
-
-  displayedColumns: string[] = ['city-branch','prefix','seed','status','Action'];
+  displayedColumns: string[] = ['sno','city-branch','prefix','seed','status','Action'];
   departmentData:any=[];
   arrayValue:any=[{Value:'Active',name:'Active '},{Value:'Inactive',name:'Inactive'}];
   dataSource: MatTableDataSource<UserData>=<any>[];
   companyDBName:any = environment.dbName;
-
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
   constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog,private ts:LoginService) { }
 
   ngOnInit(): void {
@@ -200,7 +201,9 @@ export class WorklocationComponent implements OnInit {
     this.LM.getWorkLocation({id:null,companyName:this.companyDBName}).subscribe((result)=>{
       this.workLocationDetails=result.data;
       this.emptyprefix();
-      this.dataSource=new MatTableDataSource(this.workLocationDetails);
+      this.dataSource = new MatTableDataSource(this.workLocationDetails);
+      this.dataSource.paginator = this.paginator;
+      this.pageLoading = false;
     })
   }
   edit(data:any){
@@ -490,5 +493,17 @@ export class WorklocationComponent implements OnInit {
       }
 
     })
+  }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+
+      return [5, 10, 20];
+    }
+  }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 }

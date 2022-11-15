@@ -111,7 +111,7 @@
                   padding-left: 2%;
                   color: #28acaf;
                 ">
-                <span *ngIf="!teamLeavesData"><b>Leaves</b></span>
+                <span *ngIf="!teamLeavesData"><b>Leave Balance</b></span>
                 <span *ngIf="teamLeavesData"><b>Leave Requests</b></span>
               </span>
               <span *ngIf="isManager">
@@ -283,7 +283,7 @@
                     <ng-container *ngFor="let item of notificationsData">
                       <mat-list-item>
                         <h3 matLine> {{ item.empname}} </h3>
-                        <h3 matLine> {{ item.applieddate | date: "dd-MM-yyyy" }}
+                        <h3 matLine>Applied On : {{ item.applieddate | date: "dd-MM-yyyy" }}
                         </h3>
                         <p>
                           <a routerLink="/" (click)="approveRequest(item)">Approve request</a>

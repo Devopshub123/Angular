@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
-import Validation from '../confirm-password.validator';
+import { ConfirmPasswordValidator} from '../confirm-password.validator';
 import { resetPassword } from 'src/app/models/resetPassword';
 import { PopupComponent,PopupConfig } from '../popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';

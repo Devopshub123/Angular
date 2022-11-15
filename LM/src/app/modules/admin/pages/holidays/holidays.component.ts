@@ -71,7 +71,7 @@ export class HolidaysComponent implements OnInit {
   count = 0;
   tableSize = 10;
   tableSizes = [10, 25, 50, 'All'];
-  displayedColumns: string[] = ['holiday','date','day','location','action'];
+  displayedColumns: string[] = ['sno','holiday','date','day','location','action'];
   dataSource: MatTableDataSource<any>=<any>[];
 
   pageLoading=true;
