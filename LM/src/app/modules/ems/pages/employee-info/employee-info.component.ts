@@ -111,7 +111,7 @@ export class EmployeeInfoComponent implements OnInit {
   documentDetails: any = [];
   expFromDate: any;
   expToDate: any;
-  maxDate = new Date();
+  maxDate : any;
   minetodate: any;
 
   edmaxDate = new Date();
@@ -1274,6 +1274,7 @@ export class EmployeeInfoComponent implements OnInit {
       }else {
          let isValid = false;
         if (this.employeeJobForm.valid) {
+          this.promotionList = [];
           this.promotionList.push({
             newsalary: this.promotionsForm.controls.newSalary.value,
             newdescription: this.promotionsForm.controls.newDescription.value,
@@ -1294,6 +1295,7 @@ export class EmployeeInfoComponent implements OnInit {
             enddate: this.pipe.transform(this.employeeJobForm.controls.contractEndDate.value, 'yyyy-MM-dd'),
             promotions: this.promotionList,
           }
+          console.log("data-",data)
           this.emsService.saveEmployeeJobDetailsData(data).subscribe((res: any) => {
             if (res.status && res.data[0].statuscode == 0) {
               this.spinner.hide();
@@ -1777,7 +1779,8 @@ export class EmployeeInfoComponent implements OnInit {
 
   getDocumentsEMS() {
     let input = {
-      'employeeId': this.empId,
+      'employeeId': this
+        .empId,
       "candidateId": 0,
       "moduleId": 1,
       "filecategory": null,
@@ -1785,6 +1788,7 @@ export class EmployeeInfoComponent implements OnInit {
       'status': null
     }
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
+      console.log("shbvjhdshjjgetDocumentsForEMS",result)
       this.documentDetails = [];
       if (result && result.status) {
         // for (let k = 0; k < result.data.length; k++) {
@@ -1966,7 +1970,8 @@ export class EmployeeInfoComponent implements OnInit {
           if (data && data.status) {
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0])
-              this.mainService.setDocumentOrImageForEMS(this.formData, info).subscribe((data) => {
+              this.formData.append('info',info);
+              this.mainService.setDocumentOrImageForEMS(this.formData).subscribe((data) => {
                 // this.spinner.hide()
                 if (data && data.status) {
                   if (this.editDockinfo) {
@@ -1993,6 +1998,7 @@ export class EmployeeInfoComponent implements OnInit {
                 }
                 this.file = null;
                 this.formData.delete('file');
+                this.formData.delete('info');
                 this.editDockinfo = null;
                 this.editFileName = null;
 

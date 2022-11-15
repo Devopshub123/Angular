@@ -449,25 +449,25 @@
                                             </div>
                                         <div *ngIf="data.rulename == 'LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY'">
                                         <mat-form-field appearance="outline">
-                                            <input required style="width: 50%;" matInput formControlName="LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY"  type="text" maxlength="2" >
+                                            <input required style="width: 50%;" onlyNumber matInput formControlName="LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY"  type="text" maxlength="2" >
                                             <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY.errors?.required">{{msgLM1}}</mat-error>
                                         </mat-form-field>
                                         </div>
                                        <div *ngIf="data.rulename == 'SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS'">
                                         <mat-form-field appearance="outline">
-                                        <input required style="width: 50%;" matInput formControlName="SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS"  type="text" maxlength="2" >
+                                        <input required style="width: 50%;" onlyNumber matInput formControlName="SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS"  type="text" maxlength="2" >
                                         <mat-error class="con-error" *ngIf="addleaveForm.controls.SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS.errors?.required">{{msgLM1}}</mat-error>
                                         </mat-form-field>
                                       </div>
                                       <div *ngIf="data.rulename == 'LEAVES_LAPSE_PERIOD'">
                                        <mat-form-field appearance="outline">
-                                        <input required style="width: 50%;" matInput formControlName="LEAVES_LAPSE_PERIOD"  type="text" maxlength="2">
+                                        <input required style="width: 50%;" onlyNumber matInput formControlName="LEAVES_LAPSE_PERIOD"  type="text" maxlength="2">
                                         <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_LAPSE_PERIOD.errors?.required">{{msgLM1}}</mat-error>
                                       </mat-form-field>
                                     </div>
                                       <div *ngIf="data.rulename == 'LEAVES_ELIGIBILITY_MINIMUM_HOURS'">
                                         <mat-form-field appearance="outline">
-                                        <input required  matInput formControlName="LEAVES_ELIGIBILITY_MINIMUM_HOURS"  type="text" maxlength="2" >
+                                        <input required  matInput onlyNumber formControlName="LEAVES_ELIGIBILITY_MINIMUM_HOURS"  type="text" maxlength="2" >
                                         <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_ELIGIBILITY_MINIMUM_HOURS.errors?.required">{{msgLM1}}</mat-error>
                                      </mat-form-field>
                                     </div>

@@ -77,6 +77,12 @@
         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
       </mat-form-field>
 
+      <span fxLayoutAlign="center" style="margin-top: 17px;">
+        <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+         <span>Clear</span>
+       </button>
+     </span>
+
     </div>
     <div class="tableP" *ngIf="isdata">
       <div class="mat-elevation-z1">
@@ -118,7 +124,7 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let row">
-              <button mat-icon-button matTooltip="Checklist Overview" *ngIf="row.final_status != 'Completed' "
+              <button mat-icon-button matTooltip="Edit" *ngIf="row.final_status != 'Completed' "
                (click)="addChecklistOverview(row)">
                 <mat-icon>edit</mat-icon>
               </button>

@@ -142,7 +142,7 @@ export class UserLeaveRequestComponent implements OnInit {
       leaveCount:['',Validators.required],
       reason:['',Validators.required],
       contact:[this.userSession.contactnumber,Validators.required],
-      emergencyEmail:[''],
+      emergencyEmail:['',[Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       document:['']
 
     });
@@ -900,8 +900,9 @@ async  getLeavesTypeInfo() {
                       }
                       this.LM.setFilesMaster(obj).subscribe((data) => {
                         if(data && data.status) {
-                          let info =JSON.stringify(data.data[0])
-                          this.LM.setProfileImage(this.formData, info).subscribe((data) => {
+                          let info =JSON.stringify(data.data[0]);
+                          this.formData.append("info",info)
+                          this.LM.setProfileImage(this.formData).subscribe((data) => {
                             // this.spinner.hide()
                             if(data && data.status){
                               if(this.documentId){
@@ -915,6 +916,8 @@ async  getLeavesTypeInfo() {
                             }
                             this.file = null;
                             this.formData.delete('file');
+                            this.formData.delete('info');
+
 
                           });
                         }else{

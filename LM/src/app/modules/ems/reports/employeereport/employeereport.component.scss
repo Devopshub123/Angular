@@ -48,3 +48,6 @@
       min-width: #{$size}#{"px"};
   }
 }
+.mat-table {
+  overflow-x: scroll;
+}

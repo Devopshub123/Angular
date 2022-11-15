@@ -54,7 +54,7 @@ export class DeparmentComponent implements OnInit {
   msgLM126:any;
   msgLM127:any;
   todayDate:any=new Date();
-  displayedColumns: string[] = ['department', 'status', 'Action'];
+  displayedColumns: string[] = ['sno','department', 'status', 'Action'];
   departmentData: any = [];
   arrayValue: any;
   // arrayValue: any = [{ Value: 'Active', name: 'Active ' }, { Value: 'Inactive', name: 'Inactive' }];

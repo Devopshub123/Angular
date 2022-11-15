@@ -105,7 +105,8 @@ export class ChecklistMeetComponent implements OnInit {
   minDate = new Date('2000/01/01'); maxDate = new Date("2200/01/01");
   companyDBName:any = environment.dbName;
   getdata: any;
-  scheduleEmployees: any=[];
+  scheduleEmployees: any = [];
+  companyName: any;
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private companyServices: CompanySettingService,private EMS:EmsService) {
 
   }

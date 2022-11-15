@@ -15,7 +15,7 @@ import {MatDialog} from "@angular/material/dialog";
 export class CompOffHistoryComponent implements OnInit {
   userSession:any;
   // displayedColumns: string[] = ['appliedOn','empId' ,'empName','fromDate', 'noOfHours','pendingSince','reason','action'];
-    displayedColumns: string[] = ['appliedOn','empId' ,'empName','fromDate', 'noOfHours','pendingSince','action'];
+    displayedColumns: string[] = ['sno','appliedOn','empId' ,'empName','fromDate', 'noOfHours','pendingSince','action'];
 
   dataSource: MatTableDataSource<UserData>=<any>[];
   pageLoading=true;

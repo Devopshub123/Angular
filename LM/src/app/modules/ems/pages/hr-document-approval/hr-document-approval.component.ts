@@ -172,18 +172,7 @@ export class HrDocumentApprovalComponent implements OnInit {
     return [5, 10, 20, this.dataSource.data.length];
   }
   else {
-
-   return [5, 10, 20];
+    return [5, 10, 20];
   }
-  }
-  getPageSizes2(): number[] {
-    console.log("hello")
-    if (this.datadocumentsSource.data.length > 20) {
-      return [5, 10, 20, this.datadocumentsSource.data.length];
-    }
-    else {
-
-     return [5, 10, 20];
-    }
-  }
+}
 }

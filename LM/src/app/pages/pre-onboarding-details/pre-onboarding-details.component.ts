@@ -1014,7 +1014,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
           if (data && data.status) {
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0])
-              this.mainService.setDocumentOrImageForEMS(this.formData, info).subscribe((data) => {
+              this.formData.append('info',info);
+              this.mainService.setDocumentOrImageForEMS(this.formData).subscribe((data) => {
                 // this.spinner.hide()
                 if (data && data.status) {
                   if (this.editDockinfo) {
@@ -1039,6 +1040,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
                 }
                 this.file = null;
                 this.formData.delete('file');
+                this.formData.delete('info');
                 this.editDockinfo = null;
                 this.editFileName = null;
 

@@ -40,7 +40,11 @@
                 <div fxLayout="column" class="tableP">
                 <div class="mat-elevation-z1">
                     <table mat-table [dataSource]="dataSource" matSort>
-
+                        <ng-container matColumnDef="sno">
+                            <th mat-header-cell *matHeaderCellDef>S.No</th>
+                            <td mat-cell *matCellDef="let element; let i=index;">
+                                {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
+                        </ng-container>
                         <ng-container matColumnDef="department">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
                             <!-- <td mat-cell *matCellDef="let row" > {{row.deptname}} </td> -->

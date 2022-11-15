@@ -184,7 +184,7 @@ export class HeaderComponent implements OnInit {
     let info = {
       'employeeId':this.usersession.id,
       'filecategory': 'PROFILE',
-      'moduleId':2,
+      'moduleId':1,
       'requestId':null,
     }
     this.mainService.getFilesMaster(info).subscribe((result) => {

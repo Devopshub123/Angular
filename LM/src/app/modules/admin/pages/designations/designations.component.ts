@@ -44,7 +44,7 @@ export class DesignationsComponent implements OnInit {
   msgLM130:any
   msgLM131:any;
   msgLM132:any;
-  displayedColumns: string[] = ['designation', 'status', 'Action'];
+  displayedColumns: string[] = ['sno','designation', 'status', 'Action'];
   designationData: any = [];
   arrayValue: any;
   enable: any = null;
