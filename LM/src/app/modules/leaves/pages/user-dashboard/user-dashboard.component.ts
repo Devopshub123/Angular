@@ -133,7 +133,7 @@ export class UserDashboardComponent implements OnInit {
         this.initialEvents.push(item);
       });
       this.calendarOptions.events = this.initialEvents;
-      this.calendarCountViewNoMore();
+      //this.calendarCountViewNoMore();
       // this.myDateFilter = (d: Date): boolean => {
       //   let isValid=false;
       // this.calenderleaves.forEach((e:any) => {

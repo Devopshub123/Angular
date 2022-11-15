@@ -18,6 +18,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 import { LeavesService } from 'src/app/modules/leaves/leaves.service';
+import { DecryptPipe } from 'src/app/custom-directive/encrypt-decrypt.pipe';
 // import {default as _rollupMoment} from 'moment';
 const moment = _moment;
 
@@ -193,10 +194,12 @@ export class EmployeeInfoComponent implements OnInit {
   companyDBName: any = environment.dbName;
   issubmit: boolean = false;
   submitsavepersonal: boolean = false;
+  decryptPipe=new DecryptPipe();
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params) {
-      this.empId = this.params.empId;
+
+      this.empId =this.decryptPipe.transform(this.params.empId);
     }
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getDocumentsEMS();
@@ -297,7 +300,7 @@ export class EmployeeInfoComponent implements OnInit {
         })
       }
     })
-    
+
     /**get state details for present address*/
     this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedPresentStateValue: any) => {
       this.permanentStateDetails = [];
@@ -377,7 +380,7 @@ export class EmployeeInfoComponent implements OnInit {
     }
     /** through employee directory */
     if (this.activeroute.snapshot.params.empId != 0 && this.activeroute.snapshot.params.empId != null) {
-      this.employeeId = this.activeroute.snapshot.params.empId
+      this.employeeId = this.empId
       this.getEmployeeInformationList();
       this.getEmployeeJobList();
       this.getEmployeeEmploymentList();
@@ -396,7 +399,7 @@ export class EmployeeInfoComponent implements OnInit {
   //////////
   getLoginCandidateData() {
     this.spinner.show();
-     
+
     this.loginData = [];
     this.emsService.getPreonboardCandidateData(this.candidateId).subscribe((res: any) => {
       this.loginData = JSON.parse(res.data[0].json)[0];
@@ -436,7 +439,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.loginData.aadharnumber != 'null' ? this.personalInfoForm.controls.aadharNumber.setValue(this.loginData.aadharnumber) : this.personalInfoForm.controls.aadharNumber.setValue(''),
         this.personalInfoForm.controls.raddress.setValue(this.loginData.address);
       this.personalInfoForm.controls.rcountry.setValue(this.loginData.country);
-  
+
      // this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
 
       //this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
@@ -574,7 +577,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
       if (this.employeeInformationData.languages_spoken != 'null' || this.employeeInformationData.languages_spoken != "null")
         this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken);
-       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress == 'null' || null ? '' : this.employeeInformationData.paddress); 
+       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress == 'null' || null ? '' : this.employeeInformationData.paddress);
     this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
       this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
@@ -1427,7 +1430,7 @@ export class EmployeeInfoComponent implements OnInit {
           empid: this.employeeCode,
           experience: this.workExperienceDetails,
         }
-  
+
         this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
           if (res.status && res.data[0].statuscode == 0) {
             this.spinner.hide();

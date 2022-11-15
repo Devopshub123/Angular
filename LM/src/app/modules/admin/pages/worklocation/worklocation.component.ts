@@ -292,6 +292,7 @@ export class WorklocationComponent implements OnInit {
   submit(){
     if(this.worklocationForm.valid){
       if(this.worklocationForm.controls.id.value =="" || this.worklocationForm.controls.id.value== null){
+        
         let data ={
           id:this.worklocationForm.controls.id.value,
           address1:this.worklocationForm.controls.address1.value,

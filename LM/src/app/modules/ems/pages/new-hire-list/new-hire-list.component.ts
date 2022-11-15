@@ -9,6 +9,8 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 import * as _moment from 'moment';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 
@@ -37,7 +39,9 @@ export const MY_FORMATS = {
 })
 export class NewHireListComponent implements OnInit {
 
-  constructor(private emsService:EmsService,private router: Router) { }
+  constructor(private emsService:EmsService,
+    private dialog: MatDialog,
+    private router: Router) { }
 
   displayedColumns: string[] = ['sno','name','mobile','joinDate','hireDate','email','status','action'];
   dataSource : MatTableDataSource<any> = <any>[];
@@ -69,8 +73,22 @@ export class NewHireListComponent implements OnInit {
       this.router.navigate(["/ems/newHire"]));
   }
   editEmployee(id:any, data:any) {
-     let candId=data.candidate_id;
-     this.router.navigate(["/ems/empInformation",{candId}])
+    // dateofjoin
+    const dateOne = new Date(data.dateofjoin);
+   const dateTwo = new Date();
+    // Greater than check
+    if (dateOne > dateTwo) {
+      console.log('dateOne is greater than dateTwo')
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data: "Date of joining should not greater than today."
+      });
+    } else {
+      let candId=data.candidate_id;
+      this.router.navigate(["/ems/empInformation",{candId}])
+    }
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
