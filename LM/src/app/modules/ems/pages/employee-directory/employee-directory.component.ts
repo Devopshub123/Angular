@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { EncryptPipe } from 'src/app/custom-directive/encrypt-decrypt.pipe';
 import { EmsService } from '../../ems.service';
 export interface UserData {
   deptname: string;
@@ -29,6 +30,7 @@ export class EmployeeDirectoryComponent implements OnInit {
   ishideonbord: boolean = false;
   employeeList: any = [];
   employeeFilteredList: any = [];
+  encriptPipe= new EncryptPipe()
   ngOnInit(): void {
     this.employeeDirectoryForm=this.formBuilder.group(
       {
@@ -59,7 +61,8 @@ export class EmployeeDirectoryComponent implements OnInit {
   }
 
   editEmployee(id:any, data:any) {
-    let empId=data.id;
+    let empId=this.encriptPipe.transform(data.id.toString());
+
     this.router.navigate(["/ems/empInformation",{empId}])
  }
 

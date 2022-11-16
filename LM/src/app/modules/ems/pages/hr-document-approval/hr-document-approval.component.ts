@@ -24,10 +24,10 @@ export class HrDocumentApprovalComponent implements OnInit {
   fileURL:any;
   displayedColumns: string[] = ['sno','empid','name','Action'];
   displayedColumns2: string[] = ['sno','document','documentnumber','file','Action'];
-  
+
   dataSource: MatTableDataSource<any>=<any>[];
   datadocumentsSource: MatTableDataSource<any>=<any>[];
-  
+
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatPaginator)
@@ -106,7 +106,7 @@ export class HrDocumentApprovalComponent implements OnInit {
 
       }
     })
- 
+
   }
 
  approve(event:any,data:any){
@@ -141,7 +141,7 @@ export class HrDocumentApprovalComponent implements OnInit {
   let updatedata=
   {
     id:data.fileid,
-    status:'Reject',
+    status:'Rejected',
   }
   this.ES.documentApproval(updatedata).subscribe((res:any)=>{
     if(res.status){

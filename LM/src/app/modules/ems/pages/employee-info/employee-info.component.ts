@@ -18,6 +18,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 import { LeavesService } from 'src/app/modules/leaves/leaves.service';
+import { DecryptPipe } from 'src/app/custom-directive/encrypt-decrypt.pipe';
 // import {default as _rollupMoment} from 'moment';
 const moment = _moment;
 
@@ -194,10 +195,12 @@ export class EmployeeInfoComponent implements OnInit {
   issubmit: boolean = false;
   submitsavepersonal: boolean = false;
   isNewEmployee: boolean = false;
+  decryptPipe=new DecryptPipe();
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params) {
-      this.empId = this.params.empId;
+
+      this.empId =this.decryptPipe.transform(this.params.empId);
     }
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getDocumentsEMS();
@@ -388,7 +391,6 @@ export class EmployeeInfoComponent implements OnInit {
         this.availablereportingmanagers = data[0]
       })
     })
-
 
   }
 

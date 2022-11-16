@@ -122,7 +122,7 @@ export class ManagerDashboardComponent implements OnInit {
           this.initialEvents.push(item);
         });
         this.calendarOptions.events = this.initialEvents;
-        this.calendarCountViewNoMore();
+      //  this.calendarCountViewNoMore();
       }
 
     })
@@ -201,28 +201,28 @@ export class ManagerDashboardComponent implements OnInit {
     this.getemployeeattendancedashboard()
     this.getEmployeeAttendanceNotifications();
   }
-  calendarCountViewNoMore() {
-    setTimeout(() => {
+  // calendarCountViewNoMore() {
+  //   setTimeout(() => {
 
-      this.sampleElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link');
-      var closeElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link.fc-more-link');
-      console.log(this.sampleElement);
-      for(var j=0;j<this.sampleElement.length;j++)
-      {
-        this.calendarCount[j] = this.sampleElement[j].innerHTML.substring(0, this.sampleElement[j].innerHTML.length - 4)
-        this.sampleElement[j].innerHTML =  this.calendarCount[j];
-      }
-      console.log(this.calendarCount);
-      for(var k=0;k<closeElement.length;k++) {
-        if (closeElement[k] != null) {
-          this.renderer.listen(closeElement[k], 'click', () => {
-            this.closePopUpOver();
-          });
-        }
-      }
+  //     this.sampleElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link');
+  //     var closeElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link.fc-more-link');
+  //     console.log(this.sampleElement);
+  //     for(var j=0;j<this.sampleElement.length;j++)
+  //     {
+  //       this.calendarCount[j] = this.sampleElement[j].innerHTML.substring(0, this.sampleElement[j].innerHTML.length - 4)
+  //       this.sampleElement[j].innerHTML =  this.calendarCount[j];
+  //     }
+  //     console.log(this.calendarCount);
+  //     for(var k=0;k<closeElement.length;k++) {
+  //       if (closeElement[k] != null) {
+  //         this.renderer.listen(closeElement[k], 'click', () => {
+  //           this.closePopUpOver();
+  //         });
+  //       }
+  //     }
 
-    }, 1000);
-  }
+  //   }, 1000);
+  // }
   closePopUpOver(){
     var openElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-popover-close.fc-icon.fc-icon-x');
     setTimeout(() => {

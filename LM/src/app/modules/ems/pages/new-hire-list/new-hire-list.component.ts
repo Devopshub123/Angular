@@ -203,6 +203,24 @@ export class NewHireListComponent implements OnInit {
     })
   }
 
+  editCandidateData(id:any, data:any) {
+    // dateofjoin
+    const dateOne = new Date(data.dateofjoin);
+   const dateTwo = new Date();
+    // Greater than check
+    if (dateOne > dateTwo) {
+      console.log('dateOne is greater than dateTwo')
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data: "Date of joining should not greater than today."
+      });
+    } else {
+      let candId=data.candidate_id;
+      this.router.navigate(["/ems/empInformation",{candId}])
+    }
+
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -214,10 +232,7 @@ export class NewHireListComponent implements OnInit {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
     this.router.navigate(["/ems/new-hired-list"]));
   }
-  editCandidateData(id:any, data:any) {
-    let candId=data.candidate_id;
-    this.router.navigate(["/ems/empInformation",{candId}])
- }
+
   getMessagesList() {
     let data =
      {
