@@ -13,6 +13,7 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { LeavesService } from 'src/app/modules/leaves/leaves.service';
 import { startTransition } from 'preact/compat';
 import { environment } from 'src/environments/environment';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 export interface UserData {
   deptname: string;
   status: string;
@@ -41,18 +42,14 @@ export class DeparmentComponent implements OnInit {
   isSave: boolean = false;
   enable: any = null;
   valid: boolean = false;
-  msgLM1:any;
-  msgLM23:any
-  msgLM26:any;
-  msgLM27:any;
-  msgLM57:any;
-  msgLM60:any;
-  msgLM122:any;
-  msgLM123:any;
-  msgLM124:any;
-  msgLM125:any
-  msgLM126:any;
-  msgLM127:any;
+  msgEM1:any;
+  msgEM84:any;
+  msgEM85:any;
+  msgEM88:any;
+  msgEM89:any;
+  msgEM90:any
+  msgEM91:any;
+  msgEM92:any;
   todayDate:any=new Date();
   displayedColumns: string[] = ['sno','department', 'status', 'Action'];
   departmentData: any = [];
@@ -65,25 +62,24 @@ export class DeparmentComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
   companyDBName:any = environment.dbName;
-  constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog, private LM: CompanySettingService,private ts:LoginService) {
+  constructor(private formBuilder: FormBuilder, private router: Router,
+    private dialog: MatDialog, private LM: CompanySettingService,private ts:LoginService,
+    private emsService:EmsService) {
 
   }
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getstatuslist();
-    this.getErrorMessages('LM1')
-    this.getErrorMessages('LM23')
-    this.getErrorMessages('LM26')
-    this.getErrorMessages('LM27')
-    this.getErrorMessages('LM57')
-    this.getErrorMessages('LM60')
-    this.getErrorMessages('LM122')
-    this.getErrorMessages('LM123')
-    this.getErrorMessages('LM124')
-    this.getErrorMessages('LM125')
-    this.getErrorMessages('LM126')
-    this.getErrorMessages('LM127')
+    this.getMessages('LM1')
+    this.getMessages('EM84')
+    this.getMessages('EM85')
+    this.getMessages('LM57')
+    this.getMessages('EM88')
+    this.getMessages('EM89')
+    this.getMessages('EM90')
+    this.getMessages('EM91')
+    this.getMessages('EM92')
     this.getDepartments();
     this.departmentForm = this.formBuilder.group(
       {
@@ -133,7 +129,7 @@ export class DeparmentComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: this.msgLM60
+              data: this.msgEM88
             });
 
 
@@ -141,7 +137,7 @@ export class DeparmentComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: this.msgLM26
+              data: this.msgEM84
             });
           }
         })
@@ -150,7 +146,7 @@ export class DeparmentComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.msgLM127
+          data: this.msgEM92
         });
 
 
@@ -193,7 +189,7 @@ export class DeparmentComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.msgLM125
+          data: this.msgEM90
         });
 
       } else {
@@ -201,7 +197,7 @@ export class DeparmentComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.msgLM124
+          data: this.msgEM89
         });
       }
     })
@@ -238,7 +234,7 @@ export class DeparmentComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.msgLM126
+            data: this.msgEM91
           });
           this.getDepartments();
 
@@ -246,7 +242,7 @@ export class DeparmentComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.msgLM27
+            data: this.msgEM85
           });
         }
       })
@@ -256,7 +252,7 @@ export class DeparmentComponent implements OnInit {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
-        data: this.msgLM127
+        data: this.msgEM92
       });
 
     }
@@ -302,53 +298,47 @@ export class DeparmentComponent implements OnInit {
 
     })
   }
-  getErrorMessages(errorCode:any) {
+  getMessages(messageCode:any) {
+    let data =
+    {
+      "code": messageCode,
+      "pagenumber": 1,
+      "pagesize": 1
+    }
+    this.emsService.getMessagesListApi(data).subscribe((result: any) => {
 
-    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
+      if(result.status && messageCode == 'LM1')
+      {
+        this.msgEM1 = result.data[0].message
+      }
+      else if(result.status && messageCode == 'EM84')
+      {
+        this.msgEM84 = result.data[0].message
+      }
+      else if(result.status && messageCode == 'EM85')
+      {
+        this.msgEM85 = result.data[0].message
+      }
+       else if(result.status && messageCode == 'EM88')
+      {
+        this.msgEM88 = result.data[0].message
+      }
 
-      if(result.status && errorCode == 'LM1')
+      else if(result.status && messageCode == 'EM89')
       {
-        this.msgLM1 = result.data[0].errormessage
+        this.msgEM89 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM26')
+      else if(result.status && messageCode == 'EM90')
       {
-        this.msgLM26 = result.data[0].errormessage
+        this.msgEM90 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM27')
+      else if(result.status && messageCode == 'EM91')
       {
-        this.msgLM27 = result.data[0].errormessage
+        this.msgEM91 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM57')
+      else if(result.status && messageCode == 'EM92')
       {
-        this.msgLM57 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM60')
-      {
-        this.msgLM60 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM122')
-      {
-        this.msgLM122 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM123')
-      {
-        this.msgLM123 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM124')
-      {
-        this.msgLM124 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM125')
-      {
-        this.msgLM125 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM126')
-      {
-        this.msgLM126 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM127')
-      {
-        this.msgLM127 = result.data[0].errormessage
+        this.msgEM92 = result.data[0].message
       }
 
     })

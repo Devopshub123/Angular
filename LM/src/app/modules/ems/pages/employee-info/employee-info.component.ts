@@ -375,7 +375,7 @@ export class EmployeeInfoComponent implements OnInit {
 
     /** through new hired list */
     if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
-      this.candidateId = this.activeroute.snapshot.params.candId
+      this.candidateId = this.decryptPipe.transform(this.activeroute.snapshot.params.candId)
       this.getLoginCandidateData();
     }
     /** through employee directory */
@@ -1274,7 +1274,7 @@ export class EmployeeInfoComponent implements OnInit {
       }else {
          let isValid = false;
         if (this.employeeJobForm.valid) {
-          
+
           this.promotionList = [];
           if (this.promotionsForm.controls.newSalary.value != "" &&
             this.promotionsForm.controls.newDescription.value != "" &&
@@ -1288,7 +1288,7 @@ export class EmployeeInfoComponent implements OnInit {
                 annualsalary: this.promotionsForm.controls.annualSalary.value,
             });
             }
-         
+
         isValid = true;
         }
         if (isValid == true) {

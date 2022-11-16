@@ -11,6 +11,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import * as _moment from 'moment';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { EncryptPipe } from 'src/app/custom-directive/encrypt-decrypt.pipe';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 
@@ -52,7 +53,7 @@ export class NewHireListComponent implements OnInit {
   newHiredList: any = [];
   userSession:any;
   pageLoading = true;
-
+  encriptPipe= new EncryptPipe();
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getNewHiredList();
@@ -85,7 +86,7 @@ export class NewHireListComponent implements OnInit {
         data: "Date of joining should not greater than today."
       });
     } else {
-      let candId=data.candidate_id;
+      let candId=this.encriptPipe.transform(data.candidate_id.toString());
       this.router.navigate(["/ems/empInformation",{candId}])
     }
 

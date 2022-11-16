@@ -12,6 +12,7 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { AdminService } from '../../admin.service';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 export interface UserData {
   id: number;
   designation: string;
@@ -39,11 +40,11 @@ export class DesignationsComponent implements OnInit {
   valid: boolean = false;
   userSession:any;
   pipe = new DatePipe('en-US');
-  msgLM128:any;
-  msgLM129:any;
-  msgLM130:any
-  msgLM131:any;
-  msgLM132:any;
+  msgEM94:any;
+  msgEM93:any;
+  msgEM96:any
+  msgEM97:any;
+  msgEM98:any;
   displayedColumns: string[] = ['sno','designation', 'status', 'Action'];
   designationData: any = [];
   arrayValue: any;
@@ -57,7 +58,9 @@ export class DesignationsComponent implements OnInit {
   sort!: MatSort;
   pageLoading = true;
   companyDBName:any = environment.dbName;
-  constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog, private LM: CompanySettingService, private adminService: AdminService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog,
+     private LM: CompanySettingService, private adminService: AdminService,
+     private emsService:EmsService) {
     this.getDesignation();
     this.dataSource = new MatTableDataSource(this.designationData);
   }
@@ -66,14 +69,14 @@ export class DesignationsComponent implements OnInit {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getDesignation();
     this.getstatuslist();
-    this.getErrorMessages('LM1');
-    this.getErrorMessages('LM30');
-    this.getErrorMessages('LM31');
-    this.getErrorMessages('LM128')
-    this.getErrorMessages('LM129')
-    this.getErrorMessages('LM130')
-    this.getErrorMessages('LM131')
-    this.getErrorMessages('LM132')
+    this.getMessages('EM1');
+    this.getMessages('EM93');
+    this.getMessages('EM97');
+    this.getMessages('EM94')
+    this.getMessages('EM93')
+    this.getMessages('EM96')
+    this.getMessages('EM97')
+    this.getMessages('EM98')
     this.designationForm = this.formBuilder.group(
       {
         designation: ["",[Validators.required,this.noWhitespaceValidator()]],
@@ -120,7 +123,7 @@ export class DesignationsComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data:this.msgLM128
+              data:this.msgEM94
             });
 
           } else {
@@ -136,7 +139,7 @@ export class DesignationsComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.msgLM129
+          data: this.msgEM93
         });
 
       }
@@ -158,7 +161,7 @@ export class DesignationsComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.msgLM131
+          data: this.msgEM97
         });
 
       } else {
@@ -166,7 +169,7 @@ export class DesignationsComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.msgLM132
+          data: this.msgEM98
         });
       }
     })
@@ -219,7 +222,7 @@ export class DesignationsComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.msgLM130
+            data: this.msgEM96
           });
 
 
@@ -238,7 +241,7 @@ export class DesignationsComponent implements OnInit {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
-        data: this.msgLM129
+        data: this.msgEM93
       });
     }
   }
@@ -268,36 +271,42 @@ export class DesignationsComponent implements OnInit {
       }
     })
   }
-  getErrorMessages(errorCode: any) {
-    this.LM.getErrorMessages(errorCode, 1, 1).subscribe((result) => {
-      if (result.status && errorCode == 'LM1') {
-        this.errorDesName = result.data[0].errormessage
+  getMessages(messageCode:any) {
+    let data =
+    {
+      "code": messageCode,
+      "pagenumber": 1,
+      "pagesize": 1
+    }
+    this.emsService.getMessagesListApi(data).subscribe((result: any) => {
+   if (result.status && messageCode == 'EM1') {
+        this.errorDesName = result.data[0].message
       }
-      else if (result.status && errorCode == 'LM30') {
-        this.saveResponseMessage = result.data[0].errormessage
+      else if (result.status && messageCode == 'EM93') {
+        this.saveResponseMessage = result.data[0].message
       }
-      else if (result.status && errorCode == 'LM31') {
-        this.editResponseMessage = result.data[0].errormessage
+      else if (result.status && messageCode == 'EM97') {
+        this.editResponseMessage = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM128')
+      else if(result.status && messageCode == 'EM94')
       {
-        this.msgLM128 = result.data[0].errormessage
+        this.msgEM94 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM129')
+      else if(result.status && messageCode == 'EM93')
       {
-        this.msgLM129 = result.data[0].errormessage
+        this.msgEM93 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM130')
+      else if(result.status && messageCode == 'EM96')
       {
-        this.msgLM130 = result.data[0].errormessage
+        this.msgEM96 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM131')
+      else if(result.status && messageCode == 'EM97')
       {
-        this.msgLM131 = result.data[0].errormessage
+        this.msgEM97 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM132')
+      else if(result.status && messageCode == 'EM98')
       {
-        this.msgLM132 = result.data[0].errormessage
+        this.msgEM98 = result.data[0].message
       }
 
     })

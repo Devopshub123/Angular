@@ -13,7 +13,7 @@
                       Please enter valid data
                   </mat-error> -->
                   <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.required ||departmentForm.controls.department.errors?.['whitespace']">
-                    {{msgLM1}}
+                    {{msgEM1}}
                 </mat-error>
                 </mat-form-field>
             </div>
@@ -53,7 +53,7 @@
                                 <mat-form-field appearance="outline" *ngIf="enable === row.id">
                                     <input formControlName="department" value="row.deptname" matInput placeholder="" >
                                     <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.required ||departmentForm.controls.department.errors?.['whitespace']">
-                                      {{msgLM1}}
+                                      {{msgEM1}}
                                   </mat-error>
                                   </mat-form-field>
 
