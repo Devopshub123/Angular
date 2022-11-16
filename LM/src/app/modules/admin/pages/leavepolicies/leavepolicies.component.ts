@@ -7,6 +7,7 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 import { AddleavepopupComponent } from '../addleavepopup/addleavepopup.component';
 import { Router, RouterModule } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+import { Location } from '@angular/common';
 import {LeavePoliciesDialogComponent} from '../../dialog/leave-policies-dialog/leave-policies-dialog.component'
 @Component({
   selector: 'app-leavepolicies',
@@ -43,7 +44,8 @@ export class LeavepoliciesComponent implements OnInit {
   msgLM134:any;
   msgLM135:any;
   msgLM136:any;
-  isCreditfrequence:boolean=true;
+  isCreditfrequence: boolean = true;
+  datas:any=[]
 
   dataSource: MatTableDataSource<any>=<any>[];
   dataSource2: MatTableDataSource<any>=<any>[];
@@ -109,7 +111,10 @@ export class LeavepoliciesComponent implements OnInit {
   ispredefined:boolean=false;
 
 
-  constructor(private LM:LeavePoliciesService,private router: Router,private ts:LoginService,private dialog: MatDialog,private formBuilder: FormBuilder,) { }
+  constructor(private location:Location,private LM: LeavePoliciesService, private router: Router, private ts: LoginService, private dialog: MatDialog, private formBuilder: FormBuilder,) { 
+    this.datas = this.location.getState();
+    console.log(this.datas)
+  }
 
   ngOnInit(): void {
     this.getLeaveTypesForCarryForword()
@@ -941,6 +946,7 @@ export class LeavepoliciesComponent implements OnInit {
         position:{top:`70px`},
 
       })
+    this.getLeavesDetails();
   }
   /**toggle change */
   toglechange(event:any,element:any) {

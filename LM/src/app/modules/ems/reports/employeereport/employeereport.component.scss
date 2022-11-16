@@ -1,53 +1,111 @@
 .search-hover {
-    background: #dddddd url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
-    border: 1px solid #ccc;
-    outline: none;
-    background-size: 18px;
-    background-position: 9px;
-    border-radius: 30px;
-    width: 38px;
-    height: 35px;
-    padding: 20px;
-    transition: all 0.5s;
-  }
-  .search-hover:hover {
-    width: 300px;
-    padding-left: 50px;
-  }
-  .styles{
-    width: 40px;
-  }
-  .example-margin {
-    margin: 0 12px;
-  }
-  .example-section {
-    list-style-type: none;
-  margin-top: 4px;
-  }
-  ul {
-    list-style-type: none;
-    margin-top: 4px;
-  }
-  
-//   .mat-table {
-//     display: block;
-//     width: auto;
-//     overflow-x: auto;
-// }
-.table-container {
-  width: 100vw; // <!-- THIS WORKS for horizontal scrolling (all columns visibile)
-  // width: 100%; // <!-- THIS DOESNT for horizontal scrolling (no scrollbars)
-  // width: 2800px; // <!-- THIS ALSO DOESNT for horizontal scrolling (no scrollbars)
+  background: #dddddd url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+  border: 1px solid #ccc;
+  outline: none;
+  background-size: 18px;
+  background-position: 9px;
+  border-radius: 30px;
+  width: 38px;
+  height: 35px;
+  padding: 20px;
+  transition: all 0.5s;
 }
-// table column width helper for mat-tables
-@for $index from 0 through 200 {
-  $size: $index * 2;
 
-  .table-column-#{$size} {
-      // flex: 0 1 #{$size}#{"px"};
-      min-width: #{$size}#{"px"};
-  }
+.search-hover:hover {
+  width: 300px;
+  padding-left: 50px;
 }
+
+.styles {
+  width: 40px;
+}
+
+.example-margin {
+  margin: 0 12px;
+}
+
+.example-section {
+  list-style-type: none;
+  margin-top: 4px;
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 4px;
+}
+
 .mat-table {
-  overflow-x: scroll;
+  display: block;
+  width: auto;
+  overflow-x: auto;
+}
+
+.mat-column-sno {
+  max-width: 70px;
+  min-width: 80px;
+}
+
+.mat-column-name {
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.mat-column-email {
+  max-width: 200px;
+  min-width: 200px;
+}
+
+.mat-column-mobile {
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.mat-column-empstatus {
+  max-width: 100px;
+  min-width: 80px;
+}
+
+.mat-column-emptype {
+  max-width: 120px;
+  min-width: 100px;
+}
+
+.mat-column-desg {
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.mat-column-location {
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.mat-column-blood {
+  max-width: 120px;
+  min-width: 100px;
+}
+
+.mat-column-marital {
+  max-width: 120px;
+  min-width: 100px;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+th,
+td {
+  overflow: hidden;
+  width: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block !important;
 }
