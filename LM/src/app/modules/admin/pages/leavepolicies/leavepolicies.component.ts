@@ -943,10 +943,18 @@ export class LeavepoliciesComponent implements OnInit {
   addnewleave(){
       let dialogRef = this.dialog.open(AddleavepopupComponent, {
         width: '400px',
-        position:{top:`70px`},
+        position: { top: `70px` },
+        disableClose: true,
+        data: { YES: 'YES', NO: 'NO' }
 
       })
-    this.getLeavesDetails();
+    
+    dialogRef.afterClosed().subscribe(result => {
+       if (result == 'YES' || result == undefined ) {
+          this.getLeavesDetails();
+        }
+      });
+   
   }
   /**toggle change */
   toglechange(event:any,element:any) {

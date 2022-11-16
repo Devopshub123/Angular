@@ -193,6 +193,7 @@ export class EmployeeInfoComponent implements OnInit {
   companyDBName: any = environment.dbName;
   issubmit: boolean = false;
   submitsavepersonal: boolean = false;
+  isNewEmployee: boolean = false;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params) {
@@ -222,6 +223,24 @@ export class EmployeeInfoComponent implements OnInit {
     this.getRoles();
     this.getstatuslist();
     this.getnoticeperiods();
+     /** new employee */
+     if (this.activeroute.snapshot.params.newId != 0 && this.activeroute.snapshot.params.newId != null) {
+       this.isNewEmployee = true;
+      }
+        /** through new hired list */
+        if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
+           this.candidateId = this.activeroute.snapshot.params.candId
+          this.getLoginCandidateData();
+        }
+        /** through employee edit directory */
+        if (this.activeroute.snapshot.params.empId != 0 && this.activeroute.snapshot.params.empId != null) {
+           this.employeeId = this.activeroute.snapshot.params.empId
+          this.getEmployeeInformationList();
+          this.getEmployeeJobList();
+          this.getEmployeeEmploymentList();
+          this.getEmployeeEducationList();
+        }
+        this.getEmployeeImage();
     /**same as present address checkbox */
     this.personalInfoForm.get('checked')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != '') {
@@ -370,20 +389,7 @@ export class EmployeeInfoComponent implements OnInit {
       })
     })
 
-    /** through new hired list */
-    if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
-      this.candidateId = this.activeroute.snapshot.params.candId
-      this.getLoginCandidateData();
-    }
-    /** through employee directory */
-    if (this.activeroute.snapshot.params.empId != 0 && this.activeroute.snapshot.params.empId != null) {
-      this.employeeId = this.activeroute.snapshot.params.empId
-      this.getEmployeeInformationList();
-      this.getEmployeeJobList();
-      this.getEmployeeEmploymentList();
-      this.getEmployeeEducationList();
-    }
-    this.getEmployeeImage();
+
   }
 
   getnoticeperiods() {
@@ -1007,7 +1013,9 @@ export class EmployeeInfoComponent implements OnInit {
               disableClose: true,
               data: this.EM42
             });
-            this.selectedtab.setValue(1);
+          
+            this.isNewEmployee !=true ? this.selectedtab.setValue(1): this.selectedtab.setValue(0);
+            //this.selectedtab.setValue(1);
           } else {
             this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {

@@ -51,9 +51,11 @@ export class EmployeeDirectoryComponent implements OnInit {
       this.ishideonbord = false;
     }
   }
-  newHire(){
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/ems/newHire"]));
+  newHire() {
+    let newId=1;
+    this.router.navigate(["/ems/empInformation",{newId}])
+    // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    //   this.router.navigate(["/ems/empInformation"]));
   }
 
   editEmployee(id:any, data:any) {

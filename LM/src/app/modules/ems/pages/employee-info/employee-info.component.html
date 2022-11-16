@@ -1,6 +1,6 @@
 <div fxLayout="column">
     <mat-card>
-        <div>
+        <div *ngIf="!isNewEmployee">
             <mat-card style="background-color: #ffffff">
                 <div fxLayout="row" style="padding: 15px">
                     <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center">
@@ -36,7 +36,7 @@
                 (selectedTabChange)="tabClick($event)" (selectedIndexChange)="selectedtab.setValue($event)"
                 mat-stretch-tabs>
                 <!-- personal info tab -->
-                <mat-tab label="Personal Info">
+                <mat-tab label="Personal Info" >
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="personalInfoForm">
                             <div class="section"><b>Personal Information</b></div>
@@ -651,7 +651,7 @@
                     </div>
                 </mat-tab>
                 <!-- job tab -->
-                <mat-tab label="Job">
+                <mat-tab label="Job" [disabled]='isNewEmployee'>
                     <div fxLayout="column" style="padding: 10px">
                         <!-- contract with promotions -->
                         <div *ngIf="isContractData">
@@ -899,7 +899,7 @@
                     </div>
                 </mat-tab>
                 <!-- employement tab -->
-                <mat-tab label="Work Experience">
+                <mat-tab label="Work Experience" [disabled]='isNewEmployee'>
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="experienceForm">
                             <div class="section"><b>Work Experience</b></div>
@@ -1037,7 +1037,7 @@
                 </mat-tab>
 
                 <!-- Bank details tab -->
-                <mat-tab label="Bank Details">
+                <mat-tab label="Bank Details" [disabled]='isNewEmployee'>
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="employementForm">
                             <div class="section"><b>Bank Details</b></div>
@@ -1126,7 +1126,7 @@
                 </mat-tab>
 
                 <!-- education tab -->
-                <mat-tab label="Education">
+                <mat-tab label="Education" [disabled]='isNewEmployee'>
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="educationForm">
                             <div class="section"><b>Education</b></div>
@@ -1251,7 +1251,7 @@
                 </mat-tab>
 
                 <!-- document tab -->
-                <mat-tab label="Document Approval">
+                <mat-tab label="Document Approval" [disabled]='isNewEmployee'>
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="documentsForm">
                             <div class="section"><b>Add Documents</b></div>
@@ -1358,6 +1358,7 @@
                         </form>
                     </div>
                 </mat-tab>
+
             </mat-tab-group>
         </div>
     </mat-card>
