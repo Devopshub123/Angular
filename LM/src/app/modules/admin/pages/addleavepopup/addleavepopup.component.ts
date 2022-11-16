@@ -93,8 +93,9 @@ export class AddleavepopupComponent implements OnInit {
         this.LM.setNewLeaveType(info).subscribe((data) => {        
           if (data.status) {         
             this.dialogRef.close();
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/Admin/Leavepolicies"]));
+            // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            //   this.router.navigate(["/Admin/Leavepolicies"]));
+              // this.router.navigate(["/Admin/Leavepolicies"],{state: {data:true}});
           }
           else {
            

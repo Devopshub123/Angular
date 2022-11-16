@@ -179,7 +179,6 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
     XLSX.utils.book_append_sheet(wb, ws, 'Attendance_Summary_Report');
     /* save to file */
     XLSX.writeFile(wb, 'Attendance_Summary_Report.xlsx');
-    console.log('hi')
 
   }
   getPageSizes(): number[] {

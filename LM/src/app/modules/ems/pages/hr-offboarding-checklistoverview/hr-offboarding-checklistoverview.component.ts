@@ -183,12 +183,18 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
         this.selectedChecklists.push(cid);
         this.selection.select(row);
       }
+      const selectedBox = this.selectedChecklists.length;
+      const totalRows = this.checklistDataSource.data.length;
+      if (selectedBox === totalRows) {
+        this.isdisable = false;
+      } 
 
     } else {
       const index = this.selectedChecklists.indexOf(cid);
       if (index > -1) {
         this.selectedChecklists.splice(index, 1);
         this.selection.deselect(row);
+        this.isdisable = true;
       }
     }
   }

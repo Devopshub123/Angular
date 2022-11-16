@@ -1271,13 +1271,21 @@ export class EmployeeInfoComponent implements OnInit {
       }else {
          let isValid = false;
         if (this.employeeJobForm.valid) {
+          
           this.promotionList = [];
-          this.promotionList.push({
-            newsalary: this.promotionsForm.controls.newSalary.value,
-            newdescription: this.promotionsForm.controls.newDescription.value,
-            effectivedate: this.pipe.transform(this.promotionsForm.controls.effectiveDate.value, 'yyyy-MM-dd'),
-            annualsalary: this.promotionsForm.controls.annualSalary.value,
-          });
+          if (this.promotionsForm.controls.newSalary.value != "" &&
+            this.promotionsForm.controls.newDescription.value != "" &&
+            this.promotionsForm.controls.effectiveDate.value != "" &&
+            this.promotionsForm.controls.annualSalary.value != ""
+            ) {
+            this.promotionList.push({
+                newsalary: this.promotionsForm.controls.newSalary.value,
+                newdescription: this.promotionsForm.controls.newDescription.value,
+                effectivedate: this.pipe.transform(this.promotionsForm.controls.effectiveDate.value, 'yyyy-MM-dd'),
+                annualsalary: this.promotionsForm.controls.annualSalary.value,
+            });
+            }
+         
         isValid = true;
         }
         if (isValid == true) {

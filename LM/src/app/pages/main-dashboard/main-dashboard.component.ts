@@ -540,7 +540,6 @@ export class MainDashboardComponent implements OnInit {
     this.formData.append('file', this.file);
     if (this.file) {
       if (this.file.size <= 1024000) {
-        console.log('file name--', this.file.name);
         this.editProfile();
       } else {
         // this.dialog.open(ConfirmationComponent, {
@@ -586,6 +585,8 @@ export class MainDashboardComponent implements OnInit {
                     disableClose: true,
                     data: 'Image uploaded successfully',
                   });
+                  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                  this.router.navigate(["/MainDashboard"]));
                 } else {
                   let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: { top: `70px` },

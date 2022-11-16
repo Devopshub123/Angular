@@ -58,7 +58,7 @@
       </mat-form-field>
 
       <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-        <mat-label>Date of Join</mat-label>
+        <mat-label>Joining Date</mat-label>
         <input matInput readonly required [matDatepicker]="dateofjoin" [min]="minHireDate" [max]="joinDate"
           placeholder="DD-MM-YYYY" formControlName="dateofjoin" (click)="dateofjoin.open()">
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofjoin"></mat-datepicker-toggle>

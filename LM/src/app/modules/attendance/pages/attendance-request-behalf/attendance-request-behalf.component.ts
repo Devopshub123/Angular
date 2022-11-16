@@ -242,6 +242,8 @@ dataNotSaved: any;
             disableClose: true,
             data: "Unable to request. please configure the shift before request"
           });
+          this.requestform.controls.fromDate.reset();
+          return;
         }
 
 

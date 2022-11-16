@@ -109,7 +109,7 @@ export class EmployeereportComponent implements OnInit {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getEmsEmployeeColumnConfigurationValue();
    }
-
+   showScroll: boolean | undefined;
   ngOnInit(): void {
     this.getEmsEmployeeColumnFilterData();
   }
@@ -419,5 +419,13 @@ export class EmployeereportComponent implements OnInit {
     this.ishide = true;
     this.isview = false;
   }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
 
+     return [5, 10, 20];
+    }
+  }
 }
