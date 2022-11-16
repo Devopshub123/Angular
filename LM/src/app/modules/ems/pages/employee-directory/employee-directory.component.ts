@@ -30,7 +30,7 @@ export class EmployeeDirectoryComponent implements OnInit {
   ishideonbord: boolean = false;
   employeeList: any = [];
   employeeFilteredList: any = [];
-  encriptPipe= new EncryptPipe()
+  encriptPipe= new EncryptPipe();
   ngOnInit(): void {
     this.employeeDirectoryForm=this.formBuilder.group(
       {

@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.directive';
-import { PopupComponent, PopupConfig } from '../../../../pages/popup/popup.component';
 import { FormGroup,FormControl,Validators, FormBuilder,FormArray, AbstractControl} from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 @Component({
   selector: 'app-companyinformation',
   templateUrl: './companyinformation.component.html',
@@ -25,26 +25,28 @@ export class CompanyinformationComponent implements OnInit {
   isview:boolean=false;
   isadd:boolean=true;
   isedit:boolean=false;
-  msgLM1:any;
-  msgLM2:any;
-  msgLM3:any;
-  msgLM20:any
-  msgLM21:any;
+  msgEM1:any;
+  msgEM3:any;
+  msgEM2:any;
+  msgEM67:any
+  msgEM68:any;
   msgLM22:any;
-  msgLM57:any;
-  msgLM58:any;
+  msgEM69:any;
+  msgEM70:any;
   companyDBName:any = environment.dbName;
-  constructor(private formBuilder: FormBuilder,private router: Router,private LMS:CompanySettingService,private dialog: MatDialog,private ts: LoginService) { }
+  constructor(private formBuilder: FormBuilder,private router: Router,
+    private LMS:CompanySettingService,private dialog: MatDialog,private ts: LoginService,
+    private emsService:EmsService) { }
 
   ngOnInit(): void {
-    this.getErrorMessages('LM1')
-    this.getErrorMessages('LM2')
-    this.getErrorMessages('LM3')
-    this.getErrorMessages('LM20')
-    this.getErrorMessages('LM21')
-    this.getErrorMessages('LM22')
-    this.getErrorMessages('LM57')
-    this.getErrorMessages('LM58')
+    this.getMessages('EM1')
+    this.getMessages('EM3')
+    this.getMessages('EM2')
+    this.getMessages('EM67')
+    this.getMessages('EM68')
+    this.getMessages('LM22')
+    this.getMessages('EM69')
+    this.getMessages('EM70')
     this.getCountry();
     this.getCompanyInformation();
     this.companyForm=this.formBuilder.group(
@@ -114,7 +116,7 @@ export class CompanyinformationComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: this.msgLM58
+          data: this.msgEM70
         });
 
         this.getCompanyInformation()
@@ -123,7 +125,7 @@ export class CompanyinformationComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: this.msgLM21
+          data: this.msgEM68
         });
 
       }
@@ -157,14 +159,14 @@ export class CompanyinformationComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: this.msgLM57
+          data: this.msgEM69
         });
 
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: this.msgLM20
+            data: this.msgEM67
           });
         }
       })
@@ -229,37 +231,41 @@ export class CompanyinformationComponent implements OnInit {
     })
 
   }
-  getErrorMessages(errorCode:any) {
-
-    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
-
-      if(result.status && errorCode == 'LM1')
+  getMessages(messageCode:any) {
+    let data =
+    {
+      "code": messageCode,
+      "pagenumber": 1,
+      "pagesize": 1
+    }
+    this.emsService.getMessagesListApi(data).subscribe((result: any) => {
+      if(result.status && messageCode == 'EM1')
       {
-        this.msgLM1 = result.data[0].errormessage
+        this.msgEM1 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM2')
+      else if(result.status && messageCode == 'EM3')
       {
-        this.msgLM2 = result.data[0].errormessage
+        this.msgEM3 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM3')
+      else if(result.status && messageCode == 'EM2')
       {
-        this.msgLM3 = result.data[0].errormessage
+        this.msgEM2 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM20')
+      else if(result.status && messageCode == 'EM67')
       {
-        this.msgLM20 = result.data[0].errormessage
+        this.msgEM67 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM21')
+      else if(result.status && messageCode == 'EM68')
       {
-        this.msgLM21 = result.data[0].errormessage
+        this.msgEM68 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM57')
+      else if(result.status && messageCode == 'EM69')
       {
-        this.msgLM57 = result.data[0].errormessage
+        this.msgEM69 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM58')
+      else if(result.status && messageCode == 'EM70')
       {
-        this.msgLM58 = result.data[0].errormessage
+        this.msgEM70 = result.data[0].message
       }
 
     })

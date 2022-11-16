@@ -194,7 +194,7 @@ export class EmployeeInfoComponent implements OnInit {
   companyDBName: any = environment.dbName;
   issubmit: boolean = false;
   submitsavepersonal: boolean = false;
-  isNewEmployee: boolean = false;
+  isNewEmployee: boolean = true;
   decryptPipe=new DecryptPipe();
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
@@ -226,24 +226,11 @@ export class EmployeeInfoComponent implements OnInit {
     this.getRoles();
     this.getstatuslist();
     this.getnoticeperiods();
-     /** new employee */
-     if (this.activeroute.snapshot.params.newId != 0 && this.activeroute.snapshot.params.newId != null) {
-       this.isNewEmployee = true;
-      }
-        /** through new hired list */
-        if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
-           this.candidateId = this.activeroute.snapshot.params.candId
-          this.getLoginCandidateData();
-        }
-        /** through employee edit directory */
-        if (this.activeroute.snapshot.params.empId != 0 && this.activeroute.snapshot.params.empId != null) {
-           this.employeeId = this.activeroute.snapshot.params.empId
-          this.getEmployeeInformationList();
-          this.getEmployeeJobList();
-          this.getEmployeeEmploymentList();
-          this.getEmployeeEducationList();
-        }
-        this.getEmployeeImage();
+    //  /** new employee */
+    //  if (this.activeroute.snapshot.params.newId != 0 && this.activeroute.snapshot.params.newId != null) {
+    //    this.isNewEmployee = false;
+    //   }
+
     /**same as present address checkbox */
     this.personalInfoForm.get('checked')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != '') {
@@ -392,6 +379,20 @@ export class EmployeeInfoComponent implements OnInit {
       })
     })
 
+    /** through new hired list */
+    if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
+      this.candidateId = this.decryptPipe.transform(this.activeroute.snapshot.params.candId)
+      this.getLoginCandidateData();
+    }
+    /** through employee directory */
+    if (this.activeroute.snapshot.params.empId != 0 && this.activeroute.snapshot.params.empId != null) {
+      this.employeeId = this.decryptPipe.transform(this.activeroute.snapshot.params.empId)
+      this.getEmployeeInformationList();
+      this.getEmployeeJobList();
+      this.getEmployeeEmploymentList();
+      this.getEmployeeEducationList();
+    }
+    this.getEmployeeImage();
   }
 
   getnoticeperiods() {
@@ -408,7 +409,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.loginData = [];
     this.emsService.getPreonboardCandidateData(this.candidateId).subscribe((res: any) => {
       this.loginData = JSON.parse(res.data[0].json)[0];
-
+      this.isNewEmployee = false;
       if (this.loginData.id != null) {
         this.preOnboardId = this.loginData.id;
       }
@@ -541,7 +542,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.familyDetails = [];
     this.emsService.getEmployeeInformationData(this.employeeId).subscribe((res: any) => {
       this.employeeInformationData = JSON.parse(res.data[0].json)[0];
-
+      this.isNewEmployee = false;
       if (this.employeeInformationData.id != null) {
         this.preOnboardId = this.employeeInformationData.id;
       }
@@ -1281,7 +1282,7 @@ export class EmployeeInfoComponent implements OnInit {
       }else {
          let isValid = false;
         if (this.employeeJobForm.valid) {
-          
+
           this.promotionList = [];
           if (this.promotionsForm.controls.newSalary.value != "" &&
             this.promotionsForm.controls.newDescription.value != "" &&
@@ -1295,7 +1296,7 @@ export class EmployeeInfoComponent implements OnInit {
                 annualsalary: this.promotionsForm.controls.annualSalary.value,
             });
             }
-         
+
         isValid = true;
         }
         if (isValid == true) {

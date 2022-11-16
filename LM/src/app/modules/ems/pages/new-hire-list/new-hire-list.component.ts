@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { EncryptPipe } from 'src/app/custom-directive/encrypt-decrypt.pipe';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 
@@ -77,6 +78,7 @@ export class NewHireListComponent implements OnInit {
   isNewhireList: boolean = true;
   isUpdate: boolean = false;
   candidateId: any;
+  encriptPipe= new EncryptPipe();
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.hireForm=this.formBuilder.group(
@@ -216,7 +218,7 @@ export class NewHireListComponent implements OnInit {
         data: "Date of joining should not greater than today."
       });
     } else {
-      let candId=data.candidate_id;
+      let candId=this.encriptPipe.transform(data.candidate_id.toString());
       this.router.navigate(["/ems/empInformation",{candId}])
     }
 
