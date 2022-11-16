@@ -1528,7 +1528,8 @@ export class EmployeeProfileComponent implements OnInit {
           if (data && data.status) {
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0])
-              this.mainService.setDocumentOrImageForEMS(this.formData, info).subscribe((data) => {
+              this.formData.append('info',info);
+              this.mainService.setDocumentOrImageForEMS(this.formData).subscribe((data) => {
                 // this.spinner.hide()
                 if (data && data.status) {
                   if (this.editDockinfo) {
@@ -1553,6 +1554,7 @@ export class EmployeeProfileComponent implements OnInit {
                 }
                 this.file = null;
                 this.formData.delete('file');
+                this.formData.delete('info');
                 this.editDockinfo = null;
                 this.editFileName = null;
 
@@ -1751,7 +1753,8 @@ export class EmployeeProfileComponent implements OnInit {
           this.mainService.setFilesMasterForEMS(data).subscribe((res) => {
             if (res && res.status) {
               let info = JSON.stringify(res.data[0])
-              this.LM.setProfileImage(this.formData, info).subscribe((res) => {
+              this.formData.append("info",info)
+              this.LM.setProfileImage(this.formData).subscribe((res) => {
                 this.spinner.hide()
                 if (res && res.status) {
                   if (this.profileId) {
@@ -1773,6 +1776,8 @@ export class EmployeeProfileComponent implements OnInit {
                 this.getEmployeeImage();
                 this.isRemoveImage = true;
                 this.formData.delete('file');
+                this.formData.delete('info');
+
 
               });
             } else {

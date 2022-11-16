@@ -155,7 +155,8 @@ export class CompanylogoComponent implements OnInit {
               if(data && data.status) {
                     let info =JSON.stringify(data.data[0])
                     this.file=null;
-                    this.LMS.setProfileImage(this.formData,info).subscribe((result) => {
+                this.formData.append("info",info)
+                this.LMS.setProfileImage(this.formData).subscribe((result) => {
                         this.spinner.hide();
                         if(data && data.status){
                           if(this.logoId){
@@ -184,9 +185,11 @@ export class CompanylogoComponent implements OnInit {
                         this.getUploadImage();
                         this.isRemoveImage=true;
                         this.formData.delete('file');
+                        this.formData.delete('info');
 
 
-                 });
+
+                });
               }else{
                 this.spinner.hide();
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -240,7 +243,7 @@ export class CompanylogoComponent implements OnInit {
       "requestId": null,
       'status': 'Submitted'
 
-     
+
     }
     this.LMS.getFilesMaster(info).subscribe((result) => {
       if(result && result.status && result.data[0]){

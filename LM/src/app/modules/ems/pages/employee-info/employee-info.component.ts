@@ -297,7 +297,7 @@ export class EmployeeInfoComponent implements OnInit {
         })
       }
     })
-    
+
     /**get state details for present address*/
     this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedPresentStateValue: any) => {
       this.permanentStateDetails = [];
@@ -396,7 +396,7 @@ export class EmployeeInfoComponent implements OnInit {
   //////////
   getLoginCandidateData() {
     this.spinner.show();
-     
+
     this.loginData = [];
     this.emsService.getPreonboardCandidateData(this.candidateId).subscribe((res: any) => {
       this.loginData = JSON.parse(res.data[0].json)[0];
@@ -436,7 +436,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.loginData.aadharnumber != 'null' ? this.personalInfoForm.controls.aadharNumber.setValue(this.loginData.aadharnumber) : this.personalInfoForm.controls.aadharNumber.setValue(''),
         this.personalInfoForm.controls.raddress.setValue(this.loginData.address);
       this.personalInfoForm.controls.rcountry.setValue(this.loginData.country);
-  
+
      // this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
 
       //this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
@@ -574,7 +574,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
       if (this.employeeInformationData.languages_spoken != 'null' || this.employeeInformationData.languages_spoken != "null")
         this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken);
-       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress == 'null' || null ? '' : this.employeeInformationData.paddress); 
+       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress == 'null' || null ? '' : this.employeeInformationData.paddress);
     this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
       this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
@@ -1437,7 +1437,7 @@ export class EmployeeInfoComponent implements OnInit {
           empid: this.employeeCode,
           experience: this.workExperienceDetails,
         }
-  
+
         this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
           if (res.status && res.data[0].statuscode == 0) {
             this.spinner.hide();
@@ -1784,7 +1784,8 @@ export class EmployeeInfoComponent implements OnInit {
 
   getDocumentsEMS() {
     let input = {
-      'employeeId': this.empId,
+      'employeeId': this
+        .empId,
       "candidateId": 0,
       "moduleId": 1,
       "filecategory": null,
@@ -1792,6 +1793,7 @@ export class EmployeeInfoComponent implements OnInit {
       'status': null
     }
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
+      console.log("shbvjhdshjjgetDocumentsForEMS",result)
       this.documentDetails = [];
       if (result && result.status) {
         // for (let k = 0; k < result.data.length; k++) {
@@ -1973,7 +1975,8 @@ export class EmployeeInfoComponent implements OnInit {
           if (data && data.status) {
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0])
-              this.mainService.setDocumentOrImageForEMS(this.formData, info).subscribe((data) => {
+              this.formData.append('info',info);
+              this.mainService.setDocumentOrImageForEMS(this.formData).subscribe((data) => {
                 // this.spinner.hide()
                 if (data && data.status) {
                   if (this.editDockinfo) {
@@ -2000,6 +2003,7 @@ export class EmployeeInfoComponent implements OnInit {
                 }
                 this.file = null;
                 this.formData.delete('file');
+                this.formData.delete('info');
                 this.editDockinfo = null;
                 this.editFileName = null;
 

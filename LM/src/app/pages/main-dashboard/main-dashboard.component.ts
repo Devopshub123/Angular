@@ -572,7 +572,8 @@ export class MainDashboardComponent implements OnInit {
           this.mainService.setFilesMasterForEMS(data).subscribe((res) => {
             if (res && res.status) {
               let info = JSON.stringify(res.data[0]);
-              this.LM.setProfileImage(this.formData, info).subscribe((res) => {
+              this.formData.append("info",info)
+              this.LM.setProfileImage(this.formData).subscribe((res) => {
                 this.spinner.hide();
                 if (res && res.status) {
                   if (this.profileId) {
@@ -598,6 +599,8 @@ export class MainDashboardComponent implements OnInit {
                 this.getDocumentsEMS();
                 this.isRemoveImage = true;
                 this.formData.delete('file');
+                this.formData.delete('info');
+
               });
             } else {
               this.spinner.hide();

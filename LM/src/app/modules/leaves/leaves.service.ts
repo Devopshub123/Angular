@@ -141,9 +141,9 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     // setProfileImage(data: FormData,Id: number ,conpanyName:any): Observable<any> {
     //   return this.http.post(this.mainUrl + 'api/setProfileImage/'+conpanyName+'/'+Id, data);
     // }
-    setProfileImage(data: FormData,path:any): Observable<any> {
+    setProfileImage(data: FormData): Observable<any> {
 
-      return this.http.post(this.mainUrl + 'api/setProfileImage/'+encodeURI(path), data);
+      return this.http.post(this.mainUrl + 'api/setProfileImage/', data);
     }
     removeProfileImage(id: any,companyName:any): Observable<any> {
       return this.http.delete(this.mainUrl + 'api/removeProfileImage/' + id+'/'+companyName,this.httpOptions);

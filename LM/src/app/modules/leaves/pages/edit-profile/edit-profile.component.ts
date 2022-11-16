@@ -185,7 +185,8 @@ export class EditProfileComponent implements OnInit {
                 this.LM.setFilesMaster(obj).subscribe((data) => {
                   if (data && data.status) {
                     let info = JSON.stringify(data.data[0]);
-                    this.LM.setProfileImage(this.formData, info).subscribe(
+                    this.formData.append('info',info)
+                    this.LM.setProfileImage(this.formData).subscribe(
                       (data) => {
                         this.spinner.hide();
                         if (data && data.status) {
@@ -218,6 +219,8 @@ export class EditProfileComponent implements OnInit {
                         this.getUploadImage();
                         this.isRemoveImage = true;
                         this.formData.delete('file');
+                        this.formData.delete('info');
+
                       }
                     );
                   } else {
