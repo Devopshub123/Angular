@@ -195,7 +195,8 @@ export class EmployeeInfoComponent implements OnInit {
   issubmit: boolean = false;
   submitsavepersonal: boolean = false;
   isNewEmployee: boolean = true;
-  decryptPipe=new DecryptPipe();
+  decryptPipe = new DecryptPipe();
+  joinDateDisable: boolean = false;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params) {
@@ -226,10 +227,20 @@ export class EmployeeInfoComponent implements OnInit {
     this.getRoles();
     this.getstatuslist();
     this.getnoticeperiods();
-    //  /** new employee */
-    //  if (this.activeroute.snapshot.params.newId != 0 && this.activeroute.snapshot.params.newId != null) {
-    //    this.isNewEmployee = false;
-    //   }
+
+    /** through new hired list */
+    if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
+      this.candidateId = this.decryptPipe.transform(this.activeroute.snapshot.params.candId)
+      this.getLoginCandidateData();
+    }
+    /** through employee directory */
+    if (this.activeroute.snapshot.params.empId != 0 && this.activeroute.snapshot.params.empId != null) {
+      this.employeeId = this.decryptPipe.transform(this.activeroute.snapshot.params.empId)
+      this.getEmployeeInformationList();
+      this.getEmployeeJobList();
+      this.getEmployeeEmploymentList();
+      this.getEmployeeEducationList();
+    }
 
     /**same as present address checkbox */
     this.personalInfoForm.get('checked')?.valueChanges.subscribe((selectedValue: any) => {
@@ -284,9 +295,9 @@ export class EmployeeInfoComponent implements OnInit {
       if (selectedResidenceStateValue != '' ) {
          this.companyService.getStatesc(selectedResidenceStateValue).subscribe((data) => {
            this.stateDetails = data[0];
-          if (this.employeeInformationData.length>0) {
-             this.personalInfoForm.controls.rstate.setValue(this.employeeInformationData.state);
-           } else {
+            if (this.employeeCode != null || this.employeeCode !=undefined) {
+              this.personalInfoForm.controls.rstate.setValue(this.employeeInformationData.state);
+            } else {
              this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
            }
          })
@@ -295,10 +306,10 @@ export class EmployeeInfoComponent implements OnInit {
     /**get city details for residance address */
     this.personalInfoForm.get('rstate')?.valueChanges.subscribe((selectedResidenceCityValue: any) => {
       this.cityDetails = [];
-      if (selectedResidenceCityValue != '') {
+       if (selectedResidenceCityValue != '') {
         this.companyService.getCities(selectedResidenceCityValue).subscribe((data) => {
           this.cityDetails = data[0]
-          if (this.employeeInformationData.length > 0 ) {
+           if (this.employeeCode != null || this.employeeCode !=undefined) {
             this.personalInfoForm.controls.rcity.setValue(this.employeeInformationData.city);
           } else {
             this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
@@ -313,7 +324,7 @@ export class EmployeeInfoComponent implements OnInit {
       if (selectedPresentStateValue != '') {
         this.companyService.getStatesc(selectedPresentStateValue).subscribe((data) => {
           this.permanentStateDetails = data[0]
-          if (this.employeeInformationData.length >0) {
+          if (this.employeeCode != null || this.employeeCode !=undefined) {
             this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
           } else {
             this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
@@ -328,7 +339,7 @@ export class EmployeeInfoComponent implements OnInit {
       if (selectedPresentCityValue != '') {
         this.companyService.getCities(selectedPresentCityValue).subscribe((data) => {
           this.permanentCityDetails = data[0]
-          if (this.employeeInformationData.length > 0) {
+          if (this.employeeCode != null || this.employeeCode !=undefined) {
             this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
           } else {
             this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
@@ -378,22 +389,8 @@ export class EmployeeInfoComponent implements OnInit {
         this.availablereportingmanagers = data[0]
       })
     })
-
-    /** through new hired list */
-    if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
-      this.candidateId = this.decryptPipe.transform(this.activeroute.snapshot.params.candId)
-      this.getLoginCandidateData();
-    }
-    /** through employee directory */
-    if (this.activeroute.snapshot.params.empId != 0 && this.activeroute.snapshot.params.empId != null) {
-      this.employeeId = this.decryptPipe.transform(this.activeroute.snapshot.params.empId)
-      this.getEmployeeInformationList();
-      this.getEmployeeJobList();
-      this.getEmployeeEmploymentList();
-      this.getEmployeeEducationList();
-    }
     this.getEmployeeImage();
-  }
+   }
 
   getnoticeperiods() {
     this.emsService.getnoticeperiods().subscribe((res: any) => {
@@ -443,9 +440,12 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.maritalstatus.setValue(this.loginData.maritalstatus);
 
       this.loginData.aadharnumber != 'null' ? this.personalInfoForm.controls.aadharNumber.setValue(this.loginData.aadharnumber) : this.personalInfoForm.controls.aadharNumber.setValue(''),
-        this.personalInfoForm.controls.raddress.setValue(this.loginData.address);
+      console.log("cl-step-9");
+      this.personalInfoForm.controls.raddress.setValue(this.loginData.address);
+      console.log("cl-step-10");
       this.personalInfoForm.controls.rcountry.setValue(this.loginData.country);
-
+      console.log("cl-step-11",this.loginData.state);
+      console.log("cl-step-12",this.loginData.city);
      // this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
 
       //this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
@@ -543,6 +543,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.emsService.getEmployeeInformationData(this.employeeId).subscribe((res: any) => {
       this.employeeInformationData = JSON.parse(res.data[0].json)[0];
       this.isNewEmployee = false;
+      this.joinDateDisable = true;
       if (this.employeeInformationData.id != null) {
         this.preOnboardId = this.employeeInformationData.id;
       }
@@ -576,8 +577,8 @@ export class EmployeeInfoComponent implements OnInit {
       this.employeeInformationData.aadharnumber != 'null' ? this.personalInfoForm.controls.aadharNumber.setValue(this.employeeInformationData.aadharnumber) : this.personalInfoForm.controls.aadharNumber.setValue(''),
         this.personalInfoForm.controls.raddress.setValue(this.employeeInformationData.address);
       this.personalInfoForm.controls.rcountry.setValue(this.employeeInformationData.country);
-      this.personalInfoForm.controls.rstate.setValue(this.employeeInformationData.state);
-      this.personalInfoForm.controls.rcity.setValue(this.employeeInformationData.city);
+     // this.personalInfoForm.controls.rstate.setValue(this.employeeInformationData.state);
+     // this.personalInfoForm.controls.rcity.setValue(this.employeeInformationData.city);
       this.personalInfoForm.controls.rpincode.setValue(this.employeeInformationData.pincode);
 
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
@@ -951,11 +952,29 @@ export class EmployeeInfoComponent implements OnInit {
   // }
   savePersonalInfo() {
     this.submitsavepersonal = true;
-     this.addPersonalInfoValidators();
+    this.addPersonalInfoValidators();
+    let hiredDate;
+    let joinDate;
+    if (this.personalInfoForm.controls.hireDate.value == undefined ||
+      this.personalInfoForm.controls.hireDate.value == "")
+    {
+        hiredDate = this.pipe.transform(new Date, 'yyyy-MM-dd hh:mm:ss')
+    } else {
+      hiredDate = this.pipe.transform(this.personalInfoForm.controls.hireDate.value, 'yyyy-MM-dd hh:mm:ss')
+    }
+    
+    if (this.personalInfoForm.controls.joinDate.value == undefined ||
+      this.personalInfoForm.controls.joinDate.value == "")
+    {
+      joinDate = this.pipe.transform(new Date, 'yyyy-MM-dd hh:mm:ss')
+    } else {
+      joinDate = this.pipe.transform(this.personalInfoForm.controls.joinDate.value, 'yyyy-MM-dd hh:mm:ss')
+    }
+    
     if (this.personalInfoForm.valid) {
       this.spinner.show();
       let data = {
-        condidateid: this.loginCandidateId,
+        condidateid: this.loginCandidateId !=undefined || this.loginCandidateId !=null ? this.loginCandidateId :null,
         empid: this.employeeCode != undefined || this.employeeCode != null ? this.employeeCode : null,
         firstname: this.personalInfoForm.controls.firstname.value,
         middlename: this.personalInfoForm.controls.middlename.value,
@@ -979,12 +998,10 @@ export class EmployeeInfoComponent implements OnInit {
         personalemail: this.personalInfoForm.controls.personalemail.value,
         languages_spoken: this.personalInfoForm.controls.spokenLanguages.value,
         contactnumber: this.personalInfoForm.controls.mobileNo.value,
-        hiredon: this.pipe.transform(this.personalInfoForm.controls.hireDate.value, 'yyyy-MM-dd hh:mm:ss'),
+        hiredon: hiredDate ,
         dateofjoin: this.pipe.transform(this.personalInfoForm.controls.joinDate.value, 'yyyy-MM-dd hh:mm:ss'),
-        //noticeperiod: this.personalInfoForm.controls.noticePeriod.value == 'null' ? 0: parseInt(this.personalInfoForm.controls.noticePeriod.value),
         noticeperiod: this.personalInfoForm.controls.noticePeriod.value,
-        //noticeperiod: 0,
-        designation: parseInt(this.designationId),
+        designation: parseInt(this.personalInfoForm.controls.designation.value),
         emergencycontactnumber: this.personalInfoForm.controls.alternateMobileNo.value,
         emergencycontactrelation: null,
         emergencycontactname: null,
@@ -1001,7 +1018,6 @@ export class EmployeeInfoComponent implements OnInit {
         companylocation: this.personalInfoForm.controls.companylocation.value,
         reportingmanager: this.personalInfoForm.controls.reportingmanager.value,
       }
-
       this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
         if (res.status) {
           if (res.data.email == null) {
@@ -1311,7 +1327,6 @@ export class EmployeeInfoComponent implements OnInit {
             enddate: this.pipe.transform(this.employeeJobForm.controls.contractEndDate.value, 'yyyy-MM-dd'),
             promotions: this.promotionList,
           }
-          console.log("data-",data)
           this.emsService.saveEmployeeJobDetailsData(data).subscribe((res: any) => {
             if (res.status && res.data[0].statuscode == 0) {
               this.spinner.hide();
@@ -1804,7 +1819,6 @@ export class EmployeeInfoComponent implements OnInit {
       'status': null
     }
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
-      console.log("shbvjhdshjjgetDocumentsForEMS",result)
       this.documentDetails = [];
       if (result && result.status) {
         // for (let k = 0; k < result.data.length; k++) {

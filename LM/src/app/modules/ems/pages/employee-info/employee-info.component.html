@@ -183,7 +183,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Emergency Contact Number</mat-label>
                                     <input type="text" onlyNumber formControlName="alternateMobileNo" matInput
-                                        placeholder="" maxlength="10" minlength="10" (keypress)="_keyPress($event)"
+                                        placeholder="" maxlength="10" minlength="10" (keypress)="numberOnly($event)"
                                         required />
                                     <mat-error class="con-error" *ngIf="
                       personalInfoForm.controls.alternateMobileNo.errors
@@ -205,6 +205,21 @@
                             <div class="section"><b>Work Information</b></div>
                             <mat-divider></mat-divider>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Joining Date</mat-label>
+                                    <input required matInput readonly [matDatepicker]="joinDate" [min]="minDate"
+                                        [max]="maxDate" placeholder="DD-MM-YYYY" formControlName="joinDate"
+                                        (click)="joinDate.open()" [disabled]="joinDateDisable"/>
+                                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="joinDate">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #joinDate></mat-datepicker>
+                                    <mat-error class="reg-error" *ngIf="
+                                personalInfoForm.controls.joinDate.errors?.required
+                                ">
+                                        {{ EM2 }}
+                                    </mat-error>
+                                </mat-form-field>
+
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Employee ID</mat-label>
                                     <input readonly formControlName="empid" matInput placeholder="Employee ID" />
@@ -234,6 +249,10 @@
                                         {{EM2}}
                                     </mat-error>
                                 </mat-form-field> -->
+                             
+                            </div>
+
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Employment Type</mat-label>
                                     <mat-select required formControlName="employmentType">
@@ -251,9 +270,6 @@
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
-                            </div>
-
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Role</mat-label>
                                     <mat-select required formControlName="usertype">
@@ -284,6 +300,10 @@
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
+                             
+                            </div>
+
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Designation</mat-label>
                                     <mat-select required formControlName="designation">
@@ -301,9 +321,6 @@
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
-                            </div>
-
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Department</mat-label>
                                     <mat-select required formControlName="department">
@@ -337,16 +354,16 @@
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
+                             
+                            </div>
+
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Notice Period</mat-label>
                                     <input type="text" readonly formControlName="noticePeriod" matInput
                                         placeholder="" />
                                 </mat-form-field>
                             </div>
-
-                            <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
-                            </div> -->
 
                             <div class="section"><b>Personal Contact Information</b></div>
                             <mat-divider></mat-divider>
@@ -458,7 +475,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Pincode</mat-label>
                                     <input type="text" onlyNumber formControlName="rpincode" matInput placeholder=""
-                                        maxlength="6" minlength="6" required />
+                                        maxlength="6" minlength="6" required (keypress)="numberOnly($event)"/>
                                     <mat-error class="con-error"
                                         *ngIf="personalInfoForm.controls.rpincode.errors?.required">
                                         {{ EM1 }}
@@ -472,7 +489,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Pincode</mat-label>
                                     <input type="text" onlyNumber formControlName="ppincode" matInput placeholder=""
-                                        maxlength="6" minlength="6" />
+                                        maxlength="6" minlength="6" (keypress)="numberOnly($event)"/>
                                     <mat-error class="reg-error"
                                         *ngIf="personalInfoForm.controls.ppincode.errors?.minlength">
                                         Pincode should be 6 digits
