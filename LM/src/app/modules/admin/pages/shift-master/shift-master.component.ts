@@ -13,6 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 import { ReportsService } from 'src/app/modules/reports/reports.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AdminService } from '../../admin.service';
@@ -72,13 +73,11 @@ export class ShiftMasterComponent implements OnInit {
   dataNotSave: any;
   recordExist: any;
 
-  ATT65: any;
-  ATT66: any;
-  ATT67: any;
-  ATT68: any;
+  EM120: any;
+  EM121: any;
+  EM122: any;
+  EM123: any;
   statusEmployeExist: any;
-  ATT75: any;
-  ATT76: any;
   mintime: any;
   constructor(
     private formBuilder: FormBuilder,
@@ -86,7 +85,8 @@ export class ShiftMasterComponent implements OnInit {
     public dialog: MatDialog,
     public datePipe: DatePipe,
     private router: Router,
-    public reportsService: ReportsService
+    public reportsService: ReportsService,
+    public emsService:EmsService
   ) {}
   employeelist: any;
   ngOnInit(): void {
@@ -351,9 +351,9 @@ export class ShiftMasterComponent implements OnInit {
     };
     let resMessage: any;
     if (status == '1') {
-      resMessage = this.ATT65;
+      resMessage = this.EM120;
     } else {
-      resMessage = this.ATT67;
+      resMessage = this.EM122;
     }
     this.adminService.updateShiftStatus(data).subscribe((result: any) => {
       if (result.status) {
@@ -373,7 +373,7 @@ export class ShiftMasterComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.ATT68,
+          data: this.EM123,
         });
       }
     });
@@ -443,28 +443,28 @@ export class ShiftMasterComponent implements OnInit {
       pagenumber: 1,
       pagesize: 100,
     };
-    this.adminService.getMessagesListApi(data).subscribe((res: any) => {
+    this.emsService.getMessagesListApi(data).subscribe((res: any) => {
       if (res.status) {
         this.messagesDataList = res.data;
         this.messagesDataList.forEach((e: any) => {
-          if (e.code == 'ATT2') {
+          if (e.code == 'EM1') {
             this.requiredOption = e.message;
-          } else if (e.code == 'ATT1') {
+          } else if (e.code == 'EM1') {
             this.requiredField = e.message;
-          } else if (e.code == 'ATT62') {
+          } else if (e.code == 'EM5') {
             this.recordExist = e.message;
-          } else if (e.code == 'ATT63') {
+          } else if (e.code == 'EM117') {
             this.dataSave = e.message;
-          } else if (e.code == 'ATT64') {
+          } else if (e.code == 'EM119') {
             this.dataNotSave = e.message;
-          } else if (e.code == 'ATT65') {
-            this.ATT65 = e.message;
-          } else if (e.code == 'ATT66') {
-            this.ATT66 = e.message;
-          } else if (e.code == 'ATT67') {
-            this.ATT67 = e.message;
-          } else if (e.code == 'ATT68') {
-            this.ATT68 = e.message;
+          } else if (e.code == 'EM120') {
+            this.EM120 = e.message;
+          } else if (e.code == 'EM121') {
+            this.EM121 = e.message;
+          } else if (e.code == 'EM122') {
+            this.EM122 = e.message;
+          } else if (e.code == 'EM123') {
+            this.EM123 = e.message;
           }
         });
       } else {

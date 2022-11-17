@@ -20,6 +20,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { environment } from 'src/environments/environment';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 
 export interface UserData {
   total: number;
@@ -59,17 +60,16 @@ export class WorklocationComponent implements OnInit {
   ishide: boolean = true;
   editworklocation: boolean = false;
   userSession: any;
-  msgLM1: any;
-  msgLM2: any;
-  msgLM3: any;
-  msgLM23: any;
-  msgLM21: any;
-  msgLM22: any;
-  msgLM57: any;
-  msgLM59: any;
-  msgLM122: any;
-  msgLM123: any;
-  msgLM144: any;
+  msgEM1: any;
+  msgEM3: any;
+  msgEM2: any;
+  msgEM77: any;
+  msgEM31: any;
+  msgEM76: any;
+  msgEM80: any;
+  msgEM81: any;
+  msgEM82: any;
+  msgEM83: any;
   pageLoading = true;
 
   displayedColumns: string[] = [
@@ -94,23 +94,23 @@ export class WorklocationComponent implements OnInit {
     private router: Router,
     private LM: CompanySettingService,
     private dialog: MatDialog,
-    private ts: LoginService
+    private ts: LoginService,private emsService:EmsService
   ) {}
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getstatuslist();
-    this.getErrorMessages('LM1');
-    this.getErrorMessages('LM2');
-    this.getErrorMessages('LM3');
-    this.getErrorMessages('LM23');
-    this.getErrorMessages('LM21');
-    this.getErrorMessages('LM22');
-    this.getErrorMessages('LM57');
-    this.getErrorMessages('LM59');
-    this.getErrorMessages('LM122');
-    this.getErrorMessages('LM123');
-    this.getErrorMessages('LM144')
+    this.getmessages('EM1');
+    this.getmessages('EM3');
+    this.getmessages('EM2');
+    this.getmessages('EM77');
+    this.getmessages('EM31');
+    this.getmessages('EM76');
+    this.getmessages('LM57');
+    this.getmessages('EM80');
+    this.getmessages('EM81');
+    this.getmessages('EM82');
+    this.getmessages('EM83')
     this.getWorkLocation();
     this.getCountry();
 
@@ -316,14 +316,14 @@ export class WorklocationComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.msgLM123,
+          data: this.msgEM82,
         });
       } else {
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.msgLM122,
+          data: this.msgEM81,
         });
       }
     });
@@ -386,7 +386,7 @@ export class WorklocationComponent implements OnInit {
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {
                   position: { top: `70px` },
                   disableClose: true,
-                  data: this.msgLM23,
+                  data: this.msgEM77,
                 });
               }
             } else {
@@ -400,13 +400,13 @@ export class WorklocationComponent implements OnInit {
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {
                   position: { top: `70px` },
                   disableClose: true,
-                  data: this.msgLM59,
+                  data: this.msgEM80,
                 });
               } else {
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {
                   position: { top: `70px` },
                   disableClose: true,
-                  data: this.msgLM22,
+                  data: this.msgEM76,
                 });
               }
             }
@@ -415,7 +415,7 @@ export class WorklocationComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.msgLM144,
+            data: this.msgEM83,
           });
         }
       } else {
@@ -471,7 +471,7 @@ export class WorklocationComponent implements OnInit {
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {
                   position: { top: `70px` },
                   disableClose: true,
-                  data: this.msgLM23,
+                  data: this.msgEM77,
                 });
               }
             } else {
@@ -485,13 +485,13 @@ export class WorklocationComponent implements OnInit {
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {
                   position: { top: `70px` },
                   disableClose: true,
-                  data: this.msgLM59,
+                  data: this.msgEM80,
                 });
               } else {
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {
                   position: { top: `70px` },
                   disableClose: true,
-                  data: this.msgLM22,
+                  data: this.msgEM76,
                 });
               }
             }
@@ -500,7 +500,7 @@ export class WorklocationComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.msgLM144,
+            data: this.msgEM83,
           });
         }
       }
@@ -516,28 +516,32 @@ export class WorklocationComponent implements OnInit {
       .navigateByUrl('/', { skipLocationChange: true })
       .then(() => this.router.navigate(['/Admin/Worklocation']));
   }
-  getErrorMessages(errorCode: any) {
-    this.ts.getErrorMessages(errorCode, 1, 1).subscribe((result) => {
-      if (result.status && errorCode == 'LM1') {
-        this.msgLM1 = result.data[0].errormessage;
-      } else if (result.status && errorCode == 'LM2') {
-        this.msgLM2 = result.data[0].errormessage;
-      } else if (result.status && errorCode == 'LM3') {
-        this.msgLM3 = result.data[0].errormessage;
-      } else if (result.status && errorCode == 'LM23') {
-        this.msgLM23 = result.data[0].errormessage;
-      } else if (result.status && errorCode == 'LM22') {
-        this.msgLM22 = result.data[0].errormessage;
-      } else if (result.status && errorCode == 'LM57') {
-        this.msgLM57 = result.data[0].errormessage;
-      } else if (result.status && errorCode == 'LM59') {
-        this.msgLM59 = result.data[0].errormessage;
-      } else if (result.status && errorCode == 'LM122') {
-        this.msgLM122 = result.data[0].errormessage;
-      } else if (result.status && errorCode == 'LM123') {
-        this.msgLM123 = result.data[0].errormessage;
-      } else if (result.status && errorCode == 'LM144') {
-        this.msgLM144 = result.data[0].errormessage;
+  getmessages(messageCode:any) {
+    let data = {
+      code: messageCode,
+      pagenumber: 1,
+      pagesize: 1,
+    };
+    this.emsService.getMessagesListApi(data).subscribe((result: any) => {
+
+      if (result.status && messageCode == 'EM1') {
+        this.msgEM1 = result.data[0].message;
+      } else if (result.status && messageCode == 'EM3') {
+        this.msgEM3 = result.data[0].message;
+      } else if (result.status && messageCode == 'EM2') {
+        this.msgEM2 = result.data[0].message;
+      } else if (result.status && messageCode == 'EM77') {
+        this.msgEM77 = result.data[0].message;
+      } else if (result.status && messageCode == 'EM76') {
+        this.msgEM76 = result.data[0].message;
+      } else if (result.status && messageCode == 'EM80') {
+        this.msgEM80 = result.data[0].message;
+      } else if (result.status && messageCode == 'EM81') {
+        this.msgEM81 = result.data[0].message;
+      } else if (result.status && messageCode == 'EM82') {
+        this.msgEM82 = result.data[0].message;
+      } else if (result.status && messageCode == 'EM83') {
+        this.msgEM83 = result.data[0].message;
       }
     });
   }
