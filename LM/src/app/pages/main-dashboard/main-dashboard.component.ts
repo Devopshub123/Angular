@@ -97,6 +97,7 @@ export class MainDashboardComponent implements OnInit {
   teamLeavesData: boolean = false;
   teamAttendanceData: boolean = false;
   leavesRequestData: any = [];
+  employeesLeaveList: any = [];
   isManager: boolean = false;
   requestData: any;
   requestType: string = '';
@@ -644,8 +645,21 @@ export class MainDashboardComponent implements OnInit {
     this.requestType = 'LeaveRequest';
     this.requestData.url = '/LeaveManagement/ManagerDashboard';
     this.getrolescreenfunctionalities(2, true);
-    // this.router.navigate(['/LeaveManagement/ReviewAndApprovals'], {
-    //   state: { leaveData: this.requestData, isleave: true },
-    // });
+  }
+
+  getCurrentLeaveEmployees() {
+    this.teamLeavesData = true;
+    this.LM.getHandledLeaves(this.usersession.id).subscribe((res: any) => {
+      if (res.status) {
+        res.data.forEach((e: any) => {
+          if (e.leavestatus=='Approved') {
+            this.employeesLeaveList.push(e);
+         } 
+        }
+        )
+       } else {
+        this.employeesLeaveList = [];
+      }
+    })
   }
 }

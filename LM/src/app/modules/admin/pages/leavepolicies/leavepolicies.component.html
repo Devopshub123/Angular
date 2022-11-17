@@ -198,9 +198,9 @@
             </div>
             <div *ngIf="!isaddnew"  fxLayout="column" >
                 <div fxLayout="row " class="my-2" fxFlex.xs="100%" fxLayoutAlign="end" >
-                    <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
+                    <button class="mx-1 mat-stroked-button" style="background-color:#3f51b5;color:aliceblue"
                         (click)="addnewleave()"   type="button">
-                        <span>Add </span>
+                        <span>Add New Leave Type</span>
                     </button>
                 </div>
                 <form fxLayout="column"  [formGroup]="addleaveForm" autocomplete="off">

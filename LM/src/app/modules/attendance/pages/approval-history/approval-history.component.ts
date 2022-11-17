@@ -16,7 +16,7 @@ import { UserData } from '../../models/EmployeeData';
 })
 export class ApprovalHistoryComponent implements OnInit {
 
-  displayedColumns: string[] = ['id','applieddate' ,'worktype','raisedbyname','shift', 'fromdate', 'todate','status','action'];
+  displayedColumns: string[] = ['sno','applieddate' ,'worktype','raisedbyname','shift', 'fromdate', 'todate','status','action'];
   dataSource: MatTableDataSource<UserData>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;

@@ -1,6 +1,6 @@
 <div fxLayout="column">
     <mat-card>
-        <div>
+        <div *ngIf="!isNewEmployee">
             <mat-card style="background-color: #ffffff">
                 <div fxLayout="row" style="padding: 15px">
                     <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center">
@@ -36,7 +36,7 @@
                 (selectedTabChange)="tabClick($event)" (selectedIndexChange)="selectedtab.setValue($event)"
                 mat-stretch-tabs>
                 <!-- personal info tab -->
-                <mat-tab label="Personal Info">
+                <mat-tab label="Personal Info" >
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="personalInfoForm">
                             <div class="section"><b>Personal Information</b></div>
@@ -183,7 +183,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Emergency Contact Number</mat-label>
                                     <input type="text" onlyNumber formControlName="alternateMobileNo" matInput
-                                        placeholder="" maxlength="10" minlength="10" (keypress)="_keyPress($event)"
+                                        placeholder="" maxlength="10" minlength="10" (keypress)="numberOnly($event)"
                                         required />
                                     <mat-error class="con-error" *ngIf="
                       personalInfoForm.controls.alternateMobileNo.errors
@@ -205,6 +205,21 @@
                             <div class="section"><b>Work Information</b></div>
                             <mat-divider></mat-divider>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Joining Date</mat-label>
+                                    <input required matInput readonly [matDatepicker]="joinDate" [min]="minDate"
+                                        [max]="maxDate" placeholder="DD-MM-YYYY" formControlName="joinDate"
+                                        (click)="joinDate.open()" [disabled]="joinDateDisable"/>
+                                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="joinDate">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #joinDate></mat-datepicker>
+                                    <mat-error class="reg-error" *ngIf="
+                                personalInfoForm.controls.joinDate.errors?.required
+                                ">
+                                        {{ EM2 }}
+                                    </mat-error>
+                                </mat-form-field>
+
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Employee ID</mat-label>
                                     <input readonly formControlName="empid" matInput placeholder="Employee ID" />
@@ -234,6 +249,10 @@
                                         {{EM2}}
                                     </mat-error>
                                 </mat-form-field> -->
+                             
+                            </div>
+
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Employment Type</mat-label>
                                     <mat-select required formControlName="employmentType">
@@ -251,9 +270,6 @@
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
-                            </div>
-
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Role</mat-label>
                                     <mat-select required formControlName="usertype">
@@ -284,6 +300,10 @@
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
+                             
+                            </div>
+
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Designation</mat-label>
                                     <mat-select required formControlName="designation">
@@ -301,9 +321,6 @@
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
-                            </div>
-
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Department</mat-label>
                                     <mat-select required formControlName="department">
@@ -337,16 +354,16 @@
                                         {{ EM2 }}
                                     </mat-error>
                                 </mat-form-field>
+                             
+                            </div>
+
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Notice Period</mat-label>
                                     <input type="text" readonly formControlName="noticePeriod" matInput
                                         placeholder="" />
                                 </mat-form-field>
                             </div>
-
-                            <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
-                            </div> -->
 
                             <div class="section"><b>Personal Contact Information</b></div>
                             <mat-divider></mat-divider>
@@ -458,7 +475,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Pincode</mat-label>
                                     <input type="text" onlyNumber formControlName="rpincode" matInput placeholder=""
-                                        maxlength="6" minlength="6" required />
+                                        maxlength="6" minlength="6" required (keypress)="numberOnly($event)"/>
                                     <mat-error class="con-error"
                                         *ngIf="personalInfoForm.controls.rpincode.errors?.required">
                                         {{ EM1 }}
@@ -472,7 +489,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Pincode</mat-label>
                                     <input type="text" onlyNumber formControlName="ppincode" matInput placeholder=""
-                                        maxlength="6" minlength="6" />
+                                        maxlength="6" minlength="6" (keypress)="numberOnly($event)"/>
                                     <mat-error class="reg-error"
                                         *ngIf="personalInfoForm.controls.ppincode.errors?.minlength">
                                         Pincode should be 6 digits
@@ -651,7 +668,7 @@
                     </div>
                 </mat-tab>
                 <!-- job tab -->
-                <mat-tab label="Job">
+                <mat-tab label="Job" [disabled]='isNewEmployee'>
                     <div fxLayout="column" style="padding: 10px">
                         <!-- contract with promotions -->
                         <div *ngIf="isContractData">
@@ -899,7 +916,7 @@
                     </div>
                 </mat-tab>
                 <!-- employement tab -->
-                <mat-tab label="Work Experience">
+                <mat-tab label="Work Experience" [disabled]='isNewEmployee'>
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="experienceForm">
                             <div class="section"><b>Work Experience</b></div>
@@ -1037,7 +1054,7 @@
                 </mat-tab>
 
                 <!-- Bank details tab -->
-                <mat-tab label="Bank Details">
+                <mat-tab label="Bank Details" [disabled]='isNewEmployee'>
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="employementForm">
                             <div class="section"><b>Bank Details</b></div>
@@ -1126,7 +1143,7 @@
                 </mat-tab>
 
                 <!-- education tab -->
-                <mat-tab label="Education">
+                <mat-tab label="Education" [disabled]='isNewEmployee'>
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="educationForm">
                             <div class="section"><b>Education</b></div>
@@ -1251,7 +1268,7 @@
                 </mat-tab>
 
                 <!-- document tab -->
-                <mat-tab label="Document Approval">
+                <mat-tab label="Document Approval" [disabled]='isNewEmployee'>
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="documentsForm">
                             <div class="section"><b>Add Documents</b></div>
@@ -1358,6 +1375,7 @@
                         </form>
                     </div>
                 </mat-tab>
+
             </mat-tab-group>
         </div>
     </mat-card>

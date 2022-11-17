@@ -102,80 +102,81 @@
           </div>
         </mat-card>
 
-        <mat-card fxLayout="Column" style="height: 215px" class="card outline" fxFlex="50">
-          <div style="overflow: auto">
-            <div fxLayout="row" fxLayoutAlign="space-between center">
-              <span style="
-                  font-size: 20px;
-                  padding-top: 2%;
-                  padding-left: 2%;
-                  color: #28acaf;
-                ">
-                <span *ngIf="!teamLeavesData"><b>Leave Balance</b></span>
-                <span *ngIf="teamLeavesData"><b>Leave Requests</b></span>
-              </span>
-              <span *ngIf="isManager">
-                <mat-radio-group>
-                  <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true' (click)="getLeaveBalance()">
-                    <span style="font-size: 16px;font-weight: 500;">Self</span>
-                  </mat-radio-button>
-                  <mat-radio-button class="mx2 my-2 mr-2" value="team" (click)="getLeavesForApprovals()">
-                    <span style="font-size: 16px;font-weight: 500;">Team</span>
-                  </mat-radio-button>
-                </mat-radio-group>
-              </span>
-            </div>
-            <div style="width: 100%; overflow-x: auto" *ngIf="!teamLeavesData">
-              <table id="table" class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col" class="space">Leave Type</th>
-                    <th scope="col" class="space">Used</th>
-                    <th scope="col" class="space">Available</th>
-                    <!-- <th scope="col" class="space">Total</th> -->
-                  </tr>
-                </thead>
-                <tbody>
-                  <ng-container *ngFor="let item of leavebalance">
-                    <tr scope="row" class="spacetd">
-                      <td>{{ item.display_name }}</td>
-                      <td>{{ item.used }}</td>
-                      <td>{{ item.leave_balance }}</td>
-                      <!-- <td>{{ item.total }}</td> -->
-                    </tr>
-                  </ng-container>
-                  <tr *ngIf="leavebalance && leavebalance.length === 0">
-                    <td colspan="10" style="text-align: center">
-                      No Data Found
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div>
-              <div *ngIf="teamLeavesData" class="scrollbox-content">
-                <mat-list class="time-attendance">
-                  <ng-container *ngFor="let item of leavesRequestData">
-                    <mat-list-item>
-                      <h3 matLine> {{ item.emp_name}} </h3>
-                      <h3 matLine> {{ item.appliedon | date: "dd-MM-yyyy" }}
-                      </h3>
-                      <p>
-                        <a routerLink="/" (click)="leaveReview(item)">Approve request</a>
-                      </p>
-                    </mat-list-item>
-                  </ng-container>
-                  <div  style="padding: 5%" *ngIf="leavesRequestData.length == 0">
+        <mat-card  class="card outline" fxLayout="column" style="height: 215px" fxFlex="50">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span style="
+                font-size: 20px;
+                padding-top: 2%;
+                padding-left: 2%;
+                color: #28acaf;
+              ">
+              <span><b>Leaves</b></span>
+            </span>
+            <span *ngIf="isManager">
+              <mat-radio-group>
+                <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true'
+                  (click)="getLeaveBalance()">
+                  <span style="font-size: 16px;font-weight: 500;">Self</span></mat-radio-button>
+                <mat-radio-button class="mx2 my-2 mr-2" value="team" (click)="getCurrentLeaveEmployees()">
+                  <span style="font-size: 16px;font-weight: 500;">Team</span></mat-radio-button>
+              </mat-radio-group>
+            </span>
+          </div>
+          <div class="scrollbox">
+            <div class="scrollbox-content">
+              <div style="height: 250px; padding-top: 1%;padding-left: 1%">
+                <div *ngIf="!teamLeavesData">
+                  <table id="table" class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="space">Leave Type</th>
+                        <th scope="col" class="space">Used</th>
+                        <th scope="col" class="space">Available</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngFor="let item of leavebalance">
+                        <tr scope="row" class="spacetd">
+                          <td>{{ item.display_name }}</td>
+                          <td>{{ item.used }}</td>
+                          <td>{{ item.leave_balance }}</td>
+                        </tr>
+                      </ng-container>
+                      <tr *ngIf="leavebalance && leavebalance.length === 0">
+                        <td colspan="10" style="text-align: center">
+                          No Data Found
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+                </div>
+                <div *ngIf="teamLeavesData">
+                  <div *ngIf="employeesLeaveList.length > 0">
+                  <mat-list class="time-attendance">
+                    <ng-container *ngFor="let item of employeesLeaveList">
+                      <mat-list-item>
+                        <h3 matLine style="color: rgb(233, 48, 125);"> {{ item.emp_name}} </h3>
+                        <p>
+                          {{ item.fromdate | date: "dd/MM/yyyy" }} - {{ item.todate | date: "dd/MM/yyyy" }}
+                        </p>
+                      </mat-list-item>
+                    </ng-container>
+                  </mat-list>
+                </div>
+                  <div  style="padding: 5%" *ngIf="employeesLeaveList.length == 0">
                     <div fxLayoutAlign="center">
                        <p><b>No data found</b></p>
                      </div>
                   </div>
-
-                </mat-list>
+                </div>
               </div>
             </div>
           </div>
         </mat-card>
+
+
       </div>
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" style="padding-left: 2%;padding-right: 2%;">
@@ -239,8 +240,7 @@
                 padding-left: 2%;
                 color: #28acaf;
               ">
-              <span *ngIf="!teamAttendanceData"><b>Attendance Alerts</b></span>
-              <span *ngIf="teamAttendanceData"><b>Attendance Requests</b></span>
+              <span><b>Alerts</b></span>
             </span>
             <span *ngIf="isManager">
               <mat-radio-group>

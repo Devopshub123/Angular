@@ -54,8 +54,10 @@ export class AddleavepopupComponent implements OnInit {
   // </mat-form-field>`;
 
   constructor(private LM:LeavePoliciesService,private formBuilder:FormBuilder,private router: Router,public dialogRef: MatDialogRef<AddleavepopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,) { }
-
+    @Inject(MAT_DIALOG_DATA) public data: any,) { }
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
   ngOnInit(): void {
     this.getLeavesDetails();
     this.leaveTypeForm = this.formBuilder.group({
@@ -95,7 +97,6 @@ export class AddleavepopupComponent implements OnInit {
             this.dialogRef.close();
             // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             //   this.router.navigate(["/Admin/Leavepolicies"]));
-              // this.router.navigate(["/Admin/Leavepolicies"],{state: {data:true}});
           }
           else {
            
