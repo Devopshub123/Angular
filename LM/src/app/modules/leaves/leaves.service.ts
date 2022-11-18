@@ -40,7 +40,9 @@ export class LeavesService {
   getHandledLeaves(id: any): any {
     return this.http.get(this.mainUrl + 'api/getHandledLeaves/' + id, this.httpOptions);
   }
-
+  getApprovedLeaves(id:any):any{
+    return this.http.get(this.mainUrl + 'api/getApprovedLeaves/' + id, this.httpOptions);
+  }
   getCompoffs(data: any): any {
     return this.http.post(this.mainUrl + 'api/getCompoffs', data, this.httpOptions);
   }
