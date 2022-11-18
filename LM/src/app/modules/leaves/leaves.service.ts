@@ -164,6 +164,10 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
       return this.http.get(this.mainUrl + 'api/getdaystobedisabledfromdate/'+id+'/'+leaveId, this.httpOptions).toPromise();;
 
     }
+    getDaysToBeDisabledForFromDateCompOff(info:any): Promise<any> {
+      return this.http.post(this.mainUrl + 'api/getDaysToBeDisabledForFromDateCompOff/',info, this.httpOptions).toPromise();;
+
+    }
     getDaysToBeDisabledToDate(id:any,leaveId:any): Promise<any> {
       return this.http.get(this.mainUrl + 'api/getdaystobedisabledtodate/'+id+'/'+leaveId,  this.httpOptions).toPromise();;
 
