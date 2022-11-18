@@ -652,8 +652,11 @@ export class RolesPermissionsComponent implements OnInit {
 
     }
     for (var j = 0; j < this.modulesScreens.length; j++) {
-      if (this.roleId > 7) {
+      if (this.isEditRule == 1) {
         this.modulesScreens[j].isDisabledCheckBox = true;
+      }
+      else if (this.isEditRule == 0) {
+        this.modulesScreens[j].isDisabledCheckBox = false;
       }
       this.modulesScreens[j].checked = true;
       this.modulesScreens[j].isChecked = true;
