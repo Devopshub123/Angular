@@ -216,6 +216,7 @@ export class ChecklistMeetComponent implements OnInit {
         this.dataSource = new MatTableDataSource(result.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.pageLoading = false;
       }
     });
   }
@@ -537,44 +538,13 @@ export class ChecklistMeetComponent implements OnInit {
 
     // })
   }
-  // export interface PeriodicElement {
-  //   id: number;
-  //   name: string;
-  //   mobile: number;
-  //   email: string;
-  //   address: string;
-  //   type: string;
-  // }
-  // const Sample_Data: PeriodicElement[] = [
-  //   {id: 1, name: 'Sreeb Tech', mobile: 9666313001, email: 'sreeb@gmail.com',address:'Hitech city',type:'Software'},
-  //   {id: 2, name: 'Sanela', mobile: 966666666, email: 'sanela@gmail.com',address:'Kondapur',type:'Hardware'},
-  //   {id: 3, name: 'Sriram Hardwaress', mobile: 898989898, email: 'ram@gmail.com',address:'Madhapor',type:'Network'},
-  //   {id: 4, name: 'ABC Tech', mobile: 568975698, email: 'abc@gmail.com',address:'Gachibowli',type:'Stationary'},
-  //   {id: 5, name: 'Soft Soluntions', mobile: 9638527415, email: 'soft@gmail.com',address:'Gachibowli',type:'Software'},
-  //   {id: 6, name: 'Dell ', mobile: 1478963255, email: 'dell@gmail.com',address:'Gachibowli',type:'Software'},
-  //   {id: 7, name: 'Tech Mahindra', mobile: 1234569874, email: 'techm@gmail.com',address:'Hitech city',type:'Hardware'},
-  //   {id: 8, name: 'Wipro', mobile: 8745693215, email: 'wipro@gmail.com',address:'Hyderabad',type:'Hardware'},
-  //   {id: 9, name: 'Accenture', mobile: 7896541236, email: 'accenture@gmail.com',address:'Kondapur',type:'Network'},
-  //   {id: 10, name: 'TATA Consultency', mobile: 6589471230, email: 'tcs@gmail.com',address:'Kondapur',type:'Hardware'},
-  //   {id: 11, name: 'Cognizent', mobile: 3269857410, email: 'cognizent@gmail.com',address:'Hyderabad',type:'Network'},
-  // ];
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
 
-  // export interface PeriodicElement2 {
-  //   name: string;
-  //   position: number;
-  //   weight: number;
-  //   symbol: string;
-  // }
-
-  // const ELEMENT_DATA: PeriodicElement2[] = [
-  //   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  //   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  //   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  //   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  //   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  //   {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  //   {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  //   {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-
-  // ];
+      return [5, 10, 20];
+    }
+  }
 }

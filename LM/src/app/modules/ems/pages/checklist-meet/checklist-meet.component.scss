@@ -7,3 +7,9 @@ mat-card {
 .tableP{
     padding: 10px;
   }
+  .disable:hover{
+    cursor: not-allowed;
+    }
+    .disable:active{
+    pointer-events: none;
+    }

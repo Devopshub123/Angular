@@ -6,7 +6,7 @@
       <div style="padding-top: 2%">
         <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(1, true)">
           <img src="assets\img\ems-icon.png" style="height: 35px" />
-          <span class="iconStyle">Employee Management</span>
+          <span class="iconStyle">Employee Self Service</span>
         </a>
       </div>
 
@@ -229,7 +229,7 @@
             </div>
           </div>
 
-         
+
         </mat-card>
 
         <mat-card  class="card outline" fxLayout="column" fxFlex="50">
@@ -263,6 +263,7 @@
                         <h3 matLine> {{ item.absent_date | date: "dd-MM-yyyy" }}
                         </h3>
                         <p>
+                          <a routerLink="/" (click)="leaverequest()">Leave a request</a>
                           <a routerLink="/" (click)="attendanceRequest(item)">Send a request</a>
                         </p>
                       </mat-list-item>
@@ -283,13 +284,24 @@
                     <ng-container *ngFor="let item of notificationsData">
                       <mat-list-item>
                         <h3 matLine> {{ item.empname}} </h3>
-                        <h3 matLine>Applied On : {{ item.applieddate | date: "dd-MM-yyyy" }}
+                        <h3 matLine>Date : {{ item.fromdate | date:'dd-MM-yyyy'}}
                         </h3>
                         <p>
-                          <a routerLink="/" (click)="approveRequest(item)">Approve request</a>
+                          <a routerLink="/" (click)="approveRequest(item)">Approve attendance </a>
                         </p>
                       </mat-list-item>
                     </ng-container>
+                    <ng-container *ngFor="let item of leavesRequestData">
+                      <mat-list-item>
+                        <h3 matLine> {{ item.emp_name}} </h3>
+                        <h3 matLine>Date : {{ item.fromdate | date:'dd-MM-yyyy'}}
+                        </h3>
+                        <p>
+                          <a routerLink="/" (click)="leaveReview(item)">Approve leave</a>
+                        </p>
+                      </mat-list-item>
+                    </ng-container>
+
                   </mat-list>
                 </div>
                   <div  style="padding: 5%" *ngIf="notificationsData.length == 0">

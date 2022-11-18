@@ -1384,6 +1384,7 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   deleteDock(data: any) {
+    console.log(data)
     let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
       position: { top: `70px` },
       disableClose: true,
