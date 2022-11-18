@@ -35,12 +35,20 @@ export class MainDashboardComponent implements OnInit {
   compoff: any;
   showError: boolean = false;
   private unsubscriber: Subject<void> = new Subject<void>();
-  companyDBName:any = environment.dbName;
-  constructor(private AMS: LoginService, private mainService: MainService,
-    private sideMenuService: SideMenuService, private router: Router,
-    private emsService: EmsService, private companyService: CompanySettingService,
-    private LM: LeavesService, private attendanceService: AttendanceService,
-    private spinner:NgxSpinnerService,private dialog: MatDialog,private formBuilder: FormBuilder) {
+  companyDBName: any = environment.dbName;
+  constructor(
+    private AMS: LoginService,
+    private mainService: MainService,
+    private sideMenuService: SideMenuService,
+    private router: Router,
+    private emsService: EmsService,
+    private companyService: CompanySettingService,
+    private LM: LeavesService,
+    private attendanceService: AttendanceService,
+    private spinner: NgxSpinnerService,
+    private dialog: MatDialog,
+    private formBuilder: FormBuilder
+  ) {
     this.getCompoffleavestatus();
     this.data = sessionStorage.getItem('user');
     this.usersession = JSON.parse(this.data);
@@ -144,11 +152,17 @@ export class MainDashboardComponent implements OnInit {
     this.spinner.hide();
   }
   getModules() {
-    this.AMS.getModules('modulesmaster', null, 1, 100, this.companyDBName).subscribe((result) => {
+    this.AMS.getModules(
+      'modulesmaster',
+      null,
+      1,
+      100,
+      this.companyDBName
+    ).subscribe((result) => {
       if (result && result.status) {
         this.allModuleDetails = result.data;
-
-      }   });
+      }
+    });
   }
 
   getCompoffleavestatus() {
@@ -300,6 +314,11 @@ export class MainDashboardComponent implements OnInit {
                 this.router.navigate(['/LeaveManagement/ReviewAndApprovals'], {
                   state: { leaveData: this.requestData, isleave: true },
                 });
+              }
+              else if (this.requestType == 'ReviewAndApprovals') {
+                this.router.navigate(['/LeaveManagement/ReviewAndApprovals'],
+                { state: { leaveData: this.requestData ,isleave:true}
+              });
               } else {
                 if (this.usersession.firstlogin == 'Y') {
                   this.router.navigate(['/ChangePassword']);
@@ -433,6 +452,9 @@ export class MainDashboardComponent implements OnInit {
     this.getrolescreenfunctionalities(4, true);
     //  this.router.navigate(["/Attendance/Request"], { state: { userData: this.requestData } });
   }
+  leaverequest(){
+    this.router.navigate(["/LeaveManagement/LeaveRequest"]);
+  }
 
   getPendingAttendanceRequestListByEmpId() {
     this.notificationsData = [];
@@ -456,11 +478,13 @@ export class MainDashboardComponent implements OnInit {
   }
 
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
-      if (data.status) {
-        this.availableDesignations = data.data;
-      }
-    })
+    this.companyService
+      .getMastertable('designationsmaster', 1, 1, 1000, this.companyDBName)
+      .subscribe((data) => {
+        if (data.status) {
+          this.availableDesignations = data.data;
+        }
+      });
   }
 
   trimString(text: any, length: any) {
@@ -510,29 +534,31 @@ export class MainDashboardComponent implements OnInit {
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
       //this.documentDetails = [];
       if (result && result.status) {
-        this.profileId = result.data[0].id;
-        this.profileInfo = JSON.stringify(result.data[0]);
-        this.mainService
-          .getDocumentOrImagesForEMS(result.data[0])
-          .subscribe((imageData) => {
-            if (imageData.success) {
-              let TYPED_ARRAY = new Uint8Array(imageData.image.data);
-              const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
-                return data + String.fromCharCode(byte);
-              }, '');
+        if (result.data.length > 0) {
+          this.profileId = result.data[0].id;
+          this.profileInfo = JSON.stringify(result.data[0]);
+          this.mainService
+            .getDocumentOrImagesForEMS(result.data[0])
+            .subscribe((imageData) => {
+              if (imageData.success) {
+                let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+                const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
+                  return data + String.fromCharCode(byte);
+                }, '');
 
-              let base64String = btoa(STRING_CHAR);
-              this.imageurls[0].base64String =
-                'data:image/png;base64,' + base64String;
-            } else {
-              this.isRemoveImage = false;
-              this.imageurls = [
-                {
-                  base64String: 'assets/img/profile.jpg',
-                },
-              ];
-            }
-          });
+                let base64String = btoa(STRING_CHAR);
+                this.imageurls[0].base64String =
+                  'data:image/png;base64,' + base64String;
+              } else {
+                this.isRemoveImage = false;
+                this.imageurls = [
+                  {
+                    base64String: 'assets/img/profile.jpg',
+                  },
+                ];
+              }
+            });
+        }
       }
     });
   }
@@ -573,7 +599,7 @@ export class MainDashboardComponent implements OnInit {
           this.mainService.setFilesMasterForEMS(data).subscribe((res) => {
             if (res && res.status) {
               let info = JSON.stringify(res.data[0]);
-              this.formData.append("info",info)
+              this.formData.append('info', info);
               this.LM.setProfileImage(this.formData).subscribe((res) => {
                 this.spinner.hide();
                 if (res && res.status) {
@@ -587,8 +613,9 @@ export class MainDashboardComponent implements OnInit {
                     disableClose: true,
                     data: 'Image uploaded successfully',
                   });
-                  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                  this.router.navigate(["/MainDashboard"]));
+                  this.router
+                    .navigateByUrl('/', { skipLocationChange: true })
+                    .then(() => this.router.navigate(['/MainDashboard']));
                 } else {
                   let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: { top: `70px` },
@@ -601,7 +628,6 @@ export class MainDashboardComponent implements OnInit {
                 this.isRemoveImage = true;
                 this.formData.delete('file');
                 this.formData.delete('info');
-
               });
             } else {
               this.spinner.hide();
@@ -633,8 +659,7 @@ export class MainDashboardComponent implements OnInit {
     this.teamLeavesData = true;
     this.leavesRequestData = [];
     this.LM.getLeavesForApprovals(this.usersession.id).subscribe((res: any) => {
-      //this.spinner.hide();
-      if (res.status) {
+        if (res.status) {
         this.leavesRequestData = res.data;
       } else {
       }
@@ -647,19 +672,27 @@ export class MainDashboardComponent implements OnInit {
     this.getrolescreenfunctionalities(2, true);
   }
 
+  leaveReviewAndApprovals(leave:any){
+    this.requestData = leave;
+    this.requestType = 'ReviewAndApprovals';
+    this.requestData.url = '/LeaveManagement/ManagerDashboard';
+    this.getrolescreenfunctionalities(2, true);
+  //  leave.url = '/LeaveManagement/ManagerDashboard'
+  //  this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: leave ,isleave:true} });
+    }
   getCurrentLeaveEmployees() {
     this.teamLeavesData = true;
-    this.LM.getHandledLeaves(this.usersession.id).subscribe((res: any) => {
+    this.employeesLeaveList = [];
+    this.LM.getApprovedLeaves(this.usersession.id).subscribe((res: any) => {
       if (res.status) {
-        res.data.forEach((e: any) => {
-          if (e.leavestatus=='Approved') {
+        if (res.data.length > 0) {
+          res.data.forEach((e: any) => {
             this.employeesLeaveList.push(e);
-         } 
+          });
         }
-        )
-       } else {
+      } else {
         this.employeesLeaveList = [];
       }
-    })
+    });
   }
 }

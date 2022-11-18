@@ -6,10 +6,10 @@
             <div class="col-sm-8">
                 <input type="text" class="form-control" maxlength="30" name="roleName" required [(ngModel)]="role.roleName" placeholder="" #roleName="ngModel" (keyup)="checkLeaveTypes()">
                 <div class="custom-text-error" *ngIf="(isCustomRoleSubmitted && !roleName.valid) || (isCustomRoleSubmitted && roleName.touched && !roleName.valid)">
-                    {{ msgLM1 }}
+                    {{ msgEM1 }}
                 </div>
                 <div class="custom-text-error" *ngIf="(isCustomRoleSubmitted && isRoleAlreadyExists && roleName.touched)">
-                    {{ msgLM52 }}
+                    {{ msgEM107 }}
                 </div>
 
             </div>

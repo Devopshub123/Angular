@@ -8,6 +8,7 @@ import { resetPassword } from 'src/app/models/resetPassword';
 import { PopupComponent,PopupConfig } from '../popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 
 
 @Component({
@@ -24,22 +25,24 @@ export class ResetPasswordComponent implements OnInit {
   newpassword:any;
   confirmpassword:any;
   issubmit:boolean=false;
-  msgLM1:any;
-  msgLM2:any;
-  msgLM4:any;
-  msgLM5:any;
-  msgLM56:any;
+  msgEM1:any;
+  msgEM3:any;
+  msgEM128:any;
+  msgEM129:any;
+  msgEM1296:any;
   date:any;
   URL:boolean=false;
   currentDate :any=new Date().getFullYear() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getDate();
-  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private activatedRoute: ActivatedRoute,private tss:LoginService,private router: Router,) { }
+  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,
+    private activatedRoute: ActivatedRoute,private tss:LoginService,
+    private router: Router,private emsService:EmsService) { }
 
   ngOnInit() {
-    this.getErrorMessages('LM1')
-    this.getErrorMessages('LM2')
-    this.getErrorMessages('LM4')
-    this.getErrorMessages('LM5')
-    this.getErrorMessages('LM55')
+    this.getMessages('EM1');
+    this.getMessages('EM3');
+    this.getMessages('EM128');
+    this.getMessages('EM129');
+    this.getMessages('EM131');
 
     let params: any = this.activatedRoute.snapshot.params;
     this.email = JSON.parse(atob(params.token)).email;
@@ -80,7 +83,7 @@ export class ResetPasswordComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: this.msgLM56
+            data: this.msgEM1296
           });
           sessionStorage.removeItem('user')
           this.router.navigate(['/Login']);
@@ -100,7 +103,7 @@ export class ResetPasswordComponent implements OnInit {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
         disableClose: true,
-        data: this.msgLM5
+        data: this.msgEM129
       });
 
     }
@@ -112,29 +115,33 @@ export class ResetPasswordComponent implements OnInit {
 
 
   }
-  getErrorMessages(errorCode:any) {
-
-    this.tss.getErrorMessages(errorCode,1,1).subscribe((result:any)=>{
-
-      if(result.status && errorCode == 'LM1')
+  getMessages(messageCode:any) {
+    let data =
+    {
+      "code": messageCode,
+      "pagenumber": 1,
+      "pagesize": 1
+    }
+    this.emsService.getMessagesListApi(data).subscribe((result: any) => {
+      if(result.status && messageCode == 'EM1')
       {
-        this.msgLM1 = result.data[0].errormessage
+        this.msgEM1 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM2')
+      else if(result.status && messageCode == 'EM3')
       {
-        this.msgLM2 = result.data[0].errormessage
+        this.msgEM3 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM4')
+      else if(result.status && messageCode == 'EM128')
       {
-        this.msgLM4 = result.data[0].errormessage
+        this.msgEM128 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM5')
+      else if(result.status && messageCode == 'EM129')
       {
-        this.msgLM5 = result.data[0].errormessage
+        this.msgEM129 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM55')
+      else if(result.status && messageCode == 'EM131')
       {
-        this.msgLM56 = result.data[0].errormessage
+        this.msgEM1296 = result.data[0].message
       }
 
 
