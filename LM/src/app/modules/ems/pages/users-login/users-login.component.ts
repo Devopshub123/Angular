@@ -56,7 +56,7 @@ export class UsersLoginComponent implements OnInit {
     // this.ishide = false;
     // this.isview = true;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["/ems/users-login"]));
+          this.router.navigate(["/Admin/users-login"]));
 
   }
   edit(event:any,data:any){
@@ -120,7 +120,7 @@ export class UsersLoginComponent implements OnInit {
     this.ES.usersLogin(data).subscribe((res:any)=>{
       if(res.status){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["/ems/users-login"]));
+          this.router.navigate(["/Admin/users-login"]));
           this.ishide = true;
         this.isview = false;
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
