@@ -36,17 +36,16 @@ ul {
 
 .mat-table {
   display: block;
-  width: auto;
+  width: 100%;
   overflow-x: auto;
 }
 
-.mat-column-sno {
-  max-width: 70px;
-  min-width: 80px;
-}
+// .mat-column-sno {
+//   max-width: 70px;
+//   min-width: 80px;
+// }
 
 .mat-column-name {
-  max-width: 150px;
   min-width: 120px;
 }
 
@@ -55,40 +54,40 @@ ul {
   min-width: 200px;
 }
 
-.mat-column-mobile {
-  max-width: 150px;
-  min-width: 120px;
-}
+// .mat-column-mobile {
+//   max-width: 150px;
+//   min-width: 120px;
+// }
 
-.mat-column-empstatus {
-  max-width: 100px;
-  min-width: 80px;
-}
+// .mat-column-empstatus {
+//   max-width: 100px;
+//   min-width: 80px;
+// }
 
-.mat-column-emptype {
-  max-width: 120px;
-  min-width: 100px;
-}
+// .mat-column-emptype {
+//   max-width: 120px;
+//   min-width: 100px;
+// }
 
-.mat-column-desg {
-  max-width: 150px;
-  min-width: 120px;
-}
+// .mat-column-desg {
+//   max-width: 150px;
+//   min-width: 120px;
+// }
 
-.mat-column-location {
-  max-width: 150px;
-  min-width: 120px;
-}
+// .mat-column-location {
+//   max-width: 150px;
+//   min-width: 120px;
+// }
 
-.mat-column-blood {
-  max-width: 120px;
-  min-width: 100px;
-}
+// .mat-column-blood {
+//   max-width: 120px;
+//   min-width: 100px;
+// }
 
-.mat-column-marital {
-  max-width: 120px;
-  min-width: 100px;
-}
+// .mat-column-marital {
+//   max-width: 120px;
+//   min-width: 100px;
+// }
 
 table {
   width: 100%;
