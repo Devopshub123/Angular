@@ -1,7 +1,7 @@
 <div fxLayout="column" style="background-color: #f9fbfe;">
 
       <mat-card-header>
-        <mat-card-title> Request Resignation </mat-card-title>
+        <mat-card-title> Seperation</mat-card-title>
       </mat-card-header>
       <form [formGroup]="resignForm" autocomplete="off">
         <div *ngIf="isview" class="tableP">
@@ -31,11 +31,16 @@
           </span>
           <br />
           <br />
-          <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
-            <button class="col-md-2 mr-2 btn btn-primary" (click)="submit()">
-              Okay
+          <div fxLayoutAlign="center">
+            <button  class="col-md-1 btn btn-primary mx-2 my-2" (click)="submit()" type="submit">
+              <span>Proceed</span>
             </button>
+             <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="cancel()">
+              <span>Cancel</span>
+            </button>
+            <br />
           </div>
+
           <br />
          </div>
       <div *ngIf="ishide">
