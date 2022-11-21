@@ -290,4 +290,9 @@ export class EmsService {
   setProgramsMasterStatus(data: any): any {
     return this.http.post(this.mainUrl + 'ems/api/setprogramspasterstatus', data, this.httpOptions);
   }
+
+    /** */
+    getEmployeeEmailDataByEmpid(id: any): Observable<any> {
+      return this.http.get(this.mainUrl + 'ems/api/getEmailsByEmpid/' + id);
+    }
 }

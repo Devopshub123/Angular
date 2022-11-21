@@ -929,8 +929,7 @@
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Course</mat-label>
-                                    <input required type="text" maxlength="100" (keypress)="alphabetKeyPress($event)"
-                                        formControlName="course" matInput placeholder="" appRemoveSpace />
+                                    <input required type="text" maxlength="100" formControlName="course" matInput placeholder="" appRemoveSpace />
                                     <mat-error class="con-error" *ngIf="educationForm.controls.course.errors?.required">
                                         {{EM1}}
                                     </mat-error>

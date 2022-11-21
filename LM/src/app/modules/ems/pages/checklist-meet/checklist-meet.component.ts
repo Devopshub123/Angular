@@ -461,7 +461,7 @@ export class ChecklistMeetComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: 'employee Program schedule updated successfully',
+              data: 'Employee Program schedule updated successfully',
             });
           } else {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -498,7 +498,6 @@ export class ChecklistMeetComponent implements OnInit {
     };
     this.EMS.setselectEmployeesProgramSchedules(data).subscribe(
       (result: any) => {
-        console.log(result);
         if (result.status) {
           this.router
             .navigateByUrl('/', { skipLocationChange: true })

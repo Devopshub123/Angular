@@ -78,9 +78,12 @@ export class NewHireListComponent implements OnInit {
   isNewhireList: boolean = true;
   isUpdate: boolean = false;
   candidateId: any;
-  encriptPipe= new EncryptPipe();
+  encriptPipe = new EncryptPipe();
+  companyNameDetails: any = [];
+
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+     this.getEmployeeCompanyDetails();
     this.hireForm=this.formBuilder.group(
       {
       firstname: ["",[Validators.required,this.noWhitespaceValidator()]],
@@ -133,7 +136,7 @@ export class NewHireListComponent implements OnInit {
         alternatecontact_number: this.hireForm.controls.alternatenumber.value,
         status:3,
         actionby: this.userSession.id,
-      };
+       };
      
       this.emsService.saveNewHireData(data).subscribe((res: any) => {
         if (res.status) {
@@ -307,5 +310,12 @@ export class NewHireListComponent implements OnInit {
      return [5, 10, 20];
     }
   }
+
+  getEmployeeCompanyDetails() {
+    this.emsService.getEmployeeEmailDataByEmpid(this.userSession.id).subscribe((res: any) => {
+       this.companyNameDetails = JSON.parse(res.data[0].jsonvalu)[0];
+    })
+  }
+
 }
 
