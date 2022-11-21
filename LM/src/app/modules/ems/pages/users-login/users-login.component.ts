@@ -56,7 +56,7 @@ export class UsersLoginComponent implements OnInit {
     // this.ishide = false;
     // this.isview = true;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["/ems/users-login"]));
+          this.router.navigate(["/admin/users-login"]));
 
   }
   edit(event:any,data:any){
@@ -80,7 +80,7 @@ export class UsersLoginComponent implements OnInit {
 
   getUserLoginData(){
     this.ES.getUserLoginData().subscribe((res: any) => {
-    
+
       if (res.status && res.data.length != 0) {
         this.userLoginList = res.data;
         this.dataSource = new MatTableDataSource(res.data)
@@ -109,7 +109,7 @@ export class UsersLoginComponent implements OnInit {
     //this.saveNewHireData()
   }
   saveUserLogin() {
-    
+
     if(this.usersloginForm.valid){
       let data ={
         empid:this.usersloginForm.controls.empid.value,
@@ -120,7 +120,7 @@ export class UsersLoginComponent implements OnInit {
     this.ES.usersLogin(data).subscribe((res:any)=>{
       if(res.status){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["/ems/users-login"]));
+          this.router.navigate(["/admin/users-login"]));
           this.ishide = true;
         this.isview = false;
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
