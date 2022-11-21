@@ -83,7 +83,7 @@ export class ConfigureDocumentsComponent implements OnInit {
 
   cancel() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/admin/configure-documents"]));
+      this.router.navigate(["/Admin/configure-documents"]));
   }
 
   edit(w: any, i: any) {
@@ -126,7 +126,7 @@ export class ConfigureDocumentsComponent implements OnInit {
           this.valid = false;
           if (res.status && res.data.statuscode == 0) {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/admin/configure-documents"]));
+              this.router.navigate(["/Admin/configure-documents"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
@@ -167,7 +167,7 @@ export class ConfigureDocumentsComponent implements OnInit {
           this.valid = false;
           if (res.status && res.data.statuscode == 0) {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/admin/configure-documents"]));
+              this.router.navigate(["/Admin/configure-documents"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
@@ -207,7 +207,7 @@ export class ConfigureDocumentsComponent implements OnInit {
       this.valid = false;
       if (res.status && res.data.statuscode == 0) {
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["/admin/configure-documents"]));
+          this.router.navigate(["/Admin/configure-documents"]));
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
@@ -256,7 +256,14 @@ export class ConfigureDocumentsComponent implements OnInit {
   getErrorMessages(errorCode:any) {
 
   }
-
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
+      return [5, 10, 20];
+    }
+  }
 
 }
 

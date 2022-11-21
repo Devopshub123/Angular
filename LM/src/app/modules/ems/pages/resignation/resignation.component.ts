@@ -104,6 +104,11 @@ export class ResignationComponent implements OnInit {
     this.ishide=true;
   }
   cancel(){
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/MainDashboard"]));
+
+  }
+  clear() {
     this.isview=true;
     this.ishide=false;
     this.isadd=true;
@@ -112,7 +117,6 @@ export class ResignationComponent implements OnInit {
     this.resignForm.controls.exitdate.setValue('')
     this.resignForm.controls.reason.setValue('')
     this.resignForm.controls.notice.setValue('')
-
   }
 
   saved(){

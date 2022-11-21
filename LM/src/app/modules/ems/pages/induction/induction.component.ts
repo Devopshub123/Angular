@@ -79,7 +79,7 @@ export class InductionComponent implements OnInit {
   }
   close(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/admin/induction"]));
+      this.router.navigate(["/Admin/induction"]));
     // this.ishide = false;
     // this.isview = true;
   }
@@ -162,7 +162,7 @@ export class InductionComponent implements OnInit {
           this.getProgramsMaster(null);
           if (result.data[0].successstate == 0 && !result.data[0].pid) {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/admin/induction"]));
+            this.router.navigate(["/Admin/induction"]));
             this.dialog.open(ReusableDialogComponent, {
               position: {top: `70px`},
               disableClose: true, /**Inserted succesfully **/
@@ -239,7 +239,7 @@ export class InductionComponent implements OnInit {
       this.EMS.setProgramsMasterStatus(obj).subscribe((result: any) => {
         if(result.status){
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["admin/induction"]));
+            this.router.navigate(["Admin/induction"]));
           this.dialog.open(ReusableDialogComponent, {
             position: {top: `70px`},
             disableClose: true,
@@ -248,7 +248,7 @@ export class InductionComponent implements OnInit {
 
         }else{
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["admin/induction"]));
+            this.router.navigate(["Admin/induction"]));
           this.dialog.open(ReusableDialogComponent, {
             position: {top: `70px`},
             disableClose: true,

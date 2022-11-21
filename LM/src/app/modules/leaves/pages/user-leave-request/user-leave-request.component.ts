@@ -255,6 +255,12 @@ export class UserLeaveRequestComponent implements OnInit {
         this.changeHalfs();
       // }
     });
+    this.leaveRequestForm.get('compoffApprovedDate')?.valueChanges.subscribe((selectedValue:any) => {
+      // if(selectedValue) {
+
+      this.getDaystobedisabledfromdate();
+      // }
+    });
 
     this.leaveRequestForm.get('toDateHalf')?.valueChanges.subscribe((selectedValue:any) => {
       // if(selectedValue) {
@@ -372,52 +378,64 @@ async  getLeavesTypeInfo() {
   getDaystobedisabledfromdate() {
     // this.spinner.show()
     // var info = this.LM.getDaysToBeDisabledFromDate(this.userSession.id, this.newLeaveRequest.id ? this.newLeaveRequest.id : null).then((result) => {
-
-      var info = this.LM.getDaysToBeDisabledFromDate(this.userSession.id,  this.leaveData?this.leaveData.id:null).then((result) => {
-
-      if (result && result.status) {
-        this.fromdate = result.data;
-        for (var i = 0; i < result.data.length; i++) {
-          (result.data[i].first_half && result.data[i].second_half) ? this.holidays.push(new Date(result.data[i].edate+' ' +'00:00:00')) : this.FromDatesHalfDays.push(result.data[i]);
-
-        }
-
-        this.fromDateFilter = (d: Date): boolean => {
-          let isValid=true;
-          this.holidays.forEach((e:any) => {
-            if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
-              isValid=false;
-            }
-          });
-          return isValid;
-        }
-
-
-
-        this.leaveRequestForm.get("fromDate").setValue(this.leaveData?new Date(this.leaveData.fromdate):'',{emitEvent:false})
-
-
-        // if(this.leaveData && (!this.leaveRequestForm.controls.toDateHalf.value || !this.leaveRequestForm.controls.fromDateHalf.value )){
-        //   if(this.leaveData.leavetypeid == 9){
-        //     this.changeCompOffFromDate(new Date(this.leaveData.fromdate))
-        //   }else{
-        //     this.changeFromDate(new Date(this.leaveData.fromdate));
-        //     this.changeToDate(new Date(this.leaveData.todate))
-        //       this.leaveRequestForm.controls.fromDateHalf.setValue(true,{emitEvent:false})
-        //       this.leaveRequestForm.controls.toDateHalf.setValue(this.leaveData ? this.leaveData.tohalfdayleave === '0' ? false : true : false)
-        //
-        //
-        //
-        //   }
-        //
-        // }
-        // else{
-        //   // this.spinner.hide()
-        // }
-
-
+    if(this.leaveRequestForm.controls.leaveTypeId.value == 9 && this.leaveRequestForm.controls.compoffApprovedDate.value){
+      let info = {
+        employeeId : this.userSession.id,
+        leaveId : this.leaveData ? this.leaveData.id : null,
+        workedDateValue:this.leaveRequestForm.controls.compoffApprovedDate.value
       }
-    });
+
+      this.LM.getDaysToBeDisabledForFromDateCompOff(info).then((result) => {
+
+        if (result && result.status) {
+          this.fromdate = result.data;
+          for (var i = 0; i < result.data.length; i++) {
+            (result.data[i].first_half && result.data[i].second_half) ? this.holidays.push(new Date(result.data[i].edate + ' ' + '00:00:00')) : this.FromDatesHalfDays.push(result.data[i]);
+
+          }
+
+          this.fromDateFilter = (d: Date): boolean => {
+            let isValid = true;
+            this.holidays.forEach((e: any) => {
+              if (this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')) {
+                isValid = false;
+              }
+            });
+            return isValid;
+          }
+
+          this.leaveRequestForm.get("fromDate").setValue(this.leaveData ? new Date(this.leaveData.fromdate) : '', {emitEvent: false})
+
+        }
+      });
+
+    } else {
+
+
+     this.LM.getDaysToBeDisabledFromDate(this.userSession.id, this.leaveData ? this.leaveData.id : null).then((result) => {
+
+        if (result && result.status) {
+          this.fromdate = result.data;
+          for (var i = 0; i < result.data.length; i++) {
+            (result.data[i].first_half && result.data[i].second_half) ? this.holidays.push(new Date(result.data[i].edate + ' ' + '00:00:00')) : this.FromDatesHalfDays.push(result.data[i]);
+
+          }
+
+          this.fromDateFilter = (d: Date): boolean => {
+            let isValid = true;
+            this.holidays.forEach((e: any) => {
+              if (this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')) {
+                isValid = false;
+              }
+            });
+            return isValid;
+          }
+
+          this.leaveRequestForm.get("fromDate").setValue(this.leaveData ? new Date(this.leaveData.fromdate) : '', {emitEvent: false})
+
+        }
+      });
+    }
   }
 
   async getDaystobedisabledtodate() {
@@ -1136,6 +1154,8 @@ async  getLeavesTypeInfo() {
     this.LM.getApprovedCompoffs(obj).subscribe((result) => {
       if (result && result.status) {
         this.compOffApprovedDates = result.data;
+        this.leaveRequestForm.controls.compoffApprovedDate.setValue(this.leaveData ? this.leaveData.worked_date?this.leaveData.worked_date:'':'')
+
       }
 
     });
