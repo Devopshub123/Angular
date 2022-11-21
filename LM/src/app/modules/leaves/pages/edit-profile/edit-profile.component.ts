@@ -169,7 +169,7 @@ export class EditProfileComponent implements OnInit {
               },
             });
           } else {
-            this.LM.getFilepathsMaster(2).subscribe((result) => {
+            this.LM.getFilepathsMaster(1).subscribe((result) => {
               if (result && result.status) {
                 let obj = {
                   id: this.profileId ? this.profileId : null,
