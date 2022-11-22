@@ -91,7 +91,7 @@
                                     <mat-select formControlName="bloodgroup">
                                         <ng-container>
                                             <div *ngFor="let b of bloodGroupdetails">
-                                                <mat-option value="{{ b.id }}">{{
+                                                <mat-option [value]="b.id">{{
                                                     b.bloodgroup
                                                     }}</mat-option>
                                             </div>
@@ -983,7 +983,7 @@
                                     <span>
                                         <button class="m-1 mat-stroked-button button-save"
                                             (click)="addWorkExperience()">
-                                            <span> Add </span>
+                                            <span> Save </span>
                                         </button>
                                         <button class="m-1 mat-stroked-button button-clear"
                                             (click)="clearWorkExperience()">
@@ -1042,13 +1042,13 @@
                                     <tr mat-row *matRowDef="let row; columns: workTableColumns"></tr>
                                 </table>
                             </div>
-                            <div fxLayoutAlign="center">
+                            <!-- <div fxLayoutAlign="center">
                                 <button class="m-1 mat-stroked-button button-save" (click)="saveWorkExperience()"
                                     type="submit">
                                     <span>Save</span>
                                 </button>
                                 <br />
-                            </div>
+                            </div> -->
                         </form>
                     </div>
                 </mat-tab>

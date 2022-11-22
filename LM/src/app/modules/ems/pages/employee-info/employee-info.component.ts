@@ -242,11 +242,78 @@ export class EmployeeInfoComponent implements OnInit {
       this.getEmployeeEducationList();
     }
 
+    /**get state details for residance address */
+    this.personalInfoForm.get('rcountry')?.valueChanges.subscribe((selectedResidenceStateValue: any) => {
+      this.stateDetails = [];
+      this.spinner.show();
+      if (selectedResidenceStateValue != '' ) {
+         this.companyService.getStatesc(selectedResidenceStateValue).subscribe((data) => {
+           this.stateDetails = data[0];
+            if (this.employeeCode != null || this.employeeCode !=undefined) {
+              this.personalInfoForm.controls.rstate.setValue(this.employeeInformationData.state);
+            } else {
+             this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
+           }
+         })
+      }
+      this.spinner.hide();
+    })
+    /**get city details for residance address */
+    this.personalInfoForm.get('rstate')?.valueChanges.subscribe((selectedResidenceCityValue: any) => {
+      this.spinner.show();
+      this.cityDetails = [];
+       if (selectedResidenceCityValue != '') {
+        this.companyService.getCities(selectedResidenceCityValue).subscribe((data) => {
+          this.cityDetails = data[0]
+           if (this.employeeCode != null || this.employeeCode !=undefined) {
+            this.personalInfoForm.controls.rcity.setValue(this.employeeInformationData.city);
+          } else {
+            this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
+          }
+        })
+      }
+      this.spinner.hide();
+    })
+
+    /**get state details for present address*/
+    this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedPresentStateValue: any) => {
+      this.spinner.show();
+      this.permanentStateDetails = [];
+      if (selectedPresentStateValue != '') {
+        this.companyService.getStatesc(selectedPresentStateValue).subscribe((data) => {
+          this.permanentStateDetails = data[0]
+          if (this.employeeCode != null || this.employeeCode !=undefined) {
+            this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
+          } else {
+            this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
+          }
+        })
+      }
+      this.spinner.hide();
+    })
+
+    /**get city details for present address */
+    this.personalInfoForm.get('pstate')?.valueChanges.subscribe((selectedPresentCityValue: any) => {
+      this.spinner.show();
+      this.permanentCityDetails = [];
+      if (selectedPresentCityValue != '') {
+        this.companyService.getCities(selectedPresentCityValue).subscribe((data) => {
+          this.permanentCityDetails = data[0]
+          if (this.employeeCode != null || this.employeeCode !=undefined) {
+            this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
+          } else {
+            this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
+          }
+        })
+      }
+      this.spinner.hide();
+    })
     /**same as present address checkbox */
     this.personalInfoForm.get('checked')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != '') {
-        this.spinner.show();
+       
         this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedStateValue: any) => {
+          this.spinner.show();
           this.permanentStateDetails = [];
           if(selectedStateValue != '') {
             this.companyService.getStatesc(selectedStateValue).subscribe((data) => {
@@ -256,8 +323,10 @@ export class EmployeeInfoComponent implements OnInit {
               }
             })
           }
+          this.spinner.hide();
         })
         this.personalInfoForm.get('pstate')?.valueChanges.subscribe((selectedCityValue: any) => {
+          this.spinner.show();
           this.permanentCityDetails = [];
           if(selectedCityValue != '') {
             this.companyService.getCities(selectedCityValue).subscribe((data) => {
@@ -267,6 +336,7 @@ export class EmployeeInfoComponent implements OnInit {
               }
             });
           }
+          this.spinner.hide();
         })
 
         this.personalInfoForm.controls.paddress.setValue(this.personalInfoForm.controls.raddress.value),
@@ -289,65 +359,6 @@ export class EmployeeInfoComponent implements OnInit {
         this.personalInfoForm.controls.ppincode.setValue('')
       }
     })
-    /**get state details for residance address */
-    this.personalInfoForm.get('rcountry')?.valueChanges.subscribe((selectedResidenceStateValue: any) => {
-      this.stateDetails = [];
-      if (selectedResidenceStateValue != '' ) {
-         this.companyService.getStatesc(selectedResidenceStateValue).subscribe((data) => {
-           this.stateDetails = data[0];
-            if (this.employeeCode != null || this.employeeCode !=undefined) {
-              this.personalInfoForm.controls.rstate.setValue(this.employeeInformationData.state);
-            } else {
-             this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
-           }
-         })
-      }
-    })
-    /**get city details for residance address */
-    this.personalInfoForm.get('rstate')?.valueChanges.subscribe((selectedResidenceCityValue: any) => {
-      this.cityDetails = [];
-       if (selectedResidenceCityValue != '') {
-        this.companyService.getCities(selectedResidenceCityValue).subscribe((data) => {
-          this.cityDetails = data[0]
-           if (this.employeeCode != null || this.employeeCode !=undefined) {
-            this.personalInfoForm.controls.rcity.setValue(this.employeeInformationData.city);
-          } else {
-            this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
-          }
-        })
-      }
-    })
-
-    /**get state details for present address*/
-    this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedPresentStateValue: any) => {
-      this.permanentStateDetails = [];
-      if (selectedPresentStateValue != '') {
-        this.companyService.getStatesc(selectedPresentStateValue).subscribe((data) => {
-          this.permanentStateDetails = data[0]
-          if (this.employeeCode != null || this.employeeCode !=undefined) {
-            this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
-          } else {
-            this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
-          }
-        })
-      }
-    })
-
-    /**get city details for present address */
-    this.personalInfoForm.get('pstate')?.valueChanges.subscribe((selectedPresentCityValue: any) => {
-      this.permanentCityDetails = [];
-      if (selectedPresentCityValue != '') {
-        this.companyService.getCities(selectedPresentCityValue).subscribe((data) => {
-          this.permanentCityDetails = data[0]
-          if (this.employeeCode != null || this.employeeCode !=undefined) {
-            this.personalInfoForm.controls.pcity.setValue(this.employeeInformationData.pcity);
-          } else {
-            this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
-          }
-        })
-      }
-    })
-
 
     this.employeeJobForm.get('contractStartDate')?.valueChanges.subscribe((selectedValue: any) => {
       this.mincontarctDate = selectedValue._d;
@@ -440,24 +451,17 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.maritalstatus.setValue(this.loginData.maritalstatus);
 
       this.loginData.aadharnumber != 'null' ? this.personalInfoForm.controls.aadharNumber.setValue(this.loginData.aadharnumber) : this.personalInfoForm.controls.aadharNumber.setValue(''),
-      console.log("cl-step-9");
       this.personalInfoForm.controls.raddress.setValue(this.loginData.address);
-      console.log("cl-step-10");
       this.personalInfoForm.controls.rcountry.setValue(this.loginData.country);
-      console.log("cl-step-11",this.loginData.state);
-      console.log("cl-step-12",this.loginData.city);
      // this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
-
       //this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
-
       this.personalInfoForm.controls.rpincode.setValue(this.loginData.pincode);
-
       this.personalInfoForm.controls.personalemail.setValue(this.loginData.personal_email);
       this.personalInfoForm.controls.spokenLanguages.setValue(this.loginData.languages_spoken=='null' || null?'':this.loginData.languages_spoken);
       this.personalInfoForm.controls.paddress.setValue(this.loginData.paddress=='null' || null?'':this.loginData.paddress);
       this.personalInfoForm.controls.pcountry.setValue(this.loginData.pcountry);
-      this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
-      this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
+     // this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
+      //this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
       if (this.loginData.ppincode != 'null')
       this.personalInfoForm.controls.ppincode.setValue(this.loginData.ppincode);
       this.personalInfoForm.controls.mobileNo.setValue(this.loginData.contact_number);
@@ -491,11 +495,11 @@ export class EmployeeInfoComponent implements OnInit {
             this.familyDetails.push({
               firstname: familydata[i].firstname,
               lastname: familydata[i].lastname,
-              gender: gender,
+              gender: gender != null || 'null' ? gender :null,
               gendername: gendername,
               contactnumber: familydata[i].contactnumber,
               status: familydata[i].status,
-              relationship: relationship,
+              relationship: relationship != null || 'null' ? relationship :null,
               relationshipname: relationshipname,
               dateofbirth: familydata[i].dateofbirth != "null" ? this.pipe.transform(familydata[i].dateofbirth, 'yyyy-MM-dd') : '',
             });
@@ -1033,7 +1037,6 @@ export class EmployeeInfoComponent implements OnInit {
               disableClose: true,
               data: this.EM42
             });
-
             this.isNewEmployee !=true ? this.selectedtab.setValue(1): this.selectedtab.setValue(0);
             //this.selectedtab.setValue(1);
           } else {
@@ -1374,6 +1377,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.workExperienceDetails[this.experienceIndex].todate = this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
         this.clearExperienceValidators();
       this.clearWorkExperience();
+      this.saveWorkExperience();
     } else {
       if (this.experienceForm.valid) {
         this.workExperienceDetails.push({
@@ -1386,6 +1390,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
         this.clearExperienceValidators();
         this.clearWorkExperience();
+        this.saveWorkExperience();
       } else { }
     }
   }

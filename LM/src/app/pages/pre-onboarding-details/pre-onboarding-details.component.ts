@@ -175,6 +175,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       this.personalInfoForm.get('checked')?.valueChanges.subscribe(selectedValue => {
         if (selectedValue != '') {
           this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedStateValue => {
+            this.spinner.show();
             this.permanentStateDetails = [];
             if (selectedStateValue != '') {
               this.companyService.getStatesc(selectedStateValue).subscribe((data) => {
@@ -184,8 +185,10 @@ export class PreOnboardingDetailsComponent implements OnInit {
                 }
               })
             }
+            this.spinner.hide();
           })
           this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedCityValue => {
+            this.spinner.show();
             this.permanentCityDetails = [];
             if (selectedCityValue != '') {
               this.companyService.getCities(selectedCityValue).subscribe((data) => {
@@ -195,6 +198,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
                 }
               });
             }
+            this.spinner.hide();
           })
 
           this.personalInfoForm.controls.paddress.setValue(this.personalInfoForm.controls.raddress.value),
@@ -219,6 +223,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       /**get state details for residance address */
       this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedResidenceStateValue => {
         this.stateDetails = [];
+        this.spinner.show();
         if (selectedResidenceStateValue != '') {
           this.companyService.getStatesc(selectedResidenceStateValue).subscribe((data) => {
             this.stateDetails = data[0];
@@ -227,9 +232,11 @@ export class PreOnboardingDetailsComponent implements OnInit {
             }
           })
         }
+        this.spinner.hide();
       })
       /**get city details for residance address */
       this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedResidenceCityValue => {
+        this.spinner.show();
         this.cityDetails = [];
         if (selectedResidenceCityValue != '') {
           this.companyService.getCities(selectedResidenceCityValue).subscribe((data) => {
@@ -239,9 +246,11 @@ export class PreOnboardingDetailsComponent implements OnInit {
             }
           })
         }
+        this.spinner.hide();
       })
       /**get state details for present address*/
       this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedPresentStateValue => {
+        this.spinner.show();
         this.permanentStateDetails = [];
         if (selectedPresentStateValue != '') {
           this.companyService.getStatesc(selectedPresentStateValue).subscribe((data) => {
@@ -251,18 +260,22 @@ export class PreOnboardingDetailsComponent implements OnInit {
             }
           })
         }
+        this.spinner.hide();
       })
       /**get city details for present address */
       this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedPresentCityValue => {
+        this.spinner.show();
         this.permanentCityDetails = [];
         if (selectedPresentCityValue != '') {
           this.companyService.getCities(selectedPresentCityValue).subscribe((data) => {
             this.permanentCityDetails = data[0]
             if (this.loginData != null) {
               this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
+              this.spinner.hide();
             }
           })
         }
+        this.spinner.hide();
       })
 
 
@@ -675,7 +688,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
     this.CandidateFamilyForm.controls.relation.reset();
     this.CandidateFamilyForm.controls.familycontact.reset();
     this.CandidateFamilyForm.controls.familygender.reset();
-    this.CandidateFamilyForm.valid = true;
+    //this.CandidateFamilyForm.valid = true;
     this.isfamilyedit = false;
   }
 
@@ -764,6 +777,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       });
       this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
       this.employmentDataChange = true;
+      this.saveWorkExperience();
       this.clearExperienceValidators();
       this.clearWork();
     } else { }

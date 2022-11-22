@@ -214,7 +214,6 @@ export class NewHireListComponent implements OnInit {
    const dateTwo = new Date();
     // Greater than check
     if (dateOne > dateTwo) {
-      console.log('dateOne is greater than dateTwo')
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
