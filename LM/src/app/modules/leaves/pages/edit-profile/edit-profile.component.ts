@@ -188,6 +188,8 @@ export class EditProfileComponent implements OnInit {
                     this.formData.append('info',info)
                     this.LM.setProfileImage(this.formData).subscribe(
                       (data) => {
+                        this.formData.delete('file');
+                        this.formData.delete('info');
                         this.spinner.hide();
                         if (data && data.status) {
                           if (this.profileId) {
@@ -195,7 +197,7 @@ export class EditProfileComponent implements OnInit {
                               (data) => {}
                             );
                           }
-                          this.MainComponent.ngOnInit();
+                          this.MainComponent.getUploadImage();
                           this.dialog.open(ConfirmationComponent, {
                             position: { top: `70px` },
                             disableClose: true,
@@ -218,8 +220,8 @@ export class EditProfileComponent implements OnInit {
                         this.fileImageToggler();
                         this.getUploadImage();
                         this.isRemoveImage = true;
-                        this.formData.delete('file');
-                        this.formData.delete('info');
+                        // this.formData.delete('file');
+                        // this.formData.delete('info');
 
                       }
                     );
