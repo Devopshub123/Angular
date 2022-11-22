@@ -948,9 +948,8 @@ export class LeavepoliciesComponent implements OnInit {
         data: { YES: 'YES', NO: 'NO' }
 
       })
-    
-    dialogRef.afterClosed().subscribe(result => {
-       if (result == 'YES' || result == undefined ) {
+      dialogRef.afterClosed().subscribe(result => {
+      if (result == 'YES' || result == undefined) {
           this.getLeavesDetails();
         }
       });
