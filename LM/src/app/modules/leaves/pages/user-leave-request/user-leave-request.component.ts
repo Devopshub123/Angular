@@ -462,7 +462,7 @@ async  getLeavesTypeInfo() {
         // this.leaveRequestForm.controls.fromDateHalf.setValue(this.leaveData ? this.leaveData.fromhalfdayleave == '0' ? false : true : false,{emitEvent:false})
         // this.leaveRequestForm.controls.toDateHalf.setValue(this.leaveData ? this.leaveData.tohalfdayleave == '0' ? false : true : false,{emitEvent:false})
         this.leaveRequestForm.controls.relation.setValue(this.leaveData ? this.leaveData.bereavement_id?this.leaveData.bereavement_id.toString():'':'',{emitEvent:false})
-        this.leaveRequestForm.controls.compoffApprovedDate.setValue(this.leaveData ? this.leaveData.worked_date?this.leaveData.worked_date:'':'',{emitEvent:false})
+        this.leaveRequestForm.controls.compoffApprovedDate.setValue(this.leaveData ? this.leaveData.worked_date?this.leaveData.worked_date:'':'')
 
 
       }
@@ -921,7 +921,9 @@ async  getLeavesTypeInfo() {
                           let info =JSON.stringify(data.data[0]);
                           this.formData.append("info",info)
                           this.LM.setProfileImage(this.formData).subscribe((data) => {
-                            // this.spinner.hide()
+
+                            this.formData.delete('file');
+                            this.formData.delete('info');   // this.spinner.hide()
                             if(data && data.status){
                               if(this.documentId){
                                 this.LMSC.removeImage(this.documentInfo).subscribe((data) => {})
@@ -933,12 +935,13 @@ async  getLeavesTypeInfo() {
 
                             }
                             this.file = null;
-                            this.formData.delete('file');
-                            this.formData.delete('info');
+
 
 
                           });
                         }else{
+                          this.formData.delete('file');
+
                           this.LM.deleteFilesMaster(result.data[0].id).subscribe(data=>{})
                           // this.getUploadImage();
                           // this.dialog.open(ConfirmationComponent, {
@@ -968,6 +971,8 @@ async  getLeavesTypeInfo() {
 
               }
               else {
+                this.formData.delete('file');
+
                 this.open({'Message': this.msgLM119},'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
 
               }
@@ -975,6 +980,7 @@ async  getLeavesTypeInfo() {
           }
             else {
             this.isFile = false;
+            this.formData.delete('file');
             if(this.ispdf){
               this.open(this.msgLM141,'8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
             }else{
