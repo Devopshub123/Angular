@@ -208,7 +208,7 @@
                             </div>
 
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                               
+
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Role</mat-label>
@@ -245,7 +245,7 @@
                             </div>
 
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                                
+
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Department</mat-label>
@@ -362,7 +362,7 @@
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>City</mat-label>
+                                    <mat-label>Location</mat-label>
                                     <mat-select formControlName="rcity" required>
                                         <ng-container>
                                             <div *ngFor="let b of cityDetails">
@@ -377,7 +377,7 @@
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>City</mat-label>
+                                    <mat-label>Location</mat-label>
                                     <mat-select formControlName="pcity">
                                         <ng-container>
                                             <div *ngFor="let b of permanentCityDetails">
@@ -883,7 +883,7 @@
 
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Bank Code</mat-label>
+                                    <mat-label>IFSC Code</mat-label>
                                     <input type="text" readonly maxlength="15" (keypress)="alphaNumberOnly($event)"
                                         formControlName="ifscCode" matInput placeholder="" />
                                 </mat-form-field>

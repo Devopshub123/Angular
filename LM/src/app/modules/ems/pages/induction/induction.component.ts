@@ -254,10 +254,10 @@ export class InductionComponent implements OnInit {
             disableClose: true,
             data: this.EM10
           });
-          
+
         }
       })
-    
+
 
   }
   getProgramsMaster(pId:any){

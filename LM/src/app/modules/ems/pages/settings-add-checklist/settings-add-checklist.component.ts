@@ -215,11 +215,11 @@ export class SettingsAddChecklistComponent implements OnInit {
     this.checklistForm.controls.department.setValue();
     this.checklistForm.controls.department.clearValidators();
     this.checklistForm.controls.department.updateValueAndValidity();
-   
+
   }
   departmentChange() {
     this.addChecklistData = [];
-   
+
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

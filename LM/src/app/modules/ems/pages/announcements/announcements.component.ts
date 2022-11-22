@@ -84,7 +84,7 @@ export class AnnouncementsComponent implements OnInit {
   pageLoading = true;
   mindate: any;
   minAnounceDate:any=new Date();
-  
+
   issavedraft:boolean=true;
   displayedColumns: string[] = ['sno','topic','title','publishedon','publishedTo','status','action'];
   dataSource: MatTableDataSource<any>=<any>[];
@@ -124,7 +124,7 @@ export class AnnouncementsComponent implements OnInit {
     });
 
     this.announcementForm.get('fromdate')?.valueChanges.subscribe((selectedValue:any) => {
-    
+
       this.minAnounceDate = selectedValue._d==undefined?this.minAnounceDate:selectedValue._d;
       console.log(this.minAnounceDate)
     })
@@ -162,7 +162,7 @@ export class AnnouncementsComponent implements OnInit {
     this.isview = false;
     this.isedit = false;
     this.isviewdata = false;
-    
+
     // this.announcementForm.controls.topic.setvalue(data.topicid)
     this.announcementForm.controls.topic.setValue(data.topicid);
     this.announcementForm.controls.title.setValue(data.title);

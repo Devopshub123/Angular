@@ -371,12 +371,17 @@ export class MainDashboardComponent implements OnInit {
   }
 
   getReportingManagerForEmp() {
+    this.reportingManager = [];
+    this.empReportingManager = '';
     this.emsService
       .getReportingManagerForEmp(this.usersession.id)
       .subscribe((res: any) => {
         if (res && res.status) {
-          this.reportingManager = res.data;
-          this.empReportingManager = this.reportingManager[0].managername;
+          if(res.data.length>0){
+            this.reportingManager = res.data;
+            this.empReportingManager = this.reportingManager[0].managername;
+          }
+
         }
       });
   }
@@ -456,19 +461,7 @@ export class MainDashboardComponent implements OnInit {
     this.router.navigate(["/LeaveManagement/LeaveRequest"]);
   }
 
-  getPendingAttendanceRequestListByEmpId() {
-    this.notificationsData = [];
-    this.teamAttendanceData = true;
-    this.attendanceService
-      .getPendingAttendanceListByManagerEmpId(this.usersession.id)
-      .subscribe((res: any) => {
-        if (res.status) {
-          this.notificationsData = res.data;
-        } else {
-          this.notificationsData = [];
-        }
-      });
-  }
+
 
   approveRequest(element: any) {
     this.requestData = element;
@@ -654,7 +647,23 @@ export class MainDashboardComponent implements OnInit {
       });
     }
   }
-
+  getMyTeamApprovals(){
+    this.getPendingAttendanceRequestListByEmpId();
+    this.getLeavesForApprovals();
+  }
+  getPendingAttendanceRequestListByEmpId() {
+    this.notificationsData = [];
+    this.teamAttendanceData = true;
+    this.attendanceService
+      .getPendingAttendanceListByManagerEmpId(this.usersession.id)
+      .subscribe((res: any) => {
+        if (res.status) {
+          this.notificationsData = res.data;
+        } else {
+          this.notificationsData = [];
+        }
+      });
+  }
   getLeavesForApprovals() {
     this.teamLeavesData = true;
     this.leavesRequestData = [];

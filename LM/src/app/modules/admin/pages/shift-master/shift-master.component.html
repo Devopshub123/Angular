@@ -77,7 +77,7 @@
 
             <div class="row wrap">
                 <mat-label class="mx-4 my-2">When number of lates is more than </mat-label>
-                <mat-form-field fxFlex="50px" class="select" fxFlex.xs="100" >
+                <mat-form-field fxFlex="100px" fxFlex.xs="100" >
                     <!-- <mat-label>No Of times</mat-label> -->
                     <input type="text" onlyNumber formControlName="noofTimes" matInput placeholder=""  minlength="1" maxlength="2">
                     <mat-error class="con-error" *ngIf="shiftForm.controls.noofTimes.errors?.required">
@@ -88,7 +88,7 @@
             </div>
             <div class="row wrap">
                 <mat-label class="mx-4 my-2">Deduct</mat-label>
-                <mat-form-field fxFlex="70px" class="select" fxFlex.xs="100">
+                <mat-form-field fxFlex="120px" class="select" fxFlex.xs="100">
                     <!-- <mat-label>No Of days</mat-label> -->
                     <mat-select  required formControlName="noofDays">
                         <ng-container *ngFor="let b of daysList">
@@ -115,7 +115,7 @@
                         </mat-select>
 
                         <mat-error class="con-error" *ngIf="shiftForm.controls.overTime.errors?.required">
-                            {{requiredField}}
+                            {{requiredOption}}
                         </mat-error>
                     </mat-form-field>
 
