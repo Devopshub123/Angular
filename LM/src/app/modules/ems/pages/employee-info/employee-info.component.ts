@@ -311,7 +311,7 @@ export class EmployeeInfoComponent implements OnInit {
     /**same as present address checkbox */
     this.personalInfoForm.get('checked')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != '') {
-       
+
         this.personalInfoForm.get('pcountry')?.valueChanges.subscribe((selectedStateValue: any) => {
           this.spinner.show();
           this.permanentStateDetails = [];
@@ -2006,9 +2006,12 @@ export class EmployeeInfoComponent implements OnInit {
           if (data && data.status) {
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0])
+              this.formData.append('file', this.file, this.file.name);
               this.formData.append('info',info);
               this.mainService.setDocumentOrImageForEMS(this.formData).subscribe((data) => {
                 // this.spinner.hide()
+                this.formData.delete('file');
+                this.formData.delete('info');
                 if (data && data.status) {
                   if (this.editDockinfo) {
                     this.mainService.removeDocumentOrImagesForEMS(this.editDockinfo).subscribe((data) => { })
@@ -2033,8 +2036,7 @@ export class EmployeeInfoComponent implements OnInit {
 
                 }
                 this.file = null;
-                this.formData.delete('file');
-                this.formData.delete('info');
+
                 this.editDockinfo = null;
                 this.editFileName = null;
 
@@ -2046,7 +2048,6 @@ export class EmployeeInfoComponent implements OnInit {
               this.editDockinfo = null;
               this.editFileName = null;
               this.file = null;
-              this.formData.delete('file');
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
@@ -2054,7 +2055,6 @@ export class EmployeeInfoComponent implements OnInit {
               });
             }
           } else {
-            this.formData.delete('file');
             this.spinner.hide();
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
@@ -2092,7 +2092,6 @@ export class EmployeeInfoComponent implements OnInit {
         var pdf = this.file.name.split('.');
         if (pdf[pdf.length - 1] == 'pdf' || pdf[pdf.length - 1] == 'jpg' || pdf[pdf.length - 1] == 'png') {
           this.isFile = true;
-          this.formData.append('file', this.file, this.file.name);
         } else {
           this.isFile = false;
           let dialogRef = this.dialog.open(ReusableDialogComponent, {

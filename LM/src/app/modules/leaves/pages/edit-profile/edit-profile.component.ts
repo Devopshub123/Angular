@@ -317,7 +317,6 @@ export class EditProfileComponent implements OnInit {
     this.fileImageToggler();
   }
   onSelectFile(event: any) {
-    console.log("jhfbhdh",event)
     this.isRemoveImage = false;
     this.file = null;
     this.file = event.target.files[0];
