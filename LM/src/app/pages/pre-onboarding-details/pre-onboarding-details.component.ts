@@ -1059,6 +1059,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
               });
             }
           } else {
+            this.formData.delete('file');
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,

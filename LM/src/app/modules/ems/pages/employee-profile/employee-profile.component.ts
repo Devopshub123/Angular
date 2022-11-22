@@ -2149,6 +2149,7 @@ export class EmployeeProfileComponent implements OnInit {
                 this.formData.delete('info');
               });
             } else {
+              this.formData.delete('file');
               this.spinner.hide();
               this.LM.deleteFilesMaster(result.data[0].id).subscribe(
                 (data) => {}
@@ -2162,6 +2163,7 @@ export class EmployeeProfileComponent implements OnInit {
             }
           });
         } else {
+          this.formData.delete('file');
           this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },

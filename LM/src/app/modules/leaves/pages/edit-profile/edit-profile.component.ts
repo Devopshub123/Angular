@@ -185,7 +185,8 @@ export class EditProfileComponent implements OnInit {
                 this.LM.setFilesMaster(obj).subscribe((data) => {
                   if (data && data.status) {
                     let info = JSON.stringify(data.data[0]);
-                    this.formData.append('info',info)
+                    this.formData.append('info',info);
+                    this.formData.append('file', this.file);
                     this.LM.setProfileImage(this.formData).subscribe(
                       (data) => {
                         this.formData.delete('file');
@@ -207,6 +208,7 @@ export class EditProfileComponent implements OnInit {
                             },
                           });
                         } else {
+
                           this.dialog.open(ConfirmationComponent, {
                             position: { top: `70px` },
                             disableClose: true,
@@ -315,12 +317,13 @@ export class EditProfileComponent implements OnInit {
     this.fileImageToggler();
   }
   onSelectFile(event: any) {
+    console.log("jhfbhdh",event)
     this.isRemoveImage = false;
-    this.imageurls = null;
     this.file = null;
     this.file = event.target.files[0];
     this.fileImageToggler();
     if (event.target.files && event.target.files[0]) {
+      // this.imageurls = null;
       var filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
         var reader = new FileReader();
@@ -333,7 +336,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   saveImage(flag: boolean) {
-    this.formData.append('file', this.file);
     if (this.file) {
       if (this.file.size <= 1024000) {
         this.editProfile();

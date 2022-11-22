@@ -2049,6 +2049,7 @@ export class EmployeeInfoComponent implements OnInit {
               });
             }
           } else {
+            this.formData.delete('file');
             this.spinner.hide();
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
