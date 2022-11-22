@@ -447,7 +447,7 @@ export class ShiftMasterComponent implements OnInit {
       if (res.status) {
         this.messagesDataList = res.data;
         this.messagesDataList.forEach((e: any) => {
-          if (e.code == 'EM1') {
+          if (e.code == 'EM2') {
             this.requiredOption = e.message;
           } else if (e.code == 'EM1') {
             this.requiredField = e.message;

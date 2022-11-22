@@ -71,7 +71,7 @@ export class DeparmentComponent implements OnInit {
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getstatuslist();
-    this.getMessages('LM1')
+    this.getMessages('EM1')
     this.getMessages('EM84')
     this.getMessages('EM85')
     this.getMessages('LM57')
@@ -307,7 +307,7 @@ export class DeparmentComponent implements OnInit {
     }
     this.emsService.getMessagesListApi(data).subscribe((result: any) => {
 
-      if(result.status && messageCode == 'LM1')
+      if(result.status && messageCode == 'EM1')
       {
         this.msgEM1 = result.data[0].message
       }

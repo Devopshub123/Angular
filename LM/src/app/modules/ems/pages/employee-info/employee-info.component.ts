@@ -962,7 +962,7 @@ export class EmployeeInfoComponent implements OnInit {
     } else {
       hiredDate = this.pipe.transform(this.personalInfoForm.controls.hireDate.value, 'yyyy-MM-dd hh:mm:ss')
     }
-    
+
     if (this.personalInfoForm.controls.joinDate.value == undefined ||
       this.personalInfoForm.controls.joinDate.value == "")
     {
@@ -970,7 +970,7 @@ export class EmployeeInfoComponent implements OnInit {
     } else {
       joinDate = this.pipe.transform(this.personalInfoForm.controls.joinDate.value, 'yyyy-MM-dd hh:mm:ss')
     }
-    
+
     if (this.personalInfoForm.valid) {
       this.spinner.show();
       let data = {
@@ -1026,13 +1026,14 @@ export class EmployeeInfoComponent implements OnInit {
             this.getEmployeeJobList();
             this.getEmployeeEmploymentList();
             this.getEmployeeEducationList();
+            this.getEmployeeImage();
             this.spinner.hide();
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
               data: this.EM42
             });
-          
+
             this.isNewEmployee !=true ? this.selectedtab.setValue(1): this.selectedtab.setValue(0);
             //this.selectedtab.setValue(1);
           } else {
@@ -2169,7 +2170,7 @@ export class EmployeeInfoComponent implements OnInit {
   getEmployeeImage() {
     let input = {
       'employeeId': this.empId,
-      "candidateId": 0,
+      "candidateId": this.candidateId,
       "moduleId": 1,
       "filecategory": 'PROFILE',
       "requestId": null,

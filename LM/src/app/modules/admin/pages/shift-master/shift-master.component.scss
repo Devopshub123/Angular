@@ -1,9 +1,9 @@
 table {
     width: 100%;
   }
-  
 
-  
+
+
   /* td, th {
     width: 25%;
   } */
@@ -23,11 +23,11 @@ table {
     color: #000000;
   }
   .select{
- ::ng-deep .mat-form-field-infix {
+  ::ng-deep .mat-form-field-infix {
   border-top:0 !important;
   }
   ::ng-deep .mat-select-value{
-    width: 75% !important;
+    width: 85% !important;
   }
 }
 ::ng-deep {

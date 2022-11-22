@@ -136,6 +136,8 @@ export class UsersLoginComponent implements OnInit {
   saveUserLogin() {
     if (this.usersloginForm.valid) {
       let data = {
+        empname:this.usersloginForm.controls.empname.value,
+        email:this.usersloginForm.controls.email.value,
         empid: this.usersloginForm.controls.empid.value,
         userid: this.usersloginForm.controls.userid.value,
         password: this.usersloginForm.controls.password.value,

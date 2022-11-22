@@ -267,7 +267,7 @@ export class ChecklistMeetComponent implements OnInit {
           console.log(res.data);
           this.router
             .navigateByUrl('/', { skipLocationChange: true })
-            .then(() => this.router.navigate(['/admin/induction-program']));
+            .then(() => this.router.navigate(['/ems/induction-program']));
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -357,7 +357,7 @@ export class ChecklistMeetComponent implements OnInit {
           console.log(res.data);
           this.router
             .navigateByUrl('/', { skipLocationChange: true })
-            .then(() => this.router.navigate(['/admin/induction-program']));
+            .then(() => this.router.navigate(['/ems/induction-program']));
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -421,7 +421,7 @@ export class ChecklistMeetComponent implements OnInit {
 
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/admin/induction-program"]));
+      this.router.navigate(["/ems/induction-program"]));
   }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -457,7 +457,7 @@ export class ChecklistMeetComponent implements OnInit {
           if (result.status) {
             this.router
               .navigateByUrl('/', { skipLocationChange: true })
-              .then(() => this.router.navigate(['/admin/induction-program']));
+              .then(() => this.router.navigate(['/ems/induction-program']));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
@@ -501,7 +501,7 @@ export class ChecklistMeetComponent implements OnInit {
         if (result.status) {
           this.router
             .navigateByUrl('/', { skipLocationChange: true })
-            .then(() => this.router.navigate(['/admin/induction-program']));
+            .then(() => this.router.navigate(['/ems/induction-program']));
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -519,7 +519,7 @@ export class ChecklistMeetComponent implements OnInit {
     //   this.EMS.setProgramSchedulemail(this.allmails).subscribe((result: any) => {
     //   if (result.status){
     //     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    //       this.router.navigate(["/admin/induction-program"]));
+    //       this.router.navigate(["/ems/induction-program"]));
     //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
     //       position:{top:`70px`},
     //       disableClose: true,
