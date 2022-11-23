@@ -263,8 +263,14 @@
                         <h3 matLine> {{ item.absent_date | date: "dd-MM-yyyy" }}
                         </h3>
                         <p>
-                          <a routerLink="/" (click)="leaverequest()">Leave request</a>
-                          <a style="padding-left: 5px;" routerLink="/" (click)="attendanceRequest(item)">Attendance request</a>
+                          <a routerLink="/" style="padding-right: 10px;"  matTooltip="Leave request" (click)="leaverequest()">
+                            <img src="assets\img\leave-request.png" style="height: 35px" />
+                            <!-- <span>Leave request</span> -->
+                          </a>
+                          <a style="padding-left: 5px;padding-right: 10px;" matTooltip="Attendance request" routerLink="/" (click)="attendanceRequest(item)">
+                            <img src="assets\img\attendence-request.png" style="height: 28px" />
+                            <!-- <span>Attendance request</span> -->
+                          </a>
                         </p>
                       </mat-list-item>
                     </ng-container>
