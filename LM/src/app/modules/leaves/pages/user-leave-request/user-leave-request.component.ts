@@ -920,6 +920,7 @@ async  getLeavesTypeInfo() {
                         if(data && data.status) {
                           let info =JSON.stringify(data.data[0]);
                           this.formData.append("info",info)
+                          this.formData.append('file', this.file, this.file.name);
                           this.LM.setProfileImage(this.formData).subscribe((data) => {
 
                             this.formData.delete('file');
@@ -940,7 +941,6 @@ async  getLeavesTypeInfo() {
 
                           });
                         }else{
-                          this.formData.delete('file');
 
                           this.LM.deleteFilesMaster(result.data[0].id).subscribe(data=>{})
                           // this.getUploadImage();
@@ -971,7 +971,6 @@ async  getLeavesTypeInfo() {
 
               }
               else {
-                this.formData.delete('file');
 
                 this.open({'Message': this.msgLM119},'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
 
@@ -980,7 +979,6 @@ async  getLeavesTypeInfo() {
           }
             else {
             this.isFile = false;
-            this.formData.delete('file');
             if(this.ispdf){
               this.open(this.msgLM141,'8%','500px','250px',false,"/LeaveManagement/LeaveRequest")
             }else{
@@ -1276,7 +1274,6 @@ file:any;
 
     if(pdf[pdf.length-1] == 'pdf'){
       this.isFile = true;
-      this.formData.append('file', this.file, this.file.name);
       this.setValidateLeave()
     }else{
       this.ispdf=true;

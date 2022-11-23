@@ -1700,7 +1700,7 @@ export class EmployeeProfileComponent implements OnInit {
   getDocumentsEMS() {
     let input = {
       employeeId: this.empId,
-      candidateId: 0,
+      candidateId: null,
       moduleId: 1,
       filecategory: null,
       requestId: null,
@@ -2053,7 +2053,7 @@ export class EmployeeProfileComponent implements OnInit {
   getEmployeeImage() {
     let input = {
       employeeId: this.empId,
-      candidateId: 0,
+      candidateId: null,
       moduleId: 1,
       filecategory: 'PROFILE',
       requestId: null,

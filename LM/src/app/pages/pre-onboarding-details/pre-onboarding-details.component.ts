@@ -1172,7 +1172,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   getDocumentsEMS() {
 
     let input = {
-      'employeeId': 0,
+      'employeeId': null,
       "candidateId": this.candidateId,
       "moduleId": 1,
       "filecategory": null,
