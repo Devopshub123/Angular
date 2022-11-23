@@ -518,7 +518,7 @@ export class MainDashboardComponent implements OnInit {
   getDocumentsEMS() {
     let input = {
       employeeId: this.usersession.id,
-      candidateId: 0,
+      candidateId: null,
       moduleId: 1,
       filecategory: 'PROFILE',
       requestId: null,

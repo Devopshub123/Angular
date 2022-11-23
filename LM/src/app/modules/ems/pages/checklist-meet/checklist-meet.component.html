@@ -1,7 +1,7 @@
 <div fxLayout="column">
     <form [formGroup]="checklistForm" autocomplete="off">
 
-        <mat-card fxLayout="column">
+        <div fxLayout="column">
             <mat-card-header>
                 <mat-card-title>Induction Program</mat-card-title>
             </mat-card-header>
@@ -108,8 +108,21 @@
                     </mat-form-field>
 
                 </div>
-                <div fxLayoutAlign="center">
-                    <button *ngIf="!isRequestView && !isedit" class="m-1 mat-stroked-button button-save"
+                <div *ngIf="isCancel || isView" fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                     <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.lt-md="50" class="mx-2 my-2"
+                        appearance="outline">
+                        <mat-label>Cancel Reason</mat-label>
+                        <textarea type="text" formControlName="cancelReason" matInput placeholder=""
+                            maxlength="500" required>
+                        </textarea>
+                        <mat-error class="con-error" *ngIf="checklistForm.controls.cancelReason.errors?.required">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+                <div *ngIf="!isView" fxLayoutAlign="center">
+                    <button *ngIf="!isRequestView && !isedit && !isCancel" class="m-1 mat-stroked-button button-save"
                         (click)="saveRequest()" type="submit">
                         <span>Submit</span>
                     </button>
@@ -117,10 +130,57 @@
                         type="submit">
                         <span>Update</span>
                     </button>
+                    <button *ngIf="isCancel" class="m-1 mat-stroked-button" style="background-color:#3f51b5;color:aliceblue" (click)="programCancelRequest()"
+                    type="submit">
+                    <span>Program cancel</span>
+                </button>
                     <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
                         <span>Cancel</span>
                     </button>
                     <br />
+                </div>
+
+                <div fxLayout="column" *ngIf="isView" class="tableP">
+                    <div class="mat-elevation-z1">
+                        <table mat-table [dataSource]="programViewdataSource" matSort>
+        
+                            <ng-container matColumnDef="sno">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> S.No</th>
+                                <td mat-cell *matCellDef="let element; let i=index;">
+                                 {{ (i+1) + (paginator1.pageIndex * paginator1.pageSize) }} </td>
+                              </ng-container>
+                 
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name</th>
+                                <td mat-cell *matCellDef="let row"> {{row.empname}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="date">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of join</th>
+                                <td mat-cell *matCellDef="let row">{{row.dateofjoin | date:'dd-MM-yyyy'}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                                <td mat-cell *matCellDef="let row">{{row.status}}</td>
+                            </ng-container>
+        
+                           
+                            <tr class="headerbox title" mat-header-row *matHeaderRowDef="programViewColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: programViewColumns;"></tr>
+        
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="8" style="text-align: center;">No data found</td>
+                            </tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="!pageLoading1 ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+                
+                    </div>
+                    <div fxLayoutAlign="center">
+                        <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+                            <span>Back</span>
+                        </button>
+                        <br />
+                    </div>
+        
                 </div>
 
             </div>
@@ -153,9 +213,11 @@
 
                             <!-- Position Column -->
                             <ng-container matColumnDef="sno">
-                                <th mat-header-cell *matHeaderCellDef> S.No. </th>
-                                <td mat-cell *matCellDef="let element;let i = index;"> {{i+1}} </td>
-                            </ng-container>
+                                <th mat-header-cell *matHeaderCellDef > S.No</th>
+                                <td mat-cell *matCellDef="let element; let i=index;">
+                                 {{ (i+1) + (paginator2.pageIndex * paginator2.pageSize) }} </td>
+                              </ng-container>
+                 
 
                             <!-- Name Column -->
                             <ng-container matColumnDef="name">
@@ -180,7 +242,8 @@
                                 (click)="selection.toggle(row)">
                             </tr>
                         </table>
-                    </div>
+                        <mat-paginator [pageSizeOptions]="!pageLoading2 ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+    </div>
                 </div>
                 <div fxLayoutAlign="center">
                     <button *ngIf="!isRequestView && !isEditView" class="m-1 mat-stroked-button button-save"
@@ -225,7 +288,8 @@
 
                             <ng-container matColumnDef="sno">
                                 <th mat-header-cell *matHeaderCellDef> S.No. </th>
-                                <td mat-cell *matCellDef="let row;let i=index"> {{i+1}}</td>
+                                <td mat-cell *matCellDef="let element; let i=index;">
+                                 {{ (i+1) + (paginator2.pageIndex * paginator2.pageSize) }} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="name">
@@ -248,7 +312,8 @@
                                 (click)="selection.toggle(row)">
                             </tr>
                         </table>
-                    </div>
+                        <mat-paginator [pageSizeOptions]="!pageLoading2 ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+                       </div>
                 </div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
 
@@ -284,7 +349,7 @@
 
             </div>
 
-        </mat-card>
+        </div>
         <br>
 
 
@@ -342,13 +407,15 @@
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef> </th>
                         <td mat-cell *matCellDef="let row">
-                            <mat-icon class="mr-2" style="cursor: pointer;" title="Assign" *ngIf="row.status !='Completed' " (click)="requestView(row)">add_circle</mat-icon>
-                            <mat-icon class="mr-2" style="cursor: pointer;" title="Edit"  *ngIf="row.status !='Completed' " (click)="editRequest(row)">edit</mat-icon>
-                            <mat-icon class="mr-2" [ngClass]="{'disable':row.status =='Completed'}" title="Completed" *ngIf="row.status =='Completed' "> add_circle</mat-icon>
-                            <mat-icon class="mr-2" [ngClass]="{'disable':row.status =='Completed'}" title="Completed" *ngIf="row.status =='Completed' ">edit</mat-icon>
-                            <mat-icon class="mr-2" style="cursor: pointer;" title="Update" (click)="updating(row)" >cached</mat-icon>
-                          
-                        </td>
+                            <span *ngIf="row.status !='Completed' && row.status !='Cancelled'">
+                                <mat-icon class="mr-2" style="cursor: pointer;" title="Assign"  (click)="requestView(row)">add_circle</mat-icon>
+                                <mat-icon class="mr-2" style="cursor: pointer;" title="Edit"  (click)="editRequest(row)" >edit</mat-icon>
+                                <mat-icon class="mr-2" style="cursor: pointer;" title="Program cancel" (click)="cancelProgram(row)" >cancel_presentation</mat-icon>
+                                <mat-icon class="mr-2" style="cursor: pointer;" title="Update" (click)="updating(row)" >cached</mat-icon>
+                            </span>
+                            <mat-icon class="mr-2" style="cursor: pointer;" *ngIf="row.status ==='Completed' || row.status ==='Cancelled'"
+                             title="View" (click)="viewProgram(row)" >visibility</mat-icon>
+                         </td>
                     </ng-container>
 
                     <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>

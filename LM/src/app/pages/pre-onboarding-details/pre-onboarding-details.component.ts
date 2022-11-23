@@ -193,6 +193,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
             if (selectedCityValue != '') {
               this.companyService.getCities(selectedCityValue).subscribe((data) => {
                 this.permanentCityDetails = data[0]
+                console.log("city-1",this.permanentCityDetails)
+                console.log("city-2",this.personalInfoForm.controls.rcity)
                 if (this.personalInfoForm.controls.rcity.value != null) {
                   this.personalInfoForm.controls.pcity.setValue(this.personalInfoForm.controls.rcity.value);
                 }
@@ -1172,7 +1174,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   getDocumentsEMS() {
 
     let input = {
-      'employeeId': 0,
+      'employeeId': null,
       "candidateId": this.candidateId,
       "moduleId": 1,
       "filecategory": null,

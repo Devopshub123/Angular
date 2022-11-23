@@ -115,6 +115,7 @@ export class EmployeeInfoComponent implements OnInit {
   minetodate: any;
 
   edmaxDate = new Date();
+  expmaxDate = new Date();
   // documentTypeList: any = ['Aadhar', 'PAN Card', 'Passport ID'];
   isFile: boolean = true;
   formData: any;
@@ -1816,9 +1817,8 @@ export class EmployeeInfoComponent implements OnInit {
 
   getDocumentsEMS() {
     let input = {
-      'employeeId': this
-        .empId,
-      "candidateId": 0,
+      'employeeId': this.empId,
+      "candidateId": null,
       "moduleId": 1,
       "filecategory": null,
       "requestId": null,
@@ -2175,7 +2175,7 @@ export class EmployeeInfoComponent implements OnInit {
   getEmployeeImage() {
     let input = {
       'employeeId': this.empId,
-      "candidateId": this.candidateId,
+      "candidateId": null,
       "moduleId": 1,
       "filecategory": 'PROFILE',
       "requestId": null,

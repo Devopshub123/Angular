@@ -165,7 +165,7 @@ export class EditProfileComponent implements OnInit {
               disableClose: true,
               data: {
                 Message: this.LM118,
-                url: '/LeaveManagement/EditProfile',
+                url: '/MainDashboard',
               },
             });
           } else {
@@ -204,7 +204,7 @@ export class EditProfileComponent implements OnInit {
                             disableClose: true,
                             data: {
                               Message: this.LM118,
-                              url: '/LeaveManagement/EditProfile',
+                              url: '/MainDashboard',
                             },
                           });
                         } else {

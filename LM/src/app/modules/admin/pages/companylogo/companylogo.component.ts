@@ -137,7 +137,6 @@ export class CompanylogoComponent implements OnInit {
 
   saveImage()
   {
-    this.formData.append('file', this.file);
     if(this.file){
       if(this.file.size<=1024000){
         this.spinner.show();
@@ -159,7 +158,10 @@ export class CompanylogoComponent implements OnInit {
                     let info =JSON.stringify(data.data[0])
                     this.file=null;
                 this.formData.append("info",info)
+                this.formData.append('file', this.file);
                 this.LMS.setProfileImage(this.formData).subscribe((result) => {
+                  this.formData.delete('file');
+                        this.formData.delete('info');
                         this.spinner.hide();
                         if(data && data.status){
                           if(this.logoId){
@@ -187,8 +189,7 @@ export class CompanylogoComponent implements OnInit {
                         this.fileImageToggler();
                         this.getUploadImage();
                         this.isRemoveImage=true;
-                        this.formData.delete('file');
-                        this.formData.delete('info');
+                        
 
 
 
