@@ -1745,7 +1745,6 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   deleteDock(data: any) {
-    console.log(data);
     let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
       position: { top: `70px` },
       disableClose: true,
@@ -1889,9 +1888,12 @@ export class EmployeeProfileComponent implements OnInit {
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0]);
               this.formData.append('info', info);
+              this.formData.append('file', this.file, this.file.name);
               this.mainService
                 .setDocumentOrImageForEMS(this.formData)
                 .subscribe((data) => {
+                  this.formData.delete('file');
+                  this.formData.delete('info');
                   // this.spinner.hide()
                   if (data && data.status) {
                     if (this.editDockinfo) {
@@ -1916,8 +1918,7 @@ export class EmployeeProfileComponent implements OnInit {
                     // this.open(result.isLeaveUpdated ? this.msgLM76 : this.msgLM79,'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
                   }
                   this.file = null;
-                  this.formData.delete('file');
-                  this.formData.delete('info');
+
                   this.editDockinfo = null;
                   this.editFileName = null;
                 });
@@ -1927,7 +1928,6 @@ export class EmployeeProfileComponent implements OnInit {
               this.editDockinfo = null;
               this.editFileName = null;
               this.file = null;
-              this.formData.delete('file');
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
@@ -1957,7 +1957,6 @@ export class EmployeeProfileComponent implements OnInit {
           pdf[pdf.length - 1] == 'png'
         ) {
           this.isFile = true;
-          this.formData.append('file', this.file, this.file.name);
         } else {
           this.isFile = false;
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -2092,7 +2091,6 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   saveImage(flag: boolean) {
-    this.formData.append('file', this.file);
     if (this.file) {
       if (this.file.size <= 1024000) {
         this.editProfile();
@@ -2122,7 +2120,10 @@ export class EmployeeProfileComponent implements OnInit {
             if (res && res.status) {
               let info = JSON.stringify(res.data[0]);
               this.formData.append('info', info);
+              this.formData.append('file', this.file);
               this.LM.setProfileImage(this.formData).subscribe((res) => {
+                this.formData.delete('file');
+                this.formData.delete('info');
                 this.spinner.hide();
                 if (res && res.status) {
                   if (this.profileId) {
@@ -2145,8 +2146,7 @@ export class EmployeeProfileComponent implements OnInit {
                 this.file = null;
                 this.getEmployeeImage();
                 this.isRemoveImage = true;
-                this.formData.delete('file');
-                this.formData.delete('info');
+
               });
             } else {
               this.spinner.hide();

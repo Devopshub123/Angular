@@ -494,7 +494,7 @@ export class MainDashboardComponent implements OnInit {
 
   onSelectFile(event: any) {
     this.isRemoveImage = false;
-    this.imageurls = [];
+    // this.imageurls = [];
     this.file = null;
     this.file = event.target.files[0];
     this.fileImageToggler();
@@ -557,7 +557,6 @@ export class MainDashboardComponent implements OnInit {
   }
 
   saveImage(flag: boolean) {
-    this.formData.append('file', this.file);
     if (this.file) {
       if (this.file.size <= 1024000) {
         this.editProfile();
@@ -593,7 +592,10 @@ export class MainDashboardComponent implements OnInit {
             if (res && res.status) {
               let info = JSON.stringify(res.data[0]);
               this.formData.append('info', info);
+              this.formData.append('file', this.file);
               this.LM.setProfileImage(this.formData).subscribe((res) => {
+                this.formData.delete('file');
+                this.formData.delete('info');
                 this.spinner.hide();
                 if (res && res.status) {
                   if (this.profileId) {
@@ -619,8 +621,7 @@ export class MainDashboardComponent implements OnInit {
                 this.file = null;
                 this.getDocumentsEMS();
                 this.isRemoveImage = true;
-                this.formData.delete('file');
-                this.formData.delete('info');
+
               });
             } else {
               this.spinner.hide();

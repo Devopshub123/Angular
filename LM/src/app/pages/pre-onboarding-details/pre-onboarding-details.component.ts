@@ -1030,9 +1030,12 @@ export class PreOnboardingDetailsComponent implements OnInit {
           if (data && data.status) {
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0])
+              this.formData.append('file', this.file, this.file.name);
               this.formData.append('info',info);
               this.mainService.setDocumentOrImageForEMS(this.formData).subscribe((data) => {
                 // this.spinner.hide()
+                this.formData.delete('file');
+                this.formData.delete('info');
                 if (data && data.status) {
                   if (this.editDockinfo) {
                     this.mainService.removeDocumentOrImagesForEMS(this.editDockinfo).subscribe((data) => { })
@@ -1055,8 +1058,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
 
                 }
                 this.file = null;
-                this.formData.delete('file');
-                this.formData.delete('info');
+
                 this.editDockinfo = null;
                 this.editFileName = null;
 
@@ -1067,7 +1069,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
               this.editDockinfo = null;
               this.editFileName = null;
               this.file = null;
-              this.formData.delete('file');
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
@@ -1110,7 +1111,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
         var pdf = this.file.name.split('.');
         if (pdf[pdf.length - 1] == 'pdf' || pdf[pdf.length - 1] == 'jpg' || pdf[pdf.length - 1] == 'png') {
           this.isFile = true;
-          this.formData.append('file', this.file, this.file.name);
         } else {
           this.isFile = false;
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
