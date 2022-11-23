@@ -294,5 +294,8 @@ export class EmsService {
     /** */
     getEmployeeEmailDataByEmpid(id: any): Observable<any> {
       return this.http.get(this.mainUrl + 'ems/api/getEmailsByEmpid/' + id);
-    }
+  }
+  getActiveScheduleEmployeeList(sid: any): any {
+    return this.http.get(this.mainUrl + 'ems/api/getActiveEmployeeProgramSchedules/'+ sid, this.httpOptions);
+  }
 }

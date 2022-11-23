@@ -6,7 +6,7 @@
             </mat-card-header>
             <mat-divider></mat-divider>
             <form [formGroup]="companyForm" autocomplete="off" >
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Full Company Name</mat-label>
@@ -25,21 +25,6 @@
                     {{msgEM3}}
                   </mat-error> -->
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
-                    <mat-label>Country</mat-label>
-                    <mat-select [disabled]="isview"  formControlName="country" required  >
-                        <ng-container >
-                            <div *ngFor="let b of CountryDetails">
-                                <mat-option    [value]="b.id">{{b.country}}</mat-option>
-                            </div>
-                        </ng-container>
-                    </mat-select>
-                    <mat-error class="con-error" *ngIf="  companyForm.controls.country.errors?.required">
-                        {{msgEM2}}
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
 
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Primary Contact</mat-label>
@@ -62,6 +47,36 @@
                     {{msgEM3}}
                 </mat-error>
                 </mat-form-field>
+
+
+                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Company Registered Address</mat-label>
+                    <input formControlName="address1" matInput [readonly]="isview"  placeholder=""  maxlength="100" required >
+                    <!-- <input matInput [readonly]="isview"  value="Sushi" [formControl]="foodCtrl" *ngIf="isview"> -->
+                    <mat-error class="con-error" *ngIf="companyForm.controls.address1.errors?.required">
+                      {{msgEM1}}
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Work Location Address</mat-label>
+                    <input formControlName="address2" matInput [readonly]="isview" placeholder="" maxlength="100">
+                    <!-- <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
+                      {{errorDesName}}
+                  </mat-error> -->
+                </mat-form-field>
+                <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                  <mat-label>Country</mat-label>
+                  <mat-select [disabled]="isview"  formControlName="country" required  >
+                      <ng-container >
+                          <div *ngFor="let b of CountryDetails">
+                              <mat-option    [value]="b.id">{{b.country}}</mat-option>
+                          </div>
+                      </ng-container>
+                  </mat-select>
+                  <mat-error class="con-error" *ngIf="  companyForm.controls.country.errors?.required">
+                      {{msgEM2}}
+                  </mat-error>
+              </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>State</mat-label>
                     <mat-select [disabled]="isview"  required formControlName="state"  >
@@ -76,24 +91,6 @@
                     <mat-error class="con-error" *ngIf="  companyForm.controls.state.errors?.required">
                         {{msgEM2}}
                     </mat-error>
-                </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
-
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Address1</mat-label>
-                    <input formControlName="address1" matInput [readonly]="isview"  placeholder=""  maxlength="100" required >
-                    <!-- <input matInput [readonly]="isview"  value="Sushi" [formControl]="foodCtrl" *ngIf="isview"> -->
-                    <mat-error class="con-error" *ngIf="  companyForm.controls.address1.errors?.required">
-                      {{msgEM1}}
-                  </mat-error>
-                </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Address2</mat-label>
-                    <input formControlName="address2" matInput [readonly]="isview" placeholder="" maxlength="100">
-                    <!-- <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
-                      {{errorDesName}}
-                  </mat-error> -->
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
                     <mat-label>City</mat-label>
@@ -110,8 +107,6 @@
                         {{msgEM2}}
                     </mat-error>
                 </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
 
                 <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Pincode</mat-label>

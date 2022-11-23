@@ -1,7 +1,7 @@
-<div fxLayout="column">
+<div fxLayout="column" style="background-color: #f9fbfe ">
     <mat-card>
         <div *ngIf="!isNewEmployee">
-            <mat-card style="background-color: #ffffff">
+            <mat-card style="background-color: #f9fbfe ">
                 <div fxLayout="row" style="padding: 15px">
                     <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center">
                         <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
@@ -37,7 +37,7 @@
                 mat-stretch-tabs>
                 <!-- personal info tab -->
                 <mat-tab label="Personal Info" >
-                    <div fxLayout="column" style="padding: 10px">
+                    <div fxLayout="column">
                         <form [formGroup]="personalInfoForm">
                             <div class="section"><b>Personal Information</b></div>
                             <mat-divider></mat-divider>
@@ -86,7 +86,19 @@
                                     </mat-error>
                                 </mat-form-field>
 
-                                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                <mat-form-field *ngIf="employeeCode !=undefined" fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Blood Group</mat-label>
+                                    <mat-select formControlName="bloodgroup">
+                                        <ng-container>
+                                            <div *ngFor="let b of bloodGroupdetails">
+                                                <mat-option value="{{b.id}}">{{
+                                                    b.bloodgroup
+                                                    }}</mat-option>
+                                            </div>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field *ngIf="employeeCode ==undefined" fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Blood Group</mat-label>
                                     <mat-select formControlName="bloodgroup">
                                         <ng-container>
@@ -446,7 +458,7 @@
                             </div>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Location</mat-label>
+                                    <mat-label>City</mat-label>
                                     <mat-select formControlName="rcity" required>
                                         <ng-container>
                                             <div *ngFor="let b of cityDetails">
@@ -461,7 +473,7 @@
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Location</mat-label>
+                                    <mat-label>City</mat-label>
                                     <mat-select formControlName="pcity">
                                         <ng-container>
                                             <div *ngFor="let b of permanentCityDetails">
@@ -630,7 +642,7 @@
                                         <ng-container matColumnDef="contact">
                                             <th mat-header-cell *matHeaderCellDef>Contact Number</th>
                                             <td mat-cell *matCellDef="let data">
-                                                {{ data.contactnumber }}
+                                                {{ data.contactnumber !='null' ? data.contactnumber:''}}
                                             </td>
                                         </ng-container>
 
@@ -669,7 +681,7 @@
                 </mat-tab>
                 <!-- job tab -->
                 <mat-tab label="Job" [disabled]='isNewEmployee'>
-                    <div fxLayout="column" style="padding: 10px">
+                    <div fxLayout="column">
                         <!-- contract with promotions -->
                         <div *ngIf="isContractData">
                             <form [formGroup]="employeeJobForm" *ngIf="isContractData">
@@ -917,7 +929,7 @@
                 </mat-tab>
                 <!-- employement tab -->
                 <mat-tab label="Work Experience" [disabled]='isNewEmployee'>
-                    <div fxLayout="column" style="padding: 10px">
+                    <div fxLayout="column">
                         <form [formGroup]="experienceForm">
                             <div class="section"><b>Work Experience</b></div>
                             <mat-divider></mat-divider>
@@ -945,7 +957,7 @@
                                 <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>From Date</mat-label>
                                     <input matInput required readonly [matDatepicker]="expFromDate" [min]="minDate"
-                                        [max]="maxDate" placeholder="DD-MM-YYYY" formControlName="expFromDate"
+                                        [max]="expmaxDate" placeholder="DD-MM-YYYY" formControlName="expFromDate"
                                         (click)="expFromDate.open()" />
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="expFromDate">
                                     </mat-datepicker-toggle>
@@ -959,7 +971,7 @@
                                 <mat-form-field fxFlex.xs="100%" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>To Date</mat-label>
                                     <input required matInput readonly [matDatepicker]="expToDate"
-                                        [min]="minExperienceDate" [max]="maxDate" placeholder="DD-MM-YYYY"
+                                        [min]="minExperienceDate" [max]="expmaxDate" placeholder="DD-MM-YYYY"
                                         formControlName="expToDate" (click)="expToDate.open()" />
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="expToDate">
                                     </mat-datepicker-toggle>
@@ -1055,7 +1067,7 @@
 
                 <!-- Bank details tab -->
                 <mat-tab label="Bank Details" [disabled]='isNewEmployee'>
-                    <div fxLayout="column" style="padding: 10px">
+                    <div fxLayout="column">
                         <form [formGroup]="employementForm">
                             <div class="section"><b>Bank Details</b></div>
                             <mat-divider></mat-divider>
@@ -1144,7 +1156,7 @@
 
                 <!-- education tab -->
                 <mat-tab label="Education" [disabled]='isNewEmployee'>
-                    <div fxLayout="column" style="padding: 10px">
+                    <div fxLayout="column" >
                         <form [formGroup]="educationForm">
                             <div class="section"><b>Education</b></div>
                             <mat-divider></mat-divider>

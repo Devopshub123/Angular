@@ -115,6 +115,7 @@ export class EmployeeInfoComponent implements OnInit {
   minetodate: any;
 
   edmaxDate = new Date();
+  expmaxDate = new Date();
   // documentTypeList: any = ['Aadhar', 'PAN Card', 'Passport ID'];
   isFile: boolean = true;
   formData: any;

@@ -83,7 +83,6 @@ export class NewHireListComponent implements OnInit {
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-     this.getEmployeeCompanyDetails();
     this.hireForm=this.formBuilder.group(
       {
       firstname: ["",[Validators.required,this.noWhitespaceValidator()]],
@@ -308,12 +307,6 @@ export class NewHireListComponent implements OnInit {
 
      return [5, 10, 20];
     }
-  }
-
-  getEmployeeCompanyDetails() {
-    this.emsService.getEmployeeEmailDataByEmpid(this.userSession.id).subscribe((res: any) => {
-       this.companyNameDetails = JSON.parse(res.data[0].jsonvalu)[0];
-    })
   }
 
 }
