@@ -27,6 +27,31 @@
                 </mat-form-field>
 
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                  <mat-label>CIN</mat-label>
+                  <input formControlName="cin" matInput [readonly]="isview" placeholder="CIN" maxlength="21" required>
+                  <mat-error class="con-error" *ngIf="companyForm.controls.cin.errors?.required">
+                    {{msgEM1}}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-label>GST Number</mat-label>
+                <input formControlName="gstnumber" matInput [readonly]="isview" placeholder="GST Number" maxlength="15" required>
+                <mat-error class="con-error" *ngIf="companyForm.controls.gstnumber.errors?.required">
+                  {{msgEM1}}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+              <mat-label>Company Established Date </mat-label>
+              <input matInput readonly [matDatepicker]="date" [max]="maxDate" placeholder="DD-MM-YYYY"
+              formControlName="established_date"   required (click)="date.open()">
+              <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
+              </mat-datepicker-toggle>
+              <mat-datepicker #date></mat-datepicker>
+              <mat-error class="con-error" *ngIf="companyForm.controls.established_date.errors?.required">
+                  {{msgEM2}}
+              </mat-error>
+          </mat-form-field>
+                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Primary Contact</mat-label>
                     <input type="text" formControlName="contact" onlyNumber matInput [readonly]="isview" placeholder="" minlength="10" maxlength="10" required >
                     <mat-error class="con-error" *ngIf="  companyForm.controls.contact.errors?.required">
@@ -47,7 +72,17 @@
                     {{msgEM3}}
                 </mat-error>
                 </mat-form-field>
-
+                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                  <mat-label>Secondary Contact</mat-label>
+                  <input type="text" formControlName="secondarycontactnumber" onlyNumber matInput [readonly]="isview" placeholder="" minlength="10" maxlength="10">
+                  <!-- <mat-error class="con-error" *ngIf="  companyForm.controls.contact.errors?.required">
+                      {{msgEM2}}
+                </mat-error> -->
+                <mat-error class="reg-error" *ngIf="companyForm.controls.secondarycontactnumber.errors?.minlength ||
+                companyForm.controls.secondarycontactnumber.errors?.maxlength">
+                    Please enter valid number
+                </mat-error>
+              </mat-form-field>
 
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Company Registered Address</mat-label>

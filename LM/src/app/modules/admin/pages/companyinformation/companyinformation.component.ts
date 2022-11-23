@@ -9,10 +9,32 @@ import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.direct
 import { FormGroup,FormControl,Validators, FormBuilder,FormArray, AbstractControl} from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { EmsService } from 'src/app/modules/ems/ems.service';
+import * as _moment from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
+import { DatePipe } from '@angular/common';
+const moment =  _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-companyinformation',
   templateUrl: './companyinformation.component.html',
-  styleUrls: ['./companyinformation.component.scss']
+  styleUrls: ['./companyinformation.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class CompanyinformationComponent implements OnInit {
   companyForm!: FormGroup;
@@ -33,6 +55,8 @@ export class CompanyinformationComponent implements OnInit {
   msgLM22:any;
   msgEM69:any;
   msgEM70:any;
+  maxDate = new Date();
+  pipe = new DatePipe('en-US');
   companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder,private router: Router,
     private LMS:CompanySettingService,private dialog: MatDialog,private ts: LoginService,
@@ -58,6 +82,10 @@ export class CompanyinformationComponent implements OnInit {
         // website:["",Validators.required,Validators.pattern("^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$")],
         website:["",Validators.required], //,Validators.pattern('^(?www)?:[a-zA-Z/].[a-zA-z]')
         address2:[""],
+        cin:["",Validators.required],
+        gstnumber:["",Validators.required],
+        established_date:[new Date(),Validators.required],
+        secondarycontactnumber:[""],
         city: ["",Validators.required],
         state: ["",Validators.required],
         pincode: ["",Validators.required],
@@ -102,7 +130,11 @@ export class CompanyinformationComponent implements OnInit {
       id: this.companyinfo.id,
       companyname:this.companyForm.controls.companyname.value,
       companywebsite:this.companyForm.controls.website.value,
+      cin:this.companyForm.controls.cin.value,
+      gstnumber:this.companyForm.controls.gstnumber.value,
+      established_date :this.pipe.transform(this.companyForm.controls.established_date.value, 'yyyy-MM-dd'),
       primarycontactnumber:this.companyForm.controls.contact.value,
+      secondarycontactnumber:this.companyForm.controls.secondarycontactnumber.value,
       primarycontactemail:this.companyForm.controls.email.value,
       address1:this.companyForm.controls.address1.value,
       address2:this.companyForm.controls.address2.value,
@@ -138,7 +170,11 @@ export class CompanyinformationComponent implements OnInit {
     let companyinformation ={
       companyname:this.companyForm.controls.companyname.value,
       companywebsite:this.companyForm.controls.website.value,
+      cin:this.companyForm.controls.cin.value,
+      gstnumber:this.companyForm.controls.gstnumber.value,
+      established_date :this.pipe.transform(this.companyForm.controls.established_date.value, 'yyyy-MM-dd'),
       primarycontactnumber:this.companyForm.controls.contact.value,
+      secondarycontactnumber:this.companyForm.controls.secondarycontactnumber.value,
       primarycontactemail:this.companyForm.controls.email.value,
       address1:this.companyForm.controls.address1.value,
       address2:this.companyForm.controls.address2.value?this.companyForm.controls.address2.value:'',
@@ -211,6 +247,10 @@ export class CompanyinformationComponent implements OnInit {
         this.companyForm.controls.country.setValue(data.data[0].countryid);
         this.companyForm.controls.state.setValue(data.data[0].state);
         this.companyForm.controls.city.setValue(data.data[0].city);
+        this.companyForm.controls.cin.setValue(data.data[0].cin);
+        this.companyForm.controls.gstnumber.setValue(data.data[0].gstnumber);
+        this.companyForm.controls.established_date.setValue(new Date(data.data[0].established_date)??new Date());
+        this.companyForm.controls.secondarycontactnumber.setValue(data.data[0].secondarycontactnumber);
         // this.companyForm.controls.companyname.disable();
         // this.companyForm.controls.website.disable();
         // this.companyForm.controls.contact.disable()
