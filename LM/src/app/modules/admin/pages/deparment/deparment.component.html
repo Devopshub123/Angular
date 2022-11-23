@@ -48,7 +48,10 @@
                                 <span *ngIf="enable != row.id">{{row.deptname}}&nbsp;</span>
                                 <mat-form-field appearance="outline" *ngIf="enable === row.id">
                                     <input formControlName="department" value="row.deptname" matInput placeholder="" >
-                                </mat-form-field>
+                                    <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.required ||departmentForm.controls.department.errors?.['whitespace']">
+                                      {{msgLM1}}
+                                  </mat-error>
+                                  </mat-form-field>
 
                             </td>
                         </ng-container>

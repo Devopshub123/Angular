@@ -27,6 +27,7 @@ export class EmployeeDashboardComponent implements OnInit {
   employeeMobile: any;
   employeeDepartment: any;
   employeeEmail: any;
+  reportingManagerName: any;
   userSession: any;
   announcementsDetails:any=[];
   onboardingDetails:any=[];
@@ -151,7 +152,9 @@ financeManager:any=[]
   getReportingManagerForEmp(){
     this.emsService.getReportingManagerForEmp(this.userSession.id).subscribe((res: any) => {
       if(res && res.status){
-        this.reportingManager=res.data;
+        this.reportingManager = res.data;
+        this.reportingManagerName = this.reportingManager[0].managername;
+
       }
     });
   }

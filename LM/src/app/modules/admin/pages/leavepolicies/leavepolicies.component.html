@@ -8,7 +8,7 @@
             <div *ngIf="isaddnew"  fxLayout="column" >
                 <div fxLayout="row " class="my-2" fxFlex.xs="100%" fxLayoutAlign="end">
                     <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue"
-                         (click)="addLeaveConfigure()" type="submit">
+                         (click)="addLeaveConfigure()" type="button">
                         <span>Add New</span>
                     </button>
                 </div>
@@ -199,7 +199,7 @@
             <div *ngIf="!isaddnew"  fxLayout="column" >
                 <div fxLayout="row " class="my-2" fxFlex.xs="100%" fxLayoutAlign="end" >
                     <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
-                        (click)="addnewleave()"   type="submit">
+                        (click)="addnewleave()"   type="button">
                         <span>Add </span>
                     </button>
                 </div>

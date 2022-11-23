@@ -366,8 +366,9 @@ export class EmployeeProfileComponent implements OnInit {
       this.personalInfoForm.controls.rpincode.setValue(this.employeeInformationData.pincode);
 
       this.personalInfoForm.controls.personalemail.setValue(this.employeeInformationData.personalemail);
-      if(this.employeeInformationData.languages_spoken !=null || this.employeeInformationData.languages_spoken !='null' || this.employeeInformationData.languages_spoken !="null")
-      this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken);
+
+        this.personalInfoForm.controls.spokenLanguages.setValue(this.employeeInformationData.languages_spoken=='null' || null?'':this.employeeInformationData.languages_spoken);
+
       this.personalInfoForm.controls.paddress.setValue(this.employeeInformationData.paddress);
       this.personalInfoForm.controls.pcountry.setValue(this.employeeInformationData.pcountry);
       this.personalInfoForm.controls.pstate.setValue(this.employeeInformationData.pstate);
@@ -950,7 +951,7 @@ export class EmployeeProfileComponent implements OnInit {
   }
   //** */
   saveJobDetails() {
-    
+
     let data = {
       empid: this.employeeCode,
       contractname: this.employeeJobForm.controls.contractName.value,
@@ -1740,7 +1741,6 @@ createValidatorForDocument(){
     this.formData.append('file', this.file);
     if(this.file){
       if (this.file.size <= 1024000) {
-        console.log("file name--",this.file.name)
         this.editProfile()
       }
       else{

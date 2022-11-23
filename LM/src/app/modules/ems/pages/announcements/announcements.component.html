@@ -45,7 +45,7 @@
                     {{EM2}}
                   </mat-error>
               </mat-form-field>
-            
+
               <mat-form-field fxFlex.xs="100%" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>Publish To</mat-label>
                 <input required matInput readonly [matDatepicker]="todate" [disabled]="isviewdata"
@@ -117,7 +117,7 @@
         <div fxLayout="column" *ngIf="isview">
             <br>
             <div fxLayout="row" fxLayoutAlign="end">
-                <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue" (click)="Add()" type="submit">
+                <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue" (click)="Add()" type="button">
                     <span>Add</span>
                 </button>
             </div><br>
