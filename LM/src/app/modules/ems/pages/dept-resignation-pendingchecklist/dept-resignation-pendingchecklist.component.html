@@ -1,6 +1,6 @@
 <div fxLayout="column">
   <mat-card-header>
-    <mat-card-title> Resignation Pending Checklist </mat-card-title>
+    <mat-card-title> Separation Pending Checklist </mat-card-title>
   </mat-card-header>
   <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd">
     <form [formGroup]="checklistForm" autocomplete="off">
@@ -11,7 +11,7 @@
         </mat-form-field> 
 
         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-          <mat-label>Resignation Date</mat-label>
+          <mat-label>Separation Date</mat-label>
           <input type="text" readonly formControlName="joinDate" matInput placeholder=""/>
         </mat-form-field>
 
@@ -50,7 +50,7 @@
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" *ngIf="isdata">
       <form [formGroup]="hrOnboardingForm" autocomplete="off" >
       <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-        <mat-label>Date of Resignation</mat-label>
+        <mat-label>Separation Date</mat-label>
         <input matInput readonly [matDatepicker]="searchDate" [min]="minDate" [max]="maxDate"
         placeholder="MM/DD/YYYY" formControlName="searchDate" (click)="searchDate.open()">
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="searchDate"></mat-datepicker-toggle>

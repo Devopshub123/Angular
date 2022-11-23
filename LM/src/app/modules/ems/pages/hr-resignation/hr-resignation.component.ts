@@ -127,6 +127,7 @@ export class HrResignationComponent implements OnInit {
         this.selectedChecklists.splice(index, 1);
         this.selection.deselect(row);
         this.isdisable = true;
+        this.checked =false
       }
     }
     console.log(this.selectedChecklists);

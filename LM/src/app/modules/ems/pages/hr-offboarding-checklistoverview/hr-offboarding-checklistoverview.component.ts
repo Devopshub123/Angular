@@ -195,6 +195,7 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
         this.selectedChecklists.splice(index, 1);
         this.selection.deselect(row);
         this.isdisable = true;
+        this.checked =false
       }
     }
   }
