@@ -2,31 +2,40 @@
     <mat-card>
         <div *ngIf="!isNewEmployee">
             <mat-card style="background-color: #f9fbfe ">
-                <div fxLayout="row" style="padding: 15px">
+                <div fxLayoutAlign="start">
+                    <span >
+                        <button mat-icon-button (click)="backArrow()"
+                       >
+                      <mat-icon style="font-weight: bold;" title="Back">arrow_back</mat-icon>
+                    </button>
+                    </span>
+                </div>
+                <div fxLayout="row">
+                   
                     <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center">
                         <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
                             <img class="avatar-preview" [src]="url.base64String" />
                         </div>
                     </div>
 
-                    <div fxFlex="70" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="start">
-                        <span>
+                    <div fxFlex="70" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="start" >
+                        <div fxLayout="column" style="width: 100%;">
                             <p class="subh">
                                 <span class="heading">{{ employeeNameh }}</span>
                             </p>
                             <p class="subh">
                                 Designation:
-                                <span class="heading1">{{ employeeDesignation }}</span>
+                                <span class="heading1" style="padding-left: 7px;">{{ employeeDesignation }}</span>
                             </p>
                             <p class="subh">
-                                Date of join:
-                                <span class="heading1">
+                                Joining Date:
+                                <span class="heading1" style="padding-left: 4px;">
                                     {{ employeeJoinDate | date: "dd-MM-YYYY" }}</span>
                             </p>
                             <p class="subh">
-                                Mobile: <span class="heading1">{{ employeeMobile }} </span>
+                                Mobile: <span class="heading1" style="padding-left: 40px;">{{ employeeMobile }} </span>
                             </p>
-                        </span>
+                        </div>
                     </div>
                 </div>
             </mat-card>

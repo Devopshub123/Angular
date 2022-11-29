@@ -244,6 +244,7 @@ export class EmployeeProfileComponent implements OnInit {
   selectedFiles: any;
   previews: any = [];
   isRemoveImage: boolean = true;
+  isContractData: boolean = false;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.empId = this.userSession.id;
@@ -396,6 +397,14 @@ export class EmployeeProfileComponent implements OnInit {
           this.availablereportingmanagers = data[0];
         });
       });
+      this.personalInfoForm.get('employmentType')?.valueChanges.subscribe((selectedValue: number) => {
+        if (selectedValue == 3) {
+          this.isContractData = true;
+         }
+        else {
+          this.isContractData = false;
+         }
+      })
     /** through employee directory */
     if (
       this.activeroute.snapshot.params.empId != 0 &&
@@ -547,9 +556,13 @@ export class EmployeeProfileComponent implements OnInit {
         this.personalInfoForm.controls.empStatus.setValue(
           this.employeeInformationData.status
         );
+
         this.personalInfoForm.controls.employmentType.setValue(
           this.employeeInformationData.employmenttype
         );
+        if (this.employeeInformationData.employmenttype == 3) {
+          this.isContractData = true;
+        }
         this.personalInfoForm.controls.usertype.setValue(
           this.employeeInformationData.usertype
         );

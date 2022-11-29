@@ -28,17 +28,23 @@
 
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                   <mat-label>CIN</mat-label>
-                  <input formControlName="cin" matInput [readonly]="isview" placeholder="CIN" maxlength="21" required>
+                  <input formControlName="cin" matInput [readonly]="isview" placeholder="CIN" maxlength="21" minlength="21" required>
                   <mat-error class="con-error" *ngIf="companyForm.controls.cin.errors?.required">
                     {{msgEM1}}
+                </mat-error>
+                <mat-error class="con-error" *ngIf="companyForm.controls.cin.errors?.minlength">
+                CIN number must be 21 characters
                 </mat-error>
               </mat-form-field>
               <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>GST Number</mat-label>
-                <input formControlName="gstnumber" matInput [readonly]="isview" placeholder="GST Number" maxlength="15" required>
+                <input formControlName="gstnumber" matInput [readonly]="isview" placeholder="GST Number" maxlength="15" minlength="15" required>
                 <mat-error class="con-error" *ngIf="companyForm.controls.gstnumber.errors?.required">
                   {{msgEM1}}
               </mat-error>
+                <mat-error class="con-error" *ngIf="companyForm.controls.gstnumber.errors?.minlength">
+                GST number must be 15 characters
+                </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
               <mat-label>Company Established Date </mat-label>
@@ -51,6 +57,17 @@
                   {{msgEM2}}
               </mat-error>
           </mat-form-field>
+               
+                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Primary Contact Email</mat-label>
+                    <input formControlName="email"  matInput [readonly]="isview" placeholder="" maxlength="50" required>
+                    <mat-error class="con-error" *ngIf="  companyForm.controls.email.errors?.required">
+                      {{msgEM1}}
+                  </mat-error>
+                  <mat-error class="con-error" *ngIf="  companyForm.controls.email.errors?.email">
+                    {{msgEM3}}
+                </mat-error>
+                </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Primary Contact</mat-label>
                     <input type="text" formControlName="contact" onlyNumber matInput [readonly]="isview" placeholder="" minlength="10" maxlength="10" required >
@@ -61,16 +78,6 @@
                   companyForm.controls.contact.errors?.maxlength">
                       Please enter valid number
                   </mat-error>
-                </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Primary Contact Email</mat-label>
-                    <input formControlName="email"  matInput [readonly]="isview" placeholder="" maxlength="50" required>
-                    <mat-error class="con-error" *ngIf="  companyForm.controls.email.errors?.required">
-                      {{msgEM1}}
-                  </mat-error>
-                  <mat-error class="con-error" *ngIf="  companyForm.controls.email.errors?.email">
-                    {{msgEM3}}
-                </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                   <mat-label>Secondary Contact</mat-label>
