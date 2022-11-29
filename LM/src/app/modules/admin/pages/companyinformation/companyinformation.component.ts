@@ -134,7 +134,7 @@ export class CompanyinformationComponent implements OnInit {
       gstnumber:this.companyForm.controls.gstnumber.value,
       established_date :this.pipe.transform(this.companyForm.controls.established_date.value, 'yyyy-MM-dd'),
       primarycontactnumber:this.companyForm.controls.contact.value,
-      secondarycontactnumber:this.companyForm.controls.secondarycontactnumber.value,
+      secondarycontactnumber:this.companyForm.controls.secondarycontactnumber.value==''?null:this.companyForm.controls.secondarycontactnumber.value,
       primarycontactemail:this.companyForm.controls.email.value,
       address1:this.companyForm.controls.address1.value,
       address2:this.companyForm.controls.address2.value,
@@ -174,7 +174,7 @@ export class CompanyinformationComponent implements OnInit {
       gstnumber:this.companyForm.controls.gstnumber.value,
       established_date :this.pipe.transform(this.companyForm.controls.established_date.value, 'yyyy-MM-dd'),
       primarycontactnumber:this.companyForm.controls.contact.value,
-      secondarycontactnumber:this.companyForm.controls.secondarycontactnumber.value,
+      secondarycontactnumber:this.companyForm.controls.secondarycontactnumber.value==''?null:this.companyForm.controls.secondarycontactnumber.value,
       primarycontactemail:this.companyForm.controls.email.value,
       address1:this.companyForm.controls.address1.value,
       address2:this.companyForm.controls.address2.value?this.companyForm.controls.address2.value:'',
@@ -250,7 +250,12 @@ export class CompanyinformationComponent implements OnInit {
         this.companyForm.controls.cin.setValue(data.data[0].cin);
         this.companyForm.controls.gstnumber.setValue(data.data[0].gstnumber);
         this.companyForm.controls.established_date.setValue(new Date(data.data[0].established_date)??new Date());
-        this.companyForm.controls.secondarycontactnumber.setValue(data.data[0].secondarycontactnumber);
+        if(data.data[0].secondarycontactnumber=="null"){
+        this.companyForm.controls.secondarycontactnumber.setValue('');
+        }
+        else{
+          this.companyForm.controls.secondarycontactnumber.setValue(data.data[0].secondarycontactnumber);
+        }
         // this.companyForm.controls.companyname.disable();
         // this.companyForm.controls.website.disable();
         // this.companyForm.controls.contact.disable()
