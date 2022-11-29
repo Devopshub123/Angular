@@ -2259,5 +2259,10 @@ export class EmployeeInfoComponent implements OnInit {
     this.personalInfoForm.get("rpincode").updateValueAndValidity();
 
   }
+
+  backArrow() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/ems/employeeDirectory"]));
+  }
 }
 

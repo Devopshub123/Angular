@@ -216,7 +216,7 @@ export class NewHireListComponent implements OnInit {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
-        data: "Date of joining should not greater than today."
+        data: "Joining date should not greater than today."
       });
     } else {
       let candId=this.encriptPipe.transform(data.candidate_id.toString());
