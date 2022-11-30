@@ -50,8 +50,14 @@ export class LoginComponent implements OnInit {
       this.tss.Savelogin(data).subscribe((data) =>{
         if(data.status === true){
           let empdata = data.result[0];
-          sessionStorage.setItem('user',JSON.stringify(empdata));
-          this.router.navigate(['/MainDashboard'])
+          sessionStorage.setItem('user', JSON.stringify(empdata));
+          if (empdata.firstlogin == "Y") {
+            this.router.navigate(['/Attendance/ChangePassword'])
+          }
+          else {
+            this.router.navigate(['/MainDashboard'])
+          }
+          
                   
         }
         else {

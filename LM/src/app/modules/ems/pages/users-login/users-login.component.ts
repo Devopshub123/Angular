@@ -131,7 +131,6 @@ export class UsersLoginComponent implements OnInit {
         this.saveUserLogin();
       }
     }
-    //this.saveNewHireData()
   }
   saveUserLogin() {
     if (this.usersloginForm.valid) {

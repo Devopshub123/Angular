@@ -242,9 +242,7 @@ export class ChecklistMeetComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  //req.body.scheduleId,req.body.programId,req.body.sDescription,req.body.conductedby,
-  //req.body.scheduleDate,req.body.startTime,req.body.endTime,req.body.actionby
-  sendrequests() {}
+
   saveRequest() {
     if (this.checklistForm.valid) {
       let data = {
@@ -444,6 +442,7 @@ export class ChecklistMeetComponent implements OnInit {
         designation: this.checklistForm.controls.designation.value,
         actionby: this.userSession.id,
       };
+      console.log("req-data-",data)
       this.EMS.setProgramSchedules(data).subscribe((res: any) => {
         this.scheduleid = '';
         if (res.status) {

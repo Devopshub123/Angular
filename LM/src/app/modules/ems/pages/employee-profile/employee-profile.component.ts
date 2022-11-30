@@ -831,8 +831,8 @@ export class EmployeeProfileComponent implements OnInit {
       pstate: [''],
       pcity: [''],
       ppincode: [''],
-      mobileNo: [''],
-      alternateMobileNo: [''],
+      mobileNo: ['',[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
+      alternateMobileNo: ['',[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
       officeemail: [''],
       usertype: [''],
       designation: [''],
@@ -850,7 +850,7 @@ export class EmployeeProfileComponent implements OnInit {
   createFamilyForm() {
     this.candidateFamilyForm = this.formBuilder.group({
       familyfirstname: [''],
-      familycontact: [''],
+      familycontact: ['',[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
       familygender: [''],
       relation: [''],
       familystatus: ['Alive'],
@@ -1041,8 +1041,7 @@ export class EmployeeProfileComponent implements OnInit {
           this.employeeJoinDate,
           'yyyy-MM-dd hh:mm:ss'
         ),
-        noticeperiod: parseInt(
-          this.personalInfoForm.controls.noticePeriod.value
+        noticeperiod: parseInt(this.personalInfoForm.controls.noticePeriod.value ?? 0
         ),
         //noticeperiod: 0,
         designation: parseInt(this.designationId),

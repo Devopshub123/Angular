@@ -1,10 +1,10 @@
 <div fxLayout="column" style="background-color: #f9fbfe;">
 
       <mat-card-header>
-        <mat-card-title> Seperation</mat-card-title>
+        <mat-card-title> Separation</mat-card-title>
       </mat-card-header>
       <form [formGroup]="resignForm" autocomplete="off">
-        <div *ngIf="isview" class="tableP">
+        <div *ngIf="this.isview" class="tableP">
 
           <span>
             Dear {{ empname }},<br />
@@ -43,9 +43,9 @@
 
           <br />
          </div>
-      <div *ngIf="ishide">
-        <mat-card>
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+         
+      <div *ngIf="this.ishide">
+         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
               <mat-label>Date of Request Resignation </mat-label>
               <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date1" placeholder="DD-MM-YYYY"
@@ -115,9 +115,8 @@
             </button>
           </div>
           <br />
-        </mat-card>
-        <div  class="mat-elevation-z1 tableP">
-
+         <div  class="tableP ">
+          <div class="mat-elevation-z1 ">
           <table mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="sno">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No</th>
@@ -176,6 +175,7 @@
               </td>
             </tr>
           </table>
+        </div>
       </div>
       </div>
     </form>

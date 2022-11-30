@@ -174,7 +174,7 @@ export class CompanyinformationComponent implements OnInit {
       gstnumber:this.companyForm.controls.gstnumber.value,
       established_date :this.pipe.transform(this.companyForm.controls.established_date.value, 'yyyy-MM-dd'),
       primarycontactnumber:this.companyForm.controls.contact.value,
-      secondarycontactnumber:this.companyForm.controls.secondarycontactnumber.value,
+      secondarycontactnumber:this.companyForm.controls.secondarycontactnumber.value ?? null,
       primarycontactemail:this.companyForm.controls.email.value,
       address1:this.companyForm.controls.address1.value,
       address2:this.companyForm.controls.address2.value?this.companyForm.controls.address2.value:'',
@@ -249,17 +249,9 @@ export class CompanyinformationComponent implements OnInit {
         this.companyForm.controls.city.setValue(data.data[0].city);
         this.companyForm.controls.cin.setValue(data.data[0].cin);
         this.companyForm.controls.gstnumber.setValue(data.data[0].gstnumber);
-        this.companyForm.controls.established_date.setValue(new Date(data.data[0].established_date)??new Date());
-        this.companyForm.controls.secondarycontactnumber.setValue(data.data[0].secondarycontactnumber);
-        // this.companyForm.controls.companyname.disable();
-        // this.companyForm.controls.website.disable();
-        // this.companyForm.controls.contact.disable()
-        // this.companyForm.controls.address1.disable();
-        // this.companyForm.controls.address2.disable();
-        // this.companyForm.controls.pincode.disable();
-        // this.companyForm.controls.email.disable();
-
-
+        this.companyForm.controls.established_date.setValue(new Date(data.data[0].established_date) ?? new Date());
+        console.log("asd-",data.data[0].secondarycontactnumber)
+        this.companyForm.controls.secondarycontactnumber.setValue(data.data[0].secondarycontactnumber !='null' ? data.data[0].secondarycontactnumber:null);
 
       }else {
         // this.enable=true;
@@ -309,6 +301,15 @@ export class CompanyinformationComponent implements OnInit {
       }
 
     })
+  }
+  alphaNumberOnly(e: any) {  // Accept only alpha numerics, not special characters
+    var regex = new RegExp("^[a-zA-Z0-9 ]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+      return true;
+    }
+    e.preventDefault();
+    return false;
   }
 
 }

@@ -789,8 +789,8 @@ export class EmployeeInfoComponent implements OnInit {
         pstate: ["",],
         pcity: ["",],
         ppincode: ["", [Validators.minLength(6), Validators.maxLength(6)]],
-        mobileNo: ["",[Validators.minLength(10), Validators.maxLength(10)]],
-        alternateMobileNo: ["",[Validators.minLength(10), Validators.maxLength(10)]],
+        mobileNo: ["",[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
+        alternateMobileNo: ["",[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
         officeemail: ["", [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
         usertype: ["",],
         designation: ["",],
@@ -811,7 +811,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.candidateFamilyForm = this.formBuilder.group(
       {
         familyfirstname: ["",],
-        familycontact: [""],
+        familycontact: ["",[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
         familygender: ["",],
         relation: ["",],
         familystatus: ["Alive",],
@@ -2000,7 +2000,7 @@ export class EmployeeInfoComponent implements OnInit {
           'fileName': this.file ? this.file.name : this.editFileName,
           'modulecode': resultData.data[0].module_code,
           'requestId': null,
-          'status': 'Submitted'
+          'status': 'Approved'
         }
         this.mainService.setFilesMasterForEMS(obj).subscribe((data) => {
           if (data && data.status) {

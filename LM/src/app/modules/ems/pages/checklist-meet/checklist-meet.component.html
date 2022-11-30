@@ -410,7 +410,7 @@
                             <span *ngIf="row.status !='Completed' && row.status !='Cancelled'">
                                 <mat-icon class="mr-2" style="cursor: pointer;" title="Assign"  (click)="requestView(row)">add_circle</mat-icon>
                                 <mat-icon class="mr-2" style="cursor: pointer;" title="Edit"  (click)="editRequest(row)" >edit</mat-icon>
-                                <mat-icon class="mr-2" style="cursor: pointer;" title="Program cancel" (click)="cancelProgram(row)" >cancel_presentation</mat-icon>
+                                <mat-icon class="mr-2" style="cursor: pointer;" title="Program Cancel" (click)="cancelProgram(row)" >cancel_presentation</mat-icon>
                                 <mat-icon class="mr-2" style="cursor: pointer;" title="Update" (click)="updating(row)" >cached</mat-icon>
                             </span>
                             <mat-icon class="mr-2" style="cursor: pointer;" *ngIf="row.status ==='Completed' || row.status ==='Cancelled'"

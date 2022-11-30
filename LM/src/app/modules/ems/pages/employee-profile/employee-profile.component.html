@@ -150,6 +150,14 @@
                                         *ngIf="personalInfoForm.controls.mobileNo.errors?.required">
                                         {{EM1}}
                                     </mat-error>
+                                    <mat-error class="reg-error" *ngIf="
+                                    personalInfoForm.controls.mobileNo.errors
+                                      ?.minlength ||
+                                    personalInfoForm.controls.mobileNo.errors
+                                      ?.maxlength ||
+                                    personalInfoForm.controls.mobileNo.errors
+                                      ?.pattern">  Please enter valid number
+                                                  </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
@@ -162,7 +170,8 @@
                                     </mat-error>
                                     <mat-error class="reg-error"
                                     *ngIf="personalInfoForm.controls.alternateMobileNo.errors?.minlength ||
-                                    personalInfoForm.controls.alternateMobileNo.errors?.maxlength">
+                                    personalInfoForm.controls.alternateMobileNo.errors?.maxlength || 
+                                    personalInfoForm.controls.alternateMobileNo.errors?.pattern">
                                     Please enter  valid number
                                 </mat-error>
                                 </mat-form-field>
