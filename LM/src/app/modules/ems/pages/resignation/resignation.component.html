@@ -158,7 +158,7 @@
                 <!-- <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon>
                   <mat-icon class="mr-2" title="Delete">delete</mat-icon> -->
                 <mat-icon (click)="edit($event, row)" *ngIf="row.status == 'Submitted'" title="Edit">edit</mat-icon>
-                <mat-icon (click)="view($event, row)" *ngIf="row.status == 'Cancelled'" title="view">visibility
+                <mat-icon (click)="view($event, row)"  title="view">visibility
                 </mat-icon>
                 <mat-icon (click)="view($event, row)" *ngIf="row.status == 'Rejected'" title="view">visibility
                 </mat-icon>
