@@ -95,7 +95,7 @@ export class HrResignationComponent implements OnInit {
       name: null,
       date: this.searchdate,
       eid: null,
-      did:this.userSession.deptid
+      did: null //this.userSession.deptid
     }
     this.emsService.getEmployeResignationPendingChecklist(data).subscribe((res: any) => {
       if (res.status) {
@@ -119,7 +119,7 @@ export class HrResignationComponent implements OnInit {
       const totalRows = this.checklistDataSource.data.length;
       if (selectedBox === totalRows) {
         this.isdisable = false;
-      } 
+      }
 
     } else {
       const index = this.selectedChecklists.indexOf(name);
@@ -206,7 +206,7 @@ export class HrResignationComponent implements OnInit {
         position: { top: `70px` },
         disableClose: true,
         data:"Please select checklist"
-      }); 
+      });
     }
   }
   cancel() {

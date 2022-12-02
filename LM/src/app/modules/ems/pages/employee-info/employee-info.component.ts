@@ -200,10 +200,23 @@ export class EmployeeInfoComponent implements OnInit {
   joinDateDisable: boolean = false;
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
-    if (this.params) {
 
-      this.empId =this.decryptPipe.transform(this.params.empId);
+    /** through new hired list */
+    if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
+      this.candidateId = this.decryptPipe.transform(this.activeroute.snapshot.params.candId)
+      this.getLoginCandidateData();
     }
+    /** through employee directory */
+    if (this.activeroute.snapshot.params.empId != 0 && this.activeroute.snapshot.params.empId != null) {
+      this.employeeId = this.decryptPipe.transform(this.activeroute.snapshot.params.empId)
+      this.empId =this.decryptPipe.transform(this.activeroute.snapshot.params.empId);
+      this.getEmployeeInformationList();
+      this.getEmployeeJobList();
+      this.getEmployeeEmploymentList();
+      this.getEmployeeEducationList();
+
+    }
+
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getDocumentsEMS();
     this.getFilecategoryMasterForEMS();
@@ -228,20 +241,6 @@ export class EmployeeInfoComponent implements OnInit {
     this.getRoles();
     this.getstatuslist();
     this.getnoticeperiods();
-
-    /** through new hired list */
-    if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
-      this.candidateId = this.decryptPipe.transform(this.activeroute.snapshot.params.candId)
-      this.getLoginCandidateData();
-    }
-    /** through employee directory */
-    if (this.activeroute.snapshot.params.empId != 0 && this.activeroute.snapshot.params.empId != null) {
-      this.employeeId = this.decryptPipe.transform(this.activeroute.snapshot.params.empId)
-      this.getEmployeeInformationList();
-      this.getEmployeeJobList();
-      this.getEmployeeEmploymentList();
-      this.getEmployeeEducationList();
-    }
 
     /**get state details for residance address */
     this.personalInfoForm.get('rcountry')?.valueChanges.subscribe((selectedResidenceStateValue: any) => {
@@ -1027,6 +1026,7 @@ export class EmployeeInfoComponent implements OnInit {
         if (res.status) {
           if (res.data.email == null) {
             this.employeeId = res.data.empid;
+            this.empId=res.data.empid;
             this.getEmployeeInformationList();
             this.getEmployeeJobList();
             this.getEmployeeEmploymentList();
@@ -1817,8 +1817,8 @@ export class EmployeeInfoComponent implements OnInit {
 
   getDocumentsEMS() {
     let input = {
-      'employeeId': this.empId,
-      "candidateId": null,
+      'employeeId': this.empId==''?null:this.empId,
+      "candidateId": this.candidateId??null,
       "moduleId": 1,
       "filecategory": null,
       "requestId": null,
@@ -2182,7 +2182,8 @@ export class EmployeeInfoComponent implements OnInit {
       'status': null
     }
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
-      if (result.data.length > 0 && result.status) {
+
+      if (result && result.status &&result.data.length > 0 ) {
                 this.profileId = result.data[0].id;
                 this.profileInfo = JSON.stringify(result.data[0]);
                this.mainService.getDocumentOrImagesForEMS(result.data[0]).subscribe((imageData) => {
