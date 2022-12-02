@@ -132,7 +132,7 @@
                     </button>
                     <button *ngIf="isCancel" class="m-1 mat-stroked-button" style="background-color:#3f51b5;color:aliceblue" (click)="programCancelRequest()"
                     type="submit">
-                    <span>Program cancel</span>
+                    <span>Program Cancel</span>
                 </button>
                     <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
                         <span>Cancel</span>
@@ -247,7 +247,7 @@
                 </div>
                 <div fxLayoutAlign="center">
                     <button *ngIf="!isRequestView && !isEditView" class="m-1 mat-stroked-button button-save"
-                        (click)="logSelection()" type="submit">
+                        (click)="meetingSchedule()" type="submit">
                         <span>Submit</span>
                     </button>
                     <button *ngIf="isEditView" class="m-1 mat-stroked-button button-save" (click)="updateRequest()"
@@ -334,7 +334,7 @@
 
                 <div fxLayoutAlign="center">
                     <button *ngIf="!isRequestView && !isEditView" class="m-1 mat-stroked-button button-save"
-                        (click)="logSelections()" type="submit">
+                        (click)="updateSchedue()" type="submit">
                         <span>Submit</span>
                     </button>
                     <button *ngIf="isEditView" class="m-1 mat-stroked-button button-save" (click)="updateRequest()"

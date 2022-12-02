@@ -11,6 +11,7 @@ import {PendingCompoffComponent} from "../pending-compoff/pending-compoff.compon
 import {LeavesForCancellationComponent} from "../leaves-for-cancellation/leaves-for-cancellation.component";
 import { NgxSpinnerService } from 'ngx-spinner';
 import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.component";
+import { EmsService } from 'src/app/modules/ems/ems.service';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   LM119:any;
   activeModule:any;
   pdfName:any=null;
-  constructor(private formBuilder: FormBuilder,private location: Location,public dialog: MatDialog,private LM:LeavesService,private router: Router,private spinner:NgxSpinnerService) {
+  constructor(private formBuilder: FormBuilder,private location: Location,public dialog: MatDialog,private LM:LeavesService,private router: Router,private spinner:NgxSpinnerService,private emsService: EmsService) {
     this.leaveInfo = this.location.getState();
   }
   pipe = new DatePipe('en-US');
@@ -43,7 +44,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
     if(!this.leaveInfo.leaveData){
       this.router.navigate(['/LeaveManagement/ManagerDashboard'])
     }
-    this.pendingapprove = new PendingApprovalsComponent(this.LM,this.router,this.dialog,this.spinner);
+    this.pendingapprove = new PendingApprovalsComponent(this.LM,this.router,this.dialog,this.spinner,this.emsService);
     this.compoffPendingapprove = new PendingCompoffComponent(this.LM,this.dialog,this.router,this.spinner);
     this.cancellationapprove = new LeavesForCancellationComponent(this.LM,this.router,this.dialog,this.spinner);
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');

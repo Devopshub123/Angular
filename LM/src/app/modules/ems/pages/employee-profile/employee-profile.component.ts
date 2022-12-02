@@ -67,7 +67,6 @@ export class EmployeeProfileComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private router: Router,
     private activeroute: ActivatedRoute,
-    private adminService: AdminService,
     private emsService: EmsService,
     private LM: LeavesService
   ) {
@@ -162,6 +161,7 @@ export class EmployeeProfileComponent implements OnInit {
   employeeJobData: any = [];
   employeeEmployementData: any = [];
   employeeEducationData: any = [];
+  employeeEmailData: any = [];
 
   expFromDate: any;
   expToDate: any;
@@ -423,6 +423,7 @@ export class EmployeeProfileComponent implements OnInit {
       this.getEmployeeEducationList();
     }
     this.getEmployeeImage();
+    this.getEmployeeEmailData();
   }
 
   /** through employee directory login data  */
@@ -1899,8 +1900,10 @@ export class EmployeeProfileComponent implements OnInit {
           if (data && data.status) {
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0]);
-              this.formData.append('info', info);
+              let email = JSON.stringify(this.employeeEmailData);
+               this.formData.append('info', info);
               this.formData.append('file', this.file, this.file.name);
+              this.formData.append('email', email);
               this.mainService
                 .setDocumentOrImageForEMS(this.formData)
                 .subscribe((data) => {
@@ -2183,5 +2186,12 @@ export class EmployeeProfileComponent implements OnInit {
         }
       });
     }
+  }
+  getEmployeeEmailData() {
+    this.employeeEmailData = [];
+    this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+      })
   }
 }

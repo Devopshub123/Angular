@@ -957,7 +957,7 @@ export class EmployeeInfoComponent implements OnInit {
   // }
   savePersonalInfo() {
     this.submitsavepersonal = true;
-    this.addPersonalInfoValidators();
+   // this.addPersonalInfoValidators();
     let hiredDate;
     let joinDate;
     if (this.personalInfoForm.controls.hireDate.value == undefined ||

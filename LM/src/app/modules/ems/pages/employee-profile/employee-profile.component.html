@@ -444,7 +444,8 @@
                                     <input type="text" formControlName="familycontact" matInput placeholder=""
                                         maxlength="10" minlength="10" (keypress)="_keyPress($event)" />
                                     <mat-error class="reg-error" *ngIf="candidateFamilyForm.controls.familycontact.errors?.minlength ||
-                                        candidateFamilyForm.controls.familycontact.errors?.maxlength">
+                                        candidateFamilyForm.controls.familycontact.errors?.maxlength || 
+                                        candidateFamilyForm.controls.familycontact.errors?.pattern">
                                         Please enter valid number
                                     </mat-error>
                                 </mat-form-field>
@@ -575,7 +576,7 @@
                     </div>
                 </mat-tab>
                 <!-- job tab -->
-                <mat-tab label="Job">
+                <mat-tab label="Contract/Promotions">
                     <div fxLayout="column" style="padding: 10px;">
                       <div *ngIf="isContractData">
                         <form [formGroup]="employeeJobForm">

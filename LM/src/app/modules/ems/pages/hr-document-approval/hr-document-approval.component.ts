@@ -34,10 +34,15 @@ export class HrDocumentApprovalComponent implements OnInit {
   paginator2!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-
-  constructor(private formBuilder: FormBuilder,private router: Router,private spinner:NgxSpinnerService,private ES:EmsService,public dialog: MatDialog,private mainService:MainService,) { }
+  employeeEmailData: any = []
+  employeeId: any;
+  constructor(private formBuilder: FormBuilder, private router: Router,
+    private spinner: NgxSpinnerService, private ES: EmsService,
+    public dialog: MatDialog, private mainService: MainService,
+  ) { this.formData = new FormData();}
   pageLoading = true;
   pageLoading2 = true;
+  formData: any;
   ngOnInit(): void {
     this.getFilesForApproval();
     this.approvalForm = this.formBuilder.group(
@@ -48,7 +53,8 @@ export class HrDocumentApprovalComponent implements OnInit {
   }
   preview(event:any,data:any){
     this.ishide=false;
-    this.isview=true;
+    this.isview = true;
+    this.employeeId = data.empid;
     this.approvalForm.controls.empid.setValue(data.empcode)
     this.approvalForm.controls.empname.setValue(data.empname)
     for(let i=0;i<this.emplist.length;i++){
@@ -57,9 +63,9 @@ export class HrDocumentApprovalComponent implements OnInit {
       }
     }
     this.datadocumentsSource = new MatTableDataSource(this.fileslist)
-   // this.datadocumentsSource.paginator = this.paginator2;
-    this.datadocumentsSource.sort = this.sort;
+     this.datadocumentsSource.sort = this.sort;
     this.pageLoading2 = false;
+    this.getEmployeeEmailData();
   }
   getFilesForApproval(){
     this.ES.getFilesForApproval().subscribe((res:any)=>{
@@ -109,13 +115,14 @@ export class HrDocumentApprovalComponent implements OnInit {
 
   }
 
- approve(event:any,data:any){
-  console.log(data)
+  approve(event: any, data: any) {
+    let email = JSON.stringify(this.employeeEmailData)
   let updatedata=
   {
     id:data.fileid,
-    status:'Approved',
-  }
+    status: 'Approved',
+    email:email
+   }
   this.ES.documentApproval(updatedata).subscribe((res:any)=>{
     if(res.status){
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -136,12 +143,13 @@ export class HrDocumentApprovalComponent implements OnInit {
 
   })
  }
- reject(event:any,data:any){
-  console.log(data)
+  reject(event: any, data: any) {
+  let email = JSON.stringify(this.employeeEmailData);
   let updatedata=
   {
     id:data.fileid,
-    status:'Rejected',
+    status: 'Rejected',
+    email:email
   }
   this.ES.documentApproval(updatedata).subscribe((res:any)=>{
     if(res.status){
@@ -174,5 +182,13 @@ export class HrDocumentApprovalComponent implements OnInit {
   else {
     return [5, 10, 20];
   }
+  }
+  
+  getEmployeeEmailData() {
+    this.employeeEmailData = [];
+    this.ES.getEmployeeEmailDataByEmpid(this.employeeId)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+      })
 }
 }

@@ -17,6 +17,7 @@ import {LeavePoliciesDialogComponent} from '../../../admin/dialog/leave-policies
 import { environment } from 'src/environments/environment';
 
 import * as _moment from 'moment';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 
@@ -89,10 +90,12 @@ export class AttendanceRequestComponent implements OnInit {
   workeddays: any;
   ATT75:any;
   ATT74:any;
-  companyDBName:any = environment.dbName;
+  companyDBName: any = environment.dbName;
+  employeeEmailData: any = [];
+  employeeId: any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
-    private location: Location, private adminService: AdminService) {
+    private location: Location, private adminService: AdminService,private emsService: EmsService,) {
     this.minFromDate = new Date();
     this.minFromDate.setDate(this.currentDate.getDate() - 31);
     this.maxFromDate = new Date();
@@ -158,6 +161,7 @@ export class AttendanceRequestComponent implements OnInit {
         }
       }
     });
+    this.getEmployeeEmailData();
   }
   ngAfterViewInit() {
 
@@ -341,6 +345,12 @@ export class AttendanceRequestComponent implements OnInit {
     if (this.requestform.invalid) {
       return;
     } else {
+      let worktypename = '';
+      this.workTypeData.forEach((e: any) => {
+        if (e.id == this.requestform.controls.workType.value) {
+          worktypename = e.type;
+        }
+      })
       let obj = {
         "empid": this.userSession.id ?? '',
         "shiftid": this.shiftData.shiftid,
@@ -353,11 +363,12 @@ export class AttendanceRequestComponent implements OnInit {
         "raisedby": this.userSession.id ?? '',
         "approvercomments": '',
         "actionby": null,
-        "status": 'Submitted'
-
+        "status": 'Submitted',
+        ////email data
+        "emails": this.employeeEmailData,
+        "worktypename": worktypename,
+        "shiftname":this.shiftData.shiftname
       };
-      console.log(obj)
-
 
       this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res: any) => {
         if (res.status) {
@@ -545,5 +556,12 @@ export class AttendanceRequestComponent implements OnInit {
       }
 
     })
+  }
+  getEmployeeEmailData() {
+    this.employeeEmailData = [];
+    this.emsService.getEmployeeEmailDataByEmpid(this.userSession.id)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+      })
   }
 }

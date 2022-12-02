@@ -292,10 +292,15 @@ export class EmsService {
   }
 
     /** */
-    getEmployeeEmailDataByEmpid(id: any): Observable<any> {
-      return this.http.get(this.mainUrl + 'ems/api/getEmailsByEmpid/' + id);
-  }
+    getEmployeeEmailDataByEmpid(eid: any): any {
+
+      return this.http.get(this.mainUrl + 'ems/api/getEmailsByEmpid/' +eid,this.httpOptions);
+    } 
+
   getActiveScheduleEmployeeList(sid: any): any {
     return this.http.get(this.mainUrl + 'ems/api/getActiveEmployeeProgramSchedules/'+ sid, this.httpOptions);
+  }
+  getInductionProgramAssignedEmployees(sid: any): any {
+    return this.http.get(this.mainUrl + 'ems/api/getInductionProgramAssignedEmployee/'+ sid, this.httpOptions);
   }
 }

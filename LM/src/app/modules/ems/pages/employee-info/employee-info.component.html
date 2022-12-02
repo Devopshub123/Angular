@@ -553,9 +553,8 @@
                                             <mat-error class="reg-error" *ngIf="
                           candidateFamilyForm.controls.familycontact.errors
                             ?.minlength ||
-                          candidateFamilyForm.controls.familycontact.errors
-                            ?.maxlength
-                        ">
+                          candidateFamilyForm.controls.familycontact.errors ?.maxlength ||     
+                          candidateFamilyForm.controls.familycontact.errors ?.pattern   ">
                                                 Please enter valid number
                                             </mat-error>
                                         </mat-form-field>
@@ -694,7 +693,7 @@
                     </div>
                 </mat-tab>
                 <!-- job tab -->
-                <mat-tab label="Job" [disabled]="isNewEmployee">
+                <mat-tab label="Contract/Promotions" [disabled]="isNewEmployee">
                     <div fxLayout="column">
                         <!-- contract with promotions -->
                         <div *ngIf="isContractData">
@@ -1111,14 +1110,15 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Account Number</mat-label>
                                     <input type="text" (keypress)="numberOnly($event)"
-                                        formControlName="bankAccountNumber" matInput placeholder="" maxlength="18" minlength="9"
-                                        required />
-                                    <mat-error class="con-error" *ngIf="employementForm.controls.bankAccountNumber.errors?.required ">
+                                        formControlName="bankAccountNumber" matInput placeholder="" maxlength="18"
+                                        minlength="9" required />
+                                    <mat-error class="con-error"
+                                        *ngIf="employementForm.controls.bankAccountNumber.errors?.required ">
                                         {{ EM1 }}
                                     </mat-error>
                                     <mat-error class="con-error" *ngIf="employementForm.controls.bankAccountNumber.errors?.minlength || 
                                     employementForm.controls.bankAccountNumber.errors?.maxlength">
-                                    Please enter valid account number
+                                        Please enter valid account number
                                     </mat-error>
                                 </mat-form-field>
                             </div>
