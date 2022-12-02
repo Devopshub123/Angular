@@ -199,11 +199,13 @@ export class EmployeeInfoComponent implements OnInit {
   decryptPipe = new DecryptPipe();
   joinDateDisable: boolean = false;
   ngOnInit(): void {
+    this.getDesignationsMaster();
     this.params = this.activatedRoute.snapshot.params;
 
     /** through new hired list */
     if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
       this.candidateId = this.decryptPipe.transform(this.activeroute.snapshot.params.candId)
+     console.log("t-1",this.candidateId)
       this.getLoginCandidateData();
     }
     /** through employee directory */
@@ -233,7 +235,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.getGender();
     this.getMaritalStatusMaster();
     this.getRelationshipMaster();
-    this.getDesignationsMaster();
+   
     this.getDepartmentsMaster();
     this.getWorkLocation();
     this.getCountry();

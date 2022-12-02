@@ -180,6 +180,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
             if (selectedStateValue != '') {
               this.companyService.getStatesc(selectedStateValue).subscribe((data) => {
                 this.permanentStateDetails = data[0]
+                console.log("state-1",this.personalInfoForm.controls.rstate.value)
                 if (this.personalInfoForm.controls.rstate.value != null) {
                   this.personalInfoForm.controls.pstate.setValue(this.personalInfoForm.controls.rstate.value);
                 }
