@@ -114,6 +114,7 @@ leaveReview(leave:any){
       "emaildata": this.employeeEmailData,
       
     };
+
  this.LM.setApproveOrReject(obj).subscribe((res: any) => {
       this.spinner.hide();
       if(res && res.status){
@@ -165,7 +166,9 @@ leaveReview(leave:any){
       if(result!=undefined ){
         if(result !==true){
           this.reason = result.reason;
-          this.leaveApprove(leave,'Rejected',null);
+        //  this.leaveApprove(leave, 'Rejected', null);
+        this.employeeId = leave.empid;
+          this.getEmployeeEmailData(leave ,'Rejected',null);
         }
       }
     });
@@ -198,6 +201,9 @@ leaveReview(leave:any){
     }
   }
   getEmployeeEmailData(leave: any, status: any, approverId: any) {
+    console.log("leave",leave)
+    console.log("status",status)
+    console.log("aprId",approverId)
     this.employeeEmailData = [];
     this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
       .subscribe((res: any) => {
