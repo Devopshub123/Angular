@@ -2182,7 +2182,7 @@ export class EmployeeInfoComponent implements OnInit {
       "moduleId": 1,
       "filecategory": 'PROFILE',
       "requestId": null,
-      'status': null
+      'status': 'Submitted'
     }
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
 

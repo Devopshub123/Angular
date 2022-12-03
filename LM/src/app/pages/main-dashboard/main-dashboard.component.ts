@@ -559,19 +559,19 @@ export class MainDashboardComponent implements OnInit {
   saveImage(flag: boolean) {
     if (this.file) {
       if (this.file.size <= 1024000) {
-        this.editProfile();
+        this.saveNewImage();
       } else {
         // this.dialog.open(ConfirmationComponent, {
         //   position: {top: `70px`},
         //   disableClose: true,
-        //   data:{Message:this.LM117,url: '/LeaveManagement/EditProfile'}
+        //   data:{Message:this.LM117,url: '/LeaveManagement/saveNewImage'}
         // });
       }
     } else {
-      //this.editProfile()
+      //this.saveNewImage()
     }
   }
-  editProfile() {
+  saveNewImage() {
     this.spinner.show();
     {
       this.LM.getFilepathsMaster(1).subscribe((result) => {
