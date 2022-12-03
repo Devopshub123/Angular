@@ -34,7 +34,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   LM119:any;
   activeModule:any;
   pdfName:any=null;
-  constructor(private formBuilder: FormBuilder,private location: Location,public dialog: MatDialog,private LM:LeavesService,private router: Router,private spinner:NgxSpinnerService,private emsService: EmsService) {
+  constructor(private formBuilder: FormBuilder,private location: Location,public dialog: MatDialog,private LM:LeavesService,private router: Router,private spinner:NgxSpinnerService,private EMS: EmsService) {
     this.leaveInfo = this.location.getState();
   }
   pipe = new DatePipe('en-US');
@@ -44,8 +44,8 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
     if(!this.leaveInfo.leaveData){
       this.router.navigate(['/LeaveManagement/ManagerDashboard'])
     }
-    this.pendingapprove = new PendingApprovalsComponent(this.LM,this.router,this.dialog,this.spinner,this.emsService);
-    this.compoffPendingapprove = new PendingCompoffComponent(this.LM,this.dialog,this.router,this.spinner);
+    this.pendingapprove = new PendingApprovalsComponent(this.LM,this.router,this.dialog,this.spinner,this.EMS);
+    this.compoffPendingapprove = new PendingCompoffComponent(this.LM,this.dialog,this.router,this.spinner,this.EMS);
     this.cancellationapprove = new LeavesForCancellationComponent(this.LM,this.router,this.dialog,this.spinner);
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');

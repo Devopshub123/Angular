@@ -13,6 +13,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 
 
 import * as _moment from 'moment';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 
@@ -68,7 +69,8 @@ export class UserCompoffComponent implements OnInit {
   currentYear = new Date().getDate();
   myDateFilter:any;
   pipe = new DatePipe('en-US');
-  constructor(private formBuilder: FormBuilder,private router: Router,private LM:LeavesService,public datepipe: DatePipe,public dialog: MatDialog) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private LM: LeavesService,
+    public datepipe: DatePipe, public dialog: MatDialog,private EMS:EmsService) {
     this.usersession = JSON.parse(sessionStorage.getItem('user') || '')
     this.year = this.today.getFullYear();
     this.month = this.today.getMonth();
@@ -84,7 +86,8 @@ export class UserCompoffComponent implements OnInit {
     //  return [1, 5, 10, 21].indexOf(+d.getDate()) == -1
     // }
   }
-
+  employeeEmailData: any = [];
+  employeeId: any;
   ngOnInit(): void {
 
     this.getErrorMessages('LM1')
@@ -119,6 +122,7 @@ export class UserCompoffComponent implements OnInit {
         this.ishide = true;
       }
     })
+    this.getEmployeeEmailData();
   }
 
   getCompOffMinWorkingHours(){
@@ -217,8 +221,10 @@ export class UserCompoffComponent implements OnInit {
       workedMinutes:this.CompoffForm.controls.minutes.value?this.CompoffForm.controls.minutes.value:0,
       workDate:this.datepipe.transform(this.CompoffForm.controls.workeddate.value, 'yyyy-MM-dd'),
       reason:this.CompoffForm.controls.reason.value,
-      workedHours:this.CompoffForm.controls.hours.value
+      workedHours: this.CompoffForm.controls.hours.value,
+      emaildata:this.employeeEmailData
     }
+console.log("data--",data)
     this.LM.setCompOff(data).subscribe((result)=> {
       if(result.status){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -268,5 +274,12 @@ export class UserCompoffComponent implements OnInit {
 
     })
   }
-
+  getEmployeeEmailData() {
+    this.employeeEmailData = [];
+    this.EMS.getEmployeeEmailDataByEmpid(this.usersession.id)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+        console.log("data--",this.employeeEmailData)
+      })
+}
 }

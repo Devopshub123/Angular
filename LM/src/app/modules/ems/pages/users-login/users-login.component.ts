@@ -14,6 +14,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EmsService } from '../../ems.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { AdminService } from 'src/app/modules/admin/admin.service';
 
 @Component({
   selector: 'app-users-login',
@@ -29,6 +30,8 @@ export class UsersLoginComponent implements OnInit {
   isview: boolean = true;
   ishide: boolean = false;
   pageLoading = true;
+  EM134: any;
+  EM135: any;
   displayedColumns: string[] = [
     'sno',
     'empname',
@@ -48,11 +51,13 @@ export class UsersLoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private ES: EmsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private EM:AdminService
   ) {}
   userLoginList: any = [];
   ngOnInit(): void {
     this.getUserLoginData();
+    this.getMessageList();
     this.usersloginForm = this.formBuilder.group({
       empname: [''],
       email: [''],
@@ -69,13 +74,7 @@ export class UsersLoginComponent implements OnInit {
       empid: [''],
     });
   }
-  // Add(){
-  //   this.ishide = true;
-  //   this.isview = false;
-  // }
   close() {
-    // this.ishide = false;
-    // this.isview = true;
     this.router
       .navigateByUrl('/', { skipLocationChange: true })
       .then(() => this.router.navigate(['/Admin/users-login']));
@@ -152,13 +151,13 @@ export class UsersLoginComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: 'Password  updated successfully. ',
+            data: this.EM134,
           });
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: 'Unable to updated password.',
+            data: this.EM135,
           });
         }
       });
@@ -177,5 +176,28 @@ export class UsersLoginComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  getMessageList(){
+    let info={
+      "code": null,
+      "pagenumber":1,
+      "pagesize":1000
+    }
+    this.EM.getEMSMessagesList(info).subscribe((result: any) => {
+      if(result && result.status){
+        for(let i=0;i<result.data.length;i++){
+          if(result.data[i].code =='EM134'){
+            this.EM134=result.data[i].message;
+
+          }else if(result.data[i].code =='EM135'){
+            this.EM135=result.data[i].message;
+
+          }
+        }
+
+      }
+
+    })
+
   }
 }

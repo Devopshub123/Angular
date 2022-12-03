@@ -201,10 +201,7 @@ leaveReview(leave:any){
     }
   }
   getEmployeeEmailData(leave: any, status: any, approverId: any) {
-    console.log("leave",leave)
-    console.log("status",status)
-    console.log("aprId",approverId)
-    this.employeeEmailData = [];
+     this.employeeEmailData = [];
     this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
       .subscribe((res: any) => {
         this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
