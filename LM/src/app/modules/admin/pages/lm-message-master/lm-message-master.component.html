@@ -6,7 +6,7 @@
   </mat-card-header>
 <div fxLayout="column" fxLayout.xs="column">
   <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
-      <mat-form-field fxFlex.xs="100%" appearance="outline">
+      <mat-form-field fxFlex.xs="100%" appearance="outline" style="padding-top:5px ;">
           <mat-label>Search</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
           <mat-icon matSuffix>search</mat-icon>

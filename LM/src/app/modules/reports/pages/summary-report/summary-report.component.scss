@@ -1,5 +1,6 @@
 table {
   width: 100%;
+  overflow-x: auto;
 }
 
 
@@ -40,4 +41,57 @@ table {
 }
 .tableP{
   padding: 10px;
+}
+.mat-table {
+  display: block;
+  width: auto;
+  overflow-x: auto;
+}
+
+.mat-column-sno {
+  max-width: 70px;
+  min-width: 80px;
+}
+
+.mat-column-empname {
+  max-width: 200px;
+  min-width: 130px;
+}
+
+.mat-column-attendancedate {
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.mat-column-firstlogintime {
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.mat-column-lastlogouttime {
+  max-width: 150px;
+  min-width: 120px;
+}
+
+.mat-column-totalhours {
+  max-width: 120px;
+  min-width: 100px;
+}
+
+.mat-column-breaks {
+  max-width: 110px;
+  min-width: 100px;
+}
+
+.mat-column-breaktime {
+  max-width: 110px;
+  min-width: 100px;
+}
+.mat-column-productivehours {
+  max-width: 110px;
+  min-width: 100px;
+}
+.mat-column-action {
+  max-width: 100px;
+  min-width: 90px;
 }

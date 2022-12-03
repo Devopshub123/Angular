@@ -23,6 +23,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { LeavePoliciesDialogComponent } from './dialog/leave-policies-dialog/leave-policies-dialog.component';
 import { TerminationCategoryComponent } from './pages/termination-category/termination-category.component';
 import { ReasonMasterComponent } from './pages/reason-master/reason-master.component';
+import { ReimbursementMasterComponent } from './pages/reimbursement-master/reimbursement-master.component';
 @NgModule({
   declarations: [
 
@@ -39,6 +40,7 @@ import { ReasonMasterComponent } from './pages/reason-master/reason-master.compo
     LeavePoliciesDialogComponent,
     TerminationCategoryComponent,
     ReasonMasterComponent,
+    ReimbursementMasterComponent,
   ],
   imports: [
     CommonModule,

@@ -9,6 +9,8 @@ import {MainService} from 'src/app/services/main.service';
 import {AdminService} from '../../admin.service';
 import {Observable} from "rxjs";
 import { Router } from '@angular/router';
+import {watchMode} from "@angular/compiler-cli/src/main";
+import { EmsService } from 'src/app/modules/ems/ems.service';
 
 @Component({
   selector: 'app-roles-permissions',
@@ -22,6 +24,7 @@ export class RolesPermissionsComponent implements OnInit {
 
   constructor(private mainService: MainService,private router:Router,
               private adminService: AdminService, private CS: CompanySettingService,
+              private emsService:EmsService,
               private RM: RoleMasterService, public dialog: MatDialog) {
     this.data = sessionStorage.getItem('user')
     this.usersession = JSON.parse(this.data)
@@ -39,8 +42,8 @@ export class RolesPermissionsComponent implements OnInit {
   Departments: any = [];
   Designations: any = [];
   count: any = 0;
-  msgLM88: any = '';
-  msgLM94: any = '';
+  msgEM113: any = '';
+  msgEM111: any = '';
   screenMaster: any = [];
   isScreenRolesEmpty: boolean = false;
   screensNames: any = [];
@@ -59,8 +62,8 @@ export class RolesPermissionsComponent implements OnInit {
     this.getRoleMaster();
     this.getScreenMaster();
     this.getFunctionalitesMaster();
-    this.getErrorMessages('LM88');
-    this.getErrorMessages('LM94');
+    this.getMessages('EM113');
+    this.getMessages('EM111');
     this.getModulesWithScreens();
   }
 
@@ -476,14 +479,18 @@ export class RolesPermissionsComponent implements OnInit {
     });
   }
 
-  getErrorMessages(errorCode: any) {
+  getMessages(messageCode:any) {
+    let data = {
+      code: messageCode,
+      pagenumber: 1,
+      pagesize: 1,
+    };
+    this.emsService.getMessagesListApi(data).subscribe((result: any) => {
 
-    this.CS.getErrorMessages(errorCode, 1, 1).subscribe((result) => {
-
-      if (result.status && errorCode == 'LM88') {
-        this.msgLM88 = result.data[0].errormessage
-      } else if (result.status && errorCode == 'LM94') {
-        this.msgLM94 = result.data[0].errormessage
+      if (result.status && messageCode == 'EM113') {
+        this.msgEM113 = result.data[0].message
+      } else if (result.status && messageCode == 'EM111') {
+        this.msgEM111 = result.data[0].message
       }
 
     });
@@ -527,13 +534,13 @@ export class RolesPermissionsComponent implements OnInit {
         let dialogRef1 = this.dialog.open(ReusableDialogComponent, {
           position: {top: `70px`},
           disableClose: true,
-          data: this.msgLM88
+          data: this.msgEM113
         });
       } else {
         let dialogRef1 = this.dialog.open(ReusableDialogComponent, {
           position: {top: `70px`},
           disableClose: true,
-          data: this.msgLM94
+          data: this.msgEM111
         });
       }
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -587,6 +594,7 @@ export class RolesPermissionsComponent implements OnInit {
     this.isdisplay = true;
     var count = 0;
 
+
     for (var i = 0; i < this.screenWithFunctionalities[name].length; i++) {
 
       this.roles[name][count] = {};
@@ -621,7 +629,6 @@ export class RolesPermissionsComponent implements OnInit {
       }
     }
     this.rolesLength[name] = Object.keys(this.roles[name]).length
-
     Object.entries(this.roles[name]).forEach(([key1, data]) => {
       for (var p = 0; p < this.roles[name][key1].value[0].permissions.length; p++) {
         if (this.isEditRule == 0 && this.roles[name][key1].value[0].permissions[p].status === undefined) {
@@ -643,6 +650,16 @@ export class RolesPermissionsComponent implements OnInit {
         }
       }, 1000);
 
+    }
+    for (var j = 0; j < this.modulesScreens.length; j++) {
+      if (this.isEditRule == 1) {
+        this.modulesScreens[j].isDisabledCheckBox = true;
+      }
+      else if (this.isEditRule == 0) {
+        this.modulesScreens[j].isDisabledCheckBox = false;
+      }
+      this.modulesScreens[j].checked = true;
+      this.modulesScreens[j].isChecked = true;
     }
   }
 
@@ -708,13 +725,13 @@ export class RolesPermissionsComponent implements OnInit {
             let dialogRef1 = this.dialog.open(ReusableDialogComponent, {
               position: {top: `70px`},
               disableClose: true,
-              data: this.msgLM88
+              data: this.msgEM113
             });
           } else {
             let dialogRef1 = this.dialog.open(ReusableDialogComponent, {
               position: {top: `70px`},
               disableClose: true,
-              data: this.msgLM94
+              data: this.msgEM111
             });
           }
 

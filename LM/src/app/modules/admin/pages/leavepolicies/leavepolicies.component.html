@@ -179,7 +179,7 @@
                                 <td mat-cell *matCellDef="let leave; let i = index;">{{(leave.status == 'Active') ? 'Active':'Inactive'}} </td>
                             </ng-container>
                             <ng-container matColumnDef="action">
-                                <th mat-header-cell *matHeaderCellDef> Action </th>
+                                <th mat-header-cell *matHeaderCellDef></th>
                                 <td mat-cell *matCellDef="let leave; let i = index;">
                                     <button type="button" class="btn btn-success" (click)="editLeaveTypeName(leave)">Edit</button>
                                 </td>
@@ -198,9 +198,9 @@
             </div>
             <div *ngIf="!isaddnew"  fxLayout="column" >
                 <div fxLayout="row " class="my-2" fxFlex.xs="100%" fxLayoutAlign="end" >
-                    <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
+                    <button class="mx-1 mat-stroked-button" style="background-color:#3f51b5;color:aliceblue"
                         (click)="addnewleave()"   type="button">
-                        <span>Add </span>
+                        <span>Add New Leave Type</span>
                     </button>
                 </div>
                 <form fxLayout="column"  [formGroup]="addleaveForm" autocomplete="off">
@@ -449,25 +449,25 @@
                                             </div>
                                         <div *ngIf="data.rulename == 'LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY'">
                                         <mat-form-field appearance="outline">
-                                            <input required style="width: 50%;" matInput formControlName="LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY"  type="text" maxlength="2" >
+                                            <input required style="width: 50%;" onlyNumber matInput formControlName="LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY"  type="text" maxlength="2" >
                                             <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY.errors?.required">{{msgLM1}}</mat-error>
                                         </mat-form-field>
                                         </div>
                                        <div *ngIf="data.rulename == 'SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS'">
                                         <mat-form-field appearance="outline">
-                                        <input required style="width: 50%;" matInput formControlName="SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS"  type="text" maxlength="2" >
+                                        <input required style="width: 50%;" onlyNumber matInput formControlName="SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS"  type="text" maxlength="2" >
                                         <mat-error class="con-error" *ngIf="addleaveForm.controls.SICK_LEAVES_MIN_DAYS_PRIOR_APPLICATION_FOR_KNOWN_AILMENTS.errors?.required">{{msgLM1}}</mat-error>
                                         </mat-form-field>
                                       </div>
                                       <div *ngIf="data.rulename == 'LEAVES_LAPSE_PERIOD'">
                                        <mat-form-field appearance="outline">
-                                        <input required style="width: 50%;" matInput formControlName="LEAVES_LAPSE_PERIOD"  type="text" maxlength="2">
+                                        <input required style="width: 50%;" onlyNumber matInput formControlName="LEAVES_LAPSE_PERIOD"  type="text" maxlength="2">
                                         <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_LAPSE_PERIOD.errors?.required">{{msgLM1}}</mat-error>
                                       </mat-form-field>
                                     </div>
                                       <div *ngIf="data.rulename == 'LEAVES_ELIGIBILITY_MINIMUM_HOURS'">
                                         <mat-form-field appearance="outline">
-                                        <input required  matInput formControlName="LEAVES_ELIGIBILITY_MINIMUM_HOURS"  type="text" maxlength="2" >
+                                        <input required  matInput onlyNumber formControlName="LEAVES_ELIGIBILITY_MINIMUM_HOURS"  type="text" maxlength="2" >
                                         <mat-error class="con-error" *ngIf="addleaveForm.controls.LEAVES_ELIGIBILITY_MINIMUM_HOURS.errors?.required">{{msgLM1}}</mat-error>
                                      </mat-form-field>
                                     </div>
@@ -498,7 +498,7 @@
                             <!-- <div > -->
                                 <ng-container matColumnDef="actions" >
 
-                                        <th mat-header-cell *matHeaderCellDef > Action</th>
+                                        <th mat-header-cell *matHeaderCellDef ></th>
                                         <td mat-cell *matCellDef="let data; let i = index;" ><mat-slide-toggle [checked]="ischecked" (change)="toglechange($event,data)"></mat-slide-toggle> </td>
 
 

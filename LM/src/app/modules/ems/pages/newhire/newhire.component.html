@@ -1,4 +1,7 @@
-<div fxLayout="column" style="background-color: white;">
+<p>Page is not used</p>
+
+
+<!-- <div fxLayout="column" style="background-color: white;">
   <form [formGroup]="hireForm" autocomplete="off">
 
     <mat-card-header>
@@ -39,10 +42,7 @@
       <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
         <mat-label>Email</mat-label>
         <input formControlName="email" matInput placeholder="" maxlength="50">
-        <!-- <mat-error class="con-error" *ngIf="hireForm.controls.email.errors?.required">
-          {{requiredField}}
-        </mat-error> -->
-        <mat-error class="con-error" *ngIf="hireForm.controls.email.errors?.email">
+      <mat-error class="con-error" *ngIf="hireForm.controls.email.errors?.email">
           Please enter valid data
         </mat-error>
       </mat-form-field>
@@ -58,7 +58,7 @@
       </mat-form-field>
 
       <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-        <mat-label>Date of Join</mat-label>
+        <mat-label>Joining Date</mat-label>
         <input matInput readonly required [matDatepicker]="dateofjoin" [min]="minHireDate" [max]="joinDate"
           placeholder="DD-MM-YYYY" formControlName="dateofjoin" (click)="dateofjoin.open()">
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofjoin"></mat-datepicker-toggle>
@@ -122,4 +122,4 @@
     </div>
 
   </form>
-</div>
+</div> -->

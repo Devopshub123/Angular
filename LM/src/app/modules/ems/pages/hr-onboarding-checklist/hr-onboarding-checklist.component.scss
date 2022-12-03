@@ -21,3 +21,6 @@ mat-card {
   .tableP{
     padding: 10px;
   }
+  ::ng-deep.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #80286a;
+  }

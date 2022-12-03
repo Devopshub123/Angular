@@ -67,13 +67,13 @@
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
           <mat-label>Email</mat-label>
-          <input formControlName="email" required matInput placeholder="" maxlength="100" >
+          <input formControlName="email" matInput placeholder="" maxlength="100" >
           <mat-error class="con-error" *ngIf="editForm.controls.email.errors?.email">
             Please enter valid email
           </mat-error>
-          <mat-error class="con-error"
+          <!-- <mat-error class="con-error"
                      *ngIf="editForm.controls.email.errors?.required">
-            {{LM1}}          </mat-error>
+            {{LM1}}          </mat-error> -->
         </mat-form-field>
 
         <mat-form-field  fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -159,7 +159,7 @@
 
       <div fxLayout="row" fxLayout.xs="column"  >
         <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
-          <mat-label>Zip Code</mat-label>
+          <mat-label>Pincode</mat-label>
           <input formControlName="zipCode" onlyNumber required matInput placeholder="" minlength="6" maxlength="6"  >
           <!--<div *ngIf="pincodeno['pincdctrl'].touched && pincodeno['pincdctrl'].invalid" class="show-error">-->
             <!--<div *ngIf="pincodeno['pincdctrl'].errors?.['required'] && pincodeno['pincdctrl'].dirty">Please enter pin code-->
@@ -184,11 +184,11 @@
 
 
 
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="justify-content: center;">
-        <button class="col-md-2 mr-2 btn btn-primary" [disabled]="!editForm.valid"(click)="saveImage(true)" type="submit">
+      <div fxLayout="row" fxLayoutAlign="center" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+        <button class="m-1 mat-stroked-button button-save" [disabled]="!editForm.valid"(click)="saveImage(true)" type="submit">
           <span>Submit</span>
         </button>
-        <button class="col-md-2 mr-2 btn btn-danger" (click)="cancel()" type="submit">
+        <button class="m-1 mat-stroked-button button-clear" (click)="cancel()" type="submit">
           <span>Cancel</span>
         </button>
       </div>

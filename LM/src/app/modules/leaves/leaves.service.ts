@@ -43,7 +43,9 @@ export class LeavesService {
   getHandledLeaves(id: any): any {
     return this.http.get(this.mainUrl + 'api/getHandledLeaves/' + id+'/'+this.companyName, this.httpOptions);
   }
-
+  getApprovedLeaves(id:any):any{
+    return this.http.get(this.mainUrl + 'api/getApprovedLeaves/' + id, this.httpOptions);
+  }
   getCompoffs(data: any): any {
     data.companyName=this.companyName;
     return this.http.post(this.mainUrl + 'api/getCompoffs', data, this.httpOptions);
@@ -153,8 +155,9 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     // setProfileImage(data: FormData,Id: number ,conpanyName:any): Observable<any> {
     //   return this.http.post(this.mainUrl + 'api/setProfileImage/'+conpanyName+'/'+Id, data);
     // }
-    setProfileImage(data: FormData,path:any): Observable<any> {
-      return this.http.post(this.mainUrl + 'api/setProfileImage/'+encodeURI(path), data);
+    setProfileImage(data: FormData): Observable<any> {
+
+      return this.http.post(this.mainUrl + 'api/setProfileImage/', data);
     }
     removeProfileImage(id: any,companyName:any): Observable<any> {
       return this.http.delete(this.mainUrl + 'api/removeProfileImage/' + id+'/'+companyName,this.httpOptions);
@@ -171,6 +174,10 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     }
     getDaysToBeDisabledFromDate(id:any,leaveId:any): Promise<any> {
       return this.http.get(this.mainUrl + 'api/getdaystobedisabledfromdate/'+id+'/'+leaveId+'/'+this.companyName, this.httpOptions).toPromise();;
+
+    }
+    getDaysToBeDisabledForFromDateCompOff(info:any): Promise<any> {
+      return this.http.post(this.mainUrl + 'api/getDaysToBeDisabledForFromDateCompOff/',info, this.httpOptions).toPromise();;
 
     }
     getDaysToBeDisabledToDate(id:any,leaveId:any): Promise<any> {

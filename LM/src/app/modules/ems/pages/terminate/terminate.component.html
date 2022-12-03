@@ -68,10 +68,19 @@
                     </textarea>
                      </mat-form-field>
                 </div>
-                <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
-                  <button class="col-md-3 mr-2 btn btn-primary" (click)="terminatesave()" *ngIf="isview" >Terminate</button>
+                <div fxLayoutAlign="center">
+                    <button class="m-1 mat-stroked-button button-save" style="padding: 0 10px;" (click)="terminatesave()" *ngIf="isview" type="submit">
+                        <span>Terminate</span>
+                    </button>
+                    <button class="m-1 mat-stroked-button button-clear" (click)="close()">
+                        <span>Close</span>
+                    </button>
+                    <br />
+                </div>
+                <!-- <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
+                  <button class="col-md-2 mr-2 btn btn-primary" >Terminate</button>
                   <button class="col-md-2  btn btn-danger" (click)="close()">Close</button>
-              </div>
+              </div> -->
               <br>
         </div>
         <div *ngIf="istable">
@@ -109,9 +118,14 @@
                 <div class="tableP">
                 <div class="mat-elevation-z1">
                     <table mat-table [dataSource]="dataSource" matSort>
-  
+                        <ng-container matColumnDef="sno">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> S.No</th>
+                            <td mat-cell *matCellDef="let element; let i=index;">
+                             {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
+                          </ng-container>
+                          
                         <ng-container matColumnDef="fullname">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header > Full Name </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header >Employee Name </th>
                             <td mat-cell *matCellDef="let row" >
                                 <span>{{row.empname}} </span>
 
@@ -120,7 +134,7 @@
                         <ng-container matColumnDef="manager">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header > Manager </th>
                             <td mat-cell *matCellDef="let row" >
-                                <span >{{row.manager}} </span>
+                                <span >{{row.managername}} </span>
     
                             </td>
                         </ng-container>

@@ -150,10 +150,15 @@ financeManager:any=[]
     });
   }
   getReportingManagerForEmp(){
+    this.reportingManager=[];
+    this.reportingManagerName='';
     this.emsService.getReportingManagerForEmp(this.userSession.id).subscribe((res: any) => {
       if(res && res.status){
-        this.reportingManager = res.data;
-        this.reportingManagerName = this.reportingManager[0].managername;
+        if(res.data.length>0){
+          this.reportingManager = res.data;
+          this.reportingManagerName = this.reportingManager[0].managername;
+        }
+
 
       }
     });

@@ -87,9 +87,9 @@ export class MainService {
 
     return this.http.post(this.mainBeUrl + 'ems/api/setFilesMasterForEMS/', info, this.httpOptions);
   }
-  setDocumentOrImageForEMS(data: FormData,path:any): Observable<any> {
+  setDocumentOrImageForEMS(data: FormData): Observable<any> {
 
-    return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/'+encodeURI(path), data);
+    return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/', data);
   }
   getDocumentsForEMS(input:any){
     input.companyName=this.companyName;

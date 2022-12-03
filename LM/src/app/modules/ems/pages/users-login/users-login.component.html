@@ -11,15 +11,21 @@
                     <input formControlName="empname" readonly matInput placeholder="">
                   </mat-form-field>
                   <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
-                    <mat-label>Email ID</mat-label>
+                    <mat-label>Official Email ID</mat-label>
                     <input formControlName="email" readonly matInput placeholder="">
                   </mat-form-field>
+                 
                   <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>User ID</mat-label>
-                    <input formControlName="userid"  matInput placeholder="" required>
+                    <input formControlName="userid"  matInput placeholder="" required minlength="3" maxlength="30">
                     <mat-error class="con-error"
-                      *ngIf="usersloginForm.controls['userid'].invalid">
+                      *ngIf="usersloginForm.controls.userid.errors?.required">
                       This Field is Required
+                     </mat-error>
+
+                     <mat-error class="reg-error" *ngIf="
+                     usersloginForm.controls.userid.errors?.minlength ||
+                     usersloginForm.controls.userid.errors?.maxlength "> Minimum 3 characters and max 30 characters
                      </mat-error>
                   </mat-form-field>
 
@@ -98,12 +104,9 @@
             <div class="mat-elevation-z1">
                 <table mat-table [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="sno">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header > S.No </th>
-                        <td mat-cell *matCellDef="let row;let i=index" >
-                            <span>{{(i+1)}}</span>
-
-
-                        </td>
+                        <th mat-header-cell *matHeaderCellDef>S.No</th>
+                        <td mat-cell *matCellDef="let element; let i=index;">
+                            {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
                     </ng-container>
                     <ng-container matColumnDef="empname">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header > Emp Name </th>
@@ -137,10 +140,10 @@
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header >  </th>
                         <td mat-cell *matCellDef="let row" >
-                            <mat-icon title="Edit"  (click)="edit($event,row)" *ngIf="row.status!='Inactive'">edit</mat-icon>
-                            <!-- <mat-icon class="mr-2" title="Delete">delete</mat-icon> -->
-
-                        </td>
+                            <button mat-icon-button title="Edit"  (click)="edit($event,row)" *ngIf="row.status!='Inactive'">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                           </td>
                     </ng-container>
                     <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

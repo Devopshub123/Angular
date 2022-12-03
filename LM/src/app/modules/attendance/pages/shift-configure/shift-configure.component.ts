@@ -254,7 +254,7 @@ export class ShiftConfigureComponent implements OnInit {
      this.dialog.open(ReusableDialogComponent, {
        position: { top: `70px` },
        disableClose: true,
-       data: this.ATT74
+       data: "Select atleast one employee."
      });
     return;
    }

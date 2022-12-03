@@ -180,26 +180,33 @@ export class PreOnboardingDetailsComponent implements OnInit {
       this.personalInfoForm.get('checked')?.valueChanges.subscribe(selectedValue => {
         if (selectedValue != '') {
           this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedStateValue => {
+            this.spinner.show();
             this.permanentStateDetails = [];
             if (selectedStateValue != '') {
               this.companyService.getStatesc(selectedStateValue).subscribe((data) => {
                 this.permanentStateDetails = data[0]
+                console.log("state-1",this.personalInfoForm.controls.rstate.value)
                 if (this.personalInfoForm.controls.rstate.value != null) {
                   this.personalInfoForm.controls.pstate.setValue(this.personalInfoForm.controls.rstate.value);
                 }
               })
             }
+            this.spinner.hide();
           })
           this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedCityValue => {
+            this.spinner.show();
             this.permanentCityDetails = [];
             if (selectedCityValue != '') {
               this.companyService.getCities(selectedCityValue).subscribe((data) => {
                 this.permanentCityDetails = data[0]
+                console.log("city-1",this.permanentCityDetails)
+                console.log("city-2",this.personalInfoForm.controls.rcity)
                 if (this.personalInfoForm.controls.rcity.value != null) {
                   this.personalInfoForm.controls.pcity.setValue(this.personalInfoForm.controls.rcity.value);
                 }
               });
             }
+            this.spinner.hide();
           })
 
           this.personalInfoForm.controls.paddress.setValue(this.personalInfoForm.controls.raddress.value),
@@ -224,6 +231,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       /**get state details for residance address */
       this.personalInfoForm.get('rcountry')?.valueChanges.subscribe(selectedResidenceStateValue => {
         this.stateDetails = [];
+        this.spinner.show();
         if (selectedResidenceStateValue != '') {
           this.companyService.getStatesc(selectedResidenceStateValue).subscribe((data) => {
             this.stateDetails = data[0];
@@ -232,9 +240,11 @@ export class PreOnboardingDetailsComponent implements OnInit {
             }
           })
         }
+        this.spinner.hide();
       })
       /**get city details for residance address */
       this.personalInfoForm.get('rstate')?.valueChanges.subscribe(selectedResidenceCityValue => {
+        this.spinner.show();
         this.cityDetails = [];
         if (selectedResidenceCityValue != '') {
           this.companyService.getCities(selectedResidenceCityValue).subscribe((data) => {
@@ -244,9 +254,11 @@ export class PreOnboardingDetailsComponent implements OnInit {
             }
           })
         }
+        this.spinner.hide();
       })
       /**get state details for present address*/
       this.personalInfoForm.get('pcountry')?.valueChanges.subscribe(selectedPresentStateValue => {
+        this.spinner.show();
         this.permanentStateDetails = [];
         if (selectedPresentStateValue != '') {
           this.companyService.getStatesc(selectedPresentStateValue).subscribe((data) => {
@@ -256,18 +268,22 @@ export class PreOnboardingDetailsComponent implements OnInit {
             }
           })
         }
+        this.spinner.hide();
       })
       /**get city details for present address */
       this.personalInfoForm.get('pstate')?.valueChanges.subscribe(selectedPresentCityValue => {
+        this.spinner.show();
         this.permanentCityDetails = [];
         if (selectedPresentCityValue != '') {
           this.companyService.getCities(selectedPresentCityValue).subscribe((data) => {
             this.permanentCityDetails = data[0]
             if (this.loginData != null) {
               this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
+              this.spinner.hide();
             }
           })
         }
+        this.spinner.hide();
       })
 
 
@@ -375,7 +391,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
             lastname: familydata[i].lastname,
             gender: gender,
             gendername: gendername,
-            contactnumber: familydata[i].contactnumber,
+            contactnumber: familydata[i].contactnumber !='null' || familydata[i].contactnumber !=null ? familydata[i].contactnumber:null,
             status: familydata[i].status,
             relationship: relationship,
             relationshipname: relationshipname,
@@ -597,7 +613,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
           this.personalInfoForm.reset();
           this.toSelectTab = 1;
           this.getCandidateData();
-          this.selectedtab.setValue(this.toSelectTab);
+          //this.selectedtab.setValue(this.toSelectTab);
           } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
@@ -680,7 +696,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
     this.CandidateFamilyForm.controls.relation.reset();
     this.CandidateFamilyForm.controls.familycontact.reset();
     this.CandidateFamilyForm.controls.familygender.reset();
-    this.CandidateFamilyForm.valid = true;
+    //this.CandidateFamilyForm.valid = true;
     this.isfamilyedit = false;
   }
 
@@ -769,6 +785,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       });
       this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
       this.employmentDataChange = true;
+      this.saveWorkExperience();
       this.clearExperienceValidators();
       this.clearWork();
     } else { }
@@ -1019,8 +1036,12 @@ export class PreOnboardingDetailsComponent implements OnInit {
           if (data && data.status) {
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0])
-              this.mainService.setDocumentOrImageForEMS(this.formData, info).subscribe((data) => {
+              this.formData.append('file', this.file, this.file.name);
+              this.formData.append('info',info);
+              this.mainService.setDocumentOrImageForEMS(this.formData).subscribe((data) => {
                 // this.spinner.hide()
+                this.formData.delete('file');
+                this.formData.delete('info');
                 if (data && data.status) {
                   if (this.editDockinfo) {
                     this.mainService.removeDocumentOrImagesForEMS(this.editDockinfo).subscribe((data) => { })
@@ -1043,7 +1064,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
 
                 }
                 this.file = null;
-                this.formData.delete('file');
+
                 this.editDockinfo = null;
                 this.editFileName = null;
 
@@ -1054,7 +1075,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
               this.editDockinfo = null;
               this.editFileName = null;
               this.file = null;
-              this.formData.delete('file');
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position: { top: `70px` },
                 disableClose: true,
@@ -1097,7 +1117,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
         var pdf = this.file.name.split('.');
         if (pdf[pdf.length - 1] == 'pdf' || pdf[pdf.length - 1] == 'jpg' || pdf[pdf.length - 1] == 'png') {
           this.isFile = true;
-          this.formData.append('file', this.file, this.file.name);
         } else {
           this.isFile = false;
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1161,7 +1180,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   getDocumentsEMS() {
 
     let input = {
-      'employeeId': 0,
+      'employeeId': null,
       "candidateId": this.candidateId,
       "moduleId": 1,
       "filecategory": null,

@@ -1,0 +1,15 @@
+::ng-deep {
+    .mat-select-panel[aria-label="Items per page:"] {
+      mat-option:last-child:before {
+        content: 'All';
+      }
+    }
+  }
+  
+  ::ng-deep {
+    .mat-select-panel[aria-label="Items per page:"] {
+      mat-option:last-child .mat-option-text {
+        display: none;
+      }
+    }
+  }

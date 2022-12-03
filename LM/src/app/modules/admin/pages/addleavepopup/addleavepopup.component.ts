@@ -6,6 +6,7 @@ import { DialogComponent } from 'src/app/modules/attendance/dialog/dialog.compon
 import { Router, RouterModule } from '@angular/router';
 
 import { LeavePoliciesService } from 'src/app/services/leave-policies.service'; 
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 export interface DialogData {
   leavetypename: string;
   displayname: string;
@@ -53,9 +54,11 @@ export class AddleavepopupComponent implements OnInit {
   //   <ngx-mat-color-picker #picker></ngx-mat-color-picker>
   // </mat-form-field>`;
 
-  constructor(private LM:LeavePoliciesService,private formBuilder:FormBuilder,private router: Router,public dialogRef: MatDialogRef<AddleavepopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,) { }
-
+  constructor(private LM:LeavePoliciesService,private formBuilder:FormBuilder, private dialog: MatDialog,private router: Router,public dialogRef: MatDialogRef<AddleavepopupComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,) { }
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
   ngOnInit(): void {
     this.getLeavesDetails();
     this.leaveTypeForm = this.formBuilder.group({
@@ -90,11 +93,16 @@ export class AddleavepopupComponent implements OnInit {
       }
       
       if(!this.isLeaveAlreadyExists && !this.isDisplayAlreadyExists && !this.isLeaveColorAlreadyExists){
-        this.LM.setNewLeaveType(info).subscribe((data) => {        
-          if (data.status) {         
+        this.LM.setNewLeaveType(info).subscribe((data) => {      
+          if (data.status) {  
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: "Leave Type added successfully"
+            });
             this.dialogRef.close();
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/Admin/Leavepolicies"]));
+            // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            //   this.router.navigate(["/Admin/Leavepolicies"]));
           }
           else {
            

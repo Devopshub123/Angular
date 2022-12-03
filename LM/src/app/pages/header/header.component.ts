@@ -131,12 +131,14 @@ export class HeaderComponent implements OnInit {
   }
   getLogo()
   {
-    let info = {
-      'employeeId':0,
-      'filecategory': 'LOGO',
-      'moduleId':2,
-      'requestId':null,
-    }
+    let info ={
+      employeeId: 0,
+      candidateId: null,
+      filecategory: 'LOGO',
+      moduleId: 2,
+      requestId: null,
+      status: 'Submitted',
+    };
     this.mainService.getFilesMaster(info).subscribe((result) => {
       if(result && result.status &&  result.data[0]){
        result.data[0].employeeId=0;
@@ -185,11 +187,13 @@ export class HeaderComponent implements OnInit {
 
   getUploadImage(){
     let info = {
-      'employeeId':this.usersession.id,
-      'filecategory': 'PROFILE',
-      'moduleId':2,
-      'requestId':null,
-    }
+      employeeId: this.usersession.id,
+      candidateId: null,
+      filecategory: 'PROFILE',
+      moduleId: 1,
+      requestId: null,
+      status: 'Submitted',
+    };
     this.mainService.getFilesMaster(info).subscribe((result) => {
       if(result && result.status &&  result.data[0]){
        result.data[0].employeeId=this.usersession.id;

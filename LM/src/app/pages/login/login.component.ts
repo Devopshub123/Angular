@@ -6,6 +6,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { PopupComponent,PopupConfig } from '../popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 
 
 @Component({
@@ -21,9 +22,11 @@ export class LoginComponent implements OnInit {
   msgLM14:any;
   msgLM1:any;
   msgLM2:any;
+  employeeId:any;
   issubmit:boolean= false;
   companyName:any;
-  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private tss:LoginService,private router: Router,private activatedRoute:ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
+    private tss: LoginService, private router: Router, private emsService: EmsService,) { }
 
   ngOnInit() {
     let params: any = this.activatedRoute.snapshot.params;
@@ -57,11 +60,17 @@ export class LoginComponent implements OnInit {
       this.tss.Savelogin(data).subscribe((data) =>{
         if(data.status === true){
           let empdata = data.result[0];
-          sessionStorage.setItem('user',JSON.stringify(empdata));
-          sessionStorage.setItem('companyName',this.companyName);
-
-          this.router.navigate(['/MainDashboard'])
-
+          this.employeeId = empdata.id;
+          sessionStorage.setItem('user', JSON.stringify(empdata));
+          if (empdata.firstlogin == "Y") {
+            this.router.navigate(['/Attendance/ChangePassword'])
+          }
+          else {
+            this.router.navigate(['/MainDashboard'])
+            this.getEmployeeEmailData();
+          }
+          
+                  
         }
         else {
           this.router.navigate(['/Login']);
@@ -102,7 +111,12 @@ export class LoginComponent implements OnInit {
     })
 
   }
-
+  getEmployeeEmailData() {
+    this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
+      .subscribe((res: any) => {
+        // this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+       })
+  }
   // getError(el:any) {
   //   switch (el) {
   //     case 'user':

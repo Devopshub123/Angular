@@ -338,6 +338,14 @@ update(name: any,value:any) {
   getErrorMessages(errorCode:any) {
 
   }
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
 
+      return [5, 10, 20];
+    }
+  }
 
 }

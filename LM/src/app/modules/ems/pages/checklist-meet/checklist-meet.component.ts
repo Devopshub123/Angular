@@ -64,13 +64,19 @@ export class ChecklistMeetComponent implements OnInit {
     'action',
   ];
   addChecklistColumns = ['select', 'sno', 'name', 'date', 'status'];
+  programViewColumns = [ 'sno', 'name', 'date', 'status'];
   dataSource: MatTableDataSource<any> = <any>[];
   dataSource2: MatTableDataSource<any> = <any>[];
   dataSource3: MatTableDataSource<any> = <any>[];
+  programViewdataSource: MatTableDataSource<any> = <any>[];
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator1!: MatPaginator;
+  @ViewChild(MatPaginator) paginator2!: MatPaginator;
   selection = new SelectionModel<any>(true, []);
   pageLoading = true;
+  pageLoading1 = true;
+  pageLoading2 = true;
   isRequestView = false;
   isEditView = false;
   uniqueId: any = '';
@@ -98,6 +104,8 @@ export class ChecklistMeetComponent implements OnInit {
   isAddChecklist: boolean = false;
   isUpdateChecklist: boolean = false;
   isedit: boolean = false;
+  isCancel: boolean = false;
+  isView: boolean = false;
   isdata: boolean = true;
   userSession: any;
   companyList: any = ['Attended', 'Not Attended'];
@@ -105,7 +113,13 @@ export class ChecklistMeetComponent implements OnInit {
   minDate = new Date('2000/01/01'); maxDate = new Date("2200/01/01");
   companyDBName:any = environment.dbName;
   getdata: any;
-  scheduleEmployees: any=[];
+  scheduleEmployees: any = [];
+  scheduleProgramAssignedEmployees: any = [];
+  companyName: any;
+  scheduledId: any;
+  programName: any;
+  emailsList: any = [];
+  employeeEmailData: any = [];
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private companyServices: CompanySettingService,private EMS:EmsService) {
 
   }
@@ -114,7 +128,8 @@ export class ChecklistMeetComponent implements OnInit {
     this.getDepartmentsMaster();
     this.getDesignationsMaster();
     this.getProgramsMaster(null);
-    this.getProgramSchedules(null,null);
+    this.getProgramSchedules(null, null);
+    this.getEmployeeEmailData();
     this.dataSource.paginator = this.paginator;
     this.checklistForm = this.formBuilder.group(
       {
@@ -126,6 +141,7 @@ export class ChecklistMeetComponent implements OnInit {
         endtime:['',Validators.required],
         designation: ['',Validators.required],
         description: [],
+        cancelReason: [''],
         updatestatus:['Attended']
 
       });
@@ -215,11 +231,14 @@ export class ChecklistMeetComponent implements OnInit {
         this.dataSource = new MatTableDataSource(result.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.pageLoading = false;
       }
     });
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.programViewdataSource.paginator = this.paginator1;
+    this.dataSource2.paginator = this.paginator2;
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -228,16 +247,15 @@ export class ChecklistMeetComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  //req.body.scheduleId,req.body.programId,req.body.sDescription,req.body.conductedby,
-  //req.body.scheduleDate,req.body.startTime,req.body.endTime,req.body.actionby
-  sendrequests() {}
+
   saveRequest() {
     if (this.checklistForm.valid) {
       let data = {
         scheduleId: null,
         programId: this.checklistForm.controls.programType.value,
         conductedby: this.checklistForm.controls.conductBy.value,
-        Description: this.checklistForm.controls.description.value,
+        description: this.checklistForm.controls.description.value,
+        status:"Scheduled",
         scheduleDate:
           this.pipe.transform(
             this.checklistForm.controls.date.value,
@@ -261,8 +279,7 @@ export class ChecklistMeetComponent implements OnInit {
         actionby: this.userSession.id,
       };
       this.EMS.setProgramSchedules(data).subscribe((res: any) => {
-        if (res.status) {
-          console.log(res.data);
+        if (res.status && res.data == 0) {
           this.router
             .navigateByUrl('/', { skipLocationChange: true })
             .then(() => this.router.navigate(['/ems/induction-program']));
@@ -271,7 +288,13 @@ export class ChecklistMeetComponent implements OnInit {
             disableClose: true,
             data: 'Program schedule successfully',
           });
-        } else {
+        } else if(res.status && res.data == 1) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: 'Scheduled Program already',
+          });
+        }else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -284,10 +307,14 @@ export class ChecklistMeetComponent implements OnInit {
   resetform() {}
 
   editRequest(data: any) {
-    console.log(data);
+    console.log("dafasd-",data)
     this.isAdd = true;
     this.isdata = false;
+    this.isView = false;
+    this.isCancel = false;
     this.isedit = true;
+    this.scheduledId = data.id;
+    this.programName = data.program_name;
     (this.scheduleid = data.id),
       this.checklistForm.controls.programType.setValue(data.program_id),
       this.checklistForm.controls.department.setValue(data.department),
@@ -301,23 +328,25 @@ export class ChecklistMeetComponent implements OnInit {
       this.checklistForm.controls.endtime.setValue(
         new Date(data.schedule_date + ' ' + data.schedule_endtime)
       );
+    this.getInductionProgramAssignedEmployesList();
   }
   updating(data: any) {
     this.selection = new SelectionModel();
     this.dataSource2 = new MatTableDataSource();
-    // this.dataSource2=new MatTableDataSource(any)
     this.isUpdateChecklist = true;
     this.isAddChecklist = false;
     this.isdata = false;
     this.isAdd = false;
+    this.isView = false;
+    this.isCancel = false;
     this.scheduleid=data.id;
     this.EMS.getallEmployeeProgramSchedules(null,data.id).subscribe((res: any) => {
       this.dataSource2 = new MatTableDataSource(res.data)
+      this.dataSource2.paginator = this.paginator2;
+        this.pageLoading2 = false;
       this.selection = new SelectionModel(res.data)
 
     })
-    // get_employee_program_schedules
-    //get_employees_for_program_schedule
   }
   updateRequest() {
     if (this.checklistForm.valid) {
@@ -325,7 +354,8 @@ export class ChecklistMeetComponent implements OnInit {
         scheduleId: this.scheduleid,
         programId: this.checklistForm.controls.programType.value,
         conductedby: this.checklistForm.controls.conductBy.value,
-        Description: this.checklistForm.controls.description.value,
+        description: this.checklistForm.controls.description.value,
+        status:"Rescheduled",
         scheduleDate:
           this.pipe.transform(
             this.checklistForm.controls.date.value,
@@ -347,12 +377,16 @@ export class ChecklistMeetComponent implements OnInit {
         department: this.checklistForm.controls.department.value,
         designation: this.checklistForm.controls.designation.value,
         actionby: this.userSession.id,
+        //// email data
+        emails: this.emailsList,
+        programName: this.programName,
+        programDate: this.pipe.transform(this.checklistForm.controls.date.value, 'yyyy-MM-dd'),
+        emaildata:this.employeeEmailData
       };
+
       this.EMS.setProgramSchedules(data).subscribe((res: any) => {
-        console.log(res.data);
         this.scheduleid = '';
-        if (res.status) {
-          console.log(res.data);
+        if (res.status && res.data == 0) {
           this.router
             .navigateByUrl('/', { skipLocationChange: true })
             .then(() => this.router.navigate(['/ems/induction-program']));
@@ -360,6 +394,12 @@ export class ChecklistMeetComponent implements OnInit {
             position: { top: `70px` },
             disableClose: true,
             data: 'Program schedule update successfully',
+          });
+        } else if(res.status && res.data == 1) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: 'Scheduled Program already',
           });
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -371,6 +411,124 @@ export class ChecklistMeetComponent implements OnInit {
       });
     }
   }
+  cancelProgram(data: any) {
+    this.isAdd = true;
+    this.isdata = false;
+    this.isedit = false;
+    this.isCancel = true;
+    this.isView = false;
+    this.scheduledId = data.id;
+    (this.scheduleid = data.id),
+      this.checklistForm.controls.programType.setValue(data.program_id),
+      this.checklistForm.controls.programType.disable(),
+      this.checklistForm.controls.department.setValue(data.department),
+      this.checklistForm.controls.department.disable(),
+      this.checklistForm.controls.designation.setValue(data.designation),
+      this.checklistForm.controls.designation.disable(),
+      this.checklistForm.controls.conductBy.setValue(data.conducted_by),
+      this.checklistForm.controls.conductBy.disable(),
+      this.checklistForm.controls.description.setValue(data.description),
+      this.checklistForm.controls.description.disable(),
+      this.checklistForm.controls.date.setValue(new Date(data.schedule_date)),
+      this.checklistForm.controls.date.disable(),
+      this.checklistForm.controls.starttime.setValue(new Date(data.schedule_date + ' ' + data.schedule_starttime)),
+      this.checklistForm.controls.starttime.disable(),
+      this.checklistForm.controls.endtime.setValue(new Date(data.schedule_date + ' ' + data.schedule_endtime))
+      this.checklistForm.controls.endtime.disable()
+      this.getInductionProgramAssignedEmployesList();
+  }
+
+  programCancelRequest() {
+    if (this.checklistForm.controls.cancelReason.valid) {
+      let data = {
+        scheduleId: this.scheduleid,
+        programId: this.checklistForm.controls.programType.value,
+        conductedby: this.checklistForm.controls.conductBy.value,
+        description: this.checklistForm.controls.description.value,
+        reason: this.checklistForm.controls.cancelReason.value,
+        status:"Cancelled",
+        scheduleDate:
+          this.pipe.transform(
+            this.checklistForm.controls.date.value,
+            'yyyy-MM-dd'
+          ) +
+          ' ' +
+          this.pipe.transform(
+            this.checklistForm.controls.date.value,
+            'HH:mm:ss'
+          ),
+        startTime: this.pipe.transform(
+          this.checklistForm.controls.starttime.value,
+          'HH:mm:ss'
+        ),
+        endTime: this.pipe.transform(
+          this.checklistForm.controls.endtime.value,
+          'HH:mm:ss'
+        ),
+        department: this.checklistForm.controls.department.value,
+        designation: this.checklistForm.controls.designation.value,
+        actionby: this.userSession.id,
+        emails: this.emailsList,
+        emaildata:this.employeeEmailData
+      };
+       this.EMS.setProgramSchedules(data).subscribe((res: any) => {
+         this.scheduleid = '';
+         if (res.status) {
+          this.router
+            .navigateByUrl('/', { skipLocationChange: true })
+            .then(() => this.router.navigate(['/ems/induction-program']));
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: 'Program schedule cancelled successfully',
+          });
+        }  else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: 'Unable to cancel Program scheduled.',
+          });
+        }
+      });
+    }
+    
+  }
+  viewProgram(data: any) {
+    this.isAdd = true;
+    this.isdata = false;
+    this.isedit = false;
+    this.isCancel = false;
+    this.isView = true;
+    (this.scheduleid = data.id),
+      this.checklistForm.controls.programType.setValue(data.program_id),
+      this.checklistForm.controls.programType.disable(),
+      this.checklistForm.controls.department.setValue(data.department),
+      this.checklistForm.controls.department.disable(),
+      this.checklistForm.controls.designation.setValue(data.designation),
+      this.checklistForm.controls.designation.disable(),
+      this.checklistForm.controls.conductBy.setValue(data.conducted_by),
+      this.checklistForm.controls.conductBy.disable(),
+      this.checklistForm.controls.description.setValue(data.description),
+      this.checklistForm.controls.description.disable(),
+      this.checklistForm.controls.date.setValue(new Date(data.schedule_date)),
+      this.checklistForm.controls.date.disable(),
+      this.checklistForm.controls.starttime.setValue(new Date(data.schedule_date + ' ' + data.schedule_starttime)),
+      this.checklistForm.controls.starttime.disable(),
+      this.checklistForm.controls.endtime.setValue(new Date(data.schedule_date + ' ' + data.schedule_endtime))
+    this.checklistForm.controls.endtime.disable(),
+    this.checklistForm.controls.cancelReason.setValue(data.reason),
+    this.checklistForm.controls.cancelReason.disable()
+    this.EMS.getActiveScheduleEmployeeList(data.id).subscribe(
+      (res: any) => {
+        this.scheduleProgramAssignedEmployees = res.data;
+        this.programViewdataSource = new MatTableDataSource(res.data);
+        this.programViewdataSource.paginator = this.paginator1;
+        this.pageLoading1 = false;
+     
+      }
+    );
+  }
+
   deleteRequest(event: any) {}
 
   requestView(event: any) {
@@ -378,7 +536,7 @@ export class ChecklistMeetComponent implements OnInit {
     this.isUpdateChecklist = false;
     this.isdata = false;
     this.isAdd = false;
-    console.log(event);
+    this.isView = false;
     this.scheduleid = event.id;
     this.EMS.getallEmployeeProgramSchedules(null, event.id).subscribe(
       (res: any) => {
@@ -387,8 +545,9 @@ export class ChecklistMeetComponent implements OnInit {
     );
     this.EMS.getEmployeesForProgramSchedule(event.id).subscribe(
       (result: any) => {
-        console.log(result);
         this.dataSource2 = new MatTableDataSource(result.data);
+        this.dataSource2.paginator = this.paginator2;
+        this.pageLoading2 = false;
         this.selection = new SelectionModel(result.data);
         if (this.scheduleEmployees.length > 0) {
           this.scheduleEmployees.forEach((e: any) => {
@@ -405,6 +564,7 @@ export class ChecklistMeetComponent implements OnInit {
   Add() {
     //this.checklistForm.controls.companyName.setValue('');
     this.isAdd = true;
+    this.isView = false;
     this.isdata = false;
   }
   coductedby(e1: any, e2: any) {
@@ -429,12 +589,11 @@ export class ChecklistMeetComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    console.log(this.selection)
     this.isAllSelected() ?
         this.selection.clear() :
         this.dataSource2.data.forEach(row => this.selection.select(row));
   }
-  logSelections() {
+  updateSchedue() {
     if (this.selection.selected.length > 0) {
       this.alldata = this.selection.selected;
       for (let i = 0; i < this.alldata.length; i++) {
@@ -459,7 +618,7 @@ export class ChecklistMeetComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data: 'employee Program schedule updated successfully',
+              data: 'Employee Program schedule updated successfully',
             });
           } else {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -479,7 +638,7 @@ export class ChecklistMeetComponent implements OnInit {
     }
   }
 
-  logSelection() {
+  meetingSchedule() {
     // this.allmails.push(personal_email)
     this.alldata = this.selection.selected;
     for (let i = 0; i < this.alldata.length; i++) {
@@ -493,10 +652,10 @@ export class ChecklistMeetComponent implements OnInit {
       status: 'Pending',
       actionby: this.userSession.id,
       email: this.allmails,
+      emaildata:this.employeeEmailData
     };
     this.EMS.setselectEmployeesProgramSchedules(data).subscribe(
       (result: any) => {
-        console.log(result);
         if (result.status) {
           this.router
             .navigateByUrl('/', { skipLocationChange: true })
@@ -515,65 +674,32 @@ export class ChecklistMeetComponent implements OnInit {
         }
       }
     );
-    //   this.EMS.setProgramSchedulemail(this.allmails).subscribe((result: any) => {
-    //   if (result.status){
-    //     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    //       this.router.navigate(["/ems/induction-program"]));
-    //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
-    //       position:{top:`70px`},
-    //       disableClose: true,
-    //       data: 'Program schedule mails send successfully'
-    //     });
-
-    //   }
-    //   else{
-    //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
-    //       position:{top:`70px`},
-    //       disableClose: true,
-    //       data: 'Unable to to send mails'
-    //     });
-    //   }
-
-    // })
   }
-  // export interface PeriodicElement {
-  //   id: number;
-  //   name: string;
-  //   mobile: number;
-  //   email: string;
-  //   address: string;
-  //   type: string;
-  // }
-  // const Sample_Data: PeriodicElement[] = [
-  //   {id: 1, name: 'Sreeb Tech', mobile: 9666313001, email: 'sreeb@gmail.com',address:'Hitech city',type:'Software'},
-  //   {id: 2, name: 'Sanela', mobile: 966666666, email: 'sanela@gmail.com',address:'Kondapur',type:'Hardware'},
-  //   {id: 3, name: 'Sriram Hardwaress', mobile: 898989898, email: 'ram@gmail.com',address:'Madhapor',type:'Network'},
-  //   {id: 4, name: 'ABC Tech', mobile: 568975698, email: 'abc@gmail.com',address:'Gachibowli',type:'Stationary'},
-  //   {id: 5, name: 'Soft Soluntions', mobile: 9638527415, email: 'soft@gmail.com',address:'Gachibowli',type:'Software'},
-  //   {id: 6, name: 'Dell ', mobile: 1478963255, email: 'dell@gmail.com',address:'Gachibowli',type:'Software'},
-  //   {id: 7, name: 'Tech Mahindra', mobile: 1234569874, email: 'techm@gmail.com',address:'Hitech city',type:'Hardware'},
-  //   {id: 8, name: 'Wipro', mobile: 8745693215, email: 'wipro@gmail.com',address:'Hyderabad',type:'Hardware'},
-  //   {id: 9, name: 'Accenture', mobile: 7896541236, email: 'accenture@gmail.com',address:'Kondapur',type:'Network'},
-  //   {id: 10, name: 'TATA Consultency', mobile: 6589471230, email: 'tcs@gmail.com',address:'Kondapur',type:'Hardware'},
-  //   {id: 11, name: 'Cognizent', mobile: 3269857410, email: 'cognizent@gmail.com',address:'Hyderabad',type:'Network'},
-  // ];
+  getPageSizes(): number[] {
+    if (this.dataSource.data.length > 20) {
+      return [5, 10, 20, this.dataSource.data.length];
+    }
+    else {
 
-  // export interface PeriodicElement2 {
-  //   name: string;
-  //   position: number;
-  //   weight: number;
-  //   symbol: string;
-  // }
-
-  // const ELEMENT_DATA: PeriodicElement2[] = [
-  //   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  //   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  //   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  //   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  //   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  //   {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  //   {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  //   {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-
-  // ];
+      return [5, 10, 20];
+    }
+  }
+  getInductionProgramAssignedEmployesList() {
+   this.emailsList = [];
+   let data = [];
+    this.EMS.getInductionProgramAssignedEmployees(this.scheduledId)
+      .subscribe((res: any) => {
+         data = res.data;
+        for (let i = 0; i < data.length; i++) {
+          this.emailsList.push(data[i].officeemail);
+         }
+      })
+  }
+  getEmployeeEmailData() {
+   this.employeeEmailData =[]
+    this.EMS.getEmployeeEmailDataByEmpid(this.userSession.id)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+       })
+  }
 }

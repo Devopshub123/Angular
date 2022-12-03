@@ -142,7 +142,7 @@ export class EmployeDashboardComponent implements OnInit {
         });
 
         this.calendarOptions.events = this.initialEvents;
-        this.calendarCountViewNoMore();
+      //  this.calendarCountViewNoMore();
       }
 
     })

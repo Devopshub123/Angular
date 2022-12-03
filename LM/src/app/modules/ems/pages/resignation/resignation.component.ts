@@ -75,7 +75,7 @@ export class ResignationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private adminService: AdminService,private ES:EmsService,private LM:CompanySettingService) {
     this.getnoticeperiods()
    }
-
+   seperationsList: any = [];
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.resignForm=this.formBuilder.group(
@@ -101,10 +101,15 @@ export class ResignationComponent implements OnInit {
   }
   submit(){
     this.isview=false;
-    this.ishide=true;
+   this.ishide=true;
   }
   cancel(){
-    this.isview=true;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/MainDashboard"]));
+
+  }
+  clear() {
+   this.isview=true;
     this.ishide=false;
     this.isadd=true;
     this.editing=false;
@@ -112,13 +117,8 @@ export class ResignationComponent implements OnInit {
     this.resignForm.controls.exitdate.setValue('')
     this.resignForm.controls.reason.setValue('')
     this.resignForm.controls.notice.setValue('')
-
   }
-  close(){
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["ems/employeeDashboard"]));
 
-  }
   saved(){
     if(this.resignForm.valid){
       let data = {
@@ -163,11 +163,14 @@ export class ResignationComponent implements OnInit {
   }
   getEmployeesResignation(){
     this.ES.getEmployeesResignation(this.userSession.id).subscribe((res: any) => {
-      if(res.status){
-        this.dataSource = new MatTableDataSource(res.data)
-      }
-
-
+      if (res.status) {
+         this.dataSource = new MatTableDataSource(res.data)
+        this.seperationsList = res.data;
+        if (this.seperationsList.length > 0) {
+          this.isview = false;
+          this.ishide = true;
+        }
+       }
     });
 
   }

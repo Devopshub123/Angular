@@ -114,7 +114,7 @@ export class SettingsAddChecklistComponent implements OnInit {
         if (res.status) {
           console.log(res.data)
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/ems/settings-checklist"]));
+            this.router.navigate(["/Admin/settings-checklist"]));
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -183,7 +183,7 @@ export class SettingsAddChecklistComponent implements OnInit {
    this.emsService.setChecklistsMaster(data).subscribe((res: any) => {
         if (res.status) {
          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/ems/settings-checklist"]));
+            this.router.navigate(["/Admin/settings-checklist"]));
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -215,15 +215,15 @@ export class SettingsAddChecklistComponent implements OnInit {
     this.checklistForm.controls.department.setValue();
     this.checklistForm.controls.department.clearValidators();
     this.checklistForm.controls.department.updateValueAndValidity();
-   
+
   }
   departmentChange() {
     this.addChecklistData = [];
-   
+
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate(["/ems/settings-checklist"]));
+    this.router.navigate(["/Admin/settings-checklist"]));
   }
 
   add() {

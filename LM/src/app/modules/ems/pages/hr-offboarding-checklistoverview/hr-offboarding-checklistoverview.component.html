@@ -102,7 +102,11 @@
         <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
       </mat-form-field>
-
+      <span fxLayoutAlign="center" style="margin-top: 17px;">
+        <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+         <span>Clear</span>
+       </button>
+     </span>
     </div>
     <div class="tableP"  *ngIf="isdata">
       <div class="mat-elevation-z1">
@@ -124,14 +128,15 @@
                         </td>
                       </ng-container> -->
 
-          <ng-container matColumnDef="sno">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> S.No</th>
-            <td mat-cell *matCellDef="let row ;let i=index"> {{(i+1)}}</td>
-          </ng-container>
+                      <ng-container matColumnDef="sno">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> S.No</th>
+                        <td mat-cell *matCellDef="let element; let i=index;">
+                         {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
+                      </ng-container>
 
 
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Full Name </th>
+            <th mat-header-cell *matHeaderCellDef>Employee Name </th>
             <td mat-cell *matCellDef="let element"> {{element.empname}} </td>
           </ng-container>
 
@@ -159,7 +164,7 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let row">
-              <button mat-icon-button matTooltip="Checklist Overview" *ngIf="row.final_status != 'Completed' "
+              <button mat-icon-button matTooltip="Edit" *ngIf="row.final_status != 'Completed' "
                (click)="addChecklistOverview(row)">
                 <mat-icon>edit</mat-icon>
               </button>

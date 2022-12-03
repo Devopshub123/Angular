@@ -11,6 +11,7 @@ import {ReusableDialogComponent} from "../../../../pages/reusable-dialog/reusabl
 import {DatePipe} from "@angular/common";
 import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.component";
 import { NgxSpinnerService } from 'ngx-spinner';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 
 @Component({
   selector: 'app-pending-approvals',
@@ -35,8 +36,10 @@ export class PendingApprovalsComponent implements OnInit {
   arrayList:any=[];
   LM119:any;
   pageLoading=true;
-
-  constructor(private LM:LeavesService, private router: Router,public dialog: MatDialog,public spinner:NgxSpinnerService) { }
+  employeeEmailData: any = [];
+  employeeId: any;
+  constructor(private LM: LeavesService, private router: Router, public dialog: MatDialog,
+    public spinner: NgxSpinnerService,private emsService: EmsService) { }
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
@@ -93,9 +96,11 @@ leaveReview(leave:any){
   leave.url = '/LeaveManagement/ManagerDashboard'
   this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: leave ,isleave:true} });
   }
-
-  leaveApprove(leave:any,status:any,approverId:any){
-    this.spinner.show();
+  submit(leave: any, status: any, approverId: any) {
+    this.employeeId = leave.empid;
+    this.getEmployeeEmailData(leave ,status,approverId);
+  }
+  leaveApprove(leave: any, status: any, approverId: any) {
     let obj = {
       "id":leave.id,
       "leaveId": leave.leave_id,
@@ -103,10 +108,14 @@ leaveReview(leave:any){
       "approverId":approverId?approverId:this.userSession.id,
       "leaveStatus":status,
       "reason":status == 'Approved' ? null:leave.action_reason ? leave.action_reason:this.reason,
-      "detail":leave.bereavement_id?leave.bereavement_id:leave.worked_date?leave.worked_date:null
+      "detail": leave.bereavement_id ? leave.bereavement_id : leave.worked_date ? leave.worked_date : null,
+      /// email data
+      "leavedata": leave,
+      "emaildata": this.employeeEmailData,
+      
     };
 
-    this.LM.setApproveOrReject(obj).subscribe((res: any) => {
+ this.LM.setApproveOrReject(obj).subscribe((res: any) => {
       this.spinner.hide();
       if(res && res.status){
         if(res.leaveStatus == 'Approved'){
@@ -141,9 +150,8 @@ leaveReview(leave:any){
     })
 
   }
-  leaveReject(leave:any){
-
-  this.titleName="Reject"
+  leaveReject(leave: any, status: any, rejectId: any){
+    this.titleName="Reject"
     this.openDialog(leave)
   }
 
@@ -158,7 +166,9 @@ leaveReview(leave:any){
       if(result!=undefined ){
         if(result !==true){
           this.reason = result.reason;
-          this.leaveApprove(leave,'Rejected',null);
+        //  this.leaveApprove(leave, 'Rejected', null);
+        this.employeeId = leave.empid;
+          this.getEmployeeEmailData(leave ,'Rejected',null);
         }
       }
     });
@@ -190,5 +200,14 @@ leaveReview(leave:any){
      return [5, 10, 20];
     }
   }
-
+  getEmployeeEmailData(leave: any, status: any, approverId: any) {
+     this.employeeEmailData = [];
+    this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+        this.leaveApprove(leave,status,approverId)
+      })
+    
+}
+  
 }

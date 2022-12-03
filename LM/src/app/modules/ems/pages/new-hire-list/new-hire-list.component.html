@@ -1,7 +1,132 @@
-<div fxLayout="column" style="background-color: white;">
+<div fxLayout="column" style="background-color: #f9fbfe ;">
    <mat-card-header>
-        <mat-card-title > New Hired Candidate List </mat-card-title>
+        <mat-card-title > New Hires </mat-card-title>
       </mat-card-header>
+
+<div fxLayout="column" *ngIf="isNewhire">
+    <form [formGroup]="hireForm" autocomplete="off">
+         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+    
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input formControlName="firstname" matInput placeholder="" required (keypress)="alphabetKeyPress($event)"
+              maxlength="100">
+            <mat-error class="con-error" *ngIf="hireForm.controls.firstname.errors?.required || 
+            hireForm.controls.firstname.errors?.['whitespace']">
+              {{requiredField}}
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>Middle Name</mat-label>
+            <input formControlName="middlename" matInput placeholder="" (keypress)="alphabetKeyPress($event)"
+              maxlength="100">
+          </mat-form-field>
+    
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lastname" required matInput placeholder="" (keypress)="alphabetKeyPress($event)"
+              maxlength="100">
+            <mat-error class="con-error" *ngIf="hireForm.controls.lastname.errors?.required 
+            || 
+            hireForm.controls.lastname.errors?.['whitespace']">
+              {{requiredField}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+    
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="" maxlength="50">
+            <mat-error class="con-error" *ngIf="hireForm.controls.email.errors?.email">
+              Please enter valid data
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>Hired On</mat-label>
+            <input matInput readonly required [matDatepicker]="hiredon" [min]="minDate" [max]="maxDate"
+              placeholder="DD-MM-YYYY" formControlName="hiredon" (click)="hiredon.open()">
+            <mat-datepicker-toggle class="datepicker" matSuffix [for]="hiredon"></mat-datepicker-toggle>
+            <mat-datepicker #hiredon></mat-datepicker>
+            <mat-error class="con-error" *ngIf="hireForm.controls.hiredon.errors?.required">
+              {{requiredOption}}
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>Joining Date</mat-label>
+            <input matInput readonly required [matDatepicker]="dateofjoin" [min]="minHireDate" [max]="joinDate"
+              placeholder="DD-MM-YYYY" formControlName="dateofjoin" (click)="dateofjoin.open()">
+            <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofjoin"></mat-datepicker-toggle>
+            <mat-datepicker #dateofjoin></mat-datepicker>
+            <mat-error class="con-error" *ngIf="hireForm.controls.dateofjoin.errors?.required">
+              {{requiredOption}}
+            </mat-error>
+          </mat-form-field>
+    
+    
+        </div>
+    
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+    
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>Designation</mat-label>
+            <mat-select formControlName="designation" required>
+              <ng-container>
+                <span *ngFor="let list of designationsList">
+                  <mat-option [value]="list.id">{{list.designation}}</mat-option>
+                </span>
+              </ng-container>
+            </mat-select>
+            <mat-error class="con-error" *ngIf="hireForm.controls.designation.errors?.required">
+              {{requiredOption}}
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>Mobile Number</mat-label>
+            <input formControlName="mobile" maxlength="10" (keypress)=_keyPress($event) required matInput placeholder="">
+            <mat-error class="con-error" *ngIf="hireForm.controls.mobile.errors?.required">
+              {{requiredField}}
+            </mat-error>
+            <mat-error class="con-error" *ngIf="hireForm.get('mobile').hasError('pattern')">
+              Please enter valid mobile number
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <mat-label>Emergency Contact Number</mat-label>
+            <input formControlName="alternatenumber" matInput placeholder="" required maxlength="10" (keypress)=_keyPress($event)>
+            <mat-error class="con-error" *ngIf="hireForm.controls.alternatenumber.errors?.required">
+              {{requiredField}}
+            </mat-error>
+            <mat-error class="con-error" *ngIf="hireForm.get('alternatenumber').hasError('pattern')">
+              Please enter valid mobile number
+            </mat-error>
+          </mat-form-field>
+        </div>
+    
+        <div fxLayoutAlign="center">
+          <button *ngIf="!isUpdate" class="col-md-1 btn btn-primary mx-2 my-2" (click)="submit()" type="submit">
+            <span>Submit</span>
+          </button>
+          <button *ngIf="isUpdate" class="col-md-1 btn btn-primary mx-2 my-2" (click)="submit()" type="submit">
+            <span>Update</span>
+          </button>
+    
+          <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="cancel()">
+            <span>Cancel</span>
+          </button>
+          <br />
+        </div>
+    
+      </form>
+</div>
+<div *ngIf="isNewhireList">
+
+
+
   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="space-between center">
           
             <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
@@ -12,7 +137,7 @@
          <div fxLayout="row" style="margin-right: 2%;" fxLayoutAlign.xs="center">
            <span >
             <button mat-icon-button style="padding-right: 40px;" (click)="newHire()" matTooltip="New Hire">
-              <mat-icon style="font-size: 40px;">add_circle</mat-icon>
+              <mat-icon style="font-size: 40px;color: #28acaf;">add_circle</mat-icon>
                      </button>
          </span>
         </div>
@@ -53,7 +178,7 @@
                      </td>
                 </ng-container>
                 <ng-container matColumnDef="email">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header > Email </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header >Personal Email ID </th>
                     <td mat-cell *matCellDef="let row" >
                         <span>{{row.personal_email}} </span>
                      </td>
@@ -72,7 +197,9 @@
                         <button mat-icon-button matTooltip="Edit" *ngIf="row.status == 'Hired' ">
                             <mat-icon (click)="editEmployee($event,row)">edit</mat-icon>
                         </button>
-                         <mat-icon title="Joined" *ngIf="row.status != 'Hired' ">edit</mat-icon>
+                        <button mat-icon-button matTooltip="Candidate data" *ngIf="row.status == 'Hired' ">
+                            <mat-icon (click)="editCandidateData($event,row)">save</mat-icon>
+                        </button>
                       </td>
                 </ng-container>
 
@@ -82,8 +209,8 @@
                         <td class="mat-cell" colspan="8" style="text-align: center;">No data found</td>
                     </tr>
             </table>
-            <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5,10,20]"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
         </div>
     </div>
-
+</div>
 </div>

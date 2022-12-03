@@ -1,9 +1,10 @@
 <div fxLayout="column">
+  <mat-card-header class="">
+    <mat-card-title> Work Location </mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider><br />
   <form [formGroup]="worklocationForm" autocomplete="off">
-    <mat-card-header class="">
-      <mat-card-title> Work Location </mat-card-title>
-    </mat-card-header>
-    <mat-divider></mat-divider><br />
+
     <div *ngIf="isadd">
       <div *ngIf="ishide">
         <mat-card>
@@ -49,11 +50,11 @@
           />
           <!-- <mat-error class="con-error"
                             *ngIf="employeeAddForm.controls.contactnumber.errors?.required">
-                            {{msgLM1}}
+                            {{msgEM1}}
                         </mat-error>
                         <mat-error class="con-error"
                             *ngIf="employeeAddForm.controls.contactnumber.errors?.minlength">
-                            {{msgLM2}}
+                            {{msgEM3}}
                         </mat-error> -->
           <!-- <input *ngIf="isview" formControlName="contactnumber" matInput placeholder="" > -->
         </mat-form-field>
@@ -73,7 +74,7 @@
           />
           <!-- <mat-error class="con-error"
                             *ngIf="employeeAddForm.controls.personalemail.errors?.required">
-                            {{msgLM1}}
+                            {{msgEM1}}
                         </mat-error> -->
 
           <!-- <input *ngIf="isview"  formControlName="personalemail" matInput placeholder="" > -->
@@ -92,7 +93,7 @@
             maxlength="100"
           />
           <!-- <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.required">
-                          {{msgLM1}}
+                          {{msgEM1}}
                         </mat-error> -->
         </mat-form-field>
       </div>
@@ -116,7 +117,7 @@
             class="con-error"
             *ngIf="worklocationForm.controls.country.errors?.required"
           >
-            {{ msgLM3 }}
+            {{ msgEM2 }}
           </mat-error>
         </mat-form-field>
 
@@ -139,7 +140,7 @@
             class="con-error"
             *ngIf="worklocationForm.controls.state.errors?.required"
           >
-            {{ msgLM3 }}
+            {{ msgEM2 }}
           </mat-error>
         </mat-form-field>
         <mat-form-field
@@ -161,7 +162,7 @@
             class="con-error"
             *ngIf="worklocationForm.controls.city.errors?.required"
           >
-            {{ msgLM3 }}
+            {{ msgEM2 }}
           </mat-error>
         </mat-form-field>
       </div>
@@ -226,7 +227,7 @@
             class="con-error"
             *ngIf="worklocationForm.controls.seed.errors?.required"
           >
-            {{ msgLM1 }}
+            {{ msgEM1 }}
           </mat-error>
         </mat-form-field>
       </div>
@@ -242,7 +243,7 @@
           class="col-md-1 btn btn-primary mx-2 my-2"
           [disabled]="!worklocationForm.valid"
           (click)="submit()"
-          type="button"
+          type="submit"
           *ngIf="!isview"
         >
           <span>Submit</span>
@@ -264,7 +265,7 @@
         </button>
       </div>
     </div>
-
+  </form>
     <div *ngIf="isdata">
       <div
         fxLayout="row"
@@ -285,6 +286,13 @@
       <div fxLayout="column" class="tableP">
         <div class="mat-elevation-z1">
           <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="sno">
+              <th mat-header-cell *matHeaderCellDef>S.No</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                {{ i + 1 + paginator.pageIndex * paginator.pageSize }}
+              </td>
+            </ng-container>
+
             <ng-container matColumnDef="city-branch">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 City-Branch
@@ -357,10 +365,11 @@
               </td>
             </tr>
           </table>
-
-          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+          <mat-paginator
+            [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"
+          ></mat-paginator>
         </div>
       </div>
     </div>
-  </form>
+
 </div>

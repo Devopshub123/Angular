@@ -15,6 +15,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 
 
 import * as _moment from 'moment';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 
@@ -90,45 +91,23 @@ export class UserLeaveRequestComponent implements OnInit {
   submitted:boolean=false;
   documentId:any=null;
   documentInfo:any=null;
+  employeeEmailData: any = [];
+  employeeId: any;
 
-
-  constructor(private sanitizer:DomSanitizer,private router: Router,private location:Location,private LM:LeavesService,private formBuilder: FormBuilder,private dialog: MatDialog,private spinner: NgxSpinnerService,private LMSC:CompanySettingService) {
+  constructor(private sanitizer: DomSanitizer, private router: Router, private location: Location,
+    private LM: LeavesService, private formBuilder: FormBuilder, private dialog: MatDialog,
+    private spinner: NgxSpinnerService, private LMSC: CompanySettingService,private emsService: EmsService) {
     this.formData = new FormData();
     this.getDurationFoBackDatedLeave();
     this.getleavecyclelastmonth();
     this.leaveInfo = this.location.getState();
     this.leaveData = this.leaveInfo.leaveData;
-    // this.newLeaveRequest.leaveType = this.leaveData ? this.leaveData.leavetypeid : '';
-    // this.leaveRequestForm.controls.id.setValue(this.leaveData?this.leaveData.id:'')
-    // this.newLeaveRequest.toDate = this.leaveData ? new Date(this.leaveData.todate) : '';
-    // this.newLeaveRequest.fromDateHalf = this.leaveData ? this.leaveData.fromhalfdayleave == '0' ? false : true : false;
-    // this.newLeaveRequest.toDateHalf = this.leaveData ? this.leaveData.tohalfdayleave == '0' ? false : true : false;
-    // this.newLeaveRequest.leavecount = this.leaveData ? this.leaveData.leavecount : '';
-    // this.newLeaveRequest.reason = this.leaveData ? this.leaveData.leavereason : '';
-    // this.getDaystobedisabledfromdate();
-    // this.getDaystobedisabledtodate();
-    // this.newLeaveRequest.contact = this.leaveData ? this.leaveData.contactnumber : this.usersession.contactnumber;
-    // // this.newLeaveRequest.emergencyContact = this.leaveData ? this.leaveData.contactnumber : '';
-    // this.newLeaveRequest.emergencyEmail = this.leaveData ? this.leaveData.contactemail : '';
-    // this.newLeaveRequest.compoffApprovedDate = this.leaveData ? this.leaveData.worked_date : '';
-    //
-    //
-    // this.newLeaveRequest.empid = this.usersession.id;
-    //
-
-
-
-
-
-
-
-
-
   }
   activeModule:any;
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.employeeId = this.userSession.id;
     this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
 
     this.leaveRequestForm = this.formBuilder.group({
@@ -142,7 +121,7 @@ export class UserLeaveRequestComponent implements OnInit {
       leaveCount:['',Validators.required],
       reason:['',Validators.required],
       contact:[this.userSession.contactnumber,Validators.required],
-      emergencyEmail:[''],
+      emergencyEmail:['',[Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       document:['']
 
     });
@@ -170,7 +149,7 @@ export class UserLeaveRequestComponent implements OnInit {
 
     this.getDaystobedisabledfromdate();
     this.getDaystobedisabledtodate();
-
+    this.getEmployeeEmailData();
 
     this.leaveRequestForm.get('leaveTypeId')?.valueChanges.subscribe((selectedValue:any) => {
       if(selectedValue) {
@@ -253,6 +232,12 @@ export class UserLeaveRequestComponent implements OnInit {
     this.leaveRequestForm.get('fromDateHalf')?.valueChanges.subscribe((selectedValue:any) => {
       // if(selectedValue) {
         this.changeHalfs();
+      // }
+    });
+    this.leaveRequestForm.get('compoffApprovedDate')?.valueChanges.subscribe((selectedValue:any) => {
+      // if(selectedValue) {
+
+      this.getDaystobedisabledfromdate();
       // }
     });
 
@@ -372,52 +357,64 @@ async  getLeavesTypeInfo() {
   getDaystobedisabledfromdate() {
     // this.spinner.show()
     // var info = this.LM.getDaysToBeDisabledFromDate(this.userSession.id, this.newLeaveRequest.id ? this.newLeaveRequest.id : null).then((result) => {
-
-      var info = this.LM.getDaysToBeDisabledFromDate(this.userSession.id,  this.leaveData?this.leaveData.id:null).then((result) => {
-
-      if (result && result.status) {
-        this.fromdate = result.data;
-        for (var i = 0; i < result.data.length; i++) {
-          (result.data[i].first_half && result.data[i].second_half) ? this.holidays.push(new Date(result.data[i].edate+' ' +'00:00:00')) : this.FromDatesHalfDays.push(result.data[i]);
-
-        }
-
-        this.fromDateFilter = (d: Date): boolean => {
-          let isValid=true;
-          this.holidays.forEach((e:any) => {
-            if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
-              isValid=false;
-            }
-          });
-          return isValid;
-        }
-
-
-
-        this.leaveRequestForm.get("fromDate").setValue(this.leaveData?new Date(this.leaveData.fromdate):'',{emitEvent:false})
-
-
-        // if(this.leaveData && (!this.leaveRequestForm.controls.toDateHalf.value || !this.leaveRequestForm.controls.fromDateHalf.value )){
-        //   if(this.leaveData.leavetypeid == 9){
-        //     this.changeCompOffFromDate(new Date(this.leaveData.fromdate))
-        //   }else{
-        //     this.changeFromDate(new Date(this.leaveData.fromdate));
-        //     this.changeToDate(new Date(this.leaveData.todate))
-        //       this.leaveRequestForm.controls.fromDateHalf.setValue(true,{emitEvent:false})
-        //       this.leaveRequestForm.controls.toDateHalf.setValue(this.leaveData ? this.leaveData.tohalfdayleave === '0' ? false : true : false)
-        //
-        //
-        //
-        //   }
-        //
-        // }
-        // else{
-        //   // this.spinner.hide()
-        // }
-
-
+    if(this.leaveRequestForm.controls.leaveTypeId.value == 9 && this.leaveRequestForm.controls.compoffApprovedDate.value){
+      let info = {
+        employeeId : this.userSession.id,
+        leaveId : this.leaveData ? this.leaveData.id : null,
+        workedDateValue:this.leaveRequestForm.controls.compoffApprovedDate.value
       }
-    });
+
+      this.LM.getDaysToBeDisabledForFromDateCompOff(info).then((result) => {
+
+        if (result && result.status) {
+          this.fromdate = result.data;
+          for (var i = 0; i < result.data.length; i++) {
+            (result.data[i].first_half && result.data[i].second_half) ? this.holidays.push(new Date(result.data[i].edate + ' ' + '00:00:00')) : this.FromDatesHalfDays.push(result.data[i]);
+
+          }
+
+          this.fromDateFilter = (d: Date): boolean => {
+            let isValid = true;
+            this.holidays.forEach((e: any) => {
+              if (this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')) {
+                isValid = false;
+              }
+            });
+            return isValid;
+          }
+
+          this.leaveRequestForm.get("fromDate").setValue(this.leaveData ? new Date(this.leaveData.fromdate) : '', {emitEvent: false})
+
+        }
+      });
+
+    } else {
+
+
+     this.LM.getDaysToBeDisabledFromDate(this.userSession.id, this.leaveData ? this.leaveData.id : null).then((result) => {
+
+        if (result && result.status) {
+          this.fromdate = result.data;
+          for (var i = 0; i < result.data.length; i++) {
+            (result.data[i].first_half && result.data[i].second_half) ? this.holidays.push(new Date(result.data[i].edate + ' ' + '00:00:00')) : this.FromDatesHalfDays.push(result.data[i]);
+
+          }
+
+          this.fromDateFilter = (d: Date): boolean => {
+            let isValid = true;
+            this.holidays.forEach((e: any) => {
+              if (this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')) {
+                isValid = false;
+              }
+            });
+            return isValid;
+          }
+
+          this.leaveRequestForm.get("fromDate").setValue(this.leaveData ? new Date(this.leaveData.fromdate) : '', {emitEvent: false})
+
+        }
+      });
+    }
   }
 
   async getDaystobedisabledtodate() {
@@ -444,7 +441,7 @@ async  getLeavesTypeInfo() {
         // this.leaveRequestForm.controls.fromDateHalf.setValue(this.leaveData ? this.leaveData.fromhalfdayleave == '0' ? false : true : false,{emitEvent:false})
         // this.leaveRequestForm.controls.toDateHalf.setValue(this.leaveData ? this.leaveData.tohalfdayleave == '0' ? false : true : false,{emitEvent:false})
         this.leaveRequestForm.controls.relation.setValue(this.leaveData ? this.leaveData.bereavement_id?this.leaveData.bereavement_id.toString():'':'',{emitEvent:false})
-        this.leaveRequestForm.controls.compoffApprovedDate.setValue(this.leaveData ? this.leaveData.worked_date?this.leaveData.worked_date:'':'',{emitEvent:false})
+        this.leaveRequestForm.controls.compoffApprovedDate.setValue(this.leaveData ? this.leaveData.worked_date?this.leaveData.worked_date:'':'')
 
 
       }
@@ -452,53 +449,13 @@ async  getLeavesTypeInfo() {
     })
   }
 
-  // disabledCalender(){
-  //
-  // }
-  // setApplyLeave(){
-  //
-  // }
-
   number:number=0;
   cancel(val:any){
 
     if(this.leaveData){
       this.router.navigate([this.leaveData.URL])
     }
-    // this.leaveRequestForm.reset();
-    // this.leaveRequestForm.clearValidators();
-    // this.leaveRequestForm.markAsPristine();
-    // this.leaveRequestForm.markAsUntouched();
-    // this.leaveRequestForm.controls.leaveTypeId.updateValueAndValidity();
-    // this.leaveRequestForm.controls.leaveCount.disable();
-    // this.leaveRequestForm.controls.contact.setValue(this.userSession.contactnumber);
-
-
-    // this.leaveRequestForm.controls.leaveTypeId.setErrors(null);
-    // this.document = false;
-    // this.leaveRequestForm.controls.fromDate.setErrors(null);
-    // this.leaveRequestForm.controls.toDate.setErrors(null);
-    // this.leaveRequestForm.controls.fromDateHalf.setErrors(null);
-    // this.leaveRequestForm.controls.toDateHalf.setErrors(null);
-    // this.leaveRequestForm.controls.leaveCount.setErrors(null);
-    // this.leaveRequestForm.controls.reason.setErrors(null);
-    // this.leaveRequestForm.controls.reason.setErrors(null);
-    // this.leaveRequestForm.controls.contact.setErrors(null);
-    // this.leaveRequestForm.controls.emergencyEmail.setErrors(null);
-    // this.leaveRequestForm.controls.compoffApprovedDate.setErrors(null);
-    // this.leaveRequestForm.controls.relation.setErrors(null);
-    // this.leaveRequestForm.controls.document.setErrors(null);
-    // this.leaveRequestForm.controls.toDate.clearValidators();
-    // this.leaveRequestForm.controls.toDate.updateValueAndValidity();
-    // this.leaveRequestForm.controls.fromDate.clearValidators();
-    // this.leaveRequestForm.controls.fromDate.updateValueAndValidity();
-
-
-//     this.number += val;
-//     if(this.number == 1){
-// this.document=false;
-
-      this.leaveRequestForm = this.formBuilder.group({
+  this.leaveRequestForm = this.formBuilder.group({
         leaveTypeId: ['',Validators.required],
         compoffApprovedDate:[''],
         relation:[''],
@@ -514,18 +471,6 @@ async  getLeavesTypeInfo() {
 
       })
     this.leaveRequestForm.controls.leaveCount.disable();
-
-
-    // this.leaveRequestForm.controls.markAsPristine()
-      //
-      // this.leaveRequestForm.controls.markAsUntouched();
-
-    // }else {
-    //   this.number=0;
-    //   this.router.navigate(['/LeaveManagement/UserDashboard'])
-    // }
-
-
   }
 
 
@@ -854,14 +799,15 @@ async  getLeavesTypeInfo() {
     if (this.leaveRequestForm.status === 'VALID') {
         if (this.leaveRequestForm.controls.fromDate.value <= this.leaveRequestForm.controls.toDate.value) {
         this.setValidateLeave();
-        if (this.isValidateLeave && this.validEventLeave()) {
+          if (this.isValidateLeave && this.validEventLeave()) {
+            let leavetypename = '';
+            this.leavesTypeData.forEach((e: any) => {
+              if (e.id == this.leaveRequestForm.controls.leaveTypeId.value) {
+                leavetypename = e.display_name;
+              }
+            })
           if (this.isFile) {
-            // if (this.document) {
-            //   this.LM.setUploadDocument(this.formData, this.userSession.id, 'google').subscribe((results) => {
-            //   })
-            // }
-
-            let obj={
+             let obj={
               'id':this.leaveData?this.leaveData.id:'',
               'empid':this.userSession.id,
               'fromDate':this.pipe.transform(this.leaveRequestForm.controls.fromDate.value, 'yyyy-MM-dd'),
@@ -875,8 +821,12 @@ async  getLeavesTypeInfo() {
               'reason':this.leaveRequestForm.controls.reason.value,
               'contact':this.leaveRequestForm.controls.contact.value,
               'emergencyEmail':this.leaveRequestForm.controls.emergencyEmail.value,
-              'document':this.leaveRequestForm.controls.document.value,
+               'document': this.leaveRequestForm.controls.document.value,
+              //**email data */
+               'emailData': this.employeeEmailData,
+               'leavetypename': leavetypename
             }
+       
             this.LM.setEmployeeLeave(obj).subscribe((result) => {
               if (result && result.status) {
                 if(!this.file){
@@ -900,9 +850,13 @@ async  getLeavesTypeInfo() {
                       }
                       this.LM.setFilesMaster(obj).subscribe((data) => {
                         if(data && data.status) {
-                          let info =JSON.stringify(data.data[0])
-                          this.LM.setProfileImage(this.formData, info).subscribe((data) => {
-                            // this.spinner.hide()
+                          let info =JSON.stringify(data.data[0]);
+                          this.formData.append("info",info)
+                          this.formData.append('file', this.file, this.file.name);
+                          this.LM.setProfileImage(this.formData).subscribe((data) => {
+
+                            this.formData.delete('file');
+                            this.formData.delete('info');   // this.spinner.hide()
                             if(data && data.status){
                               if(this.documentId){
                                 this.LMSC.removeImage(this.documentInfo).subscribe((data) => {})
@@ -914,10 +868,12 @@ async  getLeavesTypeInfo() {
 
                             }
                             this.file = null;
-                            this.formData.delete('file');
+
+
 
                           });
                         }else{
+
                           this.LM.deleteFilesMaster(result.data[0].id).subscribe(data=>{})
                           // this.getUploadImage();
                           // this.dialog.open(ConfirmationComponent, {
@@ -947,6 +903,7 @@ async  getLeavesTypeInfo() {
 
               }
               else {
+
                 this.open({'Message': this.msgLM119},'8%','500px','250px',false,"/LeaveManagement/UserDashboard")
 
               }
@@ -1133,6 +1090,8 @@ async  getLeavesTypeInfo() {
     this.LM.getApprovedCompoffs(obj).subscribe((result) => {
       if (result && result.status) {
         this.compOffApprovedDates = result.data;
+        this.leaveRequestForm.controls.compoffApprovedDate.setValue(this.leaveData ? this.leaveData.worked_date?this.leaveData.worked_date:'':'')
+
       }
 
     });
@@ -1247,7 +1206,6 @@ file:any;
 
     if(pdf[pdf.length-1] == 'pdf'){
       this.isFile = true;
-      this.formData.append('file', this.file, this.file.name);
       this.setValidateLeave()
     }else{
       this.ispdf=true;
@@ -1276,6 +1234,12 @@ file:any;
   {
     this.leaveRequestForm.controls.document.setValue("");
   }
-
+  getEmployeeEmailData() {
+    this.employeeEmailData = [];
+    this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+       })
+}
 
 }

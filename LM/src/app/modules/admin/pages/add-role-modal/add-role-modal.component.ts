@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import {CompanySettingService } from 'src/app/services/companysetting.service';
 import {RoleMasterService} from 'src/app/services/role-master.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 @Component({
   selector: 'app-add-role-modal',
   templateUrl: './add-role-modal.component.html',
@@ -10,20 +11,22 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 })
 export class AddRoleModalComponent implements OnInit {
  isCustomRoleSubmitted:boolean = false;
-  constructor(private RM:RoleMasterService,private CS:CompanySettingService,private dialog: MatDialog,private dialogRef: MatDialogRef<AddRoleModalComponent>) { }
+  constructor(private RM:RoleMasterService,private CS:CompanySettingService,
+    private dialog: MatDialog,private dialogRef: MatDialogRef<AddRoleModalComponent>,
+    private emsService:EmsService) { }
   role:any= {};
-  msgLM1:any='';
-  msgLM52:any='';
-  msgLM87:any='';
-  msgLM93:any='';
+  msgEM1:any='';
+  msgEM107:any='';
+  msgEM108:any='';
+  msgEM106:any='';
   isRoleAlreadyExists:boolean=false;
   roleMasters:any=[];
   ngOnInit(): void {
     this.getRoleMaster();
-    this.getErrorMessages('LM1');
-    this.getErrorMessages('LM52');
-    this.getErrorMessages('LM87');
-    this.getErrorMessages('LM93');
+    this.getMessages('EM1');
+    this.getMessages('EM107');
+    this.getMessages('EM108');
+    this.getMessages('EM106');
   }
   addRole(roleTypeForm:any) {
     this.isCustomRoleSubmitted = true;
@@ -34,14 +37,14 @@ export class AddRoleModalComponent implements OnInit {
             let dialogRef1 = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
-              data: this.msgLM87
+              data: this.msgEM108
             });
         }
         else {
             let dialogRef1 = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
-              data: this.msgLM93
+              data: this.msgEM106
             });
         }
       });
@@ -63,25 +66,29 @@ export class AddRoleModalComponent implements OnInit {
       this.roleMasters = this.roleMasters.data[0]
     })
   }
-  getErrorMessages(errorCode:any) {
-
-    this.CS.getErrorMessages(errorCode,1,1).subscribe((result)=>{
-
-      if(result.status && errorCode == 'LM1')
+  getMessages(messageCode:any) {
+    let data =
+    {
+      "code": messageCode,
+      "pagenumber": 1,
+      "pagesize": 1
+    }
+    this.emsService.getMessagesListApi(data).subscribe((result: any) => {
+      if(result.status && messageCode == 'EM1')
       {
-        this.msgLM1 = result.data[0].errormessage
+        this.msgEM1 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM52')
+      else if(result.status && messageCode == 'EM107')
       {
-        this.msgLM52 = result.data[0].errormessage
+        this.msgEM107 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM87')
+      else if(result.status && messageCode == 'EM108')
       {
-        this.msgLM87 = result.data[0].errormessage
+        this.msgEM108 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM93')
+      else if(result.status && messageCode == 'EM106')
       {
-        this.msgLM93 = result.data[0].errormessage
+        this.msgEM106 = result.data[0].message
       }
 
     })

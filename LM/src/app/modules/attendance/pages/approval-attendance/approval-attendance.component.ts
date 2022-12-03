@@ -9,6 +9,7 @@ import { DialogComponent } from '../../dialog/dialog.component';
 import { AttendanceService } from '../../attendance.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AdminService } from 'src/app/modules/admin/admin.service';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 @Component({
   selector: 'app-approval-attendance',
   templateUrl: './approval-attendance.component.html',
@@ -33,10 +34,13 @@ export class ApprovalAttendanceComponent implements OnInit {
   reqSave: any;
     reqNotSave: any;
     reqReject: any;
-    reqNotReject: any;
+  reqNotReject: any;
+  employeeEmailData: any = [];
+  employeeId: any;
   constructor(private formBuilder: FormBuilder, private activeroute: ActivatedRoute,
     private location:Location,public dialog: MatDialog,private router:Router,
-     private attendanceService: AttendanceService,private adminService: AdminService) { }
+    private attendanceService: AttendanceService, private adminService: AdminService,
+    private emsService: EmsService) { }
 
   ngOnInit(): void {
     // if (this.activeroute.snapshot.params.userData !=null){
@@ -45,8 +49,8 @@ export class ApprovalAttendanceComponent implements OnInit {
     this.userData = this.location.getState();
    if(this.userData.userData ==null && this.userData.userData ==undefined ){
     this.router.navigate(["/Attendance/ApprovalList"],);
-   }
-   this.getMessagesList();
+    }
+    this.getMessagesList();
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd/MM/yyyy');
     this.requestform=this.formBuilder.group(
       {
@@ -65,7 +69,7 @@ export class ApprovalAttendanceComponent implements OnInit {
         this.isEdit=true;
       }
       this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
-
+      this.getEmployeeEmailData();
   }
   acceptApproval(){
     this.titleName="Approve"
@@ -96,7 +100,10 @@ export class ApprovalAttendanceComponent implements OnInit {
       "id":this.userData.userData.id,
       "approvercomments": this.reason,
       "actionby": this.userSession.id,
-      "approvelstatus": this.titleName=="Reject"?'Rejected':'Approved'
+        "approvelstatus": this.titleName == "Reject" ? 'Rejected' : 'Approved',
+        ///email data
+        "empData": this.userData.userData,
+      "emailData":this.employeeEmailData
 
     };
 
@@ -153,7 +160,14 @@ export class ApprovalAttendanceComponent implements OnInit {
     }
 
   })
- }
+  }
+  getEmployeeEmailData() {
+    this.employeeEmailData = [];
+    this.emsService.getEmployeeEmailDataByEmpid(this.userData.userData.raisedbyid)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+      })
+  }
 }
 
 

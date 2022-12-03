@@ -130,7 +130,7 @@ export class HrPendingApprovalsComponent implements OnInit {
   openDialogapprove():void{
     const dialogRef = this.dialog.open(ReusePopupComponent, {
       width: '565px',position:{top:`70px`},
-      data: {name: 'Approve Resignation',appliedDate:this.pendingapprovalForm.controls.appliedDate.value, releivingDate:this.sendrequestdate, requestedDate:this.sendrelivingdate,EM1:this.EM1}
+      data: {name: 'Approve Separation',appliedDate:this.pendingapprovalForm.controls.appliedDate.value, releivingDate:this.sendrequestdate, requestedDate:this.sendrelivingdate,EM1:this.EM1}
     });
 
     dialogRef.afterClosed().subscribe(result => {

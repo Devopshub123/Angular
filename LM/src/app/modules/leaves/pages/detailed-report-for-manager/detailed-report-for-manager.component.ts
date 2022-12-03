@@ -202,7 +202,7 @@ export class DetailedReportForManagerComponent implements OnInit {
   getDesignation(){
     let obj={
       tableName:'designationsmaster',
-      status:'Active',
+      status:1,
       pageNumber:1,
       pageSize:1000,
       databaseName:this.companyDBName

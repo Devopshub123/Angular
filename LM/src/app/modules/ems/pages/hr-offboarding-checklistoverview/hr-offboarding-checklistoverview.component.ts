@@ -83,7 +83,7 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
       });
     this.hrOnboardingForm=this.formBuilder.group(
       {
-      searchDate: [],        
+      searchDate: [],
       statusUpdate: ["",],
       searchName: ["",],
       });
@@ -147,7 +147,7 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
       name: null,
       date: this.searchdate,
       eid: null,
-      did:this.userSession.deptid
+      did: null//this.userSession.deptid
     }
     this.emsService.getEmployeTerminationPendingChecklist(data).subscribe((res: any) => {
       if (res.status) {
@@ -183,12 +183,19 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
         this.selectedChecklists.push(cid);
         this.selection.select(row);
       }
+      const selectedBox = this.selectedChecklists.length;
+      const totalRows = this.checklistDataSource.data.length;
+      if (selectedBox === totalRows) {
+        this.isdisable = false;
+      }
 
     } else {
       const index = this.selectedChecklists.indexOf(cid);
       if (index > -1) {
         this.selectedChecklists.splice(index, 1);
         this.selection.deselect(row);
+        this.isdisable = true;
+        this.checked =false
       }
     }
   }
@@ -228,7 +235,7 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
         position: { top: `70px` },
         disableClose: true,
         data:"Please select checklist"
-      });  
+      });
     }
   }
   cancel() {

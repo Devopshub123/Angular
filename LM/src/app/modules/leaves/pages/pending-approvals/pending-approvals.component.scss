@@ -1,8 +1,22 @@
 .mat-card{
-  padding: 0px !important;
+//  padding: 0px !important;
   border:2px solid #F5F5DC;
 }
 .mat-elevation-z8 {
   overflow-x: none !important;
 }
+::ng-deep {
+  .mat-select-panel[aria-label="Items per page:"] {
+    mat-option:last-child:before {
+      content: 'All';
+    }
+  }
+}
 
+::ng-deep {
+  .mat-select-panel[aria-label="Items per page:"] {
+    mat-option:last-child .mat-option-text {
+      display: none;
+    }
+  }
+}

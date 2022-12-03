@@ -23,13 +23,11 @@ import { HrOnboardingComponent } from './pages/hr-onboarding/hr-onboarding.compo
 import { HrOnboardingChecklistComponent } from './pages/hr-onboarding-checklist/hr-onboarding-checklist.component';
 import { HrOffboardingChecklistComponent } from './pages/hr-offboarding-checklist/hr-offboarding-checklist.component';
 import { ChecklistMeetComponent } from './pages/checklist-meet/checklist-meet.component';
-import { HrOnboardingChecklistoverviewComponent } from './pages/hr-onboarding-checklistoverview/hr-onboarding-checklistoverview.component';
 import { HrOffboardingChecklistoverviewComponent } from './pages/hr-offboarding-checklistoverview/hr-offboarding-checklistoverview.component';
 import { EmployeeChecklistComponent } from './pages/employee-checklist/employee-checklist.component';
 import { EmployeeProfileComponent } from './pages/employee-profile/employee-profile.component';
 import { InductionComponent } from './pages/induction/induction.component';
 import { UsersLoginComponent } from './pages/users-login/users-login.component';
-import { InductionProgramComponent } from './pages/induction-program/induction-program.component';
 import { NewHireListComponent } from './pages/new-hire-list/new-hire-list.component';
 import { DeptResignationPendingchecklistComponent } from './pages/dept-resignation-pendingchecklist/dept-resignation-pendingchecklist.component';
 
@@ -42,9 +40,9 @@ const routes: Routes = [
       { path: 'terminate', component: TerminateComponent,canActivate:[LMSAccessGuard] },
       { path: 'resignation',component:ResignationComponent,canActivate:[LMSAccessGuard]},
       { path: 'empInformation',component:EmployeeInfoComponent,canActivate:[LMSAccessGuard]},
-      { path: 'settings-checklist',component:SettingsAddChecklistComponent,canActivate:[LMSAccessGuard]},
-      { path: 'settings-offBoarding',component:SettingsOffBoardingComponent,canActivate:[LMSAccessGuard]},
-      { path: 'settings-onBoarding',component:SettingsOnBoardingComponent,canActivate:[LMSAccessGuard]},
+     // { path: 'settings-checklist',component:SettingsAddChecklistComponent,canActivate:[LMSAccessGuard]},
+      //{ path: 'settings-offBoarding',component:SettingsOffBoardingComponent,canActivate:[LMSAccessGuard]},
+      //{ path: 'settings-onBoarding',component:SettingsOnBoardingComponent,canActivate:[LMSAccessGuard]},
       { path: 'emloyee-report',component:EmployeereportComponent,canActivate:[LMSAccessGuard]},
       { path: 'hr-resignation',component:HrResignationComponent,canActivate:[LMSAccessGuard]},
       { path: 'employeeDirectory',component:EmployeeDirectoryComponent,canActivate:[LMSAccessGuard]},
@@ -54,17 +52,15 @@ const routes: Routes = [
       { path: 'termination-checklist-department',component:HrOffboardingChecklistComponent,canActivate:[LMSAccessGuard]},
       { path: 'induction-program',component:ChecklistMeetComponent,canActivate:[LMSAccessGuard]},
       { path:'termination-pendinging-checklist',component:HrOffboardingChecklistoverviewComponent,canActivate:[LMSAccessGuard]},
-      { path:'onboarding-checklistoverview',component:HrOnboardingChecklistoverviewComponent,canActivate:[LMSAccessGuard]},
-      { path:'announcement',component:AnnouncementsComponent,canActivate:[LMSAccessGuard]},
+     // { path:'announcement',component:AnnouncementsComponent,canActivate:[LMSAccessGuard]},
       { path:'assign-checklist',component:AssignChecklistComponent,canActivate:[LMSAccessGuard]},
       { path:'hr-document-approval',component:HrDocumentApprovalComponent,canActivate:[LMSAccessGuard]},
       { path:'hr-pending-approval',component:HrPendingApprovalsComponent,canActivate:[LMSAccessGuard]},
-      { path:'configure-documents',component:ConfigureDocumentsComponent,canActivate:[LMSAccessGuard]},
+      //{ path:'configure-documents',component:ConfigureDocumentsComponent,canActivate:[LMSAccessGuard]},
       { path:'employee-checklist',component:EmployeeChecklistComponent,canActivate:[LMSAccessGuard]},
       { path:'employee-profile',component:EmployeeProfileComponent,canActivate:[LMSAccessGuard]},
-      { path:'induction',component:InductionComponent,canActivate:[LMSAccessGuard]},
-      { path:'users-login',component:UsersLoginComponent,canActivate:[LMSAccessGuard]},
-      { path:'onboardingchecklist',component:InductionProgramComponent,canActivate:[LMSAccessGuard]},
+     // { path:'induction',component:InductionComponent,canActivate:[LMSAccessGuard]},
+      //{ path:'users-login',component:UsersLoginComponent,canActivate:[LMSAccessGuard]},
       { path:'new-hired-list',component:NewHireListComponent,canActivate:[LMSAccessGuard]},
       { path:'resignation-pendingchecklist-department',component:DeptResignationPendingchecklistComponent,canActivate:[LMSAccessGuard]},
     ]

@@ -9,8 +9,8 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 
 
 import { LoginService } from 'src/app/services/login.service';
-import Validation from '../confirm-password.validator';
-
+import { ConfirmPasswordValidator} from '../confirm-password.validator';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
@@ -28,26 +28,27 @@ export class ChangePasswordComponent implements OnInit {
   isvalid:boolean=false;
   isView:boolean=true;
   empId: any;
-  msgLM1:any='This Field is Requird';
-  msgLM2:any;
-  msgLM4:any;
-  msgLM5:any;
-  msgLM56:any;
+  msgEM1:any='This Field is Requird';
+  msgEM3:any;
+  msgEM128:any;
+  msgEM129:any;
+  msgEM132:any;
   hide1 = true;
   hide2 = true;
   hide3 = true;
 
-  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private router: Router,private ts: LoginService) {
+  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private router: Router,
+    private ts: LoginService,private emsService:EmsService) {
     this.changePasswordAddObj =  new changePassword();
    }
    @ViewChild("chngfrm", {static: true}) form: any;
   passwordPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9].{8,20})"
   ngOnInit() {
-    this.getErrorMessages('LM1')
-    this.getErrorMessages('LM2')
-    this.getErrorMessages('LM4')
-    this.getErrorMessages('LM5')
-    this.getErrorMessages('LM56')
+    this.getMessages('EM1')
+    this.getMessages('EM3')
+    this.getMessages('EM128')
+    this.getMessages('EM129')
+    this.getMessages('EM132')
     this.changePasswordform=this.formBuilder.group(
       {
         oldPassword:["",Validators.required],
@@ -55,7 +56,8 @@ export class ChangePasswordComponent implements OnInit {
         confirmPassword: [""],
         },
         {
-          validators: [Validation.match('password', 'confirmPassword')]
+          // validators: [Validation.match('password', 'confirmPassword')]
+          validator: ConfirmPasswordValidator("password", "confirmPassword")
         }
       );
     this.usersession =  sessionStorage.getItem('user')
@@ -99,7 +101,7 @@ export class ChangePasswordComponent implements OnInit {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
                 position:{top:`70px`},
                 disableClose: true,
-                data: this.msgLM56
+                data: this.msgEM132
               });
               let login = "/Login/"+sessionStorage.getItem('companyName')
               sessionStorage.removeItem('user')
@@ -131,29 +133,33 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
-  getErrorMessages(errorCode:any) {
-
-    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
-
-      if(result.status && errorCode == 'LM1')
+  getMessages(messageCode:any) {
+    let data =
+    {
+      "code": messageCode,
+      "pagenumber": 1,
+      "pagesize": 1
+    }
+    this.emsService.getMessagesListApi(data).subscribe((result: any) => {
+      if(result.status && messageCode == 'EM1')
       {
-        this.msgLM1 = result.data[0].errormessage
+        this.msgEM1 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM2')
+      else if(result.status && messageCode == 'EM3')
       {
-        this.msgLM2 = result.data[0].errormessage
+        this.msgEM3 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM4')
+      else if(result.status && messageCode == 'EM128')
       {
-        this.msgLM4 = result.data[0].errormessage
+        this.msgEM128 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM5')
+      else if(result.status && messageCode == 'EM129')
       {
-        this.msgLM5 = result.data[0].errormessage
+        this.msgEM129 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM56')
+      else if(result.status && messageCode == 'EM132')
       {
-        this.msgLM56 = result.data[0].errormessage
+        this.msgEM132 = result.data[0].message
       }
 
     })

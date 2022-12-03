@@ -35,12 +35,20 @@ export class MainDashboardComponent implements OnInit {
   compoff: any;
   showError: boolean = false;
   private unsubscriber: Subject<void> = new Subject<void>();
-  companyDBName:any = environment.dbName;
-  constructor(private AMS: LoginService, private mainService: MainService,
-    private sideMenuService: SideMenuService, private router: Router,
-    private emsService: EmsService, private companyService: CompanySettingService,
-    private LM: LeavesService, private attendanceService: AttendanceService,
-    private spinner:NgxSpinnerService,private dialog: MatDialog,private formBuilder: FormBuilder) {
+  companyDBName: any = environment.dbName;
+  constructor(
+    private AMS: LoginService,
+    private mainService: MainService,
+    private sideMenuService: SideMenuService,
+    private router: Router,
+    private emsService: EmsService,
+    private companyService: CompanySettingService,
+    private LM: LeavesService,
+    private attendanceService: AttendanceService,
+    private spinner: NgxSpinnerService,
+    private dialog: MatDialog,
+    private formBuilder: FormBuilder
+  ) {
     this.getCompoffleavestatus();
     this.data = sessionStorage.getItem('user');
     this.usersession = JSON.parse(this.data);
@@ -97,6 +105,7 @@ export class MainDashboardComponent implements OnInit {
   teamLeavesData: boolean = false;
   teamAttendanceData: boolean = false;
   leavesRequestData: any = [];
+  employeesLeaveList: any = [];
   isManager: boolean = false;
   requestData: any;
   requestType: string = '';
@@ -146,8 +155,8 @@ export class MainDashboardComponent implements OnInit {
     this.AMS.getModules('modulesmaster', null, 1, 100).subscribe((result) => {
       if (result && result.status) {
         this.allModuleDetails = result.data;
-
-      }   });
+      }
+    });
   }
 
   getCompoffleavestatus() {
@@ -299,6 +308,11 @@ export class MainDashboardComponent implements OnInit {
                 this.router.navigate(['/LeaveManagement/ReviewAndApprovals'], {
                   state: { leaveData: this.requestData, isleave: true },
                 });
+              }
+              else if (this.requestType == 'ReviewAndApprovals') {
+                this.router.navigate(['/LeaveManagement/ReviewAndApprovals'],
+                { state: { leaveData: this.requestData ,isleave:true}
+              });
               } else {
                 if (this.usersession.firstlogin == 'Y') {
                   this.router.navigate(['/ChangePassword']);
@@ -351,12 +365,17 @@ export class MainDashboardComponent implements OnInit {
   }
 
   getReportingManagerForEmp() {
+    this.reportingManager = [];
+    this.empReportingManager = '';
     this.emsService
       .getReportingManagerForEmp(this.usersession.id)
       .subscribe((res: any) => {
         if (res && res.status) {
-          this.reportingManager = res.data;
-          this.empReportingManager = this.reportingManager[0] ? this.reportingManager[0].managername:null;
+          if(res.data.length>0){
+            this.reportingManager = res.data;
+            this.empReportingManager = this.reportingManager[0].managername;
+          }
+
         }
       });
   }
@@ -432,20 +451,11 @@ export class MainDashboardComponent implements OnInit {
     this.getrolescreenfunctionalities(4, true);
     //  this.router.navigate(["/Attendance/Request"], { state: { userData: this.requestData } });
   }
-
-  getPendingAttendanceRequestListByEmpId() {
-    this.notificationsData = [];
-    this.teamAttendanceData = true;
-    this.attendanceService
-      .getPendingAttendanceListByManagerEmpId(this.usersession.id)
-      .subscribe((res: any) => {
-        if (res.status) {
-          this.notificationsData = res.data;
-        } else {
-          this.notificationsData = [];
-        }
-      });
+  leaverequest(){
+    this.router.navigate(["/LeaveManagement/LeaveRequest"]);
   }
+
+
 
   approveRequest(element: any) {
     this.requestData = element;
@@ -476,7 +486,7 @@ export class MainDashboardComponent implements OnInit {
 
   onSelectFile(event: any) {
     this.isRemoveImage = false;
-    this.imageurls = [];
+    // this.imageurls = [];
     this.file = null;
     this.file = event.target.files[0];
     this.fileImageToggler();
@@ -500,7 +510,7 @@ export class MainDashboardComponent implements OnInit {
   getDocumentsEMS() {
     let input = {
       employeeId: this.usersession.id,
-      candidateId: 0,
+      candidateId: null,
       moduleId: 1,
       filecategory: 'PROFILE',
       requestId: null,
@@ -509,51 +519,51 @@ export class MainDashboardComponent implements OnInit {
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
       //this.documentDetails = [];
       if (result && result.status) {
-        this.profileId = result.data[0].id;
-        this.profileInfo = JSON.stringify(result.data[0]);
-        this.mainService
-          .getDocumentOrImagesForEMS(result.data[0])
-          .subscribe((imageData) => {
-            if (imageData.success) {
-              let TYPED_ARRAY = new Uint8Array(imageData.image.data);
-              const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
-                return data + String.fromCharCode(byte);
-              }, '');
+        if (result.data.length > 0) {
+          this.profileId = result.data[0].id;
+          this.profileInfo = JSON.stringify(result.data[0]);
+          this.mainService
+            .getDocumentOrImagesForEMS(result.data[0])
+            .subscribe((imageData) => {
+              if (imageData.success) {
+                let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+                const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
+                  return data + String.fromCharCode(byte);
+                }, '');
 
-              let base64String = btoa(STRING_CHAR);
-              this.imageurls[0].base64String =
-                'data:image/png;base64,' + base64String;
-            } else {
-              this.isRemoveImage = false;
-              this.imageurls = [
-                {
-                  base64String: 'assets/img/profile.jpg',
-                },
-              ];
-            }
-          });
+                let base64String = btoa(STRING_CHAR);
+                this.imageurls[0].base64String =
+                  'data:image/png;base64,' + base64String;
+              } else {
+                this.isRemoveImage = false;
+                this.imageurls = [
+                  {
+                    base64String: 'assets/img/profile.jpg',
+                  },
+                ];
+              }
+            });
+        }
       }
     });
   }
 
   saveImage(flag: boolean) {
-    this.formData.append('file', this.file);
     if (this.file) {
       if (this.file.size <= 1024000) {
-        console.log('file name--', this.file.name);
-        this.editProfile();
+        this.saveNewImage();
       } else {
         // this.dialog.open(ConfirmationComponent, {
         //   position: {top: `70px`},
         //   disableClose: true,
-        //   data:{Message:this.LM117,url: '/LeaveManagement/EditProfile'}
+        //   data:{Message:this.LM117,url: '/LeaveManagement/saveNewImage'}
         // });
       }
     } else {
-      //this.editProfile()
+      //this.saveNewImage()
     }
   }
-  editProfile() {
+  saveNewImage() {
     this.spinner.show();
     {
       this.LM.getFilepathsMaster(1).subscribe((result) => {
@@ -573,7 +583,11 @@ export class MainDashboardComponent implements OnInit {
           this.mainService.setFilesMasterForEMS(data).subscribe((res) => {
             if (res && res.status) {
               let info = JSON.stringify(res.data[0]);
-              this.LM.setProfileImage(this.formData, info).subscribe((res) => {
+              this.formData.append('info', info);
+              this.formData.append('file', this.file);
+              this.LM.setProfileImage(this.formData).subscribe((res) => {
+                this.formData.delete('file');
+                this.formData.delete('info');
                 this.spinner.hide();
                 if (res && res.status) {
                   if (this.profileId) {
@@ -586,6 +600,9 @@ export class MainDashboardComponent implements OnInit {
                     disableClose: true,
                     data: 'Image uploaded successfully',
                   });
+                  this.router
+                    .navigateByUrl('/', { skipLocationChange: true })
+                    .then(() => this.router.navigate(['/MainDashboard']));
                 } else {
                   let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: { top: `70px` },
@@ -596,7 +613,7 @@ export class MainDashboardComponent implements OnInit {
                 this.file = null;
                 this.getDocumentsEMS();
                 this.isRemoveImage = true;
-                this.formData.delete('file');
+
               });
             } else {
               this.spinner.hide();
@@ -623,13 +640,28 @@ export class MainDashboardComponent implements OnInit {
       });
     }
   }
-
+  getMyTeamApprovals(){
+    this.getPendingAttendanceRequestListByEmpId();
+    this.getLeavesForApprovals();
+  }
+  getPendingAttendanceRequestListByEmpId() {
+    this.notificationsData = [];
+    this.teamAttendanceData = true;
+    this.attendanceService
+      .getPendingAttendanceListByManagerEmpId(this.usersession.id)
+      .subscribe((res: any) => {
+        if (res.status) {
+          this.notificationsData = res.data;
+        } else {
+          this.notificationsData = [];
+        }
+      });
+  }
   getLeavesForApprovals() {
     this.teamLeavesData = true;
     this.leavesRequestData = [];
     this.LM.getLeavesForApprovals(this.usersession.id).subscribe((res: any) => {
-      //this.spinner.hide();
-      if (res.status) {
+        if (res.status) {
         this.leavesRequestData = res.data;
       } else {
       }
@@ -640,8 +672,29 @@ export class MainDashboardComponent implements OnInit {
     this.requestType = 'LeaveRequest';
     this.requestData.url = '/LeaveManagement/ManagerDashboard';
     this.getrolescreenfunctionalities(2, true);
-    // this.router.navigate(['/LeaveManagement/ReviewAndApprovals'], {
-    //   state: { leaveData: this.requestData, isleave: true },
-    // });
+  }
+
+  leaveReviewAndApprovals(leave:any){
+    this.requestData = leave;
+    this.requestType = 'ReviewAndApprovals';
+    this.requestData.url = '/LeaveManagement/ManagerDashboard';
+    this.getrolescreenfunctionalities(2, true);
+  //  leave.url = '/LeaveManagement/ManagerDashboard'
+  //  this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: leave ,isleave:true} });
+    }
+  getCurrentLeaveEmployees() {
+    this.teamLeavesData = true;
+    this.employeesLeaveList = [];
+    this.LM.getApprovedLeaves(this.usersession.id).subscribe((res: any) => {
+      if (res.status) {
+        if (res.data.length > 0) {
+          res.data.forEach((e: any) => {
+            this.employeesLeaveList.push(e);
+          });
+        }
+      } else {
+        this.employeesLeaveList = [];
+      }
+    });
   }
 }

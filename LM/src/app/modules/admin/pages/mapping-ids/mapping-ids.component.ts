@@ -20,7 +20,7 @@ export class MappingIdsComponent implements OnInit {
   mappingIdsForm!: FormGroup;
   pipe = new DatePipe('en-US');
   todayWithPipe: any;
-  displayedColumns: string[] = ['id', 'biometricid', 'empid', 'empname'];
+  displayedColumns: string[] = ['sno', 'biometricid', 'empid', 'empname'];
   dataSource: MatTableDataSource<any> = <any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;

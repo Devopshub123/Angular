@@ -71,10 +71,10 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   userData: any;
   pageLoading = true;
   messagesDataList: any = [];
-requiredField: any;
-requiredOption: any;
-dataSaved: any;
-dataNotSaved: any;
+  requiredField: any;
+  requiredOption: any;
+  dataSaved: any;
+  dataNotSaved: any;
   disableDates:any= [];
   datesList: any;
   weekoffs: any;
@@ -242,6 +242,8 @@ dataNotSaved: any;
             disableClose: true,
             data: "Unable to request. please configure the shift before request"
           });
+          this.requestform.controls.fromDate.reset();
+          return;
         }
 
 

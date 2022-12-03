@@ -1,9 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl, FormArray, ValidationErrors, ValidatorFn} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { PopupComponent,PopupConfig } from '../../../../pages/popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
-import { OnlyNumberDirective } from 'src/app/custom-directive/only-number.directive';
 import { LoginService } from 'src/app/services/login.service';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
@@ -11,13 +9,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatSelect } from '@angular/material/select';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 import { ComfirmationDialogComponent } from 'src/app/pages/comfirmation-dialog/comfirmation-dialog.component';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 
@@ -56,22 +54,20 @@ export class HolidaysComponent implements OnInit {
   ischecked:boolean=false;
   enable:any=null;
   selecteditems:any=[];
-  msgLM1:any;
-  msgLM2:any;
-  msgLM3:any;
-  msgLM23:any
-  msgLM49:any;
-  msgLM48:any;
-  msgLM47:any;
-  msgLM69:any;
-  msgLM106:any;
-  msgLM105:any;
+  msgEM1:any;
+  msgEM2:any;
+  msgEM126:any;
+  msgEM127:any;
+  msgEM125:any;
+  msgEM114:any;
+  msgEM116:any;
+  msgEM115:any;
   pipe = new DatePipe('en-US');
   page = 1;
   count = 0;
   tableSize = 10;
   tableSizes = [10, 25, 50, 'All'];
-  displayedColumns: string[] = ['holiday','date','day','location','action'];
+  displayedColumns: string[] = ['sno','holiday','date','day','location','action'];
   dataSource: MatTableDataSource<any>=<any>[];
 
   pageLoading=true;
@@ -81,7 +77,9 @@ export class HolidaysComponent implements OnInit {
   sort!: MatSort;
   userSession: any;
   companyDBName:any = environment.dbName;
-  constructor(private formBuilder: FormBuilder,private router: Router,private LM:CompanySettingService,private dialog: MatDialog,private ts:LoginService) { }
+  constructor(private formBuilder: FormBuilder,private router: Router,
+    private LM:CompanySettingService,private dialog: MatDialog,private ts:LoginService,
+    private emsService:EmsService) { }
 
   selectAll(select: MatSelect, values:any, array:any) {
         this.ishide = true;
@@ -107,16 +105,16 @@ export class HolidaysComponent implements OnInit {
   //   }
   // }
   ngOnInit(): void {
-    this.getErrorMessages('LM1')
-    this.getErrorMessages('LM2')
-    this.getErrorMessages('LM3')
-    this.getErrorMessages('LM23')
-    this.getErrorMessages('LM47')
-    this.getErrorMessages('LM48')
-    this.getErrorMessages('LM49')
-    this.getErrorMessages('LM69')
-    this.getErrorMessages('LM105')
-    this.getErrorMessages('LM106')
+    this.getMessages('EM1')
+    this.getMessages('LM2')
+    this.getMessages('LM3')
+    this.getMessages('LM23')
+    this.getMessages('EM125')
+    this.getMessages('EM127')
+    this.getMessages('EM126')
+    this.getMessages('EM114')
+    this.getMessages('EM115')
+    this.getMessages('EM116')
     this.getWorkLocation();
     this.getHolidays(null,null);
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
@@ -162,7 +160,7 @@ export class HolidaysComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.msgLM69
+            data: this.msgEM114
           });
 
 
@@ -171,7 +169,7 @@ export class HolidaysComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: this.msgLM47
+            data: this.msgEM125
           });
 
           // Swal.fire({title:data.message,color:"red",showCloseButton: true});
@@ -246,7 +244,7 @@ export class HolidaysComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: this.msgLM106
+          data: this.msgEM116
         });
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
           this.router.navigate(["/Admin/Holidays"]));
@@ -254,7 +252,7 @@ export class HolidaysComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: this.msgLM48
+          data: this.msgEM127
         });
 
 
@@ -306,7 +304,7 @@ export class HolidaysComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: this.msgLM105
+          data: this.msgEM115
         });
 
 
@@ -318,52 +316,52 @@ export class HolidaysComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: this.msgLM49
+          data: this.msgEM126
         });
 
-        // Swal.fire({title:this.msgLM49,color:"red",showCloseButton: true});
+        // Swal.fire({title:this.msgEM126,color:"red",showCloseButton: true});
       }
     })
   }
-  getErrorMessages(errorCode:any) {
-
-    this.ts.getErrorMessages(errorCode,1,1).subscribe((result)=>{
-
-      if(result.status && errorCode == 'LM1')
+  getMessages(messageCode:any) {
+    let data =
+    {
+      "code": messageCode,
+      "pagenumber": 1,
+      "pagesize": 1
+    }
+    this.emsService.getMessagesListApi(data).subscribe((result: any) => {
+      if(result.status && messageCode == 'EM1')
       {
-        this.msgLM1 = result.data[0].errormessage
+        this.msgEM1 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM2')
+      else if(result.status && messageCode == 'LM3')
       {
-        this.msgLM2 = result.data[0].errormessage
+        this.msgEM2 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM3')
+      else if(result.status && messageCode == 'EM114')
       {
-        this.msgLM3 = result.data[0].errormessage
+        this.msgEM114 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM69')
+      else if(result.status && messageCode == 'EM126')
       {
-        this.msgLM69 = result.data[0].errormessage
+        this.msgEM126 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM49')
+      else if(result.status && messageCode == 'EM125')
       {
-        this.msgLM49 = result.data[0].errormessage
+        this.msgEM125 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM47')
+      else if(result.status && messageCode == 'EM127')
       {
-        this.msgLM47 = result.data[0].errormessage
+        this.msgEM127 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM50')
+      else if(result.status && messageCode == 'EM115')
       {
-        this.msgLM48 = result.data[0].errormessage
+        this.msgEM115 = result.data[0].message
       }
-      else if(result.status && errorCode == 'LM105')
+      else if(result.status && messageCode == 'EM116')
       {
-        this.msgLM105 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM106')
-      {
-        this.msgLM106 = result.data[0].errormessage
+        this.msgEM116 = result.data[0].message
       }
 
     })

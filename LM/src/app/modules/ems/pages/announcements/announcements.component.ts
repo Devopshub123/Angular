@@ -84,7 +84,7 @@ export class AnnouncementsComponent implements OnInit {
   pageLoading = true;
   mindate: any;
   minAnounceDate:any=new Date();
-  
+
   issavedraft:boolean=true;
   displayedColumns: string[] = ['sno','topic','title','publishedon','publishedTo','status','action'];
   dataSource: MatTableDataSource<any>=<any>[];
@@ -124,7 +124,7 @@ export class AnnouncementsComponent implements OnInit {
     });
 
     this.announcementForm.get('fromdate')?.valueChanges.subscribe((selectedValue:any) => {
-    
+
       this.minAnounceDate = selectedValue._d==undefined?this.minAnounceDate:selectedValue._d;
       console.log(this.minAnounceDate)
     })
@@ -143,7 +143,7 @@ export class AnnouncementsComponent implements OnInit {
     this.ishide = false;
     this.isview = true;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/ems/announcement"]));
+            this.router.navigate(["/Admin/announcement"]));
   }
   edit(event: any, data: any) {
     console.log(this.minAnounceDate)
@@ -162,7 +162,7 @@ export class AnnouncementsComponent implements OnInit {
     this.isview = false;
     this.isedit = false;
     this.isviewdata = false;
-    
+
     // this.announcementForm.controls.topic.setvalue(data.topicid)
     this.announcementForm.controls.topic.setValue(data.topicid);
     this.announcementForm.controls.title.setValue(data.title);
@@ -188,7 +188,7 @@ export class AnnouncementsComponent implements OnInit {
 
         if(res.status ){
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/ems/announcement"]));
+            this.router.navigate(["/Admin/announcement"]));
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
@@ -247,7 +247,7 @@ export class AnnouncementsComponent implements OnInit {
         if(this.isedit){
           if(res.status ){
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/ems/announcement"]));
+              this.router.navigate(["/Admin/announcement"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
@@ -268,7 +268,7 @@ export class AnnouncementsComponent implements OnInit {
         else{
           if(res.status ){
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/ems/announcement"]));
+              this.router.navigate(["/Admin/announcement"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
@@ -311,7 +311,7 @@ export class AnnouncementsComponent implements OnInit {
         if(this.isedit){
           if(res.status ){
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/ems/announcement"]));
+              this.router.navigate(["/Admin/announcement"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
@@ -332,7 +332,7 @@ export class AnnouncementsComponent implements OnInit {
         else{
           if(res.status ){
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/ems/announcement"]));
+              this.router.navigate(["/Admin/announcement"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
@@ -373,7 +373,7 @@ export class AnnouncementsComponent implements OnInit {
 
         if(res.status ){
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/ems/announcement"]));
+            this.router.navigate(["/Admin/announcement"]));
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,

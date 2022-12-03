@@ -11,7 +11,7 @@
                         <span>
                             <p class="subh">Candidate Name: <span class="heading">{{employeeNameh}}</span></p>
                             <p class="subh">Designation: <span class="heading1">{{employeeDesignation}}</span>  </p>
-                            <p class="subh">Date of join: <span class="heading1"> {{employeeJoinDate | date:'dd-MM-yyyy'}}</span> </p>
+                            <p class="subh">Joining Date: <span class="heading1"> {{employeeJoinDate | date:'dd-MM-yyyy'}}</span> </p>
                             <p class="subh">Mobile: <span class="heading1">{{employeeMobile}} </span></p>
                         </span>
                     </div>
@@ -22,7 +22,7 @@
             <mat-tab-group animationDuration="0ms" [selectedIndex]="selectedtab.value" (selectedTabChange)="tabClick($event)"
             (selectedIndexChange)="selectedtab.setValue($event)" mat-stretch-tabs>
                 <!-- personal info tab -->
-                <mat-tab label="Personal">
+                <mat-tab label="Personal Info">
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="personalInfoForm">
                             <div class="section"><b>Personal Information</b></div>
@@ -141,8 +141,13 @@
                                     <input type="number" onlyNumber formControlName="uanNumber" matInput placeholder=""
                                         max="12" />
                                 </mat-form-field> -->
+                                <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.sm="50" class="mx-2 my-2"
+                                appearance="outline">
+                                <mat-label>Languages Spoken</mat-label>
+                                <input type="text" formControlName="spokenLanguages" matInput placeholder=""/>
+                            </mat-form-field>
 
-                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Mobile Number</mat-label>
                                     <input type="text" onlyNumber formControlName="mobileNo" matInput placeholder=""
                                         maxlength="10" minlength="10" required />
@@ -151,17 +156,13 @@
                                         </mat-error>
                                  </mat-form-field>
 
-                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Alternate Mobile</mat-label>
+                                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Emergency Contact Number</mat-label>
                                     <input type="text" onlyNumber formControlName="alternateMobileNo" matInput
                                         placeholder="" maxlength="10" minlength="10" />
                                 </mat-form-field>
 
-                                <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.sm="50" class="mx-2 my-2"
-                                appearance="outline">
-                                <mat-label>Languages Spoken</mat-label>
-                                <input type="text" formControlName="spokenLanguages" matInput placeholder=""/>
-                            </mat-form-field>
+                               
                             </div>
 
                             <div class="section"><b>Personal Contact Information</b></div>
@@ -405,7 +406,7 @@
                                     <ng-container matColumnDef="contact">
                                         <th mat-header-cell *matHeaderCellDef>Contact Number</th>
                                         <td mat-cell *matCellDef="let data">
-                                            {{ data.contactnumber }}
+                                            {{ data.contactnumber !='null' ? data.contactnumber:'' }}
                                         </td>
                                     </ng-container>
 
@@ -443,7 +444,7 @@
                     </div>
                 </mat-tab>
                  <!-- employement tab -->
-                <mat-tab label="Employment">
+                <mat-tab label="Work Experience">
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="employementForm">
                             <div class="section"><b>Work Experience</b></div>
@@ -503,7 +504,7 @@
                               <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="end">
                                 <span style="padding-top: 6%;">
                                     <button class="m-1 mat-stroked-button button-save" (click)="addWorkExperience()">
-                                        <span> Add </span>
+                                        <span> Save </span>
                                     </button>
                                     <button class="m-1 mat-stroked-button button-clear" (click)="clearWork()">
                                         Clear
@@ -564,14 +565,12 @@
                             </div>
 
                         <br>
-                            <div fxLayoutAlign="center" *ngIf="workExperienceDetails.length > 0">
+                            <!-- <div fxLayoutAlign="center" *ngIf="workExperienceDetails.length > 0">
                                 <button class="col-md-1 btn btn-primary mx-2 my-2" (click)="saveWorkExperience()"
                                     type="submit">
                                     <span>Save</span>
                                 </button>
-                                <!-- <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="personalInfoClear()">
-                                    <span>Cancel</span>
-                                </button> -->
+                              
                                 <br />
                             </div>
                         </form>
@@ -587,7 +586,7 @@
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Course</mat-label>
-                                    <input type="text" maxlength="100" specialIsAlpha formControlName="course" matInput placeholder=""
+                                    <input type="text" maxlength="100" formControlName="course" matInput placeholder=""
                                         appRemoveSpace required/>
                                         <mat-error class="reg-error" *ngIf="educationForm.controls.course.hasError('required')">
                                             {{EM1}}
@@ -701,7 +700,7 @@
                 </mat-tab>
 
                 <!-- document tab -->
-                <mat-tab label="Document">
+                <mat-tab label="Document Approval">
                     <div fxLayout="column" style="padding: 10px">
                         <form [formGroup]="documentsForm">
                             <div class="section"><b>Add Documents</b></div>
@@ -743,7 +742,7 @@
                                         <button class="link" *ngIf='isedit' >{{ editFileName }}</button>
 
                                     &nbsp;
-                                    <mat-icon title="cancel"  *ngIf=' documentsForm.controls.attachedFile.value' 
+                                    <mat-icon title="Delete"  *ngIf=' documentsForm.controls.attachedFile.value' 
                                     (click)="deleteIcon()">delete</mat-icon>
                                     <mat-icon title="edit"  *ngIf='isedit'
                                         (click)="delete()">edit</mat-icon>
@@ -775,7 +774,7 @@
                                     </ng-container>
 
                                     <ng-container matColumnDef="number">
-                                        <th mat-header-cell *matHeaderCellDef>Document number</th>
+                                        <th mat-header-cell *matHeaderCellDef>Document Number</th>
                                         <td mat-cell *matCellDef="let data">
                                             {{ data.document_number }}
                                         </td>

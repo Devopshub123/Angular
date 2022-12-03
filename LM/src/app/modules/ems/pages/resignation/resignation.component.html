@@ -1,10 +1,10 @@
-<div fxLayout="column">
+<div fxLayout="column" style="background-color: #f9fbfe;">
 
       <mat-card-header>
-        <mat-card-title> Request Resignation </mat-card-title>
+        <mat-card-title> Separation</mat-card-title>
       </mat-card-header>
       <form [formGroup]="resignForm" autocomplete="off">
-        <div *ngIf="isview" class="tableP">
+        <div *ngIf="this.isview" class="tableP">
 
           <span>
             Dear {{ empname }},<br />
@@ -31,17 +31,21 @@
           </span>
           <br />
           <br />
-          <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
-            <button class="col-md-2 mr-2 btn btn-primary" (click)="submit()">
-              Okay
+          <div fxLayoutAlign="center">
+            <button  class="col-md-1 btn btn-primary mx-2 my-2" (click)="submit()" type="submit">
+              <span>Proceed</span>
             </button>
-            <button class="col-md-2 btn btn-danger" (click)="close()">Cancel</button>
+             <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="cancel()">
+              <span>Cancel</span>
+            </button>
+            <br />
           </div>
+
           <br />
          </div>
-      <div *ngIf="ishide">
-        <mat-card>
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+         
+      <div *ngIf="this.ishide">
+         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
               <mat-label>Date of Request Resignation </mat-label>
               <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date1" placeholder="DD-MM-YYYY"
@@ -69,11 +73,14 @@
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
               <mat-label>Request Exit Date </mat-label>
               <input matInput [matDatepicker]="date3" [max]="max" [min]="min" placeholder="DD-MM-YYYY"
-                formControlName="exitdate" (click)="date3.open()" [disabled]="isviewdata" />
+                formControlName="exitdate" (click)="date3.open()" [disabled]="isviewdata" required/>
 
               <mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">
               </mat-datepicker-toggle>
               <mat-datepicker #date3></mat-datepicker>
+               <mat-error class="con-error" *ngIf="resignForm.controls.exitdate.errors?.required">
+                Please select an option
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -103,14 +110,13 @@
             <button class="col-md-2 mr-2 btn btn-primary" *ngIf="editing" (click)="editsaved()">
               Save
             </button>
-            <button class="col-md-2 btn btn-danger" (click)="cancel()">
+            <button class="col-md-2 btn btn-danger" (click)="clear()">
               Cancel
             </button>
           </div>
           <br />
-        </mat-card>
-        <div  class="mat-elevation-z1 tableP">
-
+         <div  class="tableP ">
+          <div class="mat-elevation-z1 ">
           <table mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="sno">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No</th>
@@ -152,7 +158,7 @@
                 <!-- <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon>
                   <mat-icon class="mr-2" title="Delete">delete</mat-icon> -->
                 <mat-icon (click)="edit($event, row)" *ngIf="row.status == 'Submitted'" title="Edit">edit</mat-icon>
-                <mat-icon (click)="view($event, row)" *ngIf="row.status == 'Cancelled'" title="view">visibility
+                <mat-icon (click)="view($event, row)"  title="view">visibility
                 </mat-icon>
                 <mat-icon (click)="view($event, row)" *ngIf="row.status == 'Rejected'" title="view">visibility
                 </mat-icon>
@@ -169,6 +175,7 @@
               </td>
             </tr>
           </table>
+        </div>
       </div>
       </div>
     </form>

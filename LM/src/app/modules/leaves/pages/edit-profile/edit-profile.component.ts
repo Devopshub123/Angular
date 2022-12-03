@@ -165,11 +165,11 @@ export class EditProfileComponent implements OnInit {
               disableClose: true,
               data: {
                 Message: this.LM118,
-                url: '/LeaveManagement/EditProfile',
+                url: '/MainDashboard',
               },
             });
           } else {
-            this.LM.getFilepathsMaster(2).subscribe((result) => {
+            this.LM.getFilepathsMaster(1).subscribe((result) => {
               if (result && result.status) {
                 let obj = {
                   id: this.profileId ? this.profileId : null,
@@ -185,8 +185,12 @@ export class EditProfileComponent implements OnInit {
                 this.LM.setFilesMaster(obj).subscribe((data) => {
                   if (data && data.status) {
                     let info = JSON.stringify(data.data[0]);
-                    this.LM.setProfileImage(this.formData, info).subscribe(
+                    this.formData.append('info',info);
+                    this.formData.append('file', this.file);
+                    this.LM.setProfileImage(this.formData).subscribe(
                       (data) => {
+                        this.formData.delete('file');
+                        this.formData.delete('info');
                         this.spinner.hide();
                         if (data && data.status) {
                           if (this.profileId) {
@@ -194,16 +198,17 @@ export class EditProfileComponent implements OnInit {
                               (data) => {}
                             );
                           }
-                          this.MainComponent.ngOnInit();
+                          this.MainComponent.getUploadImage();
                           this.dialog.open(ConfirmationComponent, {
                             position: { top: `70px` },
                             disableClose: true,
                             data: {
                               Message: this.LM118,
-                              url: '/LeaveManagement/EditProfile',
+                              url: '/MainDashboard',
                             },
                           });
                         } else {
+
                           this.dialog.open(ConfirmationComponent, {
                             position: { top: `70px` },
                             disableClose: true,
@@ -217,7 +222,9 @@ export class EditProfileComponent implements OnInit {
                         this.fileImageToggler();
                         this.getUploadImage();
                         this.isRemoveImage = true;
-                        this.formData.delete('file');
+                        // this.formData.delete('file');
+                        // this.formData.delete('info');
+
                       }
                     );
                   } else {
@@ -319,6 +326,7 @@ export class EditProfileComponent implements OnInit {
     this.file = event.target.files[0];
     this.fileImageToggler();
     if (event.target.files && event.target.files[0]) {
+      // this.imageurls = null;
       var filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
         var reader = new FileReader();
@@ -331,7 +339,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   saveImage(flag: boolean) {
-    this.formData.append('file', this.file);
     if (this.file) {
       if (this.file.size <= 1024000) {
         this.editProfile();

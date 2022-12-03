@@ -88,11 +88,13 @@ menu:NavItem[] =[];
   getLogo()
   {
     let info = {
-      'employeeId':0,
-      'filecategory': 'LOGO',
-      'moduleId':2,
-      'requestId':null,
-    }
+      employeeId: 0,
+      candidateId: null,
+      filecategory: 'LOGO',
+      moduleId: 2,
+      requestId: null,
+      status: 'Submitted',
+    };
     this.mainService.getFilesMaster(info).subscribe((result:any) => {
       if(result && result.status && result.data[0]){
           result.data[0].employeeId=0;

@@ -45,9 +45,10 @@ import { PreOnboardingDetailsComponent } from './pages/pre-onboarding-details/pr
 // import { NgChartsModule } from 'ng2-charts';
 import 'chartjs-adapter-date-fns';
 import { ComfirmationDialogComponent } from './pages/comfirmation-dialog/comfirmation-dialog.component';
+import { ReimbursementModule } from './modules/reimbursement/reimbursement.module';
+import { DecryptPipe, EncryptPipe } from './custom-directive/encrypt-decrypt.pipe';
 
 // import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-
 
  FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -55,7 +56,7 @@ import { ComfirmationDialogComponent } from './pages/comfirmation-dialog/comfirm
 ]);
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent,EncryptPipe, DecryptPipe,
     LoginComponent,
     HeaderComponent,
     SideNavComponent,
@@ -101,7 +102,8 @@ import { ComfirmationDialogComponent } from './pages/comfirmation-dialog/comfirm
     // BsDatepickerModule.forRoot(),
     // DatepickerModule.forRoot()
     AssetsModule,
-    // NgChartsModule
+    // NgChartsModule,
+    ReimbursementModule
 
   ],
 

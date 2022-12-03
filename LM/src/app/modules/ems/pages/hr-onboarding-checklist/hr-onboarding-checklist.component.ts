@@ -120,7 +120,6 @@ export class HrOnboardingChecklistComponent implements OnInit {
       category:"Onboarding",
       actionBy:this.userSession.id
     }
-    console.log(data);
     this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
       if (res.status) {
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

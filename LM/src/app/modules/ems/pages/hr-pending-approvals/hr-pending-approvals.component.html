@@ -1,6 +1,6 @@
 <div fxLayout="column">
   <mat-card-header>
-    <mat-card-title> Pending Approvals </mat-card-title>
+    <mat-card-title> Separation Pending Approvals </mat-card-title>
   </mat-card-header>
 
   <div *ngIf="ishide" class="tableP">
@@ -44,7 +44,7 @@
           </td>
         </tr>
       </table>
-      <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5,10, 20, 30]"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5,10, 20]"></mat-paginator>
     </div>
   </div>
   <div *ngIf="isview" style="padding-top: 10px">
@@ -59,7 +59,7 @@
           <input formControlName="empname" matInput placeholder="" readonly />
         </mat-form-field>
         <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-          <mat-label>Date of Request Resignation </mat-label>
+          <mat-label>Date of Request Separation </mat-label>
           <input matInput [readonly]="true" placeholder="DD-MM-YYYY" formControlName="appliedDate" [disabled]="true"
             [matDatepicker]="date" [min]="mindate" [max]="maxdate" />
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
