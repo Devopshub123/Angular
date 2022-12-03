@@ -2010,6 +2010,7 @@ export class EmployeeInfoComponent implements OnInit {
               let info = JSON.stringify(data.data[0])
               this.formData.append('file', this.file, this.file.name);
               this.formData.append('info',info);
+              this.formData.append('data',obj.status);
               this.mainService.setDocumentOrImageForEMS(this.formData).subscribe((data) => {
                 // this.spinner.hide()
                 this.formData.delete('file');

@@ -9,6 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ConfirmationComponent} from "../../dialog/confirmation/confirmation.component";
 import {Router} from "@angular/router";
 import { NgxSpinnerService } from 'ngx-spinner';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 
 
 @Component({
@@ -32,8 +33,10 @@ export class PendingCompoffComponent implements OnInit {
   LM116:any;
   LM119:any;
   pageLoading=true;
-  constructor(private LM:LeavesService,public dialog: MatDialog,private router: Router,private spinner:NgxSpinnerService) { }
-
+  constructor(private LM: LeavesService, public dialog: MatDialog, private router: Router,
+    private spinner: NgxSpinnerService,private EMS: EmsService) { }
+  employeeEmailData: any = [];
+  employeeId: any;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getCompoffForApprovals();
@@ -83,7 +86,10 @@ export class PendingCompoffComponent implements OnInit {
      return [5, 10, 20];
     }
   }
-
+  submit(compoff:any,status:any,approverId :any) {
+    this.employeeId = compoff.empid;
+    this.getEmployeeEmailData(compoff,status,approverId );
+  }
   compoffApprove(compoff:any,status:any,approverId :any){
     this.spinner.show();
 
@@ -97,7 +103,8 @@ export class PendingCompoffComponent implements OnInit {
     // };
     compoff.rmid = this.userSession.id;
     compoff.status = status;
-    compoff.remarks = compoff.remarks ?compoff.remarks: null;
+    compoff.remarks = compoff.remarks ? compoff.remarks : null;
+    compoff.emaildata = this.employeeEmailData;
 
     this.LM.setCompoffForApproveOrReject(compoff).subscribe((res: any) => {
       this.spinner.hide();
@@ -131,7 +138,7 @@ export class PendingCompoffComponent implements OnInit {
 
 
   }
-  compoffReject(compoff:any){
+  compoffReject(compoff:any,status:any,approverId :any){
     this.titleName="Reject"
     this.openDialog(compoff)
 
@@ -157,7 +164,8 @@ export class PendingCompoffComponent implements OnInit {
       if(result!=undefined ){
         if(result !==true){
           compoff.remarks = result.reason;
-          this.compoffApprove(compoff,'Rejected',null);
+          this.employeeId = compoff.empid;
+          this.getEmployeeEmailData(compoff,'Rejected',null)
         }
       }
     });
@@ -181,5 +189,13 @@ export class PendingCompoffComponent implements OnInit {
 
     })
   }
+  getEmployeeEmailData(compoff:any,status:any,approverId :any) {
+    this.employeeEmailData = [];
+    this.EMS.getEmployeeEmailDataByEmpid(this.employeeId)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
 
+        this.compoffApprove(compoff,status,approverId)
+      })
+}
 }

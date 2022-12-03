@@ -118,6 +118,7 @@ export class ChecklistMeetComponent implements OnInit {
   companyName: any;
   scheduledId: any;
   programName: any;
+  emailsList: any = [];
   employeeEmailData: any = [];
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private companyServices: CompanySettingService,private EMS:EmsService) {
 
@@ -127,7 +128,8 @@ export class ChecklistMeetComponent implements OnInit {
     this.getDepartmentsMaster();
     this.getDesignationsMaster();
     this.getProgramsMaster(null);
-    this.getProgramSchedules(null,null);
+    this.getProgramSchedules(null, null);
+    this.getEmployeeEmailData();
     this.dataSource.paginator = this.paginator;
     this.checklistForm = this.formBuilder.group(
       {
@@ -376,9 +378,10 @@ export class ChecklistMeetComponent implements OnInit {
         designation: this.checklistForm.controls.designation.value,
         actionby: this.userSession.id,
         //// email data
-        emails: this.employeeEmailData,
+        emails: this.emailsList,
         programName: this.programName,
-        programDate:this.pipe.transform(this.checklistForm.controls.date.value,'yyyy-MM-dd')
+        programDate: this.pipe.transform(this.checklistForm.controls.date.value, 'yyyy-MM-dd'),
+        emaildata:this.employeeEmailData
       };
 
       this.EMS.setProgramSchedules(data).subscribe((res: any) => {
@@ -465,7 +468,8 @@ export class ChecklistMeetComponent implements OnInit {
         department: this.checklistForm.controls.department.value,
         designation: this.checklistForm.controls.designation.value,
         actionby: this.userSession.id,
-        emails: this.employeeEmailData,
+        emails: this.emailsList,
+        emaildata:this.employeeEmailData
       };
        this.EMS.setProgramSchedules(data).subscribe((res: any) => {
          this.scheduleid = '';
@@ -585,7 +589,6 @@ export class ChecklistMeetComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    console.log(this.selection)
     this.isAllSelected() ?
         this.selection.clear() :
         this.dataSource2.data.forEach(row => this.selection.select(row));
@@ -649,6 +652,7 @@ export class ChecklistMeetComponent implements OnInit {
       status: 'Pending',
       actionby: this.userSession.id,
       email: this.allmails,
+      emaildata:this.employeeEmailData
     };
     this.EMS.setselectEmployeesProgramSchedules(data).subscribe(
       (result: any) => {
@@ -681,14 +685,21 @@ export class ChecklistMeetComponent implements OnInit {
     }
   }
   getInductionProgramAssignedEmployesList() {
-   this.employeeEmailData = [];
+   this.emailsList = [];
    let data = [];
     this.EMS.getInductionProgramAssignedEmployees(this.scheduledId)
       .subscribe((res: any) => {
          data = res.data;
         for (let i = 0; i < data.length; i++) {
-          this.employeeEmailData.push(data[i].officeemail);
+          this.emailsList.push(data[i].officeemail);
          }
       })
+  }
+  getEmployeeEmailData() {
+   this.employeeEmailData =[]
+    this.EMS.getEmployeeEmailDataByEmpid(this.userSession.id)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+       })
   }
 }
