@@ -15,6 +15,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { EmsService } from '../../ems.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AdminService } from 'src/app/modules/admin/admin.service';
+import { CompanySettingService } from 'src/app/services/companysetting.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-users-login',
@@ -46,18 +48,21 @@ export class UsersLoginComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-
+  companyName: any;
+  companyDBName:any = environment.dbName;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private ES: EmsService,
     public dialog: MatDialog,
-    private EM:AdminService
+    private EM: AdminService,
+    private companyServices: CompanySettingService
   ) {}
   userLoginList: any = [];
   ngOnInit(): void {
     this.getUserLoginData();
     this.getMessageList();
+    this.getCompanyInformation();
     this.usersloginForm = this.formBuilder.group({
       empname: [''],
       email: [''],
@@ -140,6 +145,7 @@ export class UsersLoginComponent implements OnInit {
         userid: this.usersloginForm.controls.userid.value,
         password: this.usersloginForm.controls.password.value,
         status: this.usersloginForm.controls.status.value,
+        companyname:this.companyName
       };
       this.ES.usersLogin(data).subscribe((res: any) => {
         if (res.status) {
@@ -196,6 +202,17 @@ export class UsersLoginComponent implements OnInit {
         }
 
       }
+
+    })
+
+  }
+  getCompanyInformation(){
+    this.companyServices.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
+      if(data.status && data.data.length!=0) {
+        this.companyName=data.data[0].companyname;
+
+      }else {
+        }
 
     })
 

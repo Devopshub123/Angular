@@ -125,6 +125,7 @@ export class ChecklistMeetComponent implements OnInit {
   }
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.getCompanyInformation();
     this.getDepartmentsMaster();
     this.getDesignationsMaster();
     this.getProgramsMaster(null);
@@ -652,7 +653,8 @@ export class ChecklistMeetComponent implements OnInit {
       status: 'Pending',
       actionby: this.userSession.id,
       email: this.allmails,
-      emaildata:this.employeeEmailData
+      emaildata: this.employeeEmailData,
+      companyname:this.companyName
     };
     this.EMS.setselectEmployeesProgramSchedules(data).subscribe(
       (result: any) => {
@@ -683,6 +685,21 @@ export class ChecklistMeetComponent implements OnInit {
 
       return [5, 10, 20];
     }
+  }
+  getCompanyInformation(){
+    this.companyServices.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
+      if(data.status && data.data.length!=0) {
+        this.companyName=data.data[0].companyname;
+
+      }else {
+        // this.enable=true;
+        // this.isSubmit=true;
+        // this.companyForm=[];
+
+      }
+
+    })
+
   }
   getInductionProgramAssignedEmployesList() {
    this.emailsList = [];
