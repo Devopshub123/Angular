@@ -327,8 +327,8 @@ export class EmsService {
     /** */
     getEmployeeEmailDataByEmpid(eid: any): any {
 
-      return this.http.get(this.mainUrl + 'ems/api/getEmailsByEmpid/' +eid,this.httpOptions);
-    } 
+      return this.http.get(this.mainUrl + 'ems/api/getEmailsByEmpid/' +eid+'/'+this.companyName,this.httpOptions);
+    }
 
   getActiveScheduleEmployeeList(sid: any): any {
     return this.http.get(this.mainUrl + 'ems/api/getActiveEmployeeProgramSchedules/'+ sid, this.httpOptions);

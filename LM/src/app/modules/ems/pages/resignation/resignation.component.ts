@@ -205,7 +205,6 @@ export class ResignationComponent implements OnInit {
     })
   }
   edit(event: any, data: any) {
-    console.log(data)
     this.isadd=false;
     this.editing=true;
     this.editdata = data;

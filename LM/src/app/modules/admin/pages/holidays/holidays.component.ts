@@ -136,7 +136,6 @@ export class HolidaysComponent implements OnInit {
     return this.HolidayForm.get("edu") as FormArray
   }
   submit() {
-    console.log("hello")
     if (this.HolidayForm.valid) {
       let location = this.HolidayForm.controls.branch.value;
       // let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];

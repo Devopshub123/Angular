@@ -50,7 +50,6 @@ export class ResetPasswordComponent implements OnInit {
     this.empid = JSON.parse(atob(params.token)).id;
     this.date = JSON.parse(atob(params.token)).date;
     this.companyName = JSON.parse(atob(params.token)).companyName;
-    console.log("jfkjbdjbb",this.companyName)
 
     if(this.date != this.currentDate){
       this.URL = true

@@ -26,7 +26,6 @@ import { environment } from 'src/environments/environment';
     constructor(private hClient: HttpClient) {
         this.userSession = ((sessionStorage.getItem('user')))
         this.companyName=sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null;
-        console.log("this.companyName",this.companyName)
     }
 
 

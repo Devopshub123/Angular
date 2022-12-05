@@ -76,7 +76,7 @@ export class TerminateComponent implements OnInit {
     this.getEmployeesTermination();
     this.terminateForm=this.formBuilder.group(
       {
-      dateoftermination: [new Date(),],        
+      dateoftermination: [new Date(),],
       reason: ["",],
       terminatecategory:["",Validators.required],
       empname:["",Validators.required],
@@ -84,8 +84,8 @@ export class TerminateComponent implements OnInit {
       exitin:["",],
       searchempname:[""],
       editdate:[""]
-      
-      
+
+
     });
   }
   applyFilter(event: Event) {
@@ -108,8 +108,7 @@ export class TerminateComponent implements OnInit {
 
   }
   edit(w: any, i: any){
-    console.log(i)
-    
+
     this.enable = i.id;
     this.isEdit = false;
     this.isSave = true;
@@ -118,7 +117,7 @@ export class TerminateComponent implements OnInit {
   close() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
           this.router.navigate(["/ems/terminate"]));
-    
+
   }
   view($event:any,rowdata:any){
     this.isterminate=true;
@@ -141,7 +140,7 @@ export class TerminateComponent implements OnInit {
     this.terminateForm.controls.dateoftermination.setValue(new Date(rowdata.termination_date));
     this.terminateForm.controls.terminatecategory.setValue(this.categiry);
     this.terminateForm.controls.reason.setValue(rowdata.comment);
-    
+
     // console.log(row)
 
   }
@@ -157,10 +156,9 @@ export class TerminateComponent implements OnInit {
         term_comment: this.terminateForm.controls.reason.value,
         actionby:this.userSession.id
       }
-    
+
     this.ES.setEmployeeTermination(data).subscribe((res: any) => {
       if(res.status && res.data == 0){
-        console.log(res.data)
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
           this.router.navigate(["/ems/terminate"]));
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -178,7 +176,7 @@ export class TerminateComponent implements OnInit {
         });
       }
      })
-  
+
     }
 
   }
@@ -213,11 +211,10 @@ export class TerminateComponent implements OnInit {
 
   }
   save($event:any,rowdata:any){
-    
+
     for(let i=0;i<this.terminationlist.length;i++){
       if(rowdata.category == this.terminationlist[i].category){
         this.categiry = this.terminationlist[i].id;
-        console.log(this.terminationlist[i].id)
         break;
       }
     }
@@ -256,16 +253,15 @@ export class TerminateComponent implements OnInit {
         });
       }
      })
-    
-   
+
+
 
   }
   revoke($event:any,rowdata:any){
-    
+
     for(let i=0;i<this.terminationlist.length;i++){
       if(rowdata.category == this.terminationlist[i].category){
         this.categiry = this.terminationlist[i].id;
-        console.log(this.terminationlist[i].id)
         break;
       }
     }
@@ -287,7 +283,6 @@ export class TerminateComponent implements OnInit {
     console.log(data)
     this.ES.setEmployeeTermination(data).subscribe((res: any) => {
       if(res.status && res.data == 0){
-        console.log(res.data)
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
           this.router.navigate(["/ems/terminate"]));
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -305,8 +300,8 @@ export class TerminateComponent implements OnInit {
         });
       }
      })
-    
-   
+
+
 
   }
   getPageSizes(): number[] {
@@ -317,6 +312,6 @@ export class TerminateComponent implements OnInit {
       return [5, 10, 20];
     }
   }
-  
+
 }
 

@@ -177,7 +177,6 @@ export class NewhireComponent implements OnInit {
     }
 
    this.adminService.getEMSMessagesList(data).subscribe((res:any)=>{
-     console.log("hdsbhbjhdbhhbhb",res)
      if(res.status) {
        this.messagesDataList = res.data;
        this.messagesDataList.forEach((e: any) => {

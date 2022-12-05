@@ -307,7 +307,6 @@ export class ChecklistMeetComponent implements OnInit {
   resetform() {}
 
   editRequest(data: any) {
-    console.log("dafasd-",data)
     this.isAdd = true;
     this.isdata = false;
     this.isView = false;
@@ -491,7 +490,7 @@ export class ChecklistMeetComponent implements OnInit {
         }
       });
     }
-    
+
   }
   viewProgram(data: any) {
     this.isAdd = true;
@@ -524,7 +523,7 @@ export class ChecklistMeetComponent implements OnInit {
         this.programViewdataSource = new MatTableDataSource(res.data);
         this.programViewdataSource.paginator = this.paginator1;
         this.pageLoading1 = false;
-     
+
       }
     );
   }

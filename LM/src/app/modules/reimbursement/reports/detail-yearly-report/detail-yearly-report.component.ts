@@ -39,7 +39,7 @@ export const MY_FORMATS = {
 })
 export class DetailYearlyReportComponent implements OnInit {
   List: any[] = [
-    
+
   ];
   employeelist: any;
   Users: any;
@@ -89,7 +89,7 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
     let userId = this.searchForm.controls.Users.value;
     if (userId == '0') {
       userId=null;
-    } 
+    }
     let data = {
       "manager_empid":this.userSession.id,
       'employee': userId,
@@ -104,7 +104,7 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
           e.breaks=e.breaks.split(',')
         }
       })
-      
+
       this.isLoading = false;
       this.dataSource = new MatTableDataSource(this.List);
       this.dataSource.paginator = this.paginator;
@@ -137,8 +137,8 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
     });
 
     dialogRef.afterClosed().subscribe(result => {
-          
-      
+
+
     });
   }
 
@@ -149,7 +149,6 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
     XLSX.utils.book_append_sheet(wb, ws, 'Detailed_Yearly_Report');
     /* save to file */
     XLSX.writeFile(wb, 'Detailed_Yearly_Report.xlsx');
-    console.log('hi')
 
   }
   getPageSizes(): number[] {

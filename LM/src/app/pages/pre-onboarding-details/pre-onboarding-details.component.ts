@@ -185,7 +185,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
             if (selectedStateValue != '') {
               this.companyService.getStatesc(selectedStateValue).subscribe((data) => {
                 this.permanentStateDetails = data[0]
-                console.log("state-1",this.personalInfoForm.controls.rstate.value)
                 if (this.personalInfoForm.controls.rstate.value != null) {
                   this.personalInfoForm.controls.pstate.setValue(this.personalInfoForm.controls.rstate.value);
                 }
@@ -199,8 +198,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
             if (selectedCityValue != '') {
               this.companyService.getCities(selectedCityValue).subscribe((data) => {
                 this.permanentCityDetails = data[0]
-                console.log("city-1",this.permanentCityDetails)
-                console.log("city-2",this.personalInfoForm.controls.rcity)
                 if (this.personalInfoForm.controls.rcity.value != null) {
                   this.personalInfoForm.controls.pcity.setValue(this.personalInfoForm.controls.rcity.value);
                 }

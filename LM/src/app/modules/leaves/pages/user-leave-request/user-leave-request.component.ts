@@ -826,7 +826,7 @@ async  getLeavesTypeInfo() {
                'emailData': this.employeeEmailData,
                'leavetypename': leavetypename
             }
-       
+
             this.LM.setEmployeeLeave(obj).subscribe((result) => {
               if (result && result.status) {
                 if(!this.file){
@@ -952,14 +952,14 @@ async  getLeavesTypeInfo() {
       if(result && result.status){
         this.documentId = result.data[0].id;
         this.documentInfo = JSON.stringify(result.data[0])
-        let documentName = result.data[0].filename.split('_')
-        var docArray=[];
-        for(let i=0;i<=documentName.length;i++){
-          if(i>2){
-            docArray.push(documentName[i])
-          }
-        }
-        this.pdfName = docArray.join('')
+        // let documentName = result.data[0].filename.split('_')
+        // var docArray=[];
+        // for(let i=0;i<=documentName.length;i++){
+        //   if(i>2){
+        //     docArray.push(documentName[i])
+        //   }
+        // }
+        this.pdfName = result.data[0].fname;
 
        result.data[0].employeeId=this.userSession.id;
        let info = result.data[0]

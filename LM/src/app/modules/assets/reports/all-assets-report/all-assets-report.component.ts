@@ -82,7 +82,6 @@ export class AllAssetsReportComponent implements OnInit {
       else {
         val.isSelected = false;
       }
-      console.log(item.value);
     });
   }
 ngAfterViewInit() {
@@ -100,10 +99,10 @@ applyFilter(event: Event) {
     const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Late_attendance_Report');
-    
+
     /* save to file */
     XLSX.writeFile(wb, 'Late_attendance_Report.xlsx');
-    
+
   }
 
   editRequest(event: any) {

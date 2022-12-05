@@ -54,7 +54,6 @@ export class ConfigureDocumentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    console.log(this.userSession.id);
     this.getstatuslist();
     this.getDocuments();
     this.documentTypeForm = this.formBuilder.group(

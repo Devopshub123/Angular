@@ -45,8 +45,6 @@ export class ReusePopupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("approve-",this.data.requestedDate)
-    console.log(" request-",this.data.releivingDate)
     this.form = this.formBuilder.group({
       'requestdate':[this.data.releivingDate],
       'approvedate':[this.data.requestedDate],

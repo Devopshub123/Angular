@@ -57,7 +57,6 @@ export class VendorDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("check1")
   this.dataSource.paginator = this.paginator;
     this.vendorDetailsForm = this.formBuilder.group(
       {

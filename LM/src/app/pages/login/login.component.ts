@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   issubmit:boolean= false;
   companyName:any;
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
-    private tss: LoginService, private router: Router, private emsService: EmsService,) { }
+    private tss: LoginService, private router: Router, private emsService: EmsService,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit() {
     let params: any = this.activatedRoute.snapshot.params;
@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
           let empdata = data.result[0];
           this.employeeId = empdata.id;
           sessionStorage.setItem('user', JSON.stringify(empdata));
+          sessionStorage.setItem('companyName', this.companyName);
           if (empdata.firstlogin == "Y") {
             this.router.navigate(['/Attendance/ChangePassword'])
           }
@@ -69,8 +70,8 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/MainDashboard'])
             this.getEmployeeEmailData();
           }
-          
-                  
+
+
         }
         else {
           this.router.navigate(['/Login']);

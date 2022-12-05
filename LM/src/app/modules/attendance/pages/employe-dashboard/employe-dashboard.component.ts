@@ -212,7 +212,6 @@ export class EmployeDashboardComponent implements OnInit {
 
       this.sampleElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link');
       var closeElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link.fc-more-link');
-      console.log(this.sampleElement);
       for(var j=0;j<this.sampleElement.length;j++)
       {
         this.calendarCount[j] = this.sampleElement[j].innerHTML.substring(0, this.sampleElement[j].innerHTML.length - 4)

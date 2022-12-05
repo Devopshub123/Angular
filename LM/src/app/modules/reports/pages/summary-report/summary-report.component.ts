@@ -41,7 +41,7 @@ export const MY_FORMATS = {
 })
 export class SummaryReportComponent implements OnInit {
   List: any[] = [
-    
+
   ];
   employeelist: any;
   Users: any;
@@ -61,7 +61,7 @@ export class SummaryReportComponent implements OnInit {
   months=[{id:0,month:'Jan'},{id:1,month:'Feb'},{id:2,month:'Mar'},{id:3,month:'Apr'},{id:4,month:'May'},{id:5,month:'Jun'},{id:6,month:'Jul'},{id:7,month:'Aug'},{id:8,month:'Sep'},{id:9,month:'Oct'},{id:10,month:'Nov'},{id:11,month:'Dec'}]
   searchForm = this.formBuilder.group({ fromDate: [new Date()], toDate: [new Date()], Users: ['0'] });
   dataSource: MatTableDataSource<any> = <any>[];
-  displayedColumns: string[] = ['sno','empname', 'attendancedate', 'firstlogintime', 
+  displayedColumns: string[] = ['sno','empname', 'attendancedate', 'firstlogintime',
   'lastlogouttime', 'totalhours', 'breaks', 'breaktime', 'productivehours', 'action'];
   isLoading = false;
   ngOnInit() {
@@ -92,7 +92,7 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
     let userId = this.searchForm.controls.Users.value;
     if (userId == '0') {
       userId=null;
-    } 
+    }
     let data = {
       "manager_empid":this.userSession.id,
       'employee': userId,
@@ -107,7 +107,7 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
           e.breaks=e.breaks.split(',')
         }
       })
-      
+
       this.isLoading = false;
       this.dataSource = new MatTableDataSource(this.List);
       this.dataSource.paginator = this.paginator;
@@ -140,11 +140,11 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
     });
 
     dialogRef.afterClosed().subscribe(result => {
-          
-      
+
+
     });
   }
- 
+
   // exportAsXLSX() {
   //   console.log("hi")
   //   let edata: any = [];
@@ -162,7 +162,6 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
   //     e['Production Hours'] = a.productivehours;
   //     edata.push(e);
   //   })
-  //   console.log(edata)
   //   this.excelService.exportAsExcelFile(edata, '');
   // }
   exportAsXLSX() {
@@ -173,7 +172,6 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
     //    break;
     //   }
     // }
-    console.log('hi')
     const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(document.getElementById('table'));
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Attendance_Summary_Report');
