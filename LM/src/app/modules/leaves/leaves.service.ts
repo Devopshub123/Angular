@@ -72,7 +72,7 @@ export class LeavesService {
   }
 
   getYearsForReport(): Observable<any> {
-    return this.http.get(this.mainUrl + 'api/getYearsForReport', this.httpOptions);
+    return this.http.get(this.mainUrl + 'api/getYearsForReport/'+this.companyName, this.httpOptions);
   }
 
   /**Get Leave History */
@@ -117,6 +117,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
   }
 
     setDeleteLeaveRequest(info: any): Observable<any> {
+      info.companyName = this.companyName;
       return this.http.post(this.mainUrl + 'api/setDeleteLeaveRequest', JSON.stringify(info), this.httpOptions);
     }
 
@@ -177,6 +178,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
 
     }
     getDaysToBeDisabledForFromDateCompOff(info:any): Promise<any> {
+      info.companyName = this.companyName;
       return this.http.post(this.mainUrl + 'api/getDaysToBeDisabledForFromDateCompOff/',info, this.httpOptions).toPromise();;
 
     }

@@ -36,6 +36,7 @@ export class EmsService {
     return this.http.get(this.mainUrl + 'ems/api/getProgramSchedules/' + id + '/' + data+'/'+this.companyName, this.httpOptions);
   }
   setProgramSchedules(data: any): any {
+   data.companyName = this.companyName
     return this.http.post(this.mainUrl + 'ems/api/setProgramSchedules', data, this.httpOptions);
   }
 
@@ -321,6 +322,7 @@ export class EmsService {
 
   /** setProgramsMasterStatus*/
   setProgramsMasterStatus(data: any): any {
+    data.companyName = this.companyName;
     return this.http.post(this.mainUrl + 'ems/api/setprogramspasterstatus', data, this.httpOptions);
   }
 
@@ -331,9 +333,9 @@ export class EmsService {
     }
 
   getActiveScheduleEmployeeList(sid: any): any {
-    return this.http.get(this.mainUrl + 'ems/api/getActiveEmployeeProgramSchedules/'+ sid, this.httpOptions);
+    return this.http.get(this.mainUrl + 'ems/api/getActiveEmployeeProgramSchedules/'+ sid+'/'+this.companyName, this.httpOptions);
   }
   getInductionProgramAssignedEmployees(sid: any): any {
-    return this.http.get(this.mainUrl + 'ems/api/getInductionProgramAssignedEmployee/'+ sid, this.httpOptions);
+    return this.http.get(this.mainUrl + 'ems/api/getInductionProgramAssignedEmployee/'+ sid+'/'+this.companyName, this.httpOptions);
   }
 }

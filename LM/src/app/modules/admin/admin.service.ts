@@ -42,7 +42,7 @@ export class AdminService {
 
   }
   getMastertable(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
-    return this.http.get(this.mainUrl+'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+    return this.http.get(this.mainUrl+'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
   }
   deleteHoliday(holidayId:any):Observable<any>{
     return this.http.delete(this.mainUrl+'api/deleteHoliday/'+holidayId, this.httpOptions);
