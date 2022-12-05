@@ -952,14 +952,14 @@ async  getLeavesTypeInfo() {
       if(result && result.status){
         this.documentId = result.data[0].id;
         this.documentInfo = JSON.stringify(result.data[0])
-        let documentName = result.data[0].filename.split('_')
-        var docArray=[];
-        for(let i=0;i<=documentName.length;i++){
-          if(i>2){
-            docArray.push(documentName[i])
-          }
-        }
-        this.pdfName = docArray.join('')
+        // let documentName = result.data[0].filename.split('_')
+        // var docArray=[];
+        // for(let i=0;i<=documentName.length;i++){
+        //   if(i>2){
+        //     docArray.push(documentName[i])
+        //   }
+        // }
+        this.pdfName = result.data[0].fname
 
        result.data[0].employeeId=this.userSession.id;
        let info = result.data[0]
@@ -996,8 +996,8 @@ async  getLeavesTypeInfo() {
   {
 
     this.LM.getErrorMessages(errorCode, 1, 1).subscribe((result) => {
-
-      if (result.status && errorCode == 'LM79') {
+console.log("err---1",result.data[0])
+if (result.status && errorCode == 'LM79') {
         this.msgLM79 = result.data[0].errormessage
       }
       else if (result.status && errorCode == 'LM76') {
