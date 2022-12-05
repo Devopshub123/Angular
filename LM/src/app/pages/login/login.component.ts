@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
 import { PopupComponent,PopupConfig } from '../popup/popup.component';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { EmsService } from 'src/app/modules/ems/ems.service';
 
@@ -62,8 +62,8 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/MainDashboard'])
             this.getEmployeeEmailData();
           }
-          
-                  
+
+
         }
         else {
           this.router.navigate(['/Login']);
@@ -73,15 +73,15 @@ export class LoginComponent implements OnInit {
             data: this.msgLM14
           });
        }
-       
+
       });
 
     }
-   
+
   }
   getErrorMessages(errorCode:any){
     this.tss.getErrorMessages(errorCode,1,100).subscribe((result)=>{
-     
+
       if(result.status && errorCode == 'LM1')
       {
         this.msgLM1 = result.data[0].errormessage
@@ -94,10 +94,10 @@ export class LoginComponent implements OnInit {
       {
         this.msgLM14 = result.data[0].errormessage
       }
-      
-  
+
+
     })
-  
+
   }
   getEmployeeEmailData() {
     this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
