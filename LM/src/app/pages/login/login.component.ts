@@ -57,12 +57,12 @@ export class LoginComponent implements OnInit {
       companyName:this.companyName
     }
     if(this.formGroup.valid){
+      sessionStorage.setItem('companyName', this.companyName);
       this.tss.Savelogin(data).subscribe((data) =>{
         if(data.status === true){
           let empdata = data.result[0];
           this.employeeId = empdata.id;
           sessionStorage.setItem('user', JSON.stringify(empdata));
-          sessionStorage.setItem('companyName', this.companyName);
           if (empdata.firstlogin == "Y") {
             this.router.navigate(['/Attendance/ChangePassword'])
           }

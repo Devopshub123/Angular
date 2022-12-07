@@ -126,7 +126,6 @@ export class TerminateComponent implements OnInit {
     for(let i=0;i<this.terminationlist.length;i++){
       if(rowdata.category == this.terminationlist[i].category){
         this.categiry = this.terminationlist[i].id;
-        console.log(this.terminationlist[i].id)
         break;
       }
     }
@@ -141,7 +140,6 @@ export class TerminateComponent implements OnInit {
     this.terminateForm.controls.terminatecategory.setValue(this.categiry);
     this.terminateForm.controls.reason.setValue(rowdata.comment);
 
-    // console.log(row)
 
   }
   terminatesave(){
@@ -193,7 +191,6 @@ export class TerminateComponent implements OnInit {
     this.ES.getEmployeeslistforTermination().subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.employeelist=res.data;
-        console.log(this.employeelist)
       }
     })
 
@@ -235,7 +232,6 @@ export class TerminateComponent implements OnInit {
     }
     this.ES.setEmployeeTermination(data).subscribe((res: any) => {
       if(res.status && res.data == 0){
-        console.log(res.data)
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
           this.router.navigate(["/ems/terminate"]));
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -280,7 +276,6 @@ export class TerminateComponent implements OnInit {
       term_comment: rowdata.comment,
       actionby:this.userSession.id
     }
-    console.log(data)
     this.ES.setEmployeeTermination(data).subscribe((res: any) => {
       if(res.status && res.data == 0){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
