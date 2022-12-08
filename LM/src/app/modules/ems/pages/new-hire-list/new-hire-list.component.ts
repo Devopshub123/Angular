@@ -241,7 +241,7 @@ export class NewHireListComponent implements OnInit {
      {
        "code": null,
        "pagenumber":1,
-       "pagesize":100
+       "pagesize":1000
     }
 
    this.adminService.getEMSMessagesList(data).subscribe((res:any)=>{
