@@ -303,4 +303,33 @@ export class EmsService {
   getInductionProgramAssignedEmployees(sid: any): any {
     return this.http.get(this.mainUrl + 'ems/api/getInductionProgramAssignedEmployee/'+ sid, this.httpOptions);
   }
+  /**get employees list by department id */
+  getEmployeesListByDeptId(did: any): any {
+    return this.http.get(this.mainUrl + 'ems/api/getEmployeesListByDeptId/'+ did, this.httpOptions);
+  }
+
+   /** set Induction ConductedBy master*/
+   setInductionConductedBy(data: any): any {
+    return this.http.post(this.mainUrl + 'ems/api/setInductionConductedby', data, this.httpOptions);
+  }
+
+  /**get employees list by department id */
+    getConductedByEmployeesList(): any {
+      return this.http.get(this.mainUrl + 'ems/api/getInductionConductedbyEmployees', this.httpOptions);
+  }
+  
+    /**get departments by program id */
+    getDepartmentsByProgramId(pid: any): any {
+      return this.http.get(this.mainUrl + 'ems/api/getDepartmentsByProgramId/'+ pid, this.httpOptions);
+  }
+  
+    /** update Induction ConductedBy status*/
+    updateInductionConductedByStatus(data: any): any {
+      return this.http.post(this.mainUrl + 'ems/api/updateInductionConductedbyStatus', data, this.httpOptions);
+  } 
+  
+      /**get departments by program id */
+      getConductEmployeesByProgramIdAndDeptId(pid: any,did:any): any {
+        return this.http.get(this.mainUrl + 'ems/api/getCondcutedEmployeesByPrgIdAndDeptId/'+ pid+'/'+did, this.httpOptions);
+    }
 }

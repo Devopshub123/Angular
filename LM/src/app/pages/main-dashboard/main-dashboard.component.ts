@@ -109,6 +109,7 @@ export class MainDashboardComponent implements OnInit {
   isManager: boolean = false;
   requestData: any;
   requestType: string = '';
+  teamAttendanceCountData: boolean = false;
   ////////////////
   ngOnInit(): void {
     this.spinner.show();
@@ -666,7 +667,7 @@ export class MainDashboardComponent implements OnInit {
       });
   }
   getLeavesForApprovals() {
-    this.teamLeavesData = true;
+    //this.teamLeavesData = true;
     this.leavesRequestData = [];
     this.LM.getLeavesForApprovals(this.usersession.id).subscribe((res: any) => {
         if (res.status) {
@@ -704,5 +705,12 @@ export class MainDashboardComponent implements OnInit {
         this.employeesLeaveList = [];
       }
     });
+  }
+  getSelfAttendanceCount() {
+    this.teamAttendanceCountData = false;
+  }
+
+  getTeamAttendanceCount() {
+    this.teamAttendanceCountData = true;
   }
 }

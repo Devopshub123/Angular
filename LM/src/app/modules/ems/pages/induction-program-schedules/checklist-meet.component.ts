@@ -120,14 +120,14 @@ export class ChecklistMeetComponent implements OnInit {
   programName: any;
   emailsList: any = [];
   employeeEmailData: any = [];
+  programId: any;
+  deptId: any;
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private companyServices: CompanySettingService,private EMS:EmsService) {
 
   }
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getCompanyInformation();
-    this.getDepartmentsMaster();
-    this.getDesignationsMaster();
     this.getProgramsMaster(null);
     this.getProgramSchedules(null, null);
     this.getEmployeeEmailData();
@@ -140,22 +140,18 @@ export class ChecklistMeetComponent implements OnInit {
         date: ['',Validators.required],
         starttime: ['',Validators.required],
         endtime:['',Validators.required],
-        designation: ['',Validators.required],
+        //designation: ['',Validators.required],
         description: [],
         cancelReason: [''],
         updatestatus:['Attended']
 
       });
     // this.checklistForm.controls.date.setValue(new Date()  );
-    this.checklistForm
-      .get('starttime')
-      ?.valueChanges.subscribe((selectedValue) => {
+    this.checklistForm.get('starttime') ?.valueChanges.subscribe((selectedValue) => {
         this.min = selectedValue;
         this.mintime = selectedValue;
       });
-    this.checklistForm
-      .get('endtime')
-      ?.valueChanges.subscribe((selectedValue) => {
+    this.checklistForm.get('endtime')?.valueChanges.subscribe((selectedValue) => {
         if (this.mintime == selectedValue) {
           selectedValue = '';
           this.checklistForm.get('endtime')?.setValue('');
@@ -181,42 +177,32 @@ export class ChecklistMeetComponent implements OnInit {
           });
         }
       });
-    this.checklistForm
-      .get('department')
-      ?.valueChanges.subscribe((selectedValue) => {
-        this.deptdata = selectedValue;
-        if (this.desdata != null) {
-          this.coductedby(this.deptdata, this.desdata);
+    this.checklistForm.get('programType')?.valueChanges.subscribe((selectedValue) => {
+        this.programId = selectedValue;
+        if (this.programId != null) {
+          this.getProgramDepartmentList(this.programId);
         }
       });
-    this.checklistForm
-      .get('designation')
-      ?.valueChanges.subscribe((selectedValue) => {
-        this.desdata = selectedValue;
-        if (this.deptdata != null) {
-          this.coductedby(this.deptdata, this.desdata);
+      this.checklistForm.get('department')?.valueChanges.subscribe((selectedValue) => {
+        this.deptId = selectedValue;
+        if (this.deptId != null) {
+          this.getConductedEmployessList(this.programId,this.deptId);
         }
       });
   }
-  getDesignationsMaster() {
-    this.companyServices
-      .getMastertable('designationsmaster', 1, 1, 1000, this.companyDBName)
-      .subscribe((data) => {
-        if (data.status) {
-          this.availableDesignations = data.data;
-        }
-      });
+
+  getProgramDepartmentList(id: any) {
+    this.availableDepartments=[]
+     this.EMS.getDepartmentsByProgramId(id).subscribe((result:any) => {
+      if (result.status) {
+        this.availableDepartments = result.data;
+      }
+    })
+
   }
-  getDepartmentsMaster() {
-    this.companyServices
-      .getMastertable('departmentsmaster', 1, 1, 1000, this.companyDBName)
-      .subscribe((data) => {
-        if (data.status) {
-          this.availableDepartments = data.data;
-        }
-      });
-  }
+
   getProgramsMaster(pId: any) {
+    this.availableprogramtypes=[]
     this.companyServices
       .getMastertable('ems_programs_master', 1, 1, 1000, this.companyDBName)
       .subscribe((data) => {
@@ -224,6 +210,17 @@ export class ChecklistMeetComponent implements OnInit {
           this.availableprogramtypes = data.data;
         }
       });
+  }
+
+  getConductedEmployessList(programId: any, deptId: any) {
+    this.conductlist =[]
+    this.EMS.getConductEmployeesByProgramIdAndDeptId(programId, deptId).subscribe(
+      (result: any) => {
+        if (result.status) {
+          this.conductlist = result.data;
+        }
+      }
+    );
   }
 
   getProgramSchedules(id: any, data: any) {
@@ -276,9 +273,10 @@ export class ChecklistMeetComponent implements OnInit {
           'HH:mm:ss'
         ),
         department: this.checklistForm.controls.department.value,
-        designation: this.checklistForm.controls.designation.value,
+       // designation: this.checklistForm.controls.designation.value,
         actionby: this.userSession.id,
       };
+
       this.EMS.setProgramSchedules(data).subscribe((res: any) => {
         if (res.status && res.data == 0) {
           this.router
@@ -319,7 +317,7 @@ export class ChecklistMeetComponent implements OnInit {
     (this.scheduleid = data.id),
       this.checklistForm.controls.programType.setValue(data.program_id),
       this.checklistForm.controls.department.setValue(data.department),
-      this.checklistForm.controls.designation.setValue(data.designation),
+      //this.checklistForm.controls.designation.setValue(data.designation),
       this.checklistForm.controls.conductBy.setValue(data.conducted_by),
       this.checklistForm.controls.description.setValue(data.description),
       this.checklistForm.controls.date.setValue(new Date(data.schedule_date)),
@@ -376,7 +374,7 @@ export class ChecklistMeetComponent implements OnInit {
           'HH:mm:ss'
         ),
         department: this.checklistForm.controls.department.value,
-        designation: this.checklistForm.controls.designation.value,
+       // designation: this.checklistForm.controls.designation.value,
         actionby: this.userSession.id,
         //// email data
         emails: this.emailsList,
@@ -424,8 +422,8 @@ export class ChecklistMeetComponent implements OnInit {
       this.checklistForm.controls.programType.disable(),
       this.checklistForm.controls.department.setValue(data.department),
       this.checklistForm.controls.department.disable(),
-      this.checklistForm.controls.designation.setValue(data.designation),
-      this.checklistForm.controls.designation.disable(),
+     // this.checklistForm.controls.designation.setValue(data.designation),
+     // this.checklistForm.controls.designation.disable(),
       this.checklistForm.controls.conductBy.setValue(data.conducted_by),
       this.checklistForm.controls.conductBy.disable(),
       this.checklistForm.controls.description.setValue(data.description),
@@ -467,7 +465,7 @@ export class ChecklistMeetComponent implements OnInit {
           'HH:mm:ss'
         ),
         department: this.checklistForm.controls.department.value,
-        designation: this.checklistForm.controls.designation.value,
+       // designation: this.checklistForm.controls.designation.value,
         actionby: this.userSession.id,
         emails: this.emailsList,
         emaildata:this.employeeEmailData
@@ -498,15 +496,15 @@ export class ChecklistMeetComponent implements OnInit {
     this.isAdd = true;
     this.isdata = false;
     this.isedit = false;
-    this.isCancel = false;
-    this.isView = true;
+    this.isCancel = data.status == "Cancelled" ? true : false;
+    //this.isView = true;
     (this.scheduleid = data.id),
       this.checklistForm.controls.programType.setValue(data.program_id),
       this.checklistForm.controls.programType.disable(),
       this.checklistForm.controls.department.setValue(data.department),
       this.checklistForm.controls.department.disable(),
-      this.checklistForm.controls.designation.setValue(data.designation),
-      this.checklistForm.controls.designation.disable(),
+      //this.checklistForm.controls.designation.setValue(data.designation),
+     // this.checklistForm.controls.designation.disable(),
       this.checklistForm.controls.conductBy.setValue(data.conducted_by),
       this.checklistForm.controls.conductBy.disable(),
       this.checklistForm.controls.description.setValue(data.description),
@@ -568,15 +566,7 @@ export class ChecklistMeetComponent implements OnInit {
     this.isView = false;
     this.isdata = false;
   }
-  coductedby(e1: any, e2: any) {
-    this.EMS.getDepartmentEmployeesByDesignation(e1, e2).subscribe(
-      (result: any) => {
-        if (result.status) {
-          this.conductlist = result.data;
-        }
-      }
-    );
-  }
+
 
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

@@ -1,6 +1,6 @@
 import { EmsMessagemasterComponent } from './pages/ems-messagemaster/ems-messagemaster.component';
 import { ConfigureDocumentsComponent } from './pages/configure-documents/configure-documents.component';
-import { HrPendingApprovalsComponent } from './pages/hr-pending-approvals/hr-pending-approvals.component';
+import { HrPendingApprovalsComponent } from './pages/hr-resignation-approvals/hr-pending-approvals.component';
 import { HrDocumentApprovalComponent } from './pages/hr-document-approval/hr-document-approval.component';
 import { AssignChecklistComponent } from './pages/assign-checklist/assign-checklist.component';
 import { AnnouncementsComponent } from './pages/announcements/announcements.component';
@@ -16,20 +16,20 @@ import { SettingsAddChecklistComponent } from './pages/settings-add-checklist/se
 import { SettingsOffBoardingComponent } from './pages/settings-off-boarding/settings-off-boarding.component';
 import { SettingsOnBoardingComponent } from './pages/settings-on-boarding/settings-on-boarding.component';
 import { EmployeereportComponent } from './reports/employeereport/employeereport.component';
-import { HrResignationComponent } from './pages/hr-resignation/hr-resignation.component';
+import { HrResignationComponent } from './pages/hr-resignation-checklist/hr-resignation.component';
 import { EmployeeDirectoryComponent } from './pages/employee-directory/employee-directory.component';
 import { EmployeeDashboardComponent } from './pages/employee-dashboard/employee-dashboard.component';
-import { HrOnboardingComponent } from './pages/hr-onboarding/hr-onboarding.component';
-import { HrOnboardingChecklistComponent } from './pages/hr-onboarding-checklist/hr-onboarding-checklist.component';
-import { HrOffboardingChecklistComponent } from './pages/hr-offboarding-checklist/hr-offboarding-checklist.component';
-import { ChecklistMeetComponent } from './pages/checklist-meet/checklist-meet.component';
-import { HrOffboardingChecklistoverviewComponent } from './pages/hr-offboarding-checklistoverview/hr-offboarding-checklistoverview.component';
+import { HrOnboardingComponent } from './pages/hr-onboarding-checklist/hr-onboarding.component';
+import { HrOnboardingChecklistComponent } from './pages/manager-onboarding-checklist/hr-onboarding-checklist.component';
+import { HrOffboardingChecklistComponent } from './pages/manager-termination-checklist/hr-offboarding-checklist.component';
+import { ChecklistMeetComponent } from './pages/induction-program-schedules/checklist-meet.component';
+import { HrOffboardingChecklistoverviewComponent } from './pages/hr-termination-checklist/hr-offboarding-checklistoverview.component';
 import { EmployeeChecklistComponent } from './pages/employee-checklist/employee-checklist.component';
 import { EmployeeProfileComponent } from './pages/employee-profile/employee-profile.component';
-import { InductionComponent } from './pages/induction/induction.component';
+import { InductionComponent } from './pages/induction-master/induction.component';
 import { UsersLoginComponent } from './pages/users-login/users-login.component';
 import { NewHireListComponent } from './pages/new-hire-list/new-hire-list.component';
-import { DeptResignationPendingchecklistComponent } from './pages/dept-resignation-pendingchecklist/dept-resignation-pendingchecklist.component';
+import { DeptResignationPendingchecklistComponent } from './pages/manager-resignation-checklist/dept-resignation-pendingchecklist.component';
 
 const routes: Routes = [
   {
