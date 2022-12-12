@@ -19,11 +19,31 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReusableDialogComponent } from '../reusable-dialog/reusable-dialog.component';
 import { environment } from 'src/environments/environment';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import * as _moment from 'moment';
 
+const moment =  _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-main-dashboard',
   templateUrl: './main-dashboard.component.html',
   styleUrls: ['./main-dashboard.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class MainDashboardComponent implements OnInit {
   allModuleDetails: any = [];
@@ -110,8 +130,16 @@ export class MainDashboardComponent implements OnInit {
   requestData: any;
   requestType: string = '';
   teamAttendanceCountData: boolean = false;
+  minDate = new Date('2000/01/01');
+  maxDate = new Date();
+  currentDate: any;
+ attendanceForm: any = FormGroup;
+  date: any;
+  isAttendanceModule: boolean = false;
+  isLeaveModule: boolean = false;
   ////////////////
   ngOnInit(): void {
+    this.currentDate = this.pipe.transform(Date.now(), 'dd-MM-yyyy');
     this.spinner.show();
     if (
       this.usersession.roles[0].role_id == 2 ||
@@ -151,6 +179,14 @@ export class MainDashboardComponent implements OnInit {
     }));
     this.getDocumentsEMS();
     this.spinner.hide();
+    this.attendanceForm = this.formBuilder.group(
+      {
+        date: [new Date()],
+     });
+    this.attendanceForm.get('date')?.valueChanges.subscribe((selectedValue:any) => {
+      this.date = this.pipe.transform(selectedValue._d, 'yyyy-MM-dd')
+   
+    })
   }
   getModules() {
     this.AMS.getModules(
@@ -162,7 +198,14 @@ export class MainDashboardComponent implements OnInit {
     ).subscribe((result) => {
       if (result && result.status) {
         this.allModuleDetails = result.data;
-      }
+        this.allModuleDetails.forEach((e:any)=>{
+          if (e.id == 4) {
+             this.isAttendanceModule = true;
+          } else if (e.id == 2) {
+              this.isLeaveModule = true;
+          } 
+        })
+       }
     });
   }
 
