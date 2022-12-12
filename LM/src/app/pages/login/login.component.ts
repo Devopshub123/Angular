@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.createForm();
     this.formGroup.controls.username.setValue(localStorage.getItem("username"));
     this.formGroup.controls.password.setValue(localStorage.getItem("password"));
-    this.formGroup.controls.remeberme.setValue(localStorage.getItem("rememberme"));
+    this.formGroup.controls.rememberme.setValue(localStorage.getItem("rememberme"));
     this.getErrorMessages('LM14')
     this.getErrorMessages('LM1')
     this.getErrorMessages('LM2')
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       'username': ['', Validators.required],
       'password': ['', Validators.required],
-      'remeberme':['']
+      'rememberme':['']
     });
   }
   login(){
@@ -54,10 +54,10 @@ export class LoginComponent implements OnInit {
       password:this.password
     }
     if(this.formGroup.valid){
-      if(this.formGroup.controls.remeberme.value==true){
+      if(this.formGroup.controls.rememberme.value==true){
         localStorage.setItem("username",this.formGroup.controls.username.value);
         localStorage.setItem("password",this.formGroup.controls.password.value);
-        localStorage.setItem("rememberme",this.formGroup.controls.remeberme.value);
+        localStorage.setItem("rememberme",this.formGroup.controls.rememberme.value);
       }else{
         localStorage.removeItem("username");
         localStorage.removeItem("password");

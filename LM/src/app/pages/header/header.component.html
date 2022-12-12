@@ -114,17 +114,17 @@
     <div class="main-header" style="min-height: 10%">
       <div class="logo-header">
         <div class="custom-mob-icons">
-          <a href="MainDashboard" class="logo"><img [src]="pic" style="width: 25px;" alt="" class="logo-img mr-2">{{companyName}}</a>
+          <a href="/#/MainDashboard" (click)="onClickMainDashboard()" class="logo"><img [src]="pic" style="width: 25px;" alt="" class="logo-img mr-2">{{companyName}}</a>
           <!--<button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>-->
         </div>
         <div class="navbar-nav topbar-nav ml-md-auto mobile-view">
           <div>
             <!--<ul>-->
             <li class="nav-item dropdown">
-              <a class="dropdown-toggle profile-pic"  data-toggle="dropdown" href="#" 
+              <a class="dropdown-toggle profile-pic"  data-toggle="dropdown" href="#"
               aria-expanded="false">
-               <img *ngIf="!imageurls" src="assets/img/profile.jpg" alt="user-img" width="36" 
-               class="img-circle"><img *ngIf="imageurls" [src]="imageurls"  width="36" 
+               <img *ngIf="!imageurls" src="assets/img/profile.jpg" alt="user-img" width="36"
+               class="img-circle"><img *ngIf="imageurls" [src]="imageurls"  width="36"
                class="img-circle">
                <span >{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}
                 {{this.usersession.lastname}}</span></a>
@@ -228,10 +228,10 @@
             <!--</div>-->
             <!--</li>-->
             <li class="nav-item dropdown">
-              <a class="dropdown-toggle profile-pic"  data-toggle="dropdown" href="#" 
-              aria-expanded="false"> <img *ngIf="!imageurls" src="assets/img/profile.jpg" 
+              <a class="dropdown-toggle profile-pic"  data-toggle="dropdown" href="#"
+              aria-expanded="false"> <img *ngIf="!imageurls" src="assets/img/profile.jpg"
               alt="user-img" width="36" class="img-circle">
-              <img *ngIf="imageurls" [src]="imageurls"  width="36" 
+              <img *ngIf="imageurls" [src]="imageurls"  width="36"
               class="img-circle">
               <span >{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}
                 {{this.usersession.lastname}}

@@ -49,7 +49,9 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/Login']);
 
   }
-
+  onClickMainDashboard(){
+    this.router.navigate(['/MainDashboard']);
+  }
   setHeadNav(data:any): void {
     this.baseService.setHeadNav(data);
     this.baseService.clearSubSideNav();

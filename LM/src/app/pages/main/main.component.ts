@@ -79,6 +79,9 @@ menu:NavItem[] =[];
     sessionStorage.removeItem('sidemenu');
     this.router.navigate(['/Login']);
   }
+  onClickMainDashboard(){
+    this.router.navigate(['/MainDashboard']);
+  }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
