@@ -441,7 +441,7 @@ export class ShiftMasterComponent implements OnInit {
     let data = {
       code: null,
       pagenumber: 1,
-      pagesize: 100,
+      pagesize: 1000,
     };
     this.emsService.getMessagesListApi(data).subscribe((res: any) => {
       if (res.status) {

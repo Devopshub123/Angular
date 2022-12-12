@@ -38,6 +38,9 @@ this.userlocalSessionemail =  localStorage.getItem('email');
 
   ngOnInit() {
     this.createForm();
+    this.formGroup.controls.username.setValue(localStorage.getItem("username"));
+    this.formGroup.controls.password.setValue(localStorage.getItem("password"));
+    this.formGroup.controls.remeberme.setValue(localStorage.getItem("rememberme"));
     this.getErrorMessages('LM14')
     this.getErrorMessages('LM1')
     this.getErrorMessages('LM2')

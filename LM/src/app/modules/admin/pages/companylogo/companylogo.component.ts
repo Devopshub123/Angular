@@ -156,7 +156,6 @@ export class CompanylogoComponent implements OnInit {
             this.LMS.setFilesMaster(obj).subscribe((data) => {
               if(data && data.status) {
                     let info =JSON.stringify(data.data[0])
-                    this.file=null;
                 this.formData.append("info",info)
                 this.formData.append('file', this.file);
                 this.LMS.setProfileImage(this.formData).subscribe((result) => {
@@ -190,7 +189,7 @@ export class CompanylogoComponent implements OnInit {
                         this.fileImageToggler();
                         this.getUploadImage();
                         this.isRemoveImage=true;
-                        
+
 
 
 
@@ -240,7 +239,6 @@ export class CompanylogoComponent implements OnInit {
   }
   getUploadImage(){
     let info = {
-
       'employeeId': 0,
       "candidateId": null,
       "moduleId": 2,
@@ -298,27 +296,27 @@ export class CompanylogoComponent implements OnInit {
 
       if(result.status && messageCode == 'EM124')
       {
-        this.msgEM124 = result.data[0].errormessage
+        this.msgEM124 = result.data[0].message
       }
       else if(result.status && messageCode == 'EM71')
       {
-        this.msgEM71 = result.data[0].errormessage
+        this.msgEM71 = result.data[0].message
       }
       else if(result.status && messageCode == 'EM72')
       {
-        this.msgEM72 = result.data[0].errormessage
+        this.msgEM72 = result.data[0].message
       }
       else if(result.status && messageCode == 'EM73')
       {
-        this.msgEM73 = result.data[0].errormessage
+        this.msgEM73 = result.data[0].message
       }
       else if(result.status && messageCode == 'EM74')
       {
-        this.msgEM74 = result.data[0].errormessage
+        this.msgEM74 = result.data[0].message
       }
       else if(result.status && messageCode == 'EM75')
       {
-        this.msgEM75 = result.data[0].errormessage
+        this.msgEM75 = result.data[0].message
       }
 
 

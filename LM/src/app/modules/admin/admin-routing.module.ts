@@ -52,7 +52,6 @@ const routes: Routes = [
       { path:'Termination-Category',component:TerminationCategoryComponent,canActivate:[LMSAccessGuard]},
       { path:'Reason',component:ReasonMasterComponent,canActivate:[LMSAccessGuard]},
       { path: 'Reimbursement', component: ReimbursementMasterComponent, canActivate: [LMSAccessGuard] },
-      /////
       { path: 'settings-checklist', component: SettingsAddChecklistComponent, canActivate: [LMSAccessGuard] },
       { path: 'induction', component: InductionComponent, canActivate: [LMSAccessGuard] },
       { path: 'configure-documents', component: ConfigureDocumentsComponent, canActivate: [LMSAccessGuard] },
@@ -61,7 +60,7 @@ const routes: Routes = [
       { path: 'settings-onBoarding', component: SettingsOnBoardingComponent, canActivate: [LMSAccessGuard] },
       { path: 'settings-offBoarding', component: SettingsOffBoardingComponent, canActivate: [LMSAccessGuard] },
       { path: 'Induction-ConductedBy', component: InductionConductedByMasterComponent, canActivate: [LMSAccessGuard] },
-     
+
 
     ]
   }

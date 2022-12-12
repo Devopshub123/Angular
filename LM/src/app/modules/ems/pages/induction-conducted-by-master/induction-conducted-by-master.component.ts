@@ -61,7 +61,7 @@ export class InductionConductedByMasterComponent implements OnInit {
       {
         programType: ["",[Validators.required]],
         department: ["",[Validators.required]],
-        conductBy: ["",[Validators.required]],
+        conductBy: [[''],[Validators.required]],
         status:['']
 
       });
@@ -69,7 +69,7 @@ export class InductionConductedByMasterComponent implements OnInit {
       this.employeeList = [];
       this.conductedByEmployeDataList = [];
       this.EMS.getEmployeesListByDeptId(selectedValue).subscribe((data: { status: any; data: any; }) => {
-        if (data.status) { 
+        if (data.status) {
           this.isEnable = true;
           this.employeeList = data.data;
           }
@@ -82,6 +82,20 @@ export class InductionConductedByMasterComponent implements OnInit {
     this.isUpdate = true;
       this.inductionForm.controls.programType.setValue(data.program_id);
       this.inductionForm.controls.department.setValue(data.department_id);
+      let emplist:any=[];
+      let emp={};
+      data.empids.forEach((e:any)=>{
+            emp={
+              "empid": e.empid,
+              "employee_code": "",
+              "empname": e.conductby
+            }
+           // this.inductionForm.controls.conductBy.(emp);
+            emplist.push(emp);
+            this.selectedEmployees.push(e.empid);
+            this.inductionForm.controls.conductBy.value.push(emp);
+        });
+     // this.inductionForm.controls.conductBy.setValue(emplist);
       // this.employeeList.forEach((e: any)=>{
       //   e.empid = data.empids.empid;
       // })
@@ -159,7 +173,7 @@ export class InductionConductedByMasterComponent implements OnInit {
 
 
   }
- 
+
   getConductedByEmployeesList(){
     this.EMS.getConductedByEmployeesList().subscribe((result:any) => {
       if (result.status) {
@@ -194,7 +208,7 @@ export class InductionConductedByMasterComponent implements OnInit {
         }
       });
   }
-  
+
   openedSearch(e:any) {
     this.searchTextboxControl.patchValue('');
   }
@@ -208,7 +222,7 @@ export class InductionConductedByMasterComponent implements OnInit {
     if (event.isUserInput && event.source.selected == false) {
       let index = this.selectedEmployees.indexOf(event.source.value.empid);
       this.selectedEmployees.splice(index, 1)
-      
+
     } else {
       this.selectedEmployees.push(event.source.value.empid);
       console.log("val--", this.selectedEmployees)

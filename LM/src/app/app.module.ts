@@ -109,9 +109,9 @@ import { DecryptPipe, EncryptPipe } from './custom-directive/encrypt-decrypt.pip
 
   // providers: [BnNgIdleService, BsDatepickerConfig],
   providers: [BnNgIdleService,
-  //   {
-  //     provide: LocationStrategy,useClass: HashLocationStrategy
-  // }
+    {
+      provide: LocationStrategy,useClass: HashLocationStrategy
+  }
   ],
   bootstrap: [AppComponent]
 })
