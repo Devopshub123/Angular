@@ -138,6 +138,9 @@ export class MainDashboardComponent implements OnInit {
   isAttendanceModule: boolean = false;
   isLeaveModule: boolean = false;
   employeeAttendanceCountData:any=[]
+  workFromHometData:any=[]
+  workFromOfficeData:any=[]
+  absentEmployeesData:any=[]
   ////////////////
   ngOnInit(): void {
     this.spinner.show();
@@ -775,7 +778,9 @@ export class MainDashboardComponent implements OnInit {
     this.mainService.getEmployeeAttendanceCounts(mid,eid,date).subscribe((result) => {
       if (result.status) {
         this.employeeAttendanceCountData = result.data;
-        console.log("data-",this.employeeAttendanceCountData)
+        console.log("res-data-", this.employeeAttendanceCountData)
+        this.workFromHometData = JSON.parse(this.employeeAttendanceCountData.wfh_details)[0];
+        console.log("res-data-", this.employeeAttendanceCountData)
       }
     });
   }
