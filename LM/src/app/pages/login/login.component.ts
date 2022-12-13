@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
   userlocalSessionrememberme:any;
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
     private tss: LoginService, private router: Router, private emsService: EmsService,) { 
-this.userlocalSessionemail =  localStorage.getItem('email');
-    this.userlocalSessionpassword  =  localStorage.getItem('password');
-    this.userlocalSessionrememberme  =  localStorage.getItem('remeberme');
+this.userlocalSessionemail = localStorage.getItem('email');
+ this.userlocalSessionpassword = localStorage.getItem('password');
+ this.userlocalSessionrememberme = localStorage.getItem('rememberme');
 
 
     }
@@ -40,7 +40,7 @@ this.userlocalSessionemail =  localStorage.getItem('email');
     this.createForm();
     this.formGroup.controls.username.setValue(localStorage.getItem("username"));
     this.formGroup.controls.password.setValue(localStorage.getItem("password"));
-    this.formGroup.controls.remeberme.setValue(localStorage.getItem("rememberme"));
+    this.formGroup.controls.rememberme.setValue(localStorage.getItem("rememberme"));
     this.getErrorMessages('LM14')
     this.getErrorMessages('LM1')
     this.getErrorMessages('LM2')
@@ -71,7 +71,7 @@ this.userlocalSessionemail =  localStorage.getItem('email');
       if (this.formGroup.controls.rememberme.value) { 
         localStorage.setItem('email',  this.email);
         localStorage.setItem('password', this.password);
-        localStorage.setItem('remeberme', this.formGroup.controls.rememberme.value);
+        localStorage.setItem('rememberme', this.formGroup.controls.rememberme.value);
         this.tss.Savelogin(data).subscribe((data) =>{
           if(data.status === true){
             let empdata = data.result[0];
@@ -102,7 +102,7 @@ this.userlocalSessionemail =  localStorage.getItem('email');
       else {
         localStorage.removeItem('email');
         localStorage.removeItem('password');
-        localStorage.removeItem('remeberme');
+        localStorage.removeItem('rememberme');
         this.tss.Savelogin(data).subscribe((data) =>{
           if(data.status === true){
             let empdata = data.result[0];

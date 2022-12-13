@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/modules/admin/admin.service';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { AttendanceService } from '../../attendance.service';
 import { DialogComponent } from '../../dialog/dialog.component';
@@ -43,12 +44,14 @@ export class ApprovalAttendanceListComponent implements OnInit {
   reqReject: any;
   reqNotReject: any;
   constructor(private router:Router,public dialog: MatDialog,
-    private attendanceService:AttendanceService,private adminService: AdminService) {
+    private attendanceService: AttendanceService, private adminService: AdminService,
+    private emsService: EmsService) {
   
      // Assign the data to the data source for the table to render
     
    }
-
+   employeeEmailData: any = [];
+   employeeId: any;
   ngOnInit(): void {
     this.getMessagesList();
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
@@ -99,20 +102,24 @@ getPageSizes(): number[] {
 }
 acceptApproval(event:any){
   this.titleName="Approve";
-  this.requestData=event;
-  this.saveApprovalRequest();
+  this.requestData = event;
+  this.getEmployeeEmailData();
 }
 rejectApproval(event:any){
   this.titleName="Reject";
   this.requestData=event;
   this.openDialog();
 }
-saveApprovalRequest(){
+  saveApprovalRequest() {
+  console.log("eda-",this.requestData)
+  console.log("maild-",this.employeeEmailData)
   let obj = {
   "id":this.requestData.id,
   "approvercomments": this.reason,
   "actionby": this.userSession.id,
-  "approvelstatus": this.titleName=="Reject"?'Rejected':'Approved'
+    "approvelstatus": this.titleName == "Reject" ? 'Rejected' : 'Approved',
+    "empData": this.requestData,
+    "emailData":this.employeeEmailData,
 
 };
 
@@ -185,5 +192,14 @@ openDialog(): void {
      }
 
    })
- }
+  }
+  
+  getEmployeeEmailData() {
+    this.employeeEmailData = [];
+    this.emsService.getEmployeeEmailDataByEmpid(this.requestData.id)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+        this.saveApprovalRequest();
+      })
+  }
 }
