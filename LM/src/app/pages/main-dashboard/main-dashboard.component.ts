@@ -22,6 +22,7 @@ import { environment } from 'src/environments/environment';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import * as _moment from 'moment';
+import { th } from 'date-fns/locale';
 
 const moment =  _moment;
 
@@ -132,14 +133,13 @@ export class MainDashboardComponent implements OnInit {
   teamAttendanceCountData: boolean = false;
   minDate = new Date('2000/01/01');
   maxDate = new Date();
-  currentDate: any;
  attendanceForm: any = FormGroup;
   date: any;
   isAttendanceModule: boolean = false;
   isLeaveModule: boolean = false;
+  employeeAttendanceCountData:any=[]
   ////////////////
   ngOnInit(): void {
-    this.currentDate = this.pipe.transform(Date.now(), 'dd-MM-yyyy');
     this.spinner.show();
     if (
       this.usersession.roles[0].role_id == 2 ||
@@ -178,13 +178,16 @@ export class MainDashboardComponent implements OnInit {
       showMore: false,
     }));
     this.getDocumentsEMS();
+    this.getSelfAttendanceCount();
     this.spinner.hide();
     this.attendanceForm = this.formBuilder.group(
       {
-        date: [new Date()],
-     });
-    this.attendanceForm.get('date')?.valueChanges.subscribe((selectedValue:any) => {
-      this.date = this.pipe.transform(selectedValue._d, 'yyyy-MM-dd')
+        currentDate: [new Date()],
+      });
+      console.log("datee--",this.date)
+    this.attendanceForm.get('currentDate')?.valueChanges.subscribe((selectedValue:any) => {
+      this.getTeamAttendanceCount();
+
 
     })
   }
@@ -750,10 +753,30 @@ export class MainDashboardComponent implements OnInit {
     });
   }
   getSelfAttendanceCount() {
+    this.employeeAttendanceCountData =[]
+    let mid =  null;
+     let eid = this.usersession.id;
+    let date = this.pipe.transform(new Date, 'yyyy-MM-dd');
     this.teamAttendanceCountData = false;
+    this.mainService.getEmployeeAttendanceCounts(mid,eid,date).subscribe((result) => {
+      if (result.status) {
+        this.employeeAttendanceCountData = result.data;
+      }
+    });
+
   }
 
   getTeamAttendanceCount() {
+    this.employeeAttendanceCountData =[]
     this.teamAttendanceCountData = true;
+    let mid =  this.usersession.id;
+     let eid = null;
+    let date =this.pipe.transform( this.attendanceForm.controls.currentDate.value,'yyyy-MM-dd');
+    this.mainService.getEmployeeAttendanceCounts(mid,eid,date).subscribe((result) => {
+      if (result.status) {
+        this.employeeAttendanceCountData = result.data;
+        console.log("data-",this.employeeAttendanceCountData)
+      }
+    });
   }
 }

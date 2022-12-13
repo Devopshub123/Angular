@@ -780,7 +780,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       });
       this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
       this.employmentDataChange = true;
-      this.saveWorkExperience();
+      //this.saveWorkExperience();
       this.clearExperienceValidators();
       this.clearWork();
     } else { }

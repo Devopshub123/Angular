@@ -13,8 +13,8 @@
 
 
 ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
-    color:black;
-    background-color: white;
+    color:rgb(0, 0, 0);
+    background-color: #28acaf;
     }
 
     ::ng-deep .mat-tab-list .mat-tab-labels {
@@ -37,7 +37,7 @@
         align-items: center;
         white-space: nowrap;
         position: relative;
-        color: black;
+        color: white;
         font-size: large;
     }
     .section {

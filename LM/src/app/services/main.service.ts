@@ -91,4 +91,10 @@ export class MainService {
   deleteFilesMaster(id:any):Observable<any>{
     return this.http.get(this.mainBeUrl + 'ems/api/deleteFilesMaster/'+id, this.httpOptions);
   }
+
+
+  /** */
+  getEmployeeAttendanceCounts(mid: any,empid:any,date:any): Observable<any> {
+    return this.http.get(this.mainBeUrl + 'ems/api/getAttendanceCountsForDate/' + mid +'/'+empid+'/'+date);
+  }
 }
