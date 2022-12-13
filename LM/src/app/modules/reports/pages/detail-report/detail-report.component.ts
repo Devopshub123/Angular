@@ -17,6 +17,10 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import * as _moment from 'moment';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+const htmlToPdfmake = require("html-to-pdfmake");
 
 export const MY_FORMATS = {
   parse: {
@@ -58,7 +62,7 @@ export class DetailReportComponent implements OnInit {
   year:any;
   months=[{id:0,month:'Jan'},{id:1,month:'Feb'},{id:2,month:'Mar'},{id:3,month:'Apr'},{id:4,month:'May'},{id:5,month:'Jun'},{id:6,month:'Jul'},{id:7,month:'Aug'},{id:8,month:'Sep'},{id:9,month:'Oct'},{id:10,month:'Nov'},{id:11,month:'Dec'}]
   headersList: any = [];
-  @ViewChild('TABLE') table!: ElementRef;
+  @ViewChild('table') table!: ElementRef;
   constructor(public reportsService: ReportsService, public datePipe: DatePipe, public formBuilder: FormBuilder,
     public dialog: MatDialog, private excelService: ExcelServiceService) { }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -216,6 +220,59 @@ export class DetailReportComponent implements OnInit {
      else {
       return color = 'red';
     }
+  }
+  public exportPDF(): void {
+    const pdfTable = this.table.nativeElement;
+    var html = htmlToPdfmake(pdfTable.innerHTML);
+    pdfMake.createPdf({
+      info: {
+        title: "Attendance Monthly Detailed Report",
+        author:'Sreeb tech',
+        subject:'Theme',
+            keywords:'Report'
+      },
+      footer: function (currentPage, pageCount) {
+        return {
+          margin: 10,
+          columns: [
+            {
+              fontSize: 9,
+              text: [
+                {
+                  text: 'Page ' + currentPage.toString() + ' of ' + pageCount,
+                }
+              ],
+              alignment: 'center'
+            }
+          ]
+        };
+      },
+      content: [ 
+        {
+          text: "Attendance Monthly Detailed Report\n\n",
+          style: 'header',
+          alignment: 'center',
+          fontSize: 14
+        },
+        // {
+        //   text:
+        //     "Designation :  " + this.designationForPdf +"\n" +
+        //     "Employee Name and Id:  " + this.employeeNameForPdf + "\n" +
+        //     "Year:  " + this.searchForm.controls.calenderYear.value+ "\n",
+        //   fontSize: 10,
+        //   margin: [0, 0, 0, 20],
+        //   alignment: 'left'
+        // },
+        html,
+        
+      ],styles:{
+        'html-table':{
+          background:'yellow' // it will add a yellow background to all <STRONG> elements
+        }
+      },
+      pageOrientation: 'landscape'//'portrait'
+    }).download("Attendance Monthly Detailed Report.pdf");
+
   }
 
 }

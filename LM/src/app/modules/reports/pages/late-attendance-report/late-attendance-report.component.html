@@ -63,6 +63,8 @@
         <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">
             <div>
                 <span class="exlprint"> | </span>
+                <a title="Download"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
+                <span class="exlprint"> | </span>
                 <a title="Download"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
                 </a>
             </div>
@@ -71,6 +73,7 @@
 
     <div class="p-2">
         <div class="mat-elevation-z8" >
+            <div  #table>
             <table mat-table [dataSource]="dataSource" >
                 <ng-container matColumnDef="sno">
                     <th mat-header-cell *matHeaderCellDef>S.No.</th>
@@ -113,6 +116,7 @@
                 </tr>
 
             </table>
+        </div>
             <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
             <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
 

@@ -13,6 +13,10 @@ import { AttendanceService } from 'src/app/modules/attendance/attendance.service
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+const htmlToPdfmake = require("html-to-pdfmake");
 
 
 import * as _moment from 'moment';
@@ -42,7 +46,6 @@ export const MY_FORMATS = {
   ],
 })
 export class LateAttendanceReportComponent implements OnInit {
-
   List: any[] = [
   ];
   employeelist: any;
@@ -57,7 +60,7 @@ export class LateAttendanceReportComponent implements OnInit {
   dateDayArray: any = [];
   obj: any;
   headersList: any = [];
-  @ViewChild('TABLE') table!: ElementRef;
+  @ViewChild('table') table!: ElementRef;
   shiftDataList: any;
   minFromDate: Date;
   maxFromDate: Date | null;
@@ -206,5 +209,59 @@ export class LateAttendanceReportComponent implements OnInit {
       return [5, 10, 20];
     }
   }
+
+  public exportPDF(): void {
+    const pdfTable = this.table.nativeElement;
+    var html = htmlToPdfmake(pdfTable.innerHTML);
+    pdfMake.createPdf({
+      info: {
+        title: "Late Attendance Report",
+        author:'Sreeb tech',
+        subject:'Theme',
+            keywords:'Report'
+      },
+      footer: function (currentPage, pageCount) {
+        return {
+          margin: 10,
+          columns: [
+            {
+              fontSize: 9,
+              text: [
+                {
+                  text: 'Page ' + currentPage.toString() + ' of ' + pageCount,
+                }
+              ],
+              alignment: 'center'
+            }
+          ]
+        };
+      },
+      content: [ 
+        {
+          text: "Late Attendance Report\n\n",
+          style: 'header',
+          alignment: 'center',
+          fontSize: 14
+        },
+        // {
+        //   text:
+        //     "Designation :  " + this.designationForPdf +"\n" +
+        //     "Employee Name and Id:  " + this.employeeNameForPdf + "\n" +
+        //     "Year:  " + this.searchForm.controls.calenderYear.value+ "\n",
+        //   fontSize: 10,
+        //   margin: [0, 0, 0, 20],
+        //   alignment: 'left'
+        // },
+        html,
+        
+        
+      ],defaultStyle: {
+        alignment: "justify",
+      },
+      pageOrientation: 'landscape'//'portrait'
+    }).download("Late Attendance Report.pdf");
+
+  }
+
 }
 

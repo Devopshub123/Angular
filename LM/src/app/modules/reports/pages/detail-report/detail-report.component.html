@@ -42,6 +42,8 @@
         </div>
         <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">
         <div>
+            <span class="exlprint"> | </span>
+            <a title="Download"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
           <span class="exlprint"> | </span>
           <a title="Download"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
           </a>
@@ -51,8 +53,8 @@
 
     <div class="p-2">
 
-        <div class="example-container" style="padding:10px" #TABLE>
-            <table #table style="width:100%;" *ngIf="List.length>0">
+        <div class="example-container" style="padding:10px" #table>
+            <table  style="width:100%;" *ngIf="List.length>0">
                 <thead>
                     <tr>
                         <th><span>Employee </span></th>

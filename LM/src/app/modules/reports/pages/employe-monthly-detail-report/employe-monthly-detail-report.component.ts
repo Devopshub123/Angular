@@ -10,6 +10,12 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import * as _moment from 'moment';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+const htmlToPdfmake = require("html-to-pdfmake");
+
+
 
 export const MY_FORMATS = {
   parse: {
@@ -126,6 +132,60 @@ export class EmployeMonthlyDetailReportComponent implements OnInit {
     /* save to file */
     //XLSX.writeFile(wb, 'Monthly_Detail_Report_for_employee_'+this.monthdata+'_'+this.year+'.xlsx');
     XLSX.writeFile(wb, 'Monthly_Detail_Report_for_employee.xlsx');
+
+  }
+
+  public exportPDF(): void {
+    const pdfTable = this.table.nativeElement;
+    var html = htmlToPdfmake(pdfTable.innerHTML);
+    pdfMake.createPdf({
+      info: {
+        title: "Attendance Mothly Report",
+        author:'Sreeb tech',
+        subject:'Theme',
+            keywords:'Report'
+      },
+      footer: function (currentPage, pageCount) {
+        return {
+          margin: 10,
+          columns: [
+            {
+              fontSize: 9,
+              text: [
+                {
+                  text: 'Page ' + currentPage.toString() + ' of ' + pageCount,
+                }
+              ],
+              alignment: 'center'
+            }
+          ]
+        };
+      },
+      content: [ 
+        {
+          text: "Attendance Mothly Report\n\n",
+          style: 'header',
+          alignment: 'center',
+          fontSize: 14
+        },
+        // {
+        //   text:
+        //     "Designation :  " + this.designationForPdf +"\n" +
+        //     "Employee Name and Id:  " + this.employeeNameForPdf + "\n" +
+        //     "Year:  " + this.searchForm.controls.calenderYear.value+ "\n",
+        //   fontSize: 10,
+        //   margin: [0, 0, 0, 20],
+        //   alignment: 'left'
+        // },
+        html,
+        
+      ],styles:{
+        'html':{
+          alignment:"center" // it will add a yellow background to all <STRONG> elements
+        }
+      },
+      pageOrientation: 'landscape'//'portrait'
+    }).download("Attendance Mothly Report.pdf");
 
   }
 }
