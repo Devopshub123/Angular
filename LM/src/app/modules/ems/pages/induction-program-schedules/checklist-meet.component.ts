@@ -249,12 +249,14 @@ export class ChecklistMeetComponent implements OnInit {
   saveRequest() {
     if (this.checklistForm.valid) {
       let data = {
-        scheduleId: null,
-        programId: this.checklistForm.controls.programType.value,
+        scheduleid: null,
+        programid: this.checklistForm.controls.programType.value,
+        department_id: this.checklistForm.controls.department.value,
+        s_description: this.checklistForm.controls.description.value,
+        s_status: "Scheduled",
+        reason: null,
         conductedby: this.checklistForm.controls.conductBy.value,
-        description: this.checklistForm.controls.description.value,
-        status:"Scheduled",
-        scheduleDate:
+        scheduledate:
           this.pipe.transform(
             this.checklistForm.controls.date.value,
             'yyyy-MM-dd'
@@ -264,17 +266,18 @@ export class ChecklistMeetComponent implements OnInit {
             this.checklistForm.controls.date.value,
             'HH:mm:ss'
           ),
-        startTime: this.pipe.transform(
+        
+          starttime: this.pipe.transform(
           this.checklistForm.controls.starttime.value,
           'HH:mm:ss'
         ),
-        endTime: this.pipe.transform(
+        endtime: this.pipe.transform(
           this.checklistForm.controls.endtime.value,
           'HH:mm:ss'
         ),
-        department: this.checklistForm.controls.department.value,
        // designation: this.checklistForm.controls.designation.value,
         actionby: this.userSession.id,
+     
       };
 
       this.EMS.setProgramSchedules(data).subscribe((res: any) => {
@@ -350,12 +353,14 @@ export class ChecklistMeetComponent implements OnInit {
   updateRequest() {
     if (this.checklistForm.valid) {
       let data = {
-        scheduleId: this.scheduleid,
-        programId: this.checklistForm.controls.programType.value,
+        scheduleid: this.scheduleid,
+        programid: this.checklistForm.controls.programType.value,
+         department_id: this.checklistForm.controls.department.value,
+       s_description: this.checklistForm.controls.description.value,
+        s_status:"Rescheduled",
+        reason: null,
         conductedby: this.checklistForm.controls.conductBy.value,
-        description: this.checklistForm.controls.description.value,
-        status:"Rescheduled",
-        scheduleDate:
+        scheduledate:
           this.pipe.transform(
             this.checklistForm.controls.date.value,
             'yyyy-MM-dd'
@@ -365,15 +370,14 @@ export class ChecklistMeetComponent implements OnInit {
             this.checklistForm.controls.date.value,
             'HH:mm:ss'
           ),
-        startTime: this.pipe.transform(
+        starttime: this.pipe.transform(
           this.checklistForm.controls.starttime.value,
           'HH:mm:ss'
         ),
-        endTime: this.pipe.transform(
+        endtime: this.pipe.transform(
           this.checklistForm.controls.endtime.value,
           'HH:mm:ss'
         ),
-        department: this.checklistForm.controls.department.value,
        // designation: this.checklistForm.controls.designation.value,
         actionby: this.userSession.id,
         //// email data
@@ -440,13 +444,14 @@ export class ChecklistMeetComponent implements OnInit {
   programCancelRequest() {
     if (this.checklistForm.controls.cancelReason.valid) {
       let data = {
-        scheduleId: this.scheduleid,
-        programId: this.checklistForm.controls.programType.value,
-        conductedby: this.checklistForm.controls.conductBy.value,
-        description: this.checklistForm.controls.description.value,
+        scheduleid: this.scheduleid,
+        programid: this.checklistForm.controls.programType.value,
+        department_id: this.checklistForm.controls.department.value,
+        s_description: this.checklistForm.controls.description.value,
+        s_status:"Cancelled",
         reason: this.checklistForm.controls.cancelReason.value,
-        status:"Cancelled",
-        scheduleDate:
+         conductedby: this.checklistForm.controls.conductBy.value,
+         scheduledate:
           this.pipe.transform(
             this.checklistForm.controls.date.value,
             'yyyy-MM-dd'
@@ -456,15 +461,14 @@ export class ChecklistMeetComponent implements OnInit {
             this.checklistForm.controls.date.value,
             'HH:mm:ss'
           ),
-        startTime: this.pipe.transform(
+          starttime: this.pipe.transform(
           this.checklistForm.controls.starttime.value,
           'HH:mm:ss'
         ),
-        endTime: this.pipe.transform(
+        endtime: this.pipe.transform(
           this.checklistForm.controls.endtime.value,
           'HH:mm:ss'
         ),
-        department: this.checklistForm.controls.department.value,
        // designation: this.checklistForm.controls.designation.value,
         actionby: this.userSession.id,
         emails: this.emailsList,

@@ -24,8 +24,12 @@ export class LoginComponent implements OnInit {
   msgLM2:any;
   employeeId:any;
   issubmit:boolean= false;
+  userlocalSessionemail:any;
+  userlocalSessionpassword:any;
+  userlocalSessionrememberme:any;
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
-    private tss: LoginService, private router: Router, private emsService: EmsService,) { }
+    private tss: LoginService, private router: Router, private emsService: EmsService,) {
+    }
 
   ngOnInit() {
     this.createForm();
@@ -58,10 +62,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("username",this.formGroup.controls.username.value);
         localStorage.setItem("password",this.formGroup.controls.password.value);
         localStorage.setItem("rememberme",this.formGroup.controls.rememberme.value);
-      }else{
-        localStorage.removeItem("username");
-        localStorage.removeItem("password");
-        localStorage.removeItem("rememberme");
+      } else if(this.formGroup.controls.rememberme.value==false){
+        localStorage.setItem("username",'');
+        localStorage.setItem("password",'');
+        localStorage.setItem("rememberme",'false');
       }
       this.tss.Savelogin(data).subscribe((data) =>{
         if(data.status === true){
@@ -89,7 +93,12 @@ export class LoginComponent implements OnInit {
 
       });
 
-    }
+      }
+
+  }
+  Forgotpassword() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/ForgotPassword"]));
 
   }
   getErrorMessages(errorCode:any){
