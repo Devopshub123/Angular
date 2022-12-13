@@ -24,17 +24,11 @@
         </a>
       </div>
 
-      <div style="padding-top: 4%">
-        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(3, true)">
-          <img src="assets\img\new-leaves.png" style="height: 40px" />
-          <span class="iconStyle">Timesheet</span>
+      <div style="padding-top: 4%;">
+        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(3,true)">
+          <img src="assets\img\time-sheet.png" style="height: 35px;" /> <span class="iconStyle">Timesheet</span>
         </a>
       </div>
-      <!-- <div style="padding-top: 4%;">
-        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(3,true)">
-          <img src="assets\img\ems02.png" style="height: 50px;" />Timesheet
-        </a>
-      </div> -->
 
       <div style="padding-top: 4%">
         <a mat-list-item routerLinkActive="active-list-item" style="pointer-events: none">
@@ -108,7 +102,7 @@
                 </div>
               </div>
               <!-- <div fxLayout="column">
-                
+
               </div> -->
             </div>
           </mat-card>
@@ -180,11 +174,11 @@
           <div class="scrollbox">
             <div class="scrollbox-content">
               <div style="padding-top: 1%;padding-bottom: 1%;min-height: 20vh;">
-              
-                <div fxLayout="row" *ngIf="!teamAttendanceCountData"  
-                fxLayoutAlign="space-around center" flex="100" 
+
+                <div fxLayout="row" *ngIf="!teamAttendanceCountData"
+                fxLayoutAlign="space-around center" flex="100"
                 style="padding-top: 2%;padding-bottom: 2%;">
-                         
+
                   <div fxLayout="column" fxLayoutAlign="center center">
                   <div class="center" >
                    <span style="color: aliceblue;">{{employeeAttendanceCountData.wfo_count}}</span>
@@ -204,16 +198,16 @@
                   <span class="subheading">Absent</span>
                 </div>
                 </div>
-               
+
 
                 <!-- team attendance -->
                 <div fxLayout="column" *ngIf="teamAttendanceCountData" flex="100">
                 <form [formGroup]="attendanceForm">
                   <span fxLayout="row" style="padding-left: 1%;">
-                  
+
                     <mat-form-field>
                       <input matInput readonly [matDatepicker]="currentDate" [min]="minDate"
-                          [max]="maxDate" placeholder="" (click)="date.open()" 
+                          [max]="maxDate" placeholder="" (click)="date.open()"
                           formControlName="currentDate"/>
                       <mat-datepicker-toggle class="datepicker" matSuffix [for]="currentDate">
                       </mat-datepicker-toggle>

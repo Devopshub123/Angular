@@ -190,8 +190,8 @@ export class MainDashboardComponent implements OnInit {
       console.log("datee--",this.date)
     this.attendanceForm.get('currentDate')?.valueChanges.subscribe((selectedValue:any) => {
       this.getTeamAttendanceCount();
-     
-   
+
+
     })
   }
   getModules() {
@@ -209,7 +209,7 @@ export class MainDashboardComponent implements OnInit {
              this.isAttendanceModule = true;
           } else if (e.id == 2) {
               this.isLeaveModule = true;
-          } 
+          }
         })
        }
     });
