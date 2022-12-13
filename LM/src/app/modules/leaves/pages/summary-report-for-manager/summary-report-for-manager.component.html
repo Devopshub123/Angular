@@ -57,18 +57,22 @@
   </mat-card>
 
   <mat-card >
-    <div style="margin-bottom: 10px" fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="summaryReports.length > 0">
+    <div  style="margin-bottom: 10px" fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="summaryReports.length > 0">
       <div>
+        <span class="exlprint"> | </span>
+        <a title="Download"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
+  
         <span class="exlprint"> | </span>
         <a title="Download"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
         </a>
       </div>
     </div >
     <mat-card-content style="width:100%;overflow-x: auto">
-    <table id ='table' class="table  table-striped">
+    <div  id ='table' #table="">
+      <table  class="table  table-striped" >
       <thead style="background-color: #28acaf;">
 
-      <tr *ngFor="let head of summaryReportTableHeadings">
+      <tr  *ngFor="let head of summaryReportTableHeadings">
         <!--<span *ngFor="let head of summaryReportTableHeadings">-->
         <!--<th scope="col" class="space">{{head}}</th>-->
           <th class="space" >{{head.column1}}</th>
@@ -121,6 +125,7 @@
       </tbody>
 
     </table>
+    </div>
     </mat-card-content>
 
   </mat-card>
