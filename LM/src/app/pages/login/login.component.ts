@@ -28,19 +28,14 @@ export class LoginComponent implements OnInit {
   userlocalSessionpassword:any;
   userlocalSessionrememberme:any;
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
-    private tss: LoginService, private router: Router, private emsService: EmsService,) { 
-this.userlocalSessionemail =  localStorage.getItem('email');
-    this.userlocalSessionpassword  =  localStorage.getItem('password');
-    this.userlocalSessionrememberme  =  localStorage.getItem('remeberme');
-
-
+    private tss: LoginService, private router: Router, private emsService: EmsService,) {
     }
 
   ngOnInit() {
     this.createForm();
     this.formGroup.controls.username.setValue(localStorage.getItem("username"));
     this.formGroup.controls.password.setValue(localStorage.getItem("password"));
-    this.formGroup.controls.remeberme.setValue(localStorage.getItem("rememberme"));
+    this.formGroup.controls.rememberme.setValue(localStorage.getItem("rememberme"));
     this.getErrorMessages('LM14')
     this.getErrorMessages('LM1')
     this.getErrorMessages('LM2')
@@ -53,11 +48,6 @@ this.userlocalSessionemail =  localStorage.getItem('email');
       'password': ['', Validators.required],
       'rememberme':['']
     });
-    if( this.userlocalSessionrememberme ){
-      this.formGroup.controls.username.setValue(this.userlocalSessionemail);
-      this.formGroup.controls.password.setValue(this.userlocalSessionpassword);
-      this.formGroup.controls.rememberme.setValue(this.userlocalSessionrememberme);
-    }
   }
   login(){
     this.issubmit = true;
@@ -67,79 +57,49 @@ this.userlocalSessionemail =  localStorage.getItem('email');
       email:this.email,
       password:this.password
     }
-    if (this.formGroup.valid) {
-      if (this.formGroup.controls.rememberme.value) { 
-        localStorage.setItem('email',  this.email);
-        localStorage.setItem('password', this.password);
-        localStorage.setItem('remeberme', this.formGroup.controls.rememberme.value);
-        this.tss.Savelogin(data).subscribe((data) =>{
-          if(data.status === true){
-            let empdata = data.result[0];
-            this.employeeId = empdata.id;
-            sessionStorage.setItem('user', JSON.stringify(empdata));
-            if (empdata.firstlogin == "Y") {
-              this.router.navigate(['/Attendance/ChangePassword'])
-            }
-            else {
-              this.router.navigate(['/MainDashboard'])
-              this.getEmployeeEmailData();
-            }
-  
-  
+    if(this.formGroup.valid){
+      if(this.formGroup.controls.rememberme.value==true){
+        localStorage.setItem("username",this.formGroup.controls.username.value);
+        localStorage.setItem("password",this.formGroup.controls.password.value);
+        localStorage.setItem("rememberme",this.formGroup.controls.rememberme.value);
+      } else if(this.formGroup.controls.rememberme.value==false){
+        localStorage.setItem("username",'');
+        localStorage.setItem("password",'');
+        localStorage.setItem("rememberme",'false');
+      }
+      this.tss.Savelogin(data).subscribe((data) =>{
+        if(data.status === true){
+          let empdata = data.result[0];
+          this.employeeId = empdata.id;
+          sessionStorage.setItem('user', JSON.stringify(empdata));
+          if (empdata.firstlogin == "Y") {
+            this.router.navigate(['/Attendance/ChangePassword'])
           }
           else {
-            this.router.navigate(['/Login']);
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position:{top:`70px`},
-              disableClose: true,
-              data: this.msgLM14
-            });
-         }
-  
-        });
-
-      }
-      else {
-        localStorage.removeItem('email');
-        localStorage.removeItem('password');
-        localStorage.removeItem('remeberme');
-        this.tss.Savelogin(data).subscribe((data) =>{
-          if(data.status === true){
-            let empdata = data.result[0];
-            this.employeeId = empdata.id;
-            sessionStorage.setItem('user', JSON.stringify(empdata));
-            if (empdata.firstlogin == "Y") {
-              this.router.navigate(['/Attendance/ChangePassword'])
-            }
-            else {
-              this.router.navigate(['/MainDashboard'])
-              this.getEmployeeEmailData();
-            }
-  
-  
+            this.router.navigate(['/MainDashboard'])
+            this.getEmployeeEmailData();
           }
-          else {
-            this.router.navigate(['/Login']);
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position:{top:`70px`},
-              disableClose: true,
-              data: this.msgLM14
-            });
-         }
-  
-        });
 
-        
+
+        }
+        else {
+          this.router.navigate(['/Login']);
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: this.msgLM14
+          });
+       }
+
+      });
+
       }
-      
-
-    }
 
   }
   Forgotpassword() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/ForgotPassword"]));
-    
+
   }
   getErrorMessages(errorCode:any){
     this.tss.getErrorMessages(errorCode,1,100).subscribe((result)=>{

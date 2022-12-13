@@ -19,22 +19,16 @@
 
       <div style="padding-top: 4%">
         <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(2, true)">
-          <img src="assets\img\new-leaves.png" style="height: 40px" />
+          <img src="assets\img\new-leaves.png" style="height: 45px;" />
           <span class="iconStyle">Leaves</span>
         </a>
       </div>
 
-      <div style="padding-top: 4%">
-        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(3, true)">
-          <img src="assets\img\new-leaves.png" style="height: 40px" />
-          <span class="iconStyle">Timesheet</span>
+      <div style="padding-top: 4%;">
+        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(3,true)">
+          <img src="assets\img\time-sheet.png" style="height: 35px;" /> <span class="iconStyle">Timesheet</span>
         </a>
       </div>
-      <!-- <div style="padding-top: 4%;">
-        <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(3,true)">
-          <img src="assets\img\ems02.png" style="height: 50px;" />Timesheet
-        </a>
-      </div> -->
 
       <div style="padding-top: 4%">
         <a mat-list-item routerLinkActive="active-list-item" style="pointer-events: none">
@@ -108,7 +102,7 @@
                 </div>
               </div>
               <!-- <div fxLayout="column">
-                
+
               </div> -->
             </div>
           </mat-card>
@@ -180,63 +174,63 @@
           <div class="scrollbox">
             <div class="scrollbox-content">
               <div style="padding-top: 1%;padding-bottom: 1%;min-height: 20vh;">
-              
-                <div fxLayout="row" *ngIf="!teamAttendanceCountData"  
-                fxLayoutAlign="space-around center" flex="100" 
+
+                <div fxLayout="row" *ngIf="!teamAttendanceCountData"
+                fxLayoutAlign="space-around center" flex="100"
                 style="padding-top: 2%;padding-bottom: 2%;">
-                         
+
                   <div fxLayout="column" fxLayoutAlign="center center">
                   <div class="center" >
-                   <span style="color: aliceblue;">10</span>
+                   <span style="color: aliceblue;">{{employeeAttendanceCountData.wfo_count}}</span>
                   </div>
                   <span class="subheading">Work from office</span>
                 </div>
                 <div fxLayout="column" fxLayoutAlign="center center" >
                   <div class="center" >
-                   <span style="color: aliceblue;">20</span>
+                   <span style="color: aliceblue;">{{employeeAttendanceCountData.wfh_count}}</span>
                   </div>
                   <span class="subheading">Work from home</span>
                 </div>
                 <div fxLayout="column" fxLayoutAlign="center center">
                   <div class="center" >
-                   <span style="color: aliceblue;">30</span>
+                   <span style="color: aliceblue;">{{employeeAttendanceCountData.absents_count}}</span>
                   </div>
                   <span class="subheading">Absent</span>
                 </div>
                 </div>
-               
+
 
                 <!-- team attendance -->
                 <div fxLayout="column" *ngIf="teamAttendanceCountData" flex="100">
                 <form [formGroup]="attendanceForm">
                   <span fxLayout="row" style="padding-left: 1%;">
-                  
+
                     <mat-form-field>
-                      <input matInput readonly [matDatepicker]="date" [min]="minDate"
-                          [max]="" placeholder="Date" (click)="date.open()" 
-                          formControlName="date"/>
-                      <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
+                      <input matInput readonly [matDatepicker]="currentDate" [min]="minDate"
+                          [max]="maxDate" placeholder="" (click)="date.open()"
+                          formControlName="currentDate"/>
+                      <mat-datepicker-toggle class="datepicker" matSuffix [for]="currentDate">
                       </mat-datepicker-toggle>
-                      <mat-datepicker #date></mat-datepicker>
+                      <mat-datepicker #currentDate></mat-datepicker>
                     </mat-form-field>
                   </span>
                 </form>
                 <div fxLayout="row" fxLayoutAlign="space-around center">
                   <div fxLayout="column" fxLayoutAlign="center center">
                   <div class="center" >
-                   <span style="color: aliceblue;">40</span>
+                   <span style="color: aliceblue;">{{employeeAttendanceCountData.wfo_count}}</span>
                   </div>
                   <span style="font-size: 16px;font-weight: 500;text-align: center;">Work from office</span>
                 </div>
                 <div fxLayout="column" fxLayoutAlign="center center" >
                   <div class="center" >
-                   <span style="color: aliceblue;">50</span>
+                   <span style="color: aliceblue;">{{employeeAttendanceCountData.wfh_count}}</span>
                   </div>
                   <span style="font-size: 16px;font-weight: 500;text-align: center;">Work from home</span>
                 </div>
                 <div fxLayout="column" fxLayoutAlign="center center">
                   <div class="center" >
-                   <span style="color: aliceblue;">60</span>
+                   <span style="color: aliceblue;">{{employeeAttendanceCountData.absents_count}}</span>
                   </div>
                   <span style="font-size: 16px;font-weight: 500;text-align: center;">Absent</span>
                 </div>
@@ -265,7 +259,7 @@
             </div>
             <div class="scrollbox">
               <div class="scrollbox-content">
-                <div style="padding-top: 1%;padding-left: 1%;min-height: 30vh;">
+                <div style="padding-top: 1%;padding-left: 1%;min-height: 20vh;">
                   <div *ngIf="!teamLeavesData">
                     <table class="table">
                       <thead>
@@ -298,7 +292,7 @@
                       <mat-list class="time-attendance">
                         <ng-container *ngFor="let item of employeesLeaveList">
                           <mat-list-item>
-                            <h3 matLine style="color: rgb(233, 48, 125);"> {{ item.emp_name}} </h3>
+                            <h3 matLine> {{ item.emp_name}} </h3>
                             <p>
                               {{ item.fromdate | date: "dd/MM/yyyy" }} - {{ item.todate | date: "dd/MM/yyyy" }}
                             </p>
