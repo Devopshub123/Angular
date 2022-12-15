@@ -88,6 +88,10 @@ export class MainService {
   removeDocumentOrImagesForEMS(info:any): Observable<any> {
     return this.http.delete(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/'+encodeURI(info),this.httpOptions);
   }
+  /** For AWS*/ 
+  // removeDocumentOrImagesForEMS(info:any): Observable<any> {
+  //   return this.http.post(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/',info,this.httpOptions);
+  // } 
   deleteFilesMaster(id:any):Observable<any>{
     return this.http.get(this.mainBeUrl + 'ems/api/deleteFilesMaster/'+id, this.httpOptions);
   }

@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavItem } from 'src/app/models/navItem';
 import { LoginService } from 'src/app/services/login.service';
@@ -15,7 +15,7 @@ import { RequestData } from 'src/app/modules/attendance/models/Request';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ConfirmationComponent } from 'src/app/modules/leaves/dialog/confirmation/confirmation.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReusableDialogComponent } from '../reusable-dialog/reusable-dialog.component';
 import { environment } from 'src/environments/environment';
@@ -37,6 +37,8 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'YYYY',
   },
 };
+
+////
 @Component({
   selector: 'app-main-dashboard',
   templateUrl: './main-dashboard.component.html',
@@ -137,10 +139,19 @@ export class MainDashboardComponent implements OnInit {
   date: any;
   isAttendanceModule: boolean = false;
   isLeaveModule: boolean = false;
-  employeeAttendanceCountData:any=[]
-  workFromHometData:any=[]
-  workFromOfficeData:any=[]
-  absentEmployeesData:any=[]
+  valid:boolean=false;
+  employeeAttendanceCountData: any = [];
+  workFromHometData: any = [];
+  workFromOfficeData: any = [];
+  absentEmployeesData: any = [];
+  selfwfo: boolean = false;
+  selfwfh: boolean = false;
+  selfAbsent: boolean = false;
+  inductionAlert: any = [
+    { 'alert': 'Induction Program conducted at office conference hall, date: 26-12-2022 01:00 PM to 02:00 PM' },
+    {'alert':'New Induction Program assigned to you ,please conduct program on 26-12-2022 01:00 PM to 02:00 PM'},
+    { 'alert': 'New employees are joined,please conduct inducction program' },];
+  totalEmpCount: any;
   ////////////////
   ngOnInit(): void {
     this.spinner.show();
@@ -187,8 +198,7 @@ export class MainDashboardComponent implements OnInit {
       {
         currentDate: [new Date()],
       });
-      console.log("datee--",this.date)
-    this.attendanceForm.get('currentDate')?.valueChanges.subscribe((selectedValue:any) => {
+     this.attendanceForm.get('currentDate')?.valueChanges.subscribe((selectedValue:any) => {
       this.getTeamAttendanceCount();
 
 
@@ -576,11 +586,19 @@ export class MainDashboardComponent implements OnInit {
     };
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
       //this.documentDetails = [];
+      this.valid =false;
       if (result && result.status) {
         if (result.data.length > 0) {
-          this.profileId = result.data[0].id;
-          this.profileInfo = JSON.stringify(result.data[0]);
-          this.mainService
+          for (let i = 0; i < result.data.length; i++) {
+            if (result.data[i].file_category == 'PROFILE') {
+              this.profileId = result.data[i].id;
+              this.profileInfo = JSON.stringify(result.data[i]);
+              this.valid = true;
+              break;
+            }
+          }
+          if (this.valid) {
+            this.mainService
             .getDocumentOrImagesForEMS(result.data[0])
             .subscribe((imageData) => {
               if (imageData.success) {
@@ -601,6 +619,17 @@ export class MainDashboardComponent implements OnInit {
                 ];
               }
             });
+            
+          }
+          else {
+            this.isRemoveImage = false;
+                this.imageurls = [
+                  {
+                    base64String: 'assets/img/profile.jpg',
+                  },
+                ];
+          }
+          
         }
       }
     });
@@ -720,7 +749,8 @@ export class MainDashboardComponent implements OnInit {
     this.leavesRequestData = [];
     this.LM.getLeavesForApprovals(this.usersession.id).subscribe((res: any) => {
         if (res.status) {
-        this.leavesRequestData = res.data;
+          this.leavesRequestData = res.data;
+          console.log("leave--",this.leavesRequestData)
       } else {
       }
     });
@@ -756,7 +786,10 @@ export class MainDashboardComponent implements OnInit {
     });
   }
   getSelfAttendanceCount() {
-    this.employeeAttendanceCountData =[]
+    this.employeeAttendanceCountData = [];
+    this.workFromHometData = [];
+    this.workFromOfficeData = [];
+    this.absentEmployeesData = [];
     let mid =  null;
      let eid = this.usersession.id;
     let date = this.pipe.transform(new Date, 'yyyy-MM-dd');
@@ -764,24 +797,66 @@ export class MainDashboardComponent implements OnInit {
     this.mainService.getEmployeeAttendanceCounts(mid,eid,date).subscribe((result) => {
       if (result.status) {
         this.employeeAttendanceCountData = result.data;
-      }
+        this.workFromHometData = JSON.parse(this.employeeAttendanceCountData.wfh_details);
+        this.workFromOfficeData = JSON.parse(this.employeeAttendanceCountData.wfo_details);
+        this.absentEmployeesData = JSON.parse(this.employeeAttendanceCountData.absents_details);
+       }
     });
 
   }
 
   getTeamAttendanceCount() {
-    this.employeeAttendanceCountData =[]
+    this.employeeAttendanceCountData = [];
+    this.workFromHometData = [];
+    this.workFromOfficeData = [];
+    this.absentEmployeesData = [];
     this.teamAttendanceCountData = true;
     let mid =  this.usersession.id;
-     let eid = null;
+    let eid = null;
+   
     let date =this.pipe.transform( this.attendanceForm.controls.currentDate.value,'yyyy-MM-dd');
     this.mainService.getEmployeeAttendanceCounts(mid,eid,date).subscribe((result) => {
       if (result.status) {
         this.employeeAttendanceCountData = result.data;
-        console.log("res-data-", this.employeeAttendanceCountData)
-        this.workFromHometData = JSON.parse(this.employeeAttendanceCountData.wfh_details)[0];
-        console.log("res-data-", this.employeeAttendanceCountData)
+        this.workFromHometData = JSON.parse(this.employeeAttendanceCountData.wfh_details);
+        this.workFromOfficeData = JSON.parse(this.employeeAttendanceCountData.wfo_details);
+        this.absentEmployeesData = JSON.parse(this.employeeAttendanceCountData.absents_details);
+        this.totalEmpCount = (this.employeeAttendanceCountData.wfo_count+ this.employeeAttendanceCountData.wfh_count +this.employeeAttendanceCountData.absents_count)
       }
-    });
+     });
+  }
+
+
+  selfOffice() {
+     this.selfwfo = true;
+    this.selfwfh = false;
+    this.selfAbsent = false;
+  }
+  selfhome() {
+    this.selfwfo = false;
+    this.selfwfh = true;
+    this.selfAbsent = false;
+  }
+  selfAbsents() {
+    this.selfwfo = false;
+    this.selfwfh = false;
+    this.selfAbsent = true;
+   }
+  teamOffice() {
+    this.selfwfo = true;
+    this.selfwfh = false;
+    this.selfAbsent = false; 
+  }
+  teamhome() {
+    this.selfwfo = false;
+    this.selfwfh = true;
+    this.selfAbsent = false; 
+  }
+
+  teamAbsent() {
+    this.selfwfo = false;
+    this.selfwfh = false;
+    this.selfAbsent = true;
   }
 }
+

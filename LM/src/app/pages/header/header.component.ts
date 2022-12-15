@@ -26,7 +26,9 @@ export class HeaderComponent implements OnInit {
   companyName: any;
   companyinfo: any;
   activeModule:any;
-  companyDBName:any = environment.dbName;
+  companyDBName: any = environment.dbName;
+  infodata: any;
+  valid: boolean = false;
   constructor(private baseService: BaseService,private mainService:MainService,
     private LM:CompanyInformationService,private spinner:NgxSpinnerService, public router: Router) { }
 
@@ -194,29 +196,49 @@ export class HeaderComponent implements OnInit {
       status: 'Submitted',
     };
     this.mainService.getFilesMaster(info).subscribe((result) => {
-      if(result && result.status &&  result.data[0]){
-       result.data[0].employeeId=this.usersession.id;
-       let info = result.data[0]
-    this.mainService.getProfileImage(info).subscribe((imageData) => {
-      if(imageData.success){
-        let TYPED_ARRAY = new Uint8Array(imageData.image.data);
-        const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-          return data + String.fromCharCode(byte);
-        }, '');
-
-        let base64String= btoa(STRING_CHAR)
-        this.imageurls='data:image/png;base64,'+base64String;
+      // if(result && result.status &&  result.data[0]){
+      //  result.data[0].employeeId=this.usersession.id;
+      //   let info = result.data[0]
+      this.valid = false;
+      if (result && result.status && result.data.length > 0) {
+         
+        for (let i = 0; i < result.data.length; i++) {
+          if (result.data[i].file_category == 'PROFILE') {
+            result.data[i].employeeId = this.usersession.id;
+            this.infodata = result.data[i]
+            this.valid = true;
+            break;
+          }
+          else {
+            this.imageurls = '';
+          }
+        }
+        if (this.valid) {
+          this.mainService.getProfileImage(info).subscribe((imageData) => {
+            if (imageData.success) {
+              let TYPED_ARRAY = new Uint8Array(imageData.image.data);
+              const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
+                return data + String.fromCharCode(byte);
+              }, '');
+        
+              let base64String = btoa(STRING_CHAR)
+              this.imageurls = 'data:image/png;base64,' + base64String;
+            }
+            else {
+              this.imageurls = '';
+        
+            }
+          })
+        } else {
+          this.imageurls = '';
+        
+        }
+       
       }
-      else{
-        this.imageurls ='';
-
+      else {
+        this.imageurls = '';
       }
     })
-  } else{
-    this.imageurls ='';
-
-  }
-})
   }
   getCompanyInformation(){
     this.LM.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{

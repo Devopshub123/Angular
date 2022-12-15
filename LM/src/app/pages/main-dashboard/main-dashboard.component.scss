@@ -467,11 +467,18 @@ mat-button-toggle-group {
 .center {
   background: #28acaf;
   width: 70px;
-  line-height: 70px;
+  height: 70px;
   border-radius: 50%;
-  text-align: center;
-  font-size: 25px;
   font-family: "Roboto";
+  text-align: center;
+}
+.center1 {
+  background: #28acaf;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  font-family: "Roboto";
+  text-align: center;
 }
 
 ::ng-deep .mat-form-field-infix {
@@ -506,4 +513,10 @@ mat-button-toggle-group {
 .table { border-collapse:collapse }
 th{
   font-family: "Roboto"; 
+}
+.inductionStyle{
+  padding: 5px;
+  background-color: #d9ecec;
+  font-family: 'Roboto';
+  font-size: 15px;
 }
