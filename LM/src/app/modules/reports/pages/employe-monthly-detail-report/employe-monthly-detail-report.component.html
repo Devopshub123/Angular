@@ -32,6 +32,8 @@
         </div>
         <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">
         <div>
+            <span class="exlprint"> | </span>
+            <a title="Download"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
           <span class="exlprint"> | </span>
           <a title="Download"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
           </a>
