@@ -206,7 +206,7 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
         subject:'Theme',
             keywords:'Report'
       },
-      footer: function (currentPage, pageCount) {
+      footer: function (currentPage:any, pageCount:any) {
         return {
           margin: 10,
           columns: [

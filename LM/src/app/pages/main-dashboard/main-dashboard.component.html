@@ -72,10 +72,10 @@
           style="padding-left: 2%;padding-right: 2%;padding-top: 1%">
           <!-- first column -->
           <div fxLayout="column" fxLayout.xs="column" fxLayoutGap="10px" fxFlex="50">
-            <mat-card fxLayout="row" fxLayout.xs="column" style="background-color: #28acaf; height: 215px"
+            <mat-card fxLayout="row" fxLayout.xs="column" style="background-color: #28acaf; height: 200px"
               class="card outline">
-              <div fxFlex="40">
-                <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
+              <div fxLayout="column" fxLayoutAlign="center" fxFlex="40">
+                <!-- <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
                   <img class="avatar-preview" [src]="url.base64String" />
                 </div>
                 <span style="padding-left: 30%;">
@@ -83,13 +83,20 @@
                     <input type="file" (change)="onSelectFile($event)" accept="image/*" />
                     Upload
                   </button>
-
+                </span> -->
+                <span fxLayout="row" fxLayoutAlign="center">
+                  <label class="hoverable1" for="fileInput" *ngFor="let url of imageurls; let i = index">
+                    <img class="img1" [src]= url.base64String> 
+                    <div class="hover-text"><mat-icon>camera_enhance</mat-icon></div>
+                    <div class="background"></div>
+                  </label>
+                  <input id="fileInput" accept='image/*' type='file' (change)="onSelectFile($event)">
                 </span>
 
               </div>
 
               <div fxLayout="column" fxLayoutAlign="space-around" fxFlex="60" fxFlex.xs="50"
-                style="overflow: auto; padding-top: 3%">
+                style="overflow: auto">
                 <div fxLayout="column">
                   <span class="heading">{{ employeeNameh }}</span>
                   <span class="heading1">{{ employeeCode }}</span>
@@ -243,7 +250,7 @@
                         <span fxLayout="row">
                           <mat-form-field>
                             <input matInput readonly [matDatepicker]="currentDate" [min]="minDate" [max]="maxDate"
-                              placeholder="" (click)="date.open()" formControlName="currentDate" />
+                              placeholder="" (click)="currentDate.open()" formControlName="currentDate" />
                             <mat-datepicker-toggle class="datepicker" matSuffix [for]="currentDate">
                             </mat-datepicker-toggle>
                             <mat-datepicker #currentDate></mat-datepicker>

@@ -1048,7 +1048,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
                   });
                   this.getDocumentsEMS();
                   this.clearDock();
-                  this.selectedtab.setValue(0);
+                  //this.selectedtab.setValue(0);
                 } else {
                   let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: { top: `70px` },

@@ -10,36 +10,51 @@
   .mat-card:not([class*=mat-elevation-z]) {
     box-shadow: 0px 0px 0px -1px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%), 0px 0px 0px 0px rgb(0 0 0 / 12%);
 }
-
-
-::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
-    color:rgb(0, 0, 0);
+::ng-deep .mat-tab-label {
+    height: 48px;
+    padding: 0 24px;
+    cursor: pointer;
+    box-sizing: border-box;
+    opacity: .6;
+    min-width: 160px;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    position: relative;
+    color: white;
+    font-size: large;
+      color: white;
     background-color: #28acaf;
+  }
+  
+  ::ng-deep {
+    .mat-tab-label-active {
+    color: #28acaf;
+    background-color: white;
     }
+  
+    .mat-tab-labels {
+      border-bottom: 2px solid #28acaf;;
+    }
+  
+    .mat-tab-group.mat-primary .mat-ink-bar {
+      background-color: transparent;
+      box-sizing: border-box;
+     border-top: 2px solid #28acaf;
+       border-left: 2px solid #28acaf;
+      border-right: 2px solid #28acaf;
+      border-bottom: 2px solid #28acaf;
+      height: 50px;
+    }
+  }
+  
+  ::ng-deep.mat-ripple.mat-tab-label.mat-focus-indicator.mat-tab-label.ng-star-inserted {
+    opacity: 1;
+  }
 
-    ::ng-deep .mat-tab-list .mat-tab-labels {
-    color:white;
-    background-color: #28acaf;
-    }
-    ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-        background-color: #28acaf;
-    }
-    ::ng-deep .mat-tab-label {
-        height: 48px;
-        padding: 0 24px;
-        cursor: pointer;
-        box-sizing: border-box;
-        opacity: .6;
-        min-width: 160px;
-        text-align: center;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        white-space: nowrap;
-        position: relative;
-        color: white;
-        font-size: large;
-    }
+
     .section {
         padding-top: 1%;
         margin-bottom: 2px;
@@ -86,4 +101,12 @@
       }
       button.link:hover {
         color: #80286a;
+      }
+      .outline {
+        border-width: 1px;
+        border-color: #cfcfcf;
+        border-left: 2px solid #cfcfcf;
+      border-right: 2px solid #cfcfcf;
+      border-bottom: 2px solid #cfcfcf;
+      
       }

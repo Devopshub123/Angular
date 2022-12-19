@@ -1380,7 +1380,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.workExperienceDetails[this.experienceIndex].todate = this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
         this.clearExperienceValidators();
       this.clearWorkExperience();
-      this.saveWorkExperience();
+      //this.saveWorkExperience();
     } else {
       if (this.experienceForm.valid) {
         this.workExperienceDetails.push({
@@ -1393,7 +1393,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
         this.clearExperienceValidators();
         this.clearWorkExperience();
-        this.saveWorkExperience();
+        //this.saveWorkExperience();
       } else { }
     }
   }
