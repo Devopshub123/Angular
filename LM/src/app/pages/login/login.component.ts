@@ -36,6 +36,9 @@ export class LoginComponent implements OnInit {
     this.formGroup.controls.username.setValue(localStorage.getItem("username"));
     this.formGroup.controls.password.setValue(localStorage.getItem("password"));
     this.formGroup.controls.rememberme.setValue(localStorage.getItem("rememberme"));
+    // console.log("nm--",this.formGroup.controls.username.value)
+    // console.log("pwd--",this.formGroup.controls.password.value)
+    // console.log("rmm--",this.formGroup.controls.rememberme.value)
     this.getErrorMessages('LM14')
     this.getErrorMessages('LM1')
     this.getErrorMessages('LM2')
@@ -61,7 +64,10 @@ export class LoginComponent implements OnInit {
       if(this.formGroup.controls.rememberme.value==true){
         localStorage.setItem("username",this.formGroup.controls.username.value);
         localStorage.setItem("password",this.formGroup.controls.password.value);
-        localStorage.setItem("rememberme",this.formGroup.controls.rememberme.value);
+        localStorage.setItem("rememberme", this.formGroup.controls.rememberme.value);
+        // console.log("nm-1-",this.formGroup.controls.username.value)
+        // console.log("pwd-1-",this.formGroup.controls.password.value)
+        // console.log("rmm-1-",this.formGroup.controls.rememberme.value)
       } else if(this.formGroup.controls.rememberme.value==false){
         localStorage.setItem("username",'');
         localStorage.setItem("password",'');

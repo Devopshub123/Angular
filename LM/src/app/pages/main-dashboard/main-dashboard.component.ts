@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavItem } from 'src/app/models/navItem';
 import { LoginService } from 'src/app/services/login.service';
@@ -23,6 +23,7 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import * as _moment from 'moment';
 import { th } from 'date-fns/locale';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 const moment =  _moment;
 
@@ -59,7 +60,10 @@ export class MainDashboardComponent implements OnInit {
   showError: boolean = false;
   private unsubscriber: Subject<void> = new Subject<void>();
   companyDBName: any = environment.dbName;
+  mobileQuery!: MediaQueryList;
+  private _mobileQueryListener: () => void;
   constructor(
+    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
     private AMS: LoginService,
     private mainService: MainService,
     private sideMenuService: SideMenuService,
@@ -75,6 +79,9 @@ export class MainDashboardComponent implements OnInit {
     this.getCompoffleavestatus();
     this.data = sessionStorage.getItem('user');
     this.usersession = JSON.parse(this.data);
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
   }
   ///////////
   employeeInformationData: any = [];
@@ -397,6 +404,7 @@ export class MainDashboardComponent implements OnInit {
   ngOnDestroy(): void {
     this.unsubscriber.next();
     this.unsubscriber.complete();
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
   ///////////////
   getEmployeeInformationList() {
