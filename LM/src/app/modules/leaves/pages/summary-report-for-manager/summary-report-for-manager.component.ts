@@ -268,15 +268,15 @@ export class SummaryReportForManagerComponent implements OnInit {
           alignment: 'center',
           fontSize: 14
         },
-        {
-          text:
-            "Designation :  " + this.designationForPdf +"\n" +
-            "Employee Name and Id:  " + this.employeeNameForPdf + "\n" +
-            "Year:  " + this.searchForm.controls.calenderYear.value+ "\n",
-          fontSize: 10,
-          margin: [0, 0, 0, 20],
-          alignment: 'left'
-        },
+        // {
+        //   text:
+        //     "Designation :  " + this.designationForPdf +"\n" +
+        //     "Employee Name and Id:  " + this.employeeNameForPdf + "\n" +
+        //     "Year:  " + this.searchForm.controls.calenderYear.value+ "\n",
+        //   fontSize: 10,
+        //   margin: [0, 0, 0, 20],
+        //   alignment: 'left'
+        // },
         html
       ],
       pageOrientation: 'landscape'//'portrait'

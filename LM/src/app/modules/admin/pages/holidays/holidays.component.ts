@@ -136,7 +136,6 @@ export class HolidaysComponent implements OnInit {
     return this.HolidayForm.get("edu") as FormArray
   }
   submit() {
-    console.log("hello")
     if (this.HolidayForm.valid) {
       let location = this.HolidayForm.controls.branch.value;
       // let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -151,31 +150,30 @@ export class HolidaysComponent implements OnInit {
 
         }));
       });
-      console.log("dataaa--",this.selecteditems)
-      // if(this.HolidayForm.controls.holiday.value !== null && this.holidays.holidayName !== null ){}
-      // this.LM.setHolidays(this.selecteditems, this.companyDBName).subscribe((data) => {
+      if(this.HolidayForm.controls.holiday.value !== null && this.holidaysDetails.holidayName !== null ){}
+      this.LM.setHolidays(this.selecteditems, this.companyDBName).subscribe((data) => {
 
-      //   if (data.status) {
-      //     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      //       this.router.navigate(["/Admin/Holidays"]));
-      //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
-      //       position: { top: `70px` },
-      //       disableClose: true,
-      //       data: this.msgEM114
-      //     });
-
+        if (data.status) {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/Holidays"]));
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.msgEM114
+          });
 
 
-      //   } else {
-      //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
-      //       position: { top: `70px` },
-      //       disableClose: true,
-      //       data: this.msgEM125
-      //     });
 
-      //     // Swal.fire({title:data.message,color:"red",showCloseButton: true});
-      //   }
-      // })
+        } else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.msgEM125
+          });
+
+          // Swal.fire({title:data.message,color:"red",showCloseButton: true});
+        }
+      })
     }
 
   }
