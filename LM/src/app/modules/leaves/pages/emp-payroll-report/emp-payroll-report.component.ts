@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild,ElementRef} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {MatPaginator} from "@angular/material/paginator";
@@ -16,6 +16,11 @@ import { Moment} from 'moment';
 import * as _moment from 'moment';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
+import jsPDF from "jspdf";
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+const htmlToPdfmake = require("html-to-pdfmake");
 
 export const MY_FORMATS = {
   parse: {
@@ -67,6 +72,7 @@ export class EmpPayrollReportComponent implements OnInit {
   monthdata: any;;
 
   constructor(private LM:LeavesService,private router: Router,public formBuilder: FormBuilder,public spinner :NgxSpinnerService,private RS:ReportsService) { }
+  @ViewChild('table') table!: ElementRef;
 
   ngOnInit(): void {
     this.getallEmployeesList();
@@ -144,6 +150,54 @@ export class EmpPayrollReportComponent implements OnInit {
     else {
       return [5, 10, 20];
     }
+  }
+  public exportPDF(): void {
+    const pdfTable = this.table.nativeElement;
+    var html = htmlToPdfmake(pdfTable.innerHTML);
+    pdfMake.createPdf({
+      info: {
+        title: "Payroll Report",
+        author:'Sreeb tech',
+        subject:'Theme',
+            keywords:'Report'
+      },
+      footer: function (currentPage, pageCount) {
+        return {
+          margin: 10,
+          columns: [
+            {
+              fontSize: 9,
+              text: [
+                {
+                  text: 'Page ' + currentPage.toString() + ' of ' + pageCount,
+                }
+              ],
+              alignment: 'center'
+            }
+          ]
+        };
+      },
+      content: [
+        {
+          text: "Payroll Report\n\n",
+          style: 'header',
+          alignment: 'center',
+          fontSize: 14
+        },
+        // {
+        //   text:
+        //     "Designation :  " + this.designationForPdf +"\n" +
+        //     "Employee Name and Id:  " + this.employeeNameForPdf + "\n" +
+        //     "Year:  " + this.searchForm.controls.calenderYear.value+ "\n",
+        //   fontSize: 10,
+        //   margin: [0, 0, 0, 20],
+        //   alignment: 'left'
+        // },
+        html
+      ],
+      pageOrientation: 'landscape'//'portrait'
+    }).download("Payroll Report.pdf");
+
   }
 
 }

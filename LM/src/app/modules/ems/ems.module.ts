@@ -13,19 +13,19 @@ import { SettingsOffBoardingComponent } from './pages/settings-off-boarding/sett
 import { SettingsOnBoardingComponent } from './pages/settings-on-boarding/settings-on-boarding.component';
 import { SettingsAddChecklistComponent } from './pages/settings-add-checklist/settings-add-checklist.component';
 import { EmployeereportComponent } from './reports/employeereport/employeereport.component';
-import { HrResignationComponent } from './pages/hr-resignation/hr-resignation.component';
+import { HrResignationComponent } from './pages/hr-resignation-checklist/hr-resignation.component';
 import { EmployeeDirectoryComponent } from './pages/employee-directory/employee-directory.component';
 import { EmployeeDashboardComponent } from './pages/employee-dashboard/employee-dashboard.component';
-import { HrOnboardingComponent } from './pages/hr-onboarding/hr-onboarding.component';
-import { HrOnboardingChecklistComponent } from './pages/hr-onboarding-checklist/hr-onboarding-checklist.component';
-import { HrOffboardingChecklistComponent } from './pages/hr-offboarding-checklist/hr-offboarding-checklist.component';
-import { ChecklistMeetComponent } from './pages/checklist-meet/checklist-meet.component';
-import { HrOffboardingChecklistoverviewComponent } from './pages/hr-offboarding-checklistoverview/hr-offboarding-checklistoverview.component';
+import { HrOnboardingComponent } from './pages/hr-onboarding-checklist/hr-onboarding.component';
+import { HrOnboardingChecklistComponent } from './pages/manager-onboarding-checklist/hr-onboarding-checklist.component';
+import { HrOffboardingChecklistComponent } from './pages/manager-termination-checklist/hr-offboarding-checklist.component';
+import { ChecklistMeetComponent } from './pages/induction-program-schedules/checklist-meet.component';
+import { HrOffboardingChecklistoverviewComponent } from './pages/hr-termination-checklist/hr-offboarding-checklistoverview.component';
 import { AnnouncementsComponent } from './pages/announcements/announcements.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { AssignChecklistComponent } from './pages/assign-checklist/assign-checklist.component';
 import { HrDocumentApprovalComponent } from './pages/hr-document-approval/hr-document-approval.component';
-import { HrPendingApprovalsComponent } from './pages/hr-pending-approvals/hr-pending-approvals.component';
+import { HrPendingApprovalsComponent } from './pages/hr-resignation-approvals/hr-pending-approvals.component';
 import { ConfigureDocumentsComponent } from './pages/configure-documents/configure-documents.component';
 import { ReusePopupComponent } from './pages/reuse-popup/reuse-popup.component';
 import { EmsMessagemasterComponent } from './pages/ems-messagemaster/ems-messagemaster.component';
@@ -33,12 +33,13 @@ import { EmployeeChecklistComponent } from './pages/employee-checklist/employee-
 import { EmployeeProfileComponent } from './pages/employee-profile/employee-profile.component';
 import { NgChartsModule } from 'ng2-charts';
 import 'chartjs-adapter-date-fns';
-import { InductionComponent } from './pages/induction/induction.component';
+import { InductionComponent } from './pages/induction-master/induction.component';
 import { UsersLoginComponent } from './pages/users-login/users-login.component';
 import { NewHireListComponent } from './pages/new-hire-list/new-hire-list.component';
 import { ReportpopupComponent } from './pages/reportpopup/reportpopup.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { DeptResignationPendingchecklistComponent } from './pages/dept-resignation-pendingchecklist/dept-resignation-pendingchecklist.component';
+import { DeptResignationPendingchecklistComponent } from './pages/manager-resignation-checklist/dept-resignation-pendingchecklist.component';
+import { InductionConductedByMasterComponent } from './pages/induction-conducted-by-master/induction-conducted-by-master.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { DeptResignationPendingchecklistComponent } from './pages/dept-resignati
     NewHireListComponent,
     ReportpopupComponent,
     DeptResignationPendingchecklistComponent,
+    InductionConductedByMasterComponent,
   ],
   imports: [
     CommonModule,

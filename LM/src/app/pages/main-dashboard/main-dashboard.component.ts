@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavItem } from 'src/app/models/navItem';
 import { LoginService } from 'src/app/services/login.service';
@@ -15,15 +15,39 @@ import { RequestData } from 'src/app/modules/attendance/models/Request';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ConfirmationComponent } from 'src/app/modules/leaves/dialog/confirmation/confirmation.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReusableDialogComponent } from '../reusable-dialog/reusable-dialog.component';
 import { environment } from 'src/environments/environment';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import * as _moment from 'moment';
+import { th } from 'date-fns/locale';
+import { MediaMatcher } from '@angular/cdk/layout';
 
+const moment =  _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
+
+////
 @Component({
   selector: 'app-main-dashboard',
   templateUrl: './main-dashboard.component.html',
   styleUrls: ['./main-dashboard.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class MainDashboardComponent implements OnInit {
   allModuleDetails: any = [];
@@ -36,7 +60,10 @@ export class MainDashboardComponent implements OnInit {
   showError: boolean = false;
   private unsubscriber: Subject<void> = new Subject<void>();
   companyDBName: any = environment.dbName;
+  mobileQuery!: MediaQueryList;
+  private _mobileQueryListener: () => void;
   constructor(
+    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
     private AMS: LoginService,
     private mainService: MainService,
     private sideMenuService: SideMenuService,
@@ -52,6 +79,9 @@ export class MainDashboardComponent implements OnInit {
     this.getCompoffleavestatus();
     this.data = sessionStorage.getItem('user');
     this.usersession = JSON.parse(this.data);
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
   }
   ///////////
   employeeInformationData: any = [];
@@ -109,6 +139,26 @@ export class MainDashboardComponent implements OnInit {
   isManager: boolean = false;
   requestData: any;
   requestType: string = '';
+  teamAttendanceCountData: boolean = false;
+  minDate = new Date('2000/01/01');
+  maxDate = new Date();
+ attendanceForm: any = FormGroup;
+  date: any;
+  isAttendanceModule: boolean = false;
+  isLeaveModule: boolean = false;
+  valid:boolean=false;
+  employeeAttendanceCountData: any = [];
+  workFromHometData: any = [];
+  workFromOfficeData: any = [];
+  absentEmployeesData: any = [];
+  selfwfo: boolean = false;
+  selfwfh: boolean = false;
+  selfAbsent: boolean = false;
+  inductionAlert: any = [
+    { 'alert': 'Induction Program conducted at office conference hall, date: 26-12-2022 01:00 PM to 02:00 PM' },
+    {'alert':'New Induction Program assigned to you ,please conduct program on 26-12-2022 01:00 PM to 02:00 PM'},
+    { 'alert': 'New employees are joined,please conduct inducction program' },];
+  totalEmpCount: any;
   ////////////////
   ngOnInit(): void {
     this.spinner.show();
@@ -149,13 +199,30 @@ export class MainDashboardComponent implements OnInit {
       showMore: false,
     }));
     this.getDocumentsEMS();
+    this.getSelfAttendanceCount();
     this.spinner.hide();
+    this.attendanceForm = this.formBuilder.group(
+      {
+        currentDate: [new Date()],
+      });
+     this.attendanceForm.get('currentDate')?.valueChanges.subscribe((selectedValue:any) => {
+      this.getTeamAttendanceCount();
+
+
+    })
   }
   getModules() {
     this.AMS.getModules('modulesmaster', null, 1, 100).subscribe((result) => {
       if (result && result.status) {
         this.allModuleDetails = result.data;
-      }
+        this.allModuleDetails.forEach((e:any)=>{
+          if (e.id == 4) {
+             this.isAttendanceModule = true;
+          } else if (e.id == 2) {
+              this.isLeaveModule = true;
+          }
+        })
+       }
     });
   }
 
@@ -331,6 +398,7 @@ export class MainDashboardComponent implements OnInit {
   ngOnDestroy(): void {
     this.unsubscriber.next();
     this.unsubscriber.complete();
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
   ///////////////
   getEmployeeInformationList() {
@@ -520,11 +588,19 @@ export class MainDashboardComponent implements OnInit {
     };
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
       //this.documentDetails = [];
+      this.valid =false;
       if (result && result.status) {
         if (result.data.length > 0) {
-          this.profileId = result.data[0].id;
-          this.profileInfo = JSON.stringify(result.data[0]);
-          this.mainService
+          for (let i = 0; i < result.data.length; i++) {
+            if (result.data[i].file_category == 'PROFILE') {
+              this.profileId = result.data[i].id;
+              this.profileInfo = JSON.stringify(result.data[i]);
+              this.valid = true;
+              break;
+            }
+          }
+          if (this.valid) {
+            this.mainService
             .getDocumentOrImagesForEMS(result.data[0])
             .subscribe((imageData) => {
               if (imageData.success) {
@@ -545,6 +621,17 @@ export class MainDashboardComponent implements OnInit {
                 ];
               }
             });
+            
+          }
+          else {
+            this.isRemoveImage = false;
+                this.imageurls = [
+                  {
+                    base64String: 'assets/img/profile.jpg',
+                  },
+                ];
+          }
+          
         }
       }
     });
@@ -660,11 +747,12 @@ export class MainDashboardComponent implements OnInit {
       });
   }
   getLeavesForApprovals() {
-    this.teamLeavesData = true;
+    //this.teamLeavesData = true;
     this.leavesRequestData = [];
     this.LM.getLeavesForApprovals(this.usersession.id).subscribe((res: any) => {
         if (res.status) {
-        this.leavesRequestData = res.data;
+          this.leavesRequestData = res.data;
+          console.log("leave--",this.leavesRequestData)
       } else {
       }
     });
@@ -699,4 +787,78 @@ export class MainDashboardComponent implements OnInit {
       }
     });
   }
+  getSelfAttendanceCount() {
+    this.employeeAttendanceCountData = [];
+    this.workFromHometData = [];
+    this.workFromOfficeData = [];
+    this.absentEmployeesData = [];
+    let mid =  null;
+     let eid = this.usersession.id;
+    let date = this.pipe.transform(new Date, 'yyyy-MM-dd');
+    this.teamAttendanceCountData = false;
+    this.mainService.getEmployeeAttendanceCounts(mid,eid,date).subscribe((result) => {
+      if (result.status) {
+        this.employeeAttendanceCountData = result.data;
+        this.workFromHometData = JSON.parse(this.employeeAttendanceCountData.wfh_details);
+        this.workFromOfficeData = JSON.parse(this.employeeAttendanceCountData.wfo_details);
+        this.absentEmployeesData = JSON.parse(this.employeeAttendanceCountData.absents_details);
+       }
+    });
+
+  }
+
+  getTeamAttendanceCount() {
+    this.employeeAttendanceCountData = [];
+    this.workFromHometData = [];
+    this.workFromOfficeData = [];
+    this.absentEmployeesData = [];
+    this.teamAttendanceCountData = true;
+    let mid =  this.usersession.id;
+    let eid = null;
+   
+    let date =this.pipe.transform( this.attendanceForm.controls.currentDate.value,'yyyy-MM-dd');
+    this.mainService.getEmployeeAttendanceCounts(mid,eid,date).subscribe((result) => {
+      if (result.status) {
+        this.employeeAttendanceCountData = result.data;
+        this.workFromHometData = JSON.parse(this.employeeAttendanceCountData.wfh_details);
+        this.workFromOfficeData = JSON.parse(this.employeeAttendanceCountData.wfo_details);
+        this.absentEmployeesData = JSON.parse(this.employeeAttendanceCountData.absents_details);
+        this.totalEmpCount = (this.employeeAttendanceCountData.wfo_count+ this.employeeAttendanceCountData.wfh_count +this.employeeAttendanceCountData.absents_count)
+      }
+     });
+  }
+
+
+  selfOffice() {
+     this.selfwfo = true;
+    this.selfwfh = false;
+    this.selfAbsent = false;
+  }
+  selfhome() {
+    this.selfwfo = false;
+    this.selfwfh = true;
+    this.selfAbsent = false;
+  }
+  selfAbsents() {
+    this.selfwfo = false;
+    this.selfwfh = false;
+    this.selfAbsent = true;
+   }
+  teamOffice() {
+    this.selfwfo = true;
+    this.selfwfh = false;
+    this.selfAbsent = false; 
+  }
+  teamhome() {
+    this.selfwfo = false;
+    this.selfwfh = true;
+    this.selfAbsent = false; 
+  }
+
+  teamAbsent() {
+    this.selfwfo = false;
+    this.selfwfh = false;
+    this.selfAbsent = true;
+  }
 }
+

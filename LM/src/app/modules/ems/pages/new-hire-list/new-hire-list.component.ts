@@ -67,7 +67,7 @@ export class NewHireListComponent implements OnInit {
   newHiredList: any = [];
   //constructor(private emsService:EmsService,private router: Router) { }
 
-  displayedColumns: string[] = ['sno','name','mobile','joinDate','hireDate','email','status','action'];
+  displayedColumns: string[] = ['sno','name','email','hireDate','joinDate','mobile','status','action'];
   dataSource : MatTableDataSource<any> = <any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -241,7 +241,7 @@ export class NewHireListComponent implements OnInit {
      {
        "code": null,
        "pagenumber":1,
-       "pagesize":100
+       "pagesize":1000
     }
 
    this.adminService.getEMSMessagesList(data).subscribe((res:any)=>{

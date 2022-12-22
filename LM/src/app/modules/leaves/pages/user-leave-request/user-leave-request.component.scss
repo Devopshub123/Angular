@@ -34,3 +34,10 @@ table{
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
   margin: 0px!important;
 }
+.table thead th {
+  color: #000;
+  border-bottom-width: 2px;
+}
+.table {
+  color: #000 !important;
+}

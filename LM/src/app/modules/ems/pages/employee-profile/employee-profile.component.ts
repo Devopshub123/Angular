@@ -1320,7 +1320,7 @@ export class EmployeeProfileComponent implements OnInit {
             this.experienceForm.controls.expToDate.value,
             'yyyy-MM-dd'
           )),
-        this.saveWorkExperience();
+        //this.saveWorkExperience();
       this.clearExperienceValidators();
       this.clearWorkExperience();
     } else {
@@ -1338,7 +1338,7 @@ export class EmployeeProfileComponent implements OnInit {
           skills: this.experienceForm.controls.jobDescription.value,
           designation: this.experienceForm.controls.designation.value,
         });
-        this.saveWorkExperience();
+       // this.saveWorkExperience();
         this.workExperienceDataSource = new MatTableDataSource(
           this.workExperienceDetails
         );

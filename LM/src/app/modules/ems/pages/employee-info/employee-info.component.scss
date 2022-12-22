@@ -1,181 +1,212 @@
-// .mat-card {
-//     transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
-//     display: block;
-//     position: relative;
-//     padding: 0px;
-//     border-radius: 4px;
-//     border-radius: 2px;
-//   }
+.mat-card {
+  display: block;
+  position: relative;
+  padding: 0px;
 
-  .mat-card:not([class*=mat-elevation-z]) {
-    box-shadow: 0px 0px 0px -1px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%), 0px 0px 0px 0px rgb(0 0 0 / 12%);
+}
+
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0px 0px 0px -1px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%), 0px 0px 0px 0px rgb(0 0 0 / 12%);
+}
+
+// ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+//   color: #28acaf;
+//   background-color: white;
+// }
+
+// ::ng-deep .mat-tab-list .mat-tab-labels {
+//   color: white;
+//   background-color: #28acaf;
+// }
+
+// ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+// .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+//   background-color: #28acaf;
+//   border-top: 2px solid #af286b;
+//   border-left: 2px solid #af2828;
+//   border-right: 2px solid #af8028;
+//   border-bottom: 2px solid #9a57d8;
+// }
+
+::ng-deep .mat-tab-label {
+  height: 48px;
+  padding: 0 24px;
+  cursor: pointer;
+  box-sizing: border-box;
+  opacity: .6;
+  min-width: 160px;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  position: relative;
+  color: white;
+  font-size: large;
+    color: white;
+  background-color: #28acaf;
+}
+
+::ng-deep {
+  .mat-tab-label-active {
+  color: #28acaf;
+  background-color: white;
+  }
+
+  .mat-tab-labels {
+    border-bottom: 2px solid #28acaf;;
+  }
+
+  .mat-tab-group.mat-primary .mat-ink-bar {
+    background-color: transparent;
+    box-sizing: border-box;
+    border-top: 2px solid #28acaf;
+     border-left: 1px solid #28acaf;
+    border-right: 1px solid #28acaf;
+    border-bottom: 2px solid #28acaf;
+    height: 50px;
+  }
+}
+
+::ng-deep.mat-ripple.mat-tab-label.mat-focus-indicator.mat-tab-label.ng-star-inserted {
+  opacity: 1;
 }
 
 
-::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
-    color:black;
-    background-color: white;
-    }
 
-    ::ng-deep .mat-tab-list .mat-tab-labels {
-    color:white;
-    background-color: #28acaf;
-    }
-    ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-        background-color: #28acaf;
-    }
-    ::ng-deep .mat-tab-label {
-        height: 48px;
-        padding: 0 24px;
-        cursor: pointer;
-        box-sizing: border-box;
-        opacity: .6;
-        min-width: 150px;
-        text-align: center;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        white-space: nowrap;
-        position: relative;
-        color: black;
-        font-size: 16px;
-    }
-    .section {
-        padding-top: 1%;
-        margin-bottom: 2px;
-        font-size: 17px;
-        color: #000000;
-        text-align: left;
-        line-height: 28px;
-    }
-    .section2{
-        margin-top: 10px;
-        font-size: 16px;
-    }
+.section {
+  padding-top: 1%;
+  margin-bottom: 2px;
+  font-size: 17px;
+  color: #000000;
+  text-align: left;
+  line-height: 28px;
+}
+.section1 {
+  margin-bottom: 2px;
+  font-size: 17px;
+  color: #000000;
+  text-align: left;
+  line-height: 28px;
+}
+.section2 {
+  margin-top: 10px;
+  font-size: 16px;
+}
 
-    ::ng-deep .mat-form-field-subscript-wrapper {
-        font-size: 75%;
-        margin-top: 0em;
-        top: calc(100% - 0.791667em);
-    }
-    button.link {
-        background: transparent;
-        color: blue;
-        border: none;
-        outline: 0;
-        // text-decoration: underline;
-      }
-      button.link:hover {
-        color: #80286a;
-      }
+::ng-deep .mat-form-field-subscript-wrapper {
+  font-size: 75%;
+  margin-top: 0em;
+  top: calc(100% - 0.791667em);
+}
 
-      .heading{
-        font-size: 20px;
-        font-weight: bold;
-        font-family: initial;
-    color: #145b5c;
-    }
-    .heading1{
-        font-size: 18px;
-        font-weight: bold;
-        font-family: initial;
-    color: #145b5c;
-    }
-    .subh{
-        font-size: 14px;
-        font-weight: bold;
-    }
-    ::ng-deep .cdk-overlay-container {
-        z-index:1050 !important;
-    }
+button.link {
+  background: transparent;
+  color: blue;
+  border: none;
+  outline: 0;
+  // text-decoration: underline;
+}
 
-    ////////////
-    .avatar-upload {
-        position: inherit;
-        max-width: 170px;
-        margin: 0px auto 0px;
-      }
+button.link:hover {
+  color: #80286a;
+}
 
-      .avatar-upload .avatar-edit {
-        position: absolute;
-        right: 19px;
-        z-index: 1;
-        top: 13px;
-      }
+.heading {
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Roboto';
+  color: #28acaf;
+}
 
-      .avatar-upload .avatar-edit input {
-        display: none;
-      }
+.heading1 {
+  font-size: 16px;
+  font-weight: 500;
+  font-family: 'Roboto';
+  color: #28acaf;
+}
 
-      .avatar-upload .avatar-edit .custom-label {
-        display: inline-block;
-        width: 34px;
-        height: 34px;
-        margin-bottom: 0;
-        border-radius: 100%;
-        background: #3efc78;
-        border: 1px solid transparent;
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
-        cursor: pointer;
-        font-weight: normal;
-        transition: all 0.2s ease-in-out;
-      }
+.subh {
+  font-size: 14px;
+  font-weight: bold;
+}
 
-      .avatar-upload .avatar-edit .upload-image {
-        background: #3efc78;
-      }
+::ng-deep .cdk-overlay-container {
+  z-index: 1050 !important;
+}
 
-      .avatar-upload .avatar-edit .remove-image {
-        background: #E91E63;
-      }
+////////////
+.avatar-upload {
+  position: inherit;
+  max-width: 170px;
+  margin: 0px auto 0px;
+}
 
-      .avatar-upload .avatar-edit .custom-label:hover {
-        opacity: 1;
-      }
+.avatar-upload .avatar-edit {
+  position: absolute;
+  right: 19px;
+  z-index: 1;
+  top: 13px;
+}
 
-      .avatar-upload .avatar-edit .custom-label:after {
-        position: absolute;
-        text-align: center;
-        margin: auto;
-        top: 8px;
-        right: 0;
-        left: 2px;
-        width: 18px;
-      }
+.avatar-upload .avatar-edit input {
+  display: none;
+}
+.avatar-upload .avatar-edit .custom-label:hover {
+  opacity: 1;
+}
 
-      .avatar-upload .avatar-edit .upload-image:after {
-        content: url('/assets/edit.svg');
-      }
+.avatar-upload .avatar-edit .custom-label:after {
+  position: absolute;
+  text-align: center;
+  margin: auto;
+  top: 8px;
+  right: 0;
+  left: 2px;
+  width: 18px;
+}
 
-      .avatar-upload .avatar-edit .remove-image:after {
-        content: url('/assets/close.svg');
-        left: 0px !important;
-      }
+.avatar-upload .avatar-edit .upload-image:after {
+  content: url('/assets/edit.svg');
+}
 
-      .avatar-upload .avatar-preview {
-        width: 170px;
-        height: 180px;
-        position: relative;
-        border-radius: 100%;
-        overflow: hidden;
-        border: 5px solid #fff;
-        -webkit-box-shadow: 0 0 45px rgba(0, 0, 0, .2);
-        -moz-box-shadow: 0 0 45px rgba(0, 0, 0, .2);
-        box-shadow: 0 0 20px rgba(0, 0, 0, .2);
-      }
+.avatar-upload .avatar-edit .remove-image:after {
+  content: url('/assets/close.svg');
+  left: 0px !important;
+}
 
-      .avatar-upload .avatar-preview>div {
-        width: 100%;
-        height: 100%;
-        border-radius: 100%;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-      }
+.avatar-upload .avatar-preview {
+  width: 130px;
+  height: 130px;
+  position: relative;
+  border-radius: 100%;
+  overflow: hidden;
+  border: 5px solid #fff;
+  -webkit-box-shadow: 0 0 45px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 0 0 45px rgba(0, 0, 0, .2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+  margin-bottom: 5%;
+}
 
-      .truncate-cell {
-        max-width: 120px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
+.avatar-upload .avatar-preview>div {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.truncate-cell {
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.outline {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #cfcfcf;
+
+}

@@ -21,12 +21,13 @@ import { TerminationCategoryComponent } from './pages/termination-category/termi
 import { ReasonMasterComponent } from './pages/reason-master/reason-master.component';
 import { ReimbursementMasterComponent } from './pages/reimbursement-master/reimbursement-master.component';
 import { SettingsAddChecklistComponent } from '../ems/pages/settings-add-checklist/settings-add-checklist.component';
-import { InductionComponent } from '../ems/pages/induction/induction.component';
+import { InductionComponent } from '../ems/pages/induction-master/induction.component';
 import { ConfigureDocumentsComponent } from '../ems/pages/configure-documents/configure-documents.component';
 import { AnnouncementsComponent } from '../ems/pages/announcements/announcements.component';
 import { UsersLoginComponent } from '../ems/pages/users-login/users-login.component';
 import { SettingsOnBoardingComponent } from '../ems/pages/settings-on-boarding/settings-on-boarding.component';
 import { SettingsOffBoardingComponent } from '../ems/pages/settings-off-boarding/settings-off-boarding.component';
+import { InductionConductedByMasterComponent } from '../ems/pages/induction-conducted-by-master/induction-conducted-by-master.component';
 
 const routes: Routes = [
   {
@@ -51,7 +52,6 @@ const routes: Routes = [
       { path:'Termination-Category',component:TerminationCategoryComponent,canActivate:[LMSAccessGuard]},
       { path:'Reason',component:ReasonMasterComponent,canActivate:[LMSAccessGuard]},
       { path: 'Reimbursement', component: ReimbursementMasterComponent, canActivate: [LMSAccessGuard] },
-      /////
       { path: 'settings-checklist', component: SettingsAddChecklistComponent, canActivate: [LMSAccessGuard] },
       { path: 'induction', component: InductionComponent, canActivate: [LMSAccessGuard] },
       { path: 'configure-documents', component: ConfigureDocumentsComponent, canActivate: [LMSAccessGuard] },
@@ -59,7 +59,8 @@ const routes: Routes = [
       { path: 'users-login', component: UsersLoginComponent, canActivate: [LMSAccessGuard] },
       { path: 'settings-onBoarding', component: SettingsOnBoardingComponent, canActivate: [LMSAccessGuard] },
       { path: 'settings-offBoarding', component: SettingsOffBoardingComponent, canActivate: [LMSAccessGuard] },
-     
+      { path: 'Induction-ConductedBy', component: InductionConductedByMasterComponent, canActivate: [LMSAccessGuard] },
+
 
     ]
   }

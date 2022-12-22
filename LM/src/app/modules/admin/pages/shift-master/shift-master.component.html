@@ -1,4 +1,4 @@
-<div fxLayout="column" style="min-height: 700px;">
+<div fxLayout="column">
     <form [formGroup]="shiftForm" autocomplete="off">
         <mat-card>
             <mat-card-header>
@@ -124,22 +124,21 @@
             </div>
 
             <div fxLayoutAlign="center">
-                <button *ngIf="!isEdit" class="mx-2 my-3 mat-stroked-button button-save" style="height: 45px;"
+                <button *ngIf="!isEdit" class="m-1 mat-stroked-button button-save" 
                     (click)="saveShiftData()" type="submit">
                     <span>Submit</span>
                 </button>
 
-                <button class="mx-2 my-3 mat-stroked-button button-clear" style="height: 45px;" (click)="resetform()">
+                <button class="m-1 mat-stroked-button button-clear" (click)="resetform()">
                     <span>Cancel</span>
                 </button>
-                <br />
-            </div>
+             </div>
         </mat-card>
     </form>
     <mat-divider></mat-divider>
     <mat-card fxLayout="column">
         <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
-            <mat-form-field fxFlex.xs="100%" appearance="outline">
+            <mat-form-field fxFlex="30" fxFlex.xs="100%" appearance="outline">
                 <mat-label>Search</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
                 <mat-icon matSuffix>search</mat-icon>

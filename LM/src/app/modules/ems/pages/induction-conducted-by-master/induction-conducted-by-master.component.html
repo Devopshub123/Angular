@@ -1,0 +1,146 @@
+<div fxLayout="column">
+    <form [formGroup]="inductionForm" autocomplete="off">
+       <mat-card-header>
+          <mat-card-title > Induction Conducted By </mat-card-title>
+        </mat-card-header>
+        <div >
+            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
+                <mat-label>Program Type</mat-label>
+                <mat-select required formControlName="programType">
+                    <ng-container>
+                        <div *ngFor="let r of availableprogramtypes">
+                            <mat-option [value]="r.id">{{r.description}}</mat-option>
+                        </div>
+
+                    </ng-container>
+                </mat-select>
+                <mat-error class="reg-error" *ngIf="inductionForm.controls.programType.hasError('required')">
+                   {{this.EM2}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
+                <mat-label>Department</mat-label>
+                <mat-select required formControlName="department">
+                    <ng-container>
+                        <div *ngFor="let r of availableDepartments">
+                            <mat-option [value]="r.id">{{r.deptname}}</mat-option>
+                        </div>
+                    </ng-container>
+                </mat-select>
+                <mat-error class="con-error" *ngIf="inductionForm.controls.department.errors?.required">
+                  {{this.EM2}}
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-label>Conduct By</mat-label>
+                <mat-select (openedChange)="openedSearch($event)" placeholder="Select"
+                required formControlName="conductBy" multiple [disabled]="!isEnable">
+                <mat-select-trigger>
+                  <span *ngFor="let item of inductionForm.controls.conductBy.value">
+                       {{item.empname }} ,
+                  </span>
+                    <!-- {{inductionForm.controls.conductBy.value}} -->
+                 </mat-select-trigger>
+                <div class="select-container">
+                <!-- <mat-optgroup >
+              <mat-form-field style="width:100%;" class="mx-1 my-2">
+                <mat-label>Search</mat-label>
+                <input #searchEmployee autocompleteOff placeholder="Search" aria-label="Search" matInput [formControl]="searchTextboxControl">
+                <button [disableRipple]="true"  matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch($event)">
+                <mat-icon >close</mat-icon>
+              </button>
+                     </mat-form-field>
+                </mat-optgroup> -->
+
+                    <mat-option  (onSelectionChange)="selectedEmployesChange($event)"
+                    *ngFor="let emp of employeeList" [value]="emp">{{emp.employee_code}}__{{emp.empname}}
+                </mat-option>
+              </div>
+            </mat-select>
+            <mat-error class="con-error" *ngIf="inductionForm.controls.conductBy.errors?.required">
+              {{this.EM2}}
+            </mat-error>
+         </mat-form-field>
+
+        </div>
+     <div fxLayout="row" fxLayoutAlign="center">
+      <button *ngIf="!isUpdate" class="m-1 mat-stroked-button button-save" (click)="submit()" type="submit">
+        <span>Submit</span>
+      </button>
+      <button *ngIf="isUpdate" class="m-1 mat-stroked-button button-save" (click)="submit()" type="submit">
+        <span>Update</span>
+      </button>
+              <button class="m-1 mat-stroked-button button-clear"   (click)="close()">
+              <span >Cancel</span>
+            </button>
+
+            <br />
+          </div>
+        <div fxLayout="column" class="tableP">
+
+          <div class="mat-elevation-z1">
+
+              <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="sno">
+                  <th mat-header-cell *matHeaderCellDef>S.No</th>
+                  <td mat-cell *matCellDef="let element; let i=index;">
+                      {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
+              </ng-container>
+
+                <ng-container matColumnDef="programtype">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Program Type </th>
+                  <td mat-cell *matCellDef="let row" >{{row.description}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="department">
+                    <th mat-header-cell *matHeaderCellDef >
+                      Department </th>
+                    <td mat-cell *matCellDef="let row" >{{row.departme}}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="employee">
+                    <th mat-header-cell *matHeaderCellDef >
+                      Employees </th>
+                    <td mat-cell *matCellDef="let row" >
+                        <span *ngFor="let v of row.empids">{{v.conductby}}
+                        </span>
+                    </td>
+                  </ng-container>
+
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef> Status </th>
+                  <td mat-cell *matCellDef="let row"  >
+                    <mat-radio-group  >
+                      <mat-radio-button class="mr-2" color="primary"
+                      *ngFor="let status of statusList;index as i;"
+                      (change)="statusUpdate(status.id,row)" [checked]="status.id == row.status"
+                       [value]="status.id"  >{{status.name}}</mat-radio-button>
+                    </mat-radio-group>
+
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header >  </th>
+                  <td mat-cell *matCellDef="let row" >
+                    <button mat-icon-button >
+                      <mat-icon (click)="edit($event,row)" title="Edit">edit</mat-icon>
+                    </button>
+                     </td>
+                </ng-container>
+
+                <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4" style="text-align: center;">No data found</td>
+                </tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+           </div>
+        </div>
+
+
+   </form>
+  </div>

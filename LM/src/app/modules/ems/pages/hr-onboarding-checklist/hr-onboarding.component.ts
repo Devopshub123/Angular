@@ -67,7 +67,8 @@ export class HrOnboardingComponent implements OnInit {
   employeeId: any;
   userSession: any;
   deptId: any;
-  isdisable:boolean=false;
+  isdisable: boolean = false;
+  employeeEmailData: any = [];
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.checklistForm = this.formBuilder.group(
@@ -156,6 +157,7 @@ export class HrOnboardingComponent implements OnInit {
     this.employeeId = data.empid;
     this.deptId = data.department_id;
     this.getEmployeCheckListData();
+    this.getEmployeeEmailData();
   }
 
   getEmployeCheckListData() {
@@ -185,7 +187,8 @@ export class HrOnboardingComponent implements OnInit {
       status:"Completed",
       fstatus:this.checked == true ? "Completed" : "Pending Checklist",
       category:"Onboarding",
-      actionBy:this.userSession.id
+       actionBy: this.userSession.id,
+      emaildata:this.employeeEmailData
     }
 
    this.emsService.setEmployeeChecklists(data).subscribe((res: any) => {
@@ -227,4 +230,12 @@ export class HrOnboardingComponent implements OnInit {
       return [5, 10, 20];
     }
   }
+  getEmployeeEmailData() {
+    this.employeeEmailData = [];
+    this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+     })
+}
+  
 }

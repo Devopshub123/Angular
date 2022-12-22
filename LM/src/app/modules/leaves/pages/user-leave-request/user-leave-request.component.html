@@ -259,20 +259,20 @@
       <table id="table" class="table  table-striped"  >
         <thead>
         <tr >
-          <th scope="col" class="space"></th>
-          <th scope="col" class="space">Used</th>
-          <th scope="col" class="space">Available</th>
-          <th scope="col" class="space">Total</th>
+          <th ></th>
+          <th style="text-align: center;">Used</th>
+          <th style="text-align: center;">Available</th>
+          <th style="text-align: center;">Total</th>
         </tr>
         </thead>
         <tbody>
         <ng-container *ngFor="let item of leavebalance">
 
-          <tr scope="row" class="spacetd">
+          <tr >
             <td >{{item.display_name}}</td>
-            <td>{{item.used}}</td>
-            <td>{{item.leave_balance}}</td>
-            <td>{{item.total}}</td>
+            <td style="text-align: center;">{{item.used}}</td>
+        <td style="text-align: center;">{{item.leave_balance}}</td>
+        <td style="text-align: center;">{{item.total}}</td>
           </tr>
         </ng-container>
         <tr *ngIf="leavebalance && leavebalance.length === 0">
@@ -284,8 +284,8 @@
         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
 
         <div fxFlex.xs="100" fxFlex="100" class="mx-1 my-1"  >
-          <label ><b>Manager Name:</b></label>
-          <label ><b>{{userSession.roles[0].rm_name}}</b></label>
+          <label ><b>Manager Name: </b></label>
+          <label ><b>&nbsp;{{userSession.roles[0].rm_name}}</b></label>
         </div>
         </div>
       </mat-card-content>

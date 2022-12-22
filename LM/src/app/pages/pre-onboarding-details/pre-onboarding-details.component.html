@@ -1,19 +1,38 @@
-<div fxLayout="column" style="padding: 10px ; padding-left: 10%;padding-right: 10%; background-color: #f0ecec;">
+<div fxLayout="column"  style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;">
     <mat-card style="background-color: #ffffff;border: 1px solid #cccbcb;">
         <div>
             <mat-card style="background-color: #ffffff">
-                <div fxLayout="row" style="padding: 15px">
-                    <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center">
+                <div fxLayout="row">
+                    <!-- <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center">
                         <img src="assets/img/profile.jpg" />
-                    </div>
+                    </div> -->
 
-                    <div fxFlex="70" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="start">
-                        <span>
-                            <p class="subh">Candidate Name: <span class="heading">{{employeeNameh}}</span></p>
-                            <p class="subh">Designation: <span class="heading1">{{employeeDesignation}}</span>  </p>
-                            <p class="subh">Joining Date: <span class="heading1"> {{employeeJoinDate | date:'dd-MM-yyyy'}}</span> </p>
-                            <p class="subh">Mobile: <span class="heading1">{{employeeMobile}} </span></p>
-                        </span>
+                    <div fxFlex="100" fxLayoutAlign="center">
+                        <div fxLayout="row" fxLayout.xs="column" style="width: 100%">
+                            <div fxLayout="column" fxLayoutAlign="center" style="width: 45%">
+                                <p class="subh">Name
+                                    <span class="heading" style="padding-left: 11%;">{{ employeeNameh }}</span>
+                                </p>
+                                <p class="subh">
+                                    Designation
+                                    <span class="heading1" style="padding-left: 3%;">{{
+                                        employeeDesignation
+                                        }}</span>
+                                </p>
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="center" style="width: 55%">
+                                <p class="subh">
+                                    Mobile
+                                    <span class="heading1" style="padding-left: 10%">{{ employeeMobile }}
+                                    </span>
+                                </p>
+                                <p class="subh">
+                                    Joining Date
+                                    <span class="heading1" style="padding-left: 3%;">
+                                        {{ employeeJoinDate | date: "dd-MM-YYYY" }}</span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </mat-card>
@@ -23,8 +42,10 @@
             (selectedIndexChange)="selectedtab.setValue($event)" mat-stretch-tabs>
                 <!-- personal info tab -->
                 <mat-tab label="Personal Info">
-                    <div fxLayout="column" style="padding: 10px">
+                    <div fxLayout="column">
+                      
                         <form [formGroup]="personalInfoForm">
+                            <mat-card style="padding-left: 1%;" class="outline">
                             <div class="section"><b>Personal Information</b></div>
                             <mat-divider></mat-divider>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
@@ -428,25 +449,28 @@
                                     <tr mat-header-row *matHeaderRowDef="familyTableColumns"></tr>
                                     <tr mat-row *matRowDef="let row; columns: familyTableColumns"></tr>
                                 </table>
+                            
                             </div>
                         </form>
+                    </mat-card>
+                        <br>
                         <div fxLayoutAlign="center">
-                            <button class="col-md-1 btn btn-primary mx-2 my-2" (click)="savePersonalInfo()"
+                            <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795"
+                            (click)="savePersonalInfo()"
                                 type="submit">
-                                <span>Save</span>
+                                <span>Save & Continue</span>
                             </button>
-                            <!-- <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="personalInfoClear()">
-                                <span>Cancel</span>
-                            </button> -->
-                            <br />
-                        </div>
+                            <br>
+                        </div>    
                     </form>
+               
                     </div>
                 </mat-tab>
                  <!-- employement tab -->
                 <mat-tab label="Work Experience">
-                    <div fxLayout="column" style="padding: 10px">
+                    <div fxLayout="column">
                         <form [formGroup]="employementForm">
+                            <mat-card style="padding-left: 1%;" class="outline">
                             <div class="section"><b>Work Experience</b></div>
                             <mat-divider></mat-divider>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
@@ -504,7 +528,7 @@
                               <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="end">
                                 <span style="padding-top: 6%;">
                                     <button class="m-1 mat-stroked-button button-save" (click)="addWorkExperience()">
-                                        <span> Save </span>
+                                        <span> Add </span>
                                     </button>
                                     <button class="m-1 mat-stroked-button button-clear" (click)="clearWork()">
                                         Clear
@@ -563,25 +587,27 @@
                                     <tr mat-row *matRowDef="let row; columns: workTableColumns"></tr>
                                 </table>
                             </div>
-
+                        </mat-card>
                         <br>
-                            <!-- <div fxLayoutAlign="center" *ngIf="workExperienceDetails.length > 0">
-                                <button class="col-md-1 btn btn-primary mx-2 my-2" (click)="saveWorkExperience()"
+                            <div fxLayoutAlign="center" *ngIf="workExperienceDetails.length > 0">
+                                <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795"
+                                (click)="saveWorkExperience()"
                                     type="submit">
-                                    <span>Save</span>
+                                    <span>Save & Continue</span>
                                 </button>
                               
                                 <br />
-                            </div>-->
-                        </form>
+                            </div>
+                        </form>  
                     </div>
 
                 </mat-tab>
 
                 <!-- education tab -->
                 <mat-tab label="Education">
-                    <div fxLayout="column" style="padding: 10px">
+                    <div fxLayout="column">
                         <form [formGroup]="educationForm">
+                            <mat-card style="padding-left: 1%;" class="outline">
                             <div class="section"><b>Education</b></div>
                             <mat-divider></mat-divider>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
@@ -685,12 +711,14 @@
                                     <tr mat-row *matRowDef="let row; columns: educationTableColumns"></tr>
                                 </table>
                             </div>
+                        </mat-card>
                             <br>
 
                          <div fxLayoutAlign="center" *ngIf="educationDetails.length > 0">
-                            <button class="m-1 mat-stroked-button button-save" (click)="saveEducation()"
+                            <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795"
+                            (click)="saveEducation()"
                                 type="submit">
-                                <span>Save</span>
+                                <span>Save & Continue</span>
                             </button>
                             <!-- <button class="m-1 mat-stroked-button button-clear" (click)="personalInfoClear()">
                                 <span>Cancel</span>
@@ -701,8 +729,9 @@
                 </mat-tab>
 
                 <!-- document tab -->
-                <mat-tab label="Document Approval">
-                    <div fxLayout="column" style="padding: 10px">
+                <mat-tab label="Documents">
+                    <div fxLayout="column">
+                        <mat-card style="padding-left: 1%;" class="outline">
                         <form [formGroup]="documentsForm">
                             <div class="section"><b>Add Documents</b></div>
                             <mat-divider></mat-divider>
@@ -811,6 +840,7 @@
                                 <br />
                             </div> -->
                         </form>
+                    </mat-card>
                     </div>
                 </mat-tab>
 

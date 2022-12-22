@@ -9,8 +9,11 @@
       <div fxFlex="100" class="Sub">
         <div class='demo-app-main'>
 
-          <full-calendar #calendar fxLayout="column" [options]='calendarOptions'>
+          <full-calendar #calendar        
+          fxLayout="column" [options]='calendarOptions'  
+          >
           </full-calendar>
+          <p  [ngStyle]="{'color': color}" style="text-align: center;padding-top: 10px;padding-bottom: 0px;"><b>{{message}}</b></p>
         </div>
         <div class='demo-app-main'>
           <!--<mat-icon class="green-icon">check_circle</mat-icon>Present-->

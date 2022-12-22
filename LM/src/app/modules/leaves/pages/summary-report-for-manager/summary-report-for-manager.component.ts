@@ -5,7 +5,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import {ExcelServiceService} from "../../../reports/excel-service.service";
 import * as XLSX from 'xlsx';
 import { environment } from 'src/environments/environment';
-
+import jsPDF from "jspdf";
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+const htmlToPdfmake = require("html-to-pdfmake");
 
 
 @Component({
@@ -27,9 +31,13 @@ export class SummaryReportForManagerComponent implements OnInit {
   today:any=new Date();
   ishide:boolean=true;
   companyDBName:any = environment.dbName;
+  designationForPdf :any='All';
+  employeeNameForPdf:any='All';
   constructor(private LM:LeavesService,public formBuilder: FormBuilder,public spinner :NgxSpinnerService, private excelService: ExcelServiceService) {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
   }
+  @ViewChild('table') table!: ElementRef;
+
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({ employeeId: ['All'] ,designationId:['All'] ,calenderYear:[(new Date()).getFullYear()]});
@@ -40,6 +48,29 @@ export class SummaryReportForManagerComponent implements OnInit {
     this.searchForm.get('designationId')?.valueChanges.subscribe((selectedValue:any) => {
       this.searchForm.controls.employeeId.setValue('All');
       this.getEmployeesForReportingManager()
+      if(this.searchForm.controls.designationId.value != 'All'){
+        for(let i=0;i<this.designations.length;i++){
+          if(this.searchForm.controls.designationId.value === this.designations[i].id){
+            this.designationForPdf = this.designations[i].designation;
+          }
+        }
+      }else {
+        this.designationForPdf = 'All';
+
+      }
+
+    })
+    this.searchForm.get('employeeId')?.valueChanges.subscribe((selectedValue:any) => {
+      if(this.searchForm.controls.employeeId.value != 'All'){
+        for(let i=0;i<this.employeeDetails.length;i++){
+          if(this.searchForm.controls.employeeId.value === this.employeeDetails[i].empid){
+            this.employeeNameForPdf = this.employeeDetails[i].empname+"-"+this.employeeDetails[i].employee_code;
+          }
+        }
+      }else {
+        this.employeeNameForPdf = 'All';
+
+      }
 
     })
     this.Searchform();
@@ -204,5 +235,52 @@ export class SummaryReportForManagerComponent implements OnInit {
   // }
 
 
+  public exportPDF(): void {
+    const pdfTable = this.table.nativeElement;
+    var html = htmlToPdfmake(pdfTable.innerHTML);
+    pdfMake.createPdf({
+      info: {
+        title: "Summary Report",
+        author:'Sreeb tech',
+        subject:'Theme',
+            keywords:'Report'
+      },
+      footer: function (currentPage, pageCount) {
+        return {
+          margin: 10,
+          columns: [
+            {
+              fontSize: 9,
+              text: [
+                {
+                  text: 'Page ' + currentPage.toString() + ' of ' + pageCount,
+                }
+              ],
+              alignment: 'center'
+            }
+          ]
+        };
+      },
+      content: [
+        {
+          text: "Summary Report\n\n",
+          style: 'header',
+          alignment: 'center',
+          fontSize: 14
+        },
+        // {
+        //   text:
+        //     "Designation :  " + this.designationForPdf +"\n" +
+        //     "Employee Name and Id:  " + this.employeeNameForPdf + "\n" +
+        //     "Year:  " + this.searchForm.controls.calenderYear.value+ "\n",
+        //   fontSize: 10,
+        //   margin: [0, 0, 0, 20],
+        //   alignment: 'left'
+        // },
+        html
+      ],
+      pageOrientation: 'landscape'//'portrait'
+    }).download("Summary Report.pdf");
 
+  }
 }

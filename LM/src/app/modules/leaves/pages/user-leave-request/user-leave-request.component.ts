@@ -959,7 +959,7 @@ async  getLeavesTypeInfo() {
         //     docArray.push(documentName[i])
         //   }
         // }
-        this.pdfName = result.data[0].fname;
+        this.pdfName = result.data[0].fname
 
        result.data[0].employeeId=this.userSession.id;
        let info = result.data[0]
@@ -996,8 +996,7 @@ async  getLeavesTypeInfo() {
   {
 
     this.LM.getErrorMessages(errorCode, 1, 1).subscribe((result) => {
-
-      if (result.status && errorCode == 'LM79') {
+if (result.status && errorCode == 'LM79') {
         this.msgLM79 = result.data[0].errormessage
       }
       else if (result.status && errorCode == 'LM76') {
@@ -1168,7 +1167,7 @@ async  getLeavesTypeInfo() {
 
       if((this.leaveRequestForm.controls.fromDate.value  < this.nextLeaveDate) && (this.nextLeaveDate < this.leaveRequestForm.controls.toDate.value)){
 
-        var errorMessages = [{message: "Please cancel the leave on "+this.pipe.transform(this.nextLeaveDate, 'yyyy-MM-dd')+" day"},{message: "Please change from date"}]
+        var errorMessages = [{message: "Please cancel the leave on "+this.pipe.transform(this.nextLeaveDate, 'DD-MM-YYYY')+" day"},{message: "Please change from date"}]
         this.open(errorMessages,'8%','40%','400px',true,"/LeaveManagement/LeaveRequest")
         return  false;
       }

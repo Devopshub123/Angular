@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,6 +16,10 @@ import * as XLSX from 'xlsx';
 import * as _moment from 'moment';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+const htmlToPdfmake = require("html-to-pdfmake");
 
 export const MY_FORMATS = {
   parse: {
@@ -43,13 +47,15 @@ export class SummaryReportComponent implements OnInit {
   List: any[] = [
 
   ];
+  @ViewChild('table') table!: ElementRef;
+
   employeelist: any;
   Users: any;
   minDate = new Date('1950/01/01'); maxDate = new Date();
   pageLoading=true;
   constructor(public reportsService: ReportsService, public datePipe: DatePipe, public formBuilder: FormBuilder,
     public dialog: MatDialog, private excelService: ExcelServiceService) { }
-  @ViewChild(MatTable) table: MatTable<any> = <any>[];
+  @ViewChild(MatTable) tableOne: MatTable<any> = <any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -187,5 +193,56 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
       return [5, 10, 20];
     }
   }
+  
+  public exportPDF(): void {
+    const pdfTable = this.table.nativeElement;
+    var html = htmlToPdfmake(pdfTable.innerHTML);
+    pdfMake.createPdf({
+      info: {
+        title: "Attendance Summary Report",
+        author:'Sreeb tech',
+        subject:'Theme',
+            keywords:'Report'
+      },
+      footer: function (currentPage:any, pageCount:any) {
+        return {
+          margin: 10,
+          columns: [
+            {
+              fontSize: 9,
+              text: [
+                {
+                  text: 'Page ' + currentPage.toString() + ' of ' + pageCount,
+                }
+              ],
+              alignment: 'center'
+            }
+          ]
+        };
+      },
+      content: [ 
+        {
+          text: "Attendance Summary Report\n\n",
+          style: 'header',
+          alignment: 'center',
+          fontSize: 14
+        },
+        // {
+        //   text:
+        //     "Designation :  " + this.designationForPdf +"\n" +
+        //     "Employee Name and Id:  " + this.employeeNameForPdf + "\n" +
+        //     "Year:  " + this.searchForm.controls.calenderYear.value+ "\n",
+        //   fontSize: 10,
+        //   margin: [0, 0, 0, 20],
+        //   alignment: 'left'
+        // },
+        html,
+        
+      ],
+      pageOrientation: 'landscape'//'portrait'
+    }).download("Attendance Summary Report.pdf");
+
+  }
+
 }
 

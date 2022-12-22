@@ -150,7 +150,7 @@ export class HolidaysComponent implements OnInit {
 
         }));
       });
-      // if(this.HolidayForm.controls.holiday.value !== null && this.holidays.holidayName !== null ){}
+      if(this.HolidayForm.controls.holiday.value !== null && this.holidaysDetails.holidayName !== null ){}
       this.LM.setHolidays(this.selecteditems, this.companyDBName).subscribe((data) => {
 
         if (data.status) {

@@ -200,6 +200,9 @@ export class EmployeeInfoComponent implements OnInit {
   joinDateDisable: boolean = false;
   ngOnInit(): void {
     this.getDesignationsMaster();
+    this.getGender();
+    this.getMaritalStatusMaster();
+    this.getRelationshipMaster();
     this.params = this.activatedRoute.snapshot.params;
 
     /** through new hired list */
@@ -1023,6 +1026,7 @@ export class EmployeeInfoComponent implements OnInit {
         companylocation: this.personalInfoForm.controls.companylocation.value,
         reportingmanager: this.personalInfoForm.controls.reportingmanager.value,
       }
+  
       this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
         if (res.status) {
           if (res.data.email == null) {
@@ -1379,7 +1383,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.workExperienceDetails[this.experienceIndex].todate = this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
         this.clearExperienceValidators();
       this.clearWorkExperience();
-      this.saveWorkExperience();
+      //this.saveWorkExperience();
     } else {
       if (this.experienceForm.valid) {
         this.workExperienceDetails.push({
@@ -1392,7 +1396,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
         this.clearExperienceValidators();
         this.clearWorkExperience();
-        this.saveWorkExperience();
+        //this.saveWorkExperience();
       } else { }
     }
   }

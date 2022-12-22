@@ -203,6 +203,7 @@ export class DesignationsComponent implements OnInit {
     this.enable = null;
     this.isEdit = true;
     this.isSave = false;
+    console.log("data--",datas)
     if (this.valid) {
       let data={
         id:id,
