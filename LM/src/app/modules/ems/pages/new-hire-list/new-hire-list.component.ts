@@ -67,7 +67,7 @@ export class NewHireListComponent implements OnInit {
   newHiredList: any = [];
   //constructor(private emsService:EmsService,private router: Router) { }
 
-  displayedColumns: string[] = ['sno','name','mobile','joinDate','hireDate','email','status','action'];
+  displayedColumns: string[] = ['sno','name','email','hireDate','joinDate','mobile','status','action'];
   dataSource : MatTableDataSource<any> = <any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;

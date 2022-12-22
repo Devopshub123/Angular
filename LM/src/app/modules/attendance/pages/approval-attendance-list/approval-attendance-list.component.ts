@@ -111,8 +111,6 @@ rejectApproval(event:any){
   this.openDialog();
 }
   saveApprovalRequest() {
-  console.log("eda-",this.requestData)
-  console.log("maild-",this.employeeEmailData)
   let obj = {
   "id":this.requestData.id,
   "approvercomments": this.reason,
@@ -122,8 +120,6 @@ rejectApproval(event:any){
     "emailData":this.employeeEmailData,
 
 };
-
-
 this.attendanceService.updateAttendanceRequest(obj).subscribe((res) => {
   if (res.status) {
     let resMessage: any;
@@ -136,19 +132,19 @@ this.attendanceService.updateAttendanceRequest(obj).subscribe((res) => {
     } else if (res.message == "UnableToApprove") {
       resMessage=this.reqNotSave
     } 
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate(["/Attendance/ApprovalList"]));
-    
-    let dialogRef = this.dialog.open(ReusableDialogComponent, {
+     let dialogRef = this.dialog.open(ReusableDialogComponent, {
       position:{top:`70px`},
       disableClose: true,
       data: resMessage
      // data: this.titleName=="Reject"?'Attendance request rejected successfully.':'Attendance request approved successfully.'
     });
-     
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/Attendance/ApprovalList"]));
     
   }
 })
+    
+    
 }
 
 openDialog(): void {
@@ -162,7 +158,7 @@ openDialog(): void {
     if(result!=undefined ){
       if(result !==true){
         this.reason = result.reason;
-        this.saveApprovalRequest();
+        this.getEmployeeEmailData();
       }   
     }
   });
@@ -196,7 +192,7 @@ openDialog(): void {
   
   getEmployeeEmailData() {
     this.employeeEmailData = [];
-    this.emsService.getEmployeeEmailDataByEmpid(this.requestData.id)
+    this.emsService.getEmployeeEmailDataByEmpid(this.requestData.raisedbyid)
       .subscribe((res: any) => {
         this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
         this.saveApprovalRequest();

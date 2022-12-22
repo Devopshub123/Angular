@@ -41,7 +41,7 @@
       <div style="padding-top: 4%">
         <a mat-list-item routerLinkActive="active-list-item" style="pointer-events: none">
           <!-- (click)="getrolescreenfunctionalities(6, true)" -->
-          <img src="assets\img\new-asset.png" style="height: 35px" />
+          <img src="assets\img\new-asset.png" style="height:40px" />
           <span class="iconStyle">Asset</span>
         </a>
       </div>
@@ -49,7 +49,7 @@
       <div style="padding-top: 4%">
         <a mat-list-item routerLinkActive="active-list-item" style="pointer-events: none">
           <!-- (click)="getrolescreenfunctionalities(7, true)" -->
-          <img src="assets\img\new-claims.png" style="height: 35px" />
+          <img src="assets\img\new-claims.png" style="height: 40px" />
           <span class="iconStyle">Claims</span>
         </a>
       </div>
@@ -120,7 +120,7 @@
                 <span class="title">Announcements</span>
               </div>
 
-              <div class="scrollbox" style="margin: 10px; padding: 2px; height:300px">
+              <div class="scrollbox" style="margin: 10px; padding: 2px; height:260px">
                 <div class="scrollbox-content">
                   <div *ngIf="announcementsDetails.length > 0">
                     <mat-card style="
@@ -172,10 +172,10 @@
                   <mat-radio-group>
                     <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true'
                       (click)="getSelfAttendanceCount()">
-                      <span style="font-size: 16px;font-weight: 500;">Self</span>
+                      <span class="radioBtn">Self</span>
                     </mat-radio-button>
                     <mat-radio-button class="mx2 my-2 mr-2" value="team" (click)="getTeamAttendanceCount()">
-                      <span style="font-size: 16px;font-weight: 500;">Team</span>
+                      <span class="radioBtn">Team</span>
                     </mat-radio-button>
                   </mat-radio-group>
                 </span>
@@ -326,10 +326,10 @@
                 <span *ngIf="isManager">
                   <mat-radio-group>
                     <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true' (click)="getLeaveBalance()">
-                      <span style="font-size: 16px;font-weight: 500;">Self</span>
+                      <span class="radioBtn">Self</span>
                     </mat-radio-button>
                     <mat-radio-button class="mx2 my-2 mr-2" value="team" (click)="getCurrentLeaveEmployees()">
-                      <span style="font-size: 16px;font-weight: 500;">Team</span>
+                      <span class="radioBtn">Team</span>
                     </mat-radio-button>
                   </mat-radio-group>
                 </span>
@@ -342,16 +342,16 @@
                         <thead>
                           <tr>
                             <th>Leave Type</th>
-                            <th>Used</th>
-                            <th>Available</th>
+                            <th style="text-align: center;">Used</th>
+                            <th style="text-align: center;">Available</th>
                           </tr>
                         </thead>
                         <tbody>
                           <ng-container *ngFor="let item of leavebalance">
                             <tr>
-                              <td>{{ item.display_name }}</td>
-                              <td>{{ item.used }}</td>
-                              <td>{{ item.leave_balance }}</td>
+                              <td>{{item.display_name}}</td>
+                              <td style="text-align: center;">{{ item.used }}</td>
+                              <td style="text-align: center;">{{ item.leave_balance }}</td>
                             </tr>
                           </ng-container>
                           <tr *ngIf="leavebalance && leavebalance.length === 0">
@@ -398,10 +398,10 @@
                   <mat-radio-group>
                     <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true'
                       (click)="getEmployeeAttendanceNotifications()">
-                      <span style="font-size: 16px;font-weight: 500;">Self</span>
+                      <span class="radioBtn">Self</span>
                     </mat-radio-button>
                     <mat-radio-button class="mx2 my-2 mr-2" value="team" (click)="getMyTeamApprovals()">
-                      <span style="font-size: 16px;font-weight: 500;">Team</span>
+                      <span class="radioBtn">Team</span>
                     </mat-radio-button>
                   </mat-radio-group>
                 </span>

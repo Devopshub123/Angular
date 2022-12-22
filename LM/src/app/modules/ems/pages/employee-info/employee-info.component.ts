@@ -200,12 +200,14 @@ export class EmployeeInfoComponent implements OnInit {
   joinDateDisable: boolean = false;
   ngOnInit(): void {
     this.getDesignationsMaster();
+    this.getGender();
+    this.getMaritalStatusMaster();
+    this.getRelationshipMaster();
     this.params = this.activatedRoute.snapshot.params;
 
     /** through new hired list */
     if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
       this.candidateId = this.decryptPipe.transform(this.activeroute.snapshot.params.candId)
-     console.log("t-1",this.candidateId)
       this.getLoginCandidateData();
     }
     /** through employee directory */
@@ -232,10 +234,6 @@ export class EmployeeInfoComponent implements OnInit {
     this.createDocumentsForm();
     this.getMessagesList();
     this.getBloodgroups();
-    this.getGender();
-    this.getMaritalStatusMaster();
-    this.getRelationshipMaster();
-   
     this.getDepartmentsMaster();
     this.getWorkLocation();
     this.getCountry();
@@ -1024,6 +1022,7 @@ export class EmployeeInfoComponent implements OnInit {
         companylocation: this.personalInfoForm.controls.companylocation.value,
         reportingmanager: this.personalInfoForm.controls.reportingmanager.value,
       }
+  
       this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
         if (res.status) {
           if (res.data.email == null) {

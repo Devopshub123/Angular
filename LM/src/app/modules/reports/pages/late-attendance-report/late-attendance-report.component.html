@@ -7,7 +7,7 @@
 
         <div fxLayout fxLayout="row wrap" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center"
             [formGroup]="searchForm">
-            <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
+            <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
                 <mat-label>Employee Name</mat-label>
                 <mat-select formControlName="user" required>
                     <mat-option value="0"> All Employees </mat-option>
@@ -63,9 +63,9 @@
         <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">
             <div>
                 <span class="exlprint"> | </span>
-                <a title="Download"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
+                <a title="PDF"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
                 <span class="exlprint"> | </span>
-                <a title="Download"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+                <a title="Excel"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
                 </a>
             </div>
         </div>

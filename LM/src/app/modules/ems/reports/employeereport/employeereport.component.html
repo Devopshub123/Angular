@@ -9,13 +9,15 @@
         <div *ngIf="ishide">
             
             <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between" >
-               <span *ngIf="allfilterdata.length>0">
-                <mat-form-field fxFlex.xs="100%" appearance="outline">
+            
+                <div *ngIf="allfilterdata.length>0">
+                <mat-form-field fxFlex="100%" fxFlex.xs="100%" appearance="outline">
                     <mat-label>Search</mat-label>
                     <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
                     <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
                 </mat-form-field>
-            </span>
+                 </div>
+
                 <span fxLayoutAlign="end" class="mx-2 my-2">
                     <mat-icon class="styles" title='Select' (click)="popup()">blur_linear</mat-icon>
                     <mat-icon class="styles" title='Filter' (click)="filter()">filter_alt</mat-icon>

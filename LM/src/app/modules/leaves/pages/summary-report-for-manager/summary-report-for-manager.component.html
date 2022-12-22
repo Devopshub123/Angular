@@ -60,17 +60,17 @@
     <div  style="margin-bottom: 10px" fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="summaryReports.length > 0">
       <div>
         <span class="exlprint"> | </span>
-        <a title="Download"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
+        <a title="PDF"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
   
         <span class="exlprint"> | </span>
-        <a title="Download"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+        <a title="Excel"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
         </a>
       </div>
     </div >
     <mat-card-content style="width:100%;overflow-x: auto">
     <div  id ='table' #table="">
       <table  class="table  table-striped" >
-      <thead style="background-color: #28acaf;">
+      <thead style="background-color: #28acaf;color: white;">
 
       <tr  *ngFor="let head of summaryReportTableHeadings">
         <!--<span *ngFor="let head of summaryReportTableHeadings">-->

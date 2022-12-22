@@ -43,9 +43,9 @@
         <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">
         <div>
             <span class="exlprint"> | </span>
-            <a title="Download"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
+            <a title="PDF"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
           <span class="exlprint"> | </span>
-          <a title="Download"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+          <a title="Excel"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
           </a>
         </div>
       </div>
@@ -57,13 +57,13 @@
             <table  style="width:100%;" *ngIf="List.length>0">
                 <thead>
                     <tr>
-                        <th><span>Employee </span></th>
+                        <th><span style="font-size: 18px;">Employee </span></th>
                         <ng-container *ngFor="let a of headersList[0]; let i=index;">
                             <th><u>{{a | date: 'd'}} </u><br>
                                 {{headersList[1][i] | limit : 2}}
                             </th>
                         </ng-container>
-                        <th>Absents</th>
+                        <th><span style="font-size: 18px;">Absents</span></th>
                     </tr>
                 </thead>
                 <tbody>

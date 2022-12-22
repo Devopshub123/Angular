@@ -18,7 +18,7 @@
               <mat-form-field fxFlex='50' fxFlex.xs="100" class="mx-1 my-1" appearance="outline">
                 <mat-label>Request Exit Date </mat-label>
                 <input matInput readonly  [matDatepicker]="date" [min]="mindate"  [max]="maxdate"
-                    placeholder="DD-MM-YYYY" formControlName="requestdate">
+                    placeholder="DD-MM-YYYY" formControlName="requestdate" [disabled]="true">
                  <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
                 </mat-datepicker-toggle>
                 <mat-datepicker #date></mat-datepicker>
@@ -28,7 +28,7 @@
 
                 <mat-form-field fxFlex='50' fxFlex.xs="100" class="mx-1 my-1" appearance="outline">
                     <mat-label>Approve Exit Date </mat-label>
-                    <input matInput readonly  [matDatepicker]="date1" [min]="mindate"  [max]="maxdate"
+                    <input matInput readonly (click)="date1.open()"  [matDatepicker]="date1" [min]="mindate"  [max]="maxdate"
                         placeholder="DD-MM-YYYY" formControlName="approvedate">
 
                      <mat-datepicker-toggle class="datepicker" matSuffix [for]="date1">

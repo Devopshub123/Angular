@@ -5,20 +5,18 @@
     <div>
         <form [formGroup]="CompoffForm" autocomplete="off">
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-
-
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                     <mat-label>Worked Date </mat-label>
                     <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
                     <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date"
                         [matDatepickerFilter]="myDateFilter" placeholder="DD-MM-YYYY" formControlName="workeddate"
-                        required (click)="date.open()">
+                        required (click)="date.open()" />
 
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
                     </mat-datepicker-toggle>
                     <mat-datepicker #date></mat-datepicker>
                     <mat-error class="con-error" *ngIf="CompoffForm.controls.workeddate.errors?.required">
-                        {{msgLM3}}
+                        {{ msgLM3 }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
@@ -27,15 +25,14 @@
                         <ng-container>
                             <div *ngFor="let b of minimumHours">
                                 <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                <mat-option value={{b.value}}>{{b.value}}</mat-option>
+                                <mat-option value="{{ b.value }}">{{ b.value }}</mat-option>
                             </div>
-
                         </ng-container>
                     </mat-select>
                     <!-- <input formControlName="hours"   matInput > -->
                     <!-- <material-timepicker color="primary" label="Hour" [userTime]="exportTime" (change)="onChangeHour($event)" revertLabel="Remove" submitLabel="Ok"></material-timepicker> -->
                     <mat-error class="con-error" *ngIf="CompoffForm.controls.hours.errors?.required">
-                        {{msgLM3}}
+                        {{ msgLM3 }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="ishide">
@@ -53,91 +50,80 @@
                       {{msgLM1}}
                     </mat-error> -->
                 </mat-form-field>
-
-
-
-
             </div>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-
                 <mat-form-field fxFlex.xs="100" fxFlex="62" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason</mat-label>
-                    <textarea formControlName="reason" matInput placeholder="" required maxlength="250"> </textarea>
+                    <textarea formControlName="reason" matInput placeholder="" required maxlength="250">
+          </textarea>
                     <mat-error class="con-error" *ngIf="CompoffForm.controls.reason.errors?.required">
-                        {{msgLM1}}
+                        {{ msgLM1 }}
                     </mat-error>
                 </mat-form-field>
-
-
-
-
             </div>
 
             <div fxLayoutAlign="center">
-                <button class="mx-1 mat-stroked-button btn btn-primary" [disabled]="!CompoffForm.valid"
-                    (click)="submit()" type="submit">
+                <button class="m-1 mat-stroked-button button-save"  (click)="submit()" type="submit">
                     <span>Submit</span>
                 </button>
 
-                <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue"
-                    (click)="cancel()">
+                <button  class="m-1 mat-stroked-button button-clear"  (click)="cancel()">
                     <span>Cancel</span>
                 </button>
                 <br />
             </div>
         </form>
-
     </div>
-    <br>
+    <br />
     <mat-divider></mat-divider>
     <div class="tableP">
-    <div class="mat-elevation-z1">
-        <table mat-table [dataSource]="dataSource" matSort>
-            <ng-container matColumnDef="appliedon">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Applied On </th>
-                <td mat-cell *matCellDef="let row">
-                    <span>{{row.applied_date | date:'dd-MM-yyyy'}}</span>
-                </td>
-            </ng-container>
+        <div class="mat-elevation-z1">
+            <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="appliedon">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Applied On</th>
+                    <td mat-cell *matCellDef="let row">
+                        <span>{{ row.applied_date | date : "dd-MM-yyyy" }}</span>
+                    </td>
+                </ng-container>
 
+                <ng-container matColumnDef="workeddate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Worked Date</th>
+                    <td mat-cell *matCellDef="let row">
+                        <span>{{ row.comp_off_date | date : "dd-MM-yyyy" }}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="hours">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Worked Hours
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <span>{{ row.worked_hours }} :
+                            {{ row.worked_minutes === 0 ? "00" : row.worked_minutes }}</span>
+                    </td>
+                </ng-container>
 
-            <ng-container matColumnDef="workeddate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Worked Date </th>
-                <td mat-cell *matCellDef="let row">
-                    <span>{{row.comp_off_date | date:'dd-MM-yyyy'}}</span>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="hours">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Worked Hours</th>
-                <td mat-cell *matCellDef="let row">
-                    <span>{{row.worked_hours}} : {{row.worked_minutes ===0?'00':row.worked_minutes}}</span>
-                </td>
-            </ng-container>
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                    <td mat-cell *matCellDef="let row">
+                        <span>{{ row.status }}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="approver">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Approver</th>
+                    <td mat-cell *matCellDef="let row">
+                        <span>{{ row.approvedby }}</span>
+                    </td>
+                </ng-container>
 
-            <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                <td mat-cell *matCellDef="let row">
-                    <span>{{row.status}}</span>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="approver">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Approver </th>
-                <td mat-cell *matCellDef="let row">
-                    <span>{{row.approvedby}}</span>
-                </td>
-            </ng-container>
+                <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
-
-
-            <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="5" style="text-align: center;">No data found</td>
-            </tr>
-        </table>
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="5" style="text-align: center">
+                        No data found
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-    </div>
-
 </div>

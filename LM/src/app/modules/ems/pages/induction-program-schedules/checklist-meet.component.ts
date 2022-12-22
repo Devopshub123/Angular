@@ -309,7 +309,7 @@ export class ChecklistMeetComponent implements OnInit {
   resetform() {}
 
   editRequest(data: any) {
-    console.log("dafasd-",data)
+  
     this.isAdd = true;
     this.isdata = false;
     this.isView = false;
@@ -501,7 +501,7 @@ export class ChecklistMeetComponent implements OnInit {
     this.isdata = false;
     this.isedit = false;
     this.isCancel = data.status == "Cancelled" ? true : false;
-    //this.isView = true;
+    this.isView = true;
     (this.scheduleid = data.id),
       this.checklistForm.controls.programType.setValue(data.program_id),
       this.checklistForm.controls.programType.disable(),

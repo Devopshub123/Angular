@@ -6,11 +6,18 @@
             </mat-card-header>
             <!-- <mat-divider></mat-divider> -->
             <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
-
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Applied Date</mat-label>
+                    <input matInput readonly [matDatepicker]="date"
+                        formControlName="appliedDate" [disabled]="true">
+                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="date"></mat-datepicker-toggle>
+                    <mat-datepicker #date></mat-datepicker>
+                   </mat-form-field>
+
+                <!-- <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Applied Date</mat-label>
                     <input formControlName="appliedDate" matInput placeholder="Applied Date" readonly>
-                </mat-form-field>
+                </mat-form-field> -->
 
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Employee Name</mat-label>
@@ -27,14 +34,32 @@
                     <mat-label>Work Type</mat-label>
                     <input formControlName="workType" matInput placeholder="Work Type" readonly>
                 </mat-form-field>
+
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>From Date</mat-label>
+                    <input matInput readonly [matDatepicker]="date1"
+                        formControlName="fromDate" [disabled]="true">
+                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="date1"></mat-datepicker-toggle>
+                    <mat-datepicker #date1></mat-datepicker>
+                   </mat-form-field>
+
+                <!-- <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>From Date</mat-label>
                     <input formControlName="fromDate" matInput placeholder="From Date" readonly>
-                </mat-form-field>
+                </mat-form-field> -->
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>To Date</mat-label>
+                    <input matInput readonly [matDatepicker]="date2"
+                        formControlName="toDate" [disabled]="true">
+                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="date2"></mat-datepicker-toggle>
+                    <mat-datepicker #date2></mat-datepicker>
+                   </mat-form-field>
+
+                <!-- <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>To Date</mat-label>
                     <input formControlName="toDate" matInput placeholder="To Date" readonly>
-                </mat-form-field>
+                </mat-form-field> -->
+
             </div>
             <div fxLayout fxLayout="row wrap" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex="42" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">

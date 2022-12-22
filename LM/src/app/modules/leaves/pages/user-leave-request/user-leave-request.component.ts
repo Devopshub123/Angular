@@ -996,7 +996,6 @@ async  getLeavesTypeInfo() {
   {
 
     this.LM.getErrorMessages(errorCode, 1, 1).subscribe((result) => {
-console.log("err---1",result.data[0])
 if (result.status && errorCode == 'LM79') {
         this.msgLM79 = result.data[0].errormessage
       }
@@ -1168,7 +1167,7 @@ if (result.status && errorCode == 'LM79') {
 
       if((this.leaveRequestForm.controls.fromDate.value  < this.nextLeaveDate) && (this.nextLeaveDate < this.leaveRequestForm.controls.toDate.value)){
 
-        var errorMessages = [{message: "Please cancel the leave on "+this.pipe.transform(this.nextLeaveDate, 'yyyy-MM-dd')+" day"},{message: "Please change from date"}]
+        var errorMessages = [{message: "Please cancel the leave on "+this.pipe.transform(this.nextLeaveDate, 'DD-MM-YYYY')+" day"},{message: "Please change from date"}]
         this.open(errorMessages,'8%','40%','400px',true,"/LeaveManagement/LeaveRequest")
         return  false;
       }
