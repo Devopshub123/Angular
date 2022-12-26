@@ -1,9 +1,8 @@
 <div fxLayout="column">
     <form [formGroup]="approvalForm" autocomplete="off">
-     <mat-card-header>
-          <mat-card-title > Document Approvals </mat-card-title>
-          
-        </mat-card-header>
+        <mat-card-header class="headerbox">
+            <mat-card-title class="title"> Document Approvals </mat-card-title>
+               </mat-card-header>
         <!-- <mat-divider></mat-divider> -->
      <div *ngIf="ishide" style="padding-top: 10px;" class="tableP">
         <div class="mat-elevation-z1">
