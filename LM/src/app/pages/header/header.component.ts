@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
   companyDBName: any = environment.dbName;
   infodata: any;
   valid: boolean = false;
+  selectedModule:any='';
   constructor(private baseService: BaseService,private mainService:MainService,
     private LM:CompanyInformationService,private spinner:NgxSpinnerService, public router: Router) { }
 
@@ -38,7 +39,8 @@ export class HeaderComponent implements OnInit {
     this.getHeadNav();
     this.getToggleSideBar()
     this.usersession =JSON.parse(sessionStorage.getItem('user')??'');
-    this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
+    this.selectedModule =sessionStorage.getItem('selectedModule')??'';
+   // this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
     this.getLogo()
     this.getUploadImage();
     this.getCompanyInformation();
@@ -52,7 +54,9 @@ export class HeaderComponent implements OnInit {
 
   }
   onClickMainDashboard(){
-    this.router.navigate(['/MainDashboard']);
+    this.router.navigate(['/main/MainDashboard']);
+    sessionStorage.setItem('selectedModule','Main Dash Board' );
+    this.selectedModule =sessionStorage.getItem('selectedModule')??'';
   }
   setHeadNav(data:any): void {
     this.baseService.setHeadNav(data);
@@ -201,7 +205,7 @@ export class HeaderComponent implements OnInit {
       //   let info = result.data[0]
       this.valid = false;
       if (result && result.status && result.data.length > 0) {
-         
+
         for (let i = 0; i < result.data.length; i++) {
           if (result.data[i].file_category == 'PROFILE') {
             result.data[i].employeeId = this.usersession.id;
@@ -220,20 +224,20 @@ export class HeaderComponent implements OnInit {
               const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
                 return data + String.fromCharCode(byte);
               }, '');
-        
+
               let base64String = btoa(STRING_CHAR)
               this.imageurls = 'data:image/png;base64,' + base64String;
             }
             else {
               this.imageurls = '';
-        
+
             }
           })
         } else {
           this.imageurls = '';
-        
+
         }
-       
+
       }
       else {
         this.imageurls = '';

@@ -1,182 +1,186 @@
 <div fxLayout="column" style="background-color: #f9fbfe;">
-
+    <mat-card>
       <mat-card-header>
         <mat-card-title> Separation</mat-card-title>
       </mat-card-header>
-      <form [formGroup]="resignForm" autocomplete="off">
-        <div *ngIf="this.isview" class="tableP">
+      <mat-card-content>
+        <form [formGroup]="resignForm" autocomplete="off">
+          <div *ngIf="this.isview" class="tableP">
 
-          <span>
-            Dear {{ empname }},<br />
+            <span>
+              Dear {{ empname }},<br />
 
-            We are concerned that you have visited this portal.<br /><br />
+              We are concerned that you have visited this portal.<br /><br />
 
-            It is our endeavor to provide a professional environment where
-            employees can grow and in turn help
-            {{ company }} grow. We would like to create opportunities within
-            {{ company }} and eliminate conditions and factors that compel
-            employees to leave or think of leaving {{ company }} family.<br />
+              It is our endeavor to provide a professional environment where
+              employees can grow and in turn help
+              {{ company }} grow. We would like to create opportunities within
+              {{ company }} and eliminate conditions and factors that compel
+              employees to leave or think of leaving {{ company }} family.<br />
 
-            The company has a policy, which encourages an effective two-way
-            communication process. We request and strongly recommend that you
-            discuss your decision of leaving the organization with your
-            Reporting Manager or your HR. It is in your own interest that the
-            Exit Process is taken to its logical conclusion. Leaving
-            {{ company }} without intimation and proper Exit formalities is
-            counter-productive and may lead to inconvenience for you, your next
-            organization and {{ company }}. <br /><br />
+              The company has a policy, which encourages an effective two-way
+              communication process. We request and strongly recommend that you
+              discuss your decision of leaving the organization with your
+              Reporting Manager or your HR. It is in your own interest that the
+              Exit Process is taken to its logical conclusion. Leaving
+              {{ company }} without intimation and proper Exit formalities is
+              counter-productive and may lead to inconvenience for you, your next
+              organization and {{ company }}. <br /><br />
 
-            Warm Regards,<br />
-            Human Resources.
-          </span>
-          <br />
-          <br />
-          <div fxLayoutAlign="center">
-            <button  class="col-md-1 btn btn-primary mx-2 my-2" (click)="submit()" type="submit">
-              <span>Proceed</span>
-            </button>
-             <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="cancel()">
-              <span>Cancel</span>
-            </button>
+              Warm Regards,<br />
+              Human Resources.
+            </span>
             <br />
+            <br />
+            <div fxLayoutAlign="center">
+              <button  class="col-md-1 btn btn-primary mx-2 my-2" (click)="submit()" type="submit">
+                <span>Proceed</span>
+              </button>
+               <button class="col-md-1 btn btn-danger mx-2 my-2" (click)="cancel()">
+                <span>Cancel</span>
+              </button>
+              <br />
+            </div>
+
+            <br />
+           </div>
+
+        <div *ngIf="this.ishide">
+           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+              <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-label>Date of Request Resignation </mat-label>
+                <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date1" placeholder="DD-MM-YYYY"
+                  formControlName="resigndate" [disabled]="true" />
+
+                <mat-datepicker-toggle class="datepicker" matSuffix [for]="date1">
+                </mat-datepicker-toggle>
+                <mat-datepicker #date1></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-label>Notice Period</mat-label>
+                <input formControlName="noticperiod" readonly matInput placeholder="" maxlength="3" />
+              </mat-form-field>
+              <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-label>Releiving Date </mat-label>
+                <input matInput readonly [matDatepicker]="date2" placeholder="DD-MM-YYYY" formControlName="releivingdate"
+                  [disabled]="true" />
+
+                <mat-datepicker-toggle class="datepicker" matSuffix [for]="date2">
+                </mat-datepicker-toggle>
+                <mat-datepicker #date2></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+              <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-label>Request Exit Date </mat-label>
+                <input matInput [matDatepicker]="date3" [max]="max" [min]="min" placeholder="DD-MM-YYYY"
+                  formControlName="exitdate" (click)="date3.open()" [disabled]="isviewdata" required/>
+
+                <mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">
+                </mat-datepicker-toggle>
+                <mat-datepicker #date3></mat-datepicker>
+                 <mat-error class="con-error" *ngIf="resignForm.controls.exitdate.errors?.required">
+                  Please select an option
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-label>Reason</mat-label>
+                <mat-select [disabled]="isviewdata" formControlName="reason" required>
+                  <ng-container>
+                    <div *ngFor="let r of reasondata">
+                      <mat-option [value]="r.id">{{ r.reason }}</mat-option>
+                    </div>
+                  </ng-container>
+                </mat-select>
+                <mat-error class="con-error" *ngIf="resignForm.controls.reason.errors?.required">
+                  Please select an option
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-label>Notes</mat-label>
+                <textarea formControlName="notice" matInput placeholder="" [readonly]="isviewdata"
+                  maxlength="250"></textarea>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
+              <button class="col-md-2 mr-2 btn btn-primary" (click)="saved()" *ngIf="isadd">
+                Submit
+              </button>
+              <button class="col-md-2 mr-2 btn btn-primary" *ngIf="editing" (click)="editsaved()">
+                Save
+              </button>
+              <button class="col-md-2 btn btn-danger" (click)="clear()">
+                Cancel
+              </button>
+            </div>
+            <br />
+           <div  class="tableP ">
+            <div class="mat-elevation-z1 ">
+            <table mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="sno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No</th>
+                <td mat-cell *matCellDef="let row; let i = index">
+                  <span>{{ i + 1 }}</span>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Date of Request
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <!-- <span>{{row.programtype}} </span> -->
+                  <span>{{ row.applied_date | date: "dd-MM-yyyy" }} </span>
+                  <!--  <span *ngIf="enable === row.id">
+                          <mat-form-field appearance="outline">
+                          <input formControlName="resigndate" matInput placeholder="{{row.applied_date}}" >
+
+                      </mat-form-field>
+                      </span> -->
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="reason">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Reason</th>
+                <td mat-cell *matCellDef="let row">
+                  <span>{{ row.reason }} </span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                <td mat-cell *matCellDef="let row">
+                  <span>{{ row.status }} </span>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                <td mat-cell *matCellDef="let row">
+                  <!-- <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon>
+                    <mat-icon class="mr-2" title="Delete">delete</mat-icon> -->
+                  <mat-icon (click)="edit($event, row)" *ngIf="row.status == 'Submitted'" title="Edit">edit</mat-icon>
+                  <mat-icon (click)="view($event, row)"  title="view">visibility
+                  </mat-icon>
+                  <mat-icon (click)="view($event, row)" *ngIf="row.status == 'Rejected'" title="view">visibility
+                  </mat-icon>
+                  <!-- <mat-icon (click)="save($event)" title="Save" *ngIf="enable == row.id">save</mat-icon> -->
+                  <mat-icon (click)="cancelresignation($event, row)" title="Cancel" *ngIf="row.status == 'Submitted'">
+                    cancel</mat-icon>
+                </td>
+              </ng-container>
+              <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="6" style="text-align: center">
+                  No data found
+                </td>
+              </tr>
+            </table>
           </div>
-
-          <br />
-         </div>
-         
-      <div *ngIf="this.ishide">
-         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-              <mat-label>Date of Request Resignation </mat-label>
-              <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date1" placeholder="DD-MM-YYYY"
-                formControlName="resigndate" [disabled]="true" />
-
-              <mat-datepicker-toggle class="datepicker" matSuffix [for]="date1">
-              </mat-datepicker-toggle>
-              <mat-datepicker #date1></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-              <mat-label>Notice Period</mat-label>
-              <input formControlName="noticperiod" readonly matInput placeholder="" maxlength="3" />
-            </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-              <mat-label>Releiving Date </mat-label>
-              <input matInput readonly [matDatepicker]="date2" placeholder="DD-MM-YYYY" formControlName="releivingdate"
-                [disabled]="true" />
-
-              <mat-datepicker-toggle class="datepicker" matSuffix [for]="date2">
-              </mat-datepicker-toggle>
-              <mat-datepicker #date2></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-              <mat-label>Request Exit Date </mat-label>
-              <input matInput [matDatepicker]="date3" [max]="max" [min]="min" placeholder="DD-MM-YYYY"
-                formControlName="exitdate" (click)="date3.open()" [disabled]="isviewdata" required/>
-
-              <mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">
-              </mat-datepicker-toggle>
-              <mat-datepicker #date3></mat-datepicker>
-               <mat-error class="con-error" *ngIf="resignForm.controls.exitdate.errors?.required">
-                Please select an option
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-              <mat-label>Reason</mat-label>
-              <mat-select [disabled]="isviewdata" formControlName="reason" required>
-                <ng-container>
-                  <div *ngFor="let r of reasondata">
-                    <mat-option [value]="r.id">{{ r.reason }}</mat-option>
-                  </div>
-                </ng-container>
-              </mat-select>
-              <mat-error class="con-error" *ngIf="resignForm.controls.reason.errors?.required">
-                Please select an option
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-              <mat-label>Notes</mat-label>
-              <textarea formControlName="notice" matInput placeholder="" [readonly]="isviewdata"
-                maxlength="250"></textarea>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
-            <button class="col-md-2 mr-2 btn btn-primary" (click)="saved()" *ngIf="isadd">
-              Submit
-            </button>
-            <button class="col-md-2 mr-2 btn btn-primary" *ngIf="editing" (click)="editsaved()">
-              Save
-            </button>
-            <button class="col-md-2 btn btn-danger" (click)="clear()">
-              Cancel
-            </button>
-          </div>
-          <br />
-         <div  class="tableP ">
-          <div class="mat-elevation-z1 ">
-          <table mat-table [dataSource]="dataSource" matSort>
-            <ng-container matColumnDef="sno">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No</th>
-              <td mat-cell *matCellDef="let row; let i = index">
-                <span>{{ i + 1 }}</span>
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="date">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                Date of Request
-              </th>
-              <td mat-cell *matCellDef="let row">
-                <!-- <span>{{row.programtype}} </span> -->
-                <span>{{ row.applied_date | date: "dd-MM-yyyy" }} </span>
-                <!--  <span *ngIf="enable === row.id">
-                        <mat-form-field appearance="outline">
-                        <input formControlName="resigndate" matInput placeholder="{{row.applied_date}}" >
-                        
-                    </mat-form-field>
-                    </span> -->
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="reason">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Reason</th>
-              <td mat-cell *matCellDef="let row">
-                <span>{{ row.reason }} </span>
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="status">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-              <td mat-cell *matCellDef="let row">
-                <span>{{ row.status }} </span>
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="action">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-              <td mat-cell *matCellDef="let row">
-                <!-- <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon>
-                  <mat-icon class="mr-2" title="Delete">delete</mat-icon> -->
-                <mat-icon (click)="edit($event, row)" *ngIf="row.status == 'Submitted'" title="Edit">edit</mat-icon>
-                <mat-icon (click)="view($event, row)"  title="view">visibility
-                </mat-icon>
-                <mat-icon (click)="view($event, row)" *ngIf="row.status == 'Rejected'" title="view">visibility
-                </mat-icon>
-                <!-- <mat-icon (click)="save($event)" title="Save" *ngIf="enable == row.id">save</mat-icon> -->
-                <mat-icon (click)="cancelresignation($event, row)" title="Cancel" *ngIf="row.status == 'Submitted'">
-                  cancel</mat-icon>
-              </td>
-            </ng-container>
-            <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-            <tr class="mat-row" *matNoDataRow>
-              <td class="mat-cell" colspan="6" style="text-align: center">
-                No data found
-              </td>
-            </tr>
-          </table>
         </div>
-      </div>
-      </div>
-    </form>
+        </div>
+      </form>
+      </mat-card-content>
+
+  </mat-card>
  </div>

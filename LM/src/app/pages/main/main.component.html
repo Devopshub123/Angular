@@ -1,4 +1,16 @@
-<div class="example-container" [class.example-is-mobile]="mobileQuery.matches" style="height:100%" class="h-100">
+<div fxLayout="column" >
+  <app-header></app-header>
+</div>
+  <div fxLayout="column" >
+
+  <app-side-nav></app-side-nav>
+
+</div>
+
+
+
+<!-- <router-outlet></router-outlet> -->
+<!-- <div class="example-container" [class.example-is-mobile]="mobileQuery.matches" style="height:100%" class="h-100">
   <mat-toolbar style="height:10%;padding-top: 0px">
     <div class="main-header custom-mob-main-header" style="min-height: 10%">
       <div class="logo-header">
@@ -12,10 +24,10 @@
         <div class="navbar-nav topbar-nav ml-md-auto mobile-view">
           <!-- <mat-icon title="Main Dashboard" (click)="navigateToMainDashboard()" >dashboard</mat-icon> -->
 
-          <div>
+         <!--  <div>
             <!-- <span class="mx-2 my-2" ><mat-icon title="Main Dashboard" (click)="navigateToMainDashboard()" >dashboard</mat-icon></span> -->
             <!--<ul>-->
-            <li class="nav-item dropdown">
+          <!--   <li class="nav-item dropdown">
               <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img
                   *ngIf="!imageurls" src="assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><img
                   *ngIf="imageurls" [src]="imageurls" width="36"
@@ -40,11 +52,11 @@
                 <a class="dropdown-item" (click)="logout()"><i class="fa fa-power-off"></i> Logout</a>
               </ul>
               <!-- /.dropdown-user -->
-            </li>
+           <!--  </li>
             <!--</ul>-->
             <!--<a class="dropdown-item" ><span class='material-icons' (click)="changePassword()" style="margin-top: 15px; cursor: pointer;" title="Change Password" >key</span> </a>-->
             <!--<a class="dropdown-item" href="Login"><span class="material-icons " (click)="logout()" style="margin-top: 15px; cursor: pointer;" title="Logout">logout</span></a>-->
-          </div>
+         <!--  </div>
         </div>
 
       </div>
@@ -58,7 +70,7 @@
           <!--<i class="la la-ellipsis-v" *ngIf="checkToggleBar == 'Hide'"></i>-->
           <!--</button>-->
           <!--</div>-->
-          <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+        <!--   <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
             <span class="mx-2 my-2" style="width:50px;padding-top: 8px;"><mat-icon title="Main Dashboard" (click)="navigateToMainDashboard()" >dashboard</mat-icon></span>
 
             <!--<li class="nav-item dropdown hidden-caret">-->
@@ -122,7 +134,7 @@
             <!--</div>-->
             <!--</li>-->
 
-            <li class="nav-item dropdown">
+          <!--   <li class="nav-item dropdown">
               <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img
                   *ngIf="!imageurls" src="assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><img
                   *ngIf="imageurls" [src]="imageurls" width="36"
@@ -146,7 +158,7 @@
                 <a class="dropdown-item" (click)="logout()"><i class="fa fa-power-off"></i> Logout</a>
               </ul>
               <!-- /.dropdown-user -->
-            </li>
+         <!--    </li>
             <!--<li >-->
             <!--<a class="dropdown-item" ><span class='material-icons' (click)="changePassword()" style="margin-top: 15px; cursor: pointer;" title="Password Change" >key</span> </a>-->
             <!--</li>-->
@@ -155,7 +167,7 @@
             <!--<a class="dropdown-item" href="Login"><span class="material-icons " (click)="logout()" style="margin-top: 15px; cursor: pointer;" title="Logout">logout</span></a>-->
 
             <!--</li>-->
-          </ul>
+    <!--       </ul>
         </div>
       </nav>
     </div>
@@ -206,6 +218,6 @@
       </mat-sidenav-content>
     </mat-sidenav-container>
   </mat-card>
-</div>
+</div> -->
 
 <ngx-spinner size="medium" type='ball-fussion'></ngx-spinner>

@@ -1,7 +1,9 @@
 <div fxLayout="column">
+  <mat-card>
     <mat-card-header class="">
         <mat-card-title> Comp Off </mat-card-title>
     </mat-card-header>
+    <mat-card-content>
     <div>
         <form [formGroup]="CompoffForm" autocomplete="off">
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -126,4 +128,6 @@
             </table>
         </div>
     </div>
+  </mat-card-content>
+  </mat-card>
 </div>

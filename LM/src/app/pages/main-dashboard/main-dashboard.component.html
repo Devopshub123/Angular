@@ -1,7 +1,7 @@
-<app-header></app-header>
+<!-- <app-header></app-header> -->
 <!--<div style="height: 90%;padding-top: 0px;padding-left: 0px;padding-right: 0px;">-->
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav class="sidenav" #sidenav [mode]="mode" [opened]="openSidenav">
+  <!-- <mat-sidenav class="sidenav" #sidenav [mode]="mode" [opened]="openSidenav">
     <mat-nav-list>
       <div style="padding-top: 2%">
         <a mat-list-item routerLinkActive="active-list-item" (click)="getrolescreenfunctionalities(1, true)">
@@ -33,7 +33,7 @@
       <div style="padding-top: 4%">
         <a mat-list-item routerLinkActive="active-list-item" style="pointer-events: none">
           <!-- (click)="getrolescreenfunctionalities(5, true)" -->
-          <img src="assets\img\new-payroll.png" style="height: 35px" />
+          <!--      <img src="assets\img\new-payroll.png" style="height: 35px" />
           <span class="iconStyle">Payroll</span>
         </a>
       </div>
@@ -41,7 +41,7 @@
       <div style="padding-top: 4%">
         <a mat-list-item routerLinkActive="active-list-item" style="pointer-events: none">
           <!-- (click)="getrolescreenfunctionalities(6, true)" -->
-          <img src="assets\img\new-asset.png" style="height:40px" />
+            <!--    <img src="assets\img\new-asset.png" style="height:40px" />
           <span class="iconStyle">Asset</span>
         </a>
       </div>
@@ -49,7 +49,7 @@
       <div style="padding-top: 4%">
         <a mat-list-item routerLinkActive="active-list-item" style="pointer-events: none">
           <!-- (click)="getrolescreenfunctionalities(7, true)" -->
-          <img src="assets\img\new-claims.png" style="height: 40px" />
+            <!--    <img src="assets\img\new-claims.png" style="height: 40px" />
           <span class="iconStyle">Claims</span>
         </a>
       </div>
@@ -59,15 +59,15 @@
           <img src="assets\img\ess-icon.png" style="height: 50px;" />ESS
         </a>
       </div> -->
-    </mat-nav-list>
-  </mat-sidenav>
+        <!--  </mat-nav-list>
+  </mat-sidenav> -->
 
   <mat-sidenav-content class="custom-sidenav-container">
     <mat-card fxLayout="column" fxFlex=100%>
-      <div fxLayout="column" style="background-color: #f9fbfe;">
+      <!-- <div fxLayout="column" style="background-color: #f9fbfe;">
         <button mat-icon-button color="primary" (click)="sidenav.toggle()" class="toogleSidenav" [ngClass]="showToggle">
           <mat-icon>menu</mat-icon>Menu
-        </button>
+        </button> -->
         <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px"
           style="padding-left: 2%;padding-right: 2%;padding-top: 1%">
           <!-- first column -->
@@ -86,7 +86,7 @@
                 </span> -->
                 <span fxLayout="row" fxLayoutAlign="center">
                   <label class="hoverable1" for="fileInput" *ngFor="let url of imageurls; let i = index">
-                    <img class="img1" [src]= url.base64String> 
+                    <img class="img1" [src]= url.base64String>
                     <div class="hover-text"><mat-icon>camera_enhance</mat-icon></div>
                     <div class="background"></div>
                   </label>
@@ -244,9 +244,9 @@
                     <!-- team attendance -->
                     <div fxLayout="column" *ngIf="teamAttendanceCountData" flex="100">
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" flex="100">
-                    
+
                      <form  [formGroup]="attendanceForm" style="padding-left: 2%;">
-                       
+
                         <span fxLayout="row">
                           <mat-form-field>
                             <input matInput readonly [matDatepicker]="currentDate" [min]="minDate" [max]="maxDate"
@@ -412,7 +412,7 @@
                  <!-- induction schedule alert -->
                  <!-- <div fxLayout="column" *ngIf="!teamAttendanceData">
                  <div *ngFor="let value of inductionAlert"
-                      style="padding-left: 3%;padding-right: 3%;padding-bottom: 1%;"> 
+                      style="padding-left: 3%;padding-right: 3%;padding-bottom: 1%;">
                   <mat-card class="inductionStyle">
                     <span>{{value.alert}}
                    </span>
@@ -491,7 +491,7 @@
             </mat-card>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
     </mat-card>
   </mat-sidenav-content>
 </mat-sidenav-container>

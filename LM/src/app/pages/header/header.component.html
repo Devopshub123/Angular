@@ -110,8 +110,8 @@
 <!--</div>-->
 
 <!--<div class="example-container" class="h-100">-->
-  <mat-toolbar style="height:10%;padding-top: 0px">
-    <div class="main-header" style="min-height: 10%">
+  <mat-toolbar style="">
+    <div class="main-header" style="">
       <div class="logo-header">
         <div class="custom-mob-icons">
           <a href="/#/MainDashboard" (click)="onClickMainDashboard()" class="logo"><img [src]="pic" style="width: 25px;" alt="" class="logo-img mr-2">{{companyName}}</a>
@@ -123,16 +123,16 @@
             <li class="nav-item dropdown">
               <a class="dropdown-toggle profile-pic"  data-toggle="dropdown" href="#"
               aria-expanded="false">
-               <img *ngIf="!imageurls" src="assets/img/profile.jpg" alt="user-img" width="36"
-               class="img-circle"><img *ngIf="imageurls" [src]="imageurls"  width="36"
+               <img *ngIf="!imageurls" src="assets/img/profile.jpg" alt="user-img" width="30"
+               class="img-circle"><img *ngIf="imageurls" [src]="imageurls"  width="30"
                class="img-circle">
                <span >{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}
                 {{this.usersession.lastname}}</span></a>
               <ul class="dropdown-menu dropdown-user">
                 <li>
                   <div class="user-box">
-                    <div *ngIf="!imageurls" class="u-img"><img src="assets/img/profile.jpg" alt="user" width="36" class="img-circle"></div>
-                    <div *ngIf="imageurls" class="u-img" ><img [src]="imageurls"  width="36" class="img-circle"></div>
+                    <div *ngIf="!imageurls" class="u-img"><img src="assets/img/profile.jpg" alt="user" width="30" class="img-circle"></div>
+                    <div *ngIf="imageurls" class="u-img" ><img [src]="imageurls"  width="30" class="img-circle"></div>
                     <div class="u-text">
                       <h4>{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}
                         {{this.usersession.lastname}}
@@ -230,8 +230,8 @@
             <li class="nav-item dropdown">
               <a class="dropdown-toggle profile-pic"  data-toggle="dropdown" href="#"
               aria-expanded="false"> <img *ngIf="!imageurls" src="assets/img/profile.jpg"
-              alt="user-img" width="36" class="img-circle">
-              <img *ngIf="imageurls" [src]="imageurls"  width="36"
+              alt="user-img" width="30" class="img-circle">
+              <img *ngIf="imageurls" [src]="imageurls"  width="30"
               class="img-circle">
               <span >{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}
                 {{this.usersession.lastname}}
@@ -240,8 +240,8 @@
               <ul class="dropdown-menu dropdown-user">
                 <li>
                   <div class="user-box">
-                    <div *ngIf="!imageurls" class="u-img"><img src="assets/img/profile.jpg" alt="user" width="36" class="img-circle"></div>
-                    <div *ngIf="imageurls" class="u-img" ><img [src]="imageurls"  width="36" class="img-circle"></div>
+                    <div *ngIf="!imageurls" class="u-img"><img src="assets/img/profile.jpg" alt="user" width="30" class="img-circle"></div>
+                    <div *ngIf="imageurls" class="u-img" ><img [src]="imageurls"  width="30" class="img-circle"></div>
                     <div class="u-text">
                       <h4>{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}
                         {{this.usersession.lastname}}
@@ -269,8 +269,17 @@
           </ul>
         </div>
       </nav>
+      <div style="width:100%;background:lightseagreen;color:white;text-align: center; ">
+      <span >
+        Welcome {{selectedModule?'to':''}} {{selectedModule}}
+      </span>
     </div>
+    </div>
+
+
+
   </mat-toolbar>
+
   <!--<mat-card style="height:90%;padding-top: 0px;padding-left: 0px;padding-right: 0px;">-->
 
 

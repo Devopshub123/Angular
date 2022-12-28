@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/Attendance/ChangePassword'])
           }
           else {
-            this.router.navigate(['/MainDashboard'])
+            this.router.navigate(['main/MainDashBoard'])
             this.getEmployeeEmailData();
           }
 
