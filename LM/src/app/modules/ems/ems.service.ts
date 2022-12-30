@@ -340,7 +340,7 @@ export class EmsService {
   }
   /**get employees list by department id */
   getEmployeesListByDeptId(did: any): any {
-    return this.http.get(this.mainUrl + 'ems/api/getEmployeesListByDeptId/'+ did, this.httpOptions);
+    return this.http.get(this.mainUrl + 'ems/api/getEmployeesListByDeptId/'+ did+'/'+this.companyName, this.httpOptions);
   }
 
    /** set Induction ConductedBy master*/
@@ -350,12 +350,12 @@ export class EmsService {
 
   /**get employees list by department id */
     getConductedByEmployeesList(): any {
-      return this.http.get(this.mainUrl + 'ems/api/getInductionConductedbyEmployees', this.httpOptions);
+      return this.http.get(this.mainUrl + 'ems/api/getInductionConductedbyEmployees/'+this.companyName, this.httpOptions);
   }
   
     /**get departments by program id */
     getDepartmentsByProgramId(pid: any): any {
-      return this.http.get(this.mainUrl + 'ems/api/getDepartmentsByProgramId/'+ pid, this.httpOptions);
+      return this.http.get(this.mainUrl + 'ems/api/getDepartmentsByProgramId/'+ pid+'/'+this.companyName, this.httpOptions);
   }
   
     /** update Induction ConductedBy status*/
@@ -365,6 +365,6 @@ export class EmsService {
   
       /**get departments by program id */
       getConductEmployeesByProgramIdAndDeptId(pid: any,did:any): any {
-        return this.http.get(this.mainUrl + 'ems/api/getCondcutedEmployeesByPrgIdAndDeptId/'+ pid+'/'+did, this.httpOptions);
+        return this.http.get(this.mainUrl + 'ems/api/getCondcutedEmployeesByPrgIdAndDeptId/'+ pid+'/'+did+'/'+this.companyName, this.httpOptions);
     }
 }

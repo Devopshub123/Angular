@@ -29,7 +29,8 @@ export class LoginComponent implements OnInit {
   userlocalSessionpassword:any;
   userlocalSessionrememberme:any;
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
-    private tss: LoginService, private router: Router, private emsService: EmsService,) {
+    private tss: LoginService, private router: Router, private emsService: EmsService,
+    private activatedRoute: ActivatedRoute,) {
     }
 
   ngOnInit() {
@@ -45,6 +46,8 @@ export class LoginComponent implements OnInit {
     this.getErrorMessages('LM14')
     this.getErrorMessages('LM1')
     this.getErrorMessages('LM2')
+
+console.log("hfvgfvfgv", this.companyName)
   }
   hide = true;
 

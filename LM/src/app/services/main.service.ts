@@ -114,6 +114,6 @@ export class MainService {
 
   /** */
   getEmployeeAttendanceCounts(mid: any,empid:any,date:any): Observable<any> {
-    return this.http.get(this.mainBeUrl + 'ems/api/getAttendanceCountsForDate/' + mid +'/'+empid+'/'+date);
+    return this.http.get(this.mainBeUrl + 'ems/api/getAttendanceCountsForDate/' + mid +'/'+empid+'/'+date+'/'+this.companyName, this.httpOptions);
   }
 }
