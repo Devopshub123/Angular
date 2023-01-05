@@ -1,4 +1,4 @@
-<div fxLayout="column">
+<div fxLayout="column" style="background-color: white;">
     <form [formGroup]="checklistForm" autocomplete="off">
 
         <div fxLayout="column">
@@ -111,11 +111,11 @@
 
                 </div>
                 <div *ngIf="!isView" fxLayoutAlign="center">
-                    <button *ngIf="!isRequestView && !isedit && !isCancel" class="m-1 mat-stroked-button button-save"
+                    <button *ngIf="!isRequestView && !isedit && !isCancel" class="btn btn-primary mr-2 mb-2"
                         (click)="saveRequest()" type="submit">
                         <span>Submit</span>
                     </button>
-                    <button *ngIf="isedit" class="m-1 mat-stroked-button button-save" (click)="updateRequest()"
+                    <button *ngIf="isedit" class="btn btn-primary mr-2 mb-2" (click)="updateRequest()"
                         type="submit">
                         <span>Update</span>
                     </button>
@@ -123,7 +123,10 @@
                     type="submit">
                     <span>Program Cancel</span>
                 </button>
-                    <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+                <button *ngIf="!isCancel" class="btn btn-danger mr-2 mb-2" (click)="cancel()">
+                    <span>Cancel</span>
+                </button>
+                    <button *ngIf="isCancel" class="m-1 mat-stroked-button button-clear" (click)="cancel()">
                         <span>Cancel</span>
                     </button>
                     <br />
@@ -235,15 +238,15 @@
     </div>
                 </div>
                 <div fxLayoutAlign="center">
-                    <button *ngIf="!isRequestView && !isEditView" class="m-1 mat-stroked-button button-save"
+                    <button *ngIf="!isRequestView && !isEditView" class="btn btn-primary mr-2 mb-2"
                         (click)="meetingSchedule()" type="submit">
                         <span>Submit</span>
                     </button>
-                    <button *ngIf="isEditView" class="m-1 mat-stroked-button button-save" (click)="updateRequest()"
+                    <button *ngIf="isEditView" class="btn btn-primary mr-2 mb-2" (click)="updateRequest()"
                         type="submit">
                         <span>Update</span>
                     </button>
-                    <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+                    <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
                         <span>Cancel</span>
                     </button>
                     <br />
@@ -322,15 +325,15 @@
                 </div>
 
                 <div fxLayoutAlign="center">
-                    <button *ngIf="!isRequestView && !isEditView" class="m-1 mat-stroked-button button-save"
+                    <button *ngIf="!isRequestView && !isEditView" class="btn btn-primary mr-2 mb-2"
                         (click)="updateSchedue()" type="submit">
                         <span>Submit</span>
                     </button>
-                    <button *ngIf="isEditView" class="m-1 mat-stroked-button button-save" (click)="updateRequest()"
+                    <button *ngIf="isEditView" class="btn btn-primary mr-2 mb-2" (click)="updateRequest()"
                         type="submit">
                         <span>Update</span>
                     </button>
-                    <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+                    <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
                         <span>Cancel</span>
                     </button>
                     <br />
@@ -340,19 +343,16 @@
 
         </div>
         <br>
-
-
         <div fxLayout="row" fxLayout.xs="row" fxFlex.xs="100%" fxLayoutAlign="end" *ngIf="isdata">
             <span style="padding-right: 7px;">
-                <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
+                <button class="btn btn-primary mr-2 mb-2"
                     (click)="Add()" type="button">
                     <span>Add</span>
                 </button>
             </span>
 
         </div>
-        <br>
-        <div fxLayout="column" *ngIf="isdata" class="tableP">
+         <div fxLayout="column" *ngIf="isdata" class="tableP">
             <div class="mat-elevation-z1">
                 <table mat-table [dataSource]="dataSource" matSort>
 

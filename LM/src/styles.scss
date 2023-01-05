@@ -64,7 +64,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mt-2,
 .my-2 {
-  margin-top: 0.5rem !important;
+  margin-top: 0.2rem !important;
 }
 
 .mr-2,
@@ -74,7 +74,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mb-2,
 .my-2 {
-  margin-bottom: 0.5rem !important;
+  margin-bottom: 0.2rem !important;
 }
 
 .ml-2,
@@ -520,4 +520,14 @@ mat-card-header{
       display: none;
     }
   }
+}
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin: 0.2em 0 !important;
+}
+::ng-deep.btn {
+  padding: 7px 16px!important;
+  font-size: 15px!important;
+  opacity: 0.9;
+  border-radius: 3px;
+  width: 80px!important;
 }

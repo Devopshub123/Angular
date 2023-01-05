@@ -215,6 +215,7 @@ export class MainDashboardComponent implements OnInit {
     this.AMS.getModules('modulesmaster', null, 1, 100).subscribe((result) => {
       if (result && result.status) {
         this.allModuleDetails = result.data;
+        console.log("module--",result.data)
         this.allModuleDetails.forEach((e:any)=>{
           if (e.id == 4) {
              this.isAttendanceModule = true;

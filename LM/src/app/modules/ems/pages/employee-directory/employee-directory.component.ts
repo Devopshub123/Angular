@@ -78,7 +78,8 @@ export class EmployeeDirectoryComponent implements OnInit {
      const filterValue = (event.target as HTMLInputElement).value;
     let filterdata=this.employeeList.filter((m:any) =>
       m.ename.toString().toLowerCase().includes(filterValue.trim().toLowerCase())
-      || m.designation.toString().toLowerCase().includes(filterValue.trim().toLowerCase()));
+      || m.designation.toString().toLowerCase().includes(filterValue.trim().toLowerCase())
+    || m.location.toString().toLowerCase().includes(filterValue.trim().toLowerCase()));
       this.employeeFilteredList=filterdata;
   }
   search() {

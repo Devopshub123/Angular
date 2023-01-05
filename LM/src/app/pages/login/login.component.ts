@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     let params: any = this.activatedRoute.snapshot.params;
     this.companyName = params.companyName;
+    console.log("cname",this.companyName)
     this.createForm();
     this.formGroup.controls.username.setValue(localStorage.getItem("username"));
     this.formGroup.controls.password.setValue(localStorage.getItem("password"));
