@@ -179,7 +179,9 @@ export class ChecklistMeetComponent implements OnInit {
       });
     this.checklistForm.get('programType')?.valueChanges.subscribe((selectedValue) => {
         this.programId = selectedValue;
-        if (this.programId != null) {
+      if (this.programId != null) {
+        this.conductlist = [];
+        this.availableDepartments=[]
           this.getProgramDepartmentList(this.programId);
         }
       });
@@ -194,9 +196,16 @@ export class ChecklistMeetComponent implements OnInit {
   getProgramDepartmentList(id: any) {
     this.availableDepartments=[]
      this.EMS.getDepartmentsByProgramId(id).subscribe((result:any) => {
-      if (result.status) {
+      if (result.status && result.data.length>0) {
         this.availableDepartments = result.data;
-      }
+       }else {
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+          data: 'Please add departments against selected program type',
+        });
+       }
+       
     })
 
   }
