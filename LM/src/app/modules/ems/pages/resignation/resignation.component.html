@@ -1,9 +1,10 @@
-<div fxLayout="column" style="background-color: #f9fbfe;">
-
-      <mat-card-header>
-        <mat-card-title> Separation</mat-card-title>
-      </mat-card-header>
-      <form [formGroup]="resignForm" autocomplete="off">
+<div fxLayout="column" style="background-color: #ffffff;">
+  <mat-card-header class="headerbox">
+    <div fxLayout="row" fxFlex="50">
+        <mat-card-title class="title"> Separation </mat-card-title>
+    </div>
+    </mat-card-header>
+       <form [formGroup]="resignForm" autocomplete="off" style="padding-left: 1%;">
         <div *ngIf="this.isview" class="tableP">
 
           <span>
@@ -45,8 +46,8 @@
          </div>
          
       <div *ngIf="this.ishide">
-         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;padding-right: 1%;">
+            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
               <mat-label>Date of Request Resignation </mat-label>
               <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date1" placeholder="DD-MM-YYYY"
                 formControlName="resigndate" [disabled]="true" />
@@ -55,11 +56,11 @@
               </mat-datepicker-toggle>
               <mat-datepicker #date1></mat-datepicker>
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
               <mat-label>Notice Period</mat-label>
               <input formControlName="noticperiod" readonly matInput placeholder="" maxlength="3" />
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
               <mat-label>Releiving Date </mat-label>
               <input matInput readonly [matDatepicker]="date2" placeholder="DD-MM-YYYY" formControlName="releivingdate"
                 [disabled]="true" />
@@ -69,8 +70,8 @@
               <mat-datepicker #date2></mat-datepicker>
             </mat-form-field>
           </div>
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-right: 1%;">
+            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
               <mat-label>Request Exit Date </mat-label>
               <input matInput [matDatepicker]="date3" [max]="max" [min]="min" placeholder="DD-MM-YYYY"
                 formControlName="exitdate" (click)="date3.open()" [disabled]="isviewdata" required/>
@@ -83,7 +84,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
               <mat-label>Reason</mat-label>
               <mat-select [disabled]="isviewdata" formControlName="reason" required>
                 <ng-container>
@@ -97,25 +98,28 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
               <mat-label>Notes</mat-label>
               <textarea formControlName="notice" matInput placeholder="" [readonly]="isviewdata"
                 maxlength="250"></textarea>
             </mat-form-field>
           </div>
-          <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
-            <button class="col-md-2 mr-2 btn btn-primary" (click)="saved()" *ngIf="isadd">
+
+          <div fxLayoutAlign="center">
+            <button class="btn btn-primary mr-2 mb-2" (click)="saved()" *ngIf="isadd">
               Submit
             </button>
-            <button class="col-md-2 mr-2 btn btn-primary" *ngIf="editing" (click)="editsaved()">
+            <button class="btn btn-primary mr-2 mb-2" *ngIf="editing" (click)="editsaved()">
               Save
             </button>
-            <button class="col-md-2 btn btn-danger" (click)="clear()">
+            <button class="btn btn-danger mr-2 mb-2" (click)="clear()">
               Cancel
             </button>
           </div>
+          
           <br />
-         <div  class="tableP ">
+          <mat-divider></mat-divider>
+         <div  class="tableP " style="padding-right: 2%;">
           <div class="mat-elevation-z1 ">
           <table mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="sno">

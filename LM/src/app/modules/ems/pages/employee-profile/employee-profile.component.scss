@@ -33,7 +33,7 @@
 ::ng-deep .mat-form-field-subscript-wrapper {
   font-size: 75%;
   margin-top: 0.6666666667em;
-  top: calc(100% - 0.791667em);
+  //top: calc(100% - 0.791667em);
 }
 
 
@@ -179,4 +179,7 @@ button.link {
 
 button.link:hover {
   color: #80286a;
+}
+.mat-header-row, .mat-row {
+  height: 45px;
 }

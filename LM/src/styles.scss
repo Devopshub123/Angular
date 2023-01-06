@@ -64,7 +64,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mt-2,
 .my-2 {
-  margin-top: 0.2rem !important;
+  margin-top: 0.0rem !important;
 }
 
 .mr-2,
@@ -530,4 +530,17 @@ mat-card-header{
   opacity: 0.9;
   border-radius: 3px;
   width: 80px!important;
+}
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-outline {
+  display: flex;
+  position: absolute;
+  top: 0.25em;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  color: #28acaf !important;
+}
+::ng-deep.mat-header-row, .mat-row {
+  height: 45px;
 }

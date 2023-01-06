@@ -57,7 +57,7 @@
                         <!-- personal information -->
                         <div class="section1"><b>Personal Information</b></div>
                         <mat-divider></mat-divider>
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%">
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>First Name</mat-label>
                                 <input type="text" formControlName="firstname" #firstname
@@ -236,7 +236,7 @@
 
                         <div class="section"><b>Work Information</b></div>
                         <mat-divider></mat-divider>
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%">
                             <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Joining Date</mat-label>
                                 <input required matInput readonly [matDatepicker]="joinDate" [min]="minDate"
@@ -701,7 +701,7 @@
                         <form [formGroup]="employeeJobForm" *ngIf="isContractData">
                             <div class="section"><b>Employee Contract</b></div>
                             <mat-divider></mat-divider>
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Contract Name</mat-label>
                                     <input type="text" formControlName="contractName" matInput placeholder=""
@@ -821,6 +821,7 @@
                                 </div>
                             </form>
                             <mat-divider></mat-divider>
+                            <br>
                             <div fxLayoutAlign="center">
                                 <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795" (click)="saveJobDetails()">
                                     <span>Save & Continue</span>
@@ -834,7 +835,7 @@
                         <div class="section"><b>Promotions</b></div>
                         <mat-divider></mat-divider>
                         <form [formGroup]="promotionsForm">
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Description</mat-label>
                                     <input type="text" formControlName="newDescription" matInput placeholder="" required
@@ -888,6 +889,7 @@
                                 </mat-form-field>
                             </div>
                             <mat-divider></mat-divider>
+                            <br>
                             <div fxLayoutAlign="center">
                                 <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795" (click)="saveJobDetails()">
                                     <span>Save & Continue</span>
@@ -944,7 +946,7 @@
                     <form [formGroup]="experienceForm">
                         <div class="section"><b>Work Experience</b></div>
                         <mat-divider></mat-divider>
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%">
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Company Name</mat-label>
                                 <input type="text" formControlName="companyName" specialIsAlpha matInput placeholder=""
@@ -1082,7 +1084,7 @@
                     <form [formGroup]="employementForm">
                         <div class="section"><b>Bank Details</b></div>
                         <mat-divider></mat-divider>
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%">
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Bank Name</mat-label>
                                 <input type="text" (keypress)="alphabetKeyPress($event)" formControlName="bankName"
@@ -1153,6 +1155,7 @@
                             </mat-form-field>
                         </div>
                         <mat-divider></mat-divider>
+                        <br>
                         <div fxLayoutAlign="center">
                             <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795" (click)="saveBankDetails()"
                                 type="submit">
@@ -1172,7 +1175,7 @@
                     <form [formGroup]="educationForm">
                         <div class="section"><b>Education</b></div>
                         <mat-divider></mat-divider>
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%">
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Course</mat-label>
                                 <input required type="text" maxlength="100" formControlName="course" matInput
@@ -1279,6 +1282,7 @@
                             </table>
                         </div>
                         <mat-divider></mat-divider>
+                        <br>
                         <div fxLayoutAlign="center">
                             <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795" (click)="saveEducation()" type="submit">
                                 <span>Save & Continue</span>
@@ -1296,7 +1300,7 @@
                     <form [formGroup]="documentsForm">
                         <div class="section"><b>Add Documents</b></div>
                         <mat-divider></mat-divider>
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%">
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Document Name</mat-label>
                                 <mat-select required formControlName="documentName">
@@ -1331,7 +1335,7 @@
                             </mat-form-field>
 
                             <div fxLayout="row" style="align-items: center">
-                                <input style="margin-left: 10px" type="file" *ngIf="!isedit"
+                                <input type='file' title="" style="color:transparent; margin-left: 10px" *ngIf="!isedit"
                                     formControlName="attachedFile" (change)="onSelectFile($event)" single />
 
                                 <button class="link" *ngIf="isedit">

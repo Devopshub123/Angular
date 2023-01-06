@@ -209,7 +209,9 @@ export class UserCompoffComponent implements OnInit {
 
   }
 
-  submit(){
+  submit() {
+    if (this.CompoffForm.valid) {
+    
     let data={
       rmId:this.usersession.roles[0].rmid,
       id:null,
@@ -243,6 +245,7 @@ export class UserCompoffComponent implements OnInit {
       }
 
     })
+  }
 
   }
   cancel(){

@@ -1,9 +1,11 @@
 <div fxLayout="column" style="background-color: #ffffff ;">
   <mat-card-header class="headerbox">
-    <mat-card-title class="title"> New Hires </mat-card-title>
-       </mat-card-header>
+    <div fxLayout="row" fxFlex="50">
+        <mat-card-title class="title"> New Hires </mat-card-title>
+    </div>
+    </mat-card-header>
 
-  <div fxLayout="column" *ngIf="isNewhire">
+  <div fxLayout="column" *ngIf="isNewhire" style="padding-top: 1%;padding-left: 1%;padding-right: 1%;">
     <form [formGroup]="hireForm" autocomplete="off">
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
 
@@ -109,14 +111,14 @@
       </div>
 
       <div fxLayoutAlign="center">
-        <button *ngIf="!isUpdate" class="m-1 mat-stroked-button button-save" (click)="submit()" type="submit">
+        <button *ngIf="!isUpdate" class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit">
           <span>Submit</span>
         </button>
-        <button *ngIf="isUpdate" class="m-1 mat-stroked-button button-save" (click)="submit()" type="submit">
+        <button *ngIf="isUpdate" class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit">
           <span>Update</span>
         </button>
 
-        <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+        <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
           <span>Cancel</span>
         </button>
         <br />
@@ -124,13 +126,11 @@
 
     </form>
   </div>
-  <div *ngIf="isNewhireList">
+  <div *ngIf="isNewhireList" style="padding-left: 1%;padding-right: 1%;">
 
+   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="space-between center">
 
-
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="space-between center">
-
-      <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+      <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" style="padding-top: 1%;">
         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
         <mat-label>Search Employee</mat-label>
         <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
