@@ -330,35 +330,35 @@ export class HolidaysComponent implements OnInit {
       "pagesize": 1
     }
     this.emsService.getMessagesListApi(data).subscribe((result: any) => {
-      if(result.status && messageCode == 'EM1')
+      if(result.status && result.data[0].code == 'EM1')
       {
         this.msgEM1 = result.data[0].message
       }
-      else if(result.status && messageCode == 'LM3')
+      else if(result.status && result.data[0].code == 'LM3')
       {
         this.msgEM2 = result.data[0].message
       }
-      else if(result.status && messageCode == 'EM114')
+      else if(result.status && result.data[0].code == 'EM114')
       {
         this.msgEM114 = result.data[0].message
       }
-      else if(result.status && messageCode == 'EM126')
+      else if(result.status && result.data[0].code == 'EM126')
       {
         this.msgEM126 = result.data[0].message
       }
-      else if(result.status && messageCode == 'EM125')
+      else if(result.status && result.data[0].code == 'EM125')
       {
         this.msgEM125 = result.data[0].message
       }
-      else if(result.status && messageCode == 'EM127')
+      else if(result.status && result.data[0].code == 'EM127')
       {
         this.msgEM127 = result.data[0].message
       }
-      else if(result.status && messageCode == 'EM115')
+      else if(result.status && result.data[0].code == 'EM115')
       {
         this.msgEM115 = result.data[0].message
       }
-      else if(result.status && messageCode == 'EM116')
+      else if(result.status && result.data[0].code == 'EM116')
       {
         this.msgEM116 = result.data[0].message
       }

@@ -87,17 +87,24 @@ export class EmsMessagemasterComponent implements OnInit {
       if (res.status) {
         let resMessage: any;
         if (res.data == "dataSaved") {
-          resMessage = this.dataUpdate
-        } else {
-          resMessage = this.dataNotUpdate
-        }
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data:resMessage
+            data:this.dataUpdate
+            
           });
           window.location.reload();
           this.getMessagesList();
+         
+        } else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data:this.dataNotUpdate
+            
+          });
+        }
+         
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
@@ -138,11 +145,11 @@ export class EmsMessagemasterComponent implements OnInit {
         this.messagesDataList.forEach((e: any) => {
           if (e.code == "EM1") {
            this.requiredField = e.message
-          } else if (e.code == "EM71") {
+          } else if (e.code == "EM138") {
             this.recordExist =e.message
-          }else if (e.code == "EM72") {
+          }else if (e.code == "EM139") {
             this.dataUpdate =e.message
-          } else if (e.code == "EM73") {
+          } else if (e.code == "EM140") {
             this.dataNotUpdate =e.message
           }
         })
