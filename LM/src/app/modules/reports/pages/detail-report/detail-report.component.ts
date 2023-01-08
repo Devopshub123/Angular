@@ -74,6 +74,7 @@ export class DetailReportComponent implements OnInit {
     'lastlogouttime', 'totalhours', 'breaks', 'breaktime', 'productivehours', 'action'];
   isLoading = false;
   ngOnInit() {
+    console.log("dfgdfg")
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.Searchform();
     this.getEmployeelist();
@@ -247,7 +248,7 @@ export class DetailReportComponent implements OnInit {
           ]
         };
       },
-      content: [ 
+      content: [
         {
           text: "Attendance Monthly Detailed Report\n\n",
           style: 'header',
@@ -264,10 +265,10 @@ export class DetailReportComponent implements OnInit {
         //   alignment: 'left'
         // },
         html,
-        
+
       ],styles:{
         'html-table':{
-          background:'yellow' // it will add a yellow background to all <STRONG> elements
+          background:'white' // it will add a yellow background to all <STRONG> elements
         }
       },
       pageOrientation: 'landscape'//'portrait'

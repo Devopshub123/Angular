@@ -1,13 +1,12 @@
-<div fxLayout="column">
+<div fxLayout="column" style="background-color: white;">
     <form [formGroup]="terminateForm" autocomplete="off">
-       <mat-card-header>
-          <mat-card-title > Termination </mat-card-title>
-          <!-- <span fxLayoutAlign="end">
-            <input  (keyup)="applyFilter($event)" type="text" class="search-hover" name="" placeholder="search here..." />
-          </span> -->
-        </mat-card-header>
-        <div *ngIf="isterminate">
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
+        <mat-card-header class="headerbox">
+            <div fxLayout="row" fxFlex="50">
+                <mat-card-title class="title"> Termination </mat-card-title>
+            </div>
+            </mat-card-header>
+        <div *ngIf="isterminate" style="padding-left: 1%;">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="padding-top: 1%;">
             
                 <mat-form-field fxFlex.xs="100" fxFlex="50" *ngIf="isview"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Employee Name</mat-label>
@@ -69,10 +68,10 @@
                      </mat-form-field>
                 </div>
                 <div fxLayoutAlign="center">
-                    <button class="m-1 mat-stroked-button button-save" style="padding: 0 10px;" (click)="terminatesave()" *ngIf="isview" type="submit">
+                    <button class="btn btn-primary mr-2 mb-2" style="padding: 0 10px;" (click)="terminatesave()" *ngIf="isview" type="submit">
                         <span>Terminate</span>
                     </button>
-                    <button class="m-1 mat-stroked-button button-clear" (click)="close()">
+                    <button class="btn btn-danger mr-2 mb-2" (click)="close()">
                         <span>Close</span>
                     </button>
                     <br />
@@ -84,7 +83,7 @@
               <br>
         </div>
         <div *ngIf="istable">
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="padding-top: 1%;padding-left: 1%;">
                 <mat-form-field fxFlex.xs="100" fxFlex="28"   class="mx-2 my-2" appearance="outline">
                     <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
                     <mat-label>Search </mat-label>

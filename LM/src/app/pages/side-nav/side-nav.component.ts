@@ -88,7 +88,7 @@ export class SideNavComponent implements OnInit {
    }
 
    getRouterStyle(){
-    return this.isExpanded? '15%':'';
+    return this.isExpanded? '16%':'';
    }
 
   @ViewChild('parentMenu') parentMenu!: ElementRef;
@@ -107,12 +107,13 @@ export class SideNavComponent implements OnInit {
     this.activeModuleData = {
       empid: this.usersession.id
     };
-   this.getrolescreenfunctionalities()
+   //this.getrolescreenfunctionalities()
+   this.getSideNavigation();
   }
   menu:any[]=[];
   _mobileQueryListener(){};
-  getrolescreenfunctionalities() {
-    this.mainService.getRoleScreenFunctionalities({empid: this.usersession.id}).subscribe((res: any) => {
+  getSideNavigation() {
+    this.mainService.getSideNavigation({empid: this.usersession.id}).subscribe((res: any) => {
       //this.menu=[];
       for(let i=0; i<res.data.length;i++) {
         if (res.data[i].children != 'null') {

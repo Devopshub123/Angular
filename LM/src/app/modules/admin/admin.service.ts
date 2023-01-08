@@ -107,7 +107,7 @@ updateShiftStatus(data:any):Observable<any>{
     return this.http.post(this.mainUrl+'admin/api/getEMSMessages', JSON.stringify(data), this.httpOptions);
   }
   updateEMSMessagesData(data:any){
-    data.companyName = this.companyName;
+    data[0].companyName = this.companyName;
     return this.http.post(this.mainUrl+'admin/api/setEMSMessages', JSON.stringify(data), this.httpOptions);
   }
   getstatuslists(){

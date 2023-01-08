@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     private tss: LoginService, private router: Router, private emsService: EmsService,
     private activatedRoute: ActivatedRoute,) {
     }
-
+    messagesDataList: any = [];
   ngOnInit() {
     let params: any = this.activatedRoute.snapshot.params;
     this.companyName = params.companyName;
@@ -40,15 +40,10 @@ export class LoginComponent implements OnInit {
     this.createForm();
     this.formGroup.controls.username.setValue(localStorage.getItem("username"));
     this.formGroup.controls.password.setValue(localStorage.getItem("password"));
-    this.formGroup.controls.rememberme.setValue(localStorage.getItem("rememberme"));
-    // console.log("nm--",this.formGroup.controls.username.value)
+    this.formGroup.controls.rememberme.setValue((localStorage.getItem("rememberme")=='false')?0:1);    // console.log("nm--",this.formGroup.controls.username.value)
     // console.log("pwd--",this.formGroup.controls.password.value)
     // console.log("rmm--",this.formGroup.controls.rememberme.value)
-    this.getErrorMessages('LM14')
-    this.getErrorMessages('LM1')
-    this.getErrorMessages('LM2')
-
-console.log("hfvgfvfgv", this.companyName)
+    this.getMessagesList();
   }
   hide = true;
 
@@ -115,26 +110,50 @@ console.log("hfvgfvfgv", this.companyName)
   ForgotPassword(){
     this.router.navigate(['ForgotPassword'],{state:{companyName:this.companyName}} )
   }
-  getErrorMessages(errorCode:any){
-    this.tss.getErrorMessages(errorCode,1,100).subscribe((result)=>{
+  // getErrorMessages(errorCode:any){
+  //   this.tss.getErrorMessages(errorCode,1,100).subscribe((result)=>{
 
-      if(result.status && errorCode == 'LM1')
-      {
-        this.msgLM1 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM2')
-      {
-        this.msgLM2 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM14')
-      {
-        this.msgLM14 = result.data[0].errormessage
-      }
+  //     if(result.status && errorCode == 'LM1')
+  //     {
+  //       this.msgLM1 = result.data[0].errormessage
+  //     }
+  //     else if(result.status && errorCode == 'LM2')
+  //     {
+  //       this.msgLM2 = result.data[0].errormessage
+  //     }
+  //     else if(result.status && errorCode == 'LM14')
+  //     {
+  //       this.msgLM14 = result.data[0].errormessage
+  //     }
 
 
-    })
+  //   })
+  // }
+  getMessagesList() {
+  
+    this.tss.getErrorMessages(null,1,1000).subscribe((res:any)=>{
+     if(res.status) {
+       this.messagesDataList = res.data;
+       this.messagesDataList.forEach((e: any) => {
+        if (e.code == "LM1") {
+          this.msgLM1 = e.errormessage
+        } else if (e.code == "LM2") {
+          this.msgLM2 =e.errormessage
+        }else if (e.code == "LM14") {
+          this.msgLM14 =e.errormessage
+        }
+         })
+     } else {
+       this.messagesDataList = [];
+     }
+
+   })
+
 
   }
+
+
+
   getEmployeeEmailData() {
     this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
       .subscribe((res: any) => {

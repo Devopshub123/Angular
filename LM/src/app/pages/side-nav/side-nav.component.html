@@ -43,9 +43,9 @@
                     <span> {{ child.displayName }}</span>
                   </mat-toolbar>
                   <span *ngIf="child.subChildren && child.subChildren[0]">
-                    <mat-nav-list *ngFor="let subchild of child.subChildren" style="height: 35px;">
+                    <mat-nav-list *ngFor="let subchild of child.subChildren" style="height: 45px;">
                       <mat-list-item [routerLink]="subchild.routename" [routerLinkActive]="['active']"  style="font: -webkit-control;" (click)="toggleChild(item,child,subchild,subchild.routename,subchild.screen_name)">
-                        {{ subchild.screen_name }}
+                        <span  style="font:auto;" > {{ subchild.screen_name }}</span>
                       </mat-list-item>
                     </mat-nav-list>
                   </span>

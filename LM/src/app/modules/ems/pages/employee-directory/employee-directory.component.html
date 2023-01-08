@@ -2,11 +2,15 @@
 
       <mat-card>
         <mat-card-header class="headerbox">
-          <mat-card-title class="title"> Employee Directory  </mat-card-title>
-             </mat-card-header>
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="space-between center">
+          <div fxLayout="row" fxFlex="50">
+              <mat-card-title class="title">Employee Directory </mat-card-title>
+          </div>
+          </mat-card-header>
+          
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="space-between center"
+          style="padding-left: 1%">
 
-                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" style="padding-top: 1%;">
                   <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
                   <mat-label>Search Employee</mat-label>
                     <input (keyup)="applyFilter($event)"  matInput placeholder="" maxlength="100" >
@@ -24,7 +28,7 @@
                </span> -->
          </div>
         </div>
-        <form [formGroup]="employeeDirectoryForm" >
+        <form [formGroup]="employeeDirectoryForm" style="padding-left: 1%;padding-right: 1%;">
         <div *ngIf="ishideFilter" style="margin-left: 1%;">
           <mat-card>
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" >

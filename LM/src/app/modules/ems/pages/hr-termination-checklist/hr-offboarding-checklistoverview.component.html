@@ -1,11 +1,13 @@
-<div fxLayout="column">
-  <mat-card-header>
-    <mat-card-title> Termination Pending Checklist </mat-card-title>
-  </mat-card-header>
+<div fxLayout="column" style="background-color: white;">
+  <mat-card-header class="headerbox">
+    <div fxLayout="row" fxFlex="50">
+        <mat-card-title class="title"> Termination Pending Checklist </mat-card-title>
+    </div>
+    </mat-card-header>
 
   <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd">
     <form [formGroup]="checklistForm" autocomplete="off">
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-left: 1%;padding-right: 1%;padding-top: 1%;">
         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
           <mat-label>Employee Name</mat-label>
           <input type="text" formControlName="employeeName" matInput placeholder="" readonly />
@@ -22,8 +24,8 @@
         </mat-form-field>
       </div>
 
-      <div fxLayout="column">
-        <div class="mat-elevation-z1 tableP">
+      <div class="tableP">
+        <div class="mat-elevation-z1">
           <mat-table #table [dataSource]="checklistDataSource" matSort>
 
             <ng-container matColumnDef="sno">
@@ -87,7 +89,7 @@
 
   
 
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center"  *ngIf="isdata">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center"  *ngIf="isdata" style="padding-top: 1%;padding-left: 1%;">
       <form [formGroup]="hrOnboardingForm" autocomplete="off">
       <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
         <mat-label>Date of Termination</mat-label>
@@ -97,13 +99,13 @@
         <mat-datepicker #searchDate></mat-datepicker>
       </mat-form-field>
     </form>
-      <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+      <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
         <mat-label>Search Employee</mat-label>
         <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
       </mat-form-field>
-      <span fxLayoutAlign="center" style="margin-top: 17px;">
-        <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+      <span style="padding-top: 1%;">
+        <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
          <span>Clear</span>
        </button>
      </span>

@@ -42,7 +42,7 @@
                     <div class="u-text">
                       <h4>{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}{{this.usersession.lastname}}</h4>
                       <p class="text-muted">{{this.usersession.officeemail}}</p>
-                      <a (click)="editProfile()" class="btn btn-rounded btn-danger btn-sm">Edit Profile</a>
+                      <a (click)="editProfile()" [routerLink]="">Edit Profile</a>
                     </div>
                   </div>
                 </li>
@@ -148,7 +148,7 @@
                     <div class="u-text">
                       <h4>{{this.usersession.firstname}}{{" "}}{{this.usersession.middlename}}{{" "}}{{this.usersession.lastname}}</h4>
                       <p class="text-muted">{{this.usersession.officeemail}}</p>
-                      <a (click)="editProfile()" class="btn btn-rounded btn-danger btn-sm">Edit Profile</a>
+                      <a (click)="editProfile()" [routerLink]="">Edit Profile</a>
                     </div>
                   </div>
                 </li>
