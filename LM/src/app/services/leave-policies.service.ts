@@ -8,8 +8,9 @@ import {environment} from '../../environments/environment'
     providedIn: 'root'
 })
 export class LeavePoliciesService {
-
+  companyName:any
     constructor(private hClient: HttpClient) {
+    this.companyName = sessionStorage.getItem('companyName')
     }
 
     httpOptions = {
@@ -18,7 +19,7 @@ export class LeavePoliciesService {
 
 
     url: any = environment.apiUrl;
-    
+
 
 
     setAddLeaveBalance(info:any) {
@@ -31,11 +32,11 @@ export class LeavePoliciesService {
     }
 
     getLeavePolicies(cId:any, isCommonRule:any, page:any, size:any): Observable<any> {
-        return this.hClient.get(this.url + 'api/getLeavePolicies/' + cId + '/' + isCommonRule + '/' + page + '/' + size, this.httpOptions);
+        return this.hClient.get(this.url + 'api/getLeavePolicies/' + cId + '/' + isCommonRule + '/' + page + '/' + size+'/'+this.companyName, this.httpOptions);
 
     }
     getleavetypesforadvancedleave(): Observable<any> {
-      return this.hClient.get(this.url + 'api/getLeaveTypesForAdvancedLeave', this.httpOptions);
+      return this.hClient.get(this.url + 'api/getLeaveTypesForAdvancedLeave/'+this.companyName, this.httpOptions);
 
     }
 
@@ -65,20 +66,23 @@ export class LeavePoliciesService {
     }
 
     setLeaveConfigure(info:any): Observable<any> {
+      info.companyName = this.companyName;
         return this.hClient.post(this.url + 'api/setLeavePolicies', JSON.stringify(info), this.httpOptions);
 
     }
   setAdvancedLeaveRuleValues(info:any): Observable<any> {
+    info.companyName=this.companyName;
     return this.hClient.post(this.url + 'api/setAdvancedLeaveRuleValues', JSON.stringify(info), this.httpOptions);
 
   }
   updateLeaveDisplayName(info:any): Observable<any> {
+      info.companyName=this.companyName;
     return this.hClient.post(this.url + 'api/updateLeaveDisplayName', JSON.stringify(info), this.httpOptions);
 
   }
 
     getLeaveDetails(tableName:any,status:any, page:any, size:any): Observable<any> {
-        return this.hClient.get(this.url + 'api/getMastertable/' + tableName + '/' + status + '/' + page + '/' + size + '/sreeb', this.httpOptions);
+        return this.hClient.get(this.url + 'api/getMastertable/' + tableName + '/' + status + '/' + page + '/' + size+'/' + this.companyName, this.httpOptions);
     }
 
     setNewLeaveType(info:any): Observable<any> {
@@ -86,14 +90,15 @@ export class LeavePoliciesService {
     }
 
     getLeavesTypeInfo(): Observable<any> {
-        return this.hClient.get(this.url + 'api/getLeavesTypeInfo', this.httpOptions);
+        return this.hClient.get(this.url + 'api/getLeavesTypeInfo/'+this.companyName, this.httpOptions);
 
     }
     setToggleLeaveType(info:any): Observable<any> {
+      info.companyName= this.companyName;
         return this.hClient.post(this.url + 'api/setToggleLeaveType', JSON.stringify(info), this.httpOptions);
     }
     getCarryforwardedLeaveMaxCount(leaveId:any): Observable<any> {
-      return this.hClient.get(this.url + 'api/getCarryforwardedLeaveMaxCount/'+leaveId, this.httpOptions);
+      return this.hClient.get(this.url + 'api/getCarryforwardedLeaveMaxCount/'+leaveId+'/'+this.companyName, this.httpOptions);
 
     }
 

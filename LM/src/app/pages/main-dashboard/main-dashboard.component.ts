@@ -212,15 +212,10 @@ export class MainDashboardComponent implements OnInit {
     })
   }
   getModules() {
-    this.AMS.getModules(
-      'modulesmaster',
-      null,
-      1,
-      100,
-      this.companyDBName
-    ).subscribe((result) => {
+    this.AMS.getModules('modulesmaster', null, 1, 100).subscribe((result) => {
       if (result && result.status) {
         this.allModuleDetails = result.data;
+        console.log("module--",result.data)
         this.allModuleDetails.forEach((e:any)=>{
           if (e.id == 4) {
              this.isAttendanceModule = true;
@@ -412,21 +407,23 @@ export class MainDashboardComponent implements OnInit {
     this.emsService
       .getEmployeeInformationData(this.usersession.id)
       .subscribe((res: any) => {
-        this.employeeInformationData = JSON.parse(res.data[0].json)[0];
-        this.employeeNameh =
-          this.employeeInformationData.firstname +
-          ' ' +
-          this.employeeInformationData.middlename +
-          ' ' +
-          this.employeeInformationData.lastname;
-        this.employeeCode = this.employeeInformationData.empid;
-        this.employeeJoinDate = this.employeeInformationData.dateofjoin;
-        this.employeeMobile = this.employeeInformationData.contactnumber;
-        this.availableDesignations.forEach((e: any) => {
-          if (e.id == this.employeeInformationData.designation) {
-            this.employeeDesignation = e.designation;
-          }
-        });
+        if(res.status && res.data) {
+          this.employeeInformationData = JSON.parse(res.data[0].json)[0];
+          this.employeeNameh =
+            this.employeeInformationData.firstname +
+            ' ' +
+            this.employeeInformationData.middlename +
+            ' ' +
+            this.employeeInformationData.lastname;
+          this.employeeCode = this.employeeInformationData.empid;
+          this.employeeJoinDate = this.employeeInformationData.dateofjoin;
+          this.employeeMobile = this.employeeInformationData.contactnumber;
+          this.availableDesignations.forEach((e: any) => {
+            if (e.id == this.employeeInformationData.designation) {
+              this.employeeDesignation = e.designation;
+            }
+          });
+        }
       });
   }
 
@@ -539,13 +536,11 @@ export class MainDashboardComponent implements OnInit {
   }
 
   getDesignationsMaster() {
-    this.companyService
-      .getMastertable('designationsmaster', 1, 1, 1000, this.companyDBName)
-      .subscribe((data) => {
-        if (data.status) {
-          this.availableDesignations = data.data;
-        }
-      });
+    this.AMS.getModules('designationsmaster', 1, 1, 1000).subscribe(data => {
+      if (data.status) {
+        this.availableDesignations = data.data;
+      }
+    })
   }
 
   trimString(text: any, length: any) {
@@ -627,7 +622,7 @@ export class MainDashboardComponent implements OnInit {
                 ];
               }
             });
-            
+
           }
           else {
             this.isRemoveImage = false;
@@ -637,7 +632,7 @@ export class MainDashboardComponent implements OnInit {
                   },
                 ];
           }
-          
+
         }
       }
     });
@@ -821,7 +816,7 @@ export class MainDashboardComponent implements OnInit {
     this.teamAttendanceCountData = true;
     let mid =  this.usersession.id;
     let eid = null;
-   
+
     let date =this.pipe.transform( this.attendanceForm.controls.currentDate.value,'yyyy-MM-dd');
     this.mainService.getEmployeeAttendanceCounts(mid,eid,date).subscribe((result) => {
       if (result.status) {
@@ -853,12 +848,12 @@ export class MainDashboardComponent implements OnInit {
   teamOffice() {
     this.selfwfo = true;
     this.selfwfh = false;
-    this.selfAbsent = false; 
+    this.selfAbsent = false;
   }
   teamhome() {
     this.selfwfo = false;
     this.selfwfh = true;
-    this.selfAbsent = false; 
+    this.selfAbsent = false;
   }
 
   teamAbsent() {

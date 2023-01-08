@@ -50,7 +50,10 @@ export class HeaderComponent implements OnInit {
   logout(){
     sessionStorage.removeItem('user')
     sessionStorage.removeItem('sidemenu');
-    this.router.navigate(['/Login']);
+    sessionStorage.removeItem('activeModule');
+    var login = '/Login/'+sessionStorage.getItem('companyName')
+    this.router.navigate([login]);
+    sessionStorage.removeItem('companyName');
 
   }
   onClickMainDashboard(){

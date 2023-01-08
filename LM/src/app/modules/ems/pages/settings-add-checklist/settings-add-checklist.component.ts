@@ -112,7 +112,6 @@ export class SettingsAddChecklistComponent implements OnInit {
 
       this.emsService.setChecklistsMaster(data).subscribe((res: any) => {
         if (res.status) {
-          console.log(res.data)
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/settings-checklist"]));
           let dialogRef = this.dialog.open(ReusableDialogComponent, {

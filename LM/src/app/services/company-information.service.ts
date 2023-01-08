@@ -9,17 +9,20 @@ import { environment } from 'src/environments/environment';
 })
 export class CompanyInformationService {
   companyId:any
+  companyName:any;
   httpOptions = {
     headers: new HttpHeaders({ 'content-Type': 'application/json' })
   };
   mainBeUrl= environment.apiUrl;
-  constructor(private hClient: HttpClient) { }
+  constructor(private hClient: HttpClient) {
+    this.companyName = sessionStorage.getItem('companyName')
+  }
 
   setCompanyInformation(info: any):Observable<any>{
     return this.hClient.post(this.mainBeUrl + 'api/setCompanyInformation', JSON.stringify(info), this.httpOptions);
   }
   getCompanyInformation(tableName: string,status: null,page: string | number,size: string | number,companyName: string):Observable<any>{
-    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+null+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+null+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
   }
   putCompanyInformation(info: any):Observable<any>{
     return this.hClient.put(this.mainBeUrl + 'api/putCompanyInformation', JSON.stringify(info), this.httpOptions);

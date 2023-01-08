@@ -137,7 +137,7 @@ export class UserCompoffComponent implements OnInit {
   }
   // getCompOff(){}
   getCompOff(){
-    this.LM.getCompOff(this.usersession.id,this.usersession.rmid).subscribe((result)=> {
+    this.LM.getCompOff(this.usersession.id,null).subscribe((result)=> {
       if(result.status){
         this.compOffDetails = result.data;
         this.dataSource = new MatTableDataSource(this.compOffDetails);
@@ -224,7 +224,6 @@ export class UserCompoffComponent implements OnInit {
       workedHours: this.CompoffForm.controls.hours.value,
       emaildata:this.employeeEmailData
     }
-console.log("data--",data)
     this.LM.setCompOff(data).subscribe((result)=> {
       if(result.status){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -279,7 +278,6 @@ console.log("data--",data)
     this.EMS.getEmployeeEmailDataByEmpid(this.usersession.id)
       .subscribe((res: any) => {
         this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
-        console.log("data--",this.employeeEmailData)
       })
 }
 }

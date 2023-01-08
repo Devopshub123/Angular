@@ -118,7 +118,6 @@ export class ShiftMasterComponent implements OnInit {
     });
     // this.shiftForm.get('endTime')?.valueChanges.subscribe((selectedValue) => {
     //   this.endtime = this.pipe.transform(selectedValue, 'dd/MM/yyyy, HH:mm:ss');
-    //   console.log(this.endtime);
     //   this.getDifference(this.starttime, this.endtime);
     // });
     this.shiftForm.get('endTime')?.valueChanges.subscribe((selectedValue) => {
@@ -173,7 +172,7 @@ export class ShiftMasterComponent implements OnInit {
       .toISOString()
       .slice(11, 19);
     this.shiftForm.controls.totalHours.setValue(inHhMmSsFormat);
-     }
+  }
 
   getTimestamp(time: string) {
     let timeFirst = time.split(', ')[0].split('/');

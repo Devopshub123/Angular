@@ -11,8 +11,13 @@ import { PreOnboardingDetailsComponent } from './pages/pre-onboarding-details/pr
 import {SideNavComponent} from './pages/side-nav/side-nav.component'
 import { MainComponent } from './pages/main/main.component';
 
+var Login :string;
+ var comp = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):'';
+Login = 'Login/'+comp;
+
+
 const routes: Routes = [
-  {path:'Login',component:LoginComponent},
+  {path:'Login/:companyName',component:LoginComponent},
   {path:'sidenav',component:SideNavComponent},
   {path:'main',component:MainComponent,children:[
     {path:'MainDashBoard',component:MainDashboardComponent}
@@ -40,7 +45,7 @@ const routes: Routes = [
   {path:'Reports',loadChildren:()=>import('./modules/reports/reports.module').then(m=>m.ReportsModule)},
   {
     path: '',
-    redirectTo: 'Login',
+    redirectTo: Login,
     pathMatch: 'full'
   },
   // {path:'MainDashboard',component:MainDashboardComponent,canActivate:[LMSAccessGuard]},

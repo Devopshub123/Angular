@@ -103,7 +103,6 @@ export class HrPendingApprovalsComponent implements OnInit {
       });
   }
   view(event: any, data: any) {
-    console.log(data)
     this.ishide = false;
     this.isview = true;
     this.pendingapprovalForm.controls.regId.setValue(data.id)

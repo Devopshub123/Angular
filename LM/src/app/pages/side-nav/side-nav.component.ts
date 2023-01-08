@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class SideNavComponent implements OnInit {
   self :any = 'Self';
-  menuList: any = [];
+  menuList: any[] = [];
   showFiller = false;
   isExpanded = false;
   element= HTMLElement;
@@ -22,7 +22,8 @@ export class SideNavComponent implements OnInit {
   currentChild:any = null;
   mainDashBoard ='/main/MainDashBoard';
   selectedModule:any = 'Main Dash Board';
-
+  usersession: any;
+  activeModuleData:any;
     toggleActive(item:any) {
    // debugger;
     this.isExpanded = true;
@@ -44,9 +45,9 @@ export class SideNavComponent implements OnInit {
     let _this =this;
     this.isExpanded = true;
     this.menuList.forEach(function(m:any){
-      if(m.children != 'null'){
+      if(m.children && m.children[0]){
         m.children.forEach(function(c:any){
-          if(c.subChildren != 'null'){
+          if(c.subChildren && c.subChildren[0]){
             c.subChildren.forEach(function(sc:any){
               if(sc.routename === route) {
                 m.displayStatus = true;
@@ -54,9 +55,11 @@ export class SideNavComponent implements OnInit {
                 _this.selectedModule = _this.currentItem.modulename ;
                 sc.childStatus = true;
                 _this.currentChild = sc;
+                _this.activeModuleData.moduleid = _this.currentItem.id ;
+                _this.activeModuleData.module = _this.currentItem ;
                 sessionStorage.setItem('selectedModule',_this.selectedModule );
-                sessionStorage.setItem('actvieModule',(_this.currentItem) ?JSON.stringify(_this.currentItem):'' );
-                sessionStorage.setItem('actvieChild',(_this.currentChild) ?JSON.stringify(_this.currentChild):'' );
+                sessionStorage.setItem('activeModule',(_this.activeModuleData) ?JSON.stringify(_this.activeModuleData):'' );
+                sessionStorage.setItem('activeChild',(_this.currentChild) ?JSON.stringify(_this.currentChild):'' );
               }
               else{
                 m.displayStatus = false;
@@ -100,13 +103,17 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit(): void {
     this.isExpanded = true;
-  this.getrolescreenfunctionalities()
+    this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
+    this.activeModuleData = {
+      empid: this.usersession.id
+    };
+   this.getrolescreenfunctionalities()
   }
-  menu:any=[];
+  menu:any[]=[];
   _mobileQueryListener(){};
   getrolescreenfunctionalities() {
-    this.mainService.getRoleScreenFunctionalities({empid: 2}).subscribe((res: any) => {
-      this.menu=[];
+    this.mainService.getRoleScreenFunctionalities({empid: this.usersession.id}).subscribe((res: any) => {
+      //this.menu=[];
       for(let i=0; i<res.data.length;i++) {
         if (res.data[i].children != 'null') {
           let one = JSON.parse(res.data[i].children);
@@ -120,7 +127,7 @@ export class SideNavComponent implements OnInit {
 
           this.menu=[];
           res.data[i].children.forEach((e: any) => {
-
+            e.subChildren =[];
             if (this.menu.length > 0) {
               var isvalid = true;
               this.menu.forEach((item:any) => {
@@ -206,6 +213,7 @@ export class SideNavComponent implements OnInit {
                   ]
                 };
                 //  this.firstRoute = e.routename;
+
                 this.menu.push(navtem)
 
               }
@@ -217,10 +225,15 @@ export class SideNavComponent implements OnInit {
           res.data[i].children =this.menu
 
           }
+          else{
+            res.data[i].children =[];
+          }
         }
-
-
       this.menuList = res.data;
+      sessionStorage.setItem("moduleData",JSON.stringify( res.data) );
+      //let storedArray = JSON.parse(sessionStorage.getItem("moduleData"));//no brackets
+        //  console.log((storedArray));
+          //console.log(JSON.parse(pk));
       //this.currentItem = res.data[0];
     });
   }

@@ -147,8 +147,6 @@ export class ShiftConfigureComponent implements OnInit {
         // event!.value.getDate()
       );
     }
-    console.log(this.minToDate)
-    console.log(this.maxToDate)
   }
 
   toDateChange(type: string, event: MatDatepickerInputEvent<Date>) {

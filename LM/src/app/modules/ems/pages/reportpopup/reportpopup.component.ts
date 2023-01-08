@@ -44,14 +44,14 @@ export class ReportpopupComponent implements OnInit {
 
   }
   ngOnInit() {
-   
-   
+
+
   }
   private addCheckboxes() {
     this.earningData.forEach(() => this.earningsFormArray.push(new FormControl(false)));
   }
-    
-  
+
+
   getEmsEmployeeColumnConfigurationValue(){
     this.ES.getEmsEmployeeColumnConfigurationValue(this.userSession.id).subscribe((result:any)=>{
       this.data = result.data;
@@ -64,7 +64,7 @@ export class ReportpopupComponent implements OnInit {
     const earningselectedIds = this.reportpopupForm.value.earnings
       .map((checked:any, i:any) => checked ? 1 : 0)
       .filter((v:any) => v !== null);
-      
+
       let data = {
         empid:this.userSession.id,
         employee_status_value:(earningselectedIds[0]),
@@ -78,7 +78,6 @@ export class ReportpopupComponent implements OnInit {
         shift_value:(earningselectedIds[8]),
         reporting_manager_value:(earningselectedIds[9])
         }
-        console.log(data)
         this.ES.setEmsEmployeeColumnConfigurationValues(data).subscribe((res:any)=>{
           console.log(res.status)
           if(res.status){
@@ -87,12 +86,12 @@ export class ReportpopupComponent implements OnInit {
               this.router.navigate(["/ems/emloyee-report"]));
 
           }
-          
+
 
         })
 
 
       }
-      
+
 
 }

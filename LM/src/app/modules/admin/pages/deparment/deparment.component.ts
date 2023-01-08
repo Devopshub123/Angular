@@ -89,7 +89,6 @@ export class DeparmentComponent implements OnInit {
     );
   }
   validatedepartments(data: any) {
-    console.log(this.departmentData.length)
     if (this.departmentData.length ==0) {
       this.valid = true;
 
@@ -291,7 +290,6 @@ export class DeparmentComponent implements OnInit {
   }
   getstatuslist(){
     this.LM.getstatuslists().subscribe((result:any) => {
-      console.log(result)
       if(result.status){
         this.arrayValue = result.data;
       }

@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ReportpopupComponent } from '../../pages/reportpopup/reportpopup.component'; 
+import { ReportpopupComponent } from '../../pages/reportpopup/reportpopup.component';
 import { EmsService } from '../../ems.service';
 import * as XLSX from "xlsx";
 import { TextFieldModule } from '@angular/cdk/text-field';
@@ -100,7 +100,7 @@ export class EmployeereportComponent implements OnInit {
 
   arr: string[] = ['sno','name','email','mobile'];
   dataSource : MatTableDataSource<any> = <any>[];
-  @ViewChild('TABLE') table!: ElementRef;  
+  @ViewChild('TABLE') table!: ElementRef;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -195,13 +195,13 @@ export class EmployeereportComponent implements OnInit {
         }else{
           this.ishiding[i]=0;
         }
-      } 
+      }
     }
     else{
       this.ishiding[id]=0;
-    }    
+    }
   }
-  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -227,17 +227,17 @@ export class EmployeereportComponent implements OnInit {
       this.search();
 
     }
-   
+
   }
   clearreport(){
     this.ishide = true;
     this.isview = false;
   }
- 
+
   popup(){
     let dialogRef = this.dialog.open(ReportpopupComponent, {
       width: '390px',position:{top:`70px`},
-      disableClose: true,      
+      disableClose: true,
     });
   }
 
@@ -255,7 +255,6 @@ export class EmployeereportComponent implements OnInit {
   }
   getEmsEmployeeColumnFilterData(){
     this.ES.getEmsEmployeeColumnFilterData().subscribe((result:any)=>{
-      console.log(result.data)
       for(let i=0;i<result.data.length;i++){
         if(result.data[i].column_name == 'Employee Status'){
          this.employeestatus.push(result.data[i]);
@@ -264,7 +263,7 @@ export class EmployeereportComponent implements OnInit {
         if(result.data[i].column_name == 'Employee Type'){
           this.emptype.push(result.data[i]);
           this.emptypeids.push(result.data[i].id)
-          
+
          }
          if(result.data[i].column_name == "Department"){
           this.department.push(result.data[i]);
@@ -335,7 +334,7 @@ export class EmployeereportComponent implements OnInit {
       const manager = this.reportForm.value.manager
       .map((checked:any, i:any) => checked ? this.manager[i].id : null)
       .filter((v:any) => v !== null);
-      
+
 
      let data2 ={
       empid:this.userSession.id,
@@ -382,7 +381,7 @@ export class EmployeereportComponent implements OnInit {
           else if(i==1){
             this.displayedColumns2.push('emptype')
           }
-        
+
           else if(i==2){
             this.displayedColumns2.push('dept')
           }
@@ -407,13 +406,13 @@ export class EmployeereportComponent implements OnInit {
           else if( i==9){
             this.displayedColumns2.push('manager')
           }
-          
+
         }
-        
+
       }
       this.displayedColumns3=this.arr.concat(this.displayedColumns2)
     })
-  
+
   }
   clear(){
     this.ishide = true;

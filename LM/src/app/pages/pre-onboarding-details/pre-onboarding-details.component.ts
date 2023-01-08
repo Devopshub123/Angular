@@ -42,13 +42,6 @@ export const MY_FORMATS = {
 export class PreOnboardingDetailsComponent implements OnInit {
   minExperienceDate: any;
   minEducationDate: any;
-
-  constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService, private spinner: NgxSpinnerService,
-    private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
-    , private EMS: EmsService, private adminService: AdminService, private mainService: MainService, private activatedRoute: ActivatedRoute) {
-    this.formData = new FormData();
-  }
-
   displayedColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
   familyTableColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
   documentTableColumns = ['position', 'category', 'number', 'name', 'action'];
@@ -146,12 +139,24 @@ export class PreOnboardingDetailsComponent implements OnInit {
   documentDataChange: boolean = false;
   isDeleted: boolean = false;
   toSelectTab = 0;
+  companyName :any;
+  constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService, private spinner: NgxSpinnerService,
+    private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
+    , private EMS: EmsService, private adminService: AdminService, private mainService: MainService, private activatedRoute: ActivatedRoute) {
+    this.formData = new FormData();
+    this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
+    sessionStorage.setItem('companyName',this.companyName);
+
+  }
+
+
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
     if (this.params && this.params.token) {
       this.email = JSON.parse(atob(this.params.token)).email;
       this.candidateId = JSON.parse(atob(this.params.token)).candidateId;
       this.date = JSON.parse(atob(this.params.token)).date;
+      // this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
 
       //this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
       this.getDocumentsEMS();
@@ -180,7 +185,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
             if (selectedStateValue != '') {
               this.companyService.getStatesc(selectedStateValue).subscribe((data) => {
                 this.permanentStateDetails = data[0]
-                console.log("state-1",this.personalInfoForm.controls.rstate.value)
                 if (this.personalInfoForm.controls.rstate.value != null) {
                   this.personalInfoForm.controls.pstate.setValue(this.personalInfoForm.controls.rstate.value);
                 }
@@ -194,8 +198,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
             if (selectedCityValue != '') {
               this.companyService.getCities(selectedCityValue).subscribe((data) => {
                 this.permanentCityDetails = data[0]
-                console.log("city-1",this.permanentCityDetails)
-                console.log("city-2",this.personalInfoForm.controls.rcity)
                 if (this.personalInfoForm.controls.rcity.value != null) {
                   this.personalInfoForm.controls.pcity.setValue(this.personalInfoForm.controls.rcity.value);
                 }

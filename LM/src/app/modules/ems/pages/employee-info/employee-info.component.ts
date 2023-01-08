@@ -234,6 +234,10 @@ export class EmployeeInfoComponent implements OnInit {
     this.createDocumentsForm();
     this.getMessagesList();
     this.getBloodgroups();
+    this.getGender();
+    this.getMaritalStatusMaster();
+    this.getRelationshipMaster();
+
     this.getDepartmentsMaster();
     this.getWorkLocation();
     this.getCountry();

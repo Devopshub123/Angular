@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
+import {DatePipe,Location} from "@angular/common";
 import { LoginService } from 'src/app/services/login.service';
 import { PopupComponent,PopupConfig } from '../popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,7 +20,15 @@ export class ForgotPasswordComponent implements OnInit {
   formGroup: any=FormGroup;
   email:any;
   issubmit:boolean=false;
-  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private tss:LoginService,private router: Router,) { }
+  companyName:any;
+  info:any;
+  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private tss:LoginService,private router: Router,private location: Location) {
+
+    this.info = this.location.getState();
+    this.companyName = this.info.companyName;
+
+
+  }
 
   ngOnInit() {
     this.createForm();
@@ -33,7 +42,7 @@ export class ForgotPasswordComponent implements OnInit {
   submit(){
     this.issubmit=true;
     this.email = this.formGroup.controls.email.value;
-    this.tss.verifyEmail(this.email).subscribe((data) => {
+    this.tss.verifyEmail(this.email,this.companyName).subscribe((data) => {
       if(data.status){
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},

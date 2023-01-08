@@ -37,15 +37,19 @@
           <mat-toolbar style="background: lightcyan;overflow: hidden;">
             <span style="margin-left: 15px; background: lightcyan;"> {{ item.modulename }}</span>
           </mat-toolbar>
-              <span *ngFor="let child of item.children" style="margin: top 10px;overflow: hidden;" >
+              <span *ngIf="item.children && item.children[0]" style="margin: top 10px;overflow: hidden;" >
+                <mat-nav-list  *ngFor="let child of item.children">
                   <mat-toolbar style="align-items: end; height: 40px;color:#28acaf;   font-size: medium;    margin-left: 15px;background: lightcyan;"  *ngIf="child.displayName != self">
                     <span> {{ child.displayName }}</span>
                   </mat-toolbar>
-                    <mat-nav-list *ngFor="let subchild of child.subChildren">
+                  <span *ngIf="child.subChildren && child.subChildren[0]">
+                    <mat-nav-list *ngFor="let subchild of child.subChildren" style="height: 35px;">
                       <mat-list-item [routerLink]="subchild.routename" [routerLinkActive]="['active']"  style="font: -webkit-control;" (click)="toggleChild(item,child,subchild,subchild.routename,subchild.screen_name)">
                         {{ subchild.screen_name }}
                       </mat-list-item>
                     </mat-nav-list>
+                  </span>
+                </mat-nav-list>
                   <!-- </mat-expansion-panel> -->
               </span>
         </span>

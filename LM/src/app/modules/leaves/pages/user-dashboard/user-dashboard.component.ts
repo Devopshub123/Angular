@@ -200,7 +200,6 @@ export class UserDashboardComponent implements OnInit {
 
   getHolidaysList() {
     this.LM.getHolidaysList(this.usersession.id).subscribe((result)=>{
-      console.log("result",result)
       if(result && result.status){
         for(let i=0;i<result.data[0].length;i++){
           if(i<=2){
@@ -406,7 +405,6 @@ currentMonth(): void {
         this.calendarCount[j] = this.sampleElement[j].innerHTML.substring(0, this.sampleElement[j].innerHTML.length - 4)
         this.sampleElement[j].innerHTML =  this.calendarCount[j];
       }
-      console.log(this.calendarCount);
       for(var k=0;k<closeElement.length;k++) {
         if (closeElement[k] != null) {
           this.renderer.listen(closeElement[k], 'click', () => {

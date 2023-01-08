@@ -254,7 +254,6 @@ export class DesignationsComponent implements OnInit {
   }
   getstatuslist(){
     this.LM.getstatuslists().subscribe((result:any) => {
-      console.log(result)
       if(result.status){
         this.arrayValue = result.data;
       }

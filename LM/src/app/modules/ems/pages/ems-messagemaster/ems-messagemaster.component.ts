@@ -134,7 +134,6 @@ export class EmsMessagemasterComponent implements OnInit {
     }
     this.adminService.getEMSMessagesList(data).subscribe((res:any)=>{
       if(res.status) {
-        console.log(res.data)
         this.messagesDataList = res.data;
         this.messagesDataList.forEach((e: any) => {
           if (e.code == "EM1") {

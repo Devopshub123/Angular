@@ -79,7 +79,7 @@ export class NewhireComponent implements OnInit {
     this.hireForm.get('hiredon')?.valueChanges.subscribe((selectedValue: any) => {
       this.minHireDate = selectedValue._d;
     })
-    
+
   }
   getDesignationsMaster() {
     this.companyService.getMastertable('designationsmaster', '1', 1, 1000, this.companyDBName).subscribe(data => {
@@ -122,7 +122,7 @@ export class NewhireComponent implements OnInit {
 
       this.emsService.saveNewHireData(data).subscribe((res: any) => {
         if (res.status) {
-          if (res.data.email == null) { 
+          if (res.data.email == null) {
             this.spinner.hide();
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
@@ -153,7 +153,7 @@ export class NewhireComponent implements OnInit {
     } else {
       this.spinner.hide();
       }
-    
+
   }
 
   cancel() {
@@ -167,7 +167,7 @@ export class NewhireComponent implements OnInit {
       }
     })
   }
-  
+
   getMessagesList() {
     let data =
      {

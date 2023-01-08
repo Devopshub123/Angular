@@ -130,7 +130,6 @@ export class HrResignationComponent implements OnInit {
         this.checked =false
       }
     }
-    console.log(this.selectedChecklists);
   }
 
   ngAfterViewInit() {

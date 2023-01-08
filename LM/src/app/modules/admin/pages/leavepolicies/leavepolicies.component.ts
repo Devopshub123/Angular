@@ -111,9 +111,8 @@ export class LeavepoliciesComponent implements OnInit {
   ispredefined:boolean=false;
 
 
-  constructor(private location:Location,private LM: LeavePoliciesService, private router: Router, private ts: LoginService, private dialog: MatDialog, private formBuilder: FormBuilder,) { 
+  constructor(private location:Location,private LM: LeavePoliciesService, private router: Router, private ts: LoginService, private dialog: MatDialog, private formBuilder: FormBuilder,) {
     this.datas = this.location.getState();
-    console.log(this.datas)
   }
 
   ngOnInit(): void {
@@ -953,7 +952,7 @@ export class LeavepoliciesComponent implements OnInit {
           this.getLeavesDetails();
         }
       });
-   
+
   }
   /**toggle change */
   toglechange(event:any,element:any) {

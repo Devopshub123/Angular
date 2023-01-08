@@ -126,7 +126,6 @@ export class AnnouncementsComponent implements OnInit {
     this.announcementForm.get('fromdate')?.valueChanges.subscribe((selectedValue:any) => {
 
       this.minAnounceDate = selectedValue._d==undefined?this.minAnounceDate:selectedValue._d;
-      console.log(this.minAnounceDate)
     })
   }
   noWhitespaceValidator(): ValidatorFn {
@@ -212,7 +211,6 @@ export class AnnouncementsComponent implements OnInit {
   getActiveAnnouncementsTopics(){
     this.ES.getActiveAnnouncementsTopics().subscribe((res:any)=>{
       if(res.status ){
-        console.log(res.data)
         this.announcementlist = res.data;
       }
     })

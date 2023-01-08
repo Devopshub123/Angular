@@ -31,4 +31,11 @@ mat-card {
     ::ng-deep.mat-card-header-text {
       margin: 0 4px !important;
     }
-    
+
+    ::ng-deep.button-clear {
+      background-color: #ff646d !important;
+      color: #fcfcfc !important;
+      height: 36px;
+      width: 86px;
+      top: 0px;
+  }

@@ -77,14 +77,14 @@ export class HrOnboardingChecklistComponent implements OnInit {
         designation: [],
         selectedChecklist: new FormArray([]),
       });
-     
+
      this.checklistForm.controls.joinDate.setValue(new Date());
     this.hrOnboardingForm=this.formBuilder.group(
       {
-      searchDate: [],        
+      searchDate: [],
       statusUpdate: ["",],
       searchName: ["",],
-     
+
       });
       this.hrOnboardingForm.get('searchDate')?.valueChanges.subscribe((selectedValue:any) => {
         this.searchdate = this.pipe.transform(selectedValue._d,'yyyy-MM-dd')
@@ -95,7 +95,7 @@ export class HrOnboardingChecklistComponent implements OnInit {
   private addCheckboxes() {
     this.checklistPoints.forEach(() => this.checklistsFormArray.push(new FormControl(false)));
   }
-  componentMethodName(event: any, isChecked: boolean) 
+  componentMethodName(event: any, isChecked: boolean)
   {
     if (isChecked) {
       this.selectedchecklists.push(event.target.value)
@@ -143,7 +143,7 @@ export class HrOnboardingChecklistComponent implements OnInit {
       position: { top: `70px` },
       disableClose: true,
       data:"Please select checklist"
-    });  
+    });
   }
 
   }
@@ -200,7 +200,6 @@ getOnboardingCheckList() {
   this.emsService.getEmployeeBoardingCheckList(this.employeeId,"Onboarding",this.userSession.deptid).subscribe((res: any) => {
     if (res.status && res.data.length != 0) {
       this.checklistPoints = res.data;
-      console.log(this.checklistPoints)
       this.addCheckboxes();
       // if(this.datastatus == 'Pending'){
         for(let i=0;i<this.checklistPoints.length;i++){
@@ -210,12 +209,12 @@ getOnboardingCheckList() {
           else{
             this.arr.push(0)
           }
-         
+
           }
-         
+
         this.checklistsFormArray.setValue(this.arr)
 
-     
+
     }
   })
 }

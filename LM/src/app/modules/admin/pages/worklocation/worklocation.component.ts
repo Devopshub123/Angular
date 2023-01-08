@@ -219,10 +219,9 @@ export class WorklocationComponent implements OnInit {
     }
     return this.isViewSeed;
   }
-  getstatuslist() {
-    this.LM.getstatuslists().subscribe((result: any) => {
-      console.log(result);
-      if (result.status) {
+  getstatuslist(){
+    this.LM.getstatuslists().subscribe((result:any) => {
+      if(result.status){
         this.arrayValue = result.data;
       }
     });
