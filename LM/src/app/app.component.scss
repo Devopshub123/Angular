@@ -55,3 +55,10 @@
 ::ng-deep.mat-header-row, .mat-row {
   height: 45px;
 }
+::ng-deep.btn2 {
+  padding: 7px 16px!important;
+  font-size: 15px!important;
+  opacity: 0.9;
+  border-radius: 3px;
+  width: 100px!important;
+}

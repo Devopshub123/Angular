@@ -1,22 +1,23 @@
-<div fxLayout="column" >
+<div fxLayout="column" style="background-color: white;">
 
         <mat-card fxLayout="column">
-            <mat-card-header class="">
-                <mat-card-title > Leave Policies </mat-card-title>
-            </mat-card-header>
-
+            <mat-card-header class="headerbox">
+                <div fxLayout="row" fxFlex="50">
+                    <mat-card-title class="title"> Leave Policies </mat-card-title>
+                </div>
+                </mat-card-header>
             <div *ngIf="isaddnew"  fxLayout="column" >
-                <div fxLayout="row " class="my-2" fxFlex.xs="100%" fxLayoutAlign="end">
-                    <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue"
-                         (click)="addLeaveConfigure()" type="button">
+                <div fxLayout="row " class="my-2" fxFlex.xs="100%" fxLayoutAlign="end" style="padding-top: 1%;padding-right: 1%;">
+                    <button class="btn btn-primary custom mr-2 mb-2"  
+                         (click)="addLeaveConfigure()" type="button" >
                         <span>Add New</span>
                     </button>
                 </div>
 
-                <div>
+                <div class="tableP">
                     <form [formGroup]="leavepoliciesForm" autocomplete="off">
                         <h2 >Common rules for all leave types</h2>
-                    <div class="mat-elevation-z8">
+                    <div class="mat-elevation-z1">
                         <table mat-table [dataSource]="dataSource" matSort>
 
                             <ng-container matColumnDef="sno">
@@ -130,7 +131,7 @@
                                 (click)="saveDefaultrules()">Save
                         </button>
                         <button *ngIf="isEditDefaultRules"
-                                class=" btn btn-default"
+                        class="btn btn-danger mr-2"
                                 (click)="cancelDefaultRules()">Cancel
                         </button>
                             <button *ngIf="!isEditDefaultRules" style="float: right"
@@ -145,8 +146,8 @@
                 </div><br>
                 <mat-divider></mat-divider>
 
-                <div>
-                    <div class="mat-elevation-z8">
+                <div class="tableP">
+                    <div class="mat-elevation-z1">
                         <table mat-table [dataSource]="dataSource2" matSort>
 
                             <ng-container matColumnDef="leavetypename">
@@ -197,15 +198,14 @@
 
             </div>
             <div *ngIf="!isaddnew"  fxLayout="column" >
-                <div fxLayout="row " class="my-2" fxFlex.xs="100%" fxLayoutAlign="end" >
-                    <button class="mx-1 mat-stroked-button" style="background-color:#3f51b5;color:aliceblue"
+                <div fxLayout="row " class="my-2" fxFlex.xs="100%" fxLayoutAlign="end" style="padding-top: 1%;">
+                    <button class="btn btn-primary custom1 mr-2 mb-2"
                         (click)="addnewleave()"   type="button">
                         <span>Add New Leave Type</span>
                     </button>
                 </div>
                 <form fxLayout="column"  [formGroup]="addleaveForm" autocomplete="off">
-                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
+                    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;padding-left: 1%;">
                         <mat-form-field fxFlex.xs="100"  class="mx-2 my-2" appearance="outline">
                             <mat-label>Leave Type</mat-label>
                             <mat-select  formControlName="leaveid" required>
@@ -229,9 +229,6 @@
                                 </mat-error>
 
                         </mat-form-field>
-
-
-
                     </div>
 
                     <div fxLayout="row " fxLayout.xs="column"  fxLayoutAlign.xs="center" *ngIf="isadvanced">
@@ -520,7 +517,7 @@
                 <div *ngIf="tabledata && advanceflag" class="form-group row ml-1 mt-3">
                     <div class="col-sm-6" style="padding:0px">
                         <!-- <button class="col-md-3 btn btn-default" (click)="setLeaveStatus(true)" *ngIf="isactivate">Activate</button> -->
-                        <button class="col-md-3 btn btn-danger" (click)="setLeaveStatus(false)" *ngIf="isdeactivate">Deactivate</button>
+                        <button class="col-md-3 btn btn-danger custom" (click)="setLeaveStatus(false)" *ngIf="isdeactivate">Deactivate</button>
                     </div>
                     <div class="col-sm-6 mr2 text-right">
                         <!-- <button class="col-md-2 mr-2 btn btn-primary" (click)="setleavepolicies()"
@@ -530,7 +527,7 @@
                     </div>
                 </div>
                 <div  class="col-sm-6 mr2 text-right" *ngIf="addadvanced">
-                    <button class="col-md-3 mr-2 btn btn-danger" (click)="setLeaveStatus(false)" *ngIf="isdeactivate">Deactivate</button>
+                    <button class="col-md-3 mr-2 btn btn-danger custom" (click)="setLeaveStatus(false)" *ngIf="isdeactivate">Deactivate</button>
                     <button class="col-md-3 mr-2 btn btn-primary" (click)="setadvanceleavepolicies()"  >Submit</button>
                     <button class="col-md-3  btn btn-danger"   (click)="cancelledleave()">Cancel</button>
 

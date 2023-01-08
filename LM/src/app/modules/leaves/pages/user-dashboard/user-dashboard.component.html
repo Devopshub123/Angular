@@ -5,18 +5,18 @@
         </marquee> -->
     <div fxLayout="column" *ngIf="isdata">
       <mat-card style="flex-flow: nowrap">
+        <mat-card-header class="headerbox">
+          <div fxLayout="row" fxFlex="50">
+              <mat-card-title class="title"> Leave Balance </mat-card-title>
+          </div>
+          </mat-card-header>
 
-        <mat-card-header class="">
-          <mat-card-title> Leave Balance </mat-card-title>
-        </mat-card-header>
-        <!--<div fxLayout="row" fxFlex="100">-->
-
-        <mat-card-content fxLayout="row" fxLayout.xs="column" fxFlex="100" fxFlex.xs="100">
+        <mat-card-content fxLayout="row" fxLayout.xs="column" fxFlex="100" fxFlex.xs="100" style="padding-left: 2%;">
           <!--<marquee direction="left" onmouseover="this.stop();" onmouseout="this.start();">-->
             <div class="row" style="flex-wrap: nowrap;    overflow-x: auto;">
               <ng-container *ngFor="let leave of leavebalance;index as i;">
                 <mat-card style="width:200px; margin:10px;" [style.background]="leave.leavecolor">
-                  <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">
+                  <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5%">
                     <!-- <mat-label>{{leave.leavename}}</mat-label> -->
                     <img src="assets/img/leave-icon.png" *ngIf="leave.leavename == 'Casual Leave'" alt="" title="" />
                     <img src="assets/img/sick-leave-icon.png" *ngIf="leave.leavename == 'Sick Leave'" alt="" title="" />
@@ -38,12 +38,12 @@
                       title="" />
                   </div>
 
-                  <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">
+                  <div fxLayout="row" fxLayoutAlign="space-between" style="padding-left: 5%;">
                     <mat-label><span style="color: white;"> {{leave.display_name}}</span>
                     </mat-label>
 
                   </div>
-                  <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px;text-align: center;">
+                  <div fxLayout="row" fxLayoutAlign="space-between" style="padding: 5%;;text-align: center;">
 
                     <mat-label><span style="color: white;">{{leave.leave_balance}}</span></mat-label>
                   </div>
@@ -53,46 +53,32 @@
               </ng-container>
 
             </div>
-
-
-
-          <!--</marquee>-->
-
         </mat-card-content>
-        <!--<div fxLayout="row" fxLayout.xs="column"   fxFlex="30" fxFlex.xs="100">-->
-        <!--<mat-card style="width:300px; margin:10px;" fxLayoutAlign="end">-->
-        <!--&lt;!&ndash; <div #chartsss id="test"></div> &ndash;&gt;-->
-
-        <!--&lt;!&ndash; <pie-chart width="200" height="200" style="background-color: red;" ></pie-chart> &ndash;&gt;-->
-
-
-        <!--</mat-card>-->
-
-        <!--</div>-->
-
-
-        <!--</div>-->
-
       </mat-card>
 
     </div>
   </div>
   <div fxLayout="column" *ngIf="isdata">
     <div fxLayout="row" fxLayout.xs="column">
-      <mat-card fxFlex="60" fxFlex.xs="100">
-        <mat-card-header class="">
-          <mat-card-title> Calendar </mat-card-title>
-        </mat-card-header>
+      <mat-card fxFlex="60" fxFlex.xs="100" style="padding-left: 1%;">
+        <mat-card-header class="headerbox">
+          <div fxLayout="row" fxFlex="50">
+              <mat-card-title class="title"> Calendar</mat-card-title>
+          </div>
+          </mat-card-header>
         <full-calendar #calendar [options]='calendarOptions' style="width: 100%; height: 80%;">
         </full-calendar>
         <!-- <mat-calendar [options]='calendarOptions'style="width: 450px;" [dateClass]="dateClass()" [selected]="today" ></mat-calendar> -->
         <!-- <mat-calender  [selected]="today ()"></mat-calender> [dateFilter]="myDateFilter"[dateFilter]="myDateFilter" -->
 
       </mat-card>
-      <mat-card fxFlex="40" fxFlex.xs="100">
-        <mat-card-header class="">
-          <mat-card-title> Holidays List </mat-card-title>
-        </mat-card-header><br>
+      <mat-card fxFlex="40" fxFlex.xs="100" style="padding-left: 1%;">
+        <mat-card-header class="headerbox">
+          <div fxLayout="row" fxFlex="50">
+              <mat-card-title class="title"> Holidays List</mat-card-title>
+          </div>
+          </mat-card-header>
+        <br>
 
 
         <mat-card-content>
@@ -132,7 +118,7 @@
 
 
         </mat-card-content><br>
-        <button class="col-md-12 btn btn-primary" (click)="viewall()">View All</button>
+        <button class="btn btn-primary custom mr-2 mb-2" (click)="viewall()">View All</button>
 
 
 

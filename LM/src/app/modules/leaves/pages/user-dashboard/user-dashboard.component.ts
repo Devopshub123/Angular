@@ -263,8 +263,11 @@ view(data:any){
   this.viewdata = data;
 }
 viewall(){
-
-  this.LM.getHolidays(new Date().getFullYear(),this.usersession.worklocation,1,100).subscribe((result)=>{
+console.log("t1")
+console.log("t2",new Date().getFullYear())
+console.log("t3",this.usersession.worklocation)
+  this.LM.getHolidays(new Date().getFullYear(),this.usersession.worklocation,1,1000).subscribe((result)=>{
+    console.log("t2")
     this.holidaysListall = result;
 
     this.holidaysListall = this.holidaysListall.data;

@@ -1,11 +1,11 @@
-<div fxLayout="column" >
-
-    <mat-card>
-        <mat-card-header class="heading">
-            <mat-card-title class="headingtext">Attendance Monthly Details Report</mat-card-title>
-        </mat-card-header>
+<div fxLayout="column" style="background-color: white;">
+ <mat-card-header class="headerbox">
+            <div fxLayout="row" fxFlex="50">
+                <mat-card-title class="title"> Attendance Monthly Details Report </mat-card-title>
+            </div>
+            </mat-card-header>
         <br />
-        <div fxLayout fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign.xs="center" [formGroup]="searchForm">
+        <div fxLayout fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign.xs="center" [formGroup]="searchForm" style="padding-left: 1%;">
             <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%">
                 <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
                     <mat-label>Date</mat-label>
@@ -14,21 +14,25 @@
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
                     <mat-datepicker #fromDate></mat-datepicker>
                 </mat-form-field>
-
-
-            </div>
-            <div fxLayout="row" fxFlex.xs="100%" class="showLine">
-                <span>
-                    <button class="mx-2 my-2 button-save" style="height: 44px;" (click)="Searchform()"
-                        mat-stroked-button>
-                        Search
-                    </button>
-                </span>
-                <span class="line" style="color:#1898D5;font-size:16px"></span>
-                <button class="mx-2 my-2 mat-flat-button  button-clear" style="height: 44px;" (click)="resetform()">
+                <button class="btn btn-primary custom mr-2 mb-2" style="padding: 0 10px;" (click)="Searchform()">
+                    <span>Search</span>
+                </button>
+                <button class="btn btn-danger custom mr-2 mb-2" (click)="resetform()">
                     <span>Clear</span>
                 </button>
             </div>
+          
+            <!-- <div fxLayout="row" fxFlex.xs="100%">
+                <span>
+                    <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()" >
+                        Search
+                    </button>
+                </span>
+                <button class="btn btn-danger mr-2 mb-2" (click)="resetform()">
+                    Clear
+                </button>
+            </div> -->
+
         </div>
         <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">
         <div>
@@ -39,7 +43,7 @@
           </a>
         </div>
       </div>
-    </mat-card>
+       <hr class="line_break">
 
     <div class="p-2">
 

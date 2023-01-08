@@ -1,10 +1,11 @@
 <div fxLayout="column" style="background-color: #ffffff ;">
     <mat-card-header class="headerbox">
-      <mat-card-title class="title"> Attendance Request </mat-card-title>
-    </mat-card-header>
-  
+        <div fxLayout="row" fxFlex="50">
+            <mat-card-title class="title"> Attendance Request </mat-card-title>
+        </div>
+        </mat-card-header>
     <div fxLayout="column">
-      <form [formGroup]="requestform" autocomplete="off">
+      <form [formGroup]="requestform" autocomplete="off"  style="padding-left: 1%;padding-top: 1%;">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
   
             <mat-form-field fxFlex="28" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
@@ -103,7 +104,7 @@
   
   
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="end" style="height: 70px;margin-top: 5px;">
-          <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" style="padding-right: 5px;">
+          <mat-form-field fxFlex.xs="100" fxFlex="28" class="mx-2 my-2" appearance="outline" style="padding-right: 16px;">
           <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
           <mat-label>Search</mat-label>
           <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">

@@ -166,8 +166,8 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     getHolidaysList(empId:any): Observable<any>{
       return this.http.get(this.mainUrl+'api/getHolidaysList/' + empId+'/'+this.companyName, this.httpOptions);
     }
-    getHolidays(year:any,location:any,page:any,size:any): Observable<any>{
-      return this.http.get(this.mainUrl+'api/getHolidaysFilter/'+ year+'/'+location+'/'+page+'/'+size, this.httpOptions);
+  getHolidays(year: any, location: any, page: any, size: any): Observable<any>{
+      return this.http.get(this.mainUrl+'api/getHolidaysFilter/'+ year+'/'+location+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
     }
 
     getLeavesTypeInfo(): Observable<any> {

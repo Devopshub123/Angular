@@ -1,10 +1,11 @@
 <div fxLayout="column" >
        <mat-card>
-              <mat-card-header>
-                     <mat-card-title> Attendance Calendar</mat-card-title>
-              </mat-card-header>
-              <!-- <mat-divider></mat-divider> -->
-
+              <mat-card-header class="headerbox">
+                     <div fxLayout="row" fxFlex="50">
+                         <mat-card-title class="title"> Attendance Calendar </mat-card-title>
+                     </div>
+                     </mat-card-header>
+            
               <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="1px">
                      <div fxFlex="43" fxFill>
                             <div class='demo-app-main'>
@@ -25,7 +26,7 @@
                      <div class="sub-section-2" fxLayout="column" fxFlex="57">
                       <div fxLayout="column">
                         <div fxLayout="row" class="clock-attendance" [style.marginTop.px]="mobileQuery.matches ? 0 : 10">
-                               <div style="padding-top:15px; color: white;" fxFlex="100" fxLayout="row"
+                               <div style="padding-top:10px; color: white;height: 45px;" fxFlex="100" fxLayout="row"
                                       fxLayoutAlign="space-between">
                                       <div fxLayout="row" fxFlex="50">
                                              <p>
@@ -47,7 +48,7 @@
 
                        <div fxLayout="column">
                          <div fxLayout="row" class="clock-attendance">
-                           <div style="padding-top:15px; color: white;" fxFlex="100" fxLayout="row"
+                           <div style="padding-top:10px; color: white;height: 45px;" fxFlex="100" fxLayout="row"
                                 fxLayoutAlign="space-between">
                              <div fxLayout="row" fxFlex="50">
                                <p>
@@ -82,7 +83,7 @@
                             <div fxLayout="column" style="height: 300px;">
 
                                    <div fxLayout="row" fxLayoutAlign="space-between"  class="pending-attendance">
-                                          <div style="padding-top:15px; color: white;" fxLayout="row">
+                                          <div style="padding-top:10px; color: white;height: 45px;" fxLayout="row">
                                                  <p>
                                                         <mat-icon>notifications</mat-icon>
                                                  </p>

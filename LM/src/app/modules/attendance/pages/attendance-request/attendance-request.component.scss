@@ -6,26 +6,11 @@ mat-card {
   padding: 0px;
 }
 .tableP{
-  padding-left: 1%;
-  padding-right: 1%;
+  padding-left: 2%;
+  padding-right: 2%;
   padding-bottom: 1%;
 }
-.section {
-  padding-top: 1%;
-  padding-left: 1%;
-  margin-bottom: 2px;
-  font-size: 17px;
-  color: #000000;
-  text-align: left;
-  line-height: 28px;
-}
 
-.truncate-cell {
-  max-width: 120px; 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 ::ng-deep {
   .mat-select-panel[aria-label="Items per page:"] {
     mat-option:last-child:before {
