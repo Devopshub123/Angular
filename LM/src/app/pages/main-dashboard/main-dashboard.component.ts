@@ -215,7 +215,6 @@ export class MainDashboardComponent implements OnInit {
     this.AMS.getModules('modulesmaster', null, 1, 100).subscribe((result) => {
       if (result && result.status) {
         this.allModuleDetails = result.data;
-        console.log("module--",result.data)
         this.allModuleDetails.forEach((e:any)=>{
           if (e.id == 4) {
              this.isAttendanceModule = true;
@@ -369,20 +368,24 @@ export class MainDashboardComponent implements OnInit {
                   },
                 });
               } else if (this.requestType == 'AttendanceRequest') {
+                sessionStorage.setItem('selectedModule', 'Attendance');
                 this.router.navigate(['/Attendance/Request'], {
                   state: { userData: this.requestData },
                 });
               } else if (this.requestType == 'LeaveRequest') {
-                this.router.navigate(['/LeaveManagement/ReviewAndApprovals'], {
+                sessionStorage.setItem('selectedModule', 'Leaves');
+                this.router.navigate(['/LeaveManagement/LeaveRequest'], {
                   state: { leaveData: this.requestData, isleave: true },
                 });
               }
               else if (this.requestType == 'ReviewAndApprovals') {
+                sessionStorage.setItem('selectedModule', 'Leaves');
                 this.router.navigate(['/LeaveManagement/ReviewAndApprovals'],
                 { state: { leaveData: this.requestData ,isleave:true}
               });
               } else {
                 if (this.usersession.firstlogin == 'Y') {
+                  //sessionStorage.setItem('selectedModule', 'ChangePassword');
                   this.router.navigate(['/ChangePassword']);
                 } else {
                   this.router.navigate([this.firstRoute]);
@@ -519,11 +522,16 @@ export class MainDashboardComponent implements OnInit {
   attendanceRequest(element: RequestData) {
     this.requestData = element;
     this.requestType = 'AttendanceRequest';
+    sessionStorage.setItem('selectedModule','Attendance')
     this.getrolescreenfunctionalities(4, true);
     //  this.router.navigate(["/Attendance/Request"], { state: { userData: this.requestData } });
   }
-  leaverequest(){
-    this.router.navigate(["/LeaveManagement/LeaveRequest"]);
+  leaverequest(element: RequestData){
+    this.requestData = element;
+    this.requestType = 'LeaveRequest';
+    sessionStorage.setItem('selectedModule','Leaves')
+    this.getrolescreenfunctionalities(2, true);
+   // this.router.navigate(["/LeaveManagement/LeaveRequest"]);
   }
 
 
@@ -622,7 +630,7 @@ export class MainDashboardComponent implements OnInit {
                 ];
               }
             });
-            
+
           }
           else {
             this.isRemoveImage = false;
@@ -632,7 +640,7 @@ export class MainDashboardComponent implements OnInit {
                   },
                 ];
           }
-          
+
         }
       }
     });
@@ -692,7 +700,7 @@ export class MainDashboardComponent implements OnInit {
                   });
                   this.router
                     .navigateByUrl('/', { skipLocationChange: true })
-                    .then(() => this.router.navigate(['/MainDashboard']));
+                    .then(() => this.router.navigate(['/main/MainDashboard']));
                 } else {
                   let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: { top: `70px` },
@@ -753,7 +761,6 @@ export class MainDashboardComponent implements OnInit {
     this.LM.getLeavesForApprovals(this.usersession.id).subscribe((res: any) => {
         if (res.status) {
           this.leavesRequestData = res.data;
-          console.log("leave--",this.leavesRequestData)
       } else {
       }
     });
@@ -816,7 +823,7 @@ export class MainDashboardComponent implements OnInit {
     this.teamAttendanceCountData = true;
     let mid =  this.usersession.id;
     let eid = null;
-   
+
     let date =this.pipe.transform( this.attendanceForm.controls.currentDate.value,'yyyy-MM-dd');
     this.mainService.getEmployeeAttendanceCounts(mid,eid,date).subscribe((result) => {
       if (result.status) {
@@ -848,12 +855,12 @@ export class MainDashboardComponent implements OnInit {
   teamOffice() {
     this.selfwfo = true;
     this.selfwfh = false;
-    this.selfAbsent = false; 
+    this.selfAbsent = false;
   }
   teamhome() {
     this.selfwfo = false;
     this.selfwfh = true;
-    this.selfAbsent = false; 
+    this.selfAbsent = false;
   }
 
   teamAbsent() {

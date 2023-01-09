@@ -105,7 +105,7 @@ export class ResignationComponent implements OnInit {
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/MainDashboard"]));
+            this.router.navigate(["/main/MainDashboard"]));
 
   }
   clear() {

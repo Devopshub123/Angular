@@ -5,7 +5,7 @@
     transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
     display: block;
     position: relative;
-    padding: 0px;
+  //  padding: 0px;
   }
   .tableP{
     padding-left: 1%;
@@ -19,7 +19,7 @@
       }
     }
   }
-  
+
   ::ng-deep {
     .mat-select-panel[aria-label="Items per page:"] {
       mat-option:last-child .mat-option-text {
@@ -50,7 +50,7 @@
   }
   ::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
     margin: 0.2em 0 !important;
-  
+
   }
   .line_break {
     width:100%;

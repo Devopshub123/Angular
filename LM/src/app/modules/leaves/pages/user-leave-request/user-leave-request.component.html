@@ -72,7 +72,7 @@
         </mat-form-field>
 
         <div fxFlex.xs="100" fxFlex="50" class="mx-1 my-1">
-          <mat-checkbox  style="margin-top: 20px;margin-left: 20px;"  [disabled]="isDisableSecondHalf"  *ngIf="isSecondHalf" formControlName="fromDateHalf">Second Half</mat-checkbox>
+          <mat-checkbox  style="margin-top: 20px;margin-left: 20px;"  [attr.disabled]="isDisableSecondHalf"  *ngIf="isSecondHalf" formControlName="fromDateHalf">Second Half</mat-checkbox>
         </div>
 
       </div>
@@ -80,7 +80,7 @@
 
         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
           <mat-label>To Date </mat-label>
-          <input matInput readonly [disabled]="true" [min]="leaveRequestForm.controls.fromDate.value" [max]="maxDate"
+          <input matInput readonly [attr.disabled]="true" [min]="leaveRequestForm.controls.fromDate.value" [max]="maxDate"
           [matDatepicker]="picker1" [matDatepickerFilter]="toDateFilter"
           placeholder="DD-MM-YYYY" formControlName="toDate"  required (click)="picker1.open()">
 
@@ -92,7 +92,7 @@
           </mat-error>
         </mat-form-field>
         <div fxFlex.xs="100" fxFlex="50" class="mx-1 my-1">
-          <mat-checkbox  style="margin-top: 20px;margin-left: 20px;" *ngIf="isFirstHalf" [disabled]="isDisableFirstHalf" formControlName="toDateHalf">First Half</mat-checkbox>
+          <mat-checkbox  style="margin-top: 20px;margin-left: 20px;" *ngIf="isFirstHalf" [attr.disabled]="isDisableFirstHalf" formControlName="toDateHalf">First Half</mat-checkbox>
         </div>
 
       </div>
@@ -113,7 +113,7 @@
       </mat-error>
     </mat-form-field>
     <span style="padding-left: 2%;">
-      <mat-checkbox  style="margin-top: 20px;"  [disabled]="isDisableSecondHalf"  *ngIf="isSecondHalf" formControlName="fromDateHalf">Second Half</mat-checkbox>
+      <mat-checkbox  style="margin-top: 20px;"  [attr.disabled]="isDisableSecondHalf"  *ngIf="isSecondHalf" formControlName="fromDateHalf">Second Half</mat-checkbox>
     </span>
 
     </div>
@@ -133,15 +133,15 @@
         </mat-error>
        </mat-form-field>
       <span style="padding-left: 2%;">
-        <mat-checkbox  style="margin-top: 20px;" *ngIf="isFirstHalf" [disabled]="isDisableFirstHalf" formControlName="toDateHalf">First Half</mat-checkbox>
+        <mat-checkbox  style="margin-top: 20px;" *ngIf="isFirstHalf" [attr.disabled]="isDisableFirstHalf" formControlName="toDateHalf">First Half</mat-checkbox>
       </span>
-    
+
     </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" *ngIf="leaveRequestForm.controls.leaveTypeId.value == 8 || leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7">
 
         <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
           <mat-label>To Date </mat-label>
-          <input matInput readonly   [disabled]="true"[min]="leaveRequestForm.controls.fromDate.value" [max]="leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7 || leaveRequestForm.controls.leaveTypeId.value == 8 ?'':maxDate"
+          <input matInput readonly   [attr.disabled]="true"[min]="leaveRequestForm.controls.fromDate.value" [max]="leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7 || leaveRequestForm.controls.leaveTypeId.value == 8 ?'':maxDate"
            [matDatepicker]="picker1"
            placeholder="DD-MM-YYYY" formControlName="toDate"  required (click)="picker1.open()">
 
@@ -150,14 +150,14 @@
           <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>
         <div fxFlex.xs="100" fxFlex="50" class="mx-1 my-1">
-          <mat-checkbox  style="margin-top: 20px;margin-left: 20px;" *ngIf="isFirstHalf" [disabled]="isDisableFirstHalf" formControlName="toDateHalf">First Half</mat-checkbox>
+          <mat-checkbox  style="margin-top: 20px;margin-left: 20px;" *ngIf="isFirstHalf" [attr.disabled]="isDisableFirstHalf" formControlName="toDateHalf">First Half</mat-checkbox>
         </div>
 
       </div>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
       <mat-form-field fxFlex.xs="100" fxFlex="50" appearance="outline" class="mx-1 my-1">
       <mat-label>Leave Count</mat-label>
-      <input formControlName="leaveCount" [disabled]="true" required matInput placeholder="Leave Count" >
+      <input formControlName="leaveCount" [attr.disabled]="true" required matInput placeholder="Leave Count" >
       </mat-form-field>
 
     </div>
@@ -192,7 +192,7 @@
         <mat-error class="con-error" *ngIf="leaveRequestForm.controls.contact.errors?.required">
           {{msgLM1}}
         </mat-error>
-        <mat-error class="reg-error" *ngIf="leaveRequestForm.controls.contact.errors?.minlength || 
+        <mat-error class="reg-error" *ngIf="leaveRequestForm.controls.contact.errors?.minlength ||
         leaveRequestForm.controls.contact.errors?.maxlength">
             Please enter valid number
         </mat-error>

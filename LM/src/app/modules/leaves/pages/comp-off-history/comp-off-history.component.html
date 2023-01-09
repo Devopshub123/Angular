@@ -1,8 +1,10 @@
 <div fxLayout="column">
+  <mat-card>
     <mat-card-header>
       <mat-card-title style="text-align: center"> Comp Off History </mat-card-title>
     </mat-card-header>
     <mat-divider></mat-divider>
+    <mat-card-content>
     <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
       <!--<mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">-->
       <!--<mat-label>Filter</mat-label>-->
@@ -85,4 +87,6 @@
       <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
       <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
     </div>
+  </mat-card-content>
+  </mat-card>
 </div>

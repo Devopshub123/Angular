@@ -1,4 +1,5 @@
 <div fxLayout="column" style="background-color: #ffffff;">
+<mat-card>
   <mat-card-header class="headerbox">
     <div fxLayout="row" fxFlex="50">
         <mat-card-title class="title"> Separation </mat-card-title>
@@ -44,7 +45,7 @@
 
           <br />
          </div>
-         
+
       <div *ngIf="this.ishide">
          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;padding-right: 1%;">
             <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
@@ -116,7 +117,7 @@
               Cancel
             </button>
           </div>
-          
+
           <br />
           <mat-divider></mat-divider>
          <div  class="tableP " style="padding-right: 2%;">
@@ -138,7 +139,7 @@
                 <!--  <span *ngIf="enable === row.id">
                         <mat-form-field appearance="outline">
                         <input formControlName="resigndate" matInput placeholder="{{row.applied_date}}" >
-                        
+
                     </mat-form-field>
                     </span> -->
               </td>
@@ -183,4 +184,5 @@
       </div>
       </div>
     </form>
+  </mat-card>
  </div>

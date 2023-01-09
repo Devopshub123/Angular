@@ -1,9 +1,12 @@
+
 <div fxLayout="column" style="background-color: white;">
+  <mat-card>
     <mat-card-header class="headerbox">
-        <div fxLayout="row" fxFlex="50">
-            <mat-card-title class="title"> Comp Off </mat-card-title>
-        </div>
-        </mat-card-header>
+      <div fxLayout="row" fxFlex="50">
+        <mat-card-title class="title"> Comp Off </mat-card-title>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
     <div>
         <form [formGroup]="CompoffForm" autocomplete="off" style="padding-top: 1%;" class="tableP">
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
@@ -126,4 +129,6 @@
             </table>
         </div>
     </div>
+  </mat-card-content>
+  </mat-card>
 </div>
