@@ -120,7 +120,7 @@
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" *ngIf="leaveRequestForm.controls.leaveTypeId.value != 9 && leaveRequestForm.controls.leaveTypeId.value != 8 && leaveRequestForm.controls.leaveTypeId.value != 7 && leaveRequestForm.controls.leaveTypeId.value != 6 && leaveRequestForm.controls.leaveTypeId.value != 5">
 
       <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
-        <mat-label>To Date2 </mat-label>
+        <mat-label>To Date </mat-label>
         <input matInput readonly [min]="leaveRequestForm.controls.fromDate.value" [max]="leaveRequestForm.controls.leaveTypeId.value == 5 || leaveRequestForm.controls.leaveTypeId.value == 6 || leaveRequestForm.controls.leaveTypeId.value == 7 || leaveRequestForm.controls.leaveTypeId.value == 8 ?'':maxDate"
         [matDatepicker]="picker1" [matDatepickerFilter]="toDateFilter"
         placeholder="DD-MM-YYYY" formControlName="toDate"  required (click)="picker1.open()">
