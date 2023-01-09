@@ -8,6 +8,8 @@ import {MainDashboardComponent} from './pages/main-dashboard/main-dashboard.comp
 import {LMSAccessGuard} from  './LMS-access.guard';
 import { CommonModule } from '@angular/common';
 import { PreOnboardingDetailsComponent } from './pages/pre-onboarding-details/pre-onboarding-details.component';
+import {SideNavComponent} from './pages/side-nav/side-nav.component'
+import { MainComponent } from './pages/main/main.component';
 
 var Login :string;
  var comp = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):'';
@@ -16,6 +18,10 @@ Login = 'Login/'+comp;
 
 const routes: Routes = [
   {path:'Login/:companyName',component:LoginComponent},
+  {path:'sidenav',component:SideNavComponent},
+  {path:'main',component:MainComponent,children:[
+    {path:'MainDashboard',component:MainDashboardComponent}
+  ]},
   {path:'ChangePassword',component:ChangePasswordComponent,canActivate:[LMSAccessGuard]},
   // {path:'ResetPassword',component:ResetPasswordComponent},
   {path:'ResetPassword/:token',component:ResetPasswordComponent},
@@ -42,7 +48,7 @@ const routes: Routes = [
     redirectTo: Login,
     pathMatch: 'full'
   },
-  {path:'MainDashboard',component:MainDashboardComponent,canActivate:[LMSAccessGuard]},
+  // {path:'MainDashboard',component:MainDashboardComponent,canActivate:[LMSAccessGuard]},
   {path:'LeaveManagement',loadChildren:()=>import('./modules/leaves/leaves.module').then(m=>m.LeavesModule),canActivate:[LMSAccessGuard]},
   {path:'Asset',loadChildren:()=>import('./modules/assets/assets.module').then(m=>m.AssetsModule),canActivate:[LMSAccessGuard]},
   {path:'ems',loadChildren:()=>import('./modules/ems/ems.module').then(m=>m.EMSModule),canActivate:[LMSAccessGuard]},

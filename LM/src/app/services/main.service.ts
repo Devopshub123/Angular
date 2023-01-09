@@ -21,7 +21,6 @@ export class MainService {
     data.companyName= this.companyName;
 
     return this.http.post(this.mainBeUrl + 'attendance/api/getrolescreenfunctionalities',data, this.httpOptions);
-
   }
 /*Get Role Screen Functionalities Based on RoleId*/
   getrolescreenfunctionalitiesforrole(data: any) {
@@ -103,10 +102,10 @@ export class MainService {
   removeDocumentOrImagesForEMS(info:any): Observable<any> {
     return this.http.delete(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/'+encodeURI(info),this.httpOptions);
   }
-  /** For AWS*/ 
+  /** For AWS*/
   // removeDocumentOrImagesForEMS(info:any): Observable<any> {
   //   return this.http.post(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/',info,this.httpOptions);
-  // } 
+  // }
   deleteFilesMaster(id:any):Observable<any>{
     return this.http.get(this.mainBeUrl + 'ems/api/deleteFilesMaster/'+id+'/'+this.companyName, this.httpOptions);
   }
@@ -115,5 +114,11 @@ export class MainService {
   /** */
   getEmployeeAttendanceCounts(mid: any,empid:any,date:any): Observable<any> {
     return this.http.get(this.mainBeUrl + 'ems/api/getAttendanceCountsForDate/' + mid +'/'+empid+'/'+date+'/'+this.companyName, this.httpOptions);
+  }
+
+  getSideNavigation(data: any) {
+    data.companyName= this.companyName;
+
+    return this.http.post(this.mainBeUrl + 'attendance/api/getSideNavigation',data, this.httpOptions);
   }
 }

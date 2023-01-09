@@ -77,14 +77,14 @@
 
 
 ///////////@at-root
-/// 
+///
 
 
 mat-card {
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
   position: relative;
-  padding: 0px;
+ // padding: 0px;
 }
 
 .card {
@@ -490,7 +490,7 @@ mat-button-toggle-group {
 }
 .table { border-collapse:collapse }
 th{
-  font-family: "Roboto"; 
+  font-family: "Roboto";
   font-weight: 500;
 }
 .inductionStyle{
@@ -500,7 +500,7 @@ th{
   font-size: 15px;
 }
 
-// 
+//
 
 .img1 {
   height: 100%;
@@ -521,7 +521,7 @@ th{
   display: none;
   top: 50%;
   left:  50%;
-  transform: translate(-50%,-50%);   
+  transform: translate(-50%,-50%);
   z-index: 2;
 }
 .hoverable1 .background{

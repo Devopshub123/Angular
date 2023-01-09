@@ -1,4 +1,5 @@
 <div fxLayout="column">
+  <mat-card>
   <mat-card-header class="headerbox">
     <mat-card-title class="title"> Onboarding Pending Checklist </mat-card-title>
        </mat-card-header>
@@ -88,7 +89,7 @@
 
        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" *ngIf="isdata">
         <form [formGroup]="hrOnboardingForm" autocomplete="off">
-       
+
           <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
            <mat-label>Joining Date</mat-label>
            <input matInput readonly [matDatepicker]="searchDate" [min]="minDate" [max]="maxDate"
@@ -122,7 +123,7 @@
             <span>Clear</span>
           </button>
         </span>
-        
+
        </div>
        <div fxLayout="column" class="tableP" *ngIf="isdata">
         <div class="mat-elevation-z1">
@@ -181,5 +182,5 @@
          </div>
        </div>
 
-
+  </mat-card>
   </div>

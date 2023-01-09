@@ -1,4 +1,5 @@
 <div fxLayout="column" style="background-color: #ffffff ;">
+<mat-card>
     <mat-card-header class="headerbox">
         <div fxLayout="row" fxFlex="50">
             <mat-card-title class="title"> Attendance Request </mat-card-title>
@@ -7,12 +8,12 @@
     <div fxLayout="column">
       <form [formGroup]="requestform" autocomplete="off"  style="padding-left: 1%;padding-top: 1%;">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-  
+
             <mat-form-field fxFlex="28" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>Applied Date</mat-label>
                 <input formControlName="appliedDate" matInput placeholder="DD-MM-YYYY" readonly>
-            </mat-form-field>  
-  
+            </mat-form-field>
+
             <mat-form-field fxFlex="28" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>Work Type </mat-label>
                 <mat-select formControlName="workType" required>
@@ -43,7 +44,7 @@
             <mat-form-field fxFlex="28" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>To Date </mat-label>
                 <input matInput readonly required [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
-                [matDatepickerFilter]="myDateFilter" placeholder="DD-MM-YYYY" 
+                [matDatepickerFilter]="myDateFilter" placeholder="DD-MM-YYYY"
                 (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="toDate.open()">
                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
                 <mat-datepicker #toDate></mat-datepicker>
@@ -84,7 +85,7 @@
             </div>
 
         <div fxLayoutAlign="center">
-            <button *ngIf="!isRequestView && !isEditView" class="btn btn-primary mr-2 mb-2" 
+            <button *ngIf="!isRequestView && !isEditView" class="btn btn-primary mr-2 mb-2"
             (click)="saveRequest()" type="submit">
             <span>Submit</span>
         </button>
@@ -96,13 +97,13 @@
             <span>Cancel</span>
         </button>
         </div>
-  
+
       </form>
     </div>
     <div>
   <mat-divider></mat-divider>
-  
-  
+
+
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="end" style="height: 70px;margin-top: 5px;">
           <mat-form-field fxFlex.xs="100" fxFlex="28" class="mx-2 my-2" appearance="outline" style="padding-right: 16px;">
           <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
@@ -173,4 +174,5 @@
         </div>
       </div>
     </div>
+  </mat-card>
   </div>

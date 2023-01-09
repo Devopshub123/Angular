@@ -165,7 +165,7 @@ export class EditProfileComponent implements OnInit {
               disableClose: true,
               data: {
                 Message: this.LM118,
-                url: '/MainDashboard',
+                url: '/main/MainDashboard',
               },
             });
           } else {
@@ -204,7 +204,7 @@ export class EditProfileComponent implements OnInit {
                             disableClose: true,
                             data: {
                               Message: this.LM118,
-                              url: '/MainDashboard',
+                              url: '/main/MainDashboard',
                             },
                           });
                         } else {
@@ -417,7 +417,7 @@ export class EditProfileComponent implements OnInit {
   cancel() {
     this.router
       .navigateByUrl('/', { skipLocationChange: true })
-      .then(() => this.router.navigate(['/MainDashboard']));
+      .then(() => this.router.navigate(['/main/MainDashboard']));
   }
 
   getErrorMessages(errorCode: any) {

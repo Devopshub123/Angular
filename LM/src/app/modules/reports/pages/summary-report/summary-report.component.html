@@ -1,5 +1,5 @@
 <div fxLayout="column" >
-
+  <mat-card>
     <mat-card-header class="heading">
       <mat-card-title class="headingtext">Summary Report</mat-card-title>
     </mat-card-header>
@@ -11,6 +11,7 @@
              </div>
           </span>
      -->
+     <mat-card-content>
     <div fxLayout fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center" [formGroup]="searchForm">
       <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%">
         <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
@@ -130,4 +131,6 @@
       <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
     </div>
   </div>
+</mat-card-content>
+</mat-card>
 </div>

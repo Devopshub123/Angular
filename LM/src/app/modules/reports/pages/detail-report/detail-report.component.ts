@@ -74,7 +74,6 @@ export class DetailReportComponent implements OnInit {
     'lastlogouttime', 'totalhours', 'breaks', 'breaktime', 'productivehours', 'action'];
   isLoading = false;
   ngOnInit() {
-    console.log("dfgdfg")
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.Searchform();
     this.getEmployeelist();

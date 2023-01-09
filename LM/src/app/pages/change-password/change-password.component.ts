@@ -76,7 +76,7 @@ export class ChangePasswordComponent implements OnInit {
     return this.changePasswordform.controls;
   }
   cancel(){
-    this.router.navigate(["/MainDashboard"])
+    this.router.navigate(["/main/MainDashboard"])
   }
   changePassword(){
       this.submitted = true;

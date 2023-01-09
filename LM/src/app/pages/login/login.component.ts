@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/Attendance/ChangePassword'])
           }
           else {
-            this.router.navigate(['/MainDashboard'])
+            this.router.navigate(['main/MainDashboard'])
             this.getEmployeeEmailData();
           }
 
@@ -130,7 +130,7 @@ export class LoginComponent implements OnInit {
   //   })
   // }
   getMessagesList() {
-  
+
     this.tss.getErrorMessages(null,1,1000).subscribe((res:any)=>{
      if(res.status) {
        this.messagesDataList = res.data;

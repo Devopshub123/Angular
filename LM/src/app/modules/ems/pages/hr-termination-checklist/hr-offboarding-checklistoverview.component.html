@@ -1,4 +1,5 @@
 <div fxLayout="column" style="background-color: white;">
+<mat-card>
   <mat-card-header class="headerbox">
     <div fxLayout="row" fxFlex="50">
         <mat-card-title class="title"> Termination Pending Checklist </mat-card-title>
@@ -87,13 +88,13 @@
     </form>
   </div>
 
-  
+
 
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center"  *ngIf="isdata" style="padding-top: 1%;padding-left: 1%;">
       <form [formGroup]="hrOnboardingForm" autocomplete="off">
       <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
         <mat-label>Date of Termination</mat-label>
-        <input matInput readonly [matDatepicker]="searchDate" [min]="minDate" [max]="maxDate" placeholder="MM/DD/YYYY" 
+        <input matInput readonly [matDatepicker]="searchDate" [min]="minDate" [max]="maxDate" placeholder="MM/DD/YYYY"
           formControlName="searchDate" (click)="searchDate.open()">
         <mat-datepicker-toggle class="datepicker" matSuffix [for]="searchDate"></mat-datepicker-toggle>
         <mat-datepicker #searchDate></mat-datepicker>
@@ -184,5 +185,5 @@
       </div>
     </div>
 
-
+</mat-card>
 </div>

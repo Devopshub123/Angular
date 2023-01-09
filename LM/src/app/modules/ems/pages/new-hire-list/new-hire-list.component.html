@@ -1,4 +1,5 @@
 <div fxLayout="column" style="background-color: #ffffff ;">
+<mat-card>
   <mat-card-header class="headerbox">
     <div fxLayout="row" fxFlex="50">
         <mat-card-title class="title"> New Hires </mat-card-title>
@@ -13,7 +14,7 @@
           <mat-label>First Name</mat-label>
           <input formControlName="firstname" class="m_title" matInput placeholder="" required (keypress)="alphabetKeyPress($event)"
             maxlength="100">
-          <mat-error class="con-error" *ngIf="hireForm.controls.firstname.errors?.required || 
+          <mat-error class="con-error" *ngIf="hireForm.controls.firstname.errors?.required ||
             hireForm.controls.firstname.errors?.['whitespace']">
             {{requiredField}}
           </mat-error>
@@ -29,8 +30,8 @@
           <mat-label>Last Name</mat-label>
           <input formControlName="lastname" required matInput placeholder="" (keypress)="alphabetKeyPress($event)"
             maxlength="100">
-          <mat-error class="con-error" *ngIf="hireForm.controls.lastname.errors?.required 
-            || 
+          <mat-error class="con-error" *ngIf="hireForm.controls.lastname.errors?.required
+            ||
             hireForm.controls.lastname.errors?.['whitespace']">
             {{requiredField}}
           </mat-error>
@@ -219,4 +220,5 @@
       </div>
     </div>
   </div>
+</mat-card>
 </div>
