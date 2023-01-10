@@ -1,0 +1,103 @@
+.mat-header-cell {
+    font-size: 14px !important;
+} 
+.custom-mat-row {
+    border-bottom: 2px solid white;
+}
+.custom-mat-row:last-child {
+    border-bottom: none !important;
+}    
+.custom-payroll-div {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+.custom-card {
+    border-radius: 0px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 0px 1px 15px 1px rgb(69 65 78 / 8%);
+    -moz-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+    box-shadow: 0px 1px 15px 1px rgb(69 65 78 / 8%);
+    border: 1px solid #eee;
+ }
+ .custom-payRoll-header {    
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+.dashboard-1{
+    background-color: #28acaf;    
+}
+.custom-investment-header {
+    height: 0 !important;  
+}
+.custom-investment-th {
+    color:white !important;
+    font-size: 16px !important;  
+    padding: 0.75rem !important;
+ } 
+ .example-element-detail {
+    overflow: hidden;
+    display: flex;
+    background: #fff;
+    // width: 80vw;
+    border-bottom: 1px solid #28acaf !important;
+  }
+  .example-detail-row {
+    height: 0 !important;
+    .mat-cell {
+      border-bottom-width: 0 !important;
+    }
+  }
+  .example-element-detail {
+    border-bottom: 0 !important;
+    .mat-cell {
+      border-width: 0 !important;
+    }
+  }
+  .table-expanded-description {
+    .example-element-detail {
+      margin-right: -15px;
+    }
+    .custom-form-group {
+      padding-left: 0;
+      text-align: left;
+      label {
+        max-width: initial !important;
+        min-width: auto !important;
+        margin-right: 20px;
+        padding-left: 10px;
+        .dots {
+          width: auto;
+          float: none;
+        }
+      }
+      p{
+        padding-left: 15px !important;
+      }
+    }
+  }
+  
+ .custom-investment-td {
+   padding: 0.75rem !important;
+ }
+ .custom-investment-of {
+   overflow-y: auto !important;
+   overflow-x: hidden !important;
+ }
+ ::ng-deep {
+  .mat-select-panel[aria-label="Items per page:"] {
+    mat-option:last-child:before {
+      content: 'All';
+    }
+  }
+}
+
+::ng-deep {
+  .mat-select-panel[aria-label="Items per page:"] {
+    mat-option:last-child .mat-option-text {
+      display: none;
+    }
+  }
+}

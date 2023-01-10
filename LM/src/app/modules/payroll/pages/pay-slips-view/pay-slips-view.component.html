@@ -1,0 +1,138 @@
+<div fxLayout="column" fxFill class="custom-pgr-height-auto">
+    <mat-card fxFill>
+        <mat-card-header class="">
+            <mat-card-title class="title custom-payRoll-header"> 
+              <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Pay Slip</b>
+              </p>
+              <mat-icon title="Back" fxLayoutAlign="end" style="margin-left:100%;" (click)="Back()" >keyboard_backspace</mat-icon>
+              
+            </mat-card-title>
+          </mat-card-header>
+          <div id="payslip" #payslip>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script> <script src="jspdf/jspdf.js"></script>
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">      
+            <div fxLayout="column" fxFlex="5">
+            </div>       
+            <div fxLayout="column" fxFlex="90" class="custom-payroll-div">
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">   
+                 <div fxFlex.xs="100" fxFlex="50" class="mx-2 my-2">
+                 </div>     
+                 <div fxFlex.xs="100" fxFlex="50" class="mx-2 my-2">
+                    <button type="button" class="btn btn-primary" style="float: right;" (click)="Download()">Download</button>
+                 </div>        
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">   
+                    <div fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" style="border-bottom: 1px solid #a0a0a0;">
+
+                      <div fxLayout="row" >
+                        <img [src]="pic" style="width: 20px;" alt=""><h3 style="margin: 0 0px;font-size: 17px;font-weight: 500;"> Sreeb Technologies</h3>   
+                        <!-- <p>Hyderabad, Telangana, India</p> -->
+                      </div>
+                        
+                    </div>                         
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="border-bottom: 1px solid #a0a0a0;">                       
+                    <div fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" >
+                        <h3 style="margin: 20px 0 0px;font-size: 17px;font-weight: 500;">Payslip for the month of {{payperiod}}</h3>   
+                        <h3 style="margin: 20px 0 10px;font-weight: 500;">Employee Pay Summary</h3>   
+                        <div class="form-row">
+                        <div class="form-group col-md-12" style="padding-bottom: 0px !important;padding-top: 0px !important;display: flex;">
+                            <label style="color:#a0a0a0;width:200px;">Employee Name</label>
+                            <p>{{empname}}</p>
+                        </div>
+                        <div class="form-group col-md-12" style="padding-bottom: 0px !important;padding-top: 0px !important;display: flex;">
+                            <label style="color:#a0a0a0;width:200px;">Designation</label>
+                            <p>{{designation}}</p>
+                        </div>
+                        <div class="form-group col-md-12" style="padding-bottom: 0px !important;padding-top: 0px !important;display: flex;">
+                            <label style="color:#a0a0a0;width:200px;">Date of Joining</label>
+                            <p>{{dateofjoin | date}}</p>
+                        </div>
+                        <div class="form-group col-md-12" style="padding-bottom: 0px !important;padding-top: 0px !important;display: flex;">
+                            <label style="color:#a0a0a0;width:200px;">Pay Period</label>
+                            <p>{{payperiod}}</p>
+                        </div>
+                        <div class="form-group col-md-12" style="padding-bottom: 0px !important;padding-top: 0px !important;display: flex;">
+                            <label style="color:#a0a0a0;width:200px;">Pay Date</label>
+                            <p>{{paydate | date}}</p>
+                        </div>
+                        <div class="form-group col-md-12" style="padding-bottom: 0px !important;padding-top: 0px !important;display: flex;">
+                            <label style="color:#a0a0a0;width:200px;">UAN Number</label>
+                            <p>{{uanumber}}</p>
+                        </div>
+                        <div class="form-group col-md-12" style="padding-bottom: 0px !important;padding-top: 0px !important;display: flex;">
+                            <label style="color:#a0a0a0;width:200px;">ESI Number</label>
+                            <p>{{esi}}</p>
+                        </div>
+
+                    </div>
+                    </div>
+                   <div fxFlex.xs="100" fxFlex="50" class="mx-2 my-2">
+                    <div class="card card-stats card-warning cmn-leave" style="margin-top: 29%;">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="numbers text-center">
+                                        <p style="color:#a0a0a0;">Employee Net Pay</p>
+                                        <p class="card-category" style="color: #65986f;font-size: 30px;">₹ {{netamount}}</p>
+                                        <p style="color:#a0a0a0;">Paid Days: {{paiddays}} | LOP Days: {{lop}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   </div>       
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">                       
+                    <div fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" >
+                        <table class="table-responsive">
+                            <thead>
+                              <tr class="dashboard-1 custom-investment-header">
+                                <th scope="col" class="custom-investment-th" style="width:50%;">Earnings</th>
+                                <th scope="col" class="custom-investment-th" style="width:33%;">Amount ₹</th>
+                                <!-- <th scope="col" class="custom-investment-th">YTD <i class="fa fa-inr" aria-hidden="true"></i></th>                                 -->
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of earningsdata;let i = index">
+                                <th scope="row" class="custom-investment-td">{{item.component_name}}</th>
+                                      <td class="custom-investment-td">{{item.data_value}}</td>
+                              </tr>
+                            </tbody> 
+                        </table>
+                    </div>
+                   <div fxFlex.xs="100" fxFlex="50" class="mx-2 my-2">
+                    <table class="table-responsive">
+                        <thead>
+                          <tr class="dashboard-1 custom-investment-header">
+                            <th scope="col" class="custom-investment-th" style="width:48%;">Deductions</th>
+                            <th scope="col" class="custom-investment-th" style="width:35%;">Amount ₹</th>
+                          </tr>
+                          
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of deductiondata;let i = index">
+                            <th scope="row" class="custom-investment-td">{{item.component_name}}</th>
+                              <td class="custom-investment-td">{{item.data_value}}</td>
+                          </tr>
+                        </tbody> 
+                    </table>
+                   </div>       
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="background: rgb(233 247 230); padding: 10px 10px 0px 10px;margin-bottom: 1rem;">     
+                    <p style="text-align: center;margin-right: 5px !important;font-size: 16px;">Total Net Payable</p><p style="font-size: 16px;"> ₹{{netamount}}&nbsp;</p><p style="font-size: 13px;margin-top: 3px !important;"> (Indian Rupee {{words}})</p>
+                </div> 
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="text-align: center;margin:auto;;">     
+                    <p  style="text-align: center;">** Total Net Payable * Gross Earnings - Total Deductions</p>
+                </div> 
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="text-align: center;margin:auto;">     
+                    <p style="text-align: center;">-- This is a system generated payslip, hence signature is not required --</p>
+                </div>    
+            </div>
+             <div fxLayout="column" fxFlex="5">
+            </div>
+
+        </div>
+        </div>    
+    </mat-card>
+</div>                    

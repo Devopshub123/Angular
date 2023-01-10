@@ -1,0 +1,106 @@
+<div fxLayout="column" fxFill class="custom-pgr-height-auto">
+    <mat-card fxFill>
+        <mat-card-header class="">
+            <mat-card-title class="title custom-payRoll-header"> 
+              <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Professional Tax</b>
+              </p>             
+            </mat-card-title>
+        </mat-card-header>      
+    
+        
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">  
+                <div fxLayout="column" fxFlex="5">
+                </div>       
+                <div fxLayout="column" fxFlex="90" class="custom-payroll-div">
+                          <div>
+                    <form [formGroup]="professionalGroupRequestForm" autocomplete="off">
+                        <p>                        
+                        <mat-form-field appearance="outline" style="margin-right:20px;">  
+                            <mat-label>State</mat-label>                          
+                            <mat-select formControlName="state">
+                                <mat-option value="ap">AP</mat-option>
+                                <mat-option value="ts">Telangana</mat-option>                                
+                            </mat-select>    
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">  
+                            <mat-label>Deduction Cycle</mat-label>   
+                            <mat-select formControlName="deduction_cycle">
+                                <mat-option value="Monthly">Monthly</mat-option>
+                                <mat-option value="Quaterly">Quaterly</mat-option>
+                                <mat-option value="Yearly">Yearly</mat-option>
+                            </mat-select>                                                       
+                        </mat-form-field>
+                        </p>
+                        <p style="font-weight:bold;font-size:16px;">Tax Slabs Based on Monthly Salary</p>
+                        <mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="margin-bottom: 1rem;">
+                            <!-- Start_Range Column -->
+                            <ng-container matColumnDef="Start_Range">
+                              <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Start Range </mat-header-cell>
+                              <mat-cell *matCellDef="let element"> <input style="background-color: white;width: 80%; height: 34px; border: 1px solid #ced4da;
+                                border-radius: 0.25rem;" matInput placeholder="" maxlength="100" value="{{element.Start_Range}}"></mat-cell>
+                            </ng-container>
+                          
+                            <!-- End_Range Column -->
+                            <ng-container matColumnDef="End_Range">
+                              <mat-header-cell *matHeaderCellDef class="custom-investment-th"> End Range </mat-header-cell>
+                              <mat-cell *matCellDef="let element"> <input style="background-color: white;width: 80%; height: 34px; border: 1px solid #ced4da;
+                                border-radius: 0.25rem;" matInput placeholder="" maxlength="100" value="{{element.End_Range}}"></mat-cell>
+                            </ng-container>
+    
+                            <!-- Monthly Tax Amount Column -->
+                            <ng-container matColumnDef="Monthly_Tax_Amount">
+                                <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Monthly Tax Amount </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> <input style="background-color: white;width: 80%; height: 34px; border: 1px solid #ced4da;
+                                    border-radius: 0.25rem;"  matInput placeholder="" maxlength="100" value="{{element.Monthly_Tax_Amount}}"> 
+                                </mat-cell>    
+                            </ng-container>
+                            <!-- Description  Column -->
+                            <ng-container matColumnDef="Description">
+                                <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Description </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> <input style="background-color: white;width: 80%; height: 34px; border: 1px solid #ced4da;
+                                    border-radius: 0.25rem;" matInput placeholder="" maxlength="100" value="{{element.Description}}"> 
+                                </mat-cell>    
+                            </ng-container>
+                              
+                              <!-- Action Column -->
+                              <ng-container matColumnDef="Action">
+                                <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Action </mat-header-cell>
+                                <mat-cell *matCellDef="let element"> 
+                                    <mat-icon (click)="onEditClick(element)" style="cursor: pointer;" title="Edit" >edit</mat-icon> 
+                                    <mat-icon>cancel</mat-icon>  
+                                </mat-cell>
+                              </ng-container>
+    
+                            <mat-header-row *matHeaderRowDef="displayedColumns" class="dashboard-1 custom-investment-header" ></mat-header-row>
+                            <mat-row 
+                            *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                     </mat-table>
+    
+                        <p>                           
+                            <mat-form-field appearance="outline">
+                                <mat-label>Effective Date</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="effective_date">                                
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker> 
+                            </mat-form-field>
+                        </p>
+                        <div fxLayoutAlign="center">
+                            <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue" (click)="setPayGroup()"   type="submit">
+                                <span>Submit</span>
+                            </button>
+              
+                            <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue" (click)="cancel()">
+                                <span >Cancel</span>
+                            </button>
+                            <br />
+                        </div>        
+                    </form>    
+                  </div> 
+
+                </div>
+                <div fxLayout="column" fxFlex="5">
+                </div> 
+            </div>
+        
+    </mat-card>
+</div>                    

@@ -47,7 +47,7 @@ import 'chartjs-adapter-date-fns';
 import { ComfirmationDialogComponent } from './pages/comfirmation-dialog/comfirmation-dialog.component';
 import { ReimbursementModule } from './modules/reimbursement/reimbursement.module';
 import { DecryptPipe, EncryptPipe } from './custom-directive/encrypt-decrypt.pipe';
-
+import { PayrollModule } from './modules/payroll/payroll.module';
 // import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
  FullCalendarModule.registerPlugins([
@@ -103,7 +103,8 @@ import { DecryptPipe, EncryptPipe } from './custom-directive/encrypt-decrypt.pip
     // DatepickerModule.forRoot()
     AssetsModule,
     // NgChartsModule,
-    ReimbursementModule
+    ReimbursementModule,
+    PayrollModule
 
   ],
 

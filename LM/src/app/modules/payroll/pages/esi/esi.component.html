@@ -1,0 +1,192 @@
+<div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto">
+    <mat-card fxFill>
+      <mat-card-header class="">
+        <mat-card-title class="title custom-payRoll-header"> 
+          <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Employee State Insurance</b>
+            <i class="fa fa-edit" style="margin-left:13px;" aria-hidden="true"></i>
+          </p>
+         
+        </mat-card-title>
+      </mat-card-header>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">  
+        <form [formGroup]="esiRequestForm" autocomplete="off" style="width:100%;">
+            <div class="tab-lap-desk-show">
+                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
+                </div>    
+                <div fxLayout="column" fxFlex="40" class="custom-payroll-div">
+                    <div>
+                        
+                        <p>
+                            <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-label>ESI Number</mat-label>
+                                <input type="text" matInput class="form-control" formControlName="esiNumber" placeholder="" >
+                                <mat-error class="con-error" *ngIf="  esiRequestForm.controls.esiNumber.errors?.required">
+                                    Please enter valid data.
+                                </mat-error>
+                            </mat-form-field>
+                            
+                            
+
+                        </p>
+                        <p>
+                            <mat-form-field appearance="outline" style="width: 82%;">
+                                <mat-label>Employee Contribution</mat-label>
+                                <input type="text" matInput class="form-control" formControlName="employeeContribution" placeholder="" readonly>                                
+                            </mat-form-field>
+                            of Gross Pay
+                        </p>
+                        <p>
+                            <mat-checkbox formControlName="employerCTCContribution">Include Employer's Contribution in the CTC.
+                            </mat-checkbox>
+                        </p>
+                        <p>Note: ESI deductions will be made only if employee's monthly salary is less than or equal to <i class="fa fa-inr" aria-hidden="true"></i>{{salary}}. 
+                           If the employee gets a salary revision which increases their monthly salary above <i class="fa fa-inr" aria-hidden="true"></i>{{salary}}, they would
+                           have to continue making ESI contribution till the end of the contribution period in which the salary 
+                           was revised (April-September or October-March).</p>        
+                    </div>
+                </div> 
+                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
+                </div> 
+                <div fxLayout="column" fxFlex="45"  class="custom-payroll-div">
+                    <div>
+                        
+                        <p>                        
+                            <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-label>Deduction Cycle</mat-label>
+                                <mat-select formControlName="deductionCycle">
+                                    <mat-option value="Monthly">Monthly</mat-option>
+                                    <mat-option value="Quaterly">Quaterly</mat-option>
+                                    <mat-option value="Yearly">Yearly</mat-option>
+                                </mat-select> 
+                                <mat-error class="con-error" *ngIf="  esiRequestForm.controls.deductionCycle.errors?.required">
+                                    Please select an option.
+                                </mat-error>                                     
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field appearance="outline" style="width: 82%;">
+                                <mat-label>Employer's Contribution</mat-label>
+                                <input type="text" matInput class="form-control" formControlName="employersContribution" placeholder="" readonly>                                
+                            </mat-form-field>
+                            of Gross Pay
+                        </p>
+                        <p>                           
+                            <!-- <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-label>Effective Date</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="effective_date">                                
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker> 
+                            </mat-form-field> -->
+                        </p>
+                    </div>
+                </div>        
+                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
+                </div>  
+            </div>      
+            <div class="tab-lap-desk-show">
+                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
+                </div>    
+                <div fxLayout="column" fxFlex="40" class="custom-payroll-div">
+                    <div>
+                        
+                        <div style="margin-bottom: 25px;">
+                            <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue;float: right;" (click)="setPayGroup()"   type="submit">
+                                <span>Save</span>
+                            </button>
+                        </div>
+                                                
+                    </div>
+                </div> 
+                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
+                </div> 
+                <div fxLayout="column" fxFlex="45"  class="custom-payroll-div">
+                    <div>                        
+                      
+                        <div style="margin-bottom: 25px;">
+                            <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue" (click)="cancel()">
+                                <span >Cancel</span>
+                            </button>
+                        </div>
+                                             
+                    </div>
+                </div>        
+                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
+                </div>  
+            </div> 
+            <div class="mob-port-show">
+                <div fxLayout="column" fxFlex="100" class="custom-payroll-div">
+                    <div style="    margin-left: 10px; margin-right: 10px;">
+                        
+                        <p>
+                            <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-label>ESI Number</mat-label>
+                                <input type="text" matInput class="form-control" formControlName="esiNumber" placeholder="" >
+                                <mat-error class="con-error" *ngIf="  esiRequestForm.controls.esiNumber.errors?.required">
+                                    Please enter valid data.
+                                </mat-error>
+                            </mat-form-field>
+                            
+                        </p>
+                        <p>                        
+                            <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-label>Deduction Cycle</mat-label>
+                                <mat-select formControlName="deductionCycle">
+                                    <mat-option value="Monthly">Monthly</mat-option>
+                                    <mat-option value="Quaterly">Quaterly</mat-option>
+                                    <mat-option value="Yearly">Yearly</mat-option>
+                                </mat-select>
+                                <mat-error class="con-error" *ngIf="  esiRequestForm.controls.deductionCycle.errors?.required">
+                                    Please select an option.
+                                </mat-error>                                    
+                            </mat-form-field>
+                        </p>
+                        <p style="line-height: 0;margin-bottom: 34px;">
+                            <mat-form-field appearance="outline" style="width: 82%;">
+                                <mat-label>Employee Contribution</mat-label>
+                                <input type="text" matInput class="form-control" formControlName="employeeContribution" placeholder="" readonly>                                
+                            </mat-form-field>
+                            of Gross Pay
+                        </p>   
+                        <p style="line-height: 0;margin-bottom: 34px;">
+                            <mat-form-field appearance="outline" style="width: 82%;">
+                                <mat-label>Employer's Contribution</mat-label>
+                                <input type="text" matInput class="form-control" formControlName="employersContribution" placeholder="" readonly>                                
+                            </mat-form-field>
+                            of Gross Pay
+                        </p>   
+                        <p>
+                            <mat-checkbox formControlName="employerCTCContribution">Include Employer's Contribution in the CTC.
+                            </mat-checkbox>
+                        </p>
+                        <p>Note: ESI deductions will be made only if employee's monthly salary is less than or equal to <i class="fa fa-inr" aria-hidden="true"></i>{{salary}}. 
+                           If the employee gets a salary revision which increases their monthly salary above <i class="fa fa-inr" aria-hidden="true"></i>{{salary}}, they would
+                           have to continue making ESI contribution till the end of the contribution period in which the salary 
+                           was revised (April-September or October-March).
+                        </p>   
+                        <p>                           
+                            <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-label>Effective Date</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="effective_date">                                
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker> 
+                            </mat-form-field>
+                        </p>                                                                   
+                        <div style="margin-bottom: 25px;">
+                            <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue;width:100%;" (click)="setPayGroup()"   type="submit">
+                                <span>Save</span>
+                            </button>
+                        </div>  
+                        <div style="margin-bottom: 25px;">
+                            <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue;width:100%;" (click)="cancel()">
+                                <span >Cancel</span>
+                            </button>
+                        </div>                      
+                    </div>
+                </div> 
+            </div>            
+            <br> 
+        </form>     
+     </div>
+   </mat-card>
+</div>        

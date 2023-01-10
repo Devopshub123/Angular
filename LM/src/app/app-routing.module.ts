@@ -42,6 +42,10 @@ const routes: Routes = [
     path: 'Attendance',
     loadChildren: () => import('./modules/attendance/attendance.module').then(m => m.AttendanceModule)
   ,canActivate:[LMSAccessGuard]},
+  {
+    path: 'Payroll',
+    loadChildren: () => import('./modules/payroll/payroll.module').then(m => m.PayrollModule)
+  ,canActivate:[LMSAccessGuard]},
   {path:'Reports',loadChildren:()=>import('./modules/reports/reports.module').then(m=>m.ReportsModule)},
   {
     path: '',

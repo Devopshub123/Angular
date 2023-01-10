@@ -1,0 +1,81 @@
+<div fxLayout="column" fxFill>
+    <mat-card >
+      <mat-card-header class="">
+        <mat-card-title class="title custom-payRoll-header"> Salary Master </mat-card-title>
+      </mat-card-header>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">            
+        <div fxLayout="column" fxFlex="5">
+        </div>   
+        <div fxLayout="column" fxFlex="90" class="custom-payroll-div">
+                    
+                  <form  [formGroup]="salaryMasterForm">
+                    <!-- <div class="form-row">
+                        <div class="form-group row col-md-6">
+                        <label for="annualCTC" class="col-form-label mr-10">Annual CTC</label>
+                        <div class="mr-10">
+                          <input type="text" disabled="true" class="form-control" value="72,50,000.00">
+                        </div>
+                        <div class="custom-mt-5">
+                          per year  
+                        </div>    
+                        </div>
+                        <div class="form-group row col-md-6">
+                        <label for="monthlyIncome" class="col-form-label mr-10">Monthly Income</label>
+                        <div>
+                          <input type="text" disabled="true" class="form-control" value="6,04,167.00">
+                        </div>
+                        </div>
+                    </div> -->
+                    <div class="form-row">
+                      <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                        <mat-label>Select Duration</mat-label>
+                        <mat-select  formControlName="range" required>
+                          <ng-container>
+                            <div *ngFor="let a of durationlist">
+                                <mat-option [value]="a.id">{{a.duration}}</mat-option>
+                            </div>
+                        </ng-container>
+                          <!-- <ng-container>
+                              <div *ngFor="let a of announcementlist">
+                                  <mat-option [value]="a.id">{{a.topic}}</mat-option>
+                              </div>
+                          </ng-container> -->
+                        </mat-select>
+                      
+                       </mat-form-field>
+
+                    </div>
+                  </form>
+                  <div>
+                    <mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-salary-div">
+                      
+                        <!-- Salary Components Column -->
+                        <ng-container matColumnDef="Salary_Components">
+                          <th mat-header-cell *matHeaderCellDef class="custom-investment-th"> Salary Components </th>
+                          <td mat-cell *matCellDef="let element"> {{element.component_name}} </td>
+                        </ng-container>
+
+                          <!-- Amount Monthly Column -->
+                          <ng-container matColumnDef="Amount_Monthly">
+                            <th mat-header-cell *matHeaderCellDef class="custom-investment-th"> Amount Monthly </th>
+                            <td mat-cell *matCellDef="let element"> {{element.month_amount}} </td>
+                          </ng-container>
+  
+                          <!-- Amount Annually Column -->
+                          <ng-container matColumnDef="Amount_Annually">
+                              <th mat-header-cell *matHeaderCellDef class="custom-investment-th"> Amount Annually </th>
+                              <td mat-cell *matCellDef="let element"  class="custom-investment-td"> {{element.annual_amount}} </td>
+                          </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns" class="dashboard-1 custom-investment-header"></tr>
+                        <tr mat-row 
+                        *matRowDef="let row; columns: displayedColumns;" class="custom-mat-row"></tr>
+                 </mat-table>
+
+                  </div> 
+        </div>
+        <div fxLayout="column" fxFlex="5">
+        </div>  
+      </div>
+    </mat-card>
+</div>                    

@@ -1,0 +1,123 @@
+<div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto">
+    <mat-card fxFill>
+      <mat-card-header class="">
+        <mat-card-title class="title custom-payRoll-header">
+          <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Organization Tax Details</b>
+            <i class="fa fa-edit" style="margin-left:13px;cursor: pointer;" aria-hidden="true" (click)="editOrganizationDetails()"></i>
+          </p>
+
+        </mat-card-title>
+      </mat-card-header>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">
+        <form [formGroup]="organizationDetailsRequestForm" autocomplete="off" style="width:100%;">
+            <div class="tab-lap-desk-show">
+                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
+                </div>
+                <div fxLayout="column" fxFlex="40" class="custom-payroll-div">
+                    <div>
+
+                        <div style="margin-bottom: 25px;">
+                            <input type="text" style="padding:0.75rem;" matInput class="form-control" formControlName="pan" placeholder="PAN" [readonly]="isOrganizationDetailsDisabled">
+                        </div>
+                      <div style="margin-bottom: 25px;">
+                        <input type="text"  style="padding:0.75rem;" matInput class="form-control" formControlName="tan" placeholder="TAN" [readonly]="isOrganizationDetailsDisabled">
+                      </div>
+                        <div style="margin-bottom: 25px;">
+                            <input type="text"  style="padding:0.75rem;" matInput class="form-control" formControlName="tdsCircle" placeholder="TDS Circle/AO Code" [readonly]="isOrganizationDetailsDisabled">
+                        </div>
+
+                      <div>
+                        <select class="form-control" formControlName="taxPaymentFrequency" style="height:50px;" [attr.disabled]="isOrganizationDetailsDisabled" >
+                          <option value="Monthly">Monthly</option>
+                          <option value="Quarterly">Quarterly</option>
+                          <option value="Yearly">Yearly</option>
+                        </select>
+
+                      </div>
+                    </div>
+                </div>
+                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
+                </div>
+                <div fxLayout="column" fxFlex="45"  class="custom-payroll-div">
+                    <div>
+                      <div style="margin-bottom: 25px;">
+                        <p class="custom-organizationDetails-m-0">PAN - Permanent Account Number</p>
+                        <p class="custom-organizationDetails-m-0">PAN is a ten-digit unique alphanumeric number</p>
+                      </div>
+                      <div style="margin-bottom: 25px;">
+                        <p class="custom-organizationDetails-m-0">TAN - Tax Deduction/Collection Account Number</p>
+                        <p class="custom-organizationDetails-m-0">TAN is a ten-digit unique alphanumeric number</p>
+                      </div>
+                      <div style="margin-bottom: 25px;">
+                        <p class="custom-organizationDetails-m-0">AO Code(Assessing Officer Code is a combination of</p>
+                        <p class="custom-organizationDetails-m-0">Area Code,AO Type,Range Code and AO Number.</p>
+                      </div>
+                    </div>
+                </div>
+                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
+                </div>
+            </div>
+            <div class="tab-lap-desk-show">
+                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
+                </div>
+                <div fxLayout="column" fxFlex="40" class="custom-payroll-div">
+                    <div>
+
+                        <div style="margin-bottom: 25px;">
+                            <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue;float: right;" (click)="setPayGroup()"   type="submit">
+                                <span>Save</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
+                </div>
+                <div fxLayout="column" fxFlex="45"  class="custom-payroll-div">
+                    <div>
+
+                        <div style="margin-bottom: 25px;">
+                            <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue" (click)="cancel()">
+                                <span >Cancel</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
+                </div>
+            </div>
+            <div class="mob-port-show">
+                <div fxLayout="column" fxFlex="100" class="custom-payroll-div">
+                    <div style="    margin-left: 10px; margin-right: 10px;">
+
+                        <div style="margin-bottom: 25px;">
+                            <input type="text" style="padding:0.75rem;" matInput class="form-control" formControlName="pan" placeholder="PAN" [readonly]="isOrganizationDetailsDisabled">
+                        </div>
+                        <div style="margin-bottom: 25px;">
+                            <input type="text"  style="padding:0.75rem;" matInput class="form-control" formControlName="tdsCircle" placeholder="TDS Circle" [readonly]="isOrganizationDetailsDisabled">
+                        </div>
+                        <div style="margin-bottom: 25px;">
+                            <input type="text"  style="padding:0.75rem;" matInput class="form-control" formControlName="tan" placeholder="TAN" [readonly]="isOrganizationDetailsDisabled">
+                        </div>
+                        <div style="margin-bottom: 25px;">
+                            <input type="text" style="padding:0.75rem;" matInput class="form-control" formControlName="taxPaymentFrequency" placeholder="Tax Payment Frequency" [readonly]="isOrganizationDetailsDisabled">
+                        </div>
+                        <div style="margin-bottom: 25px;">
+                            <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue;width:100%;" (click)="setPayGroup()"   type="submit">
+                                <span>Save</span>
+                            </button>
+                        </div>
+                        <div style="margin-bottom: 25px;">
+                            <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue;width:100%;" (click)="cancel()">
+                                <span >Cancel</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+     </div>
+   </mat-card>
+</div>
