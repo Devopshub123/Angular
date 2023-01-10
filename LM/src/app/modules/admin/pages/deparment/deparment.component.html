@@ -1,4 +1,5 @@
 <div fxLayout="column" style="background-color: white;">
+    <mat-card>
     <form [formGroup]="departmentForm" autocomplete="off" >
         <mat-card-header class="headerbox">
             <div fxLayout="row" fxFlex="50">
@@ -19,11 +20,11 @@
                 </mat-form-field>
             </div>
                 <div fxLayoutAlign="center">
-                    <button class="col-md-1 btn btn-primary mx-2 my-2"  (click)="setdepartment()"   type="submit">
+                    <button class="btn btn-primary mr-2 mb-2"  (click)="setdepartment()"   type="submit">
                         <span>Submit</span>
                     </button>
 
-                    <button class="col-md-1 btn btn-danger mx-2 my-2"   (click)="cancel()">
+                    <button class="btn btn-danger mr-2 mb-2"  (click)="cancel()">
                         <span >Cancel</span>
                     </button>
                     <br />
@@ -33,11 +34,21 @@
             </div><br>
             <!-- <mat-divider></mat-divider> -->
             <div  *ngIf="isdata">
-                <div fxLayout="row" fxLayoutAlign="end">
-                    <button class="btn btn-primary mr-2 mb-2" (click)="Add()" type="button">
-                        <span>Add</span>
-                    </button>
-                </div><br>
+                <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center" style="height: 50px;">
+                    <span style="padding-left: 2%" fxFlex="50">
+                     <mat-form-field fxFlex="50" fxFlex.xs="100%" appearance="outline">
+                         <mat-label>Search</mat-label>
+                         <input matInput (keyup)="applyFilter($event)" placeholder="" >
+                         <mat-icon matSuffix>search</mat-icon>
+                     </mat-form-field>
+                 </span>
+                 <span fxLayoutAlign="end" style="padding-right: 1%" fxFlex="50">
+                     <button class="btn btn-primary mr-2 mb-2"
+                         (click)="Add()" type="button">
+                         <span>Add</span><br>
+                     </button>
+                 </span>
+                 </div>
                 <div fxLayout="column" class="tableP">
                 <div class="mat-elevation-z1">
                     <table mat-table [dataSource]="dataSource" matSort>
@@ -78,7 +89,7 @@
 
 
                         <ng-container matColumnDef="Action">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                            <th mat-header-cell *matHeaderCellDef></th>
                             <!-- <td mat-cell *matCellDef="let row"> </td> -->
                             <td mat-cell *matCellDef="let row">
                                 <mat-icon (click)="edit($event,row)"  title="Edit" *ngIf="enable != row.id">edit</mat-icon>
@@ -103,4 +114,5 @@
             </div>
             </div>
     </form>
+</mat-card>
 </div>

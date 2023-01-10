@@ -124,13 +124,13 @@
           <div class="mat-elevation-z1 ">
           <table mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="sno">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No</th>
+              <th mat-header-cell *matHeaderCellDef >S.No</th>
               <td mat-cell *matCellDef="let row; let i = index">
                 <span>{{ i + 1 }}</span>
               </td>
             </ng-container>
             <ng-container matColumnDef="date">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              <th mat-header-cell *matHeaderCellDef >
                 Date of Request
               </th>
               <td mat-cell *matCellDef="let row">
@@ -145,7 +145,7 @@
               </td>
             </ng-container>
             <ng-container matColumnDef="reason">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Reason</th>
+              <th mat-header-cell *matHeaderCellDef>Reason</th>
               <td mat-cell *matCellDef="let row">
                 <span>{{ row.reason }} </span>
               </td>
@@ -158,7 +158,7 @@
               </td>
             </ng-container>
             <ng-container matColumnDef="action">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <th mat-header-cell *matHeaderCellDef ></th>
               <td mat-cell *matCellDef="let row">
                 <!-- <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon>
                   <mat-icon class="mr-2" title="Delete">delete</mat-icon> -->

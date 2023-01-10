@@ -46,7 +46,7 @@
                                 {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
                         </ng-container>
                         <ng-container matColumnDef="termination">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Reason</th>
+                            <th mat-header-cell *matHeaderCellDef>Reason</th>
                             <td mat-cell *matCellDef="let row" >
                                 <span *ngIf="enable != row.id">{{row.reason}} </span>
                                 <span *ngIf="enable === row.id">
@@ -76,7 +76,7 @@
                         </ng-container>
 
                         <ng-container matColumnDef="Action">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                            <th mat-header-cell *matHeaderCellDef></th>
                             <td mat-cell *matCellDef="let row">
                                 <button mat-icon-button matTooltip="Edit" *ngIf="enable != row.id">
                                     <mat-icon (click)="edit($event, row)">edit</mat-icon>

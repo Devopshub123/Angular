@@ -463,9 +463,6 @@ table{
 //   overflow-x: scroll;
 // }
 
-::ng-deep mat-card{
-	padding: 5px !important;
-}
 ::ng-deep mat-toolbar-row mat-toolbar-single-row{
 	padding:0 0px !important
 }
@@ -550,4 +547,24 @@ mat-card-header{
   opacity: 0.9;
   border-radius: 3px;
   width: 100px!important;
+}
+::ng-deep.mat-card-header .mat-card-title {
+  margin-bottom: 0px!important;
+}
+/*----------------*/
+
+::ng-deep.headerbox{
+  height: 45px;
+  background-color: #28acaf !important;
+  align-items: center;
+}
+::ng-deep.title{
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 500;
+   font-stretch: normal;
+   font-style: normal;
+  letter-spacing: 0.32px;
+  color: #ffffff;
+  margin-bottom: 0px;
 }

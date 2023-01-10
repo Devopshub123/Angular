@@ -325,5 +325,13 @@ export class DesignationsComponent implements OnInit {
       const isWhitespace = (control.value || '').trim().length === 0;
       return isWhitespace ? { whitespace: true } : null;
     };
-}
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+
+  }
 }

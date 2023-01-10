@@ -48,7 +48,8 @@ export class MainService {
      return this.http.post(this.mainBeUrl+'ems/api/setPreonboardCandidateInformation', JSON.stringify(data), this.httpOptions);
   }
 
-  getPreonboardCandidateData(id: any): Observable<any> {
+  getPreonboardCandidateData(id: any,cname:any): Observable<any> {
+    this.companyName = cname;
     return this.http.get(this.mainBeUrl + 'ems/api/getCandidateDetails/' + id+'/'+this.companyName);
   }
 
@@ -118,7 +119,6 @@ export class MainService {
 
   getSideNavigation(data: any) {
     data.companyName= this.companyName;
-
     return this.http.post(this.mainBeUrl + 'attendance/api/getSideNavigation',data, this.httpOptions);
   }
 }

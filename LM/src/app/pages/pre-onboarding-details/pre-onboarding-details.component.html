@@ -48,7 +48,7 @@
                             <mat-card style="padding-left: 1%;" class="outline">
                             <div class="section"><b>Personal Information</b></div>
                             <mat-divider></mat-divider>
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>First Name</mat-label>
                                     <input type="text" formControlName="firstname" #firstname
@@ -324,7 +324,7 @@
                     <form [formGroup]="CandidateFamilyForm">
                             <div class="section"><b>Family Details</b></div>
                             <mat-divider></mat-divider>
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>First Name</mat-label>
                                     <input type="text" specialIsAlpha formControlName="familyfirstname" matInput placeholder=""
@@ -473,7 +473,7 @@
                             <mat-card style="padding-left: 1%;" class="outline">
                             <div class="section"><b>Work Experience</b></div>
                             <mat-divider></mat-divider>
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Company Name</mat-label>
                                     <input type="text" formControlName="companyName" specialIsAlpha matInput
@@ -610,7 +610,7 @@
                             <mat-card style="padding-left: 1%;" class="outline">
                             <div class="section"><b>Education</b></div>
                             <mat-divider></mat-divider>
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Course</mat-label>
                                     <input type="text" maxlength="100" formControlName="course" matInput placeholder=""
@@ -735,7 +735,7 @@
                         <form [formGroup]="documentsForm">
                             <div class="section"><b>Add Documents</b></div>
                             <mat-divider></mat-divider>
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Document Name</mat-label>
                                     <mat-select required formControlName="documentName">
@@ -766,10 +766,9 @@
                                 </mat-form-field>
 
                                 <div fxLayout="row" style="align-items: center">
-                                    <input style="margin-left: 10px" type="file" *ngIf='!isedit' formControlName="attachedFile"
-                                        (change)="onSelectFile($event)"  single />
-
-                                        <button class="link" *ngIf='isedit' >{{ editFileName }}</button>
+                                    <input type="file" *ngIf='!isedit' title="" style="color:transparent; margin-left: 10px"
+                                    formControlName="attachedFile"  (change)="onSelectFile($event)"  single />
+                                     <button class="link" *ngIf='isedit' >{{ editFileName }}</button>
 
                                     &nbsp;
                                     <mat-icon title="Delete"  *ngIf=' documentsForm.controls.attachedFile.value' 

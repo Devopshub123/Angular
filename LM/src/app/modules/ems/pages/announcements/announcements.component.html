@@ -131,7 +131,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="topic">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Topic </th>
+                        <th mat-header-cell *matHeaderCellDef > Topic </th>
                         <td mat-cell *matCellDef="let row" >
                             <span>{{row.topic}} </span>
 
@@ -145,14 +145,14 @@
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="publishedon">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Published From </th>
+                        <th mat-header-cell *matHeaderCellDef > Published From </th>
                         <td mat-cell *matCellDef="let row" >
                             <span>{{row.fromdate  | date:'dd-MM-yyyy'}} </span>
 
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="publishedTo">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Published To </th>
+                        <th mat-header-cell *matHeaderCellDef > Published To </th>
                         <td mat-cell *matCellDef="let row" >
                             <span>{{row.todate  | date:'dd-MM-yyyy'}} </span>
 
@@ -166,7 +166,7 @@
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header >  </th>
+                        <th mat-header-cell *matHeaderCellDef >  </th>
                         <td mat-cell *matCellDef="let row" >
                             <mat-icon title="Edit"  (click)="edit($event,row)" *ngIf="row.status=='Saved as draft' " >edit</mat-icon>
                             <mat-icon title="Edit"  (click)="edit($event,row)" *ngIf="row.status=='Published' " >edit</mat-icon>

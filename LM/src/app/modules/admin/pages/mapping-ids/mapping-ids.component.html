@@ -61,14 +61,14 @@
             <table mat-table [dataSource]="dataSource" matSort  >
 
                 <ng-container matColumnDef="sno">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> S.No</th>
+                    <th mat-header-cell *matHeaderCellDef> S.No</th>
                     <td mat-cell *matCellDef="let element; let i=index;">
                      {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
                   </ng-container>
 
 
                 <ng-container matColumnDef="biometricid" >
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Biometric Id </th>
+                    <th mat-header-cell *matHeaderCellDef> Biometric Id </th>
                     <td mat-cell *matCellDef="let row"> {{row.deviceempid}}</td>
                 </ng-container>
 
@@ -80,7 +80,7 @@
 
 
                 <ng-container matColumnDef="empname" >
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
+                    <th mat-header-cell *matHeaderCellDef> Employee Name </th>
                     <td mat-cell *matCellDef="let row"> {{row.empname}} </td>
                 </ng-container>
 

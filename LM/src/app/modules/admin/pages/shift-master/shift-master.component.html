@@ -1,9 +1,11 @@
-<div fxLayout="column">
+<div fxLayout="column" style="background-color: white;">
     <form [formGroup]="shiftForm" autocomplete="off">
         <mat-card>
-            <mat-card-header>
-                <mat-card-title> Shift </mat-card-title>
-            </mat-card-header>
+            <mat-card-header class="headerbox">
+                <div fxLayout="row" fxFlex="50">
+                    <mat-card-title class="title"> Shift </mat-card-title>
+                </div>
+                </mat-card-header>
             <!-- <mat-divider></mat-divider> -->
             <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
 
@@ -161,17 +163,17 @@
 
 
                 <ng-container matColumnDef="starttime">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Time</th>
+                    <th mat-header-cell *matHeaderCellDef> Start Time</th>
                     <td mat-cell *matCellDef="let row"> {{row.fromtime}} </td>
                 </ng-container>
 
 
                 <ng-container matColumnDef="endtime">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> End Time </th>
+                    <th mat-header-cell *matHeaderCellDef> End Time </th>
                     <td mat-cell *matCellDef="let row"> {{row.totime}} </td>
                 </ng-container>
                 <ng-container matColumnDef="workinghours">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Working Hours </th>
+                    <th mat-header-cell *matHeaderCellDef> Working Hours </th>
                     <td mat-cell *matCellDef="let row"> {{row.totalhours}} </td>
                 </ng-container>
 
@@ -184,7 +186,7 @@
                         </td>
                 </ng-container>
                 <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <th mat-header-cell *matHeaderCellDef></th>
 
                     <td mat-cell *matCellDef="let row">
                         <mat-icon (click)="view(row)"  title="View" >visibility</mat-icon>

@@ -427,8 +427,9 @@
                         <mat-list class="time-attendance">
                           <ng-container *ngFor="let item of notificationsData">
                             <mat-list-item>
-                              <h3 matLine> {{ item.absent_date | date: "dd-MM-yyyy" }}
+                              <h3 matLine matTooltip="This record is missing for Attendance/Leave Request"> {{ item.absent_date | date: "dd-MM-yyyy" }}
                               </h3>
+
                               <p>
                                 <a routerLink="/" style="padding-right: 10px;" matTooltip="Leave request"
                                   (click)="leaverequest(item)">
@@ -441,6 +442,7 @@
                                   <!-- <span>Attendance request</span> -->
                                 </a>
                               </p>
+
                             </mat-list-item>
                           </ng-container>
                         </mat-list>

@@ -146,13 +146,12 @@ export class PreOnboardingDetailsComponent implements OnInit {
     this.formData = new FormData();
     this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
     sessionStorage.setItem('companyName',this.companyName);
-
   }
 
 
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
-    if (this.params && this.params.token) {
+    // if (this.params && this.params.token) {
       this.email = JSON.parse(atob(this.params.token)).email;
       this.candidateId = JSON.parse(atob(this.params.token)).candidateId;
       this.date = JSON.parse(atob(this.params.token)).date;
@@ -174,8 +173,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
       this.getDesignationsMaster();
       this.getDepartmentsMaster();
       this.getWorkLocation();
-      this.getCountry();
-      this.getCandidateData();
+    this.getCountry();
+    this.getCandidateData();
       /**same as present address checkbox */
       this.personalInfoForm.get('checked')?.valueChanges.subscribe(selectedValue => {
         if (selectedValue != '') {
@@ -292,9 +291,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       })
       //////////
 
-    } else {
-      this.router.navigate(['/Login'])
-    }
+    
   }
 
   //////////
@@ -303,11 +300,12 @@ export class PreOnboardingDetailsComponent implements OnInit {
     this.familyDetails = [];
     this.workExperienceDetails = [];
     this.educationDetails = [];
-    this.mainService.getPreonboardCandidateData(this.candidateId).subscribe((res: any) => {
-      this.loginData = JSON.parse(res.data[0].json)[0];
+    this.mainService.getPreonboardCandidateData(this.candidateId,this.companyName).subscribe((res: any) => {
+       this.loginData = JSON.parse(res.data[0].json)[0];
       if (this.loginData.id != null) {
         this.preOnboardId = this.loginData.id;
       }
+      console.log("desg",this.availableDesignations)
       this.availableDesignations.forEach((e: any) => {
         if (e.id == this.loginData.designation) {
           this.employeeDesignation = e.designation;
@@ -430,7 +428,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
   getCountry() {
     this.countryDetails = []
-    this.companyService.getCountry('countrymaster', null, 1, 10, this.companyDBName).subscribe(result => {
+    this.companyService.getCountry('countrymaster', null, 1, 10, this.companyName).subscribe(result => {
       this.countryDetails = result.data;
       this.permanentCountryDetails = result.data;
     })
@@ -522,38 +520,39 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
 
   getBloodgroups() {
-    this.companyService.getMastertable('bloodgroupmaster', '1', 1, 10, this.companyDBName).subscribe(data => {
+    this.companyService.getPreonboardingMastertable('bloodgroupmaster', '1', 1, 10, this.companyName).subscribe(data => {
       this.bloodGroupdetails = data.data;
     })
   }
   getGender() {
-    this.companyService.getMastertable('gendermaster', null, 1, 40, this.companyDBName).subscribe(data => {
+    this.companyService.getPreonboardingMastertable('gendermaster', null, 1, 40, this.companyName).subscribe(data => {
       this.genderDetails = data.data;
     })
   }
   getMaritalStatusMaster() {
-    this.companyService.getMastertable('maritalstatusmaster', null, 1, 10, this.companyDBName).subscribe(data => {
+    this.companyService.getPreonboardingMastertable('maritalstatusmaster', null, 1, 10, this.companyName).subscribe(data => {
       this.maritalStatusDetails = data.data;
     })
   }
   getRelationshipMaster() {
-    this.companyService.getMastertable('relationshipmaster', 'Active', 1, 30, this.companyDBName).subscribe(data => {
+    this.companyService.getPreonboardingMastertable('relationshipmaster', 'Active', 1, 30, this.companyName).subscribe(data => {
       this.employeeRelationship = data.data;
     })
   }
 
   getDesignationsMaster() {
-    this.companyService.getMastertable('designationsmaster', 1, 1, 1000, this.companyDBName).subscribe(data => {
+    this.companyService.getPreonboardingMastertable('designationsmaster', 1, 1, 1000, this.companyName).subscribe(data => {
       this.availableDesignations = data.data;
+      console.log("desg-01",this.availableDesignations)
     })
   }
   getDepartmentsMaster() {
-    this.companyService.getMastertable('departmentsmaster', '1', 1, 1000, this.companyDBName).subscribe(data => {
+    this.companyService.getPreonboardingMastertable('departmentsmaster', '1', 1, 1000, this.companyName).subscribe(data => {
       this.availableDepartments = data.data;
     })
   }
   getWorkLocation() {
-    this.companyService.getactiveWorkLocation({ id: null, companyName: this.companyDBName }).subscribe((result) => {
+    this.companyService.getactiveWorkLocation({ id: null, companyName: this.companyName }).subscribe((result) => {
       this.worklocationDetails = result.data;
     })
 

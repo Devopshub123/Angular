@@ -212,11 +212,11 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header > Name </th>
             <td mat-cell *matCellDef="let row" ><span >{{row.employee_name}} </span></td>
         </ng-container><ng-container matColumnDef="employeeId">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header > Emp ID </th>
+          <th mat-header-cell *matHeaderCellDef > Emp ID </th>
           <td mat-cell *matCellDef="let row" ><span >{{row.employee_code}} </span></td>
         </ng-container>
         <ng-container matColumnDef="leaveType">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header > Leave type </th>
+          <th mat-header-cell *matHeaderCellDef > Leave type </th>
           <td mat-cell *matCellDef="let row" ><span >{{row.leavetype}} </span></td>
       </ng-container>
     <ng-container matColumnDef="designation">
@@ -224,19 +224,19 @@
       <td mat-cell *matCellDef="let row" ><span >{{row.designation}} </span></td>
   </ng-container>
   <ng-container matColumnDef="appliedDate">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header > Applied Date </th>
+    <th mat-header-cell *matHeaderCellDef > Applied Date </th>
     <td mat-cell *matCellDef="let row" ><span >{{row.appliedon | date:'dd-MM-yyyy'}} </span></td>
 </ng-container>
 <ng-container matColumnDef="startDate">
-  <th mat-header-cell *matHeaderCellDef mat-sort-header > From Date</th>
+  <th mat-header-cell *matHeaderCellDef > From Date</th>
   <td mat-cell *matCellDef="let row" ><span >{{row.fromdate | date:'dd-MM-yyyy' }} </span></td>
 </ng-container>
         <ng-container matColumnDef="toDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header > To Date </th>
+          <th mat-header-cell *matHeaderCellDef  > To Date </th>
           <td mat-cell *matCellDef="let row" ><span >{{row.todate | date:'dd-MM-yyyy' }} </span></td>
       </ng-container>
       <ng-container matColumnDef="noOfDays">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header > No.of Days </th>
+        <th mat-header-cell *matHeaderCellDef > No.of Days </th>
         <td mat-cell *matCellDef="let row" style="padding-left:40px"><span >{{row.leavecount}} </span></td>
     </ng-container>
     <ng-container matColumnDef="status">
