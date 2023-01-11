@@ -80,7 +80,7 @@ export class HolidaysComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private router: Router,
     private LM:CompanySettingService,private dialog: MatDialog,private ts:LoginService,
     private emsService:EmsService) { }
-
+    messagesDataList: any = [];
   selectAll(select: MatSelect, values:any, array:any) {
         this.ishide = true;
     this.ischecked = true;
@@ -105,18 +105,19 @@ export class HolidaysComponent implements OnInit {
   //   }
   // }
   ngOnInit(): void {
-    this.getMessages('EM1')
-    this.getMessages('LM2')
-    this.getMessages('LM3')
-    this.getMessages('LM23')
-    this.getMessages('EM125')
-    this.getMessages('EM127')
-    this.getMessages('EM126')
-    this.getMessages('EM114')
-    this.getMessages('EM115')
-    this.getMessages('EM116')
+    // this.getMessages('EM1')
+    // this.getMessages('LM2')
+    // this.getMessages('LM3')
+    // this.getMessages('LM23')
+    // this.getMessages('EM125')
+    // this.getMessages('EM127')
+    // this.getMessages('EM126')
+    // this.getMessages('EM114')
+    // this.getMessages('EM115')
+    // this.getMessages('EM116')
     this.getWorkLocation();
-    this.getHolidays(null,null);
+    this.getHolidays(null, null);
+    this.getMessagesList();
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.HolidayForm=this.formBuilder.group(
       {
@@ -322,48 +323,44 @@ export class HolidaysComponent implements OnInit {
       }
     })
   }
-  getMessages(messageCode:any) {
-    let data =
-    {
-      "code": messageCode,
-      "pagenumber": 1,
-      "pagesize": 1
-    }
-    this.emsService.getMessagesListApi(data).subscribe((result: any) => {
-      if(result.status && result.data[0].code == 'EM1')
-      {
-        this.msgEM1 = result.data[0].message
-      }
-      else if(result.status && result.data[0].code == 'LM3')
-      {
-        this.msgEM2 = result.data[0].message
-      }
-      else if(result.status && result.data[0].code == 'EM114')
-      {
-        this.msgEM114 = result.data[0].message
-      }
-      else if(result.status && result.data[0].code == 'EM126')
-      {
-        this.msgEM126 = result.data[0].message
-      }
-      else if(result.status && result.data[0].code == 'EM125')
-      {
-        this.msgEM125 = result.data[0].message
-      }
-      else if(result.status && result.data[0].code == 'EM127')
-      {
-        this.msgEM127 = result.data[0].message
-      }
-      else if(result.status && result.data[0].code == 'EM115')
-      {
-        this.msgEM115 = result.data[0].message
-      }
-      else if(result.status && result.data[0].code == 'EM116')
-      {
-        this.msgEM116 = result.data[0].message
-      }
 
-    })
+  getMessagesList() {
+    let data =
+     {
+       "code": null,
+       "pagenumber":1,
+       "pagesize":1000
+    }
+
+    this.emsService.getMessagesListApi(data).subscribe((result:any)=>{
+     if(result.status) {
+       this.messagesDataList = result.data;
+        this.messagesDataList.forEach((e: any) => {
+        if (e.code == "EM1") {
+          this.msgEM1 = e.message
+        } else if (e.code == "EM2") {
+          this.msgEM2 = e.message
+        }else if (e.code == "EM114") {
+          this.msgEM114 = e.message
+        }else if (e.code == "EM126") {
+          this.msgEM126 = e.message
+         } else if (e.code == "EM125") {
+          this.msgEM125 = e.message
+         }else if (e.code == "EM127") {
+          this.msgEM127 = e.message
+         }else if (e.code == "EM115") {
+          this.msgEM115 = e.message
+         }else if (e.code == "EM116") {
+          this.msgEM116 = e.message
+         }
+         })
+     } else {
+       this.messagesDataList = [];
+     }
+
+   })
+
+
   }
   noWhitespaceValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {

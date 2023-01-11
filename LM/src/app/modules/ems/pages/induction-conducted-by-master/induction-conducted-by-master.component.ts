@@ -31,6 +31,7 @@ export class InductionConductedByMasterComponent implements OnInit {
    availableDepartments: any = [];
   availableprogramtypes: any = [];
   employeeList: any = [];
+  array: any=[];
   constructor(private dialog: MatDialog, private formBuilder: FormBuilder,
     private companyServices: CompanySettingService, private router: Router,
     private EMS: EmsService, private adminService: AdminService) { }
@@ -79,9 +80,14 @@ export class InductionConductedByMasterComponent implements OnInit {
 
 
   edit(event: any, data: any) {
+    console.log(data)
+    for(let i=0;i<data.empids.length;i++){
+      this.array.push(data.empids[i].empid)
+    }
     this.isUpdate = true;
       this.inductionForm.controls.programType.setValue(data.program_id);
-      this.inductionForm.controls.department.setValue(data.department_id);
+    this.inductionForm.controls.department.setValue(data.department_id);
+    this.inductionForm.controls.conductBy.setValue(this.array);
       let emplist:any=[];
       let emp={};
       data.empids.forEach((e:any)=>{
@@ -221,11 +227,11 @@ export class InductionConductedByMasterComponent implements OnInit {
 
   selectedEmployesChange(event: any) {
     if (event.isUserInput && event.source.selected == false) {
-      let index = this.selectedEmployees.indexOf(event.source.value.empid);
+      let index = this.selectedEmployees.indexOf(event.source.value);
       this.selectedEmployees.splice(index, 1)
 
     } else {
-      this.selectedEmployees.push(event.source.value.empid);
+      this.selectedEmployees.push(event.source.value);
       console.log("val--", this.selectedEmployees)
     }
   }
@@ -289,5 +295,12 @@ export class InductionConductedByMasterComponent implements OnInit {
   close(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(["/Admin/Induction-ConductedBy"]));
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

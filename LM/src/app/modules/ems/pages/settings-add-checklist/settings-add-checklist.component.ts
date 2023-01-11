@@ -55,6 +55,7 @@ export class SettingsAddChecklistComponent implements OnInit {
   isdata: boolean = true;
   isEdit: boolean = true;
   isSave: boolean = false;
+  addflag: boolean = false;
   enable: any = null;
   messagesDataList: any = [];
   EM1: any;
@@ -70,11 +71,11 @@ export class SettingsAddChecklistComponent implements OnInit {
     this.checklistForm = this.formBuilder.group(
       {
         onboardCategory: [""],
-        department: [""],
+        department: ["",Validators.required],
         checklistId: [""],
         checklistName: [""],
          name:[""],
-        description:[null,[Validators.required,this.noWhitespaceValidator()]],
+        description:[null,[Validators.required]],
         status:[""],
       });
     this.getMessagesList();
@@ -95,40 +96,35 @@ export class SettingsAddChecklistComponent implements OnInit {
     };
   }
   submit(){
-    const invalid = [];
-    const controls = this.checklistForm.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-          invalid.push(name);
-      }
-    }
-    if (this.addChecklistData.length > 0) {
-      let data = {
-        department: this.checklistForm.controls.department.value,
-        category:this.checklistForm.controls.onboardCategory.value,
-        actionby: this.userSession.id,
-        checklists:this.addChecklistData
-      }
-
-      this.emsService.setChecklistsMaster(data).subscribe((res: any) => {
-        if (res.status) {
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/Admin/settings-checklist"]));
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data:this.EM42
-          });
-
-        } else {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-           data:this.EM43
-          });
+      if (this.addChecklistData.length > 0) {
+        let data = {
+          department: this.checklistForm.controls.department.value,
+          category:this.checklistForm.controls.onboardCategory.value,
+          actionby: this.userSession.id,
+          checklists:this.addChecklistData
         }
-      });
-    }
+  
+        this.emsService.setChecklistsMaster(data).subscribe((res: any) => {
+          if (res.status) {
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Admin/settings-checklist"]));
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data:this.EM42
+            });
+  
+          } else {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+             data:this.EM43
+            });
+          }
+        });
+      }
+ 
+
   }
   statusChange(status:any,value:any){
     let data = {
@@ -201,7 +197,6 @@ export class SettingsAddChecklistComponent implements OnInit {
 
   getstatuslist(){
     this.companyServices.getstatuslists().subscribe((result:any) => {
-      console.log(result)
       if(result.status){
         this.statusValues = result.data;
       }
@@ -226,41 +221,53 @@ export class SettingsAddChecklistComponent implements OnInit {
   }
 
   add() {
-    if(this.addChecklistData !=undefined){
-      const toSelect = this.addChecklistData.find((name:any) => name.description.trim().toLowerCase() == this.checklistForm.controls.description.value.trim().toLowerCase());
-      if(toSelect!=undefined){
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          disableClose:true,
-          data: this.EM41
-       });
-       this.clearFields();
-      }
-      else{
-    this.addChecklist();
-      }
-      }
-      else{
+    this.addValidators();
+     if (this.checklistForm.valid) {
+        if(this.addChecklistData !=undefined){
+          const toSelect = this.addChecklistData.find((name:any) => name.description.trim().toLowerCase() == this.checklistForm.controls.description.value.trim().toLowerCase());
+          if(toSelect!=undefined){
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              disableClose:true,
+              data: this.EM41
+           });
+           this.clearValidators();
+          }
+          else{
         this.addChecklist();
-      }
+          }
+          }
+          else{
+            this.addChecklist();
+          }
+
+
+    }
+
   }
 
   addChecklist() {
-    if (this.checklistForm.valid) {
-      this.addChecklistData.push({
+    this.addChecklistData.push({
         //id: this.checklistForm.controls.checklistId.value,
         name:null,
         description: this.checklistForm.controls.description.value,
         status: "Active",
       });
+      this.clearValidators();
       this.clearFields();
-    }
-
-  }
+   }
   clearFields() {
     this.checklistForm.controls.description.setValue();
     this.checklistForm.controls.description.clearValidators();
     this.checklistForm.controls.description.updateValueAndValidity();
-}
+  }
+  clearValidators() {
+    this.checklistForm.get("description").clearValidators();
+    this.checklistForm.get("description").updateValueAndValidity();
+  }
+  addValidators() {
+    this.checklistForm.get("description").setValidators(Validators.required);
+    this.checklistForm.get("description").updateValueAndValidity();
+  }
   removeText(index:number) {
     this.addChecklistData.splice(index, 1);
   }
@@ -343,5 +350,12 @@ export class SettingsAddChecklistComponent implements OnInit {
       }
 
     })
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }
