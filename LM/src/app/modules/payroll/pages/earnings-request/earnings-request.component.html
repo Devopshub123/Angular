@@ -1,0 +1,235 @@
+<div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto">
+  <mat-card fxFill>
+    <mat-card-header class="">
+      <mat-card-title class="title custom-payRoll-header">
+        <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Earnings Request</b>
+        </p>
+        <mat-icon title="Back" fxLayoutAlign="end" (click)="Back()" >keyboard_backspace</mat-icon>
+
+      </mat-card-title>
+    </mat-card-header>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">
+      <form [formGroup]="earningsRequestForm" autocomplete="off" style="width:100%;">
+        <div class="custom-er-heading">
+          <div fxLayout="column" fxFlex="5">
+          </div>
+          <div fxLayout="column" fxFlex="90">
+            <p style="font-size: 17px;font-weight:700;">Earnings</p>
+          </div>
+          <div fxLayout="column" fxFlex="5">
+          </div>
+        </div>
+        <div class="custom-fields-1">
+          <div fxLayout="column" fxFlex="5">
+          </div>
+          <div fxLayout="column" fxFlex="25">
+            <div>
+              <p>
+                <!-- <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Pay Group</mat-label>
+                  <mat-select formControlName="payGroup">
+                    <mat-option value="Grade 1">Grade 1</mat-option>
+                    <mat-option value="Grade 2">Grade 2</mat-option>
+                    <mat-option value="Grade 3">Grade 3</mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Pay Group</mat-label>
+                  <input type="text" matInput class="form-control" readonly formControlName="payGroup" placeholder="">
+                </mat-form-field>
+              </p>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="5">
+          </div>
+          <div fxLayout="column" fxFlex="30">
+            <div>
+              <p>
+                <!-- <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Component Type*</mat-label>
+                  <mat-select formControlName="componentType">
+                    <mat-option value="Component 1">Component 1</mat-option>
+                    <mat-option value="Component 2">Component 2</mat-option>
+                    <mat-option value="Component 3">Component 3</mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Component Type*</mat-label>
+                  <input type="text" matInput class="form-control" readonly formControlName="componentType" placeholder="">
+                </mat-form-field>
+              </p>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="5">
+          </div>
+          <div fxLayout="column" fxFlex="25">
+            <div>
+              <p>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Name in Pay Slip*</mat-label>
+                  <input type="text" matInput class="form-control" formControlName="namePaySlip" placeholder="" maxlength="30">
+                </mat-form-field>
+              </p>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="5">
+          </div>
+        </div>
+        <div class="custom-fields-2">
+          <div fxLayout="column" fxFlex="5">
+          </div>
+          <div fxLayout="column" fxFlex="90">
+            <div>
+
+              <p>
+                <label>Calculate Type</label>
+              </p>
+              <div *ngIf="otherhide" >
+                <mat-radio-group formControlName="monthly_salary" [disabled]="hide"  style="display: grid;float: left;">
+                  <mat-radio-button class="mr-2 custom-er-radio" color="primary"
+                                    *ngFor="let halfs of arrayValue;index as i;" (change)="status(halfs.Value)"
+                                    [value]="halfs.Value">{{halfs.name}}</mat-radio-button>
+                </mat-radio-group>
+                <mat-form-field appearance="outline" style="float: left;margin-top: -1.8%;" *ngIf="isShowCalculatedAmount == 'Flat Amount'">
+                  <mat-label>Flat Amount</mat-label>
+                  <input type="number"  onKeyPress="if(this.value.length==13) return false;"   matInput class="form-control" formControlName="flat_amount" placeholder="">
+                  <mat-error class="con-error" *ngIf="earningsRequestForm.controls.flat_amount.errors?.required">
+                    {{PR1}}
+                </mat-error>
+
+                </mat-form-field>
+                <span style="color: green;float: left;margin-top:-5px; margin-left: 10px; margin-bottom: 15px; padding: 4px 12px;" *ngIf="isShowCalculatedAmount == 'Flat Amount'"  class="success"> {{validationMessage}}</span>
+
+
+            
+                <mat-form-field *ngIf="isShowCalculatedAmount == 'basicPercentage'" appearance="outline" style="float: left;margin-top:42px;">
+                  <mat-label *ngIf="earndata.Earndata.component_name == 'Basic Salary'">Percentage of CTC</mat-label>
+                  <mat-label *ngIf="earndata.Earndata.component_name != 'Basic Salary'">Percentage of Basic</mat-label>
+                  <input type="number"  onKeyPress="if(this.value.length==3) return false;"     matInput class="form-control" formControlName="flat_amount" placeholder="" >
+                  
+                  <mat-error class="con-error" *ngIf="earningsRequestForm.controls.flat_amount.errors?.required">
+                    {{PR1}}
+                </mat-error>
+               
+                </mat-form-field>
+                <span style="color: green;float: left;margin-top:60px;margin-left: 10px;  margin-bottom: 15px; padding: 4px 12px;" *ngIf="isShowCalculatedAmount == 'basicPercentage'" class="success">{{validationMessage}}</span>
+               
+ 
+              </div>
+              <div *ngIf="!otherhide">
+                <span style="color: red;">This component does not need configuration. It holds the balance amount derived when all configured earning components' values are subtracted from the CTC of a resource.</span>
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxFlex="5">
+          </div>
+        </div>
+        <div class="custom-fields-3">
+          <div fxLayout="column" fxFlex="5">
+          </div>
+        </div>
+        <div class="custom-fields-4">
+          <div fxLayout="column" fxFlex="90">
+            <p style="font-size: 17px;font-weight:700;border-bottom: 1px solid #e7e7e9;">Configurations</p>
+          </div>
+          <div fxLayout="column" fxFlex="5">
+          </div>
+        </div>
+        <div class="custom-fields-5">
+          <div fxLayout="column" fxFlex="5">
+          </div>
+          <div fxLayout="column" fxFlex="45" style="border-right: 1px solid #ebebed">
+            <div>
+              <div>
+                <p>
+                  <mat-checkbox formControlName="prb" (change)="updateCheckBoxStatus('prb')" [disabled]="!data.calculate_on_pro_rata_basis" [color]="customColor">
+                    Calculate on pro-rata basis Pay will be adjusted based on employee working days.
+                </mat-checkbox></p>
+                <p>
+                  <mat-checkbox formControlName="epf_contribution"
+                                (change)="updateCheckBoxStatus('epf_contribution')" [disabled]="!data.consider_for_epf_contribution" [color]="customColor">
+                    Consider for EPF contribution
+                    <span *ngIf="isShowSubEPFContributionCheckBoxes || dataofvalues.consider_for_epf_contribution">
+                <ul style="list-style-type: none !important;padding: 0;" *ngIf="data.consider_for_epf_contribution || dataofvalues.consider_for_epf_contribution">
+                  <li *ngIf="!isShowSubEPFContributionCheckBoxes">
+                    <mat-radio-group aria-label="Select an option"
+                                     class="earnings-radio-group"
+                                     formControlName="epf_option_contribution">
+                      <mat-radio-button class="earnings-radio-button"
+                                        [color]="customColor"
+                                        [disabled]="!data.consider_for_epf_contribution"
+                                        value="always">Always</mat-radio-button>
+                      <mat-radio-button class="earnings-radio-button"
+                      [disabled]="!data.consider_for_epf_contribution"
+                                        [color]="customColor" value="only_pf">Only when PF wage is less than <i
+                        class="fa fa-inr"
+                        aria-hidden="true"></i> 15,000</mat-radio-button>
+                    </mat-radio-group>
+                  </li>
+                </ul>
+                </span>
+                </mat-checkbox>
+                </p>
+                <p>
+                  <mat-checkbox formControlName="esic" (change)="updateCheckBoxStatus('esic')" [disabled]="!data.consider_for_esi_contribution" [color]="customColor">
+                    Consider for ESI Contribution.
+                </mat-checkbox></p>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="40">
+            <p>
+              <mat-checkbox formControlName="ess"  [disabled]= "!data.is_this_component_a_part_of_employee_salary_structure" [color]="customColor">Make this component a part of employee's
+                salary structure
+              </mat-checkbox>
+            </p>
+            <p>
+              <mat-checkbox formControlName="taxableComponenet" [disabled]= "!data.is_this_component_taxable" [color]="customColor">
+                It is a taxable component
+               <p>
+                The income tax amount will be divided equally and deducted every month across the financial year.
+              </p>
+              </mat-checkbox>
+            </p>
+            <p><mat-checkbox formControlName="showComponent"  [disabled]="!data.show_this_component_in_payslip"  [color]="customColor">Show this component in payslip</mat-checkbox></p>
+          </div>
+        </div>
+
+        <div class="row tab-lap-desk-show" style="margin-top: 15px !important;margin-bottom: 15px !important;">
+          <div class="col-sm-6 text-right" style="padding:0px">
+            <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
+                    (click)="configurePayGroupComponent()" type="submit">
+              <span>Submit</span>
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue"
+                    (click)="cancel()">
+              <span>Cancel</span>
+            </button>
+          </div>
+        </div>
+        <div class="row mob-port-show mob-buttons" style="margin-bottom: 15px !important;">
+          <div class="col-sm-6 text-center mob-buttons-padding" style="padding:0px">
+            <button class="mx-1 mat-stroked-button button-save"
+                    style="background-color:#3f51b5;color:aliceblue;width:50%;" (click)="configurePayGroupComponent()" type="submit">
+              <span>Submit</span>
+            </button>
+          </div>
+          <div class="col-sm-6 text-center">
+            <button class="mx-1  mat-stroked-button button-clear"
+                    style="background-color:#550534;color:aliceblue;width:50%;" (click)="cancel()">
+              <span>Cancel</span>
+            </button>
+          </div>
+        </div>
+        <br>
+      </form>
+
+    </div>
+    <div>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,15 @@
+
+  <div mat-dialog-content>
+    {{data.message}}
+   </div>
+   <div mat-dialog-actions fxLayout="row" style="justify-content: space-between; margin-top: 5px;">
+   <div fxLayout="column">
+    
+   <mat-radio-button  mat-button (change)="Onyes()">Yes, Add other allowance component to this pay group and configure this component as a Flat Amount.</mat-radio-button>
+   
+   
+   <mat-radio-button   mat-button (change)="Onno()" >No, Configure this component as a percentage of Basic Salary.</mat-radio-button>
+
+   </div>
+   
+   </div>

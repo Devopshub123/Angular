@@ -121,9 +121,9 @@ export class MainService {
     data.companyName= this.companyName;
     return this.http.post(this.mainBeUrl + 'attendance/api/getSideNavigation',data, this.httpOptions);
   }
+  /**get document files */
   getDocumentsFiles(input:any){
     input.companyName=this.companyName;
     return this.http.post(this.mainBeUrl+'ems/api/getDocumentsFiles', JSON.stringify(input), this.httpOptions);
-
   }
 }

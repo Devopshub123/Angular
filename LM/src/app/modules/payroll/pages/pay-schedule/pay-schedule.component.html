@@ -1,0 +1,87 @@
+<div fxLayout="column" fxFill class="custom-investment-of">
+    <mat-card fxFill>
+      <mat-card-header class="">
+        <mat-card-title class="title custom-payRoll-header">
+          <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Pay Schedule</b>
+          </p>
+          <!--<p style="float: left;"><mat-icon  style="cursor: pointer;">add_circle</mat-icon></p>-->
+        </mat-card-title>
+      </mat-card-header>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">
+                <div fxLayout="column" fxFlex="20">
+                </div>
+                <div fxLayout="column" fxFlex="60" class="custom-payroll-div">
+                    <div class="card card-stats card-warning cmn-leave">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="numbers text-center" >
+                                      <div style="display: -webkit-box">
+                                        <p class="card-category" style="text-align:left; margin-right: auto">The organization payroll runs on this schedule</p>
+                                      <p><mat-icon title="Edit" style="color: black" (click)="onRequestClick()">edit
+                                      </mat-icon></p>
+                                      </div>
+                                      <table class="table no-border mt-3">
+                                            <tbody style="text-align:left;">
+                                                <!--<tr>-->
+                                                    <!--<td>Pay Frequency</td>-->
+                                                    <!--<td>Monthly</td>-->
+                                                <!--</tr>-->
+                                                <tr>
+                                                    <td>Pay Day</td>
+                                                    <td *ngIf="payDay =='LAST_WORKING_DAY'">Last Working Day</td>
+                                                  <td *ngIf="payDay !='LAST_WORKING_DAY'">{{payDay}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Company Payroll Cycle</td>
+                                                    <!-- <td>April - March</td> -->
+                                                    <td>{{companyPayrollCycle}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Leave Window</td>
+                                                    <td> {{"Previous Month "+leaveWindowStartDate}} -   {{"Present Month "+leaveWindowEndDate}}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="card card-stats card-warning cmn-leave">
+
+                        <div class="card-body ">
+
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <div class="numbers text-center">
+                                        <table class="table no-border mt-3">
+                                            <tbody style="text-align:left;">
+                                                <tr>
+                                                    <td style="width:47%;">First Pay Period</td>
+                                                    <td>Status</td>
+                                                </tr>
+                                                <tr style="text-decoration: underline;"></tr>
+                                                <tr>
+                                                    <td style="width:47%;">April - 2022</td>
+                                                    <td>Inactive</td>
+                                                </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div fxLayout="column" fxFlex="20">
+                </div>
+        </div>
+    </mat-card>
+</div>

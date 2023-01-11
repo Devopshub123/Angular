@@ -221,7 +221,7 @@ export class HeaderComponent implements OnInit {
           }
         }
         if (this.valid) {
-          this.mainService.getProfileImage(info).subscribe((imageData) => {
+          this.mainService.getProfileImage(result.data[0]).subscribe((imageData) => {
             if (imageData.success) {
               let TYPED_ARRAY = new Uint8Array(imageData.image.data);
               const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {

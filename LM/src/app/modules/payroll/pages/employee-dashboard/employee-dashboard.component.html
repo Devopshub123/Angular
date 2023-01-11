@@ -1,0 +1,123 @@
+<div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto">
+    <mat-card fxFill>
+      <mat-card-header class="">
+        <mat-card-title class="title custom-payRoll-header"> 
+          <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Dashboard</b>
+          </p>
+          
+        </mat-card-title>
+      </mat-card-header>  
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">
+        <form [formGroup]="Empdashboardform" autocomplete="off">  
+      <div class="row mt-10" style="width:100%;">
+        <div class="col-md-12">
+            <div class="row m-0">
+                <div class="col-md-8">
+                    <div class="dashboard-1 custom-investment-th" style="margin-right:-15px;">Gross Salary Breakdown by Departments</div>
+                    <div class="card card-stats" style="margin-right:-15px;">
+                      <div class="card-body " style="width: 50%; min-height: 50px;">
+                        <canvas  baseChart [type]="'doughnut'" [data]="data" [options]="options">
+                        </canvas>
+                      </div>
+                    </div>    
+                    <div class="row" style="margin-left:0 !important;">
+                        
+                        <div class="card card-stats custom-epf-mini-tab">
+                            <div class="card-body ">
+                            <div class="col-12">
+                                <div class="numbers text-center">
+                                    <mat-form-field appearance="outline" style="width: 100%;" >
+                                        <mat-label>EPF</mat-label>
+                                        <mat-select formControlName="EPF">
+                                          <ng-container>
+                                            <div *ngFor="let fy of EPFfulldetails">
+                                                <mat-option [value]="fy.month_name">{{fy.month_name}}</mat-option>
+                                            </div>
+                                        </ng-container>
+                                      </mat-select>                                  
+                                    </mat-form-field>
+                                   
+                    
+                                </div>
+                                <div class="col-4" style="float: left;">
+                                    <p style="text-align: center;color: #5a5c69!important;font-weight: 700;">Month</p>
+                                    <p style="text-align: center;color: #5a5c69!important;">{{month}}</p>
+                                </div>
+                                <div class="col-8" style="float: left;">
+                                    <p style="text-align: center;color: #5a5c69!important;font-weight: 700;">Deduction Amount</p>
+                                    <p style="text-align: center;color: #5a5c69!important;">{{deduction}}</p>
+                                </div>
+                               </div> 
+                            </div>
+                        </div>                           
+                        <div class="card card-stats custom-esi-mini-tab">
+                            <div class="card-body ">
+                            <div class="col-12">
+                                <div class="numbers text-center">                                        
+                                    <mat-form-field appearance="outline" style="width: 100%;" >
+                                      <mat-label>ESI</mat-label>
+                                      <mat-select > 
+                                          <mat-option value="January">Jan</mat-option>
+                                          <mat-option value="Feb">Feb</mat-option>
+                                          <mat-option value="Yearly">Mar</mat-option>
+                                      </mat-select>                                    
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-4" style="float: left;">
+                                    <p style="text-align: center;color: #5a5c69!important;font-weight: 700;">Month</p>
+                                    <p style="text-align: center;color: #5a5c69!important;">-</p>
+                                </div>
+                                <div class="col-8" style="float: left;">
+                                    <p style="text-align: center;color: #5a5c69!important;font-weight: 700;">Deduction Amount</p>
+                                    <p style="text-align: center;color: #5a5c69!important;">-</p>
+                                </div>
+                            </div> 
+                            </div>                           
+                        </div>    
+                    </div>
+                </div>
+             
+                <div class="col-md-4 custom-mob-paySlips">
+                
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                
+                                <div class="col-12">
+                                    <div style="float: left;margin-top:19px;"><label class="card-category" style="color:#4e73df;font-size: 1.1rem;margin-left:22px;margin-right:10px;">Pay Slips</label></div>
+                                    <div style="float: left;">
+                                       
+                                        <mat-form-field appearance="outline" style="width: 100%;" >
+                                          <mat-label>Pay Slips</mat-label>
+                                          <mat-select formControlName="financial_year">
+                                            <ng-container>
+                                              <div *ngFor="let fy of financeyears">
+                                                  <mat-option [value]="fy.return_value">{{fy.financial_year}}</mat-option>
+                                              </div>
+                                          </ng-container>
+                                        </mat-select>                                  
+                                      </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-12" *ngFor="let array of dataSource;index as i;">
+                                    <div class="col-12" style="text-align: left;margin-left:6px;">
+                                    <div style="float: left;margin-right:50px;width:50%;">{{array.salary_month}}</div>
+                                    <div>
+                                        <mat-icon  style="cursor: pointer;" title="View" (click)="payslipview(array)">visibility</mat-icon>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+            
+        </div>
+       
+    </div>
+    </form>
+    </div>  
+  </mat-card>
+  <br><br>
+  </div>    

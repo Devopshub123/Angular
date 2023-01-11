@@ -1,0 +1,138 @@
+.mat-header-cell {
+    font-size: 14px !important;
+} 
+.custom-mat-row {
+    border-bottom: 2px solid white;
+}
+.custom-mat-row:last-child {
+    border-bottom: none !important;
+}    
+.custom-payroll-div {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+.custom-card {
+    border-radius: 0px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 0px 1px 15px 1px rgb(69 65 78 / 8%);
+    -moz-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+    box-shadow: 0px 1px 15px 1px rgb(69 65 78 / 8%);
+    border: 1px solid #eee;
+ }
+ .custom-payRoll-header {    
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+.dashboard-1{
+    background-color: #28acaf;    
+}
+.custom-investment-header {
+    height: 0 !important;  
+}
+.custom-investment-th {
+    color:white !important;
+    font-size: 16px !important;  
+    padding: 0.75rem !important;
+ } 
+ .example-element-detail {
+    overflow: hidden;
+    display: flex;
+    background: #fff;
+    // width: 80vw;
+    border-bottom: 1px solid #28acaf !important;
+  }
+  .example-detail-row {
+    height: 0 !important;
+    .mat-cell {
+      border-bottom-width: 0 !important;
+    }
+  }
+  .example-element-detail {
+    border-bottom: 0 !important;
+    .mat-cell {
+      border-width: 0 !important;
+    }
+  }
+  .table-expanded-description {
+    .example-element-detail {
+      margin-right: -15px;
+    }
+    .custom-form-group {
+      padding-left: 0;
+      text-align: left;
+      label {
+        max-width: initial !important;
+        min-width: auto !important;
+        margin-right: 20px;
+        padding-left: 10px;
+        .dots {
+          width: auto;
+          float: none;
+        }
+      }
+      p{
+        padding-left: 15px !important;
+      }
+    }
+  }
+  
+ .custom-investment-td {
+   padding: 0.75rem !important;
+ }
+ .custom-investment-of {
+   overflow: auto !important;
+ }
+ .cmn-leave {
+    background: none;
+    border: 2px solid #7fb2e5;
+    border-radius: 5px;
+}
+.custom-pgr-height-auto {
+  height: auto !important;
+}
+.custom-radio-pay-empoyee {
+  margin-bottom: 39px;
+}
+.tab-lap-desk-show {
+  display: flex;
+}
+.mob-port-show {
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+::ng-deep .mat-form-field-infix {
+  min-width: 0 !important;
+}
+::ng-deep .mat-radio-label-content {
+  white-space: normal;
+}
+.mob-pe {
+  margin-bottom: 27px;
+}
+.tab-lap-desk-show {
+  display: none;
+}
+.mob-port-show {
+  display: block;
+}
+.mob-buttons {
+  margin-top: -62px;
+}
+.mob-buttons-padding {
+  padding: 10px;
+}
+
+}
+@media only screen and (min-width: 400px) and (max-width: 420px) {
+  .custom-radio-pay-empoyee {
+    margin-bottom: 66px !important;
+  }
+}
+@media only screen and (min-width: 300px) and (max-width: 399px) {
+  .custom-radio-pay-empoyee {
+    margin-bottom: 44px !important;
+  }
+}

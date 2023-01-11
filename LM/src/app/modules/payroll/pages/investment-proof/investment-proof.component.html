@@ -1,0 +1,369 @@
+<div fxLayout="column" fxFill *ngIf="!hide">
+  <mat-card fxFill>
+    <mat-card-header class="">
+        <mat-card-title class="title custom-payRoll-header"> Investment Proof </mat-card-title>
+    </mat-card-header>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card"> 
+     
+      <div fxLayout="column" fxFlex="100" class="custom-payroll-div">
+        <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="end">
+          <mat-form-field fxFlex.xs="100"   fxFlex="30" fxFlexAlign="end" appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="" >
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+         
+
+        </div>
+        
+        <mat-table [dataSource]="dataSource"   multiTemplateDataRows class="mat-elevation-z8" style="width:100%;display:table;">
+          <!-- Employee Id Column -->
+          <ng-container matColumnDef="Employee_ID">
+            <th mat-header-cell *matHeaderCellDef class="custom-investment-th"> Employee Id</th>
+            <td  mat-cell  *matCellDef="let element" class="custom-investment-td"> {{element.empcode}} </td>
+          </ng-container>
+        
+          <!-- Employee Name Column -->
+          <ng-container matColumnDef="Employee_Name">
+            <th   mat-header-cell *matHeaderCellDef class="custom-investment-th"> Employee Name </th>
+            <td mat-cell *matCellDef="let element" class="custom-investment-td"> {{element.empname}} </td>
+          </ng-container>
+  
+          <!-- Action Column -->
+          <ng-container matColumnDef="Action">
+              <th mat-header-cell *matHeaderCellDef class="custom-investment-th">  </th>
+              <td  mat-cell *matCellDef="let element" class="custom-investment-td">
+                <i class="material-icons" (click)="getinvestments(element)" 
+                 title="Review and approve" *ngIf="!element.flag">preview</i>
+                <i class="material-icons" (click)="getinvestments(element)"  title="View" *ngIf="element.flag">visibility</i>
+              </td>
+            </ng-container>
+           
+          <tr mat-header-row  class="dashboard-1 custom-investment-header" *matHeaderRowDef="displayedColumns;"></tr>
+          
+  
+          <tr mat-row 
+          *matRowDef="let row; columns: displayedColumns;"   [class.example-expanded-row]="expandedElement == row" (click)="
+          expandedElement = expandedElement == row ? null : row
+        " class="example-element-row"></tr>
+       </mat-table>
+      </div>
+    </div>
+  </mat-card>
+</div>   
+<div fxLayout="column" fxFill *ngIf="hide">
+  <mat-card >
+    <mat-card-header class="">
+      <mat-icon title="Back" fxLayoutAlign="end" (click)="back()" style="padding-left: 85%;">keyboard_backspace</mat-icon>
+      <mat-card-title> IT Declaration</mat-card-title>
+      
+    </mat-card-header>
+    <!-- <div class="tab-lap-desk-show"> -->
+      <div fxLayout="row"  class="custom-payroll-div" >
+        <div  fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center" >
+          
+            <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+              <mat-label>Emp ID</mat-label>
+              <input  matInput [readonly]="true" value="{{empcode}}" >
+            </mat-form-field>
+            <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+              <mat-label>Emp Name</mat-label>
+              <input  matInput [readonly]="true" value="{{empname}}">
+            </mat-form-field>
+            <!-- <input type="text"  matInput class="form-control" value="{{empcode}}"  placeholder="" [readonly]="true">
+            <input type="text"  matInput class="form-control"  value="{{empname}}" placeholder="" [readonly]="true"> -->
+          
+         
+        </div>
+      </div>
+    <!-- </div> -->
+    <!-- <div fxLayout="column"  class="tableP custom-salary-div" style="width:auto;" > -->
+      <div class="mat-elevation-z1 " style="padding-bottom:55px;" >
+        <table class="table table-bordered tab-lap-desk-show">
+          <thead style="background-color: #28acaf;">
+          <tr>
+            <th scope="col" style="font-weight: 400;color: white">S.No.</th>
+            <th scope="col" style="font-weight: 400;width:10%;color: white">Particulars</th>
+            <th scope="col" style="font-weight: 400;width:8%;color: white">Maximum Limit</th>
+            <th scope="col" style="font-weight: 400;width:10%;color: white">Percentage</th>
+            <th scope="col" style="font-weight: 400;width:8%;color: white">Declared Amount</th>
+            <th scope="col" style="font-weight: 400;width:10%;color: white">Submitted Amount</th>
+            <th scope="col" style="font-weight: 400;width:10%;color: white">Receipt Number</th>
+            <th scope="col" style="font-weight: 400;width:12%;color: white">Attachment</th>
+            <th scope="col" style="font-weight: 400;width:10%;color: white">Approved Amount</th>
+            <th scope="col" style="font-weight: 400;width:8%;color: white">Status</th>
+            <th scope="col" style="font-weight: 400;width:8%;color: white"></th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of datasource;let i = index">
+            <th scope="row" style="font-weight: 400;">{{i+1}}</th>
+            <!-- <td>{{item.investment_section}} {{item.investment_description}}</td> -->
+            <td>{{item.description_section}} 
+              <i class="	fa fa-exclamation-circle" title="{{item.description}}" style="font-size:15px;"></i>  
+
+              <!-- <mat-icon title="{{item.description}}" class="iconstyle" style="font-size: 15px;">info</mat-icon> -->
+            </td>
+            <td>{{item.investment_maxvalue}}</td>
+            <td >
+              <!-- <input type="text" readonly="!item.disability_percentage" formControlName="percentage" value="" placeholder="" style="width:100%;"> -->
+
+              <input type="text" readonly="true"  name="percentage" #percentage="ngModel" [(ngModel)]="InvestmentDetails.percentage[i]"  value="" placeholder="" style="width:100%;background-color: #e8e8e8;">
+              <!-- <i class="fa fa-upload" aria-hidden="true"  *ngIf="item.disability_percentage"></i> -->
+              <span class="link" (click)="disableFileView(item)"  *ngIf="item.disability_flag && item.disability_file!=null">{{item.disability_file[0].disability_file}}</span>
+          </td>
+
+            <td >
+              <!-- <span *ngIf="item.declared_amount===null"> -->
+                <!-- <input type="text" formControlName="damount" value="" placeholder="" style="width:100%;" *ngIf="item.declare_amount == null" > -->
+                <input type="text"  readonly="true" name="damount" #damount="ngModel" [(ngModel)]="InvestmentDetails.damount[i]"  value="" placeholder="" style="width:100%;background-color: #e8e8e8;"  >
+
+<!--                 
+              </span>
+              <span *ngIf="item.declared_amount!=null">{{item.declared_amount}}</span> -->
+
+            </td>
+            <td>
+              <div *ngFor="let submitted_amount of sampleSAAmount[i];let groupIndex=index;" >
+              <!-- <div *ngFor="let submitted_amount of item.submitted_amount[i];let groupIndex=index;"> -->
+                      <div style="margin-bottom:4px;">
+                      <!-- <input type="text"  value="{{submitted_amount}}" placeholder="" style="width:100%;" (change)="Onchange($event,item)">  -->
+                        <input type="text" readonly="true" name="submittedamount" #submittedamount="ngModel" [(ngModel)]="InvestmentDetails.submittedamount[i][groupIndex]"    placeholder="" style="width:100%;background-color: #e8e8e8;">
+                      </div>
+              </div>
+            </td>
+            <td>
+              <div>
+                <div  *ngFor="let rn of sampleRN[i]; let rindex=index">
+                    <div style="margin-bottom:4px;">
+                      <!-- <input type="text"  value="{{rn}}" placeholder="" style="width:100%;"> -->
+                      <input type="text" readonly="true" name="receiptnumner" #receiptnumner="ngModel" [(ngModel)]="InvestmentDetails.receiptnumner[i][rindex]"    placeholder="" style="width:100%;background-color: #e8e8e8;">
+
+                    </div>
+                  </div>
+                </div>
+              </td>
+            <td>
+              <div  *ngFor="let at of sampleAttachment[i]; let atindex=index">
+                  <div style="margin-bottom:4px;">
+               <span class="link" (click)="fileView(item,atindex)">{{sampleAttachment[i][atindex]}}</span>
+              </div>
+              </div>
+            </td>
+            <td>
+            
+                <div  *ngFor="let am of sampleApprovedAmount[i]; let aaindex=index;trackBy:trackByFn">
+                    <div style="margin-bottom:4px;">
+              <input type="number"   name="approveamount" #approveamount="ngModel" [(ngModel)]="InvestmentDetails.approveamount[i][aaindex]"  [readonly]="!sampleFlags[i][aaindex]"   placeholder="" style="width:61%;margin-right:5px;">
+              <a  *ngFor="let flag of sampleFlags[i];">
+              <!-- <i class="fa fa-check-circle" aria-hidden="true" style="font-size:15px;margin-right:5px;color:#0bb939;" title="Appove" (click)="approveInvestments(item,aaindex)" *ngIf="flag" ></i>
+              <i class="fa fa-times-circle" aria-hidden="true" style="font-size:15px;margin-right:5px;color:#f10219;" title="Reject" (click)="rejectInvestments(item,aaindex)" *ngIf="flag"  ></i> -->
+              </a>
+            </div>
+            </div>
+            </td>
+            <td>
+              <div>
+                <div  *ngFor="let status of sampleStatus[i]; let strr of sampleStatusReason[i];let aaindex=index;">
+                    <div style="margin-bottom:4px;">
+                      <span >{{sampleStatus[i][aaindex]}}</span>
+              <!-- <input type="number"   name="approveamount" #approveamount="ngModel" [(ngModel)]="InvestmentDetails.approveamount[i][aaindex]"  [readonly]="!sampleFlags[i][aaindex]"   placeholder="" style="width:61%;margin-right:5px;"> -->
+              <!-- <a  *ngFor="let flag of sampleFlags[i];">
+              <i class="fa fa-check-circle" aria-hidden="true" style="font-size:15px;margin-right:5px;color:#0bb939;" title="Appove" (click)="approveInvestments(item,aaindex)" *ngIf="flag" ></i>
+              <i class="fa fa-times-circle" aria-hidden="true" style="font-size:15px;margin-right:5px;color:#f10219;" title="Reject" (click)="rejectInvestments(item,aaindex)" *ngIf="flag"  ></i>
+              </a> -->
+            </div>
+            </div>
+            </div>
+            </td>
+            <td>
+              <div>
+              <div  *ngFor="let am of sampleStatus[i]; let aaindex=index;trackBy:trackByFn">
+                <div style="margin-bottom:4px;">
+              <!-- <a  *ngFor="let flag of sampleFlags[i];"> -->
+                <i class="fa fa-check-circle" aria-hidden="true" style="font-size:15px;margin-right:5px;color:#0bb939;" title="Appove" (click)="approveInvestments(item,aaindex)" *ngIf="sampleStatus[i][aaindex] == 'Submitted' " ></i>
+                <i class="fa fa-times-circle" aria-hidden="true" style="font-size:15px;margin-right:5px;color:#f10219;" title="Reject" (click)="rejectInvestments(item,aaindex)" *ngIf="sampleStatus[i][aaindex] == 'Submitted' "  ></i>
+              <!-- </a> -->
+              </div>
+            </div>
+          </div>
+
+            </td>
+
+          </tr>
+
+
+          </tbody>
+        </table>
+        <!-- <div class="mob-port-show" style="margin-left:9px;margin-right:9px;" >
+
+          <div class="card card-stats" *ngFor="let item of datasource;let i = index">
+            <div class="card-body ">
+              <div class="row">
+                <mat-accordion style="width:100%;">
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header style="height:auto;">
+                      <mat-panel-title style="display: block !important;">
+                        <div>S.No</div>
+                        <div style="color: rgba(0,0,0,.54) !important;">{{i+1}}</div>
+                      </mat-panel-title>
+                      <mat-panel-description style="display: block !important;">
+                        <div style="color: rgba(0,0,0,.87) !important;">Particulars</div>
+                        <div>{{item.investment_section}} {{item.investment_description}}</div>
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div style="margin-top: 40px;">
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;">
+                          Maximum Limit
+                        </div>
+                        <div>
+                          {{item.investment_maxvalue}}
+                        </div>
+                      </div>
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;">
+                          Percentage
+                        </div>
+                        <div>
+                          <input type="text" value="" placeholder="" style="width:100%;">
+                        </div>
+                      </div>
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;">
+                          Declared Amount
+                        </div>
+                        <div>
+                          <input type="text" value="" placeholder="" style="width:100%;">
+                        </div>
+                      </div>
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;">
+                          Submitted Amount
+                        </div>
+                        <div>
+                          <input type="text" value="" placeholder="" style="width:100%;">
+                        </div>
+                      </div>
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;">
+                          Receipt Number
+                        </div>
+                        <div>
+                          <input type="text" value="" placeholder="" style="width:100%;">
+                        </div>
+                      </div>
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;margin-left: 0;">
+                          Attachments
+                        </div>
+                        <div>
+                          <input type="text" value="" placeholder="" style="width:80%;margin-right:5px;"><i class="fa fa-upload" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;margin-left: 0;">
+                          Approved Amount
+                        </div>
+                        <div>
+                          <input type="text" value="" placeholder="" style="width:61%;margin-right:5px;">
+                          <i class="fa fa-check-circle" aria-hidden="true" style="font-size:15px;margin-right:5px;color:#0bb939;"(click)=set($event)></i>
+                          <i class="fa fa-times-circle" aria-hidden="true" style="font-size:15px;margin-right:5px;color:#f10219;"></i>
+                          <i class="fa fa-plus-circle" aria-hidden="true" style="font-size:15px;color:#2ea24a;"></i>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </div>
+          <div class="card card-stats">
+            <div class="card-body ">
+              <div class="row">
+                <mat-accordion style="width:100%;">
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title style="display: block !important;">
+                        <div>S.No</div>
+                        <div style="color: rgba(0,0,0,.54) !important;">02</div>
+                      </mat-panel-title>
+                      <mat-panel-description style="display: block !important;">
+                        <div style="color: rgba(0,0,0,.87) !important;">Particulars</div>
+                        <div>Sec 80DD - Handicapped Dependent</div>
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div style="margin-top: 40px;">
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;">
+                          Maximum Limit
+                        </div>
+                        <div>
+                          1,000
+                        </div>
+                      </div>
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;">
+                          Declared Amount
+                        </div>
+                        <div>
+
+                        </div>
+                      </div>
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;">
+                          Submitted Amount
+                        </div>
+                        <div>
+
+                        </div>
+                      </div>
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;">
+                          Verified Amount
+                        </div>
+                        <div>
+
+                        </div>
+                      </div>
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;margin-left: 0;">
+                          Attachments
+                        </div>
+                        <div>
+                          attachment.png
+                        </div>
+                      </div>
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;margin-left: 0;">
+                          Status
+                        </div>
+                        <div>
+
+                        </div>
+                      </div>
+                      <div style="display:flex;margin-bottom: 1rem;">
+                        <div style="width:50%;margin-left: 0;">
+                          Action
+                        </div>
+                        <div>
+                          <mat-icon>file_upload</mat-icon>
+                        </div>
+                      </div>
+
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
+      </div>
+    <!-- </div> -->
+  </mat-card>
+</div>                 

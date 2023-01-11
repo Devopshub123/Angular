@@ -397,14 +397,15 @@ export class EmployeeProfileComponent implements OnInit {
           this.availablereportingmanagers = data[0];
         });
       });
-      this.personalInfoForm.get('employmentType')?.valueChanges.subscribe((selectedValue: number) => {
+    this.personalInfoForm
+      .get('employmentType')
+      ?.valueChanges.subscribe((selectedValue: number) => {
         if (selectedValue == 3) {
           this.isContractData = true;
-         }
-        else {
+        } else {
           this.isContractData = false;
-         }
-      })
+        }
+      });
     /** through employee directory */
     if (
       this.activeroute.snapshot.params.empId != 0 &&
@@ -422,7 +423,7 @@ export class EmployeeProfileComponent implements OnInit {
       this.getEmployeeEmploymentList();
       this.getEmployeeEducationList();
     }
-    this.getEmployeeImage();
+    //this.getEmployeeImage();
     this.getEmployeeEmailData();
   }
 
@@ -507,7 +508,7 @@ export class EmployeeProfileComponent implements OnInit {
           this.employeeInformationData.city
         );
         this.personalInfoForm.controls.rpincode.setValue(
-          this.employeeInformationData.pincode
+          this.employeeInformationData.pincode =='null' || null ? "":this.employeeInformationData.pincode
         );
 
         this.personalInfoForm.controls.personalemail.setValue(
@@ -535,7 +536,7 @@ export class EmployeeProfileComponent implements OnInit {
           this.employeeInformationData.pcity
         );
         this.personalInfoForm.controls.ppincode.setValue(
-          this.employeeInformationData.ppincode
+          this.employeeInformationData.ppincode =='null' || null ? "":this.employeeInformationData.ppincode
         );
         this.personalInfoForm.controls.mobileNo.setValue(
           this.employeeInformationData.contactnumber
@@ -617,9 +618,9 @@ export class EmployeeProfileComponent implements OnInit {
                 dateofbirth:
                   familydata[i].dateofbirth != 'null'
                     ? this.pipe.transform(
-                        familydata[i].dateofbirth,
-                        'yyyy-MM-dd'
-                      )
+                      familydata[i].dateofbirth,
+                      'yyyy-MM-dd'
+                    )
                     : '',
               });
             }
@@ -668,9 +669,9 @@ export class EmployeeProfileComponent implements OnInit {
                 effectivedate:
                   promotionsdata[i].effectivedate != 'null'
                     ? this.pipe.transform(
-                        promotionsdata[i].effectivedate,
-                        'yyyy-MM-dd'
-                      )
+                      promotionsdata[i].effectivedate,
+                      'yyyy-MM-dd'
+                    )
                     : '',
                 annualsalary: promotionsdata[i].annualsalary,
               });
@@ -731,16 +732,16 @@ export class EmployeeProfileComponent implements OnInit {
                 fromdate:
                   employementdata[i].fromdate != 'null'
                     ? this.pipe.transform(
-                        employementdata[i].fromdate,
-                        'yyyy-MM-dd'
-                      )
+                      employementdata[i].fromdate,
+                      'yyyy-MM-dd'
+                    )
                     : '',
                 todate:
                   employementdata[i].todate != 'null'
                     ? this.pipe.transform(
-                        employementdata[i].todate,
-                        'yyyy-MM-dd'
-                      )
+                      employementdata[i].todate,
+                      'yyyy-MM-dd'
+                    )
                     : '',
                 skills: employementdata[i].skills,
               });
@@ -771,9 +772,9 @@ export class EmployeeProfileComponent implements OnInit {
                 fromdate:
                   educationdata[i].fromdate != 'null'
                     ? this.pipe.transform(
-                        educationdata[i].fromdate,
-                        'yyyy-MM-dd'
-                      )
+                      educationdata[i].fromdate,
+                      'yyyy-MM-dd'
+                    )
                     : '',
                 todate:
                   educationdata[i].todate != 'null'
@@ -832,8 +833,22 @@ export class EmployeeProfileComponent implements OnInit {
       pstate: [''],
       pcity: [''],
       ppincode: [''],
-      mobileNo: ['',[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
-      alternateMobileNo: ['',[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
+      mobileNo: [
+        '',
+        [
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          Validators.pattern('^(91)?[4-9][0-9]{9}'),
+        ],
+      ],
+      alternateMobileNo: [
+        '',
+        [
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          Validators.pattern('^(91)?[4-9][0-9]{9}'),
+        ],
+      ],
       officeemail: [''],
       usertype: [''],
       designation: [''],
@@ -851,7 +866,14 @@ export class EmployeeProfileComponent implements OnInit {
   createFamilyForm() {
     this.candidateFamilyForm = this.formBuilder.group({
       familyfirstname: [''],
-      familycontact: ['',[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
+      familycontact: [
+        '',
+        [
+          Validators.minLength(10),
+          Validators.maxLength(10),
+          Validators.pattern('^(91)?[4-9][0-9]{9}'),
+        ],
+      ],
       familygender: [''],
       relation: [''],
       familystatus: ['Alive'],
@@ -1042,7 +1064,8 @@ export class EmployeeProfileComponent implements OnInit {
           this.employeeJoinDate,
           'yyyy-MM-dd hh:mm:ss'
         ),
-        noticeperiod: parseInt(this.personalInfoForm.controls.noticePeriod.value ?? 0
+        noticeperiod: parseInt(
+          this.personalInfoForm.controls.noticePeriod.value ?? 0
         ),
         //noticeperiod: 0,
         designation: parseInt(this.designationId),
@@ -1321,7 +1344,7 @@ export class EmployeeProfileComponent implements OnInit {
             'yyyy-MM-dd'
           )),
         //this.saveWorkExperience();
-      this.clearExperienceValidators();
+        this.clearExperienceValidators();
       this.clearWorkExperience();
     } else {
       if (this.experienceForm.valid) {
@@ -1338,7 +1361,7 @@ export class EmployeeProfileComponent implements OnInit {
           skills: this.experienceForm.controls.jobDescription.value,
           designation: this.experienceForm.controls.designation.value,
         });
-       // this.saveWorkExperience();
+        // this.saveWorkExperience();
         this.workExperienceDataSource = new MatTableDataSource(
           this.workExperienceDetails
         );
@@ -1602,7 +1625,7 @@ export class EmployeeProfileComponent implements OnInit {
       position: { top: `70px` },
       data: { Message: errormessages, flag: flag, url: url },
     });
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => { });
   }
 
   alphabetKeyPress(event: any) {
@@ -1770,7 +1793,7 @@ export class EmployeeProfileComponent implements OnInit {
             var info = JSON.stringify(data);
             this.mainService
               .removeDocumentOrImagesForEMS(info)
-              .subscribe((result: any) => {});
+              .subscribe((result: any) => { });
             // this.mainService.removeDocumentOrImagesForEMS(data).subscribe(result => {})
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
@@ -1901,7 +1924,7 @@ export class EmployeeProfileComponent implements OnInit {
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0]);
               let email = JSON.stringify(this.employeeEmailData);
-               this.formData.append('info', info);
+              this.formData.append('info', info);
               this.formData.append('file', this.file, this.file.name);
               this.formData.append('email', email);
               this.mainService
@@ -1914,7 +1937,7 @@ export class EmployeeProfileComponent implements OnInit {
                     if (this.editDockinfo) {
                       this.mainService
                         .removeDocumentOrImagesForEMS(this.editDockinfo)
-                        .subscribe((data) => {});
+                        .subscribe((data) => { });
                     }
                     let dialogRef = this.dialog.open(ReusableDialogComponent, {
                       position: { top: `70px` },
@@ -2144,7 +2167,7 @@ export class EmployeeProfileComponent implements OnInit {
                   if (this.profileId) {
                     this.companyService
                       .removeImage(this.profileInfo)
-                      .subscribe((res) => {});
+                      .subscribe((res) => { });
                   }
                   let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: { top: `70px` },
@@ -2161,12 +2184,11 @@ export class EmployeeProfileComponent implements OnInit {
                 this.file = null;
                 this.getEmployeeImage();
                 this.isRemoveImage = true;
-
               });
             } else {
               this.spinner.hide();
               this.LM.deleteFilesMaster(result.data[0].id).subscribe(
-                (data) => {}
+                (data) => { }
               );
               this.getEmployeeImage();
               let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -2189,9 +2211,10 @@ export class EmployeeProfileComponent implements OnInit {
   }
   getEmployeeEmailData() {
     this.employeeEmailData = [];
-    this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
+    this.emsService
+      .getEmployeeEmailDataByEmpid(this.employeeId)
       .subscribe((res: any) => {
         this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
-      })
+      });
   }
 }

@@ -1,0 +1,209 @@
+<div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto">
+    <mat-card fxFill>
+      <mat-card-header class="">
+        <mat-card-title class="title custom-payRoll-header">
+          <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Pay Schedule</b>
+          </p>
+
+        </mat-card-title>
+      </mat-card-header>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">
+        <form [formGroup]="payGroupRequestForm" autocomplete="off" style="width:100%">
+            <div>
+                <div fxLayout="column" fxFlex="3">
+                </div>
+                <div fxLayout="column" fxFlex="45" class="custom-payroll-div">
+                    <div>
+                            <p>
+                                <mat-form-field appearance="outline" style="width: 100%;">
+                                    <mat-label>Payment Frequency</mat-label>
+                                    <mat-select formControlName="paymentFrequency" [disabled]="true">
+                                        <!-- <mat-option value="Weekly">Weekly</mat-option>
+                                        <mat-option value="Biweekly">Biweekly</mat-option> -->
+                                        <mat-option value="Monthly">Monthly</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </p>
+                            <p>
+                                <label>Calculate monthly salary based on*</label>
+                            </p>
+                            <p>
+                                    <mat-radio-group formControlName="caluculateSalaryBasedON" style="display: grid;">
+                                        <mat-radio-button class="mr-2"  color="primary" *ngFor="let halfs of arrayValue;index as i;" (change)="status(halfs.Value,'monthly')"  [value]="halfs.Value"  >{{halfs.name}}</mat-radio-button>
+                                    </mat-radio-group>
+                            </p>
+                            <p class="mob-pe">
+                                <label>Pay your employee on*</label>
+                             </p>
+                             <p class="custom-radio-pay-empoyee">
+                                <mat-radio-group formControlName="pay_employee" style="display: grid;">
+                                    <mat-radio-button class="mr-2"  color="primary" *ngFor="let halfs of arrayPayValue;index as i;" (change)="status(halfs.Value,'salary')"  [value]="halfs.Value"  >{{halfs.name}}</mat-radio-button>
+                                </mat-radio-group>
+                        </p>
+                        <p *ngIf="payGroupRequestForm.controls.pay_employee.value == '1'">
+                            <mat-form-field appearance="outline" style="width: 100%;">
+                                <mat-label>Select Day</mat-label>
+                                <mat-select formControlName="days_range">
+                                  <mat-option value="1">1</mat-option>
+                                  <mat-option value="2">2</mat-option>
+                                  <mat-option value="3">3</mat-option>
+                                  <mat-option value="4">4</mat-option>
+                                  <mat-option value="5">5</mat-option>
+                                  <mat-option value="6">6</mat-option>
+                                  <mat-option value="7">7</mat-option>
+                                  <mat-option value="8">8</mat-option>
+                                  <mat-option value="9">9</mat-option>
+                                  <mat-option value="10">10</mat-option>
+                                  <mat-option value="11">11</mat-option>
+                                  <mat-option value="12">12</mat-option>
+                                  <mat-option value="13">13</mat-option>
+                                  <mat-option value="14">14</mat-option>
+                                  <mat-option value="15">15</mat-option>
+                                  <mat-option value="16">16</mat-option>
+                                  <mat-option value="17">17</mat-option>
+                                  <mat-option value="18">18</mat-option>
+                                  <mat-option value="19">19</mat-option>
+                                  <mat-option value="20">20</mat-option>
+                              </mat-select>
+
+                            </mat-form-field>
+                         </p>
+                         <p *ngIf="payGroupRequestForm.controls.pay_employee.value == '1'">
+                            If Payday is non working day,Pay on
+
+                         </p>
+                         <p *ngIf="payGroupRequestForm.controls.pay_employee.value == '1'">
+                            <mat-radio-group fxLayout="row" formControlName="nonWorkingDayPaymentOption" style="display: grid;">
+
+                                <mat-radio-button  class="mr-2"  color="primary"   [value]="false"  >Previous Working day</mat-radio-button>
+                                <mat-radio-button class="mr-2"  color="primary"  [value]="true"  >Next Working day</mat-radio-button>
+                            </mat-radio-group>
+
+                        </p>
+                      </div>
+                </div>
+                <div fxLayout="column" fxFlex="4">
+                </div>
+                <div fxLayout="column" fxFlex="45" class="custom-payroll-div">
+                    <div>
+                        <p>
+                            <label>Do you want to have same payroll and leave window ?</label>
+                         </p>
+                         <p>
+                            <mat-radio-group fxLayout="row" formControlName="payroll_leavewindow" style="display: grid;">
+
+                                <mat-radio-button  class="mr-2"  color="primary"   [value]="true"  >Yes</mat-radio-button>
+                                <mat-radio-button class="mr-2"  color="primary"  [value]="false"  >No</mat-radio-button>
+                            </mat-radio-group>
+                         </p>
+                         <p style="display: -webkit-box" fxLayout="row" fxLayoutAlign="space-evenly center">
+                           <!--<mat-form-field appearance="outline" style="width: 100%;">-->
+                            <label style="margin-right: auto">Company Payroll Cycle</label>
+                            <mat-form-field appearance="outline" ><input type="text" matInput [readonly]="true"  class="form-control" formControlName="companyPayrollCycle" placeholder="" style="background-color: #e8e8e8;;"></mat-form-field>
+                         </p>
+                         <p><label>Payroll Window</label></p>
+                         <p fxLayout="row" fxLayoutAlign="space-around center" >
+                            <mat-form-field appearance="outline" >
+                                <mat-label>From Date</mat-label>
+                                <input formControlName="payrollFromDate" [readonly]="true"  matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" >
+                                <mat-label>To Date</mat-label>
+
+                                    <input formControlName="payrollToDate" [readonly]="true" matInput placeholder="" >
+
+
+                            </mat-form-field>
+
+                         </p>
+                         <p *ngIf="payGroupRequestForm.controls.payroll_leavewindow.value"><label>Leave Window</label></p>
+                        <p *ngIf="!payGroupRequestForm.controls.payroll_leavewindow.value"><label>Select Leave Window</label></p>
+                        <p fxLayout="row" fxLayoutAlign="space-around center"  *ngIf="payGroupRequestForm.controls.payroll_leavewindow.value">
+                            <mat-form-field appearance="outline" >
+                                <mat-label>From Date</mat-label>
+                                <input formControlName="leaveWindowStartDate" [readonly]="true"  matInput placeholder="" >
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" >
+                                <mat-label>To Date</mat-label>
+
+                                    <input formControlName="leaveWindowEndDate" [readonly]="true" matInput placeholder="" >
+
+
+                            </mat-form-field>
+
+                         </p>
+                      <p fxLayout="row"  fxLayoutAlign="space-around center" *ngIf="!payGroupRequestForm.controls.payroll_leavewindow.value" >
+                            <mat-form-field appearance="outline" >
+                                <mat-label>Previous Month</mat-label>
+                                
+                                <mat-select   formControlName="leaveWindowStartDate" [disabled]="payGroupRequestForm.controls.payroll_leavewindow.value === false ? false:true">
+                                    <mat-option value="20">20</mat-option>
+                                    <mat-option value="21">21</mat-option>
+                                    <mat-option value="22">22</mat-option>
+                                  <mat-option value="23">23</mat-option>
+                                  <mat-option value="24">24</mat-option>
+                                  <mat-option value="25">25</mat-option>
+                                  <mat-option value="26">26</mat-option>
+                                  <mat-option value="27">27</mat-option>
+                                  <mat-option value="28">28</mat-option>
+                                  <mat-option value="LAST_BUT_2_DAYS">Last But 2 Days</mat-option>
+                                  <mat-option value="LAST_BUT_1_DAY">Last But 1 Day</mat-option>
+                                  <mat-option value="LAST_DAY">Last Day</mat-option>
+                                </mat-select>
+
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" >
+                                <mat-label>Present Month</mat-label>
+                                <mat-select   formControlName="leaveWindowEndDate" [disabled]="true">
+                                  <mat-option value="19">19</mat-option>   
+                                  <mat-option value="20">20</mat-option>
+                                  <mat-option value="21">21</mat-option>
+                                  <mat-option value="22">22</mat-option>
+                                  <mat-option value="23">23</mat-option>
+                                  <mat-option value="24">24</mat-option>
+                                  <mat-option value="25">25</mat-option>
+                                  <mat-option value="26">26</mat-option>
+                                  <mat-option value="27">27</mat-option>
+                                  <mat-option value="28">28</mat-option>
+                                  <mat-option value="LAST_BUT_3_DAYS">Last But 3 Days</mat-option>
+                                  <mat-option value="LAST_BUT_2_DAYS">Last But 2 Days</mat-option>
+                                  <mat-option value="LAST_BUT_1_DAY">Last But 1 Day</mat-option>
+                                  <mat-option value="LAST_DAY">Last Day</mat-option>
+                                </mat-select>
+                                <!-- <input formControlName="leaveWindowEndDate" [readonly]="true" matInput placeholder="" > -->
+                            </mat-form-field>
+                         </p>             
+                </div>
+
+                </div>
+
+            </div>
+            <div class="row tab-lap-desk-show" style="margin-bottom: 51px !important;margin-top: -47px;">
+                <div class="col-sm-6 text-right" style="padding:0px">
+                <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue;" (click)="setPayGroup()"   type="submit">
+                    <span>Save</span>
+                </button>
+                </div>
+                <div class="col-sm-6">
+                <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue;" (click)="cancel()">
+                    <span >Cancel</span>
+                </button>
+                </div>
+            </div>
+            <div class="row mob-port-show mob-buttons" style="margin-bottom: 15px !important;">
+                <div class="col-sm-6 text-center mob-buttons-padding" >
+                <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue;width:50%;" (click)="setPayGroup()"   type="submit">
+                    <span>Save</span>
+                </button>
+                </div>
+                <div class="col-sm-6 text-center">
+                <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue;width:50%;" (click)="cancel()">
+                    <span >Cancel</span>
+                </button>
+                </div>
+            </div>
+        </form>
+      </div>
+    </mat-card>
+</div>

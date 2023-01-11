@@ -1,0 +1,225 @@
+<div fxLayout="column" fxFill class="custom-pgr-height-auto">
+    <mat-card fxFill>
+      <mat-card-header class="">
+        <mat-card-title class="title custom-payRoll-header"> 
+          <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Professional Tax</b>
+          </p>
+          <!-- <p style="float: left;"><mat-icon (click)="onRequestClick()" style="cursor: pointer;">add_circle</mat-icon></p> -->
+        </mat-card-title>
+      </mat-card-header>   
+      <div class="custom-card">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" >  
+        
+        <div fxLayout="column" fxFlex.xs="100" fxFlex="10" class="mx-2 my-2 ">
+         <label style="margin: auto;">Employee</label>
+         </div>
+         <!-- <ng-container > -->
+         <div  fxFlex.xs="100" fxFlex="45" class="mx-2 my-2 custom-payroll-div" >
+          <mat-expansion-panel hideToggle *ngFor="let leave of employeeprofessionaltax;index as i;">
+            <mat-expansion-panel-header style="color: #fff !important; background-color: #f8f9fc !important; border-bottom: 1px solid #e3e6f0 !important;" (click)="validateExpansion('employee',i)">
+              <mat-panel-title style="margin-top:10px;color: #4e73df!important;font-weight: 500;">
+                <span class="material-icons" *ngIf="isEmployeeExpansion[i]">add_circle</span>
+                <span class="material-icons" *ngIf="!isEmployeeExpansion[i]">remove_circle</span>
+                
+                <p>{{leave.state}} - {{leave.work_locations}}</p>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-table [dataSource]="dataSource1[i]" class="mat-elevation-z8" style="margin-bottom:1rem;margin-top: 1rem;">
+              <ng-container matColumnDef="Start_Range">
+                <mat-header-cell *matHeaderCellDef class="custom-investment-th" > Start Range </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="custom-investment-td" > <span matInput placeholder="" maxlength="100">{{element.salary_from}}</span></mat-cell>
+              </ng-container>
+            
+              <!-- End_Range Column -->
+              <ng-container matColumnDef="End_Range">
+                <mat-header-cell *matHeaderCellDef class="custom-investment-th"> End Range </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="custom-investment-td"> <span matInput placeholder="" maxlength="100" >{{element.salary_to==null?'-':element.salary_to}}</span></mat-cell>
+              </ng-container>
+=
+              <!-- Monthly Tax Amount Column -->
+              <ng-container matColumnDef="Monthly_Tax_Amount">
+                  <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Monthly Tax Amount </mat-header-cell>
+                  <mat-cell *matCellDef="let element" class="custom-investment-td"> <span  matInput placeholder="" maxlength="100">{{element.tax}}</span> 
+                  </mat-cell>    
+              </ng-container>
+              <!-- Description  Column -->
+              <ng-container matColumnDef="Description">
+                  <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Description </mat-header-cell>
+                  <mat-cell *matCellDef="let element" class="custom-investment-td" > 
+                    <span matInput placeholder="" maxlength="100"*ngIf=element.gender_dependent>For {{element.gender_value}}</span> 
+                    <!-- <span matInput placeholder="" maxlength="100"*ngIf=element.month_dependent> ({{element.month_value}})</span>  -->
+                  </mat-cell>    
+              </ng-container>              
+           
+
+              <mat-header-row class="dashboard-1 custom-investment-header" *matHeaderRowDef="displayedColumnsRequest"></mat-header-row>
+              <mat-row 
+              *matRowDef="let row; columns: displayedColumnsRequest;"></mat-row>
+       </mat-table>   
+
+          </mat-expansion-panel>
+         </div>
+        <!-- </ng-container> -->
+         <!-- <div  fxFlex.xs="100" fxFlex="45" class="mx-2 my-2 custom-payroll-div" >
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header style="color: #fff !important; background-color: #f8f9fc !important; border-bottom: 1px solid #e3e6f0 !important;" (click)="validateExpansion('employee',1)">
+              <mat-panel-title style="margin-top:10px;color: #4e73df!important;font-weight: 500;">
+                <span class="material-icons" *ngIf="isEmployeeExpansion[1]">add_circle</span>
+                <span class="material-icons" *ngIf="!isEmployeeExpansion[1]">remove_circle</span>
+                <p>Andhra Pradesh - Vijaywada, Vizag</p>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-table [dataSource]="dataSource1" class="mat-elevation-z8" style="margin-bottom:1rem;margin-top: 1rem;">
+            
+              <ng-container matColumnDef="Start_Range">
+                <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Start Range </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="custom-investment-td"> <span matInput placeholder="" maxlength="100">{{element.Start_Range}}</span></mat-cell>
+              </ng-container>
+            
+              
+              <ng-container matColumnDef="End_Range">
+                <mat-header-cell *matHeaderCellDef class="custom-investment-th"> End Range </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="custom-investment-td"> <span matInput placeholder="" maxlength="100" >{{element.End_Range}}</span></mat-cell>
+              </ng-container>
+
+             
+              <ng-container matColumnDef="Monthly_Tax_Amount">
+                  <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Monthly Tax Amount </mat-header-cell>
+                  <mat-cell *matCellDef="let element" class="custom-investment-td"> <span  matInput placeholder="" maxlength="100">{{element.Monthly_Tax_Amount}}</span> 
+                  </mat-cell>    
+              </ng-container>
+             
+              <ng-container matColumnDef="Description">
+                  <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Description </mat-header-cell>
+                  <mat-cell *matCellDef="let element" class="custom-investment-td"> <span matInput placeholder="" maxlength="100">{{element.Description}}</span> 
+                  </mat-cell>    
+              </ng-container>              
+           
+
+              <mat-header-row class="dashboard-1 custom-investment-header" *matHeaderRowDef="displayedColumnsRequest"></mat-header-row>
+              <mat-row 
+              *matRowDef="let row; columns: displayedColumnsRequest;"></mat-row>
+            </mat-table>   
+
+          </mat-expansion-panel>
+        </div> -->
+        
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" >  
+        
+        <div fxLayout="column" fxFlex.xs="100" fxFlex="10" class="mx-2 my-2 ">
+         <label style="margin: auto;">Employer</label>
+         </div>
+         <!-- <ng-container > -->
+         <div  fxFlex.xs="100" fxFlex="45" class="mx-2 my-2 custom-payroll-div" >
+          <mat-expansion-panel hideToggle *ngFor="let leave of datas;index as i;">
+            <mat-expansion-panel-header style="color: #fff !important; background-color: #f8f9fc !important; border-bottom: 1px solid #e3e6f0 !important;" (click)="validateExpansion('employer',i)">
+              <mat-panel-title style="margin-top:10px;color: #4e73df!important;font-weight: 500;">
+                <span class="material-icons" *ngIf="isEmployerExpansion[i]">add_circle</span>
+                <span class="material-icons" *ngIf="!isEmployerExpansion[i]">remove_circle</span>
+                <p>{{leave.state}}</p>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-card >
+              
+              <!-- <mat-divider></mat-divider> -->
+             
+              <!-- <mat-divider></mat-divider> -->
+              <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px">
+                  <mat-label>Freqency</mat-label>
+                  <mat-label>Yearly Rs {{leave.tax_value+'/-'}}</mat-label>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between" style="padding:5px" *ngIf=leave.establishment_dependant>
+                <mat-label>If Establishment is located in :</mat-label>
+                <mat-label>{{leave.establishment_type}} - Rs {{leave.tax_value}}/-</mat-label>
+            </div>
+              
+              <div fxLayout="row" fxLayoutAlign="space-between"  style="padding:5px">
+                  <mat-label>Payment due</mat-label>
+                  <mat-label>Every year september30</mat-label>
+                  
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between"  style="padding:5px" *ngIf=leave.employee_count_dependant>
+                <mat-label>Establishment with employee count :</mat-label>
+                <mat-label >For {{leave.employee_count_to_value}} employees</mat-label>
+                
+            </div>
+              <div fxLayout="row" fxLayoutAlign="space-between"  style="padding:5px">
+                <mat-label>Return due</mat-label>
+                <mat-label>Not required</mat-label>
+            </div>
+
+
+
+          </mat-card>
+            <!-- <mat-table  class="mat-elevation-z8" style="margin-bottom:1rem;margin-top: 1rem;">
+             
+              <ng-container matColumnDef="Branch_Name">
+                <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Branch Name </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="custom-investment-td"> <span matInput placeholder="" maxlength="100">{{element.tax_value}}</span></mat-cell>
+              </ng-container>
+            
+         
+              
+              <ng-container matColumnDef="Yearly_Tax_Amount">
+                  <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Yearly Tax Amount </mat-header-cell>
+                  <mat-cell *matCellDef="let element" class="custom-investment-td"> <span  matInput placeholder="" maxlength="100">{{element.Yearly_Tax_Amount}}</span> 
+                  </mat-cell>    
+              </ng-container>
+             
+                
+              <ng-container matColumnDef="Description">
+                  <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Description </mat-header-cell>
+                  <mat-cell *matCellDef="let element" class="custom-investment-td"> <span matInput placeholder="" maxlength="100">{{element.Description}}</span> 
+                  </mat-cell>    
+              </ng-container>  
+              <mat-header-row class="dashboard-1 custom-investment-header" *matHeaderRowDef="displayedColumnsEmployer"></mat-header-row>
+              <mat-row 
+              *matRowDef="let row; columns: displayedColumnsEmployer;"></mat-row>
+       </mat-table>    -->
+
+          </mat-expansion-panel>
+         </div>
+        <!-- </ng-container> -->
+         <!-- <div  fxFlex.xs="100" fxFlex="45" class="mx-2 my-2 custom-payroll-div" >
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header style="color: #fff !important; background-color: #f8f9fc !important; border-bottom: 1px solid #e3e6f0 !important;" (click)="validateExpansion('employer',1)">
+              <mat-panel-title style="margin-top:10px;color: #4e73df!important;font-weight: 500;">
+                <span class="material-icons" *ngIf="isEmployerExpansion[1]">add_circle</span>
+                <span class="material-icons" *ngIf="!isEmployerExpansion[1]">remove_circle</span>
+                <p>Andhra Pradesh - Vijaywada, Vizag</p>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-table [dataSource]="dataSource2" class="mat-elevation-z8" style="margin-bottom:1rem;margin-top: 1rem;">
+              <ng-container matColumnDef="Branch_Name">
+                <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Branch Name </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="custom-investment-td"> <span matInput placeholder="" maxlength="100">{{element.Branch_Name}}</span></mat-cell>
+              </ng-container>
+            
+         
+             
+              <ng-container matColumnDef="Yearly_Tax_Amount">
+                  <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Yearly Tax Amount </mat-header-cell>
+                  <mat-cell *matCellDef="let element" class="custom-investment-td"> <span  matInput placeholder="" maxlength="100">{{element.Yearly_Tax_Amount}}</span> 
+                  </mat-cell>    
+              </ng-container>
+             
+             
+              <ng-container matColumnDef="Description">
+                  <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Description </mat-header-cell>
+                  <mat-cell *matCellDef="let element" class="custom-investment-td"> <span matInput placeholder="" maxlength="100">{{element.Description}}</span> 
+                  </mat-cell>    
+              </ng-container>  
+              <mat-header-row class="dashboard-1 custom-investment-header" *matHeaderRowDef="displayedColumnsEmployer"></mat-header-row>
+              <mat-row 
+              *matRowDef="let row; columns: displayedColumnsEmployer;"></mat-row>
+       </mat-table>   
+ 
+
+          </mat-expansion-panel>
+        </div> -->
+        
+      </div>
+      </div>
+    </mat-card>
+</div>                    
