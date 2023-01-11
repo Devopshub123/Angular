@@ -1,193 +1,188 @@
 <div fxLayout="column">
-    <form [formGroup]="announcementForm" autocomplete="off">
-        <mat-card-header>
-          <mat-card-title > Announcements </mat-card-title>
-        </mat-card-header>
-        <div *ngIf="ishide">
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+    <mat-card>
+        <form [formGroup]="announcementForm" autocomplete="off">
+            <mat-card-header class="headerbox">
+                <div fxLayout="row" fxFlex="50">
+                    <mat-card-title class="title"> Announcements </mat-card-title>
+                </div>
+            </mat-card-header>
 
-                <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
-                  <mat-label>Topic</mat-label>
-                  <mat-select  formControlName="topic" [disabled]="iseditingdata" required>
-                    <ng-container>
-                        <div *ngFor="let a of announcementlist">
-                            <mat-option [value]="a.id">{{a.topic}}</mat-option>
-                        </div>
-                    </ng-container>
-                  </mat-select>
-                  <mat-error class="con-error"
-                  *ngIf="announcementForm.controls.topic.errors?.required || announcementForm.controls.topic.errors?.['whitespace']">
-                    {{EM2}}
-                  </mat-error>
-                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                  <mat-label>Title</mat-label>
-                  <input formControlName="title" required [readonly]="isviewdata" matInput placeholder="" maxlength="30">
-                  <mat-error class="con-error" *ngIf="announcementForm.controls.title.errors?.required">
-                    {{EM1}}
-                  </mat-error>
-                </mat-form-field>
+            <div *ngIf="ishide" class="tableP">
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                        <mat-label>Topic</mat-label>
+                        <mat-select formControlName="topic" [disabled]="iseditingdata" required>
+                            <ng-container>
+                                <div *ngFor="let a of announcementlist">
+                                    <mat-option [value]="a.id">{{ a.topic }}</mat-option>
+                                </div>
+                            </ng-container>
+                        </mat-select>
+                        <mat-error class="con-error"
+                            *ngIf="announcementForm.controls.topic.errors?.required || announcementForm.controls.topic.errors?.['whitespace']">
+                            {{ EM2 }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                        <mat-label>Title</mat-label>
+                        <input formControlName="title" required [readonly]="isviewdata" matInput placeholder=""
+                            maxlength="30" />
+                        <mat-error class="con-error" *ngIf="announcementForm.controls.title.errors?.required">
+                            {{ EM1 }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
 
-              </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                        <mat-label>Publish From </mat-label>
+                        <input matInput readonly required [matDatepicker]="date" [disabled]="isviewdata" [min]="min"
+                            placeholder="DD-MM-YYYY" formControlName="fromdate" (click)="date.open()" />
 
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
+                        <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #date></mat-datepicker>
+                        <mat-error class="con-error" *ngIf="announcementForm.controls.fromdate.errors?.required">
+                            {{ EM2 }}
+                        </mat-error>
+                    </mat-form-field>
 
+                    <mat-form-field fxFlex.xs="100%" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                        <mat-label>Publish To</mat-label>
+                        <input required matInput readonly [matDatepicker]="todate" [disabled]="isviewdata"
+                            [min]="minAnounceDate" placeholder="DD-MM-YYYY" formControlName="todate"
+                            (click)="todate.open()" />
+                        <mat-datepicker-toggle class="datepicker" matSuffix [for]="todate">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #todate></mat-datepicker>
+                        <mat-error class="con-error" *ngIf="announcementForm.controls.todate.errors?.required">
+                            {{ EM2 }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <label style="margin-left: 10px">Description</label><br />
 
-              <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                  <mat-label>Publish From </mat-label>
-                  <input matInput readonly required [matDatepicker]="date" [disabled]="isviewdata"  [min]="min"
-                      placeholder="DD-MM-YYYY" formControlName="fromdate"   (click)="date.open()">
-
-                   <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
-                  </mat-datepicker-toggle>
-                  <mat-datepicker #date></mat-datepicker>
-                  <mat-error class="con-error" *ngIf="announcementForm.controls.fromdate.errors?.required">
-                    {{EM2}}
-                  </mat-error>
-              </mat-form-field>
-
-              <mat-form-field fxFlex.xs="100%" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                <mat-label>Publish To</mat-label>
-                <input required matInput readonly [matDatepicker]="todate" [disabled]="isviewdata"
-                    [min]="minAnounceDate" placeholder="DD-MM-YYYY"
-                    formControlName="todate" (click)="todate.open()" />
-                <mat-datepicker-toggle class="datepicker" matSuffix [for]="todate">
-                </mat-datepicker-toggle>
-                <mat-datepicker #todate></mat-datepicker>
-                <mat-error class="con-error" *ngIf="announcementForm.controls.todate.errors?.required">
-                    {{EM2}}
-                  </mat-error>
-            </mat-form-field>
-
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                    <angular-editor style="margin-left: 10px" [config]="config" [disabled]="isviewdata"
+                        formControlName="description"></angular-editor><br />
+                </div>
+                <mat-error class="con-error" style="font-size: 11px; padding-left: 1%" *ngIf="
+            issubmit && announcementForm.controls.description.errors?.required
+          ">
+                    {{ EM1 }}
+                </mat-error>
+<br>
+                <div fxLayoutAlign="center">
+                    <button class="btn btn-primary mr-2 mb-2 custom" type="submit" (click)="draft()"
+                        *ngIf="issavedraft">
+                        <span>Save as draft</span>
+                    </button>
+                    <button class="btn btn-primary mr-2 mb-2" type="submit" *ngIf="isedit" (click)="submit()">
+                        <span>Update</span>
+                    </button>
+                    <button class="btn btn-primary mr-2 mb-2" type="submit" *ngIf="ispublish"
+                        (click)="submit()">
+                        <span>Submit</span>
+                    </button>
+                    <button class="btn btn-primary mr-2 mb-2 custom" type="submit" *ngIf="isrepublish"
+                        (click)="submit()">
+                        <span style="text-align: center">RePublish</span>
+                    </button>
+                    <button class="btn btn-danger mr-2 mb-2" (click)="close()">
+                        <span *ngIf="isviewdata">Close</span>
+                        <span *ngIf="!isviewdata">Cancel</span>
+                    </button>
+                    <br />
+                </div>
             </div>
+<br>
+            <div fxLayout="column" *ngIf="isview" class="tableP">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center" style="height: 50px;">
+                    <span style="padding-left: 1%" fxFlex="50">
+                     <mat-form-field fxFlex="50" fxFlex.xs="100%" appearance="outline">
+                         <mat-label>Search</mat-label>
+                         <input matInput (keyup)="applyFilter($event)" placeholder="" >
+                         <mat-icon matSuffix>search</mat-icon>
+                     </mat-form-field>
+                 </span>
+                 <span fxLayoutAlign="end" fxFlex="50">
+                     <button class="btn btn-primary mr-2 mb-2"
+                         (click)="Add()" type="button">
+                         <span>Add</span><br>
+                     </button>
+                 </span>
+                 </div>
+                <div fxLayout="column" class="tableP">
+                    <div class="mat-elevation-z1">
+                        <table mat-table [dataSource]="dataSource" matSort>
+                            <ng-container matColumnDef="sno">
+                                <th mat-header-cell *matHeaderCellDef>S.No</th>
+                                <td mat-cell *matCellDef="let element; let i = index">
+                                    {{ i + 1 + paginator.pageIndex * paginator.pageSize }}
+                                </td>
+                            </ng-container>
 
-              <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center"  >
-
-                  <div style="padding-bottom: 1.34375em;margin-left: 10px" >
-                    <label style="margin-left: 10px">Uploadfile</label><br>
-                      <input style="margin-left: 10px" type="file" formControlName="file"  required single> &nbsp;
-                       <mat-icon   title="delete" *ngIf="announcementForm.controls.file.value"  (click)="delete()">delete</mat-icon> &nbsp;
-
-
-                  </div>
-
-              </div> -->
-              <label style="margin-left: 10px">Description</label><br>
-
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center"  >
-
-                <!-- <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline"> -->
-                  <!-- <mat-label>Description</mat-label> -->
-                  <!-- <textarea type="text" formControlName="description"  matInput placeholder="Description"></textarea> -->
-                  <angular-editor style="margin-left: 10px" [config]="config" [disabled]="isviewdata" formControlName="description"></angular-editor><br>
-
-                <!-- </mat-form-field> [config]="config" -->
-
-
-
-
-              </div>
-              <mat-error class="con-error" style="font-size: 11px;padding-left: 1%;" *ngIf="issubmit && announcementForm.controls.description.errors?.required">
-                {{EM1}}
-              </mat-error>
-
-
-
-
-              <div fxLayoutAlign="center">
-                <button  class="m-1 mat-stroked-button button-draft" type="submit" (click)="draft()" *ngIf="issavedraft">
-                    <span>Save as draft</span>
-                </button>
-                <button class="m-1 mat-stroked-button button-save" type="submit" *ngIf="isedit" (click)="submit()">
-                    <span>Update</span>
-                </button>
-                <button class="m-1 mat-stroked-button button-save" type="submit" *ngIf="ispublish" (click)="submit()">
-                    <span>Submit</span>
-                </button>
-                <button class="m-1 mat-stroked-button button-save" type="submit" *ngIf="isrepublish" (click)="submit()">
-                    <span style="text-align: center;">RePublish</span>
-                </button>
-                <button class="m-1 mat-stroked-button button-clear" (click)="close()">
-                    <span *ngIf='isviewdata'>Close</span>
-                    <span *ngIf='!isviewdata'>Cancel</span>
-                </button>
-                <br />
+                            <ng-container matColumnDef="topic">
+                                <th mat-header-cell *matHeaderCellDef>Topic</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <span>{{ row.topic }} </span>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <span>{{ row.title }} </span>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="publishedon">
+                                <th mat-header-cell *matHeaderCellDef>Published From</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <span>{{ row.fromdate | date : "dd-MM-yyyy" }} </span>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="publishedTo">
+                                <th mat-header-cell *matHeaderCellDef>Published To</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <span>{{ row.todate | date : "dd-MM-yyyy" }} </span>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                    Status
+                                </th>
+                                <td mat-cell *matCellDef="let row">
+                                    <span>{{ row.status }} </span>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let row">
+                                    <mat-icon title="Edit" (click)="edit($event, row)"
+                                        *ngIf="row.status == 'Saved as draft'">edit</mat-icon>
+                                    <mat-icon title="Edit" (click)="edit($event, row)"
+                                        *ngIf="row.status == 'Published'">edit</mat-icon>
+                                    <mat-icon title="View" (click)="view($event, row)">visibility</mat-icon>
+                                    <mat-icon title="Republish" (click)="republish($event, row)"
+                                        *ngIf="row.status == 'Completed'">publish</mat-icon>
+                                    <mat-icon class="mr-2" title="Delete" (click)="delete($event, row)"
+                                        *ngIf="row.status == 'Save as draft'">delete</mat-icon>
+                                    <mat-icon title="Stop" (click)="stop($event, row)"
+                                        *ngIf="row.status == 'Published'">not_interested</mat-icon>
+                                    <!-- <mat-icon title="Publish"  (click)="republish($event,row)" *ngIf="row.status=='Save as draft'">publish</mat-icon> -->
+                                </td>
+                            </ng-container>
+                            <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="5" style="text-align: center">
+                                    No data found
+                                </td>
+                            </tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div fxLayout="column" *ngIf="isview">
-            <br>
-            <div fxLayout="row" fxLayoutAlign="end">
-                <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue" (click)="Add()" type="button">
-                    <span>Add</span>
-                </button>
-            </div><br>
-            <div fxLayout="column" class="tableP">
-            <div class="mat-elevation-z1">
-                <table mat-table [dataSource]="dataSource" matSort>
-                    <ng-container matColumnDef="sno">
-                        <th mat-header-cell *matHeaderCellDef>S.No</th>
-                        <td mat-cell *matCellDef="let element; let i=index;">
-                            {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="topic">
-                        <th mat-header-cell *matHeaderCellDef > Topic </th>
-                        <td mat-cell *matCellDef="let row" >
-                            <span>{{row.topic}} </span>
-
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="title">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Title </th>
-                        <td mat-cell *matCellDef="let row" >
-                            <span>{{row.title}} </span>
-
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="publishedon">
-                        <th mat-header-cell *matHeaderCellDef > Published From </th>
-                        <td mat-cell *matCellDef="let row" >
-                            <span>{{row.fromdate  | date:'dd-MM-yyyy'}} </span>
-
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="publishedTo">
-                        <th mat-header-cell *matHeaderCellDef > Published To </th>
-                        <td mat-cell *matCellDef="let row" >
-                            <span>{{row.todate  | date:'dd-MM-yyyy'}} </span>
-
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="status">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header > Status </th>
-                        <td mat-cell *matCellDef="let row" >
-                            <span>{{row.status}} </span>
-
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef >  </th>
-                        <td mat-cell *matCellDef="let row" >
-                            <mat-icon title="Edit"  (click)="edit($event,row)" *ngIf="row.status=='Saved as draft' " >edit</mat-icon>
-                            <mat-icon title="Edit"  (click)="edit($event,row)" *ngIf="row.status=='Published' " >edit</mat-icon>
-                            <mat-icon title="View"  (click)="view($event,row)" >visibility</mat-icon>
-                            <mat-icon title="Republish"  (click)="republish($event,row)" *ngIf="row.status=='Completed'">publish</mat-icon>
-                            <mat-icon class="mr-2" title="Delete" (click)="delete($event,row)"*ngIf="row.status=='Save as draft'">delete</mat-icon>
-                            <mat-icon title="Stop"  (click)="stop($event,row)" *ngIf="row.status=='Published'">not_interested</mat-icon>
-                            <!-- <mat-icon title="Publish"  (click)="republish($event,row)" *ngIf="row.status=='Save as draft'">publish</mat-icon> -->
-
-                        </td>
-                    </ng-container>
-                    <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                        <tr class="mat-row" *matNoDataRow>
-                            <td class="mat-cell" colspan="5" style="text-align: center;">No data found</td>
-                        </tr>
-                </table>
-                <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-
-            </div>
-        </div>
-        </div>
-       </form>
-  </div>
+        </form>
+    </mat-card>
+</div>

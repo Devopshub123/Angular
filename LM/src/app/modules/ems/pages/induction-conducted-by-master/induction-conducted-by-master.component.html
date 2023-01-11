@@ -1,9 +1,12 @@
 <div fxLayout="column">
+  <mat-card>
     <form [formGroup]="inductionForm" autocomplete="off">
-       <mat-card-header>
-          <mat-card-title > Induction Conducted By </mat-card-title>
+      <mat-card-header class="headerbox">
+        <div fxLayout="row" fxFlex="50">
+            <mat-card-title class="title"> Induction Conducted By </mat-card-title>
+        </div>
         </mat-card-header>
-        <div >
+        <div class="tableP">
             <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
                 <mat-label>Program Type</mat-label>
                 <mat-select required formControlName="programType">
@@ -54,7 +57,7 @@
                 </mat-optgroup> -->
 
                     <mat-option  (onSelectionChange)="selectedEmployesChange($event)"
-                    *ngFor="let emp of employeeList" [value]="emp">{{emp.employee_code}}__{{emp.empname}}
+                    *ngFor="let emp of employeeList" [value]="emp.empid">{{emp.employee_code}}__{{emp.empname}}
                 </mat-option>
               </div>
             </mat-select>
@@ -65,18 +68,27 @@
 
         </div>
      <div fxLayout="row" fxLayoutAlign="center">
-      <button *ngIf="!isUpdate" class="m-1 mat-stroked-button button-save" (click)="submit()" type="submit">
+      <button *ngIf="!isUpdate" class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit">
         <span>Submit</span>
       </button>
-      <button *ngIf="isUpdate" class="m-1 mat-stroked-button button-save" (click)="submit()" type="submit">
+      <button *ngIf="isUpdate" class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit">
         <span>Update</span>
       </button>
-              <button class="m-1 mat-stroked-button button-clear"   (click)="close()">
+              <button class="btn btn-danger mr-2 mb-2"   (click)="close()">
               <span >Cancel</span>
             </button>
 
             <br />
           </div>
+          <mat-divider></mat-divider>
+          <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;padding-top: 1%;">
+            <mat-form-field fxFlex="28" fxFlex.xs="100%" appearance="outline" style="padding-right: 1%;">
+                 <mat-label>Search</mat-label>
+                 <input matInput (keyup)="applyFilter($event)" placeholder="" >
+                 <mat-icon matSuffix>search</mat-icon>
+             </mat-form-field>
+        </div>
+        <br>
         <div fxLayout="column" class="tableP">
 
           <div class="mat-elevation-z1">
@@ -143,4 +155,5 @@
 
 
    </form>
+  </mat-card>
   </div>

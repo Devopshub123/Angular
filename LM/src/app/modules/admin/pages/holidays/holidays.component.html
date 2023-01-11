@@ -1,13 +1,14 @@
 <div fxLayout="column">
-
-    <mat-card-header class="">
-        <mat-card-title> Holidays </mat-card-title>
-    </mat-card-header>
-    <br>
+<mat-card>
+    <mat-card-header class="headerbox">
+        <div fxLayout="row" fxFlex="50">
+            <mat-card-title class="title"> Holidays </mat-card-title>
+        </div>
+        </mat-card-header>
     <div *ngIf="isadd">
-        <form [formGroup]="HolidayForm" autocomplete="off">
+        <form [formGroup]="HolidayForm" autocomplete="off" class="tableP">
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                     <mat-label>Holiday Name</mat-label>
                     <input formControlName="holiday" matInput placeholder="" required maxlength="100">
                     <mat-error class="con-error" *ngIf="HolidayForm.controls.holiday.errors?.required ||
@@ -15,7 +16,7 @@
                         {{msgEM1}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                     <mat-label>Date </mat-label>
                     <input matInput readonly [matDatepicker]="date" placeholder="DD-MM-YYYY" formControlName="date"
                         required (click)="date.open()">
@@ -26,7 +27,7 @@
                         {{msgEM2}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                     <mat-label>Branch Location </mat-label>
                     <mat-select placeholder="" name="branchs" formControlName="branch" required multiple #branchSelect>
 
@@ -60,12 +61,12 @@
                 </mat-form-field>
             </div><br>
             <div fxLayoutAlign="center">
-                <button class="m-1 mat-stroked-button button-save" (click)="submit()"
+                <button class="btn btn-primary mr-2 mb-2" (click)="submit()"
                     type="submit">
                     <span>Submit</span>
                 </button>
 
-                <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+                <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
                     <span>Cancel</span>
                 </button>
                 <br />
@@ -73,23 +74,24 @@
 
         </form>
     </div>
+    <br>
 
     <div *ngIf="isview">
-        <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center">
-           <span style="padding-left: 1%">
-            <mat-form-field  fxFlex.xs="100%" appearance="outline">
-                <mat-label>Search</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="" >
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-        </span>
-        <span style="padding-right: 1%">
-            <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
-                (click)="add()" type="button">
-                <span>Add</span><br>
-            </button>
-        </span>
-        </div>
+        <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center" style="height: 50px;">
+            <span style="padding-left: 2%" fxFlex="50">
+             <mat-form-field fxFlex="50" fxFlex.xs="100%" appearance="outline">
+                 <mat-label>Search</mat-label>
+                 <input matInput (keyup)="applyFilter($event)" placeholder="" >
+                 <mat-icon matSuffix>search</mat-icon>
+             </mat-form-field>
+         </span>
+         <span fxLayoutAlign="end" style="padding-right: 1%" fxFlex="50">
+             <button class="btn btn-primary mr-2 mb-2"
+                 (click)="add()" type="button">
+                 <span>Add</span><br>
+             </button>
+         </span>
+         </div>
         <form [formGroup]="HolidayForm" autocomplete="off" class="tableP">
             <div class="mat-elevation-z1">
                 <table mat-table [dataSource]="dataSource" matSort>
@@ -173,4 +175,5 @@
             </div>
         </form>
     </div>
+</mat-card>
 </div>

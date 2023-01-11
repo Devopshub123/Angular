@@ -1,10 +1,21 @@
 <div fxLayout="column">
-     <mat-card-header fxLayoutAlign="space-between center">
+    <mat-card>
+    <mat-card-header class="headerbox" >
+        <div fxFlex="100"  fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxFlex="50">
+            <mat-card-title class="title"> Request </mat-card-title>
+        </div>
+        <span *ngIf="isAdd"  (click)="cancel()" style="padding-right: 10px;" fxFlex="50" fxLayoutAlign="end">
+            <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button>
+           </span>
+        </div>
+        </mat-card-header>
+     <!-- <mat-card-header >
             <mat-card-title>Checklist</mat-card-title>
             <span *ngIf="isAdd"  (click)="cancel()" style="padding-right: 10px;">
                 <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button>
                </span>
-         </mat-card-header>
+         </mat-card-header> -->
 
         <form [formGroup]="checklistForm" autocomplete="off">
             <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd">
@@ -17,7 +28,7 @@
                              </mat-radio-group>
                        </span>
                 </div>
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" class="tableP">
                     <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                         <mat-label>Department</mat-label>
                         <mat-select required formControlName="department">
@@ -36,11 +47,11 @@
                         <mat-label>Checklist Name</mat-label>
                         <input type="text" formControlName="description" matInput placeholder="Checklist Name" maxlength="100" required>
                          <mat-error class="con-error"
-                                  *ngIf="checklistForm.controls.description.errors?.required || checklistForm.controls.description.errors?.['whitespace']">
+                                  *ngIf="checklistForm.controls.description.errors?.required">
                                {{EM1}}
                               </mat-error>
                     </mat-form-field>
-                    <button mat-icon-button type="button">
+                    <button mat-icon-button type="submit">
                         <mat-icon class="addBtn" title="Add" fxLayoutAlign="end" (click)=" add()">add_box
                         </mat-icon>
                     </button>
@@ -60,18 +71,18 @@
                    </div>
 
                 <div fxLayoutAlign="center" *ngIf="addChecklistData.length > 0">
-                    <button class="m-1 mat-stroked-button button-save" type="button" (click)="submit()">
+                    <button class="btn btn-primary mr-2 mb-2" type="submit" (click)="submit()">
                         <span>Submit</span>
                     </button>
-                    <button class="m-1 mat-stroked-button button-clear" (click)="cancel()">
+                    <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
                         <span>Cancel</span>
                     </button>
                     <br />
                 </div>
             </div>
 
-<div fxLayout="column" class="tableP" *ngIf="isdata">
-     <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center">
+        <div fxLayout="column" class="tableP" *ngIf="isdata">
+          <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
             <span style="padding-top: 20px;padding-left: 20px;">
                <mat-radio-group  formControlName="onboardCategory">
@@ -81,16 +92,24 @@
                </span>
         </div>
         <span>
-            <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
+            <button class="btn btn-primary mr-2 mb-2"
             (click)="AddData()" type="button">
             <span>Add</span>
         </button>
         </span>
 
     </div><br>
-
-
-
+    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;">
+        <span>
+         <mat-form-field  fxFlex.xs="100%" appearance="outline">
+             <mat-label>Search</mat-label>
+             <input matInput (keyup)="applyFilter($event)" placeholder="" >
+             <mat-icon matSuffix>search</mat-icon>
+         </mat-form-field>
+     </span>
+    </div>
+    <br>
+        <div>
           <div class="mat-elevation-z1">
                 <table mat-table [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="sno">
@@ -154,7 +173,8 @@
                <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
 
             </div>
-
-    </div>
+        </div>
+        </div>
     </form>
+</mat-card>
 </div>
