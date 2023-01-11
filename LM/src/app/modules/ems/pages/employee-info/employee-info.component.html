@@ -523,9 +523,9 @@
 
                         <form [formGroup]="candidateFamilyForm">
                             <div class="section" fxLayout="row">
-                                <span><b>Family Details : </b></span>
-                                <span style="padding-top: 3px; padding-left: 1%">
-                                    <mat-icon title="Add" style="color: #28acaf;" (click)="addingFamilyView()">add_box</mat-icon>
+                                <span style="padding-top: 3px;"><b>Family Details : </b></span>
+                                <span style="padding-left: 1%;">
+                                    <mat-icon title="Add" style="color:#28acaf;font-size: 35px;" (click)="addingFamilyView()">add_box</mat-icon>
                                 </span>
                             </div>
                             <div *ngIf="addFamilyView">
@@ -607,14 +607,14 @@
                                     </mat-form-field>
 
                                     <div fxLayout="row" fxLayoutAlign=" center">
-                                        <button *ngIf="!isfamilyedit" class="m-1 mat-stroked-button button-save" (click)="addfamily()">
+                                        <button *ngIf="!isfamilyedit" class="btn btn-primary mr-2 mb-2" (click)="addfamily()">
                                             <span> Add </span>
                                         </button>
 
-                                        <button *ngIf="isfamilyedit" class="m-1 mat-stroked-button button-save" (click)="addfamily()">
+                                        <button *ngIf="isfamilyedit" class="btn btn-primary mr-2 mb-2" (click)="addfamily()">
                                             <span> Update </span>
                                         </button>
-                                        <button class="m-1 mat-stroked-button button-clear" (click)="clearfamily()">
+                                        <button class="btn btn-danger mr-2 mb-2" (click)="clearfamily()">
                                             Clear
                                         </button>
                                     </div>
@@ -684,8 +684,7 @@
                    <mat-divider></mat-divider>
                    <br>
                     <div fxLayoutAlign="center">
-                        <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795"
-                            (click)="savePersonalInfo()" type="submit">
+                        <button class="btn btn-primary custom mr-2 mb-2" (click)="savePersonalInfo()" type="submit">
                             <span>Save & Continue</span>
                         </button>
                         <br />
@@ -823,7 +822,7 @@
                             <mat-divider></mat-divider>
                             <br>
                             <div fxLayoutAlign="center">
-                                <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795" (click)="saveJobDetails()">
+                                <button class="btn btn-primary custom mr-2 mb-2" (click)="saveJobDetails()">
                                     <span>Save & Continue</span>
                                 </button>
                                 <br />
@@ -891,7 +890,7 @@
                             <mat-divider></mat-divider>
                             <br>
                             <div fxLayoutAlign="center">
-                                <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795" (click)="saveJobDetails()">
+                                <button class="btn btn-primary custom mr-2 mb-2" (click)="saveJobDetails()">
                                     <span>Save & Continue</span>
                                 </button>
                                 <br />
@@ -1005,10 +1004,10 @@
                             </div>
                             <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="end">
                                 <span>
-                                    <button class="m-1 mat-stroked-button button-save" (click)="addWorkExperience()">
+                                    <button class="btn btn-primary mr-2 mb-2" (click)="addWorkExperience()">
                                         <span> Add </span>
                                     </button>
-                                    <button class="m-1 mat-stroked-button button-clear" (click)="clearWorkExperience()">
+                                    <button class="btn btn-danger mr-2 mb-2" (click)="clearWorkExperience()">
                                         Clear
                                     </button>
                                 </span>
@@ -1066,8 +1065,7 @@
                         </div>
                         <br>
                         <div fxLayoutAlign="center">
-                                <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795" 
-                                (click)="saveWorkExperience()" type="submit">
+                                <button class="btn btn-primary custom mr-2 mb-2"   (click)="saveWorkExperience()" type="submit">
                                     <span>Save & Continue</span>
                                 </button>
                                 <br />
@@ -1157,7 +1155,7 @@
                         <mat-divider></mat-divider>
                         <br>
                         <div fxLayoutAlign="center">
-                            <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795" (click)="saveBankDetails()"
+                            <button class="btn btn-primary custom mr-2 mb-2" (click)="saveBankDetails()"
                                 type="submit">
                                 <span>Save & Continue</span>
                             </button>
@@ -1224,10 +1222,10 @@
                             </mat-form-field>
                         </div>
                         <div fxLayout="row" fxLayoutAlign="end">
-                            <button class="m-1 mat-stroked-button button-save" (click)="addEducation()">
+                            <button class="btn btn-primary mr-2 mb-2" (click)="addEducation()">
                                 <span> Add </span>
                             </button>
-                            <button class="m-1 mat-stroked-button button-clear" (click)="clearEducation()">
+                            <button class="btn btn-danger mr-2 mb-2" (click)="clearEducation()">
                                 Clear
                             </button>
                         </div>
@@ -1284,7 +1282,7 @@
                         <mat-divider></mat-divider>
                         <br>
                         <div fxLayoutAlign="center">
-                            <button class="mat-stroked-button mx-2 my-2" style="color: white;background-color: #3a3795" (click)="saveEducation()" type="submit">
+                            <button class="btn btn-primary custom mr-2 mb-2" (click)="saveEducation()" type="submit">
                                 <span>Save & Continue</span>
                             </button>
                             <br />
@@ -1350,7 +1348,7 @@
                             </div>
                         </div>
                         <div fxLayout="row" fxLayoutAlign="end">
-                            <button class="m-1 mat-stroked-button button-save" (click)="validateDocument()">
+                            <button class="btn btn-primary mr-2 mb-2" (click)="validateDocument()">
                                 <span> Submit </span>
                             </button>
                         </div>
