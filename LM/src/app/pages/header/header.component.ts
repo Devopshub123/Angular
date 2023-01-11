@@ -151,7 +151,7 @@ export class HeaderComponent implements OnInit {
       if(result && result.status &&  result.data[0]){
        result.data[0].employeeId=0;
        let info = result.data[0]
-       this.mainService.getProfileImage(info).subscribe((imageData) => {
+       this.mainService.getProfileImage(result.data[0]).subscribe((imageData) => {
         if(imageData.success){
           let TYPED_ARRAY = new Uint8Array(imageData.image.data);
           const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
