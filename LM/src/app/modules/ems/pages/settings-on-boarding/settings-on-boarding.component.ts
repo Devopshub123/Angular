@@ -73,6 +73,7 @@ export class SettingsOnBoardingComponent implements OnInit {
           "rulevalue":e.value
         });
     });
+    console.log("data-1",this.ruledataoptions)
     this.ems.setOnboardingSettings({ruledata:this.ruledataoptions}).subscribe((result:any)=>{
       if (result.status){
         this.previousprobationdays = this.onboardingForm.controls.PROBATION_PERIOD_DAYS.value;

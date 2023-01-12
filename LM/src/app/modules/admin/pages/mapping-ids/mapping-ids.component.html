@@ -1,11 +1,13 @@
-<div fxLayout="column" style="min-height: 700px;">
+<div fxLayout="column" style="background-color: white;">
+    <mat-card>
     <form [formGroup]="mappingIdsForm" autocomplete="off">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title > Mapping IDs </mat-card-title>
-            </mat-card-header>
-            <!-- <mat-divider></mat-divider> -->
-            <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
+ 
+            <mat-card-header class="headerbox">
+                <div fxLayout="row" fxFlex="50">
+                    <mat-card-title class="title"> Mapping IDs </mat-card-title>
+                </div>
+                </mat-card-header>
+            <div fxLayout="row" fxLayoutAlign.xs="center center" class="tableP">
 
                 <mat-form-field fxFlex.xs="100"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Bio-Metric Id</mat-label>
@@ -27,38 +29,29 @@
                         Please select an option.
                     </mat-error>
                   </mat-form-field>
-                  <button class="mx-2 my-3 mat-stroked-button button-save" style="height: 45px;" (click)="saveMappingIds()" type="submit">
+
+                  <button class="btn btn-primary custom mr-2 mb-2" (click)="saveMappingIds()" type="submit">
                     <span>Submit</span>
                 </button>
 
-                <button class="mx-2 my-3 mat-stroked-button button-clear" style="height: 45px;" (click)="resetform()">
+                <button class="btn btn-danger custom mr-2 mb-2" (click)="resetform()">
                     <span >Cancel</span>
                 </button>
+              
             </div>
-
-            <!-- <div fxLayoutAlign="center">
-                <button class="m-1 mat-stroked-button button-save" (click)="saveMappingIds()" type="submit">
-                    <span>Submit</span>
-                </button>
-
-                <button class="m-1 mat-stroked-button button-clear"  (click)="resetform()">
-                    <span >Cancel</span>
-                </button>
-                <br />
-            </div> -->
-        </mat-card>
+  
     </form>
     <mat-divider></mat-divider>
-    <mat-card fxLayout="column" >
-        <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
-            <mat-form-field fxFlex.xs="100%" appearance="outline">
+    <div fxLayout="column" >
+        <div fxLayout="row"  fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;padding-right: 2%;padding-top: 1%;">
+            <mat-form-field fxFlex="30" fxFlex.xs="100%" appearance="outline">
                 <mat-label>Search</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
         </div>
-        <div class="mat-elevation-z1" >
-            <table mat-table [dataSource]="dataSource" matSort  >
+        <div class="tablePadding" >
+            <table class="mat-elevation-z1" mat-table [dataSource]="dataSource" matSort  >
 
                 <ng-container matColumnDef="sno">
                     <th mat-header-cell *matHeaderCellDef> S.No</th>
@@ -96,9 +89,9 @@
 
             <!-- <mat-paginator   [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
         </div>
-    </mat-card>
+  
+    </div>
 
-
-
+</mat-card>
 
 </div>

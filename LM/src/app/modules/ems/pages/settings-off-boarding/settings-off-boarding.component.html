@@ -1,9 +1,11 @@
-<div fxLayout="column">
+<div fxLayout="column" style="background-color: white;">
   <form [formGroup]="offboardingForm" autocomplete="off">
     <mat-card>
-      <mat-card-header>
-        <mat-card-title> Offboarding</mat-card-title>
-      </mat-card-header>
+      <mat-card-header class="headerbox">
+        <div fxLayout="row" fxFlex="50">
+            <mat-card-title class="title"> Offboarding </mat-card-title>
+        </div>
+        </mat-card-header>
       <div class="tableP">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between" style="padding-top: 10px;">
           <span class="text">Send Automatic Reminders  </span>
@@ -51,7 +53,7 @@
         </div> -->
       </div>
       <div fxLayoutAlign="center">
-        <button class="m-1 mat-stroked-button button-save" (click)="setOffboardingSettings()"
+        <button class="btn btn-primary mr-2 mb-2" (click)="setOffboardingSettings()"
                 type="submit">
           <span>Submit</span>
         </button>

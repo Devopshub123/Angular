@@ -266,9 +266,8 @@ export class EmsService {
     return this.http.post(this.mainUrl + 'ems/api/setAnnouncements/',data,this.httpOptions);
   }
   /**set Onboarding Settings */
-  setOnboardingSettings(onboarddata:any){
-    onboarddata[0].companyName = this.companyName;
-
+  setOnboardingSettings(onboarddata: any) {
+    onboarddata.companyName = this.companyName;
     return this.http.post(this.mainUrl+'ems/api/setOnboardingSettings', onboarddata, this.httpOptions);
   }
 
@@ -344,7 +343,8 @@ export class EmsService {
   }
 
    /** set Induction ConductedBy master*/
-   setInductionConductedBy(data: any): any {
+  setInductionConductedBy(data: any): any {
+    data.companyName = this.companyName;
     return this.http.post(this.mainUrl + 'ems/api/setInductionConductedby', data, this.httpOptions);
   }
 
