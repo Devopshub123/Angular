@@ -6,7 +6,6 @@
         </div>
         </mat-card-header>
             <br>
-            <mat-divider></mat-divider>
 <mat-card-content>
 <div class="tableP">
             <div class="mat-elevation-z1">
@@ -55,24 +54,30 @@
                             <span >{{row.leavestatus}}</span>
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="approver">
+                    <!-- <ng-container matColumnDef="approver">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Approver </th>
                         <td mat-cell *matCellDef="let row" >
                             <span >{{row.approvedby}}</span>
                         </td>
-                    </ng-container>
+                    </ng-container> -->
 
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef></th>
                         <!-- <td mat-cell *matCellDef="let row"> </td> -->
                         <td mat-cell *matCellDef="let row">
-                            <mat-icon   title="Delete" *ngIf="row.deletable" (click)="delete(row)">delete</mat-icon> &nbsp;
-                            <mat-icon title="Edit" *ngIf="row.editable" (click)="edit(row)">edit</mat-icon> &nbsp;
-                            <mat-icon title="Cancel" *ngIf="row.cancellable"  (click)="cancel(row)">cancel</mat-icon>&nbsp;
-
-                            <mat-icon   title="View" (click)="view(row)">visibility</mat-icon> &nbsp;
-
-                        </td>
+                            <button mat-icon-button title="Delete" *ngIf="row.deletable">
+                                <mat-icon    (click)="delete(row)">delete</mat-icon>
+                            </button>
+                         <button mat-icon-button title="Edit" *ngIf="row.editable">
+                            <mat-icon  (click)="edit(row)">edit</mat-icon> 
+                         </button>
+                         <button mat-icon-button title="Cancel" *ngIf="row.cancellable">
+                            <mat-icon   (click)="cancel(row)">cancel</mat-icon>
+                         </button>
+                         <button mat-icon-button title="View">
+                            <mat-icon  style="font-size: 30px;"  (click)="view(row)">visibility</mat-icon>
+                         </button>
+                     </td>
                     </ng-container>
 
 
@@ -99,41 +104,41 @@
         </div>
         </mat-card-header>
                <br>
-        <mat-card-content>
+        <mat-card-content class="tableP">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
 
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                 <mat-label>Applied On</mat-label>
                 <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.appliedon | date:'dd-MM-yyyy' }}" >
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Approved'">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Approved'">
                 <mat-label>Approved On</mat-label>
                 <input   matInput [readonly]="true"[readonly]="true"  value="{{viewdata.approvedon | date:'dd-MM-yyyy'}}">
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Rejected'">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Rejected'">
                 <mat-label>Rejected On</mat-label>
                 <input  matInput [readonly]="true"[readonly]="true" value="{{viewdata.updatedon}}">
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Deleted'">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Deleted'">
                 <mat-label>Deleted On</mat-label>
                 <input   matInput [readonly]="true"[readonly]="true" value="{{viewdata.updatedon | date:'dd-MM-yyyy'}}">
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Cancelled'">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Cancelled'">
                 <mat-label>Cancelled On</mat-label>
                 <input   matInput [readonly]="true"[readonly]="true" value="{{viewdata.updatedon | date:'dd-MM-yyyy'}}">
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                 <mat-label>Type Of Leave</mat-label>
                 <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.leavetype }}" >
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Submitted'">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Submitted'">
                 <mat-label>Status</mat-label>
                 <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.leavestatus }}" >
 
@@ -145,38 +150,36 @@
         </div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                 <mat-label>From Date</mat-label>
                 <input   matInput [readonly]="true"[readonly]="true"  value="{{viewdata.fromdate | date:'dd-MM-yyyy' }}">
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                 <mat-label>To Date</mat-label>
                 <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.todate | date:'dd-MM-yyyy'  }}">
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" >
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" >
                 <mat-label>Leave Count</mat-label>
                 <input matInput [readonly]="true"[readonly]="true"  value="{{viewdata.leavecount }}" >
 
             </mat-form-field>
 
-
-
         </div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                 <mat-label>Contact</mat-label>
                 <input   matInput [readonly]="true"[readonly]="true" value="{{viewdata.contactnumber  }}">
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                 <mat-label>Email</mat-label>
                 <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.contactemail  }}">
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                 <mat-label>Reason</mat-label>
                 <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.leavereason}}" >
 
@@ -193,27 +196,27 @@
                 <input   matInput [readonly]="true"[readonly]="true" value="{{viewdata.contactnumber  }}">
 
             </mat-form-field> -->
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavetype === 'Comp Off Leave'">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavetype === 'Comp Off Leave'">
                 <mat-label>Worked Date</mat-label>
                 <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.worked_date | date:'dd-MM-yyyy'}}" >
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" >
+            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline" >
                 <mat-label>Manager</mat-label>
                 <input matInput [readonly]="true"[readonly]="true" value="{{usersession.roles[0].rm_name}}" >
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Rejected'">
+            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Rejected'">
                 <mat-label>Reason for Rejection </mat-label>
                 <input   matInput [readonly]="true"[readonly]="true" value="viewdata.action_reason"  value="{{viewdata.action_reason}}">
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Deleted'">
+            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Deleted'">
                 <mat-label>Reason for Deletion</mat-label>
                 <input   matInput [readonly]="true"[readonly]="true" value="{{viewdata.action_reason}}">
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Cancelled'">
+            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Cancelled'">
                 <mat-label>Reason for Cancellation</mat-label>
                 <input   matInput [readonly]="true"[readonly]="true" value="{{viewdata.action_reason}}">
 
