@@ -78,6 +78,7 @@ export class MainDashboardComponent implements OnInit {
   ) {
     this.getCompoffleavestatus();
     this.data = sessionStorage.getItem('user');
+    this.companyName = sessionStorage.getItem('companyName')
     this.usersession = JSON.parse(this.data);
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -159,6 +160,7 @@ export class MainDashboardComponent implements OnInit {
     {'alert':'New Induction Program assigned to you ,please conduct program on 26-12-2022 01:00 PM to 02:00 PM'},
     { 'alert': 'New employees are joined,please conduct inducction program' },];
   totalEmpCount: any;
+  companyName:any;
   ////////////////
   ngOnInit(): void {
     this.spinner.show();
@@ -212,7 +214,7 @@ export class MainDashboardComponent implements OnInit {
     })
   }
   getModules() {
-    this.AMS.getModules('modulesmaster', null, 1, 100).subscribe((result) => {
+    this.AMS.getModules('modulesmaster', null, 1, 100,this.companyName).subscribe((result) => {
       if (result && result.status) {
         this.allModuleDetails = result.data;
         this.allModuleDetails.forEach((e:any)=>{
@@ -544,7 +546,7 @@ export class MainDashboardComponent implements OnInit {
   }
 
   getDesignationsMaster() {
-    this.AMS.getModules('designationsmaster', 1, 1, 1000).subscribe(data => {
+    this.AMS.getModules('designationsmaster', 1, 1, 1000,this.companyName).subscribe(data => {
       if (data.status) {
         this.availableDesignations = data.data;
       }

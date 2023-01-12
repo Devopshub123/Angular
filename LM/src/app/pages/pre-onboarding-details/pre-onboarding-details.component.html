@@ -763,7 +763,7 @@
                                 </mat-form-field>
 
                                 <div fxLayout="row" style="align-items: center">
-                                    <input type="file" *ngIf='!isedit' title="" style="color:transparent; margin-left: 10px"
+                                    <input type="file" *ngIf='!isedit' title="" style="margin-left: 10px"
                                     formControlName="attachedFile"  (change)="onSelectFile($event)"  single />
                                      <button class="link" *ngIf='isedit' >{{ editFileName }}</button>
 
