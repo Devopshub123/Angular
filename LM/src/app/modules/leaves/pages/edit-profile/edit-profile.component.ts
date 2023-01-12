@@ -45,7 +45,7 @@ export class EditProfileComponent implements OnInit {
 
   LM2: any = '';
   LM1: any = '';
-  companyDBName: any = environment.dbName;
+  companyDBName: any;
    constructor(
     private router: Router,
     private LM: LeavesService,
@@ -67,6 +67,7 @@ export class EditProfileComponent implements OnInit {
   userSession: any;
   activeModule: any;
   ngOnInit(): void {
+    this.companyDBName = sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     //this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
     this.editForm = this.formBuilder.group({

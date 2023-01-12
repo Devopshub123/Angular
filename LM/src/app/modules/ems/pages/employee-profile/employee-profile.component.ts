@@ -71,6 +71,7 @@ export class EmployeeProfileComponent implements OnInit {
     private LM: LeavesService
   ) {
     this.formData = new FormData();
+    this.companyDBName = sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
   }
   personalInfoForm!: FormGroup;
   candidateFamilyForm: any = FormGroup;
@@ -281,7 +282,7 @@ export class EmployeeProfileComponent implements OnInit {
               this.companyService
                 .getStatesc(selectedValue)
                 .subscribe((data) => {
-                  this.permanentStateDetails = data[0];
+                  this.permanentStateDetails = data.data;
                   if (this.personalInfoForm.controls.rstate.value != null) {
                     this.personalInfoForm.controls.pstate.setValue(
                       this.personalInfoForm.controls.rstate.value
@@ -294,7 +295,7 @@ export class EmployeeProfileComponent implements OnInit {
             ?.valueChanges.subscribe((selectedValue) => {
               this.permanentCityDetails = [];
               this.companyService.getCities(selectedValue).subscribe((data) => {
-                this.permanentCityDetails = data[0];
+                this.permanentCityDetails = data.data;
                 if (this.personalInfoForm.controls.rcity.value != null) {
                   this.personalInfoForm.controls.pcity.setValue(
                     this.personalInfoForm.controls.rcity.value
@@ -336,7 +337,7 @@ export class EmployeeProfileComponent implements OnInit {
       ?.valueChanges.subscribe((selectedValue) => {
         this.stateDetails = [];
         this.companyService.getStatesc(selectedValue).subscribe((data) => {
-          this.stateDetails = data[0];
+          this.stateDetails = data.data;
         });
       });
     this.personalInfoForm
@@ -344,7 +345,7 @@ export class EmployeeProfileComponent implements OnInit {
       ?.valueChanges.subscribe((selectedValue) => {
         this.cityDetails = [];
         this.companyService.getCities(selectedValue).subscribe((data) => {
-          this.cityDetails = data[0];
+          this.cityDetails = data.data;
         });
       });
 
@@ -353,7 +354,7 @@ export class EmployeeProfileComponent implements OnInit {
       ?.valueChanges.subscribe((selectedValue) => {
         this.permanentStateDetails = [];
         this.companyService.getStatesc(selectedValue).subscribe((data) => {
-          this.permanentStateDetails = data[0];
+          this.permanentStateDetails = data.data;
         });
       });
     this.personalInfoForm
@@ -361,7 +362,7 @@ export class EmployeeProfileComponent implements OnInit {
       ?.valueChanges.subscribe((selectedValue) => {
         this.permanentCityDetails = [];
         this.companyService.getCities(selectedValue).subscribe((data) => {
-          this.permanentCityDetails = data[0];
+          this.permanentCityDetails = data.data;
         });
       });
     //////////
