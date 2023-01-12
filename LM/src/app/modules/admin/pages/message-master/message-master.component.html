@@ -1,20 +1,22 @@
-<div fxLayout="column">
+<div fxLayout="column" style="background-color: white;">
     <form [formGroup]="errorMessagesForm" autocomplete="off">
-<mat-card style="min-height: 700px;" fxLayout="column">
-    <mat-card-header >
-        <mat-card-title > Message Master </mat-card-title>
-    </mat-card-header>
-<div fxLayout="column" fxLayout.xs="column">
-    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
-        <mat-form-field fxFlex.xs="100%" appearance="outline" style="padding-top:5px ;">
+<mat-card>
+    <mat-card-header class="headerbox">
+        <div fxLayout="row" fxFlex="50">
+            <mat-card-title class="title"> Message Master </mat-card-title>
+        </div>
+        </mat-card-header>
+<div fxLayout="column">
+    <div fxLayout="row"  fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;padding-right: 2%;padding-top: 1%;">
+        <mat-form-field fxFlex="30" fxFlex.xs="100%" appearance="outline">
             <mat-label>Search</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
-
-    <div class="mat-elevation-z8 example-container">
-        <mat-table #table [dataSource]="dataSource" matSort>
+    <div class="tablePadding">
+        <div class="mat-elevation-z1">
+        <mat-table  #table [dataSource]="dataSource" matSort>
 
             <ng-container matColumnDef="sno">
                 <mat-header-cell *matHeaderCellDef>S.No</mat-header-cell>
@@ -70,7 +72,7 @@
         <!-- <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5,10,20]"></mat-paginator> -->
 
         <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-                  
+       </div>           
     </div>
 </div>
 </mat-card>

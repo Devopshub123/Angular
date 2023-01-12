@@ -129,7 +129,7 @@ export class InductionConductedByMasterComponent implements OnInit {
         'status': 1,
         'empids': this.selectedEmployees,
         'actionby': this.userSession.id,
-        'companyName':this.companyDBName
+        //'companyName':this.companyDBName
       }
 
       this.EMS.setInductionConductedBy(data).subscribe((result: any) => {
