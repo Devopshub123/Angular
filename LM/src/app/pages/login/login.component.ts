@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
     this.createForm();
     this.formGroup.controls.username.setValue(localStorage.getItem("username"));
     this.formGroup.controls.password.setValue(localStorage.getItem("password"));
+    this.formGroup.controls.companyname.setValue(localStorage.getItem("comapnyname"));
     this.formGroup.controls.rememberme.setValue((localStorage.getItem("rememberme")=='false')?0:1);    // console.log("nm--",this.formGroup.controls.username.value)
     // console.log("pwd--",this.formGroup.controls.password.value)
     // console.log("rmm--",this.formGroup.controls.rememberme.value)
@@ -49,6 +50,7 @@ export class LoginComponent implements OnInit {
 
   createForm() {
     this.formGroup = this.formBuilder.group({
+      'comapnyname':['', Validators.required],
       'username': ['', Validators.required],
       'password': ['', Validators.required],
       'rememberme':['']
@@ -61,11 +63,12 @@ export class LoginComponent implements OnInit {
     let data = {
       email:this.email,
       password:this.password,
-      companyName:this.companyName
+      companyName:this.formGroup.controls.comapnyname.value
     }
     if(this.formGroup.valid){
-      sessionStorage.setItem('companyName', this.companyName);
+      sessionStorage.setItem('companyName',this.formGroup.controls.comapnyname.value);
       if(this.formGroup.controls.rememberme.value==true){
+        localStorage.setItem("comapnyname",this.formGroup.controls.comapnyname.value);
         localStorage.setItem("username",this.formGroup.controls.username.value);
         localStorage.setItem("password",this.formGroup.controls.password.value);
         localStorage.setItem("rememberme", this.formGroup.controls.rememberme.value);
@@ -73,6 +76,7 @@ export class LoginComponent implements OnInit {
         // console.log("pwd-1-",this.formGroup.controls.password.value)
         // console.log("rmm-1-",this.formGroup.controls.rememberme.value)
       } else if(this.formGroup.controls.rememberme.value==false){
+        localStorage.setItem("comapnyname",'');
         localStorage.setItem("username",'');
         localStorage.setItem("password",'');
         localStorage.setItem("rememberme",'false');

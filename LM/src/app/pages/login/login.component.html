@@ -21,6 +21,19 @@
                   </p>
                   <p class="text-muted mb-4">Enter your email address and password to access admin panel.</p>
                 </div> -->
+                <div>
+
+                  <mat-form-field fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Company Code</mat-label>
+                    <input matInput class="form-control" type="text" formControlName="comapnyname"
+                    id="company" formc
+                       placeholder="" maxlength="30" />
+                    <mat-error class="con-error" *ngIf="formGroup.controls.username.errors?.required">
+                      {{ msgLM1 }}
+                    </mat-error>
+                  </mat-form-field>
+
+                </div>
 
                 <div>
 
