@@ -24,6 +24,7 @@ import { LeavePoliciesDialogComponent } from './dialog/leave-policies-dialog/lea
 import { TerminationCategoryComponent } from './pages/termination-category/termination-category.component';
 import { ReasonMasterComponent } from './pages/reason-master/reason-master.component';
 import { ReimbursementMasterComponent } from './pages/reimbursement-master/reimbursement-master.component';
+import { PayrollMessagesComponent } from './pages/payroll-messages/payroll-messages.component';
 @NgModule({
   declarations: [
 
@@ -41,6 +42,7 @@ import { ReimbursementMasterComponent } from './pages/reimbursement-master/reimb
     TerminationCategoryComponent,
     ReasonMasterComponent,
     ReimbursementMasterComponent,
+    PayrollMessagesComponent
   ],
   imports: [
     CommonModule,

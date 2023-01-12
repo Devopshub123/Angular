@@ -28,7 +28,7 @@ import { UsersLoginComponent } from '../ems/pages/users-login/users-login.compon
 import { SettingsOnBoardingComponent } from '../ems/pages/settings-on-boarding/settings-on-boarding.component';
 import { SettingsOffBoardingComponent } from '../ems/pages/settings-off-boarding/settings-off-boarding.component';
 import { InductionConductedByMasterComponent } from '../ems/pages/induction-conducted-by-master/induction-conducted-by-master.component';
-
+import { PayrollMessagesComponent } from './pages/payroll-messages/payroll-messages.component';
 const routes: Routes = [
   {
     path: '', component: MainComponent,
@@ -60,6 +60,7 @@ const routes: Routes = [
       { path: 'settings-onBoarding', component: SettingsOnBoardingComponent, canActivate: [LMSAccessGuard] },
       { path: 'settings-offBoarding', component: SettingsOffBoardingComponent, canActivate: [LMSAccessGuard] },
       { path: 'Induction-ConductedBy', component: InductionConductedByMasterComponent, canActivate: [LMSAccessGuard] },
+      { path: 'Payroll_Messages',component:PayrollMessagesComponent,canActivate:[LMSAccessGuard]}
 
 
     ]
