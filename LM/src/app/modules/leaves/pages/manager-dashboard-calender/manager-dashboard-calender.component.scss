@@ -1,7 +1,10 @@
 .Sub{
   margin-top: 2%;margin-left:20px;margin-right:20px;
 }
-.mat-card{
-//  padding: 0px !important;
-  border:2px solid #F5F5DC;
+mat-card {
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  position: relative;
+  padding-left: 0px;
+  padding-right: 0px;
 }

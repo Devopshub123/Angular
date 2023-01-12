@@ -6,7 +6,7 @@
       </mat-card-header>
       <br />
       <div [formGroup]="searchForm">
-        <div fxLayout="row" fxLayout.xs="column">
+        <div fxLayout="row" fxLayout.xs="column" class="tableP">
           <mat-form-field fxFlex="33" fxFlex.xs="100" class="mx-1 my-1" appearance="outline">
             <mat-label>Designations</mat-label>
             <mat-select formControlName="designationId" required>
@@ -54,7 +54,7 @@
         </button>
       </div>
     </div>
-  </mat-card>
+
 
   <div style="margin-bottom: 10px" fxLayout="row xs-column" fxLayoutAlign="end  center"
     *ngIf="summaryReports.length > 0">
@@ -124,6 +124,6 @@
       </table>
     </div>
   </mat-card-content>
-
   <ngx-spinner size="medium" type="ball-fussion"></ngx-spinner>
+</mat-card>
 </div>
