@@ -82,6 +82,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("rememberme",'false');
       }
       this.tss.Savelogin(data).subscribe((data) =>{
+        console.log("data",data)
         if(data.status === true){
           let empdata = data.result[0];
           this.employeeId = empdata.id;
@@ -96,12 +97,22 @@ export class LoginComponent implements OnInit {
 
 
         }
+        else if
+        (data.message=='dbnotthere'){
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data:'Company name not there'
+          });
+
+        }
         else {
           this.router.navigate(['/Login']);
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: this.msgLM14
+            data:'The username and/or password you entered did not match our records. Please double-check and try again.'
+            // data: this.msgLM14
           });
        }
 
