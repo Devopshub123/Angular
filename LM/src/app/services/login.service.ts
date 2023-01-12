@@ -59,8 +59,8 @@ resetpassword(resetPassword:any) : Observable<any> {
 // getModules(): Observable<any> {
 //   return this.hClient.get(this.mainBeUrl + 'attendance/api/getModules',this.httpOptions);
 // }
-getModules(tableName:any,status:any,page:any,size:any): Observable<any>{
-  return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
+getModules(tableName:any,status:any,page:any,size:any,cname:any): Observable<any>{
+  return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+cname, this.httpOptions);
 }
 getrolescreenfunctionalities(empId:any,moduleId:any): Observable<any>{
   return this.hClient.get(this.mainBeUrl + 'attendance/api/getrolescreenfunctionalities/'+empId+'/'+moduleId, this.httpOptions);

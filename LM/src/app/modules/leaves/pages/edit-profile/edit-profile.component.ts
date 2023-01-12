@@ -46,8 +46,7 @@ export class EditProfileComponent implements OnInit {
   LM2: any = '';
   LM1: any = '';
   companyDBName: any = environment.dbName;
-  // displayedColumns: string[] = ['firstname','lastName','email','contact','address','countryId','stateId','cityId','zipCode'];
-  constructor(
+   constructor(
     private router: Router,
     private LM: LeavesService,
     private LMS: CompanySettingService,
@@ -91,25 +90,10 @@ export class EditProfileComponent implements OnInit {
 
     this.getUploadImage();
     this.getCountry();
-
-    // this.editForm = this.formBuilder.group(
-    //   {
-    //     firstName: [{ value:this.employeedata.firstname , disabled: true }],
-    //     lastName: [{ value: this.employeedata.lastname , disabled: true }],
-    //     email: [{ value:this.employeedata.personalemail} ],
-    //     contact: [{ value:this.employeedata.contact}],
-    //     address: [{ value:this.employeedata.address}],
-    //     countryId: [{ value:this.employeedata.country}],
-    //     stateId: [{ value:this.employeedata.state}],
-    //     cityId: [{ value:this.employeedata.city}],
-    //     zipCode: [{ value:this.employeedata.zipCode}],
-    //   });
-
     this.getEmployeeInformation();
 
     /**get state details for residance address */
-    this.editForm
-      .get('countryId')
+    this.editForm.get('countryId')
       ?.valueChanges.subscribe((selectedValue: any) => {
         this.stateDetails = [];
         this.LM.getStates(selectedValue).subscribe((result) => {
@@ -122,8 +106,7 @@ export class EditProfileComponent implements OnInit {
         });
       });
     /**get city details for residance address */
-    this.editForm
-      .get('stateId')
+    this.editForm.get('stateId')
       ?.valueChanges.subscribe((selectedValue: any) => {
         this.cityDetails = [];
         this.LM.getCities(selectedValue).subscribe((result) => {
@@ -283,23 +266,7 @@ export class EditProfileComponent implements OnInit {
         this.CountryDetails = result.data;
       }
     });
-    // this.LMS.getCountry('countrymaster',null,1,10,this.companyDBName).subscribe((results)=>{
-    //   this.CountryDetails=results.data;
-    //   this.permanentCountryDetails=results.data;
-    //
-    // })
   }
-
-  submit() {}
-
-
-
-
-
-
-
-
-
 
   // removeImage() {
   //   this.isRemoveImage=false;
@@ -319,7 +286,7 @@ export class EditProfileComponent implements OnInit {
   //   // this.getUploadImage();
   //   this.fileImageToggler();
   // }
-  onSelectFile(event:any) {
+  onSelectFile(event: any) {
     this.isRemoveImage=false;
     this.imageurls = null;
     this.file = null;
@@ -338,7 +305,7 @@ export class EditProfileComponent implements OnInit {
     }
   }
 
-  saveImage(flag: boolean) {
+  submit(flag: boolean) {
     if (this.file) {
       if (this.file.size <= 1024000) {
         this.editProfile();
@@ -395,6 +362,7 @@ export class EditProfileComponent implements OnInit {
 
   getEmployeeInformation(){
     this.LM.getEmployeeInformation(this.userSession.id).subscribe((result) => {
+     
       if (result && result.status) {
         this.employeedata = JSON.parse(result.data[0].json)[0];
         this.editForm.controls.firstName.setValue(this.employeedata.firstname);
@@ -409,8 +377,8 @@ export class EditProfileComponent implements OnInit {
         this.editForm.controls.address.setValue(this.employeedata.address);
         this.editForm.controls.countryId.setValue(this.employeedata.country);
         this.editForm.controls.zipCode.setValue(this.employeedata.pincode);
-        // this.editForm.controls.stateId.setValue(this.employeedata.state);
-        // this.editForm.controls.cityId.setValue(this.employeedata.city);
+       // this.editForm.controls.stateId.setValue(this.employeedata.state);
+       // this.editForm.controls.cityId.setValue(this.employeedata.city);
       }
     });
   }

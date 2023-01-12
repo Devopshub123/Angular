@@ -4,56 +4,34 @@
       <mat-card-header>
         <mat-card-title > Edit Profile </mat-card-title>
       </mat-card-header>
-      <div fxLayout="row" fxLayout.xs="column" >
-        <div class="row col-md-12 profileImage">
-          <!--<div class="column custom-view-mbt-1">-->
-          <div class="productAddfromImages customForImage" >
-            <!-- <img class="img-fluid custom-image"  [src]="url.base64String"> -->
-            <img *ngIf="!imageurls" src="../../../assets/img/profile.jpg" alt="user-img"  class="img-fluid custom-image">
-            <img *ngIf="imageurls" [src]="imageurls" class="img-fluid custom-image">
-            <div class="row "  style="justify-content: center;">
-                                      <span class="btn btn-success btn-file mr-3 mx-2 my-2" >
-                                        Change <input type="file"
-                                                      class="form-control"
-                                                      (change)="onSelectFile($event)"
-                                                      accept="image/*" />
-                                    </span>
-              <!--<span class="btn btn-primary btn-file mr-3 mx-2 my-2 custom-button-save" *ngIf="isFileImage" style="width: fit-content;" (click)="saveImage(false)">-->
-                                        <!--Save-->
-                                    <!--</span>-->
-              <!--<span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save" *ngIf="isRemoveImage" style="width: fit-content;" (click)="removeImage()">-->
-                                      <!--Remove-->
-                                  <!--</span>-->
-              <!--<span class="btn btn-primary btn-danger mr-3 mx-2 my-2 custom-button-save"  *ngIf="isFileImage" style="width: fit-content;" (click)="cancelImage()">-->
-                                    <!--Cancel-->
-                                <!--</span>-->
-
-            </div>
-
-            <!-- <button (click)="removeImage()" class="btn btn-xs btn-danger  mx-2 my-2 custom-font-white"*ngIf="isRemoveImage" >Remove</button> -->
-            <!-- <button (click)="cancelImage()"class="btn btn-xs btn-danger  mx-2 my-2 custom-font-white" *ngIf="isFileImage">cancel</button> -->
-          </div>
-          <!--</div>-->
-        </div>
-
+      <br>
+      <div fxLayout="row" fxLayoutAlign="center">
+         <label  class="hoverable1" for="fileInput" >
+            <img  class="img1" *ngIf="!imageurls" src="../../../assets/img/profile.jpg" alt="user-img">
+            <img   class="img1"*ngIf="imageurls" [src]="imageurls">
+            <div class="hover-text"><mat-icon>camera_enhance</mat-icon></div>
+                    <div class="background"></div>
+             <input id="fileInput" accept='image/*' type='file' (change)="onSelectFile($event)">
+        </label>
       </div>
+      <div class="tableP">
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
-        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>First Name</mat-label>
           <input formControlName="firstName"  matInput placeholder="First Name">
           <mat-error class="con-error"
                      *ngIf="editForm.controls.firstName.errors?.required">
             {{LM1}}          </mat-error>
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Middle Name</mat-label>
           <input formControlName="middlename"  matInput placeholder="Middle Name">
           <mat-error class="con-error"
                      *ngIf="editForm.controls.middlename.errors?.required">
             {{LM1}}          </mat-error>
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100"  fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Last Name</mat-label>
           <input formControlName="lastName" required matInput placeholder="Last Name" >
           <mat-error class="con-error"
@@ -61,11 +39,9 @@
             {{LM1}}          </mat-error>
         </mat-form-field>
       </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
-      </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
-        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100"  fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Email</mat-label>
           <input formControlName="email" matInput placeholder="" maxlength="100" >
           <mat-error class="con-error" *ngIf="editForm.controls.email.errors?.email">
@@ -76,7 +52,7 @@
             {{LM1}}          </mat-error> -->
         </mat-form-field>
 
-        <mat-form-field  fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field  fxFlex.xs="100"  fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Contact</mat-label>
           <input formControlName="contact" onlyNumber required matInput placeholder="" maxlength="10"  >
           <mat-error class="con-error"
@@ -84,7 +60,7 @@
             {{LM1}}
           </mat-error>
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100"  fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Address</mat-label>
           <input formControlName="address" required matInput placeholder="" maxlength="100"  >
           <mat-error class="con-error"
@@ -99,7 +75,7 @@
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center"  >
 
-        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100"  fxFlex class="mx-2 my-2" appearance="outline">
           <!--<mat-label>Country</mat-label>-->
           <!--<input formControlName="countryId" required matInput placeholder="" >-->
           <mat-label>Country</mat-label>
@@ -117,14 +93,11 @@
             {{LM2}}
           </mat-error>
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
-          <!--<mat-label>State</mat-label>-->
-          <!--<input formControlName="stateId" required matInput placeholder="" >-->
+        <mat-form-field fxFlex.xs="100"  fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>State</mat-label>
           <mat-select formControlName="stateId" required>
             <ng-container>
               <div *ngFor="let b of stateDetails">
-                <!-- <mat-option value="" disabled selected>Select </mat-option> -->
                 <mat-option [value]="b.id">{{b.state}}</mat-option>
               </div>
 
@@ -135,14 +108,11 @@
             {{LM2}}
           </mat-error>
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
-          <!--<mat-label >City</mat-label>-->
-          <!--<input formControlName="cityId" required matInput placeholder="" >-->
+        <mat-form-field fxFlex.xs="100"  fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>City</mat-label>
           <mat-select formControlName="cityId" required>
             <ng-container>
               <div *ngFor="let b of cityDetails">
-                 <!--<mat-option value=""  selected>Select </mat-option>-->
                 <mat-option [value]="b.id">{{b.location}}</mat-option>
               </div>
 
@@ -158,7 +128,7 @@
       </div>
 
       <div fxLayout="row" fxLayout.xs="column"  >
-        <mat-form-field fxFlex.xs="100"  fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100"  fxFlex="32" class="mx-2 my-2" appearance="outline">
           <mat-label>Pincode</mat-label>
           <input formControlName="zipCode" onlyNumber required matInput placeholder="" minlength="6" maxlength="6"  >
           <!--<div *ngIf="pincodeno['pincdctrl'].touched && pincodeno['pincdctrl'].invalid" class="show-error">-->
@@ -176,23 +146,17 @@
            {{LM54}}
           </mat-error>
         </mat-form-field>
-        <!--<mat-form-field fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">-->
-        <!--&lt;!&ndash;<mat-label>Zip Code</mat-label>&ndash;&gt;-->
-        <!--&lt;!&ndash;<input formControlName="zipCode" required matInput placeholder="" >&ndash;&gt;-->
-        <!--</mat-form-field>-->
       </div>
 
-
-
-      <div fxLayout="row" fxLayoutAlign="center" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        <button class="m-1 mat-stroked-button button-save" [disabled]="!editForm.valid"(click)="saveImage(true)" type="submit">
+     <div fxLayout="row" fxLayoutAlign="center" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+        <button class="btn btn-primary mr-2 mb-2" (click)="submit(true)" type="submit">
           <span>Submit</span>
         </button>
-        <button class="m-1 mat-stroked-button button-clear" (click)="cancel()" type="submit">
+        <button class="btn btn-danger mr-2 mb-2" (click)="cancel()" type="submit">
           <span>Cancel</span>
         </button>
       </div>
-      <!--</div>-->
+    </div>
     </mat-card>
   </form>
 </div>
