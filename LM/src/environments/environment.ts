@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl:'http://localhost:6060/', //dev Env
-   dbName:'spryple_client'
+   dbName:'spryple'
   //  dbName:'ems_qanew'
 };
 
