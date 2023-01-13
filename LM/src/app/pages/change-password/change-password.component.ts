@@ -103,7 +103,7 @@ export class ChangePasswordComponent implements OnInit {
                 disableClose: true,
                 data: this.msgEM132
               });
-              let login = "/Login/"+sessionStorage.getItem('companyName')
+              let login = "/Login"
               sessionStorage.removeItem('user')
               this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                 this.router.navigate([login]));
