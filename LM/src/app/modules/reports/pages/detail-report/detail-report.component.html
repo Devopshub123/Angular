@@ -1,11 +1,12 @@
 <div fxLayout="column" >
 
     <mat-card>
-        <mat-card-header class="heading">
-            <mat-card-title class="headingtext">Attendance Monthly Details Report</mat-card-title>
-        </mat-card-header>
-        <br />
-        <div fxLayout fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center" [formGroup]="searchForm">
+        <mat-card-header class="headerbox">
+            <div fxLayout="row" fxFlex="50">
+                <mat-card-title class="title"> Attendance Monthly Details Report </mat-card-title>
+            </div>
+            </mat-card-header>
+        <div fxLayout fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center" [formGroup]="searchForm" class="tableP">
             <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%">
                 <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
                     <mat-label>Employee Name</mat-label>
@@ -28,16 +29,16 @@
 
             </div>
             <div fxLayout="row" fxFlex.xs="100%" class="showLine">
-                <span>
-                    <button class="mx-2 my-2 button-save" style="height: 44px;" (click)="Searchform()"
-                        mat-stroked-button>
-                        Search
+                <span style="margin-top: 7%;">
+                    <button   class="btn btn-primary mr-2 mb-2" (click)="Searchform()">
+                      Search
                     </button>
-                </span>
-                <span class="line" style="color:#1898D5;font-size:16px"></span>
-                <button class="mx-2 my-2 mat-flat-button  button-clear" style="height: 44px;" (click)="resetform()">
+                
+                  <span class="line" style="color:#1898D5;font-size:16px"></span>
+                  <button   class="btn btn-danger mr-2 mb-2" (click)="resetform()">
                     <span>Clear</span>
-                </button>
+                  </button>
+                </span>
             </div>
         </div>
         <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">

@@ -4,6 +4,7 @@
             <mat-card-title class="title"> Excel Upload </mat-card-title>
         </mat-card-header>
         <mat-divider></mat-divider>
+        <div class="tableP">
         <div *ngIf="!isLoading" fxLayout="column" class="mx-2 my-2">
             <!-- <h2>File Upload & Image Preview</h2> -->
 
@@ -18,7 +19,7 @@
                         <i class="fa fa-download" aria-hidden="true"></i>
                         <!-- <div>Select a file </div> -->
                         <div id="notimage" class="hidden">Please select an image</div>
-                        <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
+                        <span id="file-upload-btn" class="btn btn-primary custom mr-2 mb-2">Select a file</span>
                     </div>
                     <div id="response" class="hidden">
                         <div id="messages"></div>
@@ -55,7 +56,7 @@
             >
             </mat-progress-spinner>
         </div>
-
+    </div>
     </mat-card>
 
 </div>
