@@ -274,8 +274,8 @@ export class UserLeaveRequestComponent implements OnInit {
     this.LM.getLeaveBalance(this.userSession.id).subscribe((result) => {
       console.log("leavebalance",result)
       if(result && result.status){
-       this.leavebalance = result.data[0];
-        // this.leavebalance = this.leaveTypes(result.data[0],true);
+      //  this.leavebalance = result.data[0];
+        this.leavebalance = this.leaveTypes(result.data[0],true);
       }
     })
   }
@@ -288,10 +288,10 @@ export class UserLeaveRequestComponent implements OnInit {
     var data = [];
     for (var i = 0; i < leaveTypes.length; i++) {
       if(flag){
-        let total = leaveTypes[i].total.split('.')
-        if(total[1] == '00'){
-          leaveTypes[i].total = total[0];
-        }
+        // let total = leaveTypes[i].total.split('.')
+        // if(total[1] == '00'){
+        //   leaveTypes[i].total = total[0];
+        // }
       }
       if (leaveTypes[i].leavename === "Marriage Leave" && this.userSession.maritalstatus === "Single") {
         data.push(leaveTypes[i])

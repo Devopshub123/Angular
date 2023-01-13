@@ -461,6 +461,9 @@ export class MainDashboardComponent implements OnInit {
     this.teamLeavesData = false;
     this.LM.getLeaveBalance(this.usersession.id).subscribe((result) => {
       if (result && result.status) {
+        // this.leavebalance = result.data[0];
+        console.log("hbhjh",this.leaveTypes(result.data[0], true));
+
         this.leavebalance = this.leaveTypes(result.data[0], true);
       }
     });
@@ -469,10 +472,10 @@ export class MainDashboardComponent implements OnInit {
     var data = [];
     for (var i = 0; i < leaveTypes.length; i++) {
       if (flag) {
-        let total = leaveTypes[i].total.split('.');
-        if (total[1] == '00') {
-          leaveTypes[i].total = total[0];
-        }
+        // // let total = leaveTypes[i].total.split('.');
+        // // if (total[1] == '00') {
+        //   leaveTypes[i].total = leaveTypes[i].total;
+        // }
       }
       if (
         leaveTypes[i].leavename === 'Marriage Leave' &&

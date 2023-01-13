@@ -59,8 +59,8 @@ import { environment } from 'src/environments/environment';
         return this.http.get(this.mainBeUrl + 'payroll/api/getErrorMessages/' + errorCode + '/' + page + '/' + size+'/'+this.companyName, this.httpOptions);
     }
     setErrorMessages(info:any): Observable<any> {
-      info.companyName = this.companyName;
-        return this.http.post(this.mainBeUrl + 'api/setErrorMessages', JSON.stringify(info), this.httpOptions);
+      // info.companyName = this.companyName;
+        return this.http.post(this.mainBeUrl + 'payroll/api/setErrorMessages/'+this.companyName, JSON.stringify(info), this.httpOptions);
     }
     getEmployeeDurationsForSalaryDisplay(userid:any): Observable<any> {
         return this.http.get(this.mainBeUrl + 'api/getEmployeeDurationsForSalaryDisplay/'+ userid+'/'+this.companyName,this.httpOptions);
@@ -156,7 +156,8 @@ import { environment } from 'src/environments/environment';
         return this.http.post(this.mainBeUrl + 'ems/api/setFilesMasterForEMS/', info, this.httpOptions);
       }
       setDocumentOrImageForEMS(data: FormData,path:any): Observable<any> {
-        return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/'+encodeURI(path), data);
+        
+        return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/'+encodeURI(path)+'/'+this.companyName, data);
       }
       getDocumentsForEMS(input:any){
         input.companyName = this.companyName;

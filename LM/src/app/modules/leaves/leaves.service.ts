@@ -44,7 +44,8 @@ export class LeavesService {
     return this.http.get(this.mainUrl + 'api/getHandledLeaves/' + id+'/'+this.companyName, this.httpOptions);
   }
   getApprovedLeaves(id:any):any{
-    return this.http.get(this.mainUrl + 'api/getApprovedLeaves/' + id, this.httpOptions);
+    console.log("id",id)
+    return this.http.get(this.mainUrl + 'api/getApprovedLeaves/' + id+'/'+this.companyName, this.httpOptions);
   }
   getCompoffs(data: any): any {
     data.companyName=this.companyName;
