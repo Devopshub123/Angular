@@ -19,20 +19,19 @@
     </mat-nav-list>
   </mat-sidenav>
 
+  <div style="width:100%;display:flex;">
+    <div style="width:22%;">
+      <mat-drawer-container class="example-container" style="border: none;overflow: hidden;" >
+        <mat-drawer mode="side" opened class="sideNavCss"
+                    style="overflow: hidden;position: relative;padding-top: 15px;border: none;background: lightcyan;transform: scale; visibility: collapse;padding-bottom: 300%;" >
+          <div  style="flex-flow: column;margin-left: 1%;overflow: hidden;"  >
+            <mat-nav-list style="align-items: center; height: 55px;  background-color:#28acaf ;margin: inherit;" (click)="onClickMainDashboard()">
+              <mat-list-item  style="font: -webkit-control;" >
+                <span style="margin-left: 6%;color:white;   font-size: medium;" > Dashboard </span>
+              </mat-list-item>
+            </mat-nav-list>
 
-<div class="row" style="flex-flow: column;display:flex;overflow: hidden;background: lightcyan;margin: auto;position: fixed;">
-
-  <mat-drawer-container class="example-container" style="position: fixed;border: none;width: 15%;overflow: hidden;" >
-    <mat-drawer mode="side" opened class="sideNavCss" *ngIf="isExpanded"
-    style="overflow: hidden;position: relative;padding-top: 15px;border: none;background: lightcyan;transform: scale; visibility: collapse;padding-bottom: 300%;" >
-    <div  style="flex-flow: column;margin-left: 1%;overflow: hidden;"  >
-      <mat-nav-list style="align-items: center; height: 55px;  background-color:#28acaf ;margin: inherit;" (click)="onClickMainDashboard()">
-        <mat-list-item  style="font: -webkit-control;" >
-          <span style="margin-left: 6%;color:white;   font-size: medium;" > Dashboard </span>
-        </mat-list-item>
-      </mat-nav-list>
-
-      <span *ngFor="let item of menuList" >
+            <span *ngFor="let item of menuList" >
         <span *ngIf="item.displayStatus && item.children">
           <mat-toolbar style="background: lightcyan;overflow: hidden;">
             <span style="margin-left: 15px; background: lightcyan;"> {{ item.modulename }}</span>
@@ -50,20 +49,29 @@
                     </mat-nav-list>
                   </span>
                 </mat-nav-list>
-                  <!-- </mat-expansion-panel> -->
+                <!-- </mat-expansion-panel> -->
               </span>
         </span>
       </span>
 
+          </div>
+        </mat-drawer>
+
+      </mat-drawer-container>
     </div>
-    </mat-drawer>
-
-  </mat-drawer-container>
-
+    <div style="width:78%;">
+      <section>
+        <router-outlet></router-outlet>
+      </section>
+    </div>
   </div>
 
-  <section [ngStyle]="{'margin-left':getRouterStyle()}">
-    <router-outlet></router-outlet>
-  </section>
+<!--
+<div class="row" style="flex-flow: column;display:flex;overflow: hidden;background: lightcyan;margin: auto;position: fixed;">
+
+  </div>
+-->
+
+
 </mat-sidenav-container>
 

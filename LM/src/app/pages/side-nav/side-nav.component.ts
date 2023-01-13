@@ -62,7 +62,7 @@ export class SideNavComponent implements OnInit {
                 sessionStorage.setItem('activeChild',(_this.currentChild) ?JSON.stringify(_this.currentChild):'' );
               }
               else{
-                m.displayStatus = false;
+              //  m.displayStatus = false;
               }
             });
           }
@@ -116,6 +116,7 @@ export class SideNavComponent implements OnInit {
     this.mainService.getSideNavigation({empid: this.usersession.id}).subscribe((res: any) => {
       //this.menu=[];
       for(let i=0; i<res.data.length;i++) {
+        res.data[i].displayStatus = res.data[i].modulename === sessionStorage.getItem('selectedModule');
         if (res.data[i].children != 'null') {
           let one = JSON.parse(res.data[i].children);
           // res.data[i].children=Array.from(new Set(res.data[i].children))
