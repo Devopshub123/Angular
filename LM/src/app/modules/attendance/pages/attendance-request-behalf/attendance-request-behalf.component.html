@@ -1,18 +1,22 @@
 <div fxLayout="column" >
+    <mat-card >
     <form [formGroup]="requestform" autocomplete="off">
-        <mat-card >
-            <mat-card-header>
-                <mat-card-title> Request on Behalf of Employee</mat-card-title>
-            </mat-card-header>
-            <!-- <mat-divider></mat-divider> -->
-            <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
 
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            
+  <mat-card-header class="headerbox">
+    <div fxLayout="row" fxFlex="50">
+        <mat-card-title class="title"> Request on Behalf of Employee </mat-card-title>
+    </div>
+    </mat-card-header>
+    <div class="tableP">
+            <div fxLayout="row" fxLayoutAlign.xs="center center">
+
+                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Applied On</mat-label>
                     <input formControlName="appliedDate" matInput placeholder="Applied Date" readonly>
                 </mat-form-field>
 
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Employee Name</mat-label>
                     <mat-select formControlName="employeeName"  required>
                         <ng-container *ngFor="let v of employeesData">
@@ -24,7 +28,7 @@
                        {{requiredOption}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Work Type</mat-label>
                     <mat-select formControlName="workType" required>
                         <ng-container *ngFor="let v of workTypeData">
@@ -37,9 +41,9 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div fxLayout="row wrap"  fxLayoutAlign.xs="center center">
+            <div fxLayout="row"  fxLayoutAlign.xs="center center">
 
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>From Date</mat-label>
                     <input matInput readonly [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate" (dateInput)="fromDateChange('input', $event)"
                     [matDatepickerFilter]="myDateFilter"
@@ -51,7 +55,7 @@
                        {{requiredOption}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>To Date</mat-label>
                     <input matInput readonly [min]="minToDate" placeholder="DD-MM-YYYY" [max]="maxToDate" [matDatepicker]="toDate"
                     [matDatepickerFilter]="myDateFilter"
@@ -62,7 +66,7 @@
                         {{requiredOption}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Shift</mat-label>
                     <input formControlName="shift"  readonly required matInput placeholder="Shift">
                     <mat-error *ngIf="requestform.controls['shift'].invalid">
@@ -71,8 +75,8 @@
                 </mat-form-field>
 
             </div>
-            <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex="52" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <div fxLayout="row" fxLayoutAlign.xs="center center">
+                <mat-form-field fxFlex="50" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason </mat-label>
                     <textarea formControlName="reason" required  maxlength="250" matInput placeholder="Reason"></textarea>
                     <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
@@ -81,27 +85,28 @@
                 </mat-form-field>
             </div>
             <div fxLayoutAlign="center">
-                <button class="m-1 mat-stroked-button button-save" (click)="saveConsultation()" type="submit">
+                <button class="btn btn-primary mr-2 mb-2" (click)="saveConsultation()" type="submit">
                     <span>Submit</span>
                 </button>
 
-                <button class="m-1 mat-stroked-button button-clear"  (click)="resetform()">
+                <button class="btn btn-danger mr-2 mb-2"  (click)="resetform()">
                     <span >Cancel</span>
                 </button>
                 <br />
             </div>
-        </mat-card>
+        </div>
+     
     </form>
     <mat-divider></mat-divider>
-    <mat-card fxLayout="column">
-        <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
-            <mat-form-field fxFlex.xs="100%" appearance="outline">
-                <mat-label>Search</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-        </div>
-        <div class="mat-elevation-z8">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="end" style="height: 70px;margin-top: 5px;">
+        <mat-form-field fxFlex.xs="100" fxFlex="28" class="mx-2 my-2" appearance="outline" style="padding-right: 16px;">
+        <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
+        <mat-label>Search</mat-label>
+        <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
+      </mat-form-field>
+    </div>
+    <div class="tablePadding">
+        <div class="mat-elevation-z1">
             <table mat-table [dataSource]="dataSource" matSort >
 
                 <ng-container matColumnDef="id"  style="width: 10%;">
@@ -160,6 +165,7 @@
 
             <!-- <mat-paginator  [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
         </div>
+    </div>
     </mat-card>
 
 

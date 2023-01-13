@@ -1,17 +1,20 @@
-<div fxLayout="column" fxFill>
-    <mat-card fxLayout="column" fxFill>
-        <mat-card-header>
-            <mat-card-title> Pending Approvals </mat-card-title>
-        </mat-card-header>
-        <!-- <mat-divider></mat-divider> -->
+<div fxLayout="column" style="background-color: white;">
+    <mat-card fxLayout="column">
+        <mat-card-header class="headerbox">
+            <div fxLayout="row" fxFlex="50">
+                <mat-card-title class="title"> Pending Approvals </mat-card-title>
+            </div>
+            </mat-card-header>
+
         <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
-            <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex="30" fxFlex.xs="100" class="mx-2 my-2" appearance="outline" style="padding-right: 1%;padding-top: 1%;">
                 <mat-label>Search</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
         </div>
-        <div class="mat-elevation-z8">
+        <div class="tablePadding"> 
+        <div class="mat-elevation-z1">
             <table mat-table [dataSource]="dataSource" matSort>
 
                 <!-- ID Column -->
@@ -77,7 +80,7 @@
                 </tr>
             </table>
             <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+          </div>
         </div>
     </mat-card>
 </div>

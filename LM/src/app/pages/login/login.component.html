@@ -66,19 +66,17 @@
 
                   </div>
                   <div fxLayout="row" fxLayout.sm="column" fxLayoutAlign="space-between center">
-                    <div fxFlex="50">
-                      <mat-checkbox formControlName="rememberme">
-                        Remember Me
-                          </mat-checkbox>
+                    <div fxLayout="row" fxFlex="50">
+                     <mat-checkbox formControlName="rememberme">
+                       Remember Me
+                         </mat-checkbox>
                     </div>
                     
-                      <div fxFlex="50" fxLayoutAlign="start" style="padding-left: 15%;">
-                        <button mat-icon-button (click)="ForgotPassword()">
-                          Forgot your password?</button>
-                      </div>
-                      
-
-                  </div>
+                       <div fxLayout="row" fxLayoutAlign="end">
+                         <span><a [routerLink]=""(click)="ForgotPassword()">Forgot your password?</a>
+                         </span>
+                       </div>
+                   </div>
 
 
                 </div>

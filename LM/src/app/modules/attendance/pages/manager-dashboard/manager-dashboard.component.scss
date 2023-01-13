@@ -48,3 +48,10 @@ font-size: 20px;
 ::ng-deep .fc .fc-button-primary{
 	background-color:#28acaf !important;
 }
+mat-card {
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  position: relative;
+  padding-left: 0px;
+  padding-right: 0px;
+}
