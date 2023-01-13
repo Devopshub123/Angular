@@ -270,7 +270,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.cityDetails = [];
        if (selectedResidenceCityValue != '') {
         this.companyService.getCities(selectedResidenceCityValue).subscribe((data) => {
-          this.cityDetails = data[0]
+          this.cityDetails = data.data
            if (this.employeeCode != null || this.employeeCode !=undefined) {
             this.personalInfoForm.controls.rcity.setValue(this.employeeInformationData.city);
           } else {
