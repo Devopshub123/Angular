@@ -201,6 +201,7 @@ export class UserDashboardComponent implements OnInit {
   getHolidaysList() {
     this.LM.getHolidaysList(this.usersession.id).subscribe((result)=>{
       if(result && result.status){
+        console.log("result",result)
         for(let i=0;i<result.data[0].length;i++){
           if(i<=2){
             this.holidaysList.push(result.data[0][i])

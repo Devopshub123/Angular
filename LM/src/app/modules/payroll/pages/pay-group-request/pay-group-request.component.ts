@@ -154,83 +154,87 @@ export class PayGroupRequestComponent implements OnInit {
   }
   /**Set Paygroup(Configure components) */
   setPayGroup(){
-    for(let i =0;i<this.payrollIncomeGroups.length;i++){
-      if(this.payGroupRequestForm.controls.payNameGroup.value == this.payrollIncomeGroups[i].group_name){
-        this.payGroupnameValidation =false;
-        break;
+    if(this.payGroupRequestForm.valid){
+      for(let i =0;i<this.payrollIncomeGroups.length;i++){
+        if(this.payGroupRequestForm.controls.payNameGroup.value == this.payrollIncomeGroups[i].group_name){
+          this.payGroupnameValidation =false;
+          break;
+        }
+        else{
+          this.payGroupnameValidation =true;
+        }
       }
+      
+      if(this.minstartrange> this.minendrange){
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data: this.PR33
+        }); 
+  
+      }
+     
       else{
-        this.payGroupnameValidation =true;
-      }
-    }
-    
-    if(this.minstartrange> this.minendrange){
-      let dialogRef = this.dialog.open(ReusableDialogComponent, {
-        position:{top:`70px`},
-        disableClose: true,
-        data: this.PR33
-      }); 
-
-    }
-   
-    else{
-      const earningselectedIds = this.payGroupRequestForm.value.earnings
-      .map((checked:any, i:any) => checked ? this.earningData[i].id : null)
-      .filter((v:any) => v !== null);
-      const deductselectedIds = this.payGroupRequestForm.value.deducts
-      .map((checked:any, i:any) => checked ? this.deductionData[i].id : null)
-      .filter((v:any) => v !== null);
-      console.log(earningselectedIds);
-      console.log(deductselectedIds);
-      console.log(this.payGroupRequestForm.valid)
-      if(this.payGroupnameValidation){
-        if(this.payGroupRequestForm.valid){   
-          let data ={
-            group:this.payGroupRequestForm.controls.payNameGroup.value,
-            from:this.payGroupRequestForm.controls.start_range.value,
-            to:this.payGroupRequestForm.controls.end_range.value,
-            status:this.payGroupRequestForm.controls.status.value,
-            description:this.payGroupRequestForm.controls.descriptions.value,
-            component:earningselectedIds.concat(deductselectedIds)
-          }
-        console.log(data)
-          this.PR.setincomegroup(data).subscribe((info:any)=>{
-            if(info.status){
-              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                this.router.navigate(["/Payroll/PayGroup"])); 
-              let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                position:{top:`70px`},
-                disableClose: true,
-                data: this.PR2
-              });
-            }else {
-              let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                position:{top:`70px`},
-                disableClose: true,
-                data: this.PR3
-              });  
+        const earningselectedIds = this.payGroupRequestForm.value.earnings
+        .map((checked:any, i:any) => checked ? this.earningData[i].id : null)
+        .filter((v:any) => v !== null);
+        const deductselectedIds = this.payGroupRequestForm.value.deducts
+        .map((checked:any, i:any) => checked ? this.deductionData[i].id : null)
+        .filter((v:any) => v !== null);
+        console.log(earningselectedIds);
+        console.log(deductselectedIds);
+        console.log(this.payGroupRequestForm.valid)
+        if(this.payGroupnameValidation){
+          if(this.payGroupRequestForm.valid){   
+            let data ={
+              group:this.payGroupRequestForm.controls.payNameGroup.value,
+              from:this.payGroupRequestForm.controls.start_range.value,
+              to:this.payGroupRequestForm.controls.end_range.value,
+              status:this.payGroupRequestForm.controls.status.value,
+              description:this.payGroupRequestForm.controls.descriptions.value,
+              component:earningselectedIds.concat(deductselectedIds)
             }
-          })      
+          console.log(data)
+            this.PR.setincomegroup(data).subscribe((info:any)=>{
+              if(info.status){
+                this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                  this.router.navigate(["/Payroll/PayGroup"])); 
+                let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                  position:{top:`70px`},
+                  disableClose: true,
+                  data: this.PR2
+                });
+              }else {
+                let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                  position:{top:`70px`},
+                  disableClose: true,
+                  data: this.PR3
+                });  
+              }
+            })      
+          }
+          else{
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: this.PR6
+            }); 
+          }  
+  
         }
         else{
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: this.PR6
+            data: this.PR23
           }); 
-        }  
-
-      }
-      else{
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: this.PR23
-        }); 
-
+  
+        } 
+        
       } 
-      
-    }  
+
+    }
+     
   }
   cancel(){    
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

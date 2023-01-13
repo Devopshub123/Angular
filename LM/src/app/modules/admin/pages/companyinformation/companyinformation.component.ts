@@ -60,7 +60,10 @@ export class CompanyinformationComponent implements OnInit {
   companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder,private router: Router,
     private LMS:CompanySettingService,private dialog: MatDialog,private ts: LoginService,
-    private emsService:EmsService) { }
+    private emsService:EmsService) { 
+    this.getCountry();
+    this.getCompanyInformation();
+    }
 
   ngOnInit(): void {
     this.getMessages('EM1')
@@ -71,8 +74,7 @@ export class CompanyinformationComponent implements OnInit {
     this.getMessages('LM22')
     this.getMessages('EM69')
     this.getMessages('EM70')
-    this.getCountry();
-    this.getCompanyInformation();
+    
     this.companyForm=this.formBuilder.group(
       {
         companyname:["",Validators.required],
@@ -95,7 +97,7 @@ export class CompanyinformationComponent implements OnInit {
       this.companyForm.get('country')?.valueChanges.subscribe(selectedValue => {
         this.stateDetails= [];
         this.LMS.getStatesc(selectedValue).subscribe((data)=>{
-          this.stateDetails=data[0];
+          this.stateDetails=data.data;
           if(this.companyinfo != null)
           {
             this.companyForm.controls.state.setValue(this.companyinfo.stateid);
@@ -108,7 +110,7 @@ export class CompanyinformationComponent implements OnInit {
       this.companyForm.get('state')?.valueChanges.subscribe(selectedValue => {
         this.cityDetails=[];
         this.LMS.getCities(selectedValue).subscribe((data)=>{
-          this.cityDetails=data[0]
+          this.cityDetails=data.data
           if(this.companyinfo != null)
           {
             this.companyForm.controls.city.setValue(this.companyinfo.locationid);
@@ -230,6 +232,7 @@ export class CompanyinformationComponent implements OnInit {
   }
   getCompanyInformation(){
     this.LMS.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data)=>{
+      console.log("companyinformation",data)
       if(data.status && data.data.length!=0) {
         // this.enable=false;
         this.isview=true;
@@ -237,6 +240,7 @@ export class CompanyinformationComponent implements OnInit {
 
 
         this.companyinfo =data.data[0];
+        console.log("this.companyinfo",this.companyinfo)
         this.companyForm.controls.companyname.setValue(data.data[0].companyname);
         this.companyForm.controls.website.setValue(data.data[0].companywebsite);
         this.companyForm.controls.contact.setValue(data.data[0].primarycontactnumber);
