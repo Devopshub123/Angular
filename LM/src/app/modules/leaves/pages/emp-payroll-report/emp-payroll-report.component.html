@@ -1,11 +1,12 @@
 <div fxLayout="column">
 
-    <mat-card style="flex-flow: row wrap;">
-      <mat-card-header class="heading">
-        <mat-card-title class="headingtext"> Monthly Payroll Report</mat-card-title>
-      </mat-card-header>
-      <br />
-      <div [formGroup]="searchForm"  >
+    <mat-card>
+      <mat-card-header class="headerbox">
+        <div fxLayout="row" fxFlex="50">
+            <mat-card-title class="title"> Monthly Payroll Report </mat-card-title>
+        </div>
+        </mat-card-header>
+      <div [formGroup]="searchForm" class="tableP" >
         <div fxLayout="row"  fxLayout.xs="column">
           <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline" >
             <mat-label>Employee Name and ID</mat-label>
@@ -31,20 +32,20 @@
         </div>
        
 
-        <div fxLayout="row"  style="justify-content: center;"  class="showLine">
+        <div fxLayout="row" fxLayoutAlign="center">
                   <span>
-                      <button class="mx-1 button-save" (click)="Searchform()"
-                              mat-stroked-button>
+                      <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()"
+                             >
                           Search
                       </button>
                   </span>
-          <button class="mx-1 mat-flat-button  button-clear" (click)="resetform()">
+          <button class="btn btn-danger mr-2 mb-2" (click)="resetform()">
             <span>Clear</span>
           </button>
         </div>
 
       </div>
-      <div style="margin-bottom: 10px" fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="arrayList.length > 0">
+      <div style="margin-bottom: 1%;padding-right: 2%;" fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="arrayList.length > 0">
         <div>
           <span class="exlprint"> | </span>
           <a title="PDF"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
@@ -54,10 +55,10 @@
           </a>
         </div>
       </div >
-    </mat-card>
 
 
-    <div class="mat-elevation-z8" >
+<div class="tablePadding">
+    <div class="mat-elevation-z1" >
       <div id="table" #table=''>
       <table id="table" mat-table [dataSource]="dataSource" matSort>
           <ng-container matColumnDef="sno">
@@ -96,6 +97,7 @@
 
       <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
   </div>
+</div>
     <!-- <mat-card>
 
       <mat-card-content style="width:100%;overflow-x: auto">
@@ -284,5 +286,5 @@
       <!--</div>-->
     <!--</mat-card>-->
     <ngx-spinner size="medium" type='ball-fussion'></ngx-spinner>
-
+  </mat-card>
   </div>

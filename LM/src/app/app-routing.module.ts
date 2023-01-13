@@ -13,11 +13,11 @@ import { MainComponent } from './pages/main/main.component';
 
 var Login :string;
  var comp = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):'';
-Login = 'Login/'+comp;
+Login = 'Login';
 
 
 const routes: Routes = [
-  {path:'Login/:companyName',component:LoginComponent},
+  {path:'Login',component:LoginComponent},
   {path:'sidenav',component:SideNavComponent},
   {path:'main',component:MainComponent,children:[
     {path:'MainDashboard',component:MainDashboardComponent}
