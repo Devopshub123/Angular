@@ -13,7 +13,7 @@ import { MainComponent } from './pages/main/main.component';
 
 var Login :string;
  var comp = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):'';
-Login = 'Login';
+Login = 'Login'
 
 
 const routes: Routes = [

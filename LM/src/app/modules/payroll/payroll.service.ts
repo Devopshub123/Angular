@@ -56,7 +56,7 @@ import { environment } from 'src/environments/environment';
         return this.http.post(this.mainBeUrl +'api/getEmployeeProfessionalTaxDetails',this.httpOptions)
     }
     getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
-        return this.http.get(this.mainBeUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size+'/'+this.companyName, this.httpOptions);
+        return this.http.get(this.mainBeUrl + 'payroll/api/getErrorMessages/' + errorCode + '/' + page + '/' + size+'/'+this.companyName, this.httpOptions);
     }
     setErrorMessages(info:any): Observable<any> {
       info.companyName = this.companyName;
