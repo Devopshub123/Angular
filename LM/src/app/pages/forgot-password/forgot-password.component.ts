@@ -64,7 +64,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   cancel(){
-    this.router.navigate(['/Login'])
+    this.router.navigate(['Login']);
   }
 
 }

@@ -272,8 +272,10 @@ export class UserLeaveRequestComponent implements OnInit {
 
   getLeaveBalance() {
     this.LM.getLeaveBalance(this.userSession.id).subscribe((result) => {
+      console.log("leavebalance",result)
       if(result && result.status){
-        this.leavebalance = this.leaveTypes(result.data[0],true)
+       this.leavebalance = result.data[0];
+        // this.leavebalance = this.leaveTypes(result.data[0],true);
       }
     })
   }
