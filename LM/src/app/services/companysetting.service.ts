@@ -115,7 +115,7 @@ import { environment } from 'src/environments/environment';
   }
   setHolidays(info: any): Observable<any>{
     info.companyName = this.companyName;
-    return this.hClient.post(this.mainBeUrl+'admin/api/setHolidaysMaster', JSON.stringify(info), this.httpOptions);
+    return this.hClient.post(this.mainBeUrl+'api/setHolidaysMaster', JSON.stringify(info), this.httpOptions);
   }
   // setHolidays(info:any,companyName:any):Observable<any>{
   //     info[0].companyName= this.companyName;
