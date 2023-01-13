@@ -132,7 +132,7 @@ export class WorklocationComponent implements OnInit {
       ?.valueChanges.subscribe((selectedValue: any) => {
         this.stateDetails = [];
         this.LM.getStatesc(selectedValue).subscribe((data) => {
-          this.stateDetails = data[0];
+          this.stateDetails = data.data;
           if (this.worklocationdata != null) {
             this.worklocationForm.controls.state.setValue(
               this.worklocationdata.state
@@ -146,7 +146,7 @@ export class WorklocationComponent implements OnInit {
       ?.valueChanges.subscribe((selectedValue: any) => {
         this.CityDetails = [];
         this.LM.getCities(selectedValue).subscribe((data) => {
-          this.CityDetails = data[0];
+          this.CityDetails = data.data;
           if (this.worklocationdata != null) {
             this.worklocationForm.controls.city.setValue(
               this.worklocationdata.city
