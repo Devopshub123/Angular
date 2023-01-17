@@ -113,12 +113,15 @@ import { environment } from 'src/environments/environment';
   removeImage(info:any): Observable<any> {
     return this.hClient.delete(this.mainBeUrl + 'api/removeImage/'+encodeURI(info),this.httpOptions);
   }
-
-  setHolidays(info:any,companyName:any):Observable<any>{
-      info[0].companyName= this.companyName;
-
-    return this.hClient.post(this.mainBeUrl+'api/setHolidays', JSON.stringify(info), this.httpOptions);
+  setHolidays(info: any): Observable<any>{
+    info.companyName = this.companyName;
+    return this.hClient.post(this.mainBeUrl+'api/setHolidaysMaster', JSON.stringify(info), this.httpOptions);
   }
+  // setHolidays(info:any,companyName:any):Observable<any>{
+  //     info[0].companyName= this.companyName;
+
+  //   return this.hClient.post(this.mainBeUrl+'api/setHolidays', JSON.stringify(info), this.httpOptions);
+  // }
 
   setHolidayStatus(info:any){
     return this.hClient.post(this.mainBeUrl+'api/setHolidayStatus', JSON.stringify(info), this.httpOptions);

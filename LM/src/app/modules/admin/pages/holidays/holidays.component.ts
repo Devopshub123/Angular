@@ -78,7 +78,7 @@ export class HolidaysComponent implements OnInit {
   userSession: any;
   companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder,private router: Router,
-    private LM:CompanySettingService,private dialog: MatDialog,private ts:LoginService,
+    private companyService:CompanySettingService,private dialog: MatDialog,private ts:LoginService,
     private emsService:EmsService) { }
     messagesDataList: any = [];
   selectAll(select: MatSelect, values:any, array:any) {
@@ -128,7 +128,7 @@ export class HolidaysComponent implements OnInit {
     });
   }
   getWorkLocation(){
-    this.LM.getactiveWorkLocation({id:null,companyName:this.companyDBName}).subscribe((result)=>{
+    this.companyService.getactiveWorkLocation({id:null,companyName:this.companyDBName}).subscribe((result)=>{
       this.worklocationDetails=result.data;
     })
 
@@ -139,22 +139,22 @@ export class HolidaysComponent implements OnInit {
   submit() {
     if (this.HolidayForm.valid) {
       let location = this.HolidayForm.controls.branch.value;
-      // let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       location.forEach((e: any) => {
-        this.selecteditems.push(({
-          id: '',
-          description: this.HolidayForm.controls.holiday.value,
-          date: new Date(this.HolidayForm.controls.date.value),
-          location: e.city,
-          created_by: this.userSession.id,
-          created_on: this.pipe.transform(new Date(), 'yyyy-MM-dd') + ' ' + this.pipe.transform(new Date(), 'HH:mm:ss'),
-
-        }));
+        this.selecteditems.push(e.city);
       });
-      if(this.HolidayForm.controls.holiday.value !== null && this.holidaysDetails.holidayName !== null ){}
-      this.LM.setHolidays(this.selecteditems, this.companyDBName).subscribe((data) => {
-
-        if (data.status) {
+      let year = this.pipe.transform(this.HolidayForm.controls.date.value, 'yyyy')
+      let data = {
+        hid :null,
+        holiday_year: year,
+        holiday_description: this.HolidayForm.controls.holiday.value,
+        holiday_date: this.pipe.transform(this.HolidayForm.controls.date.value, 'yyyy-MM-dd'),
+        holiday_location: this.selecteditems,
+        createdby:this.userSession.id,
+      };
+    
+     if(this.HolidayForm.controls.holiday.value !== null && this.holidaysDetails.holidayName !== null ){}
+      this.companyService.setHolidays(data).subscribe((data) => {
+        if (data.status && data.data==0) {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/Holidays"]));
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -162,22 +162,26 @@ export class HolidaysComponent implements OnInit {
             disableClose: true,
             data: this.msgEM114
           });
-
-
-
-        } else {
+        } else if (data.status && data.data==1) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Record already exists."
+          });
+        }
+        else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
             data: this.msgEM125
           });
-
-          // Swal.fire({title:data.message,color:"red",showCloseButton: true});
         }
       })
+
     }
 
   }
+
   add(){
     this.isview = false;
     this.isadd = true;
@@ -197,7 +201,7 @@ export class HolidaysComponent implements OnInit {
   }
   getHolidays(year:any,locationId:any){
 
-    this.LM.getHolidays(year,locationId,1,100).subscribe((result)=>{
+    this.companyService.getHolidays(year,locationId,1,100).subscribe((result)=>{
       if(result.status) {
         this.holidaysDetails = result.data;
 
@@ -238,7 +242,7 @@ export class HolidaysComponent implements OnInit {
   }
   deleteHoliday(event:any,holidayId:any){
 
-    this.LM.deleteHoliday(holidayId).subscribe(data=>{
+    this.companyService.deleteHoliday(holidayId).subscribe(data=>{
 
       if(data.status){
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -295,7 +299,7 @@ export class HolidaysComponent implements OnInit {
       date:date
 
     }
-    this.LM.putHolidays(data, this.companyDBName).subscribe((data) => {
+    this.companyService.putHolidays(data, this.companyDBName).subscribe((data) => {
 
       this.isadd= true;
       if (data.status) {
