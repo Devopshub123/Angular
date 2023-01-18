@@ -97,15 +97,13 @@ export class EmployeDashboardComponent implements OnInit {
     });
   }
   getemployeeattendancedashboard() {
-    console.log("t-1")
-    let data = {
+   let data = {
       'manager_id': null,
       'employee_id': this.userSession.id,
       'date': this.selectedDate
     }
     this.attendanceService.getemployeeattendancedashboard(data).subscribe((res: any) => {
       if (res.status) {
-        console.log("t-1",res.status)
         this.attendanceData = res.data;
         this.initialEvents=[];
         this.attendanceData.forEach((e: any) => {
@@ -142,10 +140,8 @@ export class EmployeDashboardComponent implements OnInit {
           }
           this.initialEvents.push(item);
         });
-console.log("h-1")
-        this.calendarOptions.events = this.initialEvents;
-        console.log("h-2")
-      //  this.calendarCountViewNoMore();
+ this.calendarOptions.events = this.initialEvents;
+ //  this.calendarCountViewNoMore();
       }
 
     })

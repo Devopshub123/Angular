@@ -25,7 +25,7 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private tss:LoginService,private router: Router,private location: Location) {
 
     this.info = this.location.getState();
-    this.companyName = this.info.companyName;
+    // this.companyName = this.info.companyName;
 
 
   }
@@ -36,12 +36,14 @@ export class ForgotPasswordComponent implements OnInit {
 
   createForm() {
     this.formGroup = this.formBuilder.group({
+      'comapnyname': ['', Validators.required],
       'email': ['', Validators.required],
     });
   }
   submit(){
     this.issubmit=true;
     this.email = this.formGroup.controls.email.value;
+    this.companyName = this.formGroup.controls.comapnyname.value;
     this.tss.verifyEmail(this.email,this.companyName).subscribe((data) => {
       if(data.status){
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -51,12 +53,26 @@ export class ForgotPasswordComponent implements OnInit {
         });
           this.router.navigate(["/Login"])
       }
-      else{
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: 'Please enter valid email for reset password'
-        });
+    
+      
+      else {
+        if (data.message == 'datanotthere') {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: 'Db not there.'
+          });
+          
+        }
+        else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: 'Please enter valid email for reset password'
+          });
+          
+        }
+        
       }
 
     });

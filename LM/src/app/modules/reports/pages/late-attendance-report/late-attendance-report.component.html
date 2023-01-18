@@ -6,8 +6,8 @@
         </mat-card-header>
 
         <div fxLayout fxLayout="row wrap" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center"
-            [formGroup]="searchForm">
-            <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
+            [formGroup]="searchForm" style="padding-top: 1%;">
+            <mat-form-field fxFlex fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
                 <mat-label>Employee Name</mat-label>
                 <mat-select formControlName="user" required>
                     <mat-option value="0"> All Employees </mat-option>
@@ -16,7 +16,7 @@
                     </ng-container>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>Shift</mat-label>
                 <mat-select formControlName="shift"  required>
                     <mat-option value="0"> All Shifts </mat-option>
@@ -26,7 +26,7 @@
                 </mat-select>
 
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>From Date </mat-label>
                 <input matInput readonly required [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate"
                  (dateInput)="fromDateChange('input', $event)"
@@ -38,7 +38,7 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>To Date </mat-label>
                 <input matInput readonly required [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
                 (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="toDate.open()">
@@ -50,12 +50,12 @@
             </mat-form-field>                  </div>
         <div fxLayout="row" fxFlex.xs="100%" fxLayoutAlign="center" class="showLine">
             <span>
-                <button class="mx-1 button-save"  (click)="Searchform()" mat-stroked-button>
+                <button class="btn btn-primary mr-2 mb-2"  (click)="Searchform()">
                     Search
                 </button>
             </span>
-            <span class="line" style="color:#1898D5;font-size:16px"></span>
-            <button class="mx-1 mat-flat-button  button-clear"  (click)="resetform()">
+            <!-- <span class="line" style="color:#1898D5;font-size:16px"></span> -->
+            <button class="btn btn-danger mr-2 mb-2"  (click)="resetform()">
                 <span>Clear</span>
             </button>
         </div>
@@ -69,10 +69,10 @@
                 </a>
             </div>
         </div>
-    </mat-card>
+
 
     <div class="p-2">
-        <div class="mat-elevation-z8" >
+        <div class="mat-elevation-z1" >
             <div  #table>
             <table mat-table [dataSource]="dataSource" >
                 <ng-container matColumnDef="sno">
@@ -123,4 +123,5 @@
         </div>
 
     </div>
+</mat-card>
 </div>

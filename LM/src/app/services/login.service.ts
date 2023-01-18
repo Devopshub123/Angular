@@ -43,7 +43,7 @@ Savelogin(data:any): Observable<any> {
  /* save change password */
 changepassword(changePassword: any): Observable<any> {
 
-  changePassword.companyName = this.companyName;
+  changePassword.companyName = sessionStorage.getItem('companyName');
   return this.hClient.post(this.mainBeUrl + 'api/changePassword', JSON.stringify(changePassword), this.httpOptions);
 }
 resetpassword(resetPassword:any) : Observable<any> {

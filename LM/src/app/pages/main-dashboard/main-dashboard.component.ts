@@ -461,10 +461,7 @@ export class MainDashboardComponent implements OnInit {
     this.teamLeavesData = false;
     this.LM.getLeaveBalance(this.usersession.id).subscribe((result) => {
       if (result && result.status) {
-        // this.leavebalance = result.data[0];
-        console.log("hbhjh",this.leaveTypes(result.data[0], true));
-
-        this.leavebalance = this.leaveTypes(result.data[0], true);
+       this.leavebalance = this.leaveTypes(result.data[0], true);
       }
     });
   }

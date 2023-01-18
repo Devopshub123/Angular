@@ -112,7 +112,6 @@ export class DesignationsComponent implements OnInit {
         designationName: this.designation,
         created_by:this.userSession.id,
        created_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
-        companyDBName:this.companyDBName
       }
       if (this.valid) {
         this.LM.setDesignation(designationdata).subscribe((data) => {
@@ -203,7 +202,6 @@ export class DesignationsComponent implements OnInit {
     this.enable = null;
     this.isEdit = true;
     this.isSave = false;
-    console.log("data--",datas)
     if (this.valid) {
       let data={
         id:id,
@@ -257,7 +255,6 @@ export class DesignationsComponent implements OnInit {
       if(result.status){
         this.arrayValue = result.data;
       }
-
     })
   }
   getDesignation() {

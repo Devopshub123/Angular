@@ -82,11 +82,12 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("rememberme",'false');
       }
       this.tss.Savelogin(data).subscribe((data) =>{
-        console.log("data",data)
+        console.log("data", data)
+        sessionStorage.setItem('user', JSON.stringify(data.result[0]));
         if(data.status === true){
           let empdata = data.result[0];
+          // sessionStorage.setItem('user', JSON.stringify(empdata));
           this.employeeId = empdata.id;
-          sessionStorage.setItem('user', JSON.stringify(empdata));
           if (empdata.firstlogin == "Y") {
             this.router.navigate(['/Attendance/ChangePassword'])
           }

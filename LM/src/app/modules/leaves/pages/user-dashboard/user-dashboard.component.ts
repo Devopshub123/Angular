@@ -119,6 +119,7 @@ export class UserDashboardComponent implements OnInit {
       this.spinner.hide();
       this.calenderleaves = result.data;
       this.arrayList = result.data;
+      console.log("data-",this.arrayList)
       this.arrayList.forEach((e: any) => {
         let item =
           {
@@ -201,8 +202,7 @@ export class UserDashboardComponent implements OnInit {
   getHolidaysList() {
     this.LM.getHolidaysList(this.usersession.id).subscribe((result)=>{
       if(result && result.status){
-        console.log("result",result)
-        for(let i=0;i<result.data[0].length;i++){
+         for(let i=0;i<result.data[0].length;i++){
           if(i<=2){
             this.holidaysList.push(result.data[0][i])
             this.holidaydatasource = new MatTableDataSource(this.holidaysList);
@@ -264,13 +264,8 @@ view(data:any){
   this.viewdata = data;
 }
 viewall(){
-console.log("t1")
-console.log("t2",new Date().getFullYear())
-console.log("t3",this.usersession.worklocation)
   this.LM.getHolidays(new Date().getFullYear(),this.usersession.worklocation,1,1000).subscribe((result)=>{
-    console.log("t2")
     this.holidaysListall = result;
-
     this.holidaysListall = this.holidaysListall.data;
     this.holidaysalldatasource = new MatTableDataSource( this.holidaysListall);
   })
@@ -403,7 +398,6 @@ currentMonth(): void {
 
       this.sampleElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link');
       var closeElement = (<HTMLElement>this.element.nativeElement).querySelectorAll('.fc-daygrid-more-link.fc-more-link');
-      console.log(this.sampleElement);
       for(var j=0;j<this.sampleElement.length;j++)
       {
         this.calendarCount[j] = this.sampleElement[j].innerHTML.substring(0, this.sampleElement[j].innerHTML.length - 4)
