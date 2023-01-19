@@ -83,10 +83,10 @@ export class LoginComponent implements OnInit {
       }
       this.tss.Savelogin(data).subscribe((data) =>{
         console.log("data", data)
-        sessionStorage.setItem('user', JSON.stringify(data.result[0]));
+        // sessionStorage.setItem('user', JSON.stringify(data.result[0]));
         if(data.status === true){
           let empdata = data.result[0];
-          // sessionStorage.setItem('user', JSON.stringify(empdata));
+          sessionStorage.setItem('user', JSON.stringify(empdata));
           this.employeeId = empdata.id;
           if (empdata.firstlogin == "Y") {
             this.router.navigate(['/Attendance/ChangePassword'])
@@ -103,7 +103,7 @@ export class LoginComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data:'Company name not there'
+            data:'Invalid company short code or credentials. Please enter valid company short code or credentials.'
           });
 
         }
@@ -112,7 +112,8 @@ export class LoginComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data:'The username and/or password you entered did not match our records. Please double-check and try again.'
+            // data:'The username and/or password you entered did not match our records. Please double-check and try again.'
+            data:'Invalid company short code or credentials. Please enter valid company short code or credentials.'
             // data: this.msgLM14
           });
        }
