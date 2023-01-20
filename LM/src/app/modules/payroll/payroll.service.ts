@@ -9,13 +9,18 @@ import { environment } from 'src/environments/environment';
     mainBeUrl= environment.apiUrl;
     userSession: any;
     companyName:any;
-    httpOptions = {
-      headers: new HttpHeaders({'content-Type': 'application/json'})
-    };  
+    httpOptions: any;  
    
     constructor(private http: HttpClient) {
       // this.companyName = 'spryple';
-      this.companyName=sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
+      this.companyName = sessionStorage.getItem("companyName") ? sessionStorage.getItem("companyName") : null;
+      this.httpOptions = {
+        headers: new HttpHeaders({
+          'content-Type': 'application/json',
+          "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+        })
+      };
+      
     }
     // getEmployeeAttendanceNotifications(data:any):Observable<any>{
     //   data.companyName =  this.companyName;
@@ -157,7 +162,7 @@ import { environment } from 'src/environments/environment';
       }
       setDocumentOrImageForEMS(data: FormData,path:any): Observable<any> {
         
-        return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/'+encodeURI(path)+'/'+this.companyName, data);
+        return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/'+encodeURI(path)+'/'+this.companyName, data,this.httpOptions);
       }
       getDocumentsForEMS(input:any){
         input.companyName = this.companyName;
