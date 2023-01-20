@@ -8,14 +8,19 @@ import {environment} from '../../environments/environment'
     providedIn: 'root'
 })
 export class LeavePoliciesService {
+  httpOptions:any;
   companyName:any
     constructor(private hClient: HttpClient) {
-    this.companyName = sessionStorage.getItem('companyName')
+    this.companyName = sessionStorage.getItem('companyName');
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
     }
 
-    httpOptions = {
-        headers: new HttpHeaders({'content-Type': 'application/json'})
-    };
+    
 
 
     url: any = environment.apiUrl;

@@ -10,12 +10,16 @@ import { environment } from 'src/environments/environment';
 export class AttendanceService {
   mainUrl= environment.apiUrl;
   userSession: any;
-  httpOptions = {
-    headers: new HttpHeaders({'content-Type': 'application/json'})
-  };
+  httpOptions:any;
   companyName:any;
   constructor(private http: HttpClient) {
-    this.companyName=sessionStorage.getItem('companyName')
+    this.companyName=sessionStorage.getItem('companyName');
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
   }
   getMastertable(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
     return this.http.get(this.mainUrl+'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);

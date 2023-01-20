@@ -16,7 +16,8 @@ import { environment } from 'src/environments/environment';
     mainBeUrl= environment.apiUrl;
       userSession: any;
       companyName:any;
-      httpOptions = {
+      httpOptions:any;
+      httpOptionslogin = {
         headers: new HttpHeaders({'content-Type': 'application/json'})
       };
         httpOptionsOne = {
@@ -26,6 +27,12 @@ import { environment } from 'src/environments/environment';
     constructor(private hClient: HttpClient) {
         this.userSession = ((sessionStorage.getItem('user')))
         this.companyName=sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null;
+        this.httpOptions = {
+          headers: new HttpHeaders({
+            'content-Type': 'application/json',
+            "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+          })
+        };
     }
 
 
@@ -38,7 +45,7 @@ getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
   return this.hClient.get(this.mainBeUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size+'/'+this.companyName, this.httpOptions);
 }
 Savelogin(data:any): Observable<any> {
-  return this.hClient.post(this.mainBeUrl + 'api/emp_login', JSON.stringify(data) ,this.httpOptions);
+  return this.hClient.post(this.mainBeUrl + 'api/emp_login', JSON.stringify(data) ,this.httpOptionslogin);
 }
  /* save change password */
 changepassword(changePassword: any): Observable<any> {

@@ -12,12 +12,16 @@ export class AdminService {
   mainUrl= environment.apiUrl;
   userSession: any;
   companyName:any;
-  httpOptions = {
-    headers: new HttpHeaders({'content-Type': 'application/json'})
-  };
+  httpOptions:any;
 
   constructor(private http: HttpClient) {
-    this.companyName= sessionStorage.getItem('companyName')
+    this.companyName= sessionStorage.getItem('companyName');
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
   }
   setWorkLocation(info:any): Observable<any> {
     return this.http.post(this.mainUrl + 'api/setWorkLocation', JSON.stringify(info), this.httpOptions);
