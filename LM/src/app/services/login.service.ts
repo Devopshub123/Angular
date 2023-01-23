@@ -20,7 +20,7 @@ import { environment } from 'src/environments/environment';
       httpOptionslogin = {
         headers: new HttpHeaders({'content-Type': 'application/json'})
       };
-        httpOptionsOne = {
+      httpOptionsOne = {
           headers: new HttpHeaders({'content-Type': 'multipart/form-data'})
         };
 

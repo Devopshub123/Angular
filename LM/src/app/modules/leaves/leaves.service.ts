@@ -9,12 +9,16 @@ import {Observable} from "rxjs/index";
 export class LeavesService {
   mainUrl = environment.apiUrl;
   userSession: any;
-  httpOptions = {
-    headers: new HttpHeaders({'content-Type': 'application/json'})
-  };
+  httpOptions:any;
   companyName:any;
   constructor(private http: HttpClient) {
     this.companyName=sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
   }
 
   getLeavesForApprovals(id: any): any {
@@ -195,7 +199,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     setUploadDocument(data:File,empid:any,companyname:any){
       // let companyname = 'sreeb';
       // let empid = 188
-      return this.http.post(this.mainUrl+'api/setLeaveDocument/'+companyname+'/'+empid,data);
+      return this.http.post(this.mainUrl+'api/setLeaveDocument/'+companyname+'/'+empid,data, this.httpOptions);
     }
     setEmployeeLeave(info:any): Observable<any> {
       info.companyName= this.companyName;
@@ -227,7 +231,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
       return this.http.get(this.mainUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
     }
     getCompoffleavestatus():Observable<any> {
-      return this.http.get(this.mainUrl + 'api/getcompoffleavestatus/'+this.companyName) ;
+      return this.http.get(this.mainUrl + 'api/getcompoffleavestatus/'+this.companyName, this.httpOptions) ;
     }
 
 
