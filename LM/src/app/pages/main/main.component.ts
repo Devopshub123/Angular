@@ -78,6 +78,7 @@ export class MainComponent implements OnInit {
   logout() {
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('sidemenu');
+    sessionStorage.removeItem('token');
     var login = '/Login'
     this.router.navigate([login]);
     sessionStorage.removeItem('companyName');
