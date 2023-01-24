@@ -110,7 +110,7 @@ setCompOffReviewApprove(info:any): Observable<any> {
   return this.http.post(this.mainUrl+'api/setCompOffReviewApprove', JSON.stringify(info), this.httpOptions);
 }
 getuserleavecalender(id:any):Observable<any>{
-  return this.http.post(this.mainUrl+'api/getleavecalender/'+id+'/'+this.companyName, this.httpOptions);
+  return this.http.get(this.mainUrl+'api/getleavecalender/'+id+'/'+this.companyName, this.httpOptions);
 }
 
 getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
