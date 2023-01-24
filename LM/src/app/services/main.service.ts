@@ -97,7 +97,7 @@ export class MainService {
 
   }
   getDocumentOrImagesForEMS(info:any): Observable<any> {
-    // var conpanyName ='Apple'
+    info.companyName=this.companyName;
     return this.http.post(this.mainBeUrl + 'ems/api/getDocumentOrImagesForEMS/' ,info,this.httpOptions)
   }
   removeDocumentOrImagesForEMS(info:any): Observable<any> {

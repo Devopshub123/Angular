@@ -21,7 +21,6 @@ export class EmsService {
   //// save new hire
   saveNewHireData(data: any) {
     data.companyName = this.companyName;
-    console.log("CN--",this.companyName)
     return this.http.post(this.mainUrl + 'ems/api/setNewHire', JSON.stringify(data), this.httpOptions);
   }
 
