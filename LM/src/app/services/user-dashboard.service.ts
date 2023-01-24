@@ -7,12 +7,17 @@ import { environment } from 'src/environments/environment';
 })
 export class UserDashboardService {
     mainBeUrl= environment.apiUrl;
-    httpOptions = {
-        headers: new HttpHeaders({ 'content-Type': 'application/json' })
-    };
+    httpOptions:any;
 
-    constructor(private hClient: HttpClient) { }
-    url: any = "http://localhost:6060";
+    constructor(private hClient: HttpClient) { 
+        this.httpOptions = {
+            headers: new HttpHeaders({
+              'content-Type': 'application/json',
+              "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+            })
+          };
+    }
+    // url: any = "http://localhost:6060";
     getHolidaysList(empId: string): Observable<any>{
         return this.hClient.get(this.mainBeUrl + 'api/getHolidaysList/' + empId, this.httpOptions);
     }

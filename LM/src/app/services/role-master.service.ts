@@ -7,12 +7,16 @@ import { environment } from 'src/environments/environment';
 })
 export class RoleMasterService {
     mainBeUrl= environment.apiUrl;
-    httpOptions = {
-        headers: new HttpHeaders({ 'content-Type': 'application/json' })
-    };
+    httpOptions:any;
     companyName:any;
     constructor(private hClient: HttpClient) {
       this.companyName=sessionStorage.getItem("companyName");
+      this.httpOptions = {
+        headers: new HttpHeaders({
+          'content-Type': 'application/json',
+          "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+        })
+      };
     }
 
     getRoleMaster(){

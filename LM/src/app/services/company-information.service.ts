@@ -10,12 +10,16 @@ import { environment } from 'src/environments/environment';
 export class CompanyInformationService {
   companyId:any
   companyName:any;
-  httpOptions = {
-    headers: new HttpHeaders({ 'content-Type': 'application/json' })
-  };
+  httpOptions:any;
   mainBeUrl= environment.apiUrl;
   constructor(private hClient: HttpClient) {
-    this.companyName = sessionStorage.getItem('companyName')
+    this.companyName = sessionStorage.getItem('companyName');
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
   }
 
   setCompanyInformation(info: any):Observable<any>{

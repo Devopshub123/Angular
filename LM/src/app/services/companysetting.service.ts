@@ -7,12 +7,16 @@ import { environment } from 'src/environments/environment';
     providedIn: 'root'
   })
   export class CompanySettingService {
-    httpOptions = {
-      headers: new HttpHeaders({ 'content-Type': 'application/json' })
-    };
+    httpOptions:any;
     companyName:any;
     constructor(private hClient: HttpClient) {
       this.companyName = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null;
+      this.httpOptions = {
+        headers: new HttpHeaders({
+          'content-Type': 'application/json',
+          "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+        })
+      };
     }
     mainBeUrl= environment.apiUrl;
     validatePrefix(info:any): Observable<any> {

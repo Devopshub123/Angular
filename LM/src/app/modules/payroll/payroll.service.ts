@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
     httpOptions: any;  
    
     constructor(private http: HttpClient) {
-      // this.companyName = 'spryple';
       this.companyName = sessionStorage.getItem("companyName") ? sessionStorage.getItem("companyName") : null;
       this.httpOptions = {
         headers: new HttpHeaders({
@@ -42,12 +41,14 @@ import { environment } from 'src/environments/environment';
 
     }
     getearningsalarycomponent(data:any):Observable<any>{
+      console.log("kkk")
       return this.http.post(this.mainBeUrl +'api/getearningsalarycomponent/'+ data+'/'+this.companyName,this.httpOptions)
     }
     getdeductionsalarycomponent(data:any):Observable<any>{
         return this.http.post(this.mainBeUrl +'api/getdeductionsalarycomponent/'+data+'/'+this.companyName,this.httpOptions)
     }
     getpayrollsections():Observable<any>{
+      console.log("kkkkkkjh")
         return this.http.post(this.mainBeUrl +'api/getpayrollsections/'+this.companyName,this.httpOptions)
     }
     getsalarycomponentsforpaygroup(data:any):Observable<any>{
@@ -55,7 +56,7 @@ import { environment } from 'src/environments/environment';
       return this.http.post(this.mainBeUrl +'api/getsalarycomponentsforpaygroup',JSON.stringify(data),this.httpOptions)
     }
     getpayrollincomegroups():Observable<any>{
-        return this.http.post(this.mainBeUrl +'api/getpayrollincomegroups/'+this.companyName,this.httpOptions)
+        return this.http.get(this.mainBeUrl +'api/getpayrollincomegroups/'+this.companyName,this.httpOptions)
     }
     getEmployeeProfessionalTaxDetails():Observable<any>{
         return this.http.post(this.mainBeUrl +'api/getEmployeeProfessionalTaxDetails',this.httpOptions)

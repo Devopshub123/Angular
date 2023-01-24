@@ -9,14 +9,18 @@ import { environment } from 'src/environments/environment';
 export class ReportsService {
   mainUrl= environment.apiUrl;
   userSession: any;
-  httpOptions = {
-    headers: new HttpHeaders({'content-Type': 'application/json'})
-  };
+  httpOptions:any;
 
   companyName:any;
 
   constructor(private http: HttpClient) {
-    this.companyName = sessionStorage.getItem("companyName")
+    this.companyName = sessionStorage.getItem("companyName");
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
 }
 
   getTotalEmployeslist(): Observable<any>{

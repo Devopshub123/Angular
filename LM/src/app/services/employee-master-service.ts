@@ -8,11 +8,16 @@ import {environment} from '../../environments/environment'
   providedIn: 'root'
 })
 export class EmployeeMasterService {
-  httpOptions = {
-    headers: new HttpHeaders({ 'content-Type': 'application/json' })
-  };
+  httpOptions:any;
 
-  constructor(private hClient: HttpClient) { }
+  constructor(private hClient: HttpClient) { 
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
+  }
   url:any = environment.apiUrl;
   setEmployeeMaster(info:any):Observable<any>{
     return this.hClient.post(this.url+'attendance/api/setEmployeeMaster', JSON.stringify(info), this.httpOptions);

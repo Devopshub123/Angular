@@ -11,12 +11,16 @@ export class EmsService {
 
   mainUrl = environment.apiUrl;
   userSession: any;
-  httpOptions = {
-    headers: new HttpHeaders({ 'content-Type': 'application/json' })
-  };
+  httpOptions:any;
  companyName:any
   constructor(private http: HttpClient) {
     this.companyName = sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
   }
   //// save new hire
   saveNewHireData(data: any) {
@@ -160,7 +164,7 @@ export class EmsService {
 
   /** */
   getEmployeeInformationData(id: any): Observable<any> {
-    return this.http.get(this.mainUrl + 'ems/api/getEmpPersonalInfo/' + id+'/'+this.companyName);
+    return this.http.get(this.mainUrl + 'ems/api/getEmpPersonalInfo/' + id+'/'+this.companyName, this.httpOptions);
   }
   /** */
   setselectEmployeesProgramSchedules(data: any): any {
@@ -180,7 +184,7 @@ export class EmsService {
   /** */
   getEmsEmployeeColumnConfigurationValue(id: any): Observable<any> {
 
-    return this.http.get(this.mainUrl + 'ems/api/getEmsEmployeeColumnConfigurationValue/' + id+'/'+this.companyName);
+    return this.http.get(this.mainUrl + 'ems/api/getEmsEmployeeColumnConfigurationValue/' + id+'/'+this.companyName, this.httpOptions);
   }
   /**usersLogin */
   usersLogin(data: any): any {
@@ -189,10 +193,10 @@ export class EmsService {
   }
   /**getUserLoginData */
   getUserLoginData(): Observable<any> {
-    return this.http.get(this.mainUrl + 'ems/api/getUserLoginData/'+this.companyName);
+    return this.http.get(this.mainUrl + 'ems/api/getUserLoginData/'+this.companyName, this.httpOptions);
   }
   getEmsEmployeeColumnFilterData(): any {
-    return this.http.get(this.mainUrl + 'ems/api/getEmsEmployeeColumnFilterData/'+this.companyName);
+    return this.http.get(this.mainUrl + 'ems/api/getEmsEmployeeColumnFilterData/'+this.companyName, this.httpOptions);
   }
   getEmsEmployeeDataForReports(data:any):any{
     data.companyName = this.companyName;
@@ -214,7 +218,7 @@ export class EmsService {
   }
   /** */
   getEmployeeJobData(id: any): Observable<any> {
-    return this.http.get(this.mainUrl + 'ems/api/getEmpJobDetails/' + id+'/'+this.companyName);
+    return this.http.get(this.mainUrl + 'ems/api/getEmpJobDetails/' + id+'/'+this.companyName, this.httpOptions);
   }
   /**set Employee employement Data */
   saveEmployeeEmployementData(data: any) {
@@ -223,7 +227,7 @@ export class EmsService {
   }
   /** */
   getEmployeeEmployement(id: any): Observable<any> {
-    return this.http.get(this.mainUrl + 'ems/api/getEmpEmployement/' + id+'/'+this.companyName);
+    return this.http.get(this.mainUrl + 'ems/api/getEmpEmployement/' + id+'/'+this.companyName, this.httpOptions);
   }
   /**set Employee education Data */
   saveEmployeeEducationData(data: any) {
@@ -232,12 +236,12 @@ export class EmsService {
   }
   /** */
   getEmployeeEducationData(id: any): Observable<any> {
-    return this.http.get(this.mainUrl + 'ems/api/getEmpEducationDetails/' + id+'/'+this.companyName);
+    return this.http.get(this.mainUrl + 'ems/api/getEmpEducationDetails/' + id+'/'+this.companyName, this.httpOptions);
   }
 
   /** */
   getOnboardingSettings(): Observable<any> {
-    return this.http.get(this.mainUrl + 'ems/api/getOnboardingSettings/'+this.companyName);
+    return this.http.get(this.mainUrl + 'ems/api/getOnboardingSettings/'+this.companyName, this.httpOptions);
   }
   /** */
   getOffboardingSettings(): Observable<any> {

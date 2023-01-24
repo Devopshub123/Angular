@@ -9,12 +9,16 @@ import {Observable} from "rxjs/index";
 export class MainService {
   mainBeUrl= environment.apiUrl;
   userSession: any;
-  httpOptions = {
-    headers: new HttpHeaders({'content-Type': 'application/json'})
-  };
+  httpOptions:any;
   companyName:any;
   constructor(private http: HttpClient) {
     this.companyName= sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
   }
 /*Get Role Screen Functionalities*/
   getRoleScreenFunctionalities(data: any) {
