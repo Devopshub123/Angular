@@ -150,7 +150,7 @@ import { environment } from 'src/environments/environment';
     return this.hClient.get(this.mainBeUrl+'api/getHolidaysFilter/'+year+'/'+locationId+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
   }
   getstatuslists(){
-    return this.hClient.post(this.mainBeUrl+'admin/api/getstatuslist/'+this.companyName, this.httpOptions)
+    return this.hClient.get(this.mainBeUrl+'admin/api/getstatuslist/'+this.companyName, this.httpOptions)
   }
   getPreonboardingMastertable(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
     return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
