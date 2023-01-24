@@ -14,7 +14,8 @@ export class EmsService {
   httpOptions:any;
  companyName:any
   constructor(private http: HttpClient) {
-    this.companyName = sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
+    this.companyName = sessionStorage.getItem("companyName") ? sessionStorage.getItem("companyName") : null;
+    console.log("d-1",this.companyName)
     this.httpOptions = {
       headers: new HttpHeaders({
         'content-Type': 'application/json',
@@ -164,6 +165,8 @@ export class EmsService {
 
   /** */
   getEmployeeInformationData(id: any): Observable<any> {
+    // console.log("dtae==", this.companyName)
+    this.companyName = sessionStorage.getItem("companyName") ? sessionStorage.getItem("companyName") : null;
     return this.http.get(this.mainUrl + 'ems/api/getEmpPersonalInfo/' + id+'/'+this.companyName, this.httpOptions);
   }
   /** */
