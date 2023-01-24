@@ -38,7 +38,7 @@ export class MainService {
     return this.http.post(this.mainBeUrl + 'api/getProfileImage/', info,this.httpOptions);
   }
   getCompoffleavestatus():Observable<any> {
-    return this.http.get(this.mainBeUrl + 'api/getcompoffleavestatus/'+this.companyName) ;
+    return this.http.get(this.mainBeUrl + 'api/getcompoffleavestatus/'+this.companyName, this.httpOptions) ;
   }
   getFilesMaster(info:any):Observable<any>{
     info.companyName=this.companyName
@@ -54,7 +54,7 @@ export class MainService {
 
   getPreonboardCandidateData(id: any,cname:any): Observable<any> {
     this.companyName = cname;
-    return this.http.get(this.mainBeUrl + 'ems/api/getCandidateDetails/' + id+'/'+this.companyName);
+    return this.http.get(this.mainBeUrl + 'ems/api/getCandidateDetails/' + id+'/'+this.companyName, this.httpOptions);
   }
 
     /** save candidate information */
@@ -93,7 +93,7 @@ export class MainService {
   }
   setDocumentOrImageForEMS(data: FormData): Observable<any> {
 
-    return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/', data);
+    return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/', data, this.httpOptions);
   }
   getDocumentsForEMS(input:any){
     input.companyName=this.companyName;
