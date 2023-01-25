@@ -15,13 +15,13 @@ export class EmsService {
  companyName:any
   constructor(private http: HttpClient) {
     this.companyName = sessionStorage.getItem("companyName") ? sessionStorage.getItem("companyName") : null;
-    console.log("d-1",this.companyName)
     this.httpOptions = {
       headers: new HttpHeaders({
         'content-Type': 'application/json',
         "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
       })
     };
+    console.log("hgghghhhgemstoken",this.httpOptions)
   }
   //// save new hire
   saveNewHireData(data: any) {
@@ -165,7 +165,6 @@ export class EmsService {
 
   /** */
   getEmployeeInformationData(id: any): Observable<any> {
-    // console.log("dtae==", this.companyName)
     this.companyName = sessionStorage.getItem("companyName") ? sessionStorage.getItem("companyName") : null;
     return this.http.get(this.mainUrl + 'ems/api/getEmpPersonalInfo/' + id+'/'+this.companyName, this.httpOptions);
   }

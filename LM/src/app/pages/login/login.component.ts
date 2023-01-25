@@ -86,13 +86,16 @@ export class LoginComponent implements OnInit {
         // sessionStorage.setItem('user', JSON.stringify(data.result[0]));
         if(data.status === true){
           let empdata = data.result[0];
-          sessionStorage.setItem('user', JSON.stringify(empdata));
           sessionStorage.setItem('token', data.token);
+          console.log("token---",data.token)
+          sessionStorage.setItem('user', JSON.stringify(empdata));
+          
           this.employeeId = empdata.id;
           if (empdata.firstlogin == "Y") {
             this.router.navigate(['/Attendance/ChangePassword'])
           }
           else {
+            console.log("t-1",sessionStorage.getItem('token'))
             this.router.navigate(['main/MainDashboard'])
             this.getEmployeeEmailData();
           }
