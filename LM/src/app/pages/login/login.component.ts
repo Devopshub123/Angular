@@ -82,7 +82,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("rememberme",'false');
       }
       this.tss.Savelogin(data).subscribe((data) =>{
-        console.log("data", data)
         // sessionStorage.setItem('user', JSON.stringify(data.result[0]));
         if(data.status === true){
           let empdata = data.result[0];
@@ -99,8 +98,6 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['main/MainDashboard'])
             this.getEmployeeEmailData();
           }
-
-
         }
         else if
         (data.message=='dbnotthere'){

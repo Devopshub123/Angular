@@ -76,8 +76,7 @@ export class MainDashboardComponent implements OnInit {
     private dialog: MatDialog,
     private formBuilder: FormBuilder
   ) {
-    console.log("md--")
-    this.getCompoffleavestatus();
+     this.getCompoffleavestatus();
     this.data = sessionStorage.getItem('user');
     this.companyName = sessionStorage.getItem('companyName')
     this.usersession = JSON.parse(this.data);
