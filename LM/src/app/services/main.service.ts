@@ -35,7 +35,7 @@ export class MainService {
   }
 
   getProfileImage(info:any): Observable<any> {
-    return this.http.post(this.mainBeUrl + 'api/getProfileImage/', info,this.httpOptions);
+    return this.http.post(this.mainBeUrl + 'api/getProfileImage/'+this.companyName+'/', info,this.httpOptions);
   }
   getCompoffleavestatus():Observable<any> {
     return this.http.get(this.mainBeUrl + 'api/getcompoffleavestatus/'+this.companyName, this.httpOptions) ;
@@ -105,7 +105,7 @@ export class MainService {
     return this.http.post(this.mainBeUrl + 'ems/api/getDocumentOrImagesForEMS/' ,info,this.httpOptions)
   }
   removeDocumentOrImagesForEMS(info:any): Observable<any> {
-    return this.http.delete(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/'+encodeURI(info),this.httpOptions);
+    return this.http.delete(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/'+this.companyName +'/'+encodeURI(info),this.httpOptions);
   }
   /** For AWS*/
   // removeDocumentOrImagesForEMS(info:any): Observable<any> {
