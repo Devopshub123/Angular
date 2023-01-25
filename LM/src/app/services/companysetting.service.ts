@@ -115,7 +115,7 @@ import { environment } from 'src/environments/environment';
     return this.hClient.get(this.mainBeUrl + 'api/getImage/' + id+'/'+companyName);
   }
   removeImage(info:any): Observable<any> {
-    return this.hClient.delete(this.mainBeUrl + 'api/removeImage/'+encodeURI(info),this.httpOptions);
+    return this.hClient.delete(this.mainBeUrl + 'api/removeImage/'+encodeURI(info));
   }
   setHolidays(info: any): Observable<any>{
     info.companyName = this.companyName;

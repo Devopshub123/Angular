@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { PreOnboardingDetailsComponent } from './pages/pre-onboarding-details/pre-onboarding-details.component';
 import {SideNavComponent} from './pages/side-nav/side-nav.component'
 import { MainComponent } from './pages/main/main.component';
+import { AuditLogComponent } from './pages/audit-logs/audit-log/audit-log.component';
 
 var Login :string;
  var comp = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):'';
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path:'Login',component:LoginComponent},
   {path:'sidenav',component:SideNavComponent},
   {path:'main',component:MainComponent,children:[
-    {path:'MainDashboard',component:MainDashboardComponent}
+    {path:'MainDashboard',component:MainDashboardComponent},
+    {path:'AuditLog',component:AuditLogComponent},
   ]},
   {path:'ChangePassword',component:ChangePasswordComponent,canActivate:[LMSAccessGuard]},
   // {path:'ResetPassword',component:ResetPasswordComponent},

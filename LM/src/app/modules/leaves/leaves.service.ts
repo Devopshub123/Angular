@@ -163,10 +163,10 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     // }
     setProfileImage(data: FormData): Observable<any> {
 
-      return this.http.post(this.mainUrl + 'api/setProfileImage/', data,this.httpOptions);
+      return this.http.post(this.mainUrl + 'api/setProfileImage/', data);
     }
     removeProfileImage(id: any,companyName:any): Observable<any> {
-      return this.http.delete(this.mainUrl + 'api/removeProfileImage/' + id+'/'+companyName,this.httpOptions);
+      return this.http.delete(this.mainUrl + 'api/removeProfileImage/' + id+'/'+companyName);
     }
     getHolidaysList(empId:any): Observable<any>{
       return this.http.get(this.mainUrl+'api/getHolidaysList/' + empId+'/'+this.companyName, this.httpOptions);

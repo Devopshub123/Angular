@@ -48,6 +48,7 @@ import { ComfirmationDialogComponent } from './pages/comfirmation-dialog/comfirm
 import { ReimbursementModule } from './modules/reimbursement/reimbursement.module';
 import { DecryptPipe, EncryptPipe } from './custom-directive/encrypt-decrypt.pipe';
 import { PayrollModule } from './modules/payroll/payroll.module';
+import { AuditLogComponent } from './pages/audit-logs/audit-log/audit-log.component';
 // import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
  FullCalendarModule.registerPlugins([
@@ -81,6 +82,7 @@ import { PayrollModule } from './modules/payroll/payroll.module';
     UserLeaveRequestComponent,
     PreOnboardingDetailsComponent,
     ComfirmationDialogComponent,
+    AuditLogComponent,
   ],
   imports: [
     BrowserModule,
