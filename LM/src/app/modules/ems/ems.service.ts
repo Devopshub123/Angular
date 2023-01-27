@@ -21,8 +21,7 @@ export class EmsService {
         "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
       })
     };
-    console.log("hgghghhhgemstoken",this.httpOptions)
-  }
+   }
   //// save new hire
   saveNewHireData(data: any) {
     data.companyName = this.companyName;

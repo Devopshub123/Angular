@@ -72,10 +72,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("username",this.formGroup.controls.username.value);
         localStorage.setItem("password",this.formGroup.controls.password.value);
         localStorage.setItem("rememberme", this.formGroup.controls.rememberme.value);
-        // console.log("nm-1-",this.formGroup.controls.username.value)
-        // console.log("pwd-1-",this.formGroup.controls.password.value)
-        // console.log("rmm-1-",this.formGroup.controls.rememberme.value)
-      } else if(this.formGroup.controls.rememberme.value==false){
+        } else if(this.formGroup.controls.rememberme.value==false){
         localStorage.setItem("comapnyname",'');
         localStorage.setItem("username",'');
         localStorage.setItem("password",'');
@@ -86,7 +83,6 @@ export class LoginComponent implements OnInit {
         if(data.status === true){
           let empdata = data.result[0];
           sessionStorage.setItem('token', data.token);
-          console.log("token---",data.token)
           sessionStorage.setItem('user', JSON.stringify(empdata));
           
           this.employeeId = empdata.id;
@@ -94,7 +90,6 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/Attendance/ChangePassword'])
           }
           else {
-            console.log("t-1",sessionStorage.getItem('token'))
             this.router.navigate(['main/MainDashboard'])
             this.getEmployeeEmailData();
           }

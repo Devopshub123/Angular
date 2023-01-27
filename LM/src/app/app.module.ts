@@ -49,6 +49,7 @@ import { ReimbursementModule } from './modules/reimbursement/reimbursement.modul
 import { DecryptPipe, EncryptPipe } from './custom-directive/encrypt-decrypt.pipe';
 import { PayrollModule } from './modules/payroll/payroll.module';
 import { AuditLogComponent } from './pages/audit-logs/audit-log/audit-log.component';
+import { AuditLogPopupComponent } from './pages/audit-logs/audit-log-popup/audit-log-popup.component';
 // import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
  FullCalendarModule.registerPlugins([
@@ -83,6 +84,7 @@ import { AuditLogComponent } from './pages/audit-logs/audit-log/audit-log.compon
     PreOnboardingDetailsComponent,
     ComfirmationDialogComponent,
     AuditLogComponent,
+    AuditLogPopupComponent,
   ],
   imports: [
     BrowserModule,
