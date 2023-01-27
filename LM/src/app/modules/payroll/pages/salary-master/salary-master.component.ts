@@ -51,7 +51,7 @@ export class SalaryMasterComponent implements OnInit {
     })
   }/**get employee salary details */
   getEmployeeSalaryDetais(data:any){
-     this.PR.getCtcDetails(this.userSession.id,1).subscribe((result:any)=>{
+     this.PR.getCtcDetails(this.userSession.id,data).subscribe((result:any)=>{
       if(result.status){
         this.dataSource = result.data[0]
       }

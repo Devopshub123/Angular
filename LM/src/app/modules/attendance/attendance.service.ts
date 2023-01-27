@@ -57,7 +57,7 @@ export class AttendanceService {
   }
 
   getemployeeattendancedashboard(data:any):Observable<any>{
-    data.companyName = this.companyName;
+    data.companyName =sessionStorage.getItem('companyName');
     return this.http.post(this.mainUrl +'attendance/api/getemployeeattendancedashboard',
     data,this.httpOptions
     )
@@ -68,7 +68,7 @@ export class AttendanceService {
     )
   }
   getEmployeeAttendanceNotifications(data:any):Observable<any>{
-    data.companyName=this.companyName;
+    data.companyName=sessionStorage.getItem('companyName');
     return this.http.post(this.mainUrl +'attendance/api/getEmployeeAttendanceNotifications',
     data,this.httpOptions
     )
@@ -107,7 +107,7 @@ export class AttendanceService {
     return this.http.post(this.mainUrl+'attendance/api/getEmployeeShiftByDates',data,this.httpOptions)
   }
   getEmployeeCurrentShifts(data:any):Observable<any>{
-    data.companyName =this.companyName
+    data.companyName =sessionStorage.getItem('companyName');
     return this.http.post(this.mainUrl+'attendance/api/getEmployeeCurrentShifts',data,this.httpOptions)
   }
   getEmployeeWeekoffsHolidaysForAttendance(data:any):Observable<any>{

@@ -109,6 +109,8 @@ export class MonthlyPayrollComponent implements OnInit {
 caluculateMonthlySalary(){
   this.arrdata = []
  this.selection.selected.forEach((s:any) => this.arrdata.push(s.id));
+ console.log("ghhgdshf",this.arrdata)
+ if(this.arrdata.length>0){
   if(this.monthlyPayrollForm.valid){
     for(let i=0;i<this.monthyear.length;i++){
       if(this.monthyear[i].month_value == this.month_value){
@@ -144,6 +146,16 @@ caluculateMonthlySalary(){
     })
 
   }
+
+ }
+ else{
+  let dialogRef = this.dialog.open(ReusableDialogComponent, {
+    position:{top:`70px`},
+    disableClose: true,
+    data:'Please select atleast one employee'
+  });
+ }
+  
   
 }
 /**Cancel requests */

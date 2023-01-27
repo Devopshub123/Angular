@@ -28,7 +28,7 @@ export class PayScheduleRequestComponent implements OnInit {
     // this.payScheduleDetails = this.editInfo.payScheduleData
 
   }
-  arrayValue:any=[{Value:'WORKING',name:'Actual days in a month '},{Value:'CALENDAR',name:'Organization working days'}];
+  arrayValue:any=[{Value:'CALENDAR',name:'Actual days in a month '},{Value:'WORKING',name:'Organization working days'}];
   arrayPayValue:any=[{Value:'0',name:'The last working day of every month '},{Value:'1',name:'Select day of every month'}];
 
   ngOnInit(): void {
