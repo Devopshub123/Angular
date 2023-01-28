@@ -379,7 +379,7 @@ export class WorklocationComponent implements OnInit {
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {
                   position: { top: `70px` },
                   disableClose: true,
-                  data: 'Worklocation updated successfully',
+                  data: 'Work Location Updated Successfully',
                 });
               } else {
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -464,7 +464,7 @@ export class WorklocationComponent implements OnInit {
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {
                   position: { top: `70px` },
                   disableClose: true,
-                  data: 'Worklocation updated successfully',
+                  data: 'Work Location Updated Successfully',
                 });
               } else {
                 let dialogRef = this.dialog.open(ReusableDialogComponent, {

@@ -72,3 +72,6 @@
 .custom1 {
   width: 180px !important;
 }
+.mat-card-title:not(:first-child), .mat-card-subtitle:not(:first-child) {
+  margin-top: 8px !important;
+}

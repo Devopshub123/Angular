@@ -23,19 +23,26 @@ export class SideNavComponent implements OnInit {
   mainDashBoard ='/main/MainDashboard';
   selectedModule:any = 'Main Dash Board';
   usersession: any;
-  activeModuleData:any;
-    toggleActive(item:any) {
-   // debugger;
+  activeModuleData: any;
+  moduleName: any;
+
+  sidemenuHover(item:any) {
+       this.moduleName = item.modulename;
+  }
+  
+  toggleActive(item: any) {
     this.isExpanded = true;
-    // event.preventDefault();
-    // var target = event.currentTarget;
-    // this.element = target;
-    this.menuList.forEach(function(m:any){
+    this.menuList.forEach((m:any) =>{
       m.displayStatus = false;
     })
     item.displayStatus = true;
+    if (item.id==3) {
+      this.timesheet();
+       }
   }
-
+  timesheet() {
+    window.open('http://122.175.62.210:5050', '_blank');
+  }
 
   onClickMainDashboard(){
     this.router.navigate(['/main/MainDashboard']);

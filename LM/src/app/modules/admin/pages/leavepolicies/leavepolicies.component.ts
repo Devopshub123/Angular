@@ -1290,7 +1290,10 @@ hexToRgb(hex:any) {
       this.activeLeaveTypesForCarryForword.push({id:'',leavename:'Select'})
     })
   }
-
+  backArrow() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/Admin/Leavepolicies"]));
+  }
 
 }
 

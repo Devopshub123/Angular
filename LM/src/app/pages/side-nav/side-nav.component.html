@@ -11,7 +11,7 @@
       </a>
       <span *ngFor="let item of menuList">
         <a mat-list-item >
-          <div class="row" style="flex-flow: column" (mouseover)="toggleActive(item)" >
+          <div class="row" style="flex-flow: column" (mouseover)="sidemenuHover(item)" #tooltip="matTooltip" matTooltip={{moduleName}} (click)="toggleActive(item)">
             <img [src]="item.iconpath" style="height: 30px; width: 45px;max-inline-size: fit-content;" />
           </div>
         </a>

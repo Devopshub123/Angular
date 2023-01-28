@@ -154,6 +154,7 @@ export class HolidaysComponent implements OnInit {
     
      if(this.HolidayForm.controls.holiday.value !== null && this.holidaysDetails.holidayName !== null ){}
       this.companyService.setHolidays(data).subscribe((data) => {
+        console.log("data--",data.data)
         if (data.status && data.data==0) {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/Holidays"]));

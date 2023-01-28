@@ -767,12 +767,12 @@ export class MainDashboardComponent implements OnInit {
       }
     });
   }
-  leaveReview(leave: any) {
-    this.requestData = leave;
-    this.requestType = 'LeaveRequest';
-    this.requestData.url = '/LeaveManagement/ManagerDashboard';
-    this.getrolescreenfunctionalities(2, true);
-  }
+  // leaveReview(leave: any) {
+  //  this.requestData = leave;
+  //   this.requestType = 'LeaveRequest';
+  //   this.requestData.url = '/LeaveManagement/ManagerDashboard';
+  //   this.getrolescreenfunctionalities(2, true);
+  // }
 
   leaveReviewAndApprovals(leave:any){
     this.requestData = leave;

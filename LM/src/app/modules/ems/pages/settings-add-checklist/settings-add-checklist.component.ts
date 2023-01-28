@@ -182,14 +182,14 @@ export class SettingsAddChecklistComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data:this.EM7
+            data:"Checklist data updated successfully"
           });
 
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-           data: this.EM8
+           data:"Unable to update checklist data"
           });
         }
       });

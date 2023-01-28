@@ -1,12 +1,14 @@
 <div fxLayout="column">
   <form [formGroup]="requestform" autocomplete="off">
     <mat-card>
-      <mat-card-header>
-        <mat-card-title  *ngIf="!leaveInfo.isleave"> Comp Off </mat-card-title>
-        <mat-card-title  *ngIf="leaveInfo.isleave"> {{leaveInfo.leaveData.display_name}}</mat-card-title>
-
-      </mat-card-header>
+      <mat-card-header class="headerbox">
+        <div fxLayout="row" fxFlex="50">
+          <mat-card-title  *ngIf="!leaveInfo.isleave"> Comp Off </mat-card-title>
+          <mat-card-title  *ngIf="leaveInfo.isleave"> {{leaveInfo.leaveData.display_name}}</mat-card-title>
+        </div>
+        </mat-card-header>
       <!-- <mat-divider></mat-divider> -->
+      <br>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
         <mat-form-field fxFlex.xs="100" class="mx-7 my-2" appearance="outline">
@@ -129,14 +131,14 @@
       </div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="justify-content: center;">
       <div *ngIf="leaveInfo.isleaveHistory != 'leave'&& leaveInfo.isleaveHistory != 'compoff'"  fxLayoutAlign="center center" >
-        <button class="m-1 mat-stroked-button button-save" (click)="approval()" type="submit">
+        <button class="btn btn-primary custom1 mr-2 mb-2" (click)="approval()" type="submit">
           <span>Approve</span>
         </button>
 
-        <button class="m-1 mat-stroked-button button-clear"  (click)="reject()">
+        <button class="btn btn-danger mr-2 mb-2"  (click)="reject()">
           <span >Reject</span>
         </button>
-        <button class="m-1 mat-stroked-button button-clear" (click)="cancel()" type="submit">
+        <button class="btn btn-danger mr-2 mb-2" (click)="cancel()" type="submit">
           <span>Cancel</span>
         </button>
         <br />
@@ -152,7 +154,7 @@
             <!--<br />-->
           <!--</div>-->
           <div *ngIf="leaveInfo.isleaveHistory == 'leave'||leaveInfo.isleaveHistory =='compoff'" fxLayoutAlign="center center" >
-            <button class="m-1 mat-stroked-button button-clear" (click)="cancel()" type="submit">
+            <button class="btn btn-danger mr-2 mb-2" (click)="cancel()" type="submit">
               <span>Cancel</span>
             </button>
 

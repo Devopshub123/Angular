@@ -1,13 +1,13 @@
 <div fxLayout="column">
     <mat-card>
     <mat-card-header class="headerbox" >
-        <div fxFlex="100"  fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
-        <div fxLayout="row" fxFlex="50">
-            <mat-card-title class="title"> Request </mat-card-title>
-        </div>
-        <span *ngIf="isAdd"  (click)="cancel()" style="padding-right: 10px;" fxFlex="50" fxLayoutAlign="end">
-            <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button>
-           </span>
+        <div fxFlex="100"  fxLayout="row" fxLayout.xs="column">
+            <span *ngIf="isAdd"  (click)="cancel()">
+                <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button>
+               </span>
+        <mat-card-title class="title"> Checklist </mat-card-title>
+
+        
         </div>
         </mat-card-header>
      <!-- <mat-card-header >

@@ -64,19 +64,19 @@ export class DesignationsComponent implements OnInit {
     this.getDesignation();
     this.dataSource = new MatTableDataSource(this.designationData);
   }
-
+  messagesDataList: any = [];
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getDesignation();
     this.getstatuslist();
-    this.getMessages('EM1');
-    this.getMessages('EM93');
-    this.getMessages('EM97');
-    this.getMessages('EM94')
-    this.getMessages('EM93')
-    this.getMessages('EM96')
-    this.getMessages('EM97')
-    this.getMessages('EM98')
+    this.getMessages();
+    // this.getMessages('EM93');
+    // this.getMessages('EM97');
+    // this.getMessages('EM94')
+    // this.getMessages('EM93')
+    // this.getMessages('EM96')
+    // this.getMessages('EM97')
+    // this.getMessages('EM98')
     this.designationForm = this.formBuilder.group(
       {
         designation: ["",[Validators.required,this.noWhitespaceValidator()]],
@@ -160,7 +160,7 @@ export class DesignationsComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.msgEM97
+          data: this.editResponseMessage
         });
 
       } else {
@@ -268,44 +268,35 @@ export class DesignationsComponent implements OnInit {
       }
     })
   }
-  getMessages(messageCode:any) {
+  getMessages() {
     let data =
     {
-      "code": messageCode,
+      "code": null,
       "pagenumber": 1,
-      "pagesize": 1
+      "pagesize": 1000
     }
     this.emsService.getMessagesListApi(data).subscribe((result: any) => {
-   if (result.status && messageCode == 'EM1') {
-        this.errorDesName = result.data[0].message
+      if(result.status) {
+        this.messagesDataList = result.data;
+        this.messagesDataList.forEach((e: any) => {
+         if (e.code == "EM1") {
+          this.errorDesName = e.message
+         } else if (e.code == "EM93") {
+           this.saveResponseMessage = e.message;
+           this.msgEM93 = e.message;
+         }else if (e.code == "EM97") {
+           this.editResponseMessage =e.message
+         }else if (e.code == "EM94") {
+           this.msgEM94 =e.message
+         } else if (e.code == "EM96") {
+          this.msgEM96 =e.message
+        } else if (e.code == "EM98") {
+          this.msgEM98 =e.message
+        }
+          })
+      } else {
+        this.messagesDataList = [];
       }
-      else if (result.status && messageCode == 'EM93') {
-        this.saveResponseMessage = result.data[0].message
-      }
-      else if (result.status && messageCode == 'EM97') {
-        this.editResponseMessage = result.data[0].message
-      }
-      else if(result.status && messageCode == 'EM94')
-      {
-        this.msgEM94 = result.data[0].message
-      }
-      else if(result.status && messageCode == 'EM93')
-      {
-        this.msgEM93 = result.data[0].message
-      }
-      else if(result.status && messageCode == 'EM96')
-      {
-        this.msgEM96 = result.data[0].message
-      }
-      else if(result.status && messageCode == 'EM97')
-      {
-        this.msgEM97 = result.data[0].message
-      }
-      else if(result.status && messageCode == 'EM98')
-      {
-        this.msgEM98 = result.data[0].message
-      }
-
     })
   }
   getPageSizes(): number[] {

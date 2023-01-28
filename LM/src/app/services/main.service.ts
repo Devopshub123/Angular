@@ -35,8 +35,7 @@ export class MainService {
   }
 
   getProfileImage(info: any): Observable<any> {
-    console.log("t-1")
-    this.companyName = sessionStorage.getItem("companyName") ? sessionStorage.getItem("companyName") : null;
+   this.companyName = sessionStorage.getItem("companyName") ? sessionStorage.getItem("companyName") : null;
     return this.http.post(this.mainBeUrl + 'api/getProfileImage/'+this.companyName+'/', info,this.httpOptions);
   }
   getCompoffleavestatus():Observable<any> {

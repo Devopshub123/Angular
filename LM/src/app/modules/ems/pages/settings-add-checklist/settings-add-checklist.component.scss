@@ -80,3 +80,6 @@ mat-card {
   margin: 0.2em 0 !important;
 
 }
+.mat-card-title:not(:first-child), .mat-card-subtitle:not(:first-child) {
+  margin-top: 9px !important;
+}

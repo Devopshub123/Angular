@@ -18,7 +18,7 @@
                     </ng-container>
                 </mat-select>
                 <mat-error class="reg-error" *ngIf="inductionForm.controls.programType.hasError('required')">
-                   {{this.EM2}}
+                   {{EM2}}
                 </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
@@ -31,7 +31,7 @@
                     </ng-container>
                 </mat-select>
                 <mat-error class="con-error" *ngIf="inductionForm.controls.department.errors?.required">
-                  {{this.EM2}}
+                  {{EM2}}
                 </mat-error>
             </mat-form-field>
 
@@ -43,26 +43,15 @@
                   <span *ngFor="let item of inductionForm.controls.conductBy.value">
                        {{item.empname }} ,
                   </span>
-                    <!-- {{inductionForm.controls.conductBy.value}} -->
                  </mat-select-trigger>
                 <div class="select-container">
-                <!-- <mat-optgroup >
-              <mat-form-field style="width:100%;" class="mx-1 my-2">
-                <mat-label>Search</mat-label>
-                <input #searchEmployee autocompleteOff placeholder="Search" aria-label="Search" matInput [formControl]="searchTextboxControl">
-                <button [disableRipple]="true"  matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch($event)">
-                <mat-icon >close</mat-icon>
-              </button>
-                     </mat-form-field>
-                </mat-optgroup> -->
-
                     <mat-option  (onSelectionChange)="selectedEmployesChange($event)"
                     *ngFor="let emp of employeeList" [value]="emp.empid">{{emp.employee_code}}__{{emp.empname}}
                 </mat-option>
               </div>
             </mat-select>
             <mat-error class="con-error" *ngIf="inductionForm.controls.conductBy.errors?.required">
-              {{this.EM2}}
+              {{EM2}}
             </mat-error>
          </mat-form-field>
 
