@@ -146,7 +146,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     }
     getProfileImage(info:any): Observable<any> {
       // var conpanyName ='Apple'
-      return this.http.post(this.mainUrl + 'api/getProfileImage/' ,info,this.httpOptions)
+      return this.http.post(this.mainUrl + 'api/getProfileImage/'+this.companyName+'/' ,info,this.httpOptions)
     }
 
     getLeavesForCancellation(id: any): Observable<any>  {

@@ -55,8 +55,8 @@ export class PayGroupRequestComponent implements OnInit {
     this.getpayrollsections();
     this.getpayrollincomegroups();
   }
-  
-  ngOnInit(): void {
+
+  ngOnInit(): void { 
     this.getMessagesList();
     this.payGroupRequestForm = this.formBuilder.group(
       {
@@ -154,7 +154,8 @@ export class PayGroupRequestComponent implements OnInit {
   }
   /**Set Paygroup(Configure components) */
   setPayGroup(){
-    if(this.payGroupRequestForm.valid){
+    // payNameGroup start_range end_range status
+    if(this.payGroupRequestForm.controls.payNameGroup.valid && this.payGroupRequestForm.controls.status.valid&&this.payGroupRequestForm.controls.end_range.valid&& this.payGroupRequestForm.controls.start_range.valid){
       for(let i =0;i<this.payrollIncomeGroups.length;i++){
         if(this.payGroupRequestForm.controls.payNameGroup.value == this.payrollIncomeGroups[i].group_name){
           this.payGroupnameValidation =false;

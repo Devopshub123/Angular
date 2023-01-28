@@ -20,7 +20,7 @@
                             <mat-form-field appearance="outline" style="width: 100%;">
                                 <mat-label>EPF Number</mat-label>
                                 <input type="text" [readonly]="enable" matInput class="form-control" formControlName="epfNumber" placeholder="" minlength="17" maxlength="17" >
-                                <mat-error class="con-error" *ngIf="  epfRequestForm.controls.epfNumber.valid">
+                                <mat-error class="con-error" *ngIf="  epfRequestForm.controls.epfNumber.errors?.required">
                                   Please enter valid data.
                               </mat-error>
                             </mat-form-field>

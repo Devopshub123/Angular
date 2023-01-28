@@ -37,8 +37,10 @@ export class FinanceDashboardComponent implements OnInit {
 	Selmonth:any;
 	Selyear:any;
 	SelDisplay:any
+	dbname:any;
   constructor(private PR:PayrollService,private LMS: CompanySettingService,private formBuilder: FormBuilder) { 
 	this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+	this.dbname =sessionStorage.getItem('companyName')
     this.getFinancialYears();
 	
 	this.getDepartmentsMaster();
@@ -93,7 +95,7 @@ export class FinanceDashboardComponent implements OnInit {
 
   } 
   getDepartmentsMaster() {
-    this.LMS.getMastertable('departmentsmaster', 'Active', 1, 1000, 'spryple_client').subscribe(data => {
+    this.LMS.getMastertable('departmentsmaster', 1, 1, 1000, this.dbname).subscribe(data => {
       this.availableDepartments = data.data;
 	  console.log(this.availableDepartments )
     })
