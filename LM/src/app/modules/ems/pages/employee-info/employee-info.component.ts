@@ -419,7 +419,6 @@ export class EmployeeInfoComponent implements OnInit {
   //////////
   getLoginCandidateData() {
     this.spinner.show();
-
     this.loginData = [];
     this.emsService.getPreonboardCandidateData(this.candidateId).subscribe((res: any) => {
       this.loginData = JSON.parse(res.data[0].json)[0];
@@ -449,6 +448,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.firstname.setValue(this.loginData.firstname);
       this.personalInfoForm.controls.middlename.setValue(this.loginData.middlename);
       this.personalInfoForm.controls.lastname.setValue(this.loginData.lastname);
+      this.maxBirthDate = new Date(this.employeeJoinDate);
       if (this.loginData.dateofbirth != null)
         this.personalInfoForm.controls.dateofbirth.setValue(new Date(this.loginData.dateofbirth));
       this.personalInfoForm.controls.bloodgroup.setValue(this.loginData.bloodgroup);

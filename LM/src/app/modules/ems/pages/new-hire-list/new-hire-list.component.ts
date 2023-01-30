@@ -185,12 +185,12 @@ export class NewHireListComponent implements OnInit {
     this.isNewhireList = false;
     this.isUpdate = true;
     this.candidateId = data.id;
-    this.minHireDate = data.hired_date;
-    this.hireForm.controls.firstname.setValue(data.firstname);
+   this.hireForm.controls.firstname.setValue(data.firstname);
     this.hireForm.controls.middlename.setValue(data.middlename);
     this.hireForm.controls.lastname.setValue(data.lastname);
     this.hireForm.controls.email.setValue(data.personal_email);
     this.hireForm.controls.hiredon.setValue(data.hired_date);
+    this.minHireDate = new Date(data.hired_date);
     this.hireForm.controls.dateofjoin.setValue(data.dateofjoin);
     this.hireForm.controls.designation.setValue(data.designation);
     this.hireForm.controls.mobile.setValue(data.contact_number);

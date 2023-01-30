@@ -141,7 +141,7 @@ export class EmsService {
   }
 
   getPreonboardCandidateData(id: any): Observable<any> {
-    return this.http.get(this.mainUrl + 'ems/api/getCandidateDetails/' + id+'/'+this.companyName);
+    return this.http.get(this.mainUrl + 'ems/api/getCandidateDetails/' + id+'/'+this.companyName,this.httpOptions);
   }
 
   /** save candidate information */
