@@ -18,7 +18,7 @@ export class EsiComponent implements OnInit {
     this.esiRequestForm = this.formBuilder.group(
       {
         esiNumber: ["",Validators.required],
-        deductionCycle: ["",Validators.required],
+        deductionCycle: ["Monthly",Validators.required],
         employeeContribution:[""],
         employersContribution:[""],
         employerCTCContribution:[""],

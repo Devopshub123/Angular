@@ -9,7 +9,7 @@ import { PopupComponent,PopupConfig } from '../popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { EmsService } from 'src/app/modules/ems/ems.service';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-reset-password',
@@ -36,7 +36,7 @@ export class ResetPasswordComponent implements OnInit {
   currentDate :any=new Date().getFullYear() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getDate();
   constructor(private formBuilder: FormBuilder,private dialog: MatDialog,
     private activatedRoute: ActivatedRoute,private tss:LoginService,
-    private router: Router,private emsService:EmsService) { }
+    private router: Router,private emsService:EmsService,private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.getMessages('EM1');
@@ -44,21 +44,25 @@ export class ResetPasswordComponent implements OnInit {
     this.getMessages('EM128');
     this.getMessages('EM129');
     this.getMessages('EM131');
-
+   
     let params: any = this.activatedRoute.snapshot.params;
     this.email = JSON.parse(atob(params.token)).email;
     this.empid = JSON.parse(atob(params.token)).id;
     this.date = JSON.parse(atob(params.token)).date;
     this.companyName = JSON.parse(atob(params.token)).companyName;
-
+    this.date=this.datePipe.transform(new Date(this.date), 'yyyy-MM-dd');
+    this.currentDate=this.datePipe.transform(new Date(this.currentDate), 'yyyy-MM-dd');
     if(this.date != this.currentDate){
-      this.URL = true
+      console.log("true");
+      this.URL = true;
+      
     }else {
+      console.log("false");
       this.URL = false
 
     }
-
     this.createForm();
+    
   }
   hide1 = true;
   hide2 = true;

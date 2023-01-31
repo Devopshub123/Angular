@@ -54,11 +54,12 @@
                         <p>                        
                             <mat-form-field appearance="outline" style="width: 100%;">
                                 <mat-label>Deduction Cycle</mat-label>
-                                <mat-select formControlName="deductionCycle">
+                                <input formControlName="deductionCycle" [readonly]="true"  matInput placeholder="" >
+                                <!-- <mat-select formControlName="deductionCycle">
                                     <mat-option value="Monthly">Monthly</mat-option>
                                     <mat-option value="Quaterly">Quaterly</mat-option>
                                     <mat-option value="Yearly">Yearly</mat-option>
-                                </mat-select> 
+                                </mat-select>  -->
                                 <mat-error class="con-error" *ngIf="  esiRequestForm.controls.deductionCycle.errors?.required">
                                     Please select an option.
                                 </mat-error>                                     

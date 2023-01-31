@@ -18,11 +18,11 @@
                             <p>
                                 <mat-form-field appearance="outline" style="width: 100%;">
                                     <mat-label>Payment Frequency</mat-label>
-                                    <mat-select formControlName="paymentFrequency" [disabled]="true">
-                                        <!-- <mat-option value="Weekly">Weekly</mat-option>
-                                        <mat-option value="Biweekly">Biweekly</mat-option> -->
+                                    <input formControlName="paymentFrequency" [readonly]="true"  matInput placeholder="" >
+                                    <!-- <mat-select formControlName="paymentFrequency" [disabled]="true">
+                    
                                         <mat-option value="Monthly">Monthly</mat-option>
-                                    </mat-select>
+                                    </mat-select> -->
                                 </mat-form-field>
                             </p>
                             <p>

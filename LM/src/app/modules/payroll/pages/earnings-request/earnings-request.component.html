@@ -69,6 +69,9 @@
                 <mat-form-field appearance="outline" style="width: 100%;">
                   <mat-label>Name in Pay Slip*</mat-label>
                   <input type="text" matInput class="form-control" formControlName="namePaySlip" placeholder="" maxlength="30">
+                  <mat-error class="con-error" *ngIf="earningsRequestForm.controls.namePaySlip.errors?.required">
+                    {{PR1}}
+                </mat-error>
                 </mat-form-field>
               </p>
             </div>

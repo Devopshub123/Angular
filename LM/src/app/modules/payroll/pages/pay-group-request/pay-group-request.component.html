@@ -20,8 +20,8 @@
                         <p>                        
                         <mat-form-field appearance="outline" style="width: 100%;">
                             <mat-label>Name of the Pay Group</mat-label>
-                            <input formControlName="payNameGroup" matInput placeholder="" >
-                            <mat-error class="con-error" *ngIf="  payGroupRequestForm.controls.payNameGroup.errors?.required" max-length="30">
+                            <input type="text" formControlName="payNameGroup" matInput placeholder="" pattern="[0-9A-Za-z]" maxlength="30">
+                            <mat-error class="con-error" *ngIf="  payGroupRequestForm.controls.payNameGroup.errors?.required" >
                                 {{PR1}}
                             </mat-error> 
                         </mat-form-field>
@@ -75,10 +75,11 @@
                         <p>                           
                             <mat-form-field appearance="outline" style="width: 100%;">
                                 <mat-label>Status</mat-label>
-                                <mat-select formControlName="status">
+                                <input type="text"   formControlName="status" [readonly]="true" matInput placeholder="" >
+
+                                <!-- <mat-select formControlName="status">
                                     <mat-option value="To Be Configured">To Be Configured</mat-option>
-                                    <!-- <mat-option value="Inactive">Inactive</mat-option> -->
-                                </mat-select>
+                                </mat-select> -->
                                 <mat-error class="con-error" *ngIf="  payGroupRequestForm.controls.status.errors?.required">
                                     {{PR30}}
                                 </mat-error> 

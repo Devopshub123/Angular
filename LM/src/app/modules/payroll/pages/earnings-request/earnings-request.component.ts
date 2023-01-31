@@ -66,7 +66,7 @@ export class EarningsRequestComponent implements OnInit {
       {
         payGroup: [""],
         componentType:[""],
-        namePaySlip:[""],
+        namePaySlip:["",Validators.required],
         monthly_salary:  [''],
         flat_amount:["",Validators.required],
         basic_percentage:  [""],
@@ -200,7 +200,7 @@ export class EarningsRequestComponent implements OnInit {
   }
   
   configurePayGroupComponent(){
-    if(this.earningsRequestForm.controls.flat_amount.valid || (!this.otherhide)){
+    if(this.earningsRequestForm.controls.namePaySlip.valid && this.earningsRequestForm.controls.flat_amount.valid || (!this.otherhide)){
       if(this.earningsRequestForm.controls.flat_amount.value <= Number(this.validationvalue)){
         /**Configure component values and changed to active state */
       if(this.earndata.Earndata.status=="To Be Configured" || this.earndata.Earndata.status=="Configuration In Progress"){

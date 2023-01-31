@@ -86,6 +86,14 @@ export class AssignPayGroupComponent implements OnInit {
         this.dataSource = result.data
         this.hide=true;
         }
+        else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: "Pay Group not availabe in this range.Please add paygroup."
+          });
+
+        }
       })
     }
     
