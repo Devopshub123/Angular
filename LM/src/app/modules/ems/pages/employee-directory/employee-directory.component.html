@@ -29,7 +29,7 @@
          </div>
         </div>
         <form [formGroup]="employeeDirectoryForm" style="padding-left: 1%;padding-right: 1%;">
-        <div *ngIf="ishideFilter" style="margin-left: 1%;">
+        <!-- <div *ngIf="ishideFilter" style="margin-left: 1%;">
           <mat-card>
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2" >
            <mat-checkbox class="example-margin"  [checked]="ischecked" (change)="setonboarding($event)"
@@ -67,7 +67,7 @@
 
     </div>
   </mat-card>
-      </div>
+        </div> -->
 
         <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" >
 
@@ -93,6 +93,10 @@
                   <p style="color: black;">{{emp.location}}</p>
               </span> -->
               </mat-card>
+              <div *ngIf="employeeFilteredList == 0">
+                <span>No data found</span>
+
+              </div>
            </div>
           </form>
       </mat-card>

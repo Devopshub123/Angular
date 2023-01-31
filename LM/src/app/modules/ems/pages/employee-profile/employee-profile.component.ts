@@ -1134,7 +1134,7 @@ export class EmployeeProfileComponent implements OnInit {
   }
   addfamily() {
     this.addValidators();
-    if (this.isfamilyedit) {
+    if (this.isfamilyedit && this.candidateFamilyForm.valid) {
       this.isfamilyedit = false;
       this.familyDetails[this.familyindex].firstname =
         this.candidateFamilyForm.controls.familyfirstname.value;

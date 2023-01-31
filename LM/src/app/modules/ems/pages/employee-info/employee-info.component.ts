@@ -1984,6 +1984,7 @@ export class EmployeeInfoComponent implements OnInit {
     //   if(this.validateDocument()){
     this.spinner.show();
     this.mainService.getFilepathsMasterForEMS(1).subscribe((resultData) => {
+      console.log("tes-1--",resultData)
       if (resultData && resultData.status) {
         let obj = {
           'id': this.documentsForm.controls.documentId.value ? this.documentsForm.controls.documentId.value : null,
@@ -1998,12 +1999,17 @@ export class EmployeeInfoComponent implements OnInit {
           'status': 'Approved'
         }
         this.mainService.setFilesMasterForEMS(obj).subscribe((data) => {
+          console.log("tes-2--",data)
           if (data && data.status) {
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0])
+              console.log("tes-3--",this.file)
+              console.log("tes-4--",info)
+              console.log("tes-5--",obj.status)
               this.formData.append('file', this.file, this.file.name);
               this.formData.append('info',info);
-              this.formData.append('data',obj.status);
+              this.formData.append('data', obj.status);
+              console.log("req-01--",this.formData)
               this.mainService.setDocumentOrImageForEMS(this.formData).subscribe((data) => {
                 // this.spinner.hide()
                 this.formData.delete('file');

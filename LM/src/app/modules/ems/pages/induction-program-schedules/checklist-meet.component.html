@@ -408,8 +408,8 @@
                                 <mat-icon class="mr-2" style="cursor: pointer;" title="Edit"  (click)="editRequest(row)" >edit</mat-icon>
                                 <mat-icon class="mr-2" style="cursor: pointer;" title="Program Cancel" (click)="cancelProgram(row)" >cancel_presentation</mat-icon>
                             </span>
-                             <mat-icon class="mr-2" style="cursor: pointer;" *ngIf="row.status ==='Finished'" title="Update" (click)="updating(row)" ><img src="assets\img\update-img.png" style="height: 22px" /></mat-icon>
-
+                             <!-- <mat-icon class="mr-2" style="cursor: pointer;" *ngIf="row.status ==='Finished'" title="Update" (click)="updating(row)" ><img src="assets\img\update-img.png" style="height: 22px" /></mat-icon> -->
+                             <mat-icon class="mr-2" style="cursor: pointer;" *ngIf="row.status ==='Finished'" title="Update" (click)="updating(row)" >rate_review</mat-icon>
                             <mat-icon class="mr-2" style="cursor: pointer;" *ngIf="row.status ==='Completed' || row.status ==='Cancelled' || row.status ==='Finished'"
                              title="View" (click)="viewProgram(row)" >visibility</mat-icon>
                          </td>

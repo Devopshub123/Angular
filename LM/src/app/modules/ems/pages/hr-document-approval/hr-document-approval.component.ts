@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { MainService } from 'src/app/services/main.service';
 import {NgxSpinnerService} from "ngx-spinner";
+import { ComfirmationDialogComponent } from 'src/app/pages/comfirmation-dialog/comfirmation-dialog.component';
 
 @Component({
   selector: 'app-hr-document-approval',
@@ -142,8 +143,16 @@ export class HrDocumentApprovalComponent implements OnInit {
     }
 
   })
- }
+  }
   reject(event: any, data: any) {
+    let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
+      position: { top: `10%` },
+      disableClose: true,
+      data: { message: "Are you sure you want to reject document ? ", YES: 'YES', NO: 'NO' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'YES') {
+
   let email = JSON.stringify(this.employeeEmailData);
   let updatedata=
   {
@@ -169,8 +178,40 @@ export class HrDocumentApprovalComponent implements OnInit {
       });
     }
 
-  })
- }
+   })
+    }
+  });
+  }
+
+  // reject(event: any, data: any) {
+  // let email = JSON.stringify(this.employeeEmailData);
+  // let updatedata=
+  // {
+  //   id:data.fileid,
+  //   status: 'Rejected',
+  //   email:email
+  // }
+  // this.ES.documentApproval(updatedata).subscribe((res:any)=>{
+  //   if(res.status){
+  //     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+  //         this.router.navigate(["/ems/hr-document-approval"]));
+  //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
+  //       position:{top:`70px`},
+  //       disableClose: true,
+  //       data: 'Document Rejected successfully'
+  //     });
+  //   }
+  //   else{
+  //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
+  //       position:{top:`70px`},
+  //       disableClose: true,
+  //       data: 'Unable to reject document'
+  //     });
+  //   }
+
+  // })
+  // }
+  
   cancel() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
     this.router.navigate(["/ems/hr-document-approval"]));

@@ -92,7 +92,7 @@
           <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
             <mat-label>Separation Date</mat-label>
             <input matInput readonly [matDatepicker]="searchDate" [min]="minDate" [max]="maxDate"
-            placeholder="MM/DD/YYYY"  formControlName="searchDate" (click)="searchDate.open()">
+            placeholder="DD/MM/YYYY"  formControlName="searchDate" (click)="searchDate.open()">
             <mat-datepicker-toggle class="datepicker" matSuffix [for]="searchDate"></mat-datepicker-toggle>
             <mat-datepicker #searchDate></mat-datepicker>
           </mat-form-field>
