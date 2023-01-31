@@ -940,9 +940,8 @@ console.log("T0")
       'status':'Submitted'
     }
     this.LM.getFilesMaster(info).subscribe((result) => {
-
-      if(result && result.status){
-        this.documentId = result.data[0].id;
+      if (result && result.status && result.data.length >0) {
+       this.documentId = result.data[0].id;
         this.documentInfo = JSON.stringify(result.data[0])
         // let documentName = result.data[0].filename.split('_')
         // var docArray=[];

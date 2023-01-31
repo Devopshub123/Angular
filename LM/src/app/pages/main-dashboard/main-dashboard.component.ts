@@ -408,7 +408,7 @@ export class MainDashboardComponent implements OnInit {
   }
   ///////////////
   getEmployeeInformationList() {
-    this.employeeInformationData = [];
+     this.employeeInformationData = [];
     this.emsService
       .getEmployeeInformationData(this.usersession.id)
       .subscribe((res: any) => {

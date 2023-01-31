@@ -6,7 +6,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { PopupComponent,PopupConfig } from '../popup/popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
-import { EmsService } from 'src/app/modules/ems/ems.service';
+// import { EmsService } from 'src/app/modules/ems/ems.service';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   userlocalSessionpassword:any;
   userlocalSessionrememberme:any;
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
-    private tss: LoginService, private router: Router, private emsService: EmsService,
+    private tss: LoginService, private router: Router,
     private activatedRoute: ActivatedRoute,) {
     }
     messagesDataList: any = [];
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.formGroup.controls.rememberme.setValue((localStorage.getItem("rememberme")=='false')?0:1);    // console.log("nm--",this.formGroup.controls.username.value)
     // console.log("pwd--",this.formGroup.controls.password.value)
     // console.log("rmm--",this.formGroup.controls.rememberme.value)
-    this.getMessagesList();
+    // this.getMessagesList();
   }
   hide = true;
 
@@ -84,14 +84,16 @@ export class LoginComponent implements OnInit {
           let empdata = data.result[0];
           sessionStorage.setItem('token', data.token);
           sessionStorage.setItem('user', JSON.stringify(empdata));
-          
+          console.log("hhi");
           this.employeeId = empdata.id;
           if (empdata.firstlogin == "Y") {
+            console.log("hhi-2");
             this.router.navigate(['/Attendance/ChangePassword'])
           }
           else {
+            console.log("hhi-3");
             this.router.navigate(['main/MainDashboard'])
-            this.getEmployeeEmailData();
+            // this.getEmployeeEmailData();
           }
         }
         else if
@@ -167,12 +169,12 @@ export class LoginComponent implements OnInit {
 
 
 
-  getEmployeeEmailData() {
-    this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
-      .subscribe((res: any) => {
-        // this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
-       })
-  }
+  // getEmployeeEmailData() {
+  //   this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
+  //     .subscribe((res: any) => {
+  //       // this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+  //      })
+  // }
   // getError(el:any) {
   //   switch (el) {
   //     case 'user':

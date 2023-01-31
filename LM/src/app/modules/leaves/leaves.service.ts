@@ -242,7 +242,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     info.companyName= this.companyName;
     return this.http.post(this.mainUrl + 'api/setFilesMaster/', info, this.httpOptions);
   }
-  getFilesMaster(info:any):Observable<any>{
+  getFilesMaster(info: any): Observable<any>{
     info.companyName= this.companyName;
     return this.http.post(this.mainUrl + 'api/getFilesMaster/', info,this.httpOptions);
   }

@@ -129,16 +129,16 @@
         <!--</mat-form-field>-->
       </div>
     </form>
-    <div class="col-sm-6 mr2 text-right" fxLayoutAlign="end">
-      <button *ngIf="pendingapprovalForm.controls.status.value == 'Submitted'" class="col-md-2 mr-2 btn btn-primary"
+    <div  fxLayoutAlign="center">
+      <button *ngIf="pendingapprovalForm.controls.status.value == 'Submitted'" class="btn btn-primary custom mr-2 mb-2"
         (click)="approve()">
         Approve
       </button>
-      <button *ngIf="pendingapprovalForm.controls.status.value == 'Submitted'" class="col-md-2 btn btn-danger mr-2"
+      <button *ngIf="pendingapprovalForm.controls.status.value == 'Submitted'" class="btn btn-danger mr-2 mb-2"
         (click)="reject()">
         Reject
       </button>
-      <button class="col-md-2 btn btn-danger" (click)="Cancel()">Cancel</button>
+      <button class="btn btn-danger mr-2 mb-2" (click)="Cancel()">Cancel</button>
     </div>
   </div>
   <br />

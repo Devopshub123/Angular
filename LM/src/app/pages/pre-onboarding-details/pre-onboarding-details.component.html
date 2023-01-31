@@ -485,7 +485,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Designation</mat-label>
                                     <input type="text" required formControlName="designation" specialIsAlpha matInput
-                                        placeholder="" maxlength="100" />
+                                        placeholder="" maxlength="30" />
                                         <mat-error class="reg-error" *ngIf="employementForm.controls.designation.hasError('required')">
                                             {{EM1}}
                                         </mat-error>

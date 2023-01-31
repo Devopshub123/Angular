@@ -52,7 +52,7 @@
 
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Last Name</mat-label>
-                                        <input formControlName="lastname" specialIsAlpha matInput placeholder=""
+                                        <input formControlName="lastname" (keypress)="alphabetKeyPress($event)" matInput placeholder=""
                                             maxlength="70" required />
                                         <mat-error class="reg-error"
                                             *ngIf="personalInfoForm.controls.lastname.errors?.required">
@@ -129,14 +129,15 @@
                                     </mat-form-field>
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Personal Email</mat-label>
-                                        <input type="text" formControlName="personalemail" matInput placeholder="" />
+                                        <input type="text" formControlName="personalemail" matInput placeholder="" maxlength="50"/>
                                     </mat-form-field>
                                 </div>
                                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.sm="50" class="mx-2 my-2"
                                         appearance="outline">
                                         <mat-label>Languages Spoken</mat-label>
-                                        <input type="text" formControlName="spokenLanguages" matInput placeholder="" />
+                                        <input type="text" formControlName="spokenLanguages" matInput placeholder="" 
+                                        (keypress)="alphabetKeyPress($event)" maxlength="100"/>
                                     </mat-form-field>
                                     <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Mobile Number</mat-label>
@@ -689,7 +690,7 @@
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Designation</mat-label>
                                         <input type="text" required formControlName="designation" specialIsAlpha
-                                            matInput placeholder="" maxlength="100" />
+                                            matInput placeholder="" maxlength="30" />
                                         <mat-error class="reg-error"
                                             *ngIf="experienceForm.controls.designation.hasError('required')">
                                             {{EM1}}
@@ -737,7 +738,8 @@
                                         <span>
                                             <button class="btn btn-primary mr-2 mb-2"
                                                 (click)="addWorkExperience()">
-                                                <span> Add </span>
+                                                <span *ngIf="!isExperienceEdit"> Add </span>
+                                                <span *ngIf="isExperienceEdit"> Update </span>
                                             </button>
                                             <button class="btn btn-danger mr-2 mb-2"
                                                 (click)="clearWorkExperience()">
@@ -934,7 +936,8 @@
                             </div>
                             <div fxLayout="row" fxLayoutAlign="end">
                                 <button class="btn btn-primary mr-2 mb-2" (click)="addEducation()">
-                                    <span> Add </span>
+                                    <span *ngIf="!isEducationEdit"> Add </span>
+                                    <span *ngIf="isEducationEdit"> Update </span>
                                 </button>
                                 <button class="btn btn-danger mr-2 mb-2" (click)="clearEducation()">
                                     Clear

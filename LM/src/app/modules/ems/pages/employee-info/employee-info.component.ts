@@ -1445,6 +1445,7 @@ export class EmployeeInfoComponent implements OnInit {
 
 
   clearWorkExperience() {
+    this.isExperienceEdit = false;
     this.experienceForm.controls.companyName.reset();
     this.experienceForm.controls.expFromDate.reset();
     this.experienceForm.controls.expToDate.reset();
@@ -1664,6 +1665,7 @@ export class EmployeeInfoComponent implements OnInit {
 
   }
   clearEducation() {
+    this.isEducationEdit = false;
     this.educationForm.controls.course.reset();
     this.educationForm.controls.instituteName.reset();
     this.educationForm.controls.eduFromDate.reset();

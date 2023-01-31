@@ -24,7 +24,8 @@ import { environment } from 'src/environments/environment';
           headers: new HttpHeaders({'content-Type': 'multipart/form-data'})
         };
 
-    constructor(private hClient: HttpClient) {
+  constructor(private hClient: HttpClient) {
+    console.log("cn-0");
         this.userSession = ((sessionStorage.getItem('user')))
         this.companyName=sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null;
         this.httpOptions = {
@@ -48,8 +49,13 @@ Savelogin(data:any): Observable<any> {
   return this.hClient.post(this.mainBeUrl + 'api/emp_login', JSON.stringify(data) ,this.httpOptionslogin);
 }
  /* save change password */
-changepassword(changePassword: any): Observable<any> {
-
+  changepassword(changePassword: any): Observable<any> {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
   changePassword.companyName = sessionStorage.getItem('companyName');
   return this.hClient.post(this.mainBeUrl + 'api/changePassword', JSON.stringify(changePassword), this.httpOptions);
 }

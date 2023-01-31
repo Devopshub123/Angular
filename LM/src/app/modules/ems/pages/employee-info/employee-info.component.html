@@ -190,8 +190,8 @@
                             <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.sm="50" class="mx-2 my-2"
                                 appearance="outline">
                                 <mat-label>Languages Spoken</mat-label>
-                                <input type="text" formControlName="spokenLanguages" matInput placeholder=""
-                                    maxlength="100" />
+                                <input type="text" formControlName="spokenLanguages" matInput
+                                    maxlength="100" (keypress)="alphabetKeyPress($event)"/>
                             </mat-form-field>
                             <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Mobile Number</mat-label>
@@ -959,7 +959,7 @@
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Designation</mat-label>
                                 <input type="text" required formControlName="designation" specialIsAlpha matInput
-                                    placeholder="" maxlength="100" />
+                                    placeholder="" maxlength="30" />
                                 <mat-error class="reg-error" *ngIf="
                       experienceForm.controls.designation.hasError('required')
                     ">
@@ -1006,7 +1006,8 @@
                             <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="end">
                                 <span>
                                     <button class="btn btn-primary mr-2 mb-2" (click)="addWorkExperience()">
-                                        <span> Add </span>
+                                        <span *ngIf="!isExperienceEdit"> Add </span>
+                                        <span *ngIf="isExperienceEdit"> Update </span>
                                     </button>
                                     <button class="btn btn-danger mr-2 mb-2" (click)="clearWorkExperience()">
                                         Clear
@@ -1224,7 +1225,8 @@
                         </div>
                         <div fxLayout="row" fxLayoutAlign="end">
                             <button class="btn btn-primary mr-2 mb-2" (click)="addEducation()">
-                                <span> Add </span>
+                                <span *ngIf="!isEducationEdit"> Add </span>
+                                <span *ngIf="isEducationEdit"> Update </span>
                             </button>
                             <button class="btn btn-danger mr-2 mb-2" (click)="clearEducation()">
                                 Clear
