@@ -170,6 +170,7 @@ export class AttendanceRequestComponent implements OnInit {
   //   return this.requestform.controls;
   // }
   fromDateChange(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.requestform.controls.toDate.setValue('')
     this.minToDate = event.value;
     if (event.value !== null) {
       // this.maxToDate = new Date(
@@ -474,7 +475,7 @@ export class AttendanceRequestComponent implements OnInit {
     let dialogRef = this.dialog.open(LeavePoliciesDialogComponent, {
       position:{top:`70px`},
       disableClose: true,
-      data: {message:this.ATT74,YES:'YES',NO:'NO'}
+      data: {message:"Are you sure you want to delete ?",YES:'YES',NO:'NO'}
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result == 'YES'){

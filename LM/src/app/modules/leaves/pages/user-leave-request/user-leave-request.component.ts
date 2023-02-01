@@ -102,6 +102,7 @@ export class UserLeaveRequestComponent implements OnInit {
     this.getleavecyclelastmonth();
     this.leaveInfo = this.location.getState();
     this.leaveData = this.leaveInfo.leaveData;
+    console.log("ldat--",this.leaveData)
   }
   activeModule:any;
 
@@ -133,9 +134,11 @@ export class UserLeaveRequestComponent implements OnInit {
 
     // this.leaveRequestForm.controls.formData.setValue(this.leaveData ? new Date(this.leaveData.fromdate) : '')
     // this.leaveRequestForm.controls.toDate.setValue(this.leaveData ? new Date(this.leaveData.toDate) : '')
-    this.leaveRequestForm.controls.fromDateHalf.setValue(this.leaveData ? this.leaveData.fromhalfdayleave == '0' ? false : true : false,{emitEvent:false})
+    this.leaveRequestForm.controls.fromDateHalf.setValue(this.leaveData ? this.leaveData.fromhalfdayleave == '0' ? false : true : false, { emitEvent: false })
+    console.log("fd---",this.leaveRequestForm.controls.fromDateHalf.value)
     this.leaveRequestForm.controls.toDateHalf.setValue(this.leaveData ? this.leaveData.tohalfdayleave == '0' ? false : true : false,{emitEvent:false})
-    this.leaveRequestForm.controls.leaveCount.setValue(this.leaveData ? this.leaveData.leavecount:'',{emitEvent:false})
+    console.log("td---",this.leaveRequestForm.controls.toDateHalf.value)
+    this.leaveRequestForm.controls.leaveCount.setValue(this.leaveData ? this.leaveData.leavecount : '', { emitEvent: false })
     this.leaveRequestForm.controls.reason.setValue(this.leaveData ? this.leaveData.leavereason : '',{emitEvent:false})
     this.leaveRequestForm.controls.contact.setValue(this.leaveData ? this.leaveData.contactnumber : '',{emitEvent:false})
     this.leaveRequestForm.controls.emergencyEmail.setValue(this.leaveData ? this.leaveData.contactemail : '')

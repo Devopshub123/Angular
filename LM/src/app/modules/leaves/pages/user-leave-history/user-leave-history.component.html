@@ -120,7 +120,7 @@
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Rejected'">
                 <mat-label>Rejected On</mat-label>
-                <input  matInput [readonly]="true"[readonly]="true" value="{{viewdata.updatedon}}">
+                <input  matInput [readonly]="true"[readonly]="true" value="{{viewdata.updatedon | date:'dd-MM-yyyy'}}">
 
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavestatus === 'Deleted'">

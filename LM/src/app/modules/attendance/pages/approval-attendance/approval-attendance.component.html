@@ -1,10 +1,10 @@
 <div fxLayout="column" >
 <mat-card>
     <form [formGroup]="requestform" autocomplete="off">
-        <mat-card fxFill>
-            <mat-card-header>
+            <mat-card-header class="headerbox">
                 <mat-card-title class="title"> Approval For Attendance </mat-card-title>
             </mat-card-header>
+            <br>
             <!-- <mat-divider></mat-divider> -->
             <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
@@ -77,22 +77,23 @@
                 </mat-form-field>
             </div>
             <div fxLayoutAlign="center">
-                <ng-container *ngIf="isEdit"> <button class="mx-1 mat-stroked-button button-save" (click)="acceptApproval()"
+                <ng-container *ngIf="isEdit"> 
+                    <button class="btn btn-primary custom mr-2 mb-2" (click)="acceptApproval()"
                         type="submit">
                         <span>Approve</span>
                     </button>
 
-                    <button class="mx-1  mat-stroked-button button-clear" (click)="rejectApproval()">
+                    <button class="btn btn-danger mr-2 mb-2" (click)="rejectApproval()">
                         <span>Reject</span>
                     </button>
                 </ng-container>
 
-                <button class="mx-1  mat-stroked-button button-clear" (click)="backClick()">
+                <button class="btn btn-danger mr-2 mb-2" (click)="backClick()">
                     <span>Back</span>
                 </button>
                 <br />
             </div>
-        </mat-card>
+
     </form>
   </mat-card>
   </div>

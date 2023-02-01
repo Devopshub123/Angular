@@ -14,7 +14,6 @@ export class EmsService {
   httpOptions:any;
  companyName:any
   constructor(private http: HttpClient) {
-    console.log("c0");
     this.companyName = sessionStorage.getItem("companyName") ? sessionStorage.getItem("companyName") : null;
     this.httpOptions = {
       headers: new HttpHeaders({

@@ -376,9 +376,10 @@ export class MainDashboardComponent implements OnInit {
                 });
               } else if (this.requestType == 'LeaveRequest') {
                 sessionStorage.setItem('selectedModule', 'Leaves');
-                this.router.navigate(['/LeaveManagement/LeaveRequest'], {
-                  state: { leaveData: this.requestData, isleave: true },
-                });
+                this.router.navigate(['/LeaveManagement/LeaveRequest']);
+                // this.router.navigate(['/LeaveManagement/LeaveRequest'], {
+                //   state: { leaveData: this.requestData, isleave: true },
+                // });
               }
               else if (this.requestType == 'ReviewAndApprovals') {
                 sessionStorage.setItem('selectedModule', 'Leaves');

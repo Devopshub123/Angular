@@ -189,20 +189,26 @@
 
                       <div fxLayout="column" fxLayoutAlign="center center">
                         <div fxLayoutAlign="center center" class="center">
-                          <button mat-icon-button (click)="selfOffice()" [matMenuTriggerFor]="menu">
+                          <button *ngIf="employeeAttendanceCountData.wfo_count > 0" mat-icon-button (click)="selfOffice()" [matMenuTriggerFor]="menu">
                             <span style="color: aliceblue; font-size: 25px;">
                               {{employeeAttendanceCountData.wfo_count}}</span>
                           </button>
+                          <span *ngIf="employeeAttendanceCountData.wfo_count==0" style="color: white; font-size: 25px;">
+                            {{employeeAttendanceCountData.wfo_count}} 
+                          </span>
                         </div>
                         <span class="subheading">Work from office</span>
                       </div>
 
                       <div fxLayout="column" fxLayoutAlign="center center">
                         <div fxLayoutAlign="center center" class="center">
-                          <button mat-icon-button (click)="selfhome()" [matMenuTriggerFor]="menu">
-                            <span style="color: aliceblue; font-size: 25px;">
+                          <button *ngIf="employeeAttendanceCountData.wfh_count > 0" mat-icon-button (click)="selfhome()" [matMenuTriggerFor]="menu">
+                            <span style="color: white; font-size: 25px;">
                               {{employeeAttendanceCountData.wfh_count}}</span>
                           </button>
+                          <span *ngIf="employeeAttendanceCountData.wfh_count==0" style="color: white; font-size: 25px;">
+                            {{employeeAttendanceCountData.wfh_count}}
+                           </span>
                         </div>
 
                         <span class="subheading">Work from home</span>
@@ -210,13 +216,15 @@
 
                       <div fxLayout="column" fxLayoutAlign="center center">
                         <div fxLayoutAlign="center center" class="center">
-                          <button mat-icon-button (click)="selfAbsents()" [matMenuTriggerFor]="menu">
-                            <span style="color: aliceblue; font-size: 25px;">
+                          <button *ngIf="employeeAttendanceCountData.absents_count > 0" mat-icon-button (click)="selfAbsents()" [matMenuTriggerFor]="menu">
+                            <span style="color: white; font-size: 25px;">
                               {{employeeAttendanceCountData.absents_count}}</span>
                           </button>
-                        </div>
+                           <span *ngIf="employeeAttendanceCountData.absents_count==0" style="color: white; font-size: 25px;">
+                            {{employeeAttendanceCountData.absents_count}} </span>
 
-                        <span class="subheading">Absent</span>
+                        </div>
+                       <span class="subheading">Absent</span>
                       </div>
                       <!-- self attendance detailed list -->
                       <mat-menu #menu="matMenu">
