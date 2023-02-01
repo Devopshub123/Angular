@@ -157,7 +157,7 @@ export class PendingApprovalsComponent implements OnInit {
 
   openDialog(leave:any): void {
     const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
-      position:{top:`70px`},
+    position: { top: `70px` },
       data: {name: this.titleName, reason: this.reason,}
     });
 

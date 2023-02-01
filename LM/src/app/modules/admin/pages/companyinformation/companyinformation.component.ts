@@ -232,7 +232,6 @@ export class CompanyinformationComponent implements OnInit {
   }
   getCompanyInformation(){
     this.LMS.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data)=>{
-      console.log("companyinformation",data)
       if(data.status && data.data.length!=0) {
         // this.enable=false;
         this.isview=true;

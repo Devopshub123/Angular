@@ -232,7 +232,6 @@ export class InductionConductedByMasterComponent implements OnInit {
 
     } else {
       this.selectedEmployees.push(event.source.value);
-      console.log("val--", this.selectedEmployees)
     }
   }
 

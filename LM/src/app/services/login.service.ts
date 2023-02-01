@@ -25,8 +25,7 @@ import { environment } from 'src/environments/environment';
         };
 
   constructor(private hClient: HttpClient) {
-    console.log("cn-0");
-        this.userSession = ((sessionStorage.getItem('user')))
+   this.userSession = ((sessionStorage.getItem('user')))
         this.companyName=sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null;
         this.httpOptions = {
           headers: new HttpHeaders({
