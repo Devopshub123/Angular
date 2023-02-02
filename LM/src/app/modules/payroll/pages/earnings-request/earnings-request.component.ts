@@ -23,6 +23,7 @@ export class EarningsRequestComponent implements OnInit {
   customColor:any = 'primary';
   earn:any;
   data: any;
+  senddata:any=[];
   earndata: any;
   dataofvalues: any;
   hide:boolean=false;
@@ -40,6 +41,7 @@ export class EarningsRequestComponent implements OnInit {
   constructor(private location:Location,private sanitizer:DomSanitizer,private formBuilder: FormBuilder,private PR:PayrollService,private dialog: MatDialog,private router: Router) {
     this.earndata = this.location.getState();
     console.log(this.earndata.Earndata)
+    this.senddata =this.earndata.paygroupdata.data; 
     this.getComponentEditableConfigurations(this.earndata.Earndata.component_id)
     this.getPayGroupComponentValues(this.earndata.Earndata.pigcm_id);
     this.getComponentConfiguredValuesForPayGroup(this.earndata.Earndata.pigcm_id,1);
@@ -94,7 +96,7 @@ export class EarningsRequestComponent implements OnInit {
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/Payroll/Earnings"])); 
+      this.router.navigate(["/Payroll/Earnings",{state:{data:this.senddata}}])); 
 
   }
   status(status:any){
@@ -226,7 +228,7 @@ export class EarningsRequestComponent implements OnInit {
           if(result.status){
             console.log(this.earndata);
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                this.router.navigate(["/Payroll/Earnings",{state:{data:this.earndata.Earndata}}])); 
+                this.router.navigate(["/Payroll/Earnings"],{state:{data:this.senddata}})); 
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,

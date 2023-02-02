@@ -68,7 +68,7 @@ export class ForgotPasswordComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Please enter valid email for reset password'
+            data: 'Please enter valid email and comapany codefor reset password'
           });
           
         }

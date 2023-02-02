@@ -30,11 +30,12 @@ export class SummaryReportForManagerComponent implements OnInit {
   calengerYearsdetails :any=[];
   today:any=new Date();
   ishide:boolean=true;
-  companyDBName:any = environment.dbName;
+  companyDBName:any ; 
   designationForPdf :any='All';
   employeeNameForPdf:any='All';
   constructor(private LM:LeavesService,public formBuilder: FormBuilder,public spinner :NgxSpinnerService, private excelService: ExcelServiceService) {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.companyDBName = sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
   }
   @ViewChild('table') table!: ElementRef;
 
@@ -78,7 +79,7 @@ export class SummaryReportForManagerComponent implements OnInit {
   getDesignation(){
     let obj={
       tableName:'designationsmaster',
-      status:'Active',
+      status:1,
       pageNumber:1,
       pageSize:1000,
       databaseName:this.companyDBName
@@ -92,7 +93,7 @@ export class SummaryReportForManagerComponent implements OnInit {
   getDepartments(){
     let obj={
       tableName:'departmentsmaster',
-      status:'Active',
+      status:1,
       pageNumber:1,
       pageSize:1000,
       databaseName:this.companyDBName

@@ -94,11 +94,11 @@ export class MainService {
   }
   setDocumentOrImageForEMS(data: FormData): Observable<any> {
     console.log("val-01",data);
-    return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/'+this.companyName, data, this.httpOptions);
+    return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/'+this.companyName, data);
   }
   getDocumentsForEMS(input:any){
     input.companyName=this.companyName;
-    return this.http.post(this.mainBeUrl+'ems/api/getDocumentsForEMS', JSON.stringify(input), this.httpOptions);
+    return this.http.post(this.mainBeUrl+'ems/api/getDocumentsForEMS', JSON.stringify(input));
 
   }
   getDocumentOrImagesForEMS(info:any): Observable<any> {

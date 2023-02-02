@@ -101,7 +101,7 @@ export class PayScheduleComponent implements OnInit {
       date = 'Last But 3 Days';
     }
     else if (info == 'LAST_DAY_OF_PRESENT_MONTH'){
-      date = 'Last Day of the present month';
+      date = 'Last Day';
     }
     else {
       date = info;
