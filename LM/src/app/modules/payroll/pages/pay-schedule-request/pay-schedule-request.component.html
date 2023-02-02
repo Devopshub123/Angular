@@ -1,12 +1,10 @@
 <div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto">
-    <mat-card fxFill>
-      <mat-card-header class="">
-        <mat-card-title class="title custom-payRoll-header">
-          <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Pay Schedule</b>
-          </p>
-
-        </mat-card-title>
-      </mat-card-header>
+    <mat-card>
+        <mat-card-header class="headerbox">
+            <div fxLayout="row" fxFlex="50">
+                <mat-card-title class="title">Pay Schedule</mat-card-title>
+            </div>
+            </mat-card-header>
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">
         <form [formGroup]="payGroupRequestForm" autocomplete="off" style="width:100%">
@@ -181,24 +179,24 @@
             </div>
             <div class="row tab-lap-desk-show" style="margin-bottom: 51px !important;margin-top: -47px;">
                 <div class="col-sm-6 text-right" style="padding:0px">
-                <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue;" (click)="setPayGroup()"   type="submit">
+                <button  class="btn btn-primary mr-2 mb-2" (click)="setPayGroup()"   type="submit">
                     <span>Save</span>
                 </button>
                 </div>
                 <div class="col-sm-6">
-                <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue;" (click)="cancel()">
+                <button  class="btn btn-danger mr-2 mb-2" (click)="cancel()">
                     <span >Cancel</span>
                 </button>
                 </div>
             </div>
             <div class="row mob-port-show mob-buttons" style="margin-bottom: 15px !important;">
                 <div class="col-sm-6 text-center mob-buttons-padding" >
-                <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue;width:50%;" (click)="setPayGroup()"   type="submit">
+                <button  class="btn btn-primary mr-2 mb-2" (click)="setPayGroup()"   type="submit">
                     <span>Save</span>
                 </button>
                 </div>
                 <div class="col-sm-6 text-center">
-                <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue;width:50%;" (click)="cancel()">
+                <button  class="btn btn-danger mr-2 mb-2" (click)="cancel()">
                     <span >Cancel</span>
                 </button>
                 </div>

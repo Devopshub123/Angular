@@ -5,10 +5,11 @@
             <mat-card-header>
                 <mat-card-title>Monthly Payroll</mat-card-title>
             </mat-card-header>
-            <div >
-                <div fxLayout="row" >
-                    <form [formGroup]="monthlyPayrollForm" autocomplete="off">
-                        <mat-form-field fxFlex="50" class="mx-2 my-2" appearance="outline">
+            <div fxLayout="column">
+              
+                  <form [formGroup]="monthlyPayrollForm" autocomplete="off" style="padding-top: 1%;">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100">
+                        <mat-form-field fxFlex="28" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                             <mat-label>Financial Year</mat-label>
                             <mat-select formControlName="financial_year">
                                 <ng-container>
@@ -18,7 +19,7 @@
                               </ng-container>
                             </mat-select>
                         </mat-form-field>
-                        <mat-form-field fxFlex="50" class="mx-2 my-2" appearance="outline">
+                        <mat-form-field fxFlex="28" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                             <mat-label>Month and Year</mat-label>
                             <mat-select formControlName="Month_year">
                                 <ng-container>
@@ -28,11 +29,12 @@
                               </ng-container>
                             </mat-select>
                         </mat-form-field>
+                      </div>
                     </form>
                     
 
-                </div>
-                <div class="mat-elevation-z8" *ngIf="hide">
+              
+                <div class="mat-elevation-z1" *ngIf="hide">
                     <table mat-table [dataSource]="dataSource">
                     
                       <!-- Checkbox Column -->
@@ -94,20 +96,21 @@
             </div>
 
 
-    </mat-card>
+  
     <div class="form-group row" *ngIf="hide">
         <div class="col-sm-6 text-right" style="padding:0px">
-        <button class="m-1 mat-stroked-button "  style="background-color:#0f207c;color:aliceblue" (click)="caluculateMonthlySalary()"   type="submit">
+        <button class="btn btn-primary custom mr-2 mb-2" (click)="caluculateMonthlySalary()"   type="submit">
             <span>Calculate Salary</span>
         </button>
         </div>
         <div class="col-sm-6">
-        <button class="m-1  mat-stroked-button button-clear" (click)="cancel()">
+        <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
             <span >Cancel</span>
         </button>
         </div>
     </div>
     <br><br>
+  </mat-card>
     </div>
       <!-- <div>
         <button  mat-raised-button (click)="logSelection()">Console Log Selected</button>

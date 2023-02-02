@@ -1,31 +1,30 @@
 <div fxLayout="column" fxFill class="custom-pgr-height-auto">
     <mat-card fxFill>
-        <mat-card-header class="">
-            <mat-card-title class="title custom-payRoll-header"> 
-              <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Pay Slip</b>
-              </p>
-              <mat-icon title="Back" fxLayoutAlign="end" style="margin-left:100%;" (click)="Back()" >keyboard_backspace</mat-icon>
-              
-            </mat-card-title>
-          </mat-card-header>
+        <mat-card-header class="headerbox">
+            <div fxFlex="100"  fxLayout="row" fxLayout.xs="column">
+                <span  (click)="Back()">
+                    <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button>
+                   </span>
+              <mat-card-title class="title"> Pay Slip </mat-card-title>
+            </div>
+            </mat-card-header>
           <div id="payslip" #payslip>
-            <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script> <script src="jspdf/jspdf.js"></script>
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">      
-            <div fxLayout="column" fxFlex="5">
-            </div>       
-            <div fxLayout="column" fxFlex="90" class="custom-payroll-div">
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">   
-                 <div fxFlex.xs="100" fxFlex="50" class="mx-2 my-2">
-                 </div>     
-                 <div fxFlex.xs="100" fxFlex="50" class="mx-2 my-2">
-                    <button type="button" class="btn btn-primary" style="float: right;" (click)="Download()">Download</button>
+            <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script> 
+            <script src="jspdf/jspdf.js"></script> -->
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="5px" class="custom-card">      
+   
+            <div fxLayout="column" class="custom-payroll-div">
+                <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutAlign="end">
+                 <div>
+                    <button class="btn btn-primary custom mr-2 mb-2"  (click)="Download()">Download</button>
                  </div>        
                 </div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">   
-                    <div fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" style="border-bottom: 1px solid #a0a0a0;">
-
+                    <div fxFlex.xs="100" fxFlex="100" style="border-bottom: 1px solid #a0a0a0;">
                       <div fxLayout="row" >
-                        <img [src]="pic" style="width: 20px;" alt=""><h3 style="margin: 0 0px;font-size: 17px;font-weight: 500;"> Sreeb Technologies</h3>   
+                        <!-- <img [src]="pic" style="width: 20px;" alt=""> -->
+                        <h3 style="margin: 0 0px;font-size: 17px;font-weight: 500;"> {{companyName}}</h3>   
                         <!-- <p>Hyderabad, Telangana, India</p> -->
                       </div>
                         
@@ -129,9 +128,6 @@
                     <p style="text-align: center;">-- This is a system generated payslip, hence signature is not required --</p>
                 </div>    
             </div>
-             <div fxLayout="column" fxFlex="5">
-            </div>
-
         </div>
         </div>    
     </mat-card>

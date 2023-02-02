@@ -1,12 +1,12 @@
 <div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto">
     <mat-card fxFill>
       <mat-card-header class="">
-        <mat-card-title class="title custom-payRoll-header"> 
-          <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Employee State Insurance</b>
-            <i class="fa fa-edit" style="margin-left:13px;" aria-hidden="true"></i>
-          </p>
-         
-        </mat-card-title>
+        <div fxFlex="100"  fxLayout="row" fxLayout.xs="column">
+            <mat-card-title class="title">Employee State Insurance</mat-card-title>
+            <span >
+              <i class="fa fa-edit" style="margin-left:13px;font-size: 20px;" aria-hidden="true" title="Edit"></i>
+               </span>
+        </div>
       </mat-card-header>
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">  
@@ -84,15 +84,25 @@
                 </div>        
                 <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
                 </div>  
-            </div>      
-            <div class="tab-lap-desk-show">
+            </div>  
+            <div fxLayoutAlign="center">
+                  <button class="btn btn-primary mr-2 mb-2" (click)="setPayGroup()" type="submit">
+                  <span>Save</span>
+                </button>
+        
+                <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
+                  <span>Cancel</span>
+                </button>
+                <br />
+              </div>    
+            <!-- <div class="tab-lap-desk-show">
                 <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
                 </div>    
                 <div fxLayout="column" fxFlex="40" class="custom-payroll-div">
                     <div>
                         
                         <div style="margin-bottom: 25px;">
-                            <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue;float: right;" (click)="setPayGroup()"   type="submit">
+                            <button class="btn btn-primary mr-2 mb-2" (click)="setPayGroup()"   type="submit">
                                 <span>Save</span>
                             </button>
                         </div>
@@ -105,7 +115,7 @@
                     <div>                        
                       
                         <div style="margin-bottom: 25px;">
-                            <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue" (click)="cancel()">
+                            <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
                                 <span >Cancel</span>
                             </button>
                         </div>
@@ -114,7 +124,7 @@
                 </div>        
                 <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
                 </div>  
-            </div> 
+            </div>  -->
             <div class="mob-port-show">
                 <div fxLayout="column" fxFlex="100" class="custom-payroll-div">
                     <div style="    margin-left: 10px; margin-right: 10px;">
@@ -173,16 +183,16 @@
                                 <mat-datepicker #picker></mat-datepicker> 
                             </mat-form-field>
                         </p>                                                                   
-                        <div style="margin-bottom: 25px;">
-                            <button class="mx-1 mat-stroked-button button-save"  style="background-color:#3f51b5;color:aliceblue;width:100%;" (click)="setPayGroup()"   type="submit">
-                                <span>Save</span>
-                            </button>
-                        </div>  
-                        <div style="margin-bottom: 25px;">
-                            <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue;width:100%;" (click)="cancel()">
-                                <span >Cancel</span>
-                            </button>
-                        </div>                      
+                        <div fxLayoutAlign="center">
+                            <button class="btn btn-primary mr-2 mb-2" (click)="setPayGroup()" type="submit">
+                            <span>Save</span>
+                          </button>
+                  
+                          <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
+                            <span>Cancel</span>
+                          </button>
+                          <br />
+                        </div>                        
                     </div>
                 </div> 
             </div>            

@@ -88,3 +88,24 @@
  .custom-pgr-height-auto {
     height: auto !important;
  }
+ .headerbox{
+  height: 45px;
+  background-color: #28acaf !important;
+  align-items: center;
+}
+.title{
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 500;
+   font-stretch: normal;
+   font-style: normal;
+  letter-spacing: 0.32px;
+  color: #ffffff;
+  margin-bottom: 0px;
+}
+.custom{
+  width: 110px !important;
+}
+::ng-deep.mat-card-header-text {
+  margin: 0px 6px!important;
+}

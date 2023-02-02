@@ -8,7 +8,7 @@
     border-bottom: none !important;
 }    
 .custom-payroll-div {
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 50px;
 }
 .custom-card {
@@ -90,4 +90,26 @@
     overflow-x: hidden !important;
     overflow-y: hidden !important;
  }
- 
+ .headerbox{
+  height: 45px;
+  background-color: #28acaf !important;
+  align-items: center;
+}
+.title{
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 500;
+   font-stretch: normal;
+   font-style: normal;
+  letter-spacing: 0.32px;
+  color: #ffffff;
+  margin-bottom: 0px;
+  padding-top: 13px;
+}
+::ng-deep.mat-card-header-text {
+  margin: 0px 0px!important;
+}
+.tableP{
+  padding-left: 1%;
+  padding-right: 1%;
+}

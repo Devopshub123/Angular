@@ -1,14 +1,12 @@
 <div fxLayout="column" fxFill class="custom-investment-of">
     <mat-card fxFill>
-      <mat-card-header class="">
-        <mat-card-title class="title custom-payRoll-header">
-          <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Pay Group Details</b>
-            
-          </p>
-          <mat-icon title="Back" fxLayoutAlign="end" (click)="Back()" >keyboard_backspace</mat-icon>
-         
-          <!-- <p style="float: left;"><mat-icon (click)="onRequestClick()" style="cursor: pointer;">add_circle</mat-icon></p> -->
-        </mat-card-title>
+      <mat-card-header class="headerbox">
+        <div fxFlex="100"  fxLayout="row" fxLayout.xs="column">
+          <span  (click)="Back()">
+              <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button>
+             </span>
+        <mat-card-title class="title">Pay Group Details</mat-card-title>
+      </div>
       </mat-card-header>
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">
@@ -16,9 +14,8 @@
                 </div>
                 <div fxLayout="column" fxFlex="100" class="custom-payroll-div">
                     <form [formGroup]="paygroupRequestForm" autocomplete="off">
-                        <div class="form-row">
-                          <div class="form-group" >
-                            <mat-form-field appearance="outline" style="width: 100%;">
+                        <div fxLayout="row">
+                           <mat-form-field appearance="outline" fxFlex="28" fxFlex.xs="100">
                                 <mat-label>Pay Group</mat-label>
                                 <mat-select formControlName="paygroupcomponent">
                                   <ng-container>
@@ -33,11 +30,11 @@
                                 </mat-select>
 
                             </mat-form-field>
-                          </div>
-
                         </div>
                       </form>
-                      <mat-table [dataSource]="dataSource"   multiTemplateDataRows class="mat-elevation-z8" style="width:100%;display:table;">
+                      <div fxLayout="column" class="tableP">
+                      <div class="mat-elevation-z1">
+                      <mat-table  [dataSource]="dataSource"   multiTemplateDataRows style="width:100%;display:table;">
                         <!-- Name Column -->
                         <ng-container matColumnDef="Name">
                           <th mat-header-cell *matHeaderCellDef class="custom-investment-th"> Name</th>
@@ -179,9 +176,12 @@
                       <tr class="mat-row" *matNoDataRow>
                         <td class="mat-cell" colspan="7"style="text-align: center;">No data found</td>
                       </tr> 
-                    </mat-table>
-                 <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]" ></mat-paginator>
-                </div>
+                      </mat-table>
+                      <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]" ></mat-paginator>
+              
+                  </div>
+                  </div>
+                 </div>
                 <div fxLayout="column" fxFlex="5">
                 </div>
         </div>

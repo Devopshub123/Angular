@@ -1,12 +1,10 @@
 <div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto">
     <mat-card fxFill>
-      <mat-card-header class="">
-        <mat-card-title class="title custom-payRoll-header"> 
-          <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Dashboard</b>
-          </p>
-          
-        </mat-card-title>
-      </mat-card-header>  
+        <mat-card-header class="headerbox">
+            <div fxLayout="row" fxFlex="50">
+                <mat-card-title class="title"> Dashboard</mat-card-title>
+            </div>
+            </mat-card-header>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">
         <form [formGroup]="Empdashboardform" autocomplete="off">  
       <div class="row mt-10" style="width:100%;">
@@ -84,9 +82,15 @@
                             <div class="row">
                                 
                                 <div class="col-12">
-                                    <div style="float: left;margin-top:19px;"><label class="card-category" style="color:#4e73df;font-size: 1.1rem;margin-left:22px;margin-right:10px;">Pay Slips</label></div>
+                                    <div style="float: left">
+                                        <label class="card-category">
+                                            <span style="font-size: 16px;">Pay Slips</span>
+                                            </label>
+                                        <mat-divider></mat-divider>
+                                        </div>
+                                     
                                     <div style="float: left;">
-                                       
+                                        <br>
                                         <mat-form-field appearance="outline" style="width: 100%;" >
                                           <mat-label>Pay Slips</mat-label>
                                           <mat-select formControlName="financial_year">

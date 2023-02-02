@@ -1,12 +1,10 @@
 <div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto">
   <mat-card fxFill>
-    <mat-card-header class="">
-      <mat-card-title class="title custom-payRoll-header"> 
-        <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Dashboard</b>
-        </p>
-        
-      </mat-card-title>
-    </mat-card-header>  
+    <mat-card-header class="headerbox">
+      <div fxLayout="row" fxFlex="50">
+          <mat-card-title class="title"> Dashboard</mat-card-title>
+      </div>
+      </mat-card-header>
   <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card"> 
     <form [formGroup]="financeDashboardForm" autocomplete="off">   
     <div class="row mt-10" style="width:100%;">

@@ -1,33 +1,29 @@
 <div fxLayout="column" fxFill class="custom-pgr-height-auto">
     <mat-card fxFill>
-        <mat-card-header class="">
-            <mat-card-title class="title custom-payRoll-header"> 
-              <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Form 16</b>
-              </p>
-              
-            </mat-card-title>
-          </mat-card-header>
+      <mat-card-header class="headerbox">
+        <div fxLayout="row" fxFlex="50">
+            <mat-card-title class="title"> Form 16</mat-card-title>
+        </div>
+        </mat-card-header>
     
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">      
+          <div fxLayout="row" fxLayout.xs="column" class="custom-card">      
             <div fxLayout="column" fxFlex="5">
             </div>       
             <div fxLayout="column" fxFlex="90" class="custom-payroll-div">
                 <form [formGroup]="employeeFinancialYearForm" autocomplete="off">
-                    <div class="form-row">
-                      <div class="form-group col-md-6">       
-                        
-                        <mat-form-field appearance="outline" style="width: 100%;">
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100" fxLayoutGap="10px">
+                      <mat-form-field appearance="outline" fxFlex="28" fxFlex.xs="100">
                             <mat-label>Financial Year</mat-label>
                             <mat-select formControlName="financialYear" (selectionChange)="status()">
                                 <mat-option value="0">Financial Year 1</mat-option>
                                 <mat-option value="1">Financial Year 2</mat-option>                                   
                             </mat-select>
-
                         </mat-form-field>
-                      </div>
-                      <div class="form-group col-md-6" style="margin-top:44px;" *ngIf="isShowDownloadView !=''">       
-                        <button type="button" (click)="download()" style="margin-left:40px;" class="btn btn-primary mr-3">Download</button>
-                        <button type="button" (click)="cancel()" class="btn btn-danger">Cancel</button>
+                      <div  *ngIf="isShowDownloadView !=''" style="padding-top: 1%;">   
+                        <span>    
+                        <button class="btn btn-primary custom mr-2 mb-2" (click)="download()" >Download</button>
+                        <button  class="btn btn-danger mr-2 mb-2" (click)="cancel()">Cancel</button>
+                      </span>
                       </div>
                      
                     </div>

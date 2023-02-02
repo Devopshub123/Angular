@@ -121,7 +121,7 @@
   display: none;
 }
 .custom-er-heading {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .custom-er-radio:first-child {
   margin-bottom: 2rem;
@@ -162,6 +162,29 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+// input[type=number] {
+//   -moz-appearance: textfield;
+// }
+.headerbox{
+  height: 45px;
+  background-color: #28acaf !important;
+  align-items: center;
+}
+.title{
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 500;
+   font-stretch: normal;
+   font-style: normal;
+  letter-spacing: 0.32px;
+  color: #ffffff;
+  margin-bottom: 0px;
+  padding-top: 13px;
+}
+::ng-deep.mat-card-header-text {
+  margin: 0px 0px!important;
+}
+::ng-deep.form-control:disabled, .form-control[readonly] {
+  background: #ffffff !important;
+  border-color: #e8e8e8 !important;
 }

@@ -1,22 +1,24 @@
 <div fxLayout="column" fxFill *ngIf="!hide">
   <mat-card fxFill>
-    <mat-card-header class="">
-        <mat-card-title class="title custom-payRoll-header"> Investment Proof </mat-card-title>
-    </mat-card-header>
+    <mat-card-header class="headerbox">
+      <div fxLayout="row" fxFlex="50">
+          <mat-card-title class="title"> Investment Proof</mat-card-title>
+      </div>
+      </mat-card-header>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card"> 
      
       <div fxLayout="column" fxFlex="100" class="custom-payroll-div">
-        <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="end">
-          <mat-form-field fxFlex.xs="100"   fxFlex="30" fxFlexAlign="end" appearance="outline">
+        <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="end" style="height: 56px;">
+          <mat-form-field fxFlex.xs="100"   fxFlex="28" appearance="outline">
             <mat-label>Search</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="" >
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
-         
-
         </div>
-        
-        <mat-table [dataSource]="dataSource"   multiTemplateDataRows class="mat-elevation-z8" style="width:100%;display:table;">
+        <br>
+        <div class="tableP">
+        <div class="mat-elevation-z1">
+        <mat-table [dataSource]="dataSource"   multiTemplateDataRows  style="width:100%;display:table;">
           <!-- Employee Id Column -->
           <ng-container matColumnDef="Employee_ID">
             <th mat-header-cell *matHeaderCellDef class="custom-investment-th"> Employee Id</th>
@@ -47,6 +49,8 @@
           expandedElement = expandedElement == row ? null : row
         " class="example-element-row"></tr>
        </mat-table>
+      </div>
+    </div>
       </div>
     </div>
   </mat-card>

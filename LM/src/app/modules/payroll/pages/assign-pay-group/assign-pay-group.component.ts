@@ -117,7 +117,6 @@ getActiveComponentsValuesForPayGroup(data:any){
 
 }
 data(element:any){
-  console.log(element)
   this.paygroupid = element.id
   let data ={
     CTC:this.Assignpaygroupform.controls.CTC.value,
@@ -188,13 +187,11 @@ data(element:any){
     })
   }
   getComponentWiseValuesForPayGroupAssignment(datas:any){
-  console.log(datas)
   let data ={
     CTC:this.Assignpaygroupform.controls.CTC.value,
     paygroupid:datas.id
   }
   this.PR.getComponentWiseValuesForPayGroupAssignment(data).subscribe((result:any)=>{
-    console.log(result);
     // let dialogRef = this.dialog.open(AssignPaygroupPopupComponent, {
   //   width: '390px',position:{top:`70px`},
   //   disableClose: true,

@@ -1,8 +1,10 @@
 <div fxLayout="column" fxFill>
     <mat-card >
-      <mat-card-header class="">
-        <mat-card-title class="title custom-payRoll-header"> Salary Master </mat-card-title>
-      </mat-card-header>
+      <mat-card-header class="headerbox">
+        <div fxLayout="row" fxFlex="50">
+            <mat-card-title class="title"> Salary Master</mat-card-title>
+        </div>
+        </mat-card-header>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">            
         <div fxLayout="column" fxFlex="5">
         </div>   
@@ -47,7 +49,7 @@
                     </div>
                   </form>
                   <div>
-                    <mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-salary-div">
+                    <mat-table [dataSource]="dataSource" class="mat-elevation-z1 custom-salary-div">
                       
                         <!-- Salary Components Column -->
                         <ng-container matColumnDef="Salary_Components">

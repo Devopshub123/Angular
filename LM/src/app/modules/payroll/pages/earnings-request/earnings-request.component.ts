@@ -353,4 +353,20 @@ export class EarningsRequestComponent implements OnInit {
     })
 
   }
+  alphabetKeyPress(event: any,) {
+    const pattern = /[a-zA-Z ]/;
+      let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  
+  _keyPress(event: any) {
+    const pattern = /[0-9]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+        event.preventDefault();
+
+    }
+  }
 }

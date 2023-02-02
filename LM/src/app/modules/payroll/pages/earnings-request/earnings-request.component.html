@@ -1,12 +1,13 @@
 <div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto">
   <mat-card fxFill>
-    <mat-card-header class="">
-      <mat-card-title class="title custom-payRoll-header">
-        <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Earnings Request</b>
-        </p>
-        <mat-icon title="Back" fxLayoutAlign="end" (click)="Back()" >keyboard_backspace</mat-icon>
-
-      </mat-card-title>
+   
+    <mat-card-header class="headerbox">
+      <div fxFlex="100"  fxLayout="row" fxLayout.xs="column">
+        <span  (click)="Back()">
+            <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button>
+           </span>
+      <mat-card-title class="title">Earnings Request</mat-card-title>
+    </div>
     </mat-card-header>
 
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">
@@ -68,7 +69,8 @@
               <p>
                 <mat-form-field appearance="outline" style="width: 100%;">
                   <mat-label>Name in Pay Slip*</mat-label>
-                  <input type="text" matInput class="form-control" formControlName="namePaySlip" placeholder="" maxlength="30">
+                  <input type="text" matInput class="form-control" formControlName="namePaySlip" 
+                   maxlength="30" (keypress)="alphabetKeyPress($event)">
                   <mat-error class="con-error" *ngIf="earningsRequestForm.controls.namePaySlip.errors?.required">
                     {{PR1}}
                 </mat-error>
@@ -109,8 +111,8 @@
                 <mat-form-field *ngIf="isShowCalculatedAmount == 'basicPercentage'" appearance="outline" style="float: left;margin-top:42px;">
                   <mat-label *ngIf="earndata.Earndata.component_name == 'Basic Salary'">Percentage of CTC</mat-label>
                   <mat-label *ngIf="earndata.Earndata.component_name != 'Basic Salary'">Percentage of Basic</mat-label>
-                  <input type="number"  onKeyPress="if(this.value.length==3) return false;"     matInput class="form-control" formControlName="flat_amount" placeholder="" >
-                  
+                  <!-- onKeyPress="if(this.value.length==3) return false;" -->
+                  <input  maxlength="3" (keypress)=_keyPress($event)     matInput class="form-control" formControlName="flat_amount" placeholder="" >
                   <mat-error class="con-error" *ngIf="earningsRequestForm.controls.flat_amount.errors?.required">
                     {{PR1}}
                 </mat-error>
@@ -202,28 +204,24 @@
 
         <div class="row tab-lap-desk-show" style="margin-top: 15px !important;margin-bottom: 15px !important;">
           <div class="col-sm-6 text-right" style="padding:0px">
-            <button class="mx-1 mat-stroked-button button-save" style="background-color:#3f51b5;color:aliceblue"
-                    (click)="configurePayGroupComponent()" type="submit">
+            <button class="btn btn-primary mr-2 mb-2" (click)="configurePayGroupComponent()" type="submit">
               <span>Submit</span>
             </button>
           </div>
           <div class="col-sm-6">
-            <button class="mx-1  mat-stroked-button button-clear" style="background-color:#550534;color:aliceblue"
-                    (click)="cancel()">
+            <button class="btn btn-danger mr-2 mb-2"  (click)="cancel()">
               <span>Cancel</span>
             </button>
           </div>
         </div>
         <div class="row mob-port-show mob-buttons" style="margin-bottom: 15px !important;">
           <div class="col-sm-6 text-center mob-buttons-padding" style="padding:0px">
-            <button class="mx-1 mat-stroked-button button-save"
-                    style="background-color:#3f51b5;color:aliceblue;width:50%;" (click)="configurePayGroupComponent()" type="submit">
+            <button class="btn btn-primary mr-2 mb-2" (click)="configurePayGroupComponent()" type="submit">
               <span>Submit</span>
             </button>
           </div>
           <div class="col-sm-6 text-center">
-            <button class="mx-1  mat-stroked-button button-clear"
-                    style="background-color:#550534;color:aliceblue;width:50%;" (click)="cancel()">
+            <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
               <span>Cancel</span>
             </button>
           </div>

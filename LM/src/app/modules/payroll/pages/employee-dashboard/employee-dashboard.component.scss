@@ -16,15 +16,22 @@ mat-header-cell {
   margin-top: 20px;
   margin-bottom: 50px;
 }
-.custom-card {
-    border-radius: 0px;
-    background-color: #ffffff;
-    margin-bottom: 20px;
-    -webkit-box-shadow: 0px 1px 15px 1px rgb(69 65 78 / 8%);
-    -moz-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
-    box-shadow: 0px 1px 15px 1px rgb(69 65 78 / 8%);
-    border: 1px solid #eee;
- }
+.custom-card[_ngcontent-chs-c496] {
+  border-radius: 0px;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 0px 0px rgb(69 65 78 / 8%);
+  border: 1px solid #fff;
+}
+// .custom-card {
+//     border-radius: 0px;
+//     background-color: #ffffff;
+//     margin-bottom: 20px;
+//     -webkit-box-shadow: 0px 1px 15px 1px rgb(69 65 78 / 8%);
+//     -moz-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+//     box-shadow: 0px 1px 15px 1px rgb(69 65 78 / 8%);
+//     border: 1px solid #eee;
+//  }
  .custom-payRoll-header {    
     color: #fff;
     font-size: 18px;
@@ -165,3 +172,23 @@ left: 193px;
 //   width: 50%;
 //   min-height: 00px;
 // }
+.headerbox{
+  height: 45px;
+  background-color: #28acaf !important;
+  align-items: center;
+}
+.title{
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 500;
+   font-stretch: normal;
+   font-style: normal;
+  letter-spacing: 0.32px;
+  color: #ffffff;
+  margin-bottom: 0px;
+}
+mat-card {
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  position: relative;
+}

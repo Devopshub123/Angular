@@ -5,6 +5,7 @@ import {DatePipe,Location} from "@angular/common";
 import { PayrollService } from '../../payroll.service';
 import { ToWords } from 'to-words';
 import { CompanyInformationService } from 'src/app/services/company-information.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-pay-slips-view',
   templateUrl: './pay-slips-view.component.html',
@@ -27,10 +28,12 @@ export class PaySlipsViewComponent implements OnInit {
   words:any;
   pic:any
   paiddays:any;
-  lop:any;
+  lop: any;
+  companyDBName: any = environment.dbName;
+  companyName: any;
+  companyinfo: any;
   constructor(private router: Router,private location:Location,private PR:PayrollService,private LM:CompanyInformationService) {
     this.payslipdata = this.location.getState();
-    console.log( this.payslipdata.userData)
     this.getEmployeePayslipDetails(this.payslipdata.userData);
     
     // const toWords:any = new ToWords();
@@ -56,6 +59,7 @@ export class PaySlipsViewComponent implements OnInit {
    }
   @ViewChild('payslip') payslip: any;
   ngOnInit(): void {
+    this.getCompanyInformation();
   }
   Back(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -67,7 +71,6 @@ export class PaySlipsViewComponent implements OnInit {
       empid:userdata.empid
     }
     this.PR.getEmployeePayslipDetails(data).subscribe((result:any)=>{
-      console.log(result)
       if(result.status&&result.data.length>0){
         
         const toWords:any = new ToWords();
@@ -116,7 +119,6 @@ export class PaySlipsViewComponent implements OnInit {
              this.alldata.push(this.getpayslipdata[i])
           }
         }
-        console.log(this.alldata)
         for(let i=0;i<this.alldata.length;i++){
           if(this.alldata[i].type_value== "Earnings"  || this.alldata[i].component_name== "Gross Earnings"){
             this.earningsdata.push(this.alldata[i])
@@ -186,5 +188,13 @@ export class PaySlipsViewComponent implements OnInit {
       }
     })
   }
-
+  getCompanyInformation(){
+    this.LM.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
+      if(data.status && data.data.length!=0) {
+        this.companyinfo =data.data[0];
+        this.companyName=data.data[0].companyname;
+      }else {
+       }
+    })
+  }
 }

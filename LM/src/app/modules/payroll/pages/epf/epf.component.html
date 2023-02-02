@@ -1,11 +1,19 @@
 <div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto">
     <mat-card fxFill>
       <mat-card-header class="">
-        <mat-card-title class="title custom-payRoll-header"> 
+        <div fxFlex="100"  fxLayout="row" fxLayout.xs="column">
+          <mat-card-title class="title">Employee Provident Fund</mat-card-title>
+          <span >
+            <i class="fa fa-edit" style="margin-left:13px;font-size: 20px;" aria-hidden="true" title="Edit" (click)="edit()"></i>
+              <!-- <button mat-icon-button matTooltip="Back"> <mat-icon>edit</mat-icon></button> -->
+             </span>
+       
+      </div>
+        <!-- <mat-card-title class="title custom-payRoll-header"> 
           <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Employee Provident Fund</b>
           </p>
           <i class="fa fa-edit" style="margin-left:13px;" aria-hidden="true" title="Edit" (click)="edit()"></i>
-        </mat-card-title>
+        </mat-card-title> -->
       </mat-card-header>
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">  
@@ -23,6 +31,10 @@
                                 <mat-error class="con-error" *ngIf="  epfRequestForm.controls.epfNumber.errors?.required">
                                   Please enter valid data.
                               </mat-error>
+                              <mat-error class="con-error" *ngIf="epfRequestForm.controls.epfNumber.errors?.minlength || 
+                              epfRequestForm.controls.epfNumber.errors?.maxlength">
+                              Please enter valid data
+                                </mat-error>
                             </mat-form-field>
                         </p>
                         <p>
@@ -69,8 +81,9 @@
                         <p>                           
                           <mat-form-field appearance="outline" style="width: 100%;">
                               <mat-label>Effective Date</mat-label>
-                              <input matInput [matDatepicker]="picker" [disabled]="enable" formControlName="effective_date" [min]="mindate">                                
-                              <mat-datepicker-toggle matSuffix [for]="picker" (click)="picker.open()"></mat-datepicker-toggle>
+                              <input matInput [matDatepicker]="picker" [disabled]="enable" 
+                              formControlName="effective_date" [min]="mindate" (click)="picker.open()">                                
+                              <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
                               <mat-datepicker #picker></mat-datepicker> 
                           </mat-form-field>
                       </p>

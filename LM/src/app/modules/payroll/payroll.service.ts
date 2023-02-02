@@ -180,7 +180,8 @@ import { environment } from 'src/environments/environment';
       deleteFilesMaster(id:any):Observable<any>{
         return this.http.get(this.mainBeUrl + 'ems/api/deleteFilesMaster/'+id+'/'+this.companyName, this.httpOptions);
       }
-      getCompanyPaySchedule(): Observable<any> {
+  getCompanyPaySchedule(): Observable<any> {
+    this.companyName = sessionStorage.getItem("companyName") ? sessionStorage.getItem("companyName") : null;
         return this.http.get(this.mainBeUrl + 'api/getCompanyPaySchedule/'+this.companyName,this.httpOptions);
       }
       setCompanyPaySchedule(input:any){
