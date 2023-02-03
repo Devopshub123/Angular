@@ -140,6 +140,7 @@ export class CompanylogoComponent implements OnInit {
     if(this.file){
       if(this.file.size<=1024000){
         this.spinner.show();
+       
         this.LMS.getFilepathsMaster(2).subscribe((result) => {
           if(result && result.status){
             let obj = {
@@ -155,6 +156,7 @@ export class CompanylogoComponent implements OnInit {
             }
             this.LMS.setFilesMaster(obj).subscribe((data) => {
               if(data && data.status) {
+                this.LM.removeImage(this.imageInfo).subscribe((data) => {})
                     let info =JSON.stringify(data.data[0])
                 this.formData.append("info",info)
                 this.formData.append('file', this.file);
