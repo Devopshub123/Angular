@@ -44,16 +44,41 @@
                        {{item.empname }} ,
                   </span>
                  </mat-select-trigger>
-                <div class="select-container">
+                <div class="select-container" *ngIf="flag">
                     <mat-option  (onSelectionChange)="selectedEmployesChange($event)"
-                    *ngFor="let emp of employeeList" [value]="emp.empid">{{emp.employee_code}}__{{emp.empname}}
+                    *ngFor="let emp of employeeList" [value]="emp">{{emp.employee_code}}__{{emp.empname}}
                 </mat-option>
               </div>
+              <div class="select-container" *ngIf="!flag">
+                <mat-option  (onSelectionChange)="selectedEmployesChange($event)"
+                *ngFor="let emp of employeeList" [value]="emp.empid">{{emp.employee_code}}__{{emp.empname}}
+            </mat-option>
+          </div>
             </mat-select>
             <mat-error class="con-error" *ngIf="inductionForm.controls.conductBy.errors?.required">
               {{EM2}}
             </mat-error>
          </mat-form-field>
+
+         <!-- <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+          <mat-label>Conduct By</mat-label>
+          <mat-select (openedChange)="openedSearch($event)" placeholder="Select"
+          required formControlName="conductBy" multiple [disabled]="!isEnable">
+          <mat-select-trigger>
+            <span *ngFor="let item of inductionForm.controls.conductBy.value">
+                 {{item.empname }} ,
+            </span>
+        </mat-select-trigger>
+          <div class="select-container">
+        <mat-option  (onSelectionChange)="selectedEmployesChange($event)"
+              *ngFor="let emp of employeeList" [value]="emp">{{emp.employee_code}}__{{emp.empname}}
+          </mat-option>
+        </div>
+      </mat-select>
+      <mat-error class="con-error" *ngIf="inductionForm.controls.conductBy.errors?.required">
+        {{this.EM2}}
+      </mat-error>
+   </mat-form-field> -->
 
         </div>
      <div fxLayout="row" fxLayoutAlign="center">

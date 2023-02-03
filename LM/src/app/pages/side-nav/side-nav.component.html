@@ -2,8 +2,8 @@
 
 <mat-sidenav-container class="example-sidenav-container" autosize="true" >
 
-  <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" style="position: fixed;  padding-top:80px;transform: scale;background: lightcyan;margin-left: 0.5rem;">
-    <mat-nav-list class="dashboard">
+  <mat-sidenav #sidenav *ngIf="flag" class="example-sidenav" mode="side" opened="true" style="position: fixed;  padding-top:80px;transform: scale;background: lightcyan;margin-left: 0.5rem;">
+    <mat-nav-list class="dashboard" >
       <a mat-list-item >
         <div class="row" style="flex-flow: column" (click)='toggleBack($event)' >
            <mat-icon style="color:#28acaf">menu</mat-icon>
@@ -19,7 +19,7 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <div style="width:100%;display:flex;">
+  <div style="width:100%;display:flex;" *ngIf="flag">
     <div style="width:19%;">
       <mat-drawer-container class="example-container" style="border: none;overflow: hidden;" >
         <mat-drawer mode="side" opened class="sideNavCss"

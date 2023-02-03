@@ -24,7 +24,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./users-login.component.scss'],
 })
 export class UsersLoginComponent implements OnInit {
-  @HostListener('window:scroll')
+ // @HostListener('window:scroll')
   usersloginForm: any = FormGroup;
   designations: any = [];
   min: any = new Date();

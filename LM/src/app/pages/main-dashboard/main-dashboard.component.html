@@ -418,15 +418,16 @@
                 <div class="scrollbox-content">
                   <div style="min-height: 20vh;max-height: 40vh;padding-top: 1%">
                  <!-- induction schedule alert -->
-                 <!-- <div fxLayout="column" *ngIf="!teamAttendanceData">
+              
+                 <div fxLayout="column" *ngIf="!teamAttendanceData && inductionAlert.length > 0">
                  <div *ngFor="let value of inductionAlert"
                       style="padding-left: 3%;padding-right: 3%;padding-bottom: 1%;">
                   <mat-card class="inductionStyle">
-                    <span>{{value.alert}}
+                    <span>{{value.description}}
                    </span>
                   </mat-card>
                 </div>
-                </div> -->
+                </div>
 
 
                     <!-- self attendance -->

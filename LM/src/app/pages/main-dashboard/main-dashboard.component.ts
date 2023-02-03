@@ -155,10 +155,7 @@ export class MainDashboardComponent implements OnInit {
   selfwfo: boolean = false;
   selfwfh: boolean = false;
   selfAbsent: boolean = false;
-  inductionAlert: any = [
-    { 'alert': 'Induction Program conducted at office conference hall, date: 26-12-2022 01:00 PM to 02:00 PM' },
-    {'alert':'New Induction Program assigned to you ,please conduct program on 26-12-2022 01:00 PM to 02:00 PM'},
-    { 'alert': 'New employees are joined,please conduct inducction program' },];
+  inductionAlert: any = [];
   totalEmpCount: any;
   companyName:any;
   ////////////////
@@ -202,6 +199,7 @@ export class MainDashboardComponent implements OnInit {
     }));
     this.getDocumentsEMS();
     this.getSelfAttendanceCount();
+    this.getEmpScheduleProgramAlerts();
     this.spinner.hide();
     this.attendanceForm = this.formBuilder.group(
       {
@@ -211,7 +209,8 @@ export class MainDashboardComponent implements OnInit {
       this.getTeamAttendanceCount();
 
 
-    })
+     })
+
   }
   getModules() {
     this.AMS.getModules('modulesmaster', null, 1, 100,this.companyName).subscribe((result) => {
@@ -870,6 +869,16 @@ export class MainDashboardComponent implements OnInit {
     this.selfwfo = false;
     this.selfwfh = false;
     this.selfAbsent = true;
+  }
+  getEmpScheduleProgramAlerts() {
+    this.inductionAlert = [];
+    this.mainService.getEmpScheduleProgramAlerts(this.usersession.id).subscribe((res: any) => {
+      if (res.status && res.data.length >0) {
+        this.inductionAlert = res.data;
+        } else {
+        this.inductionAlert = [];
+      }
+    });
   }
 }
 

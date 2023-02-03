@@ -31,7 +31,8 @@ export class InductionConductedByMasterComponent implements OnInit {
    availableDepartments: any = [];
   availableprogramtypes: any = [];
   employeeList: any = [];
-  array: any=[];
+  array: any = [];
+  flag: boolean = true;
   constructor(private dialog: MatDialog, private formBuilder: FormBuilder,
     private companyServices: CompanySettingService, private router: Router,
     private EMS: EmsService, private adminService: AdminService) { }
@@ -80,7 +81,7 @@ export class InductionConductedByMasterComponent implements OnInit {
 
 
   edit(event: any, data: any) {
-    console.log(data)
+    this.flag = false;
     for(let i=0;i<data.empids.length;i++){
       this.array.push(data.empids[i].empid)
     }
@@ -96,7 +97,6 @@ export class InductionConductedByMasterComponent implements OnInit {
               "employee_code": "",
               "empname": e.conductby
             }
-           // this.inductionForm.controls.conductBy.(emp);
             emplist.push(emp);
             this.selectedEmployees.push(e.empid);
             this.inductionForm.controls.conductBy.value.push(emp);
@@ -226,15 +226,28 @@ export class InductionConductedByMasterComponent implements OnInit {
   }
 
   selectedEmployesChange(event: any) {
+    this.flag = true;
     if (event.isUserInput && event.source.selected == false) {
       let index = this.selectedEmployees.indexOf(event.source.value);
       this.selectedEmployees.splice(index, 1)
 
     } else {
-      this.selectedEmployees.push(event.source.value);
+      this.selectedEmployees.push(event.source.value.empid);
+      console.log("ggg",this.selectedEmployees)
+      // this.inductionForm.controls.conductBy.setValue('');
+      // this.inductionForm.controls.conductBy.setValue( this.selectedEmployees);
     }
   }
+  // selectedEmployesChange(event: any) {
+  //   if (event.isUserInput && event.source.selected == false) {
+  //     let index = this.selectedEmployees.indexOf(event.source.value.empid);
+  //     this.selectedEmployees.splice(index, 1)
 
+  //   } else {
+  //     this.selectedEmployees.push(event.source.value.empid);
+  //     console.log("val--", this.selectedEmployees)
+  //   }
+  // }
   getstatuslist(){
     this.companyServices.getstatuslists().subscribe((result:any) => {
       if(result.status){
