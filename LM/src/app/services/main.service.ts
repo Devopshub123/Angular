@@ -131,4 +131,9 @@ export class MainService {
     input.companyName=this.companyName;
     return this.http.post(this.mainBeUrl+'ems/api/getDocumentsFiles', JSON.stringify(input), this.httpOptions);
   }
+
+  /** get employee schedule program alerts in maindashboard */
+  getEmpScheduleProgramAlerts(eid: any) {
+    return this.http.get(this.mainBeUrl + 'ems/api/getEmployeeProgramAlerts/'+eid+'/'+this.companyName, this.httpOptions);
+  }
 }

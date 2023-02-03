@@ -166,7 +166,6 @@ export class CompanylogoComponent implements OnInit {
                           if(this.logoId){
                             this.LM.removeImage(this.imageInfo).subscribe((data) => {})
                           }
-                          console.log("da--",this.msgEM74)
                           let dialogRef = this.dialog.open(ReusableDialogComponent, {
                             position:{top:`70px`},
                             disableClose: true,

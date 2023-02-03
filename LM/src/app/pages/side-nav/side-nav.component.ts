@@ -25,6 +25,7 @@ export class SideNavComponent implements OnInit {
   usersession: any;
   activeModuleData: any;
   moduleName: any;
+  flag: boolean = true;
 
   sidemenuHover(item:any) {
        this.moduleName = item.modulename;
@@ -102,15 +103,23 @@ export class SideNavComponent implements OnInit {
   @ViewChild('childMenu') childMenu!: ElementRef;
 
   constructor(private mainService: MainService, private baseService: BaseService, private UD: UserDashboardService,
-    private RM: RoleMasterService,public router: Router) {
-
+    private RM: RoleMasterService, public router: Router) {
+    this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
+    if (this.usersession.firstlogin == "N") {
+      this.flag = true;
+    }
+    else {
+      this.flag = false;
+    }
   }
 
 
 
   ngOnInit(): void {
+   
+    // this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
+
     this.isExpanded = true;
-    this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.activeModuleData = {
       empid: this.usersession.id
     };

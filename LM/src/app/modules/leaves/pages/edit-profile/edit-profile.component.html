@@ -19,7 +19,7 @@
 
         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>First Name</mat-label>
-          <input formControlName="firstName"  matInput placeholder="First Name">
+          <input formControlName="firstName" required  matInput placeholder="First Name">
           <mat-error class="con-error"
                      *ngIf="editForm.controls.firstName.errors?.required">
             {{LM1}}          </mat-error>

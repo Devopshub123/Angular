@@ -2,6 +2,7 @@
     <div fxLayoutAlign="center" style="width: auto;"> 
         <h3> CTC Break Down</h3>
     </div>
+    <div style="height: 300px;">
         <div class="mat-elevation-z1">
         <!-- <div fxLayoutAlign="center"  fxLayout="row" style="margin-left: 200px;"><p>Earnings</p></div><br> -->
         <table mat-table id="table" [dataSource]="dataSource" matSort  #table>
@@ -32,6 +33,10 @@
             </tr> 
         </table>
        </div>
+       <div  fxLayoutAlign="center">
+        <button class="mx-2 my-2 btn btn-primary" id="button" (click)="copydata()" value="copy">Okay</button>
+     </div>
+    </div>
         <!-- <table mat-table [dataSource]="deductionDataSource" matSort  style="margin-right: 200px;">
             
             <ng-container matColumnDef="component">
@@ -59,10 +64,7 @@
       
     <!-- </div> -->
     
-    <div  fxLayoutAlign="center">
-        <button class="mx-2 my-2 btn btn-primary" id="button" (click)="copydata()" value="copy">Okay</button>
-        <!-- <button class="mx-2 my-2 btn btn-danger" (click)="cancel()">Cancel</button> -->
-    </div>
+
 
  <!-- </div> -->
 
