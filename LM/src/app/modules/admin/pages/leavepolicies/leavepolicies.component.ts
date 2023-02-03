@@ -650,6 +650,9 @@ export class LeavepoliciesComponent implements OnInit {
         // return valid && validLeaveCreditFrequence && validLeaveWeekendsIncluded && validLeaveMaxCountPerYear && validLeaveMinServiceEligibility;
 
       }
+      // else{
+      //   valid = false;
+      // }
     }
     var color = this.checkLeaveTypes(this.leaveId,ruleData[0].leavecolor)
 
@@ -878,6 +881,7 @@ export class LeavepoliciesComponent implements OnInit {
         }
         });
     }else{
+      datas.leaveId<11?this.istoggle=true:'';
       this.submitLeavepolices(info,datas)
     }
 

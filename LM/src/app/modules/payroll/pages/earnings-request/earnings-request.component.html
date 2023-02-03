@@ -112,7 +112,7 @@
                   <mat-label *ngIf="earndata.Earndata.component_name == 'Basic Salary'">Percentage of CTC</mat-label>
                   <mat-label *ngIf="earndata.Earndata.component_name != 'Basic Salary'">Percentage of Basic</mat-label>
                   <!-- onKeyPress="if(this.value.length==3) return false;" -->
-                  <input  maxlength="3" (keypress)=_keyPress($event)     matInput class="form-control" formControlName="flat_amount" placeholder="" >
+                  <input  maxlength="3" (keypress)=_keyPress($event)     matInput class="form-control" formControlName="percentage" placeholder="" >
                   <mat-error class="con-error" *ngIf="earningsRequestForm.controls.flat_amount.errors?.required">
                     {{PR1}}
                 </mat-error>

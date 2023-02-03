@@ -81,7 +81,8 @@ export class EarningsRequestComponent implements OnInit {
         fbpAmount:[""],
         epf_contribution:[""],
         epf_option_contribution:[""],
-        showComponent:[""]
+        showComponent:[""],
+        percentage:[""]
       });
       this.status(1)
       // this.earningsRequestForm.get('epf_contribution')?.valueChanges.subscribe(selectedValue => {
@@ -182,6 +183,7 @@ export class EarningsRequestComponent implements OnInit {
     this.dataofvalues=[];  
     this.PR.getPayGroupComponentValues(id).subscribe((result:any)=>{
       if(result.status){
+        console.log("dataofvalues", this.dataofvalues)
         this.dataofvalues = result.data[0][0];
         this.earningsRequestForm.controls.payGroup.setValue(this.dataofvalues.group_name);
         this.earningsRequestForm.controls.componentType.setValue(this.dataofvalues.component_name);
@@ -203,7 +205,7 @@ export class EarningsRequestComponent implements OnInit {
   
   configurePayGroupComponent(){
     if(this.earningsRequestForm.controls.namePaySlip.valid && this.earningsRequestForm.controls.flat_amount.valid || (!this.otherhide)){
-      if(this.earningsRequestForm.controls.flat_amount.value <= Number(this.validationvalue)){
+      // if(this.earningsRequestForm.controls.flat_amount.value <= Number(this.validationvalue)){
         /**Configure component values and changed to active state */
       if(this.earndata.Earndata.status=="To Be Configured" || this.earndata.Earndata.status=="Configuration In Progress"){
         let data ={
@@ -250,8 +252,8 @@ export class EarningsRequestComponent implements OnInit {
            let data ={
             pigcm_id_value:this.dataofvalues.pigcm_id,
             is_percentage_or_flat_amount_value:this.earningsRequestForm.controls.monthly_salary.value,
-            input_value:this.earningsRequestForm.controls.monthly_salary.value==0?this.earningsRequestForm.controls.flat_amount.value:this.earningsRequestForm.controls.flat_amount.value,
-            parent_component_id_value:this.earndata.Earndata.component_name == 'Basic Salary'?"15":"1",
+            input_value:this.earningsRequestForm.controls.monthly_salary.value==0?this.earningsRequestForm.controls.flat_amount.value:this.earningsRequestForm.controls.percentage.value,
+            parent_component_id_value:this.earndata.Earndata.component_name == 'Basic Salary'?"15":this.earningsRequestForm.controls.monthly_salary.value==0?null:"1",
             display_name_value:this.earningsRequestForm.controls.namePaySlip.value,
             is_this_component_a_part_of_employee_salary_structure_value: this.earningsRequestForm.controls.taxableComponenet.value,
             calculate_on_pro_rata_basis_value:this.earningsRequestForm.controls.prb.value,
@@ -286,15 +288,15 @@ export class EarningsRequestComponent implements OnInit {
            })
         }
 
-      }
-      else{
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: 'Please enter a valid value that satisfies the condition given in the information pane.'
-        });
+      // }
+      // else{
+      //   let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      //     position:{top:`70px`},
+      //     disableClose: true,
+      //     data: 'Please enter a valid value that satisfies the condition given in the information pane.'
+      //   });
 
-      }
+      // }
       
     }
    
