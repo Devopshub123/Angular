@@ -80,7 +80,7 @@ export class EarningsComponent implements OnInit {
   }
   edit(data:any){
     if(data.section=='Earnings'){
-      this.router.navigate(['/Payroll/EarningsRequest'],{state:{Earndata:data}});
+      this.router.navigate(['/Payroll/EarningsRequest'],{state:{Earndata:data,paygroupdata:this.paygroupdata}});
     }   
   }
   setPayGroup(){}

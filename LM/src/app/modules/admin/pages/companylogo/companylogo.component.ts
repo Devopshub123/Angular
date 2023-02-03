@@ -164,7 +164,7 @@ export class CompanylogoComponent implements OnInit {
                         this.spinner.hide();
                         if(data && data.status){
                           if(this.logoId){
-                            this.LM.removeImage(this.imageInfo).subscribe((data) => {})
+                            // this.LM.removeImage(this.imageInfo).subscribe((data) => {})
                           }
                           let dialogRef = this.dialog.open(ReusableDialogComponent, {
                             position:{top:`70px`},

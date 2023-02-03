@@ -98,7 +98,7 @@
                 </mat-radio-group>
                 <mat-form-field appearance="outline" style="float: left;margin-top: -1.8%;" *ngIf="isShowCalculatedAmount == 'Flat Amount'">
                   <mat-label>Flat Amount</mat-label>
-                  <input type="number"  onKeyPress="if(this.value.length==13) return false;"   matInput class="form-control" formControlName="flat_amount" placeholder="">
+                  <input type="number"    matInput class="form-control" formControlName="flat_amount" placeholder="">
                   <mat-error class="con-error" *ngIf="earningsRequestForm.controls.flat_amount.errors?.required">
                     {{PR1}}
                 </mat-error>
