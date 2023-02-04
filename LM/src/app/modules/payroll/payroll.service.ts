@@ -239,4 +239,9 @@ import { environment } from 'src/environments/environment';
       getComponentConfiguredValuesForPayGroup(data:any): Observable<any> {
         return this.http.get(this.mainBeUrl+'api/getComponentConfiguredValuesForPayGroup/'+data.pgmid+'/'+data.flat+'/'+this.companyName,this.httpOptions);
       }
+      otherAllowancePopup(pgid:any): Observable<any> {
+        console.log(pgid)
+        return this.http.get(this.mainBeUrl+'api/otherAllowancePopup/'+pgid+'/'+this.companyName,this.httpOptions);
+      }
+      
 }

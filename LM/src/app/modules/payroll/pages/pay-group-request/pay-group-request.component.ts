@@ -196,23 +196,23 @@ export class PayGroupRequestComponent implements OnInit {
               component:earningselectedIds.concat(deductselectedIds)
             }
           console.log(data)
-            // this.PR.setincomegroup(data).subscribe((info:any)=>{
-            //   if(info.status){
-            //     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            //       this.router.navigate(["/Payroll/PayGroup"])); 
-            //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            //       position:{top:`70px`},
-            //       disableClose: true,
-            //       data: this.PR2
-            //     });
-            //   }else {
-            //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            //       position:{top:`70px`},
-            //       disableClose: true,
-            //       data: this.PR3
-            //     });  
-            //   }
-            // })      
+            this.PR.setincomegroup(data).subscribe((info:any)=>{
+              if(info.status){
+                this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                  this.router.navigate(["/Payroll/PayGroup"])); 
+                let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                  position:{top:`70px`},
+                  disableClose: true,
+                  data: this.PR2
+                });
+              }else {
+                let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                  position:{top:`70px`},
+                  disableClose: true,
+                  data: this.PR3
+                });  
+              }
+            })      
           }
           else{
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
