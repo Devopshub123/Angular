@@ -226,7 +226,6 @@ export class InductionConductedByMasterComponent implements OnInit {
   }
 
   selectedEmployesChange(event: any) {
-    this.flag = true;
     if (event.isUserInput && event.source.selected == false) {
       let index = this.selectedEmployees.indexOf(event.source.value);
       this.selectedEmployees.splice(index, 1)
