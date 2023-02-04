@@ -734,15 +734,16 @@
                                                 maxlength="1500"></textarea>
                                         </mat-form-field>
                                     </div>
-                                    <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="end">
+                                    <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="start center">
                                         <span>
-                                            <button class="btn btn-primary mr-2 mb-2"
-                                                (click)="addWorkExperience()">
-                                                <span *ngIf="!isExperienceEdit"> Add </span>
+                                            <button class="btn btn-primary mr-2 mb-2" (click)="addWorkExperience()">
+                                                <span *ngIf="!isExperienceEdit"> Submit </span>
                                                 <span *ngIf="isExperienceEdit"> Update </span>
                                             </button>
-                                            <button class="btn btn-danger mr-2 mb-2"
-                                                (click)="clearWorkExperience()">
+                                            <button *ngIf="!isExperienceEdit" class="btn btn-primary custom1 mr-2 mb-2" (click)="submitAdd()">
+                                                <span> Submit & Add </span>
+                                            </button>
+                                            <button class="btn btn-danger mr-2 mb-2" (click)="clearWorkExperience()">
                                                 Clear
                                             </button>
                                         </span>
@@ -801,13 +802,13 @@
                                  </div>
                                  <br>
                               
-                                <div fxLayoutAlign="center">
+                                <!-- <div fxLayoutAlign="center">
                                 <button class="btn btn-primary custom mr-2 mb-2" (click)="saveWorkExperience()"
                                     type="submit">
                                     <span>Save & Continue</span>
                                 </button>
                                 <br />
-                            </div>
+                            </div> -->
                             </form>
                         </mat-card>
                     </div>
@@ -934,15 +935,20 @@
                                     </mat-error>
                                 </mat-form-field>
                             </div>
-                            <div fxLayout="row" fxLayoutAlign="end">
+                            <div fxLayout="row" fxLayoutAlign="center">
                                 <button class="btn btn-primary mr-2 mb-2" (click)="addEducation()">
-                                    <span *ngIf="!isEducationEdit"> Add </span>
+                                    <span *ngIf="!isEducationEdit"> Submit </span>
                                     <span *ngIf="isEducationEdit"> Update </span>
                                 </button>
+                                <button *ngIf="!isEducationEdit" class="btn btn-primary custom1 mr-2 mb-2" (click)="educationSaveAdd()">
+                                    <span > Submit & Add </span>
+                                 </button>
                                 <button class="btn btn-danger mr-2 mb-2" (click)="clearEducation()">
                                     Clear
                                 </button>
                             </div>
+                            <mat-divider></mat-divider>
+                            <br>
                             <div class="mat-elevation-z1" *ngIf="educationDetails.length > 0">
                                 <table mat-table [dataSource]="educationDataSource">
                                     <ng-container matColumnDef="sno">
@@ -995,12 +1001,12 @@
                             </div>
                             <mat-divider></mat-divider>
                             <br>
-                            <div fxLayoutAlign="center">
+                            <!-- <div fxLayoutAlign="center">
                                 <button class="btn btn-primary custom mr-2 mb-2"  (click)="saveEducation()" type="submit">
                                     <span>Save & Continue</span>
                                 </button>
                                 <br />
-                            </div>
+                            </div> -->
                         </form>
                     </mat-card>
                     </div>

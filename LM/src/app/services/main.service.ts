@@ -53,7 +53,7 @@ export class MainService {
      return this.http.post(this.mainBeUrl+'ems/api/setPreonboardCandidateInformation', JSON.stringify(data), this.httpOptions);
   }
 
-  getPreonboardCandidateData(id: any,cname:any): Observable<any> {
+  getPreonboardCandidateData(id: any, cname: any): Observable<any> {
     this.companyName = cname;
     return this.http.get(this.mainBeUrl + 'ems/api/getCandidateDetails/' + id+'/'+this.companyName, this.httpOptions);
   }

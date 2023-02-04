@@ -29,9 +29,18 @@ export class HeaderComponent implements OnInit {
   companyDBName: any = environment.dbName;
   infodata: any;
   valid: boolean = false;
+  flag: boolean = true;
   selectedModule:any='';
   constructor(private baseService: BaseService,private mainService:MainService,
-    private LM:CompanyInformationService,private spinner:NgxSpinnerService, public router: Router) { }
+    private LM: CompanyInformationService, private spinner: NgxSpinnerService, public router: Router) {
+      this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
+      if (this.usersession.firstlogin == "N") {
+        this.flag = true;
+      }
+      else {
+        this.flag = false;
+      }
+     }
 
   ngOnInit(): void {
     this.companyName='Sreeb Technologies';

@@ -200,6 +200,8 @@ export class EmployeeInfoComponent implements OnInit {
   isNewEmployee: boolean = true;
   decryptPipe = new DecryptPipe();
   joinDateDisable: boolean = false;
+  isSubmitAdd: boolean = false;
+  addSubmit: boolean = true;
   ngOnInit(): void {
     this.getDesignationsMaster();
     this.getGender();
@@ -808,7 +810,7 @@ export class EmployeeInfoComponent implements OnInit {
         empStatus: ["Active"],
         noticePeriod: [""],
         hireDate: [""],
-        joinDate: [""],
+        joinDate: [{value: "", disabled: true}],
 
       })
   }
@@ -1028,7 +1030,7 @@ export class EmployeeInfoComponent implements OnInit {
         companylocation: this.personalInfoForm.controls.companylocation.value,
         reportingmanager: this.personalInfoForm.controls.reportingmanager.value,
       }
-  
+
       this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
         if (res.status) {
           if (res.data.email == null) {
@@ -1372,7 +1374,10 @@ export class EmployeeInfoComponent implements OnInit {
 
 
   }
-
+  workExperienceSubmitAdd() {
+    this.isSubmitAdd = true;
+    this.addWorkExperience();
+  }
   //** */
   addWorkExperience() {
     this.addExperienceValidators();
@@ -1385,7 +1390,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.workExperienceDetails[this.experienceIndex].todate = this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
         this.clearExperienceValidators();
       this.clearWorkExperience();
-      //this.saveWorkExperience();
+      this.saveWorkExperience();
     } else {
       if (this.experienceForm.valid) {
         this.workExperienceDetails.push({
@@ -1398,10 +1403,11 @@ export class EmployeeInfoComponent implements OnInit {
         this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
         this.clearExperienceValidators();
         this.clearWorkExperience();
-        //this.saveWorkExperience();
+        this.saveWorkExperience();
       } else { }
     }
   }
+  
   editExperience(i: any) {
     this.experienceIndex = i;
     this.isExperienceEdit = true;
@@ -1451,7 +1457,6 @@ export class EmployeeInfoComponent implements OnInit {
     this.experienceForm.controls.expToDate.reset();
     this.experienceForm.controls.designation.reset();
     this.experienceForm.controls.jobDescription.reset();
-    //this.experienceForm.valid = true;
   }
   deleteExperiencePopup(event: any) {
     let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
@@ -1488,7 +1493,10 @@ export class EmployeeInfoComponent implements OnInit {
               disableClose: true,
               data: this.EM42
             });
-            this.selectedtab.setValue(3);
+            if (this.isSubmitAdd == false) {
+              this.selectedtab.setValue(3);
+            }
+            this.isSubmitAdd == false;
           } else {
             this.spinner.hide();
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1510,6 +1518,8 @@ export class EmployeeInfoComponent implements OnInit {
     }
 
   }
+
+
   saveBankDetails() {
 
     if (this.employeeCode != undefined || this.employeeCode != null) {
@@ -1579,7 +1589,10 @@ export class EmployeeInfoComponent implements OnInit {
               data: this.EM42
             });
             this.spinner.hide();
-            this.selectedtab.setValue(5);
+            if (this.isSubmitAdd == false) {
+              this.selectedtab.setValue(5);
+            }
+            this.isSubmitAdd = false;
           } else {
             this.spinner.hide();
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1604,6 +1617,11 @@ export class EmployeeInfoComponent implements OnInit {
 
   }
 
+  educationSaveAdd() {
+    this.isSubmitAdd = true;
+    this.addEducation();
+  }
+
   addEducation() {
     this.addEducationValidators();
     if (this.isEducationEdit) {
@@ -1614,6 +1632,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.educationDetails[this.educationIndex].todate = this.pipe.transform(this.educationForm.controls.eduToDate.value, 'yyyy-MM-dd'),
         this.clearEducationValidators();
       this.clearEducation();
+      this.saveEducation();
     } else {
       if (this.educationForm.valid) {
         this.educationDetails.push({
@@ -1625,6 +1644,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.educationDataSource = new MatTableDataSource(this.educationDetails);
         this.clearEducationValidators();
         this.clearEducation();
+        this.saveEducation();
       }
     }
   }

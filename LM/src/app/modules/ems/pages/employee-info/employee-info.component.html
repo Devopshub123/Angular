@@ -241,7 +241,7 @@
                                 <mat-label>Joining Date</mat-label>
                                 <input required matInput readonly [matDatepicker]="joinDate" [min]="minDate"
                                     [max]="maxDate" placeholder="DD-MM-YYYY" formControlName="joinDate"
-                                    (click)="joinDate.open()" [disabled]="joinDateDisable" />
+                                    (click)="joinDate.open()" />
                                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="joinDate">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #joinDate></mat-datepicker>
@@ -1003,11 +1003,14 @@
                                         maxlength="400"></textarea>
                                 </mat-form-field>
                             </div>
-                            <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="end">
+                            <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="start center">
                                 <span>
                                     <button class="btn btn-primary mr-2 mb-2" (click)="addWorkExperience()">
-                                        <span *ngIf="!isExperienceEdit"> Add </span>
+                                        <span *ngIf="!isExperienceEdit"> Submit </span>
                                         <span *ngIf="isExperienceEdit"> Update </span>
+                                    </button>
+                                    <button *ngIf="!isExperienceEdit" class="btn btn-primary custom1 mr-2 mb-2" (click)="workExperienceSubmitAdd()">
+                                        <span> Submit & Add </span>
                                     </button>
                                     <button class="btn btn-danger mr-2 mb-2" (click)="clearWorkExperience()">
                                         Clear
@@ -1066,12 +1069,12 @@
                             </table>
                         </div>
                         <br>
-                        <div fxLayoutAlign="center">
+                        <!-- <div fxLayoutAlign="center">
                                 <button class="btn btn-primary custom mr-2 mb-2"   (click)="saveWorkExperience()" type="submit">
                                     <span>Save & Continue</span>
                                 </button>
                                 <br />
-                            </div>
+                            </div> -->
                     </form>
                 </mat-card>
                 </div>
@@ -1223,15 +1226,20 @@
                                 </mat-error>
                             </mat-form-field>
                         </div>
-                        <div fxLayout="row" fxLayoutAlign="end">
+                        <div fxLayout="row" fxLayoutAlign="center">
                             <button class="btn btn-primary mr-2 mb-2" (click)="addEducation()">
-                                <span *ngIf="!isEducationEdit"> Add </span>
+                                <span *ngIf="!isEducationEdit"> Submit </span>
                                 <span *ngIf="isEducationEdit"> Update </span>
                             </button>
+                            <button *ngIf="!isEducationEdit" class="btn btn-primary custom1 mr-2 mb-2" (click)="educationSaveAdd()">
+                                <span > Submit & Add </span>
+                             </button>
                             <button class="btn btn-danger mr-2 mb-2" (click)="clearEducation()">
                                 Clear
                             </button>
                         </div>
+                        <mat-divider></mat-divider>
+                        <br>
                         <div class="mat-elevation-z1" *ngIf="educationDetails.length > 0">
                             <table mat-table [dataSource]="educationDataSource">
                                 <ng-container matColumnDef="sno">
@@ -1282,14 +1290,13 @@
                                 <tr mat-row *matRowDef="let row; columns: educationTableColumns"></tr>
                             </table>
                         </div>
-                        <mat-divider></mat-divider>
                         <br>
-                        <div fxLayoutAlign="center">
+                        <!-- <div fxLayoutAlign="center">
                             <button class="btn btn-primary custom mr-2 mb-2" (click)="saveEducation()" type="submit">
                                 <span>Save & Continue</span>
                             </button>
                             <br />
-                        </div>
+                        </div> -->
                     </form>
                 </mat-card>
                 </div>

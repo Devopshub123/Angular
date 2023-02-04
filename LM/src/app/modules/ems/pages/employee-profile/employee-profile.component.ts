@@ -246,6 +246,7 @@ export class EmployeeProfileComponent implements OnInit {
   previews: any = [];
   isRemoveImage: boolean = true;
   isContractData: boolean = false;
+  isSubmitAdd: boolean = false;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.empId = this.userSession.id;
@@ -1322,7 +1323,10 @@ export class EmployeeProfileComponent implements OnInit {
       }
     });
   }
-
+  submitAdd() {
+    this.isSubmitAdd = true;
+    this.addWorkExperience();
+  }
   //** */
   addWorkExperience() {
     this.addExperienceValidators();
@@ -1344,9 +1348,9 @@ export class EmployeeProfileComponent implements OnInit {
             this.experienceForm.controls.expToDate.value,
             'yyyy-MM-dd'
           )),
-        //this.saveWorkExperience();
-        this.clearExperienceValidators();
+      this.clearExperienceValidators();
       this.clearWorkExperience();
+      this.saveWorkExperience();
     } else {
       if (this.experienceForm.valid) {
         this.workExperienceDetails.push({
@@ -1362,12 +1366,14 @@ export class EmployeeProfileComponent implements OnInit {
           skills: this.experienceForm.controls.jobDescription.value,
           designation: this.experienceForm.controls.designation.value,
         });
-        // this.saveWorkExperience();
+       
         this.workExperienceDataSource = new MatTableDataSource(
           this.workExperienceDetails
         );
+        
         this.clearExperienceValidators();
         this.clearWorkExperience();
+        this.saveWorkExperience();
       } else {
       }
     }
@@ -1462,7 +1468,10 @@ export class EmployeeProfileComponent implements OnInit {
           disableClose: true,
           data: this.EM42,
         });
-        this.selectedtab.setValue(3);
+        if (this.isSubmitAdd == false) {
+          this.selectedtab.setValue(3);
+        }
+        this.isSubmitAdd = false;
       } else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
@@ -1490,7 +1499,10 @@ export class EmployeeProfileComponent implements OnInit {
             data: this.EM42,
           });
           this.spinner.hide();
-          this.selectedtab.setValue(4);
+          if (this.isSubmitAdd == false) {
+            this.selectedtab.setValue(5);
+          }
+          this.isSubmitAdd = false;
         } else {
           this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1504,7 +1516,10 @@ export class EmployeeProfileComponent implements OnInit {
       this.spinner.hide();
     }
   }
-
+  educationSaveAdd() {
+    this.isSubmitAdd = true;
+    this.addEducation();
+  }
   addEducation() {
     this.addEducationValidators();
     if (this.isEducationEdit) {
@@ -1525,6 +1540,7 @@ export class EmployeeProfileComponent implements OnInit {
           )),
         this.clearEducationValidators();
       this.clearEducation();
+      this.saveEducation();
     } else {
       if (this.educationForm.valid) {
         this.educationDetails.push({
@@ -1544,6 +1560,7 @@ export class EmployeeProfileComponent implements OnInit {
         );
         this.clearEducationValidators();
         this.clearEducation();
+        this.saveEducation();
       } else {
       }
     }
@@ -1817,6 +1834,7 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   fileView(data: any) {
+    console.log(data)
     let info = data;
     this.spinner.show();
     this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData) => {
