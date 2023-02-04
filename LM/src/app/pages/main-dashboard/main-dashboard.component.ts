@@ -599,9 +599,11 @@ export class MainDashboardComponent implements OnInit {
     };
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
       //this.documentDetails = [];
+      console.log("getDocumentsForEMSMain");
       this.valid =false;
       if (result && result.status) {
         if (result.data.length > 0) {
+          console.log("higetDocumentsForEMSworking");
           for (let i = 0; i < result.data.length; i++) {
             if (result.data[i].file_category == 'PROFILE') {
               this.profileId = result.data[i].id;
@@ -614,6 +616,7 @@ export class MainDashboardComponent implements OnInit {
             this.mainService
             .getDocumentOrImagesForEMS(result.data[0])
             .subscribe((imageData) => {
+              console.log("higetDocumentOrImagesForEMSworking");
               if (imageData.success) {
                 let TYPED_ARRAY = new Uint8Array(imageData.image.data);
                 const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {

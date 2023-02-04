@@ -72,7 +72,7 @@ export class LeavePoliciesService {
 
     setLeaveConfigure(info:any): Observable<any> {
       info.companyName = this.companyName;
-        return this.hClient.post(this.url + 'api/setLeavePolicies', JSON.stringify(info), this.httpOptions);
+        return this.hClient.post(this.url + 'api/setLeavePolicies/', JSON.stringify(info), this.httpOptions);
 
     }
   setAdvancedLeaveRuleValues(info:any): Observable<any> {
