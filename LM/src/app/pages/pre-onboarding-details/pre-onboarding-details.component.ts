@@ -95,7 +95,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
   isFile: boolean = true;
   formData: any;
   selectedtab = new FormControl(0);
-  userSession: any;
   pipe = new DatePipe('en-US');
   messagesDataList: any = [];
   requiredField: any;
@@ -144,8 +143,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
     private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
     , private EMS: EmsService, private adminService: AdminService, private mainService: MainService, private activatedRoute: ActivatedRoute) {
     this.formData = new FormData();
-    this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
-    sessionStorage.setItem('companyName',this.companyName);
+   // this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
   }
 
 
@@ -155,9 +153,11 @@ export class PreOnboardingDetailsComponent implements OnInit {
       this.email = JSON.parse(atob(this.params.token)).email;
       this.candidateId = JSON.parse(atob(this.params.token)).candidateId;
       this.date = JSON.parse(atob(this.params.token)).date;
+    this.companyName = JSON.parse(atob(this.params.token)).companyName;
+    console.log("data--", JSON.parse(atob(this.params.token)));
+    console.log("data--1", this.companyName);
       // this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
 
-      //this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
       this.getDocumentsEMS();
       this.getFilecategoryMasterForEMS();
       this.createPersonalInfoForm();
@@ -296,6 +296,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
 
   //////////
   getCandidateData() {
+    console.log("t1")
     this.loginData = [];
     this.familyDetails = [];
     this.workExperienceDetails = [];
@@ -305,7 +306,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
       if (this.loginData.id != null) {
         this.preOnboardId = this.loginData.id;
       }
-      console.log("desg",this.availableDesignations)
       this.availableDesignations.forEach((e: any) => {
         if (e.id == this.loginData.designation) {
           this.employeeDesignation = e.designation;

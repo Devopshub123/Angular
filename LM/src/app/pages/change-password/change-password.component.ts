@@ -36,10 +36,18 @@ export class ChangePasswordComponent implements OnInit {
   hide1 = true;
   hide2 = true;
   hide3 = true;
+  flag: boolean = true;
 
   constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private router: Router,
     private ts: LoginService,private emsService:EmsService) {
-    this.changePasswordAddObj =  new changePassword();
+    this.changePasswordAddObj = new changePassword();
+    this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
+    if (this.usersession.firstlogin == "N") {
+      this.flag = true;
+    }
+    else {
+      this.flag = false;
+    }
    }
    @ViewChild("chngfrm", {static: true}) form: any;
   passwordPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9].{8,20})"
