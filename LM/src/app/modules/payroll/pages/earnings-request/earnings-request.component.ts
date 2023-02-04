@@ -218,7 +218,7 @@ export class EarningsRequestComponent implements OnInit {
   configurePayGroupComponent(){
     console.log("hi")
     if(this.earningsRequestForm.controls.namePaySlip.valid && (this.earningsRequestForm.controls.flat_amount.valid || this.earningsRequestForm.controls.percentage.valid)|| (!this.otherhide)){
-      // if(this.earningsRequestForm.controls.flat_amount.value <= Number(this.validationvalue)){
+      if(this.earningsRequestForm.controls.flat_amount.value <= Number(this.validationvalue)){
         /**Configure component values and changed to active state */
       if(this.earndata.Earndata.status=="To Be Configured" || this.earndata.Earndata.status=="Configuration In Progress"){
         let data ={
@@ -301,15 +301,15 @@ export class EarningsRequestComponent implements OnInit {
            })
         }
 
-      // }
-      // else{
-      //   let dialogRef = this.dialog.open(ReusableDialogComponent, {
-      //     position:{top:`70px`},
-      //     disableClose: true,
-      //     data: 'Please enter a valid value that satisfies the condition given in the information pane.'
-      //   });
+      }
+      else{
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data: 'Please enter a valid value that satisfies the condition given in the information pane.'
+        });
 
-      // }
+      }
       
     }
    
