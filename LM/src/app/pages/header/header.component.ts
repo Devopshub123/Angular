@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit {
   }
   onClickMainDashboard(){
     this.router.navigate(['/main/MainDashboard']);
-    sessionStorage.setItem('selectedModule','Main Dash Board' );
+    sessionStorage.setItem('selectedModule','Spryple' );
     this.selectedModule =sessionStorage.getItem('selectedModule')??'';
   }
   setHeadNav(data:any): void {

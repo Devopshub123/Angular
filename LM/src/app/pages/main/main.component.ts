@@ -86,7 +86,7 @@ export class MainComponent implements OnInit {
   }
   onClickMainDashboard(){
     this.router.navigate(['/main/MainDashboard']);
-    sessionStorage.setItem('selectedModule','Main Dash Board' );
+    sessionStorage.setItem('selectedModule','Spryple' );
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
