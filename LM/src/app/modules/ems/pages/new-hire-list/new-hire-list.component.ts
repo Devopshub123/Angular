@@ -80,9 +80,10 @@ export class NewHireListComponent implements OnInit {
   candidateId: any;
   encriptPipe = new EncryptPipe();
   companyNameDetails: any = [];
-
+  loginToken: any;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.loginToken = JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
     this.hireForm=this.formBuilder.group(
       {
       firstname: ["",[Validators.required,this.noWhitespaceValidator()]],
@@ -135,6 +136,7 @@ export class NewHireListComponent implements OnInit {
         alternatecontact_number: this.hireForm.controls.alternatenumber.value,
         status:3,
         actionby: this.userSession.id,
+        loginToken: this.loginToken,
        };
      
       this.emsService.saveNewHireData(data).subscribe((res: any) => {
@@ -301,13 +303,30 @@ export class NewHireListComponent implements OnInit {
   // 
 
   getPageSizes(): number[] {
-    if (this.dataSource.data.length > 20) {
-      return [5, 10, 20, this.dataSource.data.length];
-    }
-    else {
-
-     return [5, 10, 20];
-    }
+    var customPageSizeArray = [];
+    
+      if (this.dataSource.data.length > 5) {
+        customPageSizeArray.push(5);
+      }
+      if (this.dataSource.data.length > 10) {
+        customPageSizeArray.push(10);
+      }
+      if (this.dataSource.data.length > 20) {
+        customPageSizeArray.push(20);
+       
+      }
+      customPageSizeArray.push(this.dataSource.data.length);
+    console.log("customPageSizeArray", customPageSizeArray);
+    return customPageSizeArray;
+    
+    // if (this.dataSource.data.length > 20) {
+    //   return [5, 10, 20, this.dataSource.data.length];
+    // }
+    // else {
+      
+      
+    //  return customPageSizeArray;
+    // }
   }
 
 }

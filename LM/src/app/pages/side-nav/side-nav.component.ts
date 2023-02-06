@@ -26,6 +26,7 @@ export class SideNavComponent implements OnInit {
   activeModuleData: any;
   moduleName: any;
   flag: boolean = true;
+  sideNavigationWidth : any= '20';
 
   sidemenuHover(item:any) {
        this.moduleName = item.modulename;
@@ -45,6 +46,7 @@ export class SideNavComponent implements OnInit {
       m.displayStatus = false;
     })
     item.displayStatus = true;
+    sessionStorage.setItem('selectedModule',item.modulename );
   }
   timesheet() {
     window.open('http://122.175.62.210:5050', '_blank');
@@ -54,6 +56,14 @@ export class SideNavComponent implements OnInit {
     this.router.navigate(['/main/MainDashboard']);
     sessionStorage.setItem('selectedModule','Spryple' );
   }
+  toggleExpand(){
+    if(this.isExpanded && (sessionStorage.getItem('selectedModule') && sessionStorage.getItem('selectedModule')!=='Spryple')){
+      this.isExpanded = true;
+    } else this.isExpanded = false;
+    return this.isExpanded;
+     // return this.isExpanded && (sessionStorage.getItem('selectedModule') && sessionStorage.getItem('selectedModule')!=='Spryple');
+    }
+
   toggleChild(item:any,child:any,subchild:any,route:any,screen:any) {
     let _this =this;
     this.isExpanded = true;
@@ -87,17 +97,17 @@ export class SideNavComponent implements OnInit {
 
   toggleBack(event:any) {
     let _this =this;
-    this.isExpanded = ! this.isExpanded;
-    if(this.isExpanded) {
-      _this.currentItem.displayStatus =true;
-     if(sessionStorage.getItem('selectedModule')){
-      this.menuList.forEach(function(m:any){
-        if(m.modulename!==sessionStorage.getItem('selectedModule'))
-          m.displayStatus = false;
-         else m.displayStatus = true;
-       })
-     }
-    }
+    this.isExpanded = !this.isExpanded;
+    // if(this.isExpanded) {
+    //  _this.currentItem.displayStatus =true;
+    //  if(sessionStorage.getItem('selectedModule')){
+    //   this.menuList.forEach(function(m:any){
+    //     if(m.modulename!==sessionStorage.getItem('selectedModule'))
+    //       m.displayStatus = false;
+    //      else m.displayStatus = true;
+    //    })
+    //  }
+    // }
    }
 
    getRouterStyle(){
@@ -110,18 +120,11 @@ export class SideNavComponent implements OnInit {
   constructor(private mainService: MainService, private baseService: BaseService, private UD: UserDashboardService,
     private RM: RoleMasterService, public router: Router) {
     this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
-    if (this.usersession.firstlogin == "N") {
-      this.flag = true;
-      this.isExpanded = true;
-
-    }
-    else {
-      this.flag = false;
-      this.isExpanded = false;
-    }
+    if (this.usersession.firstlogin == "N")
+         this.flag = true;
+    else this.flag = false;
+    this.isExpanded = this.flag;
   }
-
-
 
   ngOnInit(): void {
 
@@ -162,7 +165,8 @@ export class SideNavComponent implements OnInit {
                   var itemnav = {
                     screen_name: e.screen_name,
                     iconName: '',// e.role_name,
-                    routename: e.routename
+                    routename: e.routename,
+                    menu_order: e.menu_order
                   }
                   item.subChildren?.push(itemnav);
                 }else{
@@ -171,7 +175,8 @@ export class SideNavComponent implements OnInit {
                     var itemnav = {
                       screen_name: e.screen_name,
                       iconName: '',// e.role_name,
-                      routename: e.routename
+                      routename: e.routename,
+                      menu_order: e.menu_order
                     }
                     item.subChildren?.push(itemnav);
                   }
@@ -186,7 +191,8 @@ export class SideNavComponent implements OnInit {
                       {
                         screen_name: e.screen_name,
                         iconName: '',// e.role_name,
-                        routename: e.routename
+                        routename: e.routename,
+                        menu_order: e.menu_order
                       }
 
                     ]
@@ -200,7 +206,8 @@ export class SideNavComponent implements OnInit {
                       {
                         screen_name: e.screen_name,
                         iconName: '',// e.role_name,
-                        routename: e.routename
+                        routename: e.routename,
+                        menu_order: e.menu_order
                       }
 
                     ]
@@ -218,7 +225,8 @@ export class SideNavComponent implements OnInit {
                     {
                       screen_name: e.screen_name,
                       iconName: '',// e.role_name,
-                      routename: e.routename
+                      routename: e.routename,
+                      menu_order: e.menu_order
                     }
 
                   ]
@@ -233,7 +241,8 @@ export class SideNavComponent implements OnInit {
                     {
                       screen_name: e.screen_name,
                       iconName: '',// e.role_name,
-                      routename: e.routename
+                      routename: e.routename,
+                      menu_order: e.menu_order
                     }
 
                   ]
@@ -256,7 +265,26 @@ export class SideNavComponent implements OnInit {
           }
         }
       this.menuList = res.data;
-      sessionStorage.setItem("moduleData",JSON.stringify( res.data) );
+      var timesheetId = 0;
+      var timesheetMenu = {};
+
+      this.menuList.forEach(function(m:any,index:any){
+        if(m.children && m.children[0]){
+          m.children.forEach(function(c:any){
+            if(c.subChildren && c.subChildren[0])
+              c.subChildren.sort(function(a:any,b:any){ return ( a.menu_order < b.menu_order )?-1:1;});
+          });
+        }
+        if(m.modulename.toLowerCase().includes('timesheet')){
+          timesheetMenu = m;
+          timesheetId = index;
+        }
+      });
+      if(timesheetId){
+        this.menuList.splice(timesheetId,1);
+        this.menuList.push(timesheetMenu);
+      }
+      sessionStorage.setItem("moduleData",JSON.stringify( this.menuList) );
       //let storedArray = JSON.parse(sessionStorage.getItem("moduleData"));//no brackets
         //  console.log((storedArray));
           //console.log(JSON.parse(pk));

@@ -362,6 +362,7 @@ export class MainDashboardComponent implements OnInit {
               sessionStorage.removeItem('sidemenu');
               sessionStorage.setItem('sidemenu', JSON.stringify(this.menu));
               if (this.requestType == 'AttendanceApproval') {
+                this.showSpinner();
                 this.router.navigate(['/Attendance/Approval'], {
                   state: {
                     userData: this.requestData,
@@ -369,22 +370,22 @@ export class MainDashboardComponent implements OnInit {
                   },
                 });
               } else if (this.requestType == 'AttendanceRequest') {
+                 this.showSpinner();
                 sessionStorage.setItem('selectedModule', 'Attendance');
                 this.router.navigate(['/Attendance/Request'], {
                   state: { userData: this.requestData },
                 });
               } else if (this.requestType == 'LeaveRequest') {
+                this.showSpinner();
                 sessionStorage.setItem('selectedModule', 'Leaves');
                 this.router.navigate(['/LeaveManagement/LeaveRequest']);
-                // this.router.navigate(['/LeaveManagement/LeaveRequest'], {
-                //   state: { leaveData: this.requestData, isleave: true },
-                // });
-              }
+               }
               else if (this.requestType == 'ReviewAndApprovals') {
+                this.showSpinner();
                 sessionStorage.setItem('selectedModule', 'Leaves');
                 this.router.navigate(['/LeaveManagement/ReviewAndApprovals'],
                 { state: { leaveData: this.requestData ,isleave:true}
-              });
+                  });
               } else {
                 if (this.usersession.firstlogin == 'Y') {
                   //sessionStorage.setItem('selectedModule', 'ChangePassword');
@@ -528,7 +529,7 @@ export class MainDashboardComponent implements OnInit {
     this.getrolescreenfunctionalities(4, true);
     //  this.router.navigate(["/Attendance/Request"], { state: { userData: this.requestData } });
   }
-  leaverequest(element: RequestData){
+  leaverequest(element: RequestData) {
     this.requestData = element;
     this.requestType = 'LeaveRequest';
     sessionStorage.setItem('selectedModule','Leaves')
@@ -776,14 +777,12 @@ export class MainDashboardComponent implements OnInit {
   //   this.getrolescreenfunctionalities(2, true);
   // }
 
-  leaveReviewAndApprovals(leave:any){
-    this.requestData = leave;
+  leaveReviewAndApprovals(leave: any) {
+   this.requestData = leave;
     this.requestType = 'ReviewAndApprovals';
     this.requestData.url = '/LeaveManagement/ManagerDashboard';
     this.getrolescreenfunctionalities(2, true);
-  //  leave.url = '/LeaveManagement/ManagerDashboard'
-  //  this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: leave ,isleave:true} });
-    }
+   }
   getCurrentLeaveEmployees() {
     this.teamLeavesData = true;
     this.employeesLeaveList = [];
@@ -881,6 +880,12 @@ export class MainDashboardComponent implements OnInit {
         this.inductionAlert = [];
       }
     });
+  }
+  showSpinner() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1000); // 2 seconds
   }
 }
 

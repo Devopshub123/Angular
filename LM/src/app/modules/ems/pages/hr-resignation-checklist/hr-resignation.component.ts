@@ -166,6 +166,8 @@ export class HrResignationComponent implements OnInit {
 
         }
         this.checklistDataSource = new MatTableDataSource(this.employeeChecklists);
+        this.checklistForm.controls.remarks.setValue(this.employeeChecklists[0].comment);
+        this.checklistForm.controls.remarks.disable();
       }
     })
   }
@@ -219,6 +221,13 @@ export class HrResignationComponent implements OnInit {
     else {
 
       return [5, 10, 20];
+    }
+  }
+  change() {
+    if (this.checked == true) {
+      this.checklistForm.controls.remarks.enable();
+    } else {
+      this.checklistForm.controls.remarks.disable();
     }
   }
 }

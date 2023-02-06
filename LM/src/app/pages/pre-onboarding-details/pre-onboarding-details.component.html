@@ -388,15 +388,18 @@
                                         </ng-container>
                                     </mat-select>
                                 </mat-form-field>
-                                <div fxLayout="row" fxLayoutAlign=" center">
-                                    <button class="btn btn-primary mr-2 mb-2" (click)="addfamily()">
-                                        <span> Add </span>
-                                    </button>
-                                    <button class="btn btn-danger mr-2 mb-2" (click)="clearfamily()">
-                                        Clear
-                                    </button>
+                                <div fxLayout="row" fxLayoutAlign="center">
+                                    <span style="padding-top: 5%;">
+                                        <button class="btn btn-primary mr-2 mb-2" (click)="addfamily()">
+                                            <span> Add </span>
+                                        </button>
+                                          <button class="btn btn-danger mr-2 mb-2" (click)="clearfamily()">
+                                            Clear
+                                        </button>
+                                    </span>
+                                   
                                 </div>
-                            </div>
+                             </div>
 
                             <div class="mat-elevation-z1" *ngIf="familyDetails.length > 0">
                                 <table mat-table [dataSource]="familyDataSource">
@@ -524,10 +527,13 @@
                                         maxlength="1500"></textarea>
                                 </mat-form-field>
                                 </div>
-                              <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="end">
-                                <span style="padding-top: 6%;">
+                              <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="start center">
+                                <span>
                                     <button class="btn btn-primary mr-2 mb-2" (click)="addWorkExperience()">
-                                        <span> Add </span>
+                                        <span> Submit </span>
+                                    </button>
+                                    <button class="btn btn-primary custom1 mr-2 mb-2" (click)="workExperienceSubmitAdd()">
+                                        <span> Submit & Add</span>
                                     </button>
                                     <button class="btn btn-danger mr-2 mb-2" (click)="clearWork()">
                                         Clear
@@ -588,14 +594,14 @@
                             </div>
                         </mat-card>
                         <br>
-                            <div fxLayoutAlign="center" *ngIf="workExperienceDetails.length > 0">
+                            <!-- <div fxLayoutAlign="center" *ngIf="workExperienceDetails.length > 0">
                                 <button class="btn btn-primary custom mr-2 mb-2"   (click)="saveWorkExperience()"
                                     type="submit">
                                     <span>Save & Continue</span>
                                 </button>
                               
                                 <br />
-                            </div>
+                            </div> -->
                         </form>  
                     </div>
 
@@ -655,7 +661,10 @@
                             </div>
                             <div fxLayout="row" fxLayoutAlign="end">
                                 <button class="btn btn-primary mr-2 mb-2" (click)="addEducation()">
-                                    <span> Add </span>
+                                    <span> Submit </span>
+                                </button>
+                                <button class="btn btn-primary custom1 mr-2 mb-2" (click)="educationSaveAdd()">
+                                    <span> Submit & Add </span>
                                 </button>
                                 <button class="btn btn-danger mr-2 mb-2" (click)="clearEducation()">
                                     Clear
@@ -712,15 +721,12 @@
                         </mat-card>
                             <br>
 
-                         <div fxLayoutAlign="center" *ngIf="educationDetails.length > 0">
+                         <!-- <div fxLayoutAlign="center" *ngIf="educationDetails.length > 0">
                             <button class="btn btn-primary custom mr-2 mb-2"    (click)="saveEducation()"
                                 type="submit">
                                 <span>Save & Continue</span>
                             </button>
-                            <!-- <button class="m-1 mat-stroked-button button-clear" (click)="personalInfoClear()">
-                                <span>Cancel</span>
-                            </button> -->
-                         </div>
+                         </div> -->
                         </form>
                     </div>
                 </mat-tab>

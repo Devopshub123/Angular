@@ -68,6 +68,7 @@ export class HrOnboardingComponent implements OnInit {
   userSession: any;
   deptId: any;
   isdisable: boolean = false;
+  isAddComment: boolean = false;
   employeeEmailData: any = [];
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
@@ -173,6 +174,8 @@ export class HrOnboardingComponent implements OnInit {
 
         }
         this.checklistDataSource = new MatTableDataSource(this.employeeChecklists);
+        this.checklistForm.controls.remarks.setValue(this.employeeChecklists[0].comment);
+        this.checklistForm.controls.remarks.disable();
       }
     })
   }
@@ -237,5 +240,11 @@ export class HrOnboardingComponent implements OnInit {
         this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
      })
 }
-  
+  change() {
+    if (this.checked == true) {
+      this.checklistForm.controls.remarks.enable();
+    } else {
+      this.checklistForm.controls.remarks.disable();
+    }
+  }
 }

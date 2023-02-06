@@ -1,6 +1,6 @@
 
 
-<mat-sidenav-container class="example-sidenav-container" autosize="true" >
+<mat-sidenav-container class="example-sidenav-container" autosize="true" style="overflow: hidden;">
 
   <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" style="position: fixed;  padding-top:80px;transform: scale;margin-left: 0.5rem;">
     <mat-nav-list class="dashboard" >
@@ -19,12 +19,12 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <div style="width:100%;display:flex;" *ngIf="isExpanded">
-    <div style="width:19%;">
-      <mat-drawer-container class="example-container" style="border: none;overflow: hidden;" >
+  <div style="width:100%;display:flex;" >
+    <div [ngStyle]="{'width': isExpanded ? (sideNavigationWidth)+'%' : '0%'}" *ngIf=" toggleExpand()">
+      <mat-drawer-container class="example-container" style="border: none;overflow-x: hidden;" >
         <mat-drawer mode="side" opened class="sideNavCss"
-                    style="overflow: hidden;position: relative;padding-top: 15px;border: none;transform: scale; visibility: collapse;padding-bottom: 100%;" >
-          <div  style="flex-flow: column;margin-left: 1%;overflow: hidden;"  >
+                    style="overflow-x: hidden;position: relative;padding-top: 15px;border: none;transform: scale; visibility: collapse;padding-bottom: 100%;" >
+          <div  style="flex-flow: column;margin-left: 1%;overflow-x: hidden;overflow-y:auto; height:calc(100vh - 80px);"  >
             <!-- <mat-nav-list style="align-items: center; height: 45px;  margin: inherit;" (click)="onClickMainDashboard()">
               <mat-list-item  style="font: -webkit-control;" >
                 <span style="margin-left: 6%;color:white;   font-size: medium;" > Dashboard </span>
@@ -33,10 +33,10 @@
 
             <span *ngFor="let item of menuList" >
         <span *ngIf="item.displayStatus && item.children">
-          <mat-toolbar style="overflow: hidden;">
+          <mat-toolbar style="overflow-x: hidden;">
             <span style="margin-left: 15px; color:#28acaf;"> {{ item.modulename }}</span>
           </mat-toolbar>
-              <span *ngIf="item.children && item.children[0]" style="margin: top 10px;overflow: hidden;" >
+              <span *ngIf="item.children && item.children[0]" style="margin: top 10px;overflow-x: hidden;" >
                 <mat-nav-list  *ngFor="let child of item.children">
                   <mat-toolbar style="align-items: end; height: 40px;color:#28acaf;   font-size: medium;    margin-left: 15px;"  *ngIf="child.displayName != self">
                     <span> {{ child.displayName }}</span>
@@ -59,20 +59,22 @@
 
       </mat-drawer-container>
     </div>
-    <div style="width:81%;">
+    <div [ngStyle]="{'width': isExpanded ? (100-sideNavigationWidth)+'%' : '100%'}">
+      <div  style="flex-flow: column;margin-left: 1%;overflow-x: hidden;overflow-y:auto; height:calc(100vh - 80px);"  >
       <section>
         <router-outlet></router-outlet>
       </section>
     </div>
+    </div>
   </div>
-  <div style="width:100%;" *ngIf="!isExpanded">
+  <!-- <div style="width:100%;" *ngIf="!toggleExpand()">
     <section>
       <router-outlet></router-outlet>
     </section>
-  </div>
+  </div> -->
 
 <!--
-<div class="row" style="flex-flow: column;display:flex;overflow: hidden;margin: auto;position: fixed;">
+<div class="row" style="flex-flow: column;display:flex;overflow-x: hidden;margin: auto;position: fixed;">
 
   </div>
 -->

@@ -201,7 +201,6 @@ export class EmployeeInfoComponent implements OnInit {
   decryptPipe = new DecryptPipe();
   joinDateDisable: boolean = false;
   isSubmitAdd: boolean = false;
-  addSubmit: boolean = true;
   ngOnInit(): void {
     this.getDesignationsMaster();
     this.getGender();
