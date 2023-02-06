@@ -33,15 +33,24 @@ export class SummaryReportForManagerComponent implements OnInit {
   companyDBName:any ; 
   designationForPdf :any='All';
   employeeNameForPdf:any='All';
+  adddate:any
   constructor(private LM:LeavesService,public formBuilder: FormBuilder,public spinner :NgxSpinnerService, private excelService: ExcelServiceService) {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.companyDBName = sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
+    new Date().getFullYear()
+    new Date().getMonth()
+    if( new Date().getMonth()<4){
+      this.adddate= Number(new Date().getFullYear())-1;
+    }
+    else{
+       this.adddate= new Date().getFullYear()
+    }
   }
   @ViewChild('table') table!: ElementRef;
 
 
   ngOnInit(): void {
-    this.searchForm = this.formBuilder.group({ employeeId: ['All'] ,designationId:['All'] ,calenderYear:[(new Date()).getFullYear()]});
+    this.searchForm = this.formBuilder.group({ employeeId: ['All'] ,designationId:['All'] ,calenderYear:[this.adddate]});
     this.getDesignation();
     this.getDepartments();
     this.getEmployeesForReportingManager();

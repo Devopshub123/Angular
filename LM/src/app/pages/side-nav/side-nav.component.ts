@@ -21,7 +21,7 @@ export class SideNavComponent implements OnInit {
   currentItem:any = null;
   currentChild:any = null;
   mainDashBoard ='/main/MainDashboard';
-  selectedModule:any = 'Main Dash Board';
+  selectedModule:any = 'Spryple';
   usersession: any;
   activeModuleData: any;
   moduleName: any;
@@ -30,16 +30,21 @@ export class SideNavComponent implements OnInit {
   sidemenuHover(item:any) {
        this.moduleName = item.modulename;
   }
-  
+
   toggleActive(item: any) {
+    if (item.id==3) {
+      this.timesheet();
+      return;
+       }
+    if(!(item.children && item.children[0])){
+        return;
+      }
+
     this.isExpanded = true;
     this.menuList.forEach((m:any) =>{
       m.displayStatus = false;
     })
     item.displayStatus = true;
-    if (item.id==3) {
-      this.timesheet();
-       }
   }
   timesheet() {
     window.open('http://122.175.62.210:5050', '_blank');
@@ -47,7 +52,7 @@ export class SideNavComponent implements OnInit {
 
   onClickMainDashboard(){
     this.router.navigate(['/main/MainDashboard']);
-    sessionStorage.setItem('selectedModule','Main Dash Board' );
+    sessionStorage.setItem('selectedModule','Spryple' );
   }
   toggleChild(item:any,child:any,subchild:any,route:any,screen:any) {
     let _this =this;
@@ -107,16 +112,19 @@ export class SideNavComponent implements OnInit {
     this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
     if (this.usersession.firstlogin == "N") {
       this.flag = true;
+      this.isExpanded = true;
+
     }
     else {
       this.flag = false;
+      this.isExpanded = false;
     }
   }
 
 
 
   ngOnInit(): void {
-   
+
     // this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
 
     this.isExpanded = true;

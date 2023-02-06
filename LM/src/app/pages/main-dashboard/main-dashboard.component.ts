@@ -598,12 +598,9 @@ export class MainDashboardComponent implements OnInit {
       status: null,
     };
     this.mainService.getDocumentsForEMS(input).subscribe((result: any) => {
-      //this.documentDetails = [];
-      console.log("getDocumentsForEMSMain");
-      this.valid =false;
+      this.valid =true;
       if (result && result.status) {
         if (result.data.length > 0) {
-          console.log("higetDocumentsForEMSworking");
           for (let i = 0; i < result.data.length; i++) {
             if (result.data[i].file_category == 'PROFILE') {
               this.profileId = result.data[i].id;
@@ -626,6 +623,8 @@ export class MainDashboardComponent implements OnInit {
                 let base64String = btoa(STRING_CHAR);
                 this.imageurls[0].base64String =
                   'data:image/png;base64,' + base64String;
+                  console.log("hhjj");
+                  console.log("image",this.imageurls)
               } else {
                 this.isRemoveImage = false;
                 this.imageurls = [

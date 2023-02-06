@@ -36,11 +36,13 @@ export class EarningsRequestComponent implements OnInit {
   PR5:any;
   PR9:any;
   PR10:any;
+  popupflag:boolean=true;
   arrayValue:any=[{Value:0,name:'Flat Amount'},{Value:1,name:'Percentage'}];
   arrayPayValue:any=[{Value:0,name:'Active'},{Value:1,name:'Inactive'}];
   constructor(private location:Location,private sanitizer:DomSanitizer,private formBuilder: FormBuilder,private PR:PayrollService,private dialog: MatDialog,private router: Router) {
     this.earndata = this.location.getState();
     console.log(this.earndata.Earndata)
+    this.otherAllowance(this.earndata.Earndata.pigcm_id);
     this.senddata =this.earndata.paygroupdata.data; 
     this.getComponentEditableConfigurations(this.earndata.Earndata.component_id)
     this.getPayGroupComponentValues(this.earndata.Earndata.pigcm_id);
@@ -103,6 +105,39 @@ export class EarningsRequestComponent implements OnInit {
   status(status:any){
    if(status == 0)
     {
+      if(this.popupflag){
+        let dialogRef = this.dialog.open(ConfirmationDialogueComponent, {
+          position: { top: `70px`},
+          
+          disableClose: true,
+          data: { message:'Configuration of a component as a flat amount results in the generation of unassigned amounts for different CTC values. To handle this amount, Other Allowance component will be added to this pay group.', YES: 'YES', NO: 'NO' },
+        });
+        dialogRef.afterClosed().subscribe((result:boolean) => {
+          console.log("HI")
+          if (result) {
+            console.log("HI inside")
+            // this.isShowCalculatedAmount = "basicPercentage"
+            this.isShowCalculatedAmount = "Flat Amount";
+  
+            this.getComponentConfiguredValuesForPayGroup(this.earndata.Earndata.pigcm_id,0)
+  
+          }
+          else   {
+            this.isShowCalculatedAmount = "basicPercentage"
+            this.earningsRequestForm.controls.monthly_salary.setValue(1);
+            this.getComponentConfiguredValuesForPayGroup(this.earndata.Earndata.pigcm_id,1)
+            // this.isShowCalculatedAmount = "Flat Amount"
+            
+          }
+        });
+
+      }
+      else{
+        this.isShowCalculatedAmount = "Flat Amount";
+
+        this.getComponentConfiguredValuesForPayGroup(this.earndata.Earndata.pigcm_id,0)
+        
+      }
        
       //  let dialogRef = this.dialog.open(ReusableDialogComponent, {
       //   position:{top:`70px`},
@@ -112,30 +147,7 @@ export class EarningsRequestComponent implements OnInit {
       //   Yes, add Other Allowance component to this pay group and configure this component as a flat amount.
       //   No, configure this component as a percentage of Basic Salary.`
       // });
-      let dialogRef = this.dialog.open(ConfirmationDialogueComponent, {
-        position: { top: `70px`},
-        
-        disableClose: true,
-        data: { message:'Configuration of a component as a flat amount results in the generation of unassigned amounts for different CTC values. To handle this amount, Other Allowance component will be added to this pay group.', YES: 'YES', NO: 'NO' },
-      });
-      dialogRef.afterClosed().subscribe((result:boolean) => {
-        console.log("HI")
-        if (result) {
-          console.log("HI inside")
-          // this.isShowCalculatedAmount = "basicPercentage"
-          this.isShowCalculatedAmount = "Flat Amount";
-
-          this.getComponentConfiguredValuesForPayGroup(this.earndata.Earndata.pigcm_id,0)
-
-        }
-        else   {
-          this.isShowCalculatedAmount = "basicPercentage"
-          this.earningsRequestForm.controls.monthly_salary.setValue(1);
-          this.getComponentConfiguredValuesForPayGroup(this.earndata.Earndata.pigcm_id,1)
-          // this.isShowCalculatedAmount = "Flat Amount"
-          
-        }
-      });
+  
 
     }
     else if(status == 1)
@@ -204,8 +216,9 @@ export class EarningsRequestComponent implements OnInit {
   }
   
   configurePayGroupComponent(){
-    if(this.earningsRequestForm.controls.namePaySlip.valid && this.earningsRequestForm.controls.flat_amount.valid || (!this.otherhide)){
-      // if(this.earningsRequestForm.controls.flat_amount.value <= Number(this.validationvalue)){
+    console.log("hi")
+    if(this.earningsRequestForm.controls.namePaySlip.valid && (this.earningsRequestForm.controls.flat_amount.valid || this.earningsRequestForm.controls.percentage.valid)|| (!this.otherhide)){
+      if(this.earningsRequestForm.controls.flat_amount.value <= Number(this.validationvalue)){
         /**Configure component values and changed to active state */
       if(this.earndata.Earndata.status=="To Be Configured" || this.earndata.Earndata.status=="Configuration In Progress"){
         let data ={
@@ -288,15 +301,15 @@ export class EarningsRequestComponent implements OnInit {
            })
         }
 
-      // }
-      // else{
-      //   let dialogRef = this.dialog.open(ReusableDialogComponent, {
-      //     position:{top:`70px`},
-      //     disableClose: true,
-      //     data: 'Please enter a valid value that satisfies the condition given in the information pane.'
-      //   });
+      }
+      else{
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data: 'Please enter a valid value that satisfies the condition given in the information pane.'
+        });
 
-      // }
+      }
       
     }
    
@@ -339,6 +352,19 @@ export class EarningsRequestComponent implements OnInit {
   
     this.router.navigate(['/Payroll/Earnings'],{state:{data:this.earndata}});
 
+  }
+  otherAllowance(data:any){
+    this.PR.otherAllowancePopup(data).subscribe((result:any)=>{
+      console.log("result:",result)
+      if(result.status&&result.data.length>0){
+        if(result.data[0].popup==1){
+           this.popupflag=true;
+        }
+        else{
+          this.popupflag=false;
+        }
+      }
+    })
   }
 
   getComponentConfiguredValuesForPayGroup(pgmid:any,flat:any){
