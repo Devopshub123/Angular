@@ -24,6 +24,9 @@
 table, td{
   border: 1px solid;
 }
+thead{
+  background-color: #28acaf;
+}
 ::ng-deep .table {
   color: #c3c3c3 !important;
 }
