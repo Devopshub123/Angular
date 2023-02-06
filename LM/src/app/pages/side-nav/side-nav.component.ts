@@ -165,7 +165,8 @@ export class SideNavComponent implements OnInit {
                   var itemnav = {
                     screen_name: e.screen_name,
                     iconName: '',// e.role_name,
-                    routename: e.routename
+                    routename: e.routename,
+                    menu_order: e.menu_order
                   }
                   item.subChildren?.push(itemnav);
                 }else{
@@ -174,7 +175,8 @@ export class SideNavComponent implements OnInit {
                     var itemnav = {
                       screen_name: e.screen_name,
                       iconName: '',// e.role_name,
-                      routename: e.routename
+                      routename: e.routename,
+                      menu_order: e.menu_order
                     }
                     item.subChildren?.push(itemnav);
                   }
@@ -189,7 +191,8 @@ export class SideNavComponent implements OnInit {
                       {
                         screen_name: e.screen_name,
                         iconName: '',// e.role_name,
-                        routename: e.routename
+                        routename: e.routename,
+                        menu_order: e.menu_order
                       }
 
                     ]
@@ -203,7 +206,8 @@ export class SideNavComponent implements OnInit {
                       {
                         screen_name: e.screen_name,
                         iconName: '',// e.role_name,
-                        routename: e.routename
+                        routename: e.routename,
+                        menu_order: e.menu_order
                       }
 
                     ]
@@ -221,7 +225,8 @@ export class SideNavComponent implements OnInit {
                     {
                       screen_name: e.screen_name,
                       iconName: '',// e.role_name,
-                      routename: e.routename
+                      routename: e.routename,
+                      menu_order: e.menu_order
                     }
 
                   ]
@@ -236,7 +241,8 @@ export class SideNavComponent implements OnInit {
                     {
                       screen_name: e.screen_name,
                       iconName: '',// e.role_name,
-                      routename: e.routename
+                      routename: e.routename,
+                      menu_order: e.menu_order
                     }
 
                   ]
@@ -261,18 +267,24 @@ export class SideNavComponent implements OnInit {
       this.menuList = res.data;
       var timesheetId = 0;
       var timesheetMenu = {};
-      this.menuList.forEach(function(item,index){
-        if(item.modulename.toLowerCase().includes('timesheet')){
-          timesheetMenu = item;
+
+      this.menuList.forEach(function(m:any,index:any){
+        if(m.children && m.children[0]){
+          m.children.forEach(function(c:any){
+            if(c.subChildren && c.subChildren[0])
+              c.subChildren.sort(function(a:any,b:any){ return ( a.menu_order < b.menu_order )?-1:1;});
+          });
+        }
+        if(m.modulename.toLowerCase().includes('timesheet')){
+          timesheetMenu = m;
           timesheetId = index;
-          return;
         }
       });
       if(timesheetId){
         this.menuList.splice(timesheetId,1);
         this.menuList.push(timesheetMenu);
       }
-      sessionStorage.setItem("moduleData",JSON.stringify( res.data) );
+      sessionStorage.setItem("moduleData",JSON.stringify( this.menuList) );
       //let storedArray = JSON.parse(sessionStorage.getItem("moduleData"));//no brackets
         //  console.log((storedArray));
           //console.log(JSON.parse(pk));
