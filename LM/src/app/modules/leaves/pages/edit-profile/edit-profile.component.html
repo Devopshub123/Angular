@@ -54,10 +54,13 @@
 
         <mat-form-field  fxFlex.xs="100"  fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Contact</mat-label>
-          <input formControlName="contact" onlyNumber required matInput placeholder="" maxlength="10"  >
+          <input formControlName="contact" onlyNumber required matInput placeholder="" maxlength="10" minlength="10" >
           <mat-error class="con-error"
                      *ngIf="editForm.controls.contact.errors?.required">
             {{LM1}}
+          </mat-error>
+          <mat-error class="con-error" *ngIf="editForm.get('contact').hasError('pattern')">
+            Please enter valid mobile number
           </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex.xs="100"  fxFlex class="mx-2 my-2" appearance="outline">

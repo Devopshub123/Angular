@@ -128,6 +128,12 @@ export class EmsService {
     return this.http.post(this.mainUrl + 'ems/api/setProgramSchedulemail', data, this.httpOptions);
   }
   getallEmployeeProgramSchedules(eid: any, sid: any): any {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
     return this.http.get(this.mainUrl + 'ems/api/getallEmployeeProgramSchedules/' + eid + '/' + sid+'/'+this.companyName, this.httpOptions);
   }
   getEmployeesForProgramSchedule(id: any): any {

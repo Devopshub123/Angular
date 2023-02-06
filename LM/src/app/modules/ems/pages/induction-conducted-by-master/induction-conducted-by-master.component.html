@@ -37,8 +37,7 @@
 
             <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>Conduct By</mat-label>
-                <mat-select (openedChange)="openedSearch($event)" placeholder="Select"
-                required formControlName="conductBy" multiple [disabled]="!isEnable">
+                <mat-select (openedChange)="openedSearch($event)" placeholder="Select" required formControlName="conductBy" multiple [disabled]="!isEnable">
                 <mat-select-trigger>
                   <span *ngFor="let item of inductionForm.controls.conductBy.value">
                        {{item.empname }} ,
@@ -58,6 +57,9 @@
             <mat-error class="con-error" *ngIf="inductionForm.controls.conductBy.errors?.required">
               {{EM2}}
             </mat-error>
+            <!-- <mat-error class="con-error" *ngIf="isFormCtrlValid ">
+              {{EM2}}
+            </mat-error> -->
          </mat-form-field>
 
          <!-- <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">

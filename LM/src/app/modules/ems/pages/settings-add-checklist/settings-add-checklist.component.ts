@@ -75,7 +75,7 @@ export class SettingsAddChecklistComponent implements OnInit {
         checklistId: [""],
         checklistName: [""],
          name:[""],
-        description:[null,[Validators.required]],
+        description:['',[Validators.required]],
         status:[""],
       });
     this.getMessagesList();
@@ -160,39 +160,43 @@ export class SettingsAddChecklistComponent implements OnInit {
       });
   }
 
-  updateData( name: any,value:any) {
-    let data = {
-      department: value.department_id,
-      category:value.category,
-      actionby: this.userSession.id,
-      checklists: [
-        {
-          id:value.id,
-          name:null,
-          description:name,
-          status:value.status,
-        }
-      ]
-    }
+  updateData(name: any, value: any) {
+    console.log("daf-", this.checklistForm.controls.description.value)
+    
+    if ((name != null || '' || undefined)&&this.checklistForm.controls.description.valid) {
+      let data = {
+        department: value.department_id,
+        category: value.category,
+        actionby: this.userSession.id,
+        checklists: [
+          {
+            id: value.id,
+            name: null,
+            description: name,
+            status: value.status,
+          }
+        ]
+      }
 
-   this.emsService.setChecklistsMaster(data).subscribe((res: any) => {
+      this.emsService.setChecklistsMaster(data).subscribe((res: any) => {
         if (res.status) {
-         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/settings-checklist"]));
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data:"Checklist data updated successfully"
+            data: "Checklist data updated successfully"
           });
 
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-           data:"Unable to update checklist data"
+            data: "Unable to update checklist data"
           });
         }
       });
+    }
   }
 
   getstatuslist(){

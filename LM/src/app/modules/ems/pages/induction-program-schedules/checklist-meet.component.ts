@@ -681,13 +681,20 @@ export class ChecklistMeetComponent implements OnInit {
     );
   }
   getPageSizes(): number[] {
+    var customPageSizeArray = [];
+    
+    if (this.dataSource.data.length > 5) {
+      customPageSizeArray.push(5);
+    }
+    if (this.dataSource.data.length > 10) {
+      customPageSizeArray.push(10);
+    }
     if (this.dataSource.data.length > 20) {
-      return [5, 10, 20, this.dataSource.data.length];
+      customPageSizeArray.push(20);
+     
     }
-    else {
-
-      return [5, 10, 20];
-    }
+    customPageSizeArray.push(this.dataSource.data.length);
+    return customPageSizeArray;
   }
   getCompanyInformation(){
     this.companyServices.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{

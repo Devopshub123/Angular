@@ -523,10 +523,12 @@ export class MainDashboardComponent implements OnInit {
       });
   }
   attendanceRequest(element: RequestData) {
+    this.spinner.show();
     this.requestData = element;
     this.requestType = 'AttendanceRequest';
     sessionStorage.setItem('selectedModule','Attendance')
     this.getrolescreenfunctionalities(4, true);
+   
     //  this.router.navigate(["/Attendance/Request"], { state: { userData: this.requestData } });
   }
   leaverequest(element: RequestData) {

@@ -316,8 +316,7 @@ export class NewHireListComponent implements OnInit {
        
       }
       customPageSizeArray.push(this.dataSource.data.length);
-    console.log("customPageSizeArray", customPageSizeArray);
-    return customPageSizeArray;
+      return customPageSizeArray;
     
     // if (this.dataSource.data.length > 20) {
     //   return [5, 10, 20, this.dataSource.data.length];

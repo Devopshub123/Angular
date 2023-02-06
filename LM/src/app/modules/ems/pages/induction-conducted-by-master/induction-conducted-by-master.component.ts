@@ -52,6 +52,8 @@ export class InductionConductedByMasterComponent implements OnInit {
   EM66: any; /**Unable to update induction status. */
   conductedByEmployeDataList: any = [];
   isEnable = false;
+  formControlList: any = [];
+  isFormCtrlValid = false;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getProgramTypeMaster();
@@ -63,7 +65,7 @@ export class InductionConductedByMasterComponent implements OnInit {
       {
         programType: ["",[Validators.required]],
         department: ["",[Validators.required]],
-        conductBy: [[''],[Validators.required]],
+        conductBy: ['',[Validators.required]],
         status:['']
 
       });
@@ -108,7 +110,8 @@ export class InductionConductedByMasterComponent implements OnInit {
   }
 
   save(event:any,info:any){
-    if(this.inductionForm.valid) {
+    if (this.inductionForm.valid) {
+     
        this.inductionForm.controls.pid.value = info.id;
       this.submit();
     }
@@ -121,7 +124,11 @@ export class InductionConductedByMasterComponent implements OnInit {
 
 
   submit() {
-    if (this.inductionForm.valid) {
+    // if (this.inductionForm.controls.conductBy.value[0] =="") {
+    //   this.isFormCtrlValid = true;
+    //&& this.inductionForm.controls.conductBy.value[0] !=""
+    // }
+    if (this.inductionForm.valid ) {
       let data = {
         'id': null,
         'program_id': this.inductionForm.controls.programType.value,
@@ -131,7 +138,6 @@ export class InductionConductedByMasterComponent implements OnInit {
         'actionby': this.userSession.id,
         //'companyName':this.companyDBName
       }
-
       this.EMS.setInductionConductedBy(data).subscribe((result: any) => {
         if (result.status) {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -232,8 +238,7 @@ export class InductionConductedByMasterComponent implements OnInit {
 
     } else {
       this.selectedEmployees.push(event.source.value.empid);
-      console.log("ggg",this.selectedEmployees)
-      // this.inductionForm.controls.conductBy.setValue('');
+       // this.inductionForm.controls.conductBy.setValue('');
       // this.inductionForm.controls.conductBy.setValue( this.selectedEmployees);
     }
   }

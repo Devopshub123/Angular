@@ -81,7 +81,7 @@ export class EditProfileComponent implements OnInit {
           Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
         ],
       ],
-      contact: ['', Validators.required],
+      contact: ['', [Validators.required, Validators.pattern('[4-9]\\d{9}')]],
       address: ['', Validators.required],
       countryId: ['', Validators.required],
       stateId: ['', Validators.required],
