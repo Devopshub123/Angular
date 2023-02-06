@@ -296,7 +296,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
 
   //////////
   getCandidateData() {
-    console.log("t1")
     this.loginData = [];
     this.familyDetails = [];
     this.workExperienceDetails = [];

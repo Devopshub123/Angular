@@ -42,8 +42,9 @@ import { environment } from 'src/environments/environment';
     getMastertable(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
       return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
     }
-    getCountry(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
-      return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
+  getCountry(tableName: any, status: any, page: any, size: any, companyName: any): Observable<any>{
+    this.companyName = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null;
+      return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
     }
     getStates(tableName:any,page:any,size:any,companyName:any):Observable<any>{
       return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);

@@ -61,13 +61,13 @@
               </mat-table>
             </div>
             <section style="padding-top: 1%;padding-left:1%">
-              <mat-checkbox class="example-margin"  [disabled]="isdisable" formControlName="isChecked" [(ngModel)]="checked">No Due</mat-checkbox>
+              <mat-checkbox class="example-margin"  [disabled]="isdisable" (change)="change()" formControlName="isChecked" [(ngModel)]="checked">No Due</mat-checkbox>
             </section>
 
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
               <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                 <mat-label>Add Comments</mat-label>
-                <input type="text" onlyNumber formControlName="remarks" matInput placeholder="" maxlength="500" />
+                <input type="text" formControlName="remarks" matInput placeholder="" maxlength="500" />
               </mat-form-field>
             </div>
           </div>

@@ -64,7 +64,7 @@
           </mat-table>
         </div>
         <section style="padding-top: 1%;padding-left: 1%;">
-          <mat-checkbox class="example-margin" [disabled]="isdisable" formControlName="isChecked" [(ngModel)]="checked">No Due</mat-checkbox>
+          <mat-checkbox class="example-margin" [disabled]="isdisable" (change)="change()" formControlName="isChecked" [(ngModel)]="checked">No Due</mat-checkbox>
         </section>
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">

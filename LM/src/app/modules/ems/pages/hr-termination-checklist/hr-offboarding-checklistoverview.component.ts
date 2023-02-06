@@ -172,7 +172,9 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
           }
 
         }
-         this.checklistDataSource = new MatTableDataSource(this.masterChecklistData);
+        this.checklistDataSource = new MatTableDataSource(this.masterChecklistData);
+        this.checklistForm.controls.remarks.setValue(this.masterChecklistData[0].comment);
+        this.checklistForm.controls.remarks.disable();
        }
      })
   }
@@ -249,6 +251,13 @@ export class HrOffboardingChecklistoverviewComponent implements OnInit {
     else {
 
      return [5, 10, 20];
+    }
+  }
+  change() {
+    if (this.checked == true) {
+      this.checklistForm.controls.remarks.enable();
+    } else {
+      this.checklistForm.controls.remarks.disable();
     }
   }
 }
