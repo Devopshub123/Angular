@@ -184,7 +184,9 @@ export class EmployeMonthlyDetailReportComponent implements OnInit {
           alignment:"center" // it will add a yellow background to all <STRONG> elements
         }
       },
-      pageOrientation: 'landscape'//'portrait'
+      pageOrientation: 'portrait',//'',
+      pageSize:'A2'
+
     }).download("Attendance Mothly Report.pdf");
 
   }

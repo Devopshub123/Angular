@@ -270,7 +270,9 @@ export class DetailReportComponent implements OnInit {
           background:'white' // it will add a yellow background to all <STRONG> elements
         }
       },
-      pageOrientation: 'landscape'//'portrait'
+      pageOrientation: 'landscape',
+      pageSize:'A2'
+      //'portrait'
     }).download("Attendance Monthly Detailed Report.pdf");
 
   }

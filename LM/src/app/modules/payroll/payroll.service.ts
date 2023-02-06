@@ -243,5 +243,16 @@ import { environment } from 'src/environments/environment';
         console.log(pgid)
         return this.http.get(this.mainBeUrl+'api/otherAllowancePopup/'+pgid+'/'+this.companyName,this.httpOptions);
       }
+      getStatesForEsi():Observable<any> {
+        return this.http.get(this.mainBeUrl+'api/getStateForEsi/'+this.companyName,this.httpOptions);
+      }
+      setEsiForState(data:any){
+        data.companyName = this.companyName;
+        return this.http.post(this.mainBeUrl+'api/setEsiForState', JSON.stringify(data), this.httpOptions);
+      }
+      setCompanyEsiValues(data:any){
+      data.companyName = this.companyName;
+        return this.http.post(this.mainBeUrl+'api/setCompanyEsiValues', JSON.stringify(data), this.httpOptions);
+      }
       
 }
