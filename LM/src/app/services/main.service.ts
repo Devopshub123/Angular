@@ -49,7 +49,6 @@ export class MainService {
    /** save candidate information */
     savePreOnboardingCandidateInfo(data:any){
      data.companyName=this.companyName
-
      return this.http.post(this.mainBeUrl+'ems/api/setPreonboardCandidateInformation', JSON.stringify(data), this.httpOptions);
   }
 
@@ -83,7 +82,6 @@ export class MainService {
 
   }
   getFilepathsMasterForEMS(moduleId:any):Observable<any>{
-
     return this.http.get(this.mainBeUrl + 'ems/api/getFilepathsMasterForEMS/'+moduleId+'/'+this.companyName, this.httpOptions);
   }
 
@@ -133,5 +131,28 @@ export class MainService {
   /** get employee schedule program alerts in maindashboard */
   getEmpScheduleProgramAlerts(eid: any) {
     return this.http.get(this.mainBeUrl + 'ems/api/getEmployeeProgramAlerts/'+eid+'/'+this.companyName, this.httpOptions);
+  }
+    /**get document files */
+    getPreonboardingDocumentsFiles(input:any){
+      return this.http.post(this.mainBeUrl+'ems/api/getDocumentsFilesPreonboarding', JSON.stringify(input), this.httpOptions);
+  }
+  getPreonboardingFilecategoryMasterForEMS(input:any){
+      return this.http.post(this.mainBeUrl+'ems/api/getFilecategoryMasterForEMSPreonboarding', JSON.stringify(input), this.httpOptions);
+  }
+  getPreonboardingDocumentOrImagesForEMS(info:any): Observable<any> {
+    info.companyName=this.companyName;
+    return this.http.post(this.mainBeUrl + 'ems/api/getDocumentOrImagesForEMSPreonboarding/' ,info,this.httpOptions)
+  }
+  setPreonboardingDocumentOrImageForEMS(data: FormData,cname:any): Observable<any> {
+    return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/'+cname, data);
+  }
+  removePreonboardingDocumentOrImagesForEMS(info:any,cname:any): Observable<any> {
+    return this.http.delete(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/'+cname +'/'+encodeURI(info),this.httpOptions);
+  }
+  getPreonboardingFilepathsMasterForEMS(moduleId:any,cname:any):Observable<any>{
+    return this.http.get(this.mainBeUrl + 'ems/api/getFilepathsMasterForEMSPreonboarding/'+moduleId+'/'+cname, this.httpOptions);
+  }
+  setPreonboaringFilesMasterForEMS(info:any): Observable<any> {
+    return this.http.post(this.mainBeUrl + 'ems/api/setFilesMasterForEMSPreonboarding/', info, this.httpOptions);
   }
 }

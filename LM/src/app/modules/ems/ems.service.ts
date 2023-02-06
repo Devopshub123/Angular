@@ -209,7 +209,11 @@ export class EmsService {
     getMessagesListApi(data:any): Observable<any>{
       data.companyName = this.companyName;
       return this.http.post(this.mainUrl+'ems/api/Messages', JSON.stringify(data), this.httpOptions);
-    }
+  }
+      //// get preonboarding messages list
+      getPreonboardingMessagesListApi(data:any): Observable<any>{
+        return this.http.post(this.mainUrl+'ems/api/MessagesPreonboarding', JSON.stringify(data), this.httpOptions);
+      }
 
   /** */
   /**set Employee job Data */

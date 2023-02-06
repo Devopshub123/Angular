@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { RequestData } from '../../models/Request';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-employe-dashboard',
   templateUrl: './employe-dashboard.component.html',
@@ -61,7 +62,11 @@ export class EmployeDashboardComponent implements OnInit {
   currentShiftendDate: any;
   sampleElement: any;
   calendarCount: any = [];
-  constructor(private attendanceService: AttendanceService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router, private element: ElementRef,private renderer: Renderer2) {
+  constructor(
+    private attendanceService: AttendanceService,
+    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
+    private router: Router, private element: ElementRef,
+    private renderer: Renderer2,private spinner: NgxSpinnerService,) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -70,7 +75,7 @@ export class EmployeDashboardComponent implements OnInit {
   lastOut: any = '00:00';
   currentDate = new Date();
   ngOnInit(): void {
-    this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
+   this.selectedDate = this.pipe.transform(Date.now(), 'yyyy-MM-dd');
     this.todayDate = this.pipe.transform(Date.now(), 'dd-MM-yyyy');
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getemployeeattendancedashboard();
@@ -97,6 +102,7 @@ export class EmployeDashboardComponent implements OnInit {
     });
   }
   getemployeeattendancedashboard() {
+    this.showSpinner();
    let data = {
       'manager_id': null,
       'employee_id': this.userSession.id,
@@ -142,6 +148,7 @@ export class EmployeDashboardComponent implements OnInit {
         });
  this.calendarOptions.events = this.initialEvents;
  //  this.calendarCountViewNoMore();
+ this.spinner.hide();
       }
 
     })
@@ -239,5 +246,11 @@ export class EmployeDashboardComponent implements OnInit {
         });
       }
     }, 500);
+  }
+ showSpinner(){
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 5000);
   }
 }

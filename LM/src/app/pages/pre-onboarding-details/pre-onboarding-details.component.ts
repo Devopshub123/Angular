@@ -138,7 +138,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
   documentDataChange: boolean = false;
   isDeleted: boolean = false;
   toSelectTab = 0;
-  companyName :any;
+  companyName: any;
+  isSubmitAdd: boolean = false;
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService, private spinner: NgxSpinnerService,
     private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
     , private EMS: EmsService, private adminService: AdminService, private mainService: MainService, private activatedRoute: ActivatedRoute) {
@@ -154,8 +155,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
       this.candidateId = JSON.parse(atob(this.params.token)).candidateId;
       this.date = JSON.parse(atob(this.params.token)).date;
     this.companyName = JSON.parse(atob(this.params.token)).companyName;
-    console.log("data--", JSON.parse(atob(this.params.token)));
-    console.log("data--1", this.companyName);
       // this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
 
       this.getDocumentsEMS();
@@ -182,8 +181,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
             this.spinner.show();
             this.permanentStateDetails = [];
             if (selectedStateValue != '') {
-              this.companyService.getStatesc(selectedStateValue).subscribe((data) => {
-                this.permanentStateDetails = data[0]
+              this.companyService.getPreonboardingStatesc(selectedStateValue,this.companyName).subscribe((res) => {
+                this.permanentStateDetails = res.data;
                 if (this.personalInfoForm.controls.rstate.value != null) {
                   this.personalInfoForm.controls.pstate.setValue(this.personalInfoForm.controls.rstate.value);
                 }
@@ -195,8 +194,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
             this.spinner.show();
             this.permanentCityDetails = [];
             if (selectedCityValue != '') {
-              this.companyService.getCities(selectedCityValue).subscribe((data) => {
-                this.permanentCityDetails = data[0]
+              this.companyService.getPreonboardingCities(selectedCityValue,this.companyName).subscribe((res) => {
+                this.permanentCityDetails = res.data;
                 if (this.personalInfoForm.controls.rcity.value != null) {
                   this.personalInfoForm.controls.pcity.setValue(this.personalInfoForm.controls.rcity.value);
                 }
@@ -229,8 +228,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
         this.stateDetails = [];
         this.spinner.show();
         if (selectedResidenceStateValue != '') {
-          this.companyService.getStatesc(selectedResidenceStateValue).subscribe((data) => {
-            this.stateDetails = data[0];
+          this.companyService.getPreonboardingStatesc(selectedResidenceStateValue,this.companyName).subscribe((res:any) => {
+              this.stateDetails = res.data;
             if (this.loginData != null) {
               this.personalInfoForm.controls.rstate.setValue(this.loginData.state);
             }
@@ -243,8 +242,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
         this.spinner.show();
         this.cityDetails = [];
         if (selectedResidenceCityValue != '') {
-          this.companyService.getCities(selectedResidenceCityValue).subscribe((data) => {
-            this.cityDetails = data[0]
+          this.companyService.getPreonboardingCities(selectedResidenceCityValue,this.companyName).subscribe((res) => {
+            this.cityDetails = res.data;
             if (this.loginData != null) {
               this.personalInfoForm.controls.rcity.setValue(this.loginData.city);
             }
@@ -257,8 +256,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
         this.spinner.show();
         this.permanentStateDetails = [];
         if (selectedPresentStateValue != '') {
-          this.companyService.getStatesc(selectedPresentStateValue).subscribe((data) => {
-            this.permanentStateDetails = data[0]
+          this.companyService.getPreonboardingStatesc(selectedPresentStateValue,this.companyName).subscribe((res) => {
+            this.permanentStateDetails = res.data;
             if (this.loginData != null) {
               this.personalInfoForm.controls.pstate.setValue(this.loginData.pstate);
             }
@@ -271,8 +270,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
         this.spinner.show();
         this.permanentCityDetails = [];
         if (selectedPresentCityValue != '') {
-          this.companyService.getCities(selectedPresentCityValue).subscribe((data) => {
-            this.permanentCityDetails = data[0]
+          this.companyService.getPreonboardingCities(selectedPresentCityValue,this.companyName).subscribe((res) => {
+            this.permanentCityDetails = res.data;
             if (this.loginData != null) {
               this.personalInfoForm.controls.pcity.setValue(this.loginData.pcity);
               this.spinner.hide();
@@ -542,7 +541,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
   getDesignationsMaster() {
     this.companyService.getPreonboardingMastertable('designationsmaster', 1, 1, 1000, this.companyName).subscribe(data => {
       this.availableDesignations = data.data;
-      console.log("desg-01",this.availableDesignations)
     })
   }
   getDepartmentsMaster() {
@@ -608,7 +606,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
           this.personalInfoForm.reset();
           this.toSelectTab = 1;
           this.getCandidateData();
-          //this.selectedtab.setValue(this.toSelectTab);
+          this.selectedtab.setValue(this.toSelectTab);
           } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
@@ -643,24 +641,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
     } else { }
   }
 
-  // AddDucument(){
-  //   if (this.documentsForm.valid) {
-  //     // var doc=this.documentsForm.controls.documentName.value
-  //     // var filename = this.documentsForm.controls.attachedFile.value
-  //     this.documentDetails.push({
-  //       documentId: this.documentsForm.controls.documentId.value?this.documentsForm.controls.documentId.value:null,
-  //     documentName:this.documentsForm.controls.documentName.value,
-  //     documentNumber: this.documentsForm.controls.documentNumber.value,
-  //     attachedFile:this.filename
-  //     });
-  //     // this.documentDataSource = new MatTableDataSource(this.documentDetails);
-  //   }
-
-
-  // }
-  // clearDucument(){
-
-  // }
   clearValidators() {
     this.CandidateFamilyForm.get("familyfirstname").clearValidators();
     this.CandidateFamilyForm.get("familyfirstname").updateValueAndValidity();
@@ -685,6 +665,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
     this.CandidateFamilyForm.get("familygender").setValidators(Validators.required);
     this.CandidateFamilyForm.get("familygender").updateValueAndValidity();
   }
+
   clearfamily() {
     //this.createFamilyForm();
     this.CandidateFamilyForm.controls.familyfirstname.reset();
@@ -712,6 +693,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       }
     });
   }
+
   deletefamily(index: any) {
     this.familyDetails.splice(index, 1);
     this.familyDataSource = new MatTableDataSource(this.familyDetails);
@@ -744,11 +726,15 @@ export class PreOnboardingDetailsComponent implements OnInit {
             disableClose: true,
             data: "Details submitted successfully"
           });
+          if (this.isSubmitAdd == false) {
+            this.selectedtab.setValue(2);
+          }
+          this.isSubmitAdd == false;
             this.clearExperienceValidators();
             this.clearWork();
             this.getCandidateData();
             this.employmentDataChange = false;
-            this.selectedtab.setValue(2);
+           
           }
         } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -768,6 +754,11 @@ export class PreOnboardingDetailsComponent implements OnInit {
     }
   }
 
+  workExperienceSubmitAdd() {
+    this.isSubmitAdd = true;
+    this.addWorkExperience();
+  }
+  
   addWorkExperience() {
     this.addExperienceValidators();
     if (this.employementForm.valid) {
@@ -780,7 +771,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
       });
       this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
       this.employmentDataChange = true;
-      //this.saveWorkExperience();
+      this.saveWorkExperience();
       this.clearExperienceValidators();
       this.clearWork();
     } else { }
@@ -870,11 +861,13 @@ export class PreOnboardingDetailsComponent implements OnInit {
               disableClose: true,
               data: "Details submitted successfully"
             });
-
+            if (this.isSubmitAdd == false) {
+              this.selectedtab.setValue(3);
+            }
+            this.isSubmitAdd = false;
              this.clearEducationValidators();
               this.clearEducation();
               this.getCandidateData();
-              this.selectedtab.setValue(3);
               this.educationDataChange = false;
           }
         } else {
@@ -891,6 +884,11 @@ export class PreOnboardingDetailsComponent implements OnInit {
 
   }
 
+  educationSaveAdd() {
+    this.isSubmitAdd = true;
+    this.addEducation();
+  }
+
   addEducation() {
     this.addEducationValidators();
     if (this.educationForm.valid) {
@@ -904,9 +902,11 @@ export class PreOnboardingDetailsComponent implements OnInit {
       this.educationDataChange = true;
       this.clearEducationValidators();
       this.clearEducation();
+      this.saveEducation();
     } else { }
 
   }
+
   clearEducationValidators() {
     this.educationForm.get("course").clearValidators();
     this.educationForm.get("course").updateValueAndValidity();
@@ -1013,7 +1013,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
     // if(this.documentsForm.controls.attachedFile.value || this.editDockinfo){
     // if(this.isFile){
     //   if(this.validateDocument()){
-    this.mainService.getFilepathsMasterForEMS(1).subscribe((resultData) => {
+    this.mainService.getPreonboardingFilepathsMasterForEMS(1,this.companyName).subscribe((resultData) => {
       if (resultData && resultData.status) {
         let obj = {
           'id': this.documentsForm.controls.documentId.value ? this.documentsForm.controls.documentId.value : null,
@@ -1025,21 +1025,22 @@ export class PreOnboardingDetailsComponent implements OnInit {
           'fileName': this.file ? this.file.name : this.editFileName,
           'modulecode': resultData.data[0].module_code,
           'requestId': null,
-          'status': 'Submitted'
+          'status': 'Submitted',
+          'companyName':this.companyName
         }
-        this.mainService.setFilesMasterForEMS(obj).subscribe((data) => {
+        this.mainService.setPreonboaringFilesMasterForEMS(obj).subscribe((data) => {
           if (data && data.status) {
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0])
               this.formData.append('file', this.file, this.file.name);
               this.formData.append('info',info);
-              this.mainService.setDocumentOrImageForEMS(this.formData).subscribe((data) => {
+              this.mainService.setPreonboardingDocumentOrImageForEMS(this.formData,this.companyName).subscribe((data) => {
                 // this.spinner.hide()
                 this.formData.delete('file');
                 this.formData.delete('info');
                 if (data && data.status) {
                   if (this.editDockinfo) {
-                    this.mainService.removeDocumentOrImagesForEMS(this.editDockinfo).subscribe((data) => { })
+                    this.mainService.removePreonboardingDocumentOrImagesForEMS(this.editDockinfo,this.companyName).subscribe((data) => { })
                   }
                   let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: { top: `70px` },
@@ -1180,9 +1181,10 @@ export class PreOnboardingDetailsComponent implements OnInit {
       "moduleId": 1,
       "filecategory": null,
       "requestId": null,
-      'status': null
+      'status': null,
+      'companyName':this.companyName
     }
-    this.mainService.getDocumentsFiles(input).subscribe((result: any) => {
+    this.mainService.getPreonboardingDocumentsFiles(input).subscribe((result: any) => {
       this.documentDetails = [];
       if (result && result.status) {
         this.documentDetails = result.data
@@ -1200,25 +1202,24 @@ export class PreOnboardingDetailsComponent implements OnInit {
     let input = {
       'id': null,
       "moduleId": 1,
-    }
-    this.mainService.getFilecategoryMasterForEMS(input).subscribe((result: any) => {
-      if (result && result.status) {
+      'companyName':this.companyName
 
+    }
+    this.mainService.getPreonboardingFilecategoryMasterForEMS(input).subscribe((result: any) => {
+      if (result && result.status) {
         this.documentTypeList = result.data;
 
       }
     })
   }
   fileView(data: any) {
-    let info = data
+
+    let info = data;
     this.spinner.show()
-    this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData) => {
+    this.mainService.getPreonboardingDocumentOrImagesForEMS(info).subscribe((imageData) => {
 
       if (imageData.success) {
-
-
-        this.spinner.hide();
-
+       this.spinner.hide();
         let TYPED_ARRAY = new Uint8Array(imageData.image.data);
         const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
           return data + String.fromCharCode(byte);
@@ -1305,9 +1306,11 @@ export class PreOnboardingDetailsComponent implements OnInit {
     {
       "code": null,
       "pagenumber": 1,
-      "pagesize": 1000
+      "pagesize": 1000,
+      'companyName':this.companyName
+
     }
-    this.EMS.getMessagesListApi(data).subscribe((res: any) => {
+    this.EMS.getPreonboardingMessagesListApi(data).subscribe((res: any) => {
       if (res.status) {
         this.messagesDataList = res.data;
         this.messagesDataList.forEach((e: any) => {
