@@ -133,6 +133,7 @@ export class UserDashboardComponent implements OnInit {
           }
         this.initialEvents.push(item);
       });
+      console.log(this.initialEvents);
       this.calendarOptions.events = this.initialEvents;
       //this.calendarCountViewNoMore();
       // this.myDateFilter = (d: Date): boolean => {

@@ -97,10 +97,8 @@
                         <p>                        
                             <mat-form-field appearance="outline" style="width: 100%;">
                                 <mat-label>Deduction Cycle</mat-label>
-                                <mat-select [disabled]=true formControlName="deductionCycle">
-                                    <mat-option value="Monthly">Monthly</mat-option>
-                                  
-                                </mat-select>                                    
+                                <input type="text" [readonly]="true" matInput class="form-control" formControlName="deductionCycle" placeholder="" >
+                                       
                             </mat-form-field>
                         </p>
                         <p>

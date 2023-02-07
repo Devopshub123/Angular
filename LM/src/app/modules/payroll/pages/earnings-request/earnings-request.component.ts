@@ -217,14 +217,15 @@ export class EarningsRequestComponent implements OnInit {
   
   configurePayGroupComponent(){
     console.log("hi")
+    let flatorpercentagevalidation = this.earningsRequestForm.controls.monthly_salary.value==0?this.earningsRequestForm.controls.flat_amount.value:this.earningsRequestForm.controls.percentage.value
     if(this.earningsRequestForm.controls.namePaySlip.valid && (this.earningsRequestForm.controls.flat_amount.valid || this.earningsRequestForm.controls.percentage.valid)|| (!this.otherhide)){
-      if(this.earningsRequestForm.controls.flat_amount.value <= Number(this.validationvalue)){
+      if(flatorpercentagevalidation <= Number(this.validationvalue) ){
         /**Configure component values and changed to active state */
       if(this.earndata.Earndata.status=="To Be Configured" || this.earndata.Earndata.status=="Configuration In Progress"){
         let data ={
           pigcm_id_value:this.dataofvalues.pigcm_id,
           is_percentage_or_flat_amount_value:this.earningsRequestForm.controls.monthly_salary.value,
-          input_value:this.earningsRequestForm.controls.monthly_salary.value==0?this.earningsRequestForm.controls.flat_amount.value:this.earningsRequestForm.controls.flat_amount.value,
+          input_value:this.earningsRequestForm.controls.monthly_salary.value==0?this.earningsRequestForm.controls.flat_amount.value:this.earningsRequestForm.controls.percentage.value,
           parent_component_id_value:this.earndata.Earndata.component_name == 'Basic Salary'?"15":"1",
           display_name_value:this.earningsRequestForm.controls.namePaySlip.value,
           is_this_component_a_part_of_employee_salary_structure_value: this.earningsRequestForm.controls.taxableComponenet.value,
@@ -392,7 +393,7 @@ export class EarningsRequestComponent implements OnInit {
   }
   
   _keyPress(event: any) {
-    const pattern = /[0-9]/;
+    const pattern = /[0-9.]/;
     let inputChar = String.fromCharCode(event.charCode);
     if (!pattern.test(inputChar)) {
         event.preventDefault();

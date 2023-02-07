@@ -38,7 +38,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Leave Window</td>
-                                                    <td> {{"Previous Month "+leaveWindowStartDate}} -   {{"Present Month "+leaveWindowEndDate}}</td>
+                                                    <td *ngIf="leaveWindowStartDate==1"> {{"Present Month "+leaveWindowStartDate}} -   {{"Present Month "+leaveWindowEndDate}}</td>
+                                                    <td *ngIf="leaveWindowStartDate!=1"> {{"Previous Month "+leaveWindowStartDate}} -   {{"Present Month "+leaveWindowEndDate}}</td>
                                                 </tr>
 
                                             </tbody>
