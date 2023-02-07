@@ -206,6 +206,7 @@ export class PaySlipsComponent implements OnInit {
         fyear:fyear,
         id:this.userSession.id
       }
+      this.dataSource=[]
       this.PR.getEmployeePaySlips(data).subscribe((result:any)=>{
         console.log(result)
         if(result.status&&result.data.length>0){
