@@ -1,230 +1,241 @@
 <div fxLayout="Column" style="height: 100%; background-color: white;">
+  <mat-card class="sidePad">
+
+  <div fxLayout="row" fxFlex="100"  fxLayout.xs="column" fxLayoutGap="10px">
+
+            <!-- attendance card -->
+            <mat-card *ngIf="isAttendanceModule" fxFlex="50" class="card outline">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title">
+                  <span>Attendance</span>
+                </span>
+                <span *ngIf="isManager">
+                  <mat-radio-group>
+                    <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true'
+                      (click)="getSelfAttendanceCount()">
+                      <span class="radioBtn">Self</span>
+                    </mat-radio-button>
+                    <mat-radio-button class="mx2 my-2 mr-2" value="team" (click)="getTeamAttendanceCount()">
+                      <span class="radioBtn">Team</span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </span>
+              </div>
+              <div class="scrollbox">
+                <div class="scrollbox-content">
+                  <div style="padding-bottom: 1%;min-height: 20vh;">
+                    <!-- self attendance -->
+                    <div fxLayout="row" *ngIf="!teamAttendanceCountData" fxLayoutAlign="space-around center" flex="100"
+                      style="padding-top: 2%">
+
+                      <div fxLayout="column" fxLayoutAlign="center center">
+                        <div fxLayoutAlign="center center" class="center">
+                          <button *ngIf="employeeAttendanceCountData.wfo_count > 0" mat-icon-button (click)="selfOffice()" [matMenuTriggerFor]="menu">
+                            <span style="color: aliceblue; font-size: 25px;">
+                              {{employeeAttendanceCountData.wfo_count}}</span>
+                          </button>
+                          <span *ngIf="employeeAttendanceCountData.wfo_count==0" style="color: white; font-size: 25px;">
+                            {{employeeAttendanceCountData.wfo_count}} 
+                          </span>
+                        </div>
+                        <span class="subheading">Work from office</span>
+                      </div>
+
+                      <div fxLayout="column" fxLayoutAlign="center center">
+                        <div fxLayoutAlign="center center" class="center">
+                          <button *ngIf="employeeAttendanceCountData.wfh_count > 0" mat-icon-button (click)="selfhome()" [matMenuTriggerFor]="menu">
+                            <span style="color: white; font-size: 25px;">
+                              {{employeeAttendanceCountData.wfh_count}}</span>
+                          </button>
+                          <span *ngIf="employeeAttendanceCountData.wfh_count==0" style="color: white; font-size: 25px;">
+                            {{employeeAttendanceCountData.wfh_count}}
+                           </span>
+                        </div>
+
+                        <span class="subheading">Work from home</span>
+                      </div>
+
+                      <div fxLayout="column" fxLayoutAlign="center center">
+                        <div fxLayoutAlign="center center" class="center">
+                          <button *ngIf="employeeAttendanceCountData.absents_count > 0" mat-icon-button (click)="selfAbsents()" [matMenuTriggerFor]="menu">
+                            <span style="color: white; font-size: 25px;">
+                              {{employeeAttendanceCountData.absents_count}}</span>
+                          </button>
+                           <span *ngIf="employeeAttendanceCountData.absents_count==0" style="color: white; font-size: 25px;">
+                            {{employeeAttendanceCountData.absents_count}} </span>
+
+                        </div>
+                       <span class="subheading">Absent</span>
+                      </div>
+                      <!-- self attendance detailed list -->
+                      <mat-menu #menu="matMenu">
+                        <span *ngIf="selfwfo">
+                          <button mat-menu-item *ngFor="let v of workFromOfficeData ">
+                            <span>{{v.attendance_date}}</span>
+                          </button>
+                        </span>
+                        <span *ngIf="selfwfh">
+                          <button mat-menu-item *ngFor="let v of workFromHometData">
+                            <span>{{v.attendance_date}}</span>
+                          </button>
+                        </span>
+                        <span *ngIf="selfAbsent">
+                          <button mat-menu-item *ngFor="let v of absentEmployeesData">
+                            <span>{{v.attendance_date}}</span>
+                          </button>
+                        </span>
+                      </mat-menu>
 
 
-  <div fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px" style="height:50%;padding: 15px;" >
-    <mat-card fxLayout="Column"  fxFlex="50" class="card outline">
-        <mat-card-header fxLayout="row" fxLayout.xs="row" class="mat-header" fxFlex="50" fxFlex.sm="50" fxFlex.xs="50">
-            <div fxFlex="30" fxFlex.xs="50"  fxLayoutAlign.xs="center center">
-              <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
-                <img class="avatar-preview" [src]="url.base64String" />
-              </div> 
-            </div>
-            <div fxLayout="column" fxFlex="70" fxFlex.xs="50" fxLayoutAlign="center center" >
-                <div><p style="font-size: 20px; font-weight: 500">{{employeeNameh}}</p></div>
-                <div><p style="font-size: 16px; font-weight: 500">{{employeeEmail}}</p></div>
-              <!-- <a  mat-icon-button (click)="employeeProfile()"><span style="font-size: 16px; font-weight: 500"> View Profile</span></a> -->
-             </div>
-         </mat-card-header>
-         <mat-card-content fxFlex="50" fxLayout="row" fxLayout.xs="row" fxFlex.md="50" fxFlex.sm="50" fxFlex.xs="50">
-          <div fxLayout="column" style="overflow-y: auto;padding-top: 1%;">
-          <div fxLayout="row" fxLayout.xs="column" style="padding-left: 15px;">
-            <label >ID:&nbsp;&nbsp;{{employeeCode}}</label><br/>
-          </div>
-          <div fxLayout="row" fxLayout.xs="column" style="padding-left: 15px;">
-            <label >Mobile Number:&nbsp;&nbsp;{{employeeMobile}}</label><br/>
-           </div>
-          <div fxLayout="row" fxLayout.xs="column" style="padding-left: 15px;">
-            <label>Department: &nbsp;&nbsp; {{employeeDepartment}}</label>
-          </div>
-          </div>
+                    </div>
 
-    </mat-card-content>
-    </mat-card>
 
-    <mat-card  fxLayout="column" fxFlex="50" class="card outline">
-        <div fxLayout="row" style="padding: 15px;">
-         <span style="font-size: 20px;"><mat-icon>announcement</mat-icon></span>
-          <span style="font-size: 20px; margin-left: 5%;"><b>Announcements</b></span>
-        </div>
-        <!--<div fxLayout="column"   *ngIf="announcementsDetails.length > 0">-->
-            <div style="margin:10px;padding: 5px; overflow-y: auto">
-            <mat-card style="padding: 5px;margin-bottom:10px;background-color: #eef1f0" *ngFor="let item of announcementsDetails">
+                    <!-- team attendance -->
+                    <div fxLayout="column" *ngIf="teamAttendanceCountData" flex="100">
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" flex="100">
 
-                <div>
-                    <p><b>{{item.topic}}</b></p>
+                     <form  [formGroup]="attendanceForm" style="padding-left: 2%;">
+
+                        <span fxLayout="row">
+                          <mat-form-field>
+                            <input matInput readonly [matDatepicker]="currentDate" [min]="minDate" [max]="maxDate"
+                              placeholder="" (click)="currentDate.open()" formControlName="currentDate" />
+                            <mat-datepicker-toggle class="datepicker" matSuffix [for]="currentDate">
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #currentDate></mat-datepicker>
+                          </mat-form-field>
+                        </span>
+                      </form>
+                      <div style="font-size: 16px;font-weight: 500;padding-right: 2%;">
+                        Total Employees: <span>{{totalEmpCount}}</span></div>
+                    </div>
+                      <div fxLayout="row" fxLayoutAlign="space-around center">
+                        <div fxLayout="column" fxLayoutAlign="center center">
+                          <div fxLayoutAlign="center center" class="center">
+                            <button mat-icon-button (click)="teamOffice()" [matMenuTriggerFor]="menu">
+                              <span style="color: aliceblue; font-size: 25px;">
+                                {{employeeAttendanceCountData.wfo_count !=null ?
+                                employeeAttendanceCountData.wfo_count:0}}</span>
+                            </button>
+                          </div>
+                          <span style="font-size: 16px;font-weight: 500;text-align: center;">Work from office</span>
+                        </div>
+                        <div fxLayout="column" fxLayoutAlign="center center">
+                          <div fxLayoutAlign="center center" class="center">
+                            <button mat-icon-button (click)="teamhome()" [matMenuTriggerFor]="menu">
+                              <span style="color: aliceblue; font-size: 25px;">
+                                {{employeeAttendanceCountData.wfh_count !=null ?
+                                employeeAttendanceCountData.wfh_count:0}}</span>
+                            </button>
+                          </div>
+                          <span style="font-size: 16px;font-weight: 500;text-align: center;">Work from home</span>
+                        </div>
+                        <div fxLayout="column">
+
+                          <div fxLayoutAlign="center center" class="center">
+                            <button mat-icon-button (click)="teamAbsent()" [matMenuTriggerFor]="menu">
+                              <span style="color: aliceblue; font-size: 25px;">
+                                {{employeeAttendanceCountData.absents_count !=null ?
+                                employeeAttendanceCountData.absents_count:0}}</span>
+                            </button>
+                          </div>
+                          <span style="font-size: 16px;font-weight: 500;text-align: center;">Absent</span>
+                        </div>
+                        <!-- team attendance detailed list -->
+                        <mat-menu #menu="matMenu">
+                          <span *ngIf="selfwfo">
+                            <button mat-menu-item *ngFor="let v of workFromOfficeData ">
+                              <span>{{v.empname}}</span>
+                            </button>
+                          </span>
+                          <span *ngIf="selfwfh">
+                            <button mat-menu-item *ngFor="let v of workFromHometData">
+                              <span>{{v.empname}}</span>
+                            </button>
+                          </span>
+                          <span *ngIf="selfAbsent">
+                            <button mat-menu-item *ngFor="let v of absentEmployeesData">
+                              <span>{{v.empname}}</span>
+                            </button>
+                          </span>
+                        </mat-menu>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                    <span  [innerHtml]="item.description"></span>
-                </div>
-                </mat-card>
-            </div>
-            <!-- <mat-card style="padding: 10px;background-color: #eef1f0">
-                <div>
-                    <p><b>Company News</b></p>
-                </div>
-                <div>
-                    <span>Latest information about company</span>
-                </div>
-            </mat-card> -->
-        <!--</div>-->
-        <div fxLayout="column"   fxLayoutGap="25px" style="padding: 5%;" *ngIf="announcementsDetails.length == 0">
-            <mat-card style="padding: 10px;background-color: #eef1f0">
-                <div>
-                    <p><b>No Announcements</b></p>
-                </div>
-                <div>
-                    <span></span>
-                </div>
+              </div>
             </mat-card>
-        </div>
+
+            <!-- leave card -->
+            <mat-card *ngIf="isLeaveModule" class="card outline" fxFlex="50">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title">
+                  <span>Leaves</span>
+                </span>
+                <span *ngIf="isManager">
+                  <mat-radio-group>
+                    <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true' (click)="getLeaveBalance()">
+                      <span class="radioBtn">Self</span>
+                    </mat-radio-button>
+                    <mat-radio-button class="mx2 my-2 mr-2" value="team" (click)="getCurrentLeaveEmployees()">
+                      <span class="radioBtn">Team</span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </span>
+              </div>
+              <div class="scrollbox">
+                <div class="scrollbox-content">
+                  <div style="padding-top: 1%;padding-left: 1%;max-height: 25vh;min-height: 15vh;">
+                    <div *ngIf="!teamLeavesData">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Leave Type</th>
+                            <th style="text-align: center;">Used</th>
+                            <th style="text-align: center;">Available</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <ng-container *ngFor="let item of leavebalance">
+                            <tr>
+                              <td>{{item.display_name}}</td>
+                              <td style="text-align: center;">{{ item.used }}</td>
+                              <td style="text-align: center;">{{ item.leave_balance }}</td>
+                            </tr>
+                          </ng-container>
+                          <tr *ngIf="leavebalance && leavebalance.length === 0">
+                            <td colspan="10" style="text-align: center">
+                              No Data Found
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
 
 
-    </mat-card>
-
-
+                    </div>
+                    <div *ngIf="teamLeavesData">
+                      <div *ngIf="employeesLeaveList.length > 0">
+                        <mat-list class="time-attendance">
+                          <ng-container *ngFor="let item of employeesLeaveList">
+                            <mat-list-item>
+                              <h3 matLine> {{ item.emp_name}} </h3>
+                              <p>
+                                {{ item.fromdate | date: "dd/MM/yyyy" }} - {{ item.todate | date: "dd/MM/yyyy" }}
+                              </p>
+                            </mat-list-item>
+                          </ng-container>
+                        </mat-list>
+                      </div>
+                      <div style="padding: 5%" *ngIf="employeesLeaveList.length == 0">
+                        <div fxLayoutAlign="center">
+                          <p><b>No data found</b></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
 </div>
-<!-- </div> -->
-
-<div  fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px" style="height:50%;padding: 15px;">
-    <mat-card fxLayout="Column" class="card outline" fxFlex="50" >
-      <div style="overflow: auto;">
-        <div fxLayout="row" style="padding: 5px;">
-            <span style="font-size: 20px; margin-left: 5%;"><b>Reporting Manager</b></span>
-          </div>
-
-         <mat-card style="margin: 10px;background-color:#eef1f0;">
-          <p *ngIf='reportingManager.length==0' style="margin-left: 5px">Manager Not Assigned</p>
-          <!--<p style="margin-left: 5px">{{rm.officeemail}}</p>-->
-          <!--<p style="margin-left: 5px">{{rm.contactnumber}}</p>-->
-          <div *ngIf='reportingManager.length!=0'>
-           <span   *ngFor="let rm of reportingManager" >
-
-           <!--<span *ngIf="item.children && item.children.length > 0">-->
-             <mat-accordion >
-               <mat-expansion-panel [expanded]="false" >
-                 <mat-expansion-panel-header style="background-color: #eef1f0">
-                   <mat-panel-title>
-                     <div fxLayout="row" fxLayoutAlign="space-between center" >
-                       {{rm.managername}}
-                     </div>
-                   </mat-panel-title>
-                 </mat-expansion-panel-header>
-                 <span >
-                   <mat-list-item >
-                     <div fxLayout="row" fxLayoutAlign="space-between center" >
-                       {{rm.officeemail}}
-                     </div>
-
-                   </mat-list-item>
-                     <mat-list-item >
-
-                     <div fxLayout="row" fxLayoutAlign="space-between center" >
-                       {{rm.contactnumber}}
-                     </div>
-                   </mat-list-item>
-
-                 </span>
-               </mat-expansion-panel>
-             </mat-accordion>
-             <!--</span>-->
-
-
-
-          </span>
-          </div>
-         </mat-card>
-
-      <div fxLayout="row" style="padding: 5px;">
-        <span style="font-size: 20px; margin-left: 5%;"><b>HR Manager</b></span>
-      </div>
-
-       <mat-card    style="margin:10px; background-color: #eef1f0">
-        <p *ngIf='hrReportingManager.length==0' style="margin-left: 5px">Manager Not Assigned</p>
-        <div *ngIf='hrReportingManager.length !=0'>
-          <span   *ngFor="let item of hrReportingManager">
-
-           <!--<span *ngIf="item.children && item.children.length > 0">-->
-             <mat-accordion>
-               <mat-expansion-panel [expanded]="false">
-                 <mat-expansion-panel-header  style="background-color: #eef1f0">
-                   <mat-panel-title>
-                     <div fxLayout="row" fxLayoutAlign="space-between center" >
-                       {{item.managername}}
-                     </div>
-                   </mat-panel-title>
-                 </mat-expansion-panel-header>
-                 <span >
-                   <mat-list-item >
-                     <div fxLayout="row" fxLayoutAlign="space-between center" >
-                       {{item.officeemail}}
-                     </div>
-                   </mat-list-item>
-                   <mat-list-item >
-                     <div fxLayout="row" fxLayoutAlign="space-between center" >
-                       {{item.contactnumber}}
-                     </div>
-                   </mat-list-item>
-                 </span>
-               </mat-expansion-panel>
-             </mat-accordion>
-           <!--</span>-->
-
-
-
-          </span>
-        </div>
-      </mat-card>
-      
-    </div>
-    </mat-card>
-
-  <mat-card  fxLayout="column" fxFlex="50" class="card outline" style="padding: 5px; overflow-y: auto">
-    <div >
-    <div fxLayout="row" style="padding: 5px;margin-bottom:0px; ">
-      <span style="font-size: 20px;"><mat-icon>notifications</mat-icon></span>
-      <span style="font-size: 20px; margin-left: 5%;"><b>Induction Program</b></span>
-    </div>
-      <div *ngIf="inductionProgram.length ==0" style="padding: 5px; overflow-y: auto">
-        <mat-card style="padding: 5px;margin-bottom:10px;background-color: #eef1f0">
-          <div style="text-align: center">
-            <span  [innerHtml]="'No Data Found'"> </span>
-          </div>
-          <div>
-            <!--<span  [innerHtml]="item.schedule_date"></span>-->
-          </div>
-        </mat-card>
-      </div>
-    <!--<div fxLayout="column"   *ngIf="announcementsDetails.length > 0">-->
-    <div style="padding: 5px; overflow-y: auto" *ngIf="inductionProgram.length !=0">
-      <mat-card style="padding: 5px;margin-bottom:10px;background-color: #eef1f0" *ngFor="let program of inductionProgram">
-        <div style="justify-content: space-between">
-          <label style="margin-left: 5px"><strong>Date</strong>:&nbsp;&nbsp;{{program.schedule_date | date:'dd-MM-YYYY'}}&nbsp;</label> <label style="float: right;margin-right: 5px" ><strong >Time</strong>:&nbsp;&nbsp;{{program.schedule_starttime }}</label>
-        </div>
-        <div>
-          <!--<span  [innerHtml]="item.schedule_date"></span>-->
-        </div>
-      </mat-card>
-    </div>
-    </div>
-
-    <div fxLayout="row" style="padding: 5px;margin-bottom:0px;justify-content: space-between ">
-      <span style="font-size: 20px; margin-left: 5%;"><b>Onboarding Checklist</b></span>
-      <span *ngIf="onboardingDetails.length!=0" style="font-size: 14px; margin-right: 5%;"><b>{{onboardingDetails.length}} /{{count}} Completed</b></span>
-
-    </div>
-    <div style="padding: 5px; overflow-y: auto">
-      <mat-card style="padding: 5px;margin-bottom:10px;background-color: #eef1f0" *ngIf="onboardingDetails.length==0">
-        <div  style="text-align: center;">
-          <span  [innerHtml]="'No Data Found'"> </span>
-        </div>
-      </mat-card>
-      <div *ngIf="onboardingDetails.length!=0">
-      <mat-card  style="padding: 5px;margin-bottom:10px;background-color: #eef1f0" *ngFor="let B of onboardingDetails">
-        <div  style="justify-content: space-between;">
-          <span style="font-size:14px " [innerHtml]="B.checklist_name">&nbsp;&nbsp; </span>
-          <span style="float: right" [innerHtml]="B.status"> </span>
-        </div>
-        <div>
-          <!--<span  [innerHtml]="item.schedule_date"></span>-->
-        </div>
-      </mat-card>
-      </div>
-    </div>
-    <!--</div>-->
-
-  </mat-card>
-
-
-<!-- </div> -->
-</div>
+</mat-card>
 </div>

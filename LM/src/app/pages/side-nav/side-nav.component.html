@@ -2,7 +2,7 @@
 
 <mat-sidenav-container class="example-sidenav-container" autosize="true" style="overflow: hidden;">
 
-  <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" style="position: fixed;  padding-top:80px;transform: scale;margin-left: 0.5rem;">
+  <mat-sidenav #sidenav *ngIf="flag" class="example-sidenav" mode="side" opened="true" style="position: fixed;  padding-top:80px;transform: scale;margin-left: 0.5rem;">
     <mat-nav-list class="dashboard" >
       <a mat-list-item >
         <div class="row" style="flex-flow: column" (click)='toggleBack($event)' >
@@ -19,7 +19,7 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <div style="width:100%;display:flex;" >
+  <div style="width:100%;display:flex;" *ngIf="flag">
     <div [ngStyle]="{'width': isExpanded ? (sideNavigationWidth)+'%' : '0%'}" *ngIf=" toggleExpand()">
       <mat-drawer-container class="example-container" style="border: none;overflow-x: hidden;" >
         <mat-drawer mode="side" opened class="sideNavCss"
@@ -66,6 +66,12 @@
       </section>
     </div>
     </div>
+  </div>
+
+  <div style="width:100%;" *ngIf="!flag">
+    <section>
+      <router-outlet></router-outlet>
+    </section>
   </div>
   <!-- <div style="width:100%;" *ngIf="!toggleExpand()">
     <section>

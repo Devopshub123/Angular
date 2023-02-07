@@ -89,6 +89,7 @@ export class DetailedReportForManagerComponent implements OnInit {
     // this.getHolidays(this.year?this.year:null,this.locationId?this.locationId:null);
 
   }
+  minFromDate: any;
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({ leaveType: ['All'] ,leaveStatus:['All'],designation:['All'],fromDate: [new Date()], toDate: [new Date()],DateFormate:['currentWeek'],employeeId:['All'] });
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
@@ -139,6 +140,7 @@ export class DetailedReportForManagerComponent implements OnInit {
           this.searchForm.controls.toDate.setValue(new Date('12-31-'+today.getFullYear().toString()));
           break;
       }
+
       // if(selectedValue == 'currentWeek'){
       //   var fromdate =new Date(today.setDate(today.getDate() - today.getDay()))
       //   this.searchForm.controls.fromDate.setValue(fromdate)
@@ -178,6 +180,10 @@ export class DetailedReportForManagerComponent implements OnInit {
       //
       // }
 
+    })
+    this.searchForm.get('fromDate')?.valueChanges.subscribe((selectedValue: any) => {
+      this.minFromDate = selectedValue._d;
+      console.log("val-",this.minFromDate)
     })
     this.searchForm.get('designation')?.valueChanges.subscribe((selectedValue:any) => {
       this.searchForm.controls.employeeId.setValue('All');

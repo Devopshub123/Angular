@@ -251,17 +251,16 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
    window.open(this.fileURL);
   
 }
-  getUploadDocument(){
+  getUploadDocument() {
     this.spinner.show();
     let info = {
       'employeeId':this.leaveInfo.leaveData.empid,
       'filecategory': this.leaveInfo.leaveData.leavetype==3?'SL':'ML',
       'moduleId':this.activeModule.moduleid,
-      'requestId':this.leaveInfo?this.leaveInfo.leaveData.id:null,
+      'requestId':this.leaveInfo?this.leaveInfo.leaveData.leave_id:null,
     }
     this.LM.getFilesMaster(info).subscribe((result) => {
-    
-      if(result && result.status && result.data.length>0){
+     if(result && result.status && result.data.length>0){
         let documentName = result.data[0].filename.split('_')
         var docArray=[];
         for(let i=0;i<=documentName.length;i++){
@@ -271,9 +270,8 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
         }
         this.pdfName = docArray.join('')
        result.data[0].employeeId=this.userSession.id;
-       let info = result.data[0]
+        let info = result.data[0]
         this.LM.getProfileImage(info).subscribe((imageData) => {
-          this.spinner.hide();
           if(imageData.success){
           
             let TYPED_ARRAY = new Uint8Array(imageData.image.data);
@@ -283,6 +281,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
 
             const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
             this.fileURL = URL.createObjectURL(file);
+            
     
     
           }

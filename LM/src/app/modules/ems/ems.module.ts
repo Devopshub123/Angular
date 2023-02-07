@@ -74,7 +74,7 @@ import { InductionConductedByMasterComponent } from './pages/induction-conducted
     ReportpopupComponent,
     DeptResignationPendingchecklistComponent,
     InductionConductedByMasterComponent,
-  ],
+    ],
   imports: [
     CommonModule,
     EMSRoutingModule,

@@ -163,7 +163,8 @@
           <!-- second column -->
           <div fxLayout="column" fxLayout.xs="column" fxLayoutGap="10px" fxFlex="50">
             <!-- attendance card -->
-            <mat-card *ngIf="isAttendanceModule" class="card outline" fxLayout="column">
+        
+            <!-- <mat-card *ngIf="isAttendanceModule" class="card outline" fxLayout="column">
               <div fxLayout="row" fxLayoutAlign="space-between center">
                 <span class="title">
                   <span>Attendance</span>
@@ -183,7 +184,7 @@
               <div class="scrollbox">
                 <div class="scrollbox-content">
                   <div style="padding-bottom: 1%;min-height: 20vh;">
-                    <!-- self attendance -->
+                 
                     <div fxLayout="row" *ngIf="!teamAttendanceCountData" fxLayoutAlign="space-around center" flex="100"
                       style="padding-top: 2%">
 
@@ -226,7 +227,7 @@
                         </div>
                        <span class="subheading">Absent</span>
                       </div>
-                      <!-- self attendance detailed list -->
+                
                       <mat-menu #menu="matMenu">
                         <span *ngIf="selfwfo">
                           <button mat-menu-item *ngFor="let v of workFromOfficeData ">
@@ -249,7 +250,7 @@
                     </div>
 
 
-                    <!-- team attendance -->
+               
                     <div fxLayout="column" *ngIf="teamAttendanceCountData" flex="100">
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" flex="100">
 
@@ -300,7 +301,7 @@
                           </div>
                           <span style="font-size: 16px;font-weight: 500;text-align: center;">Absent</span>
                         </div>
-                        <!-- team attendance detailed list -->
+            
                         <mat-menu #menu="matMenu">
                           <span *ngIf="selfwfo">
                             <button mat-menu-item *ngFor="let v of workFromOfficeData ">
@@ -325,7 +326,7 @@
               </div>
             </mat-card>
 
-            <!-- leave card -->
+    
             <mat-card *ngIf="isLeaveModule" class="card outline" fxLayout="column">
               <div fxLayout="row" fxLayoutAlign="space-between center">
                 <span class="title">
@@ -394,7 +395,7 @@
                   </div>
                 </div>
               </div>
-            </mat-card>
+            </mat-card> -->
 
             <!-- alerts card -->
             <mat-card class="card outline" fxLayout="column">
@@ -402,7 +403,7 @@
                 <span class="title">
                   <span>Alerts</span>
                 </span>
-                <span *ngIf="isManager">
+                <span *ngIf="isManager" style="padding-top: 1%;">
                   <mat-radio-group>
                     <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true'
                       (click)="getEmployeeAttendanceNotifications()">
@@ -416,23 +417,30 @@
               </div>
               <div class="scrollbox">
                 <div class="scrollbox-content">
-                  <div style="min-height: 20vh;max-height: 40vh;padding-top: 1%">
+                  <div style="min-height: 60vh;max-height: 75vh;padding-top: 1%">
                  <!-- induction schedule alert -->
               
                  <div fxLayout="column" *ngIf="!teamAttendanceData && inductionAlert.length > 0">
+                  <span style="padding-left:2%">
+                    <p><b>Induction Program invitation</b></p>
+                  </span>
                  <div *ngFor="let value of inductionAlert"
-                      style="padding-left: 3%;padding-right: 3%;padding-bottom: 1%;">
+                      style="padding-left: 2%;padding-right: 2%;padding-bottom: 1%;">
                   <mat-card class="inductionStyle">
-                    <span>{{value.description}}
-                   </span>
+                    <span>{{value.description}}</span>
+                    <p>{{value.schedule_date  | date: 'dd-MM-yyyy'}}{{''}} {{value.schedule_starttime |  slice:0:5}} {{'-'}} {{value.schedule_endtime |  slice:0:5}}</p>
                   </mat-card>
                 </div>
+                <br>
                 </div>
 
 
                     <!-- self attendance -->
                     <div *ngIf="!teamAttendanceData">
                       <div *ngIf="notificationsData.length > 0">
+                        <span >
+                          <p style="padding-left:2%"><b>Pending Leave/Attendance</b></p>
+                        </span>
                         <mat-list class="time-attendance">
                           <ng-container *ngFor="let item of notificationsData">
                             <mat-list-item>

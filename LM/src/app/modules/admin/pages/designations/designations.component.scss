@@ -47,3 +47,6 @@ mat-card {
   padding-bottom: 1%;
   padding-top: 1%;
 }
+::ng-deep tr.mat-header-row {
+  height: 45px !important
+}

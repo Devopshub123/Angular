@@ -194,6 +194,7 @@ openDialogdelete(): void {
       'moduleId':this.activeModule.moduleid,
       'requestId':data?data.id:null,
     }
+    console.log("info",info)
     this.LM.getFilesMaster(info).subscribe((result) => {
 
       if(result && result.status){

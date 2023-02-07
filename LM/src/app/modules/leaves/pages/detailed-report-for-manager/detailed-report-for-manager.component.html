@@ -3,7 +3,7 @@
   <mat-card >
     <mat-card-header class="headerbox">
       <div fxLayout="row" fxFlex="50">
-          <mat-card-title class="title"> Detailed Report </mat-card-title>
+          <mat-card-title class="title"> Detailed Report 1</mat-card-title>
       </div>
       </mat-card-header>
     <div [formGroup]="searchForm" class="tableP" >
@@ -26,13 +26,15 @@
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
           <mat-datepicker #fromDate></mat-datepicker>
         </mat-form-field>
+
         <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
           <mat-label>To Date</mat-label>
-          <input matInput readonly [matDatepicker]="toDate"
+          <input matInput readonly [matDatepicker]="toDate" [min]="minFromDate"
                  placeholder="To Date" formControlName="toDate" (click)="toDate.open()">
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate" ></mat-datepicker-toggle>
           <mat-datepicker #toDate></mat-datepicker>
         </mat-form-field>
+
         <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
           <!--<mat-label>Leave Status</mat-label>-->
           <mat-select formControlName="DateFormate" required>

@@ -65,7 +65,7 @@ export class EmsService {
   }
 
   getAllStatus(): any {
-    return this.http.post(this.mainUrl + 'admin/api/getstatuslist/'+this.companyName, this.httpOptions);
+    return this.http.get(this.mainUrl + 'admin/api/getstatuslist/'+this.companyName, this.httpOptions);
   }
   //// save document category
   saveDocumentCategory(data: any) {
