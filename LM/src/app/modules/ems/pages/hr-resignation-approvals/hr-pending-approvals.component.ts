@@ -252,12 +252,18 @@ export class HrPendingApprovalsComponent implements OnInit {
             this.router.navigate(["/ems/hr-pending-approval"]));
   }
   getPageSizes(): number[] {
-    if (this.dataSource.data.length > 20) {
-      return [5, 10, 20, this.dataSource.data.length];
-    }
-    else {
-
-     return [5, 10, 20];
-    }
+     
+  var customPageSizeArray = [];
+  if (this.dataSource.data.length > 5) {
+    customPageSizeArray.push(5);
+  }
+  if (this.dataSource.data.length > 10) {
+    customPageSizeArray.push(10);
+  }
+  if (this.dataSource.data.length > 20) {
+    customPageSizeArray.push(20);
+  }
+  customPageSizeArray.push(this.dataSource.data.length);
+  return customPageSizeArray;
   }
 }

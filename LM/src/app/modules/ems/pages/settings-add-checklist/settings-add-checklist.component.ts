@@ -161,8 +161,7 @@ export class SettingsAddChecklistComponent implements OnInit {
   }
 
   updateData(name: any, value: any) {
-    console.log("daf-", this.checklistForm.controls.description.value)
-    
+  
     if ((name != null || '' || undefined)&&this.checklistForm.controls.description.valid) {
       let data = {
         department: value.department_id,
@@ -308,13 +307,20 @@ export class SettingsAddChecklistComponent implements OnInit {
   }
 
   getPageSizes(): number[] {
+    var customPageSizeArray = [];
+    
+    if (this.dataSource.data.length > 5) {
+      customPageSizeArray.push(5);
+    }
+    if (this.dataSource.data.length > 10) {
+      customPageSizeArray.push(10);
+    }
     if (this.dataSource.data.length > 20) {
-      return [5, 10, 20, this.dataSource.data.length];
+      customPageSizeArray.push(20);
+     
     }
-    else {
-
-     return [5, 10, 20];
-    }
+    customPageSizeArray.push(this.dataSource.data.length);
+    return customPageSizeArray;
   }
 
   AddData() {
