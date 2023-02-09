@@ -36,8 +36,12 @@ export class PaySlipsViewComponent implements OnInit {
   companyinfo: any;
   constructor(private router: Router,private location:Location,private PR:PayrollService,private LM:CompanyInformationService,private mainService:MainService,) {
     this.payslipdata = this.location.getState();
-    this.getEmployeePayslipDetails(this.payslipdata.userData);
-    
+    if(!this.payslipdata.userData){
+      this.router.navigate(["Payroll/PaySlips"]);
+    }
+    else {
+      this.getEmployeePayslipDetails(this.payslipdata.userData);
+    }
     // const toWords:any = new ToWords();
     // const toWords = new ToWords({
     //   localeCode: 'en-IN',
@@ -61,11 +65,13 @@ export class PaySlipsViewComponent implements OnInit {
    }
   @ViewChild('payslip') payslip: any;
   ngOnInit(): void {
-    this.getCompanyInformation();
+
+      this.getCompanyInformation();
+
   }
   Back(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/Payroll/PaySlips"])); 
+      this.router.navigate(["/Payroll/PaySlips"]));
   }
   getEmployeePayslipDetails(userdata:any){
     let data ={
@@ -74,7 +80,7 @@ export class PaySlipsViewComponent implements OnInit {
     }
     this.PR.getEmployeePayslipDetails(data).subscribe((result:any)=>{
       if(result.status&&result.data.length>0){
-        
+
         const toWords:any = new ToWords();
         this.getpayslipdata = result.data;
         for(let i=0;i<this.getpayslipdata.length;i++){
@@ -111,11 +117,11 @@ export class PaySlipsViewComponent implements OnInit {
           }
           else if(this.getpayslipdata[i].component_name == "Paid Days"){
             this.paiddays = this.getpayslipdata[i].data_value;
-          
+
           }
           else if(this.getpayslipdata[i].component_name == "LoP Days"){
             this.lop = this.getpayslipdata[i].data_value;
-           
+
           }
           else{
              this.alldata.push(this.getpayslipdata[i])
@@ -124,20 +130,20 @@ export class PaySlipsViewComponent implements OnInit {
         for(let i=0;i<this.alldata.length;i++){
           if(this.alldata[i].type_value== "Earnings"  || this.alldata[i].component_name== "Gross Earnings"){
             this.earningsdata.push(this.alldata[i])
-            
+
           }
           else if(this.alldata[i].type_value== "Deductions" || this.alldata[i].component_name== "Total Deductions"){
-            
+
             this.deductiondata.push(this.alldata[i])
           }
           this.getLogo();
-           
+
         }
       }
     })
   }
   Download(){
-    
+
     const DATA = this.payslip.nativeElement;
     const doc: jsPDF = new jsPDF('l', 'mm', [1000, 1010]);
     doc.html(DATA, {

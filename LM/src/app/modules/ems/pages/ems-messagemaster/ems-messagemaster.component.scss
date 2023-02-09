@@ -10,21 +10,12 @@ table {
   max-height:500px;
   overflow-x: auto;
 }
-.mat-column-sno {
-  max-width: 100px !important;
- }
-.mat-column-code {
-  max-width: 120px !important;
- }
- .mat-column-screenName {
-  max-width: 200px !important;
- }
-//  .mat-column-message {
-//   max-width: 75% !important;
-//  }
- .mat-column-action {
-  max-width: 100px !important;
- }
+::ng-deep .mat-column-action {
+  flex: 0 0 6%
+}
+::ng-deep .mat-column-message {
+  flex: 2 0 6%
+}
  mat-card {
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
@@ -85,7 +76,7 @@ table {
   min-height: 45px;
 }
 ::ng-deep.mat-header-cell {
-  margin-top: 0px; 
+  margin-top: 0px;
   font-family: "Roboto";
   font-size: 16px;
   font-weight: normal;
