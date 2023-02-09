@@ -45,6 +45,7 @@ export class DesignationsComponent implements OnInit {
   msgEM96:any
   msgEM97:any;
   msgEM98:any;
+  msgEM95:any;
   displayedColumns: string[] = ['sno','designation', 'status', 'Action'];
   designationData: any = [];
   arrayValue: any;
@@ -138,7 +139,7 @@ export class DesignationsComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
-          data: this.msgEM93
+          data: this.msgEM95
         });
 
       }
@@ -292,6 +293,9 @@ export class DesignationsComponent implements OnInit {
           this.msgEM96 =e.message
         } else if (e.code == "EM98") {
           this.msgEM98 =e.message
+        }
+        else if (e.code == "EM95") {
+          this.msgEM95 =e.message
         }
           })
       } else {

@@ -23,15 +23,20 @@
                                     </mat-select> -->
                                 </mat-form-field>
                             </p>
+                            <p style="display: -webkit-box" fxLayout="row" fxLayoutAlign="space-evenly center">
+                           
+                                <label style="margin-right: auto">Company Payroll Cycle</label>
+                                <mat-form-field appearance="outline" ><input type="text" matInput [readonly]="true"  class="form-control" formControlName="companyPayrollCycle" placeholder="" style="background-color: #e8e8e8;;"></mat-form-field>
+                             </p>
                             <p>
-                                <label>Calculate monthly salary based on*</label>
+                                <label><b>Calculate monthly salary based on*</b></label>
                             </p>
                             <p>
                                     <mat-radio-group formControlName="caluculateSalaryBasedON" style="display: grid;">
                                         <mat-radio-button class="mr-2"  color="primary" *ngFor="let halfs of arrayValue;index as i;" (change)="status(halfs.Value,'monthly')"  [value]="halfs.Value"  >{{halfs.name}}</mat-radio-button>
                                     </mat-radio-group>
                             </p>
-                            <p class="mob-pe">
+                            <!-- <p class="mob-pe">
                                 <label>Pay your employee on*</label>
                              </p>
                              <p class="custom-radio-pay-empoyee">
@@ -78,7 +83,7 @@
                                 <mat-radio-button class="mr-2"  color="primary"  [value]="true"  >Next Working day</mat-radio-button>
                             </mat-radio-group>
 
-                        </p>
+                        </p> -->
                       </div>
                 </div>
                 <div fxLayout="column" fxFlex="4">
@@ -95,12 +100,12 @@
                                 <mat-radio-button class="mr-2"  color="primary"  [value]="false"  >No</mat-radio-button>
                             </mat-radio-group>
                          </p>
-                         <p style="display: -webkit-box" fxLayout="row" fxLayoutAlign="space-evenly center">
-                           <!--<mat-form-field appearance="outline" style="width: 100%;">-->
+                         <!-- <p style="display: -webkit-box" fxLayout="row" fxLayoutAlign="space-evenly center">
+                           
                             <label style="margin-right: auto">Company Payroll Cycle</label>
                             <mat-form-field appearance="outline" ><input type="text" matInput [readonly]="true"  class="form-control" formControlName="companyPayrollCycle" placeholder="" style="background-color: #e8e8e8;;"></mat-form-field>
-                         </p>
-                         <p><label>Payroll Window</label></p>
+                         </p> -->
+                         <p><label><b>Payroll Window</b></label></p>
                          <p fxLayout="row" fxLayoutAlign="space-around center" >
                             <mat-form-field appearance="outline" >
                                 <mat-label>From Date</mat-label>
@@ -115,7 +120,7 @@
                             </mat-form-field>
 
                          </p>
-                         <p *ngIf="payGroupRequestForm.controls.payroll_leavewindow.value"><label>Leave Window</label></p>
+                         <p *ngIf="payGroupRequestForm.controls.payroll_leavewindow.value"><label><b>Leave Window</b></label></p>
                         <p *ngIf="!payGroupRequestForm.controls.payroll_leavewindow.value"><label>Select Leave Window</label></p>
                         <p fxLayout="row" fxLayoutAlign="space-around center"  *ngIf="payGroupRequestForm.controls.payroll_leavewindow.value">
                             <mat-form-field appearance="outline" >

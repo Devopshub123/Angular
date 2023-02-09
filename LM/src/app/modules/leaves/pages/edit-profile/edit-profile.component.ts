@@ -307,7 +307,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   submit(flag: boolean) {
-    if (this.file) {
+    let uploadeddata =this.file.type.split('/')
+    if (this.file && uploadeddata[0]=='image') {
       if (this.file.size <= 1024000) {
         this.editProfile();
       } else {
@@ -318,7 +319,13 @@ export class EditProfileComponent implements OnInit {
         });
       }
     }else{
-        this.editProfile()
+        // this.editProfile()
+       
+        this.dialog.open(ConfirmationComponent, {
+          position: {top: `70px`},
+          disableClose: true,
+          data: {Message: 'Please upload a valid Image.', url: '/LeaveManagement/EditProfile'},
+        });
     }
   }
   fileImageToggler() {

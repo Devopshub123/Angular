@@ -25,6 +25,7 @@ export class EsiComponent implements OnInit {
     this.getesidetails();
     this.getStatesForEsi();
     this.getCompanyEsiValues();
+    this.getEsiEmployerContribution();
     // Validators.pattern("^(\d{2})[-–\s]?(\d{2})[-–\s]?(\d{1,6})[-–\s]?(\d{3})[-–\s]?(\d{4})$")
     this.esiRequestForm = this.formBuilder.group(
       {
@@ -151,6 +152,14 @@ export class EsiComponent implements OnInit {
       if(result.status && result.data.length>0){
         this.dataSource = result.data[0]
         console.log("result",result);
+      }
+    })
+
+  }
+  getEsiEmployerContribution(){
+    this.PR.getEsiEmployerContribution().subscribe((result:any)=>{
+      if(result.status && result.data.length>0){
+        this.esiRequestForm.controls.includectc.setValue(result.data[0][0].esi_employer_contribution)
       }
     })
 

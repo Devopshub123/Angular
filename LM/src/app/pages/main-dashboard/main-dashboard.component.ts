@@ -654,7 +654,8 @@ export class MainDashboardComponent implements OnInit {
   }
 
   saveImage(flag: boolean) {
-    if (this.file) {
+    let uploadeddata =this.file.type.split('/')
+    if (this.file && uploadeddata[0]=='image') {
       if (this.file.size <= 1024000) {
         this.saveNewImage();
       } else {
@@ -666,6 +667,13 @@ export class MainDashboardComponent implements OnInit {
       }
     } else {
       //this.saveNewImage()
+      this.router.navigate(['/main/MainDashboard'])
+      
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data: 'Please Select Valid Image.',
+      });
     }
   }
   saveNewImage() {

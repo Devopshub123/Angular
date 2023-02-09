@@ -137,7 +137,8 @@ export class CompanylogoComponent implements OnInit {
 
   saveImage()
   {
-    if(this.file){
+    let uploadeddata =this.file.type.split('/')
+    if(this.file && uploadeddata[0] == "image"){
       if(this.file.size<=1024000){
         this.spinner.show();
        
@@ -228,7 +229,7 @@ export class CompanylogoComponent implements OnInit {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
         disableClose: true,
-        data:this.msgEM72
+        data:"Please select valid image"
       });
       // this.toastr.error("Please select image")
     }

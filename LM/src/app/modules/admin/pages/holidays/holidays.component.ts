@@ -137,8 +137,10 @@ export class HolidaysComponent implements OnInit {
     return this.HolidayForm.get("edu") as FormArray
   }
   submit() {
+    this.selecteditems=[];
     if (this.HolidayForm.valid) {
       let location = this.HolidayForm.controls.branch.value;
+      
       location.forEach((e: any) => {
         this.selecteditems.push(e.city);
       });
@@ -163,6 +165,7 @@ export class HolidaysComponent implements OnInit {
             data: this.msgEM114
           });
         } else if (data.status && data.data==1) {
+         
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,

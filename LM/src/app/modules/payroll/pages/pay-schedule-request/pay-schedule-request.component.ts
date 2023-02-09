@@ -103,12 +103,14 @@ export class PayScheduleRequestComponent implements OnInit {
   setPayGroup(){
     let input = {
       monthlySalaryCalculationBasis:this.payGroupRequestForm.controls.caluculateSalaryBasedON.value,
-      payDayOfMonth:this.payGroupRequestForm.controls.pay_employee.value === '0' ? "LAST_WORKING_DAY" :this.payGroupRequestForm.controls.days_range.value,
+      payDayOfMonth:null,
+      // payDayOfMonth:this.payGroupRequestForm.controls.pay_employee.value === '0' ? "LAST_WORKING_DAY" :this.payGroupRequestForm.controls.days_range.value,
       payrollWindowFromDate:'1',
       payrollWindowToDate:"LAST_DAY_OF_PRESENT_MONTH",
       leaveWindowFromDateInPreviousMonth:this.payGroupRequestForm.controls.payroll_leavewindow.value?'1':this.payGroupRequestForm.controls.leaveWindowStartDate.value,
       leaveWindowToDateInCurrentMonth:this.payGroupRequestForm.controls.payroll_leavewindow.value?'LAST_DAY_OF_PRESENT_MONTH':this.payGroupRequestForm.controls.leaveWindowEndDate.value,
-      nonWorkingDayPaymentOption:this.payGroupRequestForm.controls.pay_employee.value === '0' ? null:this.payGroupRequestForm.controls.nonWorkingDayPaymentOption.value === true ? 'NEXT_DAY':'PREVIOUS_DAY'
+      nonWorkingDayPaymentOption:null
+      // nonWorkingDayPaymentOption:this.payGroupRequestForm.controls.pay_employee.value === '0' ? null:this.payGroupRequestForm.controls.nonWorkingDayPaymentOption.value === true ? 'NEXT_DAY':'PREVIOUS_DAY'
     }
     this.PR.setCompanyPaySchedule(input).subscribe((result:any)=> {
       if(result && result.status){

@@ -258,5 +258,8 @@ import { environment } from 'src/environments/environment';
       
         return this.http.get(this.mainBeUrl+'api/getCompanyEsiValues/'+this.companyName,this.httpOptions);
       }
+      getEsiEmployerContribution():Observable<any> {
       
+        return this.http.get(this.mainBeUrl+'api/getEsiEmployerContribution/'+this.companyName,this.httpOptions);
+      }
 }

@@ -210,7 +210,9 @@ openDialogdelete(): void {
 
        result.data[0].employeeId=this.usersession.id;
        let info = result.data[0]
+       console.log("info",info)
         this.LM.getProfileImage(info).subscribe((imageData) => {
+          console.log("imageData",imageData)
           this.spinner.hide();
           if(imageData.success){
             let TYPED_ARRAY = new Uint8Array(imageData.image.data);
@@ -235,7 +237,7 @@ openDialogdelete(): void {
     }
 
     fileView(){
-  
+      console.log("fileURL",this.fileURL)
       window.open(this.fileURL);
      
   }
