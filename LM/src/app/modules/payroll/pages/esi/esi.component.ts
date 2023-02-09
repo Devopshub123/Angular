@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { PayrollService } from '../../payroll.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog'; 
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 @Component({
   selector: 'app-esi',
   templateUrl: './esi.component.html',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 
 export class EsiComponent implements OnInit {
 
-  constructor(private router: Router,private formBuilder: FormBuilder,private PR:PayrollService) { }
+  constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private PR:PayrollService) { }
   esiRequestForm!: FormGroup;
   companyEsiRequestForm!: FormGroup;
   esidetails:any=[];
@@ -18,13 +20,16 @@ export class EsiComponent implements OnInit {
   dataSource:any=[];
   getStateEsiDetails:any=[]
   salary:any;
+  // Regex regex = new Regex(@);
   ngOnInit(): void {
     this.getesidetails();
     this.getStatesForEsi();
+    this.getCompanyEsiValues();
+    // Validators.pattern("^(\d{2})[-–\s]?(\d{2})[-–\s]?(\d{1,6})[-–\s]?(\d{3})[-–\s]?(\d{4})$")
     this.esiRequestForm = this.formBuilder.group(
       {
-        esiNumber: ["",Validators.required],
-        deductionCycle: ["Monthly",Validators.required],
+        esiNumber: ["",[Validators.required,Validators.pattern("^(\d{2})[-–\s]?(\d{2})[-–\s]?(\d{6})[-–\s]?(\d{3})[-–\s]?(\d{4})$")]],
+        deductionCycle: ["Monthly",[Validators.required,]],
         employeeContribution:[""],
         employersContribution:[""],
         employerCTCContribution:[''],
@@ -33,7 +38,7 @@ export class EsiComponent implements OnInit {
       });
       this.companyEsiRequestForm = this.formBuilder.group(
         {
-          esiNumber: ["",Validators.required],
+          esiNumber: ["",[Validators.required,Validators.pattern("^(\d{2})[-–\s]?(\d{2})[-–\s]?(\d{6})[-–\s]?(\d{3})[-–\s]?(\d{4})$")]],
           state:[""]
         });
   }
@@ -91,7 +96,19 @@ export class EsiComponent implements OnInit {
     console.log("setEsiForStatedata",data);
     this.PR.setEsiForState(data).subscribe((result:any)=>{
       if(result.status){
-        console.log("result",result);
+        this.router.navigate(["/Payroll/ESI "]);  
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data: 'Configured company esi values'
+        });
+      }
+      else{
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data: 'Unable to configure company esi values.'
+        });
       }
       
     });
@@ -105,11 +122,37 @@ export class EsiComponent implements OnInit {
     }
     console.log("setCompanyEsiValues",data)
     this.PR.setCompanyEsiValues(data).subscribe((result:any)=>{
+      console.log(result)
       if(result.status){
-        console.log("result",result);
+    
+        this.router.navigate(["/Payroll/ESI "]);  
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data: 'Configured company esi values'
+        });
+      }
+      else{
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data: 'Unable to configure company esi values.'
+        });
+
       }
       
     });
+
+  }
+  /**getCompanyEsiValues */
+  getCompanyEsiValues(){
+    this.dataSource=[]
+    this.PR.getCompanyEsiValues().subscribe((result:any)=>{
+      if(result.status && result.data.length>0){
+        this.dataSource = result.data[0]
+        console.log("result",result);
+      }
+    })
 
   }
 

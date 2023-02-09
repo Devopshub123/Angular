@@ -254,5 +254,9 @@ import { environment } from 'src/environments/environment';
       data.companyName = this.companyName;
         return this.http.post(this.mainBeUrl+'api/setCompanyEsiValues', JSON.stringify(data), this.httpOptions);
       }
+      getCompanyEsiValues():Observable<any> {
+      
+        return this.http.get(this.mainBeUrl+'api/getCompanyEsiValues/'+this.companyName,this.httpOptions);
+      }
       
 }

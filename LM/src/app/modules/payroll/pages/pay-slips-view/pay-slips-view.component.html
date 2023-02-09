@@ -23,8 +23,8 @@
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">   
                     <div fxFlex.xs="100" fxFlex="100" style="border-bottom: 1px solid #a0a0a0;">
                       <div fxLayout="row" >
-                        <!-- <img [src]="pic" style="width: 20px;" alt=""> -->
-                        <h3 style="margin: 0 0px;font-size: 17px;font-weight: 500;"> {{companyName}}</h3>   
+                        <img [src]="pic" style="width: 40px;" alt="">
+                        <h3 style="margin: 0 0px;font-size: 17px;font-weight: 500;">{{'   '+companyName}}</h3>   
                         <!-- <p>Hyderabad, Telangana, India</p> -->
                       </div>
                         
@@ -51,10 +51,10 @@
                             <label style="color:#a0a0a0;width:200px;">Pay Period</label>
                             <p>{{payperiod}}</p>
                         </div>
-                        <div class="form-group col-md-12" style="padding-bottom: 0px !important;padding-top: 0px !important;display: flex;">
+                        <!-- <div class="form-group col-md-12" style="padding-bottom: 0px !important;padding-top: 0px !important;display: flex;">
                             <label style="color:#a0a0a0;width:200px;">Pay Date</label>
                             <p>{{paydate | date}}</p>
-                        </div>
+                        </div> -->
                         <div class="form-group col-md-12" style="padding-bottom: 0px !important;padding-top: 0px !important;display: flex;">
                             <label style="color:#a0a0a0;width:200px;">UAN Number</label>
                             <p>{{uanumber}}</p>
@@ -72,7 +72,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="numbers text-center">
-                                        <p style="color:#a0a0a0;">Employee Net Pay</p>
+                                        <p style="color:#a0a0a0;">Net Pay</p>
                                         <p class="card-category" style="color: #65986f;font-size: 30px;">₹ {{netamount}}</p>
                                         <p style="color:#a0a0a0;">Paid Days: {{paiddays}} | LOP Days: {{lop}}</p>
                                     </div>

@@ -39,11 +39,11 @@ export class ResetPasswordComponent implements OnInit {
     private router: Router,private emsService:EmsService,private datePipe: DatePipe) { }
 
   ngOnInit() {
-    this.getMessages('EM1');
-    this.getMessages('EM3');
-    this.getMessages('EM128');
-    this.getMessages('EM129');
-    this.getMessages('EM131');
+    // this.getMessages('EM1');
+    // this.getMessages('EM3');
+    // this.getMessages('EM128');
+    // this.getMessages('EM129');
+    // this.getMessages('EM131');
    
     let params: any = this.activatedRoute.snapshot.params;
     this.email = JSON.parse(atob(params.token)).email;
@@ -91,7 +91,7 @@ export class ResetPasswordComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: this.msgEM1296
+            data: 'Password reset successfully.'
           });
           sessionStorage.removeItem('user');
           let login = '/Login/'+this.companyName
@@ -112,7 +112,7 @@ export class ResetPasswordComponent implements OnInit {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
         disableClose: true,
-        data: this.msgEM129
+        data: 'The confirm password you entered does not match with new password. Please re-enter your password.'
       });
 
     }
