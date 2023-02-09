@@ -32,6 +32,7 @@ export class EmployeDashboardComponent implements OnInit {
       prev: {
         click: this.prevMonth.bind(this),
       },
+
       // today: {
 
       //     click: this.currentMonth.bind(this),
@@ -43,7 +44,7 @@ export class EmployeDashboardComponent implements OnInit {
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
-
+    height:'auto'
   };
 
   pipe = new DatePipe('en-US');

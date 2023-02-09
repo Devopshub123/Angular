@@ -16,7 +16,7 @@ table {
     padding-right: 2%;
     padding-top: 2%;
   }
-  
+
   ::ng-deep {
     .mat-select-panel[aria-label="Items per page:"] {
       mat-option:last-child:before {
@@ -24,7 +24,7 @@ table {
       }
     }
   }
-  
+
   ::ng-deep {
     .mat-select-panel[aria-label="Items per page:"] {
       mat-option:last-child .mat-option-text {
@@ -56,3 +56,9 @@ table {
   ::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
     margin: 0.2em 0 !important;
   }
+::ng-deep .mat-column-action {
+  flex: 0 0 6%
+}
+::ng-deep .mat-column-message {
+  flex: 2 0 6%
+}

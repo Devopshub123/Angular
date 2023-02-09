@@ -72,7 +72,7 @@ mat-card {
   min-height: 45px;
 }
 ::ng-deep.mat-header-cell {
-  margin-top: 0px; 
+  margin-top: 0px;
   font-family: "Roboto";
   font-size: 16px;
   font-weight: normal;
@@ -81,4 +81,10 @@ mat-card {
   letter-spacing: 0.32px;
   color: #ffffff;
   background-color: #28acaf;
+}
+::ng-deep .mat-column-action {
+  flex: 0 0 6%
+}
+::ng-deep .mat-column-message {
+  flex: 2 0 6%
 }

@@ -1,8 +1,8 @@
 table {
     width: 100%;
   }
-  
-  
+
+
   .mat-header-cell{
     margin-top: 10px;
     font-family: "Roboto";
@@ -62,4 +62,10 @@ table {
 }
 ::ng-deep.mat-card-header-text {
   margin: 0px 6px!important;
+}
+::ng-deep .mat-column-action {
+  flex: 0 0 6%
+}
+::ng-deep .mat-column-message {
+  flex: 2 0 6%
 }
