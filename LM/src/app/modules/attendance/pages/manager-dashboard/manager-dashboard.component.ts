@@ -49,6 +49,7 @@ export class ManagerDashboardComponent implements OnInit {
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
+    height:'auto'
 
   };
   pipe = new DatePipe('en-US');

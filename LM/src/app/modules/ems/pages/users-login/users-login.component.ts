@@ -39,7 +39,7 @@ export class UsersLoginComponent implements OnInit {
     'empname',
     'email',
     'userid',
-    'status',
+    // 'status',
     'action',
   ];
   // dataSource = new MatTableDataSource<PeriodicElement>(Sample_Data);

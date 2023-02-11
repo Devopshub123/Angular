@@ -67,7 +67,8 @@ export class EpfComponent implements OnInit {
     this.getMessagesList();
     this.epfRequestForm = this.formBuilder.group(
     {
-      epfNumber: ["",Validators.required],
+      // epfNumber: ["",[Validators.required,Validators.pattern("^([A-Z]{2}/\s)([A-Z]{3}/\s)([0-9]{1,7}/\s)([0-9]{3}/\s)?([0-9]{1,7})$")]],
+      epfNumber: ["",[Validators.required]],
       deductionCycle: ["Monthly"],
       employeeContribution:[""],
       employersContribution:[""],

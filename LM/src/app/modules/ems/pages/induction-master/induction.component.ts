@@ -50,6 +50,7 @@ export class InductionComponent implements OnInit {
   EM10:any;
   companyDBName:any = environment.dbName;
   EM65: any;
+  valid:boolean=false;
 
   constructor(private dialog:MatDialog,private formBuilder: FormBuilder,private companyServices: CompanySettingService,private router: Router,private EMS:EmsService,private EM:AdminService) { }
   pageLoading = true;
@@ -136,19 +137,20 @@ export class InductionComponent implements OnInit {
 
   // }
 
-  validateData(obj:any){
-    if(this.arrayList.length ==0) {
-      for (let i = 0; i < this.arrayList.length; i++) {
-        if (obj.pid == null && obj.programType == this.arrayList[i].description) {
-          return false;
-        }
-      }
-    }
-    return true
-  }
+  // validateData(obj:any){
+  //   if(this.arrayList.length ==0) {
+  //     for (let i = 0; i < this.arrayList.length; i++) {
+  //       if (obj.pid == null && obj.programType == this.arrayList[i].description) {
+  //         return false;
+  //       }
+  //     }
+  //   }
+  //   return true
+  // }
 
 
   setProgramsMaster(){
+    this.validatedesignation(this.inductionForm.controls.programType.value)
     let obj={
       'pid':this.inductionForm.controls.pid.value?this.inductionForm.controls.pid.value:null,
       'programType':null,
@@ -157,7 +159,7 @@ export class InductionComponent implements OnInit {
       'actionby':this.userSession.id,
     }
     if(this.inductionForm.valid) {
-      if (this.validateData(obj)) {
+      if (this.valid) {
         this.EMS.setProgramsMaster(obj).subscribe((result: any) => {
           this.getProgramsMaster(null);
           if (result.data[0].successstate == 0 && !result.data[0].pid) {
@@ -343,6 +345,27 @@ export class InductionComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  validatedesignation(data: any) {
+    if (this.arrayList.length == 0) {
+      this.valid = true;
+
+    }
+
+    else {
+      if (this.arrayList.length > 0) {
+        for (let i = 0; i < this.arrayList.length; i++) {
+          if (data.trim().toLowerCase() === this.arrayList[i].description.toLowerCase()) {
+            this.valid = false;
+            break;
+          }
+          else {
+            this.valid = true;
+          }
+        }
+      }
     }
   }
 }
