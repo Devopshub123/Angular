@@ -73,9 +73,23 @@ mat-card {
 ::ng-deep.mat-card-header-text {
   margin: 0 6px !important;
 }
-::ng-deeptr.mat-header-row {
+::ng-deep tr.mat-header-row {
   height: 45px !important;
 }
 ::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
   margin: 0.2em 0 !important;
+}
+::ng-deep .mat-header-row {
+  min-height: 45px!important;
+}
+::ng-deep .mat-header-cell {
+  margin-top: 0px!important;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.32px;
+  color: #ffffff;
+  background-color: #28acaf;
 }

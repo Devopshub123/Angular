@@ -36,10 +36,24 @@ table {
 ::ng-deep.mat-card-header-text {
   margin: 0 4px !important;
 }
-::ng-deeptr.mat-header-row {
+::ng-deep tr.mat-header-row {
   height: 45px !important;
 }
 .tablep2{
   padding-left: 1%;
   padding-right: 1%;
+}
+::ng-deep .mat-header-row {
+  min-height: 45px!important;
+}
+::ng-deep .mat-header-cell {
+  margin-top: 0px!important;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.32px;
+  color: #ffffff;
+  background-color: #28acaf;
 }

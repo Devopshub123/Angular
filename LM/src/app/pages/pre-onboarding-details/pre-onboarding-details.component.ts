@@ -541,6 +541,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   getDesignationsMaster() {
     this.companyService.getPreonboardingMastertable('designationsmaster', 1, 1, 1000, this.companyName).subscribe(data => {
       this.availableDesignations = data.data;
+      console.log("data-", this.availableDesignations);
     })
   }
   getDepartmentsMaster() {

@@ -5,7 +5,7 @@
   <mat-sidenav #sidenav *ngIf="flag" class="example-sidenav" mode="side" opened="true" style="position: fixed;  padding-top:80px;transform: scale;margin-left: 0.5rem;">
     <mat-nav-list class="dashboard" >
       <a mat-list-item >
-        <div class="row" style="flex-flow: column" (click)='toggleBack($event)' >
+        <div class="row" style="flex-flow: column" matTooltip="Expand & Collapse" (click)='toggleBack($event)' >
            <mat-icon style="color:#28acaf">menu</mat-icon>
         </div>
       </a>
