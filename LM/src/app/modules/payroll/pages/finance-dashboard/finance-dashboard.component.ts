@@ -101,7 +101,12 @@ export class FinanceDashboardComponent implements OnInit {
     })
   }
   getMonthlyPayrollData(){
-	
+	this.grosssalary = '';
+		 this.netSalary = '';
+		 this.empcount = '';
+		 this.deductions = '';
+		 this.pftax = '';
+		 this.EPF = '';
 		let data ={
 			month:this.Selmonth,
 			year:this.Selyear,
