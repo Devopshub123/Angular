@@ -216,8 +216,9 @@ export class SettingsAddChecklistComponent implements OnInit {
   }
   departmentChange() {
     this.addChecklistData = [];
-
+    this.addValidators();
   }
+
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
     this.router.navigate(["/Admin/settings-checklist"]));
@@ -226,13 +227,13 @@ export class SettingsAddChecklistComponent implements OnInit {
   add() {
     this.addValidators();
      if (this.checklistForm.valid) {
-        if(this.addChecklistData !=undefined){
-          const toSelect = this.addChecklistData.find((name:any) => name.description.trim().toLowerCase() == this.checklistForm.controls.description.value.trim().toLowerCase());
+       if (this.addChecklistData != undefined) {
+          const toSelect = this.addChecklistData.find((e:any) => e.description.toLowerCase() == this.checklistForm.controls.description.value.trim().toLowerCase());
           if(toSelect!=undefined){
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               disableClose:true,
               data: this.EM41
-           });
+            });
            this.clearValidators();
           }
           else{
@@ -268,6 +269,8 @@ export class SettingsAddChecklistComponent implements OnInit {
     this.checklistForm.get("description").updateValueAndValidity();
   }
   addValidators() {
+    this.checklistForm.get("department").setValidators(Validators.required);
+    this.checklistForm.get("department").updateValueAndValidity();
     this.checklistForm.get("description").setValidators(Validators.required);
     this.checklistForm.get("description").updateValueAndValidity();
   }

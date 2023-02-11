@@ -153,8 +153,8 @@ import { environment } from 'src/environments/environment';
   getstatuslists(){
     return this.hClient.get(this.mainBeUrl+'admin/api/getstatuslist/'+this.companyName, this.httpOptions)
   }
-  getPreonboardingMastertable(tableName:any,status:any,page:any,size:any,companyName:any):Observable<any>{
-    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+  getPreonboardingMastertable(tableName: any, status: any, page: any, size: any, companyName: any): Observable<any>{
+    return this.hClient.get(this.mainBeUrl + 'api/getMastertablePreonboarding/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
   }
   getPreonboardingStatesc(id: any, cname: any): Observable<any>{
     return this.hClient.get(this.mainBeUrl + 'api/getStates/'+id+'/'+cname,this.httpOptions)
