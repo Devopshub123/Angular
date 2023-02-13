@@ -70,7 +70,10 @@ import { environment } from 'src/environments/environment';
     }
     getEmployeeDurationsForSalaryDisplay(userid:any): Observable<any> {
         return this.http.get(this.mainBeUrl + 'api/getEmployeeDurationsForSalaryDisplay/'+ userid+'/'+this.companyName,this.httpOptions);
-    }
+  }
+  getEmployeeDurationsForSalaryDisplayForCTC(userid:any): Observable<any> {
+    return this.http.get(this.mainBeUrl + 'api/getEmployeeCtcDurations/'+ userid+'/'+this.companyName,this.httpOptions);
+}
     getCtcDetails(eid:any,ctcid:any): Observable<any> {
         return this.http.get(this.mainBeUrl + 'api/getCtcDetails/'+ eid+'/'+ctcid+'/'+this.companyName,this.httpOptions);
     }

@@ -26,7 +26,6 @@ export class SalaryMasterComponent implements OnInit {
   constructor(private PR:PayrollService,private formBuilder: FormBuilder,) {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getEmployeeDurationsForSalaryDisplay(this.userSession.id);
-    this.getEmployeeSalaryDetais(1);
    }
   displayedColumns: string[] = ['Salary_Components', 'Amount_Monthly','Amount_Annually'];
   dataSource : any=[];
@@ -41,7 +40,7 @@ export class SalaryMasterComponent implements OnInit {
   }
   /** emplaoyee salary duration time period*/
   getEmployeeDurationsForSalaryDisplay(id:any){
-    this.PR.getEmployeeDurationsForSalaryDisplay(id).subscribe((result:any)=>{
+    this.PR.getEmployeeDurationsForSalaryDisplayForCTC(id).subscribe((result:any)=>{
       if(result.status){
         this.durationlist=result.data[0]
       }
