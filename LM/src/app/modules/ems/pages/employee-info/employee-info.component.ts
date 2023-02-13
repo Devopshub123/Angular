@@ -269,6 +269,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.personalInfoForm.get('rstate')?.valueChanges.subscribe((selectedResidenceCityValue: any) => {
       this.spinner.show();
       this.cityDetails = [];
+      this.personalInfoForm.controls.rcity.setValue('');
        if (selectedResidenceCityValue != '') {
         this.companyService.getCities(selectedResidenceCityValue).subscribe((data) => {
           this.cityDetails = data.data
@@ -335,6 +336,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.personalInfoForm.get('pstate')?.valueChanges.subscribe((selectedCityValue: any) => {
           this.spinner.show();
           this.permanentCityDetails = [];
+          this.personalInfoForm.controls.pcity.setValue('');
           if(selectedCityValue != '') {
             this.companyService.getCities(selectedCityValue).subscribe((data) => {
               this.permanentCityDetails = data.data;
@@ -1380,30 +1382,32 @@ export class EmployeeInfoComponent implements OnInit {
   //** */
   addWorkExperience() {
     this.addExperienceValidators();
-    if (this.isExperienceEdit) {
-      this.isExperienceEdit = false;
-      this.workExperienceDetails[this.experienceIndex].companyname = this.experienceForm.controls.companyName.value;
-      this.workExperienceDetails[this.experienceIndex].designation = this.experienceForm.controls.designation.value;
-      this.workExperienceDetails[this.experienceIndex].skills = this.experienceForm.controls.jobDescription.value;
-      this.workExperienceDetails[this.experienceIndex].fromdate = this.pipe.transform(this.experienceForm.controls.expFromDate.value, 'yyyy-MM-dd'),
-        this.workExperienceDetails[this.experienceIndex].todate = this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
-        this.clearExperienceValidators();
-      this.clearWorkExperience();
-      this.saveWorkExperience();
-    } else {
-      if (this.experienceForm.valid) {
-        this.workExperienceDetails.push({
-          companyname: this.experienceForm.controls.companyName.value,
-          fromdate: this.pipe.transform(this.experienceForm.controls.expFromDate.value, 'yyyy-MM-dd'),
-          todate: this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
-          skills: this.experienceForm.controls.jobDescription.value,
-          designation: this.experienceForm.controls.designation.value,
-        });
-        this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
-        this.clearExperienceValidators();
+    if (this.experienceForm.valid) {
+      if (this.isExperienceEdit) {
+        this.isExperienceEdit = false;
+        this.workExperienceDetails[this.experienceIndex].companyname = this.experienceForm.controls.companyName.value;
+        this.workExperienceDetails[this.experienceIndex].designation = this.experienceForm.controls.designation.value;
+        this.workExperienceDetails[this.experienceIndex].skills = this.experienceForm.controls.jobDescription.value;
+        this.workExperienceDetails[this.experienceIndex].fromdate = this.pipe.transform(this.experienceForm.controls.expFromDate.value, 'yyyy-MM-dd'),
+          this.workExperienceDetails[this.experienceIndex].todate = this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
+          this.clearExperienceValidators();
         this.clearWorkExperience();
         this.saveWorkExperience();
-      } else { }
+      } else {
+        if (this.experienceForm.valid) {
+          this.workExperienceDetails.push({
+            companyname: this.experienceForm.controls.companyName.value,
+            fromdate: this.pipe.transform(this.experienceForm.controls.expFromDate.value, 'yyyy-MM-dd'),
+            todate: this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
+            skills: this.experienceForm.controls.jobDescription.value,
+            designation: this.experienceForm.controls.designation.value,
+          });
+          this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
+          this.clearExperienceValidators();
+          this.clearWorkExperience();
+          this.saveWorkExperience();
+        } else { }
+      }
     }
   }
   
@@ -1623,27 +1627,29 @@ export class EmployeeInfoComponent implements OnInit {
 
   addEducation() {
     this.addEducationValidators();
-    if (this.isEducationEdit) {
-      this.isEducationEdit = false;
-      this.educationDetails[this.educationIndex].course = this.educationForm.controls.course.value;
-      this.educationDetails[this.educationIndex].institutename = this.educationForm.controls.instituteName.value;
-      this.educationDetails[this.educationIndex].fromdate = this.pipe.transform(this.educationForm.controls.eduFromDate.value, 'yyyy-MM-dd'),
-        this.educationDetails[this.educationIndex].todate = this.pipe.transform(this.educationForm.controls.eduToDate.value, 'yyyy-MM-dd'),
-        this.clearEducationValidators();
-      this.clearEducation();
-      this.saveEducation();
-    } else {
-      if (this.educationForm.valid) {
-        this.educationDetails.push({
-          course: this.educationForm.controls.course.value,
-          institutename: this.educationForm.controls.instituteName.value,
-          fromdate: this.pipe.transform(this.educationForm.controls.eduFromDate.value, 'yyyy-MM-dd'),
-          todate: this.pipe.transform(this.educationForm.controls.eduToDate.value, 'yyyy-MM-dd'),
-        });
-        this.educationDataSource = new MatTableDataSource(this.educationDetails);
-        this.clearEducationValidators();
+    if (this.educationForm.valid) {
+      if (this.isEducationEdit) {
+        this.isEducationEdit = false;
+        this.educationDetails[this.educationIndex].course = this.educationForm.controls.course.value;
+        this.educationDetails[this.educationIndex].institutename = this.educationForm.controls.instituteName.value;
+        this.educationDetails[this.educationIndex].fromdate = this.pipe.transform(this.educationForm.controls.eduFromDate.value, 'yyyy-MM-dd'),
+          this.educationDetails[this.educationIndex].todate = this.pipe.transform(this.educationForm.controls.eduToDate.value, 'yyyy-MM-dd'),
+          this.clearEducationValidators();
         this.clearEducation();
         this.saveEducation();
+      } else {
+        if (this.educationForm.valid) {
+          this.educationDetails.push({
+            course: this.educationForm.controls.course.value,
+            institutename: this.educationForm.controls.instituteName.value,
+            fromdate: this.pipe.transform(this.educationForm.controls.eduFromDate.value, 'yyyy-MM-dd'),
+            todate: this.pipe.transform(this.educationForm.controls.eduToDate.value, 'yyyy-MM-dd'),
+          });
+          this.educationDataSource = new MatTableDataSource(this.educationDetails);
+          this.clearEducationValidators();
+          this.clearEducation();
+          this.saveEducation();
+        }
       }
     }
   }

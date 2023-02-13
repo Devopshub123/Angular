@@ -368,7 +368,7 @@
                                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
 
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                        <mat-label>Location</mat-label>
+                                        <mat-label>City</mat-label>
                                         <mat-select formControlName="rcity" required>
                                             <ng-container>
                                                 <div *ngFor="let b of cityDetails">
@@ -383,7 +383,7 @@
                                     </mat-form-field>
 
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
-                                        <mat-label>Location</mat-label>
+                                        <mat-label>City</mat-label>
                                         <mat-select formControlName="pcity">
                                             <ng-container>
                                                 <div *ngFor="let b of permanentCityDetails">
@@ -399,17 +399,25 @@
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Pincode</mat-label>
                                         <input type="text" onlyNumber formControlName="rpincode" matInput placeholder=""
-                                            maxlength="6" required>
-                                        <mat-error class="con-error"
-                                            *ngIf="personalInfoForm.controls.rpincode.errors?.required">
-                                            {{EM1}}
-                                        </mat-error>
+                                    maxlength="6" minlength="6" required (keypress)="numberOnly($event)" />
+                                <mat-error class="con-error"
+                                    *ngIf="personalInfoForm.controls.rpincode.errors?.required">
+                                    {{ EM1 }}
+                                </mat-error>
+                                <mat-error class="reg-error"
+                                    *ngIf="personalInfoForm.controls.rpincode.errors?.minlength">
+                                    Pincode should be 6 digits
+                                </mat-error>
                                     </mat-form-field>
 
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Pincode</mat-label>
                                         <input type="text" onlyNumber formControlName="ppincode" matInput placeholder=""
-                                            maxlength="6">
+                                        maxlength="6" minlength="6" (keypress)="numberOnly($event)" />
+                                    <mat-error class="reg-error"
+                                        *ngIf="personalInfoForm.controls.ppincode.errors?.minlength">
+                                        Pincode should be 6 digits
+                                    </mat-error>
                                     </mat-form-field>
 
                                 </div>

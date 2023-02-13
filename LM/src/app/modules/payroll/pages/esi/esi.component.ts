@@ -43,11 +43,9 @@ export class EsiComponent implements OnInit {
           state:[""]
         });
   }
-  cancel(){ 
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate(["/Payroll/FinanceDashboard "]));   
-     
-    
+  cancel() { 
+    this.router.navigateByUrl('/', { skipLocationChange: true })
+      .then(() => this.router.navigate(["/Payroll/FinanceDashboard"]));
   }
   setPayGroup(){}
   /**Percentage of wages of employee to be contributed from the employee salary for ESI */

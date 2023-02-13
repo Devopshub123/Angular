@@ -70,53 +70,54 @@ export class ResetPasswordComponent implements OnInit {
   createForm() {
     this.formGroup = this.formBuilder.group(
       {
-      'newpassword': ['', Validators.required,Validators.pattern],
+      'newpassword': ['', [Validators.required,Validators.pattern]],
       'confirmpassword': ['',Validators.required],
     });
   }
-  submit(){
-    this.issubmit = true;
-  var  resetObj = {
-      empid:this.empid,
-      email: this.email,
-      newpassword:this.formGroup.controls.newpassword.value,
-      confirmpassword:this.formGroup.controls.confirmpassword.value,
-      companyName:this.companyName
-    }
-    this.newpassword = this.formGroup.controls.newpassword.value;
-    this.confirmpassword = this.formGroup.controls.confirmpassword.value;
-    if(this.newpassword === this.confirmpassword  ){
-      this.tss.resetpassword(resetObj).subscribe((data:any) => {
-        if (data.status) {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position:{top:`70px`},
-            disableClose: true,
-            data: 'Password reset successfully.'
-          });
-          sessionStorage.removeItem('user');
-          let login = '/Login/'+this.companyName
-          this.router.navigate([login]);
-
-        } else {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position:{top:`70px`},
-            disableClose: true,
-            data: 'Your newpassword cannot be same as the old password'
+  submit() {
+    if (this.formGroup.valid) {
+      this.issubmit = true;
+      var  resetObj = {
+          empid:this.empid,
+          email: this.email,
+          newpassword:this.formGroup.controls.newpassword.value,
+          confirmpassword:this.formGroup.controls.confirmpassword.value,
+          companyName:this.companyName
+        }
+        this.newpassword = this.formGroup.controls.newpassword.value;
+        this.confirmpassword = this.formGroup.controls.confirmpassword.value;
+        if (this.newpassword === this.confirmpassword) {
+         this.tss.resetpassword(resetObj).subscribe((data:any) => {
+            if (data.status) {
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
+                disableClose: true,
+                data: 'Password reset successfully.'
+              });
+              sessionStorage.removeItem('user');
+              let login = "/Login/"+this.companyName
+              this.router.navigate([login]);
+    
+            } else {
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
+                disableClose: true,
+                data: 'Your newpassword cannot be same as the old password'
+              });
+            }
+    
+    
           });
         }
-
-
-      });
+        else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: 'The confirm password you entered does not match with new password. Please re-enter your password.'
+          });
+    
+        }
     }
-    else{
-      let dialogRef = this.dialog.open(ReusableDialogComponent, {
-        position:{top:`70px`},
-        disableClose: true,
-        data: 'The confirm password you entered does not match with new password. Please re-enter your password.'
-      });
-
-    }
-
   }
   cancel(){
     this.formGroup.reset();

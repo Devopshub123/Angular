@@ -105,14 +105,14 @@
                         <thead>
                           <tr class="dashboard-1 custom-investment-header">
                             <th scope="col" class="custom-investment-th" style="width:48%;">Deductions</th>
-                            <th scope="col" class="custom-investment-th" style="width:35%;">Amount <img src="./assets/img/currency-white.png"></th>
+                            <th scope="col" class="custom-investment-th" style="width:47%;float:right;">Amount <img src="./assets/img/currency-white.png"></th>
                           </tr>
 
                         </thead>
                         <tbody>
                           <tr *ngFor="let item of deductiondata;let i = index">
                             <th scope="row" class="custom-investment-td">{{item.component_name}}</th>
-                              <td class="custom-investment-td">{{item.data_value}}</td>
+                              <td class="custom-investment-td" style="float:right;">{{item.data_value}}</td>
                           </tr>
                         </tbody>
                     </table>

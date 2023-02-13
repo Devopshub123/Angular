@@ -123,15 +123,26 @@ export class CompanylogoComponent implements OnInit {
     this.file=null;
     this.file = event.target.files[0];
     this.fileImageToggler();
-    if (event.target.files && event.target.files[0]) {
-      var filesAmount = event.target.files.length;
-      for (let i = 0; i < filesAmount; i++) {
-        var reader = new FileReader();
-        reader.onload = (event: any) => {
-          this.imageurls.push({ base64String: event.target.result, });
+    let uploadeddata = this.file.type.split('/')
+    if (this.file && uploadeddata[0] == "image") {
+      if (event.target.files && event.target.files[0]) {
+        var filesAmount = event.target.files.length;
+        for (let i = 0; i < filesAmount; i++) {
+          var reader = new FileReader();
+          reader.onload = (event: any) => {
+            this.imageurls.push({ base64String: event.target.result, });
+          }
+          reader.readAsDataURL(event.target.files[i]);
         }
-        reader.readAsDataURL(event.target.files[i]);
       }
+    }else {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/CompanyLogo"]));
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data:"Please select valid image"
+      });
     }
   }
 
@@ -225,13 +236,14 @@ export class CompanylogoComponent implements OnInit {
 
 
       }
-    }else{
+    } else {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/CompanyLogo"]));
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
         disableClose: true,
         data:"Please select valid image"
       });
-      // this.toastr.error("Please select image")
     }
 
   }

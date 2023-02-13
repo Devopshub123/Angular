@@ -204,6 +204,7 @@ export class DesignationsComponent implements OnInit {
     this.isEdit = true;
     this.isSave = false;
     if (this.valid) {
+      console.log("T1")
       let data={
         id:id,
         name:desname,
@@ -214,7 +215,7 @@ export class DesignationsComponent implements OnInit {
         updated_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
       }
       this.LM.putDesignation(data).subscribe((data) => {
-        if (data.status) {
+      if (data.status) {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/Designation"]));
           this.enable = null;
@@ -241,7 +242,7 @@ export class DesignationsComponent implements OnInit {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
-        data: this.msgEM93
+        data: this.msgEM95
       });
     }
   }

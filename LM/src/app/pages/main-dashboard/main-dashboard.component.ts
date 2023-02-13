@@ -666,9 +666,8 @@ export class MainDashboardComponent implements OnInit {
         // });
       }
     } else {
-      //this.saveNewImage()
-      this.router.navigate(['/main/MainDashboard'])
-      
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/main/MainDashboard"]));
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,

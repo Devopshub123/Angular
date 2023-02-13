@@ -294,7 +294,7 @@ export class EmployeeProfileComponent implements OnInit {
           this.personalInfoForm
             .get('pstate')
             ?.valueChanges.subscribe((selectedValue) => {
-              this.permanentCityDetails = [];
+               this.permanentCityDetails = [];
               this.companyService.getCities(selectedValue).subscribe((data) => {
                 this.permanentCityDetails = data.data;
                 if (this.personalInfoForm.controls.rcity.value != null) {
@@ -345,6 +345,7 @@ export class EmployeeProfileComponent implements OnInit {
       .get('rstate')
       ?.valueChanges.subscribe((selectedValue) => {
         this.cityDetails = [];
+        this.personalInfoForm.controls.rcity.setValue('');
         this.companyService.getCities(selectedValue).subscribe((data) => {
           this.cityDetails = data.data;
         });
@@ -362,6 +363,7 @@ export class EmployeeProfileComponent implements OnInit {
       .get('pstate')
       ?.valueChanges.subscribe((selectedValue) => {
         this.permanentCityDetails = [];
+        this.personalInfoForm.controls.pcity.setValue('');
         this.companyService.getCities(selectedValue).subscribe((data) => {
           this.permanentCityDetails = data.data;
         });
@@ -1024,6 +1026,8 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   savePersonalInfo() {
+
+    console.log("val--2",this.personalInfoForm.controls.rcity.valid)
     if (this.personalInfoForm.valid) {
       let data = {
         condidateid: this.loginCandidateId,
@@ -1330,7 +1334,6 @@ export class EmployeeProfileComponent implements OnInit {
   //** */
   addWorkExperience() {
     this.addExperienceValidators();
-    console.log("this.experienceForm.valid",this.experienceForm.valid)
     if(this.experienceForm.valid){
       
       if (this.isExperienceEdit) {
