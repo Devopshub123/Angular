@@ -25,7 +25,7 @@ export class SalaryMasterComponent implements OnInit {
   userSession: any;
   constructor(private PR:PayrollService,private formBuilder: FormBuilder,) {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    this.getEmployeeDurationsForSalaryDisplay(this.userSession.id);
+   
    }
   displayedColumns: string[] = ['Salary_Components', 'Amount_Monthly','Amount_Annually'];
   dataSource : any=[];
@@ -33,6 +33,7 @@ export class SalaryMasterComponent implements OnInit {
     this.salaryMasterForm = this.formBuilder.group({
       range:[1]
     });
+    this.getEmployeeDurationsForSalaryDisplay(this.userSession.id);
     this.salaryMasterForm.get('range')?.valueChanges.subscribe((selectedValue:any) => {
       this.getEmployeeSalaryDetais(selectedValue);
     })
@@ -43,6 +44,9 @@ export class SalaryMasterComponent implements OnInit {
     this.PR.getEmployeeDurationsForSalaryDisplayForCTC(id).subscribe((result:any)=>{
       if(result.status){
         this.durationlist=result.data[0]
+        console.log("result.data[0].id",result.data[0].id)
+        this.salaryMasterForm.controls.range.setValue(result.data[0][0].id)
+        console.log("durationlist",this.durationlist)
       }
       else{
         this.durationlist=[]
