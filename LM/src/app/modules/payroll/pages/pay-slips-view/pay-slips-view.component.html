@@ -6,6 +6,12 @@
                     <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button>
                    </span>
               <mat-card-title class="title"> Pay Slip </mat-card-title>
+              <span  (click)="Download()" style="float:right;">
+                <button mat-icon-button matTooltip="Back"> <mat-icon>download</mat-icon></button>
+               </span>
+              <!-- <div>
+                <button class="btn btn-primary custom mr-2 mb-2"  (click)="Download()">Download</button>
+             </div> -->
             </div>
             </mat-card-header>
           <div id="payslip" #payslip>
@@ -16,15 +22,13 @@
 
             <div fxLayout="column" class="custom-payroll-div">
                 <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutAlign="end">
-                 <div>
-                    <button class="btn btn-primary custom mr-2 mb-2"  (click)="Download()">Download</button>
-                 </div>
+                 
                 </div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                     <div fxFlex.xs="100" fxFlex="100" style="border-bottom: 1px solid #a0a0a0;">
                       <div fxLayout="row" >
-                        <img [src]="pic" style="width: 40px;" alt="">
-                        <h3 style="margin: 0 0px;font-size: 17px;font-weight: 500;">{{'   '+companyName}}</h3>
+                        <img [src]="pic" style="width: 40px;float:right;" alt="">
+                        <h3 style="margin: 0 0px;font-size: 17px;font-weight: 500;float:right;">{{'   '+companyName}}</h3>
                         <!-- <p>Hyderabad, Telangana, India</p> -->
                       </div>
 

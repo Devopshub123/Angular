@@ -37,6 +37,7 @@ export class EditProfileComponent implements OnInit {
   cityDetails: any = [];
   employeedata: any = [];
   isRemoveImage: boolean = true;
+  validpic:boolean=true;
   LM117: any = '';
   LM118: any = '';
   LM119: any = '';
@@ -292,9 +293,12 @@ export class EditProfileComponent implements OnInit {
     this.imageurls = null;
     this.file = null;
     this.file = event.target.files[0];
+    let uploadeddata =this.file.type.split('/')
+    if (this.file && uploadeddata[0]=='image') {
     this.fileImageToggler();
     if (event.target.files && event.target.files[0]) {
       // this.imageurls = null;
+      this.validpic =true;
       var filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
         var reader = new FileReader();
@@ -304,29 +308,39 @@ export class EditProfileComponent implements OnInit {
         reader.readAsDataURL(event.target.files[i]);
       }
     }
+  }else{
+    this.getUploadImage();
+      this.validpic= false;
+    this.dialog.open(ConfirmationComponent, {
+      position: {top: `70px`},
+      disableClose: true,
+      data: {Message: 'Please upload a valid Image.', url: '/LeaveManagement/EditProfile'},
+    });
+}
   }
 
   submit(flag: boolean) {
-    let uploadeddata =this.file.type.split('/')
-    if (this.file && uploadeddata[0]=='image') {
-      if (this.file.size <= 1024000) {
-        this.editProfile();
-      } else {
-        this.dialog.open(ConfirmationComponent, {
-          position: {top: `70px`},
-          disableClose: true,
-          data: {Message: this.LM117, url: '/LeaveManagement/EditProfile'},
-        });
-      }
-    }else{
-        // this.editProfile()
-       
-        this.dialog.open(ConfirmationComponent, {
-          position: {top: `70px`},
-          disableClose: true,
-          data: {Message: 'Please upload a valid Image.', url: '/LeaveManagement/EditProfile'},
-        });
+    console.log("file",this.file,this.validpic)
+   if(this.file==undefined ){
+    this.editProfile();
+  
+      
     }
+    else if (this.file.size <= 1024000 && this.validpic) {
+      this.editProfile();
+    }
+    else{
+      this.dialog.open(ConfirmationComponent, {
+        position: {top: `70px`},
+        disableClose: true,
+        data: {Message: this.LM117, url: '/LeaveManagement/EditProfile'},
+      });
+    }
+     
+
+  
+     
+    
   }
   fileImageToggler() {
     this.isFileImage = !this.isFileImage;
