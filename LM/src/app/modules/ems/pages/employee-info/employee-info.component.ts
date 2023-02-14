@@ -373,10 +373,14 @@ export class EmployeeInfoComponent implements OnInit {
       this.mincontarctDate = selectedValue._d;
     })
     this.experienceForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
-      this.minExperienceDate = selectedValue._d;
+      if (selectedValue != null) {
+        this.minExperienceDate = selectedValue._d;
+      }
     })
     this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
-      this.minEducationDate = selectedValue._d;
+      if (selectedValue != null) {
+        this.minEducationDate = selectedValue._d;
+      }
     })
     /////////
 
@@ -1476,6 +1480,7 @@ export class EmployeeInfoComponent implements OnInit {
   deleteExperience(index: any) {
     this.workExperienceDetails.splice(index, 1);
     this.workExperienceDataSource = new MatTableDataSource(this.workExperienceDetails);
+    this.saveWorkExperience();
   }
   saveWorkExperience() {
 
@@ -1711,6 +1716,7 @@ export class EmployeeInfoComponent implements OnInit {
   deleteEducation(index: any) {
     this.educationDetails.splice(index, 1);
     this.educationDataSource = new MatTableDataSource(this.educationDetails);
+    this.saveEducation();
   }
 
 
@@ -2026,6 +2032,7 @@ export class EmployeeInfoComponent implements OnInit {
         }
         this.mainService.setFilesMasterForEMS(obj).subscribe((data) => {
           if (data && data.status) {
+            this.formData = new FormData();
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0])
               this.formData.append('file', this.file, this.file.name);
@@ -2150,8 +2157,12 @@ export class EmployeeInfoComponent implements OnInit {
     }
     this.mainService.getFilecategoryMasterForEMS(input).subscribe((result: any) => {
       if (result && result.status) {
-
-        this.documentTypeList = result.data;
+        this.documentTypeList = [];
+        for (let i = 0; i < result.data.length; i++){
+          if (result.data[i].category != "PROFILE") {
+            this.documentTypeList.push(result.data[i])
+          }
+        }
 
       }
     })

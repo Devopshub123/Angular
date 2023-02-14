@@ -65,7 +65,7 @@ export class ResignationComponent implements OnInit {
   max:any;
   canceldata:any;
   pipe = new DatePipe('en-US');
-  displayedColumns: string[] = ['sno','date','status','reason','action'];
+  displayedColumns: string[] = ['sno','date','reason','status','action'];
   dataSource: MatTableDataSource<any>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -96,8 +96,6 @@ export class ResignationComponent implements OnInit {
       this.max= new Date(new Date().setDate(new Date().getDate() + Number(selectedValue)))
       this.resignForm.controls.releivingdate.setValue(new Date(this.max));
     })
-
-
   }
   submit(){
     this.isview=false;
@@ -143,7 +141,7 @@ export class ResignationComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Resignation added successfully'
+            data: 'Resignation applied successfully!'
           });
 
         }

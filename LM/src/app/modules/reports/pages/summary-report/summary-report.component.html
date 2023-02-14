@@ -26,8 +26,8 @@
         </mat-form-field>
         <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
           <mat-label>To Date</mat-label>
-          <input matInput readonly [matDatepicker]="toDate" placeholder="To Date" formControlName="toDate"
-            (click)="toDate.open()">
+          <input matInput readonly [matDatepicker]="toDate" placeholder="To Date" 
+          [min]="minToDate" [max]="maxDate" formControlName="toDate" (click)="toDate.open()">
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
           <mat-datepicker #toDate></mat-datepicker>
         </mat-form-field>

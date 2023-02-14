@@ -39,12 +39,6 @@ export class ResetPasswordComponent implements OnInit {
     private router: Router,private emsService:EmsService,private datePipe: DatePipe) { }
 
   ngOnInit() {
-    // this.getMessages('EM1');
-    // this.getMessages('EM3');
-    // this.getMessages('EM128');
-    // this.getMessages('EM129');
-    // this.getMessages('EM131');
-   
     let params: any = this.activatedRoute.snapshot.params;
     this.email = JSON.parse(atob(params.token)).email;
     this.empid = JSON.parse(atob(params.token)).id;
@@ -53,11 +47,9 @@ export class ResetPasswordComponent implements OnInit {
     this.date=this.datePipe.transform(new Date(this.date), 'yyyy-MM-dd');
     this.currentDate=this.datePipe.transform(new Date(this.currentDate), 'yyyy-MM-dd');
     if(this.date != this.currentDate){
-      console.log("true");
       this.URL = true;
       
     }else {
-      console.log("false");
       this.URL = false
 
     }
@@ -95,8 +87,10 @@ export class ResetPasswordComponent implements OnInit {
                 data: 'Password reset successfully.'
               });
               sessionStorage.removeItem('user');
-              let login = "/Login/"+this.companyName
-              this.router.navigate([login]);
+              // let login = "/Login/"+this.companyName
+              // this.router.navigate([login]);
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Login"]));
     
             } else {
               let dialogRef = this.dialog.open(ReusableDialogComponent, {

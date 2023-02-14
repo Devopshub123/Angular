@@ -51,7 +51,9 @@ export class SummaryReportComponent implements OnInit {
 
   employeelist: any;
   Users: any;
-  minDate = new Date('1950/01/01'); maxDate = new Date();
+  minDate = new Date('1950/01/01');
+  maxDate = new Date();
+  minToDate: any;
   pageLoading=true;
   constructor(public reportsService: ReportsService, public datePipe: DatePipe, public formBuilder: FormBuilder,
     public dialog: MatDialog, private excelService: ExcelServiceService) { }
@@ -74,6 +76,11 @@ export class SummaryReportComponent implements OnInit {
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
      this.Searchform();
     this.getEmployeelist();
+    this.searchForm.get('fromDate')?.valueChanges.subscribe((selectedValue: any) => {
+      if (selectedValue != null) {
+        this.minToDate = selectedValue._d;    
+      }
+    })
   }
   getEmployeelist() {
     let obj={

@@ -369,20 +369,19 @@ export class EmployeeProfileComponent implements OnInit {
         });
       });
     //////////
-
-    this.experienceForm
-      .get('expFromDate')
-      ?.valueChanges.subscribe((selectedValue: any) => {
+    this.experienceForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
+      if (selectedValue != null) {
         this.minExperienceDate = selectedValue._d;
-      });
-    this.educationForm
-      .get('eduFromDate')
-      ?.valueChanges.subscribe((selectedValue: any) => {
+      }
+    })
+
+    this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
+      if (selectedValue != null) {
         this.minEducationDate = selectedValue._d;
-      });
-    this.personalInfoForm
-      .get('usertype')
-      ?.valueChanges.subscribe((selectedValue) => {
+      }
+    });
+    
+    this.personalInfoForm.get('usertype')?.valueChanges.subscribe((selectedValue) => {
         if (selectedValue == 2) {
           this.isself = true;
         } else {
@@ -1289,7 +1288,6 @@ export class EmployeeProfileComponent implements OnInit {
   deletePromotions(index: any) {
     this.promotionsList.splice(index, 1);
     this.promotionsDataSource = new MatTableDataSource(this.promotionsList);
-    this.isfamilyedit = false;
   }
   //** */
   saveJobDetails() {
@@ -1462,7 +1460,7 @@ export class EmployeeProfileComponent implements OnInit {
     this.workExperienceDataSource = new MatTableDataSource(
       this.workExperienceDetails
     );
-    this.isfamilyedit = false;
+    this.saveWorkExperience();
   }
   saveWorkExperience() {
     let data = {
@@ -1644,7 +1642,7 @@ export class EmployeeProfileComponent implements OnInit {
   deleteEducation(index: any) {
     this.educationDetails.splice(index, 1);
     this.educationDataSource = new MatTableDataSource(this.educationDetails);
-    this.isfamilyedit = false;
+    this.saveEducation();
   }
 
   open(
@@ -1956,12 +1954,14 @@ export class EmployeeProfileComponent implements OnInit {
         };
         this.mainService.setFilesMasterForEMS(obj).subscribe((data) => {
           if (data && data.status) {
+            this.formData = new FormData();
             if (obj.fileName != this.editFileName) {
               let info = JSON.stringify(data.data[0]);
               let email = JSON.stringify(this.employeeEmailData);
               this.formData.append('info', info);
               this.formData.append('file', this.file, this.file.name);
               this.formData.append('email', email);
+              console.log("fda-",this.formData)
               this.mainService
                 .setDocumentOrImageForEMS(this.formData)
                 .subscribe((data) => {
@@ -2064,7 +2064,12 @@ export class EmployeeProfileComponent implements OnInit {
       .getFilecategoryMasterForEMS(input)
       .subscribe((result: any) => {
         if (result && result.status) {
-          this.documentTypeList = result.data;
+          this.documentTypeList = [];
+          for (let i = 0; i < result.data.length; i++){
+            if (result.data[i].category != "PROFILE") {
+              this.documentTypeList.push(result.data[i])
+            }
+          }
         }
       });
   }

@@ -426,7 +426,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
   getCountry() {
     this.countryDetails = []
-    this.companyService.getCountry('countrymaster', null, 1, 10, this.companyName).subscribe(result => {
+    this.companyService.getPreonboardingCountry('countrymaster', null, 1, 10, this.companyName).subscribe(result => {
       this.countryDetails = result.data;
       this.permanentCountryDetails = result.data;
     })
@@ -541,7 +541,6 @@ export class PreOnboardingDetailsComponent implements OnInit {
   getDesignationsMaster() {
     this.companyService.getPreonboardingMastertable('designationsmaster', 1, 1, 1000, this.companyName).subscribe(data => {
       this.availableDesignations = data.data;
-      console.log("data-", this.availableDesignations);
     })
   }
   getDepartmentsMaster() {
