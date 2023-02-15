@@ -68,6 +68,7 @@ export class PendingCompoffComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.pageLoading=false;
       } else {
         this.arrayList = [];
         this.dataSource = new MatTableDataSource(this.arrayList);
