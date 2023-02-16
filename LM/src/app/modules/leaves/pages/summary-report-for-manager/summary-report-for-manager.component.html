@@ -1,10 +1,10 @@
-<div fxLayout="column" style="background-color: #ffffff">
+<div fxLayout="column" class="first-col">
   <mat-card>
     <div style="flex-flow: nowrap">
       <mat-card-header class="headerbox">
         <mat-card-title class="title"> Summary Report</mat-card-title>
       </mat-card-header>
-      <br />
+ 
       <div [formGroup]="searchForm">
         <div fxLayout="row" fxLayout.xs="column" class="tableP">
           <mat-form-field fxFlex="33" fxFlex.xs="100" class="mx-1 my-1" appearance="outline">
@@ -58,7 +58,7 @@
 
   <div style="margin-bottom: 10px" fxLayout="row xs-column" fxLayoutAlign="end  center"
     *ngIf="summaryReports.length > 0">
-    <div>
+    <div style="padding-right: 10px">
       <span class="exlprint"> | </span>
       <a title="PDF">
         <img (click)="exportPDF()" src="./assets/images/icons/pdf.png" width="20px" height="20px" /></a>

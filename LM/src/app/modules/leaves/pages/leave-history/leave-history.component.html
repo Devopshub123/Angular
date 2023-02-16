@@ -1,4 +1,4 @@
-<div fxLayout="column" style="background-color: white;">
+<div fxLayout="column" class="first-col">
 <mat-card>
     <mat-card-header>
       <mat-card-title style="text-align: center"> Leave History</mat-card-title>
@@ -12,79 +12,69 @@
       <!--<mat-icon matSuffix>search</mat-icon>-->
       <!--</mat-form-field>-->
     </div>
-    <div class="mat-elevation-z1" style="margin-top: 2%;margin-left:20px;margin-bottom:20px; margin-right:20px;">
+    <div class="mat-elevation-z1" style="margin-top: 2%;margin-left:15px;margin-bottom:20px; margin-right:10px;">
       <mat-card-content style="width:100%;overflow-x: auto">
 
       <table mat-table [dataSource]="dataSource" matSort>
 
-        <!-- ID Column -->
+    
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>S.No</th>
-          <td mat-cell *matCellDef="let element; let i=index;" style="width: 7%;">
+          <td mat-cell *matCellDef="let element; let i=index;">
               {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
       </ng-container>
         <ng-container matColumnDef="appliedOn">
-          <th mat-header-cell *matHeaderCellDef  style="white-space: nowrap;"> Applied On</th>
-          <td mat-cell *matCellDef="let row" style="width: 10%;" >{{row.appliedon  | date:'dd-MM-yyyy'}} </td>
+          <th mat-header-cell *matHeaderCellDef > Applied On</th>
+          <td mat-cell *matCellDef="let row"  >{{row.appliedon  | date:'dd-MM-yyyy'}} </td>
         </ng-container>
         <ng-container matColumnDef="empId">
           <th mat-header-cell *matHeaderCellDef > Emp Id </th>
-          <td mat-cell *matCellDef="let row" style="width: 10%;" > {{row.employee_id}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.employee_id}}</td>
         </ng-container>
         <ng-container matColumnDef="empName">
           <th mat-header-cell *matHeaderCellDef > Emp Name </th>
-          <td mat-cell *matCellDef="let row" style="width: 15%;" > {{row.emp_name}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.emp_name}}</td>
         </ng-container>
-        <!-- Progress Column  empid-->
+    
         <ng-container matColumnDef="leaveType">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Leave Type</th>
-          <td mat-cell *matCellDef="let row" style="width: 15%;" > {{row.display_name}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.display_name}}</td>
         </ng-container>
         <ng-container matColumnDef="fromDate">
           <th mat-header-cell *matHeaderCellDef > From</th>
-          <td mat-cell *matCellDef="let row" style="width: 10%;"> {{row.fromdate | date:'dd-MM-yyyy'}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.fromdate | date:'dd-MM-yyyy'}}</td>
         </ng-container>
         <ng-container matColumnDef="toDate">
           <th mat-header-cell *matHeaderCellDef > To</th>
-          <td mat-cell *matCellDef="let row" style="width: 10%;"> {{row.todate  | date:'dd-MM-yyyy'}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.todate  | date:'dd-MM-yyyy'}}</td>
         </ng-container>
-        <!-- Name Column -->
+     
         <ng-container matColumnDef="noOfDays">
-          <th mat-header-cell *matHeaderCellDef  style="white-space: nowrap;"> No.of Days </th>
-          <td mat-cell *matCellDef="let row" style="width:7%;text-align: center;" > {{row.leavecount}} </td>
+          <th mat-header-cell *matHeaderCellDef  style="text-align: center;"> Days </th>
+          <td mat-cell *matCellDef="let row" style="text-align: center;" > {{row.leavecount}} </td>
         </ng-container>
 
-        <!--&lt;!&ndash; Color Column &ndash;&gt;-->
-
-        <ng-container matColumnDef="pendingSince">
-          <th mat-header-cell *matHeaderCellDef  style="white-space: nowrap;"> Approved On </th>
-          <td mat-cell *matCellDef="let row" style="width: 8%;" > {{row.approvedon| date:'dd-MM-yyyy'}} </td>
+              <ng-container matColumnDef="pendingSince">
+          <th mat-header-cell *matHeaderCellDef  style="white-space: nowrap;"> Approved</th>
+          <td mat-cell *matCellDef="let row"> {{row.approvedon| date:'dd-MM-yyyy'}} </td>
         </ng-container>
-        <!-- Color Column -->
+    
         <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%;" > Status </th>
-          <td mat-cell *matCellDef="let row" style="width: 15%;  cursor: pointer;">{{row.leavestatus}}
-            <!--<i class="material-icons mr-1" (click)="leaveApprove(row,'Approved',null)" title="Approve">check_box</i>-->
-            <!--<i class="material-icons mr-1" (click)="leaveReject(row)" title="Reject">cancel_presentation</i>-->
-            <!--<i class="material-icons" (click)="leaveReview(row)" title="Review and approve">preview</i>-->
-            <!--<a routerLink="/" (click)="onApproveClick(row)">Review and Approve</a>-->
-          </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+          <td mat-cell *matCellDef="let row" style="cursor: pointer;">{{row.leavestatus}}
+           </td>
         </ng-container>
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef style="width:5%;" ></th>
-          <td mat-cell *matCellDef="let row" style="width: 15%;  cursor: pointer;">
-            <!--<i class="material-icons mr-1" (click)="leaveApprove(row,'Approved',null)" title="Approve">check_box</i>-->
-            <!--<i class="material-icons mr-1" (click)="leaveReject(row)" title="Reject">cancel_presentation</i>-->
-            <!-- <i class="material-icons" (click)="leaveReview(row)" title="Review and approve">preview</i> -->
+          <th mat-header-cell *matHeaderCellDef  ></th>
+          <td mat-cell *matCellDef="let row" style="cursor: pointer;">
             <mat-icon   title="view" (click)="leaveReview(row)">visibility</mat-icon>
-            <!--<a routerLink="/" (click)="onApproveClick(row)">Review and Approve</a>-->
           </td>
         </ng-container>
-        <!-- Color Column -->
+    
         <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-        <!-- Row shown when there is no matching data. -->
+ 
         <tr class="mat-row" *matNoDataRow>
           <td class="mat-cell" colspan="10" style="text-align: center;">No data available</td>
         </tr>

@@ -1,4 +1,4 @@
-<div fxLayout="column" fxFill class="custom-investment-of">
+<div fxLayout="column" fxFill class="custom-investment-of first-col">
     <mat-card fxFill>
       <mat-card-header class="headerbox">
         <div fxFlex="100"  fxLayout="row" fxLayout.xs="column">
@@ -15,10 +15,9 @@
         </mat-card-title> -->
       </mat-card-header>
 
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">  
-                <div fxLayout="column" fxFlex="5">
-                </div>       
-                <div fxLayout="column" fxFlex="90" class="custom-payroll-div">
+      <div fxLayout="row" fxLayout.xs="column" class="custom-card">  
+                 
+                <div fxLayout="column" fxFlex="100" class="custom-payroll-div" style="padding:1%">
                   <div class="mat-elevation-z1">
                   <table mat-table [dataSource]="dataSource"   multiTemplateDataRows  style="width:100%;display:table;">
                         <!-- Name Column -->
@@ -217,8 +216,7 @@
                 </div>
 
                 </div>
-                <div fxLayout="column" fxFlex="5">
-                </div> 
+           
         </div>
     </mat-card>
 </div>                    

@@ -1,5 +1,5 @@
-<div style="background-color: white;">
-  <mat-card style="padding-left: 1%;">
+<div fxLayout="column" class="first-col">
+  <mat-card >
   <div fxLayout="column" *ngIf="isdata" style="padding-top: 16px;">
     <!-- <marquee  direction="left" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();" loop>
             Birthdays, Anniversaries, Pending Task
@@ -59,7 +59,7 @@
 
     </div>
   </div>
-  <div fxLayout="column" *ngIf="isdata" style="padding-top: 1%;padding-left: 1%;padding-right: 1%;">
+  <div fxLayout="column" *ngIf="isdata" style="padding-top: 1%;">
     <div fxLayout="row" fxLayout.xs="column">
      
       <mat-card fxFlex="65" fxFlex.xs="100" style="margin-right: 1%;">

@@ -1,4 +1,4 @@
-<div fxLayout="column"  style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflow-y: auto;">
+<div fxLayout="column"  style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflow-y: auto;"  *ngIf="flag">
     <mat-card style="background-color: #ffffff;border: 1px solid #cccbcb;">
         <div>
             <mat-card style="background-color: #ffffff">
@@ -851,3 +851,11 @@
     </mat-card>
 </div>
 <ngx-spinner size="medium" type='ball-fussion'></ngx-spinner>
+
+<div fxLayout="column" fxLayoutAlign="center center" *ngIf="!flag" style="height: 100%;">
+    <mat-card >
+    <span>
+        <h1 class="text-dark-50 text-center mt-0 fw-bold" style="color: red">Selected URL is expired </h1>
+    </span>
+</mat-card>
+</div>

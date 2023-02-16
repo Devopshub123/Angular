@@ -156,19 +156,19 @@ export class LeavesForCancellationComponent implements OnInit {
   }
   getPageSizes(): number[] {
      
-  var customPageSizeArray = [];
-  if (this.dataSource.data.length > 5) {
-    customPageSizeArray.push(5);
-  }
-  if (this.dataSource.data.length > 10) {
-    customPageSizeArray.push(10);
-  }
-  if (this.dataSource.data.length > 20) {
-    customPageSizeArray.push(20);
-  }
-  customPageSizeArray.push(this.dataSource.data.length);
-  return customPageSizeArray;
-  }
+    var customPageSizeArray = [];
+    if (this.dataSource.data.length > 5) {
+      customPageSizeArray.push(5);
+    }
+    if (this.dataSource.data.length > 10) {
+      customPageSizeArray.push(10);
+    }
+    if (this.dataSource.data.length > 20) {
+      customPageSizeArray.push(20);
+    }
+    customPageSizeArray.push(this.dataSource.data.length);
+    return customPageSizeArray;
+    }
   getErrorMessages(errorCode:any) {
     this.LM.getErrorMessages(errorCode,1,1).subscribe((result)=>{
       if(result.status && errorCode == 'LM120')

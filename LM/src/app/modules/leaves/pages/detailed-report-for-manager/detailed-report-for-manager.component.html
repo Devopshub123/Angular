@@ -1,4 +1,4 @@
-<div fxLayout="column">
+<div fxLayout="column" class="first-col">
 
   <mat-card >
     <mat-card-header class="headerbox">
@@ -93,9 +93,9 @@
         </button>
       </div>
     </div>
-    <div style="margin-bottom: 10px" fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="arrayList.length > 0">
-      <div>
-        <span class="exlprint"> | </span>
+    <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="arrayList.length > 0">
+      <div style="padding-right: 25px;">
+        <!-- <span class="exlprint"> | </span> -->
           <a title="PDF"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
         <span class="exlprint"> | </span>
         <a title="Excel"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">

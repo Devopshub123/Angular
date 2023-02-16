@@ -1,4 +1,4 @@
-<div fxLayout="column">
+<div fxLayout="column" class="first-col">
   <mat-card style="padding-top: 0px;">
     <mat-card-header>
       <mat-card-title style="text-align: center"> Pending Requests</mat-card-title>
@@ -11,51 +11,51 @@
         <!--<mat-icon matSuffix>search</mat-icon>-->
       <!--</mat-form-field>-->
     </div>
-    <div class="mat-elevation-z1" style="margin-top: 2%;margin-left:20px;margin-bottom:20px; margin-right:20px;">
+    <div class="mat-elevation-z1" style="margin-top: 2%;margin-left:15px;margin-bottom:20px; margin-right:10px;">
       <mat-card-content style="width:100%;overflow-x: auto">
 
       <table mat-table [dataSource]="dataSource" matSort>
 
         <!-- ID Column -->
         <ng-container matColumnDef="appliedOn">
-          <th mat-header-cell *matHeaderCellDef  style="white-space: nowrap;"> Applied On</th>
-          <td mat-cell *matCellDef="let row" style="width: 10%;" >{{row.appliedon  | date:'dd-MM-yyyy'}} </td>
+          <th mat-header-cell *matHeaderCellDef> Applied On</th>
+          <td mat-cell *matCellDef="let row">{{row.appliedon  | date:'dd-MM-yyyy'}} </td>
         </ng-container>
         <ng-container matColumnDef="empId">
           <th mat-header-cell *matHeaderCellDef > Emp Id </th>
-          <td mat-cell *matCellDef="let row" style="width: 10%;" > {{row.employee_id}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.employee_id}}</td>
         </ng-container>
         <ng-container matColumnDef="empName">
           <th mat-header-cell *matHeaderCellDef > Emp Name </th>
-          <td mat-cell *matCellDef="let row" style="width: 15%;" > {{row.emp_name}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.emp_name}}</td>
         </ng-container>
         <!-- Progress Column  empid-->
         <ng-container matColumnDef="leaveType">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Leave Type</th>
-          <td mat-cell *matCellDef="let row" style="width: 15%;" > {{row.display_name}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.display_name}}</td>
         </ng-container>
         <ng-container matColumnDef="fromDate">
           <th mat-header-cell *matHeaderCellDef > From Date </th>
-          <td mat-cell *matCellDef="let row" style="width: 10%;" > {{row.fromdate | date:'dd-MM-yyyy'}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.fromdate | date:'dd-MM-yyyy'}}</td>
         </ng-container>
         <ng-container matColumnDef="toDate">
           <th mat-header-cell *matHeaderCellDef > To Date </th>
-          <td mat-cell *matCellDef="let row" style="width: 10%;" > {{row.todate  | date:'dd-MM-yyyy'}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.todate  | date:'dd-MM-yyyy'}}</td>
         </ng-container>
         <!-- Name Column -->
         <ng-container matColumnDef="noOfDays">
           <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> No.of Days </th>
-          <td mat-cell *matCellDef="let row" style="width:7%;text-align: center;" > {{row.leavecount}} </td>
+          <td mat-cell *matCellDef="let row" style="text-align: center;" > {{row.leavecount}} </td>
         </ng-container>
 
         <!-- Color Column -->
         <ng-container matColumnDef="pendingSince">
           <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Pending Since </th>
-          <td mat-cell *matCellDef="let row" style="width: 8%;text-align: center;" > {{row.pendingSince}} </td>
+          <td mat-cell *matCellDef="let row" style="text-align: center;" > {{row.pendingSince}} </td>
         </ng-container>
         <!-- Color Column -->
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef  style="width:auto" ></th>
+          <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let row" style="width:auto;white-space: nowrap;cursor: pointer;">
             <i class="material-icons mr-1" (click)="submit(row,'Approved',null)" title="Approve">check_box</i>
              <i class="material-icons mr-1" (click)="leaveReject(row,'Reject',null)" title="Reject">cancel_presentation</i>

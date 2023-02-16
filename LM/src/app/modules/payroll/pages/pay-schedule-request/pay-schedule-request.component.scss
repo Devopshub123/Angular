@@ -158,8 +158,13 @@ mat-card {
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
   position: relative;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 .form-control:disabled, .form-control[readonly] {
   background: #ffffff !important;
   border-color: #e8e8e8 !important;
+}
+.first-col{
+  padding-right: 15px;
 }

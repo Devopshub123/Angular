@@ -99,6 +99,7 @@ openDialogcancel(): void {
         if(data.status){
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/LeaveManagement/UserLeaveHistory"]));
+          console.log("pp--",this.msgLM74)
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,

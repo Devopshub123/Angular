@@ -107,3 +107,10 @@
 .custom{
   width: 85px !important;
 }
+mat-card {
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  position: relative;
+  padding-left: 0px;
+  padding-right: 0px;
+}

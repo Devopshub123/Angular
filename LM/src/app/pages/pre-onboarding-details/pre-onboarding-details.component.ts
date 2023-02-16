@@ -139,6 +139,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   isDeleted: boolean = false;
   toSelectTab = 0;
   companyName: any;
+  flag: boolean = false;
   isSubmitAdd: boolean = false;
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService, private spinner: NgxSpinnerService,
     private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
@@ -153,7 +154,14 @@ export class PreOnboardingDetailsComponent implements OnInit {
     // if (this.params && this.params.token) {
       this.email = JSON.parse(atob(this.params.token)).email;
       this.candidateId = JSON.parse(atob(this.params.token)).candidateId;
-      this.date = JSON.parse(atob(this.params.token)).date;
+    this.date = new Date(JSON.parse(atob(this.params.token)).date);
+    let expDate = new Date(this.date.setDate(this.date.getDate() + 1))
+    if (expDate >= new Date()) {
+      this.flag = true;
+    }
+    else {
+      this.flag = false;
+    }
     this.companyName = JSON.parse(atob(this.params.token)).companyName;
       // this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
 

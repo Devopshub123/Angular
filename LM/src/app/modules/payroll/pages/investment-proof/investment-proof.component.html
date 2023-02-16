@@ -1,4 +1,4 @@
-<div fxLayout="column" fxFill *ngIf="!hide">
+<div fxLayout="column" fxFill *ngIf="!hide" class="first-col">
   <mat-card fxFill>
     <mat-card-header class="headerbox">
       <div fxLayout="row" fxFlex="50">
@@ -55,7 +55,7 @@
     </div>
   </mat-card>
 </div>   
-<div fxLayout="column" fxFill *ngIf="hide">
+<div fxLayout="column" fxFill *ngIf="hide" class="first-col">
   <mat-card >
     <mat-card-header class="">
       <mat-icon title="Back" fxLayoutAlign="end" (click)="back()" style="padding-left: 85%;">keyboard_backspace</mat-icon>

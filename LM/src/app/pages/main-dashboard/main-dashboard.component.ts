@@ -163,7 +163,7 @@ export class MainDashboardComponent implements OnInit {
     this.spinner.show();
     if (
       this.usersession.roles[0].role_id == 2 ||
-      this.usersession.roles[0].role_id == 6
+      this.usersession.roles[0].role_id == 6 
     ) {
       this.isManager = true;
     }

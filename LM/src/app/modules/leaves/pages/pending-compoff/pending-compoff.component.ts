@@ -92,6 +92,7 @@ export class PendingCompoffComponent implements OnInit {
   customPageSizeArray.push(this.dataSource.data.length);
   return customPageSizeArray;
   }
+
   submit(compoff:any,status:any,approverId :any) {
     this.employeeId = compoff.empid;
     this.getEmployeeEmailData(compoff,status,approverId );
@@ -123,7 +124,7 @@ export class PendingCompoffComponent implements OnInit {
           });
           this.getCompoffForApprovals();
         }else {
-          this.dialog.open(ConfirmationComponent, {width: '500px',height:'250px',
+          this.dialog.open(ConfirmationComponent, {
             position:{top:`70px`},
             disableClose: true,
             data: {Message:this.LM116,url: '/LeaveManagement/ManagerDashboard'}
