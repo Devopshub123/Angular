@@ -65,7 +65,7 @@ export class InductionConductedByMasterComponent implements OnInit {
       {
         programType: ["",[Validators.required]],
         department: ["",[Validators.required]],
-        conductBy: ['',[Validators.required]],
+        conductBy: [[],[Validators.required]],
         status:['']
 
       });
@@ -76,6 +76,7 @@ export class InductionConductedByMasterComponent implements OnInit {
         if (data.status) {
           this.isEnable = true;
           this.employeeList = data.data;
+          this.getConductByElementsOnEdit();
           }
        })
     })
@@ -84,16 +85,28 @@ export class InductionConductedByMasterComponent implements OnInit {
 
   edit(event: any, data: any) {
     this.flag = false;
+
+
     for(let i=0;i<data.empids.length;i++){
-      this.array.push(data.empids[i].empid)
+
+      if(this.array.length === 0){
+        this.array.push(data.empids[i]);
+        this.selectedEmployees.push(data.empids[i].empid);
+      }
+      else if(this.array.length > 0 && !this.checkRoleExistence(data.empids[i].empid)){
+        this.array.push(data.empids[i]);
+        this.selectedEmployees.push(data.empids[i].empid);
+      }
+
     }
     this.isUpdate = true;
       this.inductionForm.controls.programType.setValue(data.program_id);
     this.inductionForm.controls.department.setValue(data.department_id);
-    this.inductionForm.controls.conductBy.setValue(this.array);
+
       let emplist:any=[];
       let emp={};
-      data.empids.forEach((e:any)=>{
+
+  /*    data.empids.forEach((e:any)=>{
             emp={
               "empid": e.empid,
               "employee_code": "",
@@ -102,7 +115,8 @@ export class InductionConductedByMasterComponent implements OnInit {
             emplist.push(emp);
             this.selectedEmployees.push(e.empid);
             this.inductionForm.controls.conductBy.value.push(emp);
-        });
+        });*/
+
      // this.inductionForm.controls.conductBy.setValue(emplist);
       // this.employeeList.forEach((e: any)=>{
       //   e.empid = data.empids.empid;
@@ -111,7 +125,7 @@ export class InductionConductedByMasterComponent implements OnInit {
 
   save(event:any,info:any){
     if (this.inductionForm.valid) {
-     
+
        this.inductionForm.controls.pid.value = info.id;
       this.submit();
     }
@@ -301,7 +315,7 @@ export class InductionConductedByMasterComponent implements OnInit {
   }
 
   getPageSizes(): number[] {
-     
+
   var customPageSizeArray = [];
   if (this.dataSource.data.length > 5) {
     customPageSizeArray.push(5);
@@ -325,5 +339,17 @@ export class InductionConductedByMasterComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getConductByElementsOnEdit(){
+    if(this.isUpdate) {
+      this.inductionForm.controls.conductBy.setValue(this.array);
+    }
+  }
+  compareFn(option1:any,option2:any){
+    return option1.empid === option2.empid;
+  }
+  checkRoleExistence(roleParam: any):boolean {
+    return this.array.some(  (conduct:any) => conduct.empid === roleParam);
   }
 }
