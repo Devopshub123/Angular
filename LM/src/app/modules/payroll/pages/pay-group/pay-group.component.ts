@@ -178,9 +178,10 @@ export class PayGroupComponent implements OnInit {
         this.dataSource = new MatTableDataSource(info.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        if (info.data.length > 20) {
-          this.pageLoading = false;
-        }
+        this.pageLoading = false;
+        // if (info.data.length > 20) {
+        //   this.pageLoading = false;
+        // }
       }
     })
 

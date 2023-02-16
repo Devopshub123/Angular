@@ -196,8 +196,9 @@ export class FinanceDashboardComponent implements OnInit {
 		}
 		else{
 			this.departments=[];
-		this.departmentsdata=[];
-		this.data=[];
+		    this.departmentsdata=[];
+		    this.data=[];
+			this.options=[];
 
 		}
 	   

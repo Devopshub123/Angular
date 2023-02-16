@@ -96,9 +96,7 @@ export class EarningsComponent implements OnInit {
         console.log(info.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        if (info.data.length > 20) {
           this.pageLoading = false;
-        }
       }
     })
 
