@@ -155,8 +155,7 @@ export class EmployeeDashboardComponent implements OnInit {
   ////////////////
   ngOnInit(): void {
     this.spinner.show();
-    console.log("da-",this.usersession.roles[0].role_id)
-    if (
+   if (
       this.usersession.roles[0].role_id == 2 ||
       this.usersession.roles[0].role_id == 6 
     ) {

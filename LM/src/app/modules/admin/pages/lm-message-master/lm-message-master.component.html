@@ -16,7 +16,7 @@
     </div>
     <div class="tablePadding">
         <div class="mat-elevation-z1">
-      <mat-table #table [dataSource]="dataSource" matSort>
+      <table mat-table #table [dataSource]="dataSource" matSort>
 
           <ng-container matColumnDef="sno">
               <mat-header-cell *matHeaderCellDef>S.No</mat-header-cell>
@@ -66,10 +66,10 @@
           <mat-row *matRowDef="let row;columns:displayedColumns"></mat-row>
 
           <tr class="mat-row" *matNoDataRow>
-              <td class="mat-cell noData-cell" colspan="6">No data available</td>
+              <td class="mat-cell noData-cell" colspan="5" style="text-align: center;">No data available</td>
           </tr>
 
-      </mat-table>
+      </table>
       <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
 </div>
   </div>

@@ -5,16 +5,16 @@
         <mat-card-title > Message Master </mat-card-title>
     </mat-card-header>
 <div fxLayout="column" fxLayout.xs="column">
-    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 56px;">
-        <mat-form-field fxFlex.xs="100%" appearance="outline">
+    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 56px;margin-top: 1%;">
+        <mat-form-field fxFlex="28" fxFlex.xs="100%" appearance="outline">
             <mat-label>Search</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
 
-    <div class="mat-elevation-z1 example-container">
-        <mat-table #table [dataSource]="dataSource" matSort>
+    <div class="mat-elevation-z1">
+        <table mat-table #table [dataSource]="dataSource" matSort>
 
             <ng-container matColumnDef="sno">
                 <mat-header-cell *matHeaderCellDef style=" color :white">S.No</mat-header-cell>
@@ -67,7 +67,7 @@
                 <td class="mat-cell noData-cell" colspan="5" style="text-align: center;">No data found</td>
             </tr>
 
-        </mat-table>
+        </table>
         <!-- <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5,10,20]"></mat-paginator> -->
 
         <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
