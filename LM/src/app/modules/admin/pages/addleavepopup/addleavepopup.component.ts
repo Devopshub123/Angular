@@ -93,6 +93,7 @@ export class AddleavepopupComponent implements OnInit {
       }
       
       if(!this.isLeaveAlreadyExists && !this.isDisplayAlreadyExists && !this.isLeaveColorAlreadyExists){
+        this.dialogRef.close();
         this.LM.setNewLeaveType(info).subscribe((data) => {      
           if (data.status) {  
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -109,6 +110,9 @@ export class AddleavepopupComponent implements OnInit {
           }
         });
       }
+
+    }
+    else{
 
     }
     

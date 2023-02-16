@@ -7,6 +7,7 @@ import { ToWords } from 'to-words';
 import { CompanyInformationService } from 'src/app/services/company-information.service';
 import { environment } from 'src/environments/environment';
 import { MainService } from 'src/app/services/main.service';
+import { CompanySettingService } from 'src/app/services/companysetting.service';
 @Component({
   selector: 'app-pay-slips-view',
   templateUrl: './pay-slips-view.component.html',
@@ -34,8 +35,10 @@ export class PaySlipsViewComponent implements OnInit {
   companyDBName: any = environment.dbName;
   companyName: any;
   companyinfo: any;
-  constructor(private router: Router,private location:Location,private PR:PayrollService,private LM:CompanyInformationService,private mainService:MainService,) {
+  companylocation:any;
+  constructor(private router: Router,private location:Location,private PR:PayrollService,private LM:CompanyInformationService,private mainService:MainService,private companyService:CompanySettingService) {
     this.payslipdata = this.location.getState();
+    this.usersession = JSON.parse(sessionStorage.getItem('user') || '');
     if(!this.payslipdata.userData){
       this.router.navigate(["Payroll/PaySlips"]);
     }
@@ -67,11 +70,31 @@ export class PaySlipsViewComponent implements OnInit {
   ngOnInit(): void {
 
       this.getCompanyInformation();
+      this.getWorkLocation()
 
   }
   Back(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(["/Payroll/PaySlips"]));
+  }
+  getWorkLocation() {
+    this.companyService
+      .getactiveWorkLocation({ id: null, companyName: this.companyDBName })
+      .subscribe((result) => {
+        console.log(result.data);
+        for(let i=0;i<result.data.length;i++){
+          if(this.usersession.worklocation == result.data[i].city){
+            if(result.data[i].location !=''||result.data[i].location !=null){
+              this.companylocation = result.data[i].location +"-"+result.data[i].cityname
+
+            }else{
+              this.companylocation= result.data[i].cityname 
+            }
+             
+
+          }
+        }
+      });
   }
   getEmployeePayslipDetails(userdata:any){
     let data ={

@@ -743,6 +743,7 @@ export class LeavepoliciesComponent implements OnInit {
   }
   /**setleavepolicies */
   setleavepolicies(){
+    if(this.addleaveForm.displayname){
       var infodata = {
         id: this.addleaveForm.controls.leaveid.value,
         leavetype_status:'Active'
@@ -884,6 +885,9 @@ export class LeavepoliciesComponent implements OnInit {
       datas.leaveId<11?this.istoggle=true:'';
       this.submitLeavepolices(info,datas)
     }
+
+    }
+    
 
   }
 

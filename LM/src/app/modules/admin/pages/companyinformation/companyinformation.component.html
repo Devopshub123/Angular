@@ -76,7 +76,7 @@
                     <mat-label>Primary Contact</mat-label>
                     <input type="text" formControlName="contact" onlyNumber matInput [readonly]="isview" placeholder="" minlength="10" maxlength="10" required >
                     <mat-error class="con-error" *ngIf="  companyForm.controls.contact.errors?.required">
-                        {{msgEM2}}
+                        {{msgEM1}}
                   </mat-error>
                   <mat-error class="reg-error" *ngIf="companyForm.controls.contact.errors?.minlength ||
                   companyForm.controls.contact.errors?.maxlength">

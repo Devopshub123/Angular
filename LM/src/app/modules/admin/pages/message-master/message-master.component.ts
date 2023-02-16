@@ -40,8 +40,10 @@ export class MessageMasterComponent implements OnInit {
   dataUpdate: any;
   dataNotUpdate: any;
   recordExist: any;
+  userSession:any;
   constructor(private formBuilder: FormBuilder, private router: Router, private dialog: MatDialog,
     private adminService: AdminService) {
+      this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
 
   }
   ngOnInit(): void {
@@ -83,7 +85,8 @@ export class MessageMasterComponent implements OnInit {
       {
        "code": rcode,
        "message": rmessage,
-       "screenname": screenname
+       "screenname": screenname,
+       "action_by":this.userSession.id
       }]
 
     this.adminService.updateMessagesData(dataList).subscribe((res: any) => {

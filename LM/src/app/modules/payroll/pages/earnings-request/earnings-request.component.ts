@@ -84,7 +84,7 @@ export class EarningsRequestComponent implements OnInit {
         epf_contribution:[""],
         epf_option_contribution:[""],
         showComponent:[""],
-        percentage:[""]
+        percentage:["",Validators.required]
       });
       this.status(1)
       // this.earningsRequestForm.get('epf_contribution')?.valueChanges.subscribe(selectedValue => {
@@ -195,7 +195,7 @@ export class EarningsRequestComponent implements OnInit {
     this.dataofvalues=[];  
     this.PR.getPayGroupComponentValues(id).subscribe((result:any)=>{
       if(result.status){
-        console.log("dataofvalues", this.dataofvalues)
+        console.log("dataofvalues", result.data[0][0])
         this.dataofvalues = result.data[0][0];
         this.earningsRequestForm.controls.payGroup.setValue(this.dataofvalues.group_name);
         this.earningsRequestForm.controls.componentType.setValue(this.dataofvalues.component_name);
@@ -207,7 +207,7 @@ export class EarningsRequestComponent implements OnInit {
         this.earningsRequestForm.controls.showComponent.setValue(this.dataofvalues.show_this_component_in_payslip);
         this.earningsRequestForm.controls.esic.setValue(this.dataofvalues.consider_for_esi_contribution);
         this.earningsRequestForm.controls.epf_option_contribution.setValue(this.dataofvalues.epf_always==1?'always':'only_pf');
-        this.earningsRequestForm.controls.flat_amount.setValue(this.dataofvalues.component_value);
+        this.dataofvalues.is_percentage_or_flat_amount==0? this.earningsRequestForm.controls.flat_amount.setValue(this.dataofvalues.component_value): this.earningsRequestForm.controls.percentage.setValue(this.dataofvalues.component_value)
         this.earningsRequestForm.controls.monthly_salary.setValue(this.dataofvalues.is_percentage_or_flat_amount==null?1:this.dataofvalues.is_percentage_or_flat_amount);  
         this.status(this.dataofvalues.is_percentage_or_flat_amount==null?1:this.dataofvalues.is_percentage_or_flat_amount);      
       }
@@ -217,9 +217,10 @@ export class EarningsRequestComponent implements OnInit {
   
   configurePayGroupComponent(){
     console.log("hi")
-    let flatorpercentagevalidation = this.earningsRequestForm.controls.monthly_salary.value==0?this.earningsRequestForm.controls.flat_amount.value:this.earningsRequestForm.controls.percentage.value
+    let flatorpercentagevalidation = this.earningsRequestForm.controls.monthly_salary.value==0?this.earningsRequestForm.controls.flat_amount.value:this.earningsRequestForm.controls.percentage.value;
+    console.log("flatorpercentagevalidation",flatorpercentagevalidation)
     if(this.earningsRequestForm.controls.namePaySlip.valid && (this.earningsRequestForm.controls.flat_amount.valid || this.earningsRequestForm.controls.percentage.valid)|| (!this.otherhide)){
-      if(flatorpercentagevalidation <= Number(this.validationvalue) ){
+      if((flatorpercentagevalidation <= Number(this.validationvalue) )&&flatorpercentagevalidation!=''){
         /**Configure component values and changed to active state */
       if(this.earndata.Earndata.status=="To Be Configured" || this.earndata.Earndata.status=="Configuration In Progress"){
         let data ={
