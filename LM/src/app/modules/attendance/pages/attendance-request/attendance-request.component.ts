@@ -81,6 +81,7 @@ export class AttendanceRequestComponent implements OnInit {
   requiredOption: any;
   dataSave: any;
   dataNotSave: any;
+
   disableDates: any;
   datesList: any;
   weekoffs: any;
@@ -232,8 +233,7 @@ export class AttendanceRequestComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },
               disableClose: true,
-              data:this.ATT75
-              // data: "Unable to request. please check the configure shift."
+             data: "Unable to request. please check the configure shift."
             });
           } else {
             this.shiftData = res.data[0];
@@ -461,7 +461,7 @@ export class AttendanceRequestComponent implements OnInit {
           if (res.message == "notSave") {
             resMessage = this.dataNotSave;
           } else if (res.message == "save") {
-            resMessage = this.dataSave;
+            resMessage = this.ATT75;
           } else {
             resMessage = this.dataNotSave;
           }
@@ -550,8 +550,7 @@ export class AttendanceRequestComponent implements OnInit {
             this.dataNotSave = e.message
           } else if (e.code == "ATT11") {
             this.dataSave = e.message
-          }
-          else if (e.code == "ATT75") {
+          }  else if (e.code == "ATT75") {
             this.ATT75 = e.message
           }
           else if (e.code == "ATT74") {
