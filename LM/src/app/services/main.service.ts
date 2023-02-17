@@ -120,7 +120,8 @@ export class MainService {
 
   getSideNavigation(data: any) {
     data.companyName= this.companyName;
-    return this.http.post(this.mainBeUrl + 'attendance/api/getSideNavigation',data, this.httpOptions);
+    return this.http.post(this.mainBeUrl + 'api/getCommonSideNavigation',data, this.httpOptions);
+    //return this.http.post(this.mainBeUrl + 'attendance/api/getSideNavigation',data, this.httpOptions);
   }
   /**get document files */
   getDocumentsFiles(input:any){

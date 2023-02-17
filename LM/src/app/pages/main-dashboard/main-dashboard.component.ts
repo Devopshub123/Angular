@@ -161,6 +161,7 @@ export class MainDashboardComponent implements OnInit {
   ////////////////
   ngOnInit(): void {
     this.spinner.show();
+    sessionStorage.setItem('selectedModule','Spryple' );
     if (
       this.usersession.roles[0].role_id == 2 ||
       this.usersession.roles[0].role_id == 6 
