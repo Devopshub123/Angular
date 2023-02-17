@@ -227,7 +227,7 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100"  class="mx-2 my-2" appearance="outline">
                             <mat-label>Display Name</mat-label>
-                            <input type="text" formControlName="displayname" matInput placeholder="" maxlength="100"
+                            <input type="text" formControlName="displayname" matInput placeholder="" maxlength="100" readonly="!isnewleave"
                                 required>
                                 <mat-error class="con-error" *ngIf="addleaveForm.controls.displayname.errors?.required">
                                     This field is required
@@ -253,7 +253,7 @@
                     <mat-divider></mat-divider><br>
 
 
-                    <div class="mat-elevation-z8" *ngIf="tabledata">
+                    <div class="mat-elevation-z8" *ngIf="tabledata &&isnewleave">
                         <table mat-table [dataSource]="dataSource3" matSort>
 
                             <ng-container matColumnDef="sno">
@@ -519,7 +519,15 @@
                     </div><br>
 
                 </form>
-                <div *ngIf="tabledata && advanceflag" class="form-group row ml-1 mt-3">
+                <!-- <div class="form-group row ml-1 mt-3" *ngIf="!isnewleave">
+                    <div class="col-sm-6 mr2 text-right">
+                   
+                        <button class="col-md-3 mr-2 btn btn-primary"  (click)="Activateleaves()"  >Activate</button>
+                        <button class="col-md-3  btn btn-danger"   (click)="cancelledleave()">Cancel</button>
+                    </div>
+
+                </div> -->
+                <div *ngIf="tabledata && advanceflag " class="form-group row ml-1 mt-3">
                     <div class="col-sm-6" style="padding:0px">
                         <!-- <button class="col-md-3 btn btn-default" (click)="setLeaveStatus(true)" *ngIf="isactivate">Activate</button> -->
                         <button class="col-md-3 btn btn-danger custom" (click)="setLeaveStatus(false)" *ngIf="isdeactivate">Deactivate</button>
@@ -527,7 +535,9 @@
                     <div class="col-sm-6 mr2 text-right">
                         <!-- <button class="col-md-2 mr-2 btn btn-primary" (click)="setleavepolicies()"
                             *ngIf="this.editemployee">Save</button> -->
-                        <button class="col-md-3 mr-2 btn btn-primary"  (click)="setleavepolicies()"  >Submit</button>
+                        <button class="col-md-3 mr-2 btn btn-primary"  (click)="setleavepolicies()" *ngIf="isnewleave" >Submit</button>
+                        <button class="col-md-3 mr-2 btn btn-primary"  (click)="setLeaveStatus(true)"*ngIf="!isnewleave"  >Activate</button>
+
                         <button class="col-md-3  btn btn-danger"   (click)="cancelledleave()">Cancel</button>
                     </div>
                 </div>
