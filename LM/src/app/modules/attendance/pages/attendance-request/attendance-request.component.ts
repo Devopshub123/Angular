@@ -494,6 +494,7 @@ export class AttendanceRequestComponent implements OnInit {
   deleteRequest(event: any) {
     let obj = {
       "id": event.id,
+      "actionby":this.userSession.id
     };
 
 
