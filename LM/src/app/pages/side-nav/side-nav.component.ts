@@ -13,14 +13,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit {
-  self :any = 'Self';
+  self :any = 'Employee';
   menuList: any[] = [];
   showFiller = false;
   isExpanded = false;
   element= HTMLElement;
   currentItem:any = null;
   currentChild:any = null;
-  mainDashBoard ='/main/MainDashboard';
+  
   selectedModule:any = 'Spryple';
   usersession: any;
   activeModuleData: any;
@@ -29,6 +29,14 @@ export class SideNavComponent implements OnInit {
   sideNavigationWidth : any= '20';
   istoolTipExp: boolean = true;
   istoolTip= "Expand";
+  icon: boolean = false;
+
+  click(child:any){
+    child.isOpen = !child.isOpen;
+    if(child.displayName === this.self)
+    child.isOpen = true;
+    }
+ 
   sidemenuHover(item:any) {
        this.moduleName = item.modulename;
   }
@@ -54,8 +62,9 @@ export class SideNavComponent implements OnInit {
   }
 
   onClickMainDashboard(){
-    this.router.navigate(['/main/MainDashboard']);
     sessionStorage.setItem('selectedModule','Spryple' );
+    this.router.navigate(['/main/MainDashboard']);
+    
   }
   toggleExpand(){
     if(this.isExpanded && (sessionStorage.getItem('selectedModule') && sessionStorage.getItem('selectedModule')!=='Spryple')){
@@ -65,23 +74,33 @@ export class SideNavComponent implements OnInit {
      // return this.isExpanded && (sessionStorage.getItem('selectedModule') && sessionStorage.getItem('selectedModule')!=='Spryple');
     }
 
-  toggleChild(item:any,child:any,subchild:any,route:any,screen:any) {
+  toggleChild(item:any,route:any) { 
+
     let _this =this;
+    if (item.id==3) {
+      this.timesheet();
+      return;
+       }
+       if(!(item.children && item.children[0])){
+        return;
+      }
     this.isExpanded = true;
+   
     this.menuList.forEach(function(m:any){
       if(m.children && m.children[0]){
         m.children.forEach(function(c:any){
           if(c.subChildren && c.subChildren[0]){
             c.subChildren.forEach(function(sc:any){
+              c.isOpen = true;
+              m.displayStatus = false;
               if(sc.routename === route) {
-                m.displayStatus = true;
                 _this.currentItem  = m;
                 _this.selectedModule = _this.currentItem.modulename ;
                 sc.childStatus = true;
                 _this.currentChild = sc;
                 _this.activeModuleData.moduleid = _this.currentItem.id;
                 _this.activeModuleData.module = _this.currentItem ;
-                sessionStorage.setItem('selectedModule',_this.selectedModule );
+               // sessionStorage.setItem('selectedModule',_this.selectedModule );
                 sessionStorage.setItem('activeModule',(_this.activeModuleData) ?JSON.stringify(_this.activeModuleData):'' );
                 sessionStorage.setItem('activeChild',(_this.currentChild) ?JSON.stringify(_this.currentChild):'' );
               }
@@ -93,7 +112,8 @@ export class SideNavComponent implements OnInit {
         });
       }
     });
-
+    item.displayStatus = true;
+    sessionStorage.setItem('selectedModule',item.modulename );
   }
 
   toggleBack(event:any) {
@@ -131,176 +151,31 @@ export class SideNavComponent implements OnInit {
     this.activeModuleData = {
       empid: this.usersession.id
     };
-   //this.getrolescreenfunctionalities()
    this.getSideNavigation();
   }
   menu:any[]=[];
   _mobileQueryListener(){};
-  getSideNavigation() {
-    this.mainService.getSideNavigation({empid: this.usersession.id}).subscribe((res: any) => {
-      //this.menu=[];
-      for(let i=0; i<res.data.length;i++) {
-        res.data[i].displayStatus = res.data[i].modulename === sessionStorage.getItem('selectedModule');
-        if (res.data[i].children != 'null') {
-          let one = JSON.parse(res.data[i].children);
-          // res.data[i].children=Array.from(new Set(res.data[i].children))
-          res.data[i].children = one.filter((thing: any, index: any, self: any) =>
-            index === self.findIndex((t: any) => (
-              JSON.stringify(t) === JSON.stringify(thing)
-            ))
-          )
-
-
-          this.menu=[];
-          res.data[i].children.forEach((e: any) => {
-            e.subChildren =[];
-            if (this.menu.length > 0) {
-              var isvalid = true;
-              this.menu.forEach((item:any) => {
-                if (item.displayName == e.role_name && e.parentrole!=1) {
-                  isvalid = false;
-                  var itemnav = {
-                    screen_name: e.screen_name,
-                    iconName: '',// e.role_name,
-                    routename: e.routename,
-                    menu_order: e.menu_order
-                  }
-                  item.subChildren?.push(itemnav);
-                }else{
-                  if(item.displayName == this.self  && e.parentrole==1 ){
-                    isvalid = false;
-                    var itemnav = {
-                      screen_name: e.screen_name,
-                      iconName: '',// e.role_name,
-                      routename: e.routename,
-                      menu_order: e.menu_order
-                    }
-                    item.subChildren?.push(itemnav);
-                  }
-                }
-              })
-              if (isvalid == true) {
-                if (e.parentrole == 1) {
-                  var navitem = {
-                    displayName: this.self,
-                    iconName: '',//e.role_name,
-                    subChildren: [
-                      {
-                        screen_name: e.screen_name,
-                        iconName: '',// e.role_name,
-                        routename: e.routename,
-                        menu_order: e.menu_order
-                      }
-
-                    ]
-                  };
-                  this.menu.push(navitem)
-                } else {
-                  var item = {
-                    displayName: e.role_name,
-                    iconName: '',//e.role_name,
-                    subChildren: [
-                      {
-                        screen_name: e.screen_name,
-                        iconName: '',// e.role_name,
-                        routename: e.routename,
-                        menu_order: e.menu_order
-                      }
-
-                    ]
-                  };
-                  this.menu.push(item)
-                }
-
-              }
-            } else {
-              if (e.parentrole == 1) {
-                var items = {
-                  displayName: this.self,
-                  iconName: '',//e.role_name,
-                  subChildren: [
-                    {
-                      screen_name: e.screen_name,
-                      iconName: '',// e.role_name,
-                      routename: e.routename,
-                      menu_order: e.menu_order
-                    }
-
-                  ]
-                };
-                //  this.firstRoute = e.routename;
-                this.menu.push(items)
-              } else {
-                var navtem = {
-                  displayName: e.role_name,
-                  iconName: '',//e.role_name,
-                  subChildren: [
-                    {
-                      screen_name: e.screen_name,
-                      iconName: '',// e.role_name,
-                      routename: e.routename,
-                      menu_order: e.menu_order
-                    }
-
-                  ]
-                };
-                //  this.firstRoute = e.routename;
-
-                this.menu.push(navtem)
-
-              }
-            }
+  getSideNavigation() { 
+      if(!(sessionStorage.getItem("moduleData"))){
+          this.mainService.getSideNavigation({empid: this.usersession.id}).subscribe((res: any) => {
+            this.menuList = res.data;
+            sessionStorage.setItem("moduleData",JSON.stringify( this.menuList) );
+            sessionStorage.setItem('selectedModule','Spryple');
           });
-
-
-          //res.data[i].displayStatus = !i;
-          res.data[i].children =this.menu
-
+    } 
+    else {
+          let menuList = sessionStorage.getItem("moduleData");
+          this.menuList = JSON.parse(menuList||'');
+    }
+  
+    if(sessionStorage.getItem('selectedModule')==='Spryple'){   
+          this.onClickMainDashboard();
+    } else {
+          for(let i=0; i< this.menuList.length;i++) {
+              this.menuList[i].displayStatus =  this.menuList[i].modulename === sessionStorage.getItem('selectedModule');
           }
-          else{
-            res.data[i].children =[];
-          }
-        }
-      this.menuList = res.data;
-      var timesheetId = 0;
-      var timesheetMenu = {};
-
-      this.menuList.forEach(function(m:any,index:any){
-        if(m.children && m.children[0]){
-          m.children.forEach(function(c:any){
-            if(c.subChildren && c.subChildren[0])
-              c.subChildren.sort(function(a:any,b:any){ return ( a.menu_order < b.menu_order )?-1:1;});
-          });
-        }
-        if(m.modulename.toLowerCase().includes('timesheet')){
-          timesheetMenu = m;
-          timesheetId = index;
-        }
-      });
-      if(timesheetId){
-        this.menuList.splice(timesheetId,1);
-        this.menuList.push(timesheetMenu);
-      }
-      sessionStorage.setItem("moduleData",JSON.stringify( this.menuList) );
-      //let storedArray = JSON.parse(sessionStorage.getItem("moduleData"));//no brackets
-        //  console.log((storedArray));
-          //console.log(JSON.parse(pk));
-      //this.currentItem = res.data[0];
-    });
+    }
+   
   }
 }
-
-  //
-  //
-  // remove_duplicates(arr:[]) {
-  //   var obj = {};
-  //   for (let i = 0; i < arr.length; i++) {
-  //     obj[arr[i]] = 1;
-  //   }
-  //   arr = [];
-  //   for (let key in obj) {
-  //     arr.push(key);
-  //   }
-  //   return arr;
-  // }
-
+ 

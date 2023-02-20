@@ -89,6 +89,9 @@ export class LeavePoliciesService {
     getLeaveDetails(tableName:any,status:any, page:any, size:any): Observable<any> {
         return this.hClient.get(this.url + 'api/getMastertable/' + tableName + '/' + status + '/' + page + '/' + size+'/' + this.companyName, this.httpOptions);
     }
+    getLeaveTypesToAdd():Observable<any> {
+      return this.hClient.get(this.url + 'api/getLeaveTypesToAdd/'+this.companyName, this.httpOptions);
+  }
 
     setNewLeaveType(info:any): Observable<any> {
         return this.hClient.post(this.url + 'api/setNewLeaveType/'+this.companyName, JSON.stringify(info), this.httpOptions);

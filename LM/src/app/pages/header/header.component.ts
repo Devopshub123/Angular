@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit {
     var login = '/Login'
     this.router.navigate([login]);
     sessionStorage.removeItem('companyName');
-
+    sessionStorage.clear();
   }
   onClickMainDashboard(){
     this.router.navigate(['/main/MainDashboard']);

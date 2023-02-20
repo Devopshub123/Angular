@@ -28,7 +28,8 @@ export class LeavepoliciesComponent implements OnInit {
   setleavecolor:any;
   advanceLeavetypes:any=[];
   istoggle:boolean=false;
-  isterm:boolean=true
+  isterm:boolean=true;
+  isnewleave:boolean=true;
   isadvanced:boolean=false;
   isaddnew:boolean=true;
   isaddnewleave:boolean =false;
@@ -131,7 +132,7 @@ export class LeavepoliciesComponent implements OnInit {
     this.getErrorMessages('LM139')
     this.getLeaveRules();
     this.getLeavesTypeInfo();
-    this.getLeavesDetails();
+    this.getLeaveTypesToAdd();
     this.getAdvancedLeavetypes();
     this.leavepoliciesForm=this.formBuilder.group(
       {
@@ -308,6 +309,23 @@ export class LeavepoliciesComponent implements OnInit {
       // this.displayedColumns3 =  selectedValue > 11 ? this.displayedColumns4 : this.displayedColumns4.filter(column => column !== 'actions');
     })
     this.addleaveForm.get('leaveid')?.valueChanges.subscribe((selectedValue:any) => {
+      console.log("leaveid",selectedValue);
+      console.log("leavetypes",this.leaveTypes)
+      if( !this.editingleavetype ){
+        for(let i=0;i<=this.leaveTypes.length;i++){
+          if(selectedValue==this.leaveTypes[i].id){
+            if(this.leaveTypes[i].is_new == 1){
+              this.isnewleave= true;
+              break;
+            }else if(this.leaveTypes[i].is_new == 0){
+              this.isnewleave=false;
+              break;
+            }
+          }
+        }
+
+      }
+      
       if(selectedValue==6 || selectedValue==7){
         this.isterm=false;
       }
@@ -433,6 +451,7 @@ export class LeavepoliciesComponent implements OnInit {
   /**Edit time get leavetypes */
   getLeavesDetailsedit(leave:any) {
     this.isaddnewleave = false;
+    this.leaveTypes =[];
     this.LM.getLeaveDetails('lm_leavesmaster','Active',1,100).subscribe((result) =>{
       if(result.status) {
         this.leaveTypes = result.data;
@@ -441,6 +460,7 @@ export class LeavepoliciesComponent implements OnInit {
         this.isaddnewleave=true;
         this.isdeactivate = true;
         this.isactivate =false;
+       this.isnewleave= true;
         this.addleaveForm.controls.leaveid.setValue(leave.id)
         this.addleaveForm.controls.leaveid.disable()
          // this.advansed = this.getAdvancedLeavetypes();
@@ -462,7 +482,21 @@ export class LeavepoliciesComponent implements OnInit {
       }
     });
   }
-
+  
+// /api/getLeaveTypesToAdd/:companyNam
+/**getLeaveTypesToAdd for drop down for leavetype add and activate */
+getLeaveTypesToAdd() {
+  this.LM.getLeaveTypesToAdd().subscribe((result) =>{
+    this.leaveTypes =[];
+    if(result.status) {
+      this.leaveTypes = result.data;
+       // this.advansed = this.getAdvancedLeavetypes();
+      // if (this.advanceLeavetypes && this.advanceLeavetypes.length == 0){
+      //   this.leaveTypes.shift();
+      // }
+    }
+  });
+}
   cancelLeave(){
     // this.isShowLeaveConfigure = !this.isShowLeaveConfigure;
     // this.defaultrules=true;
@@ -700,6 +734,7 @@ export class LeavepoliciesComponent implements OnInit {
   }
   /**Edit active status leave */
   editLeaveTypeName(leave:any){
+    this.isnewleave= true;
     this.editingleavetype = true;
     if(leave.id == 1){
       this.getLeavesDetailsedit(leave);
@@ -743,12 +778,13 @@ export class LeavepoliciesComponent implements OnInit {
   }
   /**setleavepolicies */
   setleavepolicies(){
-    if(this.addleaveForm.displayname){
+    if(this.addleaveForm.controls.displayname.valid){
       var infodata = {
         id: this.addleaveForm.controls.leaveid.value,
         leavetype_status:'Active'
       }
       this.leaveConfig = this.getLeaveFormatedValue(this.addleaveForm.controls.leaveid.value);
+      console.log("leaveConfig",this.leaveConfig)
     for(let i=0;i<this.ruleInfos.length;i++){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       if(this.ruleInfos[i].effectivefromdate == null) {
@@ -877,6 +913,7 @@ export class LeavepoliciesComponent implements OnInit {
         data: {message:this.LMS139,YES:'YES',NO:'NO'}
       });
       dialogRef.afterClosed().subscribe(result => {
+        console.log("workdone")
         if(result == 'YES'){
           this.submitLeavepolices(info,datas)
         }
@@ -957,7 +994,7 @@ export class LeavepoliciesComponent implements OnInit {
       })
       dialogRef.afterClosed().subscribe(result => {
       if (result == 'YES' || result == undefined) {
-          this.getLeavesDetails();
+          this.getLeaveTypesToAdd();
         }
       });
 
@@ -978,8 +1015,10 @@ export class LeavepoliciesComponent implements OnInit {
   }
 
   changeLeaveType(id:any,flag:any){
+    console.log("data",id,flag)
     this.leaveId = id;
       this.LM.getLeavePolicies(this.leaveId, false, 1, 100).subscribe((result) => {
+        console.log("result",result)
         var ruleDetails = JSON.parse(result.data[0].json);
         this.ruleInfos = JSON.parse(result.data[0].json);
 
