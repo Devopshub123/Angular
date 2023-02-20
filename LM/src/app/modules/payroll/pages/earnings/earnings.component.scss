@@ -106,10 +106,22 @@
   margin-bottom: 0px;
   padding-top: 13px;
 }
-::ng-deep.mat-card-header-text {
-  margin: 0px 0px!important;
-}
+// .mat-card-header-text {
+//   margin: 0px 0px!important;
+// }
 .tableP{
   padding-left: 1%;
   padding-right: 1%;
+}
+mat-card {
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  position: relative;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.div-pad{
+  padding-left: 2%;
+  padding-right: 2%;
 }

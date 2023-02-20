@@ -1,15 +1,17 @@
 <div fxLayout="column" class="first-col">
     <mat-card>
-    <mat-card-header class="headerbox" >
-        <div fxFlex="100"  fxLayout="row" fxLayout.xs="column">
-            <span *ngIf="isAdd"  (click)="cancel()">
-                <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button>
-               </span>
-        <mat-card-title class="title"> Checklist </mat-card-title>
-
-        
-        </div>
-        </mat-card-header>
+        <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+           <mat-card-title class="title">
+                    <span *ngIf="isAdd"  (click)="cancel()"> <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button></span>
+                <span> Checklist </span>    
+            </mat-card-title>
+            
+              <div style="margin-right: 2%;" *ngIf="isdata">
+                 <button mat-icon-button style="padding-right: 40px;" (click)="AddData()" matTooltip="Add New">
+                      <mat-icon style="font-size: 30px">add_circle</mat-icon>
+                    </button>
+                 </div>
+         </mat-card-header>
      <!-- <mat-card-header >
             <mat-card-title>Checklist</mat-card-title>
             <span *ngIf="isAdd"  (click)="cancel()" style="padding-right: 10px;">
@@ -81,34 +83,30 @@
                 </div>
             </div>
 
-        <div fxLayout="column" class="tableP" *ngIf="isdata">
+        <div fxLayout="column" *ngIf="isdata" class="div-pad">
           <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center">
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-            <span style="padding-top: 20px;padding-left: 20px;">
-               <mat-radio-group  formControlName="onboardCategory">
+                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                     <mat-radio-group  formControlName="onboardCategory">
                         <mat-radio-button class="mx2 my-2 mr-2" value="Onboarding" [checked]='true'>Onboarding</mat-radio-button>
                         <mat-radio-button class="mx2 my-2 mr-2" value="Offboarding">Offboarding</mat-radio-button>
                      </mat-radio-group>
-               </span>
-        </div>
-        <span>
-            <button class="btn btn-primary mr-2 mb-2"
-            (click)="AddData()" type="button">
-            <span>Add</span>
-        </button>
+           
+                     </div>
+        <span style="height: 50px;padding-top: 5px;">
+            <mat-form-field  fxFlex.xs="100%" appearance="outline">
+                <mat-label>Search</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="" >
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
         </span>
-
-    </div><br>
-    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;">
-        <span>
-         <mat-form-field  fxFlex.xs="100%" appearance="outline">
-             <mat-label>Search</mat-label>
-             <input matInput (keyup)="applyFilter($event)" placeholder="" >
-             <mat-icon matSuffix>search</mat-icon>
-         </mat-form-field>
-     </span>
     </div>
     <br>
+    <!-- <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;">
+        <span>
+         
+     </span>
+    </div>
+    <br> -->
         <div>
           <div class="mat-elevation-z1">
                 <table mat-table [dataSource]="dataSource" matSort>

@@ -1,13 +1,16 @@
 <div fxLayout="column" class="first-col">
 <mat-card>
   <form [formGroup]="inductionForm" autocomplete="off">
-    <mat-card-header class="headerbox">
-      <div fxLayout="row" fxFlex="50">
-          <mat-card-title class="title"> Induction </mat-card-title>
-      </div>
-      </mat-card-header>
-   <div>
-      <div *ngIf="ishide" class="tableP">
+    <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-card-title class="title"> Induction </mat-card-title>
+        <div style="margin-right: 2%;" *ngIf="isview">
+           <button mat-icon-button style="padding-right: 40px;" (click)="Add()" matTooltip="Add New">
+                <mat-icon style="font-size: 30px">add_circle</mat-icon>
+              </button>
+           </div>
+   </mat-card-header>
+   <div class="div-pad">
+      <div *ngIf="ishide">
         <br>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
           <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
@@ -26,28 +29,19 @@
           <button  class="btn btn-danger mr-2 mb-2"  (click)="close()">
             <span >Cancel</span>
           </button>
-
           <br />
         </div>
       </div>
-      <div fxLayout="column" *ngIf="isview" class="tableP">
+      <div fxLayout="column" *ngIf="isview" >
         <br>
-        <div *ngIf="!enable" fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center" style="height: 50px;">
-          <span style="padding-left: 1%" fxFlex="50">
-           <mat-form-field fxFlex="50" fxFlex.xs="100%" appearance="outline">
+        <div *ngIf="!enable" fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;">
+         <mat-form-field fxFlex="28" fxFlex.xs="100%" appearance="outline">
                <mat-label>Search</mat-label>
                <input matInput (keyup)="applyFilter($event)" placeholder="" >
                <mat-icon matSuffix>search</mat-icon>
            </mat-form-field>
-       </span>
-       <span fxLayoutAlign="end" fxFlex="50">
-           <button class="btn btn-primary mr-2 mb-2"
-               (click)="Add()" type="button">
-               <span>Add</span><br>
-           </button>
-       </span>
        </div>
-        <div class="tableP">
+      <br>
         <div fxLayout="column" class="mat-elevation-z1">
            <table mat-table [dataSource]="dataSource" matSort>
               <ng-container matColumnDef="sno">
@@ -96,8 +90,7 @@
             </table>
             <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
         </div>
-      </div>
-      </div>
+       </div>
     </div>
 
  </form>

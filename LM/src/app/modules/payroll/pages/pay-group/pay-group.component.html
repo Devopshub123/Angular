@@ -1,23 +1,18 @@
 <div fxLayout="column" fxFill class="custom-investment-of first-col">
     <mat-card fxFill>
-      <mat-card-header class="headerbox">
-        <div fxFlex="100"  fxLayout="row" fxLayout.xs="column">
-          <mat-card-title class="title"> Pay Group </mat-card-title>
-          <span  (click)="onRequestClick()">
-              <button mat-icon-button matTooltip="Add"> <mat-icon>add_circle</mat-icon></button>
-             </span>
-       
-      </div>
-        <!-- <mat-card-title class="title"> 
-          <p style="margin-right: 10px;font-size: 20px;float: left;"><b>Pay Group</b>
-          </p>
-          <p style="float: left;"><mat-icon (click)="onRequestClick()" style="cursor: pointer;" title="Add">add_circle</mat-icon></p>
-        </mat-card-title> -->
-      </mat-card-header>
+      <mat-card-header class="headerbox" fxLayoutAlign="space-between center">
+    <mat-card-title class="title"> Pay Group </mat-card-title>
+    <span>
+      <button mat-icon-button style="padding-right: 40px;" (click)="onRequestClick()" matTooltip="Add">
+        <mat-icon style="font-size: 30px;color: #ffffff;">add_circle</mat-icon>
+      </button>
+    </span>
+   
+  </mat-card-header>
 
       <div fxLayout="row" fxLayout.xs="column" class="custom-card">  
                  
-                <div fxLayout="column" fxFlex="100" class="custom-payroll-div" style="padding:1%">
+                <div fxLayout="column" fxFlex="100" class="custom-payroll-div div-pad">
                   <div class="mat-elevation-z1">
                   <table mat-table [dataSource]="dataSource"   multiTemplateDataRows  style="width:100%;display:table;">
                         <!-- Name Column -->

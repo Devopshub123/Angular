@@ -23,7 +23,7 @@
                 <p>{{leave.state}} - {{leave.work_locations}}</p>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-table [dataSource]="dataSource1[i]" class="mat-elevation-z8" style="margin-bottom:1rem;margin-top: 1rem;">
+            <mat-table [dataSource]="dataSource1[i]" class="mat-elevation-z1" style="margin-bottom:1rem;margin-top: 1rem;">
               <ng-container matColumnDef="Start_Range">
                 <mat-header-cell *matHeaderCellDef class="custom-investment-th" > Start Range </mat-header-cell>
                 <mat-cell *matCellDef="let element" class="custom-investment-td" > <span matInput placeholder="" maxlength="100">{{element.salary_from}}</span></mat-cell>

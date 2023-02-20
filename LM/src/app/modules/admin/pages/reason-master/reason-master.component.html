@@ -1,13 +1,15 @@
 <div fxLayout="column" class="first-col">
     <mat-card>
     <form [formGroup]="reasonsForm" autocomplete="off">
-        
-  <mat-card-header class="headerbox">
-    <div fxLayout="row" fxFlex="50">
-        <mat-card-title class="title"> Reason for Separation </mat-card-title>
-    </div>
-    </mat-card-header>
-            <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd">
+        <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-card-title class="title"> Reason for Separation </mat-card-title>
+              <div style="margin-right: 2%;" *ngIf="isdata">
+                 <button mat-icon-button style="padding-right: 40px;" (click)="Add()" matTooltip="Add New">
+                      <mat-icon style="font-size: 30px">add_circle</mat-icon>
+                    </button>
+                 </div>
+         </mat-card-header> 
+        <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd">
                 <div fxLayout="row" class="tableP">
                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                         <mat-label>Reason</mat-label>
@@ -32,23 +34,17 @@
                 </div>
             </div>
             <br />
-            <div fxLayout="column" *ngIf="isdata">
-                <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center"
+            <div fxLayout="column" *ngIf="isdata" class="div-pad">
+                <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end"
                 style="height: 50px;">
-                <span style="padding-left: 1%" fxFlex="50">
-                  <mat-form-field fxFlex="50" fxFlex.xs="100%" appearance="outline">
+                <mat-form-field fxFlex="28" fxFlex.xs="100%" appearance="outline">
                     <mat-label>Search</mat-label>
                     <input matInput (keyup)="applyFilter($event)" placeholder="">
                     <mat-icon matSuffix>search</mat-icon>
                   </mat-form-field>
-                </span>
-                <span fxLayoutAlign="end" style="padding-right: 1%" fxFlex="50">
-                  <button class="btn btn-primary mr-2 mb-2" (click)="Add()" type="button">
-                    <span>Add</span><br>
-                  </button>
-                </span>
+                
               </div>
-               <div class="tableP">
+                  <br>
                 <div class="mat-elevation-z1">
                     <table mat-table [dataSource]="dataSource" matSort>
                         <ng-container matColumnDef="sno">
@@ -114,8 +110,7 @@
                     </table>
                     <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]" ></mat-paginator>
                 </div>
-            </div>
-            </div>
+              </div>
      </form>
     </mat-card>
 </div>

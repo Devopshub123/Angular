@@ -1,10 +1,10 @@
 <div fxLayout="column" class="first-col">
     <form [formGroup]="errorMessagesForm" autocomplete="off">
-<mat-card style="min-height: 700px;" fxLayout="column">
+<mat-card fxLayout="column">
     <mat-card-header >
         <mat-card-title > Message Master </mat-card-title>
     </mat-card-header>
-<div fxLayout="column" fxLayout.xs="column">
+<div fxLayout="column" fxLayout.xs="column" class="div-pad">
     <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 56px;margin-top: 1%;">
         <mat-form-field fxFlex="28" fxFlex.xs="100%" appearance="outline">
             <mat-label>Search</mat-label>
@@ -12,8 +12,8 @@
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
-
-    <div class="mat-elevation-z1">
+    <br>
+   <div class="mat-elevation-z1">
         <table mat-table #table [dataSource]="dataSource" matSort>
 
             <ng-container matColumnDef="sno">
@@ -32,7 +32,7 @@
             </ng-container>
 
             <ng-container matColumnDef="message">
-                <mat-header-cell *matHeaderCellDef style="color:white;margin-top:11px !important;">Message</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>Message</mat-header-cell>
                 <mat-cell *matCellDef="let row">
                     <span *ngIf="enable != row.id">{{row.message}}&nbsp;</span>
                     <span *ngIf="enable === row.id">

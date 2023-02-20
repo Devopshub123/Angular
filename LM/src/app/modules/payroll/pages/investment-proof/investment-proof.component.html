@@ -7,7 +7,7 @@
       </mat-card-header>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card"> 
      
-      <div fxLayout="column" fxFlex="100" class="custom-payroll-div">
+      <div fxLayout="column" fxFlex="100" class="custom-payroll-div div-pad">
         <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="end" style="height: 56px;">
           <mat-form-field fxFlex.xs="100"   fxFlex="28" appearance="outline">
             <mat-label>Search</mat-label>
@@ -16,7 +16,7 @@
           </mat-form-field>
         </div>
         <br>
-        <div class="tableP">
+        <div>
         <div class="mat-elevation-z1">
         <mat-table [dataSource]="dataSource"   multiTemplateDataRows  style="width:100%;display:table;">
           <!-- Employee Id Column -->

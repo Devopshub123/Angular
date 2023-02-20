@@ -70,9 +70,6 @@ mat-card {
   color: #ffffff;
   margin-bottom: 0px;
 }
-::ng-deep.mat-card-header-text {
-  margin: 0 6px !important;
-}
 ::ng-deeptr.mat-header-row {
   height: 45px !important;
 }
@@ -82,4 +79,8 @@ mat-card {
 }
 .mat-card-title:not(:first-child), .mat-card-subtitle:not(:first-child) {
   margin-top: 9px !important;
+}
+.div-pad{
+  padding-left: 2%;
+  padding-right: 2%;
 }
