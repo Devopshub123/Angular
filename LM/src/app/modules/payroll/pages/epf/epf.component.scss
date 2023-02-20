@@ -15,12 +15,12 @@
 }    
 .custom-payroll-div {
   margin-top: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
 }
 .custom-card {
     border-radius: 0px;
     background-color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     -webkit-box-shadow: 0px 1px 15px 1px rgb(69 65 78 / 8%);
     -moz-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
     box-shadow: 0px 1px 15px 1px rgb(69 65 78 / 8%);
@@ -115,6 +115,7 @@ ul {
   list-style-type: none;
   margin-top: 4px;
 }
+
 .headerbox{
   height: 45px;
   background-color: #28acaf !important;
@@ -130,8 +131,9 @@ ul {
   color: #ffffff;
   margin-bottom: 0px;
 }
+
 ::ng-deep.mat-card-header-text {
-  margin: 0px 0px!important;
+  margin: 0px 16px!important;
 }
 ::ng-deep .form-control:disabled, .form-control[readonly] {
   background: #ffffff !important;

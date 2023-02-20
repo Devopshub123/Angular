@@ -27,7 +27,8 @@ export class SideNavComponent implements OnInit {
   moduleName: any;
   flag: boolean = true;
   sideNavigationWidth : any= '20';
-
+  istoolTipExp: boolean = true;
+  istoolTip= "Expand";
   sidemenuHover(item:any) {
        this.moduleName = item.modulename;
   }
@@ -98,16 +99,12 @@ export class SideNavComponent implements OnInit {
   toggleBack(event:any) {
     let _this =this;
     this.isExpanded = !this.isExpanded;
-    // if(this.isExpanded) {
-    //  _this.currentItem.displayStatus =true;
-    //  if(sessionStorage.getItem('selectedModule')){
-    //   this.menuList.forEach(function(m:any){
-    //     if(m.modulename!==sessionStorage.getItem('selectedModule'))
-    //       m.displayStatus = false;
-    //      else m.displayStatus = true;
-    //    })
-    //  }
-    // }
+    this.istoolTipExp = this.isExpanded;
+    if(this.istoolTipExp) {
+      this.istoolTip = "Collapse";
+    } else {
+      this.istoolTip = "Expand";
+    }
    }
 
    getRouterStyle(){

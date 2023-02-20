@@ -365,7 +365,6 @@ export class AttendanceRequestComponent implements OnInit {
         "approvercomments": '',
         "actionby": null,
         "status": 'Submitted',
-        ////email data
         "emails": this.employeeEmailData,
         "worktypename": worktypename,
         "shiftname":this.shiftData.shiftname
@@ -436,6 +435,12 @@ export class AttendanceRequestComponent implements OnInit {
     if (this.requestform.invalid) {
       return;
     } else {
+      let worktypename = '';
+      this.workTypeData.forEach((e: any) => {
+        if (e.id == this.requestform.controls.workType.value) {
+          worktypename = e.type;
+        }
+      })
       let obj = {
         "id": this.uniqueId,
         "empid": this.userSession.id ?? '',
@@ -449,7 +454,10 @@ export class AttendanceRequestComponent implements OnInit {
         "raisedby": this.userSession.id ?? '',
         "approvercomments": '',
         "actionby": null,
-        "status": 'Submitted'
+        "status": 'Submitted',
+        "emails": this.employeeEmailData,
+        "worktypename": worktypename,
+        "shiftname":this.shiftData.shiftname
 
       };
 

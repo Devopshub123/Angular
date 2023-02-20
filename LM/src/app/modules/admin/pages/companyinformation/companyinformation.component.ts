@@ -107,14 +107,14 @@ export class CompanyinformationComponent implements OnInit {
 
 
       })
-      this.companyForm.get('state')?.valueChanges.subscribe(selectedValue => {
-        this.cityDetails=[];
-        this.LMS.getCities(selectedValue).subscribe((data)=>{
+    this.companyForm.get('state')?.valueChanges.subscribe(selectedValue => {
+      this.companyForm.controls.city.setValue("");
+      this.cityDetails = [];
+       this.LMS.getCities(selectedValue).subscribe((data)=>{
           this.cityDetails=data.data
           if(this.companyinfo != null)
           {
             this.companyForm.controls.city.setValue(this.companyinfo.locationid);
-
           }
       // this.availablecities=data
         })
@@ -127,7 +127,10 @@ export class CompanyinformationComponent implements OnInit {
 
     })
   }
-  update(){
+
+  update() {
+   
+    if(this.companyForm.valid){
     let companyinformation ={
       id: this.companyinfo.id,
       companyname:this.companyForm.controls.companyname.value,
@@ -165,8 +168,9 @@ export class CompanyinformationComponent implements OnInit {
       }
 
     })
-
+    }
   }
+
   save(){
     this.issubmitted=true;
     let companyinformation ={
@@ -186,8 +190,6 @@ export class CompanyinformationComponent implements OnInit {
       pincode:this.companyForm.controls.pincode.value,
       companyDBName:this.companyDBName
     }
-
-
     if(true) {
 
       this.LMS.setCompanyInformation(companyinformation).subscribe((data) => {
@@ -236,10 +238,7 @@ export class CompanyinformationComponent implements OnInit {
         // this.enable=false;
         this.isview=true;
         this.isadd=false;
-
-
         this.companyinfo =data.data[0];
-        console.log("this.companyinfo",this.companyinfo)
         this.companyForm.controls.companyname.setValue(data.data[0].companyname);
         this.companyForm.controls.website.setValue(data.data[0].companywebsite);
         this.companyForm.controls.contact.setValue(data.data[0].primarycontactnumber);

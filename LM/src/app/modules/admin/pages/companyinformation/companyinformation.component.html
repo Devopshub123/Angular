@@ -30,7 +30,7 @@
 
                 <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                   <mat-label>CIN</mat-label>
-                  <input formControlName="cin" matInput [readonly]="isview" placeholder="CIN"
+                  <input formControlName="cin" matInput [readonly]="isview" placeholder=""
                    maxlength="21" minlength="21" required (keypress)="alphaNumberOnly($event)">
                   <mat-error class="con-error" *ngIf="companyForm.controls.cin.errors?.required">
                     {{msgEM1}}
@@ -41,7 +41,7 @@
               </mat-form-field>
               <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                 <mat-label>GST Number</mat-label>
-                <input formControlName="gstnumber" matInput [readonly]="isview" placeholder="GST Number"
+                <input formControlName="gstnumber" matInput [readonly]="isview" placeholder=""
                  maxlength="15" minlength="15" required (keypress)="alphaNumberOnly($event)">
                 <mat-error class="con-error" *ngIf="companyForm.controls.gstnumber.errors?.required">
                   {{msgEM1}}
@@ -52,7 +52,7 @@
             </mat-form-field>
             <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
               <mat-label>Company Established Date </mat-label>
-              <input matInput readonly [matDatepicker]="date" [max]="maxDate" placeholder="DD-MM-YYYY"
+              <input matInput readonly [matDatepicker]="date" [max]="maxDate" placeholder=""
               formControlName="established_date"   required (click)="date.open()" [disabled]="isview">
               <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
               </mat-datepicker-toggle>
@@ -140,13 +140,11 @@
                 </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
                     <mat-label>City</mat-label>
-                    <mat-select required [disabled]="isview"  formControlName="city"  required>
+                    <mat-select required [disabled]="isview"  formControlName="city" >
                         <ng-container >
                             <div *ngFor="let b of cityDetails">
-
                                 <mat-option   [value]="b.id">{{b.location}}</mat-option>
                             </div>
-
                         </ng-container>
                     </mat-select>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.city.errors?.required">

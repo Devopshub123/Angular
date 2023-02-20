@@ -11,7 +11,7 @@
                         <div fxLayout="row" fxLayout.xs="column" style="width: 100%">
                             <div fxLayout="column" fxLayoutAlign="center" style="width: 45%">
                                 <p class="subh">Name
-                                    <span class="heading" style="padding-left: 11%;">{{ employeeNameh }}</span>
+                                    <span class="heading" style="padding-left: 55px;">{{ employeeNameh }}</span>
                                 </p>
                                 <p class="subh">
                                     Designation
@@ -23,7 +23,7 @@
                             <div fxLayout="column" fxLayoutAlign="center" style="width: 55%">
                                 <p class="subh">
                                     Mobile
-                                    <span class="heading1" style="padding-left: 10%">{{ employeeMobile }}
+                                    <span class="heading1" style="padding-left:53px">{{ employeeMobile }}
                                     </span>
                                 </p>
                                 <p class="subh">
@@ -527,6 +527,7 @@
                                         maxlength="1500"></textarea>
                                 </mat-form-field>
                                 </div>
+<!-- 
                               <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="start center">
                                 <span>
                                     <button class="btn btn-primary mr-2 mb-2" (click)="addWorkExperience()">
@@ -539,9 +540,24 @@
                                         Clear
                                     </button>
                                 </span>
+                              </div> -->
 
-                              </div>
                             </div>
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
+                               <span>
+                                    <button class="btn btn-primary mr-2 mb-2" (click)="addWorkExperience()">
+                                        <span> Submit </span>
+                                    </button>
+                                    <button class="btn btn-primary custom1 mr-2 mb-2" (click)="workExperienceSubmitAdd()">
+                                        <span> Submit & Add</span>
+                                    </button>
+                                    <button class="btn btn-danger mr-2 mb-2" (click)="clearWork()">
+                                        Clear
+                                    </button>
+                                </span>
+                            
+                            </div>
+
                             <div class="mat-elevation-z1" *ngIf="workExperienceDetails.length > 0">
                                 <table mat-table [dataSource]="workExperienceDataSource">
                                     <ng-container matColumnDef="sno">
@@ -659,7 +675,7 @@
                                      </mat-error>
                                 </mat-form-field>
                             </div>
-                            <div fxLayout="row" fxLayoutAlign="end">
+                            <div fxLayout="row" fxLayoutAlign="center center">
                                 <button class="btn btn-primary mr-2 mb-2" (click)="addEducation()">
                                     <span> Submit </span>
                                 </button>
@@ -781,13 +797,14 @@
                                     &nbsp;
                                 </div>
                             </div>
-                            <div fxLayout="row" fxLayoutAlign="end">
+                            <br>
+                            <div fxLayout="row" fxLayoutAlign="center center">
                                 <button class="btn btn-primary mr-2 mb-2"  (click)="validateDocument()">
                                     <span> Submit </span>
                                 </button>
-                                <!-- <button class="m-1 mat-stroked-button button-clear" (click)="clearDucument()">
+                                <button class="btn btn-danger mr-2 mb-2" (click)="clearDock()">
                                     Clear
-                                </button> -->
+                                </button>
                             </div>
                             <div class="mat-elevation-z1" *ngIf="documentDetails.length > 0">
                                 <table mat-table [dataSource]="documentDataSource">

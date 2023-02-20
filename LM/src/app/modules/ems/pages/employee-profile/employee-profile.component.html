@@ -36,7 +36,7 @@
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>First Name</mat-label>
                                         <input type="text" formControlName="firstname" #firstname
-                                            (keypress)="alphabetKeyPress($event)" matInput placeholder="First Name"
+                                            (keypress)="alphabetKeyPress($event)" matInput placeholder=""
                                             maxlength="100" required />
                                         <mat-error class="reg-error"
                                             *ngIf="personalInfoForm.controls.firstname.errors?.required">
@@ -65,7 +65,7 @@
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Date of Birth</mat-label>
                                         <input required matInput readonly [matDatepicker]="dateofbirth" [min]="minDate"
-                                            [max]="maxBirthDate" placeholder="MM/DD/YYYY" formControlName="dateofbirth"
+                                            [max]="maxBirthDate" placeholder="" formControlName="dateofbirth"
                                             (click)="dateofbirth.open()" />
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="dateofbirth">
                                         </mat-datepicker-toggle>
@@ -125,7 +125,7 @@
                                         <mat-label>Aadhar Number</mat-label>
                                         <input type="text" onlyNumber (keypress)=numberOnly($event)
                                             formControlName="aadharNumber" matInput maxlength="12"
-                                            placeholder="Aadhar Number" />
+                                            placeholder="" />
                                     </mat-form-field>
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Personal Email</mat-label>
@@ -179,7 +179,7 @@
                                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Employee ID</mat-label>
-                                        <input readonly formControlName="empid" matInput placeholder="Employee ID" />
+                                        <input readonly formControlName="empid" matInput placeholder="" />
                                     </mat-form-field>
 
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
@@ -602,7 +602,7 @@
                             <form [formGroup]="employeeJobForm">
                                 <div class="section"><b>Employee Contract</b></div>
                                 <mat-divider></mat-divider>
-                                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 2%">
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Contract Name</mat-label>
                                         <input type="text" readonly formControlName="contractName" matInput
@@ -612,7 +612,7 @@
                                     <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Start Date</mat-label>
                                         <input matInput readonly [matDatepicker]="contractStartDate" [min]="minDate"
-                                            [max]="maxDate" placeholder="MM/DD/YYYY" [disabled]="true"
+                                            [max]="maxDate" placeholder="" [disabled]="true"
                                             formControlName="contractStartDate">
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="contractStartDate">
                                         </mat-datepicker-toggle>
@@ -622,7 +622,7 @@
                                     <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>End Date</mat-label>
                                         <input matInput readonly [matDatepicker]="contractEndDate" [min]="minDate"
-                                            [max]="maxDate" placeholder="MM/DD/YYYY" [disabled]="true"
+                                            [max]="maxDate" placeholder="" [disabled]="true"
                                             formControlName="contractEndDate" />
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="contractEndDate">
                                         </mat-datepicker-toggle>
@@ -708,7 +708,7 @@
                                     <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>From Date</mat-label>
                                         <input matInput required readonly [matDatepicker]="expFromDate" [min]="minDate"
-                                            [max]="maxDate" placeholder="MM/DD/YYYY" formControlName="expFromDate"
+                                            [max]="maxDate" placeholder="" formControlName="expFromDate"
                                             (click)="expFromDate.open()" />
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="expFromDate">
                                         </mat-datepicker-toggle>
@@ -722,7 +722,7 @@
                                     <mat-form-field fxFlex.xs="100%" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                         <mat-label>To Date</mat-label>
                                         <input required matInput readonly [matDatepicker]="expToDate"
-                                            [min]="minExperienceDate" [max]="maxDate" placeholder="MM/DD/YYYY"
+                                            [min]="minExperienceDate" [max]="maxDate" placeholder=""
                                             formControlName="expToDate" (click)="expToDate.open()" />
                                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="expToDate">
                                         </mat-datepicker-toggle>
@@ -918,7 +918,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>From Date</mat-label>
                                     <input required matInput readonly [matDatepicker]="eduFromDate" [max]="edmaxDate"
-                                        placeholder="MM/DD/YYYY" formControlName="eduFromDate"
+                                        placeholder="" formControlName="eduFromDate"
                                         (click)="eduFromDate.open()" />
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="eduFromDate">
                                     </mat-datepicker-toggle>
@@ -932,7 +932,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>To Date</mat-label>
                                     <input required matInput readonly [matDatepicker]="eduToDate"
-                                        [min]="minEducationDate" [max]="edmaxDate" placeholder="MM/DD/YYYY"
+                                        [min]="minEducationDate" [max]="edmaxDate" placeholder=""
                                         formControlName="eduToDate" (click)="eduToDate.open()" />
                                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="eduToDate">
                                     </mat-datepicker-toggle>
