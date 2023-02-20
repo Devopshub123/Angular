@@ -148,7 +148,7 @@ export class HolidaysComponent implements OnInit {
       let data = {
         hid :null,
         holiday_year: year,
-        holiday_description: this.HolidayForm.controls.holiday.value.trim(),
+        holiday_description: this.HolidayForm.controls.holiday.value.trim().toLowerCase(),
         holiday_date: this.pipe.transform(this.HolidayForm.controls.date.value, 'yyyy-MM-dd'),
         holiday_location: this.selecteditems,
         createdby:this.userSession.id,
@@ -343,7 +343,7 @@ export class HolidaysComponent implements OnInit {
     let data = {
       hid :id,
       holiday_year: year,
-      holiday_description: holiday,
+      holiday_description: holiday.trim().toLowerCase(),
       holiday_date: this.pipe.transform(date, 'yyyy-MM-dd'),
       holiday_location: cities,
       createdby:this.userSession.id,

@@ -930,40 +930,44 @@ getLeaveTypesToAdd() {
 
 
   submitLeavepolices(info:any,datas:any){
-    if( this.validateCustomLeave(info.ruleData)) {
-      this.LM.updateLeaveDisplayName(datas).subscribe((data:any)=>{})
-    // this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
-        this.LM.setLeaveConfigure(info).subscribe((data) => {
-        if (data.status) {
-          if(this.editingleavetype){
+    if(!this.isLeaveColorAlreadyExists || this.editingleavetype){
+      if( this.validateCustomLeave(info.ruleData)) {
+        this.LM.updateLeaveDisplayName(datas).subscribe((data:any)=>{})
+      // this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
+          this.LM.setLeaveConfigure(info).subscribe((data) => {
+          if (data.status) {
+            if(this.editingleavetype){
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
+                disableClose: true,
+                data: this.msgLM111
+              });
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                      this.router.navigate(["/Admin/Leavepolicies"]));
+            }
+            else{
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position:{top:`70px`},
+                disableClose: true,
+                data: this.msgLM133
+              });
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                      this.router.navigate(["/Admin/Leavepolicies"]));
+            }
+  
+          }
+          else {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
-              data: this.msgLM111
+              data: this.msgLM134
             });
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                    this.router.navigate(["/Admin/Leavepolicies"]));
           }
-          else{
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position:{top:`70px`},
-              disableClose: true,
-              data: this.msgLM133
-            });
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                    this.router.navigate(["/Admin/Leavepolicies"]));
-          }
+        });
+      }
 
-        }
-        else {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position:{top:`70px`},
-            disableClose: true,
-            data: this.msgLM134
-          });
-        }
-      });
     }
+    
   }
 
   /**Leavetypes data (Added leave showing table) */
