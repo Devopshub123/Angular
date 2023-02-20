@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { Component, OnInit,ViewChild} from '@angular/core';
 import { EmployeeMasterService } from 'src/app/services/employee-master-service';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
@@ -61,11 +62,11 @@ export class CompanyinformationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private router: Router,
     private LMS:CompanySettingService,private dialog: MatDialog,private ts: LoginService,
     private emsService:EmsService) { 
-    this.getCountry();
-    this.getCompanyInformation();
     }
 
   ngOnInit(): void {
+    this.getCountry();
+    this.getCompanyInformation();
     this.getMessages('EM1')
     this.getMessages('EM3')
     this.getMessages('EM2')
@@ -112,7 +113,7 @@ export class CompanyinformationComponent implements OnInit {
       this.cityDetails = [];
        this.LMS.getCities(selectedValue).subscribe((data)=>{
           this.cityDetails=data.data
-          if(this.companyinfo != null)
+          if(this.companyinfo != null && selectedValue == this.companyinfo.stateid )
           {
             this.companyForm.controls.city.setValue(this.companyinfo.locationid);
           }
@@ -125,11 +126,12 @@ export class CompanyinformationComponent implements OnInit {
       this.CountryDetails=results.data;
 
 
+
     })
   }
 
   update() {
-   
+
     if(this.companyForm.valid){
     let companyinformation ={
       id: this.companyinfo.id,

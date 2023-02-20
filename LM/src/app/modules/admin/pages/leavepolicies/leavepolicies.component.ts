@@ -138,7 +138,7 @@ export class LeavepoliciesComponent implements OnInit {
       {
       leavecycleyear: [""],
       email: ["",],
-      pastdays: ["",],
+      pastdays: ["",Validators.requiredTrue],
       carrayForwordLeaveTypeId:["",],
       maxLeavesCarrayForwordValue:['',]
 
@@ -1165,8 +1165,9 @@ hexToRgb(hex:any) {
 
   /**save default rules*/
   saveDefaultrules(){
-    if(this.validation()){
-
+    console.log("data",this.leavepoliciesForm.controls.pastdays.valid)
+    if(this.validation()&& this.leavepoliciesForm.controls.pastdays.value !=''){
+    console.log("hiiii")
       for(let i=0;i<this.defaultRuleInfo.length;i++){
         if(this.defaultRuleInfo[i].rulename == "LEAVES_DURATION_FOR_BACKDATED_LEAVES"){
           this.defaultRuleInfo[i].value =this.leavepoliciesForm.controls.pastdays.value;
@@ -1214,10 +1215,12 @@ hexToRgb(hex:any) {
   }
   }
   validation(){
+    console.log("jhjhj",this.leavepoliciesForm.controls.pastdays.value)
     var valid = true;
     for(let i =0; i< this.defaultRuleInfo.length; i++){
-      if(this.defaultRuleInfo[i].value === null || this.defaultRuleInfo[i].value === ''){
-        valid = false;
+      if(this.defaultRuleInfo[i].value === null || this.defaultRuleInfo[i].value === '' || this.leavepoliciesForm.controls.pastdays.value !=''){
+        this.leavepoliciesForm.controls.pastdays.value !=''?valid = true:valid=false;
+        console.log("valid",valid)
         if(this.defaultRuleInfo[i].rulename=='LEAVES_DEFAULT_TYPE_FOR_DEDUCTION'){
            this.DEDUCTION = true
 
