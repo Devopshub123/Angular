@@ -50,9 +50,6 @@ mat-card {
     color: #ffffff;
     margin-bottom: 0px;
   }
-  ::ng-deep.mat-card-header-text {
-    margin: 0 6px !important;
-  }
   ::ng-deeptr.mat-header-row {
     height: 45px !important;
   }
@@ -62,4 +59,8 @@ mat-card {
   }
   .custom {
     width: 120px !important;
+  }
+  .div-pad{
+    padding-left: 2%;
+    padding-right: 2%;
   }

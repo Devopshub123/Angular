@@ -49,13 +49,14 @@ mat-card {
     color: #ffffff;
     margin-bottom: 0px;
   }
-  ::ng-deep.mat-card-header-text {
-    margin: 0 6px !important;
-  }
   ::ng-deeptr.mat-header-row {
     height: 45px !important;
   }
   ::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
     margin: 0.2em 0 !important;
   
+  }
+  .div-pad{
+    padding-left: 2%;
+    padding-right: 2%;
   }

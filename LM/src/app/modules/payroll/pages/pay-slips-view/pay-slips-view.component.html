@@ -1,24 +1,24 @@
 <div fxLayout="column" fxFill class="custom-pgr-height-auto">
     <mat-card fxFill>
         <mat-card-header class="headerbox">
-            <div fxFlex="100"  fxLayout="row" fxLayout.xs="column">
-                <span  (click)="Back()">
-                    <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button>
-                   </span>
-              <mat-card-title class="title"> Pay Slip </mat-card-title>
-              <span  (click)="Download()" style="float:right;">
-                <button mat-icon-button matTooltip="Back"> <mat-icon>download</mat-icon></button>
-               </span>
-              <!-- <div>
-                <button class="btn btn-primary custom mr-2 mb-2"  (click)="Download()">Download</button>
-             </div> -->
+            <div fxFlex="100"  fxLayout="row" fxLayoutAlign="space-between center">
+                <span>
+                    <span  (click)="Back()">
+                        <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button>
+                       </span>
+                       <span class="title">Pay Slip</span>
+                </span>
+               <span  (click)="Download()">
+                        <button mat-icon-button matTooltip="Download"> <mat-icon>download</mat-icon></button>
+                       </span>
+           
             </div>
             </mat-card-header>
           <div id="payslip" #payslip>
             <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
             <script src="jspdf/jspdf.js"></script> -->
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="5px" class="custom-card">
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="5px" class="custom-card div-pad">
 
             <div fxLayout="column" class="custom-payroll-div">
                 <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutAlign="end">
@@ -26,14 +26,14 @@
                 </div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                     <div fxFlex.xs="100" fxFlex="100" style="border-bottom: 1px solid #a0a0a0;">
-                      <div fxLayout="row" >
-                        <img [src]="pic" style="width: 40px;float:right;" alt="">
-                        <h3 style="margin: 0 0px;font-size: 17px;font-weight: 500;float:right;">{{'   '+companyName}}</h3><br>
-                        <p style="margin-bottom:50px">{{companylocation}}</p>
-                        <!-- <p>Hyderabad, Telangana, India</p> -->
-                      </div>
-
+                      <div fxLayout="row" fxLayout.xs="column">
+                        <div fxLayout="row">  <img [src]="pic" style="width: 40px;float:right;" alt=""></div>
+                        <div fxLayout="column" style="padding-left: 2%;">
+                            <span style="font-size: 17px;font-weight: 500;">{{'   '+companyName}}</span>
+                            <span>{{companylocation}}</span>
+                        </div>
                     </div>
+                  </div>
                 </div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="border-bottom: 1px solid #a0a0a0;">
                     <div fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" >

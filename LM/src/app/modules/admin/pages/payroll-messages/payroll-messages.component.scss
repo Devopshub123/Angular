@@ -1,78 +1,92 @@
 table {
-    width: 100%;
-  }
-
-
-  .mat-header-cell{
-    margin-top: 10px;
-    font-family: "Roboto";
-    font-size: 16px;
-    font-weight: normal;
-     font-stretch: normal;
-     font-style: normal;
-    letter-spacing: 0.32px;
-    color: #000000;
-  }
-  .noData-cell{
-  padding-top: 15px;
-  font-size: larger;
-  }
-  .example-container {
-  max-height:500px;
-  overflow-x: auto;
-  }
-  ::ng-deep {
-  .mat-select-panel[aria-label="Items per page:"] {
-    mat-option:last-child:before {
-      content: 'All';
-    }
-  }
-  }
-  ::ng-deep {
-  .mat-select-panel[aria-label="Items per page:"] {
-    mat-option:last-child .mat-option-text {
-      display: none;
-     // content: 'All';
-    }
-  }
-  }
-  .mat-column-sno {
-  max-width: 100px !important;
-  }
-  .mat-column-code {
-  max-width: 120px !important;
-  }
-  .headerbox{
-    height: 45px;
-    background-color: #28acaf !important;
-    align-items: center;
-  }
-  .title{
-    font-family: "Roboto";
-    font-size: 20px;
-    font-weight: 500;
-     font-stretch: normal;
-     font-style: normal;
-    letter-spacing: 0.32px;
-    color: #ffffff;
-    margin-bottom: 0px;
-  }
- ::ng-deep .mat-header-row {
-    min-height: 45px !important;
+  width: 100%;
 }
-::ng-deep.mat-card-header-text {
-  margin: 0px 6px!important;
+
+.noData-cell{
+padding-top: 15px;
+font-size: larger;
+}
+.example-container {
+max-height:500px;
+overflow-x: auto;
 }
 ::ng-deep .mat-column-action {
-  flex: 0 0 6%
+flex: 0 0 6%
 }
 ::ng-deep .mat-column-message {
-  flex: 2 0 6%
+flex: 2 0 6%
 }
 mat-card {
-  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-  display: block;
-  position: relative;
-  padding-left: 0px;
-  padding-right: 0px;
+transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+display: block;
+position: relative;
+padding-left: 0px;
+padding-right: 0px;
+}
+.tableP{
+padding:1%;
+}
+.tablePadding{
+padding-left: 2%;
+padding-right: 2%;
+padding-top: 2%;
+}
+
+::ng-deep {
+.mat-select-panel[aria-label="Items per page:"] {
+  mat-option:last-child:before {
+    content: 'All';
+  }
+}
+}
+
+::ng-deep {
+.mat-select-panel[aria-label="Items per page:"] {
+  mat-option:last-child .mat-option-text {
+    display: none;
+  }
+}
+}
+.headerbox{
+height: 45px;
+background-color: #28acaf !important;
+align-items: center;
+}
+.title{
+font-family: "Roboto";
+font-size: 20px;
+font-weight: 500;
+ font-stretch: normal;
+ font-style: normal;
+letter-spacing: 0.32px;
+color: #ffffff;
+margin-bottom: 0px;
+}
+::ng-deep.mat-card-header-text {
+margin: 0 6px !important;
+}
+::ng-deeptr.mat-header-row {
+height: 45px !important;
+}
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
+margin: 0.2em 0 !important;
+
+}
+::ng-deep.mat-header-row {
+min-height: 45px;
+}
+::ng-deep.mat-header-cell {
+margin-top: 0px;
+font-family: "Roboto";
+font-size: 16px;
+font-weight: normal;
+font-stretch: normal;
+font-style: normal;
+letter-spacing: 0.32px;
+color: #ffffff;
+background-color: #28acaf;
+}
+.div-pad{
+  padding-left: 2%;
+  padding-right: 2%;
 }

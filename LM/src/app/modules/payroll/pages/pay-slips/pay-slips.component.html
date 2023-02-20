@@ -6,11 +6,11 @@
         </div>
         </mat-card-header>
     
-          <div fxLayout="column">      
+          <div fxLayout="column" class="div-pad">      
                 <form [formGroup]="payslipsForm" autocomplete="off">
                   <br>
-                    <div fxLayout="row">
-                      <mat-form-field appearance="outline" fxFlex="28">
+                    <div fxLayout="row" fxLayoutAlign="end">
+                      <mat-form-field appearance="outline" fxFlex="28" fxFlex.xs="100">
                             <mat-label>Financial Year</mat-label>
                             <mat-select formControlName="financial_year">
                               <ng-container>

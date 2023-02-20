@@ -1003,7 +1003,7 @@
                                         maxlength="400"></textarea>
                                 </mat-form-field>
                             </div>
-                            <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="start center">
+                            <!-- <div fxFlex="50" fxFlex.xs="100" fxLayoutAlign="start center">
                                 <span>
                                     <button class="btn btn-primary mr-2 mb-2" (click)="addWorkExperience()">
                                         <span *ngIf="!isExperienceEdit"> Submit </span>
@@ -1016,8 +1016,22 @@
                                         Clear
                                     </button>
                                 </span>
-                            </div>
+                            </div> -->
                         </div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
+                            <span>
+                                 <button class="btn btn-primary mr-2 mb-2" (click)="addWorkExperience()">
+                                     <span> Save </span>
+                                 </button>
+                                 <button class="btn btn-primary custom1 mr-2 mb-2" (click)="workExperienceSubmitAdd()">
+                                     <span> Save & Add</span>
+                                 </button>
+                                 <button class="btn btn-danger mr-2 mb-2" (click)="clearWorkExperience()">
+                                     Clear
+                                 </button>
+                             </span>
+                         </div>
+                         
                         <div class="mat-elevation-z1" *ngIf="workExperienceDetails.length > 0">
                             <table mat-table [dataSource]="workExperienceDataSource" class="w-100">
                                 <ng-container matColumnDef="sno">
@@ -1228,11 +1242,11 @@
                         </div>
                         <div fxLayout="row" fxLayoutAlign="center">
                             <button class="btn btn-primary mr-2 mb-2" (click)="addEducation()">
-                                <span *ngIf="!isEducationEdit"> Submit </span>
+                                <span *ngIf="!isEducationEdit"> Save </span>
                                 <span *ngIf="isEducationEdit"> Update </span>
                             </button>
                             <button *ngIf="!isEducationEdit" class="btn btn-primary custom1 mr-2 mb-2" (click)="educationSaveAdd()">
-                                <span > Submit & Add </span>
+                                <span > Save & Add </span>
                              </button>
                             <button class="btn btn-danger mr-2 mb-2" (click)="clearEducation()">
                                 Clear
@@ -1357,9 +1371,12 @@
                                 &nbsp;
                             </div>
                         </div>
-                        <div fxLayout="row" fxLayoutAlign="end">
-                            <button class="btn btn-primary mr-2 mb-2" (click)="validateDocument()">
+                        <div fxLayout="row" fxLayoutAlign="center center">
+                            <button class="btn btn-primary mr-2 mb-2"  (click)="validateDocument()">
                                 <span> Submit </span>
+                            </button>
+                            <button class="btn btn-danger mr-2 mb-2" (click)="clearDock()">
+                                Clear
                             </button>
                         </div>
                         <div class="mat-elevation-z1" *ngIf="documentDetails.length > 0">

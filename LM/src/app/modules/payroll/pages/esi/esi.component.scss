@@ -140,17 +140,14 @@
   color: #ffffff;
   margin-bottom: 0px;
 }
-::ng-deep.mat-card-header-text {
-  margin: 0px 6px!important;
-}
 .form-control:disabled, .form-control[readonly] {
   background: #ffffff !important;
   border-color: #e8e8e8 !important;
 }
 .rowPad{
   padding-top:10px;
-  padding-left:5px;
-  padding-right:5px;
+  padding-left:2%;
+  padding-right:2%;
 }
 mat-card {
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -158,4 +155,7 @@ mat-card {
   position: relative;
   padding-left: 0px;
   padding-right: 0px;
+}
+::ng-deeptr.mat-header-row {
+  height: 45px !important;
 }

@@ -117,3 +117,10 @@ mat-card {
   color: #ffffff;
   margin-bottom: 0px;
 }
+.div-pad{
+  padding-left: 2%;
+  padding-right: 2%;
+}
+::ng-deep.mat-card-header-text {
+  margin: 0px 10px !important;
+}

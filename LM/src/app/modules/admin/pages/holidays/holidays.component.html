@@ -1,11 +1,15 @@
 <div fxLayout="column" class="first-col">
 <mat-card>
-    <mat-card-header class="headerbox">
-        <div fxLayout="row" fxFlex="50">
-            <mat-card-title class="title"> Holidays </mat-card-title>
-        </div>
-        </mat-card-header>
-    <div *ngIf="isadd">
+    <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-card-title class="title"> Holidays </mat-card-title>
+          <div style="margin-right: 2%;" *ngIf="isview">
+             <button mat-icon-button style="padding-right: 40px;" (click)="add()" matTooltip="Add New">
+                  <mat-icon style="font-size: 30px">add_circle</mat-icon>
+                </button>
+             </div>
+     </mat-card-header>
+
+     <div *ngIf="isadd">
         <form [formGroup]="HolidayForm" autocomplete="off" class="tableP">
             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
@@ -76,23 +80,17 @@
     </div>
     <br>
 
-    <div *ngIf="isview" fxLayout="column">
-        <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center" style="height: 50px;">
-            <span style="padding-left: 2%" fxFlex="50">
-             <mat-form-field fxFlex="50" fxFlex.xs="100%" appearance="outline">
+    <div *ngIf="isview" fxLayout="column" class="div-pad">
+        <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;">
+            <mat-form-field fxFlex="28" fxFlex.xs="100%" appearance="outline">
                  <mat-label>Search</mat-label>
                  <input matInput (keyup)="applyFilter($event)" placeholder="" >
                  <mat-icon matSuffix>search</mat-icon>
              </mat-form-field>
-         </span>
-         <span fxLayoutAlign="end" style="padding-right: 1%" fxFlex="50">
-             <button class="btn btn-primary mr-2 mb-2"
-                 (click)="add()" type="button">
-                 <span>Add</span><br>
-             </button>
-         </span>
+
          </div>
-        <form [formGroup]="HolidayForm" autocomplete="off" class="tableP">
+         <br>
+        <form [formGroup]="HolidayForm" autocomplete="off">
             <div class="mat-elevation-z1">
                 <table mat-table [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="sno">
