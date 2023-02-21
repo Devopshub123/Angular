@@ -43,6 +43,9 @@
                                         <div *ngIf="i==0">
                                             <mat-form-field appearance="outline" *ngIf="isEditDefaultRules" style="width:120px">
                                                 <input formControlName="pastdays" onlyNumber matInput  maxlength="2">
+                                                <mat-error class="con-error" *ngIf="this.leavepoliciesForm.controls.pastdays?.required">
+                                                    {{msgLM1}}
+                                                </mat-error>
                                             </mat-form-field>
                                             <span class="form-control" *ngIf="!isEditDefaultRules" style="background: #e8e8e8 !important;border-color: #e8e8e8 !important;opacity: 0.6 !important;width: 60%">{{ data.value }}</span>
                                             <!-- <input type="text" style="width: 60%;" onlyNumber formControlName="pastdays" matInput [readonly]="!isEditDefaultRules" placeholder="{{data.value}}" maxlength="2"> -->
@@ -447,7 +450,7 @@
                                         </div>
                                         <div *ngIf="data.rulename == 'leavecolor'">
                                               <input required style="width: 50%;" matInput formControlName="leavecolor" value="leavecolor" type="color" >
-                                              <div class="con-error" *ngIf="isLeaveColorAlreadyExists "  style="color: red;">This color already existed</div>
+                                              <div class="con-error" *ngIf="isLeaveColorAlreadyExists&&!editingleavetype "  style="color: red;">This color already existed</div>
                                             </div>
                                         <div *ngIf="data.rulename == 'LEAVES_ENCASHMENT_MIN_COUNT_ELIGIBILITY'">
                                         <mat-form-field appearance="outline" style="width: 120px">

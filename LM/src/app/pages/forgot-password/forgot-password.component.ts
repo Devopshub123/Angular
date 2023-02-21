@@ -49,7 +49,7 @@ export class ForgotPasswordComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Please check your email for reset password'
+          data: 'Please check your email for reset password.'
         });
           this.router.navigate(["/Login"])
       }
@@ -60,7 +60,7 @@ export class ForgotPasswordComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Db not there.'
+            data: 'Please enter a valid company short code.'
           });
           
         }
