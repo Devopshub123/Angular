@@ -19,69 +19,24 @@ ul {
 
 .mat-table {
  // display: block;
-  width: 100%;
+ // width: 100%;
   overflow-x: auto;
+  overflow-y: auto;
 }
 
-// .mat-column-sno {
-//   max-width: 70px;
-//   min-width: 80px;
-// }
-
-// .mat-column-name {
-//   min-width: 120px;
-// }
-
-// .mat-column-email {
-//   max-width: 200px;
-//   min-width: 200px;
-// }
-
-// .mat-column-mobile {
-//   max-width: 150px;
-//   min-width: 120px;
-// }
-
-// .mat-column-empstatus {
-//   max-width: 100px;
-//   min-width: 80px;
-// }
-
-// .mat-column-emptype {
-//   max-width: 120px;
-//   min-width: 100px;
-// }
-
-// .mat-column-desg {
-//   max-width: 150px;
-//   min-width: 120px;
-// }
-
-// .mat-column-location {
-//   max-width: 150px;
-//   min-width: 120px;
-// }
-
-// .mat-column-blood {
-//   max-width: 120px;
-//   min-width: 100px;
-// }
-
-// .mat-column-marital {
-//   max-width: 120px;
-//   min-width: 100px;
-// }
 
 table {
-  width: 100%;
+  //width: 100%;
   table-layout: fixed;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 th,
 td {
   overflow: hidden;
   width: auto;
-  text-overflow: ellipsis;
+  //text-overflow: ellipsis;
   white-space: nowrap;
 }
 

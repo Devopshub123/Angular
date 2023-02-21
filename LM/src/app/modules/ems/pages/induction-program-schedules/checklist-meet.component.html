@@ -166,7 +166,7 @@
                                 <td class="mat-cell" colspan="8" style="text-align: center;">No data found</td>
                             </tr>
                         </table>
-                        <mat-paginator [pageSizeOptions]="!pageLoading1 ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+                        <mat-paginator [pageSizeOptions]="!pageLoading1 ? getPageSizes2() : [5, 10, 20]"></mat-paginator>
 
                     </div>
                     <br>
@@ -238,8 +238,8 @@
                                 (click)="selection.toggle(row)">
                             </tr>
                         </table>
-                        <mat-paginator [pageSizeOptions]="!pageLoading2 ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-    </div>
+                        <mat-paginator [pageSizeOptions]="!pageLoading2 ? getPageSizes3() : [5, 10, 20]"></mat-paginator>
+                      </div>
                 </div>
                 <div fxLayoutAlign="center">
                     <button *ngIf="!isRequestView && !isEditView" class="btn btn-primary mr-2 mb-2"
@@ -311,7 +311,7 @@
                                 (click)="selection.toggle(row)">
                             </tr>
                         </table>
-                        <mat-paginator [pageSizeOptions]="!pageLoading2 ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+                        <mat-paginator [pageSizeOptions]="!pageLoading2 ? getPageSizes3() : [5, 10, 20]"></mat-paginator>
                        </div>
                 </div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
