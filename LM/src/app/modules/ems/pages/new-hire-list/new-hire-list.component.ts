@@ -187,9 +187,19 @@ export class NewHireListComponent implements OnInit {
     this.isNewhireList = false;
     this.isUpdate = true;
     this.candidateId = data.id;
-   this.hireForm.controls.firstname.setValue(data.firstname);
-    this.hireForm.controls.middlename.setValue(data.middlename);
-    this.hireForm.controls.lastname.setValue(data.lastname);
+    
+    let fname = data.firstname;
+    fname = fname ? fname.charAt(0).toUpperCase() + fname.substr(1).toLowerCase() : '';
+    this.hireForm.controls.firstname.setValue(fname);
+
+    let mname = data.middlename;
+    mname = mname ? mname.charAt(0).toUpperCase() + mname.substr(1).toLowerCase() : '';
+    this.hireForm.controls.middlename.setValue(mname);
+
+    let lname = data.lastname;
+    lname = lname ? lname.charAt(0).toUpperCase() + lname.substr(1).toLowerCase() : '';
+    this.hireForm.controls.lastname.setValue(lname);
+
     this.hireForm.controls.email.setValue(data.personal_email);
     this.hireForm.controls.hiredon.setValue(data.hired_date);
     this.minHireDate = new Date(data.hired_date);

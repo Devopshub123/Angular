@@ -190,3 +190,21 @@ button.link:hover {
 .custom1 {
   width: 130px !important;
 }
+::ng-deep.mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label {
+  flex-basis: 0 !important;
+  flex-grow: 0 !important;
+}
+::ng-deep.mat-tab-label {
+  height: 48px;
+  padding: 0px 16px;
+  cursor: pointer;
+  box-sizing: border-box;
+  opacity: .6;
+  min-width: 220px !important;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  position: relative;
+}

@@ -198,52 +198,53 @@ export class DesignationsComponent implements OnInit {
     this.isSave = true;
 
   }
-  save(event: any, id: any, desname: any,datas:any) {
-    this.validatedesignation(desname)
-    this.enable = null;
-    this.isEdit = true;
-    this.isSave = false;
-    if (this.valid) {
-      console.log("T1")
-      let data={
-        id:id,
-        name:desname,
-        created_by: datas.created_by,
-        created_on:datas.created_on,
-        status:datas.status,
-        updated_by:this.userSession.id,
-        updated_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
-      }
-      this.LM.putDesignation(data).subscribe((data) => {
-      if (data.status) {
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/Admin/Designation"]));
-          this.enable = null;
-          this.getDesignation();
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: this.msgEM96
-          });
-
-
-        } else {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: this.editResponseMessage
-          });
-
+  save(event: any, id: any, desname: any, datas: any) {
+    if (this.designationForm.valid) {
+      this.validatedesignation(desname)
+      this.enable = null;
+      this.isEdit = true;
+      this.isSave = false;
+      if (this.valid) {
+        let data = {
+          id: id,
+          name: desname,
+          created_by: datas.created_by,
+          created_on: datas.created_on,
+          status: datas.status,
+          updated_by: this.userSession.id,
+          updated_on: this.pipe.transform(new Date(), 'yyyy-MM-dd') + ' ' + this.pipe.transform(new Date(), 'HH:mm:ss'),
         }
-      })
-    }
-    else {
-      this.ngOnInit();
-      let dialogRef = this.dialog.open(ReusableDialogComponent, {
-        position: { top: `70px` },
-        disableClose: true,
-        data: this.msgEM95
-      });
+        this.LM.putDesignation(data).subscribe((data) => {
+          if (data.status) {
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Admin/Designation"]));
+            this.enable = null;
+            this.getDesignation();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.msgEM96
+            });
+
+
+          } else {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.editResponseMessage
+            });
+
+          }
+        })
+      }
+      else {
+        this.ngOnInit();
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+          data: this.msgEM95
+        });
+      }
     }
   }
   canceledit(event: any, id: any) {

@@ -11,6 +11,7 @@ import * as XLSX from "xlsx";
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 /**for formarray validation */
 function minSelectedCheckboxes(min = 1) {
   const validator: any = (formArray: FormArray) => {
@@ -105,7 +106,8 @@ export class EmployeereportComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-  constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private ES:EmsService,) {
+  constructor(private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog,
+    private ES: EmsService, private spinner: NgxSpinnerService,) {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getEmsEmployeeColumnConfigurationValue();
    }
@@ -302,7 +304,8 @@ export class EmployeereportComponent implements OnInit {
     })
 
   }
-  search(){
+  search() {
+    this.spinner.show();
     this.addflagcheckboxes = true;
     const empstatus = this.reportForm.value.empstatus
       .map((checked:any, i:any) => checked ? this.employeestatus[i].id : null)
@@ -359,9 +362,11 @@ export class EmployeereportComponent implements OnInit {
          }
         this.ishide = true;
         this.isview = false;
-      })
+         })
+         this.spinner.hide();
      }
-     else{
+     else {
+      this.spinner.hide();
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
         disableClose: true,

@@ -91,7 +91,6 @@ export class DeparmentComponent implements OnInit {
   validatedepartments(data: any) {
     if (this.departmentData.length ==0) {
       this.valid = true;
-
     }
     else {
       if (this.departmentData.length > 0) {
@@ -209,55 +208,54 @@ export class DeparmentComponent implements OnInit {
     // VOFormElement.get('VORows').at(i).get('isEditable').patchValue(false);
 
   }
-  save(event: any, id: any, deptname: any,datas:any) {
-    this.validatedepartments(deptname)
-    this.enable = null;
-    this.isEdit = true;
-    this.isSave = false;
+  save(event: any, id: any, deptname: any, datas: any) {
 
-    if (this.valid) {
-      let data={
-        id:id,
-        name:deptname,
-        created_by: datas.created_by,
-        created_on:datas.created_on,
-        status:datas.status,
-        updated_by:this.userSession.id,
-        updated_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
-      }
-      this.LM.putDepartments(data).subscribe((data) => {
-        if (data.status) {
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/Admin/Department"]));
-          // this.enable = null;
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: this.msgEM91
-          });
-          this.getDepartments();
-
-        } else {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: this.msgEM85
-          });
+    if (this.departmentForm.valid) {
+      this.validatedepartments(deptname)
+      this.enable = null;
+      this.isEdit = true;
+      this.isSave = false;
+      if (this.valid) {
+        let data={
+          id:id,
+          name:deptname,
+          created_by: datas.created_by,
+          created_on:datas.created_on,
+          status:datas.status,
+          updated_by:this.userSession.id,
+          updated_on:this.pipe.transform(new Date(), 'yyyy-MM-dd')+' '+this.pipe.transform(new Date(), 'HH:mm:ss'),
         }
-      })
+        this.LM.putDepartments(data).subscribe((data) => {
+          if (data.status) {
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Admin/Department"]));
+            // this.enable = null;
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.msgEM91
+            });
+            this.getDepartments();
+  
+          } else {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.msgEM85
+            });
+          }
+        })
+      }
+      else {
+        this.ngOnInit();
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+          data: this.msgEM92
+        });
+  
+      }
     }
-    else {
-      this.ngOnInit();
-      let dialogRef = this.dialog.open(ReusableDialogComponent, {
-        position: { top: `70px` },
-        disableClose: true,
-        data: this.msgEM92
-      });
-
-    }
-
-
-
   }
   canceledit(event: any, id: any) {
     this.enable = null;

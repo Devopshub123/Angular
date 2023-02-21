@@ -696,6 +696,39 @@ export class ChecklistMeetComponent implements OnInit {
     customPageSizeArray.push(this.dataSource.data.length);
     return customPageSizeArray;
   }
+  getPageSizes2(): number[] {
+    var customPageSizeArray = [];
+    
+    if (this.programViewdataSource.data.length > 5) {
+      customPageSizeArray.push(5);
+    }
+    if (this.programViewdataSource.data.length > 10) {
+      customPageSizeArray.push(10);
+    }
+    if (this.programViewdataSource.data.length > 20) {
+      customPageSizeArray.push(20);
+     
+    }
+    customPageSizeArray.push(this.programViewdataSource.data.length);
+    return customPageSizeArray;
+  }
+  getPageSizes3(): number[] {
+    var customPageSizeArray = [];
+    
+    if (this.dataSource2.data.length > 5) {
+      customPageSizeArray.push(5);
+    }
+    if (this.dataSource2.data.length > 10) {
+      customPageSizeArray.push(10);
+    }
+    if (this.dataSource2.data.length > 20) {
+      customPageSizeArray.push(20);
+     
+    }
+    customPageSizeArray.push(this.dataSource2.data.length);
+    return customPageSizeArray;
+  }
+  
   getCompanyInformation(){
     this.companyServices.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
       if(data.status && data.data.length!=0) {
