@@ -132,8 +132,13 @@
   </div>
   <div *ngIf="isNewhireList" style="padding-left: 1%;padding-right: 1%;">
 
-   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="end">
-
+   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="space-between center">
+<span>
+  <mat-radio-group  (change)="radioChange($event)" style="padding-left: 20px;">
+    <mat-radio-button value="1" [checked]="true"><b>Hired</b></mat-radio-button>&nbsp;
+     <mat-radio-button value="2" ><b>Joined</b></mat-radio-button>
+ </mat-radio-group>
+</span>
       <mat-form-field fxFlex.xs="100" fxFlex="28" class="mx-2 my-2" appearance="outline" style="padding-top: 1%;">
         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
         <mat-label>Search Employee</mat-label>
@@ -200,7 +205,7 @@
               <button mat-icon-button matTooltip="Edit" *ngIf="row.status == 'Hired' ">
                 <mat-icon (click)="editEmployee($event,row)">edit</mat-icon>
               </button>
-              <button mat-icon-button matTooltip="Candidate data" *ngIf="row.status == 'Hired' ">
+              <button mat-icon-button matTooltip="Joining Formalities" *ngIf="row.status == 'Hired' ">
                 <mat-icon (click)="editCandidateData($event,row)">save</mat-icon>
               </button>
             </td>

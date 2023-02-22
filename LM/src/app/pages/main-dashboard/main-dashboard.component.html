@@ -444,10 +444,11 @@
                         <mat-list class="time-attendance">
                           <ng-container *ngFor="let item of notificationsData">
                             <mat-list-item>
-                              <h3 matLine matTooltip="This record is missing for Attendance/Leave Request"> {{ item.absent_date | date: "dd-MM-yyyy" }}
-                              </h3>
+                              <span fxFlex="30" matLine matTooltip="This record is missing for Attendance/Leave Request"
+                              matTooltipPosition="below"> {{ item.absent_date | date: "dd-MM-yyyy" }}
+                              </span>
 
-                              <p>
+                              <span fxFlex="70" fxLayoutAlign="end">
                                 <a routerLink="/" style="padding-right: 10px;" matTooltip="Leave request"
                                   (click)="leaverequest(item)">
                                   <img src="assets\img\leave-request.png" style="height: 35px" />
@@ -458,7 +459,7 @@
                                   <img src="assets\img\attendence-request.png" style="height: 28px" />
                                   <!-- <span>Attendance request</span> -->
                                 </a>
-                              </p>
+                              </span>
 
                             </mat-list-item>
                           </ng-container>

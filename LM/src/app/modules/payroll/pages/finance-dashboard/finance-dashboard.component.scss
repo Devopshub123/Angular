@@ -61,12 +61,6 @@ mat-header-cell {
       border-width: 0 !important;
     }
   }
-  .outline{
-    border-radius: 6px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #28acaf;
-}
   .table-expanded-description {
     .example-element-detail {
       margin-right: -15px;
@@ -112,17 +106,17 @@ mat-header-cell {
 }
 @media only screen and (min-width: 1000px) and (max-width: 1300px) {
 ::ng-deep .mat-select {
-  width: 77% !important
+  width: 80% !important
 }
 }
 @media only screen and (min-width: 1301px) and (max-width: 1370px) {
   ::ng-deep .mat-select {
-    width: 88% !important
+    width: 80% !important
   }
 }
 @media only screen and (max-width: 600px) {
   ::ng-deep .mat-select {
-    width: 88% !important
+    width: 70% !important
   }
   .mob-pt {
     margin-bottom: 109px;
@@ -149,4 +143,25 @@ mat-card {
   position: relative;
   padding-left: 0px;
   padding-right: 0px;
+}
+.fcard {
+  width: 230px;
+  margin: 10px;
+  height: 180px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  transition: all .25s linear;
+  border-color: #28acaf;
+  border-width: 1px;
+  //box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+  /////
+  display: block;
+  display: inline-block;
+}
+.outline{
+  border-radius: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #28acaf;
+  background-color: #ffffff
 }

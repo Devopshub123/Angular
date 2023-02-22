@@ -17,6 +17,7 @@ import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { EncryptPipe } from 'src/app/custom-directive/encrypt-decrypt.pipe';
+import { MatRadioChange } from '@angular/material/radio';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 
@@ -65,6 +66,10 @@ export class NewHireListComponent implements OnInit {
   EM55: any;
   companyDBName: any = environment.dbName;
   newHiredList: any = [];
+  hiredList: any = [];
+  hired: boolean = true;
+  joinedList: any = [];
+  joined: boolean = false;
   //constructor(private emsService:EmsService,private router: Router) { }
 
   displayedColumns: string[] = ['sno','name','email','hireDate','joinDate','mobile','status','action'];
@@ -209,18 +214,60 @@ export class NewHireListComponent implements OnInit {
     this.hireForm.controls.mobile.setValue(data.contact_number);
     this.hireForm.controls.alternatenumber.setValue(data.alternatecontact_number);
   }
+
   getNewHiredList() {
+   this.hiredList = [];
+    this.joinedList = [];
     this.emsService.getNewHiredEmployeeList(null).subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.newHiredList = res.data;
-        this.dataSource = new MatTableDataSource(this.newHiredList);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.pageLoading = false;
+        this.newHiredList.forEach((e: any) => {
+          if (e.status == "Hired") {
+            this.hiredList.push(e);
+          } else if (e.status == "Joined") {
+            this.joinedList.push(e);
+          }
+        })
+        if (this.hired == true) {
+          this.dataSource = new MatTableDataSource(this.hiredList);
+          setTimeout(() => {
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            this.spinner.hide();
+          }, 500);
+        
+        } else {
+          this.dataSource = new MatTableDataSource(this.joinedList);
+          setTimeout(() => {
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            this.spinner.hide();
+          }, 500)
+        }
       }
     })
   }
-
+  
+  getHiredList() {
+    this.spinner.show();
+    this.hired = true;
+    this.getNewHiredList()
+  }
+  
+  getjoinedList() {
+    this.spinner.show();
+    this.hired = false;
+    this.getNewHiredList();
+  }
+  radioChange(event: MatRadioChange) {
+     if (event.value == 1) {
+      this.getHiredList();
+     
+      } else if(event.value == 2){
+      this.getjoinedList();
+      } 
+  }
+  
   editCandidateData(id:any, data:any) {
     // dateofjoin
     const dateOne = new Date(data.dateofjoin);
@@ -328,16 +375,7 @@ export class NewHireListComponent implements OnInit {
       }
       customPageSizeArray.push(this.dataSource.data.length);
       return customPageSizeArray;
-    
-    // if (this.dataSource.data.length > 20) {
-    //   return [5, 10, 20, this.dataSource.data.length];
-    // }
-    // else {
-      
-      
-    //  return customPageSizeArray;
-    // }
-  }
+ }
   getCompanyInformation(){
     this.companyService.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
       if (data.status && data.data.length != 0) {

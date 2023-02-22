@@ -468,15 +468,19 @@ export class EmployeeProfileComponent implements OnInit {
         this.employeeMobile = this.employeeInformationData.contactnumber;
         this.designationId = this.employeeInformationData.designation;
 
-        this.personalInfoForm.controls.firstname.setValue(
-          this.employeeInformationData.firstname
-        );
-        this.personalInfoForm.controls.middlename.setValue(
-          this.employeeInformationData.middlename
-        );
-        this.personalInfoForm.controls.lastname.setValue(
-          this.employeeInformationData.lastname
-        );
+        let fname = this.employeeInformationData.firstname;
+        fname = fname ? fname.charAt(0).toUpperCase() + fname.substr(1).toLowerCase() : '';
+        this.personalInfoForm.controls.firstname.setValue(fname);
+  
+        let mname = this.employeeInformationData.middlename;
+        mname = mname ? mname.charAt(0).toUpperCase() + mname.substr(1).toLowerCase() : '';
+        this.personalInfoForm.controls.middlename.setValue(mname);
+  
+        let lname = this.employeeInformationData.lastname;
+        lname = lname ? lname.charAt(0).toUpperCase() + lname.substr(1).toLowerCase() : '';
+        this.personalInfoForm.controls.lastname.setValue(lname);
+
+       
         this.personalInfoForm.controls.dateofbirth.setValue(
           new Date(this.employeeInformationData.dateofbirth)
         );
