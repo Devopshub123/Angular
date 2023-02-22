@@ -82,6 +82,7 @@ export class EmployeeInfoComponent implements OnInit {
 
   isedit: boolean = false;
   minDate = new Date('1950/01/01');
+  minJoinDate: any;
   maxBirthDate = new Date();
   bloodGroupdetails: any[] = [];
   genderDetails: any[] = [];
@@ -2298,6 +2299,13 @@ export class EmployeeInfoComponent implements OnInit {
   backArrow() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
     this.router.navigate(["/ems/employeeDirectory"]));
+  }
+  getCompanyInformation(){
+    this.companyService.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
+      if (data.status && data.data.length != 0) {
+        this.minJoinDate = new Date(data.data[0].established_date);
+      }
+    })
   }
 }
 

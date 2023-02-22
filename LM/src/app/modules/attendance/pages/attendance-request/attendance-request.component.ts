@@ -74,6 +74,7 @@ export class AttendanceRequestComponent implements OnInit {
   userData: any;
   pageLoading = true;
   isRequestView = false;
+  isCommentView = false;
   isEditView = false;
   uniqueId: any = '';
   messagesDataList: any = [];
@@ -94,6 +95,7 @@ export class AttendanceRequestComponent implements OnInit {
   companyDBName: any = environment.dbName;
   employeeEmailData: any = [];
   employeeId: any;
+  workTypename: any;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
     private location: Location, private adminService: AdminService,private emsService: EmsService,) {
@@ -468,7 +470,7 @@ export class AttendanceRequestComponent implements OnInit {
 
           if (res.message == "notSave") {
             resMessage = this.dataNotSave;
-          } else if (res.message == "save") {
+          } else if (res.message == "update") {
             resMessage = this.ATT75;
           } else {
             resMessage = this.dataNotSave;
@@ -486,26 +488,43 @@ export class AttendanceRequestComponent implements OnInit {
   }
 
 
-  DeleteRequestPopup(event: any){
+  DeleteRequestPopup(event: any) {
+    this.requestform.controls.shift.setValue(event.shift);
+    this.requestform.controls.fromDate.setValue(event.fromdate);
+    this.requestform.controls.toDate.setValue(event.todate);
+    let worktypename = '';
+    this.workTypeData.forEach((e: any) => {
+      if (e.type == event.worktype) {
+        worktypename = e.type;
+      }
+    })
+    this.workTypename = worktypename;
+    this.getEmployeeShiftDetailsByIdWithDates();
     let dialogRef = this.dialog.open(LeavePoliciesDialogComponent, {
       position:{top:`70px`},
       disableClose: true,
       data: {message:"Are you sure you want to delete ?",YES:'YES',NO:'NO'}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result == 'YES'){
+      if (result == 'YES') {
         this.deleteRequest(event)
+      } else {
+        
       }
       });
   }
 
   deleteRequest(event: any) {
-    let obj = {
+  let obj = {
       "id": event.id,
-      "actionby":this.userSession.id
+      "actionby": this.userSession.id,
+      //email data
+      "fromdate": this.pipe.transform(new Date(this.requestform.controls.fromDate.value ?? ''), 'yyyy-MM-dd'),
+      "todate": this.pipe.transform(new Date(this.requestform.controls.toDate.value ?? ''), 'yyyy-MM-dd'),
+      "emails": this.employeeEmailData,
+      "worktypename": this.workTypename,
+      "shiftname":this.shiftData.shiftname
     };
-
-
     this.attendanceService.deleteAttendanceRequestById(obj).subscribe((res: any) => {
       if (res.status) {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -519,8 +538,10 @@ export class AttendanceRequestComponent implements OnInit {
     })
   }
   requestView(event: any) {
+    this.requestform.controls.comment.setValue("");
     this.isRequestView = true;
     this.isEditView = false;
+    this.isCommentView = false;
     this.requestform.controls.appliedDate.setValue(this.pipe.transform(event.applieddate, 'dd-MM-yyyy'));
     this.requestform.controls.shift.setValue(event.shift);
     this.requestform.controls.fromDate.setValue(event.fromdate);
@@ -529,8 +550,11 @@ export class AttendanceRequestComponent implements OnInit {
     this.requestform.controls.toDate.disable();
     this.requestform.controls.reason.setValue(event.reason);
     this.requestform.controls.reason.disable();
-    this.requestform.controls.comment.setValue(event.comment);
-    this.requestform.controls.comment.disable();
+    if (event.comment != null || "") {
+      this.isCommentView = true;
+      this.requestform.controls.comment.setValue(event.comment);
+      this.requestform.controls.comment.disable();
+    }
     this.workTypeData.forEach((e: any) => {
       if (e.type == event.worktype) {
         this.requestform.controls.workType.setValue(e.id);

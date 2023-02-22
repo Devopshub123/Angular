@@ -50,9 +50,9 @@ export class NewHireListComponent implements OnInit {
   hireForm: any = FormGroup;
   userSession: any;
   pipe = new DatePipe('en-US');
-  minDate = new Date('2000/01/01');
   joinDate :any;
   maxDate = new Date();
+  minDate: any;
   designationsList: any = [];
   messagesDataList: any = [];
   requiredField: any;
@@ -97,6 +97,7 @@ export class NewHireListComponent implements OnInit {
       alternatenumber:["",[Validators.pattern('[4-9]\\d{9}')]]
 
       });
+    this.getCompanyInformation();
       this.getNewHiredList();
       this.getDesignationsMaster();
     this.getMessagesList();
@@ -337,6 +338,12 @@ export class NewHireListComponent implements OnInit {
     //  return customPageSizeArray;
     // }
   }
-
+  getCompanyInformation(){
+    this.companyService.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
+      if (data.status && data.data.length != 0) {
+        this.minDate = new Date(data.data[0].established_date);
+      }
+    })
+  }
 }
 

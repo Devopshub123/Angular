@@ -1,32 +1,23 @@
 <div fxLayout="column" class="first-col">
 
       <mat-card>
-        <mat-card-header class="headerbox">
-          <div fxLayout="row" fxFlex="50">
-              <mat-card-title class="title">Employee Directory </mat-card-title>
-          </div>
-          </mat-card-header>
-          
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="space-between center"
-          style="padding-left: 1%">
+        <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-card-title class="title"> Employee Directory </mat-card-title>
+            <div style="margin-right: 2%;">
+               <button mat-icon-button style="padding-right: 40px;" (click)="newHire()" matTooltip="Add New">
+                    <mat-icon style="font-size: 30px">add_circle</mat-icon>
+                  </button>
+               </div>
+            </mat-card-header>
+       
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="end">
 
                 <mat-form-field fxFlex.xs="100" fxFlex="28" class="mx-2 my-2" appearance="outline" style="padding-top: 1%;">
                   <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
                   <mat-label>Search Employee</mat-label>
                     <input (keyup)="applyFilter($event)"  matInput placeholder="" maxlength="100" >
                   </mat-form-field>
-             <div fxLayout="row" style="margin-right: 2%;" fxLayoutAlign.xs="center">
-               <span >
-                <button mat-icon-button style="padding-right: 40px;" (click)="newHire()" matTooltip="New Employee">
-                  <mat-icon style="font-size: 40px;color: #28acaf;">add_circle</mat-icon>
-                         </button>
-             </span>
-            <!-- <span >
-              <button mat-icon-button matTooltip="Filter" (click)="applyFilter($event)">
-                <mat-icon style="font-size: 40px;">filter_alt</mat-icon>
-                       </button>
-               </span> -->
-         </div>
+          
         </div>
         <form [formGroup]="employeeDirectoryForm" style="padding-left: 1%;padding-right: 1%;">
         <!-- <div *ngIf="ishideFilter" style="margin-left: 1%;">

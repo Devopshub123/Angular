@@ -70,3 +70,7 @@ mat-card {
   padding-left: 2%;
   padding-right: 2%;
 }
+
+::ng-deep .cdk-overlay-container {
+  z-index: 1200 !important;
+}

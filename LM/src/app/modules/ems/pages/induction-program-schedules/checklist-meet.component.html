@@ -3,11 +3,15 @@
     <form [formGroup]="checklistForm" autocomplete="off">
 
         <div fxLayout="column">
-            <mat-card-header class="headerbox">
-                <div fxLayout="row" fxFlex="50">
-                    <mat-card-title class="title"> Induction Program </mat-card-title>
-                </div>
-                </mat-card-header>
+            <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+                <mat-card-title class="title"> Induction Program </mat-card-title>
+                  <div style="margin-right: 2%;" *ngIf="isdata">
+                     <button mat-icon-button style="padding-right: 40px;" (click)="Add()" matTooltip="Add New">
+                          <mat-icon style="font-size: 30px">add_circle</mat-icon>
+                        </button>
+                     </div>
+             </mat-card-header>
+
           <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd" class="tableP">
 
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
@@ -350,7 +354,7 @@
 
         </div>
         <br>
-        <div fxLayout="row" fxLayout.xs="row" fxFlex.xs="100%" fxLayoutAlign="end" *ngIf="isdata">
+        <!-- <div fxLayout="row" fxLayout.xs="row" fxFlex.xs="100%" fxLayoutAlign="end" *ngIf="isdata">
             <span style="padding-right: 7px;">
                 <button class="btn btn-primary mr-2 mb-2"
                     (click)="Add()" type="button">
@@ -358,7 +362,7 @@
                 </button>
             </span>
 
-        </div>
+        </div> -->
          <div fxLayout="column" *ngIf="isdata" class="tableP">
             <div class="mat-elevation-z1">
                 <table mat-table [dataSource]="dataSource" matSort>

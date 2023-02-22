@@ -46,7 +46,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
     }
     this.pendingapprove = new PendingApprovalsComponent(this.LM,this.router,this.dialog,this.spinner,this.EMS);
     this.compoffPendingapprove = new PendingCompoffComponent(this.LM,this.dialog,this.router,this.spinner,this.EMS);
-    this.cancellationapprove = new LeavesForCancellationComponent(this.LM,this.router,this.dialog,this.spinner);
+    this.cancellationapprove = new LeavesForCancellationComponent(this.LM,this.router,this.dialog,this.spinner,this.EMS);
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
 
