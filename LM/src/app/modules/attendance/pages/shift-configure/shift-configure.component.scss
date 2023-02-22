@@ -52,9 +52,9 @@ mat-card {
   padding-left: 0px;
   padding-right: 0px;
 }
-::ng-deep.mat-card-header-text {
-  margin: 0 6px !important;
-}
+// ::ng-deep.mat-card-header-text {
+//   margin: 0 6px !important;
+// }
 ::ng-deeptr.mat-header-row {
   height: 45px !important;
 }

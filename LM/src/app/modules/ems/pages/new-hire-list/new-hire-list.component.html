@@ -1,10 +1,13 @@
 <div fxLayout="column" class="first-col">
 <mat-card>
-  <mat-card-header class="headerbox">
-    <div fxLayout="row" fxFlex="50">
-        <mat-card-title class="title"> New Hires </mat-card-title>
-    </div>
-    </mat-card-header>
+  <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-card-title class="title"> New Hires </mat-card-title>
+      <div style="margin-right: 2%;" *ngIf="isNewhireList">
+         <button mat-icon-button style="padding-right: 40px;" (click)="newHire()" matTooltip="Add New">
+              <mat-icon style="font-size: 30px">add_circle</mat-icon>
+            </button>
+         </div>
+ </mat-card-header>
 
   <div fxLayout="column" *ngIf="isNewhire" style="padding-top: 1%;padding-left: 1%;padding-right: 1%;">
     <form [formGroup]="hireForm" autocomplete="off">
@@ -129,20 +132,13 @@
   </div>
   <div *ngIf="isNewhireList" style="padding-left: 1%;padding-right: 1%;">
 
-   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="space-between center">
+   <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="end">
 
       <mat-form-field fxFlex.xs="100" fxFlex="28" class="mx-2 my-2" appearance="outline" style="padding-top: 1%;">
         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
         <mat-label>Search Employee</mat-label>
         <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
       </mat-form-field>
-      <div fxLayout="row" style="margin-right: 2%;" fxLayoutAlign.xs="center">
-        <span>
-          <button mat-icon-button style="padding-right: 40px;" (click)="newHire()" matTooltip="New Hire">
-            <mat-icon style="font-size: 40px;color: #28acaf;">add_circle</mat-icon>
-          </button>
-        </span>
-      </div>
     </div>
     <div fxLayout="column" class="tableP">
       <div class="mat-elevation-z1">

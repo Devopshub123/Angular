@@ -239,7 +239,7 @@
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%">
                             <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Joining Date</mat-label>
-                                <input required matInput readonly [matDatepicker]="joinDate" [min]="minDate"
+                                <input required matInput readonly [matDatepicker]="joinDate" [min]="minJoinDate"
                                     [max]="maxDate" placeholder="DD-MM-YYYY" formControlName="joinDate"
                                     (click)="joinDate.open()" />
                                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="joinDate">

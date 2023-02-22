@@ -1,9 +1,7 @@
 <div fxLayout="column" class="first-col">
 <mat-card>
     <mat-card-header class="headerbox">
-        <div fxLayout="row" fxFlex="50">
-            <mat-card-title class="title"> Attendance Request </mat-card-title>
-        </div>
+         <mat-card-title class="title"> Attendance Request </mat-card-title>
         </mat-card-header>
     <div fxLayout="column">
       <form [formGroup]="requestform" autocomplete="off"  style="padding-left: 1%;padding-top: 1%;">
@@ -77,7 +75,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field *ngIf="isRequestView" fxFlex="40" fxFlex.xs="100" class="mx-2 my-2"
+                <mat-form-field *ngIf="isCommentView" fxFlex="40" fxFlex.xs="100" class="mx-2 my-2"
                 appearance="outline">
                 <mat-label>Comment</mat-label>
                 <textarea formControlName="comment" readonly matInput placeholder="Comment"></textarea>

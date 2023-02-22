@@ -17,28 +17,9 @@ ul {
   margin-top: 4px;
 }
 
-.mat-table {
- // display: block;
- // width: 100%;
-  overflow-x: auto;
-  overflow-y: auto;
-}
 
 
-table {
-  //width: 100%;
-  table-layout: fixed;
-  overflow-x: auto;
-  overflow-y: auto;
-}
 
-th,
-td {
-  overflow: hidden;
-  width: auto;
-  //text-overflow: ellipsis;
-  white-space: nowrap;
-}
 
 .truncate {
   text-overflow: ellipsis;
@@ -90,9 +71,9 @@ mat-card {
   color: #ffffff;
   margin-bottom: 0px;
 }
-::ng-deep.mat-card-header-text {
-  margin: 0 6px !important;
-}
+// ::ng-deep.mat-card-header-text {
+//   margin: 0 6px !important;
+// }
 ::ng-deeptr.mat-header-row {
   height: 45px !important;
 }
@@ -101,4 +82,27 @@ mat-card {
 }
 .mat-card-header .mat-card-title {
   margin-bottom: 0px;
+}
+.mat-table {
+  overflow-x: scroll;
+}
+
+.mat-cell,
+.mat-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 10px;
+  line-break: unset;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.mat-row,
+.mat-header-row {
+  display: table-row;
+}
+.example-container {
+  overflow-x: scroll;
 }

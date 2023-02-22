@@ -102,7 +102,6 @@ export class UserLeaveRequestComponent implements OnInit {
     this.getleavecyclelastmonth();
     this.leaveInfo = this.location.getState();
     this.leaveData = this.leaveInfo.leaveData;
-    console.log("ldat--",this.leaveData)
   }
   activeModule:any;
 
@@ -135,9 +134,7 @@ export class UserLeaveRequestComponent implements OnInit {
     // this.leaveRequestForm.controls.formData.setValue(this.leaveData ? new Date(this.leaveData.fromdate) : '')
     // this.leaveRequestForm.controls.toDate.setValue(this.leaveData ? new Date(this.leaveData.toDate) : '')
     this.leaveRequestForm.controls.fromDateHalf.setValue(this.leaveData ? this.leaveData.fromhalfdayleave == '0' ? false : true : false, { emitEvent: false })
-    console.log("fd---",this.leaveRequestForm.controls.fromDateHalf.value)
     this.leaveRequestForm.controls.toDateHalf.setValue(this.leaveData ? this.leaveData.tohalfdayleave == '0' ? false : true : false,{emitEvent:false})
-    console.log("td---",this.leaveRequestForm.controls.toDateHalf.value)
     this.leaveRequestForm.controls.leaveCount.setValue(this.leaveData ? this.leaveData.leavecount : '', { emitEvent: false })
     this.leaveRequestForm.controls.reason.setValue(this.leaveData ? this.leaveData.leavereason : '',{emitEvent:false})
     this.leaveRequestForm.controls.contact.setValue(this.leaveData ? this.leaveData.contactnumber : '',{emitEvent:false})
@@ -660,8 +657,7 @@ async  getLeavesTypeInfo() {
 
   changeToDate(date:any)
   {
-console.log("T0")
-    for (let i = 0; i < this.ToDatesHalfDays.length; i++) {
+  for (let i = 0; i < this.ToDatesHalfDays.length; i++) {
       console.log("T1");
       if (this.ToDatesHalfDays[i].edate === this.pipe.transform(date, 'yyyy-MM-dd')) {
         console.log("T2");

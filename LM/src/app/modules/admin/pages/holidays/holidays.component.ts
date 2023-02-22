@@ -294,6 +294,7 @@ export class HolidaysComponent implements OnInit {
     // this.HolidayForm.controls.branch.setValue(row.cityname)
     this.HolidayForm.controls.date.setValue(new Date(row.date))
   }
+
   canceledit(event:any,id:any){
     this.enable = null;
     this.isEdit=true;
@@ -301,80 +302,47 @@ export class HolidaysComponent implements OnInit {
     this.ngOnInit();
 
   }
+
   update(event:any,id:any,holiday:any,city:any,date:any){
-    
-    // let data ={
-    //   description:holiday,
-    //   id:id,
-    //   branch:city,
-    //   date:date
-
-    // }
-     // this.companyService.putHolidays(data, this.companyDBName).subscribe((data) => {
-
-    //   this.isadd= true;
-    //   if (data.status) {
-    //     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    //       this.router.navigate(["/Admin/Holidays"]));
-    //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
-    //       position:{top:`70px`},
-    //       disableClose: true,
-    //       data: this.msgEM115
-    //     });
-
-
-
-
-    //   } else {
-    //     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    //       this.router.navigate(["/Admin/Holidays"]));
-    //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
-    //       position:{top:`70px`},
-    //       disableClose: true,
-    //       data: this.msgEM126
-    //     });
-
-    //     // Swal.fire({title:this.msgEM126,color:"red",showCloseButton: true});
-    //   }
-    // })
-    let year = this.pipe.transform(date, 'yyyy');
-    let cities=[];
-    cities.push(city)
-    let data = {
-      hid :id,
-      holiday_year: year,
-      holiday_description: holiday.trim().toLowerCase(),
-      holiday_date: this.pipe.transform(date, 'yyyy-MM-dd'),
-      holiday_location: cities,
-      createdby:this.userSession.id,
-    };
-    this.companyService.setHolidays(data).subscribe((data) => {
-      if (data.status && data.data==0) {
-         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-           this.router.navigate(["/Admin/Holidays"]));
-         let dialogRef = this.dialog.open(ReusableDialogComponent, {
-           position: { top: `70px` },
-           disableClose: true,
-           data: this.msgEM114
-         });
-       } else if (data.status && data.data==1) {
+    if (this.HolidayForm.valid) {
+      let year = this.pipe.transform(date, 'yyyy');
+      let cities = [];
+      cities.push(city)
+      let data = {
+        hid: id,
+        holiday_year: year,
+        holiday_description: holiday.trim().toLowerCase(),
+        holiday_date: this.pipe.transform(date, 'yyyy-MM-dd'),
+        holiday_location: cities,
+        createdby: this.userSession.id,
+      };
+      this.companyService.setHolidays(data).subscribe((data) => {
+        if (data.status && data.data == 0) {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/Holidays"]));
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.msgEM114
+          });
+        } else if (data.status && data.data == 1) {
         
-         let dialogRef = this.dialog.open(ReusableDialogComponent, {
-           position: { top: `70px` },
-           disableClose: true,
-           data: "Record already exists."
-         });
-       }
-       else {
-         let dialogRef = this.dialog.open(ReusableDialogComponent, {
-           position: { top: `70px` },
-           disableClose: true,
-           data: this.msgEM125
-         });
-       }
-     })
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Record already exists."
+          });
+        }
+        else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.msgEM125
+          });
+        }
+      })
    
-
+    }
    
   }
 

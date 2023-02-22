@@ -11,6 +11,7 @@ import {MatDialog} from "@angular/material/dialog";
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { LoginService } from 'src/app/services/login.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 
 @Component({
   selector: 'app-user-leave-history',
@@ -43,18 +44,23 @@ export class UserLeaveHistoryComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private router: Router,private spinner:NgxSpinnerService,private LM:LeavesService,public dialog: MatDialog,private ts :LoginService) { }
+  constructor(private router: Router, private spinner: NgxSpinnerService, private LM: LeavesService,
+    public dialog: MatDialog, private ts: LoginService,private emsService: EmsService) { }
   pageLoading = true;
+  employeeEmailData: any = [];
+  employeeId: any;
   ngOnInit(): void {
     this.getErrorMessages('LM16');
     this.getErrorMessages('LM17');
     this.getErrorMessages('LM73');
     this.getErrorMessages('LM74');
     this.usersession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.employeeId = this.usersession.id;
     this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
 
     this.dataSource.paginator = this.paginator;
-    this.getleavehistory(null,null);
+    this.getleavehistory(null, null);
+    this.getEmployeeEmailData();
   }
   getleavehistory(page:any,size:any){
     this.LM.getleavehistory(this.usersession.id,1,1000).subscribe((result:any)=>{
@@ -93,14 +99,14 @@ openDialogcancel(): void {
   });
 
   dialogRef.afterClosed().subscribe(result => {
-  this.deletedata.actionreason =result.reason;
+    this.deletedata.actionreason = result.reason;
+    this.deletedata.emailData = this.employeeEmailData;
     if(result!=''){
       this.LM.cancelLeaveRequest(this.deletedata).subscribe((data)=>{
         if(data.status){
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/LeaveManagement/UserLeaveHistory"]));
-          console.log("pp--",this.msgLM74)
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
             data: this.msgLM74
@@ -211,9 +217,7 @@ openDialogdelete(): void {
 
        result.data[0].employeeId=this.usersession.id;
        let info = result.data[0]
-       console.log("info",info)
-        this.LM.getProfileImage(info).subscribe((imageData) => {
-          console.log("imageData",imageData)
+     this.LM.getProfileImage(info).subscribe((imageData) => {
           this.spinner.hide();
           if(imageData.success){
             let TYPED_ARRAY = new Uint8Array(imageData.image.data);
@@ -238,11 +242,16 @@ openDialogdelete(): void {
     }
 
     fileView(){
-      console.log("fileURL",this.fileURL)
       window.open(this.fileURL);
      
   }
-  
+  getEmployeeEmailData() {
+    this.employeeEmailData = [];
+    this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+       })
+}
   getPageSizes(): number[] {
      
   var customPageSizeArray = [];
