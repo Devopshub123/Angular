@@ -40,7 +40,7 @@
 
                     <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
                         <mat-label>End Time <span style="color: red;">*</span></mat-label>
-                        <input formControlName="endTime" matTimepicker (change)="changeEndTime($event)" />
+                        <input formControlName="endTime" matTimepicker  [min]="mintime"/>
                         <mat-error class="con-error" *ngIf="shiftForm.controls.endTime.errors?.required">
                             {{requiredField}}
                         </mat-error>

@@ -41,13 +41,17 @@ export class EarningsRequestComponent implements OnInit {
   arrayPayValue:any=[{Value:0,name:'Active'},{Value:1,name:'Inactive'}];
   constructor(private location:Location,private sanitizer:DomSanitizer,private formBuilder: FormBuilder,private PR:PayrollService,private dialog: MatDialog,private router: Router) {
     this.earndata = this.location.getState();
-    console.log(this.earndata.Earndata)
-    this.otherAllowance(this.earndata.Earndata.pigcm_id);
+    if(this.earndata.Earndata==undefined){
+      this.router.navigate(["Payroll/PayGroup"]);
+    }else{
+      this.otherAllowance(this.earndata.Earndata.pigcm_id);
     this.senddata =this.earndata.paygroupdata.data; 
     this.getComponentEditableConfigurations(this.earndata.Earndata.component_id)
     this.getPayGroupComponentValues(this.earndata.Earndata.pigcm_id);
     this.getComponentConfiguredValuesForPayGroup(this.earndata.Earndata.pigcm_id,1);
-    console.log(this.earndata.Earndata.component_name)
+    console.log("this.earndata.Earndata",this.earndata.Earndata)
+   
+    
     if(this.earndata.Earndata.component_name == 'Basic Salary' || this.earndata.Earndata.component_name =='House Rent Allowance' ){
       this.hide=true;
       this.status(1)
@@ -61,6 +65,9 @@ export class EarningsRequestComponent implements OnInit {
       this.hide=false;
       this.status(1)
     }
+
+    }
+    
    }
   ngOnInit(): void {
     this.getMessagesList();

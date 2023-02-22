@@ -72,6 +72,7 @@ export class ShiftMasterComponent implements OnInit {
   dataSave: any;
   dataNotSave: any;
   recordExist: any;
+  starttimeflag:boolean=false;
 
   EM120: any;
   EM121: any;
@@ -107,10 +108,13 @@ export class ShiftMasterComponent implements OnInit {
       leaveType: ['Leave', Validators.required],
       overTime: ['', Validators.required],
     });
+    this.shiftForm.controls.endTime.disable();
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getAllShifts();
     this.shiftForm.get('startTime')?.valueChanges.subscribe((selectedValue) => {
       this.mintime = selectedValue;
+      this.shiftForm.controls.endTime.enable();
+      // this.starttimeflag=true;
       this.starttime = this.pipe.transform(
         selectedValue,
         'dd/MM/yyyy, HH:mm:ss'
