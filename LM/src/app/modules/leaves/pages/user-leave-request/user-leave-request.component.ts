@@ -93,7 +93,7 @@ export class UserLeaveRequestComponent implements OnInit {
   documentInfo:any=null;
   employeeEmailData: any = [];
   employeeId: any;
-
+  isedit:boolean=false;
   constructor(private sanitizer: DomSanitizer, private router: Router, private location: Location,
     private LM: LeavesService, private formBuilder: FormBuilder, private dialog: MatDialog,
     private spinner: NgxSpinnerService, private LMSC: CompanySettingService,private emsService: EmsService) {
@@ -102,6 +102,10 @@ export class UserLeaveRequestComponent implements OnInit {
     this.getleavecyclelastmonth();
     this.leaveInfo = this.location.getState();
     this.leaveData = this.leaveInfo.leaveData;
+    console.log("test",this.leaveData)
+    if(this.leaveData!=undefined){
+      this.isedit=true;
+    }
   }
   activeModule:any;
 
