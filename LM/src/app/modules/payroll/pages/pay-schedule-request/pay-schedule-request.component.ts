@@ -101,36 +101,48 @@ export class PayScheduleRequestComponent implements OnInit {
 
 
   setPayGroup(){
-    let input = {
-      monthlySalaryCalculationBasis:this.payGroupRequestForm.controls.caluculateSalaryBasedON.value,
-      payDayOfMonth:null,
-      // payDayOfMonth:this.payGroupRequestForm.controls.pay_employee.value === '0' ? "LAST_WORKING_DAY" :this.payGroupRequestForm.controls.days_range.value,
-      payrollWindowFromDate:'1',
-      payrollWindowToDate:"LAST_DAY_OF_PRESENT_MONTH",
-      leaveWindowFromDateInPreviousMonth:this.payGroupRequestForm.controls.payroll_leavewindow.value?'1':this.payGroupRequestForm.controls.leaveWindowStartDate.value,
-      leaveWindowToDateInCurrentMonth:this.payGroupRequestForm.controls.payroll_leavewindow.value?'LAST_DAY_OF_PRESENT_MONTH':this.payGroupRequestForm.controls.leaveWindowEndDate.value,
-      nonWorkingDayPaymentOption:null
-      // nonWorkingDayPaymentOption:this.payGroupRequestForm.controls.pay_employee.value === '0' ? null:this.payGroupRequestForm.controls.nonWorkingDayPaymentOption.value === true ? 'NEXT_DAY':'PREVIOUS_DAY'
-    }
-    this.PR.setCompanyPaySchedule(input).subscribe((result:any)=> {
-      if(result && result.status){
-        this.router.navigate(["/Payroll/PaySchedule"])
-        this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: this.PR8
-        });
-
-      }else {
-        this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: this.PR7
-        });
+    if(this.payGroupRequestForm.controls.leaveWindowStartDate.value!='' && this.payGroupRequestForm.controls.payroll_leavewindow.value){
+      let input = {
+        monthlySalaryCalculationBasis:this.payGroupRequestForm.controls.caluculateSalaryBasedON.value,
+        payDayOfMonth:null,
+        // payDayOfMonth:this.payGroupRequestForm.controls.pay_employee.value === '0' ? "LAST_WORKING_DAY" :this.payGroupRequestForm.controls.days_range.value,
+        payrollWindowFromDate:'1',
+        payrollWindowToDate:"LAST_DAY_OF_PRESENT_MONTH",
+        leaveWindowFromDateInPreviousMonth:this.payGroupRequestForm.controls.payroll_leavewindow.value?'1':this.payGroupRequestForm.controls.leaveWindowStartDate.value,
+        leaveWindowToDateInCurrentMonth:this.payGroupRequestForm.controls.payroll_leavewindow.value?'LAST_DAY_OF_PRESENT_MONTH':this.payGroupRequestForm.controls.leaveWindowEndDate.value,
+        nonWorkingDayPaymentOption:null
+        // nonWorkingDayPaymentOption:this.payGroupRequestForm.controls.pay_employee.value === '0' ? null:this.payGroupRequestForm.controls.nonWorkingDayPaymentOption.value === true ? 'NEXT_DAY':'PREVIOUS_DAY'
       }
+      this.PR.setCompanyPaySchedule(input).subscribe((result:any)=> {
+        if(result && result.status){
+          this.router.navigate(["/Payroll/PaySchedule"])
+          this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: this.PR8
+          });
+  
+        }else {
+          this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: this.PR7
+          });
+        }
+  
+  
+      })
 
+    }
+    else{
+      this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data: "Please select new leave window start date and end date."
+      });
 
-    })
+    }
+   
 
   }
   cancel(){
