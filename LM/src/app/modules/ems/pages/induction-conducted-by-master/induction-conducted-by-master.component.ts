@@ -54,6 +54,7 @@ export class InductionConductedByMasterComponent implements OnInit {
   isEnable = false;
   formControlList: any = [];
   isFormCtrlValid = false;
+  conductId:any = null;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getProgramTypeMaster();
@@ -85,8 +86,7 @@ export class InductionConductedByMasterComponent implements OnInit {
 
   edit(event: any, data: any) {
     this.flag = false;
-
-
+    this.conductId = data.id;
     for(let i=0;i<data.empids.length;i++){
 
       if(this.array.length === 0){
@@ -144,7 +144,7 @@ export class InductionConductedByMasterComponent implements OnInit {
     // }
     if (this.inductionForm.valid ) {
       let data = {
-        'id': null,
+        'id': this.conductId,
         'program_id': this.inductionForm.controls.programType.value,
         'department_id': this.inductionForm.controls.department.value,
         'status': 1,
