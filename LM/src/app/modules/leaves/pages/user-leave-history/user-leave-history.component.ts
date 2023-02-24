@@ -162,7 +162,8 @@ openDialogdelete(): void {
 }
 
 
-  edit(leave:any){
+  edit(leave: any) {
+    console.log("data--",leave)
     leave.URL = '/LeaveManagement/UserLeaveHistory';
     leave.isdashboard = true;
     this.router.navigate(['/LeaveManagement/LeaveRequest'],{state:{leaveData:leave}});

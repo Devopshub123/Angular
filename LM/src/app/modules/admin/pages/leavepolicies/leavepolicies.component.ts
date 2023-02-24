@@ -138,7 +138,7 @@ export class LeavepoliciesComponent implements OnInit {
       {
       leavecycleyear: [""],
       email: ["",],
-      pastdays: ["",Validators.requiredTrue],
+      pastdays: ["",Validators.required],
       carrayForwordLeaveTypeId:["",],
       maxLeavesCarrayForwordValue:['',]
 
@@ -309,8 +309,6 @@ export class LeavepoliciesComponent implements OnInit {
       // this.displayedColumns3 =  selectedValue > 11 ? this.displayedColumns4 : this.displayedColumns4.filter(column => column !== 'actions');
     })
     this.addleaveForm.get('leaveid')?.valueChanges.subscribe((selectedValue:any) => {
-      console.log("leaveid",selectedValue);
-      console.log("leavetypes",this.leaveTypes)
       if( !this.editingleavetype ){
         for(let i=0;i<=this.leaveTypes.length;i++){
           if(selectedValue==this.leaveTypes[i].id){
@@ -702,7 +700,7 @@ getLeaveTypesToAdd() {
     var valid = true;
     for(let obj of  this.leavesTypeData){
       if(obj.id !== id && obj.leavecolor === color){
-        if(obj.id == 1 && obj.leavecolor === color){
+        if(obj.id == id && obj.leavecolor === color){
           this.isLeaveColorAlreadyExists = false;
         }else{
           this.isLeaveColorAlreadyExists = true;
@@ -784,8 +782,7 @@ getLeaveTypesToAdd() {
         leavetype_status:'Active'
       }
       this.leaveConfig = this.getLeaveFormatedValue(this.addleaveForm.controls.leaveid.value);
-      console.log("leaveConfig",this.leaveConfig)
-    for(let i=0;i<this.ruleInfos.length;i++){
+     for(let i=0;i<this.ruleInfos.length;i++){
       this.ruleInfos[i].leavecolor = this.setleavecolor;
       if(this.ruleInfos[i].effectivefromdate == null) {
         this.ruleInfos[i].isFromDate = 0;
@@ -913,7 +910,7 @@ getLeaveTypesToAdd() {
         data: {message:this.LMS139,YES:'YES',NO:'NO'}
       });
       dialogRef.afterClosed().subscribe(result => {
-        console.log("workdone")
+   
         if(result == 'YES'){
           this.submitLeavepolices(info,datas)
         }
@@ -929,8 +926,10 @@ getLeaveTypesToAdd() {
   }
 
 
-  submitLeavepolices(info:any,datas:any){
-    if(!this.isLeaveColorAlreadyExists || this.editingleavetype){
+  submitLeavepolices(info: any, datas: any) {
+    console.log("sd-1",this.isLeaveColorAlreadyExists)
+    console.log("sd-1",this.editingleavetype)
+    if(!this.isLeaveColorAlreadyExists && this.editingleavetype){
       if( this.validateCustomLeave(info.ruleData)) {
         this.LM.updateLeaveDisplayName(datas).subscribe((data:any)=>{})
       // this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
@@ -966,6 +965,12 @@ getLeaveTypesToAdd() {
         });
       }
 
+    } else {
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data: "This color already existed"
+      });
     }
     
   }
@@ -1164,7 +1169,8 @@ hexToRgb(hex:any) {
 
 
   /**save default rules*/
-  saveDefaultrules(){
+  saveDefaultrules() {
+    
     console.log("data",this.leavepoliciesForm.controls.pastdays.valid)
     if(this.validation()&& this.leavepoliciesForm.controls.pastdays.value !=''){
     console.log("hiiii")
@@ -1190,29 +1196,36 @@ hexToRgb(hex:any) {
         ruleData:this.defaultRuleInfo
       }
 
-      this.LM.setLeaveConfigure(info).subscribe((data) => {
-        /*  this.isEditLeaveType = false;*/
-        this.getLeaveRules();
-          if(data.status){
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position:{top:`70px`},
-              disableClose: true,
-              data: data.message
-            });
-              // this.toastr.success(data.message)
-            this.isEditDefaultRules = false;
-            this.ngOnInit();
-          }
-          else {
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position:{top:`70px`},
-              disableClose: true,
-              data: 'Unable to update leave policies. Please try again.'
-            });
-          }
-      });
+      // this.LM.setLeaveConfigure(info).subscribe((data) => {
+      //   /*  this.isEditLeaveType = false;*/
+      //   this.getLeaveRules();
+      //     if(data.status){
+      //       let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      //         position:{top:`70px`},
+      //         disableClose: true,
+      //         data: data.message
+      //       });
+      //         // this.toastr.success(data.message)
+      //       this.isEditDefaultRules = false;
+      //       this.ngOnInit();
+      //     }
+      //     else {
+      //       let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      //         position:{top:`70px`},
+      //         disableClose: true,
+      //         data: 'Unable to update leave policies. Please try again.'
+      //       });
+      //     }
+      // });
 
-  }
+    }
+    else if (this.leavepoliciesForm.controls.pastdays.value == '' || this.leavepoliciesForm.controls.pastdays.value == undefined) {
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data: "Please enter valid data"
+      });
+    }
   }
   validation(){
     console.log("jhjhj",this.leavepoliciesForm.controls.pastdays.value)

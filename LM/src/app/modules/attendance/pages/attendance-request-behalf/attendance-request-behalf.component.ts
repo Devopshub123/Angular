@@ -81,6 +81,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   holidays: any;
   leaves: any;
   workeddays:any;
+  regularizationdays:any;
   myDateFilter: any;
   ATT75:any;
   companyDBName:any = environment.dbName;
@@ -264,6 +265,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
           this.holidays = JSON.parse(this.datesList[0].holidays);
           this.leaves = JSON.parse(this.datesList[0].leaves);
           this.workeddays = JSON.parse(this.datesList[0].workeddays);
+          this.regularizationdays = JSON.parse(this.datesList[0].regularizationdays);
           if (this.weekoffs.length > 0) {
             this.weekoffs.forEach((i: any) => {
               let date = i + ' ' + '00:00:00'
@@ -289,6 +291,13 @@ export class AttendanceRequestBehalfComponent implements OnInit {
               this.disableDates.push(new Date(date));
             });
           }
+          if (this.regularizationdays.length > 0) {
+            this.regularizationdays.forEach((i: any) => {
+              let date = i + ' ' + '00:00:00'
+              this.disableDates.push(new Date(date));
+            });
+          }
+
           this.myDateFilter = (d: Date): boolean => {
             let isValid=true;
           this.disableDates.forEach((e:any) => {

@@ -61,7 +61,7 @@
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>First Name</mat-label>
                                 <input type="text" formControlName="firstname" #firstname
-                                    (keypress)="alphabetKeyPress($event)" matInput placeholder="First Name"
+                                    (keypress)="alphabetKeyPress($event)" matInput placeholder=""
                                     maxlength="100" required />
                                 <mat-error class="reg-error" *ngIf="personalInfoForm.controls.firstname.errors?.required ||
                                 personalInfoForm.controls.firstname.errors?.['whitespace']">
@@ -167,7 +167,7 @@
                                 <mat-label>Aadhar Number</mat-label>
                                 <input #aadharnumber type="text" onlyNumber (keypress)="numberOnly($event)"
                                     formControlName="aadharNumber" matInput maxlength="12" minlength="12"
-                                    placeholder="Aadhar Number" />
+                                    placeholder="" />
                                 <mat-error class="reg-error" *ngIf="
               personalInfoForm.controls.aadharNumber.errors
                 ?.minlength ||
@@ -253,7 +253,7 @@
 
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Employee ID</mat-label>
-                                <input readonly formControlName="empid" matInput placeholder="Employee ID" />
+                                <input readonly formControlName="empid" matInput placeholder="" />
                             </mat-form-field>
 
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">

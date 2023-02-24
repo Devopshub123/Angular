@@ -71,17 +71,17 @@
                       <mat-menu #menu="matMenu">
                         <span *ngIf="selfwfo">
                           <button mat-menu-item *ngFor="let v of workFromOfficeData ">
-                            <span>{{v.attendance_date}}</span>
+                            <span>{{v.attendance_date | date:'dd-MM-yyyy'}}</span>
                           </button>
                         </span>
                         <span *ngIf="selfwfh">
                           <button mat-menu-item *ngFor="let v of workFromHometData">
-                            <span>{{v.attendance_date}}</span>
+                            <span>{{v.attendance_date | date:'dd-MM-yyyy'}}</span>
                           </button>
                         </span>
                         <span *ngIf="selfAbsent">
                           <button mat-menu-item *ngFor="let v of absentEmployeesData">
-                            <span>{{v.attendance_date}}</span>
+                            <span>{{v.attendance_date | date:'dd-MM-yyyy'}}</span>
                           </button>
                         </span>
                       </mat-menu>

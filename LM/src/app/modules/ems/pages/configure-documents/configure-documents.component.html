@@ -102,7 +102,7 @@
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
                         <tr class="mat-row" *matNoDataRow>
-                            <td class="mat-cell" colspan="6">No data available</td>
+                            <td class="mat-cell" colspan="6">No data found</td>
                         </tr>
                     </table>
                     <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>

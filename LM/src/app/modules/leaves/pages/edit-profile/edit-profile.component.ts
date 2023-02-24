@@ -294,20 +294,29 @@ export class EditProfileComponent implements OnInit {
     this.file = null;
     this.file = event.target.files[0];
     let uploadeddata =this.file.type.split('/')
-    if (this.file && uploadeddata[0]=='image') {
-    this.fileImageToggler();
-    if (event.target.files && event.target.files[0]) {
-      // this.imageurls = null;
-      this.validpic =true;
-      var filesAmount = event.target.files.length;
-      for (let i = 0; i < filesAmount; i++) {
-        var reader = new FileReader();
-        reader.onload = (event: any) => {
-          this.imageurls = event.target.result;
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-    }
+    if (this.file && uploadeddata[0] == 'image') {
+      if (this.file.size <= 1024000) {
+        this.fileImageToggler();
+        if (event.target.files && event.target.files[0]) {
+          // this.imageurls = null;
+          this.validpic = true;
+          var filesAmount = event.target.files.length;
+          for (let i = 0; i < filesAmount; i++) {
+            var reader = new FileReader();
+            reader.onload = (event: any) => {
+              this.imageurls = event.target.result;
+            };
+            reader.readAsDataURL(event.target.files[i]);
+          }
+        }
+      } else {
+        this.dialog.open(ConfirmationComponent, {
+          position: {top: `70px`},
+          disableClose: true,
+          data:{Message:this.LM117,}
+         });
+         this.getUploadImage();
+      }   
   }else{
     this.getUploadImage();
       this.validpic= false;
@@ -320,11 +329,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   submit(flag: boolean) {
-    console.log("file",this.file,this.validpic)
    if(this.file==undefined ){
     this.editProfile();
-  
-      
     }
     else if (this.file.size <= 1024000 && this.validpic) {
       this.editProfile();

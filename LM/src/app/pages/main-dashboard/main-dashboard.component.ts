@@ -157,7 +157,8 @@ export class MainDashboardComponent implements OnInit {
   selfAbsent: boolean = false;
   inductionAlert: any = [];
   totalEmpCount: any;
-  companyName:any;
+  companyName: any;
+  EM124:any;
   ////////////////
   ngOnInit(): void {
     this.spinner.show();
@@ -206,12 +207,10 @@ export class MainDashboardComponent implements OnInit {
       {
         currentDate: [new Date()],
       });
-     this.attendanceForm.get('currentDate')?.valueChanges.subscribe((selectedValue:any) => {
+      this.attendanceForm.get('currentDate')?.valueChanges.subscribe((selectedValue:any) => {
       this.getTeamAttendanceCount();
-
-
      })
-
+     this.getMessages('EM124');
   }
   getModules() {
     this.AMS.getModules('modulesmaster', null, 1, 100,this.companyName).subscribe((result) => {
@@ -660,11 +659,14 @@ export class MainDashboardComponent implements OnInit {
       if (this.file.size <= 1024000) {
         this.saveNewImage();
       } else {
-        // this.dialog.open(ConfirmationComponent, {
-        //   position: {top: `70px`},
-        //   disableClose: true,
-        //   data:{Message:this.LM117,url: '/LeaveManagement/saveNewImage'}
-        // });
+        this.dialog.open(ConfirmationComponent, {
+          position: {top: `70px`},
+          disableClose: true,
+          data:{Message:this.EM124}
+          // data:{Message:this.EM124,url: '/main/MainDashboard'}
+        });
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate(["/main/MainDashboard"]));
       }
     } else {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -896,6 +898,21 @@ export class MainDashboardComponent implements OnInit {
     setTimeout(() => {
       this.spinner.hide();
     }, 1000); // 2 seconds
+  }
+  getMessages(messageCode:any) {
+    let data =
+    {
+      "code": messageCode,
+      "pagenumber": 1,
+      "pagesize": 1
+    }
+    this.emsService.getMessagesListApi(data).subscribe((result: any) => {
+
+      if(result.status && messageCode == 'EM124')
+      {
+        this.EM124 = result.data[0].message
+      }
+    })
   }
 }
 

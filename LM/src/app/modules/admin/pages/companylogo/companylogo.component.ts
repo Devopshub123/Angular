@@ -103,15 +103,25 @@ export class CompanylogoComponent implements OnInit {
     this.fileImageToggler();
     let uploadeddata = this.file.type.split('/')
     if (this.file && uploadeddata[0] == "image") {
-      if (event.target.files && event.target.files[0]) {
-        var filesAmount = event.target.files.length;
-        for (let i = 0; i < filesAmount; i++) {
-          var reader = new FileReader();
-          reader.onload = (event: any) => {
-            this.imageurls.push({ base64String: event.target.result, });
+      if (this.file.size <= 1024000) {
+        if (event.target.files && event.target.files[0]) {
+          var filesAmount = event.target.files.length;
+          for (let i = 0; i < filesAmount; i++) {
+            var reader = new FileReader();
+            reader.onload = (event: any) => {
+              this.imageurls.push({ base64String: event.target.result, });
+            }
+            reader.readAsDataURL(event.target.files[i]);
           }
-          reader.readAsDataURL(event.target.files[i]);
         }
+      }else {
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data:this.msgEM124
+        });
+        this.isFileImage = false;
+        this.getUploadImage();
       }
     }else {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -128,9 +138,7 @@ export class CompanylogoComponent implements OnInit {
   {
     let uploadeddata =this.file.type.split('/')
     if(this.file && uploadeddata[0] == "image"){
-      if(this.file.size<=1024000){
-        this.spinner.show();
-       
+      this.spinner.show();
         this.LMS.getFilepathsMaster(2).subscribe((result) => {
           if(result && result.status){
             let obj = {
@@ -201,17 +209,6 @@ export class CompanylogoComponent implements OnInit {
           });
 
         }})
-
-      }
-      else{
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data:this.msgEM124
-        });
-
-
-      }
     } else {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/CompanyLogo"]));

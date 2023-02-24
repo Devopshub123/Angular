@@ -131,9 +131,14 @@ export class UserLeaveRequestComponent implements OnInit {
     });
 
 
+    this.getLeaveBalance();
+    this.getLeavesTypeInfo();
+    this.getApprovedCompoffs();
+    this.getEmployeeRelationsForBereavementLeave();
 
-    // this.newLeaveRequest.fromDate = this.leaveData ? new Date(this.leaveData.fromdate) : '';
-
+    this.getDaystobedisabledfromdate();
+    this.getDaystobedisabledtodate();
+    this.getEmployeeEmailData();
 
     // this.leaveRequestForm.controls.formData.setValue(this.leaveData ? new Date(this.leaveData.fromdate) : '')
     // this.leaveRequestForm.controls.toDate.setValue(this.leaveData ? new Date(this.leaveData.toDate) : '')
@@ -146,14 +151,6 @@ export class UserLeaveRequestComponent implements OnInit {
     // this.leaveRequestForm.controls.leaveTypeId.setValue(2,{emitEvent:false})
     // this.leaveRequestForm.controls.relation.setValue(this.leaveData?this.leaveData.bereavement_id:'',{emitEvent:false})
 
-    this.getLeaveBalance();
-    this.getLeavesTypeInfo();
-    this.getApprovedCompoffs();
-    this.getEmployeeRelationsForBereavementLeave();
-
-    this.getDaystobedisabledfromdate();
-    this.getDaystobedisabledtodate();
-    this.getEmployeeEmailData();
 
     this.leaveRequestForm.get('leaveTypeId')?.valueChanges.subscribe((selectedValue:any) => {
       if(selectedValue) {
@@ -276,7 +273,6 @@ export class UserLeaveRequestComponent implements OnInit {
 
   getLeaveBalance() {
     this.LM.getLeaveBalance(this.userSession.id).subscribe((result) => {
-      console.log("leavebalance",result)
       if(result && result.status){
       //  this.leavebalance = result.data[0];
         this.leavebalance = this.leaveTypes(result.data[0],true);
