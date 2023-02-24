@@ -24,6 +24,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import * as _moment from 'moment';
 import { th } from 'date-fns/locale';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { SideNavComponent } from 'src/app/pages/side-nav/side-nav.component';
 
 const moment =  _moment;
 
@@ -74,7 +75,8 @@ export class MainDashboardComponent implements OnInit {
     private attendanceService: AttendanceService,
     private spinner: NgxSpinnerService,
     private dialog: MatDialog,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private SideNav:SideNavComponent
   ) {
      this.getCompoffleavestatus();
     this.data = sessionStorage.getItem('user');
@@ -235,8 +237,70 @@ export class MainDashboardComponent implements OnInit {
       }
     });
   }
-
   getrolescreenfunctionalities(id: any, date: any) {
+    if (date) {
+      if (id != 3) {
+        let data = {
+          empid: this.usersession.id,
+          moduleid: id,
+
+        };
+          //  this.menu = [];
+            if(!(sessionStorage.getItem("moduleData"))){
+              this.SideNav.getSideNavigation();
+            }
+            if(sessionStorage.getItem("moduleData")){
+           //   this.menu = [];
+              this.firstRoute = '';
+               
+           //   sessionStorage.removeItem('sidemenu');
+           //   sessionStorage.setItem('sidemenu', JSON.stringify(this.menu));
+              
+              if (this.requestType == 'AttendanceApproval') {
+                this.showSpinner();
+                sessionStorage.setItem('selectedModule', 'Attendance');
+                this.SideNav.toggleRoute('/Attendance/Approval');
+                this.router.navigate(['/Attendance/Approval'], {
+                  state: {
+                    userData: this.requestData,
+                    url: 'ManagerDashboard',
+                  },
+                });
+              } else if (this.requestType == 'AttendanceRequest') {
+                 this.showSpinner();
+                sessionStorage.setItem('selectedModule', 'Attendance');
+                this.SideNav.toggleRoute('/Attendance/Request');
+                this.router.navigate(['/Attendance/Request'], {
+                  state: { userData: this.requestData },
+                });
+              } else if (this.requestType == 'LeaveRequest') {
+                this.showSpinner();
+                sessionStorage.setItem('selectedModule', 'Leaves');
+                this.SideNav.toggleRoute('/LeaveManagement/LeaveRequest');
+                this.router.navigate(['/LeaveManagement/LeaveRequest']);
+               }
+              else if (this.requestType == 'ReviewAndApprovals') {
+                this.showSpinner();
+                sessionStorage.setItem('selectedModule', 'Leaves');
+                this.SideNav.toggleRoute('/LeaveManagement/ReviewAndApprovals');
+                this.router.navigate(['/LeaveManagement/ReviewAndApprovals'],
+                { state: { leaveData: this.requestData ,isleave:true}
+                  });
+              } else {
+                if (this.usersession.firstlogin == 'Y') {
+                  //sessionStorage.setItem('selectedModule', 'ChangePassword');
+                  this.router.navigate(['/ChangePassword']);
+                } else {
+                  this.router.navigate([this.firstRoute]);
+                }
+              }
+            }
+      } else {
+        window.open('http://122.175.62.210:5050', '_blank');
+      }
+    }
+  }
+  getrolescreenfunctionalities_old(id: any, date: any) {
     if (date) {
       if (id != 3) {
         let data = {
