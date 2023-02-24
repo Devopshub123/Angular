@@ -251,7 +251,9 @@ export class InductionConductedByMasterComponent implements OnInit {
       this.selectedEmployees.splice(index, 1)
 
     } else {
-      this.selectedEmployees.push(event.source.value.empid);
+      if(!this.selectedEmployees.includes(event.source.value.empid)) {
+        this.selectedEmployees.push(event.source.value.empid);
+      }
        // this.inductionForm.controls.conductBy.setValue('');
       // this.inductionForm.controls.conductBy.setValue( this.selectedEmployees);
     }
