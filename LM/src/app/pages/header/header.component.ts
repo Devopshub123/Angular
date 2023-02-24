@@ -120,12 +120,13 @@ export class HeaderComponent implements OnInit {
     });
   }
   changePassword(){
+    sessionStorage.setItem('selectedModule','Change Password');
     this.router.navigate(['Attendance/ChangePassword'])
   }
 
   editProfile(){
-    this.spinner.show();
-    this.router.navigate(['LeaveManagement/EditProfile'])
+    sessionStorage.setItem('selectedModule','Edit Profile');
+    this.router.navigate(['LeaveManagement/EditProfile']);
   }
   getLogo()
   {

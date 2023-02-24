@@ -6,7 +6,7 @@ import { BaseService } from '../../services/base.service';
 import { MainService } from 'src/app/services/main.service';
 import {MatIconModule} from '@angular/material/icon';
 import { Router } from '@angular/router';
-
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
@@ -20,7 +20,7 @@ export class SideNavComponent implements OnInit {
   element= HTMLElement;
   currentItem:any = null;
   currentChild:any = null;
-  
+  firstRoute: any;
   selectedModule:any = 'Spryple';
   usersession: any;
   activeModuleData: any;
@@ -70,13 +70,18 @@ export class SideNavComponent implements OnInit {
     if(this.isExpanded && (sessionStorage.getItem('selectedModule') && sessionStorage.getItem('selectedModule')!=='Spryple')){
       this.isExpanded = true;
     } else this.isExpanded = false;
+
+    if(sessionStorage.getItem('selectedModule')==='Edit Profile')
+      this.isExpanded = false;
+    if(sessionStorage.getItem('selectedModule')==='Change Password')
+      this.isExpanded = false;
     return this.isExpanded;
-     // return this.isExpanded && (sessionStorage.getItem('selectedModule') && sessionStorage.getItem('selectedModule')!=='Spryple');
     }
 
   toggleChild(item:any,route:any) { 
-
+   
     let _this =this;
+    this.showSpinner();
     if (item.id==3) {
       this.timesheet();
       return;
@@ -113,8 +118,47 @@ export class SideNavComponent implements OnInit {
       }
     });
     item.displayStatus = true;
-    sessionStorage.setItem('selectedModule',item.modulename );
-  }
+    sessionStorage.setItem('selectedModule',item.modulename);
+  } 
+  toggleRoute(route:any) { 
+    let _this =this;
+    this.showSpinner();
+    if(route === '/LeaveManagement/EditProfile'){
+      this.isExpanded = false;
+      sessionStorage.setItem('selectedModule','Spryple');
+      return;
+    }
+    this.isExpanded = true;
+    this.menuList.forEach(function(m:any){
+      if(m.children && m.children[0]){
+        m.children.forEach(function(c:any){
+          if(c.subChildren && c.subChildren[0]){
+            c.subChildren.forEach(function(sc:any){
+              c.isOpen = true;
+              m.displayStatus = false;
+              if(sc.routename === route) {
+                _this.currentItem  = m;
+                m.displayStatus = true;
+                _this.selectedModule = _this.currentItem.modulename ;
+                sc.childStatus = true;
+                _this.currentChild = sc;
+                _this.activeModuleData.moduleid = _this.currentItem.id;
+                _this.activeModuleData.module = _this.currentItem ;
+                sessionStorage.setItem('selectedModule',m.modulename );
+                sessionStorage.setItem('activeModule',(_this.activeModuleData) ?JSON.stringify(_this.activeModuleData):'' );
+                sessionStorage.setItem('activeChild',(_this.currentChild) ?JSON.stringify(_this.currentChild):'' );
+              }
+              else{
+              //  m.displayStatus = false;
+              }
+            });
+          }
+        });
+      }
+    });
+    
+  } 
+ 
 
   toggleBack(event:any) {
     let _this =this;
@@ -134,7 +178,7 @@ export class SideNavComponent implements OnInit {
   @ViewChild('parentMenu') parentMenu!: ElementRef;
   @ViewChild('childMenu') childMenu!: ElementRef;
 
-  constructor(private mainService: MainService, private baseService: BaseService, private UD: UserDashboardService,
+  constructor(private mainService: MainService, private baseService: BaseService, private UD: UserDashboardService, private spinner: NgxSpinnerService,
     private RM: RoleMasterService, public router: Router) {
     this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
     if (this.usersession.firstlogin == "N")
@@ -151,13 +195,17 @@ export class SideNavComponent implements OnInit {
     this.activeModuleData = {
       empid: this.usersession.id
     };
+
    this.getSideNavigation();
   }
   menu:any[]=[];
   _mobileQueryListener(){};
   getSideNavigation() { 
+      this.showSpinner();
       if(!(sessionStorage.getItem("moduleData"))){
+        this.spinner.show();
           this.mainService.getSideNavigation({empid: this.usersession.id}).subscribe((res: any) => {
+            this.spinner.hide();
             this.menuList = res.data;
             sessionStorage.setItem("moduleData",JSON.stringify( this.menuList) );
             sessionStorage.setItem('selectedModule','Spryple');
@@ -168,14 +216,29 @@ export class SideNavComponent implements OnInit {
           this.menuList = JSON.parse(menuList||'');
     }
   
-    if(sessionStorage.getItem('selectedModule')==='Spryple'){   
+    if(sessionStorage.getItem('selectedModule')==='Spryple'){
+      this.isExpanded = false;   
           this.onClickMainDashboard();
-    } else {
+    }else if(sessionStorage.getItem('selectedModule')==='Edit Profile'){ 
+      this.isExpanded = false;
+      this.router.navigate(['LeaveManagement/EditProfile']);
+    }else if(sessionStorage.getItem('selectedModule')==='Change Password'){ 
+      this.isExpanded = false;
+      this.router.navigate(['Attendance/ChangePassword']);
+    }
+     else {
           for(let i=0; i< this.menuList.length;i++) {
               this.menuList[i].displayStatus =  this.menuList[i].modulename === sessionStorage.getItem('selectedModule');
           }
     }
-   
+    
+  }
+
+  showSpinner() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1000); // 2 seconds
   }
 }
  
