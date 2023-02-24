@@ -102,7 +102,6 @@ export class UserLeaveRequestComponent implements OnInit {
     this.getleavecyclelastmonth();
     this.leaveInfo = this.location.getState();
     this.leaveData = this.leaveInfo.leaveData;
-    console.log("test",this.leaveData)
     if(this.leaveData!=undefined){
       this.isedit=true;
     }
@@ -658,11 +657,11 @@ async  getLeavesTypeInfo() {
   changeToDate(date:any)
   {
   for (let i = 0; i < this.ToDatesHalfDays.length; i++) {
-      console.log("T1");
+ 
       if (this.ToDatesHalfDays[i].edate === this.pipe.transform(date, 'yyyy-MM-dd')) {
-        console.log("T2");
+  
         if (this.ToDatesHalfDays[i].first_half && this.ToDatesHalfDays[i].second_half === 0) {
-          console.log("T3");
+    
           this.leaveRequestForm.controls.toDateHalf.setValue(false,{ emitEvent: false });
           this.leaveRequestForm.controls.fromDateHalf.setValue(true,{ emitEvent: false });
           this.isFirstHalf = false;
@@ -671,9 +670,9 @@ async  getLeavesTypeInfo() {
 
         }
         else if (this.ToDatesHalfDays[i].first_half === 0 && this.ToDatesHalfDays[i].second_half) {
-          console.log("T4");
+   
           if (this.leaveRequestForm.controls.fromDate.value === this.leaveRequestForm.controls.toDate.value) {
-            console.log("T5");
+       
             this.leaveRequestForm.controls.toDateHalf.setValue(true, { emitEvent: false });
 
             this.leaveRequestForm.controls.fromDateHalf.setValue(false,{ emitEvent: false });
@@ -683,7 +682,7 @@ async  getLeavesTypeInfo() {
             this.isDisableFirstHalf = true;
 
           } else if (this.leaveRequestForm.controls.fromDateHalf.value && this.ToDatesHalfDays[i].first_half === 0) {
-            console.log("T6");
+       
             this.isSecondHalf = true;
             this.isFirstHalf = true;
             this.leaveRequestForm.controls.toDateHalf.setValue(true,{ emitEvent: false });
@@ -694,7 +693,7 @@ async  getLeavesTypeInfo() {
             this.isDisableFirstHalf = true;
           }
           else {
-            console.log("T7");
+         
             this.isSecondHalf = true;
             this.leaveRequestForm.controls.toDateHalf.setValue(true,{ emitEvent: false });
             this.leaveRequestForm.controls.fromDateHalf.setValue(false,{ emitEvent: false });
@@ -709,7 +708,7 @@ async  getLeavesTypeInfo() {
        
         break;
       } else {
-        console.log("T8");
+   
         this.isSecondHalf = true;
         this.isFirstHalf = true;
         this.isDisableSecondHalf ? true : false;
@@ -720,7 +719,6 @@ async  getLeavesTypeInfo() {
 
       }
     }
-    console.log("T9");
     this.leaveRequestForm.controls.leaveCount.setValue('');
      if (this.leaveRequestForm.controls.leaveTypeId.value && this.leaveRequestForm.controls.fromDate.value && this.leaveRequestForm.controls.toDate.value) {
       this.setValidateLeave();

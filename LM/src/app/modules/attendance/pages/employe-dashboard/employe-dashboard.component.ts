@@ -224,7 +224,7 @@ export class EmployeDashboardComponent implements OnInit {
         this.calendarCount[j] = this.sampleElement[j].innerHTML.substring(0, this.sampleElement[j].innerHTML.length - 4)
         this.sampleElement[j].innerHTML =  this.calendarCount[j];
       }
-      console.log(this.calendarCount);
+
       for(var k=0;k<closeElement.length;k++) {
         if (closeElement[k] != null) {
           this.renderer.listen(closeElement[k], 'click', () => {

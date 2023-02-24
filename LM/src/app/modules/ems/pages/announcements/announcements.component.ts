@@ -145,7 +145,6 @@ export class AnnouncementsComponent implements OnInit {
             this.router.navigate(["/Admin/announcement"]));
   }
   edit(event: any, data: any) {
-    console.log(this.minAnounceDate)
     this.minAnounceDate = new Date(data.fromdate)
     this.iseditingdata=true;
     if(data.status == 'Published'){

@@ -119,7 +119,6 @@ export class UserDashboardComponent implements OnInit {
       this.spinner.hide();
       this.calenderleaves = result.data;
       this.arrayList = result.data;
-      console.log("data-",this.arrayList)
       this.arrayList.forEach((e: any) => {
         let item =
           {
@@ -133,7 +132,6 @@ export class UserDashboardComponent implements OnInit {
           }
         this.initialEvents.push(item);
       });
-      console.log(this.initialEvents);
       this.calendarOptions.events = this.initialEvents;
       //this.calendarCountViewNoMore();
       // this.myDateFilter = (d: Date): boolean => {

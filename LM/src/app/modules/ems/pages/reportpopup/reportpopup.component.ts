@@ -79,7 +79,6 @@ export class ReportpopupComponent implements OnInit {
         reporting_manager_value:(earningselectedIds[9])
         }
         this.ES.setEmsEmployeeColumnConfigurationValues(data).subscribe((res:any)=>{
-          console.log(res.status)
           if(res.status){
             this.dialogRef.close();
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

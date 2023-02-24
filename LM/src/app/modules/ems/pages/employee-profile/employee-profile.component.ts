@@ -1030,7 +1030,6 @@ export class EmployeeProfileComponent implements OnInit {
 
   savePersonalInfo() {
 
-    console.log("val--2",this.personalInfoForm.controls.rcity.valid)
     if (this.personalInfoForm.valid) {
       let data = {
         condidateid: this.loginCandidateId,
@@ -1850,7 +1849,6 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   fileView(data: any) {
-    console.log(data)
     let info = data;
     this.spinner.show();
     this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData) => {
@@ -1965,8 +1963,7 @@ export class EmployeeProfileComponent implements OnInit {
               this.formData.append('info', info);
               this.formData.append('file', this.file, this.file.name);
               this.formData.append('email', email);
-              console.log("fda-",this.formData)
-              this.mainService
+               this.mainService
                 .setDocumentOrImageForEMS(this.formData)
                 .subscribe((data) => {
                   this.formData.delete('file');

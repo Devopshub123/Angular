@@ -42,7 +42,6 @@ export class EarningsComponent implements OnInit {
   constructor(private location:Location,private router:Router,private formBuilder: FormBuilder,private PR:PayrollService) { 
     this.getpayrollincomegroups();
     this.paygroupdata = this.location.getState();
-    console.log(this.paygroupdata)
   }
   ngOnInit(): void {
     this.earningsRequestForm = this.formBuilder.group(
@@ -93,7 +92,6 @@ export class EarningsComponent implements OnInit {
     this.PR.getsalarycomponentsforpaygroup(data).subscribe((info:any)=>{
       if(info.status && info.data.length !=0) {
         this.dataSource = new MatTableDataSource(info.data);
-        console.log(info.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
           this.pageLoading = false;

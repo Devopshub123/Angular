@@ -927,8 +927,7 @@ getLeaveTypesToAdd() {
 
 
   submitLeavepolices(info: any, datas: any) {
-    console.log("sd-1",this.isLeaveColorAlreadyExists)
-    console.log("sd-1",this.editingleavetype)
+
     if(!this.isLeaveColorAlreadyExists && this.editingleavetype){
       if( this.validateCustomLeave(info.ruleData)) {
         this.LM.updateLeaveDisplayName(datas).subscribe((data:any)=>{})
@@ -1024,10 +1023,9 @@ getLeaveTypesToAdd() {
   }
 
   changeLeaveType(id:any,flag:any){
-    console.log("data",id,flag)
+
     this.leaveId = id;
       this.LM.getLeavePolicies(this.leaveId, false, 1, 100).subscribe((result) => {
-        console.log("result",result)
         var ruleDetails = JSON.parse(result.data[0].json);
         this.ruleInfos = JSON.parse(result.data[0].json);
 
@@ -1171,9 +1169,8 @@ hexToRgb(hex:any) {
   /**save default rules*/
   saveDefaultrules() {
     
-    console.log("data",this.leavepoliciesForm.controls.pastdays.valid)
+
     if(this.validation()&& this.leavepoliciesForm.controls.pastdays.value !=''){
-    console.log("hiiii")
       for(let i=0;i<this.defaultRuleInfo.length;i++){
         if(this.defaultRuleInfo[i].rulename == "LEAVES_DURATION_FOR_BACKDATED_LEAVES"){
           this.defaultRuleInfo[i].value =this.leavepoliciesForm.controls.pastdays.value;
@@ -1228,12 +1225,10 @@ hexToRgb(hex:any) {
     }
   }
   validation(){
-    console.log("jhjhj",this.leavepoliciesForm.controls.pastdays.value)
     var valid = true;
     for(let i =0; i< this.defaultRuleInfo.length; i++){
       if(this.defaultRuleInfo[i].value === null || this.defaultRuleInfo[i].value === '' || this.leavepoliciesForm.controls.pastdays.value !=''){
         this.leavepoliciesForm.controls.pastdays.value !=''?valid = true:valid=false;
-        console.log("valid",valid)
         if(this.defaultRuleInfo[i].rulename=='LEAVES_DEFAULT_TYPE_FOR_DEDUCTION'){
            this.DEDUCTION = true
 

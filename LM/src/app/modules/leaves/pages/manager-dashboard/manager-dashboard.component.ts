@@ -16,7 +16,6 @@ export class ManagerDashboardComponent implements OnInit {
   }
   getCompoffleavestatus(){
     this.LM.getCompoffleavestatus().subscribe((result) => {
-      console.log("data--", result.data)
      if(result.status){
        this.compoff = result.data.compoff_status;
      }

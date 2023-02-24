@@ -163,7 +163,6 @@ openDialogdelete(): void {
 
 
   edit(leave: any) {
-    console.log("data--",leave)
     leave.URL = '/LeaveManagement/UserLeaveHistory';
     leave.isdashboard = true;
     this.router.navigate(['/LeaveManagement/LeaveRequest'],{state:{leaveData:leave}});
@@ -202,8 +201,7 @@ openDialogdelete(): void {
       'moduleId':this.activeModule.moduleid,
       'requestId':data?data.id:null,
     }
-    console.log("info",info)
-    this.LM.getFilesMaster(info).subscribe((result) => {
+      this.LM.getFilesMaster(info).subscribe((result) => {
 
       if(result && result.status){
         if(result.data && result.data.length>0){

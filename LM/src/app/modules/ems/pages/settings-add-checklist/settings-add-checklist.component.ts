@@ -105,7 +105,7 @@ export class SettingsAddChecklistComponent implements OnInit {
         }
   
         this.emsService.setChecklistsMaster(data).subscribe((res: any) => {
-          if (res.status) {
+          if (res.status && res.data.length ==0) {
               this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
               this.router.navigate(["/Admin/settings-checklist"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -114,6 +114,17 @@ export class SettingsAddChecklistComponent implements OnInit {
               data:this.EM42
             });
   
+          } else if (res.status && res.data.length > 0) {
+
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: res.data +' '+"Records Already Exists"
+            });
+
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/Admin/settings-checklist"]));
+           
           } else {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },

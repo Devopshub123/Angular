@@ -110,7 +110,6 @@ export class LeavesForCancellationComponent implements OnInit {
       "leavedata": leave,
       "emaildata": this.employeeEmailData,
     };
-    console.log("dsdf",obj)
     this.LM.setApproveOrReject(obj).subscribe((res: any) => {
       this.spinner.hide()
       if(res && res.status){

@@ -7,7 +7,7 @@
             <mat-label>Leave Type Name</mat-label>
             <input matInput formControlName="leavetypename" placeholder="" required maxlength="50">
             <mat-error class="con-error" *ngIf="leaveTypeForm.controls.leavetypename.errors?.required">
-              This field required
+              This field is required
             </mat-error>
           </mat-form-field><br>
           <div class="extra" style="color: red;" *ngIf="isLeaveAlreadyExists">
@@ -18,7 +18,7 @@
             <mat-label>Display Name</mat-label>
             <input matInput formControlName="displayname" placeholder="" required maxlength="100">
             <mat-error class="con-error" *ngIf="leaveTypeForm.controls.displayname.errors?.required">
-              This field required
+              This field is required
           </mat-error>
           <!-- <mat-error class="con-error" *ngIf="isLeaveAlreadyExists">
             This field required
@@ -33,7 +33,7 @@
             <mat-label>Color</mat-label>
             <input style="width: 50%;" matInput formControlName="colors" type="color"   placeholder="" required>
             <mat-error  *ngIf="leaveTypeForm.controls.colors.errors?.required">
-              This field required
+              This field is required
             </mat-error>
             
             <!-- <mat-error *ngIf="isLeaveColorAlreadyExists" >

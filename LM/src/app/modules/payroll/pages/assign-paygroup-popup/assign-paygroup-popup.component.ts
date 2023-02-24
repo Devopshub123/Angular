@@ -24,7 +24,7 @@ export class AssignPaygroupPopupComponent implements OnInit {
   displayedColumns: string[] = ['component','type','amount','annual'];
   constructor(private clipboard: Clipboard,private copier:CopyContentService,public dialogRef: MatDialogRef<AssignPaygroupPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { 
-      console.log(data);
+   
     //   for(let i=0;i<data.length;i++){
     //     if(data[i].component_type == 'Earnings'){
     //       this.earningDataSource.push(data[i]);

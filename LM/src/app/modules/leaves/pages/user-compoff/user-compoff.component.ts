@@ -131,7 +131,6 @@ export class UserCompoffComponent implements OnInit {
         for(let i=result.data[0].value;i<=24;i++){
           this.minimumHours.push({value:i})
         }
-        console.log("te--",this.minimumHours)
       }
     })
 

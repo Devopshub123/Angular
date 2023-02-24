@@ -53,7 +53,6 @@ export class HrDocumentApprovalComponent implements OnInit {
       });
   }
   preview(event:any,data:any){
-    console.log("datahjgdfhjgg",data)
     let datas=[]
     datas.push(data)
     this.ishide=false;
@@ -66,7 +65,6 @@ export class HrDocumentApprovalComponent implements OnInit {
         this.fileslist.push(this.emplist[i])
       }
     }
-    console.log("filelist",this.fileslist)
     this.datadocumentsSource = new MatTableDataSource(datas)
      this.datadocumentsSource.sort = this.sort;
     this.pageLoading2 = false;

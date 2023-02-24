@@ -153,7 +153,7 @@ export class HolidaysComponent implements OnInit {
         holiday_location: this.selecteditems,
         createdby:this.userSession.id,
       };
-    console.log("da--",data)
+
      if(this.HolidayForm.controls.holiday.value !== null && this.holidaysDetails.holidayName !== null ){}
       this.companyService.setHolidays(data).subscribe((data) => {
        if (data.status && data.data==0) {

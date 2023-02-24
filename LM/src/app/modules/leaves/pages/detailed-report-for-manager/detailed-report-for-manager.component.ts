@@ -183,7 +183,6 @@ export class DetailedReportForManagerComponent implements OnInit {
     })
     this.searchForm.get('fromDate')?.valueChanges.subscribe((selectedValue: any) => {
       this.minFromDate = selectedValue._d;
-      console.log("val-",this.minFromDate)
     })
     this.searchForm.get('designation')?.valueChanges.subscribe((selectedValue:any) => {
       this.searchForm.controls.employeeId.setValue('All');

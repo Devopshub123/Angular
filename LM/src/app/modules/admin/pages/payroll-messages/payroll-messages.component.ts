@@ -142,7 +142,7 @@ export class PayrollMessagesComponent implements OnInit {
     }
     this.adminService.getErrorMessages(null,1,1000).subscribe((res:any)=>{
       if(res.status) {
-        console.log(res.data)
+
         this.messagesDataList = res.data;
         this.messagesDataList.forEach((e: any) => {
           if (e.code == "PR1") {
