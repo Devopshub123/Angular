@@ -152,18 +152,32 @@ mat-card {
   border-color: #28acaf;
   background-color: #ffffff
 }
-// .card {
-//   width: 230px;
-//   margin: 10px;
-//   height: 220px;
-//   background-color: #e7eaf3;
-//   border-radius: 10px;
-//   transition: all .25s linear;
-//   box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
-//    display: block;
-//   display: inline-block;
-// }
+.mcard {
+  width: 230px;
+  margin: 10px;
+  height: 150px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  transition: all .25s linear;
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+   display: block;
+  display: inline-block;
+}
 
-// .card:hover{
-//   box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
-// }
+.mcard:hover{
+  box-shadow: -1px 10px 15px 0px rgba(0,0,0,0.8);
+}
+.scard {
+  width: 150px;
+  margin: 10px;
+  height: 150px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  transition: all .25s linear;
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+   display: block;
+  display: inline-block;
+}
+.scard:hover{
+  box-shadow: -1px 10px 15px 0px rgba(0,0,0,0.8);
+}

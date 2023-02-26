@@ -151,16 +151,11 @@ export class EmployeeDashboardComponent implements OnInit {
   selfAbsent: boolean = false;
   inductionAlert: any = [];
   totalEmpCount: any;
-  companyName:any;
+  companyName: any;
   ////////////////
   ngOnInit(): void {
     this.spinner.show();
-   if (
-      this.usersession.roles[0].role_id == 2 ||
-      this.usersession.roles[0].role_id == 6 
-    ) {
-      this.isManager = true;
-    }
+    this.getIsManagerOrNot();
     this.getScreenWidth().subscribe((width) => {
       if (width < 640) {
         this.showToggle = 'show';
@@ -184,17 +179,16 @@ export class EmployeeDashboardComponent implements OnInit {
       });
     this.getReportingManagerForEmp();
     this.getEmployeeInformationList();
-    this.getEmpAnnouncements();
+   // this.getEmpAnnouncements();
     this.getLeaveBalance();
-    this.getEmployeeAttendanceNotifications();
+   // this.getEmployeeAttendanceNotifications();
     this.announcementsDetails = this.announcementsDetails.map((item: any) => ({
       ...item,
       showMore: false,
     }));
     this.getDocumentsEMS();
     this.getSelfAttendanceCount();
-    this.getEmpScheduleProgramAlerts();
-    this.spinner.hide();
+    //this.getEmpScheduleProgramAlerts();
     this.attendanceForm = this.formBuilder.group(
       {
         currentDate: [new Date()],
@@ -204,7 +198,9 @@ export class EmployeeDashboardComponent implements OnInit {
 
 
      })
-
+    setTimeout(()=>{
+      this.spinner.hide();
+},1000)
   }
   getModules() {
     this.AMS.getModules('modulesmaster', null, 1, 100,this.companyName).subscribe((result) => {
@@ -871,6 +867,17 @@ export class EmployeeDashboardComponent implements OnInit {
         this.inductionAlert = res.data;
         } else {
         this.inductionAlert = [];
+      }
+    });
+  }
+
+  getIsManagerOrNot() {
+    this.isManager = false;
+    this.mainService.getIsManagerOrNot(this.usersession.id).subscribe((res: any) => {
+      if (res.status && res.data == 1) {
+        this.isManager = true;
+        } else {
+          this.isManager = false;
       }
     });
   }

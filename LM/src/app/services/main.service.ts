@@ -101,13 +101,15 @@ export class MainService {
     info.companyName=this.companyName;
     return this.http.post(this.mainBeUrl + 'ems/api/getDocumentOrImagesForEMS/' ,info,this.httpOptions)
   }
-  removeDocumentOrImagesForEMS(info:any): Observable<any> {
-    return this.http.delete(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/'+this.companyName +'/'+encodeURI(info),this.httpOptions);
-  }
-  /** For AWS*/
   // removeDocumentOrImagesForEMS(info:any): Observable<any> {
-  //   return this.http.post(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/',info,this.httpOptions);
+  //   return this.http.delete(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/'+this.companyName +'/'+encodeURI(info),this.httpOptions);
   // }
+  
+  /** For AWS*/
+  removeDocumentOrImagesForEMS(info:any): Observable<any> {
+    return this.http.post(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/',info,this.httpOptions);
+  }
+
   deleteFilesMaster(id:any):Observable<any>{
     return this.http.get(this.mainBeUrl + 'ems/api/deleteFilesMaster/'+id+'/'+this.companyName, this.httpOptions);
   }
@@ -155,5 +157,10 @@ export class MainService {
   }
   setPreonboaringFilesMasterForEMS(info:any): Observable<any> {
     return this.http.post(this.mainBeUrl + 'ems/api/setFilesMasterForEMSPreonboarding/', info, this.httpOptions);
+  }
+
+  /** */
+   getIsManagerOrNot(eid: any) {
+    return this.http.get(this.mainBeUrl + 'ems/api/validateReportingManager/'+eid+'/'+this.companyName, this.httpOptions);
   }
 }

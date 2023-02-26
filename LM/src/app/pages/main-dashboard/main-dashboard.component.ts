@@ -165,12 +165,7 @@ export class MainDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.spinner.show();
     sessionStorage.setItem('selectedModule','Spryple' );
-    if (
-      this.usersession.roles[0].role_id == 2 ||
-      this.usersession.roles[0].role_id == 6 
-    ) {
-      this.isManager = true;
-    }
+    this.getIsManagerOrNot();
     this.getScreenWidth().subscribe((width) => {
       if (width < 640) {
         this.showToggle = 'show';
@@ -977,6 +972,16 @@ export class MainDashboardComponent implements OnInit {
         this.EM124 = result.data[0].message
       }
     })
+  }
+  getIsManagerOrNot() {
+    this.isManager = false;
+    this.mainService.getIsManagerOrNot(this.usersession.id).subscribe((res: any) => {
+      if (res.status && res.data == 1) {
+        this.isManager = true;
+        } else {
+          this.isManager = false;
+      }
+    });
   }
 }
 

@@ -1,206 +1,130 @@
-<div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto first-col">
-  <mat-card fxFill>
+<div fxLayout="column" class="first-col custom-pgr-height-auto">
+  <mat-card>
     <mat-card-header class="headerbox">
       <div fxLayout="row" fxFlex="50">
           <mat-card-title class="title"> Dashboard</mat-card-title>
       </div>
       </mat-card-header>
-  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card"> 
-    <form [formGroup]="financeDashboardForm" autocomplete="off">   
-    <div class="row mt-10" style="width:100%;">
-      <div class="col-md-12" >
-          <div class="row"style="padding-left: 2%;">
-              <div class="col-md-3">
-                  <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation">
-                      <div class="card-body ">
-                          <div class="row">
-                              
-                              <div class="col-12">
-                                  <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
-                                      <p class="card-category" style="color:#28acaf;font-size: 1.1rem;">Month</p>
-                                      <!-- <mat-form-field appearance="outline" >
-                                        <mat-label>Month</mat-label>
-                                        <mat-select > 
-                                            <mat-option value="January">Jan</mat-option>
-                                            <mat-option value="Feb">Feb</mat-option>
-                                            <mat-option value="Yearly">Mar</mat-option>
-                                        </mat-select>                                    
-                                    </mat-form-field> -->
-                                    <mat-form-field appearance="outline"   style="width: 100%;">
-                                      <mat-label>Month</mat-label>
-                                      <mat-select formControlName="month">
-                                        <ng-container>
-                                          <div *ngFor="let month of monthsdata">
-                                              <mat-option [value]="month">{{month.display_value}}</mat-option>
-                                          </div>
-                                      </ng-container>
-                                    </mat-select>                                  
-                                  </mat-form-field>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-3"  >
-                  <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation">
-                      <div class="card-body ">
-                          <div class="row">
-                              <div class="col-12">
-                                  <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
-                                    <p class="card-category" style="color:#28acaf;font-size: 1.1rem;">Total Departments</p>
-                                    <!-- <mat-form-field appearance="outline"  >
-                                      <mat-label>Departments</mat-label>
-                                      <mat-select > 
-                                          <mat-option value="January">ALL</mat-option>
-                                          <mat-option value="Feb">IT</mat-option>
-                                          <mat-option value="Yearly">Finance</mat-option>
-                                      </mat-select>                                    
-                                  </mat-form-field> -->
-                                  <mat-form-field appearance="outline"  style="width: 100%;">
-                                    <mat-label>Departments</mat-label>
-                                    <mat-select formControlName="dept">
-                                      <mat-option value=null>All</mat-option>
-                                      <ng-container>
-                                        <div *ngFor="let dept of availableDepartments">
-                                           
-                                            <mat-option [value]="dept.id">{{dept.deptname}}</mat-option>
-                                        </div>
-                                    </ng-container>
-                                  </mat-select>                                  
-                                </mat-form-field>
+<div fxLayout="column">
+  <form [formGroup]="financeDashboardForm" autocomplete="off">
+  <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" >
 
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation">
-                  <div class="card-body ">
-                      <div class="row">
-                          <div class="col-12">
-                              <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
-                                <p class="card-category" style="color:#28acaf;font-size: 1.1rem;margin-bottom: 1rem;">Total Employees</p>
-                                  <h4 class="card-title" style="color: #5a5c69!important;font-size: 1.32rem;">{{empcount}}</h4>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+  <div class="mcard outline">
+    <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
+      <p class="card-category" style="color:#28acaf;font-size: 1.1rem;">Month</p>
+      <mat-form-field appearance="outline"   style="width: 90%;">
+      <mat-label>Month</mat-label>
+      <mat-select formControlName="month">
+        <ng-container>
+          <div *ngFor="let month of monthsdata">
+              <mat-option [value]="month">{{month.display_value}}</mat-option>
           </div>
-              <div class="col-md-3">
-                <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation" >
-                  <div class="card-body ">
-                      <div class="row">
-                          <div class="col-12">
-                              <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
-                                <p class="card-category" style="color:#28acaf;font-size: 1.1rem;margin-bottom: 1rem;">Gross Earnings</p>
-                                  <h4 class="card-title" style="color: #5a5c69!important;font-size: 1.32rem;">{{grosssalary}}</h4>
-                              </div>
-                          </div>
-                      </div>
+      </ng-container>
+    </mat-select>                                  
+  </mat-form-field>
+  </div>
+  </div>
+  <div class="mcard outline">
+    <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
+      <p class="card-category" style="color:#28acaf;font-size: 1.1rem;">Total Departments</p>
+      <mat-form-field appearance="outline"  style="width: 90%;">
+      <mat-label>Departments</mat-label>
+      <mat-select formControlName="dept">
+        <mat-option value=null>All</mat-option>
+        <ng-container>
+          <div *ngFor="let dept of availableDepartments">
+             
+              <mat-option [value]="dept.id">{{dept.deptname}}</mat-option>
+          </div>
+      </ng-container>
+    </mat-select>                                  
+  </mat-form-field>
+
+    </div>
+  </div>
+  <div class="mcard outline">
+    <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
+      <p class="card-category" style="color:#28acaf;font-size: 1.1rem;margin-bottom: 1rem;">Total Employees</p>
+        <h4 class="card-title" style="color: #5a5c69!important;font-size: 1.32rem;">{{empcount}}</h4>
+    </div>
+  </div>
+  <div class="mcard outline">
+    <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
+      <p class="card-category" style="color:#28acaf;font-size: 1.1rem;margin-bottom: 1rem;">Gross Earnings</p>
+        <h4 class="card-title" style="color: #5a5c69!important;font-size: 1.32rem;">{{grosssalary}}</h4>
+    </div>
+  </div>
+
+</div>
+
+<div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="column" fxlayoutGap="5px" style="padding-left: 9px;">
+
+  <div fxLayout="column wrap" fxFlex="49">
+    <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation">
+      <div class="dashboard-1 custom-investment-th">Gross Salary Breakdown by Departments</div>
+      <div class="card card-stats">
+        <div class="card-body ">
+          <chart #chart [type]="type" [data]="data" [options]="options" style="width:100%;height: 100%"></chart>
+        </div>
+      </div>    
+  </div>
+  </div>
+
+<div fxFlex="2"></div>
+
+  <div fxLayout="column wrap" fxLayout.xs="column" fxFlex="49" >
+    <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation" style="margin-right: 14px;">
+      <div class="card-body ">
+          <div class="row" >
+              
+              <div class="col-13" >
+                  <div class="numbers text-center">
+                      <p class="card-category" style="margin-left: 100px;color:#28acaf;font-size: 1.5rem;">Net Pay</p>
+                 </div>
+                  <div >
+                  <div class="col-6" style="float: left;margin-left: 10px;">
+                    <p style="text-align: center;color: #5a5c69!important;font-size: 1.25rem;">{{netSalary}}</p>
+                    <p style="text-align: center;font-size: 1.20rem;display: inline-block;">{{SelDisplay}}</p>
                   </div>
-              </div>
+
+                  <div class="col-4" style="float: right;margin-left: 42px;">
+                    <p style="text-align:center;color: #5a5c69!important;font-size: 1.25rem;">{{deductions}}</p>
+                    <p style="text-align:center;font-size: 1.20rem;display: inline-block;">Deductions</p>
+                  </div>
+                </div>
               </div>
           </div>
       </div>
-      <div class="col-md-12">
-        <div class="row m-0">
-            <div class="col-md-6" >
-              <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation">
-                <div class="dashboard-1 custom-investment-th">Gross Salary Breakdown by Departments</div>
-                <div class="card card-stats">
-                  <div class="card-body ">
-                    <!-- <canvas baseChart [type]="'bar'" [data]="data" [options]="options">
-                    </canvas> -->
-                    <chart #chart [type]="type" [data]="data" [options]="options" style="width:100%;height: 100%"></chart>
-                  </div>
-                </div>    
-            </div>
-            </div>
-            <div class="col-md-6">
-              
-                <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation">
-                    <div class="card-body ">
-                        <div class="row">
-                            
-                            <div class="col-13">
-                                <div class="numbers text-center">
-                                    <p class="card-category" style="margin-left: 100px;color:#28acaf;font-size: 1.5rem;">Net Pay</p>
-                                  
-                                </div>
-                                <div >
-                                <div class="col-6" style="float: left;margin-left: 15px;">
-                                  <p style="text-align: center;color: #5a5c69!important;font-size: 1.25rem;">{{netSalary}}</p>
-                                  <p style="text-align: center;font-size: 1.20rem;display: inline-block;">{{SelDisplay}}</p>
-                                </div>
-                                <!-- <div class="col-2" >
-                                  <p style="-webkit-transform: scaleX(0.5);transform: scaleX(0.5); font-size: 3.8rem;">|</p>
-                                </div> -->
-                                <div class="col-4" style="float: right;margin-left: 42px;">
-                                  <p style="text-align:center;color: #5a5c69!important;font-size: 1.25rem;">{{deductions}}</p>
-                                  <p style="text-align:center;font-size: 1.20rem;display: inline-block;">Deductions</p>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                          
-                  <div class="col-md-4">
-                <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation" >
-                  <div class="card-body ">
-                      <div class="row">
-                          
-                          <div class="col-12">
-                            <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
-                              <p class="card-category" style="color:#28acaf;font-size: 1.1rem;margin-bottom: 1rem;">EPF</p>
-                              <h4 class="card-title" style="color: #5a5c69!important;font-size: 1.25rem;">{{EPF}}</h4>
-                            </div>                            
-                          </div>
-                      </div>
-                  </div>
-                </div> 
-                </div>
-                <div class="col-md-4">
-                  <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation" >
-                    <div class="card-body ">
-                        <div class="row">
-                            
-                            <div class="col-12">
-                              <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
-                                <p class="card-category" style="color:#28acaf;font-size: 1.1rem;margin-bottom: 1rem;">ESI</p>
-                                <h4 class="card-title" style="color: #5a5c69!important;font-size: 1.25rem;">-</h4>
-                              </div>                              
-                            </div>
-                        </div>
-                    </div>
-                  </div> 
-                  </div>
-                  <div class="col-md-4 mob-pt">
-                    <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation">
-                      <div class="card-body ">
-                          <div class="row">
-                              
-                              <div class="col-12">
-                                <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
-                                  <p class="card-category" style="color:#28acaf;font-size: 1.1rem;margin-bottom: 1rem;">PF Tax</p>
-                                  <h4 class="card-title" style="color: #5a5c69!important;font-size: 1.2rem;">{{pftax}}</h4>
-                                </div>                                
-                              </div>
-                          </div>
-                      </div>
-                    </div> 
-                    </div>
-                </div>           
-            </div>
-        </div>
-    </div>
   </div>
-  </form>
+  <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" class="row" style="padding-right:15px">
+        
+    <div class="scard outline">
+      <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
+        <p class="card-category" style="color:#28acaf;font-size: 1.1rem;margin-bottom: 1rem;">EPF</p>
+        <h4 class="card-title" style="color: #5a5c69!important;font-size: 1.25rem;">{{EPF}}</h4>
+      </div> 
+    </div>
+
+    <div class="scard outline">
+      <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
+        <p class="card-category" style="color:#28acaf;font-size: 1.1rem;margin-bottom: 1rem;">ESI</p>
+        <h4 class="card-title" style="color: #5a5c69!important;font-size: 1.25rem;">-</h4>
+      </div>   
+    </div>
+
+    <div class="scard outline">
+      <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
+        <p class="card-category" style="color:#28acaf;font-size: 1.1rem;margin-bottom: 1rem;">PF Tax</p>
+        <h4 class="card-title" style="color: #5a5c69!important;font-size: 1.2rem;">{{pftax}}</h4>
+      </div>   
+    </div>
   </div>  
-</mat-card>
-</div>    
+
+  </div>
+
+</div>
+
+</form>
+</div>
+  </mat-card>
+</div>

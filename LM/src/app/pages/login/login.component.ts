@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data:'Invalid company short code or credentials. Please enter valid company short code or credentials.'
+            data:'Invalid company code or credentials. Please verify and retry.'
           });
 
         }
