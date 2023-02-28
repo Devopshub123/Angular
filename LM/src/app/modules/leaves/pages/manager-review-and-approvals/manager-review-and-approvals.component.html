@@ -79,7 +79,7 @@
           <textarea formControlName="actionReason" required matInput  maxlength="250"></textarea>
         </mat-form-field>
         <mat-form-field *ngIf="leaveInfo.leaveData.leavestatus == 'Approved'  && leaveInfo.isCancellation != true " fxFlex.xs="100"  class="mx-7 my-2" appearance="outline">
-          <mat-label >ApprovedOn</mat-label>
+          <mat-label >Approved On</mat-label>
           <input formControlName="approvedon" required matInput placeholder="" >
         </mat-form-field>
 
