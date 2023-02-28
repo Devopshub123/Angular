@@ -34,7 +34,8 @@ export class MonthlyPayrollComponent implements OnInit {
   PR28:any;
   
   // @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['select','position','empid',  'name', 'designation', 'worklocation'];
+  // displayedColumns: string[] = ['select','position','empid',  'name', 'designation', 'worklocation'];
+  displayedColumns: string[] = ['select','empid',  'name', 'designation', 'worklocation'];
   dataSource = new MatTableDataSource<any>();
   selection = new SelectionModel<any>(true, []);
 

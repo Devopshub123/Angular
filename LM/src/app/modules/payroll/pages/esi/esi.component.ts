@@ -11,7 +11,11 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 })
 
 export class EsiComponent implements OnInit {
-
+  PR1:any;
+  PR37:any
+  PR38:any;
+  PR39:any;
+  messagesDataList:any=[];
   constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private PR:PayrollService) { }
   esiRequestForm!: FormGroup;
   companyEsiRequestForm!: FormGroup;
@@ -20,12 +24,12 @@ export class EsiComponent implements OnInit {
   dataSource:any=[];
   getStateEsiDetails:any=[]
   salary:any;
-  // Regex regex = new Regex(@);
   ngOnInit(): void {
     this.getesidetails();
     this.getStatesForEsi();
     this.getCompanyEsiValues();
     this.getEsiEmployerContribution();
+    this.getMessagesList();
     // Validators.pattern("^(\d{2})[-–\s]?(\d{2})[-–\s]?(\d{1,6})[-–\s]?(\d{3})[-–\s]?(\d{4})$")
     this.esiRequestForm = this.formBuilder.group(
       {
@@ -37,9 +41,10 @@ export class EsiComponent implements OnInit {
         includectc:[""],
         effective_date:[""]
       });
+      // Validators.pattern("^(\d{2})[--\s]?(\d{2})[--\s]?(\d{6})[--\s]?(\d{3})[--\s]?(\d{4})$")
       this.companyEsiRequestForm = this.formBuilder.group(
         {
-          esiNumber: ["",[Validators.required,Validators.pattern("^(\d{2})[-–\s]?(\d{2})[-–\s]?(\d{6})[-–\s]?(\d{3})[-–\s]?(\d{4})$")]],
+          esiNumber: ["",[Validators.required,]],
           state:[""]
         });
   }
@@ -86,31 +91,32 @@ export class EsiComponent implements OnInit {
   }
   /**setEsiForState */
   setEsiForState(){
-    let data ={
-      esi_number:this.companyEsiRequestForm.controls.esiNumber.value,
-      state_id:this.companyEsiRequestForm.controls.state.value
+    if(this.companyEsiRequestForm.valid){
+      let data ={
+        esi_number:this.companyEsiRequestForm.controls.esiNumber.value,
+        state_id:this.companyEsiRequestForm.controls.state.value
+      }
+      this.PR.setEsiForState(data).subscribe((result:any)=>{
+        if(result.status){
+          this.router.navigate(["/Payroll/ESI"]);  
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: this.PR37
+          });
+        }
+        else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: this.PR38
+          });
+        }
+        
+      });
+
     }
-    console.log(this.companyEsiRequestForm.controls.esiNumber.value)
-    console.log(this.companyEsiRequestForm.controls.state.value)
-    console.log("setEsiForStatedata",data);
-    this.PR.setEsiForState(data).subscribe((result:any)=>{
-      if(result.status){
-        this.router.navigate(["/Payroll/ESI "]);  
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: 'Configured company esi values'
-        });
-      }
-      else{
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data: 'Unable to configure company esi values.'
-        });
-      }
-      
-    });
+   
 
   }
   /**setCompanyEsiValues */
@@ -124,18 +130,18 @@ export class EsiComponent implements OnInit {
       console.log(result)
       if(result.status){
     
-        this.router.navigate(["/Payroll/ESI "]);  
+        this.router.navigate(["/Payroll/ESI"]);  
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Configured company esi values'
+          data: this.PR37
         });
       }
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Unable to configure company esi values.'
+          data: this.PR38
         });
 
       }
@@ -149,7 +155,6 @@ export class EsiComponent implements OnInit {
     this.PR.getCompanyEsiValues().subscribe((result:any)=>{
       if(result.status && result.data.length>0){
         this.dataSource = result.data[0]
-        console.log("result",result);
       }
     })
 
@@ -157,10 +162,44 @@ export class EsiComponent implements OnInit {
   getEsiEmployerContribution(){
     this.PR.getEsiEmployerContribution().subscribe((result:any)=>{
       if(result.status && result.data.length>0){
-        this.esiRequestForm.controls.includectc.setValue(result.data[0][0].esi_employer_contribution)
+        this.esiRequestForm.controls.includectc.setValue(result.data[0][0].esi_employer_contribution==0?false:true)
       }
     })
 
+  }
+
+  getMessagesList() {
+    let data =
+      {
+        "code": null,
+        "pagenumber":1,
+        "pagesize":1000
+      }
+    this.PR.getErrorMessages(null,1,1000).subscribe((res:any)=>{
+      if(res.status && res.data && res.data.length >0) {
+        this.messagesDataList = res.data;
+        this.messagesDataList.forEach((e: any) => {
+          if (e.code == "PR1") {
+            this.PR1 = e.message
+          } else if (e.code == "PR37") {
+            this.PR37 =e.message
+          }
+          else if (e.code == "PR38") {
+            this.PR38 =e.message
+          }
+          else if (e.code == "PR39") {
+            this.PR39 =e.message
+          }
+        })
+
+      }
+
+    })
+  }
+  edit(data:any){
+    console.log("data",data);
+    this.companyEsiRequestForm.controls.esiNumber.setValue(data.value),
+    this.companyEsiRequestForm.controls.state.setValue(data.state_id)
   }
 
 }
