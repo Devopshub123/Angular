@@ -25,20 +25,20 @@
 
         <ng-container matColumnDef="appliedOn">
           <th mat-header-cell *matHeaderCellDef> Applied On</th>
-          <td mat-cell *matCellDef="let row" style="width: 15%;" >{{row.applied_date  | date:'dd-MM-yyyy'}} </td>
+          <td mat-cell *matCellDef="let row">{{row.applied_date  | date:'dd-MM-yyyy'}} </td>
         </ng-container>
         <ng-container matColumnDef="empId">
           <th mat-header-cell *matHeaderCellDef > Emp Id </th>
-          <td mat-cell *matCellDef="let row" style="width: 10%;" > {{row.employee_id}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.employee_id}}</td>
         </ng-container>
         <ng-container matColumnDef="empName">
           <th mat-header-cell *matHeaderCellDef > Emp Name </th>
-          <td mat-cell *matCellDef="let row" style="width: 15%;" > {{row.employee_name}}</td>
+          <td mat-cell *matCellDef="let row"> {{row.employee_name}}</td>
         </ng-container>
         <!-- Progress Column  empid-->
         <ng-container matColumnDef="fromDate">
           <th mat-header-cell *matHeaderCellDef  style="white-space: nowrap"> Comp Off Date </th>
-          <td mat-cell *matCellDef="let row" style="width: 10%;" > {{row.comp_off_date | date:'dd-MM-yyyy'}}</td>
+          <td mat-cell *matCellDef="let row" > {{row.comp_off_date | date:'dd-MM-yyyy'}}</td>
         </ng-container>
         <!--<ng-container matColumnDef="toDate">-->
         <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> To Date </th>-->
@@ -47,13 +47,13 @@
         <!-- Name Column -->
         <ng-container matColumnDef="noOfHours">
           <th mat-header-cell *matHeaderCellDef  style="white-space: nowrap"> No.of Hours </th>
-          <td mat-cell *matCellDef="let row" style="width: 10%" > {{row.worked_hours}} : {{row.worked_minutes == 0?'00':row.worked_minutes}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.worked_hours}} : {{row.worked_minutes == 0?'00':row.worked_minutes}} </td>
         </ng-container>
 
         <!-- Color Column -->
         <ng-container matColumnDef="pendingSince">
           <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Status </th>
-          <td mat-cell *matCellDef="let row" style="width: 10%" > {{row.status}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.status}} </td>
         </ng-container>
         <!-- <ng-container matColumnDef="reason">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason</th>
@@ -64,8 +64,8 @@
         </ng-container> -->
         <!-- Color Column -->
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef  style="width: 15%; padding: 0px;padding-left: 5%;" ></th>
-          <td mat-cell *matCellDef="let row" style="width: 15%; padding: 0px; text-align: center;  cursor: pointer;">
+          <th mat-header-cell *matHeaderCellDef  style="padding: 0px;" ></th>
+          <td mat-cell *matCellDef="let row" style="padding: 0px; text-align: start;  cursor: pointer;">
             <!--<i class="material-icons mr-1" (click)="compoffApprove(row,'Approved',null)" title="Approve">check_box</i>-->
             <!--<i class="material-icons mr-1" (click)="compoffReject(row)" title="Reject">cancel_presentation</i>-->
             <!-- <i class="material-icons" (click)="compoffReview(row)" title="Review and approve">Visibility</i> -->

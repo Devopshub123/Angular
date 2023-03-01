@@ -764,11 +764,11 @@ export class MainDashboardComponent implements OnInit {
                 this.formData.delete('info');
                 this.spinner.hide();
                 if (res && res.status) {
-                  if (this.profileId) {
-                    this.companyService
-                      .removeImage(this.profileInfo)
-                      .subscribe((res) => {});
-                  }
+                  // if (this.profileId) {
+                  //   this.companyService
+                  //     .removeImage(this.profileInfo)
+                  //     .subscribe((res) => {});
+                  // }
                   let dialogRef = this.dialog.open(ReusableDialogComponent, {
                     position: { top: `70px` },
                     disableClose: true,

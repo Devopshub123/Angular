@@ -54,8 +54,6 @@ export class EmployeeDashboardComponent implements OnInit {
   showError: boolean = false;
   private unsubscriber: Subject<void> = new Subject<void>();
   companyDBName: any = environment.dbName;
-  mobileQuery!: MediaQueryList;
-  private _mobileQueryListener: () => void;
   constructor(
     changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
     private AMS: LoginService,
@@ -74,9 +72,6 @@ export class EmployeeDashboardComponent implements OnInit {
     this.data = sessionStorage.getItem('user');
     this.companyName = sessionStorage.getItem('companyName')
     this.usersession = JSON.parse(this.data);
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
   }
   ///////////
   employeeInformationData: any = [];
@@ -395,7 +390,6 @@ export class EmployeeDashboardComponent implements OnInit {
   ngOnDestroy(): void {
     this.unsubscriber.next();
     this.unsubscriber.complete();
-    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
   ///////////////
   getEmployeeInformationList() {

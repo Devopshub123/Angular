@@ -107,6 +107,7 @@ export class NewHireListComponent implements OnInit {
       this.getDesignationsMaster();
     this.getMessagesList();
     this.hireForm.get('hiredon')?.valueChanges.subscribe((selectedValue: any) => {
+      this.hireForm.get('dateofjoin').reset()
       this.minHireDate = selectedValue._d;
     })
     ////
@@ -380,6 +381,7 @@ export class NewHireListComponent implements OnInit {
     this.companyService.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
       if (data.status && data.data.length != 0) {
         this.minDate = new Date(data.data[0].established_date);
+        this.minHireDate = new Date(data.data[0].established_date);
       }
     })
   }

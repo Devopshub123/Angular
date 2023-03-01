@@ -44,7 +44,7 @@ getallSubscriptions():Observable<any>{
 getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
   return this.hClient.get(this.mainBeUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size+'/'+this.companyName, this.httpOptions);
 }
-Savelogin(data:any): Observable<any> {
+  Savelogin(data: any): Observable<any> {
   return this.hClient.post(this.mainBeUrl + 'api/emp_login', JSON.stringify(data) ,this.httpOptionslogin);
 }
  /* save change password */
@@ -71,7 +71,13 @@ resetpassword(resetPassword:any) : Observable<any> {
 // getModules(): Observable<any> {
 //   return this.hClient.get(this.mainBeUrl + 'attendance/api/getModules',this.httpOptions);
 // }
-getModules(tableName:any,status:any,page:any,size:any,cname:any): Observable<any>{
+  getModules(tableName: any, status: any, page: any, size: any, cname: any): Observable<any>{
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
   return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+cname, this.httpOptions);
 }
 getrolescreenfunctionalities(empId:any,moduleId:any): Observable<any>{
