@@ -40,7 +40,7 @@ export class EmployeDashboardComponent implements OnInit {
     },
     initialView: 'dayGridMonth',
     weekends: true,
-    editable: true,
+    editable: false,
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,

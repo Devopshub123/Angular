@@ -697,6 +697,7 @@ getLeaveTypesToAdd() {
 /**check leave color */
   checkLeaveTypes(id:any ,color:any)
   {
+    console.log("leavesTypeData",this.leavesTypeData)
     var valid = true;
     for(let obj of  this.leavesTypeData){
       if(obj.id !== id && obj.leavecolor === color){
@@ -928,7 +929,7 @@ getLeaveTypesToAdd() {
 
   submitLeavepolices(info: any, datas: any) {
 
-    if(!this.isLeaveColorAlreadyExists && this.editingleavetype){
+    if(!this.isLeaveColorAlreadyExists || this.editingleavetype){
       if( this.validateCustomLeave(info.ruleData)) {
         this.LM.updateLeaveDisplayName(datas).subscribe((data:any)=>{})
       // this.LM.setToggleLeaveType(infodata).subscribe((data) => {});
