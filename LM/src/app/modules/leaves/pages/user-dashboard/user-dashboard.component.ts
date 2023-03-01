@@ -49,7 +49,7 @@ export class UserDashboardComponent implements OnInit {
     height:380,
     initialView: 'dayGridMonth',
     weekends: true,
-    editable: true,
+    editable: false,
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,

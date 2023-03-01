@@ -161,6 +161,7 @@ export class MainDashboardComponent implements OnInit {
   totalEmpCount: any;
   companyName: any;
   EM124:any;
+  EM141:any;
   ////////////////
   ngOnInit(): void {
     this.spinner.show();
@@ -733,7 +734,7 @@ export class MainDashboardComponent implements OnInit {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
         disableClose: true,
-        data: 'Please Select Valid Image.',
+        data: this.EM141,
       });
     }
   }
@@ -970,6 +971,9 @@ export class MainDashboardComponent implements OnInit {
       if(result.status && messageCode == 'EM124')
       {
         this.EM124 = result.data[0].message
+      }
+      else if(result.status && messageCode == 'EM141'){
+        this.EM141 = result.data[0].message
       }
     })
   }

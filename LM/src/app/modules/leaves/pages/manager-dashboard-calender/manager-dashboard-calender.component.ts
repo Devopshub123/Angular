@@ -49,7 +49,7 @@ export class ManagerDashboardCalenderComponent implements OnInit {
     height:450,
     initialView: 'dayGridMonth',
     weekends: true,
-    editable: true,
+    editable: false,
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,

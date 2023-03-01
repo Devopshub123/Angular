@@ -101,6 +101,7 @@ export class AssignPayGroupComponent implements OnInit {
   }
   /**Employees list for assigning paygroup */
   getEmployeesForAssignPaygroup(){
+    this.empdata=[];
     this.PR.getEmployeesForAssignPaygroup().subscribe((result:any)=>{
       if(result.status  && result.data.length>0){
         this.empdata =result.data;
@@ -109,6 +110,7 @@ export class AssignPayGroupComponent implements OnInit {
   }
 /** Active components values for paygroup*/
 getActiveComponentsValuesForPayGroup(data:any){
+  this.activedata=[];
   this.PR.getActiveComponentsValuesForPayGroup(data).subscribe((result:any)=>{
     if(result.status  && result.data.length>0){
       this.activedata = result.data;
@@ -162,8 +164,7 @@ data(element:any){
     }
     this.PR.assignPayGroup(data).subscribe((result:any)=>{
       if(result.status){ 
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["/Payroll/AssignPayGroup"]));
+        
       // let dialogRef = this.dialog.open(AssignPaygroupPopupComponent, {
       //   width: '600px',position:{top:`70px`},
       //   disableClose: true,
@@ -174,6 +175,8 @@ data(element:any){
         disableClose: true,
         data: this.PR35
       });
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate(["/Payroll/AssignPayGroup"]));
 
       }
       else{
@@ -233,7 +236,7 @@ data(element:any){
           else if (e.code == "PR35") {
             this.PR35 =e.message
           }
-          else if (e.code == "PR35") {
+          else if (e.code == "PR36") {
             this.PR36 =e.message
           }
         })

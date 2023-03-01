@@ -42,6 +42,7 @@ getallSubscriptions():Observable<any>{
   return this.hClient.get(this.mainBeUrl + 'savesubscription', { responseType: 'json' });
 }
 getErrorMessages(errorCode:any,page:any, size:any): Observable<any> {
+  this.companyName=sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null
   return this.hClient.get(this.mainBeUrl + 'api/getErrorMessages/' + errorCode + '/' + page + '/' + size+'/'+this.companyName, this.httpOptions);
 }
   Savelogin(data: any): Observable<any> {

@@ -99,13 +99,12 @@
         
                                           <mat-form-field appearance="outline" fxFlex="30">
                                             <mat-label>ESI Number</mat-label>
-                                            <input formControlName="esiNumber"   matInput placeholder="XX-XX-XXXXXX-XXX-XXXX" >
+                                            <input type="number" formControlName="esiNumber"   matInput placeholder="XX-XX-XXXXXX-XXX-XXXX" required minlength="17" maxlength="17">
                                             <mat-error class="con-error" *ngIf=" companyEsiRequestForm.controls.esiNumber.errors?.required">
-                                               This field is required.
+                                               {{PR1}}
                                             </mat-error>     
-                                            <mat-error class="con-error"
-                                            *ngIf=" companyEsiRequestForm.controls.esiNumber.errors?.pattern">
-                                            Please enter valid ESI Number.
+                                            <mat-error class="con-error" *ngIf="companyEsiRequestForm.controls.esiNumber.errors?.minlength || companyEsiRequestForm.controls.esiNumber.errors?.minlength " >
+                                           {{PR39}}
                                            </mat-error>                                
                                         </mat-form-field>
                       
@@ -142,7 +141,7 @@
                           <ng-container matColumnDef="config">
                             <th mat-header-cell *matHeaderCellDef style="background-color: #28acaf;color: white;font-size: medium;"></th>
                             <td mat-cell *matCellDef="let element"> 
-                                <mat-icon   title="Edit">edit</mat-icon>
+                                <mat-icon   title="Edit" (click)="edit(element)">edit</mat-icon>
                             </td>
                           </ng-container>
                         
