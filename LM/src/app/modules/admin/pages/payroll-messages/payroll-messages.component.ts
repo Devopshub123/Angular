@@ -147,11 +147,11 @@ export class PayrollMessagesComponent implements OnInit {
         this.messagesDataList.forEach((e: any) => {
           if (e.code == "PR1") {
            this.requiredField = e.message
-          } else if (e.code == "PR37") {
+          } else if (e.code == "PR40") {
             this.recordExist =e.message
-          }else if (e.code == "PR38") {
+          }else if (e.code == "PR41") {
             this.dataUpdate =e.message
-          } else if (e.code == "PR39") {
+          } else if (e.code == "PR42") {
             this.dataNotUpdate =e.message
           }
         })

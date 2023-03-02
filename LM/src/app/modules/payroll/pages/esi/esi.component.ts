@@ -16,6 +16,7 @@ export class EsiComponent implements OnInit {
   PR38:any;
   PR39:any;
   messagesDataList:any=[];
+  isedit:boolean=false;
   constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private PR:PayrollService) { }
   esiRequestForm!: FormGroup;
   companyEsiRequestForm!: FormGroup;
@@ -92,20 +93,20 @@ export class EsiComponent implements OnInit {
   }
   /**setEsiForState */
   setEsiForState(){
-    if(this.companyEsiRequestForm.valid){
-      console.log("yyy")
+    // if(this.companyEsiRequestForm.valid){
       let data ={
         esi_number:this.companyEsiRequestForm.controls.esiNumber.value,
         state_id:this.companyEsiRequestForm.controls.state.value
       }
       this.PR.setEsiForState(data).subscribe((result:any)=>{
         if(result.status){
-          this.router.navigate(["/Payroll/ESI"]);  
+         
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
             data: this.PR37
           });
+          this.router.navigate(["/Payroll/ESI"]);  
         }
         else{
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -117,7 +118,7 @@ export class EsiComponent implements OnInit {
         
       });
 
-    }
+    // }
    
 
   }
@@ -199,7 +200,7 @@ export class EsiComponent implements OnInit {
     })
   }
   edit(data:any){
-    console.log("data",data);
+    this.isedit=true
     this.companyEsiRequestForm.controls.esiNumber.setValue(data.value),
     this.companyEsiRequestForm.controls.state.setValue(data.state_id)
   }

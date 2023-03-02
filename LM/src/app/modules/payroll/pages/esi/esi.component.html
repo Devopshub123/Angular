@@ -110,7 +110,8 @@
                       
                                         <span style="padding-top: 1%;" fxLayoutAlign.xs="center">
                                             <button class="btn btn-primary mr-2 mb-2" (click)="setEsiForState()" type="submit">
-                                                <span>Save</span>
+                                                <span *ngIf="!isedit">Save</span>
+                                                <span *ngIf="isedit">Update</span>
                                               </button>
                                               <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
                                                 <span>Cancel</span>
