@@ -386,7 +386,7 @@ export class HolidaysComponent implements OnInit {
   }
   noWhitespaceValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const isWhitespace = (control.value || '').trim().length === 0;
+      const isWhitespace = (control.value || '').replace(/\s{1,}/g, '').trim().length === 0;
       return isWhitespace ? { whitespace: true } : null;
     };
 }

@@ -82,6 +82,15 @@
                   
                 </mat-form-field>
             </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" *ngIf="isview">
+                <mat-form-field fxFlex.xs="100" fxFlex="62" class="mx-2 my-2"  appearance="outline">
+                    <mat-label>Reject Reason</mat-label>
+                    <textarea formControlName="rejectreason" matInput placeholder="" [readonly]="isview" required maxlength="250">
+                    </textarea>
+                    
+                </mat-form-field>
+
+            </div>
 
             <div fxLayoutAlign="center" *ngIf="!isview">
                 <button class="btn btn-primary mr-2 mb-2"  (click)="submit()" type="submit">

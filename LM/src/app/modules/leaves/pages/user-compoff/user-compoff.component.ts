@@ -112,7 +112,8 @@ export class UserCompoffComponent implements OnInit {
       hours:["",Validators.required],
       minutes:["",],
       reason:["",Validators.required],
-      status:['']
+      status:[''],
+      rejectreason:['']
 
     });
     this.CompoffForm.get('hours')?.valueChanges.subscribe((selectedValue:any) => {
@@ -260,6 +261,7 @@ export class UserCompoffComponent implements OnInit {
     this.CompoffForm.controls.minutes.setValue(data.worked_minutes==0?"00":data.worked_minutes) 
     this.CompoffForm.controls.reason.setValue(data.reason) 
     this.CompoffForm.controls.status.setValue(data.status) 
+    this.CompoffForm.controls.rejectreason.setValue(data.remarks) 
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

@@ -41,10 +41,11 @@ export class EsiComponent implements OnInit {
         includectc:[""],
         effective_date:[""]
       });
+      const regex = new RegExp(/^(\d{2})[-–\s]?(\d{2})[-–\s]?(\d{6})[-–\s]?(\d{3})[-–\s]?(\d{4})$/);
       // Validators.pattern("^(\d{2})[--\s]?(\d{2})[--\s]?(\d{6})[--\s]?(\d{3})[--\s]?(\d{4})$")
       this.companyEsiRequestForm = this.formBuilder.group(
         {
-          esiNumber: ["",[Validators.required,]],
+          esiNumber: ["",[Validators.required, Validators.pattern(regex)]],
           state:[""]
         });
   }
@@ -92,6 +93,7 @@ export class EsiComponent implements OnInit {
   /**setEsiForState */
   setEsiForState(){
     if(this.companyEsiRequestForm.valid){
+      console.log("yyy")
       let data ={
         esi_number:this.companyEsiRequestForm.controls.esiNumber.value,
         state_id:this.companyEsiRequestForm.controls.state.value

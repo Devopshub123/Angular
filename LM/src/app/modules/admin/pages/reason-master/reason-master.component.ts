@@ -103,7 +103,7 @@ export class ReasonMasterComponent implements OnInit {
     else {
       if (this.reasonsDataList.length > 0) {
         for (let i = 0; i < this.reasonsDataList.length; i++) {
-          if (data.trim().toLowerCase() === this.reasonsDataList[i].reason.trim().toLowerCase()) {
+          if (data.replace(/\s{1,}/g, '').trim().toLowerCase() === this.reasonsDataList[i].reason.replace(/\s{1,}/g, '').trim().toLowerCase()) {
             this.valid = false;
             break;
           }

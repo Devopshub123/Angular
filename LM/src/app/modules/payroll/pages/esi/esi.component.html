@@ -99,11 +99,11 @@
         
                                           <mat-form-field appearance="outline" fxFlex="30">
                                             <mat-label>ESI Number</mat-label>
-                                            <input type="number" formControlName="esiNumber"   matInput placeholder="XX-XX-XXXXXX-XXX-XXXX" required minlength="17" maxlength="17">
+                                            <input  formControlName="esiNumber"   matInput placeholder="XX-XX-XXXXXX-XXX-XXXX" required >
                                             <mat-error class="con-error" *ngIf=" companyEsiRequestForm.controls.esiNumber.errors?.required">
                                                {{PR1}}
                                             </mat-error>     
-                                            <mat-error class="con-error" *ngIf="companyEsiRequestForm.controls.esiNumber.errors?.minlength || companyEsiRequestForm.controls.esiNumber.errors?.minlength " >
+                                            <mat-error class="con-error" *ngIf="companyEsiRequestForm.controls.esiNumber.errors?.pattern " >
                                            {{PR39}}
                                            </mat-error>                                
                                         </mat-form-field>
