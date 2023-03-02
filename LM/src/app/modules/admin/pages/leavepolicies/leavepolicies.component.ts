@@ -1194,27 +1194,27 @@ hexToRgb(hex:any) {
         ruleData:this.defaultRuleInfo
       }
 
-      // this.LM.setLeaveConfigure(info).subscribe((data) => {
-      //   /*  this.isEditLeaveType = false;*/
-      //   this.getLeaveRules();
-      //     if(data.status){
-      //       let dialogRef = this.dialog.open(ReusableDialogComponent, {
-      //         position:{top:`70px`},
-      //         disableClose: true,
-      //         data: data.message
-      //       });
-      //         // this.toastr.success(data.message)
-      //       this.isEditDefaultRules = false;
-      //       this.ngOnInit();
-      //     }
-      //     else {
-      //       let dialogRef = this.dialog.open(ReusableDialogComponent, {
-      //         position:{top:`70px`},
-      //         disableClose: true,
-      //         data: 'Unable to update leave policies. Please try again.'
-      //       });
-      //     }
-      // });
+      this.LM.setLeaveConfigure(info).subscribe((data) => {
+        /*  this.isEditLeaveType = false;*/
+        this.getLeaveRules();
+          if(data.status){
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: data.message
+            });
+              // this.toastr.success(data.message)
+            this.isEditDefaultRules = false;
+            this.ngOnInit();
+          }
+          else {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: 'Unable to update leave policies. Please try again.'
+            });
+          }
+      });
 
     }
     else if (this.leavepoliciesForm.controls.pastdays.value == '' || this.leavepoliciesForm.controls.pastdays.value == undefined) {
