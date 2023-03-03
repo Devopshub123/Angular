@@ -75,7 +75,7 @@ export class SettingsAddChecklistComponent implements OnInit {
         checklistId: [""],
         checklistName: [""],
          name:[""],
-        description:['',[Validators.required]],
+        description:[null,[Validators.required,this.noWhitespaceValidator()]],
         status:[""],
       });
     this.getMessagesList();
@@ -251,7 +251,7 @@ export class SettingsAddChecklistComponent implements OnInit {
     this.addValidators();
      if (this.checklistForm.valid) {
        if (this.addChecklistData != undefined) {
-          const toSelect = this.addChecklistData.find((e:any) => e.description.toLowerCase() == this.checklistForm.controls.description.value.trim().toLowerCase());
+          const toSelect = this.addChecklistData.find((e:any) => e.description.replace(/\s{1,}/g, ' ').trim().toLowerCase() == this.checklistForm.controls.description.value.replace(/\s{2,}/g, ' ').trim().toLowerCase());
           if(toSelect!=undefined){
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               disableClose:true,
@@ -279,6 +279,7 @@ export class SettingsAddChecklistComponent implements OnInit {
         description: this.checklistForm.controls.description.value,
         status: "Active",
       });
+      console.log("val--",this.addChecklistData)
       this.clearValidators();
       this.clearFields();
    }

@@ -94,7 +94,7 @@ export class DesignationsComponent implements OnInit {
     else {
       if (this.designationData.length > 0) {
         for (let i = 0; i < this.designationData.length; i++) {
-          if (data.trim().toLowerCase() === this.designationData[i].designation.toLowerCase()) {
+          if (data.replace(/\s{1,}/g, '').trim().toLowerCase() === this.designationData[i].designationreplace(/\s{1,}/g, '').trim().toLowerCase()) {
             this.valid = false;
             break;
           }

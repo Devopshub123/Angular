@@ -357,7 +357,7 @@ export class InductionComponent implements OnInit {
     else {
       if (this.arrayList.length > 0) {
         for (let i = 0; i < this.arrayList.length; i++) {
-          if (data.trim().toLowerCase() === this.arrayList[i].description.toLowerCase()) {
+          if (data.replace(/\s{1,}/g, '').trim().toLowerCase() === this.arrayList[i].description.replace(/\s{1,}/g, '').trim().toLowerCase()) {
             this.valid = false;
             break;
           }

@@ -95,7 +95,7 @@
                 </mat-radio-group>
                 <mat-form-field appearance="outline" style="float: left;margin-top: -1.8%;" *ngIf="isShowCalculatedAmount == 'Flat Amount'">
                   <mat-label>Flat Amount</mat-label>
-                  <input type="number"    matInput class="form-control" formControlName="flat_amount" placeholder="">
+                  <input type="number"   onKeyPress="if(this.value.length==13) return false"    matInput class="form-control" formControlName="flat_amount" placeholder="">
                   <mat-error class="con-error" *ngIf="earningsRequestForm.controls.flat_amount.errors?.required">
                     {{PR1}}
                 </mat-error>
@@ -108,8 +108,8 @@
                 <mat-form-field *ngIf="isShowCalculatedAmount == 'basicPercentage'" appearance="outline" style="float: left;margin-top:42px;">
                   <mat-label *ngIf="earndata.Earndata.component_name == 'Basic Salary'">Percentage of CTC</mat-label>
                   <mat-label *ngIf="earndata.Earndata.component_name != 'Basic Salary'">Percentage of Basic</mat-label>
-                  <!-- onKeyPress="if(this.value.length==3) return false;" -->
-                  <input  (keypress)=_keyPress($event)     matInput class="form-control" formControlName="percentage" placeholder="" >
+                  <!-- onKeyPress="if(this.value.length==3) return false;"  (keypress)=_keyPress($event) -->
+                  <input    onKeyPress="if(this.value.length==21) return false"   matInput class="form-control" formControlName="percentage" placeholder="" >
                   <mat-error class="con-error" *ngIf="earningsRequestForm.controls.percentage.errors?.required">
                     {{PR1}}
                 </mat-error>

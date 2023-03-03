@@ -96,7 +96,7 @@ export class TerminationCategoryComponent implements OnInit {
     else {
       if (this.terminationList.length > 0) {
         for (let i = 0; i < this.terminationList.length; i++) {
-          if (data.trim().toLowerCase() === this.terminationList[i].category.trim().toLowerCase()) {
+          if (data.replace(/\s{1,}/g, '').trim().toLowerCase() === this.terminationList[i].category.replace(/\s{1,}/g, '').trim().toLowerCase()) {
             this.valid = false;
             break;
           }

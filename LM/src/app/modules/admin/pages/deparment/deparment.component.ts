@@ -96,7 +96,7 @@ export class DeparmentComponent implements OnInit {
       if (this.departmentData.length > 0) {
 
         for (let i = 0; i < this.departmentData.length; i++) {
-          if (data.trim().toLowerCase() === this.departmentData[i].deptname.toLowerCase() ) {
+          if (data.replace(/\s{1,}/g, '').trim().toLowerCase() === this.departmentData[i].deptname.replace(/\s{1,}/g, '').trim().toLowerCase() ) {
             this.valid = false;
             break;
           }

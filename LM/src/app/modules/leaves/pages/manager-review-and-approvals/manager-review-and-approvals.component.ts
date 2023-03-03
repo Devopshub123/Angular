@@ -109,7 +109,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
             approvedon: [{ value: this.pipe.transform(new Date(this.leaveInfo.leaveData.updateddate), 'dd-MM-yyyy'),disabled:true}],
             pendingSince: [{ value: this.leaveInfo.leaveData.pendingSince, disabled: true }],
             leaveReason: [{ value: this.leaveInfo.leaveData.reason, disabled: true }],
-            actionReason:[{value:'', disabled:true }],
+            actionReason:[{value:this.leaveInfo.leaveData.remarks, disabled:true }],
             updatedon:[{value: this.pipe.transform(new Date(this.leaveInfo.leaveData.updateddate), 'dd-MM-yyyy'), disabled:true}]
           });
 

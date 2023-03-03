@@ -60,7 +60,8 @@ export class UserCompoffComponent implements OnInit {
 
   today:any=new Date();
   ishide:boolean=true;
-  displayedColumns: string[] = ['appliedon','workeddate','hours','status','approver'];
+  isview:boolean=false;
+  displayedColumns: string[] = ['appliedon','workeddate','hours','status','approver','action'];
   dataSource: MatTableDataSource<any>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -110,7 +111,9 @@ export class UserCompoffComponent implements OnInit {
       workeddate:["",Validators.required],
       hours:["",Validators.required],
       minutes:["",],
-      reason:["",Validators.required]
+      reason:["",Validators.required],
+      status:[''],
+      rejectreason:['']
 
     });
     this.CompoffForm.get('hours')?.valueChanges.subscribe((selectedValue:any) => {
@@ -247,6 +250,18 @@ export class UserCompoffComponent implements OnInit {
     })
   }
 
+  }
+  view(data:any){
+    this.isview= true;
+    console.log(data)
+    this.CompoffForm.controls.empId.setValue()
+    this.CompoffForm.controls.empName.setValue(1)
+    this.CompoffForm.controls.workeddate.setValue(new Date(data.comp_off_date))  
+    this.CompoffForm.controls.hours.setValue(data.worked_hours) 
+    this.CompoffForm.controls.minutes.setValue(data.worked_minutes==0?"00":data.worked_minutes) 
+    this.CompoffForm.controls.reason.setValue(data.reason) 
+    this.CompoffForm.controls.status.setValue(data.status) 
+    this.CompoffForm.controls.rejectreason.setValue(data.remarks) 
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
