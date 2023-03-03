@@ -5,13 +5,6 @@ mat-card {
   padding-left: 0px;
   padding-right: 0px;
 }
-.tableP{
-  padding-left: 0px;
-  padding-right: 1%;
-  padding-bottom: 1%;
-  padding-top: 1%;
-}
-
 table {
     width: 100%;
   }
@@ -39,10 +32,7 @@ table {
 ::ng-deep tr.mat-header-row {
   height: 45px !important;
 }
-.tablep2{
-  padding-left: 1%;
-  padding-right: 1%;
-}
+
 ::ng-deep .mat-header-row {
   min-height: 45px!important;
 }
@@ -56,4 +46,17 @@ table {
   letter-spacing: 0.32px;
   color: #ffffff;
   background-color: #28acaf;
+}
+.example-container {
+  overflow-x: auto;
+}
+.dev-Pad{
+  padding-top: 1%;
+  padding-left: 8px;
+  padding-right: 8px;
+  height: 75px;
+}
+.table-pad{
+  padding-left: 15px;
+  padding-right: 15px;
 }

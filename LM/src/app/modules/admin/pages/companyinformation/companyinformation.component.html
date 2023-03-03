@@ -2,22 +2,20 @@
 
         <mat-card>
             <mat-card-header class="headerbox">
-                <div fxLayout="row" fxFlex="50">
-                    <mat-card-title class="title"> Company Information </mat-card-title>
-                </div>
+                 <mat-card-title class="title"> Company Information </mat-card-title>
                 </mat-card-header>
             <mat-divider></mat-divider>
             <form [formGroup]="companyForm" autocomplete="off" class="tableP">
             <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
                     <mat-label>Full Company Name</mat-label>
                     <input formControlName="companyname" matInput [readonly]="isview" placeholder="" maxlength="100" required>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.companyname.errors?.required">
                       {{msgEM1}}
                   </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
                     <mat-label>Company website</mat-label>
                     <input formControlName="website" required matInput [readonly]="isview"  placeholder="" maxlength="100"  >
                     <mat-error class="con-error" *ngIf="companyForm.controls.website.errors?.required">
@@ -28,7 +26,7 @@
                   </mat-error> -->
                 </mat-form-field>
 
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
                   <mat-label>CIN</mat-label>
                   <input formControlName="cin" matInput [readonly]="isview" placeholder=""
                    maxlength="21" minlength="21" required (keypress)="alphaNumberOnly($event)">
@@ -39,7 +37,7 @@
                 CIN number must be 21 characters
                 </mat-error>
               </mat-form-field>
-              <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+              <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
                 <mat-label>GST Number</mat-label>
                 <input formControlName="gstnumber" matInput [readonly]="isview" placeholder=""
                  maxlength="15" minlength="15" required (keypress)="alphaNumberOnly($event)">
@@ -50,7 +48,7 @@
                 GST number must be 15 characters
                 </mat-error>
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
               <mat-label>Company Established Date </mat-label>
               <input matInput readonly [matDatepicker]="date" [max]="maxDate" placeholder=""
               formControlName="established_date"   required (click)="date.open()" [disabled]="isview">
@@ -62,7 +60,7 @@
               </mat-error>
           </mat-form-field>
                
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
                     <mat-label>Primary Contact Email</mat-label>
                     <input formControlName="email"  matInput [readonly]="isview" placeholder="" maxlength="50" required>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.email.errors?.required">
@@ -72,7 +70,7 @@
                     {{msgEM3}}
                 </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
                     <mat-label>Primary Contact</mat-label>
                     <input type="text" formControlName="contact" onlyNumber matInput [readonly]="isview" placeholder="" minlength="10" maxlength="10" required >
                     <mat-error class="con-error" *ngIf="  companyForm.controls.contact.errors?.required">
@@ -83,7 +81,7 @@
                       Please enter valid number
                   </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
                   <mat-label>Secondary Contact</mat-label>
                   <input type="text" formControlName="secondarycontactnumber" onlyNumber matInput [readonly]="isview" placeholder="" minlength="10" maxlength="10">
                   <!-- <mat-error class="con-error" *ngIf="  companyForm.controls.contact.errors?.required">
@@ -95,7 +93,7 @@
                 </mat-error>
               </mat-form-field>
 
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
                     <mat-label>Company Registered Address</mat-label>
                     <input formControlName="address1" matInput [readonly]="isview"  placeholder=""  maxlength="100" required >
                     <!-- <input matInput [readonly]="isview"  value="Sushi" [formControl]="foodCtrl" *ngIf="isview"> -->
@@ -103,14 +101,14 @@
                       {{msgEM1}}
                   </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
                     <mat-label>Work Location Address</mat-label>
                     <input formControlName="address2" matInput [readonly]="isview" placeholder="" maxlength="100">
                     <!-- <mat-error class="con-error" *ngIf="designationForm.controls.designation.errors?.required">
                       {{errorDesName}}
                   </mat-error> -->
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="31"  class="mx-2 my-2" appearance="outline">
                   <mat-label>Country</mat-label>
                   <mat-select [disabled]="isview"  formControlName="country" required  >
                       <ng-container >
@@ -123,7 +121,7 @@
                       {{msgEM2}}
                   </mat-error>
               </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
                     <mat-label>State</mat-label>
                     <mat-select [disabled]="isview"  required formControlName="state"  >
                         <ng-container >
@@ -138,7 +136,7 @@
                         {{msgEM2}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30"   class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="31"   class="mx-2 my-2" appearance="outline">
                     <mat-label>City</mat-label>
                     <mat-select required [disabled]="isview"  formControlName="city" >
                         <ng-container >
@@ -152,7 +150,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="31"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Pincode</mat-label>
 
                     <input type="text" onlyNumber formControlName="pincode" matInput [readonly]="isview" placeholder="" minlength="6" maxlength="6" required>
@@ -166,25 +164,25 @@
                 </mat-form-field>
 
             </div>
-            <div fxLayoutAlign="end" class="" *ngIf = "isadd">
-                <button class="col-md-1 btn btn-primary mx-2 my-2" [disabled]="!companyForm.valid"  (click)="save()" *ngIf ="!isedit"   type="button">
+            <div fxLayoutAlign="center" class="" *ngIf = "isadd">
+                <button class="btn btn-primary mr-2 mb-2" [disabled]="!companyForm.valid"  (click)="save()" *ngIf ="!isedit"   type="button">
                     <span>Submit</span>
                 </button>
-                <button class="col-md-1 btn btn-primary mx-2 my-2"  [disabled]="!companyForm.valid" (click)="update()" *ngIf = "isedit"  type="button">
+                <button class="btn btn-primary mr-2 mb-2"  [disabled]="!companyForm.valid" (click)="update()" *ngIf = "isedit"  type="button">
                     <span>Save</span>
                 </button>
 
-                <button class="col-md-1 btn btn-danger mx-2 my-2"  *ngIf ="!isedit" (click)="cancel()">
+                <button class="btn btn-danger mr-2 mb-2"  *ngIf ="!isedit" (click)="cancel()">
                     <span >Cancel</span>
                 </button>
-                <button class="col-md-1 btn btn-danger mx-2 my-2"   *ngIf = "isedit" (click)="canceledit()">
+                <button class="btn btn-danger mr-2 mb-2"  *ngIf = "isedit" (click)="canceledit()">
                     <span >Cancel</span>
                 </button>
                 <br />
             </div>
         </form>
-            <div fxLayoutAlign="end" class="" *ngIf ="isview">
-                <button class="col-md-1 btn btn-primary mx-2 my-2"  style="background-color:#3f51b5;color:aliceblue" (click)="edit()"   type="submit">
+            <div fxLayoutAlign="center" class="" *ngIf ="isview">
+                <button class="btn btn-primary mr-2 mb-2" (click)="edit()"   type="submit">
                     <span>Edit</span>
                 </button>
 

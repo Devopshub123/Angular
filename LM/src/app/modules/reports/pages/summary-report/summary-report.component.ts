@@ -70,7 +70,7 @@ export class SummaryReportComponent implements OnInit {
   searchForm = this.formBuilder.group({ fromDate: [new Date()], toDate: [new Date()], Users: ['0'] });
   dataSource: MatTableDataSource<any> = <any>[];
   displayedColumns: string[] = ['sno','empname', 'attendancedate', 'firstlogintime',
-  'lastlogouttime', 'totalhours', 'breaks', 'breaktime', 'productivehours', 'action'];
+  'lastlogouttime', 'totalhours', 'productivehours', 'action'];
   isLoading = false;
   ngOnInit() {
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');

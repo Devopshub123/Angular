@@ -5,12 +5,6 @@ mat-card {
   padding-left: 0px;
   padding-right: 0px;
 }
-.tableP{
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-bottom: 1%;
-  padding-top: 1%;
-}
 
 ::ng-deep {
   .mat-select-panel[aria-label="Items per page:"] {
@@ -42,9 +36,6 @@ mat-card {
   color: #ffffff;
   margin-bottom: 0px;
 }
-::ng-deep.mat-card-header-text {
-  margin: 0 6px !important;
-}
 ::ng-deeptr.mat-header-row {
   height: 45px !important;
 }
@@ -58,4 +49,16 @@ mat-card {
   }
   .select-container{
     margin-top:10px;
+  }
+  .example-container {
+    overflow-x: auto;
+  }
+  .dev-Pad{
+    padding-top: 1%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .table-pad{
+    padding-left: 15px;
+    padding-right: 15px;
   }

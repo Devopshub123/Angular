@@ -3,11 +3,9 @@
     <form [formGroup]="mappingIdsForm" autocomplete="off">
  
             <mat-card-header class="headerbox">
-                <div fxLayout="row" fxFlex="50">
-                    <mat-card-title class="title"> Mapping IDs </mat-card-title>
-                </div>
-                </mat-card-header>
-            <div fxLayout="row" fxLayoutAlign.xs="center center" class="tableP">
+                <mat-card-title class="title"> Mapping IDs </mat-card-title>
+              </mat-card-header>
+            <div fxLayout="row" fxLayoutAlign.xs="center center" class="dev-Pad">
 
                 <mat-form-field fxFlex.xs="100"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Bio-Metric Id</mat-label>
@@ -29,29 +27,32 @@
                         Please select an option.
                     </mat-error>
                   </mat-form-field>
-
-                  <button class="btn btn-primary custom mr-2 mb-2" (click)="saveMappingIds()" type="submit">
-                    <span>Submit</span>
-                </button>
-
-                <button class="btn btn-danger custom mr-2 mb-2" (click)="resetform()">
-                    <span >Cancel</span>
-                </button>
-              
-            </div>
+                  <span style="margin-top: 1%;">
+                    <button   class="btn btn-primary mr-2 mb-2" (click)="saveMappingIds()">
+                        Submit
+                    </button>
+                
+                  <span class="line" style="color:#1898D5;font-size:16px"></span>
+                  <button   class="btn btn-danger mr-2 mb-2" (click)="resetform()">
+                    <span>Clear</span>
+                  </button>
+                </span>
+             </div>
   
     </form>
     <mat-divider></mat-divider>
     <div fxLayout="column" >
-        <div fxLayout="row"  fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;padding-right: 2%;padding-top: 1%;">
-            <mat-form-field fxFlex="30" fxFlex.xs="100%" appearance="outline">
-                <mat-label>Search</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
-                <mat-icon matSuffix>search</mat-icon>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" class="dev-Pad"  style="padding-top: 5px;height: 70px;">
+            <mat-form-field fxFlex.xs="100" fxFlex="23" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
+                <mat-icon matSuffix style="color: #28acaf">search</mat-icon>
+                <mat-label>Search </mat-label>
+                <input (keyup)="applyFilter($event)" matInput placeholder=""
+                    maxlength="100" />
             </mat-form-field>
         </div>
-        <div class="tablePadding" >
-            <table class="mat-elevation-z1" mat-table [dataSource]="dataSource" matSort  >
+        <div fxLayout="column" class="table-pad">
+              <div class="mat-elevation-z1 example-container">
+            <table mat-table [dataSource]="dataSource" matSort  >
 
                 <ng-container matColumnDef="sno">
                     <th mat-header-cell *matHeaderCellDef> S.No</th>
@@ -89,7 +90,7 @@
 
             <!-- <mat-paginator   [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
         </div>
-  
+    </div>
     </div>
 
 </mat-card>

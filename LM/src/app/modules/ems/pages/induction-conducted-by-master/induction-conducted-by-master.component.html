@@ -2,12 +2,10 @@
   <mat-card>
     <form [formGroup]="inductionForm" autocomplete="off">
       <mat-card-header class="headerbox">
-        <div fxLayout="row" fxFlex="50">
-            <mat-card-title class="title"> Induction Conducted By </mat-card-title>
-        </div>
-        </mat-card-header>
-        <div class="tableP">
-            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
+        <mat-card-title class="title"> Induction Conducted By </mat-card-title>
+       </mat-card-header>
+        <div class="dev-Pad" fxLayout="row" fxLayout.xs="column">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                 <mat-label>Program Type</mat-label>
                 <mat-select required formControlName="programType">
                     <ng-container>
@@ -21,7 +19,7 @@
                    {{EM2}}
                 </mat-error>
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                 <mat-label>Department</mat-label>
                 <mat-select required formControlName="department">
                     <ng-container>
@@ -57,32 +55,9 @@
             <mat-error class="con-error" *ngIf="inductionForm.controls.conductBy.errors?.required">
               {{EM2}}
             </mat-error>
-            <!-- <mat-error class="con-error" *ngIf="isFormCtrlValid ">
-              {{EM2}}
-            </mat-error> -->
          </mat-form-field>
 
-         <!-- <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-          <mat-label>Conduct By</mat-label>
-          <mat-select (openedChange)="openedSearch($event)" placeholder="Select"
-          required formControlName="conductBy" multiple [disabled]="!isEnable">
-          <mat-select-trigger>
-            <span *ngFor="let item of inductionForm.controls.conductBy.value">
-                 {{item.empname }} ,
-            </span>
-        </mat-select-trigger>
-          <div class="select-container">
-        <mat-option  (onSelectionChange)="selectedEmployesChange($event)"
-              *ngFor="let emp of employeeList" [value]="emp">{{emp.employee_code}}__{{emp.empname}}
-          </mat-option>
-        </div>
-      </mat-select>
-      <mat-error class="con-error" *ngIf="inductionForm.controls.conductBy.errors?.required">
-        {{this.EM2}}
-      </mat-error>
-   </mat-form-field> -->
-
-        </div>
+      </div>
      <div fxLayout="row" fxLayoutAlign="center">
       <button *ngIf="!isUpdate" class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit">
         <span>Submit</span>
@@ -97,17 +72,18 @@
             <br />
           </div>
           <mat-divider></mat-divider>
-          <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;padding-top: 1%;">
-            <mat-form-field fxFlex="28" fxFlex.xs="100%" appearance="outline" style="padding-right: 1%;">
-                 <mat-label>Search</mat-label>
-                 <input matInput (keyup)="applyFilter($event)" placeholder="" >
-                 <mat-icon matSuffix>search</mat-icon>
-             </mat-form-field>
+          <div fxLayout="column">
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" class="dev-Pad"  style="padding-top: 5px;height: 70px;">
+            <mat-form-field fxFlex.xs="100" fxFlex="23" fxFlex.lt-md="50" class="mx-2 my-2" appearance="outline">
+                <mat-icon matSuffix style="color: #28acaf">search</mat-icon>
+                <mat-label>Search </mat-label>
+                <input (keyup)="applyFilter($event)" matInput placeholder=""
+                    maxlength="100" />
+            </mat-form-field>
         </div>
-        <br>
-        <div fxLayout="column" class="tableP">
+        <div fxLayout="column" class="table-pad">
 
-          <div class="mat-elevation-z1">
+          <div class="mat-elevation-z1 example-container">
 
               <table mat-table [dataSource]="dataSource" matSort>
                 <ng-container matColumnDef="sno">
@@ -168,7 +144,7 @@
               <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
            </div>
         </div>
-
+      </div>
 
    </form>
   </mat-card>

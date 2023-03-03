@@ -4,9 +4,9 @@
     <mat-card-title class="title"> Separation Pending Approvals </mat-card-title>
        </mat-card-header>
 
-  <div *ngIf="ishide" class="tableP">
-    <br />
-    <div class="mat-elevation-z1">
+  <div *ngIf="ishide" class="table-pad">
+    <br>
+    <div class="mat-elevation-z1 example-container">
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>S.No</th>
@@ -48,18 +48,19 @@
       <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5,10, 20]"></mat-paginator>
     </div>
   </div>
-  <div *ngIf="isview" style="padding-top: 10px">
+  
+  <div *ngIf="isview" class="dev-Pad">
     <form [formGroup]="pendingapprovalForm" autocomplete="off">
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Employee Id</mat-label>
           <input formControlName="empid" matInput placeholder="" readonly />
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Employee Name</mat-label>
           <input formControlName="empname" matInput placeholder="" readonly />
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Date of Request Separation </mat-label>
           <input matInput [readonly]="true" placeholder="DD-MM-YYYY" formControlName="appliedDate" [disabled]="true"
             [matDatepicker]="date" [min]="mindate" [max]="maxdate" />
@@ -69,12 +70,12 @@
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Notice Period</mat-label>
           <input formControlName="noticeperiod" matInput placeholder="" readonly />
         </mat-form-field>
 
-        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Relieving Date </mat-label>
           <input matInput readonly [disabled]="true" [matDatepicker]="date2" [min]="mindate" [max]="maxdate"
             placeholder="DD-MM-YYYY" formControlName="releivingdate" />
@@ -83,7 +84,7 @@
           <mat-datepicker #date2></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label> Request Exit Date </mat-label>
           <input matInput readonly [disabled]="true" [matDatepicker]="date3" [min]="mindate" [max]="maxdate"
             placeholder="DD-MM-YYYY" formControlName="requestedDate" required />
@@ -94,13 +95,13 @@
         </mat-form-field>
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        <mat-form-field fxFlex.xs="100" fxFlex="62" class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex="65" class="mx-2 my-2" appearance="outline">
           <mat-label>Reason</mat-label>
           <textarea formControlName="reason" matInput placeholder="" readonly>
           </textarea>
         </mat-form-field>
 
-        <mat-form-field *ngIf="pendingapprovalForm.controls.actualRelievingDate.value" fxFlex.xs="100" fxFlex="30"
+        <mat-form-field *ngIf="pendingapprovalForm.controls.actualRelievingDate.value" fxFlex.xs="100" fxFlex
           class="mx-2 my-2" appearance="outline">
           <mat-label> Actual Relieving Date </mat-label>
           <input matInput readonly [disabled]="true" [matDatepicker]="date3" [min]="mindate" [max]="maxdate"

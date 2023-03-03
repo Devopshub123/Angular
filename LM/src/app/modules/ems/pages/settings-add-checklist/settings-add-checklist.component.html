@@ -83,32 +83,26 @@
                 </div>
             </div>
 
-        <div fxLayout="column" *ngIf="isdata" class="div-pad">
-          <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center">
-                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                     <mat-radio-group  formControlName="onboardCategory">
+        <div fxLayout="column" *ngIf="isdata" >
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" class="dev-Pad" fxLayoutAlign="space-between center">
+                <span>
+                    <mat-radio-group  formControlName="onboardCategory">
                         <mat-radio-button class="mx2 my-2 mr-2" value="Onboarding" [checked]='true'>Onboarding</mat-radio-button>
                         <mat-radio-button class="mx2 my-2 mr-2" value="Offboarding">Offboarding</mat-radio-button>
                      </mat-radio-group>
-           
-                     </div>
-        <span style="height: 50px;padding-top: 5px;">
-            <mat-form-field  fxFlex.xs="100%" appearance="outline">
-                <mat-label>Search</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="" >
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-        </span>
-    </div>
-    <br>
-    <!-- <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;">
-        <span>
-         
-     </span>
-    </div>
-    <br> -->
-        <div>
-          <div class="mat-elevation-z1">
+                </span>
+                <span style="padding-top: 5px;height: 70px;">
+                  <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                    <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
+                    <mat-label>Search</mat-label>
+                    <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
+                  </mat-form-field>
+                </span>
+              </div>
+
+        <div fxLayout="column" class="table-pad">
+          <div class="mat-elevation-z1 example-container">
                 <table mat-table [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="sno">
                         <th mat-header-cell *matHeaderCellDef>S.No</th>

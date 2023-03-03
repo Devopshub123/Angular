@@ -6,12 +6,7 @@ mat-card {
   padding-left: 0px;
   padding-right: 0px;
 }
-.tableP{
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-bottom: 1%;
-}
-  .section {
+ .section {
     padding-top: 1%;
     padding-left: 1%;
     margin-bottom: 2px;
@@ -70,4 +65,22 @@ mat-card {
 // }
 mat-form-field-wrapper {
   padding-bottom: 1em !important;
+}
+.example-container {
+  overflow-x: auto;
+}
+.main-Pad{
+  padding-top: 1%;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.dev-Pad{
+  padding-top: 1%;
+  padding-left: 16px;
+  padding-right: 8px;
+ // height: 70px;
+}
+.table-pad{
+  padding-left: 15px;
+  padding-right: 15px;
 }

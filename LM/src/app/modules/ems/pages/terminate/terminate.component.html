@@ -1,80 +1,74 @@
 <div fxLayout="column" class="first-col">
-<mat-card>
-    <form [formGroup]="terminateForm" autocomplete="off">
-        <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-card-title class="title"> Termination </mat-card-title>
-              <div style="margin-right: 2%;" *ngIf="istable">
-                 <button mat-icon-button style="padding-right: 40px;" (click)="terminate()" matTooltip="Terminate">
-                    <img (click)="terminate()" src="./assets/images/icons/terminate2.png" style="width:30px ;">
-                    <!-- <mat-icon style="font-size: 30px">add_circle</mat-icon> -->
+    <mat-card>
+        <form [formGroup]="terminateForm" autocomplete="off">
+            <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+                <mat-card-title class="title"> Termination</mat-card-title>
+                <div style="margin-right: 2%" *ngIf="istable">
+                    <button mat-icon-button style="padding-right: 40px" (click)="terminate()" matTooltip="Terminate">
+                        <img (click)="terminate()" src="./assets/images/icons/terminate2.png" style="width: 30px" />
+                        <!-- <mat-icon style="font-size: 30px">add_circle</mat-icon> -->
                     </button>
-                 </div>
-         </mat-card-header>
-
-        <div *ngIf="isterminate" style="padding-left: 1%;">
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" style="padding-top: 1%;">
-
-                <mat-form-field fxFlex.xs="100" fxFlex="50" *ngIf="isview"  class="mx-2 my-2" appearance="outline">
-                    <mat-label>Employee Name</mat-label>
-                    <mat-select required formControlName="empname" [disabled]="!isview" required>
-                        <ng-container>
-                            <div *ngFor="let r of employeelist">
-                                <mat-option [value]="r.id">{{r.ename}}</mat-option>
-                            </div>
-                        </ng-container>
-                      </mat-select>
-                      <mat-error class="con-error"
-                      *ngIf="terminateForm.controls.empname.errors?.required">
-                      Please select an option
-                     </mat-error>
-                    <!-- <input formControlName="empname" readonly matInput placeholder="" maxlength="100" > -->
-                </mat-form-field>
-
-                <mat-form-field fxFlex.xs="100" fxFlex="50" *ngIf="!isview" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Employee Name</mat-label>
-                    <input formControlName="empname" matInput placeholder="" [readonly]="!isview">
-                 </mat-form-field>
-
-
-
-
-
-                <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
-                    <mat-label>Date of Termination </mat-label>
-                    <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date"
-                        placeholder="MM/DD/YYYY" formControlName="dateoftermination" [disabled]="true" required >
-
-                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
-                    </mat-datepicker-toggle>
-                    <mat-datepicker #date></mat-datepicker>
-                </mat-form-field>
-
-                <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
-                  <mat-label>Termination Category</mat-label>
-                  <mat-select required formControlName="terminatecategory" [disabled]="!isview" required>
-                    <ng-container>
-                        <div *ngFor="let r of terminationlist">
-                            <mat-option [value]="r.id">{{r.category}}</mat-option>
-                        </div>
-
-                    </ng-container>
-                  </mat-select>
-                  <mat-error class="con-error"
-                  *ngIf="terminateForm.controls.terminatecategory.errors?.required">
-                  Please select an option
-                 </mat-error>
-                </mat-form-field>
-
                 </div>
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" >
-                  <mat-form-field fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
-                      <mat-label>Reason</mat-label>
-                      <textarea type="text" formControlName="reason"  [readonly]="!isview" matInput placeholder="" maxlength="250">
-                    </textarea>
-                     </mat-form-field>
+            </mat-card-header>
+
+            <div *ngIf="isterminate">
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="dev-Pad">
+                    <mat-form-field fxFlex.xs="100" fxFlex *ngIf="isview" class="mx-2 my-2" appearance="outline">
+                        <mat-label>Employee Name</mat-label>
+                        <mat-select required formControlName="empname" [disabled]="!isview" required>
+                            <ng-container>
+                                <div *ngFor="let r of employeelist">
+                                    <mat-option [value]="r.id">{{ r.ename }}</mat-option>
+                                </div>
+                            </ng-container>
+                        </mat-select>
+                        <mat-error class="con-error" *ngIf="terminateForm.controls.empname.errors?.required">
+                            Please select an option
+                        </mat-error>
+                        <!-- <input formControlName="empname" readonly matInput placeholder="" maxlength="100" > -->
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex.xs="100" fxFlex *ngIf="!isview" class="mx-2 my-2" appearance="outline">
+                        <mat-label>Employee Name</mat-label>
+                        <input formControlName="empname" matInput placeholder="" [readonly]="!isview" />
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        <mat-label>Date of Termination </mat-label>
+                        <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date" placeholder="MM/DD/YYYY"
+                            formControlName="dateoftermination" [disabled]="true" required />
+
+                        <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #date></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        <mat-label>Termination Category</mat-label>
+                        <mat-select required formControlName="terminatecategory" [disabled]="!isview" required>
+                            <ng-container>
+                                <div *ngFor="let r of terminationlist">
+                                    <mat-option [value]="r.id">{{ r.category }}</mat-option>
+                                </div>
+                            </ng-container>
+                        </mat-select>
+                        <mat-error class="con-error" *ngIf="terminateForm.controls.terminatecategory.errors?.required">
+                            Please select an option
+                        </mat-error>
+                    </mat-form-field>
                 </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="dev-Pad">
+                    <mat-form-field fxFlex.xs="100" fxFlex="65" class="mx-2 my-2" appearance="outline">
+                        <mat-label>Reason</mat-label>
+                        <textarea type="text" formControlName="reason" [readonly]="!isview" matInput placeholder=""
+                            maxlength="250">
+                         </textarea>
+                    </mat-form-field>
+                </div>
+                <br>
                 <div fxLayoutAlign="center">
-                    <button class="btn btn-primary custom mr-2 mb-2" style="padding: 0 10px;" (click)="terminatesave()" *ngIf="isview">
+                    <button class="btn btn-primary custom mr-2 mb-2" style="padding: 0 10px" (click)="terminatesave()"
+                        *ngIf="isview">
                         <span>Terminate</span>
                     </button>
                     <button class="btn btn-danger mr-2 mb-2" (click)="close()">
@@ -86,79 +80,69 @@
                   <button class="col-md-2 mr-2 btn btn-primary" >Terminate</button>
                   <button class="col-md-2  btn btn-danger" (click)="close()">Close</button>
               </div> -->
-              <br>
-        </div>
-        <div *ngIf="istable" class="tableP">
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" style="padding-top: 1%;">
-                <mat-form-field fxFlex.xs="100" fxFlex="28"   class="mx-2 my-2" appearance="outline">
-                    <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
-                    <mat-label>Search </mat-label>
-                    <input formControlName="searchempname"  (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100" >
-                  </mat-form-field>
+                <br />
+            </div>
 
-               <!-- <span class="mx-2 my-2" >
-                <button mat-icon-button matTooltip="Terminate">
-                    <img (click)="terminate()" src="./assets/images/icons/terminate2.png" style="width:40px ;margin-top: 10px;">
-                </button>
-             </span> -->
+            <div fxLayout="column" *ngIf="istable">
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" class="dev-Pad">
+                    <mat-form-field fxFlex.xs="100" fxFlex="23" fxFlex.lt-md="50" class="mx-2 my-2" appearance="outline">
+                        <mat-icon matSuffix style="color: #28acaf">search</mat-icon>
+                        <mat-label>Search </mat-label>
+                        <input formControlName="searchempname" (keyup)="applyFilter($event)" matInput placeholder=""
+                            maxlength="100" />
+                    </mat-form-field>
                 </div>
-                          <div class="mat-elevation-z1">
+                <div fxLayout="column" class="table-pad">
+                <div class="mat-elevation-z1 example-container">
                     <table mat-table [dataSource]="dataSource" matSort>
                         <ng-container matColumnDef="sno">
-                            <th mat-header-cell *matHeaderCellDef> S.No</th>
-                            <td mat-cell *matCellDef="let element; let i=index;">
-                             {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
-                          </ng-container>
+                            <th mat-header-cell *matHeaderCellDef>S.No</th>
+                            <td mat-cell *matCellDef="let element; let i = index">
+                                {{ i + 1 + paginator.pageIndex * paginator.pageSize }}
+                            </td>
+                        </ng-container>
 
                         <ng-container matColumnDef="fullname">
-                            <th mat-header-cell *matHeaderCellDef >Employee Name </th>
-                            <td mat-cell *matCellDef="let row" >
-                                <span>{{row.empname}} </span>
-
+                            <th mat-header-cell *matHeaderCellDef>Employee Name</th>
+                            <td mat-cell *matCellDef="let row">
+                                <span>{{ row.empname }} </span>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="manager">
-                            <th mat-header-cell *matHeaderCellDef > Manager </th>
-                            <td mat-cell *matCellDef="let row" >
-                                <span >{{row.managername}} </span>
-
+                            <th mat-header-cell *matHeaderCellDef>Manager</th>
+                            <td mat-cell *matCellDef="let row">
+                                <span>{{ row.managername }} </span>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="terminatedate">
-                            <th mat-header-cell *matHeaderCellDef > Terminate Date </th>
-                            <td mat-cell *matCellDef="let row" >
+                            <th mat-header-cell *matHeaderCellDef>Terminate Date</th>
+                            <td mat-cell *matCellDef="let row">
                                 <!-- <span >{{row.date}} | date:'mediumDate'</span> -->
-                                <span *ngIf="enable != row.id">{{row.termination_date  | date:'dd-MM-yyyy'}} </span>
+                                <span *ngIf="enable != row.id">{{ row.termination_date | date : "dd-MM-yyyy" }}
+                                </span>
 
-                                    <mat-form-field appearance="outline"  *ngIf="enable === row.id">
-                                        <input matInput readonly [matDatepicker]="date1"
-                                        placeholder="MM/DD/YYYY" formControlName="editdate" >
-                                        <mat-datepicker-toggle class="datepicker" matSuffix [for]="date1">
-                                       </mat-datepicker-toggle>
-                                           <mat-datepicker #date1></mat-datepicker>
-
-                                    </mat-form-field>
-
+                                <mat-form-field appearance="outline" *ngIf="enable === row.id">
+                                    <input matInput readonly [matDatepicker]="date1" placeholder="MM/DD/YYYY"
+                                        formControlName="editdate" />
+                                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="date1">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #date1></mat-datepicker>
+                                </mat-form-field>
                             </td>
                         </ng-container>
-
 
                         <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                            <td mat-cell *matCellDef="let row" >
-                                <span >{{row.status}} </span>
-
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                            <td mat-cell *matCellDef="let row">
+                                <span>{{ row.status }} </span>
                             </td>
-
                         </ng-container>
 
-
                         <ng-container matColumnDef="Action">
-                            <th mat-header-cell *matHeaderCellDef >  </th>
-
+                            <th mat-header-cell *matHeaderCellDef></th>
 
                             <td mat-cell *matCellDef="let row">
-                                <mat-icon title="View"  (click)="view($event,row)" >visibility</mat-icon>
+                                <mat-icon title="View" (click)="view($event, row)">visibility</mat-icon>
                                 <!-- <mat-icon title="Edit"  (click)="edit($event,row)" *ngIf="enable != row.id && row.status != 'Terminated'" >edit</mat-icon> -->
                                 <!-- <mat-icon *ngIf="enable != row.id">more_vert</mat-icon> -->
                                 <!-- <mat-icon title="Terminated" *ngIf="enable != row.id && row.status == 'Taskcompleted'">check_circle</mat-icon> -->
@@ -166,25 +150,21 @@
                                 <mat-icon title="Save" *ngIf="enable == row.id" (click)="save($event,row)">save</mat-icon>
                                 <mat-icon title="Save" *ngIf="row.status == 'enable != row.id && Taskcompleted' || row.status == 'Terminated' " (click)="view($event,row)" >visibility</mat-icon>
                                 <mat-icon title="Cancel" (click)="canceledit($event,row.id)" *ngIf="enable == row.id" >cancel</mat-icon> -->
-
-
-
                             </td>
-
                         </ng-container>
 
-
                         <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
                         <tr class="mat-row" *matNoDataRow>
-                            <td class="mat-cell" colspan="5" style="text-align: center;">No data found</td>
+                            <td class="mat-cell" colspan="5" style="text-align: center">
+                                No data found
+                            </td>
                         </tr>
                     </table>
                     <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-
                 </div>
+            </div>
         </div>
-         </form>
-</mat-card>
+        </form>
+    </mat-card>
 </div>
-

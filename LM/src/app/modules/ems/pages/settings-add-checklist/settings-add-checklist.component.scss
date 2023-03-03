@@ -80,7 +80,16 @@ mat-card {
 .mat-card-title:not(:first-child), .mat-card-subtitle:not(:first-child) {
   margin-top: 9px !important;
 }
-.div-pad{
-  padding-left: 2%;
-  padding-right: 2%;
+.example-container {
+  overflow-x: auto;
+}
+.dev-Pad{
+  padding-top: 1%;
+  padding-left: 16px;
+  padding-right: 8px;
+ // height: 70px;
+}
+.table-pad{
+  padding-left: 15px;
+  padding-right: 15px;
 }

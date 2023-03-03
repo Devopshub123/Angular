@@ -1,79 +1,61 @@
-table {
-  width: 100%;
-  overflow-x: auto;
-}
 
 ::ng-deep .cdk-overlay-container {
   z-index:1050 !important;
 }
 
-.mat-table {
-  display: block;
-  width: auto;
-  overflow-x: auto;
-}
+// .mat-column-sno {
+//   max-width: 70px;
+//   min-width: 80px;
+// }
 
-.mat-column-sno {
-  max-width: 70px;
-  min-width: 80px;
-}
+// .mat-column-empname {
+//   max-width: 200px;
+//   min-width: 130px;
+// }
 
-.mat-column-empname {
-  max-width: 200px;
-  min-width: 130px;
-}
+// .mat-column-attendancedate {
+//   max-width: 150px;
+//   min-width: 120px;
+// }
 
-.mat-column-attendancedate {
-  max-width: 150px;
-  min-width: 120px;
-}
+// .mat-column-firstlogintime {
+//   max-width: 150px;
+//   min-width: 120px;
+// }
 
-.mat-column-firstlogintime {
-  max-width: 150px;
-  min-width: 120px;
-}
+// .mat-column-lastlogouttime {
+//   max-width: 150px;
+//   min-width: 120px;
+// }
 
-.mat-column-lastlogouttime {
-  max-width: 150px;
-  min-width: 120px;
-}
+// .mat-column-totalhours {
+//   max-width: 120px;
+//   min-width: 100px;
+// }
 
-.mat-column-totalhours {
-  max-width: 120px;
-  min-width: 100px;
-}
+// .mat-column-breaks {
+//   max-width: 110px;
+//   min-width: 100px;
+// }
 
-.mat-column-breaks {
-  max-width: 110px;
-  min-width: 100px;
-}
-
-.mat-column-breaktime {
-  max-width: 110px;
-  min-width: 100px;
-}
-.mat-column-productivehours {
-  max-width: 110px;
-  min-width: 100px;
-}
-.mat-column-action {
-  max-width: 100px;
-  min-width: 90px;
-}
+// .mat-column-breaktime {
+//   max-width: 110px;
+//   min-width: 100px;
+// }
+// .mat-column-productivehours {
+//   max-width: 110px;
+//   min-width: 100px;
+// }
+// .mat-column-action {
+//   max-width: 100px;
+//   min-width: 90px;
+// }
 mat-card {
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
   position: relative;
   padding-left: 0px;
   padding-right: 0px;
-}
-.tableP{
-  padding:1%;
-}
-.tablePadding{
-  padding-left: 2%;
-  padding-right: 2%;
-  padding-top: 2%;
 }
 
 ::ng-deep {
@@ -114,4 +96,16 @@ mat-card {
 }
 ::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
   margin: 0.2em 0 !important;
+}
+.dev-Pad{
+  padding-top: 1%;
+  padding-left: 11px;
+  padding-right: 8px;
+}
+.table-pad{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.example-container {
+  overflow-x: auto;
 }

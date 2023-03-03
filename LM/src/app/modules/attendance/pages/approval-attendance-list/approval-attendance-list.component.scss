@@ -24,13 +24,6 @@ mat-card {
   padding-left: 0px;
   padding-right: 0px;
 }
-.tableP{
-  padding:1%;
-}
-.tablePadding{
-  padding-left: 2%;
-  padding-right: 2%;
-}
 .headerbox{
   height: 45px;
   background-color: #28acaf !important;
@@ -46,12 +39,21 @@ mat-card {
   color: #ffffff;
   margin-bottom: 0px;
 }
-// ::ng-deep.mat-card-header-text {
-//   margin: 0 6px !important;
-// }
 ::ng-deeptr.mat-header-row {
   height: 45px !important;
 }
 ::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
   margin: 0.2em 0 !important;
+}
+.example-container {
+  overflow-x: auto;
+}
+.dev-Pad{
+  padding-top: 1%;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.table-pad{
+  padding-left: 15px;
+  padding-right: 15px;
 }

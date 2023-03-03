@@ -146,7 +146,7 @@
           entered.</span>
       </div>
       <br />
-      <div fxLayoutAlign="end">
+      <div fxLayoutAlign="center">
         <button class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit" *ngIf="!isview">
           <span>Submit</span>
         </button>
@@ -162,17 +162,17 @@
     </div>
     <br>
   </form>
-  <div *ngIf="isdata" class="div-pad">
-    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;">
-      <mat-form-field fxFlex="28" fxFlex.xs="100%" appearance="outline">
-           <mat-label>Search</mat-label>
-           <input matInput (keyup)="applyFilter($event)" placeholder="" >
-           <mat-icon matSuffix>search</mat-icon>
-       </mat-form-field>
-   </div>
-   <br>
-    <div fxLayout="column">
-      <div class="mat-elevation-z1">
+  <div *ngIf="isdata" fxLayout="column">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" class="dev-Pad">
+      <mat-form-field fxFlex.xs="100" fxFlex="23" fxFlex.lt-md="50" class="mx-2 my-2" appearance="outline">
+          <mat-icon matSuffix style="color: #28acaf">search</mat-icon>
+          <mat-label>Search </mat-label>
+          <input (keyup)="applyFilter($event)" matInput placeholder=""
+              maxlength="100" />
+      </mat-form-field>
+  </div>
+    <div fxLayout="column" class="table-pad">
+      <div class="mat-elevation-z1 example-container">
         <table mat-table [dataSource]="dataSource" matSort>
           <ng-container matColumnDef="sno">
             <th mat-header-cell *matHeaderCellDef>S.No</th>
