@@ -106,7 +106,7 @@ export class EarningsRequestComponent implements OnInit {
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/Payroll/Earnings",{state:{data:this.senddata}}])); 
+    this.router.navigate(["/Payroll/Earnings"],{state:{data:this.senddata}}));  
 
   }
   status(status:any){
@@ -223,7 +223,6 @@ export class EarningsRequestComponent implements OnInit {
   }
   
   configurePayGroupComponent(){
-    console.log("hi")
     let flatorpercentagevalidation = this.earningsRequestForm.controls.monthly_salary.value==0?this.earningsRequestForm.controls.flat_amount.value:this.earningsRequestForm.controls.percentage.value;
     console.log("flatorpercentagevalidation",flatorpercentagevalidation)
     if(this.earningsRequestForm.controls.namePaySlip.valid && (this.earningsRequestForm.controls.flat_amount.valid || this.earningsRequestForm.controls.percentage.valid)|| (!this.otherhide)){
@@ -246,7 +245,6 @@ export class EarningsRequestComponent implements OnInit {
           show_this_component_in_payslip_value:this.earningsRequestForm.controls.showComponent.value,
           status:'Active'
         }
-        console.log(data)
         /**configure component values service call */
         this.PR.configurePayGroupComponent(data).subscribe((result:any)=>{
           if(result.status){

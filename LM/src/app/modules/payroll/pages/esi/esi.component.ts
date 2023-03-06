@@ -17,6 +17,7 @@ export class EsiComponent implements OnInit {
   PR39:any;
   messagesDataList:any=[];
   isedit:boolean=false;
+  enable:boolean=true;
   constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private PR:PayrollService) { }
   esiRequestForm!: FormGroup;
   companyEsiRequestForm!: FormGroup;
@@ -53,6 +54,10 @@ export class EsiComponent implements OnInit {
   cancel() { 
     this.router.navigateByUrl('/', { skipLocationChange: true })
       .then(() => this.router.navigate(["/Payroll/ESI"]));
+  }
+  clear(){
+    this.companyEsiRequestForm.controls.esiNumber.setValue('');
+    this.companyEsiRequestForm.controls.state.setValue('');
   }
   setPayGroup(){}
   /**Percentage of wages of employee to be contributed from the employee salary for ESI */
@@ -91,9 +96,12 @@ export class EsiComponent implements OnInit {
     });
     
   }
+editdata(){
+  this.enable = false;
+}
   /**setEsiForState */
   setEsiForState(){
-    // if(this.companyEsiRequestForm.valid){
+    if(this.companyEsiRequestForm.valid){
       let data ={
         esi_number:this.companyEsiRequestForm.controls.esiNumber.value,
         state_id:this.companyEsiRequestForm.controls.state.value
@@ -118,7 +126,7 @@ export class EsiComponent implements OnInit {
         
       });
 
-    // }
+    }
    
 
   }
@@ -133,12 +141,13 @@ export class EsiComponent implements OnInit {
       console.log(result)
       if(result.status){
     
-        this.router.navigate(["/Payroll/ESI"]);  
+         
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
           data: this.PR37
         });
+        this.router.navigate(["/Payroll/ESI"]); 
       }
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {

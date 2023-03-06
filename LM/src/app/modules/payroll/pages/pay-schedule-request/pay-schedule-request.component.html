@@ -24,9 +24,17 @@
                                 </mat-form-field>
                             </p>
                             <p style="display: -webkit-box" fxLayout="row" fxLayoutAlign="space-evenly center">
+                                <mat-form-field appearance="outline" style="width: 100%;">
+                                    <mat-label>Company Payroll Cycle</mat-label>
+                                    <input formControlName="companyPayrollCycle" [readonly]="true"  matInput placeholder="" >
+                                    <!-- <mat-select formControlName="paymentFrequency" [disabled]="true">
+                    
+                                        <mat-option value="Monthly">Monthly</mat-option>
+                                    </mat-select> -->
+                                </mat-form-field>
                            
-                                <label style="margin-right: auto">Company Payroll Cycle</label>
-                                <mat-form-field appearance="outline" ><input type="text" matInput [readonly]="true"  class="form-control" formControlName="companyPayrollCycle" placeholder="" style="background-color: #e8e8e8;;"></mat-form-field>
+                                <!-- <label style="margin-right: auto">Company Payroll Cycle</label>
+                                <mat-form-field appearance="outline" ><input type="text" matInput [readonly]="true"  class="form-control" formControlName="companyPayrollCycle" placeholder="" style="background-color: #e8e8e8;;"></mat-form-field> -->
                              </p>
                             <p>
                                 <label><b>Calculate monthly salary based on*</b></label>

@@ -2,6 +2,7 @@
     <mat-card fxFill>
       <mat-card-header class="headerbox">
        <mat-card-title class="title">Employee State Insurance</mat-card-title>
+       <i class="fa fa-edit" style="padding-right: 250px;" aria-hidden="true" title="Edit" (click)="editdata()"></i>
      </mat-card-header>
 
       <div fxLayout="row" fxLayout.xs="column" class="custom-card">  
@@ -26,7 +27,7 @@
             </div>  
             <div style="padding-top:10px;" >
                     
-                <mat-checkbox formControlName="includectc">Include Employer's Contribution in the CTC.
+                <mat-checkbox [disabled]="enable" formControlName="includectc">Include Employer's Contribution in the CTC.
                 </mat-checkbox>
          
             </div> 
@@ -36,7 +37,7 @@
                     have to continue making ESI contribution till the end of the contribution period in which the salary 
                     was revised (April-September or October-March).
             </div>  
-            <div fxLayoutAlign="center">
+            <div fxLayoutAlign="center" *ngIf="!enable">
                   <button class="btn btn-primary mr-2 mb-2" (click)="setCompanyEsiValues()" type="submit">
                   <span>Save</span>
                 </button>
@@ -114,7 +115,7 @@
                                                 <span *ngIf="isedit">Update</span>
                                               </button>
                                               <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
-                                                <span>Cancel</span>
+                                                <span>Clear</span>
                                               </button>
                                          </span>
                               </div>

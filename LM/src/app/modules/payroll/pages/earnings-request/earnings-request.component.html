@@ -70,7 +70,7 @@
                 <mat-form-field appearance="outline" style="width: 100%;">
                   <mat-label>Name in Pay Slip*</mat-label>
                   <input type="text" matInput class="form-control" formControlName="namePaySlip" 
-                   maxlength="30" (keypress)="alphabetKeyPress($event)">
+                   maxlength="40" (keypress)="alphabetKeyPress($event)">
                   <mat-error class="con-error" *ngIf="earningsRequestForm.controls.namePaySlip.errors?.required">
                     {{PR1}}
                 </mat-error>

@@ -2,6 +2,8 @@
     <mat-card>
       <mat-card-header class="headerbox">
          <mat-card-title class="title">Employee Provident Fund</mat-card-title>
+         <i class="fa fa-edit" style="margin-left:13px;padding-right: 40px;" aria-hidden="true" title="Edit" (click)="edit()" ></i>
+
           <!-- <span >
             <i class="fa fa-edit" style="margin-left:13px;font-size: 20px;" aria-hidden="true" title="Edit" (click)="edit()"></i>
              </span> -->
@@ -186,11 +188,11 @@
                   </p>
               </div>
              
-              <span fxLayout="row"   fxLayoutAlign="center center" *ngIf="enable">
+              <!-- <span fxLayout="row"   fxLayoutAlign="center center" *ngIf="enable">
                 <button class="btn btn-primary mr-2 mb-2" (click)="edit()"   type="submit">
                   <span>Edit</span>
               </button>
-            </span> 
+            </span>  -->
             </div>  
            
 
