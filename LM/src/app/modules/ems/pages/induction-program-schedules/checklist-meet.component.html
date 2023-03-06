@@ -84,9 +84,11 @@
                             Please select an option
                         </mat-error>
                     </mat-form-field>
+
                     <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                         <mat-label>End Time<span>*</span></mat-label>
-                        <input formControlName="endtime" matTimepicker [min]="mintime" placeholder="Time" />
+                        <input  formControlName="endtime" matTimepicker [min]="mintime" placeholder="Time" />
+                        <!-- <input readOnly formControlName="endtime" matTimepicker [min]="mintime" placeholder="Time" /> -->
                         <mat-error class="con-error" *ngIf="checklistForm.controls.endtime.errors?.required">
                             Please select an option
                         </mat-error>

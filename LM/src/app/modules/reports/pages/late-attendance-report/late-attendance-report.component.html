@@ -5,8 +5,8 @@
             <mat-card-title class="headingtext">Late Attendance Report</mat-card-title>
         </mat-card-header>
 
-        <div fxLayout fxLayout="row wrap" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center"
-            [formGroup]="searchForm" style="padding-top: 1%;">
+        <div fxLayout="row wrap" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center"
+            [formGroup]="searchForm" style="padding: 1%;">
             <mat-form-field fxFlex fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
                 <mat-label>Employee Name</mat-label>
                 <mat-select formControlName="user" required>
@@ -47,7 +47,8 @@
                 <mat-error class="con-error" *ngIf="searchForm.controls.toDate.errors?.required">
                     Please select an option.
                 </mat-error>
-            </mat-form-field>                  </div>
+            </mat-form-field>  
+        </div>
         <div fxLayout="row" fxFlex.xs="100%" fxLayoutAlign="center" class="showLine">
             <span>
                 <button class="btn btn-primary mr-2 mb-2"  (click)="Searchform()">
@@ -70,10 +71,8 @@
             </div>
         </div>
 
-
-    <div class="p-2">
-        <div class="mat-elevation-z1" >
-            <div  #table>
+        <div fxLayout="column" class="table-pad">
+            <div class="example-container mat-elevation-z1">
             <table mat-table [dataSource]="dataSource" >
                 <ng-container matColumnDef="sno">
                     <th mat-header-cell *matHeaderCellDef>S.No.</th>
@@ -114,14 +113,10 @@
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="8" style="text-align: center;">No data found</td>
                 </tr>
-
             </table>
-        </div>
-            <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
             <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-
+        </div>
         </div>
 
-    </div>
-</mat-card>
+   </mat-card>
 </div>

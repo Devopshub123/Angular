@@ -43,10 +43,7 @@ mat-card {
   padding-left: 0px;
   padding-right: 0px;
 }
-.tableP{
-  padding: 1%;
- 
-}
+
 .section {
   padding-top: 1%;
   padding-left: 1%;
@@ -107,3 +104,15 @@ mat-card {
   background-color: rgb(255 255 255 / 5%) !important;
 }
 
+.example-container {
+  overflow-x: auto;
+}
+.dev-Pad{
+  padding-top: 1%;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.table-pad{
+  padding-left: 15px;
+  padding-right: 15px;
+}

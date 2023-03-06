@@ -51,21 +51,19 @@
 
                 <div>
                   <div fxLayout="row">
-                    <mat-form-field fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex="100" floatLabel="never" class="mx-2 my-2" appearance="outline">
                       <mat-label>Password</mat-label>
                       <input matInput id="password-field" [type]="hide ? 'password' : 'text'" formControlName="password"
                         class="form-control" name="password" placeholder="Enter your password" maxlength="30"
                         />
-                      <mat-icon matSuffix (click)="hide = !hide">{{
-                        hide ? "visibility_off" : "visibility"
-                        }}</mat-icon>
+                      <mat-icon matSuffix (click)="hide = !hide">{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
                       <mat-error class="con-error" *ngIf="formGroup.controls.password.errors?.required">
                         This field is required.
                       </mat-error>
                     </mat-form-field>
 
                   </div>
-                  <div fxLayout="row" fxLayout.sm="column" fxLayoutAlign="space-between center">
+                  <div fxLayout="row" fxLayout.sm="column" fxLayoutAlign="space-between center" style="padding-left: 8px;padding-left: 8px">
                     <div fxLayout="row" fxFlex="50">
                      <mat-checkbox formControlName="rememberme">
                        Remember Me

@@ -20,59 +20,61 @@
     padding-left: 0px;
     padding-right: 0px;
   }
-  .tableP{
-    padding:1%;
-  }
-  .tablePadding{
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-top: 2%;
-  }
-
-  .mat-column-sno {
-    max-width: 70px;
-    min-width: 60px;
-  }
-  .mat-column-appliedOn {
-    max-width: 100px;
-    min-width: 90px;
-  }
-  .mat-column-empId {
-    max-width: 100px;
-    min-width: 90px;
-  }
-  .mat-column-empName {
-    max-width: 150px;
-    min-width: 130px;
-  }
-  .mat-column-leaveType {
-    max-width: 120px;
-    min-width: 100px;
-  }
-  .mat-column-fromDate {
-    max-width: 100px;
-    min-width: 90px;
-  }
-  .mat-column-toDate {
-    max-width: 100px;
-    min-width: 90px;
-  }
-  .mat-column-noOfDays {
-    max-width: 100px;
-    min-width: 90px;
-  }
-  .mat-column-pendingSince {
-    max-width: 110px;
-    min-width: 90px;
-  }
-  .mat-column-status {
-    max-width: 100px;
-    min-width: 90px;
-  }
-  .mat-column-action {
-    max-width: 70px;
-    min-width: 70px;
-  }
+  // .mat-column-sno {
+  //   max-width: 70px;
+  //   min-width: 60px;
+  // }
+  // .mat-column-appliedOn {
+  //   max-width: 100px;
+  //   min-width: 90px;
+  // }
+  // .mat-column-empId {
+  //   max-width: 100px;
+  //   min-width: 90px;
+  // }
+  // .mat-column-empName {
+  //   max-width: 150px;
+  //   min-width: 130px;
+  // }
+  // .mat-column-leaveType {
+  //   max-width: 120px;
+  //   min-width: 100px;
+  // }
+  // .mat-column-fromDate {
+  //   max-width: 100px;
+  //   min-width: 90px;
+  // }
+  // .mat-column-toDate {
+  //   max-width: 100px;
+  //   min-width: 90px;
+  // }
+  // .mat-column-noOfDays {
+  //   max-width: 80px;
+  //   min-width: 60px;
+  // }
+  // .mat-column-pendingSince {
+  //   max-width: 110px;
+  //   min-width: 90px;
+  // }
+  // .mat-column-status {
+  //   max-width: 100px;
+  //   min-width: 90px;
+  // }
+  // .mat-column-action {
+  //   max-width: 70px;
+  //   min-width: 70px;
+  // }
   th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
     padding-left: 10px !important;
+}
+.example-container {
+  overflow-x: auto;
+}
+
+.dev-Pad{
+  padding:1%
+}
+.table-pad{
+  padding-left: 15px;
+  padding-right: 15px;
 }
