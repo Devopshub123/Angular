@@ -83,6 +83,7 @@ export class AnnouncementsComponent implements OnInit {
   announcementlist:any=[];
   pageLoading = true;
   mindate: any;
+  istodate:boolean=true;
   minAnounceDate:any=new Date();
 
   issavedraft:boolean=true;
@@ -124,7 +125,7 @@ export class AnnouncementsComponent implements OnInit {
     });
 
     this.announcementForm.get('fromdate')?.valueChanges.subscribe((selectedValue:any) => {
-
+      this.istodate=false;
       this.minAnounceDate = selectedValue._d==undefined?this.minAnounceDate:selectedValue._d;
     })
   }
