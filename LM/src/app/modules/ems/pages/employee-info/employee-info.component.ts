@@ -635,6 +635,7 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.empStatus.setValue(this.employeeInformationData.status);
       this.personalInfoForm.controls.employmentType.setValue(this.employeeInformationData.employmenttype);
       this.personalInfoForm.controls.usertype.setValue(this.employeeInformationData.usertype);
+      this.personalInfoForm.controls.usertype.disable()
       this.personalInfoForm.controls.companylocation.setValue(this.employeeInformationData.worklocation);
       this.personalInfoForm.controls.designation.setValue(this.employeeInformationData.designation);
       this.personalInfoForm.controls.department.setValue(this.employeeInformationData.department);
