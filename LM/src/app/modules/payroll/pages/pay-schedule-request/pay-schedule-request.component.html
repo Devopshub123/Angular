@@ -16,7 +16,7 @@
                             <p>
                                 <mat-form-field appearance="outline" style="width: 100%;">
                                     <mat-label>Payment Frequency</mat-label>
-                                    <input formControlName="paymentFrequency" [readonly]="true"  matInput placeholder="" >
+                                    <input formControlName="paymentFrequency" [ngClass]="{'disable':true}"  [readonly]="true"  matInput placeholder="" >
                                     <!-- <mat-select formControlName="paymentFrequency" [disabled]="true">
                     
                                         <mat-option value="Monthly">Monthly</mat-option>
@@ -26,7 +26,7 @@
                             <p style="display: -webkit-box" fxLayout="row" fxLayoutAlign="space-evenly center">
                                 <mat-form-field appearance="outline" style="width: 100%;">
                                     <mat-label>Company Payroll Cycle</mat-label>
-                                    <input formControlName="companyPayrollCycle" [readonly]="true"  matInput placeholder="" >
+                                    <input color="warn"  [ngClass]="{'disable':true}" formControlName="companyPayrollCycle" [readonly]="true"  matInput placeholder="" >
                                     <!-- <mat-select formControlName="paymentFrequency" [disabled]="true">
                     
                                         <mat-option value="Monthly">Monthly</mat-option>
@@ -117,12 +117,12 @@
                          <p fxLayout="row" fxLayoutAlign="space-around center" >
                             <mat-form-field appearance="outline" >
                                 <mat-label>From Date</mat-label>
-                                <input formControlName="payrollFromDate" [readonly]="true"  matInput placeholder="" >
+                                <input formControlName="payrollFromDate" [ngClass]="{'disable':true}"  [readonly]="true"  matInput placeholder="" >
                             </mat-form-field>
                             <mat-form-field appearance="outline" >
                                 <mat-label>To Date</mat-label>
 
-                                    <input formControlName="payrollToDate" [readonly]="true" matInput placeholder="" >
+                                    <input formControlName="payrollToDate" [ngClass]="{'disable':true}"  [readonly]="true" matInput placeholder="" >
 
 
                             </mat-form-field>
@@ -133,12 +133,12 @@
                         <p fxLayout="row" fxLayoutAlign="space-around center"  *ngIf="payGroupRequestForm.controls.payroll_leavewindow.value">
                             <mat-form-field appearance="outline" >
                                 <mat-label>From Date</mat-label>
-                                <input formControlName="leaveWindowStartDate" [readonly]="true"  matInput placeholder="" >
+                                <input formControlName="leaveWindowStartDate" [ngClass]="{'disable':true}"  [readonly]="true"  matInput placeholder="" >
                             </mat-form-field>
                             <mat-form-field appearance="outline" >
                                 <mat-label>To Date</mat-label>
 
-                                    <input formControlName="leaveWindowEndDate" [readonly]="true" matInput placeholder="" >
+                                    <input formControlName="leaveWindowEndDate" [ngClass]="{'disable':true}"  [readonly]="true" matInput placeholder="" >
 
 
                             </mat-form-field>

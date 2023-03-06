@@ -10,18 +10,18 @@
             <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Deduction Cycle</mat-label>
-                    <input formControlName="deductionCycle" [readonly]="true"  matInput placeholder="" >
+                    <input formControlName="deductionCycle" [ngClass]="{'disable':true}" [readonly]="true"  matInput placeholder="" >
                     <mat-error class="con-error" *ngIf="  esiRequestForm.controls.deductionCycle.errors?.required">
                         Please select an option.
                     </mat-error>                                     
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Employee Contribution</mat-label>
-                    <input type="text" matInput class="form-control" formControlName="employeeContribution" placeholder="" readonly>                                
+                    <input type="text" matInput class="form-control" [ngClass]="{'disable':true}" formControlName="employeeContribution" placeholder="" readonly>                                
                 </mat-form-field>
                 <mat-form-field appearance="outline" fxFlex>
                     <mat-label>Employer's Contribution</mat-label>
-                    <input type="text" matInput class="form-control" formControlName="employersContribution" placeholder="" readonly>                                
+                    <input type="text" matInput class="form-control" [ngClass]="{'disable':true}" formControlName="employersContribution" placeholder="" readonly>                                
                 </mat-form-field>
 
             </div>  
@@ -83,7 +83,7 @@
                 <form [formGroup]="companyEsiRequestForm" autocomplete="off">
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign.xs="center">
                               
-                                    <mat-form-field appearance="outline" fxFlex="30">
+                                    <mat-form-field appearance="outline" fxFlex="30" *ngIf="!isedit">
                                             <mat-label>State</mat-label>
                                            <mat-select  formControlName="state" required>
                                             <ng-container>
@@ -96,11 +96,16 @@
                                                 Please select an option.
                                             </mat-error>                                     
                                         </mat-form-field>
+                                        <mat-form-field appearance="outline" fxFlex="30" *ngIf="isedit">
+                                            <input  formControlName="statesdata" [ngClass]="{'disable':true}"  matInput [readonly]="true" required >
+
+
+                                        </mat-form-field>
                  
         
                                           <mat-form-field appearance="outline" fxFlex="30">
                                             <mat-label>ESI Number</mat-label>
-                                            <input  formControlName="esiNumber"   matInput placeholder="XX-XX-XXXXXX-XXX-XXXX" required >
+                                            <input  formControlName="esiNumber"   matInput mask="00-00-000000-000-0000"  required >
                                             <mat-error class="con-error" *ngIf=" companyEsiRequestForm.controls.esiNumber.errors?.required">
                                                {{PR1}}
                                             </mat-error>     

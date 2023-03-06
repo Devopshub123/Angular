@@ -48,7 +48,8 @@ export class EsiComponent implements OnInit {
       this.companyEsiRequestForm = this.formBuilder.group(
         {
           esiNumber: ["",[Validators.required, Validators.pattern(regex)]],
-          state:[""]
+          state:[""],
+          statesdata:[""]
         });
   }
   cancel() { 
@@ -209,9 +210,11 @@ editdata(){
     })
   }
   edit(data:any){
+    console.log(data)
     this.isedit=true
     this.companyEsiRequestForm.controls.esiNumber.setValue(data.value),
-    this.companyEsiRequestForm.controls.state.setValue(data.state_id)
+    this.companyEsiRequestForm.controls.state.setValue(data.state_id),
+    this.companyEsiRequestForm.controls.statesdata.setValue(data.state)
   }
 
 }

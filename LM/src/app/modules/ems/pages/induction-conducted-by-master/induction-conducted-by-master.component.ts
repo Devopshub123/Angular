@@ -85,6 +85,8 @@ export class InductionConductedByMasterComponent implements OnInit {
 
 
   edit(event: any, data: any) {
+    this.selectedEmployees=[]
+    console.log("data",this.selectedEmployees)
     this.flag = false;
     this.conductId = data.id;
     for(let i=0;i<data.empids.length;i++){

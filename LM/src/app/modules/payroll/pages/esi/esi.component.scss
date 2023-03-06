@@ -159,3 +159,10 @@ mat-card {
 ::ng-deeptr.mat-header-row {
   height: 45px !important;
 }
+
+.disable:hover{
+  cursor: not-allowed;
+  }
+  .disable:active{
+  pointer-events: none;
+  }
