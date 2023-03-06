@@ -52,7 +52,7 @@
 
                     <mat-form-field fxFlex.xs="100%" fxFlex="30" class="mx-2 my-2" appearance="outline">
                         <mat-label>Publish To</mat-label>
-                        <input required matInput readonly [matDatepicker]="todate" [disabled]="isviewdata"
+                        <input required matInput readonly [matDatepicker]="todate" [disabled]="isviewdata||istodate"
                             [min]="minAnounceDate" placeholder="DD-MM-YYYY" formControlName="todate"
                             (click)="todate.open()" />
                         <mat-datepicker-toggle class="datepicker" matSuffix [for]="todate">
