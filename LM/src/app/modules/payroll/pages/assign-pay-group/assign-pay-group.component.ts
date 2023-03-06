@@ -163,7 +163,7 @@ data(element:any){
 
   cancel(){  
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/Payroll/FinanceDashboard"]));    
+      this.router.navigate(["/Payroll/AssignPayGroup"]));    
   }
   /**assign paygroup for employee */
   

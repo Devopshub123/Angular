@@ -15,11 +15,6 @@ button.link {
     padding-left: 0px;
     padding-right: 0px;
   }
-  .tableP{
-    padding-left: 1%;
-    padding-right: 1%;
-    padding-bottom: 1%;
-  }
 
   ::ng-deep {
     .mat-select-panel[aria-label="Items per page:"] {
@@ -51,13 +46,19 @@ button.link {
     color: #ffffff;
     margin-bottom: 0px;
   }
-  ::ng-deep.mat-card-header-text {
-    margin: 0 6px !important;
-  }
   ::ng-deeptr.mat-header-row {
     height: 45px !important;
   }
   ::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
     margin: 0.2em 0 !important;
-
+  }
+  .example-container {
+    overflow-x: auto;
+  }
+  .dev-Pad{
+    padding:1%
+  }
+  .table-pad{
+    padding-left: 15px;
+    padding-right: 15px;
   }
