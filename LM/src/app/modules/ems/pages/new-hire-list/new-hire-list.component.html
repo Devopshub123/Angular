@@ -11,9 +11,9 @@
 
     <div fxLayout="column" *ngIf="isNewhire" class="main-Pad">
       <form [formGroup]="hireForm" autocomplete="off">
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+        <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center">
 
-          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+          <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
             <mat-label>First Name</mat-label>
             <input formControlName="firstname" class="m_title" matInput placeholder="" required
               (keypress)="alphabetKeyPress($event)" maxlength="100">
@@ -23,13 +23,13 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+          <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
             <mat-label>Middle Name</mat-label>
             <input formControlName="middlename" matInput placeholder="" (keypress)="alphabetKeyPress($event)"
               maxlength="100">
           </mat-form-field>
 
-          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+          <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
             <mat-label>Last Name</mat-label>
             <input formControlName="lastname" required matInput placeholder="" (keypress)="alphabetKeyPress($event)"
               maxlength="100">
@@ -41,15 +41,15 @@
           </mat-form-field>
         </div>
 
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center">
+          <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
             <mat-label>Personal Email</mat-label>
-            <input formControlName="email" matInput placeholder="" maxlength="50">
+            <input formControlName="email" matInput placeholder="" maxlength>
             <mat-error class="con-error" *ngIf="hireForm.controls.email.errors?.email">
               Please enter valid data
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+          <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
             <mat-label>Hired On</mat-label>
             <input matInput readonly required [matDatepicker]="hiredon" [min]="minDate" [max]="maxDate"
               placeholder="DD-MM-YYYY" formControlName="hiredon" (click)="hiredon.open()">
@@ -60,7 +60,7 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+          <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
             <mat-label>Joining Date</mat-label>
             <input matInput readonly required [matDatepicker]="dateofjoin" [min]="minHireDate" [max]="joinDate"
               placeholder="DD-MM-YYYY" formControlName="dateofjoin" (click)="dateofjoin.open()">
@@ -74,9 +74,9 @@
 
         </div>
 
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center">
 
-          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+          <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
             <mat-label>Designation</mat-label>
             <mat-select formControlName="designation" required>
               <ng-container>
@@ -90,7 +90,7 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+          <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
             <mat-label>Mobile Number</mat-label>
             <input formControlName="mobile" maxlength="10" (keypress)=_keyPress($event) required matInput
               placeholder="">
@@ -102,7 +102,7 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+          <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
             <mat-label>Emergency Contact Number</mat-label>
             <input formControlName="alternatenumber" matInput placeholder="" required maxlength="10"
               (keypress)=_keyPress($event)>
