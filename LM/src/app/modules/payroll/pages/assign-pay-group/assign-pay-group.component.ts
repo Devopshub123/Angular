@@ -54,6 +54,7 @@ export class AssignPayGroupComponent implements OnInit {
   paygroupid:any;
   messagesList:any=[];
   ComponentWiseValuesForPayGroupAssignment:any=[];
+  esi_applicable :any =0;
   arr:any=[];
   arrdata:any=[];
   PR1:any;
@@ -124,18 +125,34 @@ data(element:any){
     CTC:this.Assignpaygroupform.controls.CTC.value,
     paygroupid:element.id
   }
+  this.esi_applicable = 0;
   this.PR.getComponentWiseValuesForPayGroupAssignment(data).subscribe((result:any)=>{
+    console.log("testdata",result.data)
     if(result.status && result.data.length>0){
       for(let i=0;i<result.data.length;i++){
         if(result.data[i].component_type == "Earnings"){
           this.ComponentWiseValuesForPayGroupAssignment.push(result.data[i])
         }
+        else if(result.data[i].component_name == "ESIC" && result.data[i].component_short_name=='esi' ){
+          this.esi_applicable = 1;
+        }
       }
-      let dialogRef = this.dialog.open(AssignPaygroupPopupComponent, {
-    width: '600px',position:{top:`70px`},
-    disableClose: true,
-    data:result.data      
-  });
+      if(result.data[0].component_short_name=='esi_error'){
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data: result.data[0].component_name
+        });
+
+      }
+      else{
+        let dialogRef = this.dialog.open(AssignPaygroupPopupComponent, {
+          width: '600px',position:{top:`70px`},
+          disableClose: true,
+          data:result.data      
+        });
+      }
+     
 
     }
     
@@ -160,7 +177,8 @@ data(element:any){
       empid:this.Assignpaygroupform.controls.empName.value,
       CTC:this.Assignpaygroupform.controls.CTC.value,
       paygroupid:this.paygroupid,
-      data:componentsdata
+      data:componentsdata,
+      esi_applicable :this.esi_applicable 
     }
     this.PR.assignPayGroup(data).subscribe((result:any)=>{
       if(result.status){ 
