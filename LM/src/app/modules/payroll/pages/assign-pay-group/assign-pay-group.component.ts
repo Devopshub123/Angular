@@ -63,7 +63,7 @@ export class AssignPayGroupComponent implements OnInit {
   PR32:any;
   PR35:any;
   PR36:any;
-
+  PR43:any;
   constructor(private router:Router,private formBuilder: FormBuilder,private PR:PayrollService,private dialog: MatDialog) { 
     this.getEmployeesForAssignPaygroup();
   }
@@ -83,6 +83,8 @@ export class AssignPayGroupComponent implements OnInit {
   getPayGroupsForCtc(){
     if(this.Assignpaygroupform.controls.CTC.valid){
       this.PR.getPayGroupsForCtc(this.Assignpaygroupform.controls.CTC.value).subscribe((result:any)=>{
+       this.dataSource=new MatTableDataSource;
+       this.paygroupid='';
         if(result.status && result.data.length>0){
         this.dataSource = result.data
         this.hide=true;
@@ -127,7 +129,7 @@ data(element:any){
   }
   this.esi_applicable = 0;
   this.PR.getComponentWiseValuesForPayGroupAssignment(data).subscribe((result:any)=>{
-    console.log("testdata",result.data)
+  
     if(result.status && result.data.length>0){
       for(let i=0;i<result.data.length;i++){
         if(result.data[i].component_type == "Earnings"){
@@ -138,11 +140,13 @@ data(element:any){
         }
       }
       if(result.data[0].component_short_name=='esi_error'){
+
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
           data: result.data[0].component_name
         });
+        this.getPayGroupsForCtc()
 
       }
       else{
@@ -168,8 +172,10 @@ data(element:any){
   /**assign paygroup for employee */
   
   assignPayGroup(){
-    
-    const componentsdata:any = {};
+    console.log("assignPaygroup",this.paygroupid)
+    if(this.paygroupid !=''){
+      console.log(this.paygroupid)
+      const componentsdata:any = {};
     for(let i=0;i<this.ComponentWiseValuesForPayGroupAssignment.length;i++){
       componentsdata[this.ComponentWiseValuesForPayGroupAssignment[i].component_short_name] = this.ComponentWiseValuesForPayGroupAssignment[i].amount_value;
     }
@@ -206,6 +212,17 @@ data(element:any){
 
       }
     })
+
+    }
+    else{
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data: this.PR43
+      });
+
+    }
+    
   }
   getComponentWiseValuesForPayGroupAssignment(datas:any){
   let data ={
@@ -256,6 +273,9 @@ data(element:any){
           }
           else if (e.code == "PR36") {
             this.PR36 =e.message
+          }
+          else if (e.code == "PR43") {
+            this.PR43 =e.message
           }
         })
       }
