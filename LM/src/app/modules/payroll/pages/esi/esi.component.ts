@@ -93,7 +93,7 @@ export class EsiComponent implements OnInit {
   }
   /**setEsiForState */
   setEsiForState(){
-    // if(this.companyEsiRequestForm.valid){
+    if(this.companyEsiRequestForm.valid){
       let data ={
         esi_number:this.companyEsiRequestForm.controls.esiNumber.value,
         state_id:this.companyEsiRequestForm.controls.state.value
@@ -118,7 +118,7 @@ export class EsiComponent implements OnInit {
         
       });
 
-    // }
+    }
    
 
   }

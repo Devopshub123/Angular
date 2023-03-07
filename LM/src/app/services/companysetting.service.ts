@@ -23,11 +23,12 @@ import { environment } from 'src/environments/environment';
       return this.hClient.post(this.mainBeUrl + 'api/validatePrefix', JSON.stringify(info), this.httpOptions);
     }
     setWorkLocation(info:any): Observable<any> {
-      info.companyName =this.companyName;
+      info.companyName = this.companyName;
       return this.hClient.post(this.mainBeUrl + 'api/setWorkLocation', JSON.stringify(info), this.httpOptions);
     }
     getWorkLocation(info:any): Observable<any>{
-      info.companyName =this.companyName;
+      info.companyName = this.companyName;
+      console.log("cn--",info)
       return this.hClient.post(this.mainBeUrl + 'api/getWorkLocation',JSON.stringify(info), this.httpOptions);
     }
     getactiveWorkLocation(info:any): Observable<any>{
