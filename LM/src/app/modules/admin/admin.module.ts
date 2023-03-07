@@ -30,6 +30,8 @@ import { ClientAdminInvoiceHistoryComponent } from './subscription/client-admin-
 import { ClientAdminSubscriptionComponent } from './subscription/client-admin-subscription/client-admin-subscription.component';
 import { ProductAdminClientsComponent } from './subscription/product-admin-clients/product-admin-clients.component';
 import { SubscriptionMasterComponent } from './subscription/subscription-master/subscription-master.component';
+import { ManageUsersComponent } from './subscription/dialog/manage-users/manage-users.component';
+import { InvoiceDataComponent } from './subscription/dialog/invoice-data/invoice-data.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { SubscriptionMasterComponent } from './subscription/subscription-master/
     ClientAdminSubscriptionComponent,
     ProductAdminClientsComponent,
     SubscriptionMasterComponent,
+    ManageUsersComponent,
+    InvoiceDataComponent,
   ],
   imports: [
     CommonModule,
