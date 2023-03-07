@@ -42,7 +42,7 @@ import { InvestmentRejectComponent } from './pages/investment-reject/investment-
 import { MonthlyPayrollComponent } from './pages/monthly-payroll/monthly-payroll.component';
 import { CopyContentService } from './copy-content.service';
 import { ConfirmationDialogueComponent } from './pages/confirmation-dialogue/confirmation-dialogue.component';
-
+import { NgxMaskModule,IConfig } from 'ngx-mask'
  FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
   interactionPlugin
@@ -90,7 +90,11 @@ import { ConfirmationDialogueComponent } from './pages/confirmation-dialogue/con
     FullCalendarModule,
     FlexLayoutModule,    
     NgChartsModule,
-    ChartModule
+    ChartModule,
+    NgxMaskModule.forRoot({
+      // showMaskTyped : true,
+      // clearIfNotMatch : true
+    }),
   ],
   providers:[DatePipe,
     CopyContentService]

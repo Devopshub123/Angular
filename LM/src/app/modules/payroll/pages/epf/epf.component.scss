@@ -150,3 +150,10 @@ mat-card {
   padding-right: 10px !important;
   background-color: white;
 }
+
+.disable:hover{
+  cursor: not-allowed;
+  }
+  .disable:active{
+  pointer-events: none;
+  }

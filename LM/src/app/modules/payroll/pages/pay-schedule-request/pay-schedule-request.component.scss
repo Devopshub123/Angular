@@ -168,3 +168,9 @@ mat-card {
 .first-col{
   padding-right: 15px;
 }
+.disable:hover{
+  cursor: not-allowed;
+  }
+  .disable:active{
+  pointer-events: none;
+  }
