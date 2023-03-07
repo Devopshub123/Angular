@@ -64,6 +64,7 @@ export class AssignPayGroupComponent implements OnInit {
   PR35:any;
   PR36:any;
   PR43:any;
+  PR44:any;
   constructor(private router:Router,private formBuilder: FormBuilder,private PR:PayrollService,private dialog: MatDialog) { 
     this.getEmployeesForAssignPaygroup();
   }
@@ -93,7 +94,7 @@ export class AssignPayGroupComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: "Pay Group not availabe in this range.Please add paygroup."
+            data:this.PR44
           });
 
         }
@@ -276,6 +277,9 @@ data(element:any){
           }
           else if (e.code == "PR43") {
             this.PR43 =e.message
+          }
+          else if (e.code == "PR44") {
+            this.PR44 =e.message
           }
         })
       }

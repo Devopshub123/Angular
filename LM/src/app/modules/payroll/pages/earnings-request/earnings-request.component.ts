@@ -36,6 +36,7 @@ export class EarningsRequestComponent implements OnInit {
   PR5:any;
   PR9:any;
   PR10:any;
+  PR45:any;
   popupflag:boolean=true;
   arrayValue:any=[{Value:0,name:'Flat Amount'},{Value:1,name:'Percentage'}];
   arrayPayValue:any=[{Value:0,name:'Active'},{Value:1,name:'Inactive'}];
@@ -120,9 +121,7 @@ export class EarningsRequestComponent implements OnInit {
           data: { message:'Configuration of a component as a flat amount results in the generation of unassigned amounts for different CTC values. To handle this amount, Other Allowance component will be added to this pay group.', YES: 'YES', NO: 'NO' },
         });
         dialogRef.afterClosed().subscribe((result:boolean) => {
-          console.log("HI")
           if (result) {
-            console.log("HI inside")
             // this.isShowCalculatedAmount = "basicPercentage"
             this.isShowCalculatedAmount = "Flat Amount";
   
@@ -202,7 +201,6 @@ export class EarningsRequestComponent implements OnInit {
     this.dataofvalues=[];  
     this.PR.getPayGroupComponentValues(id).subscribe((result:any)=>{
       if(result.status){
-        console.log("dataofvalues", result.data[0][0])
         this.dataofvalues = result.data[0][0];
         this.earningsRequestForm.controls.payGroup.setValue(this.dataofvalues.group_name);
         this.earningsRequestForm.controls.componentType.setValue(this.dataofvalues.component_name);
@@ -313,7 +311,7 @@ export class EarningsRequestComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data: 'Please enter a valid value that satisfies the condition given in the information pane.'
+          data: this.PR45
         });
 
       }
@@ -348,6 +346,9 @@ export class EarningsRequestComponent implements OnInit {
           }
           else if (e.code == "PR1") {
             this.PR1 =e.message
+          }
+          else if (e.code == "PR45") {
+            this.PR45 =e.message
           }
         })
 

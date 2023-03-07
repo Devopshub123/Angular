@@ -32,6 +32,7 @@ export class MonthlyPayrollComponent implements OnInit {
   messagesList:any=[];
   PR27:any;
   PR28:any;
+  PR46:any;
   
   // @ViewChild(MatPaginator) paginator: MatPaginator;
   // displayedColumns: string[] = ['select','position','empid',  'name', 'designation', 'worklocation'];
@@ -110,7 +111,6 @@ export class MonthlyPayrollComponent implements OnInit {
 caluculateMonthlySalary(){
   this.arrdata = []
  this.selection.selected.forEach((s:any) => this.arrdata.push(s.id));
- console.log("ghhgdshf",this.arrdata)
  if(this.arrdata.length>0){
   if(this.monthlyPayrollForm.valid){
     for(let i=0;i<this.monthyear.length;i++){
@@ -153,7 +153,7 @@ caluculateMonthlySalary(){
   let dialogRef = this.dialog.open(ReusableDialogComponent, {
     position:{top:`70px`},
     disableClose: true,
-    data:'Please select atleast one employee'
+    data:this.PR46
   });
  }
   
@@ -180,6 +180,9 @@ getMessagesList() {
           this.PR27 = e.message
         } else if (e.code == "PR28") {
           this.PR28 =e.message
+        }
+        else if (e.code == "PR46") {
+          this.PR46 =e.message
         }
       })
 
