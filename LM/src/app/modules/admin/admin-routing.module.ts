@@ -29,6 +29,12 @@ import { SettingsOnBoardingComponent } from '../ems/pages/settings-on-boarding/s
 import { SettingsOffBoardingComponent } from '../ems/pages/settings-off-boarding/settings-off-boarding.component';
 import { InductionConductedByMasterComponent } from '../ems/pages/induction-conducted-by-master/induction-conducted-by-master.component';
 import { PayrollMessagesComponent } from './pages/payroll-messages/payroll-messages.component';
+import { ProductAdminInvoiceHistoryComponent } from './subscription/product-admin-invoice-history/product-admin-invoice-history.component';
+import { ClientAdminInvoiceHistoryComponent } from './subscription/client-admin-invoice-history/client-admin-invoice-history.component';
+import { ClientAdminSubscriptionComponent } from './subscription/client-admin-subscription/client-admin-subscription.component';
+import { ProductAdminClientsComponent } from './subscription/product-admin-clients/product-admin-clients.component';
+import { SubscriptionMasterComponent } from './subscription/subscription-master/subscription-master.component';
+
 const routes: Routes = [
   {
     path: '', component: MainComponent,
@@ -60,7 +66,12 @@ const routes: Routes = [
       { path: 'settings-onBoarding', component: SettingsOnBoardingComponent, canActivate: [LMSAccessGuard] },
       { path: 'settings-offBoarding', component: SettingsOffBoardingComponent, canActivate: [LMSAccessGuard] },
       { path: 'Induction-ConductedBy', component: InductionConductedByMasterComponent, canActivate: [LMSAccessGuard] },
-      { path: 'Payroll_Messages',component:PayrollMessagesComponent,canActivate:[LMSAccessGuard]}
+      { path: 'Payroll_Messages',component:PayrollMessagesComponent,canActivate:[LMSAccessGuard]},
+      { path: 'product-admin-invoicehistory', component: ProductAdminInvoiceHistoryComponent, canActivate: [LMSAccessGuard] },
+      { path: 'admin-invoice', component: ClientAdminInvoiceHistoryComponent, canActivate: [LMSAccessGuard] },
+      { path: 'admin-subscriptions', component: ClientAdminSubscriptionComponent, canActivate: [LMSAccessGuard] },
+      { path: 'product-admin-clients', component: ProductAdminClientsComponent, canActivate: [LMSAccessGuard] },
+      { path: 'subscription-master',component:SubscriptionMasterComponent,canActivate:[LMSAccessGuard]},
 
 
     ]
