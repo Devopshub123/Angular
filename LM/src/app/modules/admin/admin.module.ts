@@ -25,6 +25,12 @@ import { TerminationCategoryComponent } from './pages/termination-category/termi
 import { ReasonMasterComponent } from './pages/reason-master/reason-master.component';
 import { ReimbursementMasterComponent } from './pages/reimbursement-master/reimbursement-master.component';
 import { PayrollMessagesComponent } from './pages/payroll-messages/payroll-messages.component';
+import { ProductAdminInvoiceHistoryComponent } from './subscription/product-admin-invoice-history/product-admin-invoice-history.component';
+import { ClientAdminInvoiceHistoryComponent } from './subscription/client-admin-invoice-history/client-admin-invoice-history.component';
+import { ClientAdminSubscriptionComponent } from './subscription/client-admin-subscription/client-admin-subscription.component';
+import { ProductAdminClientsComponent } from './subscription/product-admin-clients/product-admin-clients.component';
+import { SubscriptionMasterComponent } from './subscription/subscription-master/subscription-master.component';
+
 @NgModule({
   declarations: [
 
@@ -42,7 +48,12 @@ import { PayrollMessagesComponent } from './pages/payroll-messages/payroll-messa
     TerminationCategoryComponent,
     ReasonMasterComponent,
     ReimbursementMasterComponent,
-    PayrollMessagesComponent
+    PayrollMessagesComponent,
+    ProductAdminInvoiceHistoryComponent,
+    ClientAdminInvoiceHistoryComponent,
+    ClientAdminSubscriptionComponent,
+    ProductAdminClientsComponent,
+    SubscriptionMasterComponent,
   ],
   imports: [
     CommonModule,
