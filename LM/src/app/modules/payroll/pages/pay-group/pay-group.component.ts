@@ -30,6 +30,9 @@ export class PayGroupComponent implements OnInit {
   deductionData:any=[];
   isDeductions:boolean = true;
   expandedElement:any;
+  messagesList:any;
+  PR47:any;
+  PR48:any;
   arrayValue:any=[];
   pageLoading = true;
   get earningsFormArray() {
@@ -51,6 +54,7 @@ export class PayGroupComponent implements OnInit {
   
   ngOnInit(): void {
     this.getpayrollincomegroups();
+    this.getMessagesList();
     this.payGroupRequestForm = this.formBuilder.group(
       {
         payNameGroup: ["", Validators.required],
@@ -158,13 +162,13 @@ export class PayGroupComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Set Income group updated sccessfully'
+            data: this.PR47
           });         
         }else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Unable to update Set Income group.'
+            data: this.PR48
           });  
         }
       })      
@@ -205,5 +209,29 @@ export class PayGroupComponent implements OnInit {
   navigate(data:any){
     console.log("data",data)
     this.router.navigate(['/Payroll/Earnings'],{state:{data:data}});
+  }
+
+  getMessagesList() {
+    let data =
+      {
+        "code": null,
+        "pagenumber":1,
+        "pagesize":1000
+      }
+    this.PR.getErrorMessages(null,1,1000).subscribe((res:any)=>{
+      if(res.status && res.data && res.data.length >0) {
+        this.messagesList = res.data;
+        this.messagesList.forEach((e: any) => {
+          if (e.code == "PR47") {
+            this.PR47 = e.message
+          } else if (e.code == "PR48") {
+            this.PR48 =e.message
+          }
+        
+        })
+  
+      }
+  
+    })
   }
 }

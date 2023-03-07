@@ -113,18 +113,20 @@ export class ShiftMasterComponent implements OnInit {
     this.getAllShifts();
     this.shiftForm.get('startTime')?.valueChanges.subscribe((selectedValue) => {
       this.mintime = selectedValue;
-      this.shiftForm.controls.endTime.enable();
       // this.starttimeflag=true;
       this.starttime = this.pipe.transform(
         selectedValue,
         'dd/MM/yyyy, HH:mm:ss'
       );
+      this.shiftForm.controls.endTime.enable();
+      console.log("this.starttime",this.starttime)
     });
     // this.shiftForm.get('endTime')?.valueChanges.subscribe((selectedValue) => {
     //   this.endtime = this.pipe.transform(selectedValue, 'dd/MM/yyyy, HH:mm:ss');
     //   this.getDifference(this.starttime, this.endtime);
     // });
     this.shiftForm.get('endTime')?.valueChanges.subscribe((selectedValue) => {
+      if(selectedValue!=''){
       if (this.mintime == selectedValue) {
         selectedValue = '';
         this.shiftForm.get('endTime')?.setValue('');
@@ -155,6 +157,7 @@ export class ShiftMasterComponent implements OnInit {
         );
         this.getDifference(this.starttime, this.endtime);
       }
+    }
     });
   }
   ngAfterViewInit() {}
@@ -164,11 +167,15 @@ export class ShiftMasterComponent implements OnInit {
       return isWhitespace ? { whitespace: true } : null;
     };
   }
-  getDifference(start: string, stop: string) {
+  getDifference(start: any, stop: any) {
     // getting startTime timestamp:
+    console.log("start",start);
+    console.log("end",stop);
     let startTimestamp = this.getTimestamp(start);
     // getting stopTime timestamp:
     let stopTimestamp = this.getTimestamp(stop);
+    console.log("starttime",startTimestamp);
+    console.log("endtime",stopTimestamp);
     // getting the difference in various formats:
     // hh:mm:ss
     let differenceInSecs = stopTimestamp - startTimestamp;
@@ -178,8 +185,10 @@ export class ShiftMasterComponent implements OnInit {
     this.shiftForm.controls.totalHours.setValue(inHhMmSsFormat);
   }
 
-  getTimestamp(time: string) {
+  getTimestamp(time: any) {
+    console.log("time",time)
     let timeFirst = time.split(', ')[0].split('/');
+    console.log("time",timeFirst)
     let timeY = timeFirst[2];
     let timeM = timeFirst[1];
     let timeD = timeFirst[0];

@@ -107,8 +107,7 @@ export class EmployeeDashboardComponent implements OnInit {
       }
       getEmployeeEpfDetails(){
         this.PR.getEmployeeEpfDetails(this.userSession.id).subscribe((result:any)=>{
-          console.log("rrr",result.data);
-          console.log("epfmonth",this.arrayValue[new Date().getMonth()])
+          this.EPFfulldetails=[];
           if(result.status){
             this.EPFfulldetails =result.data;
             for(let i=0;i<this.EPFfulldetails.length;i++){

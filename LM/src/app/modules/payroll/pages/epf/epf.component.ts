@@ -173,6 +173,7 @@ export class EpfComponent implements OnInit {
   /*getEmployeeEpfContributionOptions */
   getEmployeeEpfContributionOptions(){
     this.PR.getEmployeeEpfContributionOptions().subscribe((result:any)=>{
+      this.employeecontribution = []
       if(result.status && result.data[0].length>0){
         this.employeecontribution = result.data[0]
       }
@@ -184,6 +185,7 @@ export class EpfComponent implements OnInit {
   /*getEmployerEpfContributionOptions*/
   getEmployerEpfContributionOptions(){
     this.PR.getEmployerEpfContributionOptions().subscribe((result:any)=>{
+      this.employercontribution = []
       if(result.status && result.data[0].length>0){
         this.employercontribution = result.data[0]
       }

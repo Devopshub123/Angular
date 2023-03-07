@@ -35,7 +35,6 @@ export class PayScheduleRequestComponent implements OnInit {
     if(!this.payScheduleDetails.payScheduleData){
       this.router.navigate(["/Payroll/PaySchedule"])
     }
-    console.log("this.payScheduleDetails.payScheduleData",this.payScheduleDetails.payScheduleData)
     this.payGroupRequestForm = this.formBuilder.group(
       {
         paymentFrequency: ["Monthly"],

@@ -31,6 +31,8 @@ import { ClientAdminSubscriptionComponent } from './subscription/client-admin-su
 import { ProductAdminClientsComponent } from './subscription/product-admin-clients/product-admin-clients.component';
 import { SubscriptionMasterComponent } from './subscription/subscription-master/subscription-master.component';
 import { NumbersOnlyDirective } from './numbers-only.directive';
+import { ManageUsersComponent } from './subscription/dialog/manage-users/manage-users.component';
+import { InvoiceDataComponent } from './subscription/dialog/invoice-data/invoice-data.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { NumbersOnlyDirective } from './numbers-only.directive';
     ProductAdminClientsComponent,
     SubscriptionMasterComponent,
     NumbersOnlyDirective,
+    ManageUsersComponent,
+    InvoiceDataComponent,
   ],
   imports: [
     CommonModule,

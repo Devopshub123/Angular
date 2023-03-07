@@ -1,0 +1,27 @@
+
+<div>
+<div fxLayoutAlign="center" style="width: auto;"> 
+    <h3> Change the number of users</h3>
+</div>
+<div fxLayout="row wrap" fxLayout.xs="column">
+    <span style="width: 60%;" >
+        <p>Choose the number you'll need for month.</p>
+    <button class="plusminus" (click)="handleMinus()">-</button>
+    <input type="number" class="num" value="0" [(ngModel)]="value" />
+    <button class="plusminus" (click)="handlePlus()">+</button>
+    <p>28 in use,2 Available.</p>
+
+    </span>
+    <span style="width: 40%;">
+        <p>1800</p>
+        <p>per company/month(150)</p>
+
+    </span>
+    
+</div>
+<div mat-dialog-actions 
+fxLayout="row" fxLayoutAlign="center">
+<button class="btn btn-primary mr-2 mb-2"  [mat-dialog-close]="data.YES">Submit</button>
+<button class="btn btn-danger mr-2 mb-2"  [mat-dialog-close]="data.NO" cdkFocusInitial>Cancel</button>
+</div>
+</div>
