@@ -105,7 +105,7 @@ export class SettingsAddChecklistComponent implements OnInit {
         }
   
         this.emsService.setChecklistsMaster(data).subscribe((res: any) => {
-          if (res.status && res.data.length ==0) {
+           if (res.status && res.data.length ==0) {
               this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
               this.router.navigate(["/Admin/settings-checklist"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -279,7 +279,6 @@ export class SettingsAddChecklistComponent implements OnInit {
         description: this.checklistForm.controls.description.value,
         status: "Active",
       });
-      console.log("val--",this.addChecklistData)
       this.clearValidators();
       this.clearFields();
    }
