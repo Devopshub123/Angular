@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { InvoiceDataComponent } from '../dialog/invoice-data/invoice-data.component';
 export interface ProductAdminInvoiceHistoryElement {
   companyname: string;
   billingdate: string;  
@@ -33,7 +34,7 @@ export class ProductAdminInvoiceHistoryComponent implements OnInit {
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -45,5 +46,12 @@ export class ProductAdminInvoiceHistoryComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
 }
+view(){
+  let dialogRef = this.dialog.open(InvoiceDataComponent, {
+    width: '600px',position:{top:`70px`},
+    disableClose: true,
+         
+  });
 
+}
 }
