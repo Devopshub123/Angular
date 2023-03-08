@@ -1,1 +1,216 @@
-<p>client-admin-subscription works!</p>
+<div fxLayout="column" class="first-col">
+    <mat-card>
+        <mat-card-header class="headerbox" fxLayout="row">
+            <mat-card-title class="title">Subscription </mat-card-title>
+          </mat-card-header>
+
+        <form [formGroup]="subscriptionForm" autocomplete="off">
+            <div fxFlex="column">
+
+                <div class="dev-Pad">
+
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+
+                        <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                            <mat-label>Company Code</mat-label>
+                            <input formControlName="companyCode" matInput required readonly>
+                           </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Subscription ID</mat-label>
+                            <input formControlName="subscriptionId" matInput readonly>
+                         </mat-form-field>
+
+                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Your Plan</mat-label>
+                            <input formControlName="plan" matInput readonly>
+                         </mat-form-field>
+
+                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Users</mat-label>
+                            <input formControlName="takenUsers" matInput readonly>
+                         </mat-form-field>
+
+                    </div>
+
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Cost Per User/Month</mat-label>
+                            <input formControlName="monthlyCost" matInput readonly>
+                         </mat-form-field>
+
+                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Cost Per User/Year</mat-label>
+                            <input formControlName="yearlyCost" matInput readonly>
+                         </mat-form-field>
+
+                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Total Paid Amount</mat-label>
+                            <input formControlName="totalPaidAmt" matInput readonly>
+                         </mat-form-field>
+
+                    </div>
+
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+
+                        <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                            <mat-label>Next Renewal Date</mat-label>
+                            <input formControlName="nextRenewal" matInput readonly>
+                         </mat-form-field>
+
+                         <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
+                            <mat-label>Last Renewal Date</mat-label>
+                            <input formControlName="lastRenewal" matInput readonly>
+                         </mat-form-field>
+
+                    </div>
+
+                    <form [formGroup]="billingForm" autocomplete="off">
+                    <div class="section"><b>Billing Details</b></div>
+                        <mat-divider></mat-divider>
+                        <div class="section1"><b>Billing Contact</b></div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Name</mat-label>
+                                <input type="text" formControlName="contactPerson" (keypress)="alphabetKeyPress($event)" matInput 
+                                    maxlength="100" required />
+                                <mat-error class="reg-error" *ngIf="billingForm.controls.contactPerson.errors?.required ||
+                                billingForm.controls.contactPerson.errors?.['whitespace']">
+                                This fiels is required
+                                </mat-error>
+                            </mat-form-field>
+    
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Company Name</mat-label>
+                                <input type="text" formControlName="companyName" (keypress)="alphabetKeyPress($event)" matInput 
+                                    maxlength="100" required />
+                                <mat-error class="reg-error" *ngIf="billingForm.controls.companyName.errors?.required ||
+                                billingForm.controls.companyName.errors?.['whitespace']">
+                                This fiels is required
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Email</mat-label>
+                                <input type="text" formControlName="email" matInput required maxlength="50" />
+                                <mat-error class="reg-error"
+                            *ngIf="billingForm.controls.email.errors?.required">
+                            This fiels is required
+                            </mat-error>
+                            </mat-form-field>
+    
+                        </div>
+
+                        <div class="section1"><b>Billing Address</b></div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Address 1</mat-label>
+                                <input type="text" formControlName="address1" matInput maxlength="100" required />
+                                <mat-error class="reg-error" *ngIf="billingForm.controls.address1.errors?.required">
+                                This fiels is required
+                                </mat-error>
+                            </mat-form-field>
+    
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Address 2</mat-label>
+                                <input type="text" formControlName="address2" matInput  maxlength="100" required />
+                                <mat-error class="reg-error" *ngIf="billingForm.controls.address2.errors?.required">
+                                This fiels is required
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Country</mat-label>
+                                <mat-select required formControlName="country" required>
+                                    <ng-container>
+                                        <div *ngFor="let b of countryDetails">
+                                            <mat-option [value]="b.id">{{ b.country }}</mat-option>
+                                        </div>
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="reg-error" *ngIf="billingForm.controls.country.errors?.required">
+                                    This fiels is required
+                                    </mat-error>
+                            </mat-form-field>
+    
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>State</mat-label>
+                                <mat-select formControlName="state" required>
+                                    <ng-container>
+                                        <div *ngFor="let b of stateDetails">
+                                            <mat-option [value]="b.id">{{ b.state }}</mat-option>
+                                        </div>
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="reg-error" *ngIf="billingForm.controls.state.errors?.required">
+                                    This fiels is required
+                                    </mat-error>
+                            </mat-form-field>
+    
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>City</mat-label>
+                                <mat-select formControlName="city" required>
+                                    <ng-container>
+                                        <div *ngFor="let b of cityDetails">
+                                            <mat-option [value]="b.id">{{ b.location }}</mat-option>
+                                        </div>
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="reg-error" *ngIf="billingForm.controls.city.errors?.required">
+                                    This fiels is required
+                                    </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Pincode</mat-label>
+                                <input type="text" formControlName="pincode" matInput 
+                                    maxlength="6" minlength="6" required numbersOnly />
+                                    <mat-error class="reg-error" *ngIf="billingForm.controls.pincode.errors?.required">
+                                        This fiels is required
+                                        </mat-error>
+                                <mat-error class="reg-error"
+                                    *ngIf="billingForm.controls.pincode.errors?.minlength">
+                                    Pincode should be 6 digits
+                                </mat-error>
+                            </mat-form-field>
+    
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                <mat-label>GST Number</mat-label>
+                                <input type="text" formControlName="gstNumber" matInput  />
+                                    <!-- <mat-error class="reg-error" *ngIf="billingForm.controls.pincode.errors?.required">
+                                        This fiels is required
+                                        </mat-error>
+                                <mat-error class="reg-error"
+                                    *ngIf="billingForm.controls.pincode.errors?.minlength">
+                                    Pincode should be 6 digits
+                                </mat-error> -->
+                            </mat-form-field>
+    
+                        </div>
+
+
+                    <div fxLayoutAlign="center">
+                     <button class="btn btn-primary mr-2 mb-2"(click)="editsaved()">
+                            Save
+                        </button>
+                     </div>
+
+                    </form>
+                </div>
+            </div>
+        </form>
+    </mat-card>
+</div>

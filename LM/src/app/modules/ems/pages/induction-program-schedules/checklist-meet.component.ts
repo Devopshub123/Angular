@@ -122,7 +122,6 @@ export class ChecklistMeetComponent implements OnInit {
   employeeEmailData: any = [];
   programId: any;
   deptId: any;
-  toTimeEnable: boolean = true;
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private companyServices: CompanySettingService,private EMS:EmsService) {
 
   }
@@ -147,11 +146,12 @@ export class ChecklistMeetComponent implements OnInit {
         updatestatus:['Attended']
 
       });
-    // this.checklistForm.controls.date.setValue(new Date()  );
+    this.checklistForm.controls.endtime.disable();
     this.checklistForm.get('starttime') ?.valueChanges.subscribe((selectedValue) => {
         this.min = selectedValue;
       this.mintime = selectedValue;
-      this.toTimeEnable = false;
+      this.checklistForm.controls.endtime.setValue('');
+      this.checklistForm.controls.endtime.enable();
       });
     this.checklistForm.get('endtime')?.valueChanges.subscribe((selectedValue) => {
         if (this.mintime == selectedValue) {
