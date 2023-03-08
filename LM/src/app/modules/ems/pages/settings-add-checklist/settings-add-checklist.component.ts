@@ -276,7 +276,7 @@ export class SettingsAddChecklistComponent implements OnInit {
     this.addChecklistData.push({
         //id: this.checklistForm.controls.checklistId.value,
         name:null,
-        description: this.checklistForm.controls.description.value,
+        description: this.checklistForm.controls.description.value.replace(/\s{1,}/g, '').trim(),
         status: "Active",
       });
       this.clearValidators();

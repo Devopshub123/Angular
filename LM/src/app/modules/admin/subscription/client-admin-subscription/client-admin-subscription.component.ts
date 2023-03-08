@@ -12,6 +12,8 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 import { EmsService } from 'src/app/modules/ems/ems.service';
+import { ManageUsersComponent } from '../dialog/manage-users/manage-users.component';
+import { InvoiceDataComponent } from '../dialog/invoice-data/invoice-data.component';
 const moment =  _moment;
 
 export const MY_FORMATS = {
@@ -210,4 +212,19 @@ export class ClientAdminSubscriptionComponent implements OnInit {
       event.preventDefault();
     }
   }
+  invoice(){
+    let dialogRef = this.dialog.open(InvoiceDataComponent, {
+      width: '600px',position:{top:`70px`},
+      disableClose: true,
+           
+    });
+  }
+  manageusers(){
+    let dialogRef = this.dialog.open(ManageUsersComponent, {
+      width: '600px',position:{top:`70px`},
+      disableClose: true,
+           
+    });
+  }
+  pay(){}
 }

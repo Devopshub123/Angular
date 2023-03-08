@@ -3,7 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ManageUsersComponent } from '../dialog/manage-users/manage-users.component';
+import { InvoiceDataComponent } from '../dialog/invoice-data/invoice-data.component';
+
 export interface ProductAdminInvoiceHistoryElement {
   companyname: string;
   billingdate: string;  
@@ -48,7 +49,7 @@ sort!: MatSort;
     }
 }
 view(){
-  let dialogRef = this.dialog.open(ManageUsersComponent, {
+  let dialogRef = this.dialog.open(InvoiceDataComponent, {
     width: '600px',position:{top:`70px`},
     disableClose: true,
          

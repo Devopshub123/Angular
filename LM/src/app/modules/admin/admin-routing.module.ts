@@ -34,6 +34,7 @@ import { ClientAdminInvoiceHistoryComponent } from './subscription/client-admin-
 import { ClientAdminSubscriptionComponent } from './subscription/client-admin-subscription/client-admin-subscription.component';
 import { ProductAdminClientsComponent } from './subscription/product-admin-clients/product-admin-clients.component';
 import { SubscriptionMasterComponent } from './subscription/subscription-master/subscription-master.component';
+import { ClientUpgradePlanComponent } from './subscription/client-upgrade-plan/client-upgrade-plan.component';
 
 const routes: Routes = [
   {
@@ -72,7 +73,7 @@ const routes: Routes = [
       { path: 'admin-subscriptions', component: ClientAdminSubscriptionComponent, canActivate: [LMSAccessGuard] },
       { path: 'product-admin-clients', component: ProductAdminClientsComponent, canActivate: [LMSAccessGuard] },
       { path: 'subscription-master',component:SubscriptionMasterComponent,canActivate:[LMSAccessGuard]},
-
+      { path: 'upgrade-plan',component:ClientUpgradePlanComponent,canActivate:[LMSAccessGuard]},
 
     ]
   }

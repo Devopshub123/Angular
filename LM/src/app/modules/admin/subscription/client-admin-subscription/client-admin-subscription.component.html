@@ -1,7 +1,13 @@
 <div fxLayout="column" class="first-col">
     <mat-card>
-        <mat-card-header class="headerbox" fxLayout="row">
+        <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
             <mat-card-title class="title">Subscription </mat-card-title>
+            <div style="padding-right: 40px;" >
+            <img (click)="invoice()" matTooltip="Invoice" src="./assets/images/icons/invoice.png" style="width:40px ;height: 40px;">&nbsp;
+            <img (click)="manageusers()" matTooltip="Manage Users" src="./assets/images/icons/manage users.png" style="width:40px ;height: 40px;">&nbsp;
+            <img (click)="pay()"  matTooltip="Pay" src="./assets/images/icons/pay.png" style="width:40px ;height: 40px;">
+           </div>
+
           </mat-card-header>
 
         <form [formGroup]="subscriptionForm" autocomplete="off">
@@ -15,30 +21,27 @@
                             <mat-label>Company Code</mat-label>
                             <input formControlName="companyCode" matInput required readonly>
                            </mat-form-field>
-                    </div>
-
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
-                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                           <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Subscription ID</mat-label>
                             <input formControlName="subscriptionId" matInput readonly>
                          </mat-form-field>
-
                          <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Your Plan</mat-label>
                             <input formControlName="plan" matInput readonly>
                          </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+
+                        
+
+                         
 
                          <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Users</mat-label>
                             <input formControlName="takenUsers" matInput readonly>
                          </mat-form-field>
-
-                    </div>
-
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
-                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Cost Per User/Month</mat-label>
                             <input formControlName="monthlyCost" matInput readonly>
                          </mat-form-field>
@@ -48,16 +51,17 @@
                             <input formControlName="yearlyCost" matInput readonly>
                          </mat-form-field>
 
-                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                            <mat-label>Total Paid Amount</mat-label>
-                            <input formControlName="totalPaidAmt" matInput readonly>
-                         </mat-form-field>
-
                     </div>
 
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
 
-                        <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                        
+
+                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Total Paid Amount</mat-label>
+                            <input formControlName="totalPaidAmt" matInput readonly>
+                         </mat-form-field>
+                         <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                             <mat-label>Next Renewal Date</mat-label>
                             <input formControlName="nextRenewal" matInput readonly>
                          </mat-form-field>
@@ -68,6 +72,8 @@
                          </mat-form-field>
 
                     </div>
+
+                    
 
                     <form [formGroup]="billingForm" autocomplete="off">
                     <div class="section"><b>Billing Details</b></div>
