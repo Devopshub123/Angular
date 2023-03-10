@@ -99,7 +99,7 @@
     </form>
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="end" style="height: 70px;margin-top: 5px;">
-        <mat-form-field fxFlex.xs="100" fxFlex="28" class="mx-2 my-2" appearance="outline" style="padding-right: 16px;">
+        <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="30" class="mx-2 my-2" appearance="outline" style="padding-right: 16px;">
         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
         <mat-label>Search</mat-label>
         <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">

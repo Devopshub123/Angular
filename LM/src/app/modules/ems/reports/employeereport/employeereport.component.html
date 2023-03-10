@@ -5,26 +5,24 @@
              <mat-card-title class="title"> Employee Reports </mat-card-title>
             </mat-card-header>
         
-        <div *ngIf="ishide" style="padding-left: 2%;padding-top: 1%;padding-right: 2%;">
+        <div *ngIf="ishide" class="div-pad">
             
             <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center" style="height: 50px;">
-              <span  style="padding-top: 1%;">
+              <span  style="padding-top: 1%;" fxFlex="50">
                     <mat-icon class="styles" title='Select' (click)="popup()">blur_linear</mat-icon>
                     <mat-icon class="styles" title='Filter' (click)="filter()">filter_alt</mat-icon>
                     <mat-icon class="styles" title='Download' (click)='exportAsXLSX()'>download</mat-icon>
                     <!-- <mat-icon class="styles" >download</mat-icon> -->
                 </span>
-                <span *ngIf="allfilterdata.length>0" style="padding-top: 1%;">
-                    <mat-form-field fxFlex.xs="100%" appearance="outline">
+                <span *ngIf="allfilterdata.length>0" style="padding-top: 1%;" fxFlex="50" fxLayoutAlign="end">
+                    <mat-form-field fxFlex="50" fxFlex.xs="100%" appearance="outline">
                         <mat-label>Search</mat-label>
                         <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
                         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
                     </mat-form-field>
                      </span>
             </div>
-            <div class="example-container">
-              <div id="table" class="mat-elevation-z1">
-                
+              <div id="table" class="mat-elevation-z1 example-container">
                     <table mat-table [dataSource]="dataSource" matSort>
                         <ng-container matColumnDef="sno">
                             <th mat-header-cell *matHeaderCellDef > S.No </th>
@@ -163,9 +161,8 @@
                         </tr>
                     </table>
                
-            </div>
-        </div>
-              <!-- <div *ngIf="allfilterdata.length == 0" fxLayoutAlign="center">
+               </div>
+               <!-- <div *ngIf="allfilterdata.length == 0" fxLayoutAlign="center">
                 <p>No data found</p>
               </div> -->
                 

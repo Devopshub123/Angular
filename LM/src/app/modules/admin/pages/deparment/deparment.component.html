@@ -39,7 +39,7 @@
             <!-- <mat-divider></mat-divider> -->
             <div  *ngIf="isdata" class="div-pad">
                 <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;">
-                     <mat-form-field fxFlex="28" fxFlex.xs="100%" appearance="outline">
+                     <mat-form-field fxFlex="28" fxFlex.lt-lg="30" fxFlex.xs="100%" appearance="outline">
                          <mat-label>Search</mat-label>
                          <input matInput (keyup)="applyFilter($event)" placeholder="" >
                          <mat-icon matSuffix>search</mat-icon>

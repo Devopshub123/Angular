@@ -145,7 +145,8 @@ export class UsersLoginComponent implements OnInit {
         userid: this.usersloginForm.controls.userid.value,
         password: this.usersloginForm.controls.password.value,
         status: this.usersloginForm.controls.status.value,
-        companyname:this.companyName
+        companyname: this.companyName,
+        companyCode:this.companyDBName
       };
       this.ES.usersLogin(data).subscribe((res: any) => {
         if (res.status) {

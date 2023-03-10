@@ -46,6 +46,7 @@ export class InductionConductedByMasterComponent implements OnInit {
   EM5 : any; /**Record already existed. */
   EM7 : any; /**Updated successfully. */
   EM8 : any; /**Unable to updated,Please try again later. */
+  EM41 : any; /**Data saved successfully. */
   EM42 : any; /**Data saved successfully. */
   EM43  : any; /**Unable to save data. */
   EM65  : any; /**Induction status Updated sucessfully. */
@@ -155,7 +156,7 @@ export class InductionConductedByMasterComponent implements OnInit {
         //'companyName':this.companyDBName
       }
       this.EMS.setInductionConductedBy(data).subscribe((result: any) => {
-        if (result.status) {
+        if (result.status && result.data == 0) {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -163,7 +164,15 @@ export class InductionConductedByMasterComponent implements OnInit {
           });
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
           this.router.navigate(["Admin/Induction-ConductedBy"]));
-        } else {
+        } else if (result.status && result.data == 1) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data:this.EM41
+          });
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+          this.router.navigate(["Admin/Induction-ConductedBy"]));
+        }  else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
@@ -300,7 +309,9 @@ export class InductionConductedByMasterComponent implements OnInit {
           this.EM7 =e.message
         }else if (e.code == "EM8") {
           this.EM8 =e.message
-        }else if (e.code == "EM42") {
+        }else if (e.code == "EM41") {
+          this.EM41 =e.message
+        } else if (e.code == "EM42") {
           this.EM42 =e.message
         }else if (e.code == "EM43") {
           this.EM43 =e.message

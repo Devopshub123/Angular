@@ -16,7 +16,10 @@ ul {
   list-style-type: none;
   margin-top: 4px;
 }
-
+.table-pad{
+  padding-left: 15px;
+  padding-right: 15px;
+}
 
 
 
@@ -71,9 +74,7 @@ mat-card {
   color: #ffffff;
   margin-bottom: 0px;
 }
-// ::ng-deep.mat-card-header-text {
-//   margin: 0 6px !important;
-// }
+
 ::ng-deeptr.mat-header-row {
   height: 45px !important;
 }
@@ -105,4 +106,9 @@ mat-card {
 }
 .example-container {
   overflow-x: scroll;
+}
+.div-pad{
+  padding-top: 1%;
+  padding-left: 8px;
+  padding-right: 8px;
 }

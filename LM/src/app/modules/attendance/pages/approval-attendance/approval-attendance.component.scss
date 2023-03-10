@@ -5,7 +5,7 @@ mat-card {
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
   position: relative;
-  padding-left: 1%;
+  padding-left: 0px;
   padding-right: 0px;
 }
 .headerbox{
@@ -30,9 +30,6 @@ mat-card {
 ::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
   margin: 0.2em 0 !important;
 }
-// ::ng-deep.mat-card-header-text {
-// margin: 0 4px !important;
-// }
 .custom{
 width: 85px !important;
 }

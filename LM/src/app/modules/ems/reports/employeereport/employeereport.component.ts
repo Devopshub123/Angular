@@ -238,7 +238,7 @@ export class EmployeereportComponent implements OnInit {
 
   popup(){
     let dialogRef = this.dialog.open(ReportpopupComponent, {
-      width: '390px',position:{top:`70px`},
+      width: '390px',position:{top:`130px`},
       disableClose: true,
     });
   }

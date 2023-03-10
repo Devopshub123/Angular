@@ -79,6 +79,7 @@ export class HrPendingApprovalsComponent implements OnInit {
   mindate:any=new Date();
   maxdate: any = new Date();
   pageLoading = true;
+  employeeEmailData: any = [];
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private emsService:EmsService) { }
 
   ngOnInit(): void {
@@ -138,7 +139,7 @@ export class HrPendingApprovalsComponent implements OnInit {
         this.pendingapprovalForm.controls.releivingdate.setValue(result.requestdate);
         this.pendingapprovalForm.controls.actualRelievingDate.setValue(result.approvedate);
         this.pendingapprovalForm.controls.approverReason.setValue(result.reason)
-        this.setApproveOrReject();
+        this.getEmployeeEmailData();
       }
     });
   }
@@ -155,11 +156,10 @@ export class HrPendingApprovalsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
     // this.deletedata.actionreason =result.reason;
-      if(result) {
+      if (result) {
         this.pendingapprovalForm.controls.approverReason.setValue(result.reason)
         this.pendingapprovalForm.controls.status.setValue('Rejected')
-        this.setApproveOrReject()
-
+        this.getEmployeeEmailData();
       }
     });
   }
@@ -198,8 +198,11 @@ export class HrPendingApprovalsComponent implements OnInit {
       resg_comment:'',
       resg_status:this.pendingapprovalForm.controls.status.value,
       approver_comment:this.pendingapprovalForm.controls.approverReason.value,
-      actionby:this.userSession.id
+       actionby: this.userSession.id,
+       emailData: this.employeeEmailData,
+       empCode:this.pendingapprovalForm.controls.empid.value,
     }
+
      this.emsService.setEmployeeResignation(data).subscribe((res: any) => {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/ems/hr-pending-approval"]));
@@ -265,5 +268,14 @@ export class HrPendingApprovalsComponent implements OnInit {
   }
   customPageSizeArray.push(this.dataSource.data.length);
   return customPageSizeArray;
+  }
+
+  getEmployeeEmailData() {
+    this.employeeEmailData = [];
+    this.emsService.getEmployeeEmailDataByEmpid(this.pendingapprovalForm.controls.employeeId.value)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+        this.setApproveOrReject();
+      })
   }
 }

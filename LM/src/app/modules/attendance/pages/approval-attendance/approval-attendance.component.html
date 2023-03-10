@@ -7,7 +7,7 @@
             <br>
             <!-- <mat-divider></mat-divider> -->
             <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                     <mat-label>Applied Date</mat-label>
                     <input matInput readonly [matDatepicker]="date"
                         formControlName="appliedDate" [disabled]="true">
@@ -20,23 +20,23 @@
                     <input formControlName="appliedDate" matInput placeholder="Applied Date" readonly>
                 </mat-form-field> -->
 
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                     <mat-label>Employee Name</mat-label>
                     <input formControlName="empName" matInput placeholder="Employee Name" readonly>
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                     <mat-label>Shift</mat-label>
                     <input formControlName="shift" matInput placeholder="Shift" readonly>
                 </mat-form-field>
             </div>
             <div fxLayout fxLayout="row wrap" fxLayoutAlign.xs="center center">
 
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                     <mat-label>Work Type</mat-label>
                     <input formControlName="workType" matInput placeholder="Work Type" readonly>
                 </mat-form-field>
 
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                     <mat-label>From Date</mat-label>
                     <input matInput readonly [matDatepicker]="date1"
                         formControlName="fromDate" [disabled]="true">
@@ -48,7 +48,7 @@
                     <mat-label>From Date</mat-label>
                     <input formControlName="fromDate" matInput placeholder="From Date" readonly>
                 </mat-form-field> -->
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                     <mat-label>To Date</mat-label>
                     <input matInput readonly [matDatepicker]="date2"
                         formControlName="toDate" [disabled]="true">
@@ -63,14 +63,14 @@
 
             </div>
             <div fxLayout fxLayout="row wrap" fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex="42" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex="32" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason</mat-label>
                     <textarea formControlName="reason" readonly matInput placeholder="Reason" maxlength="250"></textarea>
                     <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
                         Reason is required.
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field *ngIf="!isEdit" fxFlex="42" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field *ngIf="!isEdit" fxFlex="32" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Comment</mat-label>
                     <textarea formControlName="comment" readonly matInput placeholder="Comment"></textarea>
 
@@ -94,6 +94,6 @@
                 <br />
             </div>
 
-    </form>
+    </form>     
   </mat-card>
   </div>

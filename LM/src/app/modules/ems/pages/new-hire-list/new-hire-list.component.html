@@ -135,14 +135,14 @@
     <div *ngIf="isNewhireList">
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" class="dev-Pad" fxLayoutAlign="space-between center">
-        <span>
+        <span fxFlex="50">
           <mat-radio-group (change)="radioChange($event)">
             <mat-radio-button value="1" [checked]="true"><b>Hired</b></mat-radio-button>&nbsp;
             <mat-radio-button value="2"><b>Joined</b></mat-radio-button>
           </mat-radio-group>
         </span>
-        <span style="padding-top: 5px;height: 70px;">
-          <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+        <span style="padding-top: 5px;height: 70px;" fxFlex="50" fxLayoutAlign="end">
+          <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
             <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
             <mat-label>Search</mat-label>
             <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">

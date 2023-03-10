@@ -462,17 +462,8 @@ export class ChecklistMeetComponent implements OnInit {
         s_status:"Cancelled",
         reason: this.checklistForm.controls.cancelReason.value,
          conductedby: this.checklistForm.controls.conductBy.value,
-         scheduledate:
-          this.pipe.transform(
-            this.checklistForm.controls.date.value,
-            'yyyy-MM-dd'
-          ) +
-          ' ' +
-          this.pipe.transform(
-            this.checklistForm.controls.date.value,
-            'HH:mm:ss'
-          ),
-          starttime: this.pipe.transform(
+         scheduledate: this.pipe.transform(this.checklistForm.controls.date.value,'yyyy-MM-dd'),
+        starttime: this.pipe.transform(
           this.checklistForm.controls.starttime.value,
           'HH:mm:ss'
         ),

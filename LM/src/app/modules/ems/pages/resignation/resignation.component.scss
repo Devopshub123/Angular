@@ -6,13 +6,14 @@
     padding-left: 0px;
     padding-right: 0px;
   }
-.dev-Pad{
-  padding:1%
-}
+  .div-Pad{
+    padding-top: 1%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 .table-pad{
-  padding-top: 1%;
-  padding-left: 2%;
- padding-right: 2%;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .section {
   padding-top: 1%;
@@ -60,9 +61,6 @@
   color: #ffffff;
   margin-bottom: 0px;
 }
-// ::ng-deep.mat-card-header-text {
-//   margin: 0 6px !important;
-// }
 ::ng-deeptr.mat-header-row {
   height: 45px !important;
 }

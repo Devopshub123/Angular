@@ -71,8 +71,11 @@ export class ResignationComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
-  companyDBName:any = environment.dbName;
-  constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private adminService: AdminService,private ES:EmsService,private LM:CompanySettingService) {
+  companyDBName: any = environment.dbName;
+  employeeEmailData: any = [];
+  reasonName: any;
+  constructor(private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog,
+    private adminService: AdminService, private ES: EmsService, private LM: CompanySettingService) {
     this.getnoticeperiods()
    }
    seperationsList: any = [];
@@ -90,7 +93,8 @@ export class ResignationComponent implements OnInit {
       });
       this.getReasons();
       this.getCompanyInformation();
-      this.getEmployeesResignation();
+    this.getEmployeesResignation();
+    this.getEmployeeEmailData();
     this.empname = this.userSession.firstname+'  '+this.userSession.lastname;
     this.resignForm.get('noticperiod')?.valueChanges.subscribe((selectedValue:any) => {
       this.max= new Date(new Date().setDate(new Date().getDate() + Number(selectedValue)))
@@ -103,20 +107,24 @@ export class ResignationComponent implements OnInit {
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/main/MainDashboard"]));
+    this.router.navigate(["/ems/employeeDashboard"]));
 
   }
   clear() {
-   this.isview=true;
-    this.ishide=false;
-    this.isadd=true;
-    this.editing=false;
-    this.isviewdata=false;
-    this.resignForm.controls.exitdate.setValue('')
-    this.resignForm.controls.reason.setValue('')
-    this.resignForm.controls.notice.setValue('')
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/ems/resignation"]));
+  //  this.isview=true;
+  //   this.ishide=false;
+  //   this.isadd=true;
+  //   this.editing=false;
+  //   this.isviewdata=false;
+  //   this.resignForm.controls.exitdate.setValue('')
+  //   this.resignForm.controls.reason.setValue('')
+  //   this.resignForm.controls.notice.setValue('')
   }
-
+  reasonSelect(value:any) {
+    this.reasonName = value.reason;
+  }
   saved(){
     if(this.resignForm.valid){
       let data = {
@@ -131,9 +139,11 @@ export class ResignationComponent implements OnInit {
         resg_comment:this.resignForm.controls.notice.value,
         resg_status:"Submitted",
         approver_comment:null,
-        actionby:this.userSession.id
+        actionby: this.userSession.id,
+        /** */
+        emailData: this.employeeEmailData,
+        reasonName:this.reasonName
       }
-
       this.ES.setEmployeeResignation(data).subscribe((res: any) => {
         if(res.status && res.data == 0){
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -206,6 +216,7 @@ export class ResignationComponent implements OnInit {
     this.isadd=false;
     this.editing=true;
     this.editdata = data;
+    this.isview = false;
     this.resignForm.controls.resigndate.setValue(new Date(data.applied_date));
     this.resignForm.controls.releivingdate.setValue(new Date(data.original_relieving_date));
     this.resignForm.controls.exitdate.setValue(new Date(data.requested_relieving_date));
@@ -352,6 +363,12 @@ export class ResignationComponent implements OnInit {
     });
   }
 
-
+  getEmployeeEmailData() {
+    this.employeeEmailData = [];
+    this.ES.getEmployeeEmailDataByEmpid(this.userSession.id)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+      })
+  }
 
 }

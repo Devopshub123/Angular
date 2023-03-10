@@ -11,11 +11,12 @@
                         </button>
                      </div>
              </mat-card-header>
+     
 
-          <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd" class="tableP">
+          <div fxLayout="column" fxLayout.xs="column" class="div-pad" *ngIf="isAdd" >
 
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                    <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                         <mat-label>Program Type</mat-label>
                         <mat-select required formControlName="programType">
                             <ng-container>
@@ -30,7 +31,7 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                         <mat-label>Department</mat-label>
                         <mat-select required formControlName="department">
                             <ng-container>
@@ -46,7 +47,7 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                         <mat-label>Conduct By</mat-label>
                         <mat-select required formControlName="conductBy" required>
                             <ng-container>
@@ -64,9 +65,7 @@
                 </div>
 
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
-
-                    <mat-form-field fxFlex="50" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                         <mat-label>Date</mat-label>
                         <input matInput readonly [matDatepicker]="date" required [min]="mdate" placeholder="Date"
                             formControlName="date" (click)="date.open()">
@@ -77,7 +76,7 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                         <mat-label>Start Time<span>*</span></mat-label>
                         <input formControlName="starttime" matTimepicker placeholder="Time" />
                         <mat-error class="con-error" *ngIf="checklistForm.controls.starttime.errors?.required">
@@ -85,7 +84,7 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                         <mat-label>End Time<span>*</span></mat-label>
                         <input  formControlName="endtime" matTimepicker [min]="mintime" placeholder="Time" />
                         <!-- <input readOnly formControlName="endtime" matTimepicker [min]="mintime" placeholder="Time" /> -->
@@ -141,8 +140,8 @@
                     <br />
                 </div>
 
-                <div fxLayout="column" *ngIf="isView" class="tableP">
-                    <div class="mat-elevation-z1">
+                <div fxLayout="column" *ngIf="isView" class="table-pad">
+                    <div class="mat-elevation-z1 example-container">
                         <table mat-table [dataSource]="programViewdataSource" matSort>
 
                             <ng-container matColumnDef="sno">
@@ -193,8 +192,8 @@
                 <br>
                 <div style="margin-left: 1%;"><b>Meeting Schedule</b></div>
                 <mat-divider></mat-divider>
-                <div class="tableP">
-                    <div class="mat-elevation-z1">
+                <div class="table-pad">
+                    <div class="mat-elevation-z1 example-container">
                         <table mat-table [dataSource]="dataSource2">
 
                             <!-- Checkbox Column -->
@@ -269,8 +268,8 @@
                 <br>
                 <div style="margin-left: 1%;"><b>Update Schedule Meeting</b></div>
                 <mat-divider></mat-divider>
-                <div class="tableP">
-                    <div class="mat-elevation-z1">
+                <div class="table-pad">
+                    <div class="mat-elevation-z1 example-container">
                         <table mat-table [dataSource]="dataSource2">
 
                             <ng-container matColumnDef="select">
@@ -365,8 +364,8 @@
             </span>
 
         </div> -->
-         <div fxLayout="column" *ngIf="isdata" class="tableP">
-            <div class="mat-elevation-z1">
+         <div fxLayout="column" *ngIf="isdata" class="table-pad">
+            <div class="mat-elevation-z1 example-container">
                 <table mat-table [dataSource]="dataSource" matSort>
 
                     <ng-container matColumnDef="sno">

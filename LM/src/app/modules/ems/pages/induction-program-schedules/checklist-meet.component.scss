@@ -5,12 +5,7 @@ mat-card {
   padding-left: 0px;
   padding-right: 0px;
 }
-.tableP{
-  padding-left: 2%;
-  padding-right: 2%;
-  padding-bottom: 1%;
-  padding-top: 1%;
-}
+
   .disable:hover{
     cursor: not-allowed;
     }
@@ -43,3 +38,16 @@ mat-card {
       width: 86px;
       top: 0px;
   }
+  .example-container {
+    overflow-x: auto;
+  }
+
+.div-pad{
+  padding-top: 1%;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.table-pad{
+  padding-left: 15px;
+  padding-right: 15px;
+}
