@@ -34,6 +34,7 @@ import { NumbersOnlyDirective } from './numbers-only.directive';
 import { ManageUsersComponent } from './subscription/dialog/manage-users/manage-users.component';
 import { InvoiceDataComponent } from './subscription/dialog/invoice-data/invoice-data.component';
 import { ClientUpgradePlanComponent } from './subscription/client-upgrade-plan/client-upgrade-plan.component';
+import { SubscriptionCancelComponent } from './subscription/subscription-cancel/subscription-cancel.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { ClientUpgradePlanComponent } from './subscription/client-upgrade-plan/c
     ManageUsersComponent,
     InvoiceDataComponent,
     ClientUpgradePlanComponent,
+    SubscriptionCancelComponent,
   ],
   imports: [
     CommonModule,

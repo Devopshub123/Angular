@@ -35,6 +35,7 @@ import { ClientAdminSubscriptionComponent } from './subscription/client-admin-su
 import { ProductAdminClientsComponent } from './subscription/product-admin-clients/product-admin-clients.component';
 import { SubscriptionMasterComponent } from './subscription/subscription-master/subscription-master.component';
 import { ClientUpgradePlanComponent } from './subscription/client-upgrade-plan/client-upgrade-plan.component';
+import { SubscriptionCancelComponent } from './subscription/subscription-cancel/subscription-cancel.component';
 
 const routes: Routes = [
   {
@@ -74,6 +75,7 @@ const routes: Routes = [
       { path: 'product-admin-clients', component: ProductAdminClientsComponent, canActivate: [LMSAccessGuard] },
       { path: 'subscription-master',component:SubscriptionMasterComponent,canActivate:[LMSAccessGuard]},
       { path: 'upgrade-plan',component:ClientUpgradePlanComponent,canActivate:[LMSAccessGuard]},
+      { path: 'subscription-cancel',component:SubscriptionCancelComponent,canActivate:[LMSAccessGuard]},
 
     ]
   }

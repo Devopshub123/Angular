@@ -11,6 +11,7 @@ import { PreOnboardingDetailsComponent } from './pages/pre-onboarding-details/pr
 import {SideNavComponent} from './pages/side-nav/side-nav.component'
 import { MainComponent } from './pages/main/main.component';
 import { AuditLogComponent } from './pages/audit-logs/audit-log/audit-log.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 
 var Login :string;
  var comp = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):'';
@@ -18,6 +19,7 @@ Login = 'Login'
 
 
 const routes: Routes = [
+  {path:'sign-up',component:SignUpComponent},
   {path:'Login',component:LoginComponent},
   {path:'sidenav',component:SideNavComponent},
   {path:'main',component:MainComponent,children:[
