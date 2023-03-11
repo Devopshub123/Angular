@@ -55,6 +55,7 @@ export class InductionConductedByMasterComponent implements OnInit {
   isEnable = false;
   formControlList: any = [];
   isFormCtrlValid = false;
+  ishide:boolean=true;
   conductId:any = null;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
@@ -74,6 +75,8 @@ export class InductionConductedByMasterComponent implements OnInit {
     this.inductionForm.get('department')?.valueChanges.subscribe((selectedValue: any) => {
       this.employeeList = [];
       this.conductedByEmployeDataList = [];
+      this.array=[];
+      this.selectedEmployees=[];
       this.EMS.getEmployeesListByDeptId(selectedValue).subscribe((data: { status: any; data: any; }) => {
         if (data.status) {
           this.isEnable = true;
@@ -83,7 +86,9 @@ export class InductionConductedByMasterComponent implements OnInit {
        })
     })
   }
-
+  Add(){
+    this.ishide = false;
+  }
 
   edit(event: any, data: any) {
     this.selectedEmployees=[];
@@ -258,6 +263,7 @@ export class InductionConductedByMasterComponent implements OnInit {
   }
 
   selectedEmployesChange(event: any) {
+    this.selectedEmployees=[];
     if (event.isUserInput && event.source.selected == false) {
       let index = this.selectedEmployees.indexOf(event.source.value);
       this.selectedEmployees.splice(index, 1)

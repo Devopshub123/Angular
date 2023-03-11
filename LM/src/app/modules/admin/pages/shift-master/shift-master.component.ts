@@ -48,6 +48,7 @@ export class ShiftMasterComponent implements OnInit {
   arrayValue: any;
   starttime: any;
   endtime: any;
+  ishide:boolean=true;
   overTimeList = [
     { id: '00:30:00', name: '00:30' },
     { id: '01:00:00', name: '01:00' },
@@ -492,5 +493,8 @@ export class ShiftMasterComponent implements OnInit {
         this.messagesDataList = [];
       }
     });
+  }
+  Add(){
+    this.ishide = false;
   }
 }

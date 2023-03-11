@@ -4,9 +4,15 @@
             <mat-card-header class="headerbox">
                 <div fxLayout="row" fxFlex="50">
                     <mat-card-title class="title"> Shift </mat-card-title>
+                    
+                    <div style="margin-left: 10%;" *ngIf="ishide">
+                        <button mat-icon-button style="padding-right: 40px;" (click)="Add()" matTooltip="Add New">
+                             <mat-icon style="font-size: 30px">add_circle</mat-icon>
+                           </button>
+                    </div>
                 </div>
                 </mat-card-header>
-            <form [formGroup]="shiftForm" autocomplete="off">
+            <form [formGroup]="shiftForm" autocomplete="off" *ngIf="!ishide">
         <div class="tableP">
             <div fxLayout="row" fxLayoutAlign.xs="center center">
 
@@ -136,8 +142,8 @@
              </div>
             </div>
          </form>
-        <hr class="line_break">
-        <div fxLayout="column">
+        <!-- <hr class="line_break"> -->
+        <div fxLayout="column" *ngIf="ishide">
         <div fxLayout="row" fxLayoutAlign="end" style="height: 50px;padding-bottom: 1%;padding-right: 2%;">
             <mat-form-field fxFlex="28" fxFlex.lt-lg="30" fxFlex.xs="100%" appearance="outline">
                 <mat-label>Search</mat-label>

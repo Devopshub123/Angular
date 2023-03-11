@@ -3,7 +3,13 @@
     <form [formGroup]="inductionForm" autocomplete="off">
       <mat-card-header class="headerbox">
         <mat-card-title class="title"> Induction Conducted By </mat-card-title>
+        <div  fxLayoutAlign="end" *ngIf="ishide">
+                        <button mat-icon-button style="padding-right: 40px;" (click)="Add()" matTooltip="Add New">
+                             <mat-icon style="font-size: 30px">add_circle</mat-icon>
+                           </button>
+                    </div>
        </mat-card-header>
+       <div *ngIf="!ishide">
         <div class="dev-Pad" fxLayout="row" fxLayout.xs="column">
             <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                 <mat-label>Program Type</mat-label>
@@ -71,8 +77,9 @@
 
             <br />
           </div>
-          <mat-divider></mat-divider>
-          <div fxLayout="column">
+        </div>
+          <!-- <mat-divider></mat-divider> -->
+          <div fxLayout="column" *ngIf="ishide">
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" class="dev-Pad"  style="padding-top: 5px;height: 70px;">
             <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="30" class="mx-2 my-2" appearance="outline">
                 <mat-icon matSuffix style="color: #28acaf">search</mat-icon>

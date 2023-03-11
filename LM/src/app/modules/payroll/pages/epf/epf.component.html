@@ -26,18 +26,11 @@
                         <p>
                             <mat-form-field appearance="outline" style="width: 100%;">
                                 <mat-label>EPF Number</mat-label>
-                                <input type="text" [readonly]="enable" matInput class="form-control" formControlName="epfNumber" mask="AA/AAA/0000000/0000" >
+                                <input type="text" [readonly]="enable" matInput class="form-control" formControlName="epfNumber" mask="AA/AAA/0000000/0000">
                                 <mat-error class="con-error" *ngIf="  epfRequestForm.controls.epfNumber.errors?.required">
                                   Please enter valid data.
                               </mat-error>
-                              <!-- <mat-error class="con-error" *ngIf="epfRequestForm.controls.epfNumber.errors?.minlength || 
-                              epfRequestForm.controls.epfNumber.errors?.maxlength">
-                              Please enter valid data
-                                </mat-error> -->
-                                <!-- <mat-error class="con-error"
-                                            *ngIf=" epfRequestForm.controls.epfNumber.errors?.pattern">
-                                            Please enter valid EPF Number.
-                                           </mat-error>  -->
+                              
                             </mat-form-field> 
                         </p>
                         <p>
