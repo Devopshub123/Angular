@@ -109,13 +109,14 @@ editdata(){
       }
       this.PR.setEsiForState(data).subscribe((result:any)=>{
         if(result.status){
+          this.router.navigateByUrl('/', { skipLocationChange: true })
+          .then(() => this.router.navigate(["/Payroll/ESI"]));
          
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
             data: this.PR37
-          });
-          this.router.navigate(["/Payroll/ESI"]);  
+          }); 
         }
         else{
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
