@@ -254,7 +254,7 @@ export class MainDashboardComponent implements OnInit {
               if (this.requestType == 'AttendanceApproval') {
                 this.showSpinner();
                 sessionStorage.setItem('selectedModule', 'Attendance');
-                this.SideNav.toggleRoute('/Attendance/Approval');
+                this.SideNav.toggleRoute('/Attendance/ApprovalList');
                 this.router.navigate(['/Attendance/Approval'], {
                   state: {
                     userData: this.requestData,
@@ -277,7 +277,7 @@ export class MainDashboardComponent implements OnInit {
               else if (this.requestType == 'ReviewAndApprovals') {
                 this.showSpinner();
                 sessionStorage.setItem('selectedModule', 'Leaves');
-                this.SideNav.toggleRoute('/LeaveManagement/ReviewAndApprovals');
+                this.SideNav.toggleRoute('/LeaveManagement/ManagerDashboard');
                 this.router.navigate(['/LeaveManagement/ReviewAndApprovals'],
                 { state: { leaveData: this.requestData ,isleave:true}
                   });
