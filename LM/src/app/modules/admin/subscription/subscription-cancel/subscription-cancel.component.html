@@ -1,0 +1,38 @@
+
+<div fxLayout="column" class="first-col">
+<mat-card>
+    <mat-card-header class="headerbox">
+        <mat-card-title class="title">Cancel Subscription</mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="signUpForm" autocomplete="off">
+    <div class="div-pad">
+        <div fxLayout="row">
+            <span><mat-icon style="color:#28acaf;">warning</mat-icon></span>
+            <span class="section"><b>Important</b></span>
+        </div>
+<mat-radio-group  aria-labelledby="example-radio-group-label"  class="example-radio-group">
+  <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
+    {{season}}
+  </mat-radio-button>
+</mat-radio-group>
+
+<div fxLayout="column">
+    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+        <mat-label>Reason for Cancellation</mat-label>
+        <input type="text"  formControlName="remarks"  matInput maxlength="100" />
+         </mat-form-field>
+</div>
+<div fxLayoutAlign="center">
+      <button  class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit">
+      <span>Submit</span>
+    </button>
+
+    <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
+      <span>Cancel</span>
+    </button>
+    <br />
+  </div>
+    </div>
+</form>
+</mat-card>
+</div>
