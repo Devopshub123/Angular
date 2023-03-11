@@ -91,6 +91,7 @@ export class InductionConductedByMasterComponent implements OnInit {
   }
 
   edit(event: any, data: any) {
+    this.ishide = false;
     this.selectedEmployees=[];
     this.array=[];
     this.flag = false;
