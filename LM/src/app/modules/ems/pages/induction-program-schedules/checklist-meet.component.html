@@ -246,6 +246,7 @@
                         <mat-paginator [pageSizeOptions]="!pageLoading2 ? getPageSizes3() : [5, 10, 20]"></mat-paginator>
                       </div>
                 </div>
+                <br>
                 <div fxLayoutAlign="center">
                     <button *ngIf="!isRequestView && !isEditView" class="btn btn-primary mr-2 mb-2"
                         (click)="meetingSchedule()" type="submit">
