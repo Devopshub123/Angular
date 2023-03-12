@@ -50,10 +50,13 @@ mat-card {
   .example-radio-group {
     display: flex;
     flex-direction: column;
-    margin: 15px 0;
+    margin: 0px 0;
     align-items: flex-start;
   }
   
   .example-radio-button {
     margin: 5px;
   }
+  .myColumns{-webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;}

@@ -14,23 +14,26 @@
      -->
      <mat-card-content>
       <div fxLayout="column" >
-    <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign.xs="center" class="dev-Pad" [formGroup]="searchForm">
-      <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%">
-        <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
+    <div fxLayout="column" fxLayout.lt-lg="column" fxLayoutAlign.xs="center" class="dev-Pad" [formGroup]="searchForm">
+      <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxFlex.xs="100%">
+
+        <mat-form-field fxFlex.xs="100%" fxFlex class="mx-1 my-1" appearance="outline">
           <mat-label>From Date</mat-label>
           <input matInput readonly [matDatepicker]="fromDate" [min]="minDate" [max]="maxDate" placeholder="From Date"
             formControlName="fromDate" (click)="fromDate.open()">
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
           <mat-datepicker #fromDate></mat-datepicker>
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
+
+        <mat-form-field fxFlex.xs="100%" fxFlex class="mx-1 my-1" appearance="outline">
           <mat-label>To Date</mat-label>
           <input matInput readonly [matDatepicker]="toDate" placeholder="To Date" 
           [min]="minToDate" [max]="maxDate" formControlName="toDate" (click)="toDate.open()">
           <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
           <mat-datepicker #toDate></mat-datepicker>
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
+
+        <mat-form-field fxFlex.xs="100%" fxFlex fxFlex.lt-lg="48" class="mx-1 my-1" appearance="outline">
           <mat-label>Employee Name</mat-label>
           <mat-select formControlName="Users" required>
             <mat-option value="0"> All Employees </mat-option>
@@ -39,9 +42,10 @@
             </ng-container>
           </mat-select>
         </mat-form-field>
+
       </div>
-      <div fxLayout="row" fxFlex.xs="100%">
-        <span style="margin-top: 7%;">
+      <div fxLayout="row" fxLayoutAlign="center">
+        <span>
           <button   class="btn btn-primary mr-2 mb-2" (click)="Searchform()">
             Search
           </button>
@@ -52,6 +56,7 @@
         </button>
       </span>
       </div>
+
     </div>
     <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">
       <div>

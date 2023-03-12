@@ -66,9 +66,6 @@ mat-card {
     color: #ffffff;
     margin-bottom: 0px;
   }
-  // ::ng-deep.mat-card-header-text {
-  //   margin: 0 6px !important;
-  // }
   ::ng-deeptr.mat-header-row {
     height: 45px !important;
   }
@@ -78,4 +75,7 @@ mat-card {
   ::ng-deep.mat-drawer-container {
     background-color: #fafafa;
     color: rgb(135 130 130 / 87%);
+}
+.example-container {
+  overflow-x: auto;
 }

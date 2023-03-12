@@ -80,6 +80,8 @@ export class ShiftMasterComponent implements OnInit {
   EM123: any;
   statusEmployeExist: any;
   mintime: any;
+  isdata: boolean = true;
+  isAdd: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private adminService: AdminService,
@@ -160,6 +162,10 @@ export class ShiftMasterComponent implements OnInit {
     }
     });
   }
+  Add() {
+    this.isAdd = true;
+    this.isdata = false;
+  }
   ngAfterViewInit() {}
   noWhitespaceValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -169,13 +175,9 @@ export class ShiftMasterComponent implements OnInit {
   }
   getDifference(start: any, stop: any) {
     // getting startTime timestamp:
-    console.log("start",start);
-    console.log("end",stop);
-    let startTimestamp = this.getTimestamp(start);
+     let startTimestamp = this.getTimestamp(start);
     // getting stopTime timestamp:
     let stopTimestamp = this.getTimestamp(stop);
-    console.log("starttime",startTimestamp);
-    console.log("endtime",stopTimestamp);
     // getting the difference in various formats:
     // hh:mm:ss
     let differenceInSecs = stopTimestamp - startTimestamp;
@@ -186,9 +188,7 @@ export class ShiftMasterComponent implements OnInit {
   }
 
   getTimestamp(time: any) {
-    console.log("time",time)
     let timeFirst = time.split(', ')[0].split('/');
-    console.log("time",timeFirst)
     let timeY = timeFirst[2];
     let timeM = timeFirst[1];
     let timeD = timeFirst[0];
@@ -398,6 +398,8 @@ export class ShiftMasterComponent implements OnInit {
     });
   }
   view(data: any) {
+    this.isAdd = true;
+    this.isdata = false;
     this.adminService
       .getShiftsDetailsById(data.shiftid)
       .subscribe((res: any) => {

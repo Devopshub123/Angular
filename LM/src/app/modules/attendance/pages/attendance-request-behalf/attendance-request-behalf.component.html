@@ -4,12 +4,10 @@
 
             
   <mat-card-header class="headerbox">
-    <div fxLayout="row" fxFlex="50">
-        <mat-card-title class="title"> Request on Behalf of Employee </mat-card-title>
-    </div>
-    </mat-card-header>
+    <mat-card-title class="title"> Request on Behalf of Employee </mat-card-title>
+   </mat-card-header>
     <div class="tableP">
-            <div fxLayout="row" fxLayoutAlign.xs="center center">
+            <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center center">
 
                 <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Applied On</mat-label>
@@ -28,7 +26,8 @@
                        {{requiredOption}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+
+                <mat-form-field fxFlex fxFlex.xs="100" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                     <mat-label>Work Type</mat-label>
                     <mat-select formControlName="workType" required>
                         <ng-container *ngFor="let v of workTypeData">
@@ -41,7 +40,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div fxLayout="row"  fxLayoutAlign.xs="center center">
+            <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center center">
 
                 <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>From Date</mat-label>
@@ -66,7 +65,7 @@
                         {{requiredOption}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex fxFlex.xs="100" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                     <mat-label>Shift</mat-label>
                     <input formControlName="shift"  readonly required matInput placeholder="Shift">
                     <mat-error *ngIf="requestform.controls['shift'].invalid">
@@ -76,7 +75,7 @@
 
             </div>
             <div fxLayout="row" fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex="50" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex="50" fxFlex.xs="100" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason </mat-label>
                     <textarea formControlName="reason" required  maxlength="250" matInput placeholder="Reason"></textarea>
                     <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
@@ -99,14 +98,14 @@
     </form>
     <mat-divider></mat-divider>
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="end" style="height: 70px;margin-top: 5px;">
-        <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="30" class="mx-2 my-2" appearance="outline" style="padding-right: 16px;">
+        <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline" style="padding-right: 16px;">
         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
         <mat-label>Search</mat-label>
         <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
       </mat-form-field>
     </div>
     <div class="tablePadding">
-        <div class="mat-elevation-z1">
+        <div class="mat-elevation-z1 example-container ">
             <table mat-table [dataSource]="dataSource" matSort >
 
                 <ng-container matColumnDef="id"  style="width: 10%;">

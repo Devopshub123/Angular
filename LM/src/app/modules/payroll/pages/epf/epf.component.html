@@ -1,143 +1,140 @@
 <div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto first-col">
-    <mat-card>
-      <mat-card-header class="headerbox">
-         <mat-card-title class="title">Employee Provident Fund</mat-card-title>
-         <i class="fa fa-edit" style="margin-left:13px;padding-right: 40px;" aria-hidden="true" title="Edit" (click)="edit()" ></i>
+  <mat-card>
+    <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-card-title class="title">Employee Provident Fund</mat-card-title>
+      <div style="margin-right: 2%">
+        <button mat-icon-button (click)="edit()" matTooltip="Edit">
+          <i class="fa fa-edit" aria-hidden="true" style="font-size: 25px"></i>
+        </button>
+      </div>
+    </mat-card-header>
 
-          <!-- <span >
-            <i class="fa fa-edit" style="margin-left:13px;font-size: 20px;" aria-hidden="true" title="Edit" (click)="edit()"></i>
-             </span> -->
-
-        <!-- <mat-card-title class="title custom-payRoll-header"> 
-          <p style="margin-right: 10px;font-size: 17px;float: left;"><b>Employee Provident Fund</b>
-          </p>
-          <i class="fa fa-edit" style="margin-left:13px;" aria-hidden="true" title="Edit" (click)="edit()"></i>
-        </mat-card-title> -->
-      </mat-card-header>
-
-      <div fxLayout="row" fxLayout.xs="column"  class="custom-card">  
-        <form [formGroup]="epfRequestForm" autocomplete="off" style="width:100%;">
+    <div fxLayout="row" fxLayout.xs="column" class="custom-card">
+      <form [formGroup]="epfRequestForm" autocomplete="off" style="width: 100%">
+        <div>
+          <div fxLayout="column" fxFlex="5" class="custom-payroll-div"></div>
+          <div fxLayout="column" fxFlex="40" class="custom-payroll-div">
             <div>
-                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
-                </div>    
-                <div fxLayout="column" fxFlex="40" class="custom-payroll-div">
-                    <div>                    
-
-                        <p>
-                            <mat-form-field appearance="outline" style="width: 100%;">
-                                <mat-label>EPF Number</mat-label>
-                                <input type="text" [readonly]="enable" matInput class="form-control" formControlName="epfNumber" mask="AA/AAA/0000000/0000" >
-                                <mat-error class="con-error" *ngIf="  epfRequestForm.controls.epfNumber.errors?.required">
-                                  Please enter valid data.
-                              </mat-error>
-                              <!-- <mat-error class="con-error" *ngIf="epfRequestForm.controls.epfNumber.errors?.minlength || 
+              <p>
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>EPF Number</mat-label>
+                  <input type="text" [readonly]="enable" matInput class="form-control" formControlName="epfNumber"
+                    mask="AA/AAA/0000000/0000" />
+                  <mat-error class="con-error" *ngIf="epfRequestForm.controls.epfNumber.errors?.required">
+                    Please enter valid data.
+                  </mat-error>
+                  <!-- <mat-error class="con-error" *ngIf="epfRequestForm.controls.epfNumber.errors?.minlength || 
                               epfRequestForm.controls.epfNumber.errors?.maxlength">
                               Please enter valid data
                                 </mat-error> -->
-                                <!-- <mat-error class="con-error"
+                  <!-- <mat-error class="con-error"
                                             *ngIf=" epfRequestForm.controls.epfNumber.errors?.pattern">
                                             Please enter valid EPF Number.
                                            </mat-error>  -->
-                            </mat-form-field> 
-                        </p>
-                        <p>
-                            <mat-form-field appearance="outline" style="width: 100%;">
-                                <mat-label>Employee Contribution Rate</mat-label>
-                                <mat-select [disabled]="enable" formControlName="employeeContribution">
-                                    <ng-container>
-                                      <div *ngFor="let b of employeecontribution">
-                                          <mat-option value={{b.return_value}}>{{b.display_string}}</mat-option>
-                                      </div>
-  
-                                  </ng-container>
-
-                                </mat-select>
-                            </mat-form-field>
-                        </p>
-                        <section class="example-section">
-                            <span class="example-list-section">
-                              <mat-checkbox class="example-margin"
-                                            [checked]="allComplete"
-                                            [color]="employeeContributionCTCColor"                                           
-                                            (change)="setAll($event.checked,'employeeContribution')"                                           
-                                            [disabled]="enable">
-                                Include Employer's Contribution in the CTC
-                              </mat-checkbox>
-                            </span>
-                            <span class="example-list-section" *ngIf="allComplete">
-                              <ul formArrayName="checkboxes">
-                                <li *ngFor="let subtask of checkboxes; let i = index" >
-                                  <mat-checkbox [formControlName]="i"
-                                                [color]="subtask.color"                                                
-                                                [disabled]="enable">
-                                    {{subtask.name}}
-                                  </mat-checkbox>
-                                </li>
-                              </ul>
-                            </span>
-                          </section>
-                          <!-- <section><mat-checkbox formControlName="pfRestrict">
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Employee Contribution Rate</mat-label>
+                  <mat-select [disabled]="enable" formControlName="employeeContribution">
+                    <ng-container>
+                      <div *ngFor="let b of employeecontribution">
+                        <mat-option value="{{ b.return_value }}">{{
+                          b.display_string
+                          }}</mat-option>
+                      </div>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+              </p>
+              <section class="example-section">
+                <span class="example-list-section">
+                  <mat-checkbox class="example-margin" [checked]="allComplete" [color]="employeeContributionCTCColor"
+                    (change)="setAll($event.checked, 'employeeContribution')" [disabled]="enable">
+                    Include Employer's Contribution in the CTC
+                  </mat-checkbox>
+                </span>
+                <span class="example-list-section" *ngIf="allComplete">
+                  <ul formArrayName="checkboxes">
+                    <li *ngFor="let subtask of checkboxes; let i = index">
+                      <mat-checkbox [formControlName]="i" [color]="subtask.color" [disabled]="enable">
+                        {{ subtask.name }}
+                      </mat-checkbox>
+                    </li>
+                  </ul>
+                </span>
+              </section>
+              <!-- <section><mat-checkbox formControlName="pfRestrict">
                             Override PF contribution rate at employee Level
                             </mat-checkbox>
                             
                         </section> -->
-                        <p>                           
-                          <mat-form-field appearance="outline" style="width: 100%;">
-                              <mat-label>Effective Date</mat-label>
-                              <input matInput [matDatepicker]="picker" [disabled]="enable" 
-                              formControlName="effective_date" [min]="mindate" (click)="picker.open()">                                
-                              <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
-                              <mat-datepicker #picker></mat-datepicker> 
-                          </mat-form-field>
-                      </p>
-                        </div>
-                </div> 
-                <div fxLayout="column" fxFlex="5" class="custom-payroll-div">
-                </div> 
-                <div fxLayout="column" fxFlex="45"  class="custom-payroll-div">
-                    <div>
-                        
-                        <p>                        
-                            <mat-form-field appearance="outline" style="width: 100%;">
-                                <mat-label>Deduction Cycle</mat-label>
-                                <input type="text" [ngClass]="{'disable':true}" [readonly]="true" matInput class="form-control" formControlName="deductionCycle" placeholder="" >
-                                       
-                            </mat-form-field>
-                        </p>
-                        <p>
-                            <mat-form-field appearance="outline" style="width: 100%;">
-                                <mat-label>Employers Contribution Rate</mat-label>
-                                <mat-select [disabled]="enable" [ngClass]="{'disable':enable}" formControlName="employersContribution">
-                                    <ng-container>
-                                      <div *ngFor="let b of employercontribution">
-                                          <mat-option value={{b.return_value}}>{{b.display_string}}</mat-option>
-                                      </div>
-                                  </ng-container>
-                                </mat-select>
-                            </mat-form-field>
-                        </p>
-                        <section ><a style="font-weight: bold;">PF Configuration when LOP is applied</a>
-                          <ul>
-                          <!-- <li>
+              <p>
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Effective Date</mat-label>
+                  <input matInput [matDatepicker]="picker" [disabled]="enable" formControlName="effective_date"
+                    [min]="mindate" (click)="picker.open()" />
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </p>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="5" class="custom-payroll-div"></div>
+          <div fxLayout="column" fxFlex="45" class="custom-payroll-div">
+            <div>
+              <p>
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Deduction Cycle</mat-label>
+                  <input type="text" [ngClass]="{ disable: true }" [readonly]="true" matInput class="form-control"
+                    formControlName="deductionCycle" placeholder="" />
+                </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Employers Contribution Rate</mat-label>
+                  <mat-select [disabled]="enable" [ngClass]="{ disable: enable }"
+                    formControlName="employersContribution">
+                    <ng-container>
+                      <div *ngFor="let b of employercontribution">
+                        <mat-option value="{{ b.return_value }}">{{
+                          b.display_string
+                          }}</mat-option>
+                      </div>
+                    </ng-container>
+                  </mat-select>
+                </mat-form-field>
+              </p>
+              <section>
+                <a style="font-weight: bold">PF Configuration when LOP is applied</a>
+                <ul>
+                  <!-- <li>
                           <mat-checkbox formControlName="pfRestrict">
                           Pro-rate Restricted PF wage
                           </mat-checkbox>
                           
                           </li> -->
-                          <li>
-                            <mat-checkbox formControlName="pfRestrict" [disabled]="enable" [color]="employeeContributionCTCColor"  >
-                              <!-- <a > Consider all applicable salary components if PF wage is less than ₹{{MaxPfWageForEmployerContribution}} after Loss of Pay</a>
+                  <li>
+                    <mat-checkbox formControlName="pfRestrict" [disabled]="enable"
+                      [color]="employeeContributionCTCColor">
+                      <!-- <a > Consider all applicable salary components if PF wage is less than ₹{{MaxPfWageForEmployerContribution}} after Loss of Pay</a>
                               <a>PF wage will be computed using the salary earned in that particular month (based on LOP) rather than the actual amount mentioned in the salary structure.</a>  -->
-                            </mat-checkbox>
-                            <a > Consider all applicable salary components if PF wage is less than ₹{{MaxPfWageForEmployerContribution}} after Loss of Pay.</a>
-                            <a>  PF wage will be computed using the salary earned in that particular month (based on LOP) rather than the actual amount mentioned in the salary structure.</a>    
-                          </li>
-                          <li>
-                            <a ></a>
-                          </li>
-                          </ul>
-                         </section>
-                         <!-- <section>PF Configuration when LOP is applied
+                    </mat-checkbox>
+                    <a>
+                      Consider all applicable salary components if PF wage is
+                      less than ₹{{ MaxPfWageForEmployerContribution }} after
+                      Loss of Pay.</a>
+                    <a>
+                      PF wage will be computed using the salary earned in that
+                      particular month (based on LOP) rather than the actual
+                      amount mentioned in the salary structure.</a>
+                  </li>
+                  <li>
+                    <a></a>
+                  </li>
+                </ul>
+              </section>
+              <!-- <section>PF Configuration when LOP is applied
                           <ul>
                           <li>
                           <mat-checkbox formControlName="pfRestrict">
@@ -146,7 +143,7 @@
                           </li>
                           </ul>
                          </section> -->
-                        <!-- <section class="example-section">
+              <!-- <section class="example-section">
                             <span class="example-list-section">
                               <mat-checkbox class="example-margin"
                                             [checked]="allabryComplete"
@@ -168,7 +165,7 @@
                               </ul>
                             </span>
                           </section> -->
-                        <!-- <p>                           
+              <!-- <p>                           
                             <mat-form-field appearance="outline" style="width: 100%;">
                                 <mat-label>Effective Date</mat-label>
                                 <input matInput [matDatepicker]="picker" formControlName="effective_date" [min]="mindate">                                
@@ -176,40 +173,39 @@
                                 <mat-datepicker #picker></mat-datepicker> 
                             </mat-form-field>
                         </p> -->
-                        
-                    </div>
-                </div>        
-                
-            </div> 
-            <div  fxLayout="column"  fxLayoutAlign="center center">
-              <div fxLayout="row">
-                <p> 
-                  Note: <span style="color: red;">This configuration of EPF is applicable to all Pay Groups that contain EPF as a deduction component.</span>
-                  </p>
-              </div>
-             
-              <!-- <span fxLayout="row"   fxLayoutAlign="center center" *ngIf="enable">
+            </div>
+          </div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <div fxLayout="row">
+            <p>
+              Note:
+              <span style="color: red">This configuration of EPF is applicable to all Pay Groups that
+                contain EPF as a deduction component.</span>
+            </p>
+          </div>
+
+          <!-- <span fxLayout="row"   fxLayoutAlign="center center" *ngIf="enable">
                 <button class="btn btn-primary mr-2 mb-2" (click)="edit()"   type="submit">
                   <span>Edit</span>
               </button>
             </span>  -->
-            </div>  
-           
+        </div>
 
-            <div class="form-group row" *ngIf="!enable">
-                <div class="col-sm-6 text-right" style="padding:0px">
-                <button class="btn btn-primary mr-2 mb-2" (click)="setEpf()"   type="submit">
-                    <span>Save</span>
-                </button>
-                </div>
-                <div class="col-sm-6">
-                <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
-                    <span >Cancel</span>
-                </button>
-                </div>
-            </div>
-            <br> 
-        </form>     
-     </div>
-   </mat-card>
-</div>        
+        <div class="form-group row" *ngIf="!enable">
+          <div class="col-sm-6 text-right" style="padding: 0px">
+            <button class="btn btn-primary mr-2 mb-2" (click)="setEpf()" type="submit">
+              <span>Save</span>
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
+              <span>Cancel</span>
+            </button>
+          </div>
+        </div>
+        <br />
+      </form>
+    </div>
+  </mat-card>
+</div>

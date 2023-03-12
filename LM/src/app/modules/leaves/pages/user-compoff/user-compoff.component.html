@@ -1,120 +1,106 @@
-
 <div fxLayout="column" class="first-col">
-  <mat-card>
-    <mat-card-header class="headerbox">
-      <div fxLayout="row" fxFlex="50">
-        <mat-card-title class="title"> Comp Off </mat-card-title>
-      </div>
-    </mat-card-header>
- 
-    <div>
-        <form [formGroup]="CompoffForm" autocomplete="off" style="padding-top: 1%;" class="tableP">
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Worked Date </mat-label>
-                    <!-- <input type="text"  required  matInput  formControlName="workeddate"     bsDatepicker [bsConfig]="{ isAnimated: true, dateInputFormat: 'MM-DD-YYYY', showWeekNumbers:false }" > -->
-                    <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date"
-                        [matDatepickerFilter]="myDateFilter" placeholder="DD-MM-YYYY" formControlName="workeddate"
-                        required (click)="date.open()" />
+    <mat-card>
+        <mat-card-header class="headerbox">
+            <mat-card-title class="title"> Comp Off </mat-card-title>
+        </mat-card-header>
 
-                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
-                    </mat-datepicker-toggle>
-                    <mat-datepicker #date></mat-datepicker>
-                    <mat-error class="con-error" *ngIf="CompoffForm.controls.workeddate.errors?.required">
-                        {{ msgLM3 }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2"  appearance="outline" *ngIf="!isview">
-                    <mat-label>Worked Hours</mat-label>
-                    <mat-select formControlName="hours" [disabled]="isview" required>
-                        <ng-container>
-                            <div *ngFor="let b of minimumHours">
-                                <!-- <mat-option value="" disabled selected>Select </mat-option> -->
-                                <mat-option value="{{ b.value }}">{{ b.value }}</mat-option>
-                            </div>
-                        </ng-container>
-                    </mat-select>
-                    <!-- <input formControlName="hours"   matInput > -->
-                    <!-- <material-timepicker color="primary" label="Hour" [userTime]="exportTime" (change)="onChangeHour($event)" revertLabel="Remove" submitLabel="Ok"></material-timepicker> -->
-                    <mat-error class="con-error" *ngIf="CompoffForm.controls.hours.errors?.required">
-                        {{ msgLM3 }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2"  appearance="outline" *ngIf="isview">
-                    <mat-label>Worked Hours</mat-label>
-                    
-                    <input formControlName="hours"  readonly matInput >
-                   
-                </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline"  *ngIf="ishide&&!isview">
-                    <mat-label>Minutes</mat-label>
-                    <mat-select formControlName="minutes" [disabled]="isview">
-                        <ng-container>
-                            <mat-option value="00">00</mat-option>
-                            <mat-option value="15">15</mat-option>
-                            <mat-option value="30">30</mat-option>
-                            <mat-option value="45">45</mat-option>
-                        </ng-container>
-                    </mat-select>
-                    <!-- <material-timepicker color="primary" label="Hour" [userTime]="exportTime" (change)="onChangeHour($event)" revertLabel="Remove" submitLabel="Ok"></material-timepicker> -->
-                    <!-- <mat-error class="con-error" *ngIf="HolidayForm.controls.holiday.errors?.required">
-                      {{msgLM1}}
-                    </mat-error> -->
-                </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline"  *ngIf="isview">
-                    <mat-label>Minutes</mat-label>
-                    <input formControlName="minutes"  readonly matInput >
-                  
-                </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex.xs="100" fxFlex="62" class="mx-2 my-2"  appearance="outline">
-                    <mat-label>Reason</mat-label>
-                    <textarea formControlName="reason" matInput placeholder="" [readonly]="isview" required maxlength="250">
-          </textarea>
-                    <mat-error class="con-error" *ngIf="CompoffForm.controls.reason.errors?.required">
-                        {{ msgLM1 }}
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline"  *ngIf="isview">
-                    <mat-label>Status</mat-label>
-                    <input formControlName="status"  readonly matInput >
-                  
-                </mat-form-field>
-            </div>
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" *ngIf="isview">
-                <mat-form-field fxFlex.xs="100" fxFlex="62" class="mx-2 my-2"  appearance="outline">
-                    <mat-label>Reject Reason</mat-label>
-                    <textarea formControlName="rejectreason" matInput placeholder="" [readonly]="isview" required maxlength="250">
-                    </textarea>
-                    
-                </mat-form-field>
+        <div>
+            <form [formGroup]="CompoffForm" autocomplete="off" style="padding-top: 1%" class="tableP">
+                <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        <mat-label>Worked Date </mat-label>
+                        <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date"
+                            [matDatepickerFilter]="myDateFilter" placeholder="DD-MM-YYYY" formControlName="workeddate"
+                            required (click)="date.open()" />
 
-            </div>
+                        <mat-datepicker-toggle class="datepicker" matSuffix [for]="date">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #date></mat-datepicker>
+                        <mat-error class="con-error" *ngIf="CompoffForm.controls.workeddate.errors?.required">
+                            {{ msgLM3 }}
+                        </mat-error>
+                    </mat-form-field>
 
-            <div fxLayoutAlign="center" *ngIf="!isview">
-                <button class="btn btn-primary mr-2 mb-2"  (click)="submit()" type="submit">
-                    <span>Submit</span>
-                </button>
+                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="!isview">
+                        <mat-label>Worked Hours</mat-label>
+                        <mat-select formControlName="hours" [disabled]="isview" required>
+                            <ng-container>
+                                <div *ngFor="let b of minimumHours">
+                                  <mat-option value="{{ b.value }}">{{ b.value }}</mat-option>
+                                </div>
+                            </ng-container>
+                        </mat-select>
+                        <mat-error class="con-error" *ngIf="CompoffForm.controls.hours.errors?.required">
+                            {{ msgLM3 }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="isview">
+                        <mat-label>Worked Hours</mat-label>
 
-                <button  class="btn btn-danger mr-2 mb-2"  (click)="cancel()">
-                    <span>Cancel</span>
-                </button>
-           </div>
-           <div fxLayoutAlign="center" *ngIf="isview">
+                        <input formControlName="hours" readonly matInput />
+                    </mat-form-field>
+                    <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline"
+                        *ngIf="ishide && !isview">
+                        <mat-label>Minutes</mat-label>
+                        <mat-select formControlName="minutes" [disabled]="isview">
+                            <ng-container>
+                                <mat-option value="00">00</mat-option>
+                                <mat-option value="15">15</mat-option>
+                                <mat-option value="30">30</mat-option>
+                                <mat-option value="45">45</mat-option>
+                            </ng-container>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline" *ngIf="isview">
+                        <mat-label>Minutes</mat-label>
+                        <input formControlName="minutes" readonly matInput />
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                    <mat-form-field fxFlex.xs="100" fxFlex="62" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
+                        <mat-label>Reason</mat-label>
+                        <textarea formControlName="reason" matInput placeholder="" [readonly]="isview" required
+                            maxlength="250">
+            </textarea>
+                        <mat-error class="con-error" *ngIf="CompoffForm.controls.reason.errors?.required">
+                            {{ msgLM1 }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="isview">
+                        <mat-label>Status</mat-label>
+                        <input formControlName="status" readonly matInput />
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" *ngIf="isview">
+                    <mat-form-field fxFlex.xs="100" fxFlex="62" class="mx-2 my-2" appearance="outline">
+                        <mat-label>Reject Reason</mat-label>
+                        <textarea formControlName="rejectreason" matInput placeholder="" [readonly]="isview" required
+                            maxlength="250">
+            </textarea>
+                    </mat-form-field>
+                </div>
 
-            <button  class="btn btn-danger mr-2 mb-2"  (click)="cancel()">
-                <span>Close</span>
-            </button>
-       </div>
-        </form>
-    </div>
-    <hr class="line_break">
+                <div fxLayoutAlign="center" *ngIf="!isview">
+                    <button class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit">
+                        <span>Submit</span>
+                    </button>
+
+                    <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
+                        <span>Cancel</span>
+                    </button>
+                </div>
+                <div fxLayoutAlign="center" *ngIf="isview">
+                    <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
+                        <span>Close</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <hr class="line_break" />
         <div class="tableP">
-
-            <table class="mat-elevation-z1" mat-table [dataSource]="dataSource" matSort>
+            <table class="example-container mat-elevation-z1" mat-table [dataSource]="dataSource" matSort>
                 <ng-container matColumnDef="appliedon">
-                    <th mat-header-cell *matHeaderCellDef >Applied On</th>
+                    <th mat-header-cell *matHeaderCellDef>Applied On</th>
                     <td mat-cell *matCellDef="let row">
                         <span>{{ row.applied_date | date : "dd-MM-yyyy" }}</span>
                     </td>
@@ -127,9 +113,7 @@
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="hours">
-                    <th mat-header-cell *matHeaderCellDef>
-                        Worked Hours
-                    </th>
+                    <th mat-header-cell *matHeaderCellDef>Worked Hours</th>
                     <td mat-cell *matCellDef="let row">
                         <span>{{ row.worked_hours }} :
                             {{ row.worked_minutes === 0 ? "00" : row.worked_minutes }}</span>
@@ -165,5 +149,5 @@
                 </tr>
             </table>
         </div>
-   </mat-card>
+    </mat-card>
 </div>

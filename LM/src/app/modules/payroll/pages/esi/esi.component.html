@@ -1,10 +1,13 @@
 <div fxLayout="column" fxFill class="custom-investment-of custom-pgr-height-auto first-col">
     <mat-card fxFill>
-      <mat-card-header class="headerbox">
-       <mat-card-title class="title">Employee State Insurance</mat-card-title>
-       <i class="fa fa-edit" style="padding-right: 250px;" aria-hidden="true" title="Edit" (click)="editdata()"></i>
-     </mat-card-header>
-
+        <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-card-title class="title">Employee State Insurance</mat-card-title>
+            <div style="margin-right: 2%;" >
+              <button mat-icon-button (click)="editdata()" matTooltip="Edit">
+                <i class="fa fa-edit"  aria-hidden="true" style="font-size: 25px;"></i>
+     </button>
+            </div>
+          </mat-card-header>
       <div fxLayout="row" fxLayout.xs="column" class="custom-card">  
         <form [formGroup]="esiRequestForm" autocomplete="off" class="rowPad">
             <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">

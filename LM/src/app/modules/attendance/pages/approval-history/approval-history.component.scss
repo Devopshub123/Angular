@@ -47,12 +47,13 @@ mat-card {
   padding-left: 0px;
   padding-right: 0px;
 }
-// ::ng-deep.mat-card-header-text {
-//   margin: 0 6px !important;
-// }
+
 ::ng-deeptr.mat-header-row {
   height: 45px !important;
 }
 ::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
   margin: 0.2em 0 !important;
+}
+.example-container {
+  overflow-x: auto;
 }
