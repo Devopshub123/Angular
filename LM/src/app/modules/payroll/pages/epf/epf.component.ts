@@ -65,6 +65,7 @@ export class EpfComponent implements OnInit {
     this.getEmployerEpfContributionOptions();
     this.getStatutoryMaxPfWageForEmployerContribution();
     this.getMessagesList();
+    const regex = new RegExp(/^[A-Z]{2}[\s\/]?[A-Z]{3}[\s\/]?[0-9]{7}[\s\/]?[0-9]{3}[\s\/]?[0-9]{7}$/);
     this.epfRequestForm = this.formBuilder.group(
     {
       // epfNumber: ["",[Validators.required,Validators.pattern("^([A-Z]{2}/\s)([A-Z]{3}/\s)([0-9]{1,7}/\s)([0-9]{3}/\s)?([0-9]{1,7})$")]],

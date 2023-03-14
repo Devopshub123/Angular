@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild  } from '@angular/core';
 import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl, FormArray, ValidatorFn, ValidationErrors} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -10,31 +11,15 @@ import { CompanySettingService } from 'src/app/services/companysetting.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { environment } from 'src/environments/environment';
-import * as _moment from 'moment';
 import { EmsService } from 'src/app/modules/ems/ems.service';
-const moment =  _moment;
+import { MatSelect } from '@angular/material/select';
 
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'DD-MM-YYYY',
-    monthYearLabel: 'YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'YYYY',
-  },
-};
 @Component({
-  selector: 'app-subscription-master',
-  templateUrl: './subscription-master.component.html',
-  styleUrls: ['./subscription-master.component.scss'],
-  providers: [
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-  ],
+  selector: 'app-subscription-plans-master',
+  templateUrl: './subscription-plans-master.component.html',
+  styleUrls: ['./subscription-plans-master.component.scss']
 })
-export class SubscriptionMasterComponent implements OnInit {
+export class SubscriptionPlansMasterComponent implements OnInit {
   enable: any = null;
   isdata: boolean = true;
   isEdit: boolean = true;
@@ -44,15 +29,16 @@ export class SubscriptionMasterComponent implements OnInit {
   isviewdata:boolean=false;
 
   editdata:any=[];
-
+  selectedmodule:any=[];
   company:any='Sreeb Tech'
 
   subscriptionForm:any= FormGroup;
   isview:boolean=true;
   ishide:boolean=false;
+  ishideselect:boolean=false;
   reasondata:any;
   userSession:any;
-  displayedColumns: string[] = ['sno','plan','monthUser','yearUser','min-user','max-user','status','action'];
+  displayedColumns: string[] = ['sno','plan','module','status','action'];
   dataSource: MatTableDataSource<any>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -64,13 +50,10 @@ export class SubscriptionMasterComponent implements OnInit {
   isData = false;
   searchTextboxControl = new FormControl();
   flag: boolean = true;
-  employeeList: any = [
-    {cmp_code:"M-1",module:"All"},
-    {cmp_code:"M-2",module:"AMS"},
-    {cmp_code:"M-3",module:"LMS"},
-    {cmp_code:"M-4",module:"Payroll"},
-  ];
+  
   selectedEmployees: any = [];
+  modulesList:any=[];
+  ischecked:boolean=false;
   constructor(private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog,
     private adminService: AdminService, private ES: EmsService, private LM: CompanySettingService) {
    }
@@ -78,14 +61,11 @@ export class SubscriptionMasterComponent implements OnInit {
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     /** */
+    this.getmodules();
     this.subscriptionForm=this.formBuilder.group(
       {
       planName:["",[Validators.required]],
-      monthlyCost:["",[Validators.required]],
-      yearlyCost:["",[Validators.required]],
-      modules:["",[Validators.required]],
-      minUsers:["",[Validators.required]],
-      maxUsers:["",[Validators.required]],
+      modules:[ "",[Validators.required]],
       });
     
   }
@@ -99,11 +79,48 @@ export class SubscriptionMasterComponent implements OnInit {
   }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/Admin/subscription-master"]));
+            this.router.navigate(["/Admin/subscription-plans"]));
 
   }
+  selectAll(select: MatSelect, values:any, array:any) {
+    this.ishideselect = true;
+this.ischecked = true;
+select.value = values;
+array = values;
+this.subscriptionForm.controls.modules.setValue(array)
+
+
+}
+
+deselectAll(select: MatSelect) {
+this.ishideselect = false;
+this.ischecked = false
+this.selectedmodule= [];
+select.value = [];
+this.subscriptionForm.controls.modules.setValue('')
+
+}
 
   saved(){
+    let array=[]
+    let data = this.subscriptionForm.controls.modules.value;
+    for (let i=0;i<data.length;i++){
+      array.push(data[i].id)
+
+    }
+    if(this.subscriptionForm.valid){
+      let data ={
+        plan:this.subscriptionForm.controls.planName.value,
+        modules:array,
+        created_by:this.userSession.id,
+        id:null
+      }
+      console.log("|data",data)
+      this.adminService.setSpryplePlan(data).subscribe((result:any)=>{
+        console.log(result)
+      })
+
+    }
    }
 
 
@@ -167,7 +184,17 @@ export class SubscriptionMasterComponent implements OnInit {
       }
     }
   }
+  getmodules(){
+    this.adminService.getAllModules().subscribe((result:any)=>{
+      if(result.status&& result.data.length>0){
+        this.modulesList=result.data;
+        console.log(this.modulesList)
+        // this.subscriptionForm.controls.modules.setValue(this.modulesList)
+      }
 
+
+    })
+  }
   openedSearch(e:any) {
     this.searchTextboxControl.patchValue('');
   }
@@ -188,3 +215,4 @@ export class SubscriptionMasterComponent implements OnInit {
     }
   }
 }
+
