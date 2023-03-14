@@ -91,45 +91,52 @@ export class InductionConductedByMasterComponent implements OnInit {
   }
 
   edit(event: any, data: any) {
+    this.isUpdate = true;
     this.ishide = false;
     this.selectedEmployees=[];
     this.array=[];
     this.flag = false;
     this.conductId = data.id;
     for(let i=0;i<data.empids.length;i++){
-
-      if(this.array.length === 0){
-        this.array.push(data.empids[i]);
-        this.selectedEmployees.push(data.empids[i].empid);
-      }
-      else if(this.array.length > 0 && !this.checkRoleExistence(data.empids[i].empid)){
-        this.array.push(data.empids[i]);
-        this.selectedEmployees.push(data.empids[i].empid);
-      }
+      this.array.push(data.empids[i]);
+      this.selectedEmployees.push(data.empids[i].empid);
+      // if(this.array.length ==0){
+      //   this.array.push(data.empids[i]);
+      //   console.log(this.array)
+      //   this.selectedEmployees.push(data.empids[i].empid);
+      // }
+      // else if(this.array.length > 0 && !this.checkRoleExistence(data.empids[i].empid)){
+      //   this.array.push(data.empids[i]);
+      //   this.selectedEmployees.push(data.empids[i].empid);
+      //   console.log(this.selectedEmployees)
+      // }
 
     }
-    this.isUpdate = true;
+    
+    console.log( "array",this.array);
+    console.log( "selectedEmployees",this.selectedEmployees);
       this.inductionForm.controls.programType.setValue(data.program_id);
-    this.inductionForm.controls.department.setValue(data.department_id);
+      this.inductionForm.controls.department.setValue(data.department_id);
+      // this.inductionForm.controls.conductBy.setValue(this.array);
 
       let emplist:any=[];
       let emp={};
 
-  /*    data.empids.forEach((e:any)=>{
-            emp={
-              "empid": e.empid,
-              "employee_code": "",
-              "empname": e.conductby
-            }
-            emplist.push(emp);
-            this.selectedEmployees.push(e.empid);
-            this.inductionForm.controls.conductBy.value.push(emp);
-        });*/
+    //   data.empids.forEach((e:any)=>{
+    //         emp={
+    //           "empid": e.empid,
+    //           "employee_code": "",
+    //           "empname": e.conductby
+    //         }
+    //         emplist.push(emp);
+    //         this.selectedEmployees.push(e.empid);
+    //         this.inductionForm.controls.conductBy.value.push(emp);
+    //     });
 
-     // this.inductionForm.controls.conductBy.setValue(emplist);
-      // this.employeeList.forEach((e: any)=>{
-      //   e.empid = data.empids.empid;
-      // })
+    //  this.inductionForm.controls.conductBy.setValue(emplist);
+    //   this.employeeList.forEach((e: any)=>{
+    //     e.empid = data.empids.empid;
+    //   })
   }
 
   save(event:any,info:any){
@@ -365,6 +372,7 @@ export class InductionConductedByMasterComponent implements OnInit {
   }
 
   getConductByElementsOnEdit(){
+    console.log(this.array)
     if(this.isUpdate) {
       this.inductionForm.controls.conductBy.setValue(this.array);
     }

@@ -101,10 +101,8 @@ export class PayScheduleRequestComponent implements OnInit {
 
 
   setPayGroup(){
-    console.log("ggg",this.payGroupRequestForm.controls.leaveWindowStartDate.value);
-    console.log("ttt",this.payGroupRequestForm.controls.payroll_leavewindow.value)
-
-    if(this.payGroupRequestForm.controls.leaveWindowStartDate.value!='' ){
+    let data = this.payGroupRequestForm.controls.payroll_leavewindow.value?'1':this.payGroupRequestForm.controls.leaveWindowStartDate.value
+    if(data!='First Day of the month'){
       let input = {
         monthlySalaryCalculationBasis:this.payGroupRequestForm.controls.caluculateSalaryBasedON.value,
         payDayOfMonth:null,

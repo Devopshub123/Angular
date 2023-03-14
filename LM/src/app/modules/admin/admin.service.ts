@@ -155,4 +155,10 @@ getScreenWithFunctionalities(moduleId:any){
 getRoleScreenfunctionalitiesByRoleId(roleId: Observable<any>){
   return this.http.get(this.mainUrl+'api/getRoleScreenfunctionalitiesByRoleId/' + roleId+'/'+this.companyName, this.httpOptions)
 }
+getAllModules(){
+  return this.http.post(this.mainUrl+'subscription/api/getAllModules/', this.httpOptions)
+}
+setSpryplePlan(data:any){
+  return this.http.post(this.mainUrl+'subscription/api/setSpryplePlan/',JSON.stringify(data), this.httpOptions)
+}
 }

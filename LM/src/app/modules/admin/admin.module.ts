@@ -35,6 +35,7 @@ import { ManageUsersComponent } from './subscription/dialog/manage-users/manage-
 import { InvoiceDataComponent } from './subscription/dialog/invoice-data/invoice-data.component';
 import { ClientUpgradePlanComponent } from './subscription/client-upgrade-plan/client-upgrade-plan.component';
 import { SubscriptionCancelComponent } from './subscription/subscription-cancel/subscription-cancel.component';
+import { SubscriptionPlansMasterComponent } from './subscription/subscription-plans-master/subscription-plans-master.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { SubscriptionCancelComponent } from './subscription/subscription-cancel/
     InvoiceDataComponent,
     ClientUpgradePlanComponent,
     SubscriptionCancelComponent,
+    SubscriptionPlansMasterComponent,
   ],
   imports: [
     CommonModule,
