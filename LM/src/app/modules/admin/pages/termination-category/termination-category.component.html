@@ -22,11 +22,11 @@
                 </div>
                <div fxLayoutAlign="center">
 
-                    <button class="col-md-1 btn btn-primary mx-2 my-2"  (click)="save()"   type="submit">
+                    <button class="btn btn-primary mr-2 mb-2" (click)="save()"   type="submit">
                         <span>Submit</span>
                     </button>
 
-                    <button class="col-md-1 btn btn-danger mx-2 my-2"   (click)="cancel()">
+                    <button class="btn btn-danger mr-2 mb-2"   (click)="cancel()">
                         <span >Cancel</span>
                     </button>
                     <br />
@@ -38,7 +38,7 @@
             <div fxLayout="column" *ngIf="isdata" class="div-pad">
                 <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end"
                 style="height: 50px;">
-                 <mat-form-field fxFlex="28" fxFlex.lt-lg="30" fxFlex.xs="100%" appearance="outline">
+                 <mat-form-field fxFlex="28" fxFlex.lt-lg="50" fxFlex.xs="100%" appearance="outline">
                     <mat-label>Search</mat-label>
                     <input matInput (keyup)="applyFilter($event)" placeholder="">
                     <mat-icon matSuffix>search</mat-icon>

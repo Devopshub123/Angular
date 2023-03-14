@@ -10,7 +10,7 @@
                     </div>
        </mat-card-header>
        <div *ngIf="!ishide">
-        <div class="dev-Pad" fxLayout="row" fxLayout.xs="column">
+        <div class="dev-Pad" fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap">
             <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                 <mat-label>Program Type</mat-label>
                 <mat-select required formControlName="programType">
@@ -39,7 +39,7 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex fxFlex.xs="100" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                 <mat-label>Conduct By</mat-label>
                 <mat-select (openedChange)="openedSearch($event)" [compareWith]="compareFn"   placeholder="Select" required formControlName="conductBy" multiple [disabled]="!isEnable">
                 <mat-select-trigger>
@@ -81,7 +81,7 @@
           <!-- <mat-divider></mat-divider> -->
           <div fxLayout="column" *ngIf="ishide">
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" class="dev-Pad"  style="padding-top: 5px;height: 70px;">
-            <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
                 <mat-icon matSuffix style="color: #28acaf">search</mat-icon>
                 <mat-label>Search </mat-label>
                 <input (keyup)="applyFilter($event)" matInput placeholder=""
@@ -116,7 +116,7 @@
                     <th mat-header-cell *matHeaderCellDef >
                       Employees </th>
                     <td mat-cell *matCellDef="let row" >
-                        <span *ngFor="let v of row.empids">{{v.conductby}}
+                        <span *ngFor="let v of row.empids">{{v.empname}}
                         </span>
                     </td>
                   </ng-container>

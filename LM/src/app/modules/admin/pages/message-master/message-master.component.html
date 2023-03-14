@@ -8,14 +8,14 @@
         </mat-card-header>
 <div fxLayout="column">
     <div fxLayout="row"  fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;padding-right: 2%;padding-top: 1%;">
-        <mat-form-field fxFlex="28" fxFlex.lt-lg="30" fxFlex.xs="100%" appearance="outline">
+        <mat-form-field fxFlex="28" fxFlex.lt-lg="50" fxFlex.xs="100%" appearance="outline">
             <mat-label>Search</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
     <div class="tablePadding">
-        <div class="mat-elevation-z1">
+        <div class="mat-elevation-z1 example-container">
         <table mat-table  #table [dataSource]="dataSource" matSort>
 
             <ng-container matColumnDef="sno">

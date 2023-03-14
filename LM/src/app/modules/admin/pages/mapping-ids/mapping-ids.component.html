@@ -11,9 +11,9 @@
                  </div>
          </mat-card-header>
 
-            <div fxLayout="row" fxLayoutAlign.xs="center center" class="dev-Pad" *ngIf="isAdd">
-
-                <mat-form-field fxFlex.xs="100"  class="mx-2 my-2" appearance="outline">
+            <div fxLayout="row" fxLayoutAlign.xs="center center" fxLayout.lt-lg="column" class="dev-Pad" *ngIf="isAdd">
+                <div fxLayout="row">
+                <mat-form-field fxFlex.xs="100" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                     <mat-label>Bio-Metric Id</mat-label>
                     <input formControlName="biometricid" required matInput onlyNumber maxlength="3" placeholder="Bio-Metric Id" >
                     <mat-error class="con-error" *ngIf="mappingIdsForm.controls.biometricid.errors?.required">
@@ -21,7 +21,7 @@
                     </mat-error>
                 </mat-form-field>
                 
-                <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100%" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                     <mat-label>Employee Name</mat-label>
                     <mat-select formControlName="empid" required>
                       <!-- <mat-option value="0"> All Employees </mat-option> -->
@@ -33,7 +33,8 @@
                         Please select an option.
                     </mat-error>
                   </mat-form-field>
-                  <span style="margin-top: 1%;">
+                </div>
+                  <span style="margin-top: 1%;" fxLayoutAlign.lt-lg="center">
                     <button   class="btn btn-primary mr-2 mb-2" (click)="saveMappingIds()">
                         Submit
                     </button>
@@ -43,12 +44,13 @@
                     <span>Clear</span>
                   </button>
                 </span>
+
              </div>
     </form>
  
     <div fxLayout="column" *ngIf="isdata">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" class="dev-Pad"  style="padding-top: 5px;height: 70px;">
-            <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="30" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
                 <mat-icon matSuffix style="color: #28acaf">search</mat-icon>
                 <mat-label>Search </mat-label>
                 <input (keyup)="applyFilter($event)" matInput placeholder=""

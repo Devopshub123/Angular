@@ -96,6 +96,8 @@ export class InductionConductedByMasterComponent implements OnInit {
     this.array=[];
     this.flag = false;
     this.conductId = data.id;
+    this.inductionForm.controls.programType.setValue(data.program_id);
+    this.inductionForm.controls.department.setValue(data.department_id);
     for(let i=0;i<data.empids.length;i++){
 
       if(this.array.length === 0){
@@ -109,8 +111,7 @@ export class InductionConductedByMasterComponent implements OnInit {
 
     }
     this.isUpdate = true;
-      this.inductionForm.controls.programType.setValue(data.program_id);
-    this.inductionForm.controls.department.setValue(data.department_id);
+      
 
       let emplist:any=[];
       let emp={};
