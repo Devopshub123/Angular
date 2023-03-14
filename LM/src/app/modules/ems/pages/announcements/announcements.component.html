@@ -11,8 +11,8 @@
              </mat-card-header>
 
             <div *ngIf="ishide" class="tableP">
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign.xs="center center">
+                    <mat-form-field fxFlex.xs="100" fxFlex="30" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                         <mat-label>Topic</mat-label>
                         <mat-select formControlName="topic" [disabled]="iseditingdata" required>
                             <ng-container>
@@ -26,7 +26,7 @@
                             {{ EM2 }}
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex="30" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                         <mat-label>Title</mat-label>
                         <input formControlName="title" required [readonly]="isviewdata" matInput placeholder=""
                             maxlength="30" />
@@ -37,7 +37,7 @@
                 </div>
 
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex="30" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                         <mat-label>Publish From </mat-label>
                         <input matInput readonly required [matDatepicker]="date" [disabled]="isviewdata" [min]="min"
                             placeholder="DD-MM-YYYY" formControlName="fromdate" (click)="date.open()" />
@@ -50,7 +50,7 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex.xs="100%" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100%" fxFlex="30" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                         <mat-label>Publish To</mat-label>
                         <input required matInput readonly [matDatepicker]="todate" [disabled]="isviewdata||istodate"
                             [min]="minAnounceDate" placeholder="DD-MM-YYYY" formControlName="todate"
@@ -101,7 +101,7 @@
             <br>
             <div fxLayout="column" *ngIf="isview" class="div-pad">
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" style="height: 50px;">
-                    <mat-form-field fxFlex="28" fxFlex.lt-lg="30" fxFlex.xs="100" appearance="outline">
+                    <mat-form-field fxFlex="28" fxFlex.lt-lg="50" fxFlex.xs="100" appearance="outline">
                          <mat-label>Search</mat-label>
                          <input matInput (keyup)="applyFilter($event)" placeholder="" >
                          <mat-icon matSuffix>search</mat-icon>

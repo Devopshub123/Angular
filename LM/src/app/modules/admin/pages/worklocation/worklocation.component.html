@@ -41,39 +41,24 @@
       </div>
       <br>
       <div class="tableP">
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+      <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center center">
         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Address1</mat-label>
           <input formControlName="address1" matInput placeholder="" maxlength="100" />
-          <!-- <mat-error class="con-error"
-                            *ngIf="employeeAddForm.controls.contactnumber.errors?.required">
-                            {{msgEM1}}
-                        </mat-error>
-                        <mat-error class="con-error"
-                            *ngIf="employeeAddForm.controls.contactnumber.errors?.minlength">
-                            {{msgEM3}}
-                        </mat-error> -->
-          <!-- <input *ngIf="isview" formControlName="contactnumber" matInput placeholder="" > -->
-        </mat-form-field>
+          </mat-form-field>
+
         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Address2</mat-label>
           <input type="text" formControlName="address2" matInput placeholder="" maxlength="100" />
-          <!-- <mat-error class="con-error"
-                            *ngIf="employeeAddForm.controls.personalemail.errors?.required">
-                            {{msgEM1}}
-                        </mat-error> -->
+         </mat-form-field>
 
-          <!-- <input *ngIf="isview"  formControlName="personalemail" matInput placeholder="" > -->
-        </mat-form-field>
-        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
           <mat-label>Branch Location</mat-label>
           <input formControlName="branch" matInput placeholder="" maxlength="100" />
-          <!-- <mat-error class="con-error" *ngIf="departmentForm.controls.department.errors?.required">
-                          {{msgEM1}}
-                        </mat-error> -->
         </mat-form-field>
+
       </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+      <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center center">
         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Country</mat-label>
           <mat-select [disabled]="isview" required formControlName="country">
@@ -103,7 +88,8 @@
             {{ msgEM2 }}
           </mat-error>
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+
+        <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
           <mat-label>City</mat-label>
           <mat-select [disabled]="isview" required formControlName="city">
             <ng-container>
@@ -118,7 +104,7 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <div xLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+      <div xLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center center">
         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Pincode</mat-label>
           <input type="text" onlyNumber formControlName="pincode" matInput placeholder="" minlength="6" maxlength="6" />
@@ -133,7 +119,7 @@
           <mat-label>Prefix</mat-label>
           <input formControlName="prefix" matInput placeholder="" maxlength="16" />
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
           <mat-label>Seed</mat-label>
           <input type="text" onlyNumber formControlName="seed" matInput placeholder="" required maxlength="10" />
           <mat-error class="con-error" *ngIf="worklocationForm.controls.seed.errors?.required">
@@ -164,7 +150,7 @@
   </form>
   <div *ngIf="isdata" fxLayout="column">
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" class="dev-Pad">
-      <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="30" class="mx-2 my-2" appearance="outline">
+      <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
           <mat-icon matSuffix style="color: #28acaf">search</mat-icon>
           <mat-label>Search </mat-label>
           <input (keyup)="applyFilter($event)" matInput placeholder=""

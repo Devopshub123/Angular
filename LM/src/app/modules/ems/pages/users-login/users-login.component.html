@@ -8,17 +8,18 @@
 
         <div class="tableP">
             <form [formGroup]="usersloginForm" autocomplete="off">
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+            <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                     <mat-label>Employee Name</mat-label>
                     <input formControlName="empname" readonly matInput placeholder="">
                   </mat-form-field>
+
                   <mat-form-field fxFlex.xs="100" fxFlex  class="mx-2 my-2" appearance="outline">
                     <mat-label>Official Email ID</mat-label>
                     <input formControlName="email" readonly matInput placeholder="">
                   </mat-form-field>
                  
-                  <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                  <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                     <mat-label>User ID</mat-label>
                     <input formControlName="userid"  matInput placeholder="" required minlength="3" maxlength="30">
                     <mat-error class="con-error"
@@ -37,7 +38,7 @@
 
               </div>
               <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                     <mat-label>Password</mat-label>
                     <input formControlName="password" required pattern="(?=.*?[0-9])(?=.*[a-z])(?=.*?[!@#\$&*~])(?=.*[A-Z]).{8,20}" matInput placeholder="">
                     <mat-error class="con-error"
@@ -49,7 +50,7 @@
                      </mat-error>
                   </mat-form-field>
 
-                <mat-form-field fxFlex.xs="100" fxFlex="32"  class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                   <mat-label>Status</mat-label>
                   <input formControlName="status"  readonly matInput placeholder="">
                   <!-- <mat-select  formControlName="status" >
@@ -61,6 +62,7 @@
                   </mat-select> -->
 
                 </mat-form-field>
+
               </div>
               <div fxLayoutAlign="center">
                 <button  class="btn btn-primary mr-2 mb-2" type="submit" (click)="submit()">
@@ -76,7 +78,7 @@
         <mat-divider></mat-divider>
         <div fxLayout="column" >
              <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;padding-right: 2%;padding-top: 1%;">
-                <mat-form-field fxFlex="28" fxFlex.lt-lg="30" fxFlex.xs="100%" appearance="outline">
+                <mat-form-field fxFlex="28" fxFlex.lt-lg="50" fxFlex.xs="100%" appearance="outline">
                     <mat-label>Search</mat-label>
                     <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
                     <mat-icon matSuffix>search</mat-icon>

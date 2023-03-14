@@ -30,7 +30,7 @@
                              </mat-radio-group>
                        </span>
                 </div>
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" class="tableP">
+                <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center" class="tableP">
                     <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                         <mat-label>Department</mat-label>
                         <mat-select required formControlName="department">
@@ -93,7 +93,7 @@
                      </mat-radio-group>
                 </span>
                 <span style="padding-top: 5px;height: 70px;" fxFlex="50" fxLayoutAlign="end">
-                  <mat-form-field fxFlex.xs="100" fxFlex="56" class="mx-2 my-2" appearance="outline">
+                  <mat-form-field fxFlex.xs="100" fxFlex="56" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
                     <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
                     <mat-label>Search</mat-label>
                     <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
