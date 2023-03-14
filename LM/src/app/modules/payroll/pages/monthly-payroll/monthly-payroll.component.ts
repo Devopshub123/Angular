@@ -107,6 +107,45 @@ export class MonthlyPayrollComponent implements OnInit {
       }
     })
   }  
+
+  validateSalaryProcessingDate(){
+    if(this.monthlyPayrollForm.valid){
+      for(let i=0;i<this.monthyear.length;i++){
+        if(this.monthyear[i].month_value == this.month_value){
+          this.year_value = this.monthyear[i].year_value;
+        }
+      }
+      let year = Number(this.year_value);
+      let month = this.month_value;
+      this.PR.getValidateSalaryProcessingDate(year,month).subscribe((result:any)=>{
+        if (result.data) {
+         if (result.data[0].validity == 1) {
+            this.caluculateMonthlySalary()
+            
+          }
+          else {
+            let date =(new Date(result.data[0].end_date).getDate()<10?"0"+new Date(result.data[0].end_date).getDate():new Date(result.data[0].end_date).getDate())+'-'+((new Date(result.data[0].end_date).getMonth()+1)<10?"0"+(new Date(result.data[0].end_date).getMonth()+1):(new Date(result.data[0].end_date).getMonth()+1) )+'-'+new Date(result.data[0].end_date).getFullYear();
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`10%`},
+              disableClose: true,
+              data: 'Please processing your salary after'+' '+ date
+            });
+           }
+        }
+        else{
+           let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data: this.PR28
+          });
+        }
+      
+      })
+  
+    }
+   
+    
+  }
 /**Caluculate salary for selected employees */
 caluculateMonthlySalary(){
   this.arrdata = []
@@ -126,7 +165,7 @@ caluculateMonthlySalary(){
       employee_list:this.arrdata
       // employee_list:this.dataSource.data.length == this.arrdata.length?null:this.arrdata
     }
-    console.log("data,",data)
+    console.log("val--",data)
     this.PR.updateMonthlySalary(data).subscribe((result:any)=>{
       if(result.status){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

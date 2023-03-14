@@ -6,10 +6,8 @@
           <mat-card-title  *ngIf="leaveInfo.isleave"> {{leaveInfo.leaveData.display_name}}</mat-card-title>
         </mat-card-header>
       <br>
-      <div fxLayout="row"> 
-<div fxLayout="column" fxFlex="20"></div>
-<div fxLayout="column" fxFlex="60">
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutAlign.xs="center center">
+<div fxLayout="column">
+      <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Applied On</mat-label>
@@ -21,67 +19,66 @@
           <input formControlName="empId" required matInput placeholder="Shift" >
         </mat-form-field>
 
-      </div>
-
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-
-      </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        <mat-form-field fxFlex.xs="100" fxFlex  class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48"  class="mx-2 my-2" appearance="outline">
           <mat-label>Emp Name</mat-label>
           <input formControlName="empName" required matInput placeholder="Shift" >
         </mat-form-field>
+
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center center">
+       
+
         <mat-form-field *ngIf="!leaveInfo.isleave" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Comp-off Date</mat-label>
           <input formControlName="fromDate" required matInput placeholder="Shift" >
         </mat-form-field>
+
         <mat-form-field *ngIf="leaveInfo.isleave" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Leave Type</mat-label>
           <input formControlName="leaveType" required matInput placeholder="Shift" >
         </mat-form-field>
-      </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
-      </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
         <mat-form-field *ngIf="leaveInfo.isleave" fxFlex.xs="100" fxFlex  class="mx-2 my-2" appearance="outline">
           <mat-label>From Date</mat-label>
           <input formControlName="fromDate" required matInput placeholder="Shift" >
         </mat-form-field>
-        <mat-form-field *ngIf="leaveInfo.isleave" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+
+        <mat-form-field *ngIf="leaveInfo.isleave" fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
           <mat-label>To Date</mat-label>
           <input formControlName="toDate" required matInput placeholder="Shift" >
         </mat-form-field>
-      </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
       </div>
+
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
           <mat-label *ngIf="leaveInfo.isleave">No.of Days</mat-label>
           <mat-label *ngIf="!leaveInfo.isleave">No.of Hours</mat-label>
-
-
           <input formControlName="noOfDays" required matInput placeholder="" >
         </mat-form-field>
+
         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="leaveInfo.leaveData.leavestatus == 'Deleted'">
           <mat-label *ngIf="leaveInfo.isleave">Deleted On</mat-label>
           <input formControlName="updatedon" required matInput placeholder="" >
         </mat-form-field>
+
         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="leaveInfo.leaveData.leavestatus == 'Rejected'">
           <mat-label *ngIf="leaveInfo.isleave">Rejected On</mat-label>
           <mat-label *ngIf="!leaveInfo.isleave">Rejected On</mat-label>
           <input formControlName="updatedon" required matInput placeholder="" >
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100" fxFlex *ngIf="leaveInfo.leaveData.leavestatus == 'Submitted'"  class="mx-2 my-2" appearance="outline">
+
+        <mat-form-field fxFlex.xs="100" fxFlex="32" *ngIf="leaveInfo.leaveData.leavestatus == 'Submitted'"  class="mx-2 my-2" appearance="outline">
           <mat-label>Pending Since</mat-label>
           <input formControlName="pendingSince" required matInput placeholder="Shift" >
         </mat-form-field>
+
         <mat-form-field fxFlex.xs="100" fxFlex *ngIf="leaveInfo.isCancellation == true"  class="mx-2 my-2" appearance="outline">
           <mat-label >Reason for Cancel</mat-label>
           <textarea formControlName="actionReason" required matInput  maxlength="250"></textarea>
         </mat-form-field>
-        <mat-form-field *ngIf="leaveInfo.leaveData.leavestatus == 'Approved'  && leaveInfo.isCancellation != true " fxFlex.xs="100"  class="mx-2 my-2" appearance="outline">
+
+        <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="48"  *ngIf="leaveInfo.leaveData.leavestatus == 'Approved'  && leaveInfo.isCancellation != true " class="mx-2 my-2" appearance="outline">
           <mat-label >Approved On</mat-label>
           <input formControlName="approvedon" required matInput placeholder="" >
         </mat-form-field>
@@ -97,7 +94,7 @@
           <!--<mat-label >ApprovedOn</mat-label>-->
           <!--<input formControlName="approvedon" required matInput placeholder="Shift" >-->
         <!--</mat-form-field>-->
-        <mat-form-field fxFlex.xs="100" fxFlex *ngIf="leaveInfo.leaveData.leavestatus != 'Approved' && leaveInfo.leaveData.leavestatus != 'Submitted' && leaveInfo.leaveData.leavestatus != 'Utilized'  "  class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex="50" *ngIf="leaveInfo.leaveData.leavestatus != 'Approved' && leaveInfo.leaveData.leavestatus != 'Submitted' && leaveInfo.leaveData.leavestatus != 'Utilized'  "  class="mx-2 my-2" appearance="outline">
           <mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Deleted'">Reason for Delete</mat-label>
           <mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Rejected'">Reason for Reject</mat-label>
           <mat-label *ngIf="leaveInfo.leaveData.leavestatus == 'Cancelled'">Reason for Cancel</mat-label>
@@ -105,7 +102,7 @@
           <textarea formControlName="actionReason" required matInput maxlength="250"></textarea>
          </mat-form-field>
 
-        <mat-form-field *ngIf="leaveInfo.leaveData.leavestatus == 'Deleted'" fxFlex.xs="100" fxFlex  class="mx-2 my-2" appearance="outline">
+        <mat-form-field *ngIf="leaveInfo.leaveData.leavestatus == 'Deleted'" fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
           <mat-label *ngIf="leaveInfo.isleave">Leave Reason</mat-label>
           <mat-label *ngIf="!leaveInfo.isleave">Comp-off Reason</mat-label>
           <textarea formControlName="leaveReason" required matInput maxlength="250"></textarea>
@@ -115,11 +112,11 @@
 
       </div>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-        <mat-form-field *ngIf="leaveInfo.leaveData.leavetype == 8" fxFlex.xs="100" fxFlex  class="mx-2 my-2" appearance="outline">
+        <mat-form-field *ngIf="leaveInfo.leaveData.leavetype == 8" fxFlex.xs="100" fxFlex="50"  class="mx-2 my-2" appearance="outline">
           <mat-label >Relation</mat-label>
           <input formControlName="relation" required matInput placeholder="" >
         </mat-form-field>
-        <mat-form-field fxFlex.xs="100" fxFlex *ngIf="leaveInfo.leaveData.leavestatus != 'Deleted'"  class="mx-2 my-2" appearance="outline">
+        <mat-form-field fxFlex.xs="100" fxFlex="50" *ngIf="leaveInfo.leaveData.leavestatus != 'Deleted'"  class="mx-2 my-2" appearance="outline">
           <mat-label *ngIf="leaveInfo.isleave">Leave Reason</mat-label>
           <mat-label *ngIf="!leaveInfo.isleave">Comp-off Reason</mat-label>
           <textarea formControlName="leaveReason" required matInput  maxlength="250"></textarea>
@@ -169,8 +166,7 @@
             <br />
           </div>
         </div>
-      </div>
-      <div fxLayout="column" fxFlex="20"></div>
+
     </div>   
     </mat-card>
   </form>

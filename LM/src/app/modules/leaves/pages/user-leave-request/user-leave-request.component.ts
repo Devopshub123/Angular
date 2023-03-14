@@ -1154,8 +1154,7 @@ if (result.status && errorCode == 'LM79') {
     if(this.leaveRequestForm.controls.leaveTypeId.value === '8' || this.leaveRequestForm.controls.leaveTypeId.value === '7' || this.leaveRequestForm.controls.leaveTypeId.value === '6' || this.leaveRequestForm.controls.leaveTypeId.value === '5') {
 
       if((this.leaveRequestForm.controls.fromDate.value  < this.nextLeaveDate) && (this.nextLeaveDate < this.leaveRequestForm.controls.toDate.value)){
-
-        var errorMessages = [{message: "Please cancel the leave on "+this.pipe.transform(this.nextLeaveDate, 'DD-MM-YYYY')+" day"},{message: "Please change from date"}]
+        var errorMessages = [{message: "Please cancel the leave on "+(this.pipe.transform(new Date(this.nextLeaveDate), 'dd-MM-yyyy'))+" day"},{message: "Please change from date"}]
         this.open(errorMessages,'8%','40%','400px',true,"/LeaveManagement/LeaveRequest")
         return  false;
       }

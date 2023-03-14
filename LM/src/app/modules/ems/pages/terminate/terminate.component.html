@@ -11,8 +11,8 @@
                 </div>
             </mat-card-header>
 
-            <div *ngIf="isterminate">
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="dev-Pad">
+            <div *ngIf="isterminate" fxLayout="column">
+                <div fxLayout="row" fxLayout.lt-lg="row wrap"  fxLayout.xs="column" fxLayoutAlign.xs="center center" class="dev-Pad">
                     <mat-form-field fxFlex.xs="100" fxFlex *ngIf="isview" class="mx-2 my-2" appearance="outline">
                         <mat-label>Employee Name</mat-label>
                         <mat-select required formControlName="empname" [disabled]="!isview" required>
@@ -43,7 +43,7 @@
                         <mat-datepicker #date></mat-datepicker>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                         <mat-label>Termination Category</mat-label>
                         <mat-select required formControlName="terminatecategory" [disabled]="!isview" required>
                             <ng-container>
@@ -57,6 +57,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
+
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="dev-Pad">
                     <mat-form-field fxFlex.xs="100" fxFlex="65" class="mx-2 my-2" appearance="outline">
                         <mat-label>Reason</mat-label>
@@ -85,7 +86,7 @@
 
             <div fxLayout="column" *ngIf="istable">
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" class="dev-Pad">
-                    <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="30" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
                         <mat-icon matSuffix style="color: #28acaf">search</mat-icon>
                         <mat-label>Search </mat-label>
                         <input formControlName="searchempname" (keyup)="applyFilter($event)" matInput placeholder=""

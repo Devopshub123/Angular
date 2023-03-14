@@ -31,14 +31,14 @@ export class LeavepoliciesComponent implements OnInit {
   isterm:boolean=true;
   isnewleave:boolean=true;
   isadvanced:boolean=false;
-  isaddnew:boolean=true;
+  isaddnew: boolean = true;
+  addBtn1: boolean = true;
+  addBtn2: boolean = true;
   isaddnewleave:boolean =false;
   msgLM1:any;
   msgLM2:any;
   msgLM3:any;
-  msgLM23:any
   msgLM21:any;
-  msgLM22:any;
   msgLM110:any;
   msgLM111:any;
   msgLM133:any;
@@ -732,7 +732,8 @@ getLeaveTypesToAdd() {
     });
   }
   /**Edit active status leave */
-  editLeaveTypeName(leave:any){
+  editLeaveTypeName(leave: any) {
+    this.addBtn2 = false;
     this.isnewleave= true;
     this.editingleavetype = true;
     if(leave.id == 1){
@@ -995,8 +996,8 @@ getLeaveTypesToAdd() {
   }
   addnewleave(){
       let dialogRef = this.dialog.open(AddleavepopupComponent, {
-        width: '400px',
-        position: { top: `70px` },
+        width: '350px',
+        position: { top: `80px` },
         disableClose: true,
         data: { YES: 'YES', NO: 'NO' }
 
@@ -1251,11 +1252,14 @@ hexToRgb(hex:any) {
     }
     return valid;
    }
-  cancelDefaultRules(){
+  cancelDefaultRules() {
+    this.addBtn1 = true;
+    this.addBtn2 = true;
     this.isEditDefaultRules = !this.isEditDefaultRules;
 
   }
-  editDefaultRules(){
+  editDefaultRules() {
+    this.addBtn1 = false;
     this.isEditDefaultRules=true;
     for(let i=0;i<this.defaultRuleInfo.length;i++){
     if(this.defaultRuleInfo[i].rulename=='LEAVES_WEEKENDS_INCLUDED'){
@@ -1290,14 +1294,6 @@ hexToRgb(hex:any) {
       else if(result.status && errorCode == 'LM3')
       {
         this.msgLM3 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM23')
-      {
-        this.msgLM23 = result.data[0].errormessage
-      }
-      else if(result.status && errorCode == 'LM22')
-      {
-        this.msgLM22 = result.data[0].errormessage
       }
       else if(result.status && errorCode == 'LM110')
       {

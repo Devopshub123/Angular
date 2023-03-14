@@ -44,9 +44,6 @@ mat-card {
   color: #ffffff;
   margin-bottom: 0px;
 }
-::ng-deep.mat-card-header-text {
-  margin: 0 6px !important;
-}
 ::ng-deeptr.mat-header-row {
   height: 45px !important;
 }
@@ -60,4 +57,7 @@ mat-card {
 
 .example-month-picker.mat-calendar-arrow {
   display: none;
+}
+.example-container {
+  overflow-x: auto;
 }

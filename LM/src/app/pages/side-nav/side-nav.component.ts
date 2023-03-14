@@ -1,7 +1,7 @@
-import { Subscribable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscribable, Subscription } from 'rxjs';
 import { UserDashboardService } from 'src/app/services/user-dashboard.service';
 import { RoleMasterService } from 'src/app/services/role-master.service';
-import { Component, OnInit,ElementRef,ViewChild } from '@angular/core';
+import { Component, OnInit,ElementRef,ViewChild, HostListener } from '@angular/core';
 import { BaseService } from '../../services/base.service';
 import { MainService } from 'src/app/services/main.service';
 import {MatIconModule} from '@angular/material/icon';
@@ -186,9 +186,16 @@ export class SideNavComponent implements OnInit {
     else this.flag = false;
     this.isExpanded = this.flag;
   }
+  private screenWidth$ = new BehaviorSubject<number>(window.innerWidth);
 
   ngOnInit(): void {
-
+    this.getScreenWidth().subscribe((width) => {
+      if (width < 768) {
+        this.isExpanded = false;
+      } else if (width > 768) {
+         this.isExpanded = true;
+      }
+    });
     // this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
 
     this.isExpanded = true;
@@ -197,6 +204,13 @@ export class SideNavComponent implements OnInit {
     };
 
    this.getSideNavigation();
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth$.next(event.target.innerWidth);
+  }
+  getScreenWidth(): Observable<number> {
+    return this.screenWidth$.asObservable();
   }
   menu:any[]=[];
   _mobileQueryListener(){};

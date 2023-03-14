@@ -2,10 +2,16 @@
     <mat-card>
     <form [formGroup]="mappingIdsForm" autocomplete="off">
  
-            <mat-card-header class="headerbox">
-                <mat-card-title class="title"> Mapping IDs </mat-card-title>
-              </mat-card-header>
-            <div fxLayout="row" fxLayoutAlign.xs="center center" class="dev-Pad">
+        <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-card-title class="title"> Mapping IDs  </mat-card-title>
+              <div style="margin-right: 2%;" *ngIf="isdata">
+                 <button mat-icon-button style="padding-right: 40px;" (click)="Add()" matTooltip="Add New">
+                      <mat-icon style="font-size: 30px">add_circle</mat-icon>
+                    </button>
+                 </div>
+         </mat-card-header>
+
+            <div fxLayout="row" fxLayoutAlign.xs="center center" class="dev-Pad" *ngIf="isAdd">
 
                 <mat-form-field fxFlex.xs="100"  class="mx-2 my-2" appearance="outline">
                     <mat-label>Bio-Metric Id</mat-label>
@@ -38,10 +44,9 @@
                   </button>
                 </span>
              </div>
-  
     </form>
-    <mat-divider></mat-divider>
-    <div fxLayout="column" >
+ 
+    <div fxLayout="column" *ngIf="isdata">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" class="dev-Pad"  style="padding-top: 5px;height: 70px;">
             <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="30" class="mx-2 my-2" appearance="outline">
                 <mat-icon matSuffix style="color: #28acaf">search</mat-icon>

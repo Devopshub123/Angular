@@ -265,5 +265,8 @@ import { environment } from 'src/environments/environment';
       getEsiEmployerContribution():Observable<any> {
       
         return this.http.get(this.mainBeUrl+'api/getEsiEmployerContribution/'+this.companyName,this.httpOptions);
-      }
+  }
+  getValidateSalaryProcessingDate(month:any,year:any): Observable<any> {
+    return this.http.get(this.mainBeUrl + 'api/validateSalaryProcessingDate/'+month+'/'+year+'/'+this.companyName,this.httpOptions);
+  }
 }

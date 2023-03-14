@@ -15,7 +15,7 @@
                     <!-- <mat-icon class="styles" >download</mat-icon> -->
                 </span>
                 <span *ngIf="allfilterdata.length>0" style="padding-top: 1%;" fxFlex="50" fxLayoutAlign="end">
-                    <mat-form-field fxFlex="56" fxFlex.xs="100%" appearance="outline">
+                    <mat-form-field fxFlex="56" fxFlex.lt-lg="100" fxFlex.xs="100%" appearance="outline">
                         <mat-label>Search</mat-label>
                         <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
                         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>

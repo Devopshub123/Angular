@@ -1,20 +1,21 @@
 <form [formGroup]="leaveTypeForm" autocomplete="off" mat-dialog-content>
-<div class="example-container" style="overflow: hidden;text-align: centre;">
+<div class="example-container" style="text-align: center;">
     
       <h2 style="text-align: centre;">Add</h2>
-      <div style="text-align: centre;">
-          <mat-form-field class="popup" fxFlex.xs="100" appearance="outline">
+      <div fxLayout="column">
+          <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
             <mat-label>Leave Type Name</mat-label>
             <input matInput formControlName="leavetypename" placeholder="" required maxlength="50">
             <mat-error class="con-error" *ngIf="leaveTypeForm.controls.leavetypename.errors?.required">
               This field is required
             </mat-error>
-          </mat-form-field><br>
+          </mat-form-field>
+          <br>
           <div class="extra" style="color: red;" *ngIf="isLeaveAlreadyExists">
             This leavetype  existed
           </div>
         
-          <mat-form-field class="popup" fxFlex.xs="100" appearance="outline">
+          <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
             <mat-label>Display Name</mat-label>
             <input matInput formControlName="displayname" placeholder="" required maxlength="100">
             <mat-error class="con-error" *ngIf="leaveTypeForm.controls.displayname.errors?.required">
@@ -28,8 +29,9 @@
           <div class="extra" style="color: red;" *ngIf="isDisplayAlreadyExists">
             This displayname  existed
           </div>
-        
-          <mat-form-field class="popup" fxFlex.xs="100" >
+   
+          <mat-form-field class="popup" fxFlex.xs="100" style="padding-left: 10px;
+          padding-right: 10px;"> 
             <mat-label>Color</mat-label>
             <input style="width: 50%;" matInput formControlName="colors" type="color"   placeholder="" required>
             <mat-error  *ngIf="leaveTypeForm.controls.colors.errors?.required">
@@ -44,16 +46,16 @@
           <div class="extra" style="color: red;"  *ngIf="isLeaveColorAlreadyExists" >
             This color  existed
           </div>
-        </div>
+          </div>
 
     
   </div>
-  <div fxLayoutAlign="end" mat-dialog-actions>
-    <button class="col-md-3 btn btn-primary mx-2 my-2"  (click)="submit()" >
+  <div fxLayoutAlign="center" mat-dialog-actions>
+    <button class="btn btn-primary mr-2 mb-2"  (click)="submit()" >
         <span>Submit</span>
     </button>
     <!-- [disabled]="!leaveTypeForm.valid " -->
-    <button class="col-md-3 btn btn-danger mx-2 my-2"   (click)="cancel()" [mat-dialog-close]="data.NO">
+    <button class="btn btn-danger mr-2 mb-2"   (click)="cancel()" [mat-dialog-close]="data.NO">
         <span >Cancel</span>
     </button>
     <br />

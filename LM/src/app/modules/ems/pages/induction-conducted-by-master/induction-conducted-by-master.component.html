@@ -1,7 +1,7 @@
 <div fxLayout="column" class="first-col">
   <mat-card>
     <form [formGroup]="inductionForm" autocomplete="off">
-      <mat-card-header class="headerbox">
+      <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
         <mat-card-title class="title"> Induction Conducted By </mat-card-title>
         <div  fxLayoutAlign="end" *ngIf="ishide">
                         <button mat-icon-button style="padding-right: 40px;" (click)="Add()" matTooltip="Add New">

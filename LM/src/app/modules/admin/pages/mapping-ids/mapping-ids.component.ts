@@ -29,7 +29,9 @@ export class MappingIdsComponent implements OnInit {
   arrayList: any = [];
   workTypeData: any;
   userSession: any;
-  pageLoading=true;
+  pageLoading = true;
+  isAdd: boolean = false;
+  isdata: boolean = true;
   constructor(private formBuilder: FormBuilder, private adminService: AdminService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router, public reportsService: ReportsService
   ) {
@@ -50,7 +52,10 @@ export class MappingIdsComponent implements OnInit {
   ngAfterViewInit() {
 
   }
-
+  Add() {
+    this.isAdd = true;
+    this.isdata = false;
+  }
 
   getEmployeelist() {
     this.reportsService.getTotalEmployeslist().subscribe((res: any) => {

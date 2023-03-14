@@ -2,13 +2,11 @@
 
     <mat-card>
       <mat-card-header class="headerbox">
-        <div fxLayout="row" fxFlex="50">
-            <mat-card-title class="title"> Monthly Payroll Report </mat-card-title>
-        </div>
-        </mat-card-header>
+         <mat-card-title class="title"> Monthly Payroll Report </mat-card-title>
+       </mat-card-header>
       <div [formGroup]="searchForm" class="tableP" >
         <div fxLayout="row"  fxLayout.xs="column">
-          <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline" >
+          <mat-form-field fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline" >
             <mat-label>Employee Name and ID</mat-label>
             <mat-select fxFlex.xs="100" formControlName="employeeId" >
               <mat-option value='All'> All </mat-option>
@@ -17,7 +15,8 @@
               </ng-container>
             </mat-select>
           </mat-form-field>
-          <mat-form-field fxFlex="25" class="mx-1 my-1" appearance="outline">
+
+          <mat-form-field fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
             <mat-label>Month and Year</mat-label>
             <input matInput readonly [matDatepicker]="fromDate"
                    placeholder="From Date" [formControl]="date" [max]="max" (click)="fromDate.open()">
@@ -58,8 +57,7 @@
 
 
 <div class="tablePadding">
-    <div class="mat-elevation-z1" >
-      <div id="table" #table=''>
+   <div id="table" #table='' class="mat-elevation-z1 example-container">
       <table id="table" mat-table [dataSource]="dataSource" matSort>
           <ng-container matColumnDef="sno">
             <th mat-header-cell *matHeaderCellDef > S.No</th>
@@ -92,11 +90,10 @@
               <td class="mat-cell" colspan="6" style="text-align: center;">No data found</td>
           </tr>
       </table>
-    </div>
       <mat-paginator   [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
 
-      <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
-  </div>
+    </div>
+    
 </div>
     <!-- <mat-card>
 

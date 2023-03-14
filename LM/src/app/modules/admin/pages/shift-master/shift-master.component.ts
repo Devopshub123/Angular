@@ -496,7 +496,4 @@ export class ShiftMasterComponent implements OnInit {
       }
     });
   }
-  Add(){
-    this.ishide = false;
-  }
 }

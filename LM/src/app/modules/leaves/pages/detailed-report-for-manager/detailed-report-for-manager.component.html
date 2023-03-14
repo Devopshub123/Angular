@@ -2,13 +2,11 @@
 
   <mat-card >
     <mat-card-header class="headerbox">
-      <div fxLayout="row" fxFlex="50">
-          <mat-card-title class="title"> Detailed Report </mat-card-title>
-      </div>
-      </mat-card-header>
+      <mat-card-title class="title"> Detailed Report </mat-card-title>
+     </mat-card-header>
     <div [formGroup]="searchForm" class="tableP" >
       <div fxLayout="row"  fxLayout.xs="column">
-        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline"  *ngIf="ishide">
+        <mat-form-field fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline"  *ngIf="ishide">
           <mat-label>Employee Name and ID</mat-label>
           <mat-select fxFlex.xs="100" formControlName="employeeId" >
             <mat-option value="All"> All </mat-option>
@@ -18,8 +16,8 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div fxLayout="row"  fxLayout.xs="column" >
-        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
+      <div fxLayout="row" fxLayout.lt-lg="row wrap"  fxLayout.xs="column" >
+        <mat-form-field fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>From Date</mat-label>
           <input matInput readonly [matDatepicker]="fromDate"
                  placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()">
@@ -27,7 +25,7 @@
           <mat-datepicker #fromDate></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
+        <mat-form-field fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>To Date</mat-label>
           <input matInput readonly [matDatepicker]="toDate" [min]="minFromDate"
                  placeholder="To Date" formControlName="toDate" (click)="toDate.open()">
@@ -35,7 +33,7 @@
           <mat-datepicker #toDate></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
+        <mat-form-field fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
           <!--<mat-label>Leave Status</mat-label>-->
           <mat-select formControlName="DateFormate" required>
             <mat-option  value="currentWeek"> Current Week</mat-option>
@@ -50,8 +48,8 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div fxLayout="row"  fxLayout.xs="column">
-        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
+      <div fxLayout="row" fxLayout.lt-lg="row wrap"   fxLayout.xs="column">
+        <mat-form-field fxFlex class="mx-2 my-2" appearance="outline">
           <mat-label>Leave Type</mat-label>
           <mat-select formControlName="leaveType" >
             <mat-option value="All"> All </mat-option>
@@ -60,7 +58,7 @@
             </ng-container>
           </mat-select>
         </mat-form-field>
-        <mat-form-field fxFlex="33"  class="mx-1 my-1" appearance="outline">
+        <mat-form-field fxFlex  class="mx-2 my-2" appearance="outline">
           <mat-label>Leave Status</mat-label>
           <mat-select formControlName="leaveStatus" >
             <mat-option value="All"> All</mat-option>
@@ -72,7 +70,7 @@
           </mat-select>
 
         </mat-form-field>
-        <mat-form-field fxFlex="33" class="mx-1 my-1" appearance="outline">
+        <mat-form-field fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
           <mat-label>Designations</mat-label>
           <mat-select formControlName="designation" >
             <mat-option value="All"> All </mat-option>
@@ -104,8 +102,8 @@
     </div >
 
   <div class="tablePadding">
-  <div class="mat-elevation-z1">
-    <div id="table" #table="">
+
+    <div id="table" #table="" class="mat-elevation-z1 example-container">
     <table  mat-table [dataSource]="dataSource" matSort>
 
         <ng-container matColumnDef="employeeName">
@@ -162,10 +160,8 @@
             <td class="mat-cell" colspan="10" style="text-align: center;">No data found</td>
         </tr>
     </table>
-  </div>
     <mat-paginator   [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-    </div>
   </div>
-  <ngx-spinner size="medium" type='ball-fussion'></ngx-spinner>
+  </div>
 </mat-card>
 </div>

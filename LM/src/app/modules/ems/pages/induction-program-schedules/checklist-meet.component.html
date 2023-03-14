@@ -15,7 +15,7 @@
 
           <div fxLayout="column" fxLayout.xs="column" class="div-pad" *ngIf="isAdd" >
 
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center">
                     <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                         <mat-label>Program Type</mat-label>
                         <mat-select required formControlName="programType">
@@ -47,7 +47,7 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                         <mat-label>Conduct By</mat-label>
                         <mat-select required formControlName="conductBy" required>
                             <ng-container>
@@ -64,7 +64,7 @@
 
                 </div>
 
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center">
                     <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                         <mat-label>Date</mat-label>
                         <input matInput readonly [matDatepicker]="date" required [min]="mdate" placeholder="Date"
@@ -84,7 +84,7 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                         <mat-label>End Time<span>*</span></mat-label>
                         <input  formControlName="endtime" matTimepicker [min]="mintime" placeholder="Time" />
                         <!-- <input readOnly formControlName="endtime" matTimepicker [min]="mintime" placeholder="Time" /> -->
@@ -93,6 +93,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
+
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
 
 
@@ -321,7 +322,7 @@
                        </div>
                 </div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
+<br>
 
                     <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                         <mat-label>Update Status</mat-label>

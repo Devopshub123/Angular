@@ -1,23 +1,26 @@
 <div fxLayout="column" class="first-col">
 
         <mat-card fxLayout="column">
-            <mat-card-header class="headerbox">
-                <div fxLayout="row" fxFlex="50">
-                    <span *ngIf="!isaddnew">
-                        <button mat-icon-button (click)="backArrow()">
-                            <mat-icon style="font-weight: bold ;" title="Back">arrow_back</mat-icon>
-                        </button>
-                    </span>
-                    <mat-card-title class="title"> Leave Policies </mat-card-title>
+            <mat-card-header  *ngIf="isaddnew" class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+                <mat-card-title class="title"> Leave Policies </mat-card-title>
+                <div *ngIf="addBtn1" style="margin-right: 2%;">
+                  <button mat-icon-button style="padding-right: 40px;" (click)="addLeaveConfigure()" matTooltip="Add New">
+                    <mat-icon style="font-size: 30px">add_circle</mat-icon>
+                  </button>
                 </div>
-                </mat-card-header>
+              </mat-card-header>
+
+                <mat-card-header class="headerbox" *ngIf="!isaddnew" >
+                            
+                     <mat-card-title class="title"> 
+                        <div fxLayout="row"><span> <button mat-icon-button (click)="backArrow()">
+                        <mat-icon style="font-weight: bold ;" title="Back">arrow_back</mat-icon>
+                    </button></span><span style="padding-top: 9px;">
+                        Leave Policies</span></div> </mat-card-title>
+                    </mat-card-header>
+
+
             <div *ngIf="isaddnew"  fxLayout="column" >
-                <div fxLayout="row " class="my-2" fxFlex.xs="100%" fxLayoutAlign="end" style="padding-top: 1%;padding-right: 1%;">
-                    <button class="btn btn-primary custom mr-2 mb-2"  
-                         (click)="addLeaveConfigure()" type="button" >
-                        <span>Add New</span>
-                    </button>
-                </div>
 
                 <div class="tableP">
                     <form [formGroup]="leavepoliciesForm" autocomplete="off">
@@ -206,7 +209,7 @@
 
             </div>
             <div *ngIf="!isaddnew"  fxLayout="column" >
-                <div fxLayout="row " class="my-2" fxFlex.xs="100%" fxLayoutAlign="end" style="padding-top: 1%;">
+                <div *ngIf="addBtn2" fxLayout="row " class="my-2" fxFlex.xs="100%" fxLayoutAlign="end" style="padding-top: 1%;">
                     <button class="btn btn-primary custom1 mr-2 mb-2"
                         (click)="addnewleave()"   type="button">
                         <span>Add New Leave Type</span>
@@ -532,24 +535,22 @@
                     </div>
 
                 </div> -->
-                <div *ngIf="tabledata && advanceflag " class="form-group row ml-1 mt-3">
-                    <div class="col-sm-6" style="padding:0px">
-                        <!-- <button class="col-md-3 btn btn-default" (click)="setLeaveStatus(true)" *ngIf="isactivate">Activate</button> -->
-                        <button class="col-md-3 btn btn-danger custom" (click)="setLeaveStatus(false)" *ngIf="isdeactivate">Deactivate</button>
-                    </div>
-                    <div class="col-sm-6 mr2 text-right">
+                <div *ngIf="tabledata && advanceflag " class="form-group row" fxLayoutAlign="center">
+                 <!-- <button class="col-md-3 btn btn-default" (click)="setLeaveStatus(true)" *ngIf="isactivate">Activate</button> -->
+                        <button class="btn btn-danger mr-2 mb-2 custom" (click)="setLeaveStatus(false)" *ngIf="isdeactivate">Deactivate</button>
+                
                         <!-- <button class="col-md-2 mr-2 btn btn-primary" (click)="setleavepolicies()"
                             *ngIf="this.editemployee">Save</button> -->
-                        <button class="col-md-3 mr-2 btn btn-primary"  (click)="setleavepolicies()" *ngIf="isnewleave" >Submit</button>
-                        <button class="col-md-3 mr-2 btn btn-primary"  (click)="setLeaveStatus(true)"*ngIf="!isnewleave"  >Activate</button>
+                        <button class="btn btn-primary mr-2 mb-2"  (click)="setleavepolicies()" *ngIf="isnewleave" >Submit</button>
+                        <button class="btn btn-primary mr-2 mb-2 custom2"  (click)="setLeaveStatus(true)"*ngIf="!isnewleave"  >Activate</button>
 
-                        <button class="col-md-3  btn btn-danger"   (click)="cancelledleave()">Cancel</button>
-                    </div>
+                        <button class="btn btn-danger mr-2 mb-2"   (click)="cancelledleave()">Cancel</button>
+                  
                 </div>
-                <div  class="col-sm-6 mr2 text-right" *ngIf="addadvanced">
-                    <button class="col-md-3 mr-2 btn btn-danger custom" (click)="setLeaveStatus(false)" *ngIf="isdeactivate">Deactivate</button>
-                    <button class="col-md-3 mr-2 btn btn-primary" (click)="setadvanceleavepolicies()"  >Submit</button>
-                    <button class="col-md-3  btn btn-danger"   (click)="cancelledleave()">Cancel</button>
+                <div fxLayoutAlign="center"  *ngIf="addadvanced" >
+                    <button class="btn btn-danger mr-2 mb-2 custom" (click)="setLeaveStatus(false)" *ngIf="isdeactivate">Deactivate</button>
+                    <button class="btn btn-primary mr-2 mb-2" (click)="setadvanceleavepolicies()"  >Submit</button>
+                    <button class="btn btn-danger mr-2 mb-2"   (click)="cancelledleave()">Cancel</button>
 
                 </div>
                 <div *ngIf="tabledata && !advanceflag" >

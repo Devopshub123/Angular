@@ -5,11 +5,11 @@
 
             <!-- attendance card -->
             <mat-card *ngIf="isAttendanceModule" fxFlex="50" class="card outline">
-              <div fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="space-between center" fxLayoutAlign.lt-lg="start">
                 <span class="title">
                   <span>Attendance</span>
                 </span>
-                <span *ngIf="isManager">
+                <span *ngIf="isManager" fxLayoutAlign.lt-lg="end">
                   <mat-radio-group>
                     <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true'
                       (click)="getSelfAttendanceCount()">
@@ -25,10 +25,10 @@
                 <div class="scrollbox-content">
                   <div style="padding-bottom: 1%;min-height: 20vh;">
                     <!-- self attendance -->
-                    <div fxLayout="row" *ngIf="!teamAttendanceCountData" fxLayoutAlign="space-around center" flex="100"
-                      style="padding-top: 2%">
+                    <div fxLayout="row" fxLayout.lt-lg="column" *ngIf="!teamAttendanceCountData" fxLayoutAlign="space-around center" flex="100"
+                      style="padding-top: 2%" fxLayoutAlign.lt-lg="start" ngStyle.lt-lg="align-items: start;" fxLayoutGap.lt-lg="10px">
 
-                      <div fxLayout="column" fxLayoutAlign="center center">
+                      <div fxLayout="column" fxLayout.lt-lg="row" fxLayoutAlign="center center">
                         <div fxLayoutAlign="center center" class="center">
                           <button *ngIf="employeeAttendanceCountData.wfo_count > 0" mat-icon-button (click)="selfOffice()" [matMenuTriggerFor]="menu">
                             <span style="color: aliceblue; font-size: 25px;">
@@ -38,10 +38,10 @@
                             {{employeeAttendanceCountData.wfo_count}} 
                           </span>
                         </div>
-                        <span class="subheading">Work from office</span>
+                        <span class="subheading" ngStyle.lt-lg="padding-left:5px">Work from office</span>
                       </div>
 
-                      <div fxLayout="column" fxLayoutAlign="center center">
+                      <div fxLayout="column" fxLayout.lt-lg="row" fxLayoutAlign="center center">
                         <div fxLayoutAlign="center center" class="center">
                           <button *ngIf="employeeAttendanceCountData.wfh_count > 0" mat-icon-button (click)="selfhome()" [matMenuTriggerFor]="menu">
                             <span style="color: white; font-size: 25px;">
@@ -52,10 +52,10 @@
                            </span>
                         </div>
 
-                        <span class="subheading">Work from home</span>
+                        <span class="subheading" ngStyle.lt-lg="padding-left:5px">Work from home</span>
                       </div>
 
-                      <div fxLayout="column" fxLayoutAlign="center center">
+                      <div fxLayout="column" fxLayout.lt-lg="row" fxLayoutAlign="center center">
                         <div fxLayoutAlign="center center" class="center">
                           <button *ngIf="employeeAttendanceCountData.absents_count > 0" mat-icon-button (click)="selfAbsents()" [matMenuTriggerFor]="menu">
                             <span style="color: white; font-size: 25px;">
@@ -65,7 +65,7 @@
                             {{employeeAttendanceCountData.absents_count}} </span>
 
                         </div>
-                       <span class="subheading">Absent</span>
+                       <span class="subheading" ngStyle.lt-lg="padding-left:5px">Absent</span>
                       </div>
                       <!-- self attendance detailed list -->
                       <mat-menu #menu="matMenu">
@@ -168,11 +168,11 @@
 
             <!-- leave card -->
             <mat-card *ngIf="isLeaveModule" class="card outline" fxFlex="50">
-              <div fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="space-between center" fxLayoutAlign.lt-lg="start">
                 <span class="title">
                   <span>Leaves</span>
                 </span>
-                <span *ngIf="isManager">
+                <span *ngIf="isManager" fxLayoutAlign.lt-lg="end">
                   <mat-radio-group>
                     <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true' (click)="getLeaveBalance()">
                       <span class="radioBtn">Self</span>
