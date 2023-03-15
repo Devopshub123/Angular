@@ -1,0 +1,46 @@
+// mat-card {
+//     max-width: 400px;
+//     margin: 2em auto;
+//     text-align: center;
+//   }
+//   .signin-content {
+//     padding: 60px 1rem;
+//   }
+//   .full-width-input {
+//     width: 100%;
+//   }
+/* body{
+	background-color: linear-gradient(to right,#000080,#28acaf);
+} */
+// .h2{
+// 	color:black;
+// }
+.fill-remaining-space {
+	/* This fills the remaining space, by using flexbox.
+	   Every toolbar row uses a flexbox row layout. */
+	flex: 1 1 auto;
+  }
+
+  .container {
+	padding: 10px;
+  }
+
+  .form {
+	min-width: 150px;
+	max-width: 500px;
+	width: 100%;
+  }
+
+  .form-element {
+	padding: 5px 0px 25px 2px;
+	width: 100%;
+  }
+
+  .button {
+	width: 100%;
+  }
+ ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+    padding: 0 0.9em 0 0.75em !important;
+    margin-top: -0.25em;
+    position: relative;
+}
