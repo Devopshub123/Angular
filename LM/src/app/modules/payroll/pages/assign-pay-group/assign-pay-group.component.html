@@ -2,23 +2,16 @@
 <div fxLayout="column" fxFill class="custom-investment-of first-col">
     <mat-card fxFill>
       <mat-card-header class="headerbox">
-        <div fxLayout="row" fxFlex="50">
-            <mat-card-title class="title"> Assign Pay Group</mat-card-title>
-        </div>
-        </mat-card-header>
-      <!-- <mat-card-header class="">
-        <mat-card-title class="title custom-payRoll-header"> 
-          <p style="margin-right: 10px;font-size: 17px;float: left;"><b></b>
-          </p>
-        </mat-card-title>
-      </mat-card-header> -->
+        <mat-card-title class="title"> Assign Pay Group</mat-card-title>
+       </mat-card-header>
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">  
             
                 <div fxLayout="column" fxFlex="auto" class="custom-payroll-div">
                   <form [formGroup]="Assignpaygroupform" autocomplete="off"> 
-                    <div class="form-row" style="padding-left: 1%;">
-                        <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                    <div class="form-row" fxLayout.lt-lg="column" style="padding-left: 1%;">
+                      <div fxLayout="row">
+                        <mat-form-field fxFlex.xs="100" fxFlex  class="mx-2 my-2" appearance="outline">
                           <mat-label>Emp Name</mat-label>
                           <mat-select  formControlName="empName" required>
                             <ng-container>
@@ -32,7 +25,7 @@
                         </mat-error>
                         
                          </mat-form-field>
-                         <mat-form-field fxFlex.xs="100" fxFlex="30"  class="mx-2 my-2" appearance="outline">
+                         <mat-form-field fxFlex.xs="100" fxFlex  class="mx-2 my-2" appearance="outline">
                             <mat-label>CTC</mat-label>
                            
                             <input type="number" formControlName="CTC" matInput placeholder="" oninput="validity.valid||(value='');">
@@ -40,7 +33,8 @@
                               {{PR1}}
                           </mat-error>
                           </mat-form-field>
-                          <span style="padding-top: 1%;">
+                        </div>
+                          <span style="padding-top: 1%;" fxLayoutAlign.lt-lg="center" >
                             <button  class="btn btn-primary mr-2 mb-2" (click)="getPayGroupsForCtc()"   type="submit">
                               <span>Search</span>
                           </button>
@@ -54,7 +48,7 @@
                       </div>
                   </form>
                      
-                 <div class="mat-elevation-z1">
+                 <div class="mat-elevation-z1 example-container">
                   <table mat-table [dataSource]="dataSource"   multiTemplateDataRows  *ngIf="hide">
                     <ng-container matColumnDef="radio">
                         <th mat-header-cell *matHeaderCellDef class="custom-investment-th"> </th>

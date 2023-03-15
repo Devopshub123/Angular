@@ -6,7 +6,8 @@
      </mat-card-header>
     <div [formGroup]="searchForm" class="tableP" >
       <div fxLayout="row"  fxLayout.xs="column">
-        <mat-form-field fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline"  *ngIf="ishide">
+        <mat-form-field fxFlex="32" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline"  *ngIf="ishide"
+        style="padding-right: 3px;">
           <mat-label>Employee Name and ID</mat-label>
           <mat-select fxFlex.xs="100" formControlName="employeeId" >
             <mat-option value="All"> All </mat-option>

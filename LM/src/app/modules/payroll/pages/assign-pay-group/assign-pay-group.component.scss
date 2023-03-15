@@ -101,9 +101,7 @@
   color: #ffffff;
   margin-bottom: 0px;
 }
-::ng-deep.mat-card-header-text {
-  margin: 0px 5px!important;
-}
+
 .custom{
   width: 85px !important;
 }
@@ -114,3 +112,11 @@ mat-card {
   padding-left: 0px;
   padding-right: 0px;
 }
+.example-container {
+  overflow-x: auto;
+}
+@media only screen and (max-width: 768px) and (orientation:portrait) {
+  mat-header-row, mat-row {
+    width: 200%;
+  }
+  }

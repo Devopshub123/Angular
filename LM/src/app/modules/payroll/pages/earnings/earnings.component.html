@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFill class="custom-investment-of">
     <mat-card fxFill>
       <mat-card-header class="headerbox">
-        <div fxFlex="100"  fxLayout="row" fxLayout.xs="column">
+        <div fxFlex="100"  fxLayout="row">
           <span  (click)="Back()">
               <button mat-icon-button matTooltip="Back"> <mat-icon>arrow_back</mat-icon></button>
              </span>
@@ -12,7 +12,7 @@
                 <div fxLayout="column" fxFlex="100" class="custom-payroll-div">
                     <form [formGroup]="paygroupRequestForm" autocomplete="off">
                         <div fxLayout="row" fxLayoutAlign="end">
-                           <mat-form-field appearance="outline" fxFlex="28" fxFlex.xs="100">
+                           <mat-form-field appearance="outline" fxFlex="28" fxFlex.lt-lg="48" fxFlex.xs="100">
                                 <mat-label>Pay Group</mat-label>
                                 <mat-select formControlName="paygroupcomponent">
                                   <ng-container>
@@ -26,7 +26,7 @@
                         </div>
                       </form>
                      <div fxLayout="column">
-                      <div class="mat-elevation-z1">
+                      <div class="mat-elevation-z1 example-container">
                       <mat-table  [dataSource]="dataSource"   multiTemplateDataRows style="width:100%;display:table;">
                         <!-- Name Column -->
                         <ng-container matColumnDef="Name">

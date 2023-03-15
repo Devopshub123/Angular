@@ -4,8 +4,8 @@
             <mat-card-title class="title"> Comp Off </mat-card-title>
         </mat-card-header>
 
-        <div>
-            <form [formGroup]="CompoffForm" autocomplete="off" style="padding-top: 1%" class="tableP">
+        <div class="main-Pad">
+            <form [formGroup]="CompoffForm" autocomplete="off" style="padding-top: 1%" >
                 <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                     <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                         <mat-label>Worked Date </mat-label>
@@ -57,7 +57,7 @@
                     </mat-form-field>
                 </div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                    <mat-form-field fxFlex.xs="100" fxFlex="62" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex="65" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
                         <mat-label>Reason</mat-label>
                         <textarea formControlName="reason" matInput placeholder="" [readonly]="isview" required
                             maxlength="250">
@@ -66,13 +66,13 @@
                             {{ msgLM1 }}
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline" *ngIf="isview">
+                    <mat-form-field fxFlex.xs="100" fxFlex="65" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline" *ngIf="isview">
                         <mat-label>Status</mat-label>
                         <input formControlName="status" readonly matInput />
                     </mat-form-field>
                 </div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" *ngIf="isview">
-                    <mat-form-field fxFlex.xs="100" fxFlex="62" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
                         <mat-label>Reject Reason</mat-label>
                         <textarea formControlName="rejectreason" matInput placeholder="" [readonly]="isview" required
                             maxlength="250">
@@ -97,8 +97,9 @@
             </form>
         </div>
         <hr class="line_break" />
-        <div class="tableP">
-            <table class="example-container mat-elevation-z1" mat-table [dataSource]="dataSource" matSort>
+        <div fxLayout="column" class="tableP">
+            <div class="example-container mat-elevation-z1">
+            <table  mat-table [dataSource]="dataSource" matSort>
                 <ng-container matColumnDef="appliedon">
                     <th mat-header-cell *matHeaderCellDef>Applied On</th>
                     <td mat-cell *matCellDef="let row">
@@ -149,5 +150,6 @@
                 </tr>
             </table>
         </div>
+    </div>
     </mat-card>
 </div>

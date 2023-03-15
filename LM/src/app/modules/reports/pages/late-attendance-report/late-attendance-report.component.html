@@ -5,8 +5,9 @@
             <mat-card-title class="headingtext">Late Attendance Report</mat-card-title>
         </mat-card-header>
 
-        <div fxLayout="row wrap" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center"
+        <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center"
             [formGroup]="searchForm" style="padding: 1%;">
+            <div fxLayout="row">
             <mat-form-field fxFlex fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
                 <mat-label>Employee Name</mat-label>
                 <mat-select formControlName="user" required>
@@ -16,6 +17,7 @@
                     </ng-container>
                 </mat-select>
             </mat-form-field>
+
             <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>Shift</mat-label>
                 <mat-select formControlName="shift"  required>
@@ -26,6 +28,8 @@
                 </mat-select>
 
             </mat-form-field>
+        </div>
+            <div fxLayout="row">
             <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>From Date </mat-label>
                 <input matInput readonly required [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate"
@@ -48,6 +52,7 @@
                     Please select an option.
                 </mat-error>
             </mat-form-field>  
+        </div>
         </div>
         <div fxLayout="row" fxFlex.xs="100%" fxLayoutAlign="center" class="showLine">
             <span>

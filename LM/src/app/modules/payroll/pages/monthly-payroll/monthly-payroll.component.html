@@ -8,8 +8,8 @@
             <div fxLayout="column" class="div-pad">
               
                   <form [formGroup]="monthlyPayrollForm" autocomplete="off" style="padding-top: 1%;">
-                    <div fxLayout="row" fxLayout.xs="column" fxFlex="100">
-                        <mat-form-field fxFlex="28" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <div fxLayout="row" fxLayout.xs="column">
+                        <mat-form-field fxFlex="28" fxFlex.lt-lg="48" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                             <mat-label>Financial Year</mat-label>
                             <mat-select formControlName="financial_year">
                                 <ng-container>
@@ -19,7 +19,8 @@
                               </ng-container>
                             </mat-select>
                         </mat-form-field>
-                        <mat-form-field fxFlex="28" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+
+                        <mat-form-field fxFlex="28" fxFlex.lt-lg="48" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                             <mat-label>Month and Year</mat-label>
                             <mat-select formControlName="Month_year">
                                 <ng-container>
@@ -29,6 +30,7 @@
                               </ng-container>
                             </mat-select>
                         </mat-form-field>
+
                       </div>
                     </form>
                     

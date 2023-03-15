@@ -2,31 +2,29 @@
   <form [formGroup]="errorMessagesForm" autocomplete="off">
 <mat-card fxLayout="column">
     <mat-card-header class="headerbox">
-        <div fxLayout="row" fxFlex="50">
-            <mat-card-title class="title"> Message Master </mat-card-title>
-        </div>
+      <mat-card-title class="title"> Message Master </mat-card-title>
         </mat-card-header>
 <div fxLayout="column">
-    <div fxLayout="row"  fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;padding-right: 2%;padding-top: 1%;">
+    <div fxLayout="row"  fxFlex.xs="100%" fxLayoutAlign="end" class="dev-Pad"  style="padding-top: 5px;height: 70px;">
         <mat-form-field fxFlex="28" fxFlex.lt-lg="50" fxFlex.xs="100%" appearance="outline">
             <mat-label>Search</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
-    <div class="tablePadding">
-        <div class="mat-elevation-z1">
+    <div class="table-pad">
+        <div class="mat-elevation-z1 example-container">
       <table mat-table #table [dataSource]="dataSource" matSort>
 
           <ng-container matColumnDef="sno">
-              <mat-header-cell *matHeaderCellDef>S.No</mat-header-cell>
-              <mat-cell *matCellDef="let element; let i=index;">
+              <mat-header-cell *matHeaderCellDef style="max-width: 85px;">S.No</mat-header-cell>
+              <mat-cell *matCellDef="let element; let i=index;" style="max-width: 85px;">
                   {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="code">
-              <mat-header-cell *matHeaderCellDef  mat-sort-header="code">Code</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{row.errorcode}}</mat-cell>
+              <mat-header-cell *matHeaderCellDef  mat-sort-header="code" style="max-width: 100px;">Code</mat-header-cell>
+              <mat-cell *matCellDef="let row" style="max-width: 100px;">{{row.errorcode}}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="screenName">
               <mat-header-cell *matHeaderCellDef>Screen Name</mat-header-cell>
