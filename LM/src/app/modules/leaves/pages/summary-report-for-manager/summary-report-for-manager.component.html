@@ -6,7 +6,7 @@
       </mat-card-header>
  
       <div [formGroup]="searchForm">
-        <div fxLayout="row" fxLayout.xs="column" class="dev-Pad">
+        <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" class="dev-Pad">
           <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
             <mat-label>Designations</mat-label>
             <mat-select formControlName="designationId" required>
@@ -28,7 +28,8 @@
               </ng-container>
             </mat-select>
           </mat-form-field>
-          <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+
+          <mat-form-field fxFlex fxFlex.xs="100" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
             <mat-label>Years</mat-label>
             <mat-select formControlName="calenderYear" required>
               <!--<mat-option value="All"> All </mat-option>-->
@@ -39,6 +40,7 @@
               </ng-container>
             </mat-select>
           </mat-form-field>
+
         </div>
       </div>
 

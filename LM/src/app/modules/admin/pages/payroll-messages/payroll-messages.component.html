@@ -1,33 +1,33 @@
-<div fxLayout="column" class="first-col">
+<div fxLayout="column" fxFill class="first-col">
     <form [formGroup]="errorMessagesForm" autocomplete="off">
-<mat-card fxLayout="column">
+<mat-card fxFill>
     <mat-card-header >
         <mat-card-title > Message Master </mat-card-title>
     </mat-card-header>
-<div fxLayout="column" fxLayout.xs="column" class="div-pad">
-    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 56px;margin-top: 1%;">
-        <mat-form-field fxFlex="28" fxFlex.lt-lg="30" fxFlex.xs="100%" appearance="outline">
+<div fxLayout="column">
+    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" class="dev-Pad">
+        <mat-form-field fxFlex="28" fxFlex.lt-lg="50" fxFlex.xs="100%" appearance="outline">
             <mat-label>Search</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
-    <br>
-   <div class="mat-elevation-z1">
+    <div class="table-pad">
+   <div class="mat-elevation-z1 example-container">
         <table mat-table #table [dataSource]="dataSource" matSort>
 
             <ng-container matColumnDef="sno">
-                <mat-header-cell *matHeaderCellDef style=" color :white">S.No</mat-header-cell>
-                <mat-cell *matCellDef="let element; let i=index;">
+                <mat-header-cell *matHeaderCellDef style="max-width: 85px;">S.No</mat-header-cell>
+                <mat-cell *matCellDef="let element; let i=index;" style="max-width: 85px;">
                     {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="code">
-                <mat-header-cell *matHeaderCellDef  mat-sort-header="code" style=" color :white">Code</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{row.code}}</mat-cell>
+                <mat-header-cell *matHeaderCellDef  mat-sort-header="code" style="max-width: 100px;">Code</mat-header-cell>
+                <mat-cell *matCellDef="let row" style="max-width: 100px;">{{row.code}}</mat-cell>
             </ng-container>
             <ng-container matColumnDef="screenName">
-                <mat-header-cell *matHeaderCellDef style=" color :white">Screen Name</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>Screen Name</mat-header-cell>
                 <mat-cell *matCellDef="let row">{{row.screenname}}</mat-cell>
             </ng-container>
 
@@ -73,6 +73,7 @@
         <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
 
     </div>
+</div>
 </div>
 </mat-card>
 </form>

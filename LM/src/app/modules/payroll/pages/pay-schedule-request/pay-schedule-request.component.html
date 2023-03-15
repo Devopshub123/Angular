@@ -8,10 +8,9 @@
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">
         <form [formGroup]="payGroupRequestForm" autocomplete="off" style="width:100%">
-            <div>
-                <div fxLayout="column" fxFlex="3">
-                </div>
-                <div fxLayout="column" fxFlex="45" class="custom-payroll-div">
+            <div fxLayout.lt-lg="column" fxLayoutGap="15px" style="padding-left: 15px;padding-right: 15px;">
+    
+                <div fxLayout="column" fxFlex class="custom-payroll-div">
                     <div>
                             <p>
                                 <mat-form-field appearance="outline" style="width: 100%;">
@@ -94,9 +93,8 @@
                         </p> -->
                       </div>
                 </div>
-                <div fxLayout="column" fxFlex="4">
-                </div>
-                <div fxLayout="column" fxFlex="45" class="custom-payroll-div">
+
+                <div fxLayout="column" fxFlex class="custom-payroll-div">
                     <div>
                         <p>
                             <label>Do you want to have same payroll and leave window ?</label>
@@ -188,7 +186,6 @@
                 </div>
 
                 </div>
-
             </div>
             <div class="row tab-lap-desk-show" style="margin-bottom: 51px !important;margin-top: -47px;">
                 <div class="col-sm-6 text-right" style="padding:0px">

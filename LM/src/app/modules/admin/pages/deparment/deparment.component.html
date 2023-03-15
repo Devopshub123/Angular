@@ -9,7 +9,6 @@
                       </button>
                    </div>
            </mat-card-header>
-           
            <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd">
                 <div fxLayout="row" fxLayout.xs="row" style="padding-top: 1%;padding-left: 1%;">
                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
@@ -37,7 +36,7 @@
 
             </div><br>
             <!-- <mat-divider></mat-divider> -->
-            <div  *ngIf="isdata" class="div-pad">
+            <div fxLayout="column" *ngIf="isdata" class="div-pad">
                 <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;">
                      <mat-form-field fxFlex="28" fxFlex.lt-lg="50" fxFlex.xs="100%" appearance="outline">
                          <mat-label>Search</mat-label>
@@ -46,8 +45,7 @@
                      </mat-form-field>
                 </div>
                 <br>
-                <div fxLayout="column" >
-                <div class="mat-elevation-z1">
+                 <div class="mat-elevation-z1">
                     <table mat-table [dataSource]="dataSource" matSort>
                         <ng-container matColumnDef="sno">
                             <th mat-header-cell *matHeaderCellDef>S.No</th>
@@ -108,8 +106,9 @@
                     <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
                     <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
                 </div>
+            
             </div>
-            </div>
+ 
     </form>
 </mat-card>
 </div>

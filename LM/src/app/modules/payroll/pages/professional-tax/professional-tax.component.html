@@ -1,9 +1,7 @@
 <div fxLayout="column" fxFill class="custom-pgr-height-auto first-col">
     <mat-card fxFill>
       <mat-card-header class="headerbox">
-        <div fxLayout="row" fxFlex="50">
-            <mat-card-title class="title"> Professional Tax</mat-card-title>
-        </div>
+        <mat-card-title class="title"> Professional Tax</mat-card-title>
         </mat-card-header>
 
       <div class="custom-card">
@@ -23,7 +21,8 @@
                 <p>{{leave.state}} - {{leave.work_locations}}</p>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-table [dataSource]="dataSource1[i]" class="mat-elevation-z1" style="margin-bottom:1rem;margin-top: 1rem;">
+            <div class="mat-elevation-z1  example-container">
+            <mat-table [dataSource]="dataSource1[i]" style="margin-bottom:1rem;">
               <ng-container matColumnDef="Start_Range">
                 <mat-header-cell *matHeaderCellDef class="custom-investment-th" > Start Range </mat-header-cell>
                 <mat-cell *matCellDef="let element" class="custom-investment-td" > <span matInput placeholder="" maxlength="100">{{element.salary_from}}</span></mat-cell>
@@ -54,8 +53,8 @@
               <mat-header-row class="dashboard-1 custom-investment-header" *matHeaderRowDef="displayedColumnsRequest"></mat-header-row>
               <mat-row 
               *matRowDef="let row; columns: displayedColumnsRequest;"></mat-row>
-       </mat-table>   
-
+           </mat-table>   
+          </div>
           </mat-expansion-panel>
          </div>
         <!-- </ng-container> -->

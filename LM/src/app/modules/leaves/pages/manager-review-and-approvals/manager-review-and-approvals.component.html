@@ -6,7 +6,7 @@
           <mat-card-title  *ngIf="leaveInfo.isleave"> {{leaveInfo.leaveData.display_name}}</mat-card-title>
         </mat-card-header>
       <br>
-<div fxLayout="column">
+<div fxLayout="column" style="padding-left: 8px;padding-right: 8px;">
       <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center">
 
         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
@@ -28,7 +28,7 @@
       <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center center">
        
 
-        <mat-form-field *ngIf="!leaveInfo.isleave" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+        <mat-form-field *ngIf="!leaveInfo.isleave" fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
           <mat-label>Comp-off Date</mat-label>
           <input formControlName="fromDate" required matInput placeholder="Shift" >
         </mat-form-field>
@@ -62,7 +62,7 @@
           <input formControlName="updatedon" required matInput placeholder="" >
         </mat-form-field>
 
-        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="leaveInfo.leaveData.leavestatus == 'Rejected'">
+        <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline" *ngIf="leaveInfo.leaveData.leavestatus == 'Rejected'">
           <mat-label *ngIf="leaveInfo.isleave">Rejected On</mat-label>
           <mat-label *ngIf="!leaveInfo.isleave">Rejected On</mat-label>
           <input formControlName="updatedon" required matInput placeholder="" >
