@@ -114,11 +114,8 @@ export class InductionConductedByMasterComponent implements OnInit {
       // }
 
     }
-    
-    console.log( "array",this.array);
-    console.log( "selectedEmployees",this.selectedEmployees);
-      this.inductionForm.controls.programType.setValue(data.program_id);
-      this.inductionForm.controls.department.setValue(data.department_id);
+      // this.inductionForm.controls.programType.setValue(data.program_id);
+      // this.inductionForm.controls.department.setValue(data.department_id);
       // this.inductionForm.controls.conductBy.setValue(this.array);
 
       let emplist:any=[];
