@@ -20,7 +20,7 @@ Login = 'Login'
 
 
 const routes: Routes = [
-  {path:'sign-up',component:SignUpComponent},
+  {path:'sign-up/:token',component:SignUpComponent},
   {path:'Validateemail',component:RegisterValidationComponent},
   {path:'Login',component:LoginComponent},
   {path:'sidenav',component:SideNavComponent},

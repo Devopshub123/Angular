@@ -75,6 +75,10 @@ export class SignUpComponent implements OnInit {
 
   companyName: any;
   checked = false;
+  params:any;
+  email:any;
+  companycode:any
+;
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService, private spinner: NgxSpinnerService,
     private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
     , private EMS: EmsService, private adminService: AdminService, private mainService: MainService, private activatedRoute: ActivatedRoute) {
@@ -83,6 +87,11 @@ export class SignUpComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.params = this.activatedRoute.snapshot.params;
+    // if (this.params && this.params.token) {
+      this.email = JSON.parse(atob(this.params.token)).email;
+      this.companycode = JSON.parse(atob(this.params.token)).companycode;
+      console.log("email",this.email)
     this.createPersonalInfoForm();
 
   }
@@ -98,13 +107,14 @@ export class SignUpComponent implements OnInit {
     this.signUpForm = this.formBuilder.group(
       {
         companyName: [""],
-        companyCode: [""],
+        companyCode: [this.companycode],
         companySize: [""],
         totalUsers: ["",],
         IndustryType: [""],
         mobile: ["",],
         contactPerson: ["",],
-        companyemail: ["", [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+        companyemail:[this.email],
+        // companyemail: [this.email, [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
         password: [""],
         address1: [""],
         address2: [""],

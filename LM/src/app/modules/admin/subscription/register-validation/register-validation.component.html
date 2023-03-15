@@ -14,7 +14,7 @@
                   <div>
                     <mat-form-field fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" appearance="outline">
                       <mat-label>Company Code</mat-label>
-                      <input matInput class="form-control" type="text" formControlName="comapnyname"
+                      <input matInput class="form-control" mask="AAAA" type="text" formControlName="comapnyname"
                       id="company" formc
                          placeholder="" maxlength="30" />
                       <mat-error class="con-error" *ngIf="formGroup.controls.comapnyname.errors?.required">

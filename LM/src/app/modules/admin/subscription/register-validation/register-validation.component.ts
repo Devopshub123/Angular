@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
+import { AdminService } from '../../admin.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 
@@ -15,7 +16,7 @@ export class RegisterValidationComponent implements OnInit {
   formGroup: any=FormGroup;
 
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
-    private tss: LoginService, private router: Router,
+    private tss: LoginService, private router: Router,private AS: AdminService,
     private activatedRoute: ActivatedRoute,) { }
 
   ngOnInit(): void {
@@ -26,6 +27,27 @@ export class RegisterValidationComponent implements OnInit {
       
     });
   }
-  submit(){}
+  submit(){
+    let data ={
+      email :this.formGroup.controls.username.value,
+      companycode: this.formGroup.controls.comapnyname.value,
+    }
+    this.AS.Validateemail(data).subscribe((result:any)=>{
+      if(result.status){
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data:'Please check mail.'
+        });
+      }
+      else{
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data:'Enter a valid email.'
+        });
+      }
+    })
+  }
 
 }

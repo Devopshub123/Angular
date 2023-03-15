@@ -161,4 +161,9 @@ getAllModules(){
 setSpryplePlan(data:any){
   return this.http.post(this.mainUrl+'subscription/api/setSpryplePlan/',JSON.stringify(data), this.httpOptions)
 }
+Validateemail(data:any){
+  return this.http.post(this.mainUrl+'subscription/api/Validateemail',JSON.stringify(data), this.httpOptions)
+
+}
+
 }
