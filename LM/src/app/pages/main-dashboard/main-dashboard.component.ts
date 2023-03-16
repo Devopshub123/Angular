@@ -168,11 +168,11 @@ export class MainDashboardComponent implements OnInit {
     sessionStorage.setItem('selectedModule','Spryple' );
     this.getIsManagerOrNot();
     this.getScreenWidth().subscribe((width) => {
-      if (width < 640) {
+      if (width < 786) {
         this.showToggle = 'show';
         this.mode = 'over';
         this.openSidenav = false;
-      } else if (width > 640) {
+      } else if (width > 786) {
         this.showToggle = 'hide';
         this.mode = 'side';
         this.openSidenav = true;
