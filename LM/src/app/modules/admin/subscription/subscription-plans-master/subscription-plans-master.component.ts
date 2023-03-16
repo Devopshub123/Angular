@@ -13,6 +13,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import { environment } from 'src/environments/environment';
 import { EmsService } from 'src/app/modules/ems/ems.service';
 import { MatSelect } from '@angular/material/select';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 
 @Component({
   selector: 'app-subscription-plans-master',
@@ -115,9 +116,22 @@ this.subscriptionForm.controls.modules.setValue('')
         created_by:this.userSession.id,
         id:null
       }
-      console.log("|data",data)
       this.adminService.setSpryplePlan(data).subscribe((result:any)=>{
-        console.log(result)
+        if(result.status){
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data:result.message
+          });
+        }
+        else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data:result.message
+          });
+
+        }
       })
 
     }
