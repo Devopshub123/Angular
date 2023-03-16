@@ -84,5 +84,8 @@ resetpassword(resetPassword:any) : Observable<any> {
 getrolescreenfunctionalities(empId:any,moduleId:any): Observable<any>{
   return this.hClient.get(this.mainBeUrl + 'attendance/api/getrolescreenfunctionalities/'+empId+'/'+moduleId, this.httpOptions);
 }
+getMinUsers(data:any): Observable<any>{
+  return this.hClient.get(this.mainBeUrl + '/subscription/api/getMinUserForPlan/'+data, this.httpOptions);
+}
 
 }

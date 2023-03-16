@@ -37,14 +37,14 @@ export class RegisterValidationComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data:'Please check mail.'
+          data:result.message
         });
       }
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data:'Enter a valid email.'
+          data:result.message
         });
       }
     })
