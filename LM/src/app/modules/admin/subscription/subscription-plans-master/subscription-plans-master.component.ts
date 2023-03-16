@@ -62,6 +62,7 @@ export class SubscriptionPlansMasterComponent implements OnInit {
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     /** */
+    this.getSpryplePlans();
     this.getmodules();
     this.subscriptionForm=this.formBuilder.group(
       {
@@ -136,7 +137,15 @@ this.subscriptionForm.controls.modules.setValue('')
 
     }
    }
+   getSpryplePlans(){
+    this.adminService.getSpryplePlans().subscribe((result:any)=>{
+      if(result.status&&result.data.length>0){
+        this.dataSource = result.data;
+        console.log(this.dataSource)
 
+      }
+    })
+  }
 
   getCompanyInformation(){
     this.LM.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
@@ -152,15 +161,18 @@ this.subscriptionForm.controls.modules.setValue('')
 
 
   edit(event: any, data: any) {
+    this.isData = true;
+    this.isAddBtn = false;
     this.isadd=false;
     this.editing=true;
     this.editdata = data;
-    this.subscriptionForm.controls.planName.setValue(data.comment);
-    this.subscriptionForm.controls.monthlyCost.setValue(data.comment);
-    this.subscriptionForm.controls.yearlyCost.setValue(data.comment);
-    this.subscriptionForm.controls.modules.setValue(data.comment);
-    this.subscriptionForm.controls.minUsers.setValue(data.comment);
-    this.subscriptionForm.controls.maxUsers.setValue(data.comment);
+    console.log("data",data)
+    // this.subscriptionForm.controls.planName.setValue(data.comment);
+    // this.subscriptionForm.controls.monthlyCost.setValue(data.comment);
+    // this.subscriptionForm.controls.yearlyCost.setValue(data.comment);
+    // this.subscriptionForm.controls.modules.setValue(data.comment);
+    // this.subscriptionForm.controls.minUsers.setValue(data.comment);
+    // this.subscriptionForm.controls.maxUsers.setValue(data.comment);
 
   }
   editsaved(){

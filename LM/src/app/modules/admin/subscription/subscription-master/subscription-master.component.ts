@@ -12,6 +12,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 import { EmsService } from 'src/app/modules/ems/ems.service';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 const moment =  _moment;
 
 export const MY_FORMATS = {
@@ -72,11 +73,14 @@ export class SubscriptionMasterComponent implements OnInit {
   ];
   selectedEmployees: any = [];
   constructor(private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog,
-    private adminService: AdminService, private ES: EmsService, private LM: CompanySettingService) {
+    private AS: AdminService, private ES: EmsService, private LM: CompanySettingService) {
    }
    seperationsList: any = [];
+   plansdata:any=[];
+  //  plansdata:any=[{id:1,'plan':'standard'},{id:1,'plan':'premium'},{id:1,'plan':'extra premium'}]
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    this.getSpryplePlans();
     /** */
     this.subscriptionForm=this.formBuilder.group(
       {
@@ -87,7 +91,9 @@ export class SubscriptionMasterComponent implements OnInit {
       minUsers:["",[Validators.required]],
       maxUsers:["",[Validators.required]],
       });
-    
+      this.subscriptionForm.get('planName')?.valueChanges.subscribe((selectedValue:any) => {
+      this.getMinUserForPlan(selectedValue);
+      })
   }
   addNew() {
     this.isData = true;
@@ -102,8 +108,51 @@ export class SubscriptionMasterComponent implements OnInit {
             this.router.navigate(["/Admin/subscription-master"]));
 
   }
+  getMinUserForPlan(data:any){
+    this.AS.getMinUserForPlan(data).subscribe((result:any)=>{
+      if(result.status){
+        if(result.data[0].minimum_value == 0){
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data:'The previous slab of this plan does not contain a maximum value. Please set that value and proceed with creation of a new slab.'
+          });
+
+        }
+        else{
+          this.subscriptionForm.controls.minUsers.setValue(result.data[0].minimum_value)
+        }
+        
+
+      }
+     
+    })
+  }
 
   saved(){
+  
+    // if(this.subscriptionForm.valid){
+      let data = {
+        plan_id_value:this.subscriptionForm.controls.planName.value,
+        lower_range_value:this.subscriptionForm.controls.minUsers.value,
+        upper_range_value:this.subscriptionForm.controls.maxUsers.value,
+        cost_per_user_monthly:this.subscriptionForm.controls.monthlyCost.value,
+        cost_per_user_yearly:this.subscriptionForm.controls.yearlyCost.value,
+        created_by_value:this.userSession.id,
+        id_value:null
+      }
+      this.AS.setPlanDetails(data).subscribe((result:any)=>{
+       if(result.status){
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data:'Data inserted successfully.'
+        });
+
+       }
+      })
+    // }
+    //cost_per_user_monthly,cost_per_user_yearly,created_by_value,id_value
    }
 
 
@@ -118,7 +167,17 @@ export class SubscriptionMasterComponent implements OnInit {
     })
 
   }
+  getSpryplePlans(){
+    this.AS.getSpryplePlans().subscribe((result:any)=>{
+      if(result.status&&result.data.length>0){
+        this.plansdata = result.data;
+        console.log(this.plansdata)
 
+      }
+    })
+  }
+   
+ 
 
   edit(event: any, data: any) {
     this.isadd=false;

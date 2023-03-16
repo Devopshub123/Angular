@@ -165,5 +165,18 @@ Validateemail(data:any){
   return this.http.post(this.mainUrl+'subscription/api/Validateemail',JSON.stringify(data), this.httpOptions)
 
 }
+// /subscription/api/getMinUserForPlan/:planid
+getMinUserForPlan(data:any){
+  return this.http.get(this.mainUrl+'subscription/api/getMinUserForPlan/'+data, this.httpOptions);
+}
+setPlanDetails(data:any){
+  return this.http.post(this.mainUrl+'subscription/api/setPlanDetails',JSON.stringify(data), this.httpOptions)
+}
+getSpryplePlans(){
+  return this.http.get(this.mainUrl+'subscription/api/getSpryplePlans', this.httpOptions);
+
+}
+
+
 
 }

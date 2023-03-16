@@ -71,6 +71,7 @@ export class SignUpComponent implements OnInit {
   countryDetails: any = [];
   stateDetails: any = [];
   cityDetails: any = [];
+  
 
 
   companyName: any;
