@@ -268,7 +268,7 @@
             <!-- update checklist meet -->
             <div fxLayout="column" fxLayout.xs="column" *ngIf="isUpdateChecklist">
                 <br>
-                <div style="margin-left: 1%;"><b>Update Schedule Meeting</b></div>
+                <div style="margin-left: 15px;"><b>Update Schedule Meeting</b></div>
                 <mat-divider></mat-divider>
                 <div class="table-pad">
                     <div class="mat-elevation-z1 example-container">
@@ -321,9 +321,8 @@
                         <mat-paginator [pageSizeOptions]="!pageLoading2 ? getPageSizes3() : [5, 10, 20]"></mat-paginator>
                        </div>
                 </div>
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-<br>
-
+                <br>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-left: 10px;">
                     <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                         <mat-label>Update Status</mat-label>
                         <mat-select required formControlName="updatestatus">
@@ -335,7 +334,6 @@
                         </mat-select>
 
                     </mat-form-field>
-
                 </div>
 
                 <div fxLayoutAlign="center">

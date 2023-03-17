@@ -560,3 +560,9 @@ th{
   font-weight: 500;
   color: black;
 }
+.truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block !important;
+}
