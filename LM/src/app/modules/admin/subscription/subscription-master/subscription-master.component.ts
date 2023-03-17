@@ -89,7 +89,7 @@ export class SubscriptionMasterComponent implements OnInit {
       yearlyCost:["",[Validators.required]],
       modules:["",[Validators.required]],
       minUsers:["",[Validators.required]],
-      maxUsers:["",[Validators.required]],
+      maxUsers:["",],
       });
       this.subscriptionForm.get('planName')?.valueChanges.subscribe((selectedValue:any) => {
       this.getMinUserForPlan(selectedValue);
@@ -135,7 +135,7 @@ export class SubscriptionMasterComponent implements OnInit {
       let data = {
         plan_id_value:this.subscriptionForm.controls.planName.value,
         lower_range_value:this.subscriptionForm.controls.minUsers.value,
-        upper_range_value:this.subscriptionForm.controls.maxUsers.value,
+        upper_range_value:this.subscriptionForm.controls.maxUsers.value==''?null:this.subscriptionForm.controls.maxUsers.value,
         cost_per_user_monthly:this.subscriptionForm.controls.monthlyCost.value,
         cost_per_user_yearly:this.subscriptionForm.controls.yearlyCost.value,
         created_by_value:this.userSession.id,
@@ -143,6 +143,8 @@ export class SubscriptionMasterComponent implements OnInit {
       }
       this.AS.setPlanDetails(data).subscribe((result:any)=>{
        if(result.status){
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/subscription-master"]));
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,

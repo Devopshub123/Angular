@@ -53,6 +53,7 @@ export class SubscriptionPlansMasterComponent implements OnInit {
   flag: boolean = true;
   
   selectedEmployees: any = [];
+  arrayValue:any=[{"id":"Active","name":"Active"},{"id":"Inactive","name":"Inactive"}];
   modulesList:any=[];
   ischecked:boolean=false;
   constructor(private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog,
@@ -84,7 +85,8 @@ export class SubscriptionPlansMasterComponent implements OnInit {
             this.router.navigate(["/Admin/subscription-plans"]));
 
   }
-  selectAll(select: MatSelect, values:any, array:any) {
+  selectAll(select: any, values:any, array:any) {
+    console.log("select ",select)
     this.ishideselect = true;
 this.ischecked = true;
 select.value = values;
@@ -166,9 +168,10 @@ this.subscriptionForm.controls.modules.setValue('')
     this.isadd=false;
     this.editing=true;
     this.editdata = data;
-    console.log("data",data)
-    // this.subscriptionForm.controls.planName.setValue(data.comment);
-    // this.subscriptionForm.controls.monthlyCost.setValue(data.comment);
+    console.log("data",data.modules)
+    this.subscriptionForm.controls.planName.setValue(data.plan_name);
+    this.subscriptionForm.controls.modules.setValue(data.modules);
+    this.selectAll(true, data.modules, this.subscriptionForm.modules)
     // this.subscriptionForm.controls.yearlyCost.setValue(data.comment);
     // this.subscriptionForm.controls.modules.setValue(data.comment);
     // this.subscriptionForm.controls.minUsers.setValue(data.comment);
@@ -213,7 +216,11 @@ this.subscriptionForm.controls.modules.setValue('')
   getmodules(){
     this.adminService.getAllModules().subscribe((result:any)=>{
       if(result.status&& result.data.length>0){
-        this.modulesList=result.data;
+        for(let i=0;i<result.data.length;i++){
+          this.modulesList.push({"id":result.data[i].id,"modulename":result.data[i].modulename});
+          // this.modulesList[i].push(result.data[i].modulename)
+        }
+        // this.modulesList=result.data;
         console.log(this.modulesList)
         // this.subscriptionForm.controls.modules.setValue(this.modulesList)
       }
