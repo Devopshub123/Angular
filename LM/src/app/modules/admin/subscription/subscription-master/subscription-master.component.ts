@@ -53,7 +53,7 @@ export class SubscriptionMasterComponent implements OnInit {
   ishide:boolean=false;
   reasondata:any;
   userSession:any;
-  displayedColumns: string[] = ['sno','plan','monthUser','yearUser','min-user','max-user','status','action'];
+  displayedColumns: string[] = ['sno','plan','monthUser','yearUser','min-user','max-user','action'];
   dataSource: MatTableDataSource<any>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -81,6 +81,7 @@ export class SubscriptionMasterComponent implements OnInit {
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getSpryplePlans();
+    this.getSpryplePlanCostDetails();
     /** */
     this.subscriptionForm=this.formBuilder.group(
       {
@@ -126,6 +127,15 @@ export class SubscriptionMasterComponent implements OnInit {
 
       }
      
+    })
+  }
+  getSpryplePlanCostDetails(){
+    this.AS.getSpryplePlanCostDetails().subscribe((result:any)=>{
+      if(result.status&&result.data.length>0){
+        this.dataSource = result.data;
+        console.log(this.dataSource)
+
+      }
     })
   }
 

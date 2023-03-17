@@ -35,7 +35,7 @@
                                     </mat-option>
                                 </div>
                             </mat-select> -->
-                            <mat-select placeholder="module" name="mo" formControlName="modules" required multiple #moduleSelect>
+                            <!-- <mat-select placeholder="module" name="mo" formControlName="modules" required multiple #moduleSelect>
 
                               
                                 <button mat-raised-button class="mat-primary fill text-sm"
@@ -50,6 +50,26 @@
                                 <mat-option *ngFor="let location of modulesList" [value]="location">
                                     {{location.modulename}}
                                 </mat-option>
+                            </mat-select> -->
+
+
+
+                            <mat-select  [compareWith]="compareFn"   placeholder="Select" required formControlName="modules" multiple >
+                                <mat-select-trigger>
+                                  <span *ngFor="let item of subscriptionForm.controls.modules.value">
+                                       {{item.modulename}} ,
+                                  </span>
+                                 </mat-select-trigger>
+                                <div class="select-container" *ngIf="editflag">
+                                    <mat-option  (onSelectionChange)="selectedModulesChange($event)"
+                                    *ngFor="let modules of modulesList" [value]="modules">{{modules.modulename}}
+                                </mat-option>
+                              </div>
+                              <div class="select-container" *ngIf="!editflag">
+                                <mat-option  (onSelectionChange)="selectedModulesChange($event)"
+                                *ngFor="let modules of modulesList" [value]="modules">{{modules.modulename}}
+                            </mat-option>
+                          </div>
                             </mat-select>
                             <mat-error class="con-error" *ngIf="subscriptionForm.controls.modules.errors?.required">
                                 This field is required

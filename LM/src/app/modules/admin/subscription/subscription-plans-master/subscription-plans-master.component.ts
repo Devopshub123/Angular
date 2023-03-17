@@ -52,7 +52,7 @@ export class SubscriptionPlansMasterComponent implements OnInit {
   searchTextboxControl = new FormControl();
   flag: boolean = true;
   
-  selectedEmployees: any = [];
+  selectedModules: any = [];
   arrayValue:any=[{"id":"Active","name":"Active"},{"id":"Inactive","name":"Inactive"}];
   modulesList:any=[];
   ischecked:boolean=false;
@@ -60,6 +60,7 @@ export class SubscriptionPlansMasterComponent implements OnInit {
     private adminService: AdminService, private ES: EmsService, private LM: CompanySettingService) {
    }
    seperationsList: any = [];
+   editflag: boolean = true;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     /** */
@@ -85,25 +86,25 @@ export class SubscriptionPlansMasterComponent implements OnInit {
             this.router.navigate(["/Admin/subscription-plans"]));
 
   }
-  selectAll(select: any, values:any, array:any) {
-    console.log("select ",select)
-    this.ishideselect = true;
-this.ischecked = true;
-select.value = values;
-array = values;
-this.subscriptionForm.controls.modules.setValue(array)
+//   selectAll(select: any, values:any, array:any) {
+//     console.log("select ",select)
+//     this.ishideselect = true;
+// this.ischecked = true;
+// select.value = values;
+// array = values;
+// this.subscriptionForm.controls.modules.setValue(array)
 
 
-}
+// }
 
-deselectAll(select: MatSelect) {
-this.ishideselect = false;
-this.ischecked = false
-this.selectedmodule= [];
-select.value = [];
-this.subscriptionForm.controls.modules.setValue('')
+// deselectAll(select: MatSelect) {
+// this.ishideselect = false;
+// this.ischecked = false
+// this.selectedmodule= [];
+// select.value = [];
+// this.subscriptionForm.controls.modules.setValue('')
 
-}
+// }
 
   saved(){
     let array=[]
@@ -115,7 +116,7 @@ this.subscriptionForm.controls.modules.setValue('')
     if(this.subscriptionForm.valid){
       let data ={
         plan:this.subscriptionForm.controls.planName.value,
-        modules:array,
+        modules:this.selectedModules,
         created_by:this.userSession.id,
         id:null
       }
@@ -163,15 +164,22 @@ this.subscriptionForm.controls.modules.setValue('')
 
 
   edit(event: any, data: any) {
+    this.editflag =false;
     this.isData = true;
     this.isAddBtn = false;
     this.isadd=false;
     this.editing=true;
     this.editdata = data;
+
     console.log("data",data.modules)
     this.subscriptionForm.controls.planName.setValue(data.plan_name);
+    
+    for(let i=0;i<data.modules.length;i++){
+      this.selectedmodule.push(data.modules[i].id);
+    }
     this.subscriptionForm.controls.modules.setValue(data.modules);
-    this.selectAll(true, data.modules, this.subscriptionForm.modules)
+    // this.selectAll(true, data.modules, this.subscriptionForm.modules)
+    // this.selectedmodule.push(JSON.parse(data.modules));
     // this.subscriptionForm.controls.yearlyCost.setValue(data.comment);
     // this.subscriptionForm.controls.modules.setValue(data.comment);
     // this.subscriptionForm.controls.minUsers.setValue(data.comment);
@@ -202,14 +210,14 @@ this.subscriptionForm.controls.modules.setValue('')
 
   }
 
-  selectedEmployesChange(event: any) {
+  selectedModulesChange(event: any) {
     if (event.isUserInput && event.source.selected == false) {
-      let index = this.selectedEmployees.indexOf(event.source.value);
-      this.selectedEmployees.splice(index, 1)
+      let index = this.selectedModules.indexOf(event.source.value);
+      this.selectedModules.splice(index, 1)
 
     } else {
-      if(!this.selectedEmployees.includes(event.source.value.empid)) {
-        this.selectedEmployees.push(event.source.value.empid);
+      if(!this.selectedModules.includes(event.source.value.id)) {
+        this.selectedModules.push(event.source.value.id);
       }
     }
   }
