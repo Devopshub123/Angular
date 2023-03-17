@@ -148,7 +148,7 @@ export class HolidaysComponent implements OnInit {
       let data = {
         hid :null,
         holiday_year: year,
-        holiday_description: this.HolidayForm.controls.holiday.value.replace(/\s{1,}/g, '').trim().toLowerCase(),
+        holiday_description: this.HolidayForm.controls.holiday.value.replace(/\s{1,}/g, ' ').trim(),
         holiday_date: this.pipe.transform(this.HolidayForm.controls.date.value, 'yyyy-MM-dd'),
         holiday_location: this.selecteditems,
         createdby:this.userSession.id,
