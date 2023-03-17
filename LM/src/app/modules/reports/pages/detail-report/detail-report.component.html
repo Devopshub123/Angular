@@ -7,8 +7,8 @@
         </mat-card-header>
         <br />
         <div fxLayout fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center" [formGroup]="searchForm">
-            <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%">
-                <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
+            <div fxLayout="row" fxLayout.xs="column">
+                <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
                     <mat-label>Employee Name</mat-label>
                     <mat-select formControlName="Users" required>
                         <mat-option value="0"> All Employees </mat-option>
@@ -18,7 +18,7 @@
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
+                <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
                     <mat-label>Date</mat-label>
                     <input matInput readonly [matDatepicker]="fromDate" [min]="minDate" [max]="maxDate"
                         placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()" />
@@ -26,8 +26,8 @@
                     <mat-datepicker #fromDate></mat-datepicker>
                 </mat-form-field>
             </div>
-            <div fxLayout="row" fxFlex.xs="100%" class="showLine">
-                <span style="margin-top: 7%">
+            <div fxLayout="row" fxLayoutAlign.lt-lg="center center" fxLayoutAlign.xs="center center">
+                <span ngStyle.gt-md="margin-top: 5%">
                     <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()">
                         Search
                     </button>

@@ -47,7 +47,7 @@
 
       <div *ngIf="this.ishide">
         <div class="div-Pad">
-         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" >
+         <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center" >
             <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
               <mat-label>Date of Request Resignation </mat-label>
               <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date1" placeholder="DD-MM-YYYY"
@@ -57,11 +57,13 @@
               </mat-datepicker-toggle>
               <mat-datepicker #date1></mat-datepicker>
             </mat-form-field>
+
             <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
               <mat-label>Notice Period</mat-label>
               <input formControlName="noticperiod" readonly matInput placeholder="" maxlength="3" />
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+
+            <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
               <mat-label>Releiving Date </mat-label>
               <input matInput readonly [matDatepicker]="date2" placeholder="DD-MM-YYYY" formControlName="releivingdate"
                 [disabled]="true" />
@@ -71,8 +73,9 @@
               <mat-datepicker #date2></mat-datepicker>
             </mat-form-field>
           </div>
+
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
               <mat-label>Request Exit Date </mat-label>
               <input matInput [matDatepicker]="date3" [max]="max" [min]="min" placeholder="DD-MM-YYYY"
                 formControlName="exitdate" (click)="date3.open()" [disabled]="isviewdata" required/>
@@ -85,7 +88,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
               <mat-label>Reason</mat-label>
               <mat-select [disabled]="isviewdata" formControlName="reason" required>
                 <ng-container>
@@ -98,11 +101,12 @@
                 Please select an option
               </mat-error>
             </mat-form-field>
+
           </div>
           <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row" fxLayoutAlign.xs="center">
            
 
-            <mat-form-field fxFlex.xs="100" fxFlex="66" fxFlex.lt-lg="66" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="66" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
               <mat-label>Notes</mat-label>
               <textarea formControlName="notice" matInput placeholder="" [readonly]="isviewdata"
                 maxlength="250"></textarea>
