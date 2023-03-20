@@ -32,7 +32,7 @@ table {
   margin-bottom: 0px;
 }
 
-::ng-deeptr.mat-header-row {
+::ng-deep tr.mat-header-row {
   height: 45px !important;
 }
 ::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
@@ -64,3 +64,11 @@ mat-card {
 .example-container {
   overflow-x: auto;
 }
+@media only screen and (max-width: 800px) and (orientation:portrait) {
+  mat-header-row, mat-row {
+    width: 150%;
+  }
+  }
+  table td, table th {
+    padding: 2px 10px;
+  }

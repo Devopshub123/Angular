@@ -11,7 +11,7 @@
       <div fxLayout="row" fxLayout.xs="column" class="custom-card">  
         <form [formGroup]="esiRequestForm" autocomplete="off" class="rowPad">
             <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutGap="10px">
-                <mat-form-field appearance="outline" fxFlex>
+                <mat-form-field appearance="outline" fxFlex fxFlex.lt-lg="48">
                     <mat-label>Deduction Cycle</mat-label>
                     <input formControlName="deductionCycle" [ngClass]="{'disable':true}" [readonly]="true"  matInput placeholder="" >
                     <mat-error class="con-error" *ngIf="  esiRequestForm.controls.deductionCycle.errors?.required">
@@ -19,7 +19,7 @@
                     </mat-error>                                     
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" fxFlex>
+                <mat-form-field appearance="outline" fxFlex fxFlex.lt-lg="48">
                     <mat-label>Employee Contribution</mat-label>
                     <input type="text" matInput class="form-control" [ngClass]="{'disable':true}" formControlName="employeeContribution" placeholder="" readonly>                                
                 </mat-form-field>

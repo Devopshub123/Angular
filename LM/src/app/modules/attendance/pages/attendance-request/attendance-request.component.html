@@ -124,20 +124,20 @@
 
 
             <ng-container matColumnDef="worktype" style="width: 20%;">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Work Type </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Work Type </th>
                 <td mat-cell *matCellDef="let row"> {{row.worktype}}</td>
             </ng-container>
 
 
             <ng-container matColumnDef="fromdate" style="width: 15%;">
                 <th mat-header-cell *matHeaderCellDef> From</th>
-                <td mat-cell *matCellDef="let row"> {{row.fromdate | date:'dd-MM-yyyy'}} </td>
+                <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.fromdate | date:'dd-MM-yyyy'}} </td>
             </ng-container>
 
 
             <ng-container matColumnDef="todate" style="width: 15%;">
-                <th mat-header-cell *matHeaderCellDef> To</th>
-                <td mat-cell *matCellDef="let row"> {{row.todate | date:'dd-MM-yyyy'}} </td>
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> To</th>
+                <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.todate | date:'dd-MM-yyyy'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="reason">
@@ -152,7 +152,7 @@
             </ng-container>
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let row">
+                <td mat-cell *matCellDef="let row" style="white-space: nowrap;">
                     <mat-icon *ngIf="row.status=='Submitted'" class="mr-2" title="Edit" (click)="editRequest(row)">
                         edit</mat-icon>
                     <mat-icon *ngIf="row.status=='Submitted'" class="mr-2" title="Delete"

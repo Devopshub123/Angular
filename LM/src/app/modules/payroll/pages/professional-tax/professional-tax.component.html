@@ -36,7 +36,7 @@
 =
               <!-- Monthly Tax Amount Column -->
               <ng-container matColumnDef="Monthly_Tax_Amount">
-                  <mat-header-cell *matHeaderCellDef class="custom-investment-th"> Monthly Tax Amount </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef class="custom-investment-th" style="white-space: nowrap;"> Monthly Tax Amount </mat-header-cell>
                   <mat-cell *matCellDef="let element" class="custom-investment-td"> <span  matInput placeholder="" maxlength="100">{{element.tax}}</span> 
                   </mat-cell>    
               </ng-container>

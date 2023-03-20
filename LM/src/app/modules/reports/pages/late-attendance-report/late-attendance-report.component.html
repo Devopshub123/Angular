@@ -84,32 +84,32 @@
                     <td mat-cell *matCellDef="let row; let i = index;">{{i+1}}</td>
                 </ng-container>
                 <ng-container matColumnDef="empid">
-                    <th mat-header-cell *matHeaderCellDef>Employee ID</th>
+                    <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Employee ID</th>
                     <td mat-cell *matCellDef="let row;">{{row.empid}}</td>
                 </ng-container>
                 <ng-container matColumnDef="empname">
-                    <th mat-header-cell *matHeaderCellDef>Employee Name</th>
+                    <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Employee Name</th>
                     <td mat-cell *matCellDef="let row;">{{row.empname}}</td>
                 </ng-container>
                 <ng-container matColumnDef="shift">
                     <th mat-header-cell *matHeaderCellDef>Shift</th>
-                    <td mat-cell *matCellDef="let row"> {{row.shiftname}} </td>
+                    <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.shiftname}} </td>
                 </ng-container>
                 <ng-container matColumnDef="fromdate">
                     <th mat-header-cell *matHeaderCellDef>Date</th>
-                    <td mat-cell *matCellDef="let row"> {{row.attendancedate | date:'dd-MM-yyyy'}} </td>
+                    <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.attendancedate | date:'dd-MM-yyyy'}} </td>
                 </ng-container>
                 <ng-container matColumnDef="todate">
-                    <th mat-header-cell *matHeaderCellDef>Shift InTime</th>
-                    <td mat-cell *matCellDef="let row"> {{row.shiftstarttime}} </td>
+                    <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Shift InTime</th>
+                    <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.shiftstarttime}} </td>
                 </ng-container>
                 <ng-container matColumnDef="intime">
-                    <th mat-header-cell *matHeaderCellDef>In Time</th>
-                    <td mat-cell *matCellDef="let row"> {{row.actual_in_time}} </td>
+                    <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">In Time</th>
+                    <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.actual_in_time}} </td>
                 </ng-container>
                 <ng-container matColumnDef="latehours">
-                    <th mat-header-cell *matHeaderCellDef>Late Hours</th>
-                    <td mat-cell *matCellDef="let row"> {{row.latehours}} </td>
+                    <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Late Hours</th>
+                    <td mat-cell *matCellDef="let row" > {{row.latehours}} </td>
                 </ng-container>
                 <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

@@ -24,32 +24,32 @@
                     <td mat-cell *matCellDef="let row;let i = index;">{{i+1}} </td>
                 </ng-container>
                 <ng-container matColumnDef="applieddate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Applied On</th>
-                    <td mat-cell *matCellDef="let row"> {{row.applieddate | date:'dd-MM-yyyy'}}</td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Applied On</th>
+                    <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.applieddate | date:'dd-MM-yyyy'}}</td>
                 </ng-container>
                 <!-- Progress Column -->
                 <ng-container matColumnDef="worktype">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Work Type </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Work Type </th>
                     <td mat-cell *matCellDef="let row"> {{row.worktype}}</td>
                 </ng-container>
                 <ng-container matColumnDef="raisedbyname">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Employee Name </th>
                     <td mat-cell *matCellDef="let row"> {{row.empname}}</td>
                 </ng-container>
                 <ng-container matColumnDef="shift">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Shift </th>
-                    <td mat-cell *matCellDef="let row"> {{row.shift}}</td>
+                    <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.shift}}</td>
                 </ng-container>
                 <!-- Name Column -->
                 <ng-container matColumnDef="fromdate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> From</th>
-                    <td mat-cell *matCellDef="let row"> {{row.fromdate  | date:'dd-MM-yyyy'}} </td>
+                    <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.fromdate  | date:'dd-MM-yyyy'}} </td>
                 </ng-container>
 
                 <!-- Color Column -->
                 <ng-container matColumnDef="todate">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> To</th>
-                    <td mat-cell *matCellDef="let row"> {{row.todate  | date:'dd-MM-yyyy'}} </td>
+                    <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.todate  | date:'dd-MM-yyyy'}} </td>
                 </ng-container>
                 <!-- Color Column -->
                 <!-- <ng-container matColumnDef="reason">
@@ -65,7 +65,7 @@
                 </ng-container>
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let row">
+                    <td mat-cell *matCellDef="let row" style="white-space: nowrap;">
                         <mat-icon  class="mr-1"  title="Approve" (click)="acceptApproval(row)">check_circle_outline</mat-icon>
                          <mat-icon  class="mr-1"  title="Reject" (click)="rejectApproval(row)">highlight_off</mat-icon>
                          <mat-icon  class="mr-1"  title="view" (click)="changeTab(row)">visibility</mat-icon>

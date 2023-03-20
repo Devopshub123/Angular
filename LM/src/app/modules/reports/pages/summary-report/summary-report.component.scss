@@ -3,53 +3,7 @@
   z-index:1050 !important;
 }
 
-// .mat-column-sno {
-//   max-width: 70px;
-//   min-width: 80px;
-// }
 
-// .mat-column-empname {
-//   max-width: 200px;
-//   min-width: 130px;
-// }
-
-// .mat-column-attendancedate {
-//   max-width: 150px;
-//   min-width: 120px;
-// }
-
-// .mat-column-firstlogintime {
-//   max-width: 150px;
-//   min-width: 120px;
-// }
-
-// .mat-column-lastlogouttime {
-//   max-width: 150px;
-//   min-width: 120px;
-// }
-
-// .mat-column-totalhours {
-//   max-width: 120px;
-//   min-width: 100px;
-// }
-
-// .mat-column-breaks {
-//   max-width: 110px;
-//   min-width: 100px;
-// }
-
-// .mat-column-breaktime {
-//   max-width: 110px;
-//   min-width: 100px;
-// }
-// .mat-column-productivehours {
-//   max-width: 110px;
-//   min-width: 100px;
-// }
-// .mat-column-action {
-//   max-width: 100px;
-//   min-width: 90px;
-// }
 mat-card {
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
@@ -110,7 +64,7 @@ mat-card {
   flex-direction: column;
 }
 
-@media only screen and (max-width: 768px) and (orientation:portrait) {
+@media only screen and (max-width: 800px) and (orientation:portrait) {
     mat-header-row, mat-row {
       width: 150%;
     }

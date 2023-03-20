@@ -408,7 +408,7 @@
 
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef> </th>
-                        <td mat-cell *matCellDef="let row">
+                        <td mat-cell *matCellDef="let row" style="white-space: nowrap;">
                             <span *ngIf="row.status !='Completed' && row.status !='Cancelled' && row.status !='Finished'">
                                 <mat-icon class="mr-2" style="cursor: pointer;" title="Assign"  (click)="requestView(row)">group_add</mat-icon>
                                 <mat-icon class="mr-2" style="cursor: pointer;" title="Edit"  (click)="editRequest(row)" >edit</mat-icon>

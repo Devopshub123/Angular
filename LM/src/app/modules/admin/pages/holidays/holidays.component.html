@@ -78,20 +78,18 @@
 
         </form>
     </div>
-    <br>
-
-    <div *ngIf="isview" fxLayout="column" class="div-pad">
-        <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 50px;">
-            <mat-form-field fxFlex="28" fxFlex.lt-lg="50" fxFlex.xs="100%" appearance="outline">
-                 <mat-label>Search</mat-label>
-                 <input matInput (keyup)="applyFilter($event)" placeholder="" >
-                 <mat-icon matSuffix>search</mat-icon>
-             </mat-form-field>
-
-         </div>
-         <br>
-        <form [formGroup]="HolidayForm" autocomplete="off">
-            <div class="mat-elevation-z1">
+    <div *ngIf="isview" fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign.xs="center" class="dev-Pad" fxLayoutAlign="end">
+            <span style="height: 70px;" fxFlex="50" fxLayoutAlign="end">
+              <mat-form-field fxFlex.xs="100" fxFlex="56" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
+                <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
+                <mat-label>Search</mat-label>
+                <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
+              </mat-form-field>
+            </span>
+          </div>
+        <form [formGroup]="HolidayForm" autocomplete="off" class="table-pad">
+            <div class="mat-elevation-z1 example-container">
                 <table mat-table [dataSource]="dataSource" matSort>
                     <ng-container matColumnDef="sno">
                         <th mat-header-cell *matHeaderCellDef>S.No</th>
@@ -113,7 +111,7 @@
                     </ng-container>
                     <ng-container matColumnDef="date">
                         <th mat-header-cell *matHeaderCellDef> Date </th>
-                        <td mat-cell *matCellDef="let row">
+                        <td mat-cell *matCellDef="let row"     style="white-space: nowrap;">
                             <span *ngIf="enable != row.id">{{row.date | date:'dd-MM-yyyy'}} </span>
 
                             <mat-form-field appearance="outline" *ngIf="enable === row.id">
@@ -150,7 +148,7 @@
                     </ng-container>
                    <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef></th>
-                        <td mat-cell *matCellDef="let row">
+                        <td mat-cell *matCellDef="let row"     style="white-space: nowrap;">
                             <mat-icon class="mr-2" title="Edit" (click)="edit($event,row)" *ngIf="enable != row.id">edit
                             </mat-icon>
                             <mat-icon class="mr-2" title="Delete" (click)="deleteHolidayPopup($event,row.id)"
