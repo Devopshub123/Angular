@@ -163,4 +163,13 @@ export class MainService {
    getIsManagerOrNot(eid: any) {
     return this.http.get(this.mainBeUrl + 'ems/api/validateReportingManager/'+eid+'/'+this.companyName, this.httpOptions);
   }
+    /** get industry type list */
+    getIndustryTypes(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
+      return this.http.get(this.mainBeUrl + 'api/getMastertableSignup/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName);
+  }
+
+  setSprypleClient(data: any) {
+    console.log("da-1",data)
+    return this.http.post(this.mainBeUrl+'subscription/api/setSprypleClient',data)
+  }
 }

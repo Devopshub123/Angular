@@ -55,19 +55,16 @@ export class SignUpComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   loginData: any = [];
   signUpForm: any = FormGroup;
-  CandidateFamilyForm: any = FormGroup;
-  employementForm: any = FormGroup;
-  educationForm: any = FormGroup;
-  documentsForm: any = FormGroup;
   minDate = new Date('1950/01/01');
   maxBirthDate = new Date();
   bloodGroupdetails: any[] = [];
-  industryTypeList: any[] = [
-    { id:1,name:'IT Software'}, { id:2,name:'Education Management'},{ id:3,name:'Financial Services'}, { id:4,name:'Hospital & Health Care'},
-    { id:5,name:'Marketing & Advertising'}, { id:5,name:'Others'}
+  industryTypeList: any[] = [];
+  companySizeList: any[] = [
+    { id: 1, value: '0-50' },
+    { id: 2, value: '51-100' },
+    { id: 3, value: '101-200' },
+    { id: 4, value: '200+ Users' },
   ];
-  employeeRelationship: any = [];
-  maritalStatusDetails: any[] = [];
   countryDetails: any = [];
   stateDetails: any = [];
   cityDetails: any = [];
@@ -78,33 +75,24 @@ export class SignUpComponent implements OnInit {
   checked = false;
   params:any;
   email:any;
-  companycode:any
-;
+  companycode: any;
+  planId: any;
+  clientSignupId: any;
+  userSession:any;
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService, private spinner: NgxSpinnerService,
     private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
-    , private EMS: EmsService, private adminService: AdminService, private mainService: MainService, private activatedRoute: ActivatedRoute) {
+    , private mainService: MainService, private activatedRoute: ActivatedRoute) {
    // this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
   }
 
 
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
-    // if (this.params && this.params.token) {
-      this.email = JSON.parse(atob(this.params.token)).email;
-      this.companycode = JSON.parse(atob(this.params.token)).companycode;
-      console.log("email",this.email)
-    this.createPersonalInfoForm();
+    this.email = JSON.parse(atob(this.params.token)).email;
+    this.companycode = JSON.parse(atob(this.params.token)).companycode;
+    // this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    // console.log("asdf--",this.userSession)
 
-  }
-  getCountry() {
-    this.countryDetails = []
-    this.companyService.getPreonboardingCountry('countrymaster', null, 1, 10, this.companyName).subscribe(result => {
-      this.countryDetails = result.data;
-    })
-  }
-
-
-  createPersonalInfoForm() {
     this.signUpForm = this.formBuilder.group(
       {
         companyName: [""],
@@ -115,7 +103,6 @@ export class SignUpComponent implements OnInit {
         mobile: ["",],
         contactPerson: ["",],
         companyemail:[this.email],
-        // companyemail: [this.email, [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
         password: [""],
         address1: [""],
         address2: [""],
@@ -128,8 +115,87 @@ export class SignUpComponent implements OnInit {
         isChecked: [""],
        
       })
+    this.getIndustryTypes();
+    this.getCountry();
+    this.signUpForm.get('country')?.valueChanges.subscribe((selectedValue: any) => {
+      this.stateDetails= [];
+      this.companyService.getPreonboardingStatesc(selectedValue,'spryple_hrms').subscribe((data)=>{
+        this.stateDetails = data.data;
+        // {
+        //   this.signUpForm.controls.state.setValue(this.companyinfo.stateid);
+
+        // }
+      })
+    })
+
+  this.signUpForm.get('state')?.valueChanges.subscribe((selectedValue: any) => {
+    this.signUpForm.controls.city.setValue("");
+    this.cityDetails = [];
+     this.companyService.getPreonboardingCities(selectedValue,'spryple_hrms').subscribe((data)=>{
+        this.cityDetails=data.data
+        // {
+        //   this.signUpForm.controls.city.setValue(this.companyinfo.locationid);
+        // }
+      })
+    })
+
   }
+  getIndustryTypes() {
+    this.industryTypeList = [];
+    this.mainService.getIndustryTypes('industry_type_master', null, 1, 10, 'spryple_hrms').subscribe(result => {
+      this.industryTypeList = result.data;
+    })
+  }
+  getCountry() {
+    this.countryDetails = []
+    this.companyService.getPreonboardingCountry('countrymaster', null, 1, 10, 'spryple_hrms').subscribe(result => {
+      this.countryDetails = result.data;
+    })
+  }
+
+
   submit() {
+    if (this.signUpForm.valid) {
+      let data ={
+        company_name_value:this.signUpForm.controls.companyName.value,
+        company_code_value:this.signUpForm.controls.companyCode.value,
+        company_size_value:50,
+        number_of_users_value:this.signUpForm.controls.totalUsers.value,
+        plan_id_value:1,
+        industry_type_pm:this.signUpForm.controls.IndustryType.value,
+        industry_type_value_pm:this.signUpForm.controls.others.value,
+        mobile_number_value:this.signUpForm.controls.mobile.value,
+        company_email_value:this.signUpForm.controls.companyemail.value,
+        company_address_value:this.signUpForm.controls.address1.value,
+        country_id_value:this.signUpForm.controls.country.value,
+        state_id_value:this.signUpForm.controls.state.value,
+        city_id_value:this.signUpForm.controls.city.value,
+        pincode_value:this.signUpForm.controls.pincode.value,
+        agree_to_terms_and_conditions_value:this.signUpForm.controls.isChecked.value == true ? 1:0,
+        id_value:null,
+        created_by_value:null,
+      }
+      console.log("data--", data);
+      this.mainService.setSprypleClient(data).subscribe((res: any) => {
+        if (res.status) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Details submitted successfully"
+          });
+          } else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data is not saved"
+          });
+        }
+      });
+    }
+
+    
+  }
+  clear() {
     
   }
   noWhitespaceValidator(): ValidatorFn {
