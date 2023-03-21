@@ -1,69 +1,72 @@
 button.link {
-    background: transparent;
-    color: blue;
-    border: none;
-    outline: 0;
-    // text-decoration: underline;
-  }
-  button.link:hover {
-    color: #80286a;
-  }
-  mat-card {
-    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-    display: block;
-    position: relative;
-    padding-left: 0px;
-    padding-right: 0px;
-  }
+  background: transparent;
+  color: blue;
+  border: none;
+  outline: 0;
+  // text-decoration: underline;
+}
+button.link:hover {
+  color: #80286a;
+}
+mat-card {
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  position: relative;
+  padding-left: 0px;
+  padding-right: 0px;
+}
 
-  ::ng-deep {
-    .mat-select-panel[aria-label="Items per page:"] {
-      mat-option:last-child:before {
-        content: 'All';
-      }
+::ng-deep {
+  .mat-select-panel[aria-label="Items per page:"] {
+    mat-option:last-child:before {
+      content: 'All';
     }
   }
+}
 
-  ::ng-deep {
-    .mat-select-panel[aria-label="Items per page:"] {
-      mat-option:last-child .mat-option-text {
-        display: none;
-      }
+::ng-deep {
+  .mat-select-panel[aria-label="Items per page:"] {
+    mat-option:last-child .mat-option-text {
+      display: none;
     }
   }
-  .headerbox{
-    height: 45px;
-    background-color: #28acaf !important;
-    align-items: center;
+}
+.headerbox{
+  height: 45px;
+  background-color: #28acaf !important;
+  align-items: center;
+}
+.title{
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 500;
+   font-stretch: normal;
+   font-style: normal;
+  letter-spacing: 0.32px;
+  color: #ffffff;
+  margin-bottom: 0px;
+}
+::ng-deep tr.mat-header-row {
+  height: 45px !important;
+}
+::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin: 0.2em 0 !important;
+}
+.example-container {
+  overflow-x: auto;
+}
+.dev-Pad{
+  padding:1%
+}
+.table-pad{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media only screen and (max-width: 800px) and (orientation:portrait) {
+  mat-header-row, mat-row {
+    width: 150%;
   }
-  .title{
-    font-family: "Roboto";
-    font-size: 20px;
-    font-weight: 500;
-     font-stretch: normal;
-     font-style: normal;
-    letter-spacing: 0.32px;
-    color: #ffffff;
-    margin-bottom: 0px;
   }
-  ::ng-deep tr.mat-header-row {
-    height: 45px !important;
+  table td, table th {
+    padding: 2px 10px;
   }
-  ::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
-    margin: 0.2em 0 !important;
-  }
-  .example-container {
-    overflow-x: auto;
-  }
-  .dev-Pad{
-    padding:1%
-  }
-  .table-pad{
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  @media only screen and (max-width: 768px) and (orientation:portrait) {
-    mat-header-row, mat-row {
-      width: 150%;
-    }
-    }

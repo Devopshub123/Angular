@@ -7,8 +7,8 @@
             </mat-card-header>
   
         <form [formGroup]="Empdashboardform" autocomplete="off">  
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="2px" style="padding-top: 1%;">
-                <div fxFlex="65" fxFill>
+            <div fxLayout="row" fxLayout.lt-lg="column" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="2px" style="padding-top: 1%;">
+                <div fxFlex="65" fxFlex.lt-lg="100" fxFill>
                 <div class="dashboard-1 custom-investment-th">Gross Salary Breakdown by Departments</div>
                     <div class="card card-stats" >
                       <div class="card-body " style="width: 50%; min-height: 50px;">
@@ -75,7 +75,7 @@
    
             </div>
 
-            <div fxFlex="35" fxFill>
+            <div fxFlex="35" fxFlex.lt-lg="100" fxFill>
                 <div class="custom-mob-paySlips">
                     
                     <div class="card card-stats">
@@ -86,7 +86,7 @@
                                 <mat-divider></mat-divider>
                                    <div style="padding-top: 1%;">
                                         <br>
-                                        <mat-form-field appearance="outline" >
+                                        <mat-form-field appearance="outline" fxFlex.lt-lg="50" >
                                           <mat-label>Pay Slips</mat-label>
                                           <mat-select formControlName="financial_year">
                                             <ng-container>

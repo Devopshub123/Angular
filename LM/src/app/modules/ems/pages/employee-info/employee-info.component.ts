@@ -376,11 +376,13 @@ export class EmployeeInfoComponent implements OnInit {
     this.experienceForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != null) {
         this.minExperienceDate = selectedValue._d;
+        this.experienceForm.controls.expToDate.setValue('')
       }
     })
     this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != null) {
         this.minEducationDate = selectedValue._d;
+        this.educationForm.controls.eduToDate.setValue('')
       }
     })
     /////////

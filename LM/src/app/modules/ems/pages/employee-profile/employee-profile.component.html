@@ -662,9 +662,9 @@
                                     </ng-container>
 
                                     <ng-container matColumnDef="fromDate">
-                                        <th mat-header-cell *matHeaderCellDef>Start Date</th>
+                                        <th mat-header-cell *matHeaderCellDef>Effective Date</th>
                                         <td mat-cell *matCellDef="let data">
-                                            {{ data.effectivedate }}
+                                            {{ data.effectivedate | date: "dd-MM-yyyy"}}
                                         </td>
                                     </ng-container>
                                     <tr mat-header-row *matHeaderRowDef="promotionsTableColumns"></tr>

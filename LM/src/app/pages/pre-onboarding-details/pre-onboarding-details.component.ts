@@ -292,9 +292,11 @@ export class PreOnboardingDetailsComponent implements OnInit {
 
       this.employementForm.get('expFromDate')?.valueChanges.subscribe((selectedExpValue: any) => {
         this.minExperienceDate = selectedExpValue._d;
+        this.employementForm.controls.expToDate.setValue('')
       })
       this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedEduValue: any) => {
         this.minEducationDate = selectedEduValue._d;
+        this.educationForm.controls.eduToDate.setValue('')
       })
       //////////
 
