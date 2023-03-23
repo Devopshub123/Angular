@@ -22,9 +22,13 @@ const ELEMENT_DATA: ProductAdminInvoiceHistoryElement[] = [
 })
 export class InvoiceDataComponent implements OnInit {
   displayedColumns: string[] = ['date','plan','qty','costperuser','subtotal'];
-  dataSource : any=ELEMENT_DATA;
+  dataSource : any=[];
+
   constructor(public dialogRef: MatDialogRef<InvoiceDataComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { 
+        this.dataSource = data;
+        console.log(this.dataSource)
+      }
     @ViewChild('invoice') invoice: any;
   ngOnInit(): void {
   }

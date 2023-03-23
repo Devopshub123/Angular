@@ -3,24 +3,25 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-export interface ProductAdminInvoiceHistoryElement {
-  subscriptionid:string;
-  companyname: string;
-  startdate: string;  
-  lastdate:string;
-  status:string;
-  amount:string;
-  users:string;
-  modules:string;
+import { AdminService } from 'src/app/modules/admin/admin.service';
+// export interface ProductAdminInvoiceHistoryElement {
+//   subscriptionid:string;
+//   companyname: string;
+//   startdate: string;  
+//   lastdate:string;
+//   status:string;
+//   amount:string;
+//   users:string;
+//   modules:string;
 
-}
-const ELEMENT_DATA: ProductAdminInvoiceHistoryElement[] = [
-  {subscriptionid:'SBT100',companyname: 'Sreeb',users:'100',modules:'All', startdate: '12-02-2022',lastdate:'12-02-2023',status:'Active',amount:"454"},
-  {subscriptionid:'SAN100',companyname: 'Sanela',users:'100',modules:'All',  startdate: '12-02-2022',lastdate:'12-02-2023',status:'Active',amount:"454"},
-  {subscriptionid:'DVT100',companyname: 'Devworks',users:'100',modules:'All',  startdate: '12-02-2022',lastdate:'12-02-2023',status:'Active',amount:"454"},
-  {subscriptionid:'WP100',companyname: 'Wipro',users:'100',modules:'All',  startdate: '12-02-2022',lastdate:'12-02-2023',status:'Active',amount:"454"},
-  {subscriptionid:'TCS100',companyname: 'TCS',users:'100',modules:'All',  startdate: '12-02-2022',lastdate:'12-02-2023',status:'Active',amount:"454"}
-];
+// }
+// const ELEMENT_DATA: ProductAdminInvoiceHistoryElement[] = [
+//   {subscriptionid:'SBT100',companyname: 'Sreeb',users:'100',modules:'All', startdate: '12-02-2022',lastdate:'12-02-2023',status:'Active',amount:"454"},
+//   {subscriptionid:'SAN100',companyname: 'Sanela',users:'100',modules:'All',  startdate: '12-02-2022',lastdate:'12-02-2023',status:'Active',amount:"454"},
+//   {subscriptionid:'DVT100',companyname: 'Devworks',users:'100',modules:'All',  startdate: '12-02-2022',lastdate:'12-02-2023',status:'Active',amount:"454"},
+//   {subscriptionid:'WP100',companyname: 'Wipro',users:'100',modules:'All',  startdate: '12-02-2022',lastdate:'12-02-2023',status:'Active',amount:"454"},
+//   {subscriptionid:'TCS100',companyname: 'TCS',users:'100',modules:'All',  startdate: '12-02-2022',lastdate:'12-02-2023',status:'Active',amount:"454"}
+// ];
 
 @Component({
   selector: 'app-product-admin-clients',
@@ -29,16 +30,17 @@ const ELEMENT_DATA: ProductAdminInvoiceHistoryElement[] = [
 })
 export class ProductAdminClientsComponent implements OnInit {
   displayedColumns: string[] = ['sno','subscriptionid', 'companyname','users','modules','startdate','lastdate','cost','status'];
-  dataSource : any=ELEMENT_DATA;
-  // dataSource: MatTableDataSource<UserData>=<any>[];
+  // dataSource : any=ELEMENT_DATA;
+  dataSource: any=[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor() { }
+  constructor(private adminService: AdminService,) { }
 
   ngOnInit(): void {
+    this.getSprypleClients();
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -48,5 +50,13 @@ export class ProductAdminClientsComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
 }
+getSprypleClients(){
+  this.adminService.getSprypleClients().subscribe((result:any)=>{
+    if(result.status&&result.data.length>0){
+      this.dataSource = result.data;
+    }
+   
+  })
 
+}
 }

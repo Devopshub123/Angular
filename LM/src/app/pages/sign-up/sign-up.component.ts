@@ -79,6 +79,7 @@ export class SignUpComponent implements OnInit {
   planId: any;
   clientSignupId: any;
   userSession:any;
+  hide:boolean=false;
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService, private spinner: NgxSpinnerService,
     private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
     , private mainService: MainService, private activatedRoute: ActivatedRoute) {
@@ -88,11 +89,15 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
+    console.log("sent",new Date(JSON.parse(atob(this.params.token)).Date))
+    console.log("now",new Date())
     this.email = JSON.parse(atob(this.params.token)).email;
     this.companycode = JSON.parse(atob(this.params.token)).companycode;
+    this.planId =JSON.parse(atob(this.params.token)).Planid;
     // this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     // console.log("asdf--",this.userSession)
-
+    this.getIndustryTypes();
+    this.getCountry();
     this.signUpForm = this.formBuilder.group(
       {
         companyName: [""],
@@ -113,10 +118,23 @@ export class SignUpComponent implements OnInit {
         gstNumber: [""],
         others: [""],
         isChecked: [""],
+        planid:[this.planId]
        
       })
-    this.getIndustryTypes();
-    this.getCountry();
+    
+    // IndustryType
+    this.signUpForm.get('IndustryType')?.valueChanges.subscribe((selectedValue: any) => {
+      console.log(selectedValue)
+      if(selectedValue.industry_type_name == 'Others'){
+         this.hide = true;  
+         this.signUpForm.controls.others.setValue('') 
+      }
+      else{
+        this.hide=false;
+        this.signUpForm.controls.others.setValue(selectedValue.industry_type_name)
+      }
+
+    })
     this.signUpForm.get('country')?.valueChanges.subscribe((selectedValue: any) => {
       this.stateDetails= [];
       this.companyService.getPreonboardingStatesc(selectedValue,'spryple_hrms').subscribe((data)=>{
@@ -152,17 +170,17 @@ export class SignUpComponent implements OnInit {
       this.countryDetails = result.data;
     })
   }
-
+  agree(){}
 
   submit() {
-    if (this.signUpForm.valid) {
+    if (this.signUpForm.valid && this.signUpForm.controls.isChecked.value) {
       let data ={
         company_name_value:this.signUpForm.controls.companyName.value,
         company_code_value:this.signUpForm.controls.companyCode.value,
         company_size_value:50,
         number_of_users_value:this.signUpForm.controls.totalUsers.value,
         plan_id_value:1,
-        industry_type_pm:this.signUpForm.controls.IndustryType.value,
+        industry_type_pm:this.signUpForm.controls.IndustryType.value.id,
         industry_type_value_pm:this.signUpForm.controls.others.value,
         mobile_number_value:this.signUpForm.controls.mobile.value,
         company_email_value:this.signUpForm.controls.companyemail.value,
@@ -171,7 +189,7 @@ export class SignUpComponent implements OnInit {
         state_id_value:this.signUpForm.controls.state.value,
         city_id_value:this.signUpForm.controls.city.value,
         pincode_value:this.signUpForm.controls.pincode.value,
-        agree_to_terms_and_conditions_value:this.signUpForm.controls.isChecked.value == true ? 1:0,
+        agree_to_terms_and_conditions_value:1,
         id_value:null,
         created_by_value:null,
       }
@@ -181,7 +199,7 @@ export class SignUpComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Details submitted successfully"
+            data: "You are registered successfully."
           });
           } else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {

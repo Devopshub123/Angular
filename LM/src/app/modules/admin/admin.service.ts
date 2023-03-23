@@ -180,6 +180,12 @@ getSpryplePlanCostDetails(){
   return this.http.get(this.mainUrl+'subscription/api/getSpryplePlanCostDetails', this.httpOptions);
 
 }
+getSprypleClients(){
+  return this.http.get(this.mainUrl+'subscription/api/getSprypleClients', this.httpOptions);
+}
+getPayments(){
+  return this.http.get(this.mainUrl+'subscription/api/getPayments', this.httpOptions);
+}
 
 
 

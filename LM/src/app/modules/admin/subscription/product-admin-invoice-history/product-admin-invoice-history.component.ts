@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { InvoiceDataComponent } from '../dialog/invoice-data/invoice-data.component';
+import { AdminService } from 'src/app/modules/admin/admin.service';
 export interface ProductAdminInvoiceHistoryElement {
   companyname: string;
   billingdate: string;  
@@ -27,16 +28,17 @@ const ELEMENT_DATA: ProductAdminInvoiceHistoryElement[] = [
 })
 export class ProductAdminInvoiceHistoryComponent implements OnInit {
   displayedColumns: string[] = ['sno', 'companyname','billingdate','useddate','invoice','amount','status','action'];
-  dataSource : any=ELEMENT_DATA;
+  dataSource : any=[];
   // dataSource: MatTableDataSource<UserData>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,private adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.getPayments();
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -46,12 +48,22 @@ export class ProductAdminInvoiceHistoryComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
 }
-view(){
+view(data:any){
   let dialogRef = this.dialog.open(InvoiceDataComponent, {
     width: '600px',position:{top:`70px`},
     disableClose: true,
-         
+    data:data
   });
 
+}
+getPayments(){
+  this.adminService.getPayments().subscribe((result:any)=>{
+    console.log("result",result)
+    if(result.status&&result.data.length>0){
+      console.log(result)
+      this.dataSource = result.data;
+    }
+   
+  })
 }
 }

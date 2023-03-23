@@ -24,7 +24,7 @@
                             </mat-error>
                         </mat-form-field>
                         
-                        <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                        <mat-form-field fxFlex fxFlex.xs="100" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                             <mat-label>Modules</mat-label>
                             <!-- <mat-select (openedChange)="openedSearch($event)" [compareWith]="compareFn"
                                 placeholder="Select" required formControlName="modules" multiple>
@@ -88,7 +88,7 @@
                         <button class="btn btn-primary mr-2 mb-2" (click)="saved()" *ngIf="isadd">
                             Submit
                         </button>
-                        <button class="btn btn-primary mr-2 mb-2" *ngIf="editing" (click)="editsaved()">
+                        <button class="btn btn-primary mr-2 mb-2" *ngIf="editing" (click)="saved()">
                             Update
                         </button>
                         <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">

@@ -32,7 +32,7 @@ export class SubscriptionPlansMasterComponent implements OnInit {
   editdata:any=[];
   selectedmodule:any=[];
   company:any='Sreeb Tech'
-
+  array:any=[]
   subscriptionForm:any= FormGroup;
   isview:boolean=true;
   ishide:boolean=false;
@@ -51,6 +51,7 @@ export class SubscriptionPlansMasterComponent implements OnInit {
   isData = false;
   searchTextboxControl = new FormControl();
   flag: boolean = true;
+  planid:any=null;
   
   selectedModules: any = [];
   arrayValue:any=[{"id":"Active","name":"Active"},{"id":"Inactive","name":"Inactive"}];
@@ -118,7 +119,7 @@ export class SubscriptionPlansMasterComponent implements OnInit {
         plan:this.subscriptionForm.controls.planName.value,
         modules:this.selectedModules,
         created_by:this.userSession.id,
-        id:null
+        id:this.editing?1:null
       }
       this.adminService.setSpryplePlan(data).subscribe((result:any)=>{
         if(result.status){
@@ -164,27 +165,21 @@ export class SubscriptionPlansMasterComponent implements OnInit {
 
 
   edit(event: any, data: any) {
+    console.log(data)
     this.editflag =false;
     this.isData = true;
     this.isAddBtn = false;
     this.isadd=false;
     this.editing=true;
     this.editdata = data;
-
-    console.log("data",data.modules)
+    let datas = JSON.parse(data.modules)
+    this.planid = data.id;
     this.subscriptionForm.controls.planName.setValue(data.plan_name);
-    
-    for(let i=0;i<data.modules.length;i++){
-      this.selectedmodule.push(data.modules[i].id);
-    }
-    this.subscriptionForm.controls.modules.setValue(data.modules);
-    // this.selectAll(true, data.modules, this.subscriptionForm.modules)
-    // this.selectedmodule.push(JSON.parse(data.modules));
-    // this.subscriptionForm.controls.yearlyCost.setValue(data.comment);
-    // this.subscriptionForm.controls.modules.setValue(data.comment);
-    // this.subscriptionForm.controls.minUsers.setValue(data.comment);
-    // this.subscriptionForm.controls.maxUsers.setValue(data.comment);
 
+    for(let i=0;i<datas.length;i++){
+      this.selectedmodule.push(datas[i].id);
+    }
+    this.subscriptionForm.controls.modules.setValue(this.selectedmodule);
   }
   editsaved(){
 
