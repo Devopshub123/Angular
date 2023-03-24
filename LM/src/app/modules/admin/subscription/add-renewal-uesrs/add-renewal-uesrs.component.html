@@ -1,0 +1,97 @@
+<div fxLayout="column" >
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Add Users</mat-card-title>
+        </mat-card-header>
+        
+        <div fxLayout="row wrap" fxLayout.xs="column">
+            <span style="padding-top: 30px;" >
+                <form [formGroup]="addausersForm">
+                <p>Existing Users <input type="number" [readonly]="true" formControlName="addexistingusers"/></p>
+            </form>
+                Add Users <button class="plusminus" (click)="handleMinus()" [disabled]="disable">-</button>
+            <input type="number" class="num" value="0" [(ngModel)]="addvalue" />
+            <button class="plusminus" (click)="handlePlus()">+</button>&nbsp;&nbsp;
+            <button class=" btn-primary " (click)="addUsersDisplayInfo()" *ngIf="!addUsersDisplayInfohide">Add</button>
+            <!-- <p>28 in use,2 Available.</p> -->
+        
+            </span>
+            <!-- <span style="padding-top: 30px;">
+                <p>1800</p>
+                <p>per company/month(150)</p>
+        
+            </span> -->
+           
+            
+        </div><br>
+        <div *ngIf="addUsersDisplayInfohide">
+            <!-- <p>Additional charges - Rs/- 600</p>
+            <p>Validity is from '2022-03-24' to '2022-03-31'.</p> -->
+            <p>{{addUsersDisplayInfoUserCount}}</p>
+            <!-- <p>{{addUsersDisplayInfoamount}}</p> -->
+           <p>Addition charges - Rs/- {{addUsersDisplayInfoamount}}</p> 
+
+           <p>{{addUsersDisplayInfovaliddate}}</p>
+        </div>
+        <div fxLayoutAlign="center">
+            <button class="btn btn-primary mr-2 mb-2" (click)="adduserspay()"   >
+                PayNow
+            </button>
+            <button class="btn btn-danger mr-2 mb-2" (click)="cancel()"  >
+                Cancel
+            </button>
+          
+        </div>
+    
+    </mat-card>
+    <br><br>
+    <mat-card >
+        <mat-card-header>
+            <mat-card-title>Renew Users</mat-card-title>
+        </mat-card-header>
+
+        <div fxLayout="row wrap" fxLayout.xs="column">
+            <span style="padding-top: 30px;" >
+                <form [formGroup]="renewalausersForm">
+                <p>Existing Users <input type="number"[readonly]="true"  formControlName="renewalexistingusers" /></p>
+            </form>
+                Renew Users <button class="plusminus" (click)="handleMinusrenew()" [disabled]="disablerenew">-</button>
+            <input type="number" class="num" value="0" [(ngModel)]="renewalvalue" />
+            <button class="plusminus" (click)="handlePlusrenew()">+</button>&nbsp;&nbsp;
+            <!-- <button class=" btn-primary " >Add</button> -->
+            <!-- <p>28 in use,2 Available.</p> -->
+        
+            </span>
+            <!-- <span style="padding-top: 30px;">
+                <p>1800</p>
+                <p>per company/month(150)</p>
+        
+            </span> -->
+           
+            
+        </div><br>
+        <div>
+            <form [formGroup]="renewalausersForm">
+                <mat-radio-group formControlName="renewtype" >
+            <mat-radio-button class="mr-2 custom-er-radio" color="primary"
+                                    *ngFor="let halfs of array;index as i;" 
+                                    [value]="halfs.id">{{halfs.value}}</mat-radio-button>
+                                </mat-radio-group>
+            </form>
+                
+        </div>
+        <div fxLayoutAlign="center">
+            <button class="btn btn-primary mr-2 mb-2" (click)="renewalpay()"  >
+                PayNow
+            </button>
+            <button class="btn btn-danger mr-2 mb-2"  (click)="cancel()" >
+                Cancel
+            </button>
+          
+        </div>
+    
+        
+        
+        
+</mat-card>
+    </div>

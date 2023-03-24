@@ -37,6 +37,7 @@ import { ClientUpgradePlanComponent } from './subscription/client-upgrade-plan/c
 import { SubscriptionCancelComponent } from './subscription/subscription-cancel/subscription-cancel.component';
 import { SubscriptionPlansMasterComponent } from './subscription/subscription-plans-master/subscription-plans-master.component';
 import { RegisterValidationComponent } from './subscription/register-validation/register-validation.component';
+import { AddRenewalUesrsComponent } from './subscription/add-renewal-uesrs/add-renewal-uesrs.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { RegisterValidationComponent } from './subscription/register-validation/
     SubscriptionCancelComponent,
     SubscriptionPlansMasterComponent,
     RegisterValidationComponent,
+    AddRenewalUesrsComponent,
   ],
   imports: [
     CommonModule,

@@ -91,7 +91,7 @@
                 <mat-radio-group formControlName="monthly_salary" [disabled]="hide"  style="display: grid;float: left;">
                   <mat-radio-button class="mr-2 custom-er-radio" color="primary"
                                     *ngFor="let halfs of arrayValue;index as i;" (change)="status(halfs.Value)"
-                                    [value]="halfs.Value">{{halfs.name}}</mat-radio-button>
+                                    [value]="halfs.Value">{{halfs.name}}<br></mat-radio-button>
                 </mat-radio-group>
                 <mat-form-field appearance="outline" style="float: left;margin-top: -1.8%;" *ngIf="isShowCalculatedAmount == 'Flat Amount'">
                   <mat-label>Flat Amount</mat-label>

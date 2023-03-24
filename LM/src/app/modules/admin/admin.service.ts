@@ -186,8 +186,23 @@ getSprypleClients(){
 getPayments(){
   return this.http.get(this.mainUrl+'subscription/api/getPayments', this.httpOptions);
 }
-
-
-
+getUsers(data:any){
+  return this.http.get(this.mainUrl+'subscription/api/getUsers/'+data, this.httpOptions);
+}
+enableRenewButton(data:any){
+  return this.http.post(this.mainUrl+'subscription/api/enableRenewButton',JSON.stringify(data), this.httpOptions);
+}
+getClientPlanDetails(data:any){
+  return this.http.post(this.mainUrl+'subscription/api/getClientPlanDetails',JSON.stringify(data), this.httpOptions);
+}
+addUsers(data:any){
+  return this.http.post(this.mainUrl+'subscription/api/addUsers',JSON.stringify(data), this.httpOptions);
+}
+renewUsers(data:any){
+  return this.http.post(this.mainUrl+'subscription/api/renewUsers',JSON.stringify(data), this.httpOptions);
+}
+addUsersDisplayInfo(data:any){
+  return this.http.post(this.mainUrl+'subscription/api/addUsersDisplayInfo',JSON.stringify(data), this.httpOptions);
+}
 
 }
