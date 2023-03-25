@@ -204,5 +204,8 @@ renewUsers(data:any){
 addUsersDisplayInfo(data:any){
   return this.http.post(this.mainUrl+'subscription/api/addUsersDisplayInfo',JSON.stringify(data), this.httpOptions);
 }
+renewUsersDisplayInformation(data:any){
+  return this.http.post(this.mainUrl+'subscription/api/renewUsersDisplayInformation',JSON.stringify(data), this.httpOptions);
+}
 
 }

@@ -65,6 +65,7 @@ export class AddRenewalUesrsComponent implements OnInit {
 
   handleMinusrenew() { 
     this.renewalvalue--;  
+    this.renewUsersDisplayInformation();
     if(this.renewalvalue<41){
       this.disablerenew=true;
     }else{
@@ -72,7 +73,9 @@ export class AddRenewalUesrsComponent implements OnInit {
     }
   }
   handlePlusrenew() {
-    this.renewalvalue++;   
+    this.renewalvalue++;  
+    this.renewUsersDisplayInformation();
+ 
     this.disablerenew=false; 
   }
   getClientPlanDetails(){
@@ -144,6 +147,32 @@ export class AddRenewalUesrsComponent implements OnInit {
       })
 
     }
+   
+
+  }
+
+
+  renewUsersDisplayInformation(){
+
+      let data = {
+        client_renewal_detail_id_value:this.clientplandetailid,
+        valid_to_value:this.validto,
+        user_count_value:this.renewalvalue
+      }
+      console.log("data",data)
+      this.adminService.renewUsersDisplayInformation(data).subscribe((result:any)=>{
+        console.log("renewdata",result)
+        // if(result.status&&result.data.length>0){
+        //  this.addUsersDisplayInfohide =true;
+        //  this.addUsersDisplayInfoUserCount = result.data[0].user_count
+        //  this.addUsersDisplayInfoamount = this.addvalue * 100;
+        // // this.addUsersDisplayInfoamount = result.data[0].amount
+        //  this.addUsersDisplayInfovaliddate = result.data[0].validity
+        // }
+  
+      })
+
+    
    
 
   }
