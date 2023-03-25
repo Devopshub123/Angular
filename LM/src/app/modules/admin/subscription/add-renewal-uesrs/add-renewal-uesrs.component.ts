@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/modules/admin/admin.service';
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-add-renewal-uesrs',
   templateUrl: './add-renewal-uesrs.component.html',
@@ -16,6 +19,7 @@ export class AddRenewalUesrsComponent implements OnInit {
   disablerenew:boolean=true;
   renewalhide:boolean=false;
   addUsersDisplayInfohide:boolean=false;
+  adddisplayrenewalhide:boolean=false;
   addUsersDisplayInfoamount:any;
   addUsersDisplayInfoUserCount:any;
   renewaldate:any;
@@ -23,9 +27,10 @@ export class AddRenewalUesrsComponent implements OnInit {
   clientplandetailid:any;
   addUsersDisplayInfovaliddate:any
   // getUsersData =20
-  array:any=[{id:"M",value:"For a month"},{id:"Y",value:"For a Year"},]
+  array:any;
+  
 
-  constructor(public datePipe: DatePipe,private adminService: AdminService,private formBuilder: FormBuilder,) { 
+  constructor(public datePipe: DatePipe,private router: Router,public dialog: MatDialog,private adminService: AdminService,private formBuilder: FormBuilder,) { 
     this.getClientPlanDetails()
   
   }
@@ -162,13 +167,12 @@ export class AddRenewalUesrsComponent implements OnInit {
       console.log("data",data)
       this.adminService.renewUsersDisplayInformation(data).subscribe((result:any)=>{
         console.log("renewdata",result)
-        // if(result.status&&result.data.length>0){
-        //  this.addUsersDisplayInfohide =true;
-        //  this.addUsersDisplayInfoUserCount = result.data[0].user_count
-        //  this.addUsersDisplayInfoamount = this.addvalue * 100;
-        // // this.addUsersDisplayInfoamount = result.data[0].amount
-        //  this.addUsersDisplayInfovaliddate = result.data[0].validity
-        // }
+        if(result .status){
+          this.adddisplayrenewalhide = true;
+          let month = "For a month validity will extended to"+ result.data[0].valid_to_month +" and cost "+result.data[0].cost_for_month
+          let year = "For a month validity will extended to"+ result.data[0].valid_to_year +" and cost "+result.data[0].cost_for_year
+          this.array=[{id:"M",value:month},{id:"Y",value:year}]
+        }
   
       })
 
@@ -177,19 +181,49 @@ export class AddRenewalUesrsComponent implements OnInit {
 
   }
   adduserspay(){
-    let data = {
-      client_renewal_detail_id_value:this.clientplandetailid,
-      valid_to_value:this.validto,
-      user_count_value:this.addvalue,
-      created_by_value:1,
-      payment_reference_number_value:"Shhhf3425",
-      payment_date_value:this.datePipe.transform(new Date(), "y-MM-dd"),
-      payment_status_value:"Paid"
-    }
-    console.log("addusersdata",data);
-    // this.adminService.addUsers(data).subscribe((result:any)=>{
+    if(this.addvalue>0){
+      let data = {
+        client_renewal_detail_id_value:this.clientplandetailid,
+        valid_to_value:this.validto,
+        user_count_value:this.addvalue,
+        created_by_value:1,
+        payment_reference_number_value:"Shhhf3425",
+        payment_date_value:this.datePipe.transform(new Date(), "y-MM-dd"),
+        payment_status_value:"Paid"
+      }
+      console.log("addusersdata",data);
+      this.adminService.addUsers(data).subscribe((result:any)=>{
+        if(result.status){
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/add-renewal-users"]));
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data:'Payment susuccess for add users'
+          });
 
-    // })
+        }
+        else{
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position:{top:`70px`},
+            disableClose: true,
+            data:'unable to success payment for addUsers.'
+          });
+
+        }
+  
+      })
+
+    }
+    else{
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data:'Please Add users'
+      });
+
+    }
+   
     
   }
   renewalpay(){
@@ -204,9 +238,25 @@ export class AddRenewalUesrsComponent implements OnInit {
       payment_status_value:"Paid"
     }
     console.log("renewdata",data);
-    // this.adminService.renewUsers(data).subscribe((result:any)=>{
+    this.adminService.renewUsers(data).subscribe((result:any)=>{
+      if(result.status){
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data:'Payment susuccess for add renewal.'
+        });
+
+      }
+      else{
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data:'unable to success payment for renewal.'
+        });
+
+      }
       
-    // })
+    })
   }
   cancel(){}
 }
