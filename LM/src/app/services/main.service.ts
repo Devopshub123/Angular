@@ -169,7 +169,6 @@ export class MainService {
   }
 
   setSprypleClient(data: any) {
-    console.log("da-1",data)
     return this.http.post(this.mainBeUrl+'subscription/api/setSprypleClient',data)
   }
 }

@@ -94,22 +94,21 @@ export class ClientAdminSubscriptionComponent implements OnInit {
         yearlyCost:[""],
         totalPaidAmt:[""],
         nextRenewal:[""],
-        lastRenewal:[""],
+        lastRenewal: [""],
+        contactPerson:[""],
+        companyName:[""],
+        mobile:[""],
+        industryType:[""],
+        industryTypeOther:[""],
+        email: ["", [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+       address1:[""],
+        address2:[""],
+        country:[""],
+        state:[""],
+        city:[""],
+        pincode:[""],
+        gstNumber:[""],
       });
-    
-      this.billingForm=this.formBuilder.group(
-        {
-          contactPerson:[""],
-          companyName:[""],
-          email: ["", [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-         address1:[""],
-          address2:[""],
-          country:[""],
-          state:[""],
-          city:[""],
-          pincode:[""],
-          gstNumber:[""],
-        });
     
   }
   addNew() {

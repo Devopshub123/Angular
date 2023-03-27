@@ -54,9 +54,7 @@ export class AddRenewalUesrsComponent implements OnInit {
   handleMinus() { 
     this.addUsersDisplayInfohide =false;
     this.addvalue--;  
-    console.log("minus",this.addvalue)
     if(this.addvalue<1){
-      console.log("working")
       this.disable=true;
     }else{
       this.disable=false;
@@ -89,8 +87,7 @@ export class AddRenewalUesrsComponent implements OnInit {
       client_id_value:1
     }
     this.adminService.getClientPlanDetails(data).subscribe((result:any)=>{
-      console.log("getClientPlanDetails",result,result.data[0].valid_to);
-      if(result.status){
+       if(result.status){
         this.enableRenewButton(result.data[0].valid_to);
         this.validto = result.data[0].valid_to;
         this.clientplandetailid = result.data[0].client_plan_detail_id;
@@ -117,7 +114,6 @@ export class AddRenewalUesrsComponent implements OnInit {
     }
     
     this.adminService.enableRenewButton(data).subscribe((result:any)=>{
-      console.log("enableRenewButton",result);
       if(result.status&&result.data[0].validity==1){
         this.renewalhide = false;
       }
@@ -138,9 +134,7 @@ export class AddRenewalUesrsComponent implements OnInit {
         valid_to_value:this.validto,
         user_count_value:this.addvalue
       }
-      console.log("data",data)
       this.adminService.addUsersDisplayInfo(data).subscribe((result:any)=>{
-        console.log(result)
         if(result.status&&result.data.length>0){
          this.addUsersDisplayInfohide =true;
          this.addUsersDisplayInfoUserCount = result.data[0].user_count
@@ -164,9 +158,7 @@ export class AddRenewalUesrsComponent implements OnInit {
         valid_to_value:this.validto,
         user_count_value:this.renewalvalue
       }
-      console.log("data",data)
       this.adminService.renewUsersDisplayInformation(data).subscribe((result:any)=>{
-        console.log("renewdata",result)
         if(result .status){
           this.adddisplayrenewalhide = true;
           let month = "For a month validity will extended to"+ result.data[0].valid_to_month +" and cost "+result.data[0].cost_for_month
@@ -191,7 +183,6 @@ export class AddRenewalUesrsComponent implements OnInit {
         payment_date_value:this.datePipe.transform(new Date(), "y-MM-dd"),
         payment_status_value:"Paid"
       }
-      console.log("addusersdata",data);
       this.adminService.addUsers(data).subscribe((result:any)=>{
         if(result.status){
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -199,7 +190,7 @@ export class AddRenewalUesrsComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data:'Payment susuccess for add users'
+            data:'Payment success for add users'
           });
 
         }
@@ -237,7 +228,6 @@ export class AddRenewalUesrsComponent implements OnInit {
       payment_date_value:this.datePipe.transform(new Date(), "y-MM-dd"),
       payment_status_value:"Paid"
     }
-    console.log("renewdata",data);
     this.adminService.renewUsers(data).subscribe((result:any)=>{
       if(result.status){
         let dialogRef = this.dialog.open(ReusableDialogComponent, {

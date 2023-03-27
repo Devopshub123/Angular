@@ -1,8 +1,7 @@
 <div fxLayout="column" >
     <mat-card>
-        <mat-card-header>
-            <mat-card-title>Add Users</mat-card-title>
-        </mat-card-header>
+    <mat-card class="cardP outline">
+        <div class="section"><b>Add Users</b></div>
         
         <div fxLayout="row wrap" fxLayout.xs="column">
             <span style="padding-top: 30px;" >
@@ -12,7 +11,7 @@
                 Add Users <button class="plusminus" (click)="handleMinus()" [disabled]="disable">-</button>&nbsp;
             <input type="number" class="num" value="0" [(ngModel)]="addvalue" />&nbsp;
             <button class="plusminus" (click)="handlePlus()">+</button>&nbsp;&nbsp;
-            <button class=" btn-primary " (click)="addUsersDisplayInfo()" *ngIf="!addUsersDisplayInfohide">Add</button>
+            <button class="btn-primary" (click)="addUsersDisplayInfo()" *ngIf="!addUsersDisplayInfohide">Add</button>
             <!-- <p>28 in use,2 Available.</p> -->
         
             </span>
@@ -34,8 +33,8 @@
            <p>{{addUsersDisplayInfovaliddate}}</p>
         </div>
         <div fxLayoutAlign="center">
-            <button class="btn btn-primary mr-2 mb-2" (click)="adduserspay()"   >
-                PayNow
+            <button class="btn btn-primary mr-2 mb-2 custom" (click)="adduserspay()"   >
+                Pay Now
             </button>
             <button class="btn btn-danger mr-2 mb-2" (click)="cancel()"  >
                 Cancel
@@ -44,18 +43,16 @@
         </div>
     
     </mat-card>
-    <br><br>
-    <mat-card >
-        <mat-card-header>
-            <mat-card-title>Renew Users</mat-card-title>
-        </mat-card-header>
+<br>
+    <mat-card class="cardP outline">
+        <div class="section"><b>Renew Users</b></div>
 
         <div fxLayout="row wrap" fxLayout.xs="column">
             <span style="padding-top: 30px;" >
                 <form [formGroup]="renewalausersForm">
                 <p>Existing Users <input type="number"[readonly]="true"  formControlName="renewalexistingusers" /></p>&nbsp;
             </form>
-                Renew Users <button class="plusminus" (click)="handleMinusrenew()" [disabled]="disablerenew">-</button>
+                Renew Users <button class="plusminus" (click)="handleMinusrenew()" [disabled]="disablerenew">-</button>&nbsp;
             <input type="number" class="num" value="0" [(ngModel)]="renewalvalue" />&nbsp;
             <button class="plusminus" (click)="handlePlusrenew()">+</button>&nbsp;&nbsp;
             <!-- <button class=" btn-primary " >Add</button> -->
@@ -72,17 +69,18 @@
         </div><br>
         <div>
             <form [formGroup]="renewalausersForm">
-                <mat-radio-group formControlName="renewtype" *ngIf="adddisplayrenewalhide"><br>
+                <mat-radio-group class="example-radio-group" formControlName="renewtype" *ngIf="adddisplayrenewalhide">
             <mat-radio-button class="mr-2 custom-er-radio" color="primary"
                                     *ngFor="let halfs of array;index as i;" 
-                                    [value]="halfs.id">{{halfs.value}}<br></mat-radio-button>
+                                    [value]="halfs.id">{{halfs.value}}
+                                </mat-radio-button>
                                 </mat-radio-group>
             </form>
                 
         </div>
         <div fxLayoutAlign="center">
-            <button class="btn btn-primary mr-2 mb-2" (click)="renewalpay()"  >
-                PayNow
+            <button class="btn btn-primary mr-2 mb-2 custom" (click)="renewalpay()"  >
+                Pay Now
             </button>
             <button class="btn btn-danger mr-2 mb-2"  (click)="cancel()" >
                 Cancel
@@ -93,5 +91,6 @@
         
         
         
+    </mat-card>
 </mat-card>
     </div>

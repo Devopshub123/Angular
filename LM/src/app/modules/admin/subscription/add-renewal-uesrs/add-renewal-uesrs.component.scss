@@ -1,0 +1,37 @@
+mat-card {
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+    position: relative;
+    padding-left: 0px;
+    padding-right: 8px;
+  }
+  .cardP{
+    padding-left: 10px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 5px;
+  }
+  .section {
+    padding-top: 1%;
+    padding-left: 0px;
+    margin-bottom: 2px;
+    font-size: 17px;
+    color: #000000;
+    text-align: left;
+    line-height: 28px;
+  }
+
+  .outline{
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #28acaf;
+    background-color: #ffffff
+  }
+  .custom {
+    width: 90px !important;
+  }
+  .example-radio-group {
+    display: flex; flex-direction: column;
+    margin: 15px 0;
+  }
