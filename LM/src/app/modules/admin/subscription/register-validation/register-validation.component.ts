@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import { Observable } from 'rxjs';
@@ -6,6 +6,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { AdminService } from '../../admin.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { ReCaptcha2Component } from 'ngx-captcha';
 
 @Component({
   selector: 'app-register-validation',
@@ -14,6 +15,17 @@ import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-
 })
 export class RegisterValidationComponent implements OnInit {
   formGroup: any=FormGroup;
+  @ViewChild('captchaElem') captchaElem: ReCaptcha2Component | undefined;
+  @ViewChild('langInput') langInput: any;
+  public captchaIsLoaded = false;
+  public captchaSuccess = false;
+  public captchaIsExpired = false;
+  public captchaResponse?: string;
+
+  public theme: 'light' | 'dark' = 'light';
+  public size: 'compact' | 'normal' = 'normal';
+  public lang = 'en';
+  public type: 'image' | 'audio'= 'image';
 
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
     private tss: LoginService, private router: Router,private AS: AdminService,
@@ -23,7 +35,7 @@ export class RegisterValidationComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       'comapnyname':['', Validators.required],
       'username': ['', Validators.required],
-      'captcha': ['', Validators.required],
+      'recaptcha': ['', Validators.required],
       
     });
   }
@@ -49,5 +61,7 @@ export class RegisterValidationComponent implements OnInit {
       }
     })
   }
-
+  handleSuccess(data:any){
+    console.log("data",data)
+  }
 }

@@ -38,7 +38,7 @@ import { SubscriptionCancelComponent } from './subscription/subscription-cancel/
 import { SubscriptionPlansMasterComponent } from './subscription/subscription-plans-master/subscription-plans-master.component';
 import { RegisterValidationComponent } from './subscription/register-validation/register-validation.component';
 import { AddRenewalUesrsComponent } from './subscription/add-renewal-uesrs/add-renewal-uesrs.component';
-
+import { NgxCaptchaModule } from 'ngx-captcha';
 @NgModule({
   declarations: [
 
@@ -79,6 +79,7 @@ import { AddRenewalUesrsComponent } from './subscription/add-renewal-uesrs/add-r
     ReactiveFormsModule,
     FlexLayoutModule,
     NgxSpinnerModule,
+    NgxCaptchaModule,
 
 
   ]
