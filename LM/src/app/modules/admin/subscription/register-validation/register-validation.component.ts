@@ -21,6 +21,7 @@ export class RegisterValidationComponent implements OnInit {
   public captchaSuccess = false;
   public captchaIsExpired = false;
   public captchaResponse?: string;
+  captchavalid:boolean=false;
 
   public theme: 'light' | 'dark' = 'light';
   public size: 'compact' | 'normal' = 'normal';
@@ -40,11 +41,12 @@ export class RegisterValidationComponent implements OnInit {
     });
   }
   submit(){
-    let data ={
-      email :this.formGroup.controls.username.value,
-      companycode: this.formGroup.controls.comapnyname.value,
-    }
-    this.AS.Validateemail(data).subscribe((result:any)=>{
+    if( this.captchavalid){
+      let data ={
+        email :this.formGroup.controls.username.value,
+        companycode: this.formGroup.controls.comapnyname.value,
+      }
+      this.AS.Validateemail(data).subscribe((result:any)=>{
       if(result.status){
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
@@ -60,8 +62,17 @@ export class RegisterValidationComponent implements OnInit {
         });
       }
     })
+
+    }
+    
+    
   }
-  handleSuccess(data:any){
-    console.log("data",data)
+  handleSuccess(data:any,datas:any){
+   if(datas){
+    this.captchavalid =true;
+   }
+   else{
+    this.captchavalid = false;
+   }
   }
 }

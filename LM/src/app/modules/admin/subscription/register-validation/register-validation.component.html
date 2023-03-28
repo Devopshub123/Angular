@@ -42,15 +42,23 @@
 
                 </div>
 
-                <div class="g-recaptcha" data-sitekey="6Le38DQlAAAAAMt_v6jUWPLGk6CfPESwpcDn9hUV" >
+                <div style="padding-left: 35px;">
+                  <ngx-recaptcha2 #captchaElem class="g-recaptcha" siteKey="6LfwPjklAAAAAGsua5lAzyTmg6RQ92KQ0EQNfI2M" (success)="handleSuccess($event,true)" [size]="size"
+ [hl]="lang" [theme]="theme" [type]="type" >
+</ngx-recaptcha2>
+
+                 
+
+
+                </div>
                   <!-- <ngx-recaptcha2 #captchaElem class="g-recaptcha" data-sitekey="6Le38DQlAAAAAMt_v6jUWPLGk6CfPESwpcDn9hUV" (success)="handleSuccess($event)" [size]="size"
  [hl]="lang" [theme]="theme" [type]="type" formControlName="recaptcha">
 </ngx-recaptcha2> -->
 
                  
 
-
-                </div>
+<!-- 
+                </div> -->
 
               </div>
               
