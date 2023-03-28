@@ -49,6 +49,7 @@ export class ProductAdminInvoiceHistoryComponent implements OnInit {
     }
 }
 view(data:any){
+  console.log("datatta",data)
   let dialogRef = this.dialog.open(InvoiceDataComponent, {
     width: '600px',position:{top:`70px`},
     disableClose: true,

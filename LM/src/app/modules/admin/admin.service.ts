@@ -207,5 +207,8 @@ addUsersDisplayInfo(data:any){
 renewUsersDisplayInformation(data:any){
   return this.http.post(this.mainUrl+'subscription/api/renewUsersDisplayInformation',JSON.stringify(data), this.httpOptions);
 }
+getClientPaymentDetails(data:any){
+  return this.http.get(this.mainUrl+'subscription/api/getClientPaymentDetails/'+data+'/'+this.companyName, this.httpOptions);
+}
 
 }

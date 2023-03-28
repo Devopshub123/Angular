@@ -1,67 +1,69 @@
 
-<div>
-    <div fxLayoutAlign="center" style="width: auto;"> 
-        <div style="width: 90%;">
-            <h3> INVOICE</h3>
-        </div>
-        <div style="width: 10%;">
-            <img (click)="print()" src="./assets/images/icons/print.png" style="width:20px ;height: 20px;">
-            <!-- <mat-icon class="close-icon" color="warn" style="padding-bottom: -80px;">close</mat-icon> -->
-        </div>
-       
-        
-    </div>
-    <div id="invoice" #invoice>
-    <div fxLayout="row wrap" fxLayout.xs="column">
-        <div style="width: 50%;">
-            <p><b>Invoice Date</b> {{dataSource.payment_date}}</p>
-            <p><b>Due Date</b> {{dataSource.valid_to}}</p>
-            <p><b>Invoice Number</b> {{dataSource.payment_reference_number}}</p>
 
-        </div>
-        <div style="width: 50%;">
-            <p><b>Company Name</b> {{dataSource.company_name}}</p>
-            <p><b>Billing Address</b> Hyderabad</p>
-
-        </div>
-        
-        
+<div fxLayoutAlign="center" style="width: auto;"> 
+    <div style="width: 90%;">
+        <h3> <b>INVOICE</b></h3>
     </div>
-    <div style="height: auto">
-        <div class="mat-elevation-z1">
-        <!-- <div fxLayoutAlign="center"  fxLayout="row" style="margin-left: 200px;"><p>Earnings</p></div><br> -->
-        <table mat-table  [dataSource]="dataSource" matSort  #table>
-            <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef style="background-color: #28acaf;color: white;font-size: medium;"> Date</th>
-                <td mat-cell *matCellDef="let element" > {{element.payment_date}} </td>
-            </ng-container>
-            <ng-container matColumnDef="plan">
-                <th mat-header-cell *matHeaderCellDef style="background-color: #28acaf;color: white;font-size: medium;">Plan </th>
-                <td mat-cell *matCellDef="let element" > {{element.plan}} </td>
-            </ng-container>
-            <ng-container matColumnDef="qty">
-                <th mat-header-cell *matHeaderCellDef style="background-color: #28acaf;color: white;font-size: medium;">Qty </th>
-                <td mat-cell *matCellDef="let element" > {{element.qty}} </td>
-            </ng-container>
-            <ng-container matColumnDef="costperuser">
-                <th mat-header-cell *matHeaderCellDef style="background-color: #28acaf;color: white;font-size: medium;"> Costper  User </th>
-                <td mat-cell *matCellDef="let element" > {{element.costperuser}} </td>
-            </ng-container>
-            <ng-container matColumnDef="subtotal">
-                <th mat-header-cell *matHeaderCellDef style="background-color: #28acaf;color: white;font-size: medium;"> Sub Total </th>
-                <td mat-cell *matCellDef="let element" > {{element.amount_paid}} </td>
-            </ng-container>
-           
-            <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <div style="width: 10%;">
+        <img (click)="print()" src="./assets/images/icons/print.png" style="width:20px ;height: 20px;">
+        <span style="padding-bottom: 20px;">
+        <mat-icon class="close-icon" color="warn"  [mat-dialog-close]="data.NO" >close</mat-icon>
+        </span>
+    </div>
+   
+    
+</div>
+<div id="invoice" #invoice  style="width: auto;">
+<div fxLayout="row wrap" fxLayout.xs="column">
+    <div style="width: 50%;">
+        <p><b>Invoice Date</b> {{invoicedata.payment_date}}</p>
+        <p><b>Due Date</b> {{invoicedata.valid_to}}</p>
+        <p><b>Invoice Number</b> {{invoicedata.payment_reference_number}}</p>
+
+    </div>
+    <div style="width: 50%;">
+        <p><b>Company Name</b> {{invoicedata.company_name}}</p>
+        <p><b>Billing Address</b> {{invoicedata.company_address}}</p>
+
+    </div>
     
     
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="5">No data found</td>
-            </tr> 
-        </table>
-       </div><br>
+</div>
+<div style="height: auto">
+    <div class="mat-elevation-z1">
+    <!-- <div fxLayoutAlign="center"  fxLayout="row" style="margin-left: 200px;"><p>Earnings</p></div><br> -->
+    <table mat-table  [dataSource]="dataSource" matSort  #table>
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #28acaf;color: white;font-size: medium;"> Date</th>
+            <td mat-cell *matCellDef="let element" > {{element.payment_date}} </td>
+        </ng-container>
+        <ng-container matColumnDef="plan">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #28acaf;color: white;font-size: medium;">Plan </th>
+            <td mat-cell *matCellDef="let element" > {{element.plan_name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="qty">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #28acaf;color: white;font-size: medium;">Qty </th>
+            <td mat-cell *matCellDef="let element" > {{element.user_count}} </td>
+        </ng-container>
+        <ng-container matColumnDef="costperuser">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #28acaf;color: white;font-size: medium;"> Costper  User </th>
+            <td mat-cell *matCellDef="let element" > {{element.costperuser}} </td>
+        </ng-container>
+        <ng-container matColumnDef="subtotal">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #28acaf;color: white;font-size: medium;"> Sub Total </th>
+            <td mat-cell *matCellDef="let element" > {{element.amount_paid}} </td>
+        </ng-container>
        
-    </div>
-    </div>
-    </div>
+        <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="5">No data found</td>
+        </tr> 
+    </table>
+   </div><br>
+   
+</div>
+</div>
+

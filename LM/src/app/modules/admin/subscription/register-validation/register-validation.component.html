@@ -1,74 +1,73 @@
 <body class="authentication-bg" data-layout-config='{"darkMode":false}'>
-    <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-xxl-4 col-lg-5">
-            <div class="card">
-              <form [formGroup]="formGroup">
-                <!-- Logo -->
-                <div fxLayout="column" class="card-header pt-4 pb-4 text-center bg-secondary">
-                  <span class="text-white"><img class="logo-img mr-2" style="height: 45px" src="assets/img/spryple_trns_logo.png" alt="" /></span>
-                </div>
-  
-                <div class="card-body p-4">
-                  <p class="text-muted mb-4">
-                    <b >The company code should contain only alphabets and should be between 5 and 10 characters.This is the code your employees will enter along with their credentials at the time of login.</b>
+  <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xxl-4 col-lg-5">
+          <div class="card">
+            <form [formGroup]="formGroup">
+              <!-- Logo -->
+              <div fxLayout="column" class="card-header pt-4 pb-4 text-center bg-secondary">
+                <span class="text-white"><img class="logo-img mr-2" style="height: 45px" src="assets/img/spryple_trns_logo.png" alt="" /></span>
+              </div>
 
-                    <!-- <b >The company code should contain only alphabets and should be between 5 and 10 characters. It is case insensitive.This is the code your employees will enter along with their credentials at the time of login.</b> -->
-                  </p>
-                  <div>
-                    <mat-form-field fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" appearance="outline">
-                      <mat-label>Company Code</mat-label>
-                      <input matInput class="form-control" type="text" formControlName="comapnyname"
-                      id="company" 
-                         placeholder="" minlength="5" maxlength="10" />
-                      <mat-error class="con-error" *ngIf="formGroup.controls.comapnyname.errors?.required">
-                        This field is required.
-                      </mat-error>
-                    </mat-form-field>
-  
-                  </div>
-  
-                  <div>
-                    <mat-form-field fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" appearance="outline">
-                      <mat-label>Email</mat-label>
-                      <input matInput class="form-control" type="email" formControlName="username"
-                      id="emailaddress" formc
-                         placeholder="" maxlength="30" />
-                      <mat-error class="con-error" *ngIf="formGroup.controls.username.errors?.required">
-                        This field is required.
-                      </mat-error>
-                    </mat-form-field>
-  
-                  </div>
-  
-                  <div class="g-recaptcha">
-                    <!-- <ngx-recaptcha2 #captchaElem siteKey="6LeFR6cUAAAAAGviLYm9xPsWGyVaTLjBCDFma9Yp" (success)="handleSuccess($event)" [size]="size"
-	 [hl]="lang" [theme]="theme" [type]="type" formControlName="recaptcha">
-	</ngx-recaptcha2> -->
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                  <b >The company code should contain only alphabets and should be between 5 and 10 characters.This is the code your employees will enter along with their credentials at the time of login.</b>
 
-                   
-  
-  
-                  </div>
+                  <!-- <b >The company code should contain only alphabets and should be between 5 and 10 characters. It is case insensitive.This is the code your employees will enter along with their credentials at the time of login.</b> -->
+                </p>
+                <div>
+                  <mat-form-field fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Company Code</mat-label>
+                    <input matInput class="form-control" type="text" formControlName="comapnyname"
+                    id="company" 
+                       placeholder="" minlength="5" maxlength="10" />
+                    <mat-error class="con-error" *ngIf="formGroup.controls.comapnyname.errors?.required">
+                      This field is required.
+                    </mat-error>
+                  </mat-form-field>
 
                 </div>
-                
-                <div class="mb-3 mb-0 text-center">
-                  <button class="btn btn-primary" type="submit" (click)="submit()">
-                    Submit
-                  </button>
+
+                <div>
+                  <mat-form-field fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput class="form-control" type="email" formControlName="username"
+                    id="emailaddress" formc
+                       placeholder="" maxlength="30" />
+                    <mat-error class="con-error" *ngIf="formGroup.controls.username.errors?.required">
+                      This field is required.
+                    </mat-error>
+                  </mat-form-field>
+
                 </div>
-              </form>
-            </div>
-          
+
+                <div class="g-recaptcha" data-sitekey="6Le38DQlAAAAAMt_v6jUWPLGk6CfPESwpcDn9hUV" >
+                  <!-- <ngx-recaptcha2 #captchaElem class="g-recaptcha" data-sitekey="6Le38DQlAAAAAMt_v6jUWPLGk6CfPESwpcDn9hUV" (success)="handleSuccess($event)" [size]="size"
+ [hl]="lang" [theme]="theme" [type]="type" formControlName="recaptcha">
+</ngx-recaptcha2> -->
+
+                 
+
+
+                </div>
+
+              </div>
+              
+              <div class="mb-3 mb-0 text-center">
+                <button class="btn btn-primary" type="submit" (click)="submit()">
+                  Submit
+                </button>
+              </div>
+            </form>
           </div>
-          
+        
         </div>
-
+        
       </div>
 
     </div>
 
-  </body>
-  
+  </div>
+
+</body>
