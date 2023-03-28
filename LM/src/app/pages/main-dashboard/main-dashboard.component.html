@@ -104,9 +104,9 @@
                     employeeJoinDate | date: "dd-MM-YYYY"
                     }}</span>
                   <span class="heading1">{{ employeeDesignation }}</span>
-                  <div style="margin-top:5% ;" fxLayout="column">
-                    <span class="heading2">Reporting</span>
-                    <span class="heading1">{{ empReportingManager }}</span>
+                  <div style="margin-top:5% ;" fxLayout="row" fxLayout.xs="column" >
+                    <span class="heading2">Reporting : </span> &nbsp;
+                    <span class="heading2">{{ empReportingManager }}</span>
                   </div>
                 </div>
                 <!-- <div fxLayout="column">
@@ -446,10 +446,10 @@
                             <mat-list-item>
                               <span fxFlex="70" matLine>
                                 <div  class="truncate" 
-                                [matTooltip]=" !openSidenav ? 'Please raise request for attendance/leave'
+                                [matTooltip]=" !openSidenav ? 'Attendance not recorded'
                                 : '' ">
                                 {{ item.absent_date | date: "dd-MM-yyyy" }}
-                                {{"- Please raise request for attendance/leave"}}
+                                {{"- Attendance not recorded"}}
                             </div>
                                 <!-- {{ item.absent_date | date: "dd-MM-yyyy" }}
                                 {{"- Please raise request for attendance/leave"}} -->
