@@ -4,6 +4,8 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+
+// import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AdminService } from 'src/app/modules/admin/admin.service';
 import { ConfirmationComponent } from 'src/app/modules/leaves/dialog/confirmation/confirmation.component';
@@ -40,6 +42,8 @@ export const MY_FORMATS = {
   ],
 })
 export class SignUpComponent implements OnInit {
+  isLinear = true;
+  isstep2 = true;
   minExperienceDate: any;
   minEducationDate: any;
   displayedColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
@@ -53,8 +57,11 @@ export class SignUpComponent implements OnInit {
   workExperienceDataSource: MatTableDataSource<any> = <any>[];
   educationDataSource: MatTableDataSource<any> = <any>[];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild("stepper", { static: false }) stepper: any;
   loginData: any = [];
   signUpForm: any = FormGroup;
+  PayviewForm: any = FormGroup;
+  PayForm: any = FormGroup;
   minDate = new Date('1950/01/01');
   maxBirthDate = new Date();
   bloodGroupdetails: any[] = [];
@@ -94,33 +101,13 @@ export class SignUpComponent implements OnInit {
     this.email = JSON.parse(atob(this.params.token)).email;
     this.companycode = JSON.parse(atob(this.params.token)).companycode;
     this.planId =JSON.parse(atob(this.params.token)).Planid;
+    this.createForm();
     // this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     // console.log("asdf--",this.userSession)
     this.getIndustryTypes();
     this.getCountry();
-    this.signUpForm = this.formBuilder.group(
-      {
-        companyName: [""],
-        companyCode: [this.companycode],
-        companySize: [""],
-        totalUsers: ["",],
-        IndustryType: [""],
-        mobile: ["",],
-        contactPerson: ["",],
-        companyemail:[this.email],
-        password: [""],
-        address1: [""],
-        address2: [""],
-        country: ["",],
-        state: ["",],
-        city: ["",],
-        pincode: ["",],
-        gstNumber: [""],
-        others: [""],
-        isChecked: [""],
-        planid:[this.planId]
-       
-      })
+  
+
     
     // IndustryType
     this.signUpForm.get('IndustryType')?.valueChanges.subscribe((selectedValue: any) => {
@@ -170,8 +157,37 @@ export class SignUpComponent implements OnInit {
       this.countryDetails = result.data;
     })
   }
-  agree(){}
+  agree(){
+    window.open('http://localhost:4200/#/Terms-conditions')
+  }
+  createForm(){
+    this.signUpForm = this.formBuilder.group(
+      {
+        companyName: [""],
+        companyCode: [this.companycode],
+        companySize: [""],
+        totalUsers: ["",],
+        IndustryType: [""],
+        mobile: ["",],
+        contactPerson: ["",],
+        companyemail:[this.email],
+        password: [""],
+        address1: [""],
+        address2: [""],
+        country: ["",],
+        state: ["",],
+        city: ["",],
+        pincode: ["",],
+        gstNumber: [""],
+        others: [""],
+        isChecked: [""],
+        planid:[this.planId]
+       
+    })
+    this.PayviewForm = this.formBuilder.group({});
+    this.PayForm = this.formBuilder.group({})
 
+  }
   submit() {
     if (this.signUpForm.valid && this.signUpForm.controls.isChecked.value) {
       let data ={

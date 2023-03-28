@@ -51,6 +51,7 @@ import { PayrollModule } from './modules/payroll/payroll.module';
 import { AuditLogComponent } from './pages/audit-logs/audit-log/audit-log.component';
 import { AuditLogPopupComponent } from './pages/audit-logs/audit-log-popup/audit-log-popup.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { TermsConditionsComponent } from './pages/terms-conditions/terms-conditions.component';
 // import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
  FullCalendarModule.registerPlugins([
@@ -87,6 +88,7 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
     AuditLogComponent,
     AuditLogPopupComponent,
     SignUpComponent,
+    TermsConditionsComponent,
   ],
   imports: [
     BrowserModule,
