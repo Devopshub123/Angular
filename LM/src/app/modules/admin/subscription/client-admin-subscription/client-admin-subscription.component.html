@@ -2,184 +2,161 @@
     <mat-card>
         <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
             <mat-card-title class="title">Subscription </mat-card-title>
-            <div style="padding-right: 40px;" >
-            <img (click)="invoice()" matTooltip="Invoice" src="./assets/images/icons/invoice.png" style="width:40px ;height: 40px;">&nbsp;
-            <img (click)="manageusers()" matTooltip="Manage Users" src="./assets/images/icons/manage users.png" style="width:40px ;height: 40px;">&nbsp;
-            <img (click)="pay()"  matTooltip="Pay" src="./assets/images/icons/pay.png" style="width:40px ;height: 40px;">
-           </div>
-
-          </mat-card-header>
+            <div style="padding-right: 40px">
+                <img (click)="invoice()" matTooltip="Invoice" src="./assets/images/icons/invoice.png"
+                    style="width: 40px; height: 40px" />&nbsp;
+                <img (click)="manageusers()" matTooltip="Manage Users" src="./assets/images/icons/manage users.png"
+                    style="width: 40px; height: 40px" />&nbsp;
+                <img (click)="pay()" matTooltip="Pay" src="./assets/images/icons/pay.png"
+                    style="width: 40px; height: 40px" />
+            </div>
+        </mat-card-header>
 
         <form [formGroup]="subscriptionForm" autocomplete="off">
             <div fxFlex="column">
-
                 <div class="dev-Pad">
-
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Company Code</mat-label>
-                            <input formControlName="companyCode" matInput required readonly>
-                           </mat-form-field>
-                           <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <input formControlName="companyCode" matInput required readonly />
+                        </mat-form-field>
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Subscription ID</mat-label>
-                            <input formControlName="subscriptionId" matInput readonly>
-                         </mat-form-field>
-                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <input formControlName="subscriptionId" matInput readonly />
+                        </mat-form-field>
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Your Plan</mat-label>
-                            <input formControlName="plan" matInput readonly>
-                         </mat-form-field>
+                            <input formControlName="plan" matInput readonly />
+                        </mat-form-field>
                     </div>
 
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
-                        
-
-                         
-
-                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Users</mat-label>
-                            <input formControlName="takenUsers" matInput readonly>
-                         </mat-form-field>
-                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <input formControlName="takenUsers" matInput readonly />
+                        </mat-form-field>
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Cost Per User/Month</mat-label>
-                            <input formControlName="monthlyCost" matInput readonly>
-                         </mat-form-field>
+                            <input formControlName="monthlyCost" matInput readonly />
+                        </mat-form-field>
 
-                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Cost Per User/Year</mat-label>
-                            <input formControlName="yearlyCost" matInput readonly>
-                         </mat-form-field>
-
+                            <input formControlName="yearlyCost" matInput readonly />
+                        </mat-form-field>
                     </div>
 
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
-                        
-
-                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Total Paid Amount</mat-label>
-                            <input formControlName="totalPaidAmt" matInput readonly>
-                         </mat-form-field>
-                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <input formControlName="totalPaidAmt" matInput readonly />
+                        </mat-form-field>
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Next Renewal Date</mat-label>
-                            <input formControlName="nextRenewal" matInput readonly>
-                         </mat-form-field>
+                            <input formControlName="nextRenewal" matInput readonly />
+                        </mat-form-field>
 
-                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Last Renewal Date</mat-label>
-                            <input formControlName="lastRenewal" matInput readonly>
-                         </mat-form-field>
-
+                            <input formControlName="lastRenewal" matInput readonly />
+                        </mat-form-field>
                     </div>
                     <div class="section"><b>Billing Details</b></div>
-                        <mat-divider></mat-divider>
-                        <div class="section1"><b>Billing Contact</b></div>
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                    <mat-divider></mat-divider>
+                    <div class="section1"><b>Billing Contact</b></div>
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input type="text" formControlName="contactPerson" matInput readonly />
+                        </mat-form-field>
 
-                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                <mat-label>Name</mat-label>
-                                <input type="text" formControlName="contactPerson" (keypress)="alphabetKeyPress($event)" matInput 
-                                    maxlength="100" required />
-                              </mat-form-field>
-    
-                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                <mat-label>Company Name</mat-label>
-                                <input type="text" formControlName="companyName" (keypress)="alphabetKeyPress($event)" matInput 
-                                    maxlength="100" required />
-                            </mat-form-field>
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Company Name</mat-label>
+                            <input type="text" formControlName="companyName" matInput readonly />
+                        </mat-form-field>
 
-                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                <mat-label>Mobile</mat-label>
-                                <input type="text" formControlName="mobile" matInput readonly />
-                           </mat-form-field>
-    
-                        </div>
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                <mat-label>Email</mat-label>
-                                <input type="text" formControlName="email" matInput/>
-                           </mat-form-field>
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Mobile</mat-label>
+                            <input type="text" formControlName="mobile" matInput readonly />
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input type="text" formControlName="email" matInput readonly />
+                        </mat-form-field>
 
-                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                <mat-label>Industry Type</mat-label>
-                                <input type="text" formControlName="industryType"  matInput readonly />
-                              </mat-form-field>
-    
-                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                <mat-label>Industry Type Name</mat-label>
-                                <input type="text" formControlName="industryTypeOther" matInput />
-                            </mat-form-field>
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Industry Type</mat-label>
+                            <input type="text" formControlName="industryType" matInput readonly />
+                        </mat-form-field>
 
-                          
-    
-                        </div>
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Industry Type Name</mat-label>
+                            <input type="text" formControlName="industryTypeOther" matInput readonly/>
+                        </mat-form-field>
+                    </div>
 
-                        <div class="section1"><b>Billing Address</b></div>
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                    <div class="section1"><b>Billing Address</b></div>
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Address 1</mat-label>
+                            <input type="text" formControlName="address1" matInput maxlength="100" required />
+                        </mat-form-field>
 
-                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                <mat-label>Address 1</mat-label>
-                                <input type="text" formControlName="address1" matInput maxlength="100" required />
-                              </mat-form-field>
-    
-                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                <mat-label>Address 2</mat-label>
-                                <input type="text" formControlName="address2" matInput  maxlength="100" required />
-                            </mat-form-field>
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Address 2</mat-label>
+                            <input type="text" formControlName="address2" matInput maxlength="100" required />
+                        </mat-form-field>
 
-                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                <mat-label>Country</mat-label>
-                                <mat-select required formControlName="country" required>
-                                    <ng-container>
-                                        <div *ngFor="let b of countryDetails">
-                                            <mat-option [value]="b.id">{{ b.country }}</mat-option>
-                                        </div>
-                                    </ng-container>
-                                </mat-select>
-                             </mat-form-field>
-    
-                        </div>
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Country</mat-label>
+                            <mat-select required formControlName="country" required>
+                                <ng-container>
+                                    <div *ngFor="let b of countryDetails">
+                                        <mat-option [value]="b.id">{{ b.country }}</mat-option>
+                                    </div>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
 
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>State</mat-label>
+                            <mat-select formControlName="state" required>
+                                <ng-container>
+                                    <div *ngFor="let b of stateDetails">
+                                        <mat-option [value]="b.id">{{ b.state }}</mat-option>
+                                    </div>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
 
-                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                <mat-label>State</mat-label>
-                                <mat-select formControlName="state" required>
-                                    <ng-container>
-                                        <div *ngFor="let b of stateDetails">
-                                            <mat-option [value]="b.id">{{ b.state }}</mat-option>
-                                        </div>
-                                    </ng-container>
-                                </mat-select>
-                            </mat-form-field>
-    
-                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                <mat-label>City</mat-label>
-                                <mat-select formControlName="city" required>
-                                    <ng-container>
-                                        <div *ngFor="let b of cityDetails">
-                                            <mat-option [value]="b.id">{{ b.location }}</mat-option>
-                                        </div>
-                                    </ng-container>
-                                </mat-select>
-                            </mat-form-field>
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>City</mat-label>
+                            <mat-select formControlName="city" required>
+                                <ng-container>
+                                    <div *ngFor="let b of cityDetails">
+                                        <mat-option [value]="b.id">{{ b.location }}</mat-option>
+                                    </div>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
 
-                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                <mat-label>Pincode</mat-label>
-                                <input type="text" formControlName="pincode" matInput 
-                                    maxlength="6" minlength="6" required numbersOnly />
-                            </mat-form-field>
-    
-                        </div>
+                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <mat-label>Pincode</mat-label>
+                            <input type="text" formControlName="pincode" matInput maxlength="6" minlength="6" required
+                                numbersOnly />
+                        </mat-form-field>
+                    </div>
 
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                                <mat-label>GST Number</mat-label>
-                                <input type="text" formControlName="gstNumber" matInput readonly  />
-                            </mat-form-field>
-    
-                        </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                        <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                            <mat-label>GST Number</mat-label>
+                            <input type="text" formControlName="gstNumber" matInput readonly />
+                        </mat-form-field>
+                    </div>
                 </div>
             </div>
         </form>

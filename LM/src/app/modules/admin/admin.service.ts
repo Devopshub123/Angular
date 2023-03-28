@@ -210,5 +210,8 @@ renewUsersDisplayInformation(data:any){
 getClientPaymentDetails(data:any){
   return this.http.get(this.mainUrl+'subscription/api/getClientPaymentDetails/'+data+'/'+this.companyName, this.httpOptions);
 }
-
+  /** */
+  getClientSubscriptionDetails(data:any){
+    return this.http.get(this.mainUrl+'subscription/api/getClientPaymentDetails/'+data+'/'+this.companyName, this.httpOptions);
+  }
 }

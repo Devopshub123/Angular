@@ -104,10 +104,10 @@
                     employeeJoinDate | date: "dd-MM-YYYY"
                     }}</span>
                   <span class="heading1">{{ employeeDesignation }}</span>
-                  <div style="margin-top:5% ;" fxLayout="column">
-                    <span class="heading2">Reporting To</span>
-                    <span class="heading1">{{ empReportingManager }}</span>
-                  </div>
+                    <div style="margin-top:5% ;" fxLayout="row" fxLayout.xs="column" >
+                      <span class="heading2">Reporting : </span> &nbsp;
+                      <span class="heading2">{{ empReportingManager }}</span>
+                    </div>  
                 </div>
                 <!-- <div fxLayout="column">
 

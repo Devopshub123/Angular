@@ -156,61 +156,11 @@ export class ClientAdminSubscriptionComponent implements OnInit {
     this.subscriptionForm.controls.maxUsers.setValue(data.comment);
 
   }
-  editsaved(){
 
-  }
-  save(event:any){
-    this.enable = null;
-    this.isEdit = true;
-    this.isSave = false;
-
-  }
-
-  view($event:any,data:any){
-    this.isviewdata=true;
-    this.isadd=false;
-    this.editing=false;;
-    this.editdata = data;
-    this.subscriptionForm.controls.planName.setValue(data.comment);
-    this.subscriptionForm.controls.monthlyCost.setValue(data.comment);
-    this.subscriptionForm.controls.yearlyCost.setValue(data.comment);
-    this.subscriptionForm.controls.modules.setValue(data.comment);
-    this.subscriptionForm.controls.minUsers.setValue(data.comment);
-    this.subscriptionForm.controls.maxUsers.setValue(data.comment);
-
-  }
-
-  selectedEmployesChange(event: any) {
-    if (event.isUserInput && event.source.selected == false) {
-      let index = this.selectedEmployees.indexOf(event.source.value);
-      this.selectedEmployees.splice(index, 1)
-
-    } else {
-      if(!this.selectedEmployees.includes(event.source.value.empid)) {
-        this.selectedEmployees.push(event.source.value.empid);
-      }
-    }
-  }
-
-  openedSearch(e:any) {
-    this.searchTextboxControl.patchValue('');
-  }
   compareFn(option1:any,option2:any){
     return option1.empid === option2.empid;
   }
-  stopLeadingZero(event:any) {
-    const input = event.target.value;
-    if (input.length === 0 && event.which === 48) {
-      event.preventDefault();
-    }
-  }
-  alphabetKeyPress(event: any,) {
-    const pattern = /[a-zA-Z ]/;
-      let inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
-      event.preventDefault();
-    }
-  }
+
   invoice(){
     let dialogRef = this.dialog.open(InvoiceDataComponent, {
       width: '600px',position:{top:`70px`},
