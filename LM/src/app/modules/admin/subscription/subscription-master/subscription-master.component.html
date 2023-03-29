@@ -149,9 +149,9 @@
                             <ng-container matColumnDef="action">
                                 <th mat-header-cell *matHeaderCellDef></th>
                                 <td mat-cell *matCellDef="let row">
-                                    <mat-icon (click)="edit($event, row)" *ngIf="row.status == 'Submitted'"
+                                    <!-- <mat-icon (click)="edit($event, row)" *ngIf="row.status == 'Submitted'"
                                         title="Edit">edit</mat-icon>
-                                    <mat-icon (click)="view($event, row)" title="view">visibility </mat-icon>
+                                    <mat-icon (click)="view($event, row)" title="view">visibility </mat-icon> -->
                                 </td>
                             </ng-container>
                             <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>

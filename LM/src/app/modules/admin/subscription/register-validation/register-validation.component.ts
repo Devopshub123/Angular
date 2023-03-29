@@ -36,12 +36,12 @@ export class RegisterValidationComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       'comapnyname':['', Validators.required],
       'username': ['', Validators.required],
-      'recaptcha': ['', Validators.required],
+      // 'recaptcha': ['', Validators.required],
       
     });
   }
   submit(){
-    if( this.captchavalid){
+    if( this.captchavalid &&  this.formGroup.valid){
       let data ={
         email :this.formGroup.controls.username.value,
         companycode: this.formGroup.controls.comapnyname.value,

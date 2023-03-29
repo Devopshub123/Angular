@@ -1,231 +1,255 @@
 <div fxLayout="column" class="authentication-bg" data-layout-config='{"darkMode":false}'  style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflow-y: auto;">
     <mat-card style="background-color: #ffffff;border: 1px solid #cccbcb;">
 
-        <div fxLayout="column">
+        
                       
-            <form [formGroup]="signUpForm">
+          
                 <div>
                 <div class="section" fxLayoutAlign="center"><b>GET STARTED WITH SPRYPLE</b></div>
                 <br>
                 <mat-divider></mat-divider>
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>Company Name</mat-label>
-                        <input type="text"  formControlName="companyName" #companyName  matInput maxlength="100" required />
-                        <mat-error class="reg-error" *ngIf="signUpForm.controls.companyName.errors?.required ||
-                             signUpForm.controls.companyName.errors?.['whitespace']">
-                        This field is required
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>Company Code</mat-label>
-                        <input type="text" formControlName="companyCode" matInput 
-                            maxlength="50" [readonly]="true"/>
-                    </mat-form-field>
-
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>Company Size</mat-label>
-                        <mat-select formControlName="companySize" required>
-                            <ng-container>
-                                <div *ngFor="let b of companySizeList">
-                                    <mat-option [value]="b.value">{{b.value}}</mat-option>
-                                </div>
-                            </ng-container>
-                        </mat-select>
-                        <mat-error class="reg-error" *ngIf="signUpForm.controls.companySize.hasError('required')">
-                            This field is required
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>Total Users</mat-label>
-                        <input type="text" onlyNumber formControlName="totalUsers" matInput 
-                            maxlength="3" />
-                    </mat-form-field>
-                    <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                        <mat-label>GST Number</mat-label>
-                        <input type="text" formControlName="gstNumber" matInput 
-                            maxlength="15" minlength="6" required numbersOnly />
-                            <mat-error class="reg-error" *ngIf="signUpForm.controls.gstNumber.errors?.required">
-                                This fiels is required
-                                </mat-error>
-                        <mat-error class="reg-error"
-                            *ngIf="signUpForm.controls.gstNumber.errors?.minlength">
-                            GST Number should be minimux 6 digits
-                        </mat-error>
-                    </mat-form-field>
-
-                   
-
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>Mobile</mat-label>
-                        <input type="text" onlyNumber formControlName="mobile" matInput 
-                        maxlength="10" minlength="10" (keypress)="stopLeadingZero($event)"/>
-                        <mat-error class="reg-error" *ngIf="signUpForm.controls.mobile.hasError('required')">
-                            This field is required
-                        </mat-error>
-                    </mat-form-field>
-
-                   
-                </div>
-
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                   <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>Name</mat-label>
-                        <input type="text" specialIsAlpha formControlName="contactPerson" matInput 
-                            maxlength="50" />
-                            <mat-error class="reg-error" *ngIf="signUpForm.controls.contactPerson.hasError('required')">
-                                This field is required
-                            </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>Email</mat-label>
-                        <input type="text" formControlName="companyemail" [readonly]="true" matInput required />
-                            <mat-error class="reg-error" *ngIf="signUpForm.controls.companyemail.hasError('required')">
-                                This field is required
-                            </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>Password</mat-label>
-                        <input #aadharnumber type="text" formControlName="password" matInput maxlength="30"/>
-                    </mat-form-field>
-
-            
-                  
-                </div>
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>Address 1</mat-label>
-                        <input type="text" formControlName="address1" matInput maxlength="100" required />
-                        <mat-error class="reg-error" *ngIf="signUpForm.controls.address1.errors?.required">
-                        This fiels is required
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>Address 2</mat-label>
-                        <input type="text"  formControlName="address2" matInput  maxlength="100" required />
-                        <mat-error class="reg-error" *ngIf="signUpForm.controls.address2.errors?.required">
-                        This fiels is required
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>Country</mat-label>
-                        <mat-select formControlName="country" required>
-                            <ng-container>
-                                <div *ngFor="let b of countryDetails">
-                                    <mat-option [value]="b.id">{{ b.country }}</mat-option>
-                                </div>
-                            </ng-container>
-                        </mat-select>
-                        <mat-error class="reg-error" *ngIf="signUpForm.controls.country.errors?.required">
-                            This fiels is required
-                            </mat-error>
-                    </mat-form-field>
-
-                </div>
-
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>State</mat-label>
-                        <mat-select formControlName="state" required>
-                            <ng-container>
-                                <div *ngFor="let b of stateDetails">
-                                    <mat-option [value]="b.id">{{ b.state }}</mat-option>
-                                </div>
-                            </ng-container>
-                        </mat-select>
-                        <mat-error class="reg-error" *ngIf="signUpForm.controls.state.errors?.required">
-                            This fiels is required
-                            </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>City</mat-label>
-                        <mat-select formControlName="city" required>
-                            <ng-container>
-                                <div *ngFor="let b of cityDetails">
-                                    <mat-option [value]="b.id">{{ b.location }}</mat-option>
-                                </div>
-                            </ng-container>
-                        </mat-select>
-                        <mat-error class="reg-error" *ngIf="signUpForm.controls.city.errors?.required">
-                            This fiels is required
-                            </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                        <mat-label>Pincode</mat-label>
-                        <input type="text" formControlName="pincode" matInput 
-                            maxlength="6" minlength="6" required numbersOnly />
-                            <mat-error class="reg-error" *ngIf="signUpForm.controls.pincode.errors?.required">
-                                This fiels is required
-                                </mat-error>
-                        <mat-error class="reg-error"
-                            *ngIf="signUpForm.controls.pincode.errors?.minlength">
-                            Pincode should be 6 digits
-                        </mat-error>
-                    </mat-form-field>
-
-                </div>
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                    <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                        <mat-label>Plan Id</mat-label>
-                        <input type="text" formControlName="planid" matInput 
-                             [readonly]="true"/>
+                <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                    <mat-step [stepControl]="signUpForm" >
+                        <form [formGroup]="signUpForm">
+                            <div>
                             
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Company Name</mat-label>
+                                    <input type="text"  formControlName="companyName" #companyName  matInput maxlength="100" required />
+                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.companyName.errors?.required ||
+                                         signUpForm.controls.companyName.errors?.['whitespace']">
+                                    This field is required
+                                    </mat-error>
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Company Code</mat-label>
+                                    <input type="text" formControlName="companyCode" matInput 
+                                        maxlength="50" [readonly]="true"/>
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Company Size</mat-label>
+                                    <mat-select formControlName="companySize" required>
+                                        <ng-container>
+                                            <div *ngFor="let b of companySizeList">
+                                                <mat-option [value]="b.value">{{b.value}}</mat-option>
+                                            </div>
+                                        </ng-container>
+                                    </mat-select>
+                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.companySize.hasError('required')">
+                                        This field is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+            
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Total Users</mat-label>
+                                    <input type="text" onlyNumber formControlName="totalUsers" matInput 
+                                        maxlength="3" />
+                                </mat-form-field>
+                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                    <mat-label>GST Number</mat-label>
+                                    <input type="text" formControlName="gstNumber" matInput 
+                                        maxlength="15" minlength="6" required numbersOnly />
+                                        <mat-error class="reg-error" *ngIf="signUpForm.controls.gstNumber.errors?.required">
+                                            This fiels is required
+                                            </mat-error>
+                                    <mat-error class="reg-error"
+                                        *ngIf="signUpForm.controls.gstNumber.errors?.minlength">
+                                        GST Number should be minimux 6 digits
+                                    </mat-error>
+                                </mat-form-field>
+            
+                               
+            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Mobile</mat-label>
+                                    <input type="text" onlyNumber formControlName="mobile" matInput 
+                                    maxlength="10" minlength="10" (keypress)="stopLeadingZero($event)"/>
+                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.mobile.hasError('required')">
+                                        This field is required
+                                    </mat-error>
+                                </mat-form-field>
+            
+                               
+                            </div>
+            
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                               <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Name</mat-label>
+                                    <input type="text" specialIsAlpha formControlName="contactPerson" matInput 
+                                        maxlength="50" />
+                                        <mat-error class="reg-error" *ngIf="signUpForm.controls.contactPerson.hasError('required')">
+                                            This field is required
+                                        </mat-error>
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Email</mat-label>
+                                    <input type="text" formControlName="companyemail" [readonly]="true" matInput required />
+                                        <mat-error class="reg-error" *ngIf="signUpForm.controls.companyemail.hasError('required')">
+                                            This field is required
+                                        </mat-error>
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Password</mat-label>
+                                    <input #aadharnumber type="text" formControlName="password" matInput maxlength="30"/>
+                                </mat-form-field>
+            
                         
-                    </mat-form-field>
-
-                    <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                        <mat-label>Industry Type</mat-label>
-                        <mat-select formControlName="IndustryType" required>
-                            <ng-container>
-                                <div *ngFor="let b of industryTypeList">
-                                    <mat-option [value]="b">{{b.industry_type_name}}</mat-option>
-                                </div>
-                            </ng-container>
-                        </mat-select>
-                        <mat-error class="reg-error" *ngIf="signUpForm.controls.IndustryType.hasError('required')">
-                            This field is required
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline" *ngIf="hide">
-                        <mat-label>Enter Industry type</mat-label>
-                        <input type="text" formControlName="others" matInput 
-                            required  />
-                            <mat-error class="reg-error" *ngIf="signUpForm.controls.others.errors?.required">
-                                This fiels is required
-                                </mat-error>
-                        <mat-error class="reg-error"
-                            *ngIf="signUpForm.controls.pincode.errors?.minlength">
-                            Pincode should be 6 digits
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <section style="padding-top: 1%;padding-left:7px">
-                    <mat-checkbox class="example-margin"  formControlName="isChecked" [(ngModel)]="checked"></mat-checkbox><a [routerLink]=""(click)="agree()">   I agree to terms & conditions</a>
-                  </section>
-            </div>
-            <br>
-            <div fxLayoutAlign="center">
-                <button class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit">
-                    <span>Signup</span>
-                </button>
-                <button class="btn btn-danger mr-2 mb-2" (click)="clear()" type="submit">
-                    <span>Clear</span>
-                </button>
-                <br>
-            </div>    
-        </form>
+                              
+                            </div>
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Address 1</mat-label>
+                                    <input type="text" formControlName="address1" matInput maxlength="100" required />
+                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.address1.errors?.required">
+                                    This fiels is required
+                                    </mat-error>
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Address 2</mat-label>
+                                    <input type="text"  formControlName="address2" matInput  maxlength="100" required />
+                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.address2.errors?.required">
+                                    This fiels is required
+                                    </mat-error>
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Country</mat-label>
+                                    <mat-select formControlName="country" required>
+                                        <ng-container>
+                                            <div *ngFor="let b of countryDetails">
+                                                <mat-option [value]="b.id">{{ b.country }}</mat-option>
+                                            </div>
+                                        </ng-container>
+                                    </mat-select>
+                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.country.errors?.required">
+                                        This fiels is required
+                                        </mat-error>
+                                </mat-form-field>
+            
+                            </div>
+            
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>State</mat-label>
+                                    <mat-select formControlName="state" required>
+                                        <ng-container>
+                                            <div *ngFor="let b of stateDetails">
+                                                <mat-option [value]="b.id">{{ b.state }}</mat-option>
+                                            </div>
+                                        </ng-container>
+                                    </mat-select>
+                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.state.errors?.required">
+                                        This fiels is required
+                                        </mat-error>
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>City</mat-label>
+                                    <mat-select formControlName="city" required>
+                                        <ng-container>
+                                            <div *ngFor="let b of cityDetails">
+                                                <mat-option [value]="b.id">{{ b.location }}</mat-option>
+                                            </div>
+                                        </ng-container>
+                                    </mat-select>
+                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.city.errors?.required">
+                                        This fiels is required
+                                        </mat-error>
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Pincode</mat-label>
+                                    <input type="text" formControlName="pincode" matInput 
+                                        maxlength="6" minlength="6" required numbersOnly />
+                                        <mat-error class="reg-error" *ngIf="signUpForm.controls.pincode.errors?.required">
+                                            This fiels is required
+                                            </mat-error>
+                                    <mat-error class="reg-error"
+                                        *ngIf="signUpForm.controls.pincode.errors?.minlength">
+                                        Pincode should be 6 digits
+                                    </mat-error>
+                                </mat-form-field>
+            
+                            </div>
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Plan Id</mat-label>
+                                    <input type="text" formControlName="planid" matInput 
+                                         [readonly]="true"/>
+                                        
+                                    
+                                </mat-form-field>
+            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Industry Type</mat-label>
+                                    <mat-select formControlName="IndustryType" required>
+                                        <ng-container>
+                                            <div *ngFor="let b of industryTypeList">
+                                                <mat-option [value]="b">{{b.industry_type_name}}</mat-option>
+                                            </div>
+                                        </ng-container>
+                                    </mat-select>
+                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.IndustryType.hasError('required')">
+                                        This field is required
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="hide">
+                                    <mat-label>Enter Industry type</mat-label>
+                                    <input type="text" formControlName="others" matInput 
+                                        required  />
+                                        <mat-error class="reg-error" *ngIf="signUpForm.controls.others.errors?.required">
+                                            This fiels is required
+                                            </mat-error>
+                                    <mat-error class="reg-error"
+                                        *ngIf="signUpForm.controls.pincode.errors?.minlength">
+                                        Pincode should be 6 digits
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <section style="padding-top: 1%;padding-left:7px">
+                                <mat-checkbox class="example-margin"  formControlName="isChecked" [(ngModel)]="checked"></mat-checkbox>I agree to <a [routerLink]=""(click)="agree()">    terms & conditions</a>
+                              </section>
+                        </div>
+                        <br>
+                        <div fxLayoutAlign="center">
+                            <button class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit">
+                                <span>Signup</span>
+                            </button>
+                            <button class="btn btn-danger mr-2 mb-2" (click)="clear()" type="submit">
+                                <span>Clear</span>
+                            </button>
+                            <br>
+                        </div>    
+                    </form>
+           
+     
+        
+                    </mat-step>
+              
+                    <mat-step [stepControl]="PayviewForm" >
+                        <form [formGroup]="PayviewForm">  <h1>gkjgjkga</h1></form>
+           
+           
+        
+                    </mat-step>
+                
+                    <mat-step   >
+                        <form [formGroup]="PayForm">  <h1>gkjgjkga</h1></form>
+     
+        
+                    </mat-step>
+                </mat-horizontal-stepper>
+    
    
         </div>
     </mat-card>

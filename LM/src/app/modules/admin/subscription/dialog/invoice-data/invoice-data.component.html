@@ -4,9 +4,9 @@
     <div style="width: 90%;">
         <h3> <b>INVOICE</b></h3>
     </div>
-    <div style="width: 10%;">
+    <div style="width: 10%;" fxLayout="row wrap" fxLayout.xs="column">
         <img (click)="print()" src="./assets/images/icons/print.png" style="width:20px ;height: 20px;">
-        <span style="padding-bottom: 20px;">
+        <span >
         <mat-icon class="close-icon" color="warn"  [mat-dialog-close]="data.NO" >close</mat-icon>
         </span>
     </div>

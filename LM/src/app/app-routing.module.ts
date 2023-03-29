@@ -13,7 +13,7 @@ import { MainComponent } from './pages/main/main.component';
 import { AuditLogComponent } from './pages/audit-logs/audit-log/audit-log.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { RegisterValidationComponent } from './modules/admin/subscription/register-validation/register-validation.component';
-
+import { TermsConditionsComponent } from './pages/terms-conditions/terms-conditions.component';
 var Login :string;
  var comp = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):'';
 Login = 'Login'
@@ -23,6 +23,7 @@ const routes: Routes = [
   {path:'sign-up/:token',component:SignUpComponent},
   {path:'Validateemail',component:RegisterValidationComponent},
   {path:'Login',component:LoginComponent},
+  {path:'Terms-conditions',component:TermsConditionsComponent},
   {path:'sidenav',component:SideNavComponent},
   {path:'main',component:MainComponent,children:[
     {path:'MainDashboard',component:MainDashboardComponent},

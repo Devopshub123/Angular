@@ -70,6 +70,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     SubscriptionPlansMasterComponent,
     RegisterValidationComponent,
     AddRenewalUesrsComponent,
+    
   ],
   imports: [
     CommonModule,
