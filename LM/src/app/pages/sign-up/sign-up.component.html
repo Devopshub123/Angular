@@ -182,7 +182,7 @@
             
                             </div>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Plan Id</mat-label>
                                     <input type="text" formControlName="planid" matInput 
                                          [readonly]="true"/>
@@ -190,7 +190,7 @@
                                     
                                 </mat-form-field>
             
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Industry Type</mat-label>
                                     <mat-select formControlName="IndustryType" required>
                                         <ng-container>
@@ -203,7 +203,7 @@
                                         This field is required
                                     </mat-error>
                                 </mat-form-field>
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="hide">
+                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline" *ngIf="hide">
                                     <mat-label>Enter Industry type</mat-label>
                                     <input type="text" formControlName="others" matInput 
                                         required  />
