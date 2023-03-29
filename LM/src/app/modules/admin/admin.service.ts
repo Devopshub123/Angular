@@ -212,6 +212,6 @@ getClientPaymentDetails(data:any){
 }
   /** */
   getClientSubscriptionDetails(data:any){
-    return this.http.get(this.mainUrl+'subscription/api/getClientPaymentDetails/'+data+'/'+this.companyName, this.httpOptions);
+    return this.http.get(this.mainUrl+'subscription/api/getClientDetails/'+data+'/'+this.companyName, this.httpOptions);
   }
 }

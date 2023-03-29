@@ -4,11 +4,11 @@
             <mat-card-title class="title">Subscription </mat-card-title>
             <div style="padding-right: 40px">
                 <img (click)="invoice()" matTooltip="Invoice" src="./assets/images/icons/invoice.png"
-                    style="width: 40px; height: 40px" />&nbsp;
+                    style="width: 35px; height:35px" />&nbsp;
                 <img (click)="manageusers()" matTooltip="Manage Users" src="./assets/images/icons/manage users.png"
-                    style="width: 40px; height: 40px" />&nbsp;
-                <img (click)="pay()" matTooltip="Pay" src="./assets/images/icons/pay.png"
-                    style="width: 40px; height: 40px" />
+                    style="width: 35px; height: 35px" />&nbsp;
+                <img (click)="pay()" matTooltip="Change Plan" src="./assets/images/icons/pay.png"
+                    style="width: 35px; height: 40px" />
             </div>
         </mat-card-header>
 
@@ -18,7 +18,7 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Company Code</mat-label>
-                            <input formControlName="companyCode" matInput required readonly />
+                            <input formControlName="companyCode" matInput [ngClass]="{'disable':true}" [readonly]="true" />
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Subscription ID</mat-label>
@@ -81,17 +81,17 @@
                         </mat-form-field>
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                             <mat-label>Email</mat-label>
                             <input type="text" formControlName="email" matInput readonly />
                         </mat-form-field>
 
-                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                             <mat-label>Industry Type</mat-label>
                             <input type="text" formControlName="industryType" matInput readonly />
                         </mat-form-field>
 
-                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        <mat-form-field *ngIf="isOther" fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
                             <mat-label>Industry Type Name</mat-label>
                             <input type="text" formControlName="industryTypeOther" matInput readonly/>
                         </mat-form-field>
@@ -101,53 +101,35 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Address 1</mat-label>
-                            <input type="text" formControlName="address1" matInput maxlength="100" required />
+                            <input type="text" formControlName="address1" matInput readonly/>
                         </mat-form-field>
 
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Address 2</mat-label>
-                            <input type="text" formControlName="address2" matInput maxlength="100" required />
+                            <input type="text" formControlName="address2" matInput readonly/>
                         </mat-form-field>
 
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Country</mat-label>
-                            <mat-select required formControlName="country" required>
-                                <ng-container>
-                                    <div *ngFor="let b of countryDetails">
-                                        <mat-option [value]="b.id">{{ b.country }}</mat-option>
-                                    </div>
-                                </ng-container>
-                            </mat-select>
+                            <input type="text" formControlName="country" matInput  readonly/>
                         </mat-form-field>
+
+                       
                     </div>
 
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>State</mat-label>
-                            <mat-select formControlName="state" required>
-                                <ng-container>
-                                    <div *ngFor="let b of stateDetails">
-                                        <mat-option [value]="b.id">{{ b.state }}</mat-option>
-                                    </div>
-                                </ng-container>
-                            </mat-select>
+                            <input type="text" formControlName="state" matInput  readonly/>
                         </mat-form-field>
-
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>City</mat-label>
-                            <mat-select formControlName="city" required>
-                                <ng-container>
-                                    <div *ngFor="let b of cityDetails">
-                                        <mat-option [value]="b.id">{{ b.location }}</mat-option>
-                                    </div>
-                                </ng-container>
-                            </mat-select>
+                            <input type="text" formControlName="city" matInput  readonly/>
                         </mat-form-field>
 
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Pincode</mat-label>
-                            <input type="text" formControlName="pincode" matInput maxlength="6" minlength="6" required
-                                numbersOnly />
+                            <input type="text" formControlName="pincode" matInput readonly/>
                         </mat-form-field>
                     </div>
 

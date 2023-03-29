@@ -1,34 +1,70 @@
 <div fxLayout="column" class="first-col">
-    
-    <div fxLayout="row wrap" fxLayout.xs="column">
-        <mat-card style="width: 50%;text-align: center;">
-            <h2 style="color: #28acaf;">Standard</h2>
-            <p>
-                Comprehencive payroll,benfits and HR tools to help <br>employers build a great place to work-in-person or remote.
-            </p>
-            <h3><img src="./assets/img/currency-block.png"> 150</h3>
-            <p>per user/month,billed annually <br> Or Rs 175 per user,billed monthly</p>
-            <h3 style="color: #28acaf;">Features</h3>
-            <p>Employee profiles and self-service</p>
-            <p>Select escape to tooltip content</p>
-            <p>Basic hiring and onbording tools</p>
-            <p>Custom admin permissions</p>
-            <p>Basic Support</p>
-            <button class="btn  custom mr-2 mb-2"  style="background-color: #28acaf;">Start Now</button>
+    <mat-card style="background-color: white">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" style="padding: 2%">
+            <!-- <div  class="price-block col-lg-5 col-md-6 col-sm-12">
+                <div class="inner-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
+                   <div class="main-title">
+                       <div class="main-title-text">Standard</div>
+                   </div>
+                   <div class="sub-title-text">Comprehencive payroll,benfits and HR tools to help <br>employers build a great place to work-in-person or remote. </div>
+                  
+                   <div class="price-text"><span>₹ 1500/<span> User/ Month</span></span>
+                   </div>
+                  <div class="middle-content">
+                        
+                    <h3 style="color: #28acaf;">Features</h3>
+                    <p>Employee profiles and self-service</p>
+                    <p>Select escape to tooltip content</p>
+                    <p>Basic hiring and onbording tools</p>
+                    <p>Custom admin permissions</p>
+                    <p>Basic Support</p>
+                    </div>
+                    <a class="appointment cur-poin">Start Now</a>
+                </div>
+            </div> -->
+            <mat-card class="outline" fxFlex="50" style="text-align: center; background-color: white">
+                <div style="padding-left: 5%; padding-right: 5%">
+                    <h2 style="color: #28acaf">Standard</h2>
+                    <p>
+                        Comprehencive payroll,benfits and HR tools to help <br />employers
+                        build a great place to work-in-person or remote.
+                    </p>
+                    <h3><img src="./assets/img/currency-block.png" /> 150</h3>
+                    <p>
+                        per user/month,billed annually <br />
+                        Or Rs 175 per user,billed monthly
+                    </p>
+                    <div class="section1" style="color: #28acaf; text-align: initial">
+                        Features
+                    </div>
+                    <ul style="text-align: initial; padding-left: 0px">
+                        <li>Employee profiles and self-service</li>
+                        <li>Select escape to tooltip content</li>
+                        <li>Basic hiring and onbording tools</li>
+                        <li>Custom admin permissions</li>
+                        <li>Basic Support</li>
+                    </ul>
 
-        </mat-card>
-        <mat-card style="width: 50%;text-align: center;">
-            <h2 style="color: #28acaf;">Exclusive Pricing</h2>
-            <p>
-                Any size Team
-            </p>
-            <p>Contact our sales team for custom price packages.</p>
-            <button  class="btn  custom mr-2 mb-2" style="background-color: #28acaf;">Contact Us</button><br>
-            <button  class="btn  custom mr-2 mb-2" style="background-color: #28acaf;">Email Us</button>
-            <!-- <button  class="btn  custom mr-2 mb-2" ><mat-icon style="width: -20px;"> call</mat-icon>Contact Us</button><br>
+                    <button class="btn custom mr-2 mb-2" style="background-color: #28acaf">
+                        <span style="color: white">Start Now</span>
+                    </button>
+                </div>
+            </mat-card>
+
+            <mat-card class="outline" fxFlex="50" style="text-align: center; background-color: white">
+                <h2 style="color: #28acaf">Exclusive Pricing</h2>
+                <p>Any size Team</p>
+                <p>Contact our sales team for custom price packages.</p>
+                <div fxLayout="column" style="align-items: center">
+                    <button class="btn custom mr-2 mb-2 btnOutline" fxLayout="row">
+                        <mat-icon>phone_in_talk</mat-icon>&nbsp; &nbsp;<span>Contact Us</span></button><br />
+                    <button class="btn custom mr-2 mb-2 btnOutline" fxLayout="row">
+                        <mat-icon> mail_outline</mat-icon> &nbsp; &nbsp;<span>Email Us</span>
+                    </button>
+                </div>
+                <!-- <button  class="btn  custom mr-2 mb-2" ><mat-icon style="width: -20px;"> call</mat-icon>Contact Us</button><br>
             <button  class="btn  custom mr-2 mb-2" ><mat-icon style="width: -20px;"> mail_outline</mat-icon>Email Us</button> -->
-        </mat-card>
-
-    </div>
-    
+            </mat-card>
+        </div>
+    </mat-card>
 </div>

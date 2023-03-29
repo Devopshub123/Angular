@@ -2,16 +2,11 @@ import { Component, OnInit, ViewChild  } from '@angular/core';
 import { FormGroup,FormControl,Validators, FormBuilder} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'src/app/modules/admin/admin.service';
-import { CompanySettingService } from 'src/app/services/companysetting.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
-import { EmsService } from 'src/app/modules/ems/ems.service';
 import { ManageUsersComponent } from '../dialog/manage-users/manage-users.component';
 import { InvoiceDataComponent } from '../dialog/invoice-data/invoice-data.component';
 const moment =  _moment;
@@ -37,53 +32,17 @@ export const MY_FORMATS = {
   ],
 })
 export class ClientAdminSubscriptionComponent implements OnInit {
-  enable: any = null;
-  isdata: boolean = true;
-  isEdit: boolean = true;
-  isSave: boolean = false;
-  isadd:boolean=true;
-  editing:boolean=false;
-  isviewdata:boolean=false;
-
-  editdata:any=[];
-
-  company:any='Sreeb Tech'
 
   subscriptionForm:any= FormGroup;
-  billingForm:any= FormGroup;
-  isview:boolean=true;
-  ishide:boolean=false;
-  reasondata:any;
-  userSession:any;
-  displayedColumns: string[] = ['sno','plan','monthUser','yearUser','module','min-user','max-user','status','action'];
-  dataSource: MatTableDataSource<any>=<any>[];
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-  @ViewChild(MatSort)
-  sort!: MatSort;
   companyDBName: any = environment.dbName;
   /** */
-  isAddBtn = true;
-  isData = false;
-  searchTextboxControl = new FormControl();
-  flag: boolean = true;
-  employeeList: any = [
-    {cmp_code:"M-1",module:"All"},
-    {cmp_code:"M-2",module:"AMS"},
-    {cmp_code:"M-3",module:"LMS"},
-    {cmp_code:"M-4",module:"Payroll"},
-  ];
-  selectedEmployees: any = [];
+  isOther: boolean = false;
   constructor(private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog,
-    private adminService: AdminService, private ES: EmsService, private companyService: CompanySettingService) {
+    private adminService: AdminService) {
    }
-  seperationsList: any = [];
-  countryDetails: any = [];
-  stateDetails: any = [];
-  cityDetails: any = [];
+
   ngOnInit(): void {
-    this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    /** */
+
     this.subscriptionForm=this.formBuilder.group(
       {
         companyCode:[""],
@@ -100,7 +59,7 @@ export class ClientAdminSubscriptionComponent implements OnInit {
         mobile:[""],
         industryType:[""],
         industryTypeOther:[""],
-        email: ["", [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+        email: [""],
        address1:[""],
         address2:[""],
         country:[""],
@@ -109,71 +68,60 @@ export class ClientAdminSubscriptionComponent implements OnInit {
         pincode:[""],
         gstNumber:[""],
       });
-    
+    this.getClientSubscriptionDetails();
   }
-  addNew() {
-    this.isData = true;
-    this.isAddBtn = false;
-  }
-  submit(){
-    this.isview=false;
-   this.ishide=true;
-  }
-  cancel(){
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/Admin/subscription-master"]));
-
-  }
-
-  saved(){
-   }
-   getCountry() {
-    this.countryDetails = []
-    this.companyService.getCountry('countrymaster', null, 1, 10, this.companyDBName).subscribe(result => {
-      this.countryDetails = result.data;
-    })
-  }
-
-  getCompanyInformation(){
-    this.companyService.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{
-      if(data.status && data.data.length!=0) {
-        this.company=data.data[0].companyname;
+  getClientSubscriptionDetails(){
+    this.adminService.getClientSubscriptionDetails(1).subscribe((data:any)=>{
+      if (data.status && data.data.length != 0) {
+        let value = data.data;
+        this.subscriptionForm.controls.companyCode.setValue(value[0].company_code);
+        this.subscriptionForm.controls.subscriptionId.setValue(value[0].subscription_id);
+        this.subscriptionForm.controls.plan.setValue(value[0].plan_name);
+        this.subscriptionForm.controls.takenUsers.setValue(value[0].number_of_users);
+        //this.subscriptionForm.controls.monthlyCost.setValue(value[0].cost);
+        //this.subscriptionForm.controls.yearlyCost.setValue(value[0].company_code);
+        this.subscriptionForm.controls.totalPaidAmt.setValue(value[0].cost);
+        //this.subscriptionForm.controls.nextRenewal.setValue(value[0].company_code);
+        //this.subscriptionForm.controls.lastRenewal.setValue(value[0].company_code);
+        //this.subscriptionForm.controls.contactPerson.setValue(value[0].company_code);
+        this.subscriptionForm.controls.companyName.setValue(value[0].company_name);
+        this.subscriptionForm.controls.mobile.setValue(value[0].mobile_number);
+        this.subscriptionForm.controls.industryType.setValue(value[0].industry_type);
+        //this.subscriptionForm.controls.industryTypeOther.setValue(value[0].company_code);
+        this.subscriptionForm.controls.email.setValue(value[0].company_email);
+        this.subscriptionForm.controls.address1.setValue(value[0].company_address);
+        //this.subscriptionForm.controls.address2.setValue(value[0].company_code);
+        this.subscriptionForm.controls.country.setValue(value[0].country);
+        this.subscriptionForm.controls.state.setValue(value[0].state);
+        this.subscriptionForm.controls.city.setValue(value[0].city);
+        this.subscriptionForm.controls.pincode.setValue(value[0].pincode);
+       // this.subscriptionForm.controls.gstNumber.setValue(value[0].company_code);
       }else {
         }
     })
   }
 
 
-  edit(event: any, data: any) {
-    this.isadd=false;
-    this.editing=true;
-    this.editdata = data;
-    this.subscriptionForm.controls.planName.setValue(data.comment);
-    this.subscriptionForm.controls.monthlyCost.setValue(data.comment);
-    this.subscriptionForm.controls.yearlyCost.setValue(data.comment);
-    this.subscriptionForm.controls.modules.setValue(data.comment);
-    this.subscriptionForm.controls.minUsers.setValue(data.comment);
-    this.subscriptionForm.controls.maxUsers.setValue(data.comment);
-
-  }
-
-  compareFn(option1:any,option2:any){
-    return option1.empid === option2.empid;
-  }
-
   invoice(){
-    let dialogRef = this.dialog.open(InvoiceDataComponent, {
-      width: '600px',position:{top:`70px`},
-      disableClose: true,
+    // let dialogRef = this.dialog.open(InvoiceDataComponent, {
+    //   width: '600px',position:{top:`70px`},
+    //   disableClose: true,
            
-    });
+    // });
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/admin-invoice"]));
   }
-  manageusers(){
-    let dialogRef = this.dialog.open(ManageUsersComponent, {
-      width: '600px',position:{top:`70px`},
-      disableClose: true,
+  manageusers() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            this.router.navigate(["/Admin/add-renewal-users"]));
+    // let dialogRef = this.dialog.open(ManageUsersComponent, {
+    //   width: '600px',position:{top:`70px`},
+    //   disableClose: true,
            
-    });
+    // });
   }
-  pay(){}
+  pay() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/Admin/upgrade-plan"]));
+  }
 }
