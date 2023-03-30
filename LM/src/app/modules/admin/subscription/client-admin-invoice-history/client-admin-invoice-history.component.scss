@@ -1,3 +1,10 @@
+mat-card {
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  position: relative;
+  padding-left: 0px;
+  padding-right: 0px;
+}
 table {
     width: 100%;
   }
@@ -40,19 +47,17 @@ table {
   .tableP{
     padding: 10px;
   }
-  mat-card {
-    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-    display: block;
-    position: relative;
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-  // ::ng-deep.mat-card-header-text {
-  //   margin: 0 6px !important;
-  // }
-  ::ng-deeptr.mat-header-row {
+  ::ng-deep tr.mat-header-row {
     height: 45px !important;
   }
   ::ng-deep.mat-form-field-appearance-outline .mat-form-field-wrapper {
     margin: 0.2em 0 !important;
+  }
+  .table-pad{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .dev-Pad{
+    padding-top: 1%;
+    padding-right: 15px;
   }

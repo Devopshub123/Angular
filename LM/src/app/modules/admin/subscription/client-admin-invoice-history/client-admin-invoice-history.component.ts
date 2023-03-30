@@ -51,7 +51,7 @@ sort!: MatSort;
 }
 view(data:any){
   let dialogRef = this.dialog.open(InvoiceDataComponent, {
-    width: '600px',position:{top:`70px`},
+    width: '600px',position:{top:`100px`},
     disableClose: true,
     data:data
          

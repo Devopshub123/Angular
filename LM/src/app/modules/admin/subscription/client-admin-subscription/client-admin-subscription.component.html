@@ -22,43 +22,43 @@
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Subscription ID</mat-label>
-                            <input formControlName="subscriptionId" matInput readonly />
+                            <input formControlName="subscriptionId" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Your Plan</mat-label>
-                            <input formControlName="plan" matInput readonly />
+                            <input formControlName="plan" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
                     </div>
 
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Users</mat-label>
-                            <input formControlName="takenUsers" matInput readonly />
+                            <input formControlName="takenUsers" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Cost Per User/Month</mat-label>
-                            <input formControlName="monthlyCost" matInput readonly />
+                            <input formControlName="monthlyCost" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
 
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Cost Per User/Year</mat-label>
-                            <input formControlName="yearlyCost" matInput readonly />
+                            <input formControlName="yearlyCost" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
                     </div>
 
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Total Paid Amount</mat-label>
-                            <input formControlName="totalPaidAmt" matInput readonly />
+                            <input formControlName="totalPaidAmt" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Next Renewal Date</mat-label>
-                            <input formControlName="nextRenewal" matInput readonly />
+                            <input formControlName="nextRenewal" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
 
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Last Renewal Date</mat-label>
-                            <input formControlName="lastRenewal" matInput readonly />
+                            <input formControlName="lastRenewal" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
                     </div>
                     <div class="section"><b>Billing Details</b></div>
@@ -67,33 +67,33 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Name</mat-label>
-                            <input type="text" formControlName="contactPerson" matInput readonly />
+                            <input type="text" formControlName="contactPerson" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
 
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Company Name</mat-label>
-                            <input type="text" formControlName="companyName" matInput readonly />
+                            <input type="text" formControlName="companyName" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
 
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Mobile</mat-label>
-                            <input type="text" formControlName="mobile" matInput readonly />
+                            <input type="text" formControlName="mobile" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
                     </div>
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                         <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input type="text" formControlName="email" matInput readonly />
+                            <input type="text" formControlName="email" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
 
                         <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                             <mat-label>Industry Type</mat-label>
-                            <input type="text" formControlName="industryType" matInput readonly />
+                            <input type="text" formControlName="industryType" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
 
                         <mat-form-field *ngIf="isOther" fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
                             <mat-label>Industry Type Name</mat-label>
-                            <input type="text" formControlName="industryTypeOther" matInput readonly/>
+                            <input type="text" formControlName="industryTypeOther" matInput [ngClass]="{'disable':true}" readonly/>
                         </mat-form-field>
                     </div>
 
@@ -101,17 +101,17 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Address 1</mat-label>
-                            <input type="text" formControlName="address1" matInput readonly/>
+                            <input type="text" formControlName="address1" matInput [ngClass]="{'disable':true}" readonly/>
                         </mat-form-field>
 
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Address 2</mat-label>
-                            <input type="text" formControlName="address2" matInput readonly/>
+                            <input type="text" formControlName="address2" matInput [ngClass]="{'disable':true}" readonly/>
                         </mat-form-field>
 
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Country</mat-label>
-                            <input type="text" formControlName="country" matInput  readonly/>
+                            <input type="text" formControlName="country" matInput [ngClass]="{'disable':true}" readonly/>
                         </mat-form-field>
 
                        
@@ -120,23 +120,23 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>State</mat-label>
-                            <input type="text" formControlName="state" matInput  readonly/>
+                            <input type="text" formControlName="state" matInput [ngClass]="{'disable':true}" readonly/>
                         </mat-form-field>
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>City</mat-label>
-                            <input type="text" formControlName="city" matInput  readonly/>
+                            <input type="text" formControlName="city" matInput [ngClass]="{'disable':true}" readonly/>
                         </mat-form-field>
 
                         <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Pincode</mat-label>
-                            <input type="text" formControlName="pincode" matInput readonly/>
+                            <input type="text" formControlName="pincode" matInput [ngClass]="{'disable':true}" readonly/>
                         </mat-form-field>
                     </div>
 
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                         <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                             <mat-label>GST Number</mat-label>
-                            <input type="text" formControlName="gstNumber" matInput readonly />
+                            <input type="text" formControlName="gstNumber" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
                     </div>
                 </div>
