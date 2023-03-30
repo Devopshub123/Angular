@@ -46,6 +46,7 @@ export class SignUpComponent implements OnInit {
   isstep2 = true;
   minExperienceDate: any;
   minEducationDate: any;
+  fileURL: any;
   displayedColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
   familyTableColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
   documentTableColumns = ['position', 'category', 'number', 'name', 'action'];
@@ -91,13 +92,12 @@ export class SignUpComponent implements OnInit {
     private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
     , private mainService: MainService, private activatedRoute: ActivatedRoute) {
    // this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
+    this.agreement()
   }
 
 
   ngOnInit(): void {
     this.params = this.activatedRoute.snapshot.params;
-    console.log("sent",new Date(JSON.parse(atob(this.params.token)).Date))
-    console.log("now",new Date())
     this.email = JSON.parse(atob(this.params.token)).email;
     this.companycode = JSON.parse(atob(this.params.token)).companycode;
     this.planId =JSON.parse(atob(this.params.token)).Planid;
@@ -145,6 +145,17 @@ export class SignUpComponent implements OnInit {
     })
 
   }
+  agreement() {
+    this.mainService.agreement().subscribe((result:any)=>{
+      let TYPED_ARRAY = new Uint8Array(result.image.data);
+            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+              return data + String.fromCharCode(byte);
+            }, '');
+
+            const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
+            this.fileURL = URL.createObjectURL(file);
+    })
+  }
   getIndustryTypes() {
     this.industryTypeList = [];
     this.mainService.getIndustryTypes('industry_type_master', null, 1, 10, 'spryple_hrms').subscribe(result => {
@@ -157,8 +168,8 @@ export class SignUpComponent implements OnInit {
       this.countryDetails = result.data;
     })
   }
-  agree(){
-    window.open('http://localhost:4200/#/Terms-conditions')
+  agree() {
+    window.open(this.fileURL);
   }
   createForm(){
     this.signUpForm = this.formBuilder.group(
@@ -184,7 +195,14 @@ export class SignUpComponent implements OnInit {
         planid:[this.planId]
        
     })
-    this.PayviewForm = this.formBuilder.group({});
+    this.PayviewForm = this.formBuilder.group({
+      plan:[""],
+      totalusers:[""],
+      validity:[""],
+      cost:[""],
+      validFrom:[""],
+      validTo:[""],
+    });
     this.PayForm = this.formBuilder.group({})
 
   }

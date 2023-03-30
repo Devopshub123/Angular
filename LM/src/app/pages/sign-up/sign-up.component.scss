@@ -116,15 +116,13 @@
       .custom1{
         width: 130px !important;
       }
-      // p {
-      //   font-family: Lato;
-      // }
-      // .example-form {
-      //   min-width: 150px;
-      //   max-width: 500px;
-      //   width: 100%;
-      // }
-      
-      // .example-full-width {
-      //   width: 100%;
-      // }
+      .disable:hover{
+        cursor: not-allowed;
+        }
+        .disable:active{
+        pointer-events: none;
+        }
+        .bg-image {
+          background-image:url('../../../assets/img/bg-pattern-light.svg');
+          background-size: cover;
+        }

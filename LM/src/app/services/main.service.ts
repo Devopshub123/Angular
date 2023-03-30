@@ -171,4 +171,7 @@ export class MainService {
   setSprypleClient(data: any) {
     return this.http.post(this.mainBeUrl+'subscription/api/setSprypleClient',data)
   }
+  agreement(){
+    return this.http.get(this.mainBeUrl+'subscription/agreement')
+  }
 }
