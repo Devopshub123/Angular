@@ -71,7 +71,8 @@
 
 <div  fxLayout="column" class="table-pad">
     <div class="mat-elevation-z1 example-container">
-      <table id="table" #table mat-table [dataSource]="dataSource">
+      <div id="table" #table=''>
+      <table   mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="sno">
           <th mat-header-cell *matHeaderCellDef>S.No</th>
           <td mat-cell *matCellDef="let element; let i=index;">
@@ -136,6 +137,7 @@
         </tr>
 
       </table>
+       </div>
       <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
     </div>
   </div>

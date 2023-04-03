@@ -697,7 +697,7 @@ getLeaveTypesToAdd() {
 /**check leave color */
   checkLeaveTypes(id:any ,color:any)
   {
-    console.log("leavesTypeData",this.leavesTypeData)
+
     var valid = true;
     for(let obj of  this.leavesTypeData){
       if(obj.id !== id && obj.leavecolor === color){

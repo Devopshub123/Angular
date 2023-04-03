@@ -28,7 +28,6 @@ import { environment } from 'src/environments/environment';
     }
     getWorkLocation(info:any): Observable<any>{
       info.companyName = this.companyName;
-      console.log("cn--",info)
       return this.hClient.post(this.mainBeUrl + 'api/getWorkLocation',JSON.stringify(info), this.httpOptions);
     }
     getactiveWorkLocation(info:any): Observable<any>{

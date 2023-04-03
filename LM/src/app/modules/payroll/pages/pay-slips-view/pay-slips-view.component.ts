@@ -81,7 +81,7 @@ export class PaySlipsViewComponent implements OnInit {
     this.companyService
       .getactiveWorkLocation({ id: null, companyName: this.companyDBName })
       .subscribe((result) => {
-        console.log(result.data);
+
         for(let i=0;i<result.data.length;i++){
           if(this.usersession.worklocation == result.data[i].city){
             if(result.data[i].location !=''||result.data[i].location !=null){

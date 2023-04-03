@@ -150,7 +150,7 @@ export class HrPendingApprovalsComponent implements OnInit {
   }
   openDialogreject(): void {
     const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
-      width: '500px',position:{top:`70px`},
+      width: '500px',position:{top:`100px`},
       data: {name: this.titleName, reason: this.reason,EM1:this.EM1}
     });
 

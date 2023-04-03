@@ -42,7 +42,7 @@ export class ProfessionalTaxRequestComponent implements OnInit {
     return this.professionalGroupRequestForm.get("details") as FormArray
   }
   onEditClick(element:any){  
-    console.log("Element",element);
+
    /* this.router.navigate(["/Payroll/InvestmentRequest"],{state: {userData:element}}); */
   }
 }

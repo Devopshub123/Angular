@@ -34,11 +34,13 @@
                             {{ msgLM3 }}
                         </mat-error>
                     </mat-form-field>
+
                     <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline" *ngIf="isview">
                         <mat-label>Worked Hours</mat-label>
 
                         <input formControlName="hours" readonly matInput />
                     </mat-form-field>
+
                     <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline"
                         *ngIf="ishide && !isview">
                         <mat-label>Minutes</mat-label>
@@ -57,19 +59,21 @@
                     </mat-form-field>
                 </div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                    <mat-form-field fxFlex.xs="100" fxFlex="65" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline" *ngIf="isview">
+                        <mat-label>Status</mat-label>
+                        <input formControlName="status" readonly matInput />
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
                         <mat-label>Reason</mat-label>
                         <textarea formControlName="reason" matInput placeholder="" [readonly]="isview" required
                             maxlength="250">
-            </textarea>
+                      </textarea>
                         <mat-error class="con-error" *ngIf="CompoffForm.controls.reason.errors?.required">
                             {{ msgLM1 }}
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field fxFlex.xs="100" fxFlex="65" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline" *ngIf="isview">
-                        <mat-label>Status</mat-label>
-                        <input formControlName="status" readonly matInput />
-                    </mat-form-field>
+                  
                 </div>
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" *ngIf="isview">
                     <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">

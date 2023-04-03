@@ -122,7 +122,7 @@ export class ShiftMasterComponent implements OnInit {
         'dd/MM/yyyy, HH:mm:ss'
       );
       this.shiftForm.controls.endTime.enable();
-      console.log("this.starttime",this.starttime)
+
     });
     // this.shiftForm.get('endTime')?.valueChanges.subscribe((selectedValue) => {
     //   this.endtime = this.pipe.transform(selectedValue, 'dd/MM/yyyy, HH:mm:ss');

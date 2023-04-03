@@ -94,7 +94,7 @@ cancel(data:any){
 }
 openDialogcancel(): void {
   const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
-    width: '500px',position:{top:`70px`},
+    width: '500px',position:{top:`100px`},
     data: {name: this.titleName, reason: this.reason}
   });
 
@@ -132,7 +132,7 @@ delete(data:any){
 }
 openDialogdelete(): void {
   const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
-    width: '500px',position:{top:`70px`},
+    width: '500px',position:{top:`100px`},
     data: {name: this.titleName, reason: this.reason}
   });
 

@@ -208,7 +208,7 @@ export class PaySlipsComponent implements OnInit {
       }
       this.dataSource=[]
       this.PR.getEmployeePaySlips(data).subscribe((result:any)=>{
-        console.log(result)
+
         if(result.status&&result.data.length>0){
           this.dataSource =result.data;
         }
@@ -219,9 +219,9 @@ export class PaySlipsComponent implements OnInit {
         id:userdata.id,
         empid:userdata.empid
       }
-      console.log(data)
+
       this.PR.getEmployeePayslipDetails(data).subscribe((result:any)=>{
-        console.log(result)
+
         if(result.status&&result.data.length>0){
           
           const toWords:any = new ToWords();
@@ -262,7 +262,7 @@ export class PaySlipsComponent implements OnInit {
                this.alldata.push(this.getpayslipdata[i])
             }
           }
-          console.log(this.alldata)
+
           for(let i=0;i<this.alldata.length;i++){
             if(this.alldata[i].type_value== "Earnings"  || this.alldata[i].component_name== "Gross Earnings"){
               this.earningsdata.push(this.alldata[i])

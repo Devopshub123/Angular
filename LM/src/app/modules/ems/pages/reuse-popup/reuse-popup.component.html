@@ -15,7 +15,7 @@
             <div  fxLayout="initial" fxLayout.xs="column"  fxLayoutAlign.xs="center center">
                
               
-              <mat-form-field fxFlex='50' fxFlex.xs="100" class="mx-1 my-1" appearance="outline">
+              <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>Request Exit Date </mat-label>
                 <input matInput readonly  [matDatepicker]="date" [min]="mindate"  [max]="maxdate"
                     placeholder="DD-MM-YYYY" formControlName="requestdate" [disabled]="true">
@@ -26,7 +26,7 @@
 
 
 
-                <mat-form-field fxFlex='50' fxFlex.xs="100" class="mx-1 my-1" appearance="outline">
+                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Approve Exit Date </mat-label>
                     <input matInput readonly (click)="date1.open()"  [matDatepicker]="date1" [min]="mindate"  [max]="maxdate"
                         placeholder="DD-MM-YYYY" formControlName="approvedate">
@@ -41,7 +41,7 @@
               <!--</div>-->
 
           <div  fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-            <mat-form-field  fxFlex="100" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <mat-form-field  fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
               <mat-label>Reason<span   style="color: red">*</span> </mat-label>
               <textarea formControlName="reason"  matInput placeholder="Reason" maxlength="400"></textarea>
               <mat-error class="con-error" *ngIf="form.controls.reason.errors?.required">

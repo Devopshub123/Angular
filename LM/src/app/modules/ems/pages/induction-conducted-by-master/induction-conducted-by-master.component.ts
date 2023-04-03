@@ -371,7 +371,7 @@ export class InductionConductedByMasterComponent implements OnInit {
   }
 
   getConductByElementsOnEdit(){
-    console.log(this.array)
+ 
     if(this.isUpdate) {
       this.inductionForm.controls.conductBy.setValue(this.array);
     }

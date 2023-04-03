@@ -61,7 +61,7 @@ export class EmployeeDirectoryComponent implements OnInit {
   }
 
   editEmployee(id:any, data:any) {
-    console.log("data",id,data)
+
     let empId=this.encriptPipe.transform(data.id.toString());
 
     this.router.navigate(["/ems/empInformation",{empId}])

@@ -676,7 +676,7 @@ export class MainDashboardComponent implements OnInit {
             this.mainService
             .getDocumentOrImagesForEMS(result.data[0])
             .subscribe((imageData) => {
-              console.log("higetDocumentOrImagesForEMSworking");
+   
               if (imageData.success) {
                 let TYPED_ARRAY = new Uint8Array(imageData.image.data);
                 const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
@@ -686,8 +686,6 @@ export class MainDashboardComponent implements OnInit {
                 let base64String = btoa(STRING_CHAR);
                 this.imageurls[0].base64String =
                   'data:image/png;base64,' + base64String;
-                  console.log("hhjj");
-                  console.log("image",this.imageurls)
               } else {
                 this.isRemoveImage = false;
                 this.imageurls = [

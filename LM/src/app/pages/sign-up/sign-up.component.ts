@@ -91,7 +91,7 @@ export class SignUpComponent implements OnInit {
     // if (this.params && this.params.token) {
       this.email = JSON.parse(atob(this.params.token)).email;
       this.companycode = JSON.parse(atob(this.params.token)).companycode;
-      console.log("email",this.email)
+
     this.createPersonalInfoForm();
 
   }

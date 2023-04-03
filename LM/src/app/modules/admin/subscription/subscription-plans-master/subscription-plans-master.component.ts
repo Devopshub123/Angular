@@ -202,7 +202,7 @@ this.subscriptionForm.controls.modules.setValue('')
     this.adminService.getAllModules().subscribe((result:any)=>{
       if(result.status&& result.data.length>0){
         this.modulesList=result.data;
-        console.log(this.modulesList)
+
         // this.subscriptionForm.controls.modules.setValue(this.modulesList)
       }
 

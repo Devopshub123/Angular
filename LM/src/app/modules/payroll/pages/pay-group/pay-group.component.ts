@@ -207,7 +207,7 @@ export class PayGroupComponent implements OnInit {
   }
   cancel(){}
   navigate(data:any){
-    console.log("data",data)
+
     this.router.navigate(['/Payroll/Earnings'],{state:{data:data}});
   }
 

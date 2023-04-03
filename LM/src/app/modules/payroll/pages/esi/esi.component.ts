@@ -207,7 +207,6 @@ editdata(){
     })
   }
   edit(data:any){
-    console.log(data)
     this.isedit=true
     this.companyEsiRequestForm.controls.esiNumber.setValue(data.value),
     this.companyEsiRequestForm.controls.state.setValue(data.state_id),

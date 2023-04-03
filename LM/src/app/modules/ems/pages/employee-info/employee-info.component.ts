@@ -566,14 +566,14 @@ export class EmployeeInfoComponent implements OnInit {
 
   /** through employee directory login data  */
   getEmployeeInformationList() {
-    console.log(this.employeeId)
+
     this.spinner.show();
     this.employeeInformationData = [];
     this.familyDetails = [];
     this.emsService.getEmployeeInformationData(this.employeeId).subscribe((res: any) => {
-      console.log("res",res)
+
       this.employeeInformationData = JSON.parse(res.data[0].json)[0];
-      console.log(this.employeeInformationData)
+
       this.isNewEmployee = false;
       this.joinDateDisable = true;
       if (this.employeeInformationData.id != null) {

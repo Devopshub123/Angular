@@ -72,7 +72,6 @@ export class EarningsComponent implements OnInit {
     this.router.navigate(["/Payroll/EarningsRequest"],{state: {}}); 
   }
   onViewClick(data:any){
-    // console.log(data)
     // data.URL = '/Payroll/Earnings';
     // data.isdashboard = true;
     // this.router.navigate(['/Payroll/EarningsRequest'],{state:{EarningData:data}});

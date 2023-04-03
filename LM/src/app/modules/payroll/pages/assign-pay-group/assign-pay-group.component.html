@@ -25,10 +25,11 @@
                         </mat-error>
                         
                          </mat-form-field>
+                         
                          <mat-form-field fxFlex.xs="100" fxFlex  class="mx-2 my-2" appearance="outline">
                             <mat-label>CTC</mat-label>
                            
-                            <input type="number" formControlName="CTC" matInput placeholder="" oninput="validity.valid||(value='');">
+                            <input type="number" formControlName="CTC" matInput required oninput="validity.valid||(value='');">
                             <mat-error class="con-error" *ngIf="Assignpaygroupform.controls.CTC.errors?.required">
                               {{PR1}}
                           </mat-error>

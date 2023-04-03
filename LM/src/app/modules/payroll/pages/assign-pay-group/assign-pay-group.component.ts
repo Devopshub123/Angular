@@ -173,9 +173,7 @@ data(element:any){
   /**assign paygroup for employee */
   
   assignPayGroup(){
-    console.log("assignPaygroup",this.paygroupid)
     if(this.paygroupid !=''){
-      console.log(this.paygroupid)
       const componentsdata:any = {};
     for(let i=0;i<this.ComponentWiseValuesForPayGroupAssignment.length;i++){
       componentsdata[this.ComponentWiseValuesForPayGroupAssignment[i].component_short_name] = this.ComponentWiseValuesForPayGroupAssignment[i].amount_value;
