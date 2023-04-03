@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl,ValidatorFn,ValidationErrors } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -120,7 +120,7 @@ export class AttendanceRequestComponent implements OnInit {
         fromDate: [{ value:'', disabled: true }, Validators.required],
         toDate: [{ value: '', disabled: true }, Validators.required],
         workType: ['', Validators.required],
-        reason: ['', [Validators.required]],
+        reason: ['', [Validators.required,this.noWhitespaceValidator()]],
         comment: [''],
       });
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
@@ -563,7 +563,12 @@ export class AttendanceRequestComponent implements OnInit {
     })
     this.getEmployeeShiftDetailsByIdWithDates();
   }
-
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return isWhitespace ? { whitespace: true } : null;
+    };
+  }
   getMessagesList() {
     let data =
     {

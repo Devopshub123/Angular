@@ -198,7 +198,7 @@
             <mat-form-field fxFlex="100" class="mx-1 my-1" appearance="outline">
               <mat-label>Reason</mat-label>
               <textarea formControlName="reason" required matInput placeholder="Reason" maxlength="250"></textarea>
-              <mat-error class="con-error" *ngIf="leaveRequestForm.controls.reason.errors?.required">
+              <mat-error class="con-error" *ngIf="leaveRequestForm.controls.reason.errors?.required || leaveRequestForm.controls.reason.errors?.['whitespace']">
                 {{ msgLM1 }}
               </mat-error>
             </mat-form-field>

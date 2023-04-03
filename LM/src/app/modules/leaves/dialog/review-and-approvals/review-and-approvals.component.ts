@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators,ValidatorFn,ValidationErrors } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {DialogComponent} from "../../../attendance/dialog/dialog.component";
 import { LeavesService } from '../../leaves.service'
@@ -41,7 +41,7 @@ export class ReviewAndApprovalsComponent implements OnInit {
   ngOnInit(): void {
     this.getErrorMessages('LM1');
     this.form = this.formBuilder.group({
-      'reason':['',Validators.required], });
+      'reason':['',Validators.required,this.noWhitespaceValidator()], });
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -75,5 +75,11 @@ export class ReviewAndApprovalsComponent implements OnInit {
       }
 
     })
+  }
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return isWhitespace ? { whitespace: true } : null;
+    };
   }
 }
