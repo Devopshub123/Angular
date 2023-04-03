@@ -147,7 +147,7 @@
                     ? ''
                     : maxDate
                 " [matDatepicker]="picker1" [matDatepickerFilter]="toDateFilter" placeholder="DD-MM-YYYY"
-                formControlName="toDate" required (click)="picker1.open()" />
+                formControlName="toDate" required (click)="picker1.open()"  [disabled]="compofftdatehide" />
 
               <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker1">
               </mat-datepicker-toggle>

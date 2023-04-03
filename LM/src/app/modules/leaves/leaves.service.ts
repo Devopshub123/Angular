@@ -253,5 +253,7 @@ getDurationforBackdatedCompoffLeave(info:any): Observable<any>{
     data.companyName=this.companyName;
     return this.http.post(this.mainUrl + 'api/getReportForPayrollProcessing/',data, this.httpOptions);
   }
-
+  getCompOffValidityDuration():Observable<any>{
+    return this.http.get(this.mainUrl + 'api/getCompOffValidityDuration/'+this.companyName, this.httpOptions);
+  }
 }

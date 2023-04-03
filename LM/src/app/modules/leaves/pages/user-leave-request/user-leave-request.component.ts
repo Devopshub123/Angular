@@ -66,6 +66,7 @@ export class UserLeaveRequestComponent implements OnInit {
   isDisableSecondHalf: boolean = false;
   document: boolean = false;
   isValidateLeave: boolean = false;
+  compofftdatehide:boolean=false;
   msgLM79: any;
   msgLM76: any;
   msgLM1: any;
@@ -208,11 +209,14 @@ export class UserLeaveRequestComponent implements OnInit {
     });
     this.leaveRequestForm.get('fromDate')?.valueChanges.subscribe((selectedValue:any) => {
       if(selectedValue) {
-        if(this.leaveRequestForm.controls.leaveTypeId.value != 9 ){
+        if (this.leaveRequestForm.controls.leaveTypeId.value != 9) {
+          this.compofftdatehide=false;
           this.changeFromDate(selectedValue);
         }
         else {
-          this.maxDate = this.toMaxDate;
+          // this.maxDate = this.toMaxDate;
+          this.maxDate = this.fromMaxDate;
+          this.compofftdatehide=true;
           this.changeCompOffFromDate(selectedValue)
         }
 
@@ -238,6 +242,7 @@ export class UserLeaveRequestComponent implements OnInit {
       // if(selectedValue) {
 
       this.getDaystobedisabledfromdate();
+      if(selectedValue!=''){this.getCompOffValidityDuration(selectedValue)}
       // }
     });
 
@@ -1232,6 +1237,21 @@ noWhitespaceValidator(): ValidatorFn {
     const isWhitespace = (control.value || '').trim().length === 0;
     return isWhitespace ? { whitespace: true } : null;
   };
-}
+  }
+  getCompOffValidityDuration(date:any){
+    this.LM.getCompOffValidityDuration().subscribe((result:any) => {
+      if(result.status){
+        this.fromMaxDate = '';
+        var dates= new Date(date);
+        dates.setDate(dates.getDate() + Number(result.data[0].value));
+        this.fromMaxDate = dates
+
+      }
+      else{
+
+      }
+
+    });
+  }
 
 }
