@@ -65,7 +65,7 @@
                     <mat-label>Reason</mat-label>
                     <textarea formControlName="reason" required maxlength="250" matInput
                         placeholder="Reason"></textarea>
-                    <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
+                    <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.invalid ||requestform.controls.reason.errors?.['whitespace']">
                        {{requiredField}}
                     </mat-error>
                     <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.maxlength">

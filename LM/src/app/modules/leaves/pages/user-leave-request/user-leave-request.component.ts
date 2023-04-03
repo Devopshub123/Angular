@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators,ValidatorFn,ValidationErrors,AbstractControl} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {LeavesService} from "../../leaves.service";
@@ -122,7 +122,7 @@ export class UserLeaveRequestComponent implements OnInit {
       toDateHalf:[''],
       fromDateHalf:[''],
       leaveCount:['',Validators.required],
-      reason:['',Validators.required],
+      reason:['',[Validators.required,this.noWhitespaceValidator()]],
       contact:[this.userSession.contactnumber,Validators.required],
       emergencyEmail:['',[Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       document:['']
@@ -1226,6 +1226,12 @@ file:any;
       .subscribe((res: any) => {
         this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
        })
+}
+noWhitespaceValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    return isWhitespace ? { whitespace: true } : null;
+  };
 }
 
 }
