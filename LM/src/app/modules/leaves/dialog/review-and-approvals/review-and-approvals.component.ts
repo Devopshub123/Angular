@@ -41,7 +41,8 @@ export class ReviewAndApprovalsComponent implements OnInit {
   ngOnInit(): void {
     this.getErrorMessages('LM1');
     this.form = this.formBuilder.group({
-      'reason':['',Validators.required,this.noWhitespaceValidator()], });
+      'reason':['',[Validators.required,this.noWhitespaceValidator()]], });
+     
   }
   onNoClick(): void {
     this.dialogRef.close();
