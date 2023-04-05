@@ -5,7 +5,7 @@
         </mat-card-header>
     <div fxLayout="column">
       <form [formGroup]="requestform" autocomplete="off"  style="padding-left: 1%;padding-top: 1%;">
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" >
+        <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center" >
 
             <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>Applied Date</mat-label>
@@ -61,7 +61,7 @@
                      </mat-error>
                  </mat-form-field>
 
-                 <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                 <mat-form-field fxFlex fxFlex.lt-lg="48" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason</mat-label>
                     <textarea formControlName="reason" required maxlength="250" matInput
                         placeholder="Reason"></textarea>
@@ -78,7 +78,7 @@
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                
 
-                <mat-form-field *ngIf="isCommentView" fxFlex="32" fxFlex.xs="100" class="mx-2 my-2"
+                <mat-form-field *ngIf="isCommentView" fxFlex="32" fxFlex.lt-lg="48" fxFlex.xs="100" class="mx-2 my-2"
                 appearance="outline">
                 <mat-label>Comment</mat-label>
                 <textarea formControlName="comment" readonly matInput placeholder="Comment"></textarea>

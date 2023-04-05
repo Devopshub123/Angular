@@ -376,13 +376,13 @@ export class EmployeeInfoComponent implements OnInit {
     this.experienceForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != null) {
         this.minExperienceDate = selectedValue._d;
-        this.experienceForm.controls.expToDate.setValue('')
+       
       }
     })
     this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != null) {
         this.minEducationDate = selectedValue._d;
-        this.educationForm.controls.eduToDate.setValue('')
+       
       }
     })
     /////////
@@ -418,7 +418,14 @@ export class EmployeeInfoComponent implements OnInit {
     })
     this.getEmployeeImage();
    }
-
+   onExpDateChange() {
+    this.experienceForm.controls.expToDate.setValue('')
+    }
+  onEduDateChange() {
+    this.educationForm.controls.eduToDate.setValue('')
+  }
+  
+  
   getnoticeperiods() {
     this.emsService.getnoticeperiods().subscribe((res: any) => {
       if (res.status) {
