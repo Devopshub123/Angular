@@ -35,6 +35,7 @@ rejectreason='';
     this.dialogRef.close();
   }
   onOkClick(){
+    console.log("this.form.valid",this.form.valid)
     if(this.form.valid){
       if(this.data.name == "Reject"){
         this.form.get('reason')!.setValidators([Validators.required]);
