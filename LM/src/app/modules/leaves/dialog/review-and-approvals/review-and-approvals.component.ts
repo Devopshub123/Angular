@@ -47,6 +47,7 @@ export class ReviewAndApprovalsComponent implements OnInit {
     this.dialogRef.close();
   }
   onOkClick(){
+    console.log("this.form.valid0",this.form.valid)
     if(this.form.valid){
       if(this.data.name == "Reject"){
         this.form.get('reason')!.setValidators([Validators.required]);

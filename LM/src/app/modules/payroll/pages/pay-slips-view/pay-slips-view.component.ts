@@ -168,7 +168,8 @@ export class PaySlipsViewComponent implements OnInit {
   Download(){
 
     const DATA = this.payslip.nativeElement;
-    const doc: jsPDF = new jsPDF('l', 'mm', [1000, 1010]);
+    const doc: jsPDF = new jsPDF('l', 'mm', [1020, 1040]);
+    // const doc: jsPDF = new jsPDF('l', 'mm', [297, 210]);
     doc.html(DATA, {
       callback: (doc) => {
         doc.setFont('fa-solid-900', 'normal');
