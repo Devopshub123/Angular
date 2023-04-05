@@ -80,7 +80,7 @@ table {
   display: flex;
   flex-direction: column;
 }
-@media only screen and (max-width: 800px) and (orientation:portrait) {
+@media only screen and (max-width: 850px) and (orientation:portrait) {
   mat-header-row, mat-row {
     width: 140%;
   }

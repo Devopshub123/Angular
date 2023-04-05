@@ -971,7 +971,7 @@
                                 <mat-label>From Date</mat-label>
                                 <input matInput required readonly [matDatepicker]="expFromDate" [min]="minDate"
                                     [max]="expmaxDate" placeholder="DD-MM-YYYY" formControlName="expFromDate"
-                                    (click)="expFromDate.open()" />
+                                    (click)="expFromDate.open()" (dateChange)="onExpDateChange()"/>
                                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="expFromDate">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #expFromDate></mat-datepicker>
@@ -1217,7 +1217,7 @@
                                 <mat-label>From Date</mat-label>
                                 <input required matInput readonly [matDatepicker]="eduFromDate" [max]="edmaxDate"
                                     placeholder="DD-MM-YYYY" formControlName="eduFromDate"
-                                    (click)="eduFromDate.open()" />
+                                    (click)="eduFromDate.open()" (dateChange)="onEduDateChange()"/>
                                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="eduFromDate">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #eduFromDate></mat-datepicker>

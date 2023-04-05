@@ -137,7 +137,8 @@ openDialogdelete(): void {
   });
 
   dialogRef.afterClosed().subscribe(result => {
-  this.deletedata.actionreason =result.reason;
+    this.deletedata.actionreason = result.reason;
+    this.deletedata.emailData = this.employeeEmailData;
     if(result!=''){
       this.LM.setDeleteLeaveRequest(this.deletedata).subscribe((data)=>{
         if(data.status){
