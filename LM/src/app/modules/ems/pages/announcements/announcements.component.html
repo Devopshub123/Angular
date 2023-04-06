@@ -4,7 +4,7 @@
             <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
                 <mat-card-title class="title"> Announcements </mat-card-title>
                   <div style="margin-right: 2%;" *ngIf="isview">
-                     <button mat-icon-button style="padding-right: 40px;" (click)="Add()" matTooltip="Add New">
+                     <button mat-icon-button style="padding-right: 40px;" [tabIndex]="[1]" (click)="Add()" matTooltip="Add New">
                           <mat-icon style="font-size: 30px">add_circle</mat-icon>
                         </button>
                      </div>
@@ -104,7 +104,7 @@
                       <mat-form-field fxFlex.xs="100" fxFlex="56" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
                         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
                         <mat-label>Search</mat-label>
-                        <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
+                        <input (keyup)="applyFilter($event)" [tabIndex]="[2]" (keyup.enter)="applyFilter($event)" matInput placeholder="" maxlength="100">
                       </mat-form-field>
                     </span>
                   </div>
@@ -152,18 +152,36 @@
                             </ng-container>
                             <ng-container matColumnDef="action">
                                 <th mat-header-cell *matHeaderCellDef></th>
-                                <td mat-cell *matCellDef="let row" style="white-space: nowrap;">
+                                <td mat-cell *matCellDef="let row;let i = index;" style="white-space: nowrap;">
+                                    <button  mat-icon-button [tabIndex]="[i+3]" (keyup.enter)="edit($event, row)" *ngIf="row.status == 'Saved as draft'">
+
                                     <mat-icon title="Edit" (click)="edit($event, row)"
                                         *ngIf="row.status == 'Saved as draft'">edit</mat-icon>
+                                    </button>
+                                    <button  mat-icon-button [tabIndex]="[i+3]" (keyup.enter)="edit($event, row)" *ngIf="row.status == 'Published'">
+
                                     <mat-icon title="Edit" (click)="edit($event, row)"
                                         *ngIf="row.status == 'Published'">edit</mat-icon>
+                                        </button>
+                                        <button  mat-icon-button [tabIndex]="[i+3]" (keyup.enter)="view($event, row)" >
+
                                     <mat-icon title="View" (click)="view($event, row)">visibility</mat-icon>
+                                    </button>
+                                    <button  mat-icon-button [tabIndex]="[i+3]" (keyup.enter)="republish($event, row)" *ngIf="row.status == 'Completed'" >
+
                                     <mat-icon title="Republish" (click)="republish($event, row)"
                                         *ngIf="row.status == 'Completed'">publish</mat-icon>
+                                        </button>
+                                        <button  mat-icon-button [tabIndex]="[i+3]" (keyup.enter)="delete($event, row)" *ngIf="row.status == 'Save as draft'" >
+
                                     <mat-icon class="mr-2" title="Delete" (click)="delete($event, row)"
                                         *ngIf="row.status == 'Save as draft'">delete</mat-icon>
+                                        </button>
+                                        <button  mat-icon-button [tabIndex]="[i+3]" (keyup.enter)="delete($event, row)" *ngIf="row.status == 'Published'" >
+
                                     <mat-icon title="Stop" (click)="stop($event, row)"
                                         *ngIf="row.status == 'Published'">not_interested</mat-icon>
+                                        </button>
                                     <!-- <mat-icon title="Publish"  (click)="republish($event,row)" *ngIf="row.status=='Save as draft'">publish</mat-icon> -->
                                 </td>
                             </ng-container>

@@ -79,6 +79,8 @@ export class SideNavComponent implements OnInit {
     }
 
   toggleChild(item:any,route:any) { 
+    console.log("item",item);
+    console.log("route",route)
    
     let _this =this;
     this.showSpinner();

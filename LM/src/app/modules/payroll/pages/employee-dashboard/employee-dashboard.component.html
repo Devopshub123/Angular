@@ -25,7 +25,7 @@
                                 <div class="numbers text-center">
                                     <mat-form-field appearance="outline" fxFlex fxFlex.xs="100">
                                         <mat-label>EPF</mat-label>
-                                        <mat-select formControlName="EPF">
+                                        <mat-select formControlName="EPF" [tabIndex]="1">
                                           <ng-container>
                                             <div *ngFor="let fy of EPFfulldetails">
                                                 <mat-option [value]="fy.month_name">{{fy.month_name}}</mat-option>
@@ -53,7 +53,7 @@
                                 <div class="numbers text-center">                                        
                                     <mat-form-field appearance="outline" fxFlex fxFlex.xs="100">
                                       <mat-label>ESI</mat-label>
-                                      <mat-select > 
+                                      <mat-select  [tabIndex]="2"> 
                                           <mat-option value="January">Jan</mat-option>
                                           <mat-option value="Feb">Feb</mat-option>
                                           <mat-option value="Yearly">Mar</mat-option>
@@ -88,7 +88,7 @@
                                         <br>
                                         <mat-form-field appearance="outline" fxFlex.lt-lg="50" >
                                           <mat-label>Pay Slips</mat-label>
-                                          <mat-select formControlName="financial_year">
+                                          <mat-select formControlName="financial_year" [tabIndex]="3">
                                             <ng-container>
                                               <div *ngFor="let fy of financeyears">
                                                   <mat-option [value]="fy.return_value">{{fy.financial_year}}</mat-option>
@@ -103,7 +103,9 @@
                                     <div style="text-align: left;">
                                     <div style="float: left;margin-right:50px;width:50%;">{{array.salary_month}}</div>
                                     <div>
+                                        <button  mat-icon-button [tabIndex]="[4]" (keyup.enter)="payslipview(array)">
                                         <mat-icon  style="cursor: pointer;" title="View" (click)="payslipview(array)">visibility</mat-icon>
+                                       </button>
                                     </div>
                                     </div>
                                 </div>

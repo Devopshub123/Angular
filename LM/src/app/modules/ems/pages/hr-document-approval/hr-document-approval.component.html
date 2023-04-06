@@ -39,7 +39,10 @@
 
                             <td mat-cell *matCellDef="let row">
                                 <!-- <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon> -->
-                                <mat-icon title="Review & Approve" (click)="preview($event, row)">visibility</mat-icon>
+                                <button  mat-icon-button [tabIndex]="[1]" (keyup.enter)="preview($event, row)">
+                                    <mat-icon title="Review & Approve" (click)="preview($event, row)">visibility</mat-icon>
+                                </button>
+                                
                             </td>
                         </ng-container>
 
@@ -58,11 +61,11 @@
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                         <mat-label>Employee Name</mat-label>
-                        <input formControlName="empname" matInput placeholder="" readonly />
+                        <input formControlName="empname" matInput placeholder="" readonly [tabIndex]="[1]"/>
                     </mat-form-field>
                     <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
                         <mat-label>Employee Id</mat-label>
-                        <input formControlName="empid" matInput placeholder="" readonly />
+                        <input formControlName="empid" matInput placeholder="" readonly [tabIndex]="[2]"/>
                     </mat-form-field>
                 </div>
                 <div style="padding-left: 1%;padding-right: 1% ;padding-bottom: 1%">
@@ -102,8 +105,15 @@
 
                                 <td mat-cell *matCellDef="let row">
                                     <!-- <mat-icon title="Edit"  (click)="edit($event,row)" >edit</mat-icon> -->
-                                    <mat-icon title="Approve" (click)="approve($event, row)">check_box</mat-icon>
-                                    <mat-icon title="Reject" (click)="reject($event, row)">cancel</mat-icon>
+                                    <button  mat-icon-button [tabIndex]="[2]" (keyup.enter)="approve($event, row)">
+                                        <mat-icon title="Approve" (click)="approve($event, row)">check_box</mat-icon>
+
+                                    </button>
+                                    <button  mat-icon-button [tabIndex]="[3]" (keyup.enter)="reject($event, row)">
+                                        <mat-icon title="Reject" (click)="reject($event, row)">cancel</mat-icon>
+
+                                    </button>
+
                                 </td>
                             </ng-container>
 

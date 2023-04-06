@@ -69,7 +69,10 @@
             <!--<i class="material-icons mr-1" (click)="compoffApprove(row,'Approved',null)" title="Approve">check_box</i>-->
             <!--<i class="material-icons mr-1" (click)="compoffReject(row)" title="Reject">cancel_presentation</i>-->
             <!-- <i class="material-icons" (click)="compoffReview(row)" title="Review and approve">Visibility</i> -->
-            <mat-icon   title="view" (click)="compoffReview(row)">visibility</mat-icon>
+            <button  mat-icon-button [tabIndex]="[1]" (keyup.enter)="compoffReview(row)">
+              <mat-icon   title="view" (click)="compoffReview(row)">visibility</mat-icon>
+            </button>
+            
             <!--&lt;!&ndash;<a routerLink="/" (click)="onApproveClick(row)">Review and Approve</a>&ndash;&gt;-->
           </td>
         </ng-container>

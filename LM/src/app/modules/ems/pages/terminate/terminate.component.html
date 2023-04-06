@@ -4,7 +4,7 @@
         <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
             <mat-card-title class="title"> Termination </mat-card-title>
               <div style="margin-right: 2%;" *ngIf="istable">
-                 <button mat-icon-button style="padding-right: 40px;" (click)="terminate()" matTooltip="Terminate">
+                 <button mat-icon-button style="padding-right: 40px;" (click)="terminate()" matTooltip="Terminate"  [tabIndex]="[1]" (keyup.enter)="terminate()">
                     <img (click)="terminate()" src="./assets/images/icons/terminate.png" style="width:30px ;">
                     <!-- <mat-icon style="font-size: 30px">add_circle</mat-icon> -->
                     </button>
@@ -89,8 +89,8 @@
                     <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
                         <mat-icon matSuffix style="color: #28acaf">search</mat-icon>
                         <mat-label>Search </mat-label>
-                        <input formControlName="searchempname" (keyup)="applyFilter($event)" matInput placeholder=""
-                            maxlength="100" />
+                        <input formControlName="searchempname" (keyup)="applyFilter($event)" [tabIndex]="[2]" (keyup.enter)="applyFilter($event)" matInput placeholder=""
+                            maxlength="100"  />
                     </mat-form-field>
                 </div>
                 <div fxLayout="column" class="table-pad">
@@ -143,7 +143,10 @@
                             <th mat-header-cell *matHeaderCellDef></th>
 
                             <td mat-cell *matCellDef="let row">
-                                <mat-icon title="View" (click)="view($event, row)">visibility</mat-icon>
+                                <button  mat-icon-button [tabIndex]="[3]" (keyup.enter)="view($event, row)">
+                                    <mat-icon title="View" (click)="view($event, row)">visibility</mat-icon>
+                                </button>
+                                
                                 <!-- <mat-icon title="Edit"  (click)="edit($event,row)" *ngIf="enable != row.id && row.status != 'Terminated'" >edit</mat-icon> -->
                                 <!-- <mat-icon *ngIf="enable != row.id">more_vert</mat-icon> -->
                                 <!-- <mat-icon title="Terminated" *ngIf="enable != row.id && row.status == 'Taskcompleted'">check_circle</mat-icon> -->
