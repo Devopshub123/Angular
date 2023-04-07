@@ -14,4 +14,3 @@ export const environment = {
   
   dbName:sessionStorage.getItem('companyName'),
 };
-console.log("build");

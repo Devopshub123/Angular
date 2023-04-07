@@ -90,6 +90,7 @@ export class AttendanceRequestComponent implements OnInit {
   leaves: any;
   myDateFilter:any;
   workeddays: any;
+  regularizationdays:any;
   ATT75:any;
   ATT74:any;
   companyDBName: any = environment.dbName;
@@ -266,7 +267,8 @@ export class AttendanceRequestComponent implements OnInit {
           this.weekoffs = JSON.parse(this.datesList[0].weekoffs);
           this.holidays = JSON.parse(this.datesList[0].holidays);
           this.leaves = JSON.parse(this.datesList[0].leaves);
-          this.workeddays=JSON.parse(this.datesList[0].workeddays)
+          this.workeddays=JSON.parse(this.datesList[0].workeddays);
+          this.regularizationdays = JSON.parse(this.datesList[0].regularizationdays);
           if (this.weekoffs.length > 0) {
             this.weekoffs.forEach((i: any) => {
               let date = i + ' ' + '00:00:00'
@@ -287,6 +289,12 @@ export class AttendanceRequestComponent implements OnInit {
           }
           if (this.workeddays.length > 0) {
             this.workeddays.forEach((i: any) => {
+              let date = i + ' ' + '00:00:00'
+              this.disableDates.push(new Date(date));
+            });
+          }
+          if (this.regularizationdays.length > 0) {
+            this.regularizationdays.forEach((i: any) => {
               let date = i + ' ' + '00:00:00'
               this.disableDates.push(new Date(date));
             });

@@ -61,10 +61,16 @@
         <ng-container matColumnDef="action">
           <!-- <th mat-header-cell *matHeaderCellDef style="width: 15%; padding: 0px;padding-left: 5%;" > Action </th> -->
           <th mat-header-cell *matHeaderCellDef ></th>
-          <td mat-cell *matCellDef="let row">
+          <td mat-cell *matCellDef="let row;let i = index;" style="width:auto;white-space: nowrap;cursor: pointer;">
+            <button mat-icon-button title="Approve" [tabindex]="[i+1]" (keyup.enter)="submit(row,'Approved',null)">
             <i class="material-icons mr-1" (click)="submit(row,'Approved',null)" title="Approve">check_box</i>
+            </button>
+            <button mat-icon-button title="Reject" [tabindex]="[i+1]" (keyup.enter)="compoffReject(row,'Reject',null)">
             <i class="material-icons mr-1" (click)="compoffReject(row,'Reject',null)" title="Reject">cancel_presentation</i>
+            </button>
+            <button mat-icon-button title="Review and approve" [tabindex]="[i+1]" (keyup.enter)="compoffReview(row)">
             <i class="material-icons" (click)="compoffReview(row)" title="Review and approve">preview</i>
+            </button>
             <!--<mat-icon (click)="compoffReject(row)" title="Reject" >cancel</mat-icon>-->
             <!--<mat-icon   title="Review and approve" (click)="compoffReview(row)">visibility</mat-icon>-->
             <!--<a routerLink="/" (click)="onApproveClick(row)">Review and Approve</a>-->
