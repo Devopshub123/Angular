@@ -34,18 +34,41 @@ export class RegisterValidationComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      'comapnyname':['', Validators.required],
+      'companyname':['', Validators.required],
       'username': ['', Validators.required],
       // 'recaptcha': ['', Validators.required],
       
     });
   }
   submit(){
-    if( this.captchavalid &&  this.formGroup.valid){
+    //console.log("formgroup",this.formGroup.controls.companyname.valid,this.formGroup.controls.username.valid);
+    console.log("captchavalid",this.captchavalid,this.formGroup.controls.username.value,this.formGroup.controls.companyname.value);
+    if( this.captchavalid &&  this.formGroup.controls.companyname.value !='' && this.formGroup.controls.username.value !=''){
       let data ={
         email :this.formGroup.controls.username.value,
-        companycode: this.formGroup.controls.comapnyname.value,
+        companycode:this.formGroup.controls.companyname.value,
+        company_name_value:null,
+        company_size_value:null,
+        plan_id_value:null,
+        number_of_users_value:null,
+        industry_type_pm:null,
+        industry_type_value_pm:null,
+        mobile_number_value:null,
+        company_address1_value:null,
+        company_address2_value:null,
+        country_id_value:null,
+        state_id_value:null,
+        city_id_value:null,
+        pincode_value:null,
+        gst_number_value:null,
+        agree_to_terms_and_conditions_value:null,
+        steps_completed_value:0,
+        id_value:null,
+        created_by_value:null,
+        contact_name_value:null
+  
       }
+      console.log("hjjhjkh",data)
       this.AS.Validateemail(data).subscribe((result:any)=>{
       if(result.status){
         let dialogRef = this.dialog.open(ReusableDialogComponent, {

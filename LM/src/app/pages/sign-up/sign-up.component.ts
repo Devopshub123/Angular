@@ -101,6 +101,7 @@ export class SignUpComponent implements OnInit {
     this.email = JSON.parse(atob(this.params.token)).email;
     this.companycode = JSON.parse(atob(this.params.token)).companycode;
     this.planId =JSON.parse(atob(this.params.token)).Planid;
+    this.getUnverifiedSprypleClient()
     this.createForm();
     // this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     // console.log("asdf--",this.userSession)
@@ -171,6 +172,16 @@ export class SignUpComponent implements OnInit {
   agree() {
     window.open(this.fileURL);
   }
+
+  getUnverifiedSprypleClient(){
+    let data={
+      email:this.email,
+      companycode:this.companycode
+    }
+    this.mainService.getUnverifiedSprypleClient(data).subscribe((result:any)=>{
+      console.log("result",result)
+    })
+  }
   createForm(){
     this.signUpForm = this.formBuilder.group(
       {
@@ -226,6 +237,7 @@ export class SignUpComponent implements OnInit {
         agree_to_terms_and_conditions_value:1,
         id_value:null,
         created_by_value:null,
+        contact_name_value:'rakesh'
       }
       console.log("data--", data);
       this.mainService.setSprypleClient(data).subscribe((res: any) => {
