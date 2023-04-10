@@ -178,8 +178,10 @@ export class EmployeDashboardComponent implements OnInit {
     this.calendarApi = this.calendarComponent.getApi();
     this.calendarApi.next();
     const selectDate = this.calendarApi.getDate();
+
     if (selectDate.getTime() <= this.currentDate.getTime()) {
       this.selectedDate = this.pipe.transform(selectDate, 'yyyy-MM-dd');
+      console.log("data",this.selectedDate)
       this.getemployeeattendancedashboard();
       this.getEmployeeAttendanceNotifications();
     } else {
@@ -197,6 +199,7 @@ export class EmployeDashboardComponent implements OnInit {
 
     if (selectDate.getTime() <= this.currentDate.getTime()) {
       this.selectedDate = this.pipe.transform(selectDate, 'yyyy-MM-dd');
+      console.log("dataprev",this.selectedDate)
       this.getemployeeattendancedashboard();
       this.getEmployeeAttendanceNotifications();
     } else {

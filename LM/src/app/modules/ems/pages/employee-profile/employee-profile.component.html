@@ -426,7 +426,9 @@
                                     <div class="section" fxLayout="row">
                                         <span style="padding-top: 3px;"><b>Family Details : </b></span>
                                         <span style="padding-left: 1%;">
-                                            <mat-icon tabindex="33" title="Add" style="color:#28acaf;font-size: 35px;" (click)="addingFamilyView()">add_box</mat-icon>
+                                            <button  mat-icon-button [tabIndex]="33" (keyup.enter)="addingFamilyView()">
+                                            <mat-icon  title="Add" style="color:#28acaf;font-size: 35px;" (click)="addingFamilyView()">add_box</mat-icon>
+                                            </button>
                                         </span>
                                     </div>
 
@@ -512,10 +514,10 @@
                                             </mat-form-field>
                                             <div fxLayout="row">
                                                 <span style="padding-top:5%">
-                                                <button *ngIf="!isfamilyedit" class="btn btn-primary mr-2 mb-2"  (click)="addfamily()">
+                                                <button *ngIf="!isfamilyedit" [tabIndex]="34" (keyup.enter)="addfamily()" class="btn btn-primary mr-2 mb-2"  (click)="addfamily()">
                                                     <span> Add </span>
                                                 </button>
-                                                <button *ngIf="isfamilyedit" class="btn btn-primary mr-2 mb-2"  (click)="addfamily()">
+                                                <button *ngIf="isfamilyedit" [tabIndex]="35" (keyup.enter)="addfamily()" class="btn btn-primary mr-2 mb-2"  (click)="addfamily()">
                                                     <span> Update </span>
                                                 </button>
                                                 <button class="btn btn-danger mr-2 mb-2"

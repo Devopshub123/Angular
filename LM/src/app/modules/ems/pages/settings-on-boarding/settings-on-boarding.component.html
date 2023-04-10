@@ -9,7 +9,8 @@
       <div fxLayout="column" class="tableP">
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between" style="padding-top: 10px;">
           <span class="text">Send Automatic Reminders  </span>
-          <mat-slide-toggle formControlName="SEND_AUTOMATIC_REMAINDERS_ONBOARD"
+          <mat-slide-toggle formControlName="SEND_AUTOMATIC_REMAINDERS_ONBOARD" [tabIndex]="1" 
+                            (keyup.enter)="toglechange('SEND_AUTOMATIC_REMAINDERS_ONBOARD',$event)"
                             (change)="toglechange('SEND_AUTOMATIC_REMAINDERS_ONBOARD',$event)"
                             color="primary"></mat-slide-toggle>
         </div>

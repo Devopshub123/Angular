@@ -310,7 +310,7 @@ export class HolidaysComponent implements OnInit {
       let data = {
         hid: id,
         holiday_year: year,
-        holiday_description: holiday.replace(/\s{1,}/g, ' ').trim().toLowerCase(),
+        holiday_description: holiday.replace(/\s{1,}/g, ' ').trim(),
         holiday_date: this.pipe.transform(date, 'yyyy-MM-dd'),
         holiday_location: cities,
         createdby: this.userSession.id,
