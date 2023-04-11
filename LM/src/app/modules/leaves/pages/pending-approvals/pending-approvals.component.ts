@@ -102,6 +102,10 @@ export class PendingApprovalsComponent implements OnInit {
     this.getEmployeeEmailData(leave ,status,approverId);
   }
   leaveApprove(leave: any, status: any, approverId: any) {
+    if(this.employeeEmailData.length==0){
+      this.getEmployeeEmailData(leave ,status,approverId);
+    }
+    else{
     let obj = {
       "id":leave.id,
       "leaveId": leave.leave_id,
@@ -149,7 +153,7 @@ export class PendingApprovalsComponent implements OnInit {
 
 
     })
-
+  }
   }
   leaveReject(leave: any, status: any, rejectId: any) {
     console.log("datatata",leave)
@@ -210,6 +214,7 @@ export class PendingApprovalsComponent implements OnInit {
   }
   getEmployeeEmailData(leave: any, status: any, approverId: any) {
      this.employeeEmailData = [];
+     this.employeeId = leave.empid;
     this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
       .subscribe((res: any) => {
         this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
