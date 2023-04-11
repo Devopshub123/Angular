@@ -151,7 +151,8 @@ export class PendingApprovalsComponent implements OnInit {
     })
 
   }
-  leaveReject(leave: any, status: any, rejectId: any){
+  leaveReject(leave: any, status: any, rejectId: any) {
+    console.log("datatata",leave)
     this.titleName="Reject"
     this.openDialog(leave)
   }
