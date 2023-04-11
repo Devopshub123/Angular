@@ -71,31 +71,35 @@ export class ClientAdminSubscriptionComponent implements OnInit {
     this.getClientSubscriptionDetails();
   }
   getClientSubscriptionDetails(){
-    this.adminService.getClientSubscriptionDetails(1).subscribe((data:any)=>{
-      if (data.status && data.data.length != 0) {
-        let value = data.data;
+    this.adminService.getClientSubscriptionDetails(1).subscribe((res:any)=>{
+      if (res.status && res.data.length != 0) {
+        let value = res.data;
         this.subscriptionForm.controls.companyCode.setValue(value[0].company_code);
         this.subscriptionForm.controls.subscriptionId.setValue(value[0].subscription_id);
         this.subscriptionForm.controls.plan.setValue(value[0].plan_name);
-        this.subscriptionForm.controls.takenUsers.setValue(value[0].number_of_users);
-        //this.subscriptionForm.controls.monthlyCost.setValue(value[0].cost);
+        this.subscriptionForm.controls.takenUsers.setValue(value[0].user_count);
+        this.subscriptionForm.controls.monthlyCost.setValue(value[0].cost_per_user_monthly_bill);
         //this.subscriptionForm.controls.yearlyCost.setValue(value[0].company_code);
-        this.subscriptionForm.controls.totalPaidAmt.setValue(value[0].cost);
-        //this.subscriptionForm.controls.nextRenewal.setValue(value[0].company_code);
-        //this.subscriptionForm.controls.lastRenewal.setValue(value[0].company_code);
-        //this.subscriptionForm.controls.contactPerson.setValue(value[0].company_code);
+        this.subscriptionForm.controls.totalPaidAmt.setValue(value[0].amount_paid);
+        this.subscriptionForm.controls.nextRenewal.setValue(value[0].valid_to);
+        this.subscriptionForm.controls.lastRenewal.setValue(value[0].payment_date);
+        this.subscriptionForm.controls.contactPerson.setValue(value[0].contact_name);
         this.subscriptionForm.controls.companyName.setValue(value[0].company_name);
         this.subscriptionForm.controls.mobile.setValue(value[0].mobile_number);
-        this.subscriptionForm.controls.industryType.setValue(value[0].industry_type);
-        //this.subscriptionForm.controls.industryTypeOther.setValue(value[0].company_code);
+        this.subscriptionForm.controls.industryType.setValue(value[0].industry_type_name);
+        if (value[0].industry_type_name == "others") {
+          this.isOther = true;
+          this.subscriptionForm.controls.industryTypeOther.setValue(value[0].industry_type_value);
+        }
+      
         this.subscriptionForm.controls.email.setValue(value[0].company_email);
         this.subscriptionForm.controls.address1.setValue(value[0].company_address);
-        //this.subscriptionForm.controls.address2.setValue(value[0].company_code);
+        this.subscriptionForm.controls.address2.setValue(value[0].company_address2);
         this.subscriptionForm.controls.country.setValue(value[0].country);
         this.subscriptionForm.controls.state.setValue(value[0].state);
-        this.subscriptionForm.controls.city.setValue(value[0].city);
+        this.subscriptionForm.controls.city.setValue(value[0].location);
         this.subscriptionForm.controls.pincode.setValue(value[0].pincode);
-       // this.subscriptionForm.controls.gstNumber.setValue(value[0].company_code);
+       this.subscriptionForm.controls.gstNumber.setValue(value[0].gst_number);
       }else {
         }
     })
@@ -103,22 +107,12 @@ export class ClientAdminSubscriptionComponent implements OnInit {
 
 
   invoice(){
-    // let dialogRef = this.dialog.open(InvoiceDataComponent, {
-    //   width: '600px',position:{top:`70px`},
-    //   disableClose: true,
-           
-    // });
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/admin-invoice"]));
   }
   manageusers() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/add-renewal-users"]));
-    // let dialogRef = this.dialog.open(ManageUsersComponent, {
-    //   width: '600px',position:{top:`70px`},
-    //   disableClose: true,
-           
-    // });
   }
   pay() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

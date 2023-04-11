@@ -177,5 +177,8 @@ export class MainService {
   getUnverifiedSprypleClient(data:any){
     return this.http.post(this.mainBeUrl+'subscription/getUnverifiedSprypleClient',data);
   }
-  
+  /**get plan details by plan id and client id */
+  getPlanDetailsByPlanIdAndClientId(data:any){
+    return this.http.post(this.mainBeUrl+'subscription/api/getSpryplePlanDetailsById',data);
+  } 
 }

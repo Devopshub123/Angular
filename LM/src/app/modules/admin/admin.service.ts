@@ -180,7 +180,7 @@ getSpryplePlanCostDetails(){
   return this.http.get(this.mainUrl+'subscription/api/getSpryplePlanCostDetails', this.httpOptions);
 
 }
-getSprypleClients(){
+getSprypleClientsOld(){
   return this.http.get(this.mainUrl+'subscription/api/getSprypleClients', this.httpOptions);
 }
 getPayments(){
@@ -207,11 +207,28 @@ addUsersDisplayInfo(data:any){
 renewUsersDisplayInformation(data:any){
   return this.http.post(this.mainUrl+'subscription/api/renewUsersDisplayInformation',JSON.stringify(data), this.httpOptions);
 }
-getClientPaymentDetails(data:any){
+getClientPaymentDetailsOld(data:any){
   return this.http.get(this.mainUrl+'subscription/api/getClientPaymentDetails/'+data+'/'+this.companyName, this.httpOptions);
 }
   /** */
-  getClientSubscriptionDetails(data:any){
+  getClientSubscriptionDetailsOld(data:any){
     return this.http.get(this.mainUrl+'subscription/api/getClientDetails/'+data+'/'+this.companyName, this.httpOptions);
+  }
+    /** get client subscription details by id*/
+    getClientSubscriptionDetails(data:any){
+      return this.http.get(this.mainUrl+'subscription/api/getSprypleClientDetailsByClientId/'+data+'/'+this.companyName, this.httpOptions);
+  }
+  /** get client payments invoice history */
+  getClientPaymentDetails(data:any){
+    return this.http.get(this.mainUrl+'subscription/api/getPaymentsDetailsByClientId/'+data+'/'+this.companyName, this.httpOptions);
+  }
+
+   /** get payment invoice history data by payment id */
+   getInvoiceDataById(data:any){
+    return this.http.get(this.mainUrl+'subscription/api/getPaymentInvoiceDataByPaymentid/'+data+'/'+this.companyName, this.httpOptions);
+  }
+  /**get all spryple clients list */
+  getAllSprypleClients(){
+    return this.http.get(this.mainUrl+'subscription/api/getAllSprypleClientDetails/'+this.companyName, this.httpOptions);
   }
 }

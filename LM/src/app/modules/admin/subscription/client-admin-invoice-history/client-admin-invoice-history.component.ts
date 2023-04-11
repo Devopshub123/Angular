@@ -5,22 +5,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { InvoiceDataComponent } from '../dialog/invoice-data/invoice-data.component';
 import { AdminService } from 'src/app/modules/admin/admin.service';
-export interface ProductAdminInvoiceHistoryElement {
-  companyname: string;
-  billingdate: string;  
-  useddate:string;
-  invoice:string;
-  amount:string
-
-}
-const ELEMENT_DATA: ProductAdminInvoiceHistoryElement[] = [
-  {companyname: 'Sreeb', billingdate: '12-02-2022',useddate:'12-02-2023',invoice:'Ab123',amount:"454"},
-  {companyname: 'Sanela', billingdate: '12-02-2022',useddate:'12-02-2023',invoice:'Ab123',amount:"454"},
-  {companyname: 'Devworks', billingdate: '12-02-2022',useddate:'12-02-2023',invoice:'Ab123',amount:"454"},
-  {companyname: 'Wipro', billingdate: '12-02-2022',useddate:'12-02-2023',invoice:'Ab123',amount:"454"},
-  {companyname: 'TCS', billingdate: '12-02-2022',useddate:'12-02-2023',invoice:'Ab123',amount:"454"}
-];
-
 
 @Component({
   selector: 'app-client-admin-invoice-history',
@@ -28,16 +12,15 @@ const ELEMENT_DATA: ProductAdminInvoiceHistoryElement[] = [
   styleUrls: ['./client-admin-invoice-history.component.scss']
 })
 export class ClientAdminInvoiceHistoryComponent implements OnInit {  
-displayedColumns: string[] = ['sno', 'billingdate','invoice','amount','status','action'];
+displayedColumns: string[] = ['sno', 'billingdate','invoice','amount','action'];
 dataSource : any=[];
-// dataSource: MatTableDataSource<UserData>=<any>[];
 @ViewChild(MatPaginator)
 paginator!: MatPaginator;
 @ViewChild(MatSort)
 sort!: MatSort;
-
+pageLoading = true;
   constructor(private dialog: MatDialog,private adminService: AdminService) { }
-
+ invoiceList:any=[]
   ngOnInit(): void {
     this.getClientPaymentDetails(1);
   }
@@ -51,7 +34,7 @@ sort!: MatSort;
 }
 view(data:any){
   let dialogRef = this.dialog.open(InvoiceDataComponent, {
-    width: '600px',position:{top:`100px`},
+    width: '700px',position:{top:`100px`},
     disableClose: true,
     data:data
          
@@ -60,10 +43,28 @@ view(data:any){
 }
 getClientPaymentDetails(data:any){
   this.adminService.getClientPaymentDetails(data).subscribe((result:any)=>{
-    if(result.status&&result.data.length>0){
-      this.dataSource = result.data;
+    if (result.status && result.data.length > 0) {
+      this.invoiceList = result.data;
+      this.dataSource = new MatTableDataSource(this.invoiceList);
+      this.dataSource.paginator = this.paginator;
+      this.pageLoading = false;
     }
   })
 }
-
+getPageSizes(): number[] {
+  var customPageSizeArray = [];
+  
+  if (this.dataSource.data.length > 5) {
+    customPageSizeArray.push(5);
+  }
+  if (this.dataSource.data.length > 10) {
+    customPageSizeArray.push(10);
+  }
+  if (this.dataSource.data.length > 20) {
+    customPageSizeArray.push(20);
+   
+  }
+  customPageSizeArray.push(this.dataSource.data.length);
+  return customPageSizeArray;
+}
 }

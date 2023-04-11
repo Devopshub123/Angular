@@ -69,6 +69,7 @@ export class SignUpComponent implements OnInit {
   email:any;
   companycode: any;
   planId: any;
+  clientId: any;
   planName: any;
   userSession:any;
   hide:boolean=false;
@@ -201,6 +202,7 @@ export class SignUpComponent implements OnInit {
     this.mainService.getUnverifiedSprypleClient(data).subscribe((result:any)=>{
       if (result.status) {
         let value = result.data[0];
+        this.clientId = value.id;
       this.signUpForm.controls.companyName.setValue(value.company_name);
        this.signUpForm.controls.companyCode.setValue(value.company_code);
        this.signUpForm.controls.companySize.setValue(value.company_size);
@@ -216,11 +218,28 @@ export class SignUpComponent implements OnInit {
        this.signUpForm.controls.pincode.setValue(value.pincode);
        this.signUpForm.controls.gstNumber.setValue(value.gst_number);
       //  this.signUpForm.controls.isChecked.setValue(value.company_name);
-       this.signUpForm.controls.others.setValue(value.industry_type_value);
+        this.signUpForm.controls.others.setValue(value.industry_type_value);
+        this.getPlanDetailsByPlanIdAndClientId();
       }
     })
   }
 
+  getPlanDetailsByPlanIdAndClientId(){
+    let data={
+      plan_id_value: this.planId,
+      client_id_value: this.clientId,
+    }
+    this.mainService.getPlanDetailsByPlanIdAndClientId(data).subscribe((result:any)=>{
+      if (result.status) {
+        let value = result.data[0];
+        this.PayviewForm.controls.plan.setValue(value.plan_name);
+       this.PayviewForm.controls.totalusers.setValue(value.number_of_users);
+       this.PayviewForm.controls.validFrom.setValue(value.fromdate);
+       this.PayviewForm.controls.validTo.setValue(value.todate);
+       this.PayviewForm.controls.cost.setValue(value.number_of_users);
+      }
+    })
+  }
 
   submit() {
     this.spinner.show();
