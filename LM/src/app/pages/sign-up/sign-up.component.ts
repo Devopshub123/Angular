@@ -44,19 +44,8 @@ export const MY_FORMATS = {
 export class SignUpComponent implements OnInit {
   isLinear = true;
   isstep2 = true;
-  minExperienceDate: any;
-  minEducationDate: any;
   fileURL: any;
-  displayedColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
-  familyTableColumns = ['position', 'name', 'relation', 'gender', 'contact', 'status', 'action'];
-  documentTableColumns = ['position', 'category', 'number', 'name', 'action'];
-  workTableColumns = ['sno', 'company', 'desig', 'fromDate', 'toDate', 'action'];
-  educationTableColumns = ['sno', 'course', 'college', 'fromDate', 'toDate', 'action'];
   dataSource: MatTableDataSource<any> = <any>[];
-  familyDataSource: MatTableDataSource<any> = <any>[];
-  documentDataSource: MatTableDataSource<any> = <any>[];
-  workExperienceDataSource: MatTableDataSource<any> = <any>[];
-  educationDataSource: MatTableDataSource<any> = <any>[];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild("stepper", { static: false }) stepper: any;
   loginData: any = [];
@@ -64,34 +53,29 @@ export class SignUpComponent implements OnInit {
   PayviewForm: any = FormGroup;
   PayForm: any = FormGroup;
   minDate = new Date('1950/01/01');
-  maxBirthDate = new Date();
-  bloodGroupdetails: any[] = [];
   industryTypeList: any[] = [];
   companySizeList: any[] = [
-    { id: 1, value: '0-50' },
-    { id: 2, value: '51-100' },
-    { id: 3, value: '101-200' },
-    { id: 4, value: '200+ Users' },
+    { id: 50, value: '0-50' },
+    { id: 100, value: '51-100' },
+    { id: 200, value: '101-200' },
+    { id: 300, value: '200+ Users' },
   ];
   countryDetails: any = [];
   stateDetails: any = [];
   cityDetails: any = [];
-  
-
-
   companyName: any;
   checked = false;
   params:any;
   email:any;
   companycode: any;
   planId: any;
-  clientSignupId: any;
+  planName: any;
   userSession:any;
   hide:boolean=false;
-  constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService, private spinner: NgxSpinnerService,
-    private LM: EmployeeMasterService, private dialog: MatDialog, private router: Router
-    , private mainService: MainService, private activatedRoute: ActivatedRoute) {
-   // this.companyName = JSON.parse(atob(this.activatedRoute.snapshot.params.token)).companyName;
+  isdisable:boolean=true;
+  constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
+    private spinner: NgxSpinnerService, private dialog: MatDialog, private router: Router,
+    private mainService: MainService, private activatedRoute: ActivatedRoute) {
     this.agreement()
   }
 
@@ -100,37 +84,29 @@ export class SignUpComponent implements OnInit {
     this.params = this.activatedRoute.snapshot.params;
     this.email = JSON.parse(atob(this.params.token)).email;
     this.companycode = JSON.parse(atob(this.params.token)).companycode;
-    this.planId =JSON.parse(atob(this.params.token)).Planid;
-    this.getUnverifiedSprypleClient()
+    this.planId = JSON.parse(atob(this.params.token)).Planid;
+    this.planName = JSON.parse(atob(this.params.token)).PlanName;
     this.createForm();
-    // this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    // console.log("asdf--",this.userSession)
     this.getIndustryTypes();
     this.getCountry();
-  
-
-    
     // IndustryType
     this.signUpForm.get('IndustryType')?.valueChanges.subscribe((selectedValue: any) => {
-      console.log(selectedValue)
-      if(selectedValue.industry_type_name == 'Others'){
-         this.hide = true;  
-         this.signUpForm.controls.others.setValue('') 
+      if (selectedValue !=null) {
+        if(selectedValue.industry_type_name == 'Others'){
+          this.hide = true;  
+          this.signUpForm.controls.others.setValue('') 
+       }
+       else{
+         this.hide=false;
+         this.signUpForm.controls.others.setValue(selectedValue.industry_type_name)
+       }
       }
-      else{
-        this.hide=false;
-        this.signUpForm.controls.others.setValue(selectedValue.industry_type_name)
-      }
-
     })
+    
     this.signUpForm.get('country')?.valueChanges.subscribe((selectedValue: any) => {
       this.stateDetails= [];
       this.companyService.getPreonboardingStatesc(selectedValue,'spryple_hrms').subscribe((data)=>{
         this.stateDetails = data.data;
-        // {
-        //   this.signUpForm.controls.state.setValue(this.companyinfo.stateid);
-
-        // }
       })
     })
 
@@ -139,49 +115,11 @@ export class SignUpComponent implements OnInit {
     this.cityDetails = [];
      this.companyService.getPreonboardingCities(selectedValue,'spryple_hrms').subscribe((data)=>{
         this.cityDetails=data.data
-        // {
-        //   this.signUpForm.controls.city.setValue(this.companyinfo.locationid);
-        // }
-      })
-    })
-
-  }
-  agreement() {
-    this.mainService.agreement().subscribe((result:any)=>{
-      let TYPED_ARRAY = new Uint8Array(result.image.data);
-            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-              return data + String.fromCharCode(byte);
-            }, '');
-
-            const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
-            this.fileURL = URL.createObjectURL(file);
-    })
-  }
-  getIndustryTypes() {
-    this.industryTypeList = [];
-    this.mainService.getIndustryTypes('industry_type_master', null, 1, 10, 'spryple_hrms').subscribe(result => {
-      this.industryTypeList = result.data;
-    })
-  }
-  getCountry() {
-    this.countryDetails = []
-    this.companyService.getPreonboardingCountry('countrymaster', null, 1, 10, 'spryple_hrms').subscribe(result => {
-      this.countryDetails = result.data;
-    })
-  }
-  agree() {
-    window.open(this.fileURL);
+       })
+  })
+    this.getUnverifiedSprypleClient();
   }
 
-  getUnverifiedSprypleClient(){
-    let data={
-      email:this.email,
-      companycode:this.companycode
-    }
-    this.mainService.getUnverifiedSprypleClient(data).subscribe((result:any)=>{
-      console.log("result",result)
-    })
-  }
   createForm(){
     this.signUpForm = this.formBuilder.group(
       {
@@ -203,7 +141,7 @@ export class SignUpComponent implements OnInit {
         gstNumber: [""],
         others: [""],
         isChecked: [""],
-        planid:[this.planId]
+        planid:[this.planName]
        
     })
     this.PayviewForm = this.formBuilder.group({
@@ -217,29 +155,100 @@ export class SignUpComponent implements OnInit {
     this.PayForm = this.formBuilder.group({})
 
   }
+
+  agreement() {
+    this.mainService.agreement().subscribe((result:any)=>{
+      let TYPED_ARRAY = new Uint8Array(result.image.data);
+            const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+              return data + String.fromCharCode(byte);
+            }, '');
+
+            const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });
+            this.fileURL = URL.createObjectURL(file);
+    })
+  }
+
+  getIndustryTypes() {
+    this.industryTypeList = [];
+    this.mainService.getIndustryTypes('industry_type_master', null, 1, 10, 'spryple_hrms').subscribe(result => {
+      this.industryTypeList = result.data;
+    })
+  }
+
+  getCountry() {
+    this.countryDetails = []
+    this.companyService.getPreonboardingCountry('countrymaster', null, 1, 10, 'spryple_hrms').subscribe(result => {
+      this.countryDetails = result.data;
+    })
+  }
+
+  agree() {
+    window.open(this.fileURL);
+  }
+
+  change() {
+    if (this.checked == true) {
+      this.isdisable = false;
+    } else {
+      this.isdisable = true;
+    }
+  }
+
+  getUnverifiedSprypleClient(){
+    let data={
+      companycode: this.companycode
+    }
+    this.mainService.getUnverifiedSprypleClient(data).subscribe((result:any)=>{
+      if (result.status) {
+        let value = result.data[0];
+      this.signUpForm.controls.companyName.setValue(value.company_name);
+       this.signUpForm.controls.companyCode.setValue(value.company_code);
+       this.signUpForm.controls.companySize.setValue(value.company_size);
+       this.signUpForm.controls.totalUsers.setValue(value.number_of_users);
+       this.signUpForm.controls.IndustryType.setValue(value.industry_type);
+       this.signUpForm.controls.mobile.setValue(value.mobile_number);
+       this.signUpForm.controls.contactPerson.setValue(value.contact_name);
+        this.signUpForm.controls.address1.setValue(value.company_address1);
+       this.signUpForm.controls.address2.setValue(value.company_address2);
+       this.signUpForm.controls.country.setValue(value.country_id);
+       this.signUpForm.controls.state.setValue(value.state_id);
+       this.signUpForm.controls.city.setValue(value.city_id);
+       this.signUpForm.controls.pincode.setValue(value.pincode);
+       this.signUpForm.controls.gstNumber.setValue(value.gst_number);
+      //  this.signUpForm.controls.isChecked.setValue(value.company_name);
+       this.signUpForm.controls.others.setValue(value.industry_type_value);
+      }
+    })
+  }
+
+
   submit() {
+    this.spinner.show();
     if (this.signUpForm.valid && this.signUpForm.controls.isChecked.value) {
       let data ={
         company_name_value:this.signUpForm.controls.companyName.value,
         company_code_value:this.signUpForm.controls.companyCode.value,
-        company_size_value:50,
-        number_of_users_value:this.signUpForm.controls.totalUsers.value,
+        company_size_value:this.signUpForm.controls.companySize.value,
+        number_of_users_value:this.signUpForm.controls.totalUsers.value, 
         plan_id_value:1,
-        industry_type_pm:this.signUpForm.controls.IndustryType.value.id,
+        industry_type_pm:this.signUpForm.controls.IndustryType.value, 
         industry_type_value_pm:this.signUpForm.controls.others.value,
-        mobile_number_value:this.signUpForm.controls.mobile.value,
+        mobile_number_value: this.signUpForm.controls.mobile.value,
         company_email_value:this.signUpForm.controls.companyemail.value,
-        company_address_value:this.signUpForm.controls.address1.value,
+        contact_name_value:this.signUpForm.controls.contactPerson.value,
+        company_address1_value:this.signUpForm.controls.address1.value,
+        company_address2_value:this.signUpForm.controls.address2.value,
         country_id_value:this.signUpForm.controls.country.value,
         state_id_value:this.signUpForm.controls.state.value,
         city_id_value:this.signUpForm.controls.city.value,
         pincode_value:this.signUpForm.controls.pincode.value,
-        agree_to_terms_and_conditions_value:1,
+        gst_number_value:this.signUpForm.controls.gstNumber.value,
+        agree_to_terms_and_conditions_value: 1,
+        steps_completed_value:2,
         id_value:null,
         created_by_value:null,
-        contact_name_value:'rakesh'
-      }
-      console.log("data--", data);
+     }
+
       this.mainService.setSprypleClient(data).subscribe((res: any) => {
         if (res.status) {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -247,21 +256,25 @@ export class SignUpComponent implements OnInit {
             disableClose: true,
             data: "You are registered successfully."
           });
-          } else {
+          this.getUnverifiedSprypleClient();
+          this.spinner.hide();
+        
+        } else {
+          this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Data is not saved"
+            data: "Unable to Sign-up"
           });
         }
       });
     }
-
-    
   }
+
   clear() {
     
   }
+  
   noWhitespaceValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const isWhitespace = (control.value || '').trim().length === 0;

@@ -32,7 +32,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                     <mat-select formControlName="companySize">
                                         <ng-container>
                                             <div *ngFor="let b of companySizeList">
-                                                <mat-option [value]="b.value">{{b.value}}</mat-option>
+                                                <mat-option [value]="b.id">{{b.value}}</mat-option>
                                             </div>
                                         </ng-container>
                                     </mat-select>
@@ -91,15 +91,10 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                    
                                 </mat-form-field>
             
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <!-- <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                     <mat-label>Password</mat-label>
                                     <input #aadharnumber type="text" formControlName="password" matInput maxlength="30"/>
-                                </mat-form-field>
-            
-                        
-                              
-                            </div>
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                                </mat-form-field> -->
             
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                     <mat-label>Address 1</mat-label>
@@ -108,6 +103,11 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                     This fiels is required
                                     </mat-error>
                                 </mat-form-field>
+                              
+                            </div>
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+            
+                              
             
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                     <mat-label>Address 2</mat-label>
@@ -130,11 +130,6 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                         This fiels is required
                                         </mat-error>
                                 </mat-form-field>
-            
-                            </div>
-            
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-            
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                     <mat-label>State</mat-label>
                                     <mat-select formControlName="state" >
@@ -148,6 +143,11 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                         This fiels is required
                                         </mat-error>
                                 </mat-form-field>
+                            </div>
+            
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+            
+                               
             
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                     <mat-label>City</mat-label>
@@ -175,23 +175,20 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                         Pincode should be 6 digits
                                     </mat-error>
                                 </mat-form-field>
-            
+                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                    <mat-label>Plan Id</mat-label>
+                                    <input type="text" formControlName="planid" matInput [readonly]="true"/>
+                                </mat-form-field>
                             </div>
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Plan Id</mat-label>
-                                    <input type="text" formControlName="planid" matInput 
-                                         [readonly]="true"/>
-                                        
-                                    
-                                </mat-form-field>
+                             
             
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Industry Type</mat-label>
                                     <mat-select formControlName="IndustryType" >
                                         <ng-container>
                                             <div *ngFor="let b of industryTypeList">
-                                                <mat-option [value]="b">{{b.industry_type_name}}</mat-option>
+                                                <mat-option [value]="b.id">{{b.industry_type_name}}</mat-option>
                                             </div>
                                         </ng-container>
                                     </mat-select>
@@ -212,7 +209,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                 </mat-form-field>
                             </div>
                             <section style="padding-left:7px" fxlayout="row">
-                         <mat-checkbox class="example-margin"  formControlName="isChecked" [(ngModel)]="checked"></mat-checkbox>
+                         <mat-checkbox class="example-margin"  formControlName="isChecked" (change)="change()" [(ngModel)]="checked"></mat-checkbox>
                          <span style="font-size: 16px;">
                             I agree to <a [routerLink]=""(click)="agree()">    terms & conditions</a>
                         </span>
@@ -221,7 +218,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                         </div>
                         <br>
                         <div fxLayoutAlign="center">
-                            <button class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit">
+                            <button class="btn btn-primary mr-2 mb-2" [disabled]="isdisable" (click)="submit()" type="submit">
                                 <span>Sign up</span>
                             </button>
                             <button class="btn btn-danger mr-2 mb-2" (click)="clear()" type="submit">
