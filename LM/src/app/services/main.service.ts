@@ -181,4 +181,8 @@ export class MainService {
   getPlanDetailsByPlanIdAndClientId(data:any){
     return this.http.post(this.mainBeUrl+'subscription/api/getSpryplePlanDetailsById',data);
   } 
+  setSprypleClientPlanPayment(data:any){
+    console.log("data",data)
+    return this.http.post(this.mainBeUrl+'subscription/api/setSprypleClientPlanPayment',data, this.httpOptions);
+  }
 }
