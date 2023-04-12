@@ -74,6 +74,8 @@ export class SignUpComponent implements OnInit {
   userSession:any;
   hide:boolean=false;
   isdisable:boolean=true;
+  date:any;
+  flag:boolean=false;
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private spinner: NgxSpinnerService, private dialog: MatDialog, private router: Router,
     private mainService: MainService, private activatedRoute: ActivatedRoute) {
@@ -87,6 +89,14 @@ export class SignUpComponent implements OnInit {
     this.companycode = JSON.parse(atob(this.params.token)).companycode;
     this.planId = JSON.parse(atob(this.params.token)).Planid;
     this.planName = JSON.parse(atob(this.params.token)).PlanName;
+    this.date = new Date(JSON.parse(atob(this.params.token)).Date);
+    let expDate = new Date(this.date.setDate(this.date.getDate() + 1))
+    if (expDate >= new Date()) {
+      this.flag = true;
+    }
+    else {
+      this.flag = false;
+    }
     this.createForm();
     this.getIndustryTypes();
     this.getCountry();
@@ -232,11 +242,16 @@ export class SignUpComponent implements OnInit {
     this.mainService.getPlanDetailsByPlanIdAndClientId(data).subscribe((result:any)=>{
       if (result.status) {
         let value = result.data[0];
+        let date1:any =new Date(value.fromdate);
+        let date2:any = new Date(value.todate);
+        let dayscount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+        let cost:any;
+        cost = ((value.number_of_users*value.cost_per_user_monthly_bill*dayscount)/30);
         this.PayviewForm.controls.plan.setValue(value.plan_name);
-       this.PayviewForm.controls.totalusers.setValue(value.number_of_users);
-       this.PayviewForm.controls.validFrom.setValue(value.fromdate);
-       this.PayviewForm.controls.validTo.setValue(value.todate);
-       this.PayviewForm.controls.cost.setValue(value.number_of_users);
+        this.PayviewForm.controls.totalusers.setValue(value.number_of_users);
+        this.PayviewForm.controls.validFrom.setValue(value.fromdate);
+        this.PayviewForm.controls.validTo.setValue(value.todate);
+        this.PayviewForm.controls.cost.setValue(cost);
       }
     })
   }
@@ -305,5 +320,8 @@ export class SignUpComponent implements OnInit {
     if (input.length === 0 && event.which === 48) {
       event.preventDefault();
     }
+  }
+  validateemail(){
+    this.router.navigate(['Validateemail'])
   }
 }

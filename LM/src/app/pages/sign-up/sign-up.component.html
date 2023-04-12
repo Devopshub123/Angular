@@ -1,6 +1,6 @@
 <div fxLayout="column"  class="bg-image"  
-style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflow-y: auto;">
-    <div class="card" style="background-color: cornsilk;border: 2px solid #28acaf;">
+style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflow-y: auto;" >
+    <div class="card" style="background-color: cornsilk;border: 2px solid #28acaf;" *ngIf="flag">
         <div style="height: 70px;    background-color: #28acaf;" fxLayoutAlign="center center">        
         <span class="section">GET STARTED WITH SPRYPLE</span>
               
@@ -299,4 +299,14 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                 </mat-horizontal-stepper>
     
  </div>
+
+ <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!flag" style="height: 100%;">
+    <mat-card >
+    <span>
+        <h1 class="text-dark-50 text-center mt-0 fw-bold" style="color: #28acaf">Selected URL is expired </h1>
+        <a [routerLink]=""(click)="validateemail()"> Please Register Again</a>
+    </span>
+</mat-card>
 </div>
+</div>
+
