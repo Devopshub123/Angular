@@ -13,6 +13,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {MatDatepicker} from '@angular/material/datepicker';
 import { Moment} from 'moment';
 import * as _moment from 'moment';
+import { ChartComponent } from 'angular2-chartjs';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 export const MY_FORMATS = {
@@ -54,6 +55,51 @@ export class ProductAdminDashboardComponent implements OnInit {
   activationCountForYear: any;
   sprypleClientsCount: any = [];
   revenueCount: any;
+  // --------------------------
+  @ViewChild(ChartComponent)  chart!: ChartComponent;
+	type:any='verticalBar';
+	data:any= {
+    labels: ["It service", "Finance", "HR", "Sales", "Marketing"],
+    // labels: this.departments,
+    datasets: [
+      {
+        fill: true,
+        label: "Departments",
+        backgroundColor: [" #28acaf", " #28acaf", " #28acaf", " #28acaf", " #28acaf"],
+        data: [100, 12, 6, 11, 7]
+        // data:this.departmentsdata
+      }
+    ]
+  }
+	options:any= {			
+    scales:{
+        yAxes: [{						
+          gridLines: {
+            beginAtZero: true,
+            display: false
+          },
+          ticks: {
+            min: 0,
+            stepSize: 1,
+            fixedStepSize: 1,
+          }
+        }],
+        // xAxes: [{
+        // 	beginAtZero: true,
+        // 	display: false,
+        // 	gridLines: {
+        // 		display: false
+        // 	},
+        // 	ticks: {
+        // 		min: 0,
+        // 		stepSize: 1,
+        // 		fixedStepSize: 1,
+        // 	}
+        // }],
+      }
+
+}
+
   ngOnInit(): void {
 
     this.dashBoardForm = this.formBuilder.group(
@@ -80,6 +126,7 @@ export class ProductAdminDashboardComponent implements OnInit {
       })
   }
 
+// -----------------------
   date = new FormControl(moment());
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.date.value!;

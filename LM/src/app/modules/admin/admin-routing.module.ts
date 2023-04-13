@@ -38,6 +38,7 @@ import { ClientUpgradePlanComponent } from './subscription/client-upgrade-plan/c
 import { SubscriptionCancelComponent } from './subscription/subscription-cancel/subscription-cancel.component';
 import { SubscriptionPlansMasterComponent } from './subscription/subscription-plans-master/subscription-plans-master.component';
 import { AddRenewalUesrsComponent } from './subscription/add-renewal-uesrs/add-renewal-uesrs.component';
+import { ProductAdminDashboardComponent } from 'src/app/pages/product-admin-dashboard/product-admin-dashboard.component';
 const routes: Routes = [
   {
     path: '', component: MainComponent,
@@ -78,9 +79,9 @@ const routes: Routes = [
       { path: 'upgrade-plan',component:ClientUpgradePlanComponent,canActivate:[LMSAccessGuard]},
       { path: 'subscription-cancel',component:SubscriptionCancelComponent,canActivate:[LMSAccessGuard]},
       { path: 'subscription-plans',component:SubscriptionPlansMasterComponent,canActivate:[LMSAccessGuard]},
-      { path: 'add-renewal-users',component:AddRenewalUesrsComponent,canActivate:[LMSAccessGuard]},
-
-    ]
+      { path: 'add-renewal-users', component: AddRenewalUesrsComponent, canActivate: [LMSAccessGuard] },
+      { path: 'product-admin-dashboard', component: ProductAdminDashboardComponent, canActivate: [LMSAccessGuard] },
+     ]
   }
 
 ];

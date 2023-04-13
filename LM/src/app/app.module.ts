@@ -43,6 +43,7 @@ import {UserLeaveRequestComponent} from "./modules/leaves/pages/user-leave-reque
 import { AssetsModule } from './modules/assets/assets.module';
 import { PreOnboardingDetailsComponent } from './pages/pre-onboarding-details/pre-onboarding-details.component';
 // import { NgChartsModule } from 'ng2-charts';
+import { ChartModule } from 'angular2-chartjs';
 import 'chartjs-adapter-date-fns';
 import { ComfirmationDialogComponent } from './pages/comfirmation-dialog/comfirmation-dialog.component';
 import { ReimbursementModule } from './modules/reimbursement/reimbursement.module';
@@ -114,7 +115,8 @@ import { ProductAdminDashboardComponent } from './pages/product-admin-dashboard/
     AssetsModule,
     // NgChartsModule,
     ReimbursementModule,
-    PayrollModule
+    PayrollModule,
+    ChartModule
 
   ],
 

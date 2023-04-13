@@ -50,7 +50,7 @@
               </mat-card>
   
              
-              <mat-card  class="card outline" fxFlex="55">
+              <mat-card  class="card outline" fxFlex="55" fxLayout="column">
                 <div fxLayout="row" fxLayoutAlign="start">
                   <span class="title">
                     <span>Count</span>
@@ -133,12 +133,8 @@
               <span>Year-Over-Year-Growth</span>
             </span>
           </div>
-          <div class="scrollbox">
-            <div class="scrollbox-content">
-              <div style="padding-top: 1%;padding-left: 1%;max-height: 25vh;min-height: 15vh;">
-
-              </div>
-            </div>
+          <div class="card-body ">
+            <chart #chart [type]="type" [data]="data" [options]="options" style="width:100%;height: 100%"></chart>
           </div>
         </mat-card>
     </div>
