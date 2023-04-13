@@ -145,7 +145,7 @@ export class HrPendingApprovalsComponent implements OnInit {
   }
   reject(){
     // this.deletedata = data;
-    // this.titleName="Do you really want to delete the leave?"
+    this.titleName="Reject Separation"
     this.openDialogreject();
   }
   openDialogreject(): void {

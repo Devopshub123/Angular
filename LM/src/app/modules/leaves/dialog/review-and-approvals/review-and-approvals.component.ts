@@ -36,9 +36,11 @@ export class ReviewAndApprovalsComponent implements OnInit {
     LM1:any;
 
 
-  constructor(private formBuilder: FormBuilder,public dialogRef: MatDialogRef<DialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any,private LM:LeavesService) { }
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<DialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, private LM: LeavesService) { }
 
   ngOnInit(): void {
+    console.log("asdf",this.data)
     this.getErrorMessages('LM1');
     this.form = this.formBuilder.group({
       'reason':['',[Validators.required,this.noWhitespaceValidator()]], });

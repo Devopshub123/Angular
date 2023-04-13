@@ -3,14 +3,14 @@
     <form [formGroup]="designationForm" autocomplete="off">
       <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
         <mat-card-title class="title"> Designation </mat-card-title>
-          <div style="margin-right: 2%;" *ngIf="isdata">
-             <button mat-icon-button style="padding-right: 40px;" (click)="Add()" matTooltip="Add New">
-                  <mat-icon style="font-size: 30px">add_circle</mat-icon>
-                </button>
-             </div>
-     </mat-card-header>
+        <div style="margin-right: 2%" *ngIf="isdata">
+          <button mat-icon-button style="padding-right: 40px" (click)="Add()" matTooltip="Add New">
+            <mat-icon style="font-size: 30px">add_circle</mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
       <div fxLayout="column" fxLayout.xs="column" *ngIf="isAdd">
-        <div fxLayout="row" fxLayout.xs="row" style="padding-top: 1%;padding-left: 1%;">
+        <div fxLayout="row" fxLayout.xs="row" style="padding-top: 1%; padding-left: 1%">
           <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
             <mat-label>Designation</mat-label>
             <input formControlName="designation" matInput placeholder="" required maxlength="64" />
@@ -21,12 +21,11 @@
           </mat-form-field>
         </div>
         <div fxLayoutAlign="center">
-          <button class="btn btn-primary mr-2 mb-2"
-            (click)="setdesignations()" type="submit">
+          <button class="btn btn-primary mr-2 mb-2" (click)="setdesignations()" type="submit">
             <span>Submit</span>
           </button>
 
-          <button class="btn btn-danger mr-2 mb-2"  (click)="cancel()">
+          <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
             <span>Cancel</span>
           </button>
           <br />
@@ -35,21 +34,22 @@
       <!-- <mat-divider></mat-divider> -->
       <div fxLayout="column" *ngIf="isdata">
         <div fxLayout="row" fxLayoutAlign.xs="center" class="dev-Pad" fxLayoutAlign="end">
-          <span style="height: 70px;" fxFlex="50" fxLayoutAlign="end">
+          <span style="height: 70px" fxFlex="50" fxLayoutAlign="end">
             <mat-form-field fxFlex.xs="100" fxFlex="56" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
-              <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
+              <mat-icon matSuffix style="color: #28acaf">search</mat-icon>
               <mat-label>Search</mat-label>
-              <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
+              <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100" />
             </mat-form-field>
           </span>
         </div>
-      <div fxLayout="column" class="table-pad">
-       <div class="mat-elevation-z1  example-container">
+        <div fxLayout="column" class="table-pad">
+          <div class="mat-elevation-z1 example-container">
             <table mat-table [dataSource]="dataSource" matSort>
               <ng-container matColumnDef="sno">
                 <th mat-header-cell *matHeaderCellDef>S.No</th>
-                <td mat-cell *matCellDef="let element; let i=index;">
-                  {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  {{ i + 1 + paginator.pageIndex * paginator.pageSize }}
+                </td>
               </ng-container>
               <ng-container matColumnDef="designation">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -92,17 +92,15 @@
 
                 <!-- <td mat-cell *matCellDef="let row"> {{row.id}} </td> -->
                 <td mat-cell *matCellDef="let row">
-                  <mat-icon (click)="edit($event, row)" title="Edit" *ngIf="enable != row.id">edit</mat-icon>
-                  <mat-icon (click)="
-                    save(
-                      $event,
-                      row.id,
-                      designationForm.controls.designation.value,
-                      row
-                    )
-                  " title="Save" *ngIf="enable == row.id">save</mat-icon>
-                  <mat-icon (click)="canceledit($event, row.id)" title="Cancel"
-                    *ngIf="enable == row.id">cancel</mat-icon>
+                  <button mat-icon-button *ngIf="enable != row.id" (keyup.enter)="edit($event,row)">
+                  <mat-icon (click)="edit($event, row)" title="Edit" >edit</mat-icon>
+                  </button>
+                  <button mat-icon-button *ngIf="enable == row.id" (keyup.enter)=" save($event,row.id,designationForm.controls.designation.value,row)">
+                  <mat-icon (click)="save($event,row.id,designationForm.controls.designation.value,row) " title="Save" >save</mat-icon>
+                  </button>
+                    <button mat-icon-button *ngIf="enable == row.id" (keyup.enter)="canceledit($event, row.id)">
+                  <mat-icon (click)="canceledit($event, row.id)" title="Cancel" >cancel</mat-icon>
+                  </button>
                 </td>
               </ng-container>
 

@@ -405,11 +405,11 @@
                 </span>
                 <span *ngIf="isManager" style="padding-top: 1%;">
                   <mat-radio-group>
-                    <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true'
+                    <mat-radio-button (keyup.enter)="getEmployeeAttendanceNotifications()" class="mx2 my-2 mr-2" value="self" [checked]='true'
                       (click)="getEmployeeAttendanceNotifications()">
                       <span class="radioBtn">Self</span>
                     </mat-radio-button>
-                    <mat-radio-button class="mx2 my-2 mr-2" value="team" (click)="getMyTeamApprovals()">
+                    <mat-radio-button (keyup.enter)="getMyTeamApprovals()" class="mx2 my-2 mr-2" value="team" (click)="getMyTeamApprovals()">
                       <span class="radioBtn">Team</span>
                     </mat-radio-button>
                   </mat-radio-group>
