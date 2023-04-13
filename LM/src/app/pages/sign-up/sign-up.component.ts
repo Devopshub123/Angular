@@ -373,7 +373,8 @@ export class SignUpComponent implements OnInit {
     this.router.navigate(['Validateemail'])
   }
   paynow() {
-    let dataamount:any = this.payamount*100;
+    let dataamount:any = Math.floor(this.payamount*100);
+    console.log("gggg",Math.floor(dataamount));
     this.paymentId = '';
     this.error = '';
     this.options.amount = dataamount; //paise
@@ -406,7 +407,7 @@ let data ={
   client_id_value:this.clientId,
   company_code_value:this.companycode,
   valid_from_date:this.date1,
-  valid_to_date:this.date1,
+  valid_to_date:this.date2,
   plan_id_value:this.planId,
   number_of_users_value:this.users,
   paid_amount:this.payamount,
