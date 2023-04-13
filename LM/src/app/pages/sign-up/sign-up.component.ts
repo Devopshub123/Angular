@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -21,6 +21,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 const moment = _moment;
+declare var Razorpay: any;
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
@@ -41,7 +42,49 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
+// C9ZJngGWH7DmiQLOKHykb9V0
+
+// rzp_test_AAxMUhOM5m2fuV
 export class SignUpComponent implements OnInit {
+  message:any = "Not yet stared";
+  paymentId = "";
+  error = "";
+  title = 'angular-razorpay-intergration';
+  options = {
+    "key": "rzp_test_AAxMUhOM5m2fuV",
+    "amount": "200",
+    "name": "SPRYPLE",
+    "description": "Web Development",
+    "image": "assets/images/FavIcon.png",
+    "order_id": "",
+    "handler": function (response: any) {
+      var event = new CustomEvent("payment.success",
+        {
+          detail: response,
+          bubbles: true,
+          cancelable: true
+        }
+      );
+      window.dispatchEvent(event);
+    },
+    "prefill": {
+      "name": "",
+      "email": "",
+      "contact": ""
+    },
+    "notes": {
+      "address": ""
+    },
+    "theme": {
+      "color": "#28acaf"
+    }
+  };
+  payamount:any;
+  clientname:any;
+  contactnumber:any;
+  date1:any;
+  date2:any;
+  users:any;
   isLinear = true;
   isstep2 = true;
   fileURL: any;
@@ -74,6 +117,8 @@ export class SignUpComponent implements OnInit {
   userSession:any;
   hide:boolean=false;
   isdisable:boolean=true;
+  date:any;
+  flag:boolean=false;
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private spinner: NgxSpinnerService, private dialog: MatDialog, private router: Router,
     private mainService: MainService, private activatedRoute: ActivatedRoute) {
@@ -87,6 +132,14 @@ export class SignUpComponent implements OnInit {
     this.companycode = JSON.parse(atob(this.params.token)).companycode;
     this.planId = JSON.parse(atob(this.params.token)).Planid;
     this.planName = JSON.parse(atob(this.params.token)).PlanName;
+    this.date = new Date(JSON.parse(atob(this.params.token)).Date);
+    let expDate = new Date(this.date.setDate(this.date.getDate() + 1))
+    if (expDate >= new Date()) {
+      this.flag = true;
+    }
+    else {
+      this.flag = false;
+    }
     this.createForm();
     this.getIndustryTypes();
     this.getCountry();
@@ -203,6 +256,8 @@ export class SignUpComponent implements OnInit {
       if (result.status) {
         let value = result.data[0];
         this.clientId = value.id;
+        this.clientname= value.contact_name;
+        this.contactnumber=value.mobile_number;
       this.signUpForm.controls.companyName.setValue(value.company_name);
        this.signUpForm.controls.companyCode.setValue(value.company_code);
        this.signUpForm.controls.companySize.setValue(value.company_size);
@@ -232,11 +287,19 @@ export class SignUpComponent implements OnInit {
     this.mainService.getPlanDetailsByPlanIdAndClientId(data).subscribe((result:any)=>{
       if (result.status) {
         let value = result.data[0];
+        let date1:any =new Date(value.fromdate);
+        let date2:any = new Date(value.todate);
+        this.date1=value.fromdate;
+        this.date2 =value.todate;
+        this.users =value.number_of_users;
+        let dayscount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+       
+        this.payamount = ((value.number_of_users*value.cost_per_user_monthly_bill*dayscount)/30);
         this.PayviewForm.controls.plan.setValue(value.plan_name);
-       this.PayviewForm.controls.totalusers.setValue(value.number_of_users);
-       this.PayviewForm.controls.validFrom.setValue(value.fromdate);
-       this.PayviewForm.controls.validTo.setValue(value.todate);
-       this.PayviewForm.controls.cost.setValue(value.number_of_users);
+        this.PayviewForm.controls.totalusers.setValue(value.number_of_users);
+        this.PayviewForm.controls.validFrom.setValue(value.fromdate);
+        this.PayviewForm.controls.validTo.setValue(value.todate);
+        this.PayviewForm.controls.cost.setValue(this.payamount);
       }
     })
   }
@@ -305,5 +368,71 @@ export class SignUpComponent implements OnInit {
     if (input.length === 0 && event.which === 48) {
       event.preventDefault();
     }
+  }
+  validateemail(){
+    this.router.navigate(['Validateemail'])
+  }
+  paynow() {
+    let dataamount:any = this.payamount*100;
+    this.paymentId = '';
+    this.error = '';
+    this.options.amount = dataamount; //paise
+    this.options.prefill.name = this.clientname;
+    this.options.prefill.email = this.email;
+    this.options.prefill.contact =this.contactnumber;
+    var rzp1 = new Razorpay(this.options);
+    rzp1.open();
+    rzp1.on('payment.failed', function (response: any) {
+      //this.message = "Payment Failed";
+      // Todo - store this information in the server
+      console.log(response.error.code);
+      console.log(response.error.description);
+      console.log(response.error.source);
+      console.log(response.error.step);
+      console.log(response.error.reason);
+      console.log(response.error.metadata.order_id);
+      console.log(response.error.metadata.payment_id);
+      //this.error = response.error.reason;
+    }
+    );
+  }
+  @HostListener('window:payment.success', ['$event'])
+  onPaymentSuccess(event: any): void {
+    this.message = "Success Payment";
+    console.log("data",event)
+    console.log("data",event.detail)
+
+let data ={
+  client_id_value:this.clientId,
+  company_code_value:this.companycode,
+  valid_from_date:this.date1,
+  valid_to_date:this.date1,
+  plan_id_value:this.planId,
+  number_of_users_value:this.users,
+  paid_amount:this.payamount,
+  transaction_number:event.detail.razorpay_payment_id,
+  company_email_value:this.email
+}
+console.log("payment success data",data)
+this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
+  if(result.status){
+    let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      position:{top:`70px`},
+      disableClose: true,
+      // data:'The username and/or password you entered did not match our records. Please double-check and try again.'
+      data:'Please check yor mail'
+  
+    });
+  }
+})
+// set_spryple_client_plan_payment
+    // client_id_value int(11), 
+    // company_code_value varchar(16), 
+    // valid_from_date date, 
+    // valid_to_date date, 
+    // plan_id_value int(2), 
+    // number_of_users_value int(6), 
+    // paid_amount float, 
+    // transaction_number varchar(25) 
   }
 }

@@ -201,4 +201,8 @@ export class MainService {
       return this.http.get(this.mainBeUrl+'subscription/api/getRevenueByMonth/'+ data +'/'+this.companyName, this.httpOptions)
   }
   
+  setSprypleClientPlanPayment(data:any){
+    console.log("data",data)
+    return this.http.post(this.mainBeUrl+'subscription/api/setSprypleClientPlanPayment',data, this.httpOptions);
+  }
 }
