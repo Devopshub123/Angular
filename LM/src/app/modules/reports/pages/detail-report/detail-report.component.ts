@@ -271,7 +271,7 @@ export class DetailReportComponent implements OnInit {
         }
       },
       pageOrientation: 'landscape',
-      pageSize:'A2'
+      pageSize:'A3'
       //'portrait'
     }).download("Attendance Monthly Detailed Report.pdf");
 

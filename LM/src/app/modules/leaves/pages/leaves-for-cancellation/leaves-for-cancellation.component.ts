@@ -97,7 +97,11 @@ export class LeavesForCancellationComponent implements OnInit {
   }
 
   leaveCancellationApprove(leave:any,status:any,approverId:any){
-   this.spinner.show()
+    if(this.employeeEmailData.length==0){
+      this.getEmployeeEmailData(leave ,status,approverId);
+    }
+    else{
+      this.spinner.show()
     let obj = {
       "id":leave.id,
       "leaveId": leave.leave_id,
@@ -110,6 +114,7 @@ export class LeavesForCancellationComponent implements OnInit {
       "leavedata": leave,
       "emaildata": this.employeeEmailData,
     };
+    console.log("employeeEmailDataemployeeEmailDataemployeeEmailData")
     this.LM.setApproveOrReject(obj).subscribe((res: any) => {
       this.spinner.hide()
       if(res && res.status){
@@ -140,6 +145,10 @@ export class LeavesForCancellationComponent implements OnInit {
 
     })
 
+    }
+    
+   
+
   }
   leaveReject(leave:any){
     this.titleName="Cancel Rejected"
@@ -167,8 +176,10 @@ export class LeavesForCancellationComponent implements OnInit {
   }
   getEmployeeEmailData(leave: any, status: any, approverId: any) {
      this.employeeEmailData = [];
+     this.employeeId = leave.empid; 
     this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
       .subscribe((res: any) => {
+        console
         this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
         this.leaveCancellationApprove(leave,status,approverId)
       })

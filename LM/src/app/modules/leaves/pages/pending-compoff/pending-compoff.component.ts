@@ -99,6 +99,10 @@ export class PendingCompoffComponent implements OnInit {
     this.getEmployeeEmailData(compoff,status,approverId );
   }
   compoffApprove(compoff:any,status:any,approverId :any){
+    if(this.employeeEmailData.length==0){
+      this.getEmployeeEmailData(compoff ,status,approverId);
+    }
+    else{
     this.spinner.show();
 
     // let obj = {
@@ -143,7 +147,7 @@ export class PendingCompoffComponent implements OnInit {
 
 
     })
-
+    }
 
   }
   compoffReject(compoff:any,status:any,approverId :any){
@@ -199,6 +203,7 @@ export class PendingCompoffComponent implements OnInit {
   }
   getEmployeeEmailData(compoff:any,status:any,approverId :any) {
     this.employeeEmailData = [];
+    this.employeeId = compoff.empid;
     this.EMS.getEmployeeEmailDataByEmpid(this.employeeId)
       .subscribe((res: any) => {
         this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
