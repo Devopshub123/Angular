@@ -1,0 +1,150 @@
+<div fxLayout="Column" class="dashboard-content">
+    <mat-card class="sidePad" >
+        <form [formGroup]="dashBoardForm" fxLayout="Column">
+  <!-- f1st row -->
+    <div fxLayout="row" fxFlex="100"  fxLayout.xs="column" fxLayoutGap="10px">
+  
+      
+              <mat-card fxLayout="column" fxFlex="45" class="card outline">
+                <span fxLayout="row" fxLayoutAlign="start" class="title">
+                    <span>Activations</span>
+                  </span>
+                 <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-evenly center" >
+                    <div fxLayout="column">
+                    <span>
+                        <mat-form-field >
+                          <input matInput readonly [matDatepicker]="monthDate" [min]="minDate" [max]="maxDate"
+                            placeholder="" (click)="monthDate.open()" formControlName="monthDate" />
+                          <mat-datepicker-toggle class="datepicker" matSuffix [for]="monthDate">
+                          </mat-datepicker-toggle>
+                          <mat-datepicker #monthDate
+                          startView="multi-year"
+                         (monthSelected)="setMonthAndYear($event, monthDate)">
+                        </mat-datepicker>
+                        </mat-form-field>
+                      </span>
+                      <span style="text-align: center;" class="counthead2">
+                      {{activationCountForMonth}}
+                      </span>
+                    </div>
+
+                    <div fxLayout="column">
+                        <span >
+                            <mat-form-field>
+                              <input matInput readonly [matDatepicker]="yearDate" [min]="minDate" [max]="maxDate"
+                                placeholder="" (click)="yearDate.open()" formControlName="yearDate" />
+                              <mat-datepicker-toggle class="datepicker" matSuffix [for]="yearDate">
+                              </mat-datepicker-toggle>
+                              <mat-datepicker #yearDate startView="multi-year"
+                              (monthSelected)="setMonthAndYear2($event, yearDate)">
+
+                              </mat-datepicker>
+                            </mat-form-field>
+                          </span>
+                          <span style="text-align: center;" class="counthead2">
+                          {{activationCountForYear}}
+                          </span>
+                        </div>
+                 </div>
+                 <br>
+              </mat-card>
+  
+             
+              <mat-card  class="card outline" fxFlex="55">
+                <div fxLayout="row" fxLayoutAlign="start">
+                  <span class="title">
+                    <span>Count</span>
+                  </span>
+                </div>
+                <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-evenly center" >
+                    <div fxLayout="column">
+                    <span class="counthead">Activations </span>
+                    <br>
+                    <span class="counthead">Clients </span>
+                    </div>
+                    <div fxLayout="column">
+                        <span class="counthead2">{{sprypleClientsCount.active_count}} </span>
+                        <br>
+                        <span class="counthead2">{{sprypleClientsCount.clients_count}} </span>
+                        </div>
+                        <div fxLayout="column">
+                            <span class="counthead">Renewals </span>
+                            <br>
+                            <span class="counthead">Cancellations </span>
+                            </div>
+                            <div fxLayout="column">
+                                <span class="counthead2">{{sprypleClientsCount.inactive_count}} </span>
+                                <br>
+                                <span class="counthead2">{{sprypleClientsCount.cancel_count}} </span>
+                                </div>
+                 </div>
+                 <br>
+              </mat-card>
+    </div>
+
+<!-- 2nd row -->
+
+    <div fxLayout="row" fxFlex="100"  fxLayout.xs="column" fxLayoutGap="10px">
+  <div fxLayout="column" fxFlex="45">
+     
+      
+        <mat-card  class="card outline">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title2">
+              <span>Net Revenue</span>
+            </span>
+            <span style="padding-right: 5%;">
+                <mat-form-field>
+                  <input matInput readonly [matDatepicker]="revenueDate" [min]="minDate" [max]="maxDate"
+                    placeholder="" (click)="revenueDate.open()" formControlName="revenueDate" />
+                  <mat-datepicker-toggle class="datepicker" matSuffix [for]="revenueDate">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #revenueDate
+                  startView="multi-year"
+                         (monthSelected)="setMonthAndYear3($event, revenueDate)"></mat-datepicker>
+                </mat-form-field>
+              </span>
+          </div>
+        
+            <div style="min-height: 5vh;text-align: center;">
+                <span class="counthead2">{{revenueCount}}</span>
+              </div>
+        <br>
+        </mat-card>
+
+        <mat-card  class="card outline">
+            <div fxLayout="row" fxLayoutAlign="start">
+              <span class="title">
+                <span>Incremental Growth</span>
+              </span>
+             
+            </div>
+            <div style="padding-bottom: 1%;min-height: 32vh;">
+  
+            </div>
+          </mat-card>
+
+    </div>
+<div fxLayout="column" fxFlex="55">
+     
+        <mat-card  class="card outline" style="height: 58vh;">
+          <div fxLayout="row" fxLayoutAlign="start">
+            <span class="title">
+              <span>Year-Over-Year-Growth</span>
+            </span>
+          </div>
+          <div class="scrollbox">
+            <div class="scrollbox-content">
+              <div style="padding-top: 1%;padding-left: 1%;max-height: 25vh;min-height: 15vh;">
+
+              </div>
+            </div>
+          </div>
+        </mat-card>
+    </div>
+
+</div>
+</form>
+  </mat-card>
+  </div>
+  

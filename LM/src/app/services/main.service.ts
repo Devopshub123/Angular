@@ -181,4 +181,24 @@ export class MainService {
   getPlanDetailsByPlanIdAndClientId(data:any){
     return this.http.post(this.mainBeUrl+'subscription/api/getSpryplePlanDetailsById',data);
   } 
+    /** get spryple activations by Month count  */
+    getSprypleActivationsCountByMonth(data:any){
+      return this.http.get(this.mainBeUrl+'subscription/api/getSprypleActivationsCountByMonth/'+ data +'/'+this.companyName, this.httpOptions)
+  }
+  
+  /** get spryple activations by year count */
+      getSprypleActivationsCountByYear(data:any){
+        return this.http.get(this.mainBeUrl+'subscription/api/getSprypleActivationsCountByYear/'+ data +'/'+this.companyName, this.httpOptions)
+  }
+  
+    /** get spryple clients status wise count */
+    getSprypleClientsStatusWiseCount(){
+      return this.http.get(this.mainBeUrl+'subscription/api/getSprypleClientsStatusWiseCount/' +this.companyName, this.httpOptions)
+  }
+  
+/**get spryple revenue By month */
+    getSprypleRevenueByMonth(data:any){
+      return this.http.get(this.mainBeUrl+'subscription/api/getRevenueByMonth/'+ data +'/'+this.companyName, this.httpOptions)
+  }
+  
 }
