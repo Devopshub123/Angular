@@ -33,6 +33,7 @@ pageLoading = true;
     }
 }
 view(data:any){
+  data.productadmin = false;
   let dialogRef = this.dialog.open(InvoiceDataComponent, {
     width: '700px',position:{top:`100px`},
     disableClose: true,

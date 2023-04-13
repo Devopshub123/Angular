@@ -43,8 +43,8 @@ export const MY_FORMATS = {
   ],
 })
 // C9ZJngGWH7DmiQLOKHykb9V0
-
 // rzp_test_AAxMUhOM5m2fuV
+// this.selectedIndex = index;
 export class SignUpComponent implements OnInit {
   message:any = "Not yet stared";
   paymentId = "";
@@ -133,9 +133,11 @@ export class SignUpComponent implements OnInit {
     this.planId = JSON.parse(atob(this.params.token)).Planid;
     this.planName = JSON.parse(atob(this.params.token)).PlanName;
     this.date = new Date(JSON.parse(atob(this.params.token)).Date);
-    let expDate = new Date(this.date.setDate(this.date.getDate() + 1))
+    let expDate = new Date(this.date.setDate(this.date.getDate() + 1));
+   
     if (expDate >= new Date()) {
       this.flag = true;
+      this.getUnverifiedSprypleClient();
     }
     else {
       this.flag = false;
@@ -253,12 +255,13 @@ export class SignUpComponent implements OnInit {
       companycode: this.companycode
     }
     this.mainService.getUnverifiedSprypleClient(data).subscribe((result:any)=>{
-      if (result.status) {
+      console.log("getUnverifiedSprypleClientgetUnverifiedSprypleClient",result);
+      if (result.status&&result.data.length>0) {
         let value = result.data[0];
         this.clientId = value.id;
         this.clientname= value.contact_name;
         this.contactnumber=value.mobile_number;
-      this.signUpForm.controls.companyName.setValue(value.company_name);
+        this.signUpForm.controls.companyName.setValue(value.company_name);
        this.signUpForm.controls.companyCode.setValue(value.company_code);
        this.signUpForm.controls.companySize.setValue(value.company_size);
        this.signUpForm.controls.totalUsers.setValue(value.number_of_users);
@@ -275,6 +278,9 @@ export class SignUpComponent implements OnInit {
       //  this.signUpForm.controls.isChecked.setValue(value.company_name);
         this.signUpForm.controls.others.setValue(value.industry_type_value);
         this.getPlanDetailsByPlanIdAndClientId();
+      }
+      else{
+        this.router.navigate(['Validateemail'])
       }
     })
   }
@@ -373,7 +379,8 @@ export class SignUpComponent implements OnInit {
     this.router.navigate(['Validateemail'])
   }
   paynow() {
-    let dataamount:any = this.payamount*100;
+    let dataamount:any = Math.floor(this.payamount*100);
+    console.log("gggg",Math.floor(dataamount));
     this.paymentId = '';
     this.error = '';
     this.options.amount = dataamount; //paise
@@ -382,9 +389,17 @@ export class SignUpComponent implements OnInit {
     this.options.prefill.contact =this.contactnumber;
     var rzp1 = new Razorpay(this.options);
     rzp1.open();
-    rzp1.on('payment.failed', function (response: any) {
+    rzp1.on('payment.failed',  (response: any) => {
       //this.message = "Payment Failed";
       // Todo - store this information in the server
+       rzp1.close();
+       let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data:'Your Payment failed.Please try again.'
+    
+      });
+      
       console.log(response.error.code);
       console.log(response.error.description);
       console.log(response.error.source);
@@ -406,33 +421,25 @@ let data ={
   client_id_value:this.clientId,
   company_code_value:this.companycode,
   valid_from_date:this.date1,
-  valid_to_date:this.date1,
+  valid_to_date:this.date2,
   plan_id_value:this.planId,
   number_of_users_value:this.users,
-  paid_amount:this.payamount,
+  paid_amount:this.payamount.toFixed(2),
   transaction_number:event.detail.razorpay_payment_id,
   company_email_value:this.email
 }
 console.log("payment success data",data)
 this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
   if(result.status){
+    this.ngOnInit();
     let dialogRef = this.dialog.open(ReusableDialogComponent, {
       position:{top:`70px`},
       disableClose: true,
-      // data:'The username and/or password you entered did not match our records. Please double-check and try again.'
-      data:'Please check yor mail'
+      data:'Please check yor mail.Invoice Details shared.'
   
     });
   }
 })
-// set_spryple_client_plan_payment
-    // client_id_value int(11), 
-    // company_code_value varchar(16), 
-    // valid_from_date date, 
-    // valid_to_date date, 
-    // plan_id_value int(2), 
-    // number_of_users_value int(6), 
-    // paid_amount float, 
-    // transaction_number varchar(25) 
+
   }
 }

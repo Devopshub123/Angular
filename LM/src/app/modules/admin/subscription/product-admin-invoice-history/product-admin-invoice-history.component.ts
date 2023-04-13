@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { InvoiceDataComponent } from '../dialog/invoice-data/invoice-data.component';
+import { ProductInvoiceDataComponent } from '../dialog/product-invoice-data/product-invoice-data.component';
 import { AdminService } from 'src/app/modules/admin/admin.service';
 export interface ProductAdminInvoiceHistoryElement {
   companyname: string;
@@ -27,7 +28,7 @@ const ELEMENT_DATA: ProductAdminInvoiceHistoryElement[] = [
   styleUrls: ['./product-admin-invoice-history.component.scss']
 })
 export class ProductAdminInvoiceHistoryComponent implements OnInit {
-  displayedColumns: string[] = ['sno', 'companyname','billingdate','useddate','invoice','amount','status','action'];
+  displayedColumns: string[] = ['sno', 'companyname','billingdate','useddate','invoice','amount','action'];
   dataSource : any=[];
   // dataSource: MatTableDataSource<UserData>=<any>[];
   @ViewChild(MatPaginator)
@@ -50,7 +51,8 @@ export class ProductAdminInvoiceHistoryComponent implements OnInit {
 }
 view(data:any){
   console.log("datatta",data)
-  let dialogRef = this.dialog.open(InvoiceDataComponent, {
+  data.productadmin = true;
+  let dialogRef = this.dialog.open(ProductInvoiceDataComponent, {
     width: '600px',position:{top:`70px`},
     disableClose: true,
     data:data

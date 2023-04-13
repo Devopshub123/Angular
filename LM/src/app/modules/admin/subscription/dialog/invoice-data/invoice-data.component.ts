@@ -36,16 +36,20 @@ export class InvoiceDataComponent implements OnInit {
   state: any;
   country: any;
   pincode: any;
+  productinvoicedata:any;
   constructor(public dialogRef: MatDialogRef<InvoiceDataComponent>,private adminService: AdminService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.paymentId = data.payment_id;
+    this.paymentId = data.payment_reference_number;
+    this.productinvoicedata = data;
+    console.log("invoicedata",data);
     // this.invoicedata = data;
    
   }
   @ViewChild('invoice') invoice: any;
   invoiceData: any;
   ngOnInit(): void {
-    this.getInvoiceData();
+      this.getInvoiceData();
+    
   }
 
   getInvoiceData(){
