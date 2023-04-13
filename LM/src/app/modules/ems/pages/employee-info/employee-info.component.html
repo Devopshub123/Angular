@@ -667,12 +667,15 @@
                                     <ng-container matColumnDef="action">
                                         <th mat-header-cell *matHeaderCellDef></th>
                                         <td mat-cell *matCellDef="let element; let i = index">
-                                            <mat-icon title="Edit" (click)="editfamily(i)" *ngIf="!isviewemployee">
+                                            <button mat-icon-button (keyup.enter)="editfamily(i)" *ngIf="!isviewemployee">
+                                            <mat-icon title="Edit" (click)="editfamily(i)">
                                                 edit
                                             </mat-icon>
-                                            <mat-icon title="Delete" (click)="deleteFamilyPopup(i)"
-                                                *ngIf="!isviewemployee">
+                                        </button>
+                                        <button mat-icon-button (keyup.enter)="deleteFamilyPopup(i)" *ngIf="!isviewemployee">
+                                            <mat-icon title="Delete" (click)="deleteFamilyPopup(i)">
                                                 delete</mat-icon>
+                                            </button>
                                         </td>
                                     </ng-container>
 
@@ -919,18 +922,6 @@
                                         {{ data.effectivedate | date: "dd-MM-yyyy" }}
                                     </td>
                                 </ng-container>
-
-                                <!-- <ng-container matColumnDef="action">
-                                    <th mat-header-cell *matHeaderCellDef>Action</th>
-                                    <td mat-cell *matCellDef="let element; let i = index">
-                                        <mat-icon title="Edit" (click)="editfamily(i)" *ngIf="!isviewemployee">edit
-                                        </mat-icon>
-                                        <mat-icon title="Delete" (click)="deletePromotions(i)"
-                                            *ngIf="!isviewemployee">
-                                            delete</mat-icon>
-                                    </td>
-                                </ng-container> -->
-
                                 <tr mat-header-row *matHeaderRowDef="promotionsTableColumns"></tr>
                                 <tr mat-row *matRowDef="let row; columns: promotionsTableColumns"></tr>
                             </table>
@@ -1069,12 +1060,15 @@
                                 <ng-container matColumnDef="action">
                                     <th mat-header-cell *matHeaderCellDef></th>
                                     <td mat-cell *matCellDef="let element; let i = index">
-                                        <mat-icon title="Edit" (click)="editExperience(i)" *ngIf="!isviewemployee">
+                                        <button mat-icon-button (keyup.enter)="editExperience(i)" *ngIf="!isviewemployee">
+                                        <mat-icon title="Edit" (click)="editExperience(i)">
                                             edit
                                         </mat-icon>
-                                        <mat-icon title="Delete" (click)="deleteExperiencePopup(i)"
-                                            *ngIf="!isviewemployee">
+                                        </button>
+                                        <button mat-icon-button (keyup.enter)="deleteExperiencePopup(i)" *ngIf="!isviewemployee">
+                                        <mat-icon title="Delete" (click)="deleteExperiencePopup(i)">
                                             delete</mat-icon>
+                                            </button>
                                     </td>
                                 </ng-container>
 
@@ -1291,12 +1285,15 @@
                                 <ng-container matColumnDef="action">
                                     <th mat-header-cell *matHeaderCellDef></th>
                                     <td mat-cell *matCellDef="let element; let i = index">
-                                        <mat-icon title="Edit" (click)="editEduction(i)" *ngIf="!isviewemployee">
+                                        <button mat-icon-button (keyup.enter)="editEduction(i)" *ngIf="!isviewemployee">
+                                        <mat-icon title="Edit" (click)="editEduction(i)">
                                             edit
                                         </mat-icon>
-                                        <mat-icon title="Delete" (click)="deleteEducationPopup(i)"
-                                            *ngIf="!isviewemployee">
+                                        </button>
+                                        <button mat-icon-button (keyup.enter)="deleteEducationPopup(i)" *ngIf="!isviewemployee">
+                                        <mat-icon title="Delete" (click)="deleteEducationPopup(i)">
                                             delete</mat-icon>
+                                            </button>
                                     </td>
                                 </ng-container>
 
@@ -1365,9 +1362,13 @@
                                 </button>
 
                                 &nbsp;
-                                <mat-icon title="cancel" *ngIf="documentsForm.controls.attachedFile.value"
-                                    (click)="deleteIcon()">delete</mat-icon>
-                                <mat-icon title="remove" *ngIf="isedit" (click)="delete()">cancel</mat-icon>
+                                <button mat-icon-button (keyup.enter)="deleteIcon()" *ngIf="documentsForm.controls.attachedFile.value">
+                                    <mat-icon title="cancel" (click)="deleteIcon()">delete</mat-icon>
+                                </button>
+                            <button mat-icon-button (keyup.enter)="delete()" *ngIf="isedit">
+                                <mat-icon title="remove"  (click)="delete()">cancel</mat-icon>
+                            </button>
+                           
                                 &nbsp;
                             </div>
                         </div>
@@ -1412,11 +1413,15 @@
                                 <ng-container matColumnDef="action">
                                     <th mat-header-cell *matHeaderCellDef></th>
                                     <td mat-cell *matCellDef="let data">
+                                        <button mat-icon-button (keyup.enter)="editDock(data)" *ngIf="!isviewemployee">
                                         <mat-icon (click)="editDock(data)" title="Edit"
                                             *ngIf="data.status == 'Submitted'">edit</mat-icon>
+                                        </button>
+                                            <button mat-icon-button (keyup.enter)="deleteDock(data)" *ngIf="!isviewemployee">
                                         <mat-icon (click)="deleteDock(data)" title="Delete"
                                             *ngIf="data.status == 'Submitted'">
                                             delete</mat-icon>
+                                        </button>
                                     </td>
                                 </ng-container>
 

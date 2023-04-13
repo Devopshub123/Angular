@@ -52,40 +52,42 @@ mat-card {
 tr.mat-header-row {
   height: 45px;
 }
-
-.mat-column-appliedOn {
-  max-width: 100px;
-  min-width: 90px;
+table td, table th {
+  padding: 2px 10px;
 }
-.mat-column-empId {
-  max-width: 100px;
-  min-width: 90px;
-}
-.mat-column-empName {
-  max-width: 150px;
-  min-width: 120px;
-}
-.mat-column-leaveType {
-  max-width: 120px;
-  min-width: 100px;
-}
-.mat-column-fromDate {
-  max-width: 100px;
-  min-width: 90px;
-}
-.mat-column-toDate {
-  max-width: 100px;
-  min-width: 90px;
-}
-.mat-column-noOfDays {
-  max-width: 100px;
-  min-width: 90px;
-}
-.mat-column-pendingSince {
-  max-width: 100px;
-  min-width: 90px;
-}
-.mat-column-action {
-  max-width: 100px;
-  min-width: 90px;
-}
+// .mat-column-appliedOn {
+//   max-width: 100px;
+//   min-width: 90px;
+// }
+// .mat-column-empId {
+//   max-width: 100px;
+//   min-width: 90px;
+// }
+// .mat-column-empName {
+//   max-width: 150px;
+//   min-width: 120px;
+// }
+// .mat-column-leaveType {
+//   max-width: 120px;
+//   min-width: 100px;
+// }
+// .mat-column-fromDate {
+//   max-width: 100px;
+//   min-width: 90px;
+// }
+// .mat-column-toDate {
+//   max-width: 100px;
+//   min-width: 90px;
+// }
+// .mat-column-noOfDays {
+//   max-width: 100px;
+//   min-width: 90px;
+// }
+// .mat-column-pendingSince {
+//   max-width: 100px;
+//   min-width: 90px;
+// }
+// .mat-column-action {
+//   max-width: 100px;
+//   min-width: 90px;
+// }

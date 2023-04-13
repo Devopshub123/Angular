@@ -30,7 +30,7 @@
                     <div fxLayout="column">
                         <form [formGroup]="personalInfoForm">
                             <mat-card style="padding: 1%;">
-                                <div class="section1"><b>Personal Information</b></div>
+                                <div class="section"><b>Personal Information</b></div>
                                 <mat-divider></mat-divider>
                                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
@@ -426,9 +426,7 @@
                                     <div class="section" fxLayout="row">
                                         <span style="padding-top: 3px;"><b>Family Details : </b></span>
                                         <span style="padding-left: 1%;">
-                                            <button  mat-icon-button [tabIndex]="33" (keyup.enter)="addingFamilyView()">
-                                            <mat-icon  title="Add" style="color:#28acaf;font-size: 35px;" (click)="addingFamilyView()">add_box</mat-icon>
-                                            </button>
+                                            <mat-icon title="Add" style="color:#28acaf;font-size: 35px;" (click)="addingFamilyView()">add_box</mat-icon>
                                         </span>
                                     </div>
 
@@ -441,7 +439,7 @@
                                                 appearance="outline">
                                                 <mat-label>Name</mat-label>
                                                 <input type="text" formControlName="familyfirstname" matInput
-                                                    placeholder="" maxlength="100" required tabindex="34"/>
+                                                    placeholder="" maxlength="100" required tabindex="33"/>
                                                 <mat-error class="con-error"
                                                     *ngIf="candidateFamilyForm.controls.familyfirstname.errors?.required">
                                                     {{EM1}}
@@ -453,7 +451,7 @@
                                                 <mat-label>Contact Number</mat-label>
                                                 <input type="text" formControlName="familycontact" matInput
                                                     placeholder="" maxlength="10" minlength="10"
-                                                    (keypress)="_keyPress($event)" />
+                                                    (keypress)="_keyPress($event)" tabindex="34"/>
                                                 <mat-error class="reg-error" *ngIf="candidateFamilyForm.controls.familycontact.errors?.minlength ||
                                         candidateFamilyForm.controls.familycontact.errors?.maxlength || 
                                         candidateFamilyForm.controls.familycontact.errors?.pattern">
@@ -464,7 +462,7 @@
                                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2"
                                                 appearance="outline">
                                                 <mat-label>Gender</mat-label>
-                                                <mat-select formControlName="familygender" required>
+                                                <mat-select formControlName="familygender" required tabindex="35">
                                                     <ng-container>
                                                         <div *ngFor="let b of genderDetails">
                                                             <mat-option [value]="b">{{ b.gender }}</mat-option>
@@ -485,7 +483,7 @@
                                             <mat-form-field fxFlex.xs="100" fxFlex.sm="50" fxFlex="32" class="mx-2 my-2"
                                                 appearance="outline">
                                                 <mat-label>Relationship</mat-label>
-                                                <mat-select required formControlName="relation">
+                                                <mat-select required formControlName="relation" tabindex="36">
                                                     <ng-container>
                                                         <div *ngFor="let b of employeeRelationship">
                                                             <mat-option [value]="b">{{
@@ -504,7 +502,7 @@
                                             <mat-form-field fxFlex.xs="100" fxFlex.sm="50" fxFlex="32" class="mx-2 my-2"
                                                 appearance="outline">
                                                 <mat-label>Status</mat-label>
-                                                <mat-select required formControlName="familystatus">
+                                                <mat-select required formControlName="familystatus" tabindex="37">
                                                     <ng-container>
                                                         <div>
                                                             <mat-option value="Alive">Alive</mat-option>
@@ -514,14 +512,14 @@
                                             </mat-form-field>
                                             <div fxLayout="row">
                                                 <span style="padding-top:5%">
-                                                <button *ngIf="!isfamilyedit" [tabIndex]="34" (keyup.enter)="addfamily()" class="btn btn-primary mr-2 mb-2"  (click)="addfamily()">
+                                                <button *ngIf="!isfamilyedit" tabindex="38" (keyup.enter)="addfamily()" class="btn btn-primary mr-2 mb-2"  (click)="addfamily()">
                                                     <span> Add </span>
                                                 </button>
-                                                <button *ngIf="isfamilyedit" [tabIndex]="35" (keyup.enter)="addfamily()" class="btn btn-primary mr-2 mb-2"  (click)="addfamily()">
+                                                <button *ngIf="isfamilyedit" tabindex="38" (keyup.enter)="addfamily()" class="btn btn-primary mr-2 mb-2"  (click)="addfamily()">
                                                     <span> Update </span>
                                                 </button>
                                                 <button class="btn btn-danger mr-2 mb-2"
-                                                    (click)="clearfamily()">
+                                                    (click)="clearfamily()" tabindex="39" (keyup.enter)="clearfamily()">
                                                     Clear
                                                 </button>
                                                 </span>
@@ -570,12 +568,14 @@
                                             <ng-container matColumnDef="action">
                                                 <th mat-header-cell *matHeaderCellDef></th>
                                                 <td mat-cell *matCellDef="let element; let i = index">
-                                                    <mat-icon title="Edit" (click)="editfamily(i)"
-                                                        *ngIf="!isviewemployee">edit
+                                                    <button mat-icon-button (keyup.enter)="editfamily(i)" *ngIf="!isviewemployee">
+                                                    <mat-icon title="Edit" (click)="editfamily(i)">edit
                                                     </mat-icon>
-                                                    <mat-icon title="Delete" (click)="deleteFamilyPopup(i)"
-                                                        *ngIf="!isviewemployee">
+                                                </button>
+                                                <button mat-icon-button (keyup.enter)="deleteFamilyPopup(i)" *ngIf="!isviewemployee">
+                                                    <mat-icon title="Delete" (click)="deleteFamilyPopup(i)">
                                                         delete</mat-icon>
+                                                    </button>
                                                 </td>
                                             </ng-container>
 
@@ -589,7 +589,7 @@
                             <br>
                             <div fxLayoutAlign="center">
                                 <button class="btn btn-primary custom mr-2 mb-2" (click)="savePersonalInfo()"
-                                    type="submit">
+                                    type="submit" [tabIndex]="40">
                                     <span>Save & Continue</span>
                                 </button>
                                 <br />
@@ -599,7 +599,8 @@
                 </mat-tab>
                 <!-- job tab -->
                 <mat-tab label="Contract/Promotions">
-                    <div fxLayout="column" style="padding-left: 1%;">
+                    <div fxLayout="column">
+                        <mat-card style="padding-left: 1%;">
                         <div *ngIf="isContractData">
                             <form [formGroup]="employeeJobForm">
                                 <div class="section"><b>Employee Contract</b></div>
@@ -677,6 +678,7 @@
                                 </table>
                             </div>
                         </form>
+                    </mat-card>
                     </div>
 
                 </mat-tab>
@@ -795,12 +797,16 @@
                                         <ng-container matColumnDef="action">
                                             <th mat-header-cell *matHeaderCellDef></th>
                                             <td mat-cell *matCellDef="let element; let i = index">
+                                                <button mat-icon-button (keyup.enter)="editExperience(i)">
                                                 <mat-icon title="Edit" (click)="editExperience(i)"
                                                     *ngIf="!isviewemployee">edit
                                                 </mat-icon>
+                                            </button>
+                                            <button mat-icon-button (keyup.enter)="deleteExperiencePopup(i)">
                                                 <mat-icon title="Delete" (click)="deleteExperiencePopup(i)"
                                                     *ngIf="!isviewemployee">
                                                     delete</mat-icon>
+                                                    </button>
                                             </td>
                                         </ng-container>
 
@@ -994,12 +1000,16 @@
                                     <ng-container matColumnDef="action">
                                         <th mat-header-cell *matHeaderCellDef></th>
                                         <td mat-cell *matCellDef="let element; let i = index">
+                                            <button mat-icon-button (keyup.enter)="editEduction(i)">
                                             <mat-icon title="Edit" (click)="editEduction(i)"
                                                 *ngIf="!isviewemployee">edit
                                             </mat-icon>
+                                        </button>
+                                            <button mat-icon-button (keyup.enter)="deleteEducationPopup(i)">
                                             <mat-icon title="Delete" (click)="deleteEducationPopup(i)"
                                                 *ngIf="!isviewemployee">
                                                 delete</mat-icon>
+                                            </button>
                                         </td>
                                     </ng-container>
 
@@ -1022,7 +1032,8 @@
 
                 <!-- document tab -->
                 <mat-tab label="Documents">
-                    <div fxLayout="column" style="padding: 10px">
+                    <div fxLayout="column" >
+                        <mat-card style="padding: 10px">
                         <form [formGroup]="documentsForm">
                             <div class="section"><b>Add Documents</b></div>
                             <mat-divider></mat-divider>
@@ -1116,10 +1127,12 @@
                                     <ng-container matColumnDef="action">
                                         <th mat-header-cell *matHeaderCellDef></th>
                                         <td mat-cell *matCellDef="let data">
-                                            <mat-icon (click)="editDock(data)" title="Edit"
-                                                *ngIf="data.status == 'Submitted'">edit</mat-icon>
-                                            <mat-icon (click)="deleteDock(data)" title="Delete"
-                                                *ngIf="data.status == 'Submitted'"> delete</mat-icon>
+                                            <button *ngIf="data.status == 'Submitted'" mat-icon-button (keyup.enter)="editDock(data)">
+                                            <mat-icon (click)="editDock(data)" title="Edit">edit</mat-icon>
+                                            </button>
+                                                <button mat-icon-button (keyup.enter)="deleteDock(data)" *ngIf="data.status == 'Submitted'">
+                                            <mat-icon (click)="deleteDock(data)" title="Delete"> delete</mat-icon>
+                                            </button>
                                         </td>
                                     </ng-container>
 
@@ -1128,6 +1141,7 @@
                                 </table>
                             </div>
                         </form>
+                        </mat-card>
                     </div>
                 </mat-tab>
 
