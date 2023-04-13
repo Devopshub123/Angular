@@ -39,6 +39,7 @@ import { SubscriptionPlansMasterComponent } from './subscription/subscription-pl
 import { RegisterValidationComponent } from './subscription/register-validation/register-validation.component';
 import { AddRenewalUesrsComponent } from './subscription/add-renewal-uesrs/add-renewal-uesrs.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { ProductInvoiceDataComponent } from './subscription/dialog/product-invoice-data/product-invoice-data.component';
 @NgModule({
   declarations: [
 
@@ -70,6 +71,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     SubscriptionPlansMasterComponent,
     RegisterValidationComponent,
     AddRenewalUesrsComponent,
+    ProductInvoiceDataComponent,
     
   ],
   imports: [
