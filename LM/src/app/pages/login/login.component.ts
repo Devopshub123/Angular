@@ -88,6 +88,9 @@ export class LoginComponent implements OnInit {
           if (empdata.firstlogin == "Y") {
             this.router.navigate(['/Attendance/ChangePassword'])
           }
+          if (empdata.roles[0].role_name == "Product Admin") {
+            this.router.navigate(['/Admin/product-admin-dashboard'])
+          }
           else {
             this.router.navigate(['main/MainDashboard'])
             // this.getEmployeeEmailData();

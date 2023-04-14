@@ -42,6 +42,7 @@ export class SideNavComponent implements OnInit {
   }
 
   toggleActive(item: any) {
+    console.log("item")
     if (item.id==3) {
       this.timesheet();
       return;
@@ -58,7 +59,7 @@ export class SideNavComponent implements OnInit {
     sessionStorage.setItem('selectedModule',item.modulename );
   }
   timesheet() {
-    window.open('http://122.175.62.210:5050', '_blank');
+    // window.open('http://122.175.62.210:5050', '_blank');
   }
 
   onClickMainDashboard(){
