@@ -161,7 +161,7 @@ export class SignUpComponent implements OnInit {
     
     this.signUpForm.get('country')?.valueChanges.subscribe((selectedValue: any) => {
       this.stateDetails= [];
-      this.companyService.getPreonboardingStatesc(selectedValue,'spryple_hrms').subscribe((data)=>{
+      this.companyService.getPreonboardingStatesc(selectedValue,'spryple_dev').subscribe((data)=>{
         this.stateDetails = data.data;
       })
     })
@@ -169,7 +169,7 @@ export class SignUpComponent implements OnInit {
   this.signUpForm.get('state')?.valueChanges.subscribe((selectedValue: any) => {
     this.signUpForm.controls.city.setValue("");
     this.cityDetails = [];
-     this.companyService.getPreonboardingCities(selectedValue,'spryple_hrms').subscribe((data)=>{
+     this.companyService.getPreonboardingCities(selectedValue,'spryple_dev').subscribe((data)=>{
         this.cityDetails=data.data
        })
   })
@@ -226,14 +226,14 @@ export class SignUpComponent implements OnInit {
 
   getIndustryTypes() {
     this.industryTypeList = [];
-    this.mainService.getIndustryTypes('industry_type_master', null, 1, 10, 'spryple_hrms').subscribe(result => {
+    this.mainService.getIndustryTypes('industry_type_master', null, 1, 10, 'spryple_dev').subscribe(result => {
       this.industryTypeList = result.data;
     })
   }
 
   getCountry() {
     this.countryDetails = []
-    this.companyService.getPreonboardingCountry('countrymaster', null, 1, 10, 'spryple_hrms').subscribe(result => {
+    this.companyService.getPreonboardingCountry('countrymaster', null, 1, 10, 'spryple_dev').subscribe(result => {
       this.countryDetails = result.data;
     })
   }
@@ -424,11 +424,11 @@ let data ={
   valid_to_date:this.date2,
   plan_id_value:this.planId,
   number_of_users_value:this.users,
-  paid_amount:this.payamount.toFixed(2),
+  paid_amount:Math.floor(this.payamount),
   transaction_number:event.detail.razorpay_payment_id,
   company_email_value:this.email
 }
-console.log("payment success data",data)
+console.log("payment success data.toFixed(2)",data)
 this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
   if(result.status){
     this.ngOnInit();
