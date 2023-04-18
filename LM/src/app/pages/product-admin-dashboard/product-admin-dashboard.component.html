@@ -9,8 +9,8 @@
                 <span fxLayout="row" fxLayoutAlign="start" class="title">
                     <span>Activations</span>
                   </span>
-                 <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-evenly center" >
-                    <div fxLayout="column">
+                 <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="column" fxFlex="100" fxLayoutAlign="space-evenly center" style="padding-top: 10px;">
+                    <div fxLayout="column" class="card1">
                     <span>
                         <mat-form-field >
                           <input matInput readonly [matDatepicker]="monthDate" [min]="minDate" [max]="maxDate"
@@ -28,7 +28,7 @@
                       </span>
                     </div>
 
-                    <div fxLayout="column">
+                    <div fxLayout="column" class="card1">
                         <span >
                             <mat-form-field>
                               <input matInput readonly [matDatepicker]="yearDate" [min]="minDate" [max]="maxDate"
@@ -107,7 +107,7 @@
           </div>
         
             <div style="min-height: 5vh;text-align: center;">
-                <span class="counthead2">{{revenueCount}}</span>
+                <span class="counthead2">{{revenueCount }}</span>
               </div>
         <br>
         </mat-card>
@@ -117,25 +117,32 @@
               <span class="title">
                 <span>Incremental Growth</span>
               </span>
-             
             </div>
-            <div style="padding-bottom: 1%;min-height: 32vh;">
-  
-            </div>
+            <canvas baseChart
+            [data]="barChartData"
+        [labels]="barChartLabels"
+        [type]="barChartType"
+            
+           style="height: 120px">
+    </canvas>
           </mat-card>
 
     </div>
 <div fxLayout="column" fxFlex="55">
      
-        <mat-card  class="card outline" style="height: 58vh;">
+        <mat-card  class="card outline">
           <div fxLayout="row" fxLayoutAlign="start">
             <span class="title">
               <span>Year-Over-Year-Growth</span>
             </span>
           </div>
-          <div class="card-body ">
-            <chart #chart [type]="type" [data]="data" [options]="options" style="width:100%;height: 100%"></chart>
-          </div>
+     
+            <canvas baseChart
+            [data]="barChartData2"
+        [labels]="barChartLabels2"
+        [type]="barChartType" >
+    </canvas> 
+     
         </mat-card>
     </div>
 

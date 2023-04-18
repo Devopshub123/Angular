@@ -14,6 +14,7 @@ import {MatDatepicker} from '@angular/material/datepicker';
 import { Moment} from 'moment';
 import * as _moment from 'moment';
 import { ChartComponent } from 'angular2-chartjs';
+import { ChartData } from 'chart.js';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 export const MY_FORMATS = {
@@ -40,68 +41,15 @@ export const MY_FORMATS = {
 export class ProductAdminDashboardComponent implements OnInit {
   companyDBName: any = environment.dbName;
   pipe = new DatePipe('en-US');
+  dashBoardForm: any = FormGroup;
+  currentYear: any = new Date();
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     private mainService: MainService,
     private spinner: NgxSpinnerService,
     private dialog: MatDialog,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
-  }
-  dashBoardForm: any = FormGroup;
-  minDate = new Date('2000/01/01');
-  maxDate = new Date();
-  activationCountForMonth: any;
-  activationCountForYear: any;
-  sprypleClientsCount: any = [];
-  revenueCount: any;
-  // --------------------------
-  @ViewChild(ChartComponent)  chart!: ChartComponent;
-	type:any='verticalBar';
-	data:any= {
-    labels: ["It service", "Finance", "HR", "Sales", "Marketing"],
-    // labels: this.departments,
-    datasets: [
-      {
-        fill: true,
-        label: "Departments",
-        backgroundColor: [" #28acaf", " #28acaf", " #28acaf", " #28acaf", " #28acaf"],
-        data: [100, 12, 6, 11, 7]
-        // data:this.departmentsdata
-      }
-    ]
-  }
-	options:any= {			
-    scales:{
-        yAxes: [{						
-          gridLines: {
-            beginAtZero: true,
-            display: false
-          },
-          ticks: {
-            min: 0,
-            stepSize: 1,
-            fixedStepSize: 1,
-          }
-        }],
-        // xAxes: [{
-        // 	beginAtZero: true,
-        // 	display: false,
-        // 	gridLines: {
-        // 		display: false
-        // 	},
-        // 	ticks: {
-        // 		min: 0,
-        // 		stepSize: 1,
-        // 		fixedStepSize: 1,
-        // 	}
-        // }],
-      }
-
-}
-
-  ngOnInit(): void {
-
     this.dashBoardForm = this.formBuilder.group(
       {
         monthDate: [new Date()],
@@ -112,6 +60,58 @@ export class ProductAdminDashboardComponent implements OnInit {
     this.getActivationCountByYear();
     this.getSprypleClientsStatusWiseList();
     this.getRevenueCountByMonth();
+    this.getClientsCountByMonth();
+    this.getClientsCountByYear();
+  }
+
+  minDate = new Date('2000/01/01');
+  maxDate = new Date();
+  activationCountForMonth: any;
+  activationCountForYear: any;
+  sprypleClientsCount: any = [];
+  revenueCount: any;
+  yearWiseChartYear: any = [];
+  yearWiseChartClients: any = [];
+  monthWiseChartMonth: any = [];
+  monthWiseChartClients: any = [];
+ 
+  // --------------------------
+
+ barChartOptions = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+barChartLabels :any= this.monthWiseChartMonth;
+barChartType :any= 'bar';
+barChartLegend :any= true;  
+barChartData: ChartData<'bar'> = {
+    labels: this.barChartLabels,
+    datasets: [
+      {
+        data: this.monthWiseChartClients,
+        backgroundColor: ['#28acaf'],
+        hoverBackgroundColor: ['#28acaf'],
+      }
+    ]
+};
+  
+  // ------
+  barChartLabels2: any = this.yearWiseChartYear;
+  barChartData2: ChartData<'bar'> = {
+    labels: this.barChartLabels2,
+    datasets: [
+      {
+        data: this.yearWiseChartClients,
+        backgroundColor: ['#28acaf'],
+        hoverBackgroundColor: ['#28acaf'],
+      }
+    ]
+};
+  // -------------
+
+  ngOnInit(): void {
+
+
 
     this.dashBoardForm.get('monthDate')?.valueChanges.subscribe((selectedValue: any) => {
        this.getActivationCountByMonth();
@@ -124,6 +124,7 @@ export class ProductAdminDashboardComponent implements OnInit {
       this.dashBoardForm.get('revenueDate')?.valueChanges.subscribe((selectedValue:any) => {
         this.getRevenueCountByMonth();
       })
+    
   }
 
 // -----------------------
@@ -151,7 +152,28 @@ export class ProductAdminDashboardComponent implements OnInit {
     this.dashBoardForm.controls.revenueDate.setValue(ctrlValue);
     datepicker.close();
   }
-
+  getClientsCountByMonth() {
+    let date = this.pipe.transform(this.currentYear, 'yyyy-MM-dd');
+    this.mainService.getMonthWiseClientsCountByYear(date).subscribe((res: any) => {
+      if (res.status && res.data) {
+        res.data.forEach((e: any) => {
+          this.monthWiseChartMonth.push(e.month);
+          this.monthWiseChartClients.push(e.total_clients);
+        })
+      }
+    });
+    
+  }
+  getClientsCountByYear() {
+    this.mainService.getYearWiseClientsCount().subscribe((res: any) => {
+      if (res.status && res.data) {
+         res.data.forEach((e: any) => {
+          this.yearWiseChartClients.push(e.total_clients);
+          this.yearWiseChartYear.push(e.year); 
+         })
+       }
+     });
+   }
   getActivationCountByMonth() {
     let date = this.pipe.transform(this.dashBoardForm.controls.monthDate.value, 'yyyy-MM-dd');
     this.mainService.getSprypleActivationsCountByMonth(date).subscribe((res: any) => {
@@ -184,7 +206,7 @@ export class ProductAdminDashboardComponent implements OnInit {
   this.revenueCount = [];
   this.mainService.getSprypleRevenueByMonth(date).subscribe((res: any) => {
      if(res.status && res.data) {
-       this.revenueCount = res.data[0].count != null ? res.data[0].count:0;
+       this.revenueCount = res.data[0].count != null ? res.data[0].count.toFixed(2):0;
      }
    });
 }

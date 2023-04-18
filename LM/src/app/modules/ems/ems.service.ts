@@ -171,7 +171,8 @@ export class EmsService {
   /** */
   getEmployeeInformationData(id: any): Observable<any> {
     this.companyName = sessionStorage.getItem("companyName") ? sessionStorage.getItem("companyName") : null;
-    return this.http.get(this.mainUrl + 'ems/api/getEmpPersonalInfo/' + id+'/'+this.companyName, this.httpOptions);
+   console.log("asd--",this.companyName)
+    return this.http.get(this.mainUrl + 'ems/api/getEmpPersonalInfo/' + id + '/' + this.companyName, this.httpOptions);
   }
   /** */
   setselectEmployeesProgramSchedules(data: any): any {

@@ -42,7 +42,7 @@ import { ShiftMasterComponent } from './modules/admin/pages/shift-master/shift-m
 import {UserLeaveRequestComponent} from "./modules/leaves/pages/user-leave-request/user-leave-request.component";
 import { AssetsModule } from './modules/assets/assets.module';
 import { PreOnboardingDetailsComponent } from './pages/pre-onboarding-details/pre-onboarding-details.component';
-// import { NgChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { ChartModule } from 'angular2-chartjs';
 import 'chartjs-adapter-date-fns';
 import { ComfirmationDialogComponent } from './pages/comfirmation-dialog/comfirmation-dialog.component';
@@ -113,7 +113,7 @@ import { ProductAdminDashboardComponent } from './pages/product-admin-dashboard/
     // BsDatepickerModule.forRoot(),
     // DatepickerModule.forRoot()
     AssetsModule,
-    // NgChartsModule,
+    NgChartsModule,
     ReimbursementModule,
     PayrollModule,
     ChartModule

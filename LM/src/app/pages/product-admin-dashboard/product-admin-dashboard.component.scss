@@ -83,7 +83,7 @@ font-family: 'Roboto';
 padding-top: 2%
 }
 .dashboard-content {
-    overflow-y: hidden;
+    height: 75vh;
   }
   .counthead{
     font-size: 16px;
@@ -93,4 +93,20 @@ padding-top: 2%
     font-size: 24px;
     color: #28acaf;
     font-weight: 500;
+  }
+  .card1 {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+     border-radius: 5px;
+     border-style: solid;
+     border-width: 1px;
+     border-color: #28acaf;
+     padding-top: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .card1:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
