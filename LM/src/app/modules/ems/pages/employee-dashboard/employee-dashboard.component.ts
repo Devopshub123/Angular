@@ -41,7 +41,11 @@ export const MY_FORMATS = {
 @Component({
   selector: 'app-employee-dashboard',
   templateUrl: './employee-dashboard.component.html',
-  styleUrls: ['./employee-dashboard.component.scss']
+  styleUrls: ['./employee-dashboard.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class EmployeeDashboardComponent implements OnInit {
   allModuleDetails: any = [];

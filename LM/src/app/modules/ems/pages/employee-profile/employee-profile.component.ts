@@ -2086,6 +2086,8 @@ export class EmployeeProfileComponent implements OnInit {
 
   clearDock() {
     // this.documentsForm.resetForm({resetType:ResetFormType.ControlsOnly})
+    this.editFileName = '';
+    this.isedit = false;
     this.documentsForm.reset();
     this.documentsForm.get('documentName').clearValidators();
     this.documentsForm.get('documentName').updateValueAndValidity();
@@ -2095,6 +2097,7 @@ export class EmployeeProfileComponent implements OnInit {
     this.documentsForm.get('documentId').updateValueAndValidity();
     this.documentsForm.get('attachedFile').clearValidators();
     this.documentsForm.get('attachedFile').updateValueAndValidity();
+  
   }
   delete() {
     this.isedit = false;

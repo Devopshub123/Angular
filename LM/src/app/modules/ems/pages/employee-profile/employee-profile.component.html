@@ -749,11 +749,12 @@
                                   </div>
                                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
                                     <span>
-                                         <button class="btn btn-primary mr-2 mb-2" (click)="addWorkExperience()">
-                                             <span> Save </span>
-                                         </button>
-                                         <button class="btn btn-primary custom1 mr-2 mb-2" (click)="submitAdd()">
-                                             <span> Save & Add</span>
+                                        <button class="btn btn-primary mr-2 mb-2" (click)="addWorkExperience()">
+                                            <span *ngIf="!isExperienceEdit"> Save </span>
+                                            <span *ngIf="isExperienceEdit"> Update </span>
+                                        </button>
+                                        <button *ngIf="!isExperienceEdit" class="btn btn-primary custom1 mr-2 mb-2" (click)="submitAdd()">
+                                            <span > Save & Add </span>
                                          </button>
                                          <button class="btn btn-danger mr-2 mb-2" (click)="clearWorkExperience()">
                                              Clear
@@ -951,11 +952,11 @@
                             </div>
                             <div fxLayout="row" fxLayoutAlign="center">
                                 <button class="btn btn-primary mr-2 mb-2" (click)="addEducation()">
-                                    <span *ngIf="!isEducationEdit"> Submit </span>
+                                    <span *ngIf="!isEducationEdit"> Save </span>
                                     <span *ngIf="isEducationEdit"> Update </span>
                                 </button>
                                 <button *ngIf="!isEducationEdit" class="btn btn-primary custom1 mr-2 mb-2" (click)="educationSaveAdd()">
-                                    <span > Submit & Add </span>
+                                    <span > Save & Add </span>
                                  </button>
                                 <button class="btn btn-danger mr-2 mb-2" (click)="clearEducation()">
                                     Clear
@@ -1082,7 +1083,7 @@
                             </div>
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <button class="btn btn-primary mr-2 mb-2"  (click)="validateDocument()">
-                                    <span> Submit </span>
+                                    <span> Save </span>
                                 </button>
                                 <button class="btn btn-danger mr-2 mb-2" (click)="clearDock()">
                                     Clear

@@ -12,8 +12,9 @@
          </div>
          <!-- <ng-container > -->
          <div  fxFlex.xs="100" fxFlex="75" class="mx-2 my-2 custom-payroll-div" >
-          <mat-expansion-panel hideToggle *ngFor="let leave of employeeprofessionaltax;index as i;">
-            <mat-expansion-panel-header style="color: #fff !important; background-color: #f8f9fc !important; border-bottom: 1px solid #e3e6f0 !important;" (click)="validateExpansion('employee',i)">
+          <mat-expansion-panel hideToggle *ngFor="let leave of employeeprofessionaltax;index as i;" tabIndex="0" (keyup.emter)="validateExpansion('employee',i)">
+            <mat-expansion-panel-header style="color: #fff !important; background-color: #f8f9fc !important; border-bottom: 1px solid #e3e6f0 !important;" 
+            (click)="validateExpansion('employee',i)">
               <mat-panel-title style="margin-top:10px;color: #4e73df!important;font-weight: 500;">
                 <span class="material-icons" [tabIndex]="[i]" (keyup.enter)="isEmployeeExpansion[i]" *ngIf="isEmployeeExpansion[i]">add_circle</span>
                 <span class="material-icons"  [tabIndex]="[i]" (keyup.enter)="!isEmployeeExpansion[i]" *ngIf="!isEmployeeExpansion[i]">remove_circle</span>
@@ -110,7 +111,7 @@
          </div>
          <!-- <ng-container > -->
          <div  fxFlex.xs="100" fxFlex="75" class="mx-2 my-2 custom-payroll-div" >
-          <mat-expansion-panel hideToggle *ngFor="let leave of datas;index as i;">
+          <mat-expansion-panel hideToggle *ngFor="let leave of datas;index as i;" tabIndex="0" (keyup.emter)="validateExpansion('employee',i)">
             <mat-expansion-panel-header style="color: #fff !important; background-color: #f8f9fc !important; border-bottom: 1px solid #e3e6f0 !important;" (click)="validateExpansion('employer',i)">
               <mat-panel-title style="margin-top:10px;color: #4e73df!important;font-weight: 500;">
                 <span class="material-icons"  [tabIndex]="[i+1]" (keyup.enter)="isEmployerExpansion[i]" *ngIf="isEmployerExpansion[i]">add_circle</span>
