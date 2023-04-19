@@ -126,6 +126,7 @@ openDialogcancel(): void {
 }
 
 delete(data:any){
+  console.log(" this.deletedata", this.deletedata);
   this.deletedata = data;
   this.titleName="Do you really want to delete the leave?"
   this.openDialogdelete();
