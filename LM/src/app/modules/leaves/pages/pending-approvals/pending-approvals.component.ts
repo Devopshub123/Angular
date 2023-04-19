@@ -113,7 +113,7 @@ export class PendingApprovalsComponent implements OnInit {
       "approverId":approverId?approverId:this.userSession.id,
       "leaveStatus":status,
       "reason":status == 'Approved' ? null:leave.action_reason ? leave.action_reason:this.reason,
-      "detail": leave.bereavement_id ? leave.bereavement_id : leave.worked_date ? leave.worked_date : null,
+      "detail": leave.bereavement_id ? leave.bereavement_id : leave.comp_off_worked_date ? leave.comp_off_worked_date : null,
       /// email data
       "leavedata": leave,
       "emaildata": this.employeeEmailData,
