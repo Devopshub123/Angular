@@ -166,9 +166,8 @@ export class PaySlipsViewComponent implements OnInit {
     })
   }
   Download(){
-
     const DATA = this.payslip.nativeElement;
-    const doc: jsPDF = new jsPDF('l', 'mm', [1020, 1040]);
+    const doc: jsPDF = new jsPDF('l', 'mm', [window.innerWidth, window.innerHeight+600]);
     // const doc: jsPDF = new jsPDF('l', 'mm', [297, 210]);
     doc.html(DATA, {
       callback: (doc) => {
