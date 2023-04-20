@@ -118,4 +118,5 @@ export class ClientAdminSubscriptionComponent implements OnInit {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
     this.router.navigate(["/Admin/upgrade-plan"]));
   }
+  cancelSubscription(){}
 }

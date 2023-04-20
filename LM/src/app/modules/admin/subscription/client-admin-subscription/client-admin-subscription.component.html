@@ -143,6 +143,12 @@
                             <input type="text" formControlName="gstNumber" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
                     </div>
+                    <div fxLayoutAlign="center">
+                        <button class="btn btn-primary custom mr-2 mb-2" (click)="cancelSubscription()" >
+                            Cancel subscription
+                        </button>
+                       
+                    </div>
                 </div>
             </div>
         </form>

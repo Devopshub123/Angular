@@ -1,16 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,HostListener } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AdminService } from 'src/app/modules/admin/admin.service';
 import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { Router, RouterModule } from '@angular/router';
+declare var Razorpay: any;
 @Component({
   selector: 'app-add-renewal-uesrs',
   templateUrl: './add-renewal-uesrs.component.html',
   styleUrls: ['./add-renewal-uesrs.component.scss']
 })
 export class AddRenewalUesrsComponent implements OnInit {
+  message:any = "Not yet stared";
+  paymentId = "";
+  error = "";
+  title = 'angular-razorpay-intergration';
+  options = {
+    "key": "rzp_test_AAxMUhOM5m2fuV",
+    "amount": "200",
+    "name": "SPRYPLE",
+    "description": "Web Development",
+    "image": "assets/images/FavIcon.png",
+    "order_id": "",
+    "handler": function (response: any) {
+      var event = new CustomEvent("payment.success",
+        {
+          detail: response,
+          bubbles: true,
+          cancelable: true
+        }
+      );
+      window.dispatchEvent(event);
+    },
+    "prefill": {
+      "name": "",
+      "email": "",
+      "contact": ""
+    },
+    "notes": {
+      "address": ""
+    },
+    "theme": {
+      "color": "#28acaf"
+    }
+  };
   addausersForm: any = FormGroup;
   renewalausersForm: any = FormGroup;
   addvalue = 0;
@@ -249,4 +283,109 @@ export class AddRenewalUesrsComponent implements OnInit {
     })
   }
   cancel(){}
+
+  paynow() {
+    if(this.addvalue>0){
+    let dataamount:any = Math.floor(this.addUsersDisplayInfoamount*100);
+    console.log("gggg",Math.floor(dataamount));
+    this.paymentId = '';
+    this.error = '';
+    this.options.amount = dataamount; //paise
+    // this.options.prefill.name = this.clientname;
+    // this.options.prefill.email = this.email;
+    // this.options.prefill.contact =this.contactnumber;
+    var rzp1 = new Razorpay(this.options);
+    rzp1.open();
+    rzp1.on('payment.failed',  (response: any) => {
+      //this.message = "Payment Failed";
+      // Todo - store this information in the server
+       rzp1.close();
+       let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data:'Your Payment failed.Please try again.'
+    
+      });
+      
+      console.log(response.error.code);
+      console.log(response.error.description);
+      console.log(response.error.source);
+      console.log(response.error.step);
+      console.log(response.error.reason);
+      console.log(response.error.metadata.order_id);
+      console.log(response.error.metadata.payment_id);
+      //this.error = response.error.reason;
+    }
+    );
+  }else{
+    let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      position:{top:`70px`},
+      disableClose: true,
+      data:'Please Add users'
+    });
+
+  }
+  }
+  @HostListener('window:payment.success', ['$event'])
+  onPaymentSuccess(event: any): void {
+    this.message = "Success Payment";
+    console.log("data",event)
+    console.log("data",event.detail)
+
+    let data = {
+      client_renewal_detail_id_value:this.clientplandetailid,
+      valid_to_value:this.validto,
+      user_count_value:this.addvalue,
+      created_by_value:1,
+      payment_reference_number_value:event.detail.razorpay_payment_id,
+      payment_date_value:this.datePipe.transform(new Date(), "y-MM-dd"),
+      payment_status_value:"Paid"
+    }
+    this.adminService.addUsers(data).subscribe((result:any)=>{
+      if(result.status){
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+          this.router.navigate(["/Admin/add-renewal-users"]));
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data:'Payment success for add users'
+        });
+
+      }
+      else{
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data:'unable to success payment for addUsers.'
+        });
+
+      }
+
+    })
+
+// let data ={
+//   client_id_value:this.clientId,
+//   company_code_value:this.companycode,
+//   valid_from_date:this.date1,
+//   valid_to_date:this.date2,
+//   plan_id_value:this.planId,
+//   number_of_users_value:this.users,
+//   paid_amount:Math.floor(this.payamount),
+//   transaction_number:event.detail.razorpay_payment_id,
+//   company_email_value:this.email
+// }
+// console.log("payment success data.toFixed(2)",data)
+// this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
+//   if(result.status){
+//     this.ngOnInit();
+//     let dialogRef = this.dialog.open(ReusableDialogComponent, {
+//       position:{top:`70px`},
+//       disableClose: true,
+//       data:'Please check yor mail.Invoice Details shared.'
+  
+//     });
+//   }
+// })
+
+  }
 }

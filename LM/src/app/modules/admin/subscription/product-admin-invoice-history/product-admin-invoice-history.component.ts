@@ -50,7 +50,7 @@ export class ProductAdminInvoiceHistoryComponent implements OnInit {
     }
 }
 view(data:any){
-  console.log("datatta",data)
+  console.log("datatta",data);
   data.productadmin = true;
   let dialogRef = this.dialog.open(ProductInvoiceDataComponent, {
     width: '600px',position:{top:`70px`},
