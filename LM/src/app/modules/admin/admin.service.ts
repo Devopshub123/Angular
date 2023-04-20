@@ -231,4 +231,7 @@ getClientPaymentDetailsOld(data:any){
   getAllSprypleClients(){
     return this.http.get(this.mainUrl+'subscription/api/getAllSprypleClientDetails/'+this.companyName, this.httpOptions);
   }
+  getClientsSubscriptionDetails(){
+    return this.http.get(this.mainUrl+'subscription/api/getClientSubscriptionDetails/'+this.companyName, this.httpOptions);
+  }
 }

@@ -71,7 +71,7 @@ export class ClientAdminSubscriptionComponent implements OnInit {
     this.getClientSubscriptionDetails();
   }
   getClientSubscriptionDetails(){
-    this.adminService.getClientSubscriptionDetails(1).subscribe((res:any)=>{
+    this.adminService.getClientSubscriptionDetails(2).subscribe((res:any)=>{
       if (res.status && res.data.length != 0) {
         let value = res.data;
         this.subscriptionForm.controls.companyCode.setValue(value[0].company_code);
