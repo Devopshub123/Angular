@@ -1375,7 +1375,8 @@
                         </div>
                         <div fxLayout="row" fxLayoutAlign="center center">
                             <button class="btn btn-primary mr-2 mb-2"  (click)="validateDocument()">
-                                <span> Save </span>
+                                <span *ngIf="!isedit"> Save </span>
+                                <span *ngIf="isedit"> Update </span>
                             </button>
                             <button class="btn btn-danger mr-2 mb-2" (click)="clearDock()">
                                 Clear

@@ -178,6 +178,8 @@ export class EmployeeInfoComponent implements OnInit {
   educationIndex: any;
   experienceIndex: any;
   isExperienceEdit: boolean = false;
+  isUpdate: boolean = false;
+  isDelete: boolean = false;
   mincontarctDate: any;
   isContractData: boolean = false;
   profileId:any=null;
@@ -1449,6 +1451,7 @@ export class EmployeeInfoComponent implements OnInit {
   editExperience(i: any) {
     this.experienceIndex = i;
     this.isExperienceEdit = true;
+    this.isUpdate = true;
     this.experienceForm.controls.companyName.setValue(this.workExperienceDetails[i].companyname);
     this.experienceForm.controls.designation.setValue(this.workExperienceDetails[i].designation);
     this.experienceForm.controls.jobDescription.setValue(this.workExperienceDetails[i].skills);
