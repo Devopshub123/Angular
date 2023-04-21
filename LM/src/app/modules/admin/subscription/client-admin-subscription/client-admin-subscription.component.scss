@@ -10,7 +10,9 @@ mat-card {
   .dev-Pad {
     padding: 1%
   }
-  
+  .custom{
+    width: 160px !important;
+  }
   ::ng-deep {
     .mat-select-panel[aria-label="Items per page:"] {
       mat-option:last-child:before {

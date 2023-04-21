@@ -3,7 +3,7 @@
     <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
       <mat-card-title class="title"> New Hires </mat-card-title>
       <div style="margin-right: 2%;" *ngIf="isNewhireList">
-        <button mat-icon-button style="padding-right: 40px;" (click)="newHire()" matTooltip="Add New">
+        <button mat-icon-button style="padding-right: 40px;" (click)="newHire()" matTooltip="Add New" >
           <mat-icon style="font-size: 30px">add_circle</mat-icon>
         </button>
       </div>
@@ -210,7 +210,7 @@
                 <button mat-icon-button matTooltip="Edit" *ngIf="row.status == 'Hired' ">
                   <mat-icon (click)="editEmployee($event,row)">edit</mat-icon>
                 </button>
-                <button mat-icon-button matTooltip="Joining Formalities" *ngIf="row.status == 'Hired' ">
+                <button mat-icon-button matTooltip="Joining Formalities" *ngIf="row.status == 'Hired'">
                   <mat-icon (click)="editCandidateData($event,row)">save</mat-icon>
                 </button>
               </td>

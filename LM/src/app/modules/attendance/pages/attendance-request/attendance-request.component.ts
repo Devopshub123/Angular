@@ -434,6 +434,7 @@ export class AttendanceRequestComponent implements OnInit {
     this.getEmployeeShiftDetailsByIdWithDates();
   }
   updateRequest() {
+    console.log("this.requestform.invalid",this.requestform.invalid)
     if (this.requestform.invalid) {
       return;
     } else {

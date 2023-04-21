@@ -46,6 +46,7 @@ isLoading = false;
       this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 ,raw:false,dateNF:'yyyy-mm-dd hh:mm:ss'}));
       let data=XLSX.utils.sheet_to_json(ws,{ raw:false,dateNF:'yyyy-mm-dd hh:mm:ss'});
       this.convertedJson=JSON.stringify(data,undefined,4);
+      console.log(" this.convertedJson", this.convertedJson)
       this.isview = true;
       this.isadd = false;
       }

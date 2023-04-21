@@ -36,27 +36,28 @@
 
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                      
-                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Cost Per User/Month</mat-label>
                             <input formControlName="monthlyCost" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
 
-                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        <!-- <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Cost Per User/Year</mat-label>
                             <input formControlName="yearlyCost" matInput [ngClass]="{'disable':true}" readonly />
-                        </mat-form-field>
-                        <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                        </mat-form-field> -->
+                        <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex class="mx-2 my-2" appearance="outline">
                             <mat-label>Total Paid Amount</mat-label>
                             <input formControlName="totalPaidAmt" matInput [ngClass]="{'disable':true}" readonly />
+                        </mat-form-field>
+                        <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                            <mat-label>Next Renewal Date</mat-label>
+                            <input formControlName="nextRenewal" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
                     </div>
 
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                      
-                        <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                            <mat-label>Next Renewal Date</mat-label>
-                            <input formControlName="nextRenewal" matInput [ngClass]="{'disable':true}" readonly />
-                        </mat-form-field>
+                        
 
                         <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                             <mat-label>Last Renewal Date</mat-label>
@@ -141,6 +142,12 @@
                             <mat-label>GST Number</mat-label>
                             <input type="text" formControlName="gstNumber" matInput [ngClass]="{'disable':true}" readonly />
                         </mat-form-field>
+                    </div>
+                    <div fxLayoutAlign="center">
+                        <button class="btn btn-primary custom mr-2 mb-2" (click)="cancelSubscription()" >
+                            Cancel subscription
+                        </button>
+                       
                     </div>
                 </div>
             </div>

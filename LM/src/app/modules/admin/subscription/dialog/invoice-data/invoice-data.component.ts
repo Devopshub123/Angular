@@ -39,7 +39,7 @@ export class InvoiceDataComponent implements OnInit {
   productinvoicedata:any;
   constructor(public dialogRef: MatDialogRef<InvoiceDataComponent>,private adminService: AdminService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.paymentId = data.payment_reference_number;
+    this.paymentId = data.payment_id;
     this.productinvoicedata = data;
     console.log("invoicedata",data);
     // this.invoicedata = data;
