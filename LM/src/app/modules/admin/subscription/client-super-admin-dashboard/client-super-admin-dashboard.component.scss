@@ -1,0 +1,113 @@
+
+
+mat-card {
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+    position: relative;
+}
+
+.outline{
+border-radius: 6px;
+border-style: solid;
+border-width: 1px;
+border-color: #28acaf;
+background-color: #ffffff
+}
+.card {
+transition: all .25s linear;
+box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+display: block;
+display: inline-block;
+padding: 0px;
+}
+.mat-card:not([class*=mat-elevation-z]) {
+box-shadow: 0px 0px 0px -1px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%), 0px 0px 0px 0px rgb(0 0 0 / 12%);
+}
+.card:hover{
+box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
+}
+
+.scrollbox {
+overflow: auto;
+visibility: hidden;
+}
+
+.scrollbox-content,
+.scrollbox:hover,
+.scrollbox:focus {
+visibility: visible;
+}
+
+.scrollbox_delayed {
+transition: visibility 0.2s;
+}
+
+.scrollbox_delayed:hover {
+transition: visibility 0s 0.2s;
+}
+
+///////@at-root
+mat-button-toggle-group {
+margin-left: 12px;
+}
+
+
+::ng-deep .mat-form-field-infix {
+min-width: 170px !important;
+width: auto !important;
+}
+
+
+.title{
+font-size: 20px;
+          padding-top: 2%;
+          padding-left: 2%;
+          color: #28acaf;
+          font-family: "Roboto";
+          font-weight: 500;
+}
+.title2{
+    font-size: 20px;
+            //   padding-top: 2%;
+              padding-left: 2%;
+              color: #28acaf;
+              font-family: "Roboto";
+              font-weight: 500;
+    }
+::ng-deep body, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, .btn-simple, .alert, a, .td-name, td, button.close {
+-moz-osx-font-smoothing: grayscale;
+-webkit-font-smoothing: antialiased;
+font-family: 'Roboto';
+}
+
+.sidePad{
+padding-top: 2%
+}
+.dashboard-content {
+    height: 75vh;
+  }
+  .counthead{
+    font-size: 16px;
+    color: #000000;
+  }
+  .counthead2{
+    font-size: 24px;
+    color: #28acaf;
+    font-weight: 500;
+  }
+  .card1 {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+     border-radius: 5px;
+     border-style: solid;
+     border-width: 1px;
+     border-color: #28acaf;
+     padding-top: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .card1:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }

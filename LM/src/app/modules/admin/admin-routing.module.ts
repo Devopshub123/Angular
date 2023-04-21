@@ -39,6 +39,7 @@ import { SubscriptionCancelComponent } from './subscription/subscription-cancel/
 import { SubscriptionPlansMasterComponent } from './subscription/subscription-plans-master/subscription-plans-master.component';
 import { AddRenewalUesrsComponent } from './subscription/add-renewal-uesrs/add-renewal-uesrs.component';
 import { ProductAdminDashboardComponent } from 'src/app/pages/product-admin-dashboard/product-admin-dashboard.component';
+import { ClientSuperAdminDashboardComponent } from './subscription/client-super-admin-dashboard/client-super-admin-dashboard.component';
 const routes: Routes = [
   {
     path: '', component: MainComponent,
@@ -81,6 +82,7 @@ const routes: Routes = [
       { path: 'subscription-plans',component:SubscriptionPlansMasterComponent,canActivate:[LMSAccessGuard]},
       { path: 'add-renewal-users', component: AddRenewalUesrsComponent, canActivate: [LMSAccessGuard] },
       { path: 'product-admin-dashboard', component: ProductAdminDashboardComponent, canActivate: [LMSAccessGuard] },
+      { path: 'client-superadmin-dashboard', component: ClientSuperAdminDashboardComponent, canActivate: [LMSAccessGuard] },
      ]
   }
 

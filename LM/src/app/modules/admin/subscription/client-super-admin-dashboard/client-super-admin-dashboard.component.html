@@ -1,0 +1,152 @@
+<div fxLayout="Column" class="dashboard-content">
+    <mat-card class="sidePad" >
+        <form [formGroup]="dashBoardForm" fxLayout="Column">
+  <!-- f1st row -->
+    <div fxLayout="row" fxFlex="100"  fxLayout.xs="column" fxLayoutGap="10px">
+    <div fxFlex="70" fxLayoutGap="10px">
+    <mat-card  class="card outline" fxFlex="100">
+        <div fxLayout="row" fxLayoutAlign="start">
+          <span class="title">
+            <span>Locations</span>
+          </span>
+        </div>
+        <canvas baseChart
+        [data]="pieChartData"
+    [labels]="pieChartLabels"
+    [type]="pieChartType"
+    style="height:200px; width:220px"
+    >
+</canvas>
+      </mat-card>
+
+      <mat-card  class="card outline" fxFlex="100">
+        <div fxLayout="row" fxLayoutAlign="start">
+          <span class="title">
+            <span>Department Wise Emp's</span>
+          </span>
+        </div>
+        <canvas baseChart 
+        [data]="doughnutChartData"
+        [labels]="doughnutChartLabels"
+        [type]="doughChartType"
+        [options]="dnoptions"
+        style="height:200px;">
+      </canvas>
+      </mat-card>
+        </div>
+     <div fxFlex="30">
+        <mat-card  class="card outline" fxFlex="100">
+                <div fxLayout="row" fxLayoutAlign="start">
+                  <span class="title">
+                    <span>Employees Count</span>
+                  </span>
+                </div>
+
+                 <br>
+              </mat-card>
+            </div>
+        </div>
+
+<!-- 2nd row -->
+
+    <div fxLayout="row" fxFlex="100"  fxLayout.xs="column" fxLayoutGap="10px">
+  <div fxLayout="column" fxFlex="70">
+    <mat-card  class="card outline" fxFlex="100">
+        <div fxLayout="row" fxLayoutAlign="start">
+          <span class="title">
+            <span>Shift-Based Headcount</span>
+          </span>
+        </div>
+   
+          <canvas baseChart
+          [data]="vbarChartData"
+      [labels]="vbarChartLabels"
+      [type]="vbarChartType" 
+      [options]="vbaroptions"
+      >
+  </canvas> 
+   
+      </mat-card>
+    </div>
+    <div fxFlex="30">
+        <mat-card  class="card outline" fxFlex="100">
+            <div fxLayout="row" fxLayoutAlign="start">
+              <span class="title">
+                <span>Attendance</span>
+              </span>
+            </div>
+            <canvas baseChart 
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [type]="doughChartType"
+            style="height:200px; width:220px">
+          </canvas>
+          </mat-card>
+            </div>
+
+</div>
+
+<!-- 3rd row -->
+<div fxLayout="row" fxFlex="100"  fxLayout.xs="column" fxLayoutGap="10px">
+    <div fxFlex="70" fxLayoutGap="10px">
+    <mat-card  class="card outline" fxFlex="100">
+        <div fxLayout="row" fxLayoutAlign="start">
+          <span class="title">
+            <span>Locations</span>
+          </span>
+        </div>
+        <canvas baseChart
+        [data]="pieChartData"
+    [labels]="pieChartLabels"
+    [type]="pieChartType"
+    style="height:200px; width:220px"
+    >
+</canvas>
+      </mat-card>
+
+      <mat-card  class="card outline" fxFlex="100">
+        <div fxLayout="row" fxLayoutAlign="start">
+          <span class="title">
+            <span>Department Wise Emp's</span>
+          </span>
+        </div>
+        <canvas baseChart 
+        [data]="doughnutChartData"
+        [labels]="doughnutChartLabels"
+        [type]="doughChartType"
+        [options]="dnoptions"
+        style="height:200px;">
+      </canvas>
+      </mat-card>
+        </div>
+     <div fxFlex="30">
+        <mat-card  class="card outline" fxFlex="100">
+                <div fxLayout="row" fxLayoutAlign="start">
+                  <span class="title">
+                    <span>Employees Count</span>
+                  </span>
+                </div>
+
+                 <br>
+              </mat-card>
+            </div>
+        </div>
+        <!-- 4th row -->
+        <div fxLayout="row" fxFlex="100"  fxLayout.xs="column">
+            <mat-card  class="card outline" fxFlex="100">
+                <div fxLayout="row" fxLayoutAlign="start">
+                  <span class="title">
+                    <span>Locations</span>
+                  </span>
+                </div>
+                <canvas baseChart
+            [data]="barChartData"
+        [labels]="barChartLabels"
+        [type]="barChartType" >
+    </canvas> 
+     </mat-card>
+  </div>
+</form>
+  </mat-card>
+  </div>
+  

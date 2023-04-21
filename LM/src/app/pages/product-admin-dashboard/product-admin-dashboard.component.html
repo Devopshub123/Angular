@@ -58,22 +58,22 @@
                 </div>
                 <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-evenly center" >
                     <div fxLayout="column">
-                    <span class="counthead">Activations </span>
+                    <span class="counthead">Total Clients </span>
                     <br>
-                    <span class="counthead">Clients </span>
+                    <span class="counthead">Inactive</span>
                     </div>
                     <div fxLayout="column">
-                        <span class="counthead2">{{sprypleClientsCount.active_count}} </span>
-                        <br>
                         <span class="counthead2">{{sprypleClientsCount.clients_count}} </span>
+                        <br>
+                        <span class="counthead2">{{sprypleClientsCount.inactive_count}} </span>
                         </div>
                         <div fxLayout="column">
-                            <span class="counthead">Renewals </span>
+                            <span class="counthead">Active </span>
                             <br>
                             <span class="counthead">Cancellations </span>
                             </div>
                             <div fxLayout="column">
-                                <span class="counthead2">{{sprypleClientsCount.inactive_count}} </span>
+                                <span class="counthead2">{{sprypleClientsCount.active_count}} </span>
                                 <br>
                                 <span class="counthead2">{{sprypleClientsCount.cancel_count}} </span>
                                 </div>

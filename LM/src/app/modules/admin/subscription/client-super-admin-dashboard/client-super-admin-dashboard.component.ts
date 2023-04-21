@@ -14,7 +14,8 @@ import {MatDatepicker} from '@angular/material/datepicker';
 import { Moment} from 'moment';
 import * as _moment from 'moment';
 import { ChartComponent } from 'angular2-chartjs';
-import { ChartData } from 'chart.js';
+import { ChartData, ChartOptions, Color } from 'chart.js';
+import { ChartDataset } from 'chart.js';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 export const MY_FORMATS = {
@@ -29,16 +30,15 @@ export const MY_FORMATS = {
   },
 };
 @Component({
-  selector: 'app-product-admin-dashboard',
-  templateUrl: './product-admin-dashboard.component.html',
-  styleUrls: ['./product-admin-dashboard.component.scss'],
+  selector: 'app-client-super-admin-dashboard',
+  templateUrl: './client-super-admin-dashboard.component.html',
+  styleUrls: ['./client-super-admin-dashboard.component.scss'],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
 })
-export class ProductAdminDashboardComponent implements OnInit {
+export class ClientSuperAdminDashboardComponent implements OnInit {
   companyDBName: any = environment.dbName;
   pipe = new DatePipe('en-US');
   dashBoardForm: any = FormGroup;
@@ -56,12 +56,6 @@ export class ProductAdminDashboardComponent implements OnInit {
         yearDate: [new Date()],
         revenueDate: [new Date()],
       });
-    this.getActivationCountByMonth();
-    this.getActivationCountByYear();
-    this.getSprypleClientsStatusWiseList();
-    this.getRevenueCountByMonth();
-    this.getClientsCountByMonth();
-    this.getClientsCountByYear();
   }
 
   minDate = new Date('2000/01/01');
@@ -75,42 +69,103 @@ export class ProductAdminDashboardComponent implements OnInit {
   monthWiseChartMonth: any = [];
   monthWiseChartClients: any = [];
  
-  // --------------------------
+  // vertical bar--------------------------
 
- barChartOptions = {
+  vbarChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  vbarChartLabels: any = ['Apple', 'Banana', 'Kiwifruit', 'Blueberry', 'Orange', 'Grapes'];
+  vbarChartType: any = 'bar';
+  vbarChartLegend = true;
+  vbarChartPlugins = [];
+  vbarChartData: ChartData<'bar'> = {
+    labels: this.vbarChartLabels,
+    datasets: [
+      {
+        label: "Month",
+        data: [45, 37, 60, 70, 46, 33],
+        backgroundColor: ['#28acaf'],
+        hoverBackgroundColor: ['#28acaf'],
+      }
+    ]
+  };
+  vbaroptions:any= {
+    indexAxis: 'y',
+}
+
+// pie chart
+pieChartType :any= 'pie';
+pieChartLabels: any = ['HYD', 'BNGLR', 'CHEN','USA',];
+pieChartData: ChartData<'pie'> = {
+  labels: this.pieChartLabels,
+  datasets: [
+    {
+      data: [30, 50, 20,35],
+    }
+  ],
+  // options: {
+  //   responsive: true,
+  //   maintainAspectRatio: true,
+  //   plugins: {
+  //     labels: {
+  //       render: 'percentage',
+  //       fontColor: ['green', 'white', 'red'],
+  //       precision: 2
+  //     }
+  //   },
+  // }
+};
+
+// doughnut chart
+doughChartType :any= 'doughnut';
+  doughnutChartLabels: any = ['IT', 'HR', 'Finance','Admin','HH','LLL'];
+  doughnutChartData: ChartData<'doughnut'> = {
+    labels: this.doughnutChartLabels,
+    datasets: [
+      {
+        data: [30, 50, 20, 35,25,46],
+        backgroundColor: [ '#088395',
+        '#19A7CE',
+        '#62CDFF',
+        '#87CBB9',
+        '#6DA9E4',
+        '#B0DAFF',
+],
+        // hoverBackgroundColor: ["darkred", "darkgreen", "darkblue"],
+        hoverBorderColor: ["grey"]
+      }
+    ]
+  };
+  dnoptions:any= {
+    cutout: '65%',
+    aspectRatio: 1,
+  }
+  // bar chart
+  barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-barChartLabels :any= this.monthWiseChartMonth;
+barChartLabels :any= ['2012', '2013', '2014', '2015', '2016', '2017', '2018'];
 barChartType :any= 'bar';
 barChartLegend :any= true;  
 barChartData: ChartData<'bar'> = {
     labels: this.barChartLabels,
     datasets: [
-      {
-        label: "Month",
-        data: this.monthWiseChartClients,
-        backgroundColor: ['#28acaf'],
-        hoverBackgroundColor: ['#28acaf'],
-      }
+  {
+        data: [55, 60, 75, 82, 56, 62, 80], 
+        label: 'Company A',
+        categoryPercentage: 1,
+        backgroundColor: 'rgba(105,159,177,0.2)',
+      borderColor: 'rgba(105,159,177,1)',
+      },
+      { data: [58, 55, 60, 79, 66, 57, 90], 
+        label: 'Company B',
+        categoryPercentage: 1,
+        backgroundColor: 'rgba(77,20,96,0.3)',
+        borderColor: 'rgba(77,20,96,1)',
+       }
     ]
 };
-  
-  // ------
-  barChartLabels2: any = this.yearWiseChartYear;
-  barChartData2: ChartData<'bar'> = {
-    labels: this.barChartLabels2,
-    datasets: [
-      {
-        label: "Year",
-        data: this.yearWiseChartClients,
-        backgroundColor: ['#28acaf'],
-        hoverBackgroundColor: ['#28acaf'],
-      }
-    ]
-};
-  // -------------
-
   ngOnInit(): void {
 
 
@@ -221,3 +276,5 @@ barChartData: ChartData<'bar'> = {
     }, 1000); // 2 seconds
   }
 }
+
+

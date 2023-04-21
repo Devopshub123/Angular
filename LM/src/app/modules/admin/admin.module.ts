@@ -40,6 +40,9 @@ import { RegisterValidationComponent } from './subscription/register-validation/
 import { AddRenewalUesrsComponent } from './subscription/add-renewal-uesrs/add-renewal-uesrs.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ProductInvoiceDataComponent } from './subscription/dialog/product-invoice-data/product-invoice-data.component';
+import { ClientSuperAdminDashboardComponent } from './subscription/client-super-admin-dashboard/client-super-admin-dashboard.component';
+import { NgChartsModule } from 'ng2-charts';
+import { ChartModule } from 'angular2-chartjs';
 @NgModule({
   declarations: [
 
@@ -72,6 +75,7 @@ import { ProductInvoiceDataComponent } from './subscription/dialog/product-invoi
     RegisterValidationComponent,
     AddRenewalUesrsComponent,
     ProductInvoiceDataComponent,
+    ClientSuperAdminDashboardComponent,
     
   ],
   imports: [
@@ -83,7 +87,8 @@ import { ProductInvoiceDataComponent } from './subscription/dialog/product-invoi
     FlexLayoutModule,
     NgxSpinnerModule,
     NgxCaptchaModule,
-
+    NgChartsModule,
+    ChartModule
 
   ]
 })
