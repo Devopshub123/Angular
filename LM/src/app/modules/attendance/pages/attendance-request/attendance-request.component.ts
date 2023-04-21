@@ -301,11 +301,23 @@ export class AttendanceRequestComponent implements OnInit {
           }
           this.myDateFilter = (d: Date): boolean => {
             let isValid=true;
-          this.disableDates.forEach((e:any) => {
-            if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
-              isValid=false;
+            if (!this.isEditView) {
+              this.disableDates.forEach((e:any) => {
+                if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
+                  isValid=false;
+                }
+              });
+              
             }
-          });
+            else {
+              this.disableDates.forEach((e:any) => {
+                if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(   this.requestform.controls.fromDate.value, 'yyyy/MM/dd')){
+                  isValid=true;
+                }
+              });
+              
+            }
+         
 
             return isValid;
 
@@ -429,6 +441,15 @@ export class AttendanceRequestComponent implements OnInit {
     this.uniqueId = event.id;
     this.isRequestView = false;
     this.isEditView = true;
+    this.getEmployeeWeekoffsHolidaysForAttendance();
+    // this.myDateFilter = (d: Date): any => {
+    //   let isValid=true;
+      
+    // this.disableDates.forEach((e:any) => {
+    //   if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
+    //     isValid=true;
+    //   }
+    // });
     this.requestform.controls.appliedDate.setValue(this.pipe.transform(event.applieddate, 'dd-MM-yyyy'));
     this.requestform.controls.shift.setValue(event.shift);
     this.requestform.controls.fromDate.setValue(event.fromdate);
