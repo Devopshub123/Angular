@@ -183,13 +183,13 @@ export class DeparmentComponent implements OnInit {
     }
     this.LM.updateStatus(data).subscribe((result) => {
       if (result.status) {
-        this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
           data: this.msgEM90
         });
-
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate(["/Admin/Department"]));
       } else {
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {

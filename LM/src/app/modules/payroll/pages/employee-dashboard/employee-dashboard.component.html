@@ -100,13 +100,13 @@
                                 </div>
 
                                 <div class="col-12" *ngFor="let array of dataSource;index as i;">
-                                    <div style="text-align: left;">
-                                    <div style="float: left;margin-right:50px;width:50%;">{{array.salary_month}}</div>
-                                    <div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex.lt-lg="50">
+                                    <span>{{array.salary_month}}</span>
+                                    <span>
                                         <button  mat-icon-button [tabIndex]="[4]" (keyup.enter)="payslipview(array)">
                                         <mat-icon  style="cursor: pointer;" title="View" (click)="payslipview(array)">visibility</mat-icon>
                                        </button>
-                                    </div>
+                                    </span>
                                     </div>
                                 </div>
                          

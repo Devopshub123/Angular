@@ -157,13 +157,13 @@ export class DesignationsComponent implements OnInit {
     }
     this.LM.designationstatus(data).subscribe((result) => {
       if (result.status) {
-        this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
           data: this.editResponseMessage
         });
-
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate(["/Admin/Designation"]));
       } else {
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
