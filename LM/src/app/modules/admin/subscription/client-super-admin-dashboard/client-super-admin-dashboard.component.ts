@@ -103,6 +103,7 @@ pieChartData: ChartData<'pie'> = {
       data: [30, 50, 20,35],
     }
   ],
+  
   // options: {
   //   responsive: true,
   //   maintainAspectRatio: true,
@@ -115,7 +116,9 @@ pieChartData: ChartData<'pie'> = {
   //   },
   // }
 };
-
+pieoptions = {    
+  is3D:true
+};
 // doughnut chart
 doughChartType :any= 'doughnut';
   doughnutChartLabels: any = ['IT', 'HR', 'Finance','Admin','HH','LLL'];
