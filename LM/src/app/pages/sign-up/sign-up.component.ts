@@ -435,7 +435,7 @@ this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
     let dialogRef = this.dialog.open(ReusableDialogComponent, {
       position:{top:`70px`},
       disableClose: true,
-      data:'Please check yor mail.Invoice Details shared.'
+      data:'Please check your mail.Invoice Details shared.'
   
     });
   }
