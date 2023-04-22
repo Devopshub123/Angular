@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://localhost:6060/', //dev Env
+  // apiUrl:'http://localhost:6060/', //dev Env
+  apiUrl: 'http://192.168.1.45:202/',
   dbName: sessionStorage.getItem('companyName'),
  //  dbName:'spryple'
 };
