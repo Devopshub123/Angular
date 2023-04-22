@@ -171,5 +171,11 @@ import { environment } from 'src/environments/environment';
     return this.hClient.get(this.mainBeUrl +'subscription/api/getClientSubscriptionDetails/'+this.companyName , this.httpOptions);
 
   }
+  getActiveEmployeesCount(){
+    this.companyName = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null
+    return this.hClient.get(this.mainBeUrl +'api/getActiveEmployeesCount/'+this.companyName , this.httpOptions);
+
+  }
+  // /api/getActiveEmployeesCount/:companyName
   
 }

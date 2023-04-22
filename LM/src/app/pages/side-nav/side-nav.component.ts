@@ -30,6 +30,7 @@ export class SideNavComponent implements OnInit {
   istoolTipExp: boolean = true;
   istoolTip= "Expand";
   icon: boolean = false;
+  expirydate:any;
 
   click(child:any){
     child.isOpen = !child.isOpen;
@@ -182,6 +183,7 @@ export class SideNavComponent implements OnInit {
   constructor(private mainService: MainService, private baseService: BaseService, private UD: UserDashboardService, private spinner: NgxSpinnerService,
     private RM: RoleMasterService, public router: Router) {
     this.usersession = JSON.parse(sessionStorage.getItem('user') ?? '');
+    this.expirydate = sessionStorage.getItem('expirydate');
     if (this.usersession.firstlogin == "N")
          this.flag = true;
     else this.flag = false;
@@ -203,8 +205,16 @@ export class SideNavComponent implements OnInit {
     this.activeModuleData = {
       empid: this.usersession.id
     };
+    if(new Date(this.expirydate)>=new Date()){
+      this.getSideNavigation()
 
-   this.getSideNavigation();
+    }
+    /**this call for if client subscription date expired then superadmin need to acces only subscription module. */
+    else{
+      this.getScreensForSuperAdmin();
+    }
+
+  
   }
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -249,6 +259,40 @@ export class SideNavComponent implements OnInit {
     }
     
   }
+  getScreensForSuperAdmin() { 
+    this.showSpinner();
+    if(!(sessionStorage.getItem("moduleData"))){
+      this.spinner.show();
+        this.mainService.getScreensForSuperAdmin({empid: this.usersession.id}).subscribe((res: any) => {
+          this.spinner.hide();
+          this.menuList = res.data;
+          console.log("menuList",this.menuList);
+          sessionStorage.setItem("moduleData",JSON.stringify( this.menuList) );
+          sessionStorage.setItem('selectedModule','Spryple');
+        });
+  } 
+  // else {
+  //       let menuList = sessionStorage.getItem("moduleData");
+  //       this.menuList = JSON.parse(menuList||'');
+  // }
+
+  // if(sessionStorage.getItem('selectedModule')==='Spryple'){
+  //   this.isExpanded = false;   
+  //       this.onClickMainDashboard();
+  // }else if(sessionStorage.getItem('selectedModule')==='Edit Profile'){ 
+  //   this.isExpanded = false;
+  //   this.router.navigate(['LeaveManagement/EditProfile']);
+  // }else if(sessionStorage.getItem('selectedModule')==='Change Password'){ 
+  //   this.isExpanded = false;
+  //   this.router.navigate(['Attendance/ChangePassword']);
+  // }
+  //  else {
+  //       for(let i=0; i< this.menuList.length;i++) {
+  //           this.menuList[i].displayStatus =  this.menuList[i].modulename === sessionStorage.getItem('selectedModule');
+  //       }
+  // }
+  
+}
 
   showSpinner() {
     this.spinner.show();
