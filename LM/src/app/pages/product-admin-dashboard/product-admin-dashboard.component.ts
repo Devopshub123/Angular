@@ -112,9 +112,6 @@ barChartData: ChartData<'bar'> = {
   // -------------
 
   ngOnInit(): void {
-
-
-
     this.dashBoardForm.get('monthDate')?.valueChanges.subscribe((selectedValue: any) => {
        this.getActivationCountByMonth();
       })

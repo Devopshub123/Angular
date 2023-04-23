@@ -1,153 +1,201 @@
 <div fxLayout="Column" class="dashboard-content">
-    <mat-card class="sidePad" >
-        <form [formGroup]="dashBoardForm" fxLayout="Column">
-  <!-- f1st row -->
-    <div fxLayout="row" fxFlex="100"  fxLayout.xs="column" fxLayoutGap="10px">
-    <div fxFlex="70" fxLayoutGap="10px">
-    <mat-card  class="card outline" fxFlex="100">
-        <div fxLayout="row" fxLayoutAlign="start">
-          <span class="title">
-            <span>Locations</span>
-          </span>
-        </div>
-        <canvas baseChart
-        [data]="pieChartData"
-    [labels]="pieChartLabels"
-    [type]="pieChartType"
-    style="height:200px; width:220px"
-    >
-</canvas>
-      </mat-card>
-
-      <mat-card  class="card outline" fxFlex="100">
-        <div fxLayout="row" fxLayoutAlign="start">
-          <span class="title">
-            <span>Department Wise Emp's</span>
-          </span>
-        </div>
-        <canvas baseChart 
-        [data]="doughnutChartData"
-        [labels]="doughnutChartLabels"
-        [type]="doughChartType"
-        [options]="dnoptions"
-        style="height:200px;">
-      </canvas>
-      </mat-card>
-        </div>
-     <div fxFlex="30">
-        <mat-card  class="card outline" fxFlex="100">
-                <div fxLayout="row" fxLayoutAlign="start">
-                  <span class="title">
-                    <span>Employees Count</span>
-                  </span>
-                </div>
-
-                 <br>
-              </mat-card>
-            </div>
-        </div>
-
-<!-- 2nd row -->
-
-    <div fxLayout="row" fxFlex="100"  fxLayout.xs="column" fxLayoutGap="10px">
-  <div fxLayout="column" fxFlex="70">
-    <mat-card  class="card outline" fxFlex="100">
-        <div fxLayout="row" fxLayoutAlign="start">
-          <span class="title">
-            <span>Shift-Based Headcount</span>
-          </span>
-        </div>
-   
-          <canvas baseChart
-          [data]="vbarChartData"
-      [labels]="vbarChartLabels"
-      [type]="vbarChartType" 
-      [options]="vbaroptions"
-      >
-  </canvas> 
-   
-      </mat-card>
-    </div>
-    <div fxFlex="30">
-        <mat-card  class="card outline" fxFlex="100">
+  <mat-card class="sidePad">
+    <form [formGroup]="dashBoardForm" fxLayout="Column">
+      <!-- f1st row -->
+      <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="10px">
+         <mat-card class="card outline" fxFlex="100">
             <div fxLayout="row" fxLayoutAlign="start">
               <span class="title">
-                <span>Attendance</span>
+                <span>Locations</span>
               </span>
             </div>
+            <div class="chart-container" style="position: relative; height:20vh; width:20vw">
+            <canvas baseChart 
+            [data]="pieChartData" 
+            [labels]="pieChartLabels" 
+            [type]="pieChartType"
+            [options]="pieoptions"  >
+            </canvas>
+          </div>
+          </mat-card>
+
+          <mat-card class="card outline" fxFlex="100">
+           <span class="title" fxLayoutAlign="start">
+                <span>Department Wise Emp's</span>
+              </span>
+              <span fxLayoutAlign="end">
+                <mat-form-field class="mx-2 my-2">
+                  <mat-label>Location</mat-label>
+                  <mat-select formControlName="location">
+                      <ng-container>
+                          <div *ngFor="let b of workLocationList">
+                              <mat-option [value]="b.id">{{ b.cityname }}</mat-option>
+                          </div>
+                      </ng-container>
+                  </mat-select>
+              </mat-form-field>
+              </span>
+              <div class="chart-container" style="position: relative; height:20vh; width:20vw">
             <canvas baseChart 
             [data]="doughnutChartData"
-            [labels]="doughnutChartLabels"
-            [type]="doughChartType"
-            style="height:200px; width:220px">
-          </canvas>
+             [labels]="doughnutChartLabels" 
+             [type]="doughChartType"
+              [options]="dnoptions" 
+              style="height:200px;">
+            </canvas>
+          </div>
           </mat-card>
-            </div>
 
-</div>
-
-<!-- 3rd row -->
-<div fxLayout="row" fxFlex="100"  fxLayout.xs="column" fxLayoutGap="10px">
-    <div fxFlex="70" fxLayoutGap="10px">
-    <mat-card  class="card outline" fxFlex="100">
-        <div fxLayout="row" fxLayoutAlign="start">
-          <span class="title">
-            <span>Locations</span>
-          </span>
-        </div>
-        <canvas baseChart
-        [data]="pieChartData"
-    [labels]="pieChartLabels"
-    [type]="pieChartType"
-    [options]="pieoptions"
-    style="height:200px; width:220px"
-    >
-</canvas>
-      </mat-card>
-
-      <mat-card  class="card outline" fxFlex="100">
-        <div fxLayout="row" fxLayoutAlign="start">
-          <span class="title">
-            <span>Department Wise Emp's</span>
-          </span>
-        </div>
-        <canvas baseChart 
-        [data]="doughnutChartData"
-        [labels]="doughnutChartLabels"
-        [type]="doughChartType"
-        [options]="dnoptions"
-        style="height:200px;">
-      </canvas>
-      </mat-card>
-        </div>
-     <div fxFlex="30">
-        <mat-card  class="card outline" fxFlex="100">
-                <div fxLayout="row" fxLayoutAlign="start">
-                  <span class="title">
-                    <span>Employees Count</span>
-                  </span>
-                </div>
-
+          <mat-card class="card outline" fxFlex="100" fxLayout="column">
+            <span class="title" fxLayoutAlign="start">
+                 <span>Employees Count</span>
+               </span>
+               <span fxLayoutAlign="end">
+                 <mat-form-field>
+                   <input matInput readonly [matDatepicker]="employeeStatusMonthDate" [min]="minDate" [max]="maxDate"
+                     placeholder="" (click)="employeeStatusMonthDate.open()" formControlName="employeeStatusMonthDate" />
+                   <mat-datepicker-toggle class="datepicker" matSuffix [for]="employeeStatusMonthDate">
+                   </mat-datepicker-toggle>
+                   <mat-datepicker #employeeStatusMonthDate
+                   startView="multi-year"
+                          (monthSelected)="empStatusMonth($event, employeeStatusMonthDate)"></mat-datepicker>
+                 </mat-form-field>
+               </span>
+              <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+                <span fxLayoutAlign="center">
+                   <mat-icon>person_add</mat-icon>
+                 </span>
+                 <div fxLayout="row"><span>New Employees :</span><span>{{newEmployeeStatusCount}}</span></div>
                  <br>
-              </mat-card>
+                 <span fxLayoutAlign="center">
+                   <mat-icon>exit_to_app</mat-icon>
+                 </span>
+                 <div fxLayout="row"><span>Exit Employees :</span><span>{{exitEmployeeStatusCount}}</span></div>
+              </div>
+ 
+           </mat-card>
+
+      </div>
+
+      <!-- 2nd row -->
+
+      <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="10px">
+    
+          <mat-card class="card outline" fxFlex="100">
+             <span class="title" fxLayoutAlign="start">
+                <span>Attendance</span>
+              </span>
+              <span fxLayoutAlign="end">
+                <mat-form-field>
+                  <input matInput readonly [matDatepicker]="attendanceWiseDate" [min]="minDate" [max]="maxDate"
+                    placeholder="" (click)="attendanceWiseDate.open()" formControlName="attendanceWiseDate" />
+                  <mat-datepicker-toggle class="datepicker" matSuffix [for]="attendanceWiseDate">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #attendanceWiseDate
+                  startView="multi-year"
+                         (monthSelected)="attendanceMonthAndYear($event, attendanceWiseDate)"></mat-datepicker>
+                </mat-form-field>
+              </span>
+              <div class="chart-container" style="position: relative; width:20vw">
+            <canvas baseChart 
+            [data]="attendancedoughnutChartData" 
+            [labels]="attendancedoughnutChartLabels" 
+            [type]="attendancedoughChartType"
+            [options]="attendanceDnoptions">
+            </canvas>
             </div>
-        </div>
-        <!-- 4th row -->
-        <div fxLayout="row" fxFlex="100"  fxLayout.xs="column">
-            <mat-card  class="card outline" fxFlex="100">
-                <div fxLayout="row" fxLayoutAlign="start">
-                  <span class="title">
-                    <span>Payroll analysis by </span>
-                  </span>
-                </div>
-                <canvas baseChart
-            [data]="barChartData"
-        [labels]="barChartLabels"
-        [type]="barChartType" >
-    </canvas> 
-     </mat-card>
-  </div>
-</form>
+          </mat-card>
+
+        <mat-card class="card outline" fxFlex="100">
+          <span class="title" fxLayoutAlign="start">
+               <span>Employees on Leave</span>
+             </span>
+             <span fxLayoutAlign="end">
+               <mat-form-field>
+                 <input matInput readonly [matDatepicker]="deptWiseleavesDate" [min]="minDate" [max]="maxDate"
+                   placeholder="" (click)="deptWiseleavesDate.open()" formControlName="deptWiseleavesDate" />
+                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="deptWiseleavesDate">
+                 </mat-datepicker-toggle>
+                 <mat-datepicker #deptWiseleavesDate
+                 startView="multi-year"
+                        (monthSelected)="deptLeaveMonth($event, deptWiseleavesDate)"></mat-datepicker>
+               </mat-form-field>
+             </span>
+             <div class="chart-container" style="position: relative; height:15vh; width:15vw">
+          <canvas baseChart 
+          [data]="deptWiseLeavepieChartData" 
+          [labels]="deptWiseLeavepieChartLabels" 
+          [type]="deptWiseLeavepieChartType"
+             [options]="deptWiseLeavepieoptions"  >
+           </canvas>
+           </div>
+         </mat-card>
+
+         <mat-card class="card outline" fxFlex="100" fxLayout="column">
+          <span class="title" fxLayoutAlign="start">
+               <span>Leave Status</span>
+             </span>
+             <span fxLayoutAlign="end">
+               <mat-form-field>
+                 <input matInput readonly [matDatepicker]="leaveStatusDate" [min]="minDate" [max]="maxDate"
+                   placeholder="" (click)="leaveStatusDate.open()" formControlName="leaveStatusDate" />
+                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="leaveStatusDate">
+                 </mat-datepicker-toggle>
+                 <mat-datepicker #leaveStatusDate
+                 startView="multi-year"
+                        (monthSelected)="leaveMonthAndYear($event, leaveStatusDate)"></mat-datepicker>
+               </mat-form-field>
+             </span>
+            <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+              <span fxLayoutAlign="center">
+                 <mat-icon>person_add</mat-icon>
+               </span>
+               <div fxLayout="row"><span>Total Leaves :</span><span>{{totalLeaveCount}}</span></div>
+               <br>
+               <span fxLayoutAlign="center">
+                 <mat-icon>exit_to_app</mat-icon>
+               </span>
+               <div fxLayout="row"><span>Pending Leaves :</span><span>{{pendingLeaveCount}}</span></div>
+               <br>
+               <span fxLayoutAlign="center">
+                 <mat-icon>exit_to_app</mat-icon>
+               </span>
+               <div fxLayout="row"><span>Rejected Leaves :</span><span>{{rejectedLeaveCount}}</span></div>
+           </div>
+
+         </mat-card>
+      </div>
+
+      <!-- 3rd row -->
+      <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="10px">
+        <mat-card class="card outline" fxFlex="100">
+          <span class="title" fxLayoutAlign="start">
+             <span>Shift-Based Headcount</span>
+           </span>
+           <mat-form-field class="mx-2 my-2">
+            <mat-label>Shift</mat-label>
+            <mat-select formControlName="shiftName">
+                <ng-container *ngFor="let v of shiftDataList">
+                    <mat-option [value]="v.shiftid">{{v.shiftname}}</mat-option>
+                </ng-container>
+            </mat-select>
+       </mat-form-field>
+        <canvas baseChart [data]="vbarChartData" [labels]="vbarChartLabels" [type]="vbarChartType"
+           [options]="vbaroptions">
+         </canvas>
+       </mat-card>
+
+        <mat-card class="card outline" fxFlex="100">
+          <div fxLayout="row" fxLayoutAlign="start">
+            <span class="title">
+              <span>Payroll analysis by </span>
+            </span>
+          </div>
+          <canvas baseChart [data]="barChartData" [labels]="barChartLabels" [type]="barChartType">
+          </canvas>
+        </mat-card>
+      </div>
+      
+    </form>
   </mat-card>
-  </div>
-  
+</div>

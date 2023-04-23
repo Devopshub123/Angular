@@ -86,7 +86,7 @@ getShiftsDetailsById(shift_id:any): Observable<any>{
   return this.http.get(this.mainUrl + 'admin/api/getShiftsDetailsById/'+shift_id+'/'+this.companyName, this.httpOptions);
 }
 getActiveShiftIds(): Observable<any>{
-  return this.http.get(this.mainUrl + 'admin/api/getActiveShiftIds', this.httpOptions);
+  return this.http.get(this.mainUrl + 'admin/api/getActiveShiftIds'+this.companyName, this.httpOptions);
 }
 updateShiftStatus(data:any):Observable<any>{
   data.companyName = this.companyName
@@ -234,4 +234,38 @@ getClientPaymentDetailsOld(data:any){
   getClientsSubscriptionDetails(){
     return this.http.get(this.mainUrl+'subscription/api/getClientSubscriptionDetails/'+this.companyName, this.httpOptions);
   }
+    /**get New & Exit Employee Count By Month */
+    getNewAndExitEmployeeCountByMonth(data:any){
+      return this.http.get(this.mainUrl+'subscription/api/getNewExitEmployeeCountByMonth/'+data+'/'+this.companyName, this.httpOptions);
+  }
+  /** get payment invoice history data by payment id */
+     getDepartmentWiseEmployeeCountByLocation(locationId:any){
+      return this.http.get(this.mainUrl+'subscription/api/getDepartmentWiseEmployeeCountByLocation/'+locationId+'/'+this.companyName, this.httpOptions);
+  }
+
+  /**get Location Wise Employee Count */
+  getLocationWiseEmployeeCount(){
+      return this.http.get(this.mainUrl+'subscription/api/getLocationWiseEmployeeCount/'+this.companyName, this.httpOptions);
+  }  
+  
+/**get Department Wise Employee Count By Shift */
+getDepartmentWiseEmployeeCountByShift(shiftId:any){
+      return this.http.get(this.mainUrl+'subscription/api/getDepartmentWiseEmployeeCountByShift/'+shiftId+'/'+this.companyName, this.httpOptions);
+  }
+
+/**get Attendance Employees Count By Date */
+getAttendanceEmployeesCountByDate(data:any){
+        return this.http.get(this.mainUrl+'subscription/api/getAttendanceEmployeesCountByDate/'+data+'/'+this.companyName, this.httpOptions);
+  }
+
+/**get Leaves Types Count By Month */
+  getLeavesTypesCountByMonth(data:any){
+  return this.http.get(this.mainUrl+'subscription/api/getLeavesTypesCountByMonth/'+data+'/'+this.companyName, this.httpOptions);
+  }
+  
+/**get Department Wise Leaves Count By Month */
+  getDepartmentWiseLeavesCountByMonth(data:any){
+    return this.http.get(this.mainUrl+'subscription/api/getDepartmentWiseLeavesCountByMonth/'+data+'/'+this.companyName, this.httpOptions);
+  }
+
 }

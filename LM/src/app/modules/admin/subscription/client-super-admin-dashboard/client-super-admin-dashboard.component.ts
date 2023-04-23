@@ -16,6 +16,7 @@ import * as _moment from 'moment';
 import { ChartComponent } from 'angular2-chartjs';
 import { ChartData, ChartOptions, Color } from 'chart.js';
 import { ChartDataset } from 'chart.js';
+import { AdminService } from '../../admin.service';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 export const MY_FORMATS = {
@@ -43,38 +44,40 @@ export class ClientSuperAdminDashboardComponent implements OnInit {
   pipe = new DatePipe('en-US');
   dashBoardForm: any = FormGroup;
   currentYear: any = new Date();
-  constructor(
-    changeDetectorRef: ChangeDetectorRef,
-    private mainService: MainService,
-    private spinner: NgxSpinnerService,
-    private dialog: MatDialog,
-    private formBuilder: FormBuilder,
-  ) {
-    this.dashBoardForm = this.formBuilder.group(
-      {
-        monthDate: [new Date()],
-        yearDate: [new Date()],
-        revenueDate: [new Date()],
-      });
-  }
-
+  companyName: any;
   minDate = new Date('2000/01/01');
   maxDate = new Date();
-  activationCountForMonth: any;
-  activationCountForYear: any;
-  sprypleClientsCount: any = [];
-  revenueCount: any;
-  yearWiseChartYear: any = [];
-  yearWiseChartClients: any = [];
-  monthWiseChartMonth: any = [];
-  monthWiseChartClients: any = [];
+
+  newEmployeeStatusCount: any;
+  exitEmployeeStatusCount: any;
+  totalLeaveCount: any;
+  pendingLeaveCount: any;
+  rejectedLeaveCount: any;
+  shiftDataList: any = [];
+  
+  allLocationsNameList: any = [];
+  allLocationsTotalCount: any = [];
+
+  locationByDepartmentNameLis: any = [];
+  locationByDepartmentCountLis: any = [];
  
+  shiftByDepartmentNameList: any = [];
+  shiftByDepartmentCountList: any = [];
+
+  attendanceTypeList: any = [];
+  attendanceCountList: any = [];
+
+  departmentWiseLeaveNameList: any = [];
+  departmentWiseLeaveCountList: any = [];
+
+ workLocationList:any=[]
+ allShiftList:any=[]
   // vertical bar--------------------------
 
   vbarChartOptions: ChartOptions = {
     responsive: true,
   };
-  vbarChartLabels: any = ['Apple', 'Banana', 'Kiwifruit', 'Blueberry', 'Orange', 'Grapes'];
+  vbarChartLabels: any = this.shiftByDepartmentNameList;
   vbarChartType: any = 'bar';
   vbarChartLegend = true;
   vbarChartPlugins = [];
@@ -83,7 +86,7 @@ export class ClientSuperAdminDashboardComponent implements OnInit {
     datasets: [
       {
         label: "Month",
-        data: [45, 37, 60, 70, 46, 33],
+        data: this.shiftByDepartmentCountList,
         backgroundColor: ['#28acaf'],
         hoverBackgroundColor: ['#28acaf'],
       }
@@ -93,40 +96,38 @@ export class ClientSuperAdminDashboardComponent implements OnInit {
     indexAxis: 'y',
 }
 
-// pie chart
-pieChartType :any= 'pie';
-pieChartLabels: any = ['HYD', 'BNGLR', 'CHEN','USA',];
-pieChartData: ChartData<'pie'> = {
-  labels: this.pieChartLabels,
+
+  
+  // -------
+  // department wise leave pie chart
+deptWiseLeavepieChartType :any= 'pie';
+deptWiseLeavepieChartLabels: any = this.departmentWiseLeaveNameList;
+deptWiseLeavepieChartData: ChartData<'pie'> = {
+  labels: this.deptWiseLeavepieChartLabels,
   datasets: [
     {
-      data: [30, 50, 20,35],
+      data: this.departmentWiseLeaveCountList
     }
   ],
+};
+deptWiseLeavepieoptions = {    
+  is3D: true,
+  responsive: true,
+  plugins: {
+    legend: {
+        position: 'bottom'
+    }
+}
+};
   
-  // options: {
-  //   responsive: true,
-  //   maintainAspectRatio: true,
-  //   plugins: {
-  //     labels: {
-  //       render: 'percentage',
-  //       fontColor: ['green', 'white', 'red'],
-  //       precision: 2
-  //     }
-  //   },
-  // }
-};
-pieoptions = {    
-  is3D:true
-};
-// doughnut chart
+// location wise doughnut chart
 doughChartType :any= 'doughnut';
-  doughnutChartLabels: any = ['IT', 'HR', 'Finance','Admin','HH','LLL'];
+  doughnutChartLabels: any = this.locationByDepartmentNameLis;
   doughnutChartData: ChartData<'doughnut'> = {
     labels: this.doughnutChartLabels,
     datasets: [
       {
-        data: [30, 50, 20, 35,25,46],
+        data: this.locationByDepartmentCountLis,
         backgroundColor: [ '#088395',
         '#19A7CE',
         '#62CDFF',
@@ -139,10 +140,47 @@ doughChartType :any= 'doughnut';
       }
     ]
   };
-  dnoptions:any= {
+  dnoptions: any = {
+    responsive: true,
     cutout: '65%',
     aspectRatio: 1,
+    plugins: {
+      legend: {
+          position: 'bottom'
+      }
   }
+  }
+  // -----------
+  // attendance wise doughnut chart
+attendancedoughChartType :any= 'doughnut';
+attendancedoughnutChartLabels: any = this.attendanceTypeList;
+attendancedoughnutChartData: ChartData<'doughnut'> = {
+  labels: this.attendancedoughnutChartLabels,
+  datasets: [
+    {
+      data: this.attendanceCountList,
+      backgroundColor: [ '#088395',
+      '#19A7CE',
+      '#62CDFF',
+      '#87CBB9',
+      '#6DA9E4',
+      '#B0DAFF',
+],
+      // hoverBackgroundColor: ["darkred", "darkgreen", "darkblue"],
+      hoverBorderColor: ["grey"]
+    }
+  ]
+};
+  attendanceDnoptions: any = {
+    responsive: true,
+  cutout: '65%',
+  aspectRatio: 1,
+  plugins: {
+    legend: {
+        position: 'bottom'
+    }
+}
+}
   // bar chart
   barChartOptions = {
     scaleShowVerticalLines: false,
@@ -169,109 +207,213 @@ barChartData: ChartData<'bar'> = {
        }
     ]
 };
+  // location wise pie chart
+pieChartType :any= 'pie';
+pieChartLabels: any = [];
+// pieChartLabels: any = ['HYD','CHEN','BNGLR'];
+pieChartData: ChartData<'pie'> = {
+  datasets: [ ],
+};
+pieoptions = {    
+  is3D: true,
+  responsive: true
+};
+  constructor(
+    changeDetectorRef: ChangeDetectorRef,
+    private adminService: AdminService,
+    private spinner: NgxSpinnerService,
+    private dialog: MatDialog,
+    private formBuilder: FormBuilder,
+  ) {
+    this.companyName = sessionStorage.getItem('companyName');
+    this.dashBoardForm = this.formBuilder.group(
+      {
+        location: ["",],
+        shiftName: ["",],
+        employeeStatusMonthDate: [new Date()],
+        attendanceWiseDate: [new Date()],
+        deptWiseleavesDate: [new Date()],
+        leaveStatusDate: [new Date()],
+      });
+    this.getLocationWiseEmployeeCount();
+      this.getWorkLocation();
+      this.getNewAndExitEmployeeCountByMonth();
+      this.dashBoardForm.get('employeeStatusMonthDate')?.valueChanges.subscribe((selectedValue: any) => {
+        this.getNewAndExitEmployeeCountByMonth();
+      })
+    this.getAttendanceEmployeesCountByDate();
+    this.getDepartmentWiseLeavesCountByMonth();
+    this.getActiveShiftList();
+
+  }
+
+
+
   ngOnInit(): void {
+    this.dashBoardForm.get('location')?.valueChanges.subscribe((selectedValue: any) => {
+      this.locationByDepartmentNameLis = [];
+      this.locationByDepartmentCountLis = [];
+      this.adminService.getDepartmentWiseEmployeeCountByLocation(selectedValue).subscribe((res: any) => {
+        if (res.status && res.data) {
+          res.data.forEach((e: any) => {
+            this.locationByDepartmentNameLis.push(e.deptname);
+            this.locationByDepartmentCountLis.push(e.count); 
+           })
+        }
+      });
+      console.log("va-",this.locationByDepartmentNameLis)
+    })
 
+    this.dashBoardForm.get('shiftName')?.valueChanges.subscribe((selectedValue: any) => {
+      console.log("sh-1",selectedValue)
+      this.shiftByDepartmentNameList = [];
+      this.shiftByDepartmentCountList = [];
+      this.adminService.getDepartmentWiseEmployeeCountByShift(selectedValue).subscribe((res: any) => {
+        if (res.status && res.data) {
+          res.data.forEach((e: any) => {
+            this.shiftByDepartmentNameList.push(e.deptname);
+            this.shiftByDepartmentCountList.push(e.count); 
+           })
+        }
+      });
+      console.log("sh-2",this.shiftByDepartmentNameList)
+    })
 
+    this.dashBoardForm.get('attendanceWiseDate')?.valueChanges.subscribe((selectedValue: any) => {
+    this.attendanceTypeList = [];
+    this.attendanceCountList = [];
+     this.getAttendanceEmployeesCountByDate();
+    })
 
-    this.dashBoardForm.get('monthDate')?.valueChanges.subscribe((selectedValue: any) => {
-       this.getActivationCountByMonth();
+    this.getLeavesTypesCountByMonth();
+      this.dashBoardForm.get('leaveStatusDate')?.valueChanges.subscribe((selectedValue:any) => {
+        this.getLeavesTypesCountByMonth();
       })
     
-      this.dashBoardForm.get('yearDate')?.valueChanges.subscribe((selectedValue:any) => {
-        this.getActivationCountByYear();
-      })
-    
-      this.dashBoardForm.get('revenueDate')?.valueChanges.subscribe((selectedValue:any) => {
-        this.getRevenueCountByMonth();
-      })
-    
+      this.dashBoardForm.get('deptWiseleavesDate')?.valueChanges.subscribe((selectedValue:any) => {
+        this.departmentWiseLeaveNameList = [];
+        this.departmentWiseLeaveCountList = [];
+        this.getDepartmentWiseLeavesCountByMonth();
+      })  
+  }
+  getWorkLocation() {
+    this.adminService.getactiveWorkLocation({ id: null, companyName: this.companyName }).subscribe((result) => {
+      this.workLocationList = result.data;
+     })
   }
 
-// -----------------------
-  date = new FormControl(moment());
-  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date.value!;
-    ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
-    this.dashBoardForm.controls.monthDate.setValue(ctrlValue);
-    datepicker.close();
+  getLocationWiseEmployeeCount() {
+    this.adminService.getLocationWiseEmployeeCount().subscribe((res: any) => {
+      if (res.status && res.data) {
+        res.data.forEach((e: any) => {
+          this.allLocationsNameList.push(e.location);
+          this.allLocationsTotalCount.push(e.count); 
+         })
+      }
+      this.pieChartLabels = this.allLocationsNameList;
+      this.pieChartData = this.allLocationsTotalCount
+      console.log("pl-1",this.allLocationsNameList)
+      console.log("pl-2",this.allLocationsTotalCount)
+    });
   }
 
-  setMonthAndYear2(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date.value!;
-    ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
-    this.dashBoardForm.controls.yearDate.setValue(ctrlValue);
-    datepicker.close();
-  }
-
-  setMonthAndYear3(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date.value!;
-    ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
-    this.dashBoardForm.controls.revenueDate.setValue(ctrlValue);
-    datepicker.close();
-  }
-  getClientsCountByMonth() {
-    let date = this.pipe.transform(this.currentYear, 'yyyy-MM-dd');
-    this.mainService.getMonthWiseClientsCountByYear(date).subscribe((res: any) => {
+  getAttendanceEmployeesCountByDate() {
+   let date = this.pipe.transform(this.dashBoardForm.controls.attendanceWiseDate.value, 'yyyy-MM-dd');
+    console.log("t2",date)
+    this.adminService.getAttendanceEmployeesCountByDate(date).subscribe((res: any) => {
       if (res.status && res.data) {
         Object.keys(res.data[0]).forEach((e: any) => {
-          this.monthWiseChartMonth.push(e);
+          this.attendanceTypeList.push(e);
         })
         Object.values(res.data[0]).forEach((e: any) => {
-          this.monthWiseChartClients.push(e);
+          this.attendanceCountList.push(e);
         })
       }
     });
-    
+    console.log("v-1",this.attendanceTypeList)
+    console.log("v-1",this.attendanceCountList)
   }
-  getClientsCountByYear() {
-    this.mainService.getYearWiseClientsCount().subscribe((res: any) => {
+
+  getDepartmentWiseLeavesCountByMonth() {
+    let date = this.pipe.transform(this.dashBoardForm.controls.deptWiseleavesDate.value, 'yyyy-MM-dd');
+    this.adminService.getDepartmentWiseLeavesCountByMonth(date).subscribe((res: any) => {
       if (res.status && res.data) {
-         res.data.forEach((e: any) => {
-          this.yearWiseChartClients.push(e.total_clients);
-          this.yearWiseChartYear.push(e.year); 
+        res.data.forEach((e: any) => {
+          this.departmentWiseLeaveNameList.push(e.deptname);
+          this.departmentWiseLeaveCountList.push(e.count); 
          })
-       }
-     });
-   }
-  getActivationCountByMonth() {
-    let date = this.pipe.transform(this.dashBoardForm.controls.monthDate.value, 'yyyy-MM-dd');
-    this.mainService.getSprypleActivationsCountByMonth(date).subscribe((res: any) => {
-      if (res.status && res.data) {
-        this.activationCountForMonth = res.data[0].count;
-       }
-     });
+      }
+      console.log("p-11",this.departmentWiseLeaveNameList)
+      console.log("p-2",this.departmentWiseLeaveCountList)
+    });
+  }
+
+  getActiveShiftList() {
+    this.adminService.getAllShifts().subscribe((res) => {
+      if (res.status) {
+        console.log("shi-",res.data)
+           this.shiftDataList = res.data;
+      }
+    })
+  }
+// -----------------------
+  date = new FormControl(moment());
+
+  attendanceMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date.value!;
+    ctrlValue.month(normalizedMonthAndYear.month());
+    ctrlValue.year(normalizedMonthAndYear.year());
+    this.dashBoardForm.controls.attendanceWiseDate.setValue(ctrlValue);
+    datepicker.close();
+  }
+
+  empStatusMonth(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date.value!;
+    ctrlValue.month(normalizedMonthAndYear.month());
+    ctrlValue.year(normalizedMonthAndYear.year());
+    this.dashBoardForm.controls.employeeStatusMonthDate.setValue(ctrlValue);
+    datepicker.close();
+  }
+
+  leaveMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date.value!;
+    ctrlValue.month(normalizedMonthAndYear.month());
+    ctrlValue.year(normalizedMonthAndYear.year());
+    this.dashBoardForm.controls.leaveStatusDate.setValue(ctrlValue);
+    datepicker.close();
+  }
+
+  deptLeaveMonth(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date.value!;
+    ctrlValue.month(normalizedMonthAndYear.month());
+    ctrlValue.year(normalizedMonthAndYear.year());
+    this.dashBoardForm.controls.deptWiseleavesDate.setValue(ctrlValue);
+    datepicker.close();
+  }
+
+  getNewAndExitEmployeeCountByMonth() {
+    let date = this.pipe.transform(this.dashBoardForm.controls.employeeStatusMonthDate.value, 'yyyy-MM-dd');
+    this.adminService.getNewAndExitEmployeeCountByMonth(date).subscribe((res: any) => {
+      if (res.status && res.data.length > 0) {
+        this.newEmployeeStatusCount = res.data[0].new_emp_count;
+        this.exitEmployeeStatusCount = res.data[0].exit_emp_count;
+      }
+    });
   }
   
- getActivationCountByYear() {
-  let date = this.pipe.transform(this.dashBoardForm.controls.yearDate.value, 'yyyy-MM-dd');
-  this.mainService.getSprypleActivationsCountByYear(date).subscribe((res: any) => {
-     if(res.status && res.data) {
-       this.activationCountForYear = res.data[0].count;
-     }
-   });
- }
-  
- getSprypleClientsStatusWiseList() {
-  this.sprypleClientsCount = [];
-  this.mainService.getSprypleClientsStatusWiseCount().subscribe((res: any) => {
-     if(res.status && res.data) {
-       this.sprypleClientsCount = res.data[0];
-     }
-   });
- }
-  
- getRevenueCountByMonth() {
-  let date = this.pipe.transform(this.dashBoardForm.controls.revenueDate.value, 'yyyy-MM-dd');
-  this.revenueCount = [];
-  this.mainService.getSprypleRevenueByMonth(date).subscribe((res: any) => {
-     if(res.status && res.data) {
-       this.revenueCount = res.data[0].count != null ? res.data[0].count.toFixed(2):0;
-     }
-   });
-}
+  getLeavesTypesCountByMonth() {
+    let date = this.pipe.transform(this.dashBoardForm.controls.leaveStatusDate.value, 'yyyy-MM-dd');
+    this.adminService.getLeavesTypesCountByMonth(date).subscribe((res: any) => {
+      if (res.status && res.data.length > 0) {
+        this.totalLeaveCount = res.data[0].today_leave_count;
+        this.pendingLeaveCount = res.data[0].pending_count;
+        this.rejectedLeaveCount = res.data[0].rejected_count;
+      }
+    });
+  }
+
+
+
   showSpinner() {
     this.spinner.show();
     setTimeout(() => {
