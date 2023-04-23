@@ -49,7 +49,8 @@ export class NewHireListComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router,
     private adminService: AdminService, private companyService: CompanySettingService,
     private dialog: MatDialog, private emsService: EmsService,public spinner:NgxSpinnerService) {
-      this.getClientSubscriptionDetails();
+     
+      this.getActiveEmployeesCount();
      }
   hireForm: any = FormGroup;
   userSession: any;
@@ -90,6 +91,7 @@ export class NewHireListComponent implements OnInit {
   encriptPipe = new EncryptPipe();
   companyNameDetails: any = [];
   loginToken: any;
+  activeemployeecount:any
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.loginToken = JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
@@ -425,8 +427,8 @@ export class NewHireListComponent implements OnInit {
   getClientSubscriptionDetails(){
     this.companyService.getClientSubscriptionDetails().subscribe((data:any)=>{
       if (data.status && data.data.length != 0) {
-        console.log("resultdata",data.data[0].active_emp_count,data.data[0].plan_user_count)
-        if(data.data[0].plan_user_count>data.data[0].active_emp_count){
+        console.log("resultdata",data)
+        if(data.data[0].user_count>this.activeemployeecount){
           
           this.subscriptionflag =true;
           
@@ -442,6 +444,15 @@ export class NewHireListComponent implements OnInit {
         }
       }
     })
+  }
+  getActiveEmployeesCount(){
+    this.companyService.getActiveEmployeesCount().subscribe((data:any)=>{
+      console.log("result",data);
+      if (data.status && data.data.length != 0) {
+        this.getClientSubscriptionDetails();
+        this.activeemployeecount=data.data[0].active_employees_count
+      }
+});
   }
 }
 

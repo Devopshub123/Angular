@@ -158,7 +158,7 @@ export class SubscriptionMasterComponent implements OnInit {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data:'Data inserted successfully.'
+          data:'Subscription plan added successfully.'
         });
 
        }

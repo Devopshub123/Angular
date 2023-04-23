@@ -81,9 +81,12 @@ export class LoginComponent implements OnInit {
       this.tss.Savelogin(data).subscribe((data) =>{
         // sessionStorage.setItem('user', JSON.stringify(data.result[0]));
         if(data.status === true){
-          let empdata = data.result[0];
+          console.log("exp",data.expirydate,data.result[0])
+          if(new Date(data.expirydate)>=new Date()){
+            let empdata = data.result[0];
           sessionStorage.setItem('token', data.token);
           sessionStorage.setItem('user', JSON.stringify(empdata));
+          sessionStorage.setItem('expirydate', data.expirydate);
           this.employeeId = empdata.id;
           if (empdata.firstlogin == "Y") {
             this.router.navigate(['/Attendance/ChangePassword'])
@@ -95,6 +98,24 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['main/MainDashboard'])
             // this.getEmployeeEmailData();
           }
+          }
+          else if(data.result[0].is_super_admin){
+            sessionStorage.setItem('token', data.token);
+            sessionStorage.setItem('user', JSON.stringify(data.result[0]));
+            sessionStorage.setItem('expirydate', data.expirydate);
+            this.employeeId = data.result[0].id;
+            this.router.navigate(['Admin/client-superadmin-dashboard'])
+            
+          }
+          else{
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data:'Your subscription expired.Please contact your admin team.'
+            });
+
+          }
+          
         }
         else if
         (data.message=='dbnotthere'){
