@@ -68,6 +68,9 @@ deptWiseLeavepieChartData: any;
 //   vbaroptions:any= {
 //     indexAxis: 'y',
 // }
+locByDeptEmpsdoughChartType :any;
+locByDeptEmpsdoughnutChartOptions: any ;
+locByDeptEmpsdoughnutChartData: any;
 // ----------
   newEmployeeStatusCount: any;
   exitEmployeeStatusCount: any;
@@ -82,7 +85,8 @@ deptWiseLeavepieChartData: any;
 
   locationByDepartmentNameLis: any = [];
   locationByDepartmentCountLis: any = [];
- 
+  locationId: any;
+
   shiftByDepartmentNameList: any = [];
   shiftByDepartmentCountList: any = [];
 
@@ -104,35 +108,35 @@ deptWiseLeavepieChartData: any;
 
   
 // location wise doughnut chart
-doughChartType :any= 'doughnut';
-  doughnutChartLabels: any = this.locationByDepartmentNameLis;
-  doughnutChartData: ChartData<'doughnut'> = {
-    labels: this.doughnutChartLabels,
-    datasets: [
-      {
-        data: this.locationByDepartmentCountLis,
-        backgroundColor: [ '#088395',
-        '#19A7CE',
-        '#62CDFF',
-        '#87CBB9',
-        '#6DA9E4',
-        '#B0DAFF',
-],
-        // hoverBackgroundColor: ["darkred", "darkgreen", "darkblue"],
-        hoverBorderColor: ["grey"]
-      }
-    ]
-  };
-  dnoptions: any = {
-    responsive: true,
-    cutout: '65%',
-    aspectRatio: 1,
-    plugins: {
-      legend: {
-          position: 'bottom'
-      }
-  }
-  }
+// doughChartType :any= 'doughnut';
+//   doughnutChartLabels: any = this.locationByDepartmentNameLis;
+//   doughnutChartData: ChartData<'doughnut'> = {
+//     labels: this.doughnutChartLabels,
+//     datasets: [
+//       {
+//         data: this.locationByDepartmentCountLis,
+//         backgroundColor: [ '#088395',
+//         '#19A7CE',
+//         '#62CDFF',
+//         '#87CBB9',
+//         '#6DA9E4',
+//         '#B0DAFF',
+// ],
+//         // hoverBackgroundColor: ["darkred", "darkgreen", "darkblue"],
+//         hoverBorderColor: ["grey"]
+//       }
+//     ]
+//   };
+//   dnoptions: any = {
+//     responsive: true,
+//     cutout: '65%',
+//     aspectRatio: 1,
+//     plugins: {
+//       legend: {
+//           position: 'bottom'
+//       }
+//   }
+//   }
   // -----------
 
 
@@ -245,6 +249,8 @@ barChartData: ChartData<'bar'> = {
   getWorkLocation() {
     this.adminService.getactiveWorkLocation({ id: null, companyName: this.companyName }).subscribe((result) => {
       this.workLocationList = result.data;
+      this.locationId = result.data[0].id;
+      this.getLocationIdByDeptWiseEmpList();
      })
   }
 
@@ -440,6 +446,35 @@ barChartData: ChartData<'bar'> = {
     }
     });
   }
+
+  // --------
+  getLocationIdByDeptWiseEmpList() {
+    this.adminService.getDepartmentWiseEmployeeCountByLocation(this.locationId).subscribe((res: any) => {
+       if (res.status && res.data) {
+          res.data.forEach((e: any) => {
+            this.locationByDepartmentNameLis.push(e.deptname);
+            this.locationByDepartmentCountLis.push(e.count); 
+           })
+      this.locByDeptEmpsdoughChartType = 'doughnut';
+         this.locByDeptEmpsdoughnutChartData = {
+           labels: this.locationByDepartmentNameLis,
+           datasets: [
+             {
+               backgroundColor: ["#D864A9", "#eda2f2", "#ffa69e", "#ff8fa3", "#ffb3c1"],
+               data:this.locationByDepartmentCountLis
+             }
+           ]
+         }
+         this.locByDeptEmpsdoughnutChartOptions = {	
+           cutout: '65%',
+           legend: { position: 'bottom' }
+       
+       }
+       }
+     });
+    
+ 
+   }
 // -----------------------
   date = new FormControl(moment());
 

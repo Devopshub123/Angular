@@ -35,13 +35,11 @@
               </mat-form-field>
               </span>
               <div class="chart-container" style="position: relative; height:20vh; width:20vw">
-            <canvas baseChart 
-            [data]="doughnutChartData"
-             [labels]="doughnutChartLabels" 
-             [type]="doughChartType"
-              [options]="dnoptions" 
-              style="height:200px;">
-            </canvas>
+                <chart #chart 
+                [type]="locByDeptEmpsdoughChartType" 
+                [data]="locByDeptEmpsdoughnutChartData" 
+                [options]="locByDeptEmpsdoughnutChartOptions"
+                ></chart>
           </div>
           </mat-card>
 
