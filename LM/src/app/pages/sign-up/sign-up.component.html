@@ -6,7 +6,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
               
          </div>
                 <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
-                       <mat-step [stepControl]="signUpForm" >
+                       <mat-step [stepControl]="signUpForm"  [completed]="step1Complete">
                         <ng-template  matStepLabel>Sign Up</ng-template>
                         <form [formGroup]="signUpForm">
                             <div>
@@ -218,7 +218,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                         </div>
                         <br>
                         <div fxLayoutAlign="center">
-                            <button class="btn btn-primary mr-2 mb-2" [disabled]="isdisable" (click)="submit()" type="submit">
+                            <button class="btn btn-primary mr-2 mb-2" [disabled]="isdisable" (click)="submit()" type="submit" matStepperNext>
                                 <span>Sign up</span>
                             </button>
                             <button class="btn btn-danger mr-2 mb-2" (click)="clear()" type="submit">
@@ -232,7 +232,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
         
                     </mat-step>
               <!-- payment details -->
-                    <mat-step [stepControl]="PayviewForm" >
+                    <mat-step [stepControl]="PayviewForm" [completed]="step2Complete">
                         <ng-template  matStepLabel>Payment Details</ng-template>
                         <form [formGroup]="PayviewForm">
                             <div fxFlex="100" fxLayout="row">
@@ -273,7 +273,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                         <input type="text" formControlName="cost" matInput [ngClass]="{'disable':true}" [readonly]="true"/>
                                     </mat-form-field>
                                     <div fxLayoutAlign="center">
-                                        <button class="btn btn-primary mr-2 mb-2 custom" (click)="paynow()" type="submit">
+                                        <button class="btn btn-primary mr-2 mb-2 custom" (click)="paynow()" type="submit" >
                                             <span>Pay Now</span>
                                         </button>
                                         <br>
@@ -290,12 +290,15 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                 
                     <!-- final details -->
 
-                    <mat-step>
+                    <mat-step [completed]="step3Complete">
                         <ng-template  matStepLabel>Finish</ng-template>
                         <form [formGroup]="PayForm"></form>
-     
+                         <div style="text-align: center;">
+                            <h2>Great job! <br>You have successfully completed the payment process.<br> We are delighted to have you onboard as a Spryple subscriber.
+                            <br>Please Verify Your Email for Invoice detials. </h2>
+                         </div>
         
-                    </mat-step>
+                       </mat-step>
                 </mat-horizontal-stepper>
     
  </div>
