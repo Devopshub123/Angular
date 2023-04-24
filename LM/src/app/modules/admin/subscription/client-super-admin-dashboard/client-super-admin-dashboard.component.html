@@ -9,14 +9,13 @@
                 <span>Locations</span>
               </span>
             </div>
-            <div class="chart-container" style="position: relative; height:20vh; width:20vw">
-            <canvas baseChart 
-            [data]="pieChartData" 
-            [labels]="pieChartLabels" 
-            [type]="pieChartType"
-            [options]="pieoptions"  >
-            </canvas>
-          </div>
+            <div class="chart-container" style="position: relative; width:25vw">
+              <chart #chart 
+              [type]="locPieChartType" 
+              [data]="locPieChartdata" 
+              [options]="locPieChartoptions"
+              ></chart>
+         </div>
           </mat-card>
 
           <mat-card class="card outline" fxFlex="100">
@@ -97,12 +96,11 @@
                 </mat-form-field>
               </span>
               <div class="chart-container" style="position: relative; width:20vw">
-            <canvas baseChart 
-            [data]="attendancedoughnutChartData" 
-            [labels]="attendancedoughnutChartLabels" 
-            [type]="attendancedoughChartType"
-            [options]="attendanceDnoptions">
-            </canvas>
+                <chart #chart 
+                [type]="attDonutChartType" 
+                [data]="attDonutChartdata" 
+                [options]="attDonutChartoptions"
+                ></chart>
             </div>
           </mat-card>
 
@@ -122,12 +120,12 @@
                </mat-form-field>
              </span>
              <div class="chart-container" style="position: relative; height:15vh; width:15vw">
-          <canvas baseChart 
-          [data]="deptWiseLeavepieChartData" 
-          [labels]="deptWiseLeavepieChartLabels" 
-          [type]="deptWiseLeavepieChartType"
-             [options]="deptWiseLeavepieoptions"  >
-           </canvas>
+              <chart #chart 
+              [type]="deptWiseLeavepieChartType" 
+              [data]="deptWiseLeavepieChartData" 
+              [options]="deptWiseLeavepieoptions"
+              ></chart>
+
            </div>
          </mat-card>
 
@@ -180,9 +178,11 @@
                 </ng-container>
             </mat-select>
        </mat-form-field>
-        <canvas baseChart [data]="vbarChartData" [labels]="vbarChartLabels" [type]="vbarChartType"
-           [options]="vbaroptions">
-         </canvas>
+       <chart #chart 
+       [type]="vbarChartType" 
+       [data]="vbarChartData" 
+       [options]="vbaroptions"
+       ></chart>
        </mat-card>
 
         <mat-card class="card outline" fxFlex="100">

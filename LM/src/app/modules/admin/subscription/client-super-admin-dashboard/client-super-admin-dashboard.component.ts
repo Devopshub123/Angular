@@ -15,7 +15,6 @@ import { Moment} from 'moment';
 import * as _moment from 'moment';
 import { ChartComponent } from 'angular2-chartjs';
 import { ChartData, ChartOptions, Color } from 'chart.js';
-import { ChartDataset } from 'chart.js';
 import { AdminService } from '../../admin.service';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
@@ -48,11 +47,34 @@ export class ClientSuperAdminDashboardComponent implements OnInit {
   minDate = new Date('2000/01/01');
   maxDate = new Date();
 
+  @ViewChild(ChartComponent)
+  chart!: ChartComponent;
+    // location wise pie chart
+	locPieChartType:any;
+	locPieChartdata:any;
+  locPieChartoptions: any;
+    // attendance wise dounut chart
+  	attDonutChartType:any;
+    attDonutChartdata:any;
+  attDonutChartoptions: any;
+    // department wise leave line chart
+deptWiseLeavepieChartType :any;
+deptWiseLeavepieChartData: any;
+  deptWiseLeavepieoptions: any;
+  // shift by dept emps chart
+ vbarChartType: any;
+  vbarChartData: any;
+  vbaroptions: any;
+//   vbaroptions:any= {
+//     indexAxis: 'y',
+// }
+// ----------
   newEmployeeStatusCount: any;
   exitEmployeeStatusCount: any;
   totalLeaveCount: any;
   pendingLeaveCount: any;
   rejectedLeaveCount: any;
+  shiftId: any;
   shiftDataList: any = [];
   
   allLocationsNameList: any = [];
@@ -74,51 +96,12 @@ export class ClientSuperAdminDashboardComponent implements OnInit {
  allShiftList:any=[]
   // vertical bar--------------------------
 
-  vbarChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  vbarChartLabels: any = this.shiftByDepartmentNameList;
-  vbarChartType: any = 'bar';
-  vbarChartLegend = true;
-  vbarChartPlugins = [];
-  vbarChartData: ChartData<'bar'> = {
-    labels: this.vbarChartLabels,
-    datasets: [
-      {
-        label: "Month",
-        data: this.shiftByDepartmentCountList,
-        backgroundColor: ['#28acaf'],
-        hoverBackgroundColor: ['#28acaf'],
-      }
-    ]
-  };
-  vbaroptions:any= {
-    indexAxis: 'y',
-}
+
 
 
   
   // -------
-  // department wise leave pie chart
-deptWiseLeavepieChartType :any= 'pie';
-deptWiseLeavepieChartLabels: any = this.departmentWiseLeaveNameList;
-deptWiseLeavepieChartData: ChartData<'pie'> = {
-  labels: this.deptWiseLeavepieChartLabels,
-  datasets: [
-    {
-      data: this.departmentWiseLeaveCountList
-    }
-  ],
-};
-deptWiseLeavepieoptions = {    
-  is3D: true,
-  responsive: true,
-  plugins: {
-    legend: {
-        position: 'bottom'
-    }
-}
-};
+
   
 // location wise doughnut chart
 doughChartType :any= 'doughnut';
@@ -151,36 +134,8 @@ doughChartType :any= 'doughnut';
   }
   }
   // -----------
-  // attendance wise doughnut chart
-attendancedoughChartType :any= 'doughnut';
-attendancedoughnutChartLabels: any = this.attendanceTypeList;
-attendancedoughnutChartData: ChartData<'doughnut'> = {
-  labels: this.attendancedoughnutChartLabels,
-  datasets: [
-    {
-      data: this.attendanceCountList,
-      backgroundColor: [ '#088395',
-      '#19A7CE',
-      '#62CDFF',
-      '#87CBB9',
-      '#6DA9E4',
-      '#B0DAFF',
-],
-      // hoverBackgroundColor: ["darkred", "darkgreen", "darkblue"],
-      hoverBorderColor: ["grey"]
-    }
-  ]
-};
-  attendanceDnoptions: any = {
-    responsive: true,
-  cutout: '65%',
-  aspectRatio: 1,
-  plugins: {
-    legend: {
-        position: 'bottom'
-    }
-}
-}
+
+
   // bar chart
   barChartOptions = {
     scaleShowVerticalLines: false,
@@ -208,16 +163,7 @@ barChartData: ChartData<'bar'> = {
     ]
 };
   // location wise pie chart
-pieChartType :any= 'pie';
-pieChartLabels: any = [];
-// pieChartLabels: any = ['HYD','CHEN','BNGLR'];
-pieChartData: ChartData<'pie'> = {
-  datasets: [ ],
-};
-pieoptions = {    
-  is3D: true,
-  responsive: true
-};
+
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     private adminService: AdminService,
@@ -310,16 +256,50 @@ pieoptions = {
           this.allLocationsTotalCount.push(e.count); 
          })
       }
-      this.pieChartLabels = this.allLocationsNameList;
-      this.pieChartData = this.allLocationsTotalCount
-      console.log("pl-1",this.allLocationsNameList)
-      console.log("pl-2",this.allLocationsTotalCount)
-    });
+      this.locPieChartType = 'pie';
+      this.locPieChartdata = {
+        labels: this.allLocationsNameList,
+        datasets: [
+          {
+            backgroundColor: ["#ffa1b5", "#86c7f3", "#ffe29a", "#838c95", "#7FDBFF"],
+            data:this.allLocationsTotalCount
+          }
+        ]
+      }
+      this.locPieChartoptions = {			
+        legend: { position: 'bottom' }
+        // scales:{
+        //     // yAxes: [{						
+        //     //   gridLines: {
+        //     //     beginAtZero: true,
+        //     //     display: false
+        //     //   },
+        //     //   ticks: {
+        //     //     min: 0,
+        //     //     stepSize: 1,
+        //     //     fixedStepSize: 1,
+        //     //   }
+        //     // }],
+        //     // xAxes: [{
+        //     // 	beginAtZero: true,
+        //     // 	display: false,
+        //     // 	gridLines: {
+        //     // 		display: false
+        //     // 	},
+        //     // 	ticks: {
+        //     // 		min: 0,
+        //     // 		stepSize: 1,
+        //     // 		fixedStepSize: 1,
+        //     // 	}
+        //     // }],
+        //   }
+    
+    }
+  });
   }
 
   getAttendanceEmployeesCountByDate() {
    let date = this.pipe.transform(this.dashBoardForm.controls.attendanceWiseDate.value, 'yyyy-MM-dd');
-    console.log("t2",date)
     this.adminService.getAttendanceEmployeesCountByDate(date).subscribe((res: any) => {
       if (res.status && res.data) {
         Object.keys(res.data[0]).forEach((e: any) => {
@@ -328,10 +308,25 @@ pieoptions = {
         Object.values(res.data[0]).forEach((e: any) => {
           this.attendanceCountList.push(e);
         })
+        this.attDonutChartType = 'doughnut';
+        this.attDonutChartdata = {
+          labels: this.attendanceTypeList,
+          datasets: [
+            {
+              backgroundColor: ["#D864A9", "#eda2f2", "#ffa69e", "#ff8fa3", "#ffb3c1"],
+              data:this.attendanceCountList
+            }
+          ]
+        }
+        this.attDonutChartoptions = {	
+          cutout: '65%',
+          legend: { position: 'bottom' }
+      
+      }
       }
     });
-    console.log("v-1",this.attendanceTypeList)
-    console.log("v-1",this.attendanceCountList)
+   
+
   }
 
   getDepartmentWiseLeavesCountByMonth() {
@@ -343,18 +338,107 @@ pieoptions = {
           this.departmentWiseLeaveCountList.push(e.count); 
          })
       }
-      console.log("p-11",this.departmentWiseLeaveNameList)
-      console.log("p-2",this.departmentWiseLeaveCountList)
+      this.deptWiseLeavepieChartType = 'line';
+      this.deptWiseLeavepieChartData = {
+        labels: this.departmentWiseLeaveNameList,
+        datasets: [
+          {
+           
+            data: this.departmentWiseLeaveCountList,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+          }
+        ]
+      }
+      this.deptWiseLeavepieoptions = {	
+        label: 'Leaves',
+        legend: { position: 'bottom' }
+    
+    }
     });
   }
 
   getActiveShiftList() {
     this.adminService.getAllShifts().subscribe((res) => {
       if (res.status) {
-        console.log("shi-",res.data)
-           this.shiftDataList = res.data;
+        this.shiftDataList = res.data;
+        this.shiftId = this.shiftDataList[0].shiftid;
+        this.getShiftIdByDeptEmploeeList();
       }
     })
+  }
+
+  getShiftIdByDeptEmploeeList() {
+
+    this.adminService.getDepartmentWiseEmployeeCountByShift(this.shiftId).subscribe((res: any) => {
+      if (res.status && res.data) {
+        res.data.forEach((e: any) => {
+          this.shiftByDepartmentNameList.push(e.deptname);
+          this.shiftByDepartmentCountList.push(e.count); 
+         })
+      }
+      this.vbarChartType = 'bar';
+      this.vbarChartData = {
+        labels: this.shiftByDepartmentNameList,
+        datasets: [
+          {
+           
+            data: this.shiftByDepartmentCountList,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+          ],
+          }
+        ]
+      }
+      this.vbaroptions = {	
+        indexAxis: 'y',
+        scales:{
+          yAxes: [{						
+            gridLines: {
+              beginAtZero: true,
+              display: false
+            },
+            ticks: {
+              min: 0,
+              stepSize: 1,
+              fixedStepSize: 1,
+            }
+          }],
+          // xAxes: [{
+          // 	beginAtZero: true,
+          // 	display: false,
+          // 	gridLines: {
+          // 		display: false
+          // 	},
+          // 	ticks: {
+          // 		min: 0,
+          // 		stepSize: 1,
+          // 		fixedStepSize: 1,
+          // 	}
+          // }],
+        }
+    }
+    });
   }
 // -----------------------
   date = new FormControl(moment());
