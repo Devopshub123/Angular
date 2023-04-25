@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatStepper } from '@angular/material/stepper';
 
 // import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -95,6 +96,9 @@ export class SignUpComponent implements OnInit {
   signUpForm: any = FormGroup;
   PayviewForm: any = FormGroup;
   PayForm: any = FormGroup;
+  step1Complete:boolean=false;
+  step2Complete:boolean=false;
+  step3Complete:boolean=false;
   minDate = new Date('1950/01/01');
   industryTypeList: any[] = [];
   companySizeList: any[] = [
@@ -119,6 +123,7 @@ export class SignUpComponent implements OnInit {
   isdisable:boolean=true;
   date:any;
   flag:boolean=false;
+  @ViewChild('stepper') private myStepper: any;
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private spinner: NgxSpinnerService, private dialog: MatDialog, private router: Router,
     private mainService: MainService, private activatedRoute: ActivatedRoute) {
@@ -261,6 +266,7 @@ export class SignUpComponent implements OnInit {
         this.clientId = value.id;
         this.clientname= value.contact_name;
         this.contactnumber=value.mobile_number;
+       
         this.signUpForm.controls.companyName.setValue(value.company_name);
        this.signUpForm.controls.companyCode.setValue(value.company_code);
        this.signUpForm.controls.companySize.setValue(value.company_size);
@@ -280,7 +286,16 @@ export class SignUpComponent implements OnInit {
         this.getPlanDetailsByPlanIdAndClientId();
       }
       else{
-        this.router.navigate(['Validateemail'])
+        // this.router.navigate(['Validateemail'])
+        this.step2Complete=true;
+        this.step1Complete=true;
+        this.myStepper.next();
+        this.myStepper.next();
+        this.myStepper.next();
+        
+       
+
+        
       }
     })
   }
@@ -412,7 +427,7 @@ export class SignUpComponent implements OnInit {
     );
   }
   @HostListener('window:payment.success', ['$event'])
-  onPaymentSuccess(event: any): void {
+  onPaymentSuccess(event: any,stepper: MatStepper): void {
     this.message = "Success Payment";
     console.log("data",event)
     console.log("data",event.detail)
@@ -431,13 +446,8 @@ let data ={
 console.log("payment success data.toFixed(2)",data)
 this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
   if(result.status){
+    
     this.ngOnInit();
-    let dialogRef = this.dialog.open(ReusableDialogComponent, {
-      position:{top:`70px`},
-      disableClose: true,
-      data:'Please check your mail.Invoice Details shared.'
-  
-    });
   }
 })
 
