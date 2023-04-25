@@ -302,7 +302,7 @@
                             </mat-form-field>
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Role</mat-label>
-                                <mat-select required formControlName="usertype">
+                                <mat-select required formControlName="usertype" [disabled]="editRoles">
                                     <ng-container>
                                         <div *ngFor="let b of availableRole">
                                             <mat-option [value]="b.id">{{ b.name }}</mat-option>

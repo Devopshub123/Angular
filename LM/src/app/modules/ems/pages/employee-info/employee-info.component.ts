@@ -204,12 +204,21 @@ export class EmployeeInfoComponent implements OnInit {
   decryptPipe = new DecryptPipe();
   joinDateDisable: boolean = false;
   isSubmitAdd: boolean = false;
+  editRoles:boolean=false;
   ngOnInit(): void {
     this.getDesignationsMaster();
     this.getGender();
     this.getMaritalStatusMaster();
     this.getRelationshipMaster();
     this.params = this.activatedRoute.snapshot.params;
+    console.log("ggggcandId",this.params.candId);
+    console.log("ggggempId",this.params.empId);
+    if(this.params.candId!=undefined && this.params.empId==undefined){
+      this.editRoles= false;
+    }
+    else{
+      this.editRoles= true;
+    }
 
     /** through new hired list */
     if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
@@ -582,6 +591,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.emsService.getEmployeeInformationData(this.employeeId).subscribe((res: any) => {
 
       this.employeeInformationData = JSON.parse(res.data[0].json)[0];
+      console.log("this.employeeInformationData ",this.employeeInformationData )
 
       this.isNewEmployee = false;
       this.joinDateDisable = true;
