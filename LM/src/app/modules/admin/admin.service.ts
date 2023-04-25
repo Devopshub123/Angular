@@ -268,4 +268,8 @@ getAttendanceEmployeesCountByDate(data:any){
     return this.http.get(this.mainUrl+'subscription/api/getDepartmentWiseLeavesCountByMonth/'+data+'/'+this.companyName, this.httpOptions);
   }
 
+/**get Department Wise Monthly Salaries */    
+getDepartmentWiseMonthlySalaries(data:any){
+    return this.http.get(this.mainUrl+'subscription/api/getDepartmentWiseMonthlySalaries/'+data+'/'+this.companyName, this.httpOptions);
+  }
 }

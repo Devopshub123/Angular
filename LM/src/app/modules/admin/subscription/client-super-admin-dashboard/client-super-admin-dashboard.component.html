@@ -2,15 +2,16 @@
   <mat-card class="sidePad">
     <form [formGroup]="dashBoardForm" fxLayout="Column">
       <!-- f1st row -->
-      <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="10px">
-         <mat-card class="card outline" fxFlex="100">
-            <div fxLayout="row" fxLayoutAlign="start">
-              <span class="title">
+      <div fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px">
+         <mat-card class="card outline" fxFlex="100" fxLayout="column">
+          <span class="title" fxLayoutAlign="start">
                 <span>Locations</span>
               </span>
-            </div>
-            <div class="chart-container" style="position: relative; width:25vw">
-              <chart #chart 
+   
+            <div style="padding-top: 55px;">
+              <chart #chart style="display: block;
+              width: 245px;
+              height: 220px;"
               [type]="locPieChartType" 
               [data]="locPieChartdata" 
               [options]="locPieChartoptions"
@@ -24,7 +25,6 @@
               </span>
               <span fxLayoutAlign="end">
                 <mat-form-field class="mx-2 my-2">
-                  <mat-label>Location</mat-label>
                   <mat-select formControlName="location">
                       <ng-container>
                           <div *ngFor="let b of workLocationList">
@@ -34,8 +34,10 @@
                   </mat-select>
               </mat-form-field>
               </span>
-              <div class="chart-container" style="position: relative; height:20vh; width:20vw">
-                <chart #chart 
+              <div>
+                <chart #chart style="display: block;
+                width: 245px;
+                height: 220px;"
                 [type]="locByDeptEmpsdoughChartType" 
                 [data]="locByDeptEmpsdoughnutChartData" 
                 [options]="locByDeptEmpsdoughnutChartOptions"
@@ -62,12 +64,12 @@
                 <span fxLayoutAlign="center">
                    <mat-icon>person_add</mat-icon>
                  </span>
-                 <div fxLayout="row"><span>New Employees :</span><span>{{newEmployeeStatusCount}}</span></div>
+                 <div fxLayout="row"><span class="textStyle">New Employees :</span>&nbsp;<span class="textStyle2">{{newEmployeeStatusCount}}</span></div>
                  <br>
                  <span fxLayoutAlign="center">
                    <mat-icon>exit_to_app</mat-icon>
                  </span>
-                 <div fxLayout="row"><span>Exit Employees :</span><span>{{exitEmployeeStatusCount}}</span></div>
+                 <div fxLayout="row"><span class="textStyle">Exit Employees :</span>&nbsp;<span class="textStyle2">{{exitEmployeeStatusCount}}</span></div>
               </div>
  
            </mat-card>
@@ -93,8 +95,10 @@
                          (monthSelected)="attendanceMonthAndYear($event, attendanceWiseDate)"></mat-datepicker>
                 </mat-form-field>
               </span>
-              <div class="chart-container" style="position: relative; width:20vw">
-                <chart #chart 
+              <div>
+                <chart #chart style="display: block;
+                width: 245px;
+                height: 220px;"
                 [type]="attDonutChartType" 
                 [data]="attDonutChartdata" 
                 [options]="attDonutChartoptions"
@@ -117,8 +121,10 @@
                         (monthSelected)="deptLeaveMonth($event, deptWiseleavesDate)"></mat-datepicker>
                </mat-form-field>
              </span>
-             <div class="chart-container" style="position: relative; height:15vh; width:15vw">
-              <chart #chart 
+             <div>
+              <chart #chart style="display: block;
+              width: 245px;
+              height: 220px;"
               [type]="deptWiseLeavepieChartType" 
               [data]="deptWiseLeavepieChartData" 
               [options]="deptWiseLeavepieoptions"
@@ -146,17 +152,17 @@
               <span fxLayoutAlign="center">
                  <mat-icon>person_add</mat-icon>
                </span>
-               <div fxLayout="row"><span>Total Leaves :</span><span>{{totalLeaveCount}}</span></div>
+               <div fxLayout="row"><span class="textStyle">Total Leaves :</span>&nbsp;<span class="textStyle2">{{totalLeaveCount}}</span></div>
                <br>
                <span fxLayoutAlign="center">
                  <mat-icon>exit_to_app</mat-icon>
                </span>
-               <div fxLayout="row"><span>Pending Leaves :</span><span>{{pendingLeaveCount}}</span></div>
+               <div fxLayout="row"><span class="textStyle">Pending Leaves :</span>&nbsp;<span class="textStyle2">{{pendingLeaveCount}}</span></div>
                <br>
                <span fxLayoutAlign="center">
                  <mat-icon>exit_to_app</mat-icon>
                </span>
-               <div fxLayout="row"><span>Rejected Leaves :</span><span>{{rejectedLeaveCount}}</span></div>
+               <div fxLayout="row"><span class="textStyle">Rejected Leaves :</span>&nbsp;<span class="textStyle2">{{rejectedLeaveCount}}</span></div>
            </div>
 
          </mat-card>
@@ -164,12 +170,11 @@
 
       <!-- 3rd row -->
       <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="10px">
-        <mat-card class="card outline" fxFlex="100">
+        <mat-card class="card2 outline" fxFlex="100">
           <span class="title" fxLayoutAlign="start">
              <span>Shift-Based Headcount</span>
            </span>
            <mat-form-field class="mx-2 my-2">
-            <mat-label>Shift</mat-label>
             <mat-select formControlName="shiftName">
                 <ng-container *ngFor="let v of shiftDataList">
                     <mat-option [value]="v.shiftid">{{v.shiftname}}</mat-option>
@@ -183,14 +188,17 @@
        ></chart>
        </mat-card>
 
-        <mat-card class="card outline" fxFlex="100">
+        <mat-card class="card2 outline" fxFlex="100">
           <div fxLayout="row" fxLayoutAlign="start">
             <span class="title">
               <span>Payroll analysis by </span>
             </span>
           </div>
-          <canvas baseChart [data]="barChartData" [labels]="barChartLabels" [type]="barChartType">
-          </canvas>
+          <chart #chart 
+          [type]="deptWisePayrollBarChartType" 
+          [data]="deptWisePayrollBarChartData" 
+          [options]="deptWisePayrollBarChartOptions"
+          ></chart>
         </mat-card>
       </div>
       
