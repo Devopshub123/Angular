@@ -205,6 +205,7 @@ export class EmployeeInfoComponent implements OnInit {
   joinDateDisable: boolean = false;
   isSubmitAdd: boolean = false;
   maxBirthDate:Date | undefined;
+  editRoles:boolean=false;
   ngOnInit(): void {
     this. maxBirthDate = new Date();
     this.maxBirthDate.setMonth(this.maxBirthDate.getMonth() - 12 * 18);
@@ -213,6 +214,12 @@ export class EmployeeInfoComponent implements OnInit {
     this.getMaritalStatusMaster();
     this.getRelationshipMaster();
     this.params = this.activatedRoute.snapshot.params;
+    if(this.params.candId!=undefined && this.params.empId==undefined){
+      this.editRoles= false;
+    }
+    else{
+      this.editRoles= true;
+    }
 
     /** through new hired list */
     if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
@@ -585,6 +592,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.emsService.getEmployeeInformationData(this.employeeId).subscribe((res: any) => {
 
       this.employeeInformationData = JSON.parse(res.data[0].json)[0];
+      console.log("this.employeeInformationData ",this.employeeInformationData )
 
       this.isNewEmployee = false;
       this.joinDateDisable = true;
