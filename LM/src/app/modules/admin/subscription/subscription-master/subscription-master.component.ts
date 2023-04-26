@@ -180,7 +180,7 @@ export class SubscriptionMasterComponent implements OnInit {
 
   }
   getSpryplePlans(){
-    this.AS.getSpryplePlans().subscribe((result:any)=>{
+    this.AS.getUnmappedPlans().subscribe((result:any)=>{
       if(result.status&&result.data.length>0){
         this.plansdata = result.data;
         console.log(this.plansdata)
