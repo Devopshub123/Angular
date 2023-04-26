@@ -65,9 +65,7 @@ deptWiseLeavepieChartData: any;
  vbarChartType: any;
   vbarChartData: any;
   vbaroptions: any;
-//   vbaroptions:any= {
-//     indexAxis: 'y',
-// }
+
 locByDeptEmpsdoughChartType :any;
 locByDeptEmpsdoughnutChartOptions: any ;
 locByDeptEmpsdoughnutChartData: any;
@@ -98,74 +96,41 @@ locByDeptEmpsdoughnutChartData: any;
 
  workLocationList:any=[]
  allShiftList:any=[]
-  // vertical bar--------------------------
 
-
-
-
-  
-  // -------
-
-  
-// location wise doughnut chart
-// doughChartType :any= 'doughnut';
-//   doughnutChartLabels: any = this.locationByDepartmentNameLis;
-//   doughnutChartData: ChartData<'doughnut'> = {
-//     labels: this.doughnutChartLabels,
-//     datasets: [
-//       {
-//         data: this.locationByDepartmentCountLis,
-//         backgroundColor: [ '#088395',
-//         '#19A7CE',
-//         '#62CDFF',
-//         '#87CBB9',
-//         '#6DA9E4',
-//         '#B0DAFF',
-// ],
-//         // hoverBackgroundColor: ["darkred", "darkgreen", "darkblue"],
-//         hoverBorderColor: ["grey"]
-//       }
-//     ]
-//   };
-//   dnoptions: any = {
-//     responsive: true,
-//     cutout: '65%',
-//     aspectRatio: 1,
-//     plugins: {
-//       legend: {
-//           position: 'bottom'
-//       }
-//   }
-//   }
-  // -----------
-
-
+ deptWisePayrollNameList: any = [];
+  deptWisePayrollMonthList: any = [];
+  deptWisePayrollSumList: any = [];
+  deptWisePayrollYearList: any = [];
   // bar chart
-  barChartOptions = {
-    scaleShowVerticalLines: false,
-    responsive: true
-  };
-barChartLabels :any= ['2012', '2013', '2014', '2015', '2016', '2017', '2018'];
-barChartType :any= 'bar';
-barChartLegend :any= true;  
-barChartData: ChartData<'bar'> = {
-    labels: this.barChartLabels,
-    datasets: [
-  {
-        data: [55, 60, 75, 82, 56, 62, 80], 
-        label: 'Company A',
-        categoryPercentage: 1,
-        backgroundColor: 'rgba(105,159,177,0.2)',
-      borderColor: 'rgba(105,159,177,1)',
-      },
-      { data: [58, 55, 60, 79, 66, 57, 90], 
-        label: 'Company B',
-        categoryPercentage: 1,
-        backgroundColor: 'rgba(77,20,96,0.3)',
-        borderColor: 'rgba(77,20,96,1)',
-       }
-    ]
-};
+  deptWisePayrollBarChartType: any;
+  deptWisePayrollBarChartOptions: any;
+  deptWisePayrollBarChartData: any ;
+  
+//   barChartOptions = {
+//     scaleShowVerticalLines: false,
+//     responsive: true
+//   };
+// barChartLabels :any= ['2012', '2013', '2014', '2015', '2016', '2017', '2018'];
+// barChartType :any= 'bar';
+// barChartLegend :any= true;  
+// barChartData: ChartData<'bar'> = {
+//     labels: this.barChartLabels,
+//     datasets: [
+//   {
+//         data: [55, 60, 75, 82, 56, 62, 80], 
+//         label: 'Company A',
+//         categoryPercentage: 1,
+//         backgroundColor: 'rgba(105,159,177,0.2)',
+//       borderColor: 'rgba(105,159,177,1)',
+//       },
+//       { data: [58, 55, 60, 79, 66, 57, 90], 
+//         label: 'Company B',
+//         categoryPercentage: 1,
+//         backgroundColor: 'rgba(77,20,96,0.3)',
+//         borderColor: 'rgba(77,20,96,1)',
+//        }
+//     ]
+// };
   // location wise pie chart
 
   constructor(
@@ -194,45 +159,30 @@ barChartData: ChartData<'bar'> = {
     this.getAttendanceEmployeesCountByDate();
     this.getDepartmentWiseLeavesCountByMonth();
     this.getActiveShiftList();
-
+    this.getDepartmentWisePayrollListByMonth();
   }
 
 
 
   ngOnInit(): void {
     this.dashBoardForm.get('location')?.valueChanges.subscribe((selectedValue: any) => {
-      this.locationByDepartmentNameLis = [];
-      this.locationByDepartmentCountLis = [];
-      this.adminService.getDepartmentWiseEmployeeCountByLocation(selectedValue).subscribe((res: any) => {
-        if (res.status && res.data) {
-          res.data.forEach((e: any) => {
-            this.locationByDepartmentNameLis.push(e.deptname);
-            this.locationByDepartmentCountLis.push(e.count); 
-           })
-        }
-      });
-      console.log("va-",this.locationByDepartmentNameLis)
+      this.locationId = selectedValue;
+      if (selectedValue != '' || selectedValue != null) {
+        this.getLocationIdByDeptWiseEmpList();
+      }
     })
 
     this.dashBoardForm.get('shiftName')?.valueChanges.subscribe((selectedValue: any) => {
-      console.log("sh-1",selectedValue)
-      this.shiftByDepartmentNameList = [];
-      this.shiftByDepartmentCountList = [];
-      this.adminService.getDepartmentWiseEmployeeCountByShift(selectedValue).subscribe((res: any) => {
-        if (res.status && res.data) {
-          res.data.forEach((e: any) => {
-            this.shiftByDepartmentNameList.push(e.deptname);
-            this.shiftByDepartmentCountList.push(e.count); 
-           })
-        }
-      });
-      console.log("sh-2",this.shiftByDepartmentNameList)
+      if (selectedValue != '' || selectedValue != null) {
+        this.shiftId = selectedValue;
+        this.getShiftIdByDeptEmploeeList();
+      }
     })
 
     this.dashBoardForm.get('attendanceWiseDate')?.valueChanges.subscribe((selectedValue: any) => {
-    this.attendanceTypeList = [];
-    this.attendanceCountList = [];
-     this.getAttendanceEmployeesCountByDate();
+      if (selectedValue != '' || selectedValue != null) {
+        this.getAttendanceEmployeesCountByDate();
+      }
     })
 
     this.getLeavesTypesCountByMonth();
@@ -250,7 +200,7 @@ barChartData: ChartData<'bar'> = {
     this.adminService.getactiveWorkLocation({ id: null, companyName: this.companyName }).subscribe((result) => {
       this.workLocationList = result.data;
       this.locationId = result.data[0].id;
-      this.getLocationIdByDeptWiseEmpList();
+      this.dashBoardForm.controls.location.setValue(result.data[0].id);
      })
   }
 
@@ -273,6 +223,8 @@ barChartData: ChartData<'bar'> = {
         ]
       }
       this.locPieChartoptions = {			
+        responsive: true,
+        maintainAspectRatio: false,
         legend: { position: 'bottom' }
         // scales:{
         //     // yAxes: [{						
@@ -305,6 +257,8 @@ barChartData: ChartData<'bar'> = {
   }
 
   getAttendanceEmployeesCountByDate() {
+    this.attendanceTypeList = [];
+    this.attendanceCountList = [];
    let date = this.pipe.transform(this.dashBoardForm.controls.attendanceWiseDate.value, 'yyyy-MM-dd');
     this.adminService.getAttendanceEmployeesCountByDate(date).subscribe((res: any) => {
       if (res.status && res.data) {
@@ -325,6 +279,8 @@ barChartData: ChartData<'bar'> = {
           ]
         }
         this.attDonutChartoptions = {	
+          responsive: true,
+          maintainAspectRatio: false,
           cutout: '65%',
           legend: { position: 'bottom' }
       
@@ -344,37 +300,21 @@ barChartData: ChartData<'bar'> = {
           this.departmentWiseLeaveCountList.push(e.count); 
          })
       }
-      this.deptWiseLeavepieChartType = 'line';
+      this.deptWiseLeavepieChartType = 'pie';
       this.deptWiseLeavepieChartData = {
         labels: this.departmentWiseLeaveNameList,
         datasets: [
           {
            
             data: this.departmentWiseLeaveCountList,
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
+            backgroundColor: ["#22a7f0", "#ffe29a", "#838c95", "#7FDBFF"],
           }
         ]
       }
       this.deptWiseLeavepieoptions = {	
-        label: 'Leaves',
+        responsive: true,
+        maintainAspectRatio: false,
         legend: { position: 'bottom' }
-    
     }
     });
   }
@@ -384,13 +324,14 @@ barChartData: ChartData<'bar'> = {
       if (res.status) {
         this.shiftDataList = res.data;
         this.shiftId = this.shiftDataList[0].shiftid;
-        this.getShiftIdByDeptEmploeeList();
+        this.dashBoardForm.controls.shiftName.setValue(res.data[0].shiftid);
       }
     })
   }
 
   getShiftIdByDeptEmploeeList() {
-
+    this.shiftByDepartmentNameList = [];
+    this.shiftByDepartmentCountList = [];
     this.adminService.getDepartmentWiseEmployeeCountByShift(this.shiftId).subscribe((res: any) => {
       if (res.status && res.data) {
         res.data.forEach((e: any) => {
@@ -398,7 +339,7 @@ barChartData: ChartData<'bar'> = {
           this.shiftByDepartmentCountList.push(e.count); 
          })
       }
-      this.vbarChartType = 'bar';
+      this.vbarChartType = 'horizontalBar';
       this.vbarChartData = {
         labels: this.shiftByDepartmentNameList,
         datasets: [
@@ -406,9 +347,9 @@ barChartData: ChartData<'bar'> = {
            
             data: this.shiftByDepartmentCountList,
             backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
+              '#5e569b',
+              '#9080ff',
+              '#48446e',
               'rgba(75, 192, 192, 0.2)',
               'rgba(153, 102, 255, 0.2)',
               'rgba(255, 159, 64, 0.2)'
@@ -418,54 +359,43 @@ barChartData: ChartData<'bar'> = {
       }
       this.vbaroptions = {	
         indexAxis: 'y',
-        scales:{
-          yAxes: [{						
-            gridLines: {
-              beginAtZero: true,
-              display: false
-            },
-            ticks: {
-              min: 0,
-              stepSize: 1,
-              fixedStepSize: 1,
-            }
-          }],
-          // xAxes: [{
-          // 	beginAtZero: true,
-          // 	display: false,
-          // 	gridLines: {
-          // 		display: false
-          // 	},
-          // 	ticks: {
-          // 		min: 0,
-          // 		stepSize: 1,
-          // 		fixedStepSize: 1,
-          // 	}
-          // }],
-        }
+        legend: { display: false },
+        scales: {
+          xAxes: [{
+              display: true,
+              ticks: {
+                  suggestedMin: 10, //min
+                  suggestedMax: 300 //max 
+              }
+          }]
+      }
     }
     });
   }
 
   // --------
   getLocationIdByDeptWiseEmpList() {
+    this.locationByDepartmentNameLis = [];
+    this.locationByDepartmentCountLis = [];
     this.adminService.getDepartmentWiseEmployeeCountByLocation(this.locationId).subscribe((res: any) => {
-       if (res.status && res.data) {
+      if (res.status && res.data) {
           res.data.forEach((e: any) => {
             this.locationByDepartmentNameLis.push(e.deptname);
             this.locationByDepartmentCountLis.push(e.count); 
-           })
-      this.locByDeptEmpsdoughChartType = 'doughnut';
+          })
+         this.locByDeptEmpsdoughChartType = 'doughnut';
          this.locByDeptEmpsdoughnutChartData = {
            labels: this.locationByDepartmentNameLis,
            datasets: [
              {
-               backgroundColor: ["#D864A9", "#eda2f2", "#ffa69e", "#ff8fa3", "#ffb3c1"],
+               backgroundColor: ["#0080ff", "#eda2f2", "#ffa69e", "#ff8fa3", "#ffb3c1"],
                data:this.locationByDepartmentCountLis
              }
            ]
          }
          this.locByDeptEmpsdoughnutChartOptions = {	
+          responsive: true,
+          maintainAspectRatio: false,
            cutout: '65%',
            legend: { position: 'bottom' }
        
@@ -531,7 +461,60 @@ barChartData: ChartData<'bar'> = {
     });
   }
 
-
+  getDepartmentWisePayrollListByMonth() {
+    let date = this.pipe.transform(this.currentYear, 'yyyy-MM-dd');
+    this.adminService.getDepartmentWiseMonthlySalaries(date).subscribe((res: any) => {
+      if (res.status && res.data) {
+        res.data.forEach((e: any) => {
+          this.deptWisePayrollNameList.push(e.deptname);
+          this.deptWisePayrollMonthList.push(e.MonthName); 
+          this.deptWisePayrollSumList.push(e.sum); 
+          this.deptWisePayrollYearList.push(e.year); 
+         })
+      }
+      this.deptWisePayrollBarChartType = 'bar';
+      this.deptWisePayrollBarChartData = {
+        labels: this.deptWisePayrollMonthList,
+        datasets: [
+          {
+            label: this.deptWisePayrollNameList,
+            data: this.deptWisePayrollSumList,
+            backgroundColor: [
+              '#003f5c',
+              '#665191'
+          ],
+          borderColor: [
+            '#003f5c',
+            '#665191',
+          ],
+          borderWidth: 1
+          },
+          
+          //   data: this.deptWisePayrollSumList,
+          //   backgroundColor: [
+          //     'rgba(54, 162, 235, 0.2)',
+          // ],
+          // borderColor: [
+          //     'rgba(54, 162, 235, 1)',
+          // ],
+          // borderWidth: 1
+          // }
+        ]
+      }
+      this.deptWisePayrollBarChartOptions = {	
+        scales: {
+          yAxes: [{
+              display: true,
+              ticks: {
+                  suggestedMin: 10000, //min
+                  // suggestedMax: 100 //max 
+              }
+          }]
+      }
+    
+    }
+    });
+  }
 
   showSpinner() {
     this.spinner.show();
