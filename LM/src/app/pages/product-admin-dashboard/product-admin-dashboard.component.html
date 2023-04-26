@@ -10,41 +10,51 @@
                     <span>Activations</span>
                   </span>
                  <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="column" fxFlex="100" fxLayoutAlign="space-evenly center" style="padding-top: 10px;">
+          
+                  <div fxLayout="column">
+                    <span class="textStyle">Month</span> 
                     <div fxLayout="column" class="card1">
-                    <span>
-                        <mat-form-field >
-                          <input matInput readonly [matDatepicker]="monthDate" [min]="minDate" [max]="maxDate"
-                            placeholder="" (click)="monthDate.open()" formControlName="monthDate" />
-                          <mat-datepicker-toggle class="datepicker" matSuffix [for]="monthDate">
-                          </mat-datepicker-toggle>
-                          <mat-datepicker #monthDate
-                          startView="multi-year"
-                         (monthSelected)="setMonthAndYear($event, monthDate)">
-                        </mat-datepicker>
-                        </mat-form-field>
-                      </span>
-                      <span style="text-align: center;" class="counthead2">
-                      {{activationCountForMonth}}
-                      </span>
-                    </div>
+                      <span>
+                          <mat-form-field >
+                            <input matInput readonly [matDatepicker]="monthDate" [min]="minDate" [max]="maxDate"
+                              placeholder="" (click)="monthDate.open()" formControlName="monthDate" />
+                            <mat-datepicker-toggle class="datepicker" matSuffix [for]="monthDate">
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #monthDate
+                            startView="multi-year"
+                           (monthSelected)="setMonthAndYear($event, monthDate)">
+                          </mat-datepicker>
+                          </mat-form-field>
+                        </span>
+                        <span style="text-align: center;" class="counthead2">
+                        {{activationCountForMonth}}
+                        </span>
+                      </div>
+                  </div>
 
-                    <div fxLayout="column" class="card1">
-                        <span >
-                            <mat-form-field>
-                              <input matInput readonly [matDatepicker]="yearDate" [min]="minDate" [max]="maxDate"
-                                placeholder="" (click)="yearDate.open()" formControlName="yearDate" />
-                              <mat-datepicker-toggle class="datepicker" matSuffix [for]="yearDate">
-                              </mat-datepicker-toggle>
-                              <mat-datepicker #yearDate startView="multi-year"
-                              (monthSelected)="setMonthAndYear2($event, yearDate)">
+                  <div fxLayout="column">
+                  <span class="textStyle">Year</span> 
 
-                              </mat-datepicker>
-                            </mat-form-field>
-                          </span>
-                          <span style="text-align: center;" class="counthead2">
-                          {{activationCountForYear}}
-                          </span>
-                        </div>
+
+  <div fxLayout="column" class="card1">
+    <span >
+        <mat-form-field>
+          <input matInput readonly [matDatepicker]="yearDate" [min]="minDate" [max]="maxDate"
+            placeholder="" (click)="yearDate.open()" formControlName="yearDate" />
+          <mat-datepicker-toggle class="datepicker" matSuffix [for]="yearDate">
+          </mat-datepicker-toggle>
+          <mat-datepicker #yearDate startView="multi-year"
+          (monthSelected)="setMonthAndYear2($event, yearDate)">
+
+          </mat-datepicker>
+        </mat-form-field>
+      </span>
+      <span style="text-align: center;" class="counthead2">
+      {{activationCountForYear}}
+      </span>
+    </div>
+</div>
+
                  </div>
                  <br>
               </mat-card>
@@ -107,7 +117,7 @@
           </div>
         
             <div style="min-height: 5vh;text-align: center;">
-                <span class="counthead2">{{revenueCount }}</span>
+                <span class="counthead2">{{'₹'}}{{':'}}&nbsp;{{revenueCount }}</span>
               </div>
         <br>
         </mat-card>
@@ -118,30 +128,34 @@
                 <span>Incremental Growth</span>
               </span>
             </div>
-            <canvas baseChart
-            [data]="barChartData"
-        [labels]="barChartLabels"
-        [type]="barChartType"
-            
-           style="height: 120px">
-    </canvas>
+            <chart #chart 
+            [type]="monthWisebarChartType" 
+            [data]="monthWisebarChartData" 
+            [options]="monthWisebaroptions"
+            ></chart>
           </mat-card>
 
     </div>
-<div fxLayout="column" fxFlex="55">
+    <div fxLayout="column" fxFlex="55">
      
-        <mat-card  class="card outline">
+        <mat-card fxFlex="100"  class="card outline">
           <div fxLayout="row" fxLayoutAlign="start">
             <span class="title">
               <span>Year-Over-Year-Growth</span>
             </span>
           </div>
-     
-            <canvas baseChart
+<div >
+          <chart #chart class="chart-container"
+          [type]="yearWisebarChartType" 
+          [data]="yearWisebarChartData" 
+          [options]="yearWisebaroptions"
+          ></chart>
+        </div>
+            <!-- <canvas baseChart
             [data]="barChartData2"
         [labels]="barChartLabels2"
         [type]="barChartType" >
-    </canvas> 
+    </canvas>  -->
      
         </mat-card>
     </div>

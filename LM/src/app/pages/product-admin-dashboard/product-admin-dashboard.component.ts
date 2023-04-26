@@ -74,42 +74,36 @@ export class ProductAdminDashboardComponent implements OnInit {
   yearWiseChartClients: any = [];
   monthWiseChartMonth: any = [];
   monthWiseChartClients: any = [];
- 
+//  
+monthWisebarChartType: any;
+monthWisebarChartData: any;
+  monthWisebaroptions: any;
+  
+  yearWisebarChartType: any;
+  yearWisebarChartData: any;
+  yearWisebaroptions: any;
   // --------------------------
 
- barChartOptions = {
-    scaleShowVerticalLines: false,
-    responsive: true
-  };
-barChartLabels :any= this.monthWiseChartMonth;
-barChartType :any= 'bar';
-barChartLegend :any= true;  
-barChartData: ChartData<'bar'> = {
-    labels: this.barChartLabels,
-    datasets: [
-      {
-        label: "Month",
-        data: this.monthWiseChartClients,
-        backgroundColor: ['#28acaf'],
-        hoverBackgroundColor: ['#28acaf'],
-      }
-    ]
-};
+//  barChartOptions = {
+//     scaleShowVerticalLines: false,
+//     responsive: true
+//   };
+// barChartLabels :any= this.monthWiseChartMonth;
+// barChartType :any= 'bar';
+// barChartLegend :any= true;  
+// barChartData: ChartData<'bar'> = {
+//     labels: this.barChartLabels,
+//     datasets: [
+//       {
+//         label: "Month",
+//         data: this.monthWiseChartClients,
+//         backgroundColor: ['#28acaf'],
+//         hoverBackgroundColor: ['#28acaf'],
+//       }
+//     ]
+// };
   
-  // ------
-  barChartLabels2: any = this.yearWiseChartYear;
-  barChartData2: ChartData<'bar'> = {
-    labels: this.barChartLabels2,
-    datasets: [
-      {
-        label: "Year",
-        data: this.yearWiseChartClients,
-        backgroundColor: ['#28acaf'],
-        hoverBackgroundColor: ['#28acaf'],
-      }
-    ]
-};
-  // -------------
+ // -------------
 
   ngOnInit(): void {
     this.dashBoardForm.get('monthDate')?.valueChanges.subscribe((selectedValue: any) => {
@@ -161,6 +155,29 @@ barChartData: ChartData<'bar'> = {
         Object.values(res.data[0]).forEach((e: any) => {
           this.monthWiseChartClients.push(e);
         })
+        this.monthWisebarChartType = 'bar';
+        this.monthWisebarChartData = {
+          labels: this.monthWiseChartMonth,
+          datasets: [
+            {
+              label: "Month",
+              data: this.monthWiseChartClients,
+              borderColor: '#219ebc',
+              backgroundColor: '#219ebc',
+            }
+          ]
+        }
+        this.monthWisebaroptions = {	
+          scales: {
+            yAxes: [{
+                display: true,
+                ticks: {
+                  suggestedMin: 0, //min
+                suggestedMax: 100, //min
+                }
+            }]
+        }
+      }
       }
     });
     
@@ -168,10 +185,35 @@ barChartData: ChartData<'bar'> = {
   getClientsCountByYear() {
     this.mainService.getYearWiseClientsCount().subscribe((res: any) => {
       if (res.status && res.data) {
-         res.data.forEach((e: any) => {
+        res.data.forEach((e: any) => {
           this.yearWiseChartClients.push(e.total_clients);
-          this.yearWiseChartYear.push(e.year); 
-         })
+          this.yearWiseChartYear.push(e.year);
+        });
+        this.yearWisebarChartType = 'bar';
+        this.yearWisebarChartData = {
+          labels: this.yearWiseChartYear,
+          datasets: [
+            {
+              label: "Year",
+              data: this.yearWiseChartClients,
+              borderColor: '#219ebc',
+              backgroundColor: '#219ebc',
+            }
+          ]
+        }
+        this.yearWisebaroptions = {	
+          maintainAspectRatio: false,
+          responsive: true,  
+         scales: {
+            yAxes: [{
+              ticks: {
+                suggestedMin: 0, //min
+                suggestedMax: 100, //min
+                precision: 0
+              }
+            }]
+          }
+      }
        }
      });
    }
