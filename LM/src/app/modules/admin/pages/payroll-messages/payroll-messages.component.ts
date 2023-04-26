@@ -67,7 +67,8 @@ export class PayrollMessagesComponent implements OnInit {
         });
        }
       else {
-        const toSelect = this.messagesDataList.find((res: { message: string; }) => res.message.trim().toLowerCase() ==rmessage.toLowerCase());
+        const toSelect = this.messagesDataList.find((res: { message: string;code:string }) => res.message.trim().toLowerCase() == rmessage.toLowerCase()
+        && res.code != rcode);
         if(toSelect!=undefined){
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
@@ -147,9 +148,9 @@ export class PayrollMessagesComponent implements OnInit {
         this.messagesDataList.forEach((e: any) => {
           if (e.code == "PR1") {
            this.requiredField = e.message
-          } else if (e.code == "PR40") {
+          } else if (e.code == "PR41") {
             this.recordExist =e.message
-          }else if (e.code == "PR41") {
+          }else if (e.code == "PR40") {
             this.dataUpdate =e.message
           } else if (e.code == "PR42") {
             this.dataNotUpdate =e.message
