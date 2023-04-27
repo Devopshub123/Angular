@@ -30,7 +30,7 @@ import { InductionComponent } from './pages/induction-master/induction.component
 import { UsersLoginComponent } from './pages/users-login/users-login.component';
 import { NewHireListComponent } from './pages/new-hire-list/new-hire-list.component';
 import { DeptResignationPendingchecklistComponent } from './pages/manager-resignation-checklist/dept-resignation-pendingchecklist.component';
-
+import { EmployeeExcelUploadComponent } from './pages/employee-excel-upload/employee-excel-upload.component';
 const routes: Routes = [
   {
     path: '', component: MainComponent,
@@ -63,6 +63,8 @@ const routes: Routes = [
       //{ path:'users-login',component:UsersLoginComponent,canActivate:[LMSAccessGuard]},
       { path:'new-hired-list',component:NewHireListComponent,canActivate:[LMSAccessGuard]},
       { path:'resignation-pendingchecklist-department',component:DeptResignationPendingchecklistComponent,canActivate:[LMSAccessGuard]},
+      { path:'employee-excel-upload',component:EmployeeExcelUploadComponent,canActivate:[LMSAccessGuard]},
+      
     ]
   }];
 

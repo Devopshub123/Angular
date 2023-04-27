@@ -40,6 +40,7 @@ import { ReportpopupComponent } from './pages/reportpopup/reportpopup.component'
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { DeptResignationPendingchecklistComponent } from './pages/manager-resignation-checklist/dept-resignation-pendingchecklist.component';
 import { InductionConductedByMasterComponent } from './pages/induction-conducted-by-master/induction-conducted-by-master.component';
+import { EmployeeExcelUploadComponent } from './pages/employee-excel-upload/employee-excel-upload.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { InductionConductedByMasterComponent } from './pages/induction-conducted
     ReportpopupComponent,
     DeptResignationPendingchecklistComponent,
     InductionConductedByMasterComponent,
+    EmployeeExcelUploadComponent,
     ],
   imports: [
     CommonModule,
