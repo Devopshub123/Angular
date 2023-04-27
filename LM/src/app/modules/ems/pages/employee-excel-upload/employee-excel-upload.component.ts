@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AdminService } from 'src/app/modules/admin/admin.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import * as XLSX from 'xlsx';
+import { EmsService } from '../../ems.service';
 type AOA = any[][];
 @Component({
   selector: 'app-employee-excel-upload',
@@ -26,7 +27,7 @@ export class EmployeeExcelUploadComponent implements OnInit {
   reqNotSave: any;
   isLoading = false;
 
-  constructor() { }
+  constructor(private emsService:EmsService,public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -58,6 +59,40 @@ export class EmployeeExcelUploadComponent implements OnInit {
 
   SaveUploadedData(){
     console.log("this.convertedJson",this.convertedJson)
+    this.isLoading=true;
+    this.emsService.setEmployeeExcelData(JSON.parse(this.convertedJson)).subscribe(
+     (res:any) => {
+      this.isLoading=false;
+        if (res.status) {
+          let resMessage: any;
+          if (res.message=="excelUploadSave") {
+            resMessage = this.reqSave
+          } else if(res.message=="unableToUpload"){
+            resMessage = this.reqNotSave
+          } else {
+            resMessage=this.reqNotSave
+          }
+       this.removeData();
+       this.isview=false;
+       this.isadd = true;
+
+       let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+          disableClose:true,
+          data: resMessage
+       });
+      }else{
+        
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose:true,
+          data:this.reqNotSave
+       });
+      }
+     }, 
+     error =>{
+       error.error.text
+     })
   }
   removeData(){
     this.isview = false;
