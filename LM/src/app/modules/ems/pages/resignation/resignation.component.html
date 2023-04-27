@@ -46,7 +46,7 @@
          </div>
 
       <div *ngIf="this.ishide">
-        <div class="div-Pad">
+        <div class="div-Pad" fxLayout="column">
          <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center" >
             <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
               <mat-label>Date of Request Resignation </mat-label>
@@ -75,7 +75,8 @@
           </div>
 
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-            <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
+            <div fxLayout="row" fxFlex="67" fxFlex.lt-lg="100" fxLayout.xs="column">
+            <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
               <mat-label>Request Exit Date </mat-label>
               <input matInput [matDatepicker]="date3" [max]="max" [min]="min" placeholder="DD-MM-YYYY"
                 formControlName="exitdate" (click)="date3.open()" [disabled]="isviewdata" required [tabIndex]="4"/>
@@ -88,7 +89,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
               <mat-label>Reason</mat-label>
               <mat-select [disabled]="isviewdata" formControlName="reason" required [tabIndex]="5">
                 <ng-container>
@@ -101,18 +102,21 @@
                 Please select an option
               </mat-error>
             </mat-form-field>
-
           </div>
-          <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row" fxLayoutAlign.xs="center">
-           
-
-            <mat-form-field fxFlex.xs="100" fxFlex="66" fxFlex.lt-lg="100" class="mx-2 my-2" 
-            appearance="outline" style="padding-right: 3px;">
-              <mat-label>Notes</mat-label>
-              <textarea formControlName="notice" matInput placeholder="" [readonly]="isviewdata"
-                maxlength="250" [tabIndex]="6"></textarea>
-            </mat-form-field>
+       
           </div>
+          <div fxLayout="row" fxFlex="100">
+            <div fxLayout="row" fxFlex="67" fxFlex.lt-lg="100" fxLayoutAlign.xs="center">
+             <mat-form-field fxFlex="100" fxFlex.xs="100" fxFlex.lt-lg="100" class="mx-2 my-2" 
+              appearance="outline">
+                <mat-label>Notes</mat-label>
+                <textarea formControlName="notice" matInput placeholder="" [readonly]="isviewdata"
+                  maxlength="250" [tabIndex]="6"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+
+
           <div fxLayoutAlign="center">
             <button class="btn btn-primary mr-2 mb-2" [tabIndex]="7" (click)="saved()" *ngIf="isadd">
               Submit

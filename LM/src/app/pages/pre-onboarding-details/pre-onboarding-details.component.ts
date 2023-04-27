@@ -60,7 +60,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   educationForm: any = FormGroup;
   documentsForm: any = FormGroup;
   minDate = new Date('1950/01/01');
-  maxBirthDate = new Date();
+
   bloodGroupdetails: any[] = [];
   genderDetails: any[] = [];
   employeeRelationship: any = [];
@@ -149,7 +149,10 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
 
 
+  maxBirthDate:Date | undefined;
   ngOnInit(): void {
+    this. maxBirthDate = new Date();
+    this.maxBirthDate.setMonth(this.maxBirthDate.getMonth() - 12 * 18);
     this.params = this.activatedRoute.snapshot.params;
     // if (this.params && this.params.token) {
       this.email = JSON.parse(atob(this.params.token)).email;

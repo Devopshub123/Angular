@@ -66,7 +66,8 @@ export class MessageMasterComponent implements OnInit {
         });
        }
       else {
-        const toSelect = this.messagesDataList.find((res: { message: string; }) => res.message.trim().toLowerCase() ==rmessage.toLowerCase());
+        const toSelect = this.messagesDataList.find((res: { message: string;code:string }) => res.message.trim().toLowerCase() == rmessage.toLowerCase()
+        && res.code != rcode);
         if(toSelect!=undefined){
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },

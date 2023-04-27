@@ -374,7 +374,8 @@ export class EmsService {
   }
   
     /** update Induction ConductedBy status*/
-    updateInductionConductedByStatus(data: any): any {
+  updateInductionConductedByStatus(data: any): any {
+      data.companyName = this.companyName;
       return this.http.post(this.mainUrl + 'ems/api/updateInductionConductedbyStatus', data, this.httpOptions);
   } 
   

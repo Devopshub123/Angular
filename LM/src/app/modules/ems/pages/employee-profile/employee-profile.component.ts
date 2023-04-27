@@ -221,6 +221,8 @@ export class EmployeeProfileComponent implements OnInit {
   EM61: any;
   EM42: any;
   EM43: any;
+  EM62: any;
+  EM63: any;
   fileURL: any;
   file: any;
   documentDetails: any = [];
@@ -247,6 +249,8 @@ export class EmployeeProfileComponent implements OnInit {
   isRemoveImage: boolean = true;
   isContractData: boolean = false;
   isSubmitAdd: boolean = false;
+  isUpdate: boolean = false;
+  isDelete: boolean = false;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.empId = this.userSession.id;
@@ -580,8 +584,8 @@ export class EmployeeProfileComponent implements OnInit {
           this.isContractData = true;
         }
         this.personalInfoForm.controls.usertype.setValue(
-          this.employeeInformationData.usertype
-        );
+          JSON.parse(this.employeeInformationData.usertype)[0].role
+       );
         this.personalInfoForm.controls.companylocation.setValue(
           this.employeeInformationData.worklocation
         );
@@ -1362,8 +1366,6 @@ export class EmployeeProfileComponent implements OnInit {
               this.experienceForm.controls.expToDate.value,
               'yyyy-MM-dd'
             )),
-        this.clearExperienceValidators();
-        this.clearWorkExperience();
         this.saveWorkExperience();
       } else {
         if (this.experienceForm.valid) {
@@ -1393,12 +1395,11 @@ export class EmployeeProfileComponent implements OnInit {
       }
 
     }
-    
-    
   }
   editExperience(i: any) {
     this.experienceIndex = i;
     this.isExperienceEdit = true;
+    this.isUpdate = true;
     this.experienceForm.controls.companyName.setValue(
       this.workExperienceDetails[i].companyname
     );
@@ -1447,6 +1448,8 @@ export class EmployeeProfileComponent implements OnInit {
   }
   clearWorkExperience() {
     this.isExperienceEdit = false;
+    this.isUpdate = false;
+    this.isDelete = false;
     this.experienceForm.controls.companyName.reset();
     this.experienceForm.controls.expFromDate.reset();
     this.experienceForm.controls.expToDate.reset();
@@ -1461,6 +1464,7 @@ export class EmployeeProfileComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'YES') {
+        this.isDelete = true;
         this.deleteExperience(event);
       }
     });
@@ -1477,19 +1481,34 @@ export class EmployeeProfileComponent implements OnInit {
       empid: this.employeeCode,
       experience: this.workExperienceDetails,
     };
-
     this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
       if (res.status && res.data[0].statuscode == 0) {
         this.getEmployeeEmploymentList();
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
-          data: this.EM42,
-        });
+        if (this.isUpdate == false && this.isDelete ==false) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.EM42,
+          });
+        } else if (this.isUpdate == true) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.EM62
+          });
+        } else if (this.isDelete == true) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.EM63,
+          });
+        }
         if (this.isSubmitAdd == false) {
           this.selectedtab.setValue(3);
         }
         this.isSubmitAdd = false;
+        this.clearExperienceValidators();
+        this.clearWorkExperience();
       } else {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
@@ -1511,16 +1530,35 @@ export class EmployeeProfileComponent implements OnInit {
       this.emsService.saveEmployeeEducationData(data).subscribe((res: any) => {
         if (res.status && res.data[0].statuscode == 0) {
           this.getEmployeeEducationList();
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: this.EM42,
-          });
+          // -----
+          if (this.isUpdate == false && this.isDelete ==false) {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.EM42,
+            });
+          } else if (this.isUpdate == true) {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.EM62
+            });
+          } else if (this.isDelete == true) {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+              data: this.EM63,
+            });
+          }
+          // ----
+
           this.spinner.hide();
           if (this.isSubmitAdd == false) {
             this.selectedtab.setValue(5);
           }
           this.isSubmitAdd = false;
+          this.clearEducationValidators();
+          this.clearEducation();
         } else {
           this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -1557,8 +1595,6 @@ export class EmployeeProfileComponent implements OnInit {
               this.educationForm.controls.eduToDate.value,
               'yyyy-MM-dd'
             )),
-          this.clearEducationValidators();
-        this.clearEducation();
         this.saveEducation();
       } else {
         if (this.educationForm.valid) {
@@ -1590,6 +1626,7 @@ export class EmployeeProfileComponent implements OnInit {
   editEduction(i: any) {
     this.educationIndex = i;
     this.isEducationEdit = true;
+    this.isUpdate = true;
     this.educationForm.controls.course.setValue(
       this.educationDetails[i].course
     );
@@ -1632,6 +1669,8 @@ export class EmployeeProfileComponent implements OnInit {
   }
   clearEducation() {
     this.isEducationEdit = false;
+    this.isUpdate = false;
+    this.isDelete = false;
     this.educationForm.controls.course.reset();
     this.educationForm.controls.instituteName.reset();
     this.educationForm.controls.eduFromDate.reset();
@@ -1645,6 +1684,7 @@ export class EmployeeProfileComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'YES') {
+        this.isDelete = true;
         this.deleteEducation(event);
       }
     });
@@ -1734,6 +1774,10 @@ export class EmployeeProfileComponent implements OnInit {
             this.EM42 = e.message;
           } else if (e.code == 'EM43') {
             this.EM43 = e.message;
+          } else if (e.code == 'EM62') {
+            this.EM62 = e.message;
+          } else if (e.code == 'EM63') {
+            this.EM63 = e.message;
           }
         });
       } else {

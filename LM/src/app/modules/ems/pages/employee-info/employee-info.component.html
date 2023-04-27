@@ -960,7 +960,7 @@
 
                             <mat-form-field fxFlex.xs="100%" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>From Date</mat-label>
-                                <input matInput required readonly [matDatepicker]="expFromDate" [min]="edmaxDate"
+                                <input matInput required readonly [matDatepicker]="expFromDate" [min]="minDate"
                                     [max]="expmaxDate" placeholder="DD-MM-YYYY" formControlName="expFromDate"
                                     (click)="expFromDate.open()" (dateChange)="onExpDateChange()"/>
                                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="expFromDate">
