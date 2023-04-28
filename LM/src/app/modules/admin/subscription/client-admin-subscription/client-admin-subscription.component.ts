@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 import { ManageUsersComponent } from '../dialog/manage-users/manage-users.component';
 import { InvoiceDataComponent } from '../dialog/invoice-data/invoice-data.component';
+import { CompanySettingService } from 'src/app/services/companysetting.service';
 const moment =  _moment;
 
 export const MY_FORMATS = {
@@ -35,10 +36,13 @@ export class ClientAdminSubscriptionComponent implements OnInit {
 
   subscriptionForm:any= FormGroup;
   companyDBName: any = environment.dbName;
+  clientid:any;
   /** */
   isOther: boolean = false;
   constructor(private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog,
-    private adminService: AdminService) {
+    private adminService: AdminService,private companyService: CompanySettingService,) {
+      this.getClientSubscriptionDetailswithshortcode();
+
    }
 
   ngOnInit(): void {
@@ -68,10 +72,10 @@ export class ClientAdminSubscriptionComponent implements OnInit {
         pincode:[""],
         gstNumber:[""],
       });
-    this.getClientSubscriptionDetails();
+
   }
-  getClientSubscriptionDetails(){
-    this.adminService.getClientSubscriptionDetails(2).subscribe((res:any)=>{
+  getClientSubscriptionDetails(data:any){
+    this.adminService.getClientSubscriptionDetails(Number(data)).subscribe((res:any)=>{
       if (res.status && res.data.length != 0) {
         let value = res.data;
         this.subscriptionForm.controls.companyCode.setValue(value[0].company_code);
@@ -91,7 +95,7 @@ export class ClientAdminSubscriptionComponent implements OnInit {
           this.isOther = true;
           this.subscriptionForm.controls.industryTypeOther.setValue(value[0].industry_type_value);
         }
-      
+
         this.subscriptionForm.controls.email.setValue(value[0].company_email);
         this.subscriptionForm.controls.address1.setValue(value[0].company_address);
         this.subscriptionForm.controls.address2.setValue(value[0].company_address2);
@@ -119,4 +123,13 @@ export class ClientAdminSubscriptionComponent implements OnInit {
     this.router.navigate(["/Admin/upgrade-plan"]));
   }
   cancelSubscription(){}
+  getClientSubscriptionDetailswithshortcode(){
+    this.companyService.getClientSubscriptionDetails().subscribe((data:any)=>{
+      if (data.status && data.data.length != 0) {
+        this.clientid =data.data[0].client_id;
+        this.getClientSubscriptionDetails(this.clientid);
+
+      }
+    })
+  }
 }

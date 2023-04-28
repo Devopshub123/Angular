@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     let params: any = this.activatedRoute.snapshot.params;
     this.companyName = params.companyName;
-   
+
     this.createForm();
     this.formGroup.controls.username.setValue(localStorage.getItem("username"));
     this.formGroup.controls.password.setValue(localStorage.getItem("password"));
@@ -91,7 +91,7 @@ export class LoginComponent implements OnInit {
           if (empdata.firstlogin == "Y") {
             this.router.navigate(['/Attendance/ChangePassword'])
           }
-          if (empdata.roles[0].role_name == "Product Admin") {
+          else if (empdata.roles[0].role_name == "Product Admin") {
             this.router.navigate(['/Admin/product-admin-dashboard'])
           }
           else {
@@ -105,7 +105,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('expirydate', data.expirydate);
             this.employeeId = data.result[0].id;
             this.router.navigate(['Admin/client-superadmin-dashboard'])
-            
+
           }
           else{
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -115,7 +115,7 @@ export class LoginComponent implements OnInit {
             });
 
           }
-          
+
         }
         else if
         (data.message=='dbnotthere'){
