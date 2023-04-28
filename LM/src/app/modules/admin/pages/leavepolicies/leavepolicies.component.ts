@@ -60,7 +60,8 @@ export class LeavepoliciesComponent implements OnInit {
   arrayValues:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}]
   arrayValuess:any=[{Value:'1',name:'Monthly'},{Value:'3',name:'Quarterly'},{Value:'6',name:'Half-Yearly'},{Value:'12',name:'Yearly'}]
   isdisabled:boolean=true;
-  arrayValueOne:any=[{Value:'1',name:'Jan-Dec'},{Value:'2',name:' Apr-Mar'}]
+  arrayValueOne:any;
+  // arrayValueOne:any=[{Value:'1',name:'Jan-Dec'},{Value:'2',name:' Apr-Mar'}]
   arrayValuesDefalult:any=[{value:'1',name:'Yes'},{value:'0',name:'No'}]
   arrayValuesWeek:any=[{Value:'1',name:'Yes'},{Value:'0',name:'No'}];
   displayedColumns: string[] = ['sno','configurationrules','data','addditionalinformation'];
@@ -114,6 +115,7 @@ export class LeavepoliciesComponent implements OnInit {
 
   constructor(private location:Location,private LM: LeavePoliciesService, private router: Router, private ts: LoginService, private dialog: MatDialog, private formBuilder: FormBuilder,) {
     this.datas = this.location.getState();
+    this.getLeaveCycleYearOptions();
   }
 
   ngOnInit(): void {
@@ -1353,6 +1355,13 @@ hexToRgb(hex:any) {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
     this.router.navigate(["/Admin/Leavepolicies"]));
   }
+  getLeaveCycleYearOptions(){
+    this.LM.getLeaveCycleYearOptions().subscribe((result:any) => {
+      if(result.status){
+        this.arrayValueOne = result.data
+      }
+    })
 
+  }
 }
 
