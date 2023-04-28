@@ -176,6 +176,9 @@ getSpryplePlans(){
   return this.http.get(this.mainUrl+'subscription/api/getSpryplePlans', this.httpOptions);
 
 }
+getUnmappedPlans(){
+  return this.http.get(this.mainUrl+'subscription/api/getUnmappedPlans', this.httpOptions);
+}
 getSpryplePlanCostDetails(){
   return this.http.get(this.mainUrl+'subscription/api/getSpryplePlanCostDetails', this.httpOptions);
 
