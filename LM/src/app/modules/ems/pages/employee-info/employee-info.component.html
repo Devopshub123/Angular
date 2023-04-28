@@ -300,7 +300,7 @@
                                     {{ EM2 }}
                                 </mat-error>
                             </mat-form-field>
-                            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                            <!-- <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Role</mat-label>
                                 <mat-select required formControlName="usertype" [disabled]="editRoles">
                                     <ng-container>
@@ -313,7 +313,31 @@
                                     *ngIf="personalInfoForm.controls.usertype.errors?.required">
                                     {{ EM2 }}
                                 </mat-error>
-                            </mat-form-field>
+                            </mat-form-field> -->
+                            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Role</mat-label>
+                                <mat-select (openedChange)="openedSearch($event)" [compareWith]="compareFn"   
+                                required formControlName="usertype" multiple>
+                                <mat-select-trigger>
+                                  <span *ngFor="let item of personalInfoForm.controls.usertype.value">
+                                       {{ item.name ? item.name:item.usertype }} ,
+                                  </span>
+                                 </mat-select-trigger>
+                                <div class="select-container" *ngIf="flag">
+                                    <mat-option  (onSelectionChange)="selectedRolesChange($event)"
+                                    *ngFor="let role of availableRole" [value]="role">{{role.name}}</mat-option>
+                              </div>
+                              <div class="select-container" *ngIf="!flag">
+                                <mat-option  (onSelectionChange)="selectedRolesChange($event)"
+                                *ngFor="let role of availableRole" [value]="role">{{role.name}}
+                            </mat-option>
+                          </div>
+                            </mat-select>
+                            <mat-error class="con-error" *ngIf="personalInfoForm.controls.usertype.errors?.required">
+                              {{EM2}}
+                            </mat-error>
+                         </mat-form-field>
+
 
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Company Location</mat-label>

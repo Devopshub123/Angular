@@ -136,7 +136,6 @@ export class EmployeeProfileComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   minDate = new Date('1950/01/01');
-  maxBirthDate: any;
   bloodGroupdetails: any[] = [];
   genderDetails: any[] = [];
   employeeRelationship: any = [];
@@ -251,7 +250,10 @@ export class EmployeeProfileComponent implements OnInit {
   isSubmitAdd: boolean = false;
   isUpdate: boolean = false;
   isDelete: boolean = false;
+  maxBirthDate:Date | undefined;
   ngOnInit(): void {
+    this. maxBirthDate = new Date();
+    this.maxBirthDate.setMonth(this.maxBirthDate.getMonth() - 12 * 18);
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.empId = this.userSession.id;
     this.getDocumentsEMS();

@@ -19,7 +19,7 @@ const routes: Routes = [
     path: '', component: MainComponent,
     children: [
 
-      { path: 'Approval', component: ApprovalAttendanceComponent,canActivate:[LMSAccessGuard] },
+      { path: 'Approval', component: ApprovalAttendanceComponent},
       { path: 'ApprovalList', component: ApprovalAttendanceListComponent,canActivate:[LMSAccessGuard] },
       { path: 'Request', component: AttendanceRequestComponent ,canActivate:[LMSAccessGuard]},
       { path: 'RequestofEmployee', component: AttendanceRequestBehalfComponent ,canActivate:[LMSAccessGuard]},

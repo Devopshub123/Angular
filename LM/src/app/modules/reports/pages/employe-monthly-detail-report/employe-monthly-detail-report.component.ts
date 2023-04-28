@@ -140,7 +140,7 @@ export class EmployeMonthlyDetailReportComponent implements OnInit {
     var html = htmlToPdfmake(pdfTable.innerHTML);
     pdfMake.createPdf({
       info: {
-        title: "Attendance Mothly Report",
+        title: "Attendance Monthly Report",
         author:'Sreeb tech',
         subject:'Theme',
             keywords:'Report'
@@ -163,7 +163,7 @@ export class EmployeMonthlyDetailReportComponent implements OnInit {
       },
       content: [ 
         {
-          text: "Attendance Mothly Report\n\n",
+          text: "Attendance Monthly Report\n\n",
           style: 'header',
           alignment: 'center',
           fontSize: 14
@@ -187,7 +187,7 @@ export class EmployeMonthlyDetailReportComponent implements OnInit {
       pageOrientation: 'portrait',//'',
       pageSize:'A2'
 
-    }).download("Attendance Mothly Report.pdf");
+    }).download("Attendance Monthly Report.pdf");
 
   }
 }

@@ -39,7 +39,7 @@ const routes: Routes = [
       { path: 'newHire', component: NewhireComponent,canActivate:[LMSAccessGuard] },
       { path: 'terminate', component: TerminateComponent,canActivate:[LMSAccessGuard] },
       { path: 'resignation',component:ResignationComponent,canActivate:[LMSAccessGuard]},
-      { path: 'empInformation',component:EmployeeInfoComponent,canActivate:[LMSAccessGuard]},
+      { path: 'empInformation',component:EmployeeInfoComponent},
      // { path: 'settings-checklist',component:SettingsAddChecklistComponent,canActivate:[LMSAccessGuard]},
       //{ path: 'settings-offBoarding',component:SettingsOffBoardingComponent,canActivate:[LMSAccessGuard]},
       //{ path: 'settings-onBoarding',component:SettingsOnBoardingComponent,canActivate:[LMSAccessGuard]},

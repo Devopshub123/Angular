@@ -205,7 +205,12 @@ export class EmployeeInfoComponent implements OnInit {
   joinDateDisable: boolean = false;
   isSubmitAdd: boolean = false;
   maxBirthDate:Date | undefined;
-  editRoles:boolean=false;
+  editRoles: boolean = false;
+  searchTextboxControl = new FormControl();
+  selectedRoles: any = [];
+  isEnable = false;
+  flag: boolean = true;
+  roleArray: any = [];
   ngOnInit(): void {
     this. maxBirthDate = new Date();
     this.maxBirthDate.setMonth(this.maxBirthDate.getMonth() - 12 * 18);
@@ -220,7 +225,6 @@ export class EmployeeInfoComponent implements OnInit {
     else{
       this.editRoles= true;
     }
-
     /** through new hired list */
     if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
       this.candidateId = this.decryptPipe.transform(this.activeroute.snapshot.params.candId)
@@ -399,14 +403,14 @@ export class EmployeeInfoComponent implements OnInit {
     })
     /////////
 
-    this.personalInfoForm.get('usertype')?.valueChanges.subscribe((selectedValue: number) => {
-      if (selectedValue == 2 || selectedValue == 6) {
-        this.isself = true;
-      }
-      else {
-        this.isself = false;
-      }
-    })
+    // this.personalInfoForm.get('usertype')?.valueChanges.subscribe((selectedValue: number) => {
+    //   if (selectedValue == 2 || selectedValue == 6) {
+    //     this.isself = true;
+    //   }
+    //   else {
+    //     this.isself = false;
+    //   }
+    // })
 
     this.personalInfoForm.get('employmentType')?.valueChanges.subscribe((selectedValue: number) => {
       if (selectedValue == 3) {
@@ -589,11 +593,11 @@ export class EmployeeInfoComponent implements OnInit {
     this.spinner.show();
     this.employeeInformationData = [];
     this.familyDetails = [];
+    this.selectedRoles = [];
+    this.flag = false;
     this.emsService.getEmployeeInformationData(this.employeeId).subscribe((res: any) => {
 
       this.employeeInformationData = JSON.parse(res.data[0].json)[0];
-      console.log("this.employeeInformationData ",this.employeeInformationData )
-
       this.isNewEmployee = false;
       this.joinDateDisable = true;
       if (this.employeeInformationData.id != null) {
@@ -659,8 +663,13 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.empStatus.setValue(this.employeeInformationData.status);
       this.personalInfoForm.controls.employmentType.setValue(this.employeeInformationData.employmenttype);
       // this.personalInfoForm.controls.usertype.setValue(this.employeeInformationData.usertype);
-      this.personalInfoForm.controls.usertype.setValue(JSON.parse(this.employeeInformationData.usertype)[0].role);
-      this.personalInfoForm.controls.usertype.disable()
+      let data = JSON.parse(this.employeeInformationData.usertype);
+      for (let i = 0; i < data.length; i++){
+        this.roleArray.push(data[i]);
+        this.selectedRoles.push(data[i].id);
+      }
+      this.availableRole = data;
+      this.personalInfoForm.controls.usertype.setValue(this.roleArray);
       this.personalInfoForm.controls.companylocation.setValue(this.employeeInformationData.worklocation);
       this.personalInfoForm.controls.designation.setValue(this.employeeInformationData.designation);
       this.personalInfoForm.controls.department.setValue(this.employeeInformationData.department);
@@ -848,7 +857,7 @@ export class EmployeeInfoComponent implements OnInit {
         mobileNo: ["",[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
         alternateMobileNo: ["",[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
         officeemail: ["", [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
-        usertype: ["",],
+        usertype: [[],],
         designation: ["",],
         department: ["",],
         employmentType: ["",],
@@ -996,8 +1005,10 @@ export class EmployeeInfoComponent implements OnInit {
       for (let i = 0; i < roledata.length; i++) {
         if (roledata[i].isEditable == 0) {
           this.availableRole.push(roledata[i])
+          
         }
       }
+      console.log("availableRole",this.availableRole)
     })
   }
   getReportingManagers(id: any) {
@@ -1073,13 +1084,13 @@ export class EmployeeInfoComponent implements OnInit {
         actionby: parseInt(this.userSession.id),
         ///////
         officeemail: this.personalInfoForm.controls.officeemail.value,
-        usertype: this.personalInfoForm.controls.usertype.value,
+        usertype: this.selectedRoles,
         department: this.personalInfoForm.controls.department.value,
         employmenttype: this.personalInfoForm.controls.employmentType.value,
         companylocation: this.personalInfoForm.controls.companylocation.value,
         reportingmanager: this.personalInfoForm.controls.reportingmanager.value,
       }
-
+      console.log("dat--", data);
       this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
         if (res.status) {
           if (res.data.email == null) {
@@ -2391,6 +2402,27 @@ export class EmployeeInfoComponent implements OnInit {
         this.minJoinDate = new Date(data.data[0].established_date);
       }
     })
+  }
+  openedSearch(e:any) {
+    this.searchTextboxControl.patchValue('');
+  }
+
+  clearSearch(event:any) {
+    event.stopPropagation();
+    this.searchTextboxControl.patchValue('');
+  }
+  compareFn(option1:any,option2:any){
+    return option1.id === option2.id;
+  }
+  selectedRolesChange(event: any) {
+    if (event.isUserInput && event.source.selected == false) {
+      let index = this.selectedRoles.indexOf(event.source.value);
+      this.selectedRoles.splice(index, 1)
+    } else {
+      if(!this.selectedRoles.includes(event.source.value.id)) {
+        this.selectedRoles.push(event.source.value.id);
+      }
+    }
   }
 }
 
