@@ -26,7 +26,7 @@ const routes: Routes = [
       { path: 'EmployeeDashboard', component: EmployeDashboardComponent,canActivate:[LMSAccessGuard] },
       { path: 'ManagerDashboard', component: ManagerDashboardComponent,canActivate:[LMSAccessGuard]},
       { path: 'uploadExcel', component: AttendanceUploadexcelComponent,canActivate:[LMSAccessGuard] },
-      { path: 'ChangePassword', component: ChangePasswordComponent,canActivate:[LMSAccessGuard] },
+      { path: 'ChangePassword', component: ChangePasswordComponent},
       { path: 'ShiftConfigure', component: ShiftConfigureComponent,canActivate:[LMSAccessGuard] },
       {path:'ApprovedHistory',component:ApprovalHistoryComponent,canActivate:[LMSAccessGuard]}
     ]

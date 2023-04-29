@@ -28,7 +28,7 @@ const routes: Routes = [
     {path:'MainDashboard',component:MainDashboardComponent},
     {path:'AuditLog',component:AuditLogComponent},
   ]},
-  {path:'ChangePassword',component:ChangePasswordComponent,canActivate:[LMSAccessGuard]},
+  {path:'ChangePassword',component:ChangePasswordComponent},
   // {path:'ResetPassword',component:ResetPasswordComponent},
   {path:'ResetPassword/:token',component:ResetPasswordComponent},
 

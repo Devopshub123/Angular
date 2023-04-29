@@ -383,12 +383,8 @@ export class EmsService {
       getConductEmployeesByProgramIdAndDeptId(pid: any,did:any): any {
         return this.http.get(this.mainUrl + 'ems/api/getCondcutedEmployeesByPrgIdAndDeptId/'+ pid+'/'+did+'/'+this.companyName, this.httpOptions);
     }
-    setEmployeeExcelData(data:any){
-      this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
-      data.companyName = this.companyName;
-      data.created_by =  this.userSession.id
-      console.log("fff",data)
-      return this.http.post(this.mainUrl + 'ems/api/setEmployeeExcelData',JSON.stringify(data), this.httpOptions);
+    setEmployeeExcelData(data:any,cname:any){
+         return this.http.post(this.mainUrl + 'ems/api/setEmployeeExcelData/'+cname,data, this.httpOptions);
 
     }
     

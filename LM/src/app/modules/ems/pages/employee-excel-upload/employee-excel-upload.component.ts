@@ -26,8 +26,12 @@ export class EmployeeExcelUploadComponent implements OnInit {
   reqSave: any;
   reqNotSave: any;
   isLoading = false;
-
-  constructor(private emsService:EmsService,public dialog: MatDialog) { }
+  companyName: any;
+  userSession: any;
+  constructor(private emsService: EmsService, public dialog: MatDialog) {
+    this.companyName = sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
+    this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
+  }
 
   ngOnInit(): void {
   }
@@ -58,9 +62,13 @@ export class EmployeeExcelUploadComponent implements OnInit {
 }
 
   SaveUploadedData(){
-    console.log("this.convertedJson",this.convertedJson)
-    this.isLoading=true;
-    this.emsService.setEmployeeExcelData(JSON.parse(this.convertedJson)).subscribe(
+    this.isLoading = true;
+    let data = {
+      'employeeList': JSON.parse(this.convertedJson),
+      'createdby':this.userSession.id
+    }
+    console.log("sendata--",data)
+    this.emsService.setEmployeeExcelData(data,this.companyName).subscribe(
      (res:any) => {
       this.isLoading=false;
         if (res.status) {

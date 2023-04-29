@@ -63,7 +63,7 @@ const routes: Routes = [
       //{ path:'users-login',component:UsersLoginComponent,canActivate:[LMSAccessGuard]},
       { path:'new-hired-list',component:NewHireListComponent,canActivate:[LMSAccessGuard]},
       { path:'resignation-pendingchecklist-department',component:DeptResignationPendingchecklistComponent,canActivate:[LMSAccessGuard]},
-      { path:'employee-excel-upload',component:EmployeeExcelUploadComponent,canActivate:[LMSAccessGuard]},
+      { path:'employee-excel-upload',component:EmployeeExcelUploadComponent},
       
     ]
   }];

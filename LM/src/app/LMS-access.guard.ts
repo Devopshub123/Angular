@@ -22,7 +22,7 @@ export class LMSAccessGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
     var urlsList:any=[]
-    var module: any = JSON.parse(sessionStorage.getItem('moduleData')??'[]');
+    var module: any = JSON.parse(sessionStorage.getItem('moduleData') ?? '[]');
     if (module.length > 0) {
       module.forEach((e: any) => {
         if (e.menu_items.length>0) {
@@ -33,14 +33,13 @@ export class LMSAccessGuard implements CanActivate {
           });
         }
       });
-     
     }
     else {
    }
     if (sessionStorage.getItem('user')) {
       if (urlsList.length > 0) {
         const toSelect = urlsList.find((url: any) => url.routeurl.trim() == state.url);
-        if (toSelect != undefined) {
+         if (toSelect != undefined) {
           return true;
         } else {
           this.route.navigate(['Login'])

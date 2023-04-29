@@ -594,6 +594,7 @@ export class EmployeeInfoComponent implements OnInit {
     this.employeeInformationData = [];
     this.familyDetails = [];
     this.selectedRoles = [];
+    this.roleArray = [];
     this.flag = false;
     this.emsService.getEmployeeInformationData(this.employeeId).subscribe((res: any) => {
 
@@ -666,7 +667,7 @@ export class EmployeeInfoComponent implements OnInit {
       let data = JSON.parse(this.employeeInformationData.usertype);
       for (let i = 0; i < data.length; i++){
         this.roleArray.push(data[i]);
-        this.selectedRoles.push(data[i].id);
+       // this.selectedRoles.push({ "id": data[i].id });
       }
       this.availableRole = data;
       this.personalInfoForm.controls.usertype.setValue(this.roleArray);
@@ -1008,7 +1009,6 @@ export class EmployeeInfoComponent implements OnInit {
           
         }
       }
-      console.log("availableRole",this.availableRole)
     })
   }
   getReportingManagers(id: any) {
@@ -1090,8 +1090,7 @@ export class EmployeeInfoComponent implements OnInit {
         companylocation: this.personalInfoForm.controls.companylocation.value,
         reportingmanager: this.personalInfoForm.controls.reportingmanager.value,
       }
-      console.log("dat--", data);
-      this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
+     this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
         if (res.status) {
           if (res.data.email == null) {
             this.employeeId = res.data.empid;
@@ -2414,13 +2413,18 @@ export class EmployeeInfoComponent implements OnInit {
   compareFn(option1:any,option2:any){
     return option1.id === option2.id;
   }
+
+  
   selectedRolesChange(event: any) {
     if (event.isUserInput && event.source.selected == false) {
-      let index = this.selectedRoles.indexOf(event.source.value);
-      this.selectedRoles.splice(index, 1)
+       this.selectedRoles.forEach((value: { id: any; },index: any)=>{
+       if(value.id==event.source.value.id) this.selectedRoles.splice(index,1);
+         });
     } else {
-      if(!this.selectedRoles.includes(event.source.value.id)) {
-        this.selectedRoles.push(event.source.value.id);
+
+      const toSelect = this.selectedRoles.find((e: any) => e.id == event.source.value.id);
+      if (toSelect == undefined) {
+        this.selectedRoles.push({ "id": event.source.value.id });
       }
     }
   }

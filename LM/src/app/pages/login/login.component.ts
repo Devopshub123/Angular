@@ -85,7 +85,8 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('user', JSON.stringify(empdata));
           this.employeeId = empdata.id;
           if (empdata.firstlogin == "Y") {
-            this.router.navigate(['/Attendance/ChangePassword'])
+            // this.router.navigate(['/Attendance/ChangePassword'])
+            this.router.navigate(['/ChangePassword'])
           }
           else {
             this.router.navigate(['main/MainDashboard'])
