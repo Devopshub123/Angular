@@ -11,7 +11,7 @@ export class InvestmentProofRequestComponent implements OnInit {
   userData: any;
   ngOnInit(): void {
     this.userData = this.location.getState();
-    console.log("userData",this.userData);
+
   }
 
 }

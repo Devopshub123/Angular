@@ -42,8 +42,6 @@ export class LoginComponent implements OnInit {
     this.formGroup.controls.password.setValue(localStorage.getItem("password"));
     this.formGroup.controls.comapnyname.setValue(localStorage.getItem("comapnyname"));
     this.formGroup.controls.rememberme.setValue((localStorage.getItem("rememberme")=='false')?0:1);    // console.log("nm--",this.formGroup.controls.username.value)
-    // console.log("pwd--",this.formGroup.controls.password.value)
-    // console.log("rmm--",this.formGroup.controls.rememberme.value)
     // this.getMessagesList();
   }
   hide = true;
@@ -56,7 +54,7 @@ export class LoginComponent implements OnInit {
       'rememberme':['']
     });
   }
-  login(){
+  login() {
     this.issubmit = true;
     this.email = this.formGroup.controls.username.value;
     this.password = this.formGroup.controls.password.value;
@@ -80,6 +78,7 @@ export class LoginComponent implements OnInit {
       }
       this.tss.Savelogin(data).subscribe((data) =>{
         // sessionStorage.setItem('user', JSON.stringify(data.result[0]));
+        
         if(data.status === true){
           console.log("exp",data.expirydate,data.result[0])
           if(new Date(data.expirydate)>=new Date()){
@@ -89,7 +88,8 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('expirydate', data.expirydate);
           this.employeeId = empdata.id;
           if (empdata.firstlogin == "Y") {
-            this.router.navigate(['/Attendance/ChangePassword'])
+            // this.router.navigate(['/Attendance/ChangePassword'])
+            this.router.navigate(['/ChangePassword'])
           }
           else if (empdata.roles[0].role_name == "Product Admin") {
             this.router.navigate(['/Admin/product-admin-dashboard'])

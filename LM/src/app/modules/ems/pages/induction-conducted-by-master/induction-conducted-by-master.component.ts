@@ -75,8 +75,8 @@ export class InductionConductedByMasterComponent implements OnInit {
     this.inductionForm.get('department')?.valueChanges.subscribe((selectedValue: any) => {
       this.employeeList = [];
       this.conductedByEmployeDataList = [];
-      this.array=[];
-      this.selectedEmployees=[];
+      // this.array=[];
+      // this.selectedEmployees=[];
       this.EMS.getEmployeesListByDeptId(selectedValue).subscribe((data: { status: any; data: any; }) => {
         if (data.status) {
           this.isEnable = true;
@@ -272,7 +272,7 @@ export class InductionConductedByMasterComponent implements OnInit {
   }
 
   selectedEmployesChange(event: any) {
-    this.selectedEmployees=[];
+    // this.selectedEmployees=[];
     if (event.isUserInput && event.source.selected == false) {
       let index = this.selectedEmployees.indexOf(event.source.value);
       this.selectedEmployees.splice(index, 1)
@@ -373,7 +373,7 @@ export class InductionConductedByMasterComponent implements OnInit {
   }
 
   getConductByElementsOnEdit(){
-    console.log(this.array)
+ 
     if(this.isUpdate) {
       this.inductionForm.controls.conductBy.setValue(this.array);
     }

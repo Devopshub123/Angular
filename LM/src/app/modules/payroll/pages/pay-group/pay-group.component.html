@@ -3,7 +3,7 @@
       <mat-card-header class="headerbox" fxLayoutAlign="space-between center">
     <mat-card-title class="title"> Pay Group </mat-card-title>
     <span>
-      <button mat-icon-button style="padding-right: 40px;" (click)="onRequestClick()" matTooltip="Add">
+      <button mat-icon-button style="padding-right: 40px;" [tabIndex]="[1]" (keyup.enter)="onRequestClick()" (click)="onRequestClick()" matTooltip="Add">
         <mat-icon style="font-size: 30px;color: #ffffff;">add_circle</mat-icon>
       </button>
     </span>
@@ -53,10 +53,15 @@
                           <!-- Action Column -->
                           <ng-container matColumnDef="Action">
                             <th mat-header-cell *matHeaderCellDef class="custom-investment-th"></th>
-                            <td mat-cell *matCellDef="let element" class="custom-investment-td"> 
+                            <td mat-cell *matCellDef="let element;let i = index;" class="custom-investment-td"> 
                               <!-- <mat-icon (click)="onViewClick(element)" style="cursor: pointer;" title="View" >visibility</mat-icon>  -->
+                              <button mat-icon-button matTooltip="Configure"  [tabindex]="[i+1]" (keyup.enter)="navigate(element)"  *ngIf="element.status != 'Active'">
                               <mat-icon style="cursor: pointer;" title="Configure" (click)="navigate(element)" *ngIf="element.status != 'Active'">settings</mat-icon>
+                              </button>
+                              <button mat-icon-button matTooltip="Edit"  [tabindex]="[i+1]" (keyup.enter)="navigate(element)" *ngIf="element.status == 'Active'">
+
                               <mat-icon style="cursor: pointer;" title="Edit" (click)="navigate(element)" *ngIf="element.status == 'Active'">edit</mat-icon>
+                              </button>
                             </td>
                           </ng-container>
                           <ng-container matColumnDef="expandedDetail">

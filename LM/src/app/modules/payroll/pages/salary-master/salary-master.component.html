@@ -45,7 +45,8 @@
                     </div>
                   </form>
                   <div>
-                    <mat-table [dataSource]="dataSource" class="mat-elevation-z1 custom-salary-div">
+                    <div class="example-container mat-elevation-z1">
+                    <table mat-table [dataSource]="dataSource" matSort>
                       
                         <!-- Salary Components Column -->
                         <ng-container matColumnDef="Salary_Components">
@@ -56,7 +57,7 @@
                           <!-- Amount Monthly Column -->
                           <ng-container matColumnDef="Amount_Monthly">
                             <th mat-header-cell *matHeaderCellDef class="custom-investment-th"> Amount Monthly </th>
-                            <td mat-cell *matCellDef="let element"> {{element.month_amount}} </td>
+                            <td mat-cell *matCellDef="let element" style="padding-left: 12px;"> {{element.month_amount}} </td>
                           </ng-container>
   
                           <!-- Amount Annually Column -->
@@ -68,8 +69,8 @@
                         <tr mat-header-row *matHeaderRowDef="displayedColumns" class="dashboard-1 custom-investment-header"></tr>
                         <tr mat-row 
                         *matRowDef="let row; columns: displayedColumns;" class="custom-mat-row"></tr>
-                 </mat-table>
-
+                 </table>
+                </div> 
                   </div> 
       </div>
     </mat-card>

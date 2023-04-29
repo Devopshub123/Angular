@@ -81,7 +81,7 @@ export class PaySlipsViewComponent implements OnInit {
     this.companyService
       .getactiveWorkLocation({ id: null, companyName: this.companyDBName })
       .subscribe((result) => {
-        console.log(result.data);
+
         for(let i=0;i<result.data.length;i++){
           if(this.usersession.worklocation == result.data[i].city){
             if(result.data[i].location !=''||result.data[i].location !=null){
@@ -166,9 +166,11 @@ export class PaySlipsViewComponent implements OnInit {
     })
   }
   Download(){
-
+    console.log("window.innerWidth",window.innerWidth);
+    console.log("window.innerHeight",window.innerHeight);
     const DATA = this.payslip.nativeElement;
-    const doc: jsPDF = new jsPDF('l', 'mm', [1000, 1010]);
+    const doc: jsPDF = new jsPDF('l', 'mm', [Number(window.innerWidth)-400, window.innerHeight+400]);
+    // const doc: jsPDF = new jsPDF('l', 'mm', [297, 210]);
     doc.html(DATA, {
       callback: (doc) => {
         doc.setFont('fa-solid-900', 'normal');

@@ -50,7 +50,6 @@ export class EarningsRequestComponent implements OnInit {
     this.getComponentEditableConfigurations(this.earndata.Earndata.component_id)
     this.getPayGroupComponentValues(this.earndata.Earndata.pigcm_id);
     this.getComponentConfiguredValuesForPayGroup(this.earndata.Earndata.pigcm_id,1);
-    console.log("this.earndata.Earndata",this.earndata.Earndata)
    
     
     if(this.earndata.Earndata.component_name == 'Basic Salary' || this.earndata.Earndata.component_name =='House Rent Allowance' ){
@@ -222,8 +221,7 @@ export class EarningsRequestComponent implements OnInit {
   
   configurePayGroupComponent(){
     let flatorpercentagevalidation = this.earningsRequestForm.controls.monthly_salary.value==0?this.earningsRequestForm.controls.flat_amount.value:this.earningsRequestForm.controls.percentage.value;
-    console.log("flatorpercentagevalidation",flatorpercentagevalidation)
-    if(this.earningsRequestForm.controls.namePaySlip.valid && (this.earningsRequestForm.controls.flat_amount.valid || this.earningsRequestForm.controls.percentage.valid)|| (!this.otherhide)){
+   if(this.earningsRequestForm.controls.namePaySlip.valid && (this.earningsRequestForm.controls.flat_amount.valid || this.earningsRequestForm.controls.percentage.valid)|| (!this.otherhide)){
       if((flatorpercentagevalidation <= Number(this.validationvalue) )&&flatorpercentagevalidation!=''){
         /**Configure component values and changed to active state */
       if(this.earndata.Earndata.status=="To Be Configured" || this.earndata.Earndata.status=="Configuration In Progress"){
@@ -246,7 +244,6 @@ export class EarningsRequestComponent implements OnInit {
         /**configure component values service call */
         this.PR.configurePayGroupComponent(data).subscribe((result:any)=>{
           if(result.status){
-            console.log(this.earndata);
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                 this.router.navigate(["/Payroll/Earnings"],{state:{data:this.senddata}})); 
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -363,7 +360,6 @@ export class EarningsRequestComponent implements OnInit {
   }
   otherAllowance(data:any){
     this.PR.otherAllowancePopup(data).subscribe((result:any)=>{
-      console.log("result:",result)
       if(result.status&&result.data.length>0){
         if(result.data[0].popup==1){
            this.popupflag=true;
@@ -381,7 +377,6 @@ export class EarningsRequestComponent implements OnInit {
       flat:flat
     }
     this.PR.getComponentConfiguredValuesForPayGroup(data).subscribe((result:any)=>{
-     console.log(result);
      if(result.status){
       this.validationMessage = result.data[0].message;
       this.validationvalue = result.data[0].final_value;

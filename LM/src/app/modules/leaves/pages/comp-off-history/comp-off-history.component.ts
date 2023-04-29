@@ -69,7 +69,7 @@ export class CompOffHistoryComponent implements OnInit {
     return customPageSizeArray;
   }
   compoffReview(compoff: any) {
-    console.log("dat-",compoff)
+   
     compoff.employeename = compoff.employee_name;
     compoff.leavestatus = compoff.status;
     compoff.url = "/LeaveManagement/CompOffHistory"

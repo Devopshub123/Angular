@@ -94,7 +94,7 @@ cancel(data:any){
 }
 openDialogcancel(): void {
   const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
-    width: '500px',position:{top:`70px`},
+    width: '500px',position:{top:`100px`},
     data: {name: this.titleName, reason: this.reason}
   });
 
@@ -133,12 +133,13 @@ delete(data:any){
 }
 openDialogdelete(): void {
   const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
-    width: '500px',position:{top:`70px`},
+    width: '500px',position:{top:`100px`},
     data: {name: this.titleName, reason: this.reason}
   });
 
   dialogRef.afterClosed().subscribe(result => {
-  this.deletedata.actionreason =result.reason;
+    this.deletedata.actionreason = result.reason;
+    this.deletedata.emailData = this.employeeEmailData;
     if(result!=''){
       this.LM.setDeleteLeaveRequest(this.deletedata).subscribe((data)=>{
         if(data.status){

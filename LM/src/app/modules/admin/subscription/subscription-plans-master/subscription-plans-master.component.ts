@@ -52,7 +52,7 @@ export class SubscriptionPlansMasterComponent implements OnInit {
   searchTextboxControl = new FormControl();
   flag: boolean = true;
   planid:any=null;
-  
+
   selectedModules: any = [];
   arrayValue:any=[{"id":"Active","name":"Active"},{"id":"Inactive","name":"Inactive"}];
   modulesList:any=[];
@@ -72,7 +72,7 @@ export class SubscriptionPlansMasterComponent implements OnInit {
       planName:["",[Validators.required]],
       modules:[ "",[Validators.required]],
       });
-    
+
   }
   addNew() {
     this.isData = true;

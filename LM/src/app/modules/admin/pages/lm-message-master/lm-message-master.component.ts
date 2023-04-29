@@ -64,7 +64,8 @@ export class LmMessageMasterComponent implements OnInit {
         });
        }
       else {
-        const toSelect = this.messagesDataList.find((res: { errormessage: string; }) => res.errormessage.trim().toLowerCase() ==rmessage.toLowerCase());
+        const toSelect = this.messagesDataList.find((res: { errormessage: string;code:string }) => res.errormessage.trim().toLowerCase() == rmessage.toLowerCase()
+        && res.code != rcode);
         if(toSelect!=undefined){
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },

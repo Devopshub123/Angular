@@ -79,11 +79,11 @@ export class PayGroupRequestComponent implements OnInit {
       });
       this.payGroupRequestForm.get('start_range')?.valueChanges.subscribe(selectedValue=>{
         this.minstartrange = selectedValue;
-        console.log(selectedValue)
+
         this.payGroupRequestForm.controls.end_range.setValue('');
       })
       this.payGroupRequestForm.get('end_range')?.valueChanges.subscribe(selectedValue=>{
-        console.log(selectedValue)
+
         this.minendrange = selectedValue;
       })
       
@@ -127,7 +127,7 @@ export class PayGroupRequestComponent implements OnInit {
   getpayrollsections(){
     this.PR.getpayrollsections().subscribe((info:any)=>{
       if(info.status && info.data.length >0) {
-        console.log(info.data);
+   
         for(let i=0;i< info.data.length;i++){
           if(info.data[i].section == 'Earnings'){
             this.getearningsalarycomponent(info.data[i].id);
@@ -182,10 +182,7 @@ export class PayGroupRequestComponent implements OnInit {
         const deductselectedIds = this.payGroupRequestForm.value.deducts
         .map((checked:any, i:any) => checked ? this.deductionData[i].id : null)
         .filter((v:any) => v !== null);
-        console.log(earningselectedIds);
-        console.log(deductselectedIds);
-        console.log(this.payGroupRequestForm.valid)
-        if(this.payGroupnameValidation){
+          if(this.payGroupnameValidation){
           if(this.payGroupRequestForm.valid){   
             let data ={
               group:this.payGroupRequestForm.controls.payNameGroup.value,
@@ -195,7 +192,7 @@ export class PayGroupRequestComponent implements OnInit {
               description:this.payGroupRequestForm.controls.descriptions.value,
               component:earningselectedIds.concat(deductselectedIds)
             }
-          console.log(data)
+
             this.PR.setincomegroup(data).subscribe((info:any)=>{
               if(info.status){
                 this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

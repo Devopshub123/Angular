@@ -29,11 +29,11 @@ export class ProfessionalTaxMainComponent implements OnInit {
     this.router.navigate(["/Payroll/ProfessionalTaxRequest"],{state: {}}); 
   }
   onEditClick(element:any){  
-    console.log("Element",element);
+
    /* this.router.navigate(["/Payroll/InvestmentRequest"],{state: {userData:element}}); */
   }
   onViewClick(element:any){  
-    console.log("Element",element);
+
    /* this.router.navigate(["/Payroll/InvestmentRequest"],{state: {userData:element}}); */
   }
 }

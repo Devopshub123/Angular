@@ -41,14 +41,12 @@ import { environment } from 'src/environments/environment';
 
     }
     getearningsalarycomponent(data:any):Observable<any>{
-      console.log("kkk")
       return this.http.post(this.mainBeUrl +'api/getearningsalarycomponent/'+ data+'/'+this.companyName,this.httpOptions)
     }
     getdeductionsalarycomponent(data:any):Observable<any>{
         return this.http.post(this.mainBeUrl +'api/getdeductionsalarycomponent/'+data+'/'+this.companyName,this.httpOptions)
     }
     getpayrollsections():Observable<any>{
-      console.log("kkkkkkjh")
         return this.http.post(this.mainBeUrl +'api/getpayrollsections/'+this.companyName,this.httpOptions)
     }
     getsalarycomponentsforpaygroup(data:any):Observable<any>{
@@ -237,14 +235,13 @@ import { environment } from 'src/environments/environment';
         return this.http.get(this.mainBeUrl+'api/getMonthlyPayrollData/'+data.month+'/'+data.year+'/'+data.deptid+'/'+this.companyName,this.httpOptions);
       }
       getMonthlyPayrollDataForGraph(data:any): Observable<any> {
-        console.log("data",data);
+     
         return this.http.get(this.mainBeUrl+'api/getMonthlyPayrollDataForGraph/'+data.month+'/'+data.year+'/'+this.companyName,this.httpOptions);
       }
       getComponentConfiguredValuesForPayGroup(data:any): Observable<any> {
         return this.http.get(this.mainBeUrl+'api/getComponentConfiguredValuesForPayGroup/'+data.pgmid+'/'+data.flat+'/'+this.companyName,this.httpOptions);
       }
       otherAllowancePopup(pgid:any): Observable<any> {
-        console.log(pgid)
         return this.http.get(this.mainBeUrl+'api/otherAllowancePopup/'+pgid+'/'+this.companyName,this.httpOptions);
       }
       getStatesForEsi():Observable<any> {

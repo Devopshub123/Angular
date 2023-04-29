@@ -9,7 +9,7 @@
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
         <mat-card fxFlex="60" style="padding-left: 1%">
           <div fxLayout="row" fxLayout.xs="column">
-            <mat-form-field fxFlex="50" fxFlex.lt-lg="100" fxFlex.xs="100" class="mx-1 my-1" appearance="outline">
+            <mat-form-field fxFlex="50" fxFlex.lt-lg="100" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
               <mat-label>Leave Types</mat-label>
               <mat-select formControlName="leaveTypeId" [disabled]="isedit" required>
                 <ng-container>
@@ -28,7 +28,7 @@
           <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px"
             *ngIf="leaveRequestForm.controls.leaveTypeId.value == 9 || 8">
             <mat-form-field fxFlex="50" fxFlex.lt-lg="100" fxFlex.lt-lg="100" fxFlex.xs="100"
-              *ngIf="leaveRequestForm.controls.leaveTypeId.value == 9" class="mx-1 my-1" appearance="outline">
+              *ngIf="leaveRequestForm.controls.leaveTypeId.value == 9" class="mx-2 my-2" appearance="outline">
               <mat-label>Worked Date</mat-label>
               <mat-select formControlName="compoffApprovedDate">
                 <ng-container>
@@ -46,7 +46,7 @@
               </mat-error>
             </mat-form-field>
             <mat-form-field fxFlex="50" fxFlex.lt-lg="100" fxFlex.xs="100"
-              *ngIf="leaveRequestForm.controls.leaveTypeId.value == 8" class="mx-1 my-1" appearance="outline">
+              *ngIf="leaveRequestForm.controls.leaveTypeId.value == 8" class="mx-2 my-2" appearance="outline">
               <mat-label>Employee Relations</mat-label>
               <mat-select formControlName="relation">
                 <ng-container>
@@ -64,7 +64,7 @@
           </div>
           <div fxLayout="row" fxLayout.lt-lg="column" fxLayout.xs="column"
             *ngIf="leaveRequestForm.controls.leaveTypeId.value == 9">
-            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
               <mat-label>From Date </mat-label>
               <input matInput readonly [min]="minDate" [max]="fromMaxDate" [matDatepicker]="picker"
                 [matDatepickerFilter]="fromDateFilter" placeholder="DD-MM-YYYY" formControlName="fromDate" required
@@ -78,15 +78,15 @@
               </mat-error>
             </mat-form-field>
 
-            <div fxFlex.xs="100" fxFlex="50" class="mx-1 my-1">
+            <div>
               <mat-checkbox style="margin-top: 20px; margin-left: 20px" [attr.disabled]="isDisableSecondHalf"
                 *ngIf="isSecondHalf" formControlName="fromDateHalf">Second Half</mat-checkbox>
             </div>
           </div>
           <div fxLayout="row" fxLayout.lt-lg="column" fxLayout.xs="column" fxLayoutGap="10px"
             *ngIf="leaveRequestForm.controls.leaveTypeId.value == 9">
-            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
-              <mat-label>To Date </mat-label>
+            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+              <mat-label>To Date</mat-label>
               <input matInput readonly [attr.disabled]="true" [min]="leaveRequestForm.controls.fromDate.value"
                 [max]="maxDate" [matDatepicker]="picker1" [matDatepickerFilter]="toDateFilter" placeholder="DD-MM-YYYY"
                 formControlName="toDate" required (click)="picker1.open()" />
@@ -98,14 +98,14 @@
                 {{ msgLM3 }}
               </mat-error>
             </mat-form-field>
-            <div fxFlex.xs="100" fxFlex="50" class="mx-1 my-1">
+            <div>
               <mat-checkbox style="margin-top: 20px; margin-left: 20px" *ngIf="isFirstHalf"
                 [attr.disabled]="isDisableFirstHalf" formControlName="toDateHalf">First Half</mat-checkbox>
             </div>
           </div>
           <div fxLayout="row" fxLayout.lt-lg="column" fxLayout.xs="column" fxLayoutGap="10px"
             *ngIf="leaveRequestForm.controls.leaveTypeId.value != 9">
-            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
               <mat-label>From Date </mat-label>
               <input matInput readonly [min]="minDate" [max]="
                   leaveRequestForm.controls.leaveTypeId.value == 5 ||
@@ -137,7 +137,7 @@
               leaveRequestForm.controls.leaveTypeId.value != 6 &&
               leaveRequestForm.controls.leaveTypeId.value != 5
             ">
-            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
               <mat-label>To Date </mat-label>
               <input matInput readonly [min]="leaveRequestForm.controls.fromDate.value" [max]="
                   leaveRequestForm.controls.leaveTypeId.value == 5 ||
@@ -147,7 +147,7 @@
                     ? ''
                     : maxDate
                 " [matDatepicker]="picker1" [matDatepickerFilter]="toDateFilter" placeholder="DD-MM-YYYY"
-                formControlName="toDate" required (click)="picker1.open()" />
+                formControlName="toDate" required (click)="picker1.open()"  [disabled]="compofftdatehide" />
 
               <mat-datepicker-toggle class="datepicker" matSuffix [for]="picker1">
               </mat-datepicker-toggle>
@@ -167,7 +167,7 @@
               leaveRequestForm.controls.leaveTypeId.value == 6 ||
               leaveRequestForm.controls.leaveTypeId.value == 7
             ">
-            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-1 my-1" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
               <mat-label>To Date </mat-label>
               <input matInput readonly [attr.disabled]="true" [min]="leaveRequestForm.controls.fromDate.value" [max]="
                   leaveRequestForm.controls.leaveTypeId.value == 5 ||
@@ -183,22 +183,23 @@
               </mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
-            <div fxFlex.xs="100" fxFlex="50" class="mx-1 my-1">
-              <mat-checkbox style="margin-top: 20px; margin-left: 20px" *ngIf="isFirstHalf"
+
+            <div>
+              <mat-checkbox style="margin-top: 20px; margin-left: 15px" *ngIf="isFirstHalf"
                 [attr.disabled]="isDisableFirstHalf" formControlName="toDateHalf">First Half</mat-checkbox>
             </div>
           </div>
           <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-            <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.lt-lg="100" appearance="outline" class="mx-1 my-1">
+            <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.lt-lg="100" appearance="outline" class="mx-2 my-2">
               <mat-label>Leave Count</mat-label>
               <input formControlName="leaveCount" [attr.disabled]="true" required matInput placeholder="Leave Count" />
             </mat-form-field>
           </div>
           <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-            <mat-form-field fxFlex="100" class="mx-1 my-1" appearance="outline">
+            <mat-form-field fxFlex="100" class="mx-2 my-2" appearance="outline">
               <mat-label>Reason</mat-label>
               <textarea formControlName="reason" required matInput placeholder="Reason" maxlength="250"></textarea>
-              <mat-error class="con-error" *ngIf="leaveRequestForm.controls.reason.errors?.required">
+              <mat-error class="con-error" *ngIf="leaveRequestForm.controls.reason.errors?.required || leaveRequestForm.controls.reason.errors?.['whitespace']">
                 {{ msgLM1 }}
               </mat-error>
             </mat-form-field>
@@ -229,7 +230,7 @@
           </div>
 
           <div fxLayout="row" fxLayout.lt-lg="column" fxLayout.xs="column" fxLayoutGap="10px"
-            style="padding-left: 5px; padding-right: 4px">
+            style="padding-left: 5px; padding-right: 5px">
             <mat-form-field fxFlex.xs="100" fxFlex appearance="outline">
               <mat-label>Contact</mat-label>
               <input formControlName="contact" maxlength="10" minlength="10" onlyNumber required matInput
@@ -293,7 +294,7 @@
               </tbody>
             </table>
             <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-              <div fxFlex.xs="100" fxFlex="100" class="mx-1 my-1">
+              <div fxFlex.xs="100" fxFlex="100" class="mx-2 my-2">
                 <label><b>Manager Name: </b></label>
                 <label><b>&nbsp;{{ userSession.roles[0].rm_name }}</b></label>
               </div>

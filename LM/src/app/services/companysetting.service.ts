@@ -28,7 +28,6 @@ import { environment } from 'src/environments/environment';
     }
     getWorkLocation(info:any): Observable<any>{
       info.companyName = this.companyName;
-      console.log("cn--",info)
       return this.hClient.post(this.mainBeUrl + 'api/getWorkLocation',JSON.stringify(info), this.httpOptions);
     }
     getactiveWorkLocation(info:any): Observable<any>{
@@ -45,7 +44,7 @@ import { environment } from 'src/environments/environment';
     }
   getCountry(tableName: any, status: any, page: any, size: any, companyName: any): Observable<any>{
       this.companyName = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null;
-      return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
+    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/' + tableName + '/' + status + '/' + page + '/' + size + '/' + this.companyName, this.httpOptions);
     }
     getStates(tableName:any,page:any,size:any,companyName:any):Observable<any>{
       return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
@@ -177,5 +176,5 @@ import { environment } from 'src/environments/environment';
 
   }
   // /api/getActiveEmployeesCount/:companyName
-  
+
 }

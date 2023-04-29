@@ -253,7 +253,6 @@ export class UserCompoffComponent implements OnInit {
   }
   view(data:any){
     this.isview= true;
-    console.log(data)
     this.CompoffForm.controls.empId.setValue()
     this.CompoffForm.controls.empName.setValue(1)
     this.CompoffForm.controls.workeddate.setValue(new Date(data.comp_off_date))  

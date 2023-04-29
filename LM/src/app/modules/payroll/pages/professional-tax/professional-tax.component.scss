@@ -123,6 +123,13 @@ mat-card {
 ::ng-deep .mat-header-row {
   min-height: 45px !important;
 }
+.tabcontent {
+  display: block;
+  // padding: 6px 12px;
+  // border: 1px solid #28acaf;
+  border-top: none;
+  background-color: #28acaf;
+}
 .example-container {
   overflow-x: auto;
   display: flex;

@@ -6,7 +6,7 @@
             <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
                 <mat-card-title class="title"> Induction Program </mat-card-title>
                   <div style="margin-right: 2%;" *ngIf="isdata">
-                     <button mat-icon-button style="padding-right: 40px;" (click)="Add()" matTooltip="Add New">
+                     <button mat-icon-button style="padding-right: 40px;" [tabIndex]="[1]" (click)="Add()" matTooltip="Add New">
                           <mat-icon style="font-size: 30px">add_circle</mat-icon>
                         </button>
                      </div>
@@ -47,7 +47,8 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2"
+                    ngStyle.lt-lg="padding-right:4px" appearance="outline">
                         <mat-label>Conduct By</mat-label>
                         <mat-select required formControlName="conductBy" required>
                             <ng-container>
@@ -84,7 +85,7 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" ngStyle.lt-lg="padding-right:4px"  class="mx-2 my-2" appearance="outline">
                         <mat-label>End Time<span>*</span></mat-label>
                         <input  formControlName="endtime" matTimepicker [min]="mintime" placeholder="Time" />
                         <!-- <input readOnly formControlName="endtime" matTimepicker [min]="mintime" placeholder="Time" /> -->
@@ -97,7 +98,7 @@
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
 
 
-                    <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.lt-md="50" class="mx-2 my-2"
+                    <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.lt-md="100" class="mx-2 my-2"
                         appearance="outline">
                         <mat-label>Description</mat-label>
                         <textarea type="text" formControlName="description" matInput placeholder="Description"
@@ -106,8 +107,8 @@
                     </mat-form-field>
 
                 </div>
-                <div *ngIf="isCancel || isView" fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                     <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.lt-md="50" class="mx-2 my-2"
+                <div *ngIf="isCancel" fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                     <mat-form-field fxFlex.xs="100" fxFlex="50" fxFlex.lt-md="100" class="mx-2 my-2"
                         appearance="outline">
                         <mat-label>Cancel Reason</mat-label>
                         <textarea type="text" formControlName="cancelReason" matInput placeholder=""
@@ -268,7 +269,7 @@
             <!-- update checklist meet -->
             <div fxLayout="column" fxLayout.xs="column" *ngIf="isUpdateChecklist">
                 <br>
-                <div style="margin-left: 1%;"><b>Update Schedule Meeting</b></div>
+                <div style="margin-left: 15px;"><b>Update Schedule Meeting</b></div>
                 <mat-divider></mat-divider>
                 <div class="table-pad">
                     <div class="mat-elevation-z1 example-container">
@@ -321,9 +322,8 @@
                         <mat-paginator [pageSizeOptions]="!pageLoading2 ? getPageSizes3() : [5, 10, 20]"></mat-paginator>
                        </div>
                 </div>
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-<br>
-
+                <br>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-left: 10px;">
                     <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                         <mat-label>Update Status</mat-label>
                         <mat-select required formControlName="updatestatus">
@@ -335,7 +335,6 @@
                         </mat-select>
 
                     </mat-form-field>
-
                 </div>
 
                 <div fxLayoutAlign="center">
@@ -377,7 +376,7 @@
                       </ng-container>
 
                     <ng-container matColumnDef="ptype">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Program Type</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;">Program Type</th>
                         <td mat-cell *matCellDef="let row"> {{row.program_name}}</td>
                     </ng-container>
                     <ng-container matColumnDef="department">
@@ -385,20 +384,20 @@
                         <td mat-cell *matCellDef="let row"> {{row.department_name}}</td>
                     </ng-container>
                     <ng-container matColumnDef="conductby">
-                        <th mat-header-cell *matHeaderCellDef >Conduct By</th>
+                        <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Conduct By</th>
                         <td mat-cell *matCellDef="let row"> {{row.conducted_by_name}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="date">
                         <th mat-header-cell *matHeaderCellDef >Date</th>
-                        <td mat-cell *matCellDef="let row"> {{row.schedule_date | date:'dd-MM-yyyy'}}</td>
+                        <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.schedule_date | date:'dd-MM-yyyy'}}</td>
                     </ng-container>
                     <ng-container matColumnDef="stime">
-                        <th mat-header-cell *matHeaderCellDef >Start Time</th>
+                        <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Start Time</th>
                         <td mat-cell *matCellDef="let row"> {{row.schedule_starttime | slice:0:5}}</td>
                     </ng-container>
                     <ng-container matColumnDef="etime">
-                        <th mat-header-cell *matHeaderCellDef >End Time</th>
+                        <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">End Time</th>
                         <td mat-cell *matCellDef="let row"> {{row.schedule_endtime | slice:0:5}}</td>
                     </ng-container>
 
@@ -409,16 +408,28 @@
 
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef> </th>
-                        <td mat-cell *matCellDef="let row">
+                        <td mat-cell *matCellDef="let row;let i = index;" style="white-space: nowrap;">
                             <span *ngIf="row.status !='Completed' && row.status !='Cancelled' && row.status !='Finished'">
+                                <button mat-icon-button [tabIndex]="[i+1]" title="Assign"   (keyup.enter)="requestView(row)">
                                 <mat-icon class="mr-2" style="cursor: pointer;" title="Assign"  (click)="requestView(row)">group_add</mat-icon>
+                                </button>
+                                <button mat-icon-button [tabIndex]="[i+1]" title="Edit"   (keyup.enter)="editRequest(row)">
                                 <mat-icon class="mr-2" style="cursor: pointer;" title="Edit"  (click)="editRequest(row)" >edit</mat-icon>
+                                </button>
+                                <button mat-icon-button [tabIndex]="[i+1]" title="Program Cancel"   (keyup.enter)="editRequest(row)">
+
                                 <mat-icon class="mr-2" style="cursor: pointer;" title="Program Cancel" (click)="cancelProgram(row)" >cancel_presentation</mat-icon>
+                                </button>
                             </span>
                              <!-- <mat-icon class="mr-2" style="cursor: pointer;" *ngIf="row.status ==='Finished'" title="Update" (click)="updating(row)" ><img src="assets\img\update-img.png" style="height: 22px" /></mat-icon> -->
+                             <button mat-icon-button [tabIndex]="[i+1]" *ngIf="row.status ==='Finished'" title="Update"  (keyup.enter)="updating(row)">
                              <mat-icon class="mr-2" style="cursor: pointer;" *ngIf="row.status ==='Finished'" title="Update" (click)="updating(row)" >rate_review</mat-icon>
+                             </button>
+                             <button mat-icon-button [tabIndex]="[i+1]" *ngIf="row.status ==='Completed' || row.status ==='Cancelled' || row.status ==='Finished'" title="Update"  (keyup.enter)="viewProgram(row)">
+
                             <mat-icon class="mr-2" style="cursor: pointer;" *ngIf="row.status ==='Completed' || row.status ==='Cancelled' || row.status ==='Finished'"
                              title="View" (click)="viewProgram(row)" >visibility</mat-icon>
+                             </button>
                          </td>
                     </ng-container>
 

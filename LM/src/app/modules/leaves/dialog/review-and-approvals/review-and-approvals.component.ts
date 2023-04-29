@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators,ValidatorFn,ValidationErrors } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {DialogComponent} from "../../../attendance/dialog/dialog.component";
 import { LeavesService } from '../../leaves.service'
@@ -36,17 +36,21 @@ export class ReviewAndApprovalsComponent implements OnInit {
     LM1:any;
 
 
-  constructor(private formBuilder: FormBuilder,public dialogRef: MatDialogRef<DialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any,private LM:LeavesService) { }
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<DialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, private LM: LeavesService) { }
 
   ngOnInit(): void {
+    console.log("asdf",this.data)
     this.getErrorMessages('LM1');
     this.form = this.formBuilder.group({
-      'reason':['',Validators.required], });
+      'reason':['',[Validators.required,this.noWhitespaceValidator()]], });
+     
   }
   onNoClick(): void {
     this.dialogRef.close();
   }
   onOkClick(){
+    console.log("this.form.valid0",this.form.valid)
     if(this.form.valid){
       if(this.data.name == "Reject"){
         this.form.get('reason')!.setValidators([Validators.required]);
@@ -75,5 +79,11 @@ export class ReviewAndApprovalsComponent implements OnInit {
       }
 
     })
+  }
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return isWhitespace ? { whitespace: true } : null;
+    };
   }
 }

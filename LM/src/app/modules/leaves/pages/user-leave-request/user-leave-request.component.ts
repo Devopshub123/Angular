@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators,ValidatorFn,ValidationErrors,AbstractControl} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {LeavesService} from "../../leaves.service";
@@ -66,6 +66,7 @@ export class UserLeaveRequestComponent implements OnInit {
   isDisableSecondHalf: boolean = false;
   document: boolean = false;
   isValidateLeave: boolean = false;
+  compofftdatehide:boolean=false;
   msgLM79: any;
   msgLM76: any;
   msgLM1: any;
@@ -122,7 +123,7 @@ export class UserLeaveRequestComponent implements OnInit {
       toDateHalf:[''],
       fromDateHalf:[''],
       leaveCount:['',Validators.required],
-      reason:['',Validators.required],
+      reason:['',[Validators.required,this.noWhitespaceValidator()]],
       contact:[this.userSession.contactnumber,Validators.required],
       emergencyEmail:['',[Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       document:['']
@@ -208,11 +209,14 @@ export class UserLeaveRequestComponent implements OnInit {
     });
     this.leaveRequestForm.get('fromDate')?.valueChanges.subscribe((selectedValue:any) => {
       if(selectedValue) {
-        if(this.leaveRequestForm.controls.leaveTypeId.value != 9 ){
+        if (this.leaveRequestForm.controls.leaveTypeId.value != 9) {
+          this.compofftdatehide=false;
           this.changeFromDate(selectedValue);
         }
         else {
-          this.maxDate = this.toMaxDate;
+          // this.maxDate = this.toMaxDate;
+          this.maxDate = this.fromMaxDate;
+          this.compofftdatehide=true;
           this.changeCompOffFromDate(selectedValue)
         }
 
@@ -238,6 +242,7 @@ export class UserLeaveRequestComponent implements OnInit {
       // if(selectedValue) {
 
       this.getDaystobedisabledfromdate();
+      if(selectedValue!=''){this.getCompOffValidityDuration(selectedValue)}
       // }
     });
 
@@ -1227,5 +1232,26 @@ file:any;
         this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
        })
 }
+noWhitespaceValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    return isWhitespace ? { whitespace: true } : null;
+  };
+  }
+  getCompOffValidityDuration(date:any){
+    this.LM.getCompOffValidityDuration().subscribe((result:any) => {
+      if(result.status){
+        this.fromMaxDate = '';
+        var dates= new Date(date);
+        dates.setDate(dates.getDate() + Number(result.data[0].value));
+        this.fromMaxDate = dates
+
+      }
+      else{
+
+      }
+
+    });
+  }
 
 }

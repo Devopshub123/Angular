@@ -109,5 +109,9 @@ export class LeavePoliciesService {
       return this.hClient.get(this.url + 'api/getCarryforwardedLeaveMaxCount/'+leaveId+'/'+this.companyName, this.httpOptions);
 
     }
+    getLeaveCycleYearOptions(){
+      this.companyName = sessionStorage.getItem('companyName');
+      return this.hClient.get(this.url + 'api/getLeaveCycleYearOptions/'+this.companyName, this.httpOptions);
+    }
 
 }

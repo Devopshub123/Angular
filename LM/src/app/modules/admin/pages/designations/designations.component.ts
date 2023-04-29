@@ -94,7 +94,7 @@ export class DesignationsComponent implements OnInit {
     else {
       if (this.designationData.length > 0) {
         for (let i = 0; i < this.designationData.length; i++) {
-          if (data.replace(/\s{1,}/g, '').trim().toLowerCase() === this.designationData[i].designationreplace(/\s{1,}/g, '').trim().toLowerCase()) {
+          if (data.replace(/\s{1,}/g, '').trim().toLowerCase() === this.designationData[i].designation.replace(/\s{1,}/g, '').trim().toLowerCase()) {
             this.valid = false;
             break;
           }
@@ -157,13 +157,13 @@ export class DesignationsComponent implements OnInit {
     }
     this.LM.designationstatus(data).subscribe((result) => {
       if (result.status) {
-        this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },
           disableClose: true,
           data: this.editResponseMessage
         });
-
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate(["/Admin/Designation"]));
       } else {
         this.ngOnInit();
         let dialogRef = this.dialog.open(ReusableDialogComponent, {

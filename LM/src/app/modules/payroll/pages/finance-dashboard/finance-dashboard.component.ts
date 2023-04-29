@@ -49,7 +49,6 @@ export class FinanceDashboardComponent implements OnInit {
   displayedColumns: string[] = ['Loan_Type', 'Employee_Count'];
   dataSource :any;
   ngOnInit(): void {
-	console.log("hi")
 	this.financeDashboardForm = this.formBuilder.group(
 		{
 		  dept:  ['null'],
@@ -59,8 +58,7 @@ export class FinanceDashboardComponent implements OnInit {
 	
 		this.getMonthlyPayrollData();
 		this.financeDashboardForm.get('dept')?.valueChanges.subscribe((selectedValue:any) => {
-			console.log(selectedValue);
-			this.getMonthlyPayrollData();
+		this.getMonthlyPayrollData();
 			this.getMonthlyPayrollDataForGraph();
 		});
 		this.financeDashboardForm.get('month')?.valueChanges.subscribe((selectedValue:any) => {
@@ -97,8 +95,7 @@ export class FinanceDashboardComponent implements OnInit {
   getDepartmentsMaster() {
     this.LMS.getMastertable('departmentsmaster', 1, 1, 1000, this.dbname).subscribe(data => {
       this.availableDepartments = data.data;
-	  console.log(this.availableDepartments )
-    })
+	 })
   }
   getMonthlyPayrollData(){
 	this.grosssalary = '';
@@ -115,12 +112,8 @@ export class FinanceDashboardComponent implements OnInit {
 
 	
 	
-	console.log("data",data)
 	this.PR.getMonthlyPayrollData(data).subscribe((result:any)=>{
-		console.log("rrr",result.data)
-		
 		if(result.status){
-		 console.log("result",result.data[0])
 		 this.grosssalary = result.data[0].gross_salary;
 		 this.netSalary = result.data[0].net_salary;
 		 this.empcount = result.data[0].employee_count;
@@ -137,19 +130,15 @@ export class FinanceDashboardComponent implements OnInit {
 		year:Number(this.Selyear)
 	}
 	this.PR.getMonthlyPayrollDataForGraph(data).subscribe((result:any)=>{
-		console.log("rrr",result)
+
 		this.departments=[];
 		this.departmentsdata=[];
 		if(result.status){
-		 console.log("result",result.data[0])
-		 console.log("deppp",result.data[0].deptname)
 		 for(let i=0;i<result.data.length;i++){
 			this.departments.push(result.data[i].deptname);
 			this.departmentsdata.push(result.data[i].sum)
 		 }
-		 console.log("depat",this.departments);
-	  console.log("deptdata",this.departmentsdata)
-	  
+	
 		 this.type = 'horizontalBar';
 		 this.data = {
 			 // labels: ["It service", "Finance", "HR", "Sales", "Marketing"],
@@ -212,7 +201,6 @@ export class FinanceDashboardComponent implements OnInit {
 	getFinancialYears(){
 		this.PR.getFinancialYears().subscribe((result:any)=>{
 		  if(result.status && result.data.length>0){
-			console.log("financeyears",result.data[0].financial_year)
 			this.financeyears = result.data[0].financial_year;
 			this.getEmployeePayslips();
 		  }

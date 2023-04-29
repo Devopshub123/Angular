@@ -1,15 +1,14 @@
 <div fxLayout="column" class="first-col">
-       <mat-card >
+       <mat-card>
               <mat-card-header>
                      <mat-card-title> Attendance Calendar</mat-card-title>
               </mat-card-header>
               <!-- <mat-divider></mat-divider> -->
 
-              <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="1px">
+              <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="column" fxLayoutGap="10px" fxLayoutGap.xs="1px">
                      <div fxFlex="45" fxLayout="column" fxFill>
-                            <div class='demo-app-main'>
-
-                                   <full-calendar #calendar fxLayout="column" [options]='calendarOptions'>
+                            <div class="demo-app-main">
+                                   <full-calendar #calendar fxLayout="column" [options]="calendarOptions">
                                    </full-calendar>
                             </div>
                             <div>
@@ -18,77 +17,64 @@
                                    <mat-icon class="blue-icon">check_circle</mat-icon>Week-Off
                                    <mat-icon class="yellow-icon">check_circle</mat-icon> Holiday
                                    <mat-icon class="orange-icon">check_circle</mat-icon> Leave
-
                             </div>
-
                      </div>
-                     <div  class="sub-section-2" fxLayout="column" fxFlex="55" fxLayoutGap="10px">
+                     <div class="sub-section-2" fxLayout="column" fxFlex="55" fxLayoutGap="10px">
                             <div fxLayout="column" fxFlex="40">
-
-                                   <div fxLayout="row" fxLayoutAlign="space-evently" [style.marginTop.px]="mobileQuery.matches ? 0 : 15" class="pending-attendance">
-                                          <div style="padding-top:10px; color: white;height: 45px;" fxLayout="row">
-                                                 <p>
+                                   <div fxLayout="row" fxLayoutAlign="space-evently"
+                                          [style.marginTop.px]="mobileQuery.matches ? 0 : 15"
+                                          class="pending-attendance">
+                                          <div style="padding-top: 10px; color: white; height: 45px" fxLayout="row">
+                                                 <!-- <p>
                                                         <mat-icon>notifications</mat-icon>
-                                                 </p>
-                                                 <p>
-                                                        <b>Request Behalf of
-                                                               Employee</b>
-
-                                                 </p>
+                                                 </p> -->
+                                                 <p style="padding-left: 16px;" > <b>Request Behalf of Employee</b></p>
                                           </div>
                                    </div>
-                                   <cdk-virtual-scroll-viewport class="example-viewport" style="height: 300px;"  itemSize="5">
-
+                                   <cdk-virtual-scroll-viewport class="example-viewport" style="height: 300px"
+                                          itemSize="5">
                                           <mat-list class="time-attendance">
                                                  <ng-container *cdkVirtualFor="let item of notificationsData">
-
-                                                               <mat-list-item>
-                                                                      <h3 matLine> {{ item.employee_name}} </h3>
-                                                                      <div> {{ item.absent_date | date:'dd-MM-yyyy'}} </div>
-                                                                      <div style="padding-left: 10px;">   <a style="padding-left: 10px;"
-                                                                             routerLink="/"
-                                                                             (click)="onBehalfofRequestClick(item)"> Add a
-                                                                             request </a>
-                                                                      </div>
-
-                                                               </mat-list-item>
-
+                                                        <mat-list-item>
+                                                               <h3 matLine>{{ item.employee_name }}</h3>
+                                                               <div>{{ item.absent_date | date : "dd-MM-yyyy" }}</div>
+                                                               <div style="padding-left: 10px">
+                                                                      <a style="padding-left: 10px" routerLink="/" [tabindex]="1" (keyup.enter)="onBehalfofRequestClick(item)"
+                                                                             (click)="onBehalfofRequestClick(item)">
+                                                                             Add a request
+                                                                      </a>
+                                                               </div>
+                                                        </mat-list-item>
                                                  </ng-container>
                                           </mat-list>
                                    </cdk-virtual-scroll-viewport>
-
                             </div>
                             <div fxLayout="column" fxFlex="40">
-
                                    <div fxLayout="row" fxLayoutAlign="space-between" class="clock-attendance">
-                                          <div style="padding-top:10px;color: white;">
-                                                 <p>
+                                          <div style="padding-top: 10px; color: white">
+                                                 <p style="padding-left: 16px;">
                                                         <b>Pending Approvals</b>
                                                  </p>
                                           </div>
                                    </div>
-                                   <cdk-virtual-scroll-viewport class="example-viewport" style="height: 300px;" itemSize="5">
-
+                                   <cdk-virtual-scroll-viewport class="example-viewport" style="height: 300px"
+                                          itemSize="5">
                                           <mat-list class="time-attendance">
                                                  <ng-container *cdkVirtualFor="let item of arrayList">
-
                                                         <mat-list-item>
-                                                               <h3 matLine> {{ item.raisedbyname}} </h3>
-                                                               <div> {{ item.fromdate | date:'dd-MM-yyyy'}}</div>
-                                                               <div style="padding-left: 10px;">   <a  routerLink="/"
-                                                                         (click)="changeTab(item)"> Approve
-                                                                         request </a>
-                                                                  </div>
-
+                                                               <h3 matLine>{{ item.raisedbyname }}</h3>
+                                                               <div>{{ item.fromdate | date : "dd-MM-yyyy" }}</div>
+                                                               <div style="padding-left: 10px">
+                                                                      <a routerLink="/" [tabindex]="2" (keyup.enter)="changeTab(item)" (click)="changeTab(item)">
+                                                                             Approve request
+                                                                      </a>
+                                                               </div>
                                                         </mat-list-item>
-
                                                  </ng-container>
                                           </mat-list>
                                    </cdk-virtual-scroll-viewport>
-
                             </div>
                      </div>
               </div>
-
        </mat-card>
 </div>

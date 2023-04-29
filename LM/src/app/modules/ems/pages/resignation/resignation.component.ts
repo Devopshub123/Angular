@@ -328,7 +328,7 @@ export class ResignationComponent implements OnInit {
   }
   openDialogcancel(): void {
     const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
-      width: '600px',position:{top:`70px`},
+      width: '600px',position:{top:`100px`},
       data: {name: this.titleName, reason: this.reason}
     });
 

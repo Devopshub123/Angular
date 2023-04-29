@@ -95,7 +95,7 @@ export class SettingsOnBoardingComponent implements OnInit {
   }
 
   toglechange(rulename:any,event:any) {
-
+console.log("asd",)
     for(let i=0;i<this.onboardrules.length;i++){
       if(this.onboardrules[i].rulename === rulename)
         this.onboardrules[i].value = event.checked ? '1':'0';
@@ -134,7 +134,7 @@ export class SettingsOnBoardingComponent implements OnInit {
         }
 
       }
-
+console.log("'sdfasdf")
     })
 
   }

@@ -46,36 +46,40 @@
          </div>
 
       <div *ngIf="this.ishide">
-        <div class="div-Pad">
-         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" >
+        <div class="div-Pad" fxLayout="column">
+         <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center" >
             <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
               <mat-label>Date of Request Resignation </mat-label>
               <input matInput readonly [min]="min" [max]="max" [matDatepicker]="date1" placeholder="DD-MM-YYYY"
-                formControlName="resigndate" [disabled]="true" />
+                formControlName="resigndate" [disabled]="true" [tabIndex]="1" />
 
               <mat-datepicker-toggle class="datepicker" matSuffix [for]="date1">
               </mat-datepicker-toggle>
               <mat-datepicker #date1></mat-datepicker>
             </mat-form-field>
+
             <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
               <mat-label>Notice Period</mat-label>
-              <input formControlName="noticperiod" readonly matInput placeholder="" maxlength="3" />
+              <input formControlName="noticperiod" readonly matInput placeholder="" maxlength="3" [tabIndex]="2" />
             </mat-form-field>
-            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+
+            <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
               <mat-label>Releiving Date </mat-label>
               <input matInput readonly [matDatepicker]="date2" placeholder="DD-MM-YYYY" formControlName="releivingdate"
-                [disabled]="true" />
+                [disabled]="true" [tabIndex]="3" />
 
               <mat-datepicker-toggle class="datepicker" matSuffix [for]="date2">
               </mat-datepicker-toggle>
               <mat-datepicker #date2></mat-datepicker>
             </mat-form-field>
           </div>
+
           <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+            <div fxLayout="row" fxFlex="67" fxFlex.lt-lg="100" fxLayout.xs="column">
+            <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
               <mat-label>Request Exit Date </mat-label>
               <input matInput [matDatepicker]="date3" [max]="max" [min]="min" placeholder="DD-MM-YYYY"
-                formControlName="exitdate" (click)="date3.open()" [disabled]="isviewdata" required/>
+                formControlName="exitdate" (click)="date3.open()" [disabled]="isviewdata" required [tabIndex]="4"/>
 
               <mat-datepicker-toggle class="datepicker" matSuffix [for]="date3">
               </mat-datepicker-toggle>
@@ -85,9 +89,9 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
               <mat-label>Reason</mat-label>
-              <mat-select [disabled]="isviewdata" formControlName="reason" required>
+              <mat-select [disabled]="isviewdata" formControlName="reason" required [tabIndex]="5">
                 <ng-container>
                   <div *ngFor="let r of reasondata">
                     <mat-option [value]="r.id" (onSelectionChange)="reasonSelect(r)" >{{ r.reason }}</mat-option>
@@ -99,23 +103,28 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row" fxLayoutAlign.xs="center">
-           
-
-            <mat-form-field fxFlex.xs="100" fxFlex="66" fxFlex.lt-lg="66" class="mx-2 my-2" appearance="outline">
-              <mat-label>Notes</mat-label>
-              <textarea formControlName="notice" matInput placeholder="" [readonly]="isviewdata"
-                maxlength="250"></textarea>
-            </mat-form-field>
+       
           </div>
+          <div fxLayout="row" fxFlex="100">
+            <div fxLayout="row" fxFlex="67" fxFlex.lt-lg="100" fxLayoutAlign.xs="center">
+             <mat-form-field fxFlex="100" fxFlex.xs="100" fxFlex.lt-lg="100" class="mx-2 my-2" 
+              appearance="outline">
+                <mat-label>Notes</mat-label>
+                <textarea formControlName="notice" matInput placeholder="" [readonly]="isviewdata"
+                  maxlength="250" [tabIndex]="6"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+
+
           <div fxLayoutAlign="center">
-            <button class="btn btn-primary mr-2 mb-2" (click)="saved()" *ngIf="isadd">
+            <button class="btn btn-primary mr-2 mb-2" [tabIndex]="7" (click)="saved()" *ngIf="isadd">
               Submit
             </button>
-            <button class="btn btn-primary mr-2 mb-2" *ngIf="editing" (click)="editsaved()">
+            <button class="btn btn-primary mr-2 mb-2" [tabIndex]="8"  *ngIf="editing" (click)="editsaved()">
               Update
             </button>
-            <button class="btn btn-danger mr-2 mb-2" (click)="clear()">
+            <button class="btn btn-danger mr-2 mb-2" [tabIndex]="9" (click)="clear()">
               Cancel
             </button>
           </div>
@@ -162,15 +171,21 @@
             </ng-container>
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef ></th>
-              <td mat-cell *matCellDef="let row">
+              <td mat-cell *matCellDef="let row,let i = index">
+                <button mat-icon-button title="Edit"  [tabIndex]="[i+9]" (keyup.enter)="edit($event, row)" *ngIf="row.status == 'Submitted'">
+                  <mat-icon (click)="edit($event, row)" *ngIf="row.status == 'Submitted'" title="Edit">edit</mat-icon>
+                </button>
+                <button mat-icon-button title="View"  [tabIndex]="[i+9]" (keyup.enter)="view($event, row)" *ngIf="row.status !== 'Rejected' ">
+                  <mat-icon (click)="view($event, row)" *ngIf="row.status !== 'Rejected' "  title="view">visibility </mat-icon>
 
-                <mat-icon (click)="edit($event, row)" *ngIf="row.status == 'Submitted'" title="Edit">edit</mat-icon>
-                <mat-icon (click)="view($event, row)" *ngIf="row.status !== 'Rejected' "  title="view">visibility </mat-icon>
-                <mat-icon (click)="view($event, row)" *ngIf="row.status == 'Rejected'" title="view">visibility
-                </mat-icon>
+                </button>
+                <button mat-icon-button title="Edit"  [tabIndex]="[i+9]" (keyup.enter)="cancelresignation($event, row)" *ngIf="row.status == 'Submitted'">
+                  <mat-icon (click)="cancelresignation($event, row)" title="Cancel" *ngIf="row.status == 'Submitted'">
+                    cancel</mat-icon>
+                  </button>
+                
 
-                <mat-icon (click)="cancelresignation($event, row)" title="Cancel" *ngIf="row.status == 'Submitted'">
-                  cancel</mat-icon>
+                
               </td>
             </ng-container>
             <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>

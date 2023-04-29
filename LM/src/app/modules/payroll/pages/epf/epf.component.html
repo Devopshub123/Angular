@@ -12,14 +12,14 @@
     <div fxLayout="row" fxLayout.xs="column" class="custom-card">
       <form [formGroup]="epfRequestForm" autocomplete="off" style="width: 100%">
         <div>
-          <div fxLayout="column" fxFlex="5" class="custom-payroll-div"></div>
-          <div fxLayout="column" fxFlex="40" class="custom-payroll-div">
+          <div fxLayout="column" fxFlex="3" class="custom-payroll-div"></div>
+          <div fxLayout="column" fxFlex="45" class="custom-payroll-div">
             <div>
               <p>
                 <mat-form-field appearance="outline" style="width: 100%">
                   <mat-label>EPF Number</mat-label>
                   <input type="text" [readonly]="enable" matInput class="form-control" formControlName="epfNumber"
-                    mask="AA/AAA/0000000/000" minlength="15" maxlength="18"/>
+                    mask="AA/AAA/0000000/000" minlength="15"/>
                   <mat-error class="con-error" *ngIf="epfRequestForm.controls.epfNumber.errors?.required">
                     Please enter valid data.
                   </mat-error>
@@ -66,7 +66,7 @@
               <!-- <section><mat-checkbox formControlName="pfRestrict">
                             Override PF contribution rate at employee Level
                             </mat-checkbox>
-                            
+
                         </section> -->
               <p>
                 <mat-form-field appearance="outline" style="width: 100%">
@@ -79,7 +79,7 @@
               </p>
             </div>
           </div>
-          <div fxLayout="column" fxFlex="5" class="custom-payroll-div"></div>
+          <div fxLayout="column" fxFlex="4" class="custom-payroll-div"></div>
           <div fxLayout="column" fxFlex="45" class="custom-payroll-div">
             <div>
               <p>
@@ -111,7 +111,7 @@
                           <mat-checkbox formControlName="pfRestrict">
                           Pro-rate Restricted PF wage
                           </mat-checkbox>
-                          
+
                           </li> -->
                   <li>
                     <mat-checkbox formControlName="pfRestrict" [disabled]="enable"
@@ -146,8 +146,8 @@
                             <span class="example-list-section">
                               <mat-checkbox class="example-margin"
                                             [checked]="allabryComplete"
-                                            [color]="abryColor"                                             
-                                            (change)="setAll($event.checked,'abryScheme')"                                           
+                                            [color]="abryColor"
+                                            (change)="setAll($event.checked,'abryScheme')"
                                             >
                                 Eligible for ABRY Scheme
                               </mat-checkbox>
@@ -156,7 +156,7 @@
                               <ul formArrayName="abryCheckBoxes">
                                 <li *ngFor="let subtask of abryCheckBoxes; let i = index" >
                                   <mat-checkbox [formControlName]="i"
-                                                [color]="subtask.color"                                                
+                                                [color]="subtask.color"
                                                 >
                                     {{subtask.name}}
                                   </mat-checkbox>
@@ -164,16 +164,17 @@
                               </ul>
                             </span>
                           </section> -->
-              <!-- <p>                           
+              <!-- <p>
                             <mat-form-field appearance="outline" style="width: 100%;">
                                 <mat-label>Effective Date</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="effective_date" [min]="mindate">                                
+                                <input matInput [matDatepicker]="picker" formControlName="effective_date" [min]="mindate">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker> 
+                                <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
                         </p> -->
             </div>
           </div>
+          <div fxLayout="column" fxFlex="3" class="custom-payroll-div"></div>
         </div>
         <div fxLayout="column" fxLayoutAlign="center center">
           <div fxLayout="row">

@@ -300,9 +300,9 @@
                                     {{ EM2 }}
                                 </mat-error>
                             </mat-form-field>
-                            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                            <!-- <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Role</mat-label>
-                                <mat-select required formControlName="usertype">
+                                <mat-select required formControlName="usertype" [disabled]="editRoles">
                                     <ng-container>
                                         <div *ngFor="let b of availableRole">
                                             <mat-option [value]="b.id">{{ b.name }}</mat-option>
@@ -313,7 +313,31 @@
                                     *ngIf="personalInfoForm.controls.usertype.errors?.required">
                                     {{ EM2 }}
                                 </mat-error>
-                            </mat-form-field>
+                            </mat-form-field> -->
+                            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Role</mat-label>
+                                <mat-select (openedChange)="openedSearch($event)" [compareWith]="compareFn"   
+                                required formControlName="usertype" multiple>
+                                <mat-select-trigger>
+                                  <span *ngFor="let item of personalInfoForm.controls.usertype.value">
+                                       {{ item.name ? item.name:item.usertype }} ,
+                                  </span>
+                                 </mat-select-trigger>
+                                <div class="select-container" *ngIf="flag">
+                                    <mat-option  (onSelectionChange)="selectedRolesChange($event)"
+                                    *ngFor="let role of availableRole" [value]="role">{{role.name}}</mat-option>
+                              </div>
+                              <div class="select-container" *ngIf="!flag">
+                                <mat-option  (onSelectionChange)="selectedRolesChange($event)"
+                                *ngFor="let role of availableRole" [value]="role">{{role.name}}
+                            </mat-option>
+                          </div>
+                            </mat-select>
+                            <mat-error class="con-error" *ngIf="personalInfoForm.controls.usertype.errors?.required">
+                              {{EM2}}
+                            </mat-error>
+                         </mat-form-field>
+
 
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Company Location</mat-label>
@@ -396,7 +420,7 @@
                         <mat-divider></mat-divider>
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end"
                             style="padding-top: 1%; padding-bottom: 1%">
-                            <mat-slide-toggle formControlName="checked" color="primary"><b>Same as residence
+                            <mat-slide-toggle style="padding-right: 11px;" formControlName="checked" color="primary"><b>Same as residence
                                     address</b></mat-slide-toggle>
                         </div>
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
@@ -667,12 +691,15 @@
                                     <ng-container matColumnDef="action">
                                         <th mat-header-cell *matHeaderCellDef></th>
                                         <td mat-cell *matCellDef="let element; let i = index">
-                                            <mat-icon title="Edit" (click)="editfamily(i)" *ngIf="!isviewemployee">
+                                            <button mat-icon-button (keyup.enter)="editfamily(i)" *ngIf="!isviewemployee">
+                                            <mat-icon title="Edit" (click)="editfamily(i)">
                                                 edit
                                             </mat-icon>
-                                            <mat-icon title="Delete" (click)="deleteFamilyPopup(i)"
-                                                *ngIf="!isviewemployee">
+                                        </button>
+                                        <button mat-icon-button (keyup.enter)="deleteFamilyPopup(i)" *ngIf="!isviewemployee">
+                                            <mat-icon title="Delete" (click)="deleteFamilyPopup(i)">
                                                 delete</mat-icon>
+                                            </button>
                                         </td>
                                     </ng-container>
 
@@ -919,18 +946,6 @@
                                         {{ data.effectivedate | date: "dd-MM-yyyy" }}
                                     </td>
                                 </ng-container>
-
-                                <!-- <ng-container matColumnDef="action">
-                                    <th mat-header-cell *matHeaderCellDef>Action</th>
-                                    <td mat-cell *matCellDef="let element; let i = index">
-                                        <mat-icon title="Edit" (click)="editfamily(i)" *ngIf="!isviewemployee">edit
-                                        </mat-icon>
-                                        <mat-icon title="Delete" (click)="deletePromotions(i)"
-                                            *ngIf="!isviewemployee">
-                                            delete</mat-icon>
-                                    </td>
-                                </ng-container> -->
-
                                 <tr mat-header-row *matHeaderRowDef="promotionsTableColumns"></tr>
                                 <tr mat-row *matRowDef="let row; columns: promotionsTableColumns"></tr>
                             </table>
@@ -971,7 +986,7 @@
                                 <mat-label>From Date</mat-label>
                                 <input matInput required readonly [matDatepicker]="expFromDate" [min]="edmaxDate"
                                     [max]="expmaxDate" placeholder="DD-MM-YYYY" formControlName="expFromDate"
-                                    (click)="expFromDate.open()" />
+                                    (click)="expFromDate.open()" (dateChange)="onExpDateChange()"/>
                                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="expFromDate">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #expFromDate></mat-datepicker>
@@ -1021,9 +1036,10 @@
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
                             <span>
                                  <button class="btn btn-primary mr-2 mb-2" (click)="addWorkExperience()">
-                                     <span> Save </span>
+                                    <span *ngIf="!isExperienceEdit"> Save </span>
+                                        <span *ngIf="isExperienceEdit"> Update </span>
                                  </button>
-                                 <button class="btn btn-primary custom1 mr-2 mb-2" (click)="workExperienceSubmitAdd()">
+                                 <button *ngIf="!isExperienceEdit" class="btn btn-primary custom1 mr-2 mb-2" (click)="workExperienceSubmitAdd()">
                                      <span> Save & Add</span>
                                  </button>
                                  <button class="btn btn-danger mr-2 mb-2" (click)="clearWorkExperience()">
@@ -1069,12 +1085,15 @@
                                 <ng-container matColumnDef="action">
                                     <th mat-header-cell *matHeaderCellDef></th>
                                     <td mat-cell *matCellDef="let element; let i = index">
-                                        <mat-icon title="Edit" (click)="editExperience(i)" *ngIf="!isviewemployee">
+                                        <button mat-icon-button (keyup.enter)="editExperience(i)" *ngIf="!isviewemployee">
+                                        <mat-icon title="Edit" (click)="editExperience(i)">
                                             edit
                                         </mat-icon>
-                                        <mat-icon title="Delete" (click)="deleteExperiencePopup(i)"
-                                            *ngIf="!isviewemployee">
+                                        </button>
+                                        <button mat-icon-button (keyup.enter)="deleteExperiencePopup(i)" *ngIf="!isviewemployee">
+                                        <mat-icon title="Delete" (click)="deleteExperiencePopup(i)">
                                             delete</mat-icon>
+                                            </button>
                                     </td>
                                 </ng-container>
 
@@ -1217,7 +1236,7 @@
                                 <mat-label>From Date</mat-label>
                                 <input required matInput readonly [matDatepicker]="eduFromDate" [max]="edmaxDate"
                                     placeholder="DD-MM-YYYY" formControlName="eduFromDate"
-                                    (click)="eduFromDate.open()" />
+                                    (click)="eduFromDate.open()" (dateChange)="onEduDateChange()"/>
                                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="eduFromDate">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #eduFromDate></mat-datepicker>
@@ -1291,12 +1310,15 @@
                                 <ng-container matColumnDef="action">
                                     <th mat-header-cell *matHeaderCellDef></th>
                                     <td mat-cell *matCellDef="let element; let i = index">
-                                        <mat-icon title="Edit" (click)="editEduction(i)" *ngIf="!isviewemployee">
+                                        <button mat-icon-button (keyup.enter)="editEduction(i)" *ngIf="!isviewemployee">
+                                        <mat-icon title="Edit" (click)="editEduction(i)">
                                             edit
                                         </mat-icon>
-                                        <mat-icon title="Delete" (click)="deleteEducationPopup(i)"
-                                            *ngIf="!isviewemployee">
+                                        </button>
+                                        <button mat-icon-button (keyup.enter)="deleteEducationPopup(i)" *ngIf="!isviewemployee">
+                                        <mat-icon title="Delete" (click)="deleteEducationPopup(i)">
                                             delete</mat-icon>
+                                            </button>
                                     </td>
                                 </ng-container>
 
@@ -1365,15 +1387,20 @@
                                 </button>
 
                                 &nbsp;
-                                <mat-icon title="cancel" *ngIf="documentsForm.controls.attachedFile.value"
-                                    (click)="deleteIcon()">delete</mat-icon>
-                                <mat-icon title="remove" *ngIf="isedit" (click)="delete()">cancel</mat-icon>
+                                <button mat-icon-button (keyup.enter)="deleteIcon()" *ngIf="documentsForm.controls.attachedFile.value">
+                                    <mat-icon title="cancel" (click)="deleteIcon()">delete</mat-icon>
+                                </button>
+                            <button mat-icon-button (keyup.enter)="delete()" *ngIf="isedit">
+                                <mat-icon title="remove"  (click)="delete()">cancel</mat-icon>
+                            </button>
+                           
                                 &nbsp;
                             </div>
                         </div>
                         <div fxLayout="row" fxLayoutAlign="center center">
                             <button class="btn btn-primary mr-2 mb-2"  (click)="validateDocument()">
-                                <span> Submit </span>
+                                <span *ngIf="!isedit"> Save </span>
+                                <span *ngIf="isedit"> Update </span>
                             </button>
                             <button class="btn btn-danger mr-2 mb-2" (click)="clearDock()">
                                 Clear
@@ -1412,11 +1439,15 @@
                                 <ng-container matColumnDef="action">
                                     <th mat-header-cell *matHeaderCellDef></th>
                                     <td mat-cell *matCellDef="let data">
+                                        <button mat-icon-button (keyup.enter)="editDock(data)" *ngIf="!isviewemployee">
                                         <mat-icon (click)="editDock(data)" title="Edit"
                                             *ngIf="data.status == 'Submitted'">edit</mat-icon>
+                                        </button>
+                                            <button mat-icon-button (keyup.enter)="deleteDock(data)" *ngIf="!isviewemployee">
                                         <mat-icon (click)="deleteDock(data)" title="Delete"
                                             *ngIf="data.status == 'Submitted'">
                                             delete</mat-icon>
+                                        </button>
                                     </td>
                                 </ng-container>
 

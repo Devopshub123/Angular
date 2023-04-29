@@ -7,16 +7,16 @@
             </mat-card-header>
   
         <form [formGroup]="Empdashboardform" autocomplete="off">  
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="2px" style="padding-top: 1%;">
-                <div fxFlex="65" fxFill>
+            <div fxLayout="row" fxLayout.lt-lg="column" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="2px" style="padding-top: 1%;">
+                <div fxFlex="65" fxFlex.lt-lg="100" fxFill>
                 <div class="dashboard-1 custom-investment-th">Gross Salary Breakdown by Departments</div>
-                    <div class="card card-stats" >
+                    <!-- <div class="card card-stats" >
                       <div class="card-body " style="width: 50%; min-height: 50px;">
                         <canvas  baseChart [type]="'doughnut'" [data]="data" [options]="options">
                         </canvas>
                       </div>
                     </div>    
-                 
+                  -->
                     <div fxLayout="row" fxLayout.xs="column">
                         
                         <div class="card card-stats custom-epf-mini-tab">
@@ -25,7 +25,7 @@
                                 <div class="numbers text-center">
                                     <mat-form-field appearance="outline" fxFlex fxFlex.xs="100">
                                         <mat-label>EPF</mat-label>
-                                        <mat-select formControlName="EPF">
+                                        <mat-select formControlName="EPF" [tabIndex]="1">
                                           <ng-container>
                                             <div *ngFor="let fy of EPFfulldetails">
                                                 <mat-option [value]="fy.month_name">{{fy.month_name}}</mat-option>
@@ -53,7 +53,7 @@
                                 <div class="numbers text-center">                                        
                                     <mat-form-field appearance="outline" fxFlex fxFlex.xs="100">
                                       <mat-label>ESI</mat-label>
-                                      <mat-select > 
+                                      <mat-select  [tabIndex]="2"> 
                                           <mat-option value="January">Jan</mat-option>
                                           <mat-option value="Feb">Feb</mat-option>
                                           <mat-option value="Yearly">Mar</mat-option>
@@ -62,11 +62,11 @@
                                 </div>
                                 <div class="col-4" style="float: left;">
                                     <p style="text-align: center;color: #5a5c69!important;font-weight: 700;">Month</p>
-                                    <p style="text-align: center;color: #5a5c69!important;">-</p>
+                                    <p style="text-align: center;color: #5a5c69!important;"></p>
                                 </div>
                                 <div class="col-8" style="float: left;">
                                     <p style="text-align: center;color: #5a5c69!important;font-weight: 700;">Deduction Amount</p>
-                                    <p style="text-align: center;color: #5a5c69!important;">-</p>
+                                    <p style="text-align: center;color: #5a5c69!important;"></p>
                                 </div>
                             </div> 
                             </div>                           
@@ -75,7 +75,7 @@
    
             </div>
 
-            <div fxFlex="35" fxFill>
+            <div fxFlex="35" fxFlex.lt-lg="100" fxFill>
                 <div class="custom-mob-paySlips">
                     
                     <div class="card card-stats">
@@ -86,9 +86,9 @@
                                 <mat-divider></mat-divider>
                                    <div style="padding-top: 1%;">
                                         <br>
-                                        <mat-form-field appearance="outline" >
+                                        <mat-form-field appearance="outline" fxFlex.lt-lg="50" >
                                           <mat-label>Pay Slips</mat-label>
-                                          <mat-select formControlName="financial_year">
+                                          <mat-select formControlName="financial_year" [tabIndex]="3">
                                             <ng-container>
                                               <div *ngFor="let fy of financeyears">
                                                   <mat-option [value]="fy.return_value">{{fy.financial_year}}</mat-option>
@@ -100,11 +100,13 @@
                                 </div>
 
                                 <div class="col-12" *ngFor="let array of dataSource;index as i;">
-                                    <div style="text-align: left;">
-                                    <div style="float: left;margin-right:50px;width:50%;">{{array.salary_month}}</div>
-                                    <div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex.lt-lg="50">
+                                    <span>{{array.salary_month}}</span>
+                                    <span>
+                                        <button  mat-icon-button [tabIndex]="[4]" (keyup.enter)="payslipview(array)">
                                         <mat-icon  style="cursor: pointer;" title="View" (click)="payslipview(array)">visibility</mat-icon>
-                                    </div>
+                                       </button>
+                                    </span>
                                     </div>
                                 </div>
                          

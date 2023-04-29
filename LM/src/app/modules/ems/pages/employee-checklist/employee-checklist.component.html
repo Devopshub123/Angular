@@ -5,7 +5,7 @@
       
       <div fxLayout="column" >            
           <div fxLayout="column" class="tableP">
-          <div class="mat-elevation-z1">
+          <div class="mat-elevation-z1 example-container">
               <table mat-table [dataSource]="dataSource" matSort>
                   <ng-container matColumnDef="sno">
                       <th mat-header-cell *matHeaderCellDef > S.No </th>
@@ -14,7 +14,7 @@
                          </td>
                   </ng-container>
                   <ng-container matColumnDef="programtype">
-                      <th mat-header-cell *matHeaderCellDef > Program Type </th>
+                      <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Program Type </th>
                       <td mat-cell *matCellDef="let row" >
                           <span>{{row.description}} </span>
                               </td>
@@ -28,21 +28,21 @@
                       </td>
                   </ng-container>
                   <ng-container matColumnDef="conductby">
-                      <th mat-header-cell *matHeaderCellDef> Conduct By </th>
+                      <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Conduct By </th>
                       <td mat-cell *matCellDef="let row" >
                           <span>{{row.conductedby}} </span>
                       </td>
                   </ng-container>
                   <ng-container matColumnDef="date">
                       <th mat-header-cell *matHeaderCellDef> Date </th>
-                      <td mat-cell *matCellDef="let row" >
-                          <span>{{row.schedule_date}} </span>
+                      <td mat-cell *matCellDef="let row" style="white-space: nowrap;">
+                          <span>{{row.schedule_date | date:'dd-MM-yyyy'}} </span>
                         </td>
                   </ng-container>
 
                   <ng-container matColumnDef="time">
                     <th mat-header-cell *matHeaderCellDef> Time </th>
-                    <td mat-cell *matCellDef="let row" >
+                    <td mat-cell *matCellDef="let row" style="white-space: nowrap;">
                         <span>{{row.schedule_starttime.substring(0,5)}} </span>
                       </td>
                 </ng-container>
@@ -69,7 +69,7 @@
     
     <div fxLayout="column" >            
         <div fxLayout="column" class="tableP">
-        <div class="mat-elevation-z1">
+        <div class="mat-elevation-z1 example-container ">
             <table mat-table [dataSource]="dataSource2" matSort>
                 <ng-container matColumnDef="sno">
                     <th mat-header-cell *matHeaderCellDef > S.No </th>

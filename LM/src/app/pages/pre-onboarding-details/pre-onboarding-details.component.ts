@@ -60,7 +60,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   educationForm: any = FormGroup;
   documentsForm: any = FormGroup;
   minDate = new Date('1950/01/01');
-  maxBirthDate = new Date();
+
   bloodGroupdetails: any[] = [];
   genderDetails: any[] = [];
   employeeRelationship: any = [];
@@ -149,7 +149,10 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
 
 
+  maxBirthDate:Date | undefined;
   ngOnInit(): void {
+    this. maxBirthDate = new Date();
+    this.maxBirthDate.setMonth(this.maxBirthDate.getMonth() - 12 * 18);
     this.params = this.activatedRoute.snapshot.params;
     // if (this.params && this.params.token) {
       this.email = JSON.parse(atob(this.params.token)).email;
@@ -290,17 +293,25 @@ export class PreOnboardingDetailsComponent implements OnInit {
       })
 
 
-      this.employementForm.get('expFromDate')?.valueChanges.subscribe((selectedExpValue: any) => {
+    this.employementForm.get('expFromDate')?.valueChanges.subscribe((selectedExpValue: any) => {
+      if (selectedExpValue != null) {
         this.minExperienceDate = selectedExpValue._d;
+      }
       })
       this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedEduValue: any) => {
-        this.minEducationDate = selectedEduValue._d;
+        if (selectedEduValue != null) {
+          this.minEducationDate = selectedEduValue._d;
+        } 
       })
       //////////
-
-    
+ 
   }
-
+  onExpDateChange() {
+    this.employementForm.controls.expToDate.setValue('')
+    }
+  onEduDateChange() {
+  this.educationForm.controls.eduToDate.setValue('')  
+  }
   //////////
   getCandidateData() {
     this.loginData = [];
@@ -768,7 +779,7 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
   
   addWorkExperience() {
-    this.addExperienceValidators();
+    console.log("val",this.employementForm)
     if (this.employementForm.valid) {
       this.workExperienceDetails.push({
         companyname: this.employementForm.controls.companyName.value,
@@ -875,7 +886,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
             this.isSubmitAdd = false;
              this.clearEducationValidators();
               this.clearEducation();
-              this.getCandidateData();
+            this.getCandidateData();
+
               this.educationDataChange = false;
           }
         } else {
@@ -899,8 +911,8 @@ export class PreOnboardingDetailsComponent implements OnInit {
 
   addEducation() {
     this.addEducationValidators();
-    if (this.educationForm.valid) {
-      this.educationDetails.push({
+   if (this.educationForm.valid) {
+     this.educationDetails.push({
         course: this.educationForm.controls.course.value,
         institutename: this.educationForm.controls.instituteName.value,
         fromdate: this.pipe.transform(this.educationForm.controls.eduFromDate.value, 'yyyy-MM-dd'),

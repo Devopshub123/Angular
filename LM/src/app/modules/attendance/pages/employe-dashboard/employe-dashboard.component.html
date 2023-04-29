@@ -63,11 +63,13 @@
                        <div fxLayout="column">
                         <div class="time-attendance">
                                     <span *ngFor="let item of shiftDetails">
-                                      <div fxLayout="row" fxLayoutAlign="space-between" class="time-attendance">
-                                      <div> <span><b>{{item.duration}}</b></span><br /><span>{{item.fromdate |
+                                      <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="space-between" class="time-attendance">
+                                      <div> <span><b>{{item.duration}}</b></span><br />
+                                          <span style="white-space: nowrap;">{{item.fromdate |
                                           date:'dd-MM-yyyy'}} to {{item.todate |
-                                                 date:'dd-MM-yyyy'}}</span></div>
-                                      <div><span><b>{{item.shiftname}}</b></span><br />
+                                                 date:'dd-MM-yyyy'}}</span>
+                                          </div>
+                                      <div style="white-space: nowrap;"><span><b>{{item.shiftname}}</b></span><br />
                                              <span> {{item.fromtime}}-{{item.totime}}</span>
                                       </div>
                                     </div>

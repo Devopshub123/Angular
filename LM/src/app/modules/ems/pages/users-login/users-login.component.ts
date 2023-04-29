@@ -149,7 +149,7 @@ export class UsersLoginComponent implements OnInit {
         companyCode:this.companyDBName
       };
       this.ES.usersLogin(data).subscribe((res: any) => {
-        if (res.status) {
+        if (res.status&&res.successstate!=1) {
           this.router
             .navigateByUrl('/', { skipLocationChange: true })
             .then(() => this.router.navigate(['/Admin/users-login']));
@@ -160,7 +160,15 @@ export class UsersLoginComponent implements OnInit {
             disableClose: true,
             data: this.EM134,
           });
-        } else {
+        } else if(res.successstate==1){
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Already existing this user id."+this.EM135,
+          });
+
+        }
+        else {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,

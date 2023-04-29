@@ -42,16 +42,15 @@ mat-card {
   padding-left: 0px;
   padding-right: 0px;
 }
-.tableP{
-  padding-left: 2%;
-  padding-right: 2%;
-  padding-bottom: 1%;
-  padding-top: 1%;
-}
+
 ::ng-deep tr.mat-header-row {
   height: 45px !important
 }
-.div-pad{
-  padding-left: 2%;
-  padding-right: 2%;
+.dev-Pad{
+  padding-top: 1%;
+  padding-right: 8px;
+}
+.table-pad{
+  padding-left: 15px;
+  padding-right: 15px;
 }

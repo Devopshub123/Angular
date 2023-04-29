@@ -139,7 +139,7 @@ export class SignUpComponent implements OnInit {
     this.planName = JSON.parse(atob(this.params.token)).PlanName;
     this.date = new Date(JSON.parse(atob(this.params.token)).Date);
     let expDate = new Date(this.date.setDate(this.date.getDate() + 1));
-   
+
     if (expDate >= new Date()) {
       this.flag = true;
       this.getUnverifiedSprypleClient();
@@ -154,8 +154,8 @@ export class SignUpComponent implements OnInit {
     this.signUpForm.get('IndustryType')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue !=null) {
         if(selectedValue.industry_type_name == 'Others'){
-          this.hide = true;  
-          this.signUpForm.controls.others.setValue('') 
+          this.hide = true;
+          this.signUpForm.controls.others.setValue('')
        }
        else{
          this.hide=false;
@@ -163,7 +163,7 @@ export class SignUpComponent implements OnInit {
        }
       }
     })
-    
+
     this.signUpForm.get('country')?.valueChanges.subscribe((selectedValue: any) => {
       this.stateDetails= [];
       this.companyService.getPreonboardingStatesc(selectedValue,'spryple_dev').subscribe((data)=>{
@@ -203,7 +203,7 @@ export class SignUpComponent implements OnInit {
         others: [""],
         isChecked: [""],
         planid:[this.planName]
-       
+
     })
     this.PayviewForm = this.formBuilder.group({
       plan:[""],
@@ -266,7 +266,7 @@ export class SignUpComponent implements OnInit {
         this.clientId = value.id;
         this.clientname= value.contact_name;
         this.contactnumber=value.mobile_number;
-       
+
         this.signUpForm.controls.companyName.setValue(value.company_name);
        this.signUpForm.controls.companyCode.setValue(value.company_code);
        this.signUpForm.controls.companySize.setValue(value.company_size);
@@ -292,10 +292,10 @@ export class SignUpComponent implements OnInit {
         this.myStepper.next();
         this.myStepper.next();
         this.myStepper.next();
-        
-       
 
-        
+
+
+
       }
     })
   }
@@ -314,7 +314,7 @@ export class SignUpComponent implements OnInit {
         this.date2 =value.todate;
         this.users =value.number_of_users;
         let dayscount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
-       
+
         this.payamount = ((value.number_of_users*value.cost_per_user_monthly_bill*dayscount)/30);
         this.PayviewForm.controls.plan.setValue(value.plan_name);
         this.PayviewForm.controls.totalusers.setValue(value.number_of_users);
@@ -332,9 +332,9 @@ export class SignUpComponent implements OnInit {
         company_name_value:this.signUpForm.controls.companyName.value,
         company_code_value:this.signUpForm.controls.companyCode.value,
         company_size_value:this.signUpForm.controls.companySize.value,
-        number_of_users_value:this.signUpForm.controls.totalUsers.value, 
+        number_of_users_value:this.signUpForm.controls.totalUsers.value,
         plan_id_value:1,
-        industry_type_pm:this.signUpForm.controls.IndustryType.value, 
+        industry_type_pm:this.signUpForm.controls.IndustryType.value,
         industry_type_value_pm:this.signUpForm.controls.others.value,
         mobile_number_value: this.signUpForm.controls.mobile.value,
         company_email_value:this.signUpForm.controls.companyemail.value,
@@ -361,7 +361,7 @@ export class SignUpComponent implements OnInit {
           });
           this.getUnverifiedSprypleClient();
           this.spinner.hide();
-        
+
         } else {
           this.spinner.hide();
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -375,9 +375,9 @@ export class SignUpComponent implements OnInit {
   }
 
   clear() {
-    
+
   }
-  
+
   noWhitespaceValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const isWhitespace = (control.value || '').trim().length === 0;
@@ -412,9 +412,9 @@ export class SignUpComponent implements OnInit {
         position:{top:`70px`},
         disableClose: true,
         data:'Your Payment failed.Please try again.'
-    
+
       });
-      
+
       console.log(response.error.code);
       console.log(response.error.description);
       console.log(response.error.source);
@@ -446,7 +446,7 @@ let data ={
 console.log("payment success data.toFixed(2)",data)
 this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
   if(result.status){
-    
+
     this.ngOnInit();
   }
 })

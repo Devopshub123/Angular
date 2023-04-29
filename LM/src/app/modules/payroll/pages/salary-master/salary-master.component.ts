@@ -44,9 +44,9 @@ export class SalaryMasterComponent implements OnInit {
     this.PR.getEmployeeDurationsForSalaryDisplayForCTC(id).subscribe((result:any)=>{
       if(result.status){
         this.durationlist=result.data[0]
-        console.log("result.data[0].id",result.data[0].id)
+
         this.salaryMasterForm.controls.range.setValue(result.data[0][0].id)
-        console.log("durationlist",this.durationlist)
+
       }
       else{
         this.durationlist=[]

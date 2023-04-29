@@ -7,17 +7,23 @@
         
         <div *ngIf="ishide" class="div-pad">
             
-            <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center" style="height: 50px;">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center" style="height: 70px;">
               <span  style="padding-top: 1%;" fxFlex="50">
+                <button mat-icon-button (keyup.enter)="popup()" [tabIndex]="1">
                     <mat-icon class="styles" title='Select' (click)="popup()">blur_linear</mat-icon>
+                </button>
+                    <button mat-icon-button (keyup.enter)="filter()" [tabIndex]="2">
                     <mat-icon class="styles" title='Filter' (click)="filter()">filter_alt</mat-icon>
+                </button>
+                    <button mat-icon-button  (keyup.enter)="exportAsXLSX()" [tabIndex]="3">
                     <mat-icon class="styles" title='Download' (click)='exportAsXLSX()'>download</mat-icon>
+                   </button>
                     <!-- <mat-icon class="styles" >download</mat-icon> -->
                 </span>
                 <span *ngIf="allfilterdata.length>0" style="padding-top: 1%;" fxFlex="50" fxLayoutAlign="end">
                     <mat-form-field fxFlex="56" fxFlex.lt-lg="100" fxFlex.xs="100%" appearance="outline">
                         <mat-label>Search</mat-label>
-                        <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input [tabIndex]="4">
                         <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
                     </mat-form-field>
                      </span>
@@ -34,21 +40,23 @@
                         <ng-container matColumnDef="name">
                             <th mat-header-cell *matHeaderCellDef > Name </th>
                             <td mat-cell *matCellDef="let row" >
-                                <div  class="truncate" 
+                                <!-- <div  class="truncate" 
                                 [matTooltip]="row.employee_name.length > 20 ? 
                                 row.employee_name: '' ">
                                 {{row.employee_name}}
-                            </div>
+                            </div> -->
+                            <span> {{row.employee_name}}</span>
                             </td>
                           </ng-container>
                         <ng-container matColumnDef="email">
                             <th mat-header-cell *matHeaderCellDef > Email </th>
                             <td mat-cell *matCellDef="let row" >
-                                <div  class="truncate" 
+                                <!-- <div  class="truncate" 
                                 [matTooltip]="row.office_email.length > 25 ? 
                                 row.office_email: '' ">
                                 {{row.office_email}}
-                            </div>
+                            </div> -->
+                            <span>{{row.office_email}}</span>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="mobile">

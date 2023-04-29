@@ -205,7 +205,6 @@ export class EpfComponent implements OnInit {
   /**getEpfDetails*/
   getEpfDetails(){
     this.PR.getEpfDetails().subscribe((result:any)=>{
-      console.log(result)
       if(result.status && result.data.length>0){
         this.epfRequestForm.controls.epfNumber.setValue(result.data[0].epf_number);
         this.epfRequestForm.controls.employersContribution.setValue(result.data[0].actual_pf_wage_or_restricted_pf_wage_for_employer_contribution);

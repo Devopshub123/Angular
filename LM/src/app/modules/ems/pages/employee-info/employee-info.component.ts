@@ -83,7 +83,6 @@ export class EmployeeInfoComponent implements OnInit {
   isedit: boolean = false;
   minDate = new Date('1950/01/01');
   minJoinDate: any;
-  maxBirthDate = new Date();
   bloodGroupdetails: any[] = [];
   genderDetails: any[] = [];
   employeeRelationship: any = [];
@@ -171,13 +170,16 @@ export class EmployeeInfoComponent implements OnInit {
   EM61: any;
   EM42: any;
   EM43: any;
-
+  EM62: any;
+  EM63: any;
   fileURL: any;
   file: any;
   familyindex: any;
   educationIndex: any;
   experienceIndex: any;
   isExperienceEdit: boolean = false;
+  isUpdate: boolean = false;
+  isDelete: boolean = false;
   mincontarctDate: any;
   isContractData: boolean = false;
   profileId:any=null;
@@ -202,13 +204,27 @@ export class EmployeeInfoComponent implements OnInit {
   decryptPipe = new DecryptPipe();
   joinDateDisable: boolean = false;
   isSubmitAdd: boolean = false;
+  maxBirthDate:Date | undefined;
+  editRoles: boolean = false;
+  searchTextboxControl = new FormControl();
+  selectedRoles: any = [];
+  isEnable = false;
+  flag: boolean = true;
+  roleArray: any = [];
   ngOnInit(): void {
+    this. maxBirthDate = new Date();
+    this.maxBirthDate.setMonth(this.maxBirthDate.getMonth() - 12 * 18);
     this.getDesignationsMaster();
     this.getGender();
     this.getMaritalStatusMaster();
     this.getRelationshipMaster();
     this.params = this.activatedRoute.snapshot.params;
-
+    if(this.params.candId!=undefined && this.params.empId==undefined){
+      this.editRoles= false;
+    }
+    else{
+      this.editRoles= true;
+    }
     /** through new hired list */
     if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
       this.candidateId = this.decryptPipe.transform(this.activeroute.snapshot.params.candId)
@@ -376,23 +392,25 @@ export class EmployeeInfoComponent implements OnInit {
     this.experienceForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != null) {
         this.minExperienceDate = selectedValue._d;
+       
       }
     })
     this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != null) {
         this.minEducationDate = selectedValue._d;
+       
       }
     })
     /////////
 
-    this.personalInfoForm.get('usertype')?.valueChanges.subscribe((selectedValue: number) => {
-      if (selectedValue == 2 || selectedValue == 6) {
-        this.isself = true;
-      }
-      else {
-        this.isself = false;
-      }
-    })
+    // this.personalInfoForm.get('usertype')?.valueChanges.subscribe((selectedValue: number) => {
+    //   if (selectedValue == 2 || selectedValue == 6) {
+    //     this.isself = true;
+    //   }
+    //   else {
+    //     this.isself = false;
+    //   }
+    // })
 
     this.personalInfoForm.get('employmentType')?.valueChanges.subscribe((selectedValue: number) => {
       if (selectedValue == 3) {
@@ -416,7 +434,14 @@ export class EmployeeInfoComponent implements OnInit {
     })
     this.getEmployeeImage();
    }
-
+   onExpDateChange() {
+    this.experienceForm.controls.expToDate.setValue('')
+    }
+  onEduDateChange() {
+    this.educationForm.controls.eduToDate.setValue('')
+  }
+  
+  
   getnoticeperiods() {
     this.emsService.getnoticeperiods().subscribe((res: any) => {
       if (res.status) {
@@ -465,7 +490,7 @@ export class EmployeeInfoComponent implements OnInit {
       lname = lname ? lname.charAt(0).toUpperCase() + lname.substr(1).toLowerCase() : '';
       this.personalInfoForm.controls.lastname.setValue(lname);
 
-      this.maxBirthDate = new Date(this.employeeJoinDate);
+     // this.maxBirthDate = new Date(this.employeeJoinDate);
       if (this.loginData.dateofbirth != null)
         this.personalInfoForm.controls.dateofbirth.setValue(new Date(this.loginData.dateofbirth));
       this.personalInfoForm.controls.bloodgroup.setValue(this.loginData.bloodgroup);
@@ -564,14 +589,16 @@ export class EmployeeInfoComponent implements OnInit {
 
   /** through employee directory login data  */
   getEmployeeInformationList() {
-    console.log(this.employeeId)
+
     this.spinner.show();
     this.employeeInformationData = [];
     this.familyDetails = [];
+    this.selectedRoles = [];
+    this.roleArray = [];
+    this.flag = false;
     this.emsService.getEmployeeInformationData(this.employeeId).subscribe((res: any) => {
-      console.log("res",res)
+
       this.employeeInformationData = JSON.parse(res.data[0].json)[0];
-      console.log(this.employeeInformationData)
       this.isNewEmployee = false;
       this.joinDateDisable = true;
       if (this.employeeInformationData.id != null) {
@@ -607,7 +634,6 @@ export class EmployeeInfoComponent implements OnInit {
       let lname = this.employeeInformationData.lastname;
       lname = lname ? lname.charAt(0).toUpperCase() + lname.substr(1).toLowerCase() : '';
       this.personalInfoForm.controls.lastname.setValue(lname);
-
       this.personalInfoForm.controls.dateofbirth.setValue(new Date(this.employeeInformationData.dateofbirth));
       this.personalInfoForm.controls.bloodgroup.setValue(this.employeeInformationData.bloodgroup);
       this.personalInfoForm.controls.gender.setValue(this.employeeInformationData.gender);
@@ -637,8 +663,14 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.officeemail.setValue(this.employeeInformationData.officeemail);
       this.personalInfoForm.controls.empStatus.setValue(this.employeeInformationData.status);
       this.personalInfoForm.controls.employmentType.setValue(this.employeeInformationData.employmenttype);
-      this.personalInfoForm.controls.usertype.setValue(this.employeeInformationData.usertype);
-      this.personalInfoForm.controls.usertype.disable()
+      // this.personalInfoForm.controls.usertype.setValue(this.employeeInformationData.usertype);
+      let data = JSON.parse(this.employeeInformationData.usertype);
+      for (let i = 0; i < data.length; i++){
+        this.roleArray.push(data[i]);
+       // this.selectedRoles.push({ "id": data[i].id });
+      }
+      this.availableRole = data;
+      this.personalInfoForm.controls.usertype.setValue(this.roleArray);
       this.personalInfoForm.controls.companylocation.setValue(this.employeeInformationData.worklocation);
       this.personalInfoForm.controls.designation.setValue(this.employeeInformationData.designation);
       this.personalInfoForm.controls.department.setValue(this.employeeInformationData.department);
@@ -826,7 +858,7 @@ export class EmployeeInfoComponent implements OnInit {
         mobileNo: ["",[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
         alternateMobileNo: ["",[Validators.minLength(10), Validators.maxLength(10),Validators.pattern('^(91)?[4-9][0-9]{9}')]],
         officeemail: ["", [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]],
-        usertype: ["",],
+        usertype: [[],],
         designation: ["",],
         department: ["",],
         employmentType: ["",],
@@ -974,6 +1006,7 @@ export class EmployeeInfoComponent implements OnInit {
       for (let i = 0; i < roledata.length; i++) {
         if (roledata[i].isEditable == 0) {
           this.availableRole.push(roledata[i])
+          
         }
       }
     })
@@ -1051,14 +1084,13 @@ export class EmployeeInfoComponent implements OnInit {
         actionby: parseInt(this.userSession.id),
         ///////
         officeemail: this.personalInfoForm.controls.officeemail.value,
-        usertype: this.personalInfoForm.controls.usertype.value,
+        usertype: this.selectedRoles,
         department: this.personalInfoForm.controls.department.value,
         employmenttype: this.personalInfoForm.controls.employmentType.value,
         companylocation: this.personalInfoForm.controls.companylocation.value,
         reportingmanager: this.personalInfoForm.controls.reportingmanager.value,
       }
-
-      this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
+     this.emsService.saveEmployeeInformationData(data).subscribe((res: any) => {
         if (res.status) {
           if (res.data.email == null) {
             this.employeeId = res.data.empid;
@@ -1415,9 +1447,7 @@ export class EmployeeInfoComponent implements OnInit {
         this.workExperienceDetails[this.experienceIndex].designation = this.experienceForm.controls.designation.value;
         this.workExperienceDetails[this.experienceIndex].skills = this.experienceForm.controls.jobDescription.value;
         this.workExperienceDetails[this.experienceIndex].fromdate = this.pipe.transform(this.experienceForm.controls.expFromDate.value, 'yyyy-MM-dd'),
-          this.workExperienceDetails[this.experienceIndex].todate = this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
-          this.clearExperienceValidators();
-        this.clearWorkExperience();
+        this.workExperienceDetails[this.experienceIndex].todate = this.pipe.transform(this.experienceForm.controls.expToDate.value, 'yyyy-MM-dd'),
         this.saveWorkExperience();
       } else {
         if (this.experienceForm.valid) {
@@ -1440,6 +1470,7 @@ export class EmployeeInfoComponent implements OnInit {
   editExperience(i: any) {
     this.experienceIndex = i;
     this.isExperienceEdit = true;
+    this.isUpdate = true;
     this.experienceForm.controls.companyName.setValue(this.workExperienceDetails[i].companyname);
     this.experienceForm.controls.designation.setValue(this.workExperienceDetails[i].designation);
     this.experienceForm.controls.jobDescription.setValue(this.workExperienceDetails[i].skills);
@@ -1481,6 +1512,8 @@ export class EmployeeInfoComponent implements OnInit {
 
   clearWorkExperience() {
     this.isExperienceEdit = false;
+    this.isUpdate = false;
+    this.isDelete = false;
     this.experienceForm.controls.companyName.reset();
     this.experienceForm.controls.expFromDate.reset();
     this.experienceForm.controls.expToDate.reset();
@@ -1495,6 +1528,7 @@ export class EmployeeInfoComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'YES') {
+        this.isDelete = true;
         this.deleteExperience(event)
       }
     });
@@ -1518,14 +1552,30 @@ export class EmployeeInfoComponent implements OnInit {
           if (res.status && res.data[0].statuscode == 0) {
             this.spinner.hide();
             this.getEmployeeEmploymentList();
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position: { top: `70px` },
-              disableClose: true,
-              data: this.EM42
-            });
+            if (this.isUpdate == false && this.isDelete ==false) {
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: this.EM42,
+              });
+            } else if (this.isUpdate == true) {
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: this.EM62
+              });
+            } else if (this.isDelete == true) {
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: this.EM63,
+              });
+            }
             if (this.isSubmitAdd == false) {
               this.selectedtab.setValue(3);
             }
+            this.clearExperienceValidators();
+            this.clearWorkExperience();
             this.isSubmitAdd == false;
           } else {
             this.spinner.hide();
@@ -1613,15 +1663,31 @@ export class EmployeeInfoComponent implements OnInit {
         this.emsService.saveEmployeeEducationData(data).subscribe((res: any) => {
           if (res.status && res.data[0].statuscode == 0) {
             this.getEmployeeEducationList();
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position: { top: `70px` },
-              disableClose: true,
-              data: this.EM42
-            });
+            if (this.isUpdate == false && this.isDelete ==false) {
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: this.EM42,
+              });
+            } else if (this.isUpdate == true) {
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: this.EM62
+              });
+            } else if (this.isDelete == true) {
+              let dialogRef = this.dialog.open(ReusableDialogComponent, {
+                position: { top: `70px` },
+                disableClose: true,
+                data: this.EM63,
+              });
+            }
             this.spinner.hide();
             if (this.isSubmitAdd == false) {
               this.selectedtab.setValue(5);
             }
+            this.clearEducationValidators();
+            this.clearEducation();
             this.isSubmitAdd = false;
           } else {
             this.spinner.hide();
@@ -1661,8 +1727,6 @@ export class EmployeeInfoComponent implements OnInit {
         this.educationDetails[this.educationIndex].institutename = this.educationForm.controls.instituteName.value;
         this.educationDetails[this.educationIndex].fromdate = this.pipe.transform(this.educationForm.controls.eduFromDate.value, 'yyyy-MM-dd'),
           this.educationDetails[this.educationIndex].todate = this.pipe.transform(this.educationForm.controls.eduToDate.value, 'yyyy-MM-dd'),
-          this.clearEducationValidators();
-        this.clearEducation();
         this.saveEducation();
       } else {
         if (this.educationForm.valid) {
@@ -1683,6 +1747,7 @@ export class EmployeeInfoComponent implements OnInit {
   editEduction(i: any) {
     this.educationIndex = i;
     this.isEducationEdit = true;
+    this.isUpdate = true;
     this.educationForm.controls.course.setValue(this.educationDetails[i].course);
     this.educationForm.controls.instituteName.setValue(this.educationDetails[i].institutename);
     this.educationForm.controls.eduFromDate.setValue(this.educationDetails[i].fromdate);
@@ -1718,6 +1783,8 @@ export class EmployeeInfoComponent implements OnInit {
   }
   clearEducation() {
     this.isEducationEdit = false;
+    this.isUpdate = false;
+    this.isDelete = false;
     this.educationForm.controls.course.reset();
     this.educationForm.controls.instituteName.reset();
     this.educationForm.controls.eduFromDate.reset();
@@ -1731,6 +1798,7 @@ export class EmployeeInfoComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'YES') {
+        this.isDelete = true;
         this.deleteEducation(event)
       }
     });
@@ -1832,6 +1900,10 @@ export class EmployeeInfoComponent implements OnInit {
             this.EM42 = e.message
           }else if (e.code == "EM43") {
             this.EM43 = e.message
+          }else if (e.code == 'EM62') {
+            this.EM62 = e.message;
+          } else if (e.code == 'EM63') {
+            this.EM63 = e.message;
           }
         })
       } else {
@@ -2192,6 +2264,8 @@ export class EmployeeInfoComponent implements OnInit {
 
   clearDock() {
     // this.documentsForm.resetForm({resetType:ResetFormType.ControlsOnly})
+    this.editFileName = '';
+    this.isedit = false;
     this.documentsForm.reset();
     this.documentsForm.get('documentName').clearValidators();
     this.documentsForm.get('documentName').updateValueAndValidity();
@@ -2327,6 +2401,32 @@ export class EmployeeInfoComponent implements OnInit {
         this.minJoinDate = new Date(data.data[0].established_date);
       }
     })
+  }
+  openedSearch(e:any) {
+    this.searchTextboxControl.patchValue('');
+  }
+
+  clearSearch(event:any) {
+    event.stopPropagation();
+    this.searchTextboxControl.patchValue('');
+  }
+  compareFn(option1:any,option2:any){
+    return option1.id === option2.id;
+  }
+
+  
+  selectedRolesChange(event: any) {
+    if (event.isUserInput && event.source.selected == false) {
+       this.selectedRoles.forEach((value: { id: any; },index: any)=>{
+       if(value.id==event.source.value.id) this.selectedRoles.splice(index,1);
+         });
+    } else {
+
+      const toSelect = this.selectedRoles.find((e: any) => e.id == event.source.value.id);
+      if (toSelect == undefined) {
+        this.selectedRoles.push({ "id": event.source.value.id });
+      }
+    }
   }
 }
 

@@ -1,16 +1,10 @@
 <div fxLayout="column" class="first-col">
-  <mat-card style="padding-top: 0px;">
+  <mat-card style="padding-top: 0px;" fxLayout="column">
     <mat-card-header>
       <mat-card-title style="text-align: center"> Pending Requests</mat-card-title>
     </mat-card-header>
      <mat-divider></mat-divider>
-    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end">
-      <!--<mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">-->
-        <!--<mat-label>Filter</mat-label>-->
-        <!--<input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>-->
-        <!--<mat-icon matSuffix>search</mat-icon>-->
-      <!--</mat-form-field>-->
-    </div>
+
     <div class="mat-elevation-z1" style="margin-top: 2%;margin-left:15px;margin-bottom:20px; margin-right:10px;">
       <mat-card-content style="width:100%;overflow-x: auto">
 
@@ -44,8 +38,8 @@
         </ng-container>
         <!-- Name Column -->
         <ng-container matColumnDef="noOfDays">
-          <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Days </th>
-          <td mat-cell *matCellDef="let row" > {{row.leavecount}} </td>
+          <th mat-header-cell *matHeaderCellDef>Days </th>
+          <td mat-cell *matCellDef="let row" style="text-align: center;"> {{row.leavecount}} </td>
         </ng-container>
 
         <!-- Color Column -->
@@ -56,12 +50,18 @@
         <!-- Color Column -->
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let row" style="width:auto;white-space: nowrap;cursor: pointer;">
+          <td mat-cell *matCellDef="let row,let i = index" style="width:auto;white-space: nowrap;cursor: pointer;">
+            <button mat-icon-button title="Approve" [tabindex]="[i]" (keyup.enter)="submit(row,'Approved',null)">
             <i class="material-icons mr-1" (click)="submit(row,'Approved',null)" title="Approve">check_box</i>
+            </button>
+            <button mat-icon-button title="Reject" [tabindex]="[i]" (keyup.enter)="leaveReject(row,'Reject',null)">
              <i class="material-icons mr-1" (click)="leaveReject(row,'Reject',null)" title="Reject">cancel_presentation</i>
+            </button>
             <!--<mat-icon (click)="leaveReject(row)" title="Reject" >cancel</mat-icon>-->
             <!--<mat-icon   title="view" (click)="leaveReview(row)">visibility</mat-icon>-->
+            <button mat-icon-button title="Review and approve" [tabindex]="[i]" (keyup.enter)="leaveReview(row)">
              <i class="material-icons" (click)="leaveReview(row)" title="Review and approve">preview</i>
+            </button>
 
 
             <!--<a routerLink="/" (click)="onApproveClick(row)">Review and Approve</a>-->

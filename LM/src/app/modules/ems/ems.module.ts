@@ -41,6 +41,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { DeptResignationPendingchecklistComponent } from './pages/manager-resignation-checklist/dept-resignation-pendingchecklist.component';
 import { InductionConductedByMasterComponent } from './pages/induction-conducted-by-master/induction-conducted-by-master.component';
 import { EmpValidationPopUpComponent } from './pages/emp-validation-pop-up/emp-validation-pop-up.component';
+import { EmployeeExcelUploadComponent } from './pages/employee-excel-upload/employee-excel-upload.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { EmpValidationPopUpComponent } from './pages/emp-validation-pop-up/emp-v
     DeptResignationPendingchecklistComponent,
     InductionConductedByMasterComponent,
     EmpValidationPopUpComponent,
+    EmployeeExcelUploadComponent,
     ],
   imports: [
     CommonModule,

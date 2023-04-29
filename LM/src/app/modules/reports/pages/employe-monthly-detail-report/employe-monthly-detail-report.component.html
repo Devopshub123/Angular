@@ -3,23 +3,34 @@
  <mat-card-header class="headerbox">
               <mat-card-title class="title"> Attendance Monthly Detail Report </mat-card-title>
             </mat-card-header>
+            <br>
         <div fxLayout fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign.xs="center" [formGroup]="searchForm" style="padding-left: 1%;">
             <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%">
-                <mat-form-field fxFlex.xs="100%" class="mx-1 my-1" appearance="outline">
+                <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
                     <mat-label>Date</mat-label>
                     <input matInput readonly [matDatepicker]="fromDate" [min]="minDate" [max]="maxDate"
-                        placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()">
+                        placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()" tabIndex="1">
                     <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
                     <mat-datepicker #fromDate></mat-datepicker>
                 </mat-form-field>
-                <button class="btn btn-primary custom mr-2 mb-2" style="padding: 0 10px;" (click)="Searchform()">
+                <!-- <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()">
                     <span>Search</span>
                 </button>
-                <button class="btn btn-danger custom mr-2 mb-2" (click)="resetform()">
+                <button class="btn btn-danger mr-2 mb-2" (click)="resetform()">
                     <span>Clear</span>
-                </button>
+                </button> -->
             </div>
-
+            <div fxLayout="row" fxLayoutAlign.lt-lg="center center" fxLayoutAlign.xs="center center">
+                <span ngStyle.gt-md="margin-top: 5%">
+                    <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()" tabIndex="2">
+                        Search
+                    </button>
+                    <span class="line" style="color: #1898d5; font-size: 16px"></span>
+                    <button class="btn btn-danger mr-2 mb-2" (click)="resetform()" tabIndex="3">
+                        <span>Clear</span>
+                    </button>
+                </span>
+            </div>
             <!-- <div fxLayout="row" fxFlex.xs="100%">
                 <span>
                     <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()" >
@@ -35,10 +46,14 @@
         <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0" style="margin-right: 3%;">
         <div>
             <span class="exlprint"> | </span>
-            <a title="PDF"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
-          <span class="exlprint"> | </span>
-          <a title="Excel"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+            <button mat-icon-button>
+            <a title="PDF" [tabIndex]="4" (keyup.enter)="exportPDF()"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
+        </button>
+            <span class="exlprint"> | </span>
+            <button mat-icon-button>
+          <a title="Excel" [tabIndex]="5" (keyup.enter)="exportAsXLSX()"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
           </a>
+        </button>
         </div>
       </div>
        <hr class="line_break">

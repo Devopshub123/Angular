@@ -5,17 +5,16 @@
         </mat-card-header>
     <div fxLayout="column">
       <form [formGroup]="requestform" autocomplete="off"  style="padding-left: 1%;padding-top: 1%;">
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" ngStyle.lg="padding-right: 9px;" 
-        ngStyle.lt-lg="padding-right: 0px;">
+        <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center" >
 
-            <mat-form-field fxFlex="32" fxFlex.lt-lg="50" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>Applied Date</mat-label>
-                <input formControlName="appliedDate" matInput placeholder="DD-MM-YYYY" readonly>
+                <input formControlName="appliedDate" matInput placeholder="DD-MM-YYYY" readonly [tabIndex]="1">
             </mat-form-field>
 
-            <mat-form-field fxFlex="32" fxFlex.lt-lg="50" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>Work Type </mat-label>
-                <mat-select formControlName="workType" required>
+                <mat-select formControlName="workType" required [tabIndex]="2">
                     <ng-container *ngFor="let v of workTypeData">
                         <mat-option [value]="v.id">{{v.type}}</mat-option>
                     </ng-container>
@@ -24,27 +23,29 @@
                     {{requiredOption}}
                 </mat-error>
              </mat-form-field>
-          </div>
 
-        <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center">
-            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+             <mat-form-field fxFlex fxFlex.lt-lg="48" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>From Date </mat-label>
                 <input matInput readonly required [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate"
                  [matDatepickerFilter]="myDateFilter"
                     (dateInput)="fromDateChange('input', $event)" placeholder="DD-MM-YYYY"  (click)="fromDate.open()"
-                    formControlName="fromDate">
+                    formControlName="fromDate" [tabIndex]="3">
                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
                 <mat-datepicker #fromDate></mat-datepicker>
                 <mat-error class="con-error" *ngIf="requestform.controls.fromDate.errors?.required">
                    {{requiredOption}}
                 </mat-error>
             </mat-form-field>
+          </div>
+
+        <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center">
+          
 
             <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                 <mat-label>To Date </mat-label>
                 <input matInput readonly required [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
                 [matDatepickerFilter]="myDateFilter" placeholder="DD-MM-YYYY"
-                (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="toDate.open()">
+                (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="toDate.open()" [tabIndex]="4">
                 <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
                 <mat-datepicker #toDate></mat-datepicker>
                 <mat-error class="con-error" *ngIf="requestform.controls.toDate.errors?.required">
@@ -52,23 +53,19 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex fxFlex.lt-lg="48" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                      <mat-label>Shift</mat-label>
-                     <input formControlName="shift"  readonly required matInput placeholder="Shift">
+                     <input formControlName="shift"  readonly required matInput placeholder="Shift" [tabIndex]="5">
                      <mat-error *ngIf="requestform.controls['shift'].invalid">
                          {{requiredOption}}
                      </mat-error>
                  </mat-form-field>
 
-
-             </div>
-
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                <mat-form-field fxFlex="32" fxFlex.lt-lg="48" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                 <mat-form-field fxFlex fxFlex.lt-lg="48" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Reason</mat-label>
                     <textarea formControlName="reason" required maxlength="250" matInput
-                        placeholder="Reason"></textarea>
-                    <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.required">
+                        placeholder="Reason" [tabIndex]="6"></textarea>
+                    <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.invalid ||requestform.controls.reason.errors?.['whitespace']">
                        {{requiredField}}
                     </mat-error>
                     <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.maxlength">
@@ -76,7 +73,12 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field *ngIf="isCommentView" fxFlex="40" fxFlex.xs="100" class="mx-2 my-2"
+             </div>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+               
+
+                <mat-form-field *ngIf="isCommentView" fxFlex="32" fxFlex.lt-lg="48" fxFlex.xs="100" class="mx-2 my-2"
                 appearance="outline">
                 <mat-label>Comment</mat-label>
                 <textarea formControlName="comment" readonly matInput placeholder="Comment"></textarea>
@@ -84,15 +86,15 @@
             </div>
 
         <div fxLayoutAlign="center">
-            <button *ngIf="!isRequestView && !isEditView" class="btn btn-primary mr-2 mb-2"
+            <button [tabIndex]="7" *ngIf="!isRequestView && !isEditView" class="btn btn-primary mr-2 mb-2"
             (click)="saveRequest()" type="submit">
             <span>Submit</span>
         </button>
-        <button *ngIf="isEditView"class="btn btn-primary mr-2 mb-2" (click)="updateRequest()"
+        <button [tabIndex]="7" *ngIf="isEditView"class="btn btn-primary mr-2 mb-2" (click)="updateRequest()"
             type="submit">
             <span>Update</span>
         </button>
-        <button class="btn btn-danger mr-2 mb-2" (click)="resetform()" type="submit">
+        <button [tabIndex]="8" class="btn btn-danger mr-2 mb-2" (click)="resetform()" type="submit">
             <span>Cancel</span>
         </button>
         </div>
@@ -107,7 +109,7 @@
           <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline" style="padding-right: 16px;">
           <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
           <mat-label>Search</mat-label>
-          <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
+          <input (keyup)="applyFilter($event)" matInput [tabIndex]="9" maxlength="100">
         </mat-form-field>
       </div>
 
@@ -122,20 +124,20 @@
 
 
             <ng-container matColumnDef="worktype" style="width: 20%;">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Work Type </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Work Type </th>
                 <td mat-cell *matCellDef="let row"> {{row.worktype}}</td>
             </ng-container>
 
 
             <ng-container matColumnDef="fromdate" style="width: 15%;">
                 <th mat-header-cell *matHeaderCellDef> From</th>
-                <td mat-cell *matCellDef="let row"> {{row.fromdate | date:'dd-MM-yyyy'}} </td>
+                <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.fromdate | date:'dd-MM-yyyy'}} </td>
             </ng-container>
 
 
             <ng-container matColumnDef="todate" style="width: 15%;">
-                <th mat-header-cell *matHeaderCellDef> To</th>
-                <td mat-cell *matCellDef="let row"> {{row.todate | date:'dd-MM-yyyy'}} </td>
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> To</th>
+                <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.todate | date:'dd-MM-yyyy'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="reason">
@@ -150,14 +152,19 @@
             </ng-container>
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let row">
-                    <mat-icon *ngIf="row.status=='Submitted'" class="mr-2" title="Edit" (click)="editRequest(row)">
+                <td mat-cell *matCellDef="let row" style="white-space: nowrap;">
+                    <button *ngIf="row.status=='Submitted'" mat-icon-button [tabIndex]="10" (keyup.enter)="editRequest(row)">
+                    <mat-icon  class="mr-2" title="Edit" (click)="editRequest(row)">
                         edit</mat-icon>
-                    <mat-icon *ngIf="row.status=='Submitted'" class="mr-2" title="Delete"
+                    </button>
+                    <button *ngIf="row.status=='Submitted'" mat-icon-button [tabIndex]="11" (keyup.enter)="DeleteRequestPopup(row)">
+                    <mat-icon class="mr-2" title="Delete"
                         (click)="DeleteRequestPopup(row)">delete</mat-icon>
-                    <mat-icon *ngIf="row.status!='Submitted'" class="mr-2" title="view" (click)="requestView(row)">
+                    </button>
+                        <button *ngIf="row.status!='Submitted'" mat-icon-button [tabIndex]="12" (keyup.enter)="requestView(row)">
+                        <mat-icon class="mr-2" title="view" (click)="requestView(row)">
                         visibility</mat-icon>
-
+                    </button>
                 </td>
 
             </ng-container>

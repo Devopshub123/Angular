@@ -23,7 +23,6 @@ export class EmployeeForm16Component implements OnInit {
   status() {
     this.financialFormData = this.employeeFinancialYearForm.value;
     this.isShowDownloadView = this.financialFormData.financialYear;
-   console.log(this.isShowDownloadView);
   }
   cancel() {
     this.employeeFinancialYearForm.reset();

@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl,ValidatorFn,ValidationErrors } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -90,6 +90,7 @@ export class AttendanceRequestComponent implements OnInit {
   leaves: any;
   myDateFilter:any;
   workeddays: any;
+  regularizationdays:any;
   ATT75:any;
   ATT74:any;
   companyDBName: any = environment.dbName;
@@ -120,7 +121,7 @@ export class AttendanceRequestComponent implements OnInit {
         fromDate: [{ value:'', disabled: true }, Validators.required],
         toDate: [{ value: '', disabled: true }, Validators.required],
         workType: ['', Validators.required],
-        reason: ['', [Validators.required]],
+        reason: ['', [Validators.required,this.noWhitespaceValidator()]],
         comment: [''],
       });
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
@@ -266,7 +267,8 @@ export class AttendanceRequestComponent implements OnInit {
           this.weekoffs = JSON.parse(this.datesList[0].weekoffs);
           this.holidays = JSON.parse(this.datesList[0].holidays);
           this.leaves = JSON.parse(this.datesList[0].leaves);
-          this.workeddays=JSON.parse(this.datesList[0].workeddays)
+          this.workeddays=JSON.parse(this.datesList[0].workeddays);
+          this.regularizationdays = JSON.parse(this.datesList[0].regularizationdays);
           if (this.weekoffs.length > 0) {
             this.weekoffs.forEach((i: any) => {
               let date = i + ' ' + '00:00:00'
@@ -291,13 +293,31 @@ export class AttendanceRequestComponent implements OnInit {
               this.disableDates.push(new Date(date));
             });
           }
+          if (this.regularizationdays.length > 0) {
+            this.regularizationdays.forEach((i: any) => {
+              let date = i + ' ' + '00:00:00'
+              this.disableDates.push(new Date(date));
+            });
+          }
           this.myDateFilter = (d: Date): boolean => {
             let isValid=true;
-          this.disableDates.forEach((e:any) => {
-            if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
-              isValid=false;
+            if (!this.isEditView) {
+              this.disableDates.forEach((e:any) => {
+                if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
+                  isValid=false;
+                }
+              });
+              
             }
-          });
+            else {
+              this.disableDates.forEach((e:any) => {
+                if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(   this.requestform.controls.fromDate.value, 'yyyy/MM/dd')){
+                  isValid=true;
+                }
+              });
+              
+            }
+         
 
             return isValid;
 
@@ -421,6 +441,15 @@ export class AttendanceRequestComponent implements OnInit {
     this.uniqueId = event.id;
     this.isRequestView = false;
     this.isEditView = true;
+    this.getEmployeeWeekoffsHolidaysForAttendance();
+    // this.myDateFilter = (d: Date): any => {
+    //   let isValid=true;
+      
+    // this.disableDates.forEach((e:any) => {
+    //   if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
+    //     isValid=true;
+    //   }
+    // });
     this.requestform.controls.appliedDate.setValue(this.pipe.transform(event.applieddate, 'dd-MM-yyyy'));
     this.requestform.controls.shift.setValue(event.shift);
     this.requestform.controls.fromDate.setValue(event.fromdate);
@@ -564,7 +593,12 @@ export class AttendanceRequestComponent implements OnInit {
     })
     this.getEmployeeShiftDetailsByIdWithDates();
   }
-
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const isWhitespace = (control.value || '').trim().length === 0;
+      return isWhitespace ? { whitespace: true } : null;
+    };
+  }
   getMessagesList() {
     let data =
     {

@@ -57,7 +57,8 @@
 
 
 <div class="tablePadding">
-   <div id="table" #table='' class="mat-elevation-z1 example-container">
+   <div  class="mat-elevation-z1 example-container">
+    <div id="table" #table=''>
       <table id="table" mat-table [dataSource]="dataSource" matSort>
           <ng-container matColumnDef="sno">
             <th mat-header-cell *matHeaderCellDef > S.No</th>
@@ -65,15 +66,15 @@
              {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
           </ng-container>
           <ng-container matColumnDef="empid">
-            <th mat-header-cell *matHeaderCellDef > Employee Id </th>
+            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Employee Id </th>
             <td mat-cell *matCellDef="let row" ><span >{{row.empid}} </span></td>
           </ng-container>
           <ng-container matColumnDef="empname">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header > Employee Name </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Employee Name </th>
             <td mat-cell *matCellDef="let row" ><span >{{row.empname}} </span></td>
           </ng-container>
           <ng-container matColumnDef="lossofpay">
-        <th mat-header-cell *matHeaderCellDef  >Loss of Pay Count </th>
+        <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;" >Loss of Pay Count </th>
         <td mat-cell *matCellDef="let row" ><span >{{row.lopcount==null?0:row.lopcount}} </span></td>
           </ng-container>
           <ng-container matColumnDef="totalleaves">
@@ -81,7 +82,7 @@
             <td mat-cell *matCellDef="let row" ><span >{{row.absents==null?0:row.absents}} </span></td>
               </ng-container>
               <ng-container matColumnDef="totalleavebalance">
-                <th mat-header-cell *matHeaderCellDef >Leaves Approved</th>
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Leaves Approved</th>
                 <td mat-cell *matCellDef="let row" ><span >{{row.approved_leaves==null?0:row.approved_leaves}} </span></td>
                   </ng-container>
           <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -90,6 +91,7 @@
               <td class="mat-cell" colspan="6" style="text-align: center;">No data found</td>
           </tr>
       </table>
+    </div>
       <mat-paginator   [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
 
     </div>

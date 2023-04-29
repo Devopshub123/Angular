@@ -102,6 +102,10 @@ export class PendingApprovalsComponent implements OnInit {
     this.getEmployeeEmailData(leave ,status,approverId);
   }
   leaveApprove(leave: any, status: any, approverId: any) {
+    if(this.employeeEmailData.length==0){
+      this.getEmployeeEmailData(leave ,status,approverId);
+    }
+    else{
     let obj = {
       "id":leave.id,
       "leaveId": leave.leave_id,
@@ -109,7 +113,7 @@ export class PendingApprovalsComponent implements OnInit {
       "approverId":approverId?approverId:this.userSession.id,
       "leaveStatus":status,
       "reason":status == 'Approved' ? null:leave.action_reason ? leave.action_reason:this.reason,
-      "detail": leave.bereavement_id ? leave.bereavement_id : leave.worked_date ? leave.worked_date : null,
+      "detail": leave.bereavement_id ? leave.bereavement_id : leave.comp_off_worked_date ? leave.comp_off_worked_date : null,
       /// email data
       "leavedata": leave,
       "emaildata": this.employeeEmailData,
@@ -149,16 +153,17 @@ export class PendingApprovalsComponent implements OnInit {
 
 
     })
-
   }
-  leaveReject(leave: any, status: any, rejectId: any){
+  }
+  leaveReject(leave: any, status: any, rejectId: any) {
+    console.log("datatata",leave)
     this.titleName="Reject"
     this.openDialog(leave)
   }
 
   openDialog(leave:any): void {
     const dialogRef = this.dialog.open(ReviewAndApprovalsComponent, {
-    position: { top: `70px` },
+      width: '600px',position:{top:`100px`},
       data: {name: this.titleName, reason: this.reason,}
     });
 
@@ -209,6 +214,7 @@ export class PendingApprovalsComponent implements OnInit {
   }
   getEmployeeEmailData(leave: any, status: any, approverId: any) {
      this.employeeEmailData = [];
+     this.employeeId = leave.empid;
     this.emsService.getEmployeeEmailDataByEmpid(this.employeeId)
       .subscribe((res: any) => {
         this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];

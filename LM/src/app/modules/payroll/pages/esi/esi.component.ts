@@ -134,22 +134,18 @@ editdata(){
   }
   /**setCompanyEsiValues */
   setCompanyEsiValues(){
-    console.log(this.esiRequestForm.controls.includectc.value)
     let data ={
       include_employer_contribution_in_ctc:this.esiRequestForm.controls.includectc.value?1:0
     }
-    console.log("setCompanyEsiValues",data)
-    this.PR.setCompanyEsiValues(data).subscribe((result:any)=>{
-      console.log(result)
-      if(result.status){
-    
-         
+      this.PR.setCompanyEsiValues(data).subscribe((result:any)=>{
+        if (result.status) {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
           data: this.PR37
         });
-        this.router.navigate(["/Payroll/ESI"]); 
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate(["/Payroll/ESI"]));
       }
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -211,7 +207,6 @@ editdata(){
     })
   }
   edit(data:any){
-    console.log(data)
     this.isedit=true
     this.companyEsiRequestForm.controls.esiNumber.setValue(data.value),
     this.companyEsiRequestForm.controls.state.setValue(data.state_id),

@@ -96,12 +96,9 @@ export class InvestmentProofComponent implements OnInit {
     this.router.navigate(["/Payroll/InvestmentRequest"],{state: {userData:element}}); 
   }
   applyFilter(event: Event) {
-    console.log(event)
-    const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue);
+   const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log(this.dataSource.filter);
-
+  
   }
   /**Investments applied employees list */
   getEmployeesListForInvestmentsApproval(){
@@ -186,11 +183,7 @@ export class InvestmentProofComponent implements OnInit {
   }
   /**Approve Investments Functionality */
   approveInvestments(item:any,i:any){
-    console.log(item);
-    console.log(i);
-    console.log(this.InvestmentDetails.approveamount);
-    // console.log(this.InvestmentDetails.approveamount[item.index]);
-    // console.log(this.InvestmentDetails.approveamount[item.id][i]);
+
     let data = {
       iid:item.investment_id[i].investment_id,
       empid:this.empid,
@@ -204,7 +197,7 @@ export class InvestmentProofComponent implements OnInit {
       statusreason:null,
       actionby:this.empid
     }
-    console.log(data)
+
     if(Number(item.submitted_amount[i].submitted_amount) >= Number(this.InvestmentDetails.approveamount[item.key-1][i])){
       this.PR.setEmployeeInvestments(data).subscribe((result:any)=>{
       if(result.status){
@@ -238,9 +231,7 @@ export class InvestmentProofComponent implements OnInit {
   }
   /**Reject Investments Functionality */
   rejectInvestments(item:any,i:any){
-    console.log(item.id);
-    console.log(item.id-1)
-    console.log(i)
+
     this.rejectdata={
       iid:item.investment_id[i].investment_id,
       empid:this.empid,
@@ -255,7 +246,7 @@ export class InvestmentProofComponent implements OnInit {
       actionby:this.empid
 
     }
-    console.log(this.rejectdata)
+
     this.titleName="Reject"
       this.openDialog(this.rejectdata);
   } 
@@ -308,7 +299,7 @@ export class InvestmentProofComponent implements OnInit {
             return data + String.fromCharCode(byte);
           }, '');
           let base64String = btoa(STRING_CHAR)
-          console.log(info.fname)
+  
           var documentName = info.fname.split('.')
   
           if (documentName[documentName.length - 1] == 'pdf') {
@@ -330,7 +321,7 @@ disableFileView(data: any) {
     filename:data.disability_filename[0].disability_filename,
     fname:data.disability_filename[0].disability_filename,
   }
-  console.log(info)
+
   // this.spinner.show()
   this.PR.getDocumentOrImagesForEMS(info).subscribe((imageData:any) => {
     if (imageData.success) {
@@ -340,7 +331,7 @@ disableFileView(data: any) {
         return data + String.fromCharCode(byte);
       }, '');
       let base64String = btoa(STRING_CHAR)
-      console.log(info.fname)
+
       var documentName = info.fname.split('.')
       if (documentName[documentName.length - 1] == 'pdf') {
         const file = new Blob([TYPED_ARRAY], { type: "application/pdf" });

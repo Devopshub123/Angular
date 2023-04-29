@@ -19,14 +19,14 @@ const routes: Routes = [
     path: '', component: MainComponent,
     children: [
 
-      { path: 'Approval', component: ApprovalAttendanceComponent,canActivate:[LMSAccessGuard] },
+      { path: 'Approval', component: ApprovalAttendanceComponent},
       { path: 'ApprovalList', component: ApprovalAttendanceListComponent,canActivate:[LMSAccessGuard] },
       { path: 'Request', component: AttendanceRequestComponent ,canActivate:[LMSAccessGuard]},
       { path: 'RequestofEmployee', component: AttendanceRequestBehalfComponent ,canActivate:[LMSAccessGuard]},
       { path: 'EmployeeDashboard', component: EmployeDashboardComponent,canActivate:[LMSAccessGuard] },
       { path: 'ManagerDashboard', component: ManagerDashboardComponent,canActivate:[LMSAccessGuard]},
       { path: 'uploadExcel', component: AttendanceUploadexcelComponent,canActivate:[LMSAccessGuard] },
-      { path: 'ChangePassword', component: ChangePasswordComponent,canActivate:[LMSAccessGuard] },
+      { path: 'ChangePassword', component: ChangePasswordComponent},
       { path: 'ShiftConfigure', component: ShiftConfigureComponent,canActivate:[LMSAccessGuard] },
       {path:'ApprovedHistory',component:ApprovalHistoryComponent,canActivate:[LMSAccessGuard]}
     ]

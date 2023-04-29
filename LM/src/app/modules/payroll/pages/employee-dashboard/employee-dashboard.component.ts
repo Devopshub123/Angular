@@ -47,8 +47,6 @@ export class EmployeeDashboardComponent implements OnInit {
    }
   arrayValue:any=['January','Febraury','March','April','May','June','July','August','September','October','November','December'];
   ngOnInit(): void {
-    console.log("datae",new Date());
-    console.log("month",)
     this.getEmployeeEpfDetails();
     this.Empdashboardform = this.formBuilder.group(
       {
@@ -99,9 +97,7 @@ export class EmployeeDashboardComponent implements OnInit {
             }
        
             this.PR.getEmployeePayslipDetails(datas).subscribe((result:any)=>{
-              console.log("rrr",result)
-             
-            })
+           })
           }
         })
       }

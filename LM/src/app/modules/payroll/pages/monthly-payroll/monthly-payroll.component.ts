@@ -165,7 +165,7 @@ caluculateMonthlySalary(){
       employee_list:this.arrdata
       // employee_list:this.dataSource.data.length == this.arrdata.length?null:this.arrdata
     }
-    console.log("val--",data)
+
     this.PR.updateMonthlySalary(data).subscribe((result:any)=>{
       if(result.status){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>

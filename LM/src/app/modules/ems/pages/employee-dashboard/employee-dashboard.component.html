@@ -11,11 +11,11 @@
                 </span>
                 <span *ngIf="isManager" fxLayoutAlign.lt-lg="end">
                   <mat-radio-group>
-                    <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true'
+                    <mat-radio-button tabIndex="1" (keyup.enter)="getSelfAttendanceCount()" class="mx2 my-2 mr-2" value="self" [checked]='true'
                       (click)="getSelfAttendanceCount()">
                       <span class="radioBtn">Self</span>
                     </mat-radio-button>
-                    <mat-radio-button class="mx2 my-2 mr-2" value="team" (click)="getTeamAttendanceCount()">
+                    <mat-radio-button tabIndex="2" (keyup.enter)="getTeamAttendanceCount()" class="mx2 my-2 mr-2" value="team" (click)="getTeamAttendanceCount()">
                       <span class="radioBtn">Team</span>
                     </mat-radio-button>
                   </mat-radio-group>
@@ -174,10 +174,10 @@
                 </span>
                 <span *ngIf="isManager" fxLayoutAlign.lt-lg="end">
                   <mat-radio-group>
-                    <mat-radio-button class="mx2 my-2 mr-2" value="self" [checked]='true' (click)="getLeaveBalance()">
+                    <mat-radio-button tabIndex="3" (keyup.enter)="getLeaveBalance()" class="mx2 my-2 mr-2" value="self" [checked]='true' (click)="getLeaveBalance()">
                       <span class="radioBtn">Self</span>
                     </mat-radio-button>
-                    <mat-radio-button class="mx2 my-2 mr-2" value="team" (click)="getCurrentLeaveEmployees()">
+                    <mat-radio-button tabIndex="4" (keyup.enter)="getCurrentLeaveEmployees()" class="mx2 my-2 mr-2" value="team" (click)="getCurrentLeaveEmployees()">
                       <span class="radioBtn">Team</span>
                     </mat-radio-button>
                   </mat-radio-group>
