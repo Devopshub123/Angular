@@ -34,7 +34,7 @@
                   </mat-select>
               </mat-form-field>
               </span>
-              <div>
+              <div *ngIf="locationByDepartmentCountLis.length > 0 || locationByDepartmentCountLis.isNotEmpty">
                 <chart #chart style="display: block;
                 width: 245px;
                 height: 220px;"
@@ -42,6 +42,9 @@
                 [data]="locByDeptEmpsdoughnutChartData" 
                 [options]="locByDeptEmpsdoughnutChartOptions"
                 ></chart>
+          </div>
+          <div *ngIf="locationByDepartmentCountLis.length == 0 || locationByDepartmentCountLis ==null">
+          <span>No Data Found</span>
           </div>
           </mat-card>
 

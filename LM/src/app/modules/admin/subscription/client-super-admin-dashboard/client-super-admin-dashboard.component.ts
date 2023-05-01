@@ -378,11 +378,13 @@ locByDeptEmpsdoughnutChartData: any;
     this.locationByDepartmentNameLis = [];
     this.locationByDepartmentCountLis = [];
     this.adminService.getDepartmentWiseEmployeeCountByLocation(this.locationId).subscribe((res: any) => {
-      if (res.status && res.data) {
+      if (res.status && res.data.length > 0) {
+        console.log("r-1",res.data)
           res.data.forEach((e: any) => {
             this.locationByDepartmentNameLis.push(e.deptname);
             this.locationByDepartmentCountLis.push(e.count); 
           })
+        console.log("d-1",this.locationByDepartmentNameLis)
          this.locByDeptEmpsdoughChartType = 'doughnut';
          this.locByDeptEmpsdoughnutChartData = {
            labels: this.locationByDepartmentNameLis,
@@ -400,6 +402,8 @@ locByDeptEmpsdoughnutChartData: any;
            legend: { position: 'bottom' }
        
        }
+      } else {
+        
        }
      });
     
