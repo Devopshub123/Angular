@@ -445,9 +445,12 @@ let data ={
 }
 console.log("payment success data.toFixed(2)",data)
 this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
+  console.log("payment success data.toFixed(2)",result)
   if(result.status){
-
-    this.ngOnInit();
+    // this.ngOnInit();
+    this.myStepper.next();
+    // this.myStepper.next();
+    // this.myStepper.next();
   }
 })
 
