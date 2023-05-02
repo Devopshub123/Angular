@@ -7,8 +7,11 @@
           <span class="title" fxLayoutAlign="start">
                 <span>Locations</span>
               </span>
-   
-            <div style="padding-top: 55px;">
+              <div fxLayout="column" fxFlex="100" fxLayoutAlign="center center" *ngIf="allLocationsTotalCount.length == 0 || allLocationsTotalCount == null">
+                <span>No Data Found</span>
+                </div>
+
+            <div *ngIf="allLocationsTotalCount.length > 0 || allLocationsTotalCount.isNotEmpty" style="padding-top: 55px;" >
               <chart #chart style="display: block;
               width: 245px;
               height: 220px;"
@@ -17,33 +20,37 @@
               [options]="locPieChartoptions"
               ></chart>
          </div>
+        
           </mat-card>
 
-          <mat-card class="card outline" fxFlex="100">
+          <mat-card class="card outline" fxFlex="100" fxLayout="column">
            <span class="title" fxLayoutAlign="start">
                 <span>Department Wise Emp's</span>
               </span>
-              <span fxLayoutAlign="end">
-                <mat-form-field class="mx-2 my-2">
-                  <mat-select formControlName="location">
-                      <ng-container>
-                          <div *ngFor="let b of workLocationList">
-                              <mat-option [value]="b.id">{{ b.cityname }}</mat-option>
-                          </div>
-                      </ng-container>
-                  </mat-select>
-              </mat-form-field>
-              </span>
-              <div *ngIf="locationByDepartmentCountLis.length > 0 || locationByDepartmentCountLis.isNotEmpty">
-                <chart #chart style="display: block;
-                width: 245px;
-                height: 220px;"
-                [type]="locByDeptEmpsdoughChartType" 
-                [data]="locByDeptEmpsdoughnutChartData" 
-                [options]="locByDeptEmpsdoughnutChartOptions"
-                ></chart>
-          </div>
-          <div *ngIf="locationByDepartmentCountLis.length == 0 || locationByDepartmentCountLis ==null">
+              <div fxLayout="column">
+                <span fxLayoutAlign="end">
+                  <mat-form-field class="mx-2 my-2">
+                    <mat-select formControlName="location">
+                        <ng-container>
+                            <div *ngFor="let b of workLocationList">
+                                <mat-option [value]="b.id">{{ b.cityname }}</mat-option>
+                            </div>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+                </span>
+                <div *ngIf="locationByDepartmentCountLis.length > 0">
+                  <chart #chart style="display: block;
+                  width: 245px;
+                  height: 220px;"
+                  [type]="locByDeptEmpsdoughChartType" 
+                  [data]="locByDeptEmpsdoughnutChartData" 
+                  [options]="locByDeptEmpsdoughnutChartOptions"
+                  ></chart>
+            </div>
+              </div>
+              
+          <div fxLayout="column" fxFlex="100" fxLayoutAlign="center center" *ngIf="locationByDepartmentCountLis.length == 0 || locationByDepartmentCountLis ==null">
           <span>No Data Found</span>
           </div>
           </mat-card>
@@ -109,10 +116,11 @@
             </div>
           </mat-card>
 
-        <mat-card class="card outline" fxFlex="100">
+        <mat-card class="card outline" fxFlex="100" fxLayout="column">
           <span class="title" fxLayoutAlign="start">
                <span>Employees on Leave</span>
              </span>
+             <div fxLayout="column">
              <span fxLayoutAlign="end">
                <mat-form-field>
                  <input matInput readonly [matDatepicker]="deptWiseleavesDate" [min]="minDate" [max]="maxDate"
@@ -124,16 +132,20 @@
                         (monthSelected)="deptLeaveMonth($event, deptWiseleavesDate)"></mat-datepicker>
                </mat-form-field>
              </span>
-             <div>
+             <div *ngIf="departmentWiseLeaveCountList.length > 0">
               <chart #chart style="display: block;
               width: 245px;
               height: 220px;"
               [type]="deptWiseLeavepieChartType" 
               [data]="deptWiseLeavepieChartData" 
               [options]="deptWiseLeavepieoptions"
-              ></chart>
-
+              >
+            </chart>
            </div>
+          </div>
+           <div fxLayout="column" fxFlex="100" fxLayoutAlign="center center" *ngIf="departmentWiseLeaveCountList.length == 0 || departmentWiseLeaveCountList ==null">
+            <span>No Data Found</span>
+            </div>
          </mat-card>
 
          <mat-card class="card outline" fxFlex="100" fxLayout="column">
@@ -173,7 +185,7 @@
 
       <!-- 3rd row -->
       <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="10px">
-        <mat-card class="card2 outline" fxFlex="100">
+        <mat-card class="card2 outline" fxFlex="100" fxLayout="column">
           <span class="title" fxLayoutAlign="start">
              <span>Shift-Based Headcount</span>
            </span>
@@ -184,11 +196,18 @@
                 </ng-container>
             </mat-select>
        </mat-form-field>
-       <chart #chart 
-       [type]="vbarChartType" 
-       [data]="vbarChartData" 
-       [options]="vbaroptions"
-       ></chart>
+       <div *ngIf="shiftByDepartmentCountList.length > 0">
+        <chart #chart 
+        [type]="vbarChartType" 
+        [data]="vbarChartData" 
+        [options]="vbaroptions"
+        >
+       </chart>
+       </div>
+       <div fxLayout="column" fxFlex="100" fxLayoutAlign="center center" *ngIf="shiftByDepartmentCountList.length == 0 || shiftByDepartmentCountList ==null">
+        <span>No Data Found</span>
+        </div>
+
        </mat-card>
 
         <mat-card class="card2 outline" fxFlex="100">

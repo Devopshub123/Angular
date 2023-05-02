@@ -208,9 +208,13 @@ locByDeptEmpsdoughnutChartData: any;
     this.adminService.getLocationWiseEmployeeCount().subscribe((res: any) => {
       if (res.status && res.data) {
         res.data.forEach((e: any) => {
-          this.allLocationsNameList.push(e.location);
-          this.allLocationsTotalCount.push(e.count); 
-         })
+          if (e.location == null) {
+            this.allLocationsTotalCount = [];
+          } else {
+            this.allLocationsNameList.push(e.location);
+            this.allLocationsTotalCount.push(e.count);
+          }
+        })
       }
       this.locPieChartType = 'pie';
       this.locPieChartdata = {
@@ -296,8 +300,13 @@ locByDeptEmpsdoughnutChartData: any;
     this.adminService.getDepartmentWiseLeavesCountByMonth(date).subscribe((res: any) => {
       if (res.status && res.data) {
         res.data.forEach((e: any) => {
-          this.departmentWiseLeaveNameList.push(e.deptname);
-          this.departmentWiseLeaveCountList.push(e.count); 
+          if (e.deptname == null) {
+            this.departmentWiseLeaveCountList = [];
+          } else {
+            this.departmentWiseLeaveNameList.push(e.deptname);
+            this.departmentWiseLeaveCountList.push(e.count);  
+          }
+          
          })
       }
       this.deptWiseLeavepieChartType = 'pie';
@@ -335,10 +344,15 @@ locByDeptEmpsdoughnutChartData: any;
     this.adminService.getDepartmentWiseEmployeeCountByShift(this.shiftId).subscribe((res: any) => {
       if (res.status && res.data) {
         res.data.forEach((e: any) => {
+          if (e.deptname ==null) {
+            this.shiftByDepartmentCountList = [];
+          }
           this.shiftByDepartmentNameList.push(e.deptname);
           this.shiftByDepartmentCountList.push(e.count); 
          })
       }
+      console.log("vb-0",res.data)
+      console.log("vb-1",this.shiftByDepartmentCountList)
       this.vbarChartType = 'horizontalBar';
       this.vbarChartData = {
         labels: this.shiftByDepartmentNameList,
@@ -379,12 +393,17 @@ locByDeptEmpsdoughnutChartData: any;
     this.locationByDepartmentCountLis = [];
     this.adminService.getDepartmentWiseEmployeeCountByLocation(this.locationId).subscribe((res: any) => {
       if (res.status && res.data.length > 0) {
-        console.log("r-1",res.data)
-          res.data.forEach((e: any) => {
+        res.data.forEach((e: any) => {
+          if (e.deptname == null) {
+            this.locationByDepartmentCountLis = [];
+          } else {
             this.locationByDepartmentNameLis.push(e.deptname);
-            this.locationByDepartmentCountLis.push(e.count); 
+            this.locationByDepartmentCountLis.push(e.count);  
+          }
+            
           })
-        console.log("d-1",this.locationByDepartmentNameLis)
+          console.log("d-0",res.data)
+          console.log("d-1",this.locationByDepartmentCountLis)
          this.locByDeptEmpsdoughChartType = 'doughnut';
          this.locByDeptEmpsdoughnutChartData = {
            labels: this.locationByDepartmentNameLis,
