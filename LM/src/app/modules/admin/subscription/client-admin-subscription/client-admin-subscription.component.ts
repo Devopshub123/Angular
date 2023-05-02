@@ -112,7 +112,7 @@ export class ClientAdminSubscriptionComponent implements OnInit {
 
   invoice(){
      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/Admin/admin-invoice"]));
+            this.router.navigate(["/Admin/InvoiceHistory"]));
   }
   manageusers() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
