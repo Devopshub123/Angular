@@ -56,7 +56,8 @@ getClientPaymentDetails(data:any){
   })
 }
 /**get all subscription details. */
-getClientSubscriptionDetails(){
+  getClientSubscriptionDetails() {
+  console.log("t-1")
   this.companyService.getClientSubscriptionDetails().subscribe((data:any)=>{
     if (data.status && data.data.length != 0) {
       this.getClientPaymentDetails(Number(data.data[0].client_id));

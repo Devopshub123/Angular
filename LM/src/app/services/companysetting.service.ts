@@ -167,7 +167,8 @@ import { environment } from 'src/environments/environment';
   getPreonboardingCountry(tableName: any, status: any, page: any, size: any, companyName: any): Observable<any>{
      return this.hClient.get(this.mainBeUrl + 'api/getMastertablePreonboarding/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
   }
-  getClientSubscriptionDetails(){
+  getClientSubscriptionDetails() {
+    console.log("t-2")
     this.companyName = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null
     return this.hClient.get(this.mainBeUrl +'subscription/api/getClientSubscriptionDetails/'+this.companyName , this.httpOptions);
 
