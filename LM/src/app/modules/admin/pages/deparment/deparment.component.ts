@@ -109,6 +109,7 @@ export class DeparmentComponent implements OnInit {
 
   }
   setdepartment() {
+    console.log("r-1")
     this.validatedepartments(this.departmentForm.controls.department.value)
     this.department = this.departmentForm.controls.department.value;
     var data = {
@@ -121,6 +122,7 @@ export class DeparmentComponent implements OnInit {
       if (this.valid) {
         this.LM.setDepartments(data).subscribe((data) => {
           this.valid = false;
+          console.log("r-2")
           if (data.status) {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
               this.router.navigate(["/Admin/Department"]));
@@ -265,6 +267,7 @@ export class DeparmentComponent implements OnInit {
 
   }
   getDepartments() {
+    console.log("d-2")
     this.LM.getDepartments('departmentsmaster', null, 1, 100, this.companyDBName).subscribe((info:any) => {
       if (info.status && info.data.length != 0) {
         this.departmentData = info.data;
