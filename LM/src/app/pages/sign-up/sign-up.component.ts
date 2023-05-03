@@ -47,6 +47,7 @@ export const MY_FORMATS = {
 // rzp_test_AAxMUhOM5m2fuV
 // this.selectedIndex = index;
 export class SignUpComponent implements OnInit {
+  pipe = new DatePipe('en-US');
   message:any = "Not yet stared";
   paymentId = "";
   error = "";
@@ -319,8 +320,8 @@ export class SignUpComponent implements OnInit {
         let disamount = this.numberWithCommas( this.payamount)
         this.PayviewForm.controls.plan.setValue(value.plan_name);
         this.PayviewForm.controls.totalusers.setValue(value.number_of_users);
-        this.PayviewForm.controls.validFrom.setValue(value.fromdate);
-        this.PayviewForm.controls.validTo.setValue(value.todate);
+        this.PayviewForm.controls.validFrom.setValue(this.pipe.transform(value.fromdate, 'dd-MM-yyyy'));
+        this.PayviewForm.controls.validTo.setValue(this.pipe.transform(value.todate, 'dd-MM-yyyy'));
         this.PayviewForm.controls.cost.setValue(disamount);
       }
     })
@@ -450,9 +451,7 @@ let data ={
   transaction_number:event.detail.razorpay_payment_id,
   company_email_value:this.email
 }
-console.log("payment success data.toFixed(2)",data)
 this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
-  console.log("payment success data.toFixed(2)",result)
   if(result.status){
     // this.ngOnInit();
     this.myStepper.next();
