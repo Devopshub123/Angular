@@ -315,12 +315,13 @@ export class SignUpComponent implements OnInit {
         this.users =value.number_of_users;
         let dayscount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
 
-        this.payamount = ((value.number_of_users*value.cost_per_user_monthly_bill*dayscount)/30);
+        this.payamount = Math.floor((value.number_of_users*value.cost_per_user_monthly_bill*dayscount)/30);
+        let disamount = this.numberWithCommas( this.payamount)
         this.PayviewForm.controls.plan.setValue(value.plan_name);
         this.PayviewForm.controls.totalusers.setValue(value.number_of_users);
         this.PayviewForm.controls.validFrom.setValue(value.fromdate);
         this.PayviewForm.controls.validTo.setValue(value.todate);
-        this.PayviewForm.controls.cost.setValue(this.payamount);
+        this.PayviewForm.controls.cost.setValue(disamount);
       }
     })
   }
@@ -393,9 +394,15 @@ export class SignUpComponent implements OnInit {
   validateemail(){
     this.router.navigate(['Validateemail'])
   }
+   numberWithCommas(x:any) {
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+}
   paynow() {
-    let dataamount:any = Math.floor(this.payamount*100);
-    console.log("gggg",Math.floor(dataamount));
+    console.log("gggg",this.payamount);
+    let dataamount:any = (this.payamount*100);
+
     this.paymentId = '';
     this.error = '';
     this.options.amount = dataamount; //paise
