@@ -6,7 +6,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
 
          </div>
                 <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
-                       <mat-step [stepControl]="signUpForm"  [completed]="step1Complete">
+                       <mat-step [stepControl]="signUpForm"  [completed]="step1Complete" [editable]="false">
                         <ng-template  matStepLabel>Sign Up</ng-template>
                         <form [formGroup]="signUpForm">
                             <div>
@@ -44,7 +44,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
 
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Users</mat-label>
+                                    <mat-label>No Of Users</mat-label>
                                     <input type="text" onlyNumber formControlName="totalUsers" matInput
                                         maxlength="3" required/>
                                         <mat-error class="reg-error" *ngIf="signUpForm.controls.totalUsers.hasError('required')">
@@ -231,7 +231,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
 
                     </mat-step>
               <!-- payment details -->
-                    <mat-step [stepControl]="PayviewForm" [completed]="step2Complete">
+                    <mat-step [stepControl]="PayviewForm" [completed]="step2Complete" [editable]="false">
                         <ng-template  matStepLabel>Payment Details</ng-template>
                         <form [formGroup]="PayviewForm">
                             <div fxFlex="100" fxLayout="row">
@@ -289,7 +289,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
 
                     <!-- final details -->
 
-                    <mat-step [completed]="step3Complete">
+                    <mat-step [completed]="step3Complete" [editable]="false">
                         <ng-template  matStepLabel>Finish</ng-template>
                         <form [formGroup]="PayForm"></form>
                          <div style="text-align: center;">
