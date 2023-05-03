@@ -27,6 +27,12 @@ import { environment } from 'src/environments/environment';
       return this.hClient.post(this.mainBeUrl + 'api/setWorkLocation', JSON.stringify(info), this.httpOptions);
     }
     getWorkLocation(info:any): Observable<any>{
+      this.httpOptions = {
+        headers: new HttpHeaders({
+          'content-Type': 'application/json',
+          "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+        })
+      };
       info.companyName = this.companyName;
       return this.hClient.post(this.mainBeUrl + 'api/getWorkLocation',JSON.stringify(info), this.httpOptions);
     }
