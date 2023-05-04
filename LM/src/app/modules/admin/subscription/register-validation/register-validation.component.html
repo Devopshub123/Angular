@@ -21,7 +21,7 @@
                     <mat-label>Company Code</mat-label>
                     <input matInput class="form-control" type="text" formControlName="companyname"
                     id="company" 
-                       placeholder="" minlength="5" maxlength="10" />
+                       placeholder="" minlength="5" maxlength="10" (keydown.space)="$event.preventDefault()"/>
                     <mat-error class="con-error" *ngIf="formGroup.controls.companyname.errors?.required">
                       This field is required.
                     </mat-error>
