@@ -250,7 +250,9 @@ export class EmployeeProfileComponent implements OnInit {
   isSubmitAdd: boolean = false;
   isUpdate: boolean = false;
   isDelete: boolean = false;
-  maxBirthDate:Date | undefined;
+  maxBirthDate: Date | undefined;
+  roleName: any = [];
+  selectedRoles: any = [];
   ngOnInit(): void {
     this. maxBirthDate = new Date();
     this.maxBirthDate.setMonth(this.maxBirthDate.getMonth() - 12 * 18);
@@ -387,13 +389,13 @@ export class EmployeeProfileComponent implements OnInit {
       }
     });
     
-    this.personalInfoForm.get('usertype')?.valueChanges.subscribe((selectedValue) => {
-        if (selectedValue == 2) {
-          this.isself = true;
-        } else {
-          this.isself = false;
-        }
-      });
+    // this.personalInfoForm.get('usertype')?.valueChanges.subscribe((selectedValue) => {
+    //     if (selectedValue == 2) {
+    //       this.isself = true;
+    //     } else {
+    //       this.isself = false;
+    //     }
+    //   });
 
     this.personalInfoForm
       .get('department')
@@ -585,9 +587,17 @@ export class EmployeeProfileComponent implements OnInit {
         if (this.employeeInformationData.employmenttype == 3) {
           this.isContractData = true;
         }
-        this.personalInfoForm.controls.usertype.setValue(
-          JSON.parse(this.employeeInformationData.usertype)[0].role
-       );
+        let rolesList = JSON.parse(this.employeeInformationData.usertype);
+        rolesList.forEach((e:any) => {
+       this.roleName.push(e.name);
+       this.selectedRoles.push({ "id": e.id });
+        });
+     this.personalInfoForm.controls.usertype.setValue(
+       this.roleName
+    );
+      //   this.personalInfoForm.controls.usertype.setValue(
+      //     JSON.parse(this.employeeInformationData.usertype)[0].role
+      //  );
         this.personalInfoForm.controls.companylocation.setValue(
           this.employeeInformationData.worklocation
         );
@@ -1105,7 +1115,7 @@ export class EmployeeProfileComponent implements OnInit {
         actionby: parseInt(this.userSession.id),
         ///////
         officeemail: this.personalInfoForm.controls.officeemail.value,
-        usertype: this.personalInfoForm.controls.usertype.value,
+        usertype: this.selectedRoles,
         department: this.personalInfoForm.controls.department.value,
         employmenttype: this.personalInfoForm.controls.employmentType.value,
         companylocation: this.personalInfoForm.controls.companylocation.value,

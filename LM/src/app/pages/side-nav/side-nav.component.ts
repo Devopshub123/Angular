@@ -232,7 +232,6 @@ export class SideNavComponent implements OnInit {
           this.mainService.getSideNavigation({empid: this.usersession.id}).subscribe((res: any) => {
             this.spinner.hide();
             this.menuList = res.data;
-            console.log("menuList",this.menuList);
             sessionStorage.setItem("moduleData",JSON.stringify( this.menuList) );
             sessionStorage.setItem('selectedModule','Spryple');
           });
@@ -266,7 +265,6 @@ export class SideNavComponent implements OnInit {
         this.mainService.getScreensForSuperAdmin({empid: this.usersession.id}).subscribe((res: any) => {
           this.spinner.hide();
           this.menuList = res.data;
-          console.log("menuList",this.menuList);
           sessionStorage.setItem("moduleData",JSON.stringify( this.menuList) );
           sessionStorage.setItem('selectedModule','Spryple');
         });

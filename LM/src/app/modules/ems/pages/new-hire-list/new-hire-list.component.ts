@@ -108,14 +108,15 @@ export class NewHireListComponent implements OnInit {
       alternatenumber:["",[Validators.pattern('[4-9]\\d{9}')]]
 
       });
-    this.getCompanyInformation();
+    //this.getCompanyInformation();
+    console.log("t-1");
       this.getNewHiredList();
-      this.getDesignationsMaster();
-    this.getMessagesList();
-    this.hireForm.get('hiredon')?.valueChanges.subscribe((selectedValue: any) => {
-      this.hireForm.get('dateofjoin').reset()
-      this.minHireDate = selectedValue._d;
-    })
+    //  this.getDesignationsMaster();
+    //this.getMessagesList();
+    // this.hireForm.get('hiredon')?.valueChanges.subscribe((selectedValue: any) => {
+    //   this.hireForm.get('dateofjoin').reset()
+    //   this.minHireDate = selectedValue._d;
+    // })
     ////
   }
   getDesignationsMaster() {
@@ -247,9 +248,11 @@ export class NewHireListComponent implements OnInit {
   }
 
   getNewHiredList() {
+    console.log("t-2");
    this.hiredList = [];
     this.joinedList = [];
     this.emsService.getNewHiredEmployeeList(null).subscribe((res: any) => {
+      console.log("t-3");
       if (res.status && res.data.length != 0) {
         this.newHiredList = res.data;
         this.newHiredList.forEach((e: any) => {
@@ -427,7 +430,6 @@ export class NewHireListComponent implements OnInit {
   getClientSubscriptionDetails(){
     this.companyService.getClientSubscriptionDetails().subscribe((data:any)=>{
       if (data.status && data.data.length != 0) {
-        console.log("resultdata",data)
         if(data.data[0].user_count>this.activeemployeecount){
           
           this.subscriptionflag =true;
@@ -447,7 +449,6 @@ export class NewHireListComponent implements OnInit {
   }
   getActiveEmployeesCount(){
     this.companyService.getActiveEmployeesCount().subscribe((data:any)=>{
-      console.log("result",data);
       if (data.status && data.data.length != 0) {
         this.getClientSubscriptionDetails();
         this.activeemployeecount=data.data[0].active_employees_count

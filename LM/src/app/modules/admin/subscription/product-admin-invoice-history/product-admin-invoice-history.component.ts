@@ -61,7 +61,6 @@ view(data:any){
 }
 getPayments(){
   this.adminService.getPayments().subscribe((result:any)=>{
-    console.log("result",result)
     if(result.status&&result.data.length>0){
       console.log(result)
       this.dataSource = result.data;

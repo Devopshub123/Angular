@@ -118,6 +118,7 @@ export class EmsService {
 
   /**get  active termination categories*/
   getNewHiredEmployeeList(id: any): any {
+    console.log("t-4");
     return this.http.get(this.mainUrl + 'ems/api/getNewHireDetails/' + id+'/'+this.companyName, this.httpOptions);
   }
   getNewHiredEmployeeLists(id: any): any {
@@ -171,7 +172,7 @@ export class EmsService {
   /** */
   getEmployeeInformationData(id: any): Observable<any> {
     this.companyName = sessionStorage.getItem("companyName") ? sessionStorage.getItem("companyName") : null;
-   console.log("asd--",this.companyName)
+   console.log("cname--",this.companyName)
     return this.http.get(this.mainUrl + 'ems/api/getEmpPersonalInfo/' + id + '/' + this.companyName, this.httpOptions);
   }
   /** */
