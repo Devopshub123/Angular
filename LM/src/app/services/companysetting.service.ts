@@ -26,7 +26,13 @@ import { environment } from 'src/environments/environment';
       info.companyName = this.companyName;
       return this.hClient.post(this.mainBeUrl + 'api/setWorkLocation', JSON.stringify(info), this.httpOptions);
     }
-    getWorkLocation(info:any): Observable<any>{
+  getWorkLocation(info: any): Observable<any>{
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+      })
+    };
       info.companyName = this.companyName;
       return this.hClient.post(this.mainBeUrl + 'api/getWorkLocation',JSON.stringify(info), this.httpOptions);
     }
@@ -71,8 +77,8 @@ import { environment } from 'src/environments/environment';
     return this.hClient.post(this.mainBeUrl + 'api/setDepartments', JSON.stringify(info), this.httpOptions);
   }
   getDepartments(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
-    console.log("d-3")
-    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/' + tableName + '/' + status + '/' + page + '/' + size + '/' + this.companyName, this.httpOptions);
+    console.log("v-7")
+    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/' + tableName + '/' + status + '/' + page + '/' + size + '/' + this.companyName);
   }
   putDepartments(info:any):Observable<any>{
       info.companyName=this.companyName;
