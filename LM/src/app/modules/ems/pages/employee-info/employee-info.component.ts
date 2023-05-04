@@ -2417,6 +2417,12 @@ export class EmployeeInfoComponent implements OnInit {
   
   selectedRolesChange(event: any) {
     if (event.isUserInput && event.source.selected == false) {
+      if (event.source.value.id == 2 || event.source.value.id == 6 || event.source.value.id == 9) {
+        this.isself = false;
+         }
+       else {
+        this.isself = true;
+      }
        this.selectedRoles.forEach((value: { id: any; },index: any)=>{
        if(value.id==event.source.value.id) this.selectedRoles.splice(index,1);
          });
@@ -2425,6 +2431,12 @@ export class EmployeeInfoComponent implements OnInit {
       const toSelect = this.selectedRoles.find((e: any) => e.id == event.source.value.id);
       if (toSelect == undefined) {
         this.selectedRoles.push({ "id": event.source.value.id });
+        if (event.source.value.id == 2 || event.source.value.id == 6 || event.source.value.id == 9) {
+        this.isself = true;
+         }
+       else {
+        this.isself = false;
+      }
       }
     }
   }
