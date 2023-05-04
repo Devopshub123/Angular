@@ -95,9 +95,12 @@ export class WorklocationComponent implements OnInit {
     private LM: CompanySettingService,
     private dialog: MatDialog,
     private ts: LoginService,private emsService:EmsService
-  ) {}
+  ) {
+    console.log("consttt")
+  }
 
   ngOnInit(): void {
+    console.log("ngoninit")
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getstatuslist();
     this.getmessages('EM1');
@@ -228,11 +231,13 @@ export class WorklocationComponent implements OnInit {
   }
   getWorkLocation() {
     // this.spinner.show();
+    this.workLocationDetails =[]
     this.LM.getWorkLocation({
       id: null,
       companyName: this.companyDBName,
-    }).subscribe((result) => {
-      this.workLocationDetails = result.data;
+    }).subscribe((result:any) => {
+      
+      this.workLocationDetails = result.data==null?[]:result.data;
       this.emptyprefix();
       this.dataSource = new MatTableDataSource(this.workLocationDetails);
       this.dataSource.paginator = this.paginator;
@@ -328,6 +333,7 @@ export class WorklocationComponent implements OnInit {
     });
   }
   submit() {
+    console.log("this.worklocationForm.valid",this.worklocationForm.valid)
     if (this.worklocationForm.valid) {
       if (
         this.worklocationForm.controls.id.value == '' ||

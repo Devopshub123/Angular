@@ -27,6 +27,12 @@ import { environment } from 'src/environments/environment';
       return this.hClient.post(this.mainBeUrl + 'api/setWorkLocation', JSON.stringify(info), this.httpOptions);
     }
     getWorkLocation(info:any): Observable<any>{
+      this.httpOptions = {
+        headers: new HttpHeaders({
+          'content-Type': 'application/json',
+          "Authorization": JSON.parse(JSON.stringify(sessionStorage.getItem('token') || '')),
+        })
+      };
       info.companyName = this.companyName;
       return this.hClient.post(this.mainBeUrl + 'api/getWorkLocation',JSON.stringify(info), this.httpOptions);
     }
@@ -65,12 +71,14 @@ import { environment } from 'src/environments/environment';
   getDesignation(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
     return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
   }
-  setDepartments(info:any): Observable<any>{
+  setDepartments(info: any): Observable<any>{
+    console.log("r-3")
       info.companyName= this.companyName;
     return this.hClient.post(this.mainBeUrl + 'api/setDepartments', JSON.stringify(info), this.httpOptions);
   }
   getDepartments(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
-    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
+    console.log("v-7")
+    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/' + tableName + '/' + status + '/' + page + '/' + size + '/' + this.companyName);
   }
   putDepartments(info:any):Observable<any>{
       info.companyName=this.companyName;
@@ -165,7 +173,8 @@ import { environment } from 'src/environments/environment';
   getPreonboardingCountry(tableName: any, status: any, page: any, size: any, companyName: any): Observable<any>{
      return this.hClient.get(this.mainBeUrl + 'api/getMastertablePreonboarding/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
   }
-  getClientSubscriptionDetails(){
+  getClientSubscriptionDetails() {
+    console.log("t-2")
     this.companyName = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null
     return this.hClient.get(this.mainBeUrl +'subscription/api/getClientSubscriptionDetails/'+this.companyName , this.httpOptions);
 
