@@ -174,7 +174,6 @@ import { environment } from 'src/environments/environment';
      return this.hClient.get(this.mainBeUrl + 'api/getMastertablePreonboarding/'+tableName+'/'+status+'/'+page+'/'+size+'/'+companyName, this.httpOptions);
   }
   getClientSubscriptionDetails() {
-    console.log("t-2")
     this.companyName = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null
     return this.hClient.get(this.mainBeUrl +'subscription/api/getClientSubscriptionDetails/'+this.companyName , this.httpOptions);
 

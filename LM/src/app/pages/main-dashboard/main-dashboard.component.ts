@@ -475,7 +475,6 @@ export class MainDashboardComponent implements OnInit {
       .subscribe((res: any) => {
         if(res.status && res.data) {
           this.employeeInformationData = JSON.parse(res.data[0].json)[0];
-          console.log("f-", this.employeeInformationData.firstname)
           let mname = this.employeeInformationData.middlename !=null ?this.employeeInformationData.middlename:'';
           let lname = this.employeeInformationData.lastname !=null ?this.employeeInformationData.lastname:'';
           this.employeeNameh =

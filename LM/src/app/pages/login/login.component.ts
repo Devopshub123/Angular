@@ -80,7 +80,6 @@ export class LoginComponent implements OnInit {
         // sessionStorage.setItem('user', JSON.stringify(data.result[0]));
         
         if(data.status === true){
-          console.log("exp",data.expirydate,data.result[0])
           if(new Date(data.expirydate)>=new Date()){
             let empdata = data.result[0];
           sessionStorage.setItem('token', data.token);

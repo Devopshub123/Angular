@@ -359,7 +359,7 @@ export class SignUpComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "You are registered successfully."
+            data: "Congratulations! you are registerd with spryple successfully.Your company code is "+ this.signUpForm.controls.companyCode.value +"."
           });
           this.getUnverifiedSprypleClient();
           this.spinner.hide();

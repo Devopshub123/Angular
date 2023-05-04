@@ -6,7 +6,7 @@ export const environment = {
   // apiUrl: 'http://13.232.185.196:6060/',
 
  /** static QA-202 & demo -2121- URL*/
-  apiUrl: 'http://122.175.62.210:7676/',
+  apiUrl: 'http://122.175.62.210:6363/',
 
 
   /** local build */
