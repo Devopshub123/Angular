@@ -76,7 +76,8 @@ import { environment } from 'src/environments/environment';
     return this.hClient.post(this.mainBeUrl + 'api/setDepartments', JSON.stringify(info), this.httpOptions);
   }
   getDepartments(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
-    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/' + tableName + '/' + status + '/' + page + '/' + size + '/' + this.companyName, this.httpOptions);
+    this.companyName = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null;
+    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/' + tableName + '/' + status + '/' + page + '/' + size + '/' + this.companyName,this.httpOptions);
   }
   putDepartments(info:any):Observable<any>{
       info.companyName=this.companyName;

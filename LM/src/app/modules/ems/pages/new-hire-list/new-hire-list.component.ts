@@ -120,6 +120,7 @@ export class NewHireListComponent implements OnInit {
   }
   getDesignationsMaster() {
     this.companyService.getMastertable('designationsmaster', '1', 1, 1000, this.companyDBName).subscribe(data => {
+      console.log("ggggg",data.data)
       this.designationsList = data.data;
     })
   }
