@@ -111,7 +111,7 @@ export class NewHireListComponent implements OnInit {
     //this.getCompanyInformation();
     console.log("t-1");
       this.getNewHiredList();
-    //  this.getDesignationsMaster();
+     this.getDesignationsMaster();
     //this.getMessagesList();
     // this.hireForm.get('hiredon')?.valueChanges.subscribe((selectedValue: any) => {
     //   this.hireForm.get('dateofjoin').reset()
@@ -121,6 +121,7 @@ export class NewHireListComponent implements OnInit {
   }
   getDesignationsMaster() {
     this.companyService.getMastertable('designationsmaster', '1', 1, 1000, this.companyDBName).subscribe(data => {
+      console.log("ggggg",data.data)
       this.designationsList = data.data;
     })
   }
