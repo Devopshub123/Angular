@@ -65,7 +65,6 @@ export class DeparmentComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router,
     private dialog: MatDialog, private LM: CompanySettingService,private ts:LoginService,
     private emsService:EmsService) {
-      console.log("v-1")
   }
 
   ngOnInit(): void {
@@ -80,9 +79,7 @@ export class DeparmentComponent implements OnInit {
     this.getMessages('EM90')
     this.getMessages('EM91')
     this.getMessages('EM92')
-    console.log("v-2")
     this.getDepartments();
-    console.log("v-3")
     this.departmentForm = this.formBuilder.group(
       {
         department: ["",[Validators.required,this.noWhitespaceValidator()]],
@@ -111,7 +108,6 @@ export class DeparmentComponent implements OnInit {
 
   }
   setdepartment() {
-    console.log("r-1")
     this.validatedepartments(this.departmentForm.controls.department.value)
     this.department = this.departmentForm.controls.department.value;
     var data = {
@@ -124,8 +120,7 @@ export class DeparmentComponent implements OnInit {
       if (this.valid) {
         this.LM.setDepartments(data).subscribe((data) => {
           this.valid = false;
-          console.log("r-2")
-          if (data.status) {
+         if (data.status) {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
               this.router.navigate(["/Admin/Department"]));
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -269,12 +264,10 @@ export class DeparmentComponent implements OnInit {
 
   }
   getDepartments() {
-    console.log("v-4")
     this.LM.getDepartments('departmentsmaster', null, 1, 100, this.companyDBName).subscribe((info:any) => {
-      console.log("v-5")
+      console.log("getDepartments",info.data)
       if (info.status && info.data.length != 0) {
-        console.log("v-6")
-        this.departmentData = info.data;
+      this.departmentData = info.data;
         this.dataSource = new MatTableDataSource(this.departmentData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

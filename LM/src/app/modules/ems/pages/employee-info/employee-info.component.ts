@@ -1546,8 +1546,14 @@ export class EmployeeInfoComponent implements OnInit {
         let data = {
           empid: this.employeeCode,
           experience: this.workExperienceDetails,
+          bankname: this.employementForm.controls.bankName.value !=null ? this.employementForm.controls.bankName.value:null,
+          ifsccode: this.employementForm.controls.ifscCode.value !=null ? this.employementForm.controls.ifscCode.value:null,
+          nameasperbankaccount: this.employementForm.controls.bankAccountName.value !=null ? this.employementForm.controls.bankAccountName.value:null,
+          branchname: this.employementForm.controls.branchName.value !=null ? this.employementForm.controls.branchName.value:null,
+          bankaccountnumber: this.employementForm.controls.bankAccountNumber.value !=null ? this.employementForm.controls.bankAccountNumber.value:null,
+          uanumber: this.employementForm.controls.uanNumber.value !=null ? this.employementForm.controls.uanNumber.value:null,
+          pan: this.employementForm.controls.panNumber.value !=null ? this.employementForm.controls.panNumber.value:null,
         }
-
         this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
           if (res.status && res.data[0].statuscode == 0) {
             this.spinner.hide();
@@ -1615,6 +1621,7 @@ export class EmployeeInfoComponent implements OnInit {
         uanumber: this.employementForm.controls.uanNumber.value,
         //pfaccountnumber: this.employementForm.controls.contractFile.value,
         pan: this.employementForm.controls.panNumber.value,
+        experience: this.workExperienceDetails.length > 0 ? this.workExperienceDetails:null,
       }
 
       this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
@@ -2417,6 +2424,12 @@ export class EmployeeInfoComponent implements OnInit {
   
   selectedRolesChange(event: any) {
     if (event.isUserInput && event.source.selected == false) {
+      if (event.source.value.id == 2 || event.source.value.id == 6 || event.source.value.id == 9) {
+        this.isself = false;
+         }
+       else {
+        this.isself = true;
+      }
        this.selectedRoles.forEach((value: { id: any; },index: any)=>{
        if(value.id==event.source.value.id) this.selectedRoles.splice(index,1);
          });
@@ -2425,6 +2438,12 @@ export class EmployeeInfoComponent implements OnInit {
       const toSelect = this.selectedRoles.find((e: any) => e.id == event.source.value.id);
       if (toSelect == undefined) {
         this.selectedRoles.push({ "id": event.source.value.id });
+        if (event.source.value.id == 2 || event.source.value.id == 6 || event.source.value.id == 9) {
+        this.isself = true;
+         }
+       else {
+        this.isself = false;
+      }
       }
     }
   }

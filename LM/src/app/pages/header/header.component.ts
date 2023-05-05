@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
     this.selectedModule =sessionStorage.getItem('selectedModule')??'';
    // this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
     this.getLogo()
-    this.getUploadImage();
+    // this.getUploadImage();
     this.getCompanyInformation();
     this.empname = this.usersession.firstname;
     this.email = this.usersession.officeemail;

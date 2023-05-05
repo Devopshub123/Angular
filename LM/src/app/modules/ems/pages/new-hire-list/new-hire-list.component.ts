@@ -108,24 +108,23 @@ export class NewHireListComponent implements OnInit {
       alternatenumber:["",[Validators.pattern('[4-9]\\d{9}')]]
 
       });
-    //this.getCompanyInformation();
-    console.log("t-1");
-      this.getNewHiredList();
-    //  this.getDesignationsMaster();
-    //this.getMessagesList();
-    // this.hireForm.get('hiredon')?.valueChanges.subscribe((selectedValue: any) => {
-    //   this.hireForm.get('dateofjoin').reset()
-    //   this.minHireDate = selectedValue._d;
-    // })
-    ////
+    this.getCompanyInformation();
+    this.getNewHiredList();
+     this.getDesignationsMaster();
+    this.getMessagesList();
+    this.hireForm.get('hiredon')?.valueChanges.subscribe((selectedValue: any) => {
+      this.hireForm.get('dateofjoin').reset()
+      this.minHireDate = selectedValue._d;
+    })
+    //
   }
   getDesignationsMaster() {
     this.companyService.getMastertable('designationsmaster', '1', 1, 1000, this.companyDBName).subscribe(data => {
+      console.log("ggggg",data.data)
       this.designationsList = data.data;
     })
   }
   newHire() {
-    console.log("this.subscriptionflag",this.subscriptionflag)
     if(!this.subscriptionflag){
       let dialogRef = this.dialog.open(EmpValidationPopUpComponent, {
         width: '800px',position: { top: `100px` },
@@ -248,11 +247,9 @@ export class NewHireListComponent implements OnInit {
   }
 
   getNewHiredList() {
-    console.log("t-2");
    this.hiredList = [];
     this.joinedList = [];
     this.emsService.getNewHiredEmployeeList(null).subscribe((res: any) => {
-      console.log("t-3");
       if (res.status && res.data.length != 0) {
         this.newHiredList = res.data;
         this.newHiredList.forEach((e: any) => {

@@ -106,6 +106,7 @@ export class UsersLoginComponent implements OnInit {
     this.ES.getUserLoginData().subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.userLoginList = res.data;
+        console.log("userLoginList",this.userLoginList)
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

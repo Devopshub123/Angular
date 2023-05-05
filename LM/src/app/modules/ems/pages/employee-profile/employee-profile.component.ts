@@ -1492,6 +1492,14 @@ export class EmployeeProfileComponent implements OnInit {
     let data = {
       empid: this.employeeCode,
       experience: this.workExperienceDetails,
+      bankname: this.employementForm.controls.bankName.value !=null ? this.employementForm.controls.bankName.value:null,
+      ifsccode: this.employementForm.controls.ifscCode.value !=null ? this.employementForm.controls.ifscCode.value:null,
+      nameasperbankaccount: this.employementForm.controls.bankAccountName.value !=null ? this.employementForm.controls.bankAccountName.value:null,
+      branchname: this.employementForm.controls.branchName.value !=null ? this.employementForm.controls.branchName.value:null,
+      bankaccountnumber: this.employementForm.controls.bankAccountNumber.value !=null ? this.employementForm.controls.bankAccountNumber.value:null,
+      uanumber: this.employementForm.controls.uanNumber.value !=null ? this.employementForm.controls.uanNumber.value:null,
+      pan: this.employementForm.controls.panNumber.value !=null ? this.employementForm.controls.panNumber.value:null,
+   
     };
     this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
       if (res.status && res.data[0].statuscode == 0) {
