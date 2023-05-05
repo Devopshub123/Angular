@@ -72,13 +72,11 @@ import { environment } from 'src/environments/environment';
     return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
   }
   setDepartments(info: any): Observable<any>{
-    console.log("r-3")
-      info.companyName= this.companyName;
+    info.companyName= this.companyName;
     return this.hClient.post(this.mainBeUrl + 'api/setDepartments', JSON.stringify(info), this.httpOptions);
   }
   getDepartments(tableName:any,status:any,page:any,size:any,companyName:any): Observable<any>{
-    console.log("v-7")
-    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/' + tableName + '/' + status + '/' + page + '/' + size + '/' + this.companyName);
+    return this.hClient.get(this.mainBeUrl + 'api/getMastertable/' + tableName + '/' + status + '/' + page + '/' + size + '/' + this.companyName, this.httpOptions);
   }
   putDepartments(info:any):Observable<any>{
       info.companyName=this.companyName;
