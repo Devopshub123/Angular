@@ -330,7 +330,7 @@ locByDeptEmpsdoughnutChartData: any;
 
   getActiveShiftList() {
     this.adminService.getAllShifts().subscribe((res) => {
-      if (res.status) {
+      if (res.status && res.data.length > 0) {
         this.shiftDataList = res.data;
         this.shiftId = this.shiftDataList[0].shiftid;
         this.dashBoardForm.controls.shiftName.setValue(res.data[0].shiftid);

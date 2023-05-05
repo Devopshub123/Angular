@@ -10,7 +10,7 @@ export const environment = {
 
 
   /** local build */
-  // apiUrl: 'http://192.168.1.46:7676/',
+  // apiUrl: 'http://192.168.1.10:6363/',
 
   dbName:sessionStorage.getItem('companyName'),
 };
