@@ -58,7 +58,7 @@ export class ProductInvoiceDataComponent implements OnInit {
   
     print() {
       const DATA = this.invoice.nativeElement;
-      const doc: jsPDF = new jsPDF('l', 'mm', 'a2');
+      const doc: jsPDF = new jsPDF('l', 'mm',  [Number(window.innerWidth), Number(window.innerHeight)]);
       doc.html(DATA, {
         callback: (doc) => {
           doc.setFont('fa-solid-900', 'normal');

@@ -180,17 +180,12 @@ export class AddRenewalUesrsComponent implements OnInit {
         valid_to_value:this.validto,
         user_count_value:this.addvalue
       }
-      console.log("ghygyg",data)
       this.adminService.addUsersDisplayInfo(data).subscribe((result:any)=>{
-        console.log("data",data)
         if(result.status){
          this.addUsersDisplayInfohide =true;
          this.addUsersDisplayInfoUserCount = result.data[0].user_count
          let date1:any =new Date( );
-         let date2:any = new Date('2023-04-30')
-         console.log("date1",date1);
-         console.log("date2",date2);
-         console.log("result.data[0].user_count",result.data[0].user_count);
+         let date2:any = new Date(this.validto)
          let dayscount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
          this.addUsersDisplayInfoamount = Math.floor((this.addvalue*Number( this.monthlycost)*dayscount)/30);
          this.addUsersDisplayInfovaliddate = result.data[0].validity
@@ -211,7 +206,6 @@ export class AddRenewalUesrsComponent implements OnInit {
         user_count_value:this.renewalvalue
       }
       this.adminService.renewUsersDisplayInformation(data).subscribe((result:any)=>{
-        console.log("result",result);
         // Math.floor((this.renewalvalue*100*30)/30);
         this.renewalDisplayInfoamount  = Math.floor((this.renewalvalue*Number(this.monthlycost)*30)/30);
         if(result .status){
@@ -304,12 +298,15 @@ export class AddRenewalUesrsComponent implements OnInit {
       
     })
   }
-  cancel(){}
+  cancel(){
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/Admin/add-renewal-users"]));
+  }
 
   paynow() {
     this.paymentId = '';
     this.error = '';
-       this.options.prefill.name = 'Rakesh'//this.clientname;
+    this.options.prefill.name = 'Rakesh'//this.clientname;
     this.options.prefill.email = 'rthallapely@sreebtech.com'//this.email;
     this.options.prefill.contact ='9704546030'//this.contactnumber;
     if(this.addvalue>0 &&this.addusersamount){
@@ -403,7 +400,7 @@ if(this.addusersamount){
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data:'Payment success for add users'
+          data:'Congratulations! You have successfully added users.'
         });
 
       }
@@ -437,7 +434,7 @@ if(this.addusersamount){
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose: true,
-          data:'Payment susuccess for add renewal.'
+          data:'Congratulations! You have successfully added users during the renewal period.'
         });
 
       }
