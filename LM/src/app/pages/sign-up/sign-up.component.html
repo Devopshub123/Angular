@@ -14,7 +14,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                     <mat-label>Company Name</mat-label>
-                                    <input type="text"  formControlName="companyName" matInput maxlength="100" required
+                                    <input type="text"  formControlName="companyName" matInput maxlength="50" required
                                     (keypress)="alphaNumberOnly($event)"/>
                                     <mat-error class="reg-error" *ngIf="signUpForm.controls.companyName.errors?.required ||
                                          signUpForm.controls.companyName.errors?.['whitespace']">
