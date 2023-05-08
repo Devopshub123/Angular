@@ -45,7 +45,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
 
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>No Of Users</mat-label>
+                                    <mat-label>No. of Users</mat-label>
                                     <input type="text" onlyNumber formControlName="totalUsers" matInput
                                         maxlength="3" required/>
                                         <mat-error class="reg-error" *ngIf="signUpForm.controls.totalUsers.hasError('required')">
@@ -249,7 +249,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                     </mat-form-field>
 
                                     <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                        <mat-label>No Of Users</mat-label>
+                                        <mat-label>No. of Users</mat-label>
                                         <input type="text" formControlName="totalusers" matInput [ngClass]="{'disable':true}" [readonly]="true"/>
                                     </mat-form-field>
                                     <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
