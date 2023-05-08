@@ -20,10 +20,14 @@
                   <mat-form-field fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Company Code</mat-label>
                     <input matInput class="form-control" type="text" formControlName="companyname"
-                    id="company" 
+                    id="company" (keypress)="alphaNumberOnly($event)"
                        placeholder="" minlength="5" maxlength="10" (keydown.space)="$event.preventDefault()"/>
                     <mat-error class="con-error" *ngIf="formGroup.controls.companyname.errors?.required">
                       This field is required.
+                    </mat-error>
+                    <mat-error class="reg-error" *ngIf="
+                    formGroup.controls.companyname.errors?.minlength">
+                    Company Code should be minimum 5 characters
                     </mat-error>
                   </mat-form-field>
 
@@ -37,6 +41,9 @@
                        placeholder="" maxlength="30" />
                     <mat-error class="con-error" *ngIf="formGroup.controls.username.errors?.required">
                       This field is required.
+                    </mat-error>
+                    <mat-error class="con-error" *ngIf="formGroup.controls.username.errors?.email">
+                      Please enter valid email
                     </mat-error>
                   </mat-form-field>
 

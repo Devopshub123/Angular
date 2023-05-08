@@ -14,7 +14,8 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                     <mat-label>Company Name</mat-label>
-                                    <input type="text"  formControlName="companyName" matInput maxlength="100" required/>
+                                    <input type="text"  formControlName="companyName" matInput maxlength="100" required
+                                    (keypress)="alphaNumberOnly($event)"/>
                                     <mat-error class="reg-error" *ngIf="signUpForm.controls.companyName.errors?.required ||
                                          signUpForm.controls.companyName.errors?.['whitespace']">
                                     This field is required.
@@ -169,7 +170,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                     <mat-label>Pincode</mat-label>
                                     <input type="text" formControlName="pincode" matInput
-                                        maxlength="6" minlength="6" numbersOnly required/>
+                                        maxlength="6" minlength="6" (keypress)="numberOnly($event)" required/>
                                         <mat-error class="reg-error" *ngIf="signUpForm.controls.pincode.errors?.required">
                                             This fiels is required.
                                             </mat-error>
@@ -295,7 +296,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                          <div style="text-align: center;">
                             <!-- Great job! <br> -->
                             <h2>You have successfully completed the payment process.<br> We are delighted to have you onboard as a Spryple subscriber.
-                            <br>Please verify your email for Invoice detials. </h2>
+                            <br>Please verify your email for Invoice details. </h2>
                          </div>
 
                        </mat-step>

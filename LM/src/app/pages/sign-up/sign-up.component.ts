@@ -153,8 +153,8 @@ export class SignUpComponent implements OnInit {
     this.getCountry();
     // IndustryType
     this.signUpForm.get('IndustryType')?.valueChanges.subscribe((selectedValue: any) => {
-      if (selectedValue !=null) {
-        if(selectedValue.industry_type_name == 'Others'){
+      if (selectedValue != null) {
+        if(selectedValue == 6){
           this.hide = true;
           this.signUpForm.controls.others.setValue('')
        }
@@ -459,6 +459,23 @@ this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
     // this.myStepper.next();
   }
 })
+
+  }
+  alphaNumberOnly(e: any) {  // Accept only alpha numerics, not special characters
+    var regex = new RegExp("^[a-zA-Z0-9 ]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+      return true;
+    }
+    e.preventDefault();
+    return false;
+  }
+  numberOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
 
   }
 }
