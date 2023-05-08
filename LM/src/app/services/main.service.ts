@@ -220,4 +220,7 @@ export class MainService {
   getMonthWiseClientsCountByYear(data: any) {
     return this.http.get(this.mainBeUrl + 'subscription/api/getMonthWiseClientsCountByYear/' + data + '/' + this.companyName, this.httpOptions)
   }
+  paymentFailedMail(data:any){
+    return this.http.post(this.mainBeUrl + 'subscription/api/paymentFailedMail', data, this.httpOptions);
+  }
 }

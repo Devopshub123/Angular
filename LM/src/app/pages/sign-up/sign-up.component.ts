@@ -359,7 +359,7 @@ export class SignUpComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Congratulations! you are registerd with spryple successfully.Your company code is "+ this.signUpForm.controls.companyCode.value +"."
+            data:"Congratulations! You have successfully registered with Spryple. Your company code is "+ this.signUpForm.controls.companyCode.value +". Thank you for choosing Spryple!"
           });
           this.getUnverifiedSprypleClient();
           this.spinner.hide();
@@ -413,15 +413,31 @@ export class SignUpComponent implements OnInit {
     var rzp1 = new Razorpay(this.options);
     rzp1.open();
     rzp1.on('payment.failed',  (response: any) => {
-      //this.message = "Payment Failed";
-      // Todo - store this information in the server
-       rzp1.close();
-       let dialogRef = this.dialog.open(ReusableDialogComponent, {
-        position:{top:`70px`},
-        disableClose: true,
-        data:'Your Payment failed.Please try again.'
+      rzp1.close();
+      let data ={
+        client_id_value:this.clientId,
+        company_code_value:this.companycode,
+        valid_from_date:this.date1,
+        valid_to_date:this.date2,
+        plan_id_value:this.planId,
+        number_of_users_value:this.users,
+        paid_amount:Math.floor(this.payamount),
+        company_email_value:this.email
+      }
+      this.mainService.paymentFailedMail(data).subscribe((result:any)=>{
+        if(result.status){
+         
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data:'Your Payment failed.Please try again.'
+  
+        });
 
-      });
+        }
+       
+      })
+       
 
       console.log(response.error.code);
       console.log(response.error.description);
