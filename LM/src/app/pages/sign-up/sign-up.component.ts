@@ -164,6 +164,20 @@ export class SignUpComponent implements OnInit {
        }
       }
     })
+    this.signUpForm.get('totalUsers')?.valueChanges.subscribe((selectedValue: any) => {
+      let cmpSize = this.signUpForm.controls.companySize.value;
+      if (selectedValue != null || '') {
+        if (selectedValue > cmpSize) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data:"Users count should not greater than company size"
+          });
+          this.signUpForm.controls.totalUsers.setValue("")
+        }
+      }
+     
+     })
 
     this.signUpForm.get('country')?.valueChanges.subscribe((selectedValue: any) => {
       this.stateDetails= [];
