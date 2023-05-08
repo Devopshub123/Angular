@@ -204,7 +204,7 @@ export class SignUpComponent implements OnInit {
         companySize: [""],
         totalUsers: ["",],
         IndustryType: [""],
-        mobile: ["",],
+        mobile:["",[Validators.required, Validators.pattern('[4-9]\\d{9}')]],
         contactPerson: ["",],
         companyemail:[this.email],
         password: [""],
