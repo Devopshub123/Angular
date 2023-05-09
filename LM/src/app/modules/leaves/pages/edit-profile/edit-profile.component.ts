@@ -155,6 +155,7 @@ export class EditProfileComponent implements OnInit {
             });
           } else {
             this.LM.getFilepathsMaster(1).subscribe((result) => {
+              console.log("data",result)
               if (result && result.status) {
                 let obj = {
                   id: this.profileId ? this.profileId : null,
@@ -179,9 +180,9 @@ export class EditProfileComponent implements OnInit {
                         this.spinner.hide();
                         if (data && data.status) {
                           if (this.profileId) {
-                            this.LMS.removeImage(this.profileInfo).subscribe(
-                              (data) => {}
-                            );
+                            // this.LMS.removeImage(this.profileInfo).subscribe(
+                            //   (data) => {}
+                            // );
                           }
                           this.MainComponent.getUploadImage();
                           this.dialog.open(ConfirmationComponent, {
