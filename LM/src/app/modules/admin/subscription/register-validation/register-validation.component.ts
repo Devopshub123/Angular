@@ -34,8 +34,8 @@ export class RegisterValidationComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      'companyname':['', Validators.required],
-      'username': ['', Validators.required],
+      'companyname':['',[Validators.minLength(5), Validators.required]],
+      'username': ['', [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),Validators.required]],
       // 'recaptcha': ['', Validators.required],
       
     });
@@ -117,5 +117,14 @@ export class RegisterValidationComponent implements OnInit {
    else{
     this.captchavalid = false;
    }
+  }
+  alphaNumberOnly(e: any) {  // Accept only alpha numerics, not special characters
+    var regex = new RegExp("^[a-zA-Z0-9 ]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+      return true;
+    }
+    e.preventDefault();
+    return false;
   }
 }

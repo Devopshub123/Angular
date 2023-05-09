@@ -14,7 +14,8 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                     <mat-label>Company Name</mat-label>
-                                    <input type="text"  formControlName="companyName" matInput maxlength="100" required/>
+                                    <input type="text"  formControlName="companyName" matInput maxlength="50" required
+                                    (keypress)="alphaNumberOnly($event)"/>
                                     <mat-error class="reg-error" *ngIf="signUpForm.controls.companyName.errors?.required ||
                                          signUpForm.controls.companyName.errors?.['whitespace']">
                                     This field is required.
@@ -44,7 +45,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
 
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>No Of Users</mat-label>
+                                    <mat-label>No. of Users</mat-label>
                                     <input type="text" onlyNumber formControlName="totalUsers" matInput
                                         maxlength="3" required/>
                                         <mat-error class="reg-error" *ngIf="signUpForm.controls.totalUsers.hasError('required')">
@@ -54,13 +55,13 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>GST Number</mat-label>
                                     <input type="text" formControlName="gstNumber" matInput
-                                        maxlength="15" minlength="6" numbersOnly />
+                                        maxlength="15" minlength="6" (keypress)=numberOnly($event) />
                                         <!-- <mat-error class="reg-error" *ngIf="signUpForm.controls.gstNumber.errors?.required">
                                             This fiels is required
                                             </mat-error> -->
                                     <mat-error class="reg-error"
                                         *ngIf="signUpForm.controls.gstNumber.errors?.minlength">
-                                        GST Number should be minimux 6 digits.
+                                        GST Number should be minimum 6 digits.
                                     </mat-error>
                                 </mat-form-field>
 
@@ -73,6 +74,9 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                     <mat-error class="reg-error" *ngIf="signUpForm.controls.mobile.hasError('required')">
                                         This field is required.
                                     </mat-error>
+                                    <mat-error class="con-error" *ngIf="signUpForm.get('mobile').hasError('pattern')">
+                                        Please enter valid mobile number
+                                      </mat-error>
                                 </mat-form-field>
 
 
@@ -169,7 +173,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                     <mat-label>Pincode</mat-label>
                                     <input type="text" formControlName="pincode" matInput
-                                        maxlength="6" minlength="6" numbersOnly required/>
+                                        maxlength="6" minlength="6" (keypress)="numberOnly($event)" required/>
                                         <mat-error class="reg-error" *ngIf="signUpForm.controls.pincode.errors?.required">
                                             This fiels is required.
                                             </mat-error>
@@ -245,7 +249,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                     </mat-form-field>
 
                                     <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                        <mat-label>No Of Users</mat-label>
+                                        <mat-label>No. of Users</mat-label>
                                         <input type="text" formControlName="totalusers" matInput [ngClass]="{'disable':true}" [readonly]="true"/>
                                     </mat-form-field>
                                     <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
@@ -295,7 +299,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                          <div style="text-align: center;">
                             <!-- Great job! <br> -->
                             <h2>You have successfully completed the payment process.<br> We are delighted to have you onboard as a Spryple subscriber.
-                            <br>Please verify your email for Invoice detials. </h2>
+                            <br>Please verify your email for Invoice details. </h2>
                          </div>
 
                        </mat-step>

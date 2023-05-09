@@ -12,7 +12,7 @@
 
               <div class="card-body p-4">
                 <p class="text-muted mb-4">
-                  <b >The company code should contain only alphabets and should be between 5 and 10 characters.This is the code your employees will enter along with their credentials at the time of login.</b>
+                  <b >The company code should contain only alphabets and should be between 5 to 10 characters. This is the code your employees will enter along with their credentials at the time of login.</b>
 
                   <!-- <b >The company code should contain only alphabets and should be between 5 and 10 characters. It is case insensitive.This is the code your employees will enter along with their credentials at the time of login.</b> -->
                 </p>
@@ -20,10 +20,14 @@
                   <mat-form-field fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Company Code</mat-label>
                     <input matInput class="form-control" type="text" formControlName="companyname"
-                    id="company" 
+                    id="company" (keypress)="alphaNumberOnly($event)"
                        placeholder="" minlength="5" maxlength="10" (keydown.space)="$event.preventDefault()"/>
                     <mat-error class="con-error" *ngIf="formGroup.controls.companyname.errors?.required">
                       This field is required.
+                    </mat-error>
+                    <mat-error class="reg-error" *ngIf="
+                    formGroup.controls.companyname.errors?.minlength">
+                    Company Code should be minimum 5 characters
                     </mat-error>
                   </mat-form-field>
 
@@ -38,6 +42,9 @@
                     <mat-error class="con-error" *ngIf="formGroup.controls.username.errors?.required">
                       This field is required.
                     </mat-error>
+                    <mat-error class="con-error" *ngIf="formGroup.controls.username.errors?.email">
+                      Please enter valid email
+                    </mat-error>
                   </mat-form-field>
 
                 </div>
@@ -48,10 +55,12 @@
 
                 
                 <div style="padding-left: 35px;">
-                  <ngx-recaptcha2 #captchaElem class="g-recaptcha" siteKey="6LcvK9klAAAAALiKILhAsIwwr225tF534gvOotQ7
+                  <ngx-recaptcha2 #captchaElem class="g-recaptcha"  data-type="image" siteKey="6LcvK9klAAAAALiKILhAsIwwr225tF534gvOotQ7
                   " (success)="handleSuccess($event,true)" [size]="size"
  [hl]="lang" [theme]="theme" [type]="type" >
 </ngx-recaptcha2>
+
+
 
                  
 

@@ -153,8 +153,8 @@ export class SignUpComponent implements OnInit {
     this.getCountry();
     // IndustryType
     this.signUpForm.get('IndustryType')?.valueChanges.subscribe((selectedValue: any) => {
-      if (selectedValue !=null) {
-        if(selectedValue.industry_type_name == 'Others'){
+      if (selectedValue != null) {
+        if(selectedValue == 6){
           this.hide = true;
           this.signUpForm.controls.others.setValue('')
        }
@@ -164,6 +164,20 @@ export class SignUpComponent implements OnInit {
        }
       }
     })
+    this.signUpForm.get('totalUsers')?.valueChanges.subscribe((selectedValue: any) => {
+      let cmpSize = this.signUpForm.controls.companySize.value;
+      if (selectedValue != null || '') {
+        if (selectedValue > cmpSize) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data:"Users count should not greater than company size"
+          });
+          this.signUpForm.controls.totalUsers.setValue("")
+        }
+      }
+     
+     })
 
     this.signUpForm.get('country')?.valueChanges.subscribe((selectedValue: any) => {
       this.stateDetails= [];
@@ -190,7 +204,7 @@ export class SignUpComponent implements OnInit {
         companySize: [""],
         totalUsers: ["",],
         IndustryType: [""],
-        mobile: ["",],
+        mobile:["",[Validators.required, Validators.pattern('[4-9]\\d{9}')]],
         contactPerson: ["",],
         companyemail:[this.email],
         password: [""],
@@ -315,7 +329,6 @@ export class SignUpComponent implements OnInit {
         this.date2 =value.todate;
         this.users =value.number_of_users;
         let dayscount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
-
         this.payamount = Math.floor((value.number_of_users*value.cost_per_user_monthly_bill*dayscount)/30);
         let disamount = this.numberWithCommas( this.payamount)
         this.PayviewForm.controls.plan.setValue(value.plan_name);
@@ -359,7 +372,7 @@ export class SignUpComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Congratulations! you are registerd with spryple successfully.Your company code is "+ this.signUpForm.controls.companyCode.value +"."
+            data:"Congratulations! You have successfully registered with Spryple. Your company code is "+ this.signUpForm.controls.companyCode.value +". Thank you for choosing Spryple!"
           });
           this.getUnverifiedSprypleClient();
           this.spinner.hide();
@@ -401,7 +414,6 @@ export class SignUpComponent implements OnInit {
     return parts.join(".");
 }
   paynow() {
-    console.log("gggg",this.payamount);
     let dataamount:any = (this.payamount*100);
 
     this.paymentId = '';
@@ -413,15 +425,31 @@ export class SignUpComponent implements OnInit {
     var rzp1 = new Razorpay(this.options);
     rzp1.open();
     rzp1.on('payment.failed',  (response: any) => {
-      //this.message = "Payment Failed";
-      // Todo - store this information in the server
-       rzp1.close();
-       let dialogRef = this.dialog.open(ReusableDialogComponent, {
-        position:{top:`70px`},
-        disableClose: true,
-        data:'Your Payment failed.Please try again.'
+      rzp1.close();
+      let data ={
+        client_id_value:this.clientId,
+        company_code_value:this.companycode,
+        valid_from_date:this.date1,
+        valid_to_date:this.date2,
+        plan_id_value:this.planId,
+        number_of_users_value:this.users,
+        paid_amount:Math.floor(this.payamount),
+        company_email_value:this.email
+      }
+      this.mainService.paymentFailedMail(data).subscribe((result:any)=>{
+        if(result.status){
+         
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position:{top:`70px`},
+          disableClose: true,
+          data:'Your Payment failed.Please try again.'
+  
+        });
 
-      });
+        }
+       
+      })
+       
 
       console.log(response.error.code);
       console.log(response.error.description);
@@ -430,16 +458,12 @@ export class SignUpComponent implements OnInit {
       console.log(response.error.reason);
       console.log(response.error.metadata.order_id);
       console.log(response.error.metadata.payment_id);
-      //this.error = response.error.reason;
     }
     );
   }
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event: any,stepper: MatStepper): void {
     this.message = "Success Payment";
-    console.log("data",event)
-    console.log("data",event.detail)
-
 let data ={
   client_id_value:this.clientId,
   company_code_value:this.companycode,
@@ -459,6 +483,23 @@ this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
     // this.myStepper.next();
   }
 })
+
+  }
+  alphaNumberOnly(e: any) {  // Accept only alpha numerics, not special characters
+    var regex = new RegExp("^[a-zA-Z0-9 ]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+      return true;
+    }
+    e.preventDefault();
+    return false;
+  }
+  numberOnly(event: any): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
 
   }
 }

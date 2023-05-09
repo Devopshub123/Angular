@@ -10,7 +10,8 @@
 
                 <mat-form-field fxFlex.xs="100" fxFlex="31" fxFlex.lt-lg="45" class="mx-2 my-2" appearance="outline">
                     <mat-label>Full Company Name</mat-label>
-                    <input formControlName="companyname" matInput [readonly]="isview" placeholder="" maxlength="100" required>
+                    <input formControlName="companyname" matInput [readonly]="isview" placeholder="" maxlength="100"
+                    (keypress)="alphaNumberOnly($event)" required>
                     <mat-error class="con-error" *ngIf="  companyForm.controls.companyname.errors?.required">
                       {{msgEM1}}
                   </mat-error>
