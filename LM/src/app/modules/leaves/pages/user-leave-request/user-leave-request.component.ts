@@ -224,6 +224,13 @@ export class UserLeaveRequestComponent implements OnInit {
 
       }
     });
+    this.leaveRequestForm.get('compoffApprovedDate')?.valueChanges.subscribe((selectedValue:any) => {
+      if(selectedValue != '' || selectedValue != null){
+        console.log("compoffApprovedDatecompoffApprovedDatecompoffApprovedDate")
+
+      }
+     
+    });
 
 
       this.leaveRequestForm.get('toDate')?.valueChanges.subscribe((selectedValue: any) => {
@@ -242,7 +249,10 @@ export class UserLeaveRequestComponent implements OnInit {
       // if(selectedValue) {
 
       this.getDaystobedisabledfromdate();
-      if(selectedValue!=''){this.getCompOffValidityDuration(selectedValue)}
+      if(selectedValue!=''){
+        this.getCompOffValidityDuration(selectedValue);
+        this.minDate = new Date()
+      }
       // }
     });
 

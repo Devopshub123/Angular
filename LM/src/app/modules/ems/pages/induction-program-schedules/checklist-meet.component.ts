@@ -128,7 +128,7 @@ export class ChecklistMeetComponent implements OnInit {
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getCompanyInformation();
-    this.getProgramsMaster(null);
+    this.getProgramTypeMaster()
     this.getProgramSchedules(null, null);
     this.getEmployeeEmailData();
     this.dataSource.paginator = this.paginator;
@@ -180,7 +180,7 @@ export class ChecklistMeetComponent implements OnInit {
         }
       });
     this.checklistForm.get('programType')?.valueChanges.subscribe((selectedValue) => {
-        this.programId = selectedValue;
+        this.programId = selectedValue.program_id;
       if (this.programId != null) {
         this.conductlist = [];
         this.availableDepartments=[]
@@ -212,15 +212,14 @@ export class ChecklistMeetComponent implements OnInit {
 
   }
 
-  getProgramsMaster(pId: any) {
-    this.availableprogramtypes=[]
-    this.companyServices
-      .getMastertable('ems_programs_master', 1, 1, 1000, this.companyDBName)
-      .subscribe((data) => {
-        if (data.status) {
-          this.availableprogramtypes = data.data;
+  getProgramTypeMaster() {
+    this.availableprogramtypes=[];
+    this.companyServices.getActiveProgramTypes()
+      .subscribe((result: any) => {
+        if (result.status && result.data.length > 0) {
+          this.availableprogramtypes = result.data;
         }
-      });
+      })
   }
 
   getConductedEmployessList(programId: any, deptId: any) {

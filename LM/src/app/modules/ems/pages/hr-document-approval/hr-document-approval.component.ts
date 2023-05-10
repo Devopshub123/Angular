@@ -150,7 +150,7 @@ export class HrDocumentApprovalComponent implements OnInit {
     let dialogRef = this.dialog.open(ComfirmationDialogComponent, {
       position: { top: `10%` },
       disableClose: true,
-      data: { message: "Are you sure you want to reject document ? ", YES: 'YES', NO: 'NO' }
+      data: { message: "Are you sure you want to reject document ? ", YES: 'YES', NO: 'No' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'YES') {

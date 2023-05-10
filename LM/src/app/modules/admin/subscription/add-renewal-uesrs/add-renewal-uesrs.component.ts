@@ -69,6 +69,7 @@ export class AddRenewalUesrsComponent implements OnInit {
       email:any
       contactnumber:any
   array:any;
+  renewal:boolean=false;
   
 
   constructor(public datePipe: DatePipe,private router: Router,public dialog: MatDialog,private adminService: AdminService,private formBuilder: FormBuilder, private companyService: CompanySettingService,) { 
@@ -210,8 +211,8 @@ export class AddRenewalUesrsComponent implements OnInit {
         this.renewalDisplayInfoamount  = Math.floor((this.renewalvalue*Number(this.monthlycost)*30)/30);
         if(result .status){
           this.adddisplayrenewalhide = true;
-          let month = "For a month validity will extended to"+ result.data[0].valid_to_month +" and cost "+Math.floor((this.renewalvalue*this.monthlycost*30)/30)
-          let year = "For a month validity will extended to"+ result.data[0].valid_to_year +" and cost "+result.data[0].cost_for_year
+          let month = "For a month validity will extended to "+ result.data[0].valid_to_month +" and cost "+Math.floor((this.renewalvalue*this.monthlycost*30)/30)
+          let year = "For a month validity will extended to "+ result.data[0].valid_to_year +" and cost "+result.data[0].cost_for_year
           // this.array=[{id:"M",value:month},{id:"Y",value:year}]
           this.array=[{id:"M",value:month}]
         }
@@ -471,6 +472,11 @@ getClientSubscriptionDetails(){
       this.clientname=data.data[0].contact_name;
       this.email=data.data[0].company_email;
       this.contactnumber=data.data[0].mobile_number;
+      console.log("hgfjshdg",data.data[0].valid_to);
+      console.log("hgfjshdg",this.datePipe.transform(new Date(), 'yyyy-MM-dd'));
+      if(data.data[0].valid_to  == this.datePipe.transform(new Date(), 'yyyy-MM-dd')){
+        this.renewal=true;
+      }
     }
   })
 }

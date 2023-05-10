@@ -533,7 +533,7 @@ export class AttendanceRequestComponent implements OnInit {
     let dialogRef = this.dialog.open(LeavePoliciesDialogComponent, {
       position:{top:`70px`},
       disableClose: true,
-      data: {message:"Are you sure you want to delete ?",YES:'YES',NO:'NO'}
+      data: {message:"Are you sure you want to delete ?",YES:'YES',NO:'No'}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'YES') {

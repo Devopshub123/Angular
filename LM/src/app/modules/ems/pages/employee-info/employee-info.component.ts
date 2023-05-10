@@ -5,7 +5,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AdminService } from 'src/app/modules/admin/admin.service';
 import { ConfirmationComponent } from 'src/app/modules/leaves/dialog/confirmation/confirmation.component';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
@@ -15,7 +14,6 @@ import { ComfirmationDialogComponent } from '../../../../pages/comfirmation-dial
 import { NgxSpinnerService } from "ngx-spinner";
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { environment } from 'src/environments/environment';
 import * as _moment from 'moment';
 import { LeavesService } from 'src/app/modules/leaves/leaves.service';
 import { DecryptPipe } from 'src/app/custom-directive/encrypt-decrypt.pipe';
@@ -52,7 +50,7 @@ export class EmployeeInfoComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private dialog: MatDialog, private mainService: MainService, private router: Router, private activeroute: ActivatedRoute,
-    private adminService: AdminService, private spinner: NgxSpinnerService,
+    private spinner: NgxSpinnerService,
     private LM: LeavesService,private activatedRoute: ActivatedRoute, private emsService: EmsService) {
     this.formData = new FormData();
     this.companyDBName = sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
@@ -211,6 +209,8 @@ export class EmployeeInfoComponent implements OnInit {
   isEnable = false;
   flag: boolean = true;
   roleArray: any = [];
+  isNewire: boolean = false;
+  isDirectory: boolean = false;
   ngOnInit(): void {
     this. maxBirthDate = new Date();
     this.maxBirthDate.setMonth(this.maxBirthDate.getMonth() - 12 * 18);
@@ -227,11 +227,13 @@ export class EmployeeInfoComponent implements OnInit {
     }
     /** through new hired list */
     if (this.activeroute.snapshot.params.candId != 0 && this.activeroute.snapshot.params.candId != null) {
-      this.candidateId = this.decryptPipe.transform(this.activeroute.snapshot.params.candId)
+      this.isNewire = true;
+      this.candidateId = this.decryptPipe.transform(this.activeroute.snapshot.params.candId);
       this.getLoginCandidateData();
     }
     /** through employee directory */
     if (this.activeroute.snapshot.params.empId != 0 && this.activeroute.snapshot.params.empId != null) {
+      this.isNewire = false;
       this.employeeId = this.decryptPipe.transform(this.activeroute.snapshot.params.empId)
       this.empId =this.decryptPipe.transform(this.activeroute.snapshot.params.empId);
       this.getEmployeeInformationList();
@@ -2399,8 +2401,13 @@ export class EmployeeInfoComponent implements OnInit {
   }
 
   backArrow() {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate(["/ems/employeeDirectory"]));
+    if (this.isNewire ==true) {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+      this.router.navigate(["/ems/new-hired-list"]));  
+    } else {
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/ems/employeeDirectory"])); 
+    }
   }
   getCompanyInformation(){
     this.companyService.getCompanyInformation('companyinformation',null,1,10,this.companyDBName).subscribe((data:any)=>{

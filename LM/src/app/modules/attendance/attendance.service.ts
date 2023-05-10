@@ -115,4 +115,7 @@ export class AttendanceService {
     data.companyName =this.companyName
     return this.http.post(this.mainUrl+'attendance/api/getEmployeeWeekoffsHolidaysForAttendance',data,this.httpOptions)
   }
+  getEmployeeInformation(id: any): Observable<any> {
+    return this.http.get(this.mainUrl + 'api/getEmployeeInformation/' + id+'/'+this.companyName, this.httpOptions);
+  }
 }

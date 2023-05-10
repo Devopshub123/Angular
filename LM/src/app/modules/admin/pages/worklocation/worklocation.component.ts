@@ -120,7 +120,7 @@ export class WorklocationComponent implements OnInit {
     this.worklocationForm = this.formBuilder.group({
       address1: [''],
       address2: [''],
-      branch: [''],
+      branch: ['', Validators.required],
       country: ['', Validators.required],
       state: ['', Validators.required],
       city: ['', Validators.required],
