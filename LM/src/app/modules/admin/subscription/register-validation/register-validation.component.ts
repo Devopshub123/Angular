@@ -31,7 +31,7 @@ export class RegisterValidationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
     private tss: LoginService, private router: Router,private AS: AdminService,
     private activatedRoute: ActivatedRoute,) { }
-
+  isVerified: boolean = false;
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       'companyname':['',[Validators.minLength(5), Validators.required]],

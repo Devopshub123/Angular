@@ -243,13 +243,12 @@ export class InductionConductedByMasterComponent implements OnInit {
 
   getProgramTypeMaster() {
     this.availableprogramtypes=[];
-    this.companyServices
-      .getMastertable('ems_programs_master', 1, 1, 1000, this.companyDBName)
-      .subscribe((data) => {
-        if (data.status) {
-          this.availableprogramtypes = data.data;
+    this.companyServices.getActiveProgramsMaster()
+      .subscribe((result: any) => {
+        if (result.status && result.data.length != 0) {
+          this.availableprogramtypes = result.data;
         }
-      });
+      })
   }
 
   getDepartmentsMaster() {

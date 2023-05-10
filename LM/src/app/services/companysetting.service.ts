@@ -180,8 +180,12 @@ import { environment } from 'src/environments/environment';
   getActiveEmployeesCount(){
     this.companyName = sessionStorage.getItem('companyName')?sessionStorage.getItem('companyName'):null
     return this.hClient.get(this.mainBeUrl +'api/getActiveEmployeesCount/'+this.companyName , this.httpOptions);
-
   }
-  // /api/getActiveEmployeesCount/:companyName
 
+  getActiveProgramsMaster(){
+    return this.hClient.get(this.mainBeUrl +'api/getActiveProgramsMaster/'+this.companyName , this.httpOptions);
+  }
+  getActiveProgramTypes(){
+    return this.hClient.get(this.mainBeUrl +'api/getActiveProgramTypes/'+this.companyName , this.httpOptions);
+  }
 }

@@ -21,7 +21,7 @@
                         <mat-select required formControlName="programType">
                             <ng-container>
                                 <div *ngFor="let r of availableprogramtypes">
-                                    <mat-option [value]="r.id">{{r.description}}</mat-option>
+                                    <mat-option [value]="r.program_id">{{r.description}}</mat-option>
                                 </div>
 
                             </ng-container>

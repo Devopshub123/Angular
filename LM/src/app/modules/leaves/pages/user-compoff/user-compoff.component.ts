@@ -61,6 +61,7 @@ export class UserCompoffComponent implements OnInit {
   today:any=new Date();
   ishide:boolean=true;
   isview:boolean=false;
+  isReject:boolean=false;
   displayedColumns: string[] = ['appliedon','workeddate','hours','status','approver','action'];
   dataSource: MatTableDataSource<any>=<any>[];
   @ViewChild(MatPaginator)
@@ -251,8 +252,11 @@ export class UserCompoffComponent implements OnInit {
   }
 
   }
-  view(data:any){
+  view(data: any) {
     this.isview= true;
+    if (data.status != "Approved") {
+      this.isReject= true;
+    }
     this.CompoffForm.controls.empId.setValue()
     this.CompoffForm.controls.empName.setValue(1)
     this.CompoffForm.controls.workeddate.setValue(new Date(data.comp_off_date))  

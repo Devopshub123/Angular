@@ -508,4 +508,10 @@ this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
     return true;
 
   }
+  preventLeadingZero(event:any) {
+    const input = event.target.value;
+    if (input.length === 0 && event.which === 48) {
+      event.preventDefault();
+    }
+  }
 }
