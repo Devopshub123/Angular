@@ -59,13 +59,11 @@
                   " (success)="handleSuccess($event,true)" [size]="size"
  [hl]="lang" [theme]="theme" [type]="type" >
 </ngx-recaptcha2>
-
-
-
-                 
-
-
+<mat-error class="con-error" *ngIf="issubmit&&!captchavalid">
+  Please check captcha.
+</mat-error>
                 </div>
+              
                   <!-- <ngx-recaptcha2 #captchaElem class="g-recaptcha" data-sitekey="6Le38DQlAAAAAMt_v6jUWPLGk6CfPESwpcDn9hUV" (success)="handleSuccess($event)" [size]="size"
  [hl]="lang" [theme]="theme" [type]="type" formControlName="recaptcha">
 </ngx-recaptcha2> -->

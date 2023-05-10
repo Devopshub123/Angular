@@ -22,6 +22,8 @@ export class RegisterValidationComponent implements OnInit {
   public captchaIsExpired = false;
   public captchaResponse?: string;
   captchavalid:boolean=false;
+  issubmit:boolean=false;
+  isVerified:boolean=false;
 
   public theme: 'light' | 'dark' = 'light';
   public size: 'compact' | 'normal' = 'normal';
@@ -31,7 +33,7 @@ export class RegisterValidationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,
     private tss: LoginService, private router: Router,private AS: AdminService,
     private activatedRoute: ActivatedRoute,) { }
-  isVerified: boolean = false;
+
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       'companyname':['',[Validators.minLength(5), Validators.required]],
@@ -41,6 +43,7 @@ export class RegisterValidationComponent implements OnInit {
     });
   }
   submit(){
+    this.issubmit = true;
    if( this.captchavalid &&  this.formGroup.controls.companyname.value !='' && this.formGroup.controls.username.value !=''){
      let data = {
       company_name_value:null,
