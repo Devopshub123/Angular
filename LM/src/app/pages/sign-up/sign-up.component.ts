@@ -329,7 +329,6 @@ export class SignUpComponent implements OnInit {
         this.date2 =value.todate;
         this.users =value.number_of_users;
         let dayscount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
-
         this.payamount = Math.floor((value.number_of_users*value.cost_per_user_monthly_bill*dayscount)/30);
         let disamount = this.numberWithCommas( this.payamount)
         this.PayviewForm.controls.plan.setValue(value.plan_name);
@@ -415,7 +414,6 @@ export class SignUpComponent implements OnInit {
     return parts.join(".");
 }
   paynow() {
-    console.log("gggg",this.payamount);
     let dataamount:any = (this.payamount*100);
 
     this.paymentId = '';
@@ -460,16 +458,12 @@ export class SignUpComponent implements OnInit {
       console.log(response.error.reason);
       console.log(response.error.metadata.order_id);
       console.log(response.error.metadata.payment_id);
-      //this.error = response.error.reason;
     }
     );
   }
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event: any,stepper: MatStepper): void {
     this.message = "Success Payment";
-    console.log("data",event)
-    console.log("data",event.detail)
-
 let data ={
   client_id_value:this.clientId,
   company_code_value:this.companycode,
