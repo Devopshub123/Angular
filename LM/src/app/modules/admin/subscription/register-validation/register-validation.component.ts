@@ -88,14 +88,15 @@ export class RegisterValidationComponent implements OnInit {
   
       }
      this.AS.Validateemail(data).subscribe((result:any)=>{
-      if(result.status){
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data:result.message
-        });
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/Validateemail"]));
+       if (result.status) {
+         this.isVerified = true;
+        // let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        //   position:{top:`70px`},
+        //   disableClose: true,
+        //   data:result.message
+        // });
+        // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        //       this.router.navigate(["/Validateemail"]));
       }
       else{
         let dialogRef = this.dialog.open(ReusableDialogComponent, {

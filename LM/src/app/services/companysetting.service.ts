@@ -188,4 +188,8 @@ import { environment } from 'src/environments/environment';
   getActiveProgramTypes(){
     return this.hClient.get(this.mainBeUrl +'api/getActiveProgramTypes/'+this.companyName , this.httpOptions);
   }
+
+  getActiveBranchCities(){
+    return this.hClient.get(this.mainBeUrl +'api/getActiveBranchCities/'+this.companyName , this.httpOptions);
+  }
 }

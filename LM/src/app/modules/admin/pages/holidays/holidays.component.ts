@@ -127,12 +127,15 @@ export class HolidaysComponent implements OnInit {
       itemdata: this.formBuilder.array([])
     });
   }
-  getWorkLocation(){
-    this.companyService.getactiveWorkLocation({id:null,companyName:this.companyDBName}).subscribe((result)=>{
-      this.worklocationDetails=result.data;
-    })
-
+  getWorkLocation() {
+    this.companyService.getActiveBranchCities()
+      .subscribe((result: any) => {
+        if (result.status) {
+          this.worklocationDetails = JSON.parse(result.data)
+        }
+      })
   }
+
   itemdata(): FormArray {
     return this.HolidayForm.get("edu") as FormArray
   }
