@@ -26,7 +26,7 @@ export class ReportsService {
   getTotalEmployeslist(): Observable<any>{
     return this.http.get(this.mainUrl + 'attendance/api/getallemployeeslist/'+this.companyName,this.httpOptions);
   }
-  getTotalEmployeslistByManagerId(data:any): Observable<any>{
+  getTotalEmployeslistByManagerId(data: any): Observable<any>{
     data.companyName = this.companyName;
     return this.http.post(this.mainUrl + 'attendance/api/getallemployeeslistByManagerId',data,this.httpOptions);
   }

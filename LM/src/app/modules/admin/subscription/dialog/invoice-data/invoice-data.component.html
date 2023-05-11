@@ -28,8 +28,13 @@
     </div>
     <div style="width: 40%;">
         <p><b>Company Name: </b> {{cname}}</p>
-        <p><b>Billing Address: </b> {{address1}}</p>
-        <p>{{address2}}{{' '}}{{location}}</p>
+        <p><b>Billing Address: </b> {{address1}},</p>
+        <span *ngIf="address2 !=null || address2 !='' ">
+            <p>{{address2}}{{', '}}{{location}},</p>
+        </span>
+        <span *ngIf="address2 ==null || '' ">
+            <p>{{location}},</p>
+        </span>
         <p>{{state}},{{country}}-{{pincode}}</p>
     </div>
     

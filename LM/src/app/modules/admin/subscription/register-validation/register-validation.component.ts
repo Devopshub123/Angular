@@ -107,6 +107,7 @@ export class RegisterValidationComponent implements OnInit {
           disableClose: true,
           data:result.message
         });
+         this.formGroup.controls.companyname.reset();
       }
     })
 

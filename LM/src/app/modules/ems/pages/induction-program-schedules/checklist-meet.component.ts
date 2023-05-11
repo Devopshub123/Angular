@@ -180,7 +180,7 @@ export class ChecklistMeetComponent implements OnInit {
         }
       });
     this.checklistForm.get('programType')?.valueChanges.subscribe((selectedValue) => {
-        this.programId = selectedValue.program_id;
+        this.programId = selectedValue;
       if (this.programId != null) {
         this.conductlist = [];
         this.availableDepartments=[]

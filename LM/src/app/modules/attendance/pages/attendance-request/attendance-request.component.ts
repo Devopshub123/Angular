@@ -583,7 +583,9 @@ export class AttendanceRequestComponent implements OnInit {
     })
   }
   requestView(event: any) {
-    this.requestform.controls.comment.setValue("");
+    if (event.comment != null || "") {
+      this.requestform.controls.comment.setValue("");
+    }
     this.isRequestView = true;
     this.isEditView = false;
     this.isCommentView = false;
