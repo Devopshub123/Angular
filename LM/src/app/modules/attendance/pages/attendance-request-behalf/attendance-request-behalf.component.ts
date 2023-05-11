@@ -119,7 +119,9 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     this.getAttendanceRequestListByEmpId();
 
     this.requestform.get("employeeName")?.valueChanges.subscribe(selectedValue => {
+      console.log("selectedValue",selectedValue)
      // this.getEmployeeShiftDetails(selectedValue);
+     this.getEmployeeInformation(selectedValue)
      this.requestform.get('workType')?.enable();
      this.getEmployeeWeekoffsHolidaysForAttendance();
 
@@ -441,6 +443,19 @@ export class AttendanceRequestBehalfComponent implements OnInit {
      }
 
    })
+ }
+ getEmployeeInformation(id:any){
+  this.attendanceService.getEmployeeInformation(id).subscribe((res) => {
+    if(res.status){
+      // this.minFromDate =new Date(res.data[0].dateofjoin);
+      // console.log(new Date(res.data[0].dateofjoin))
+      // console.log(this.currentDate)
+      // this.minFromDate.setDate(this.currentDate.getDate() - 31);
+    }
+  
+    
+  })
+
  }
 }
 

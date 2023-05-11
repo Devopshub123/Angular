@@ -479,7 +479,7 @@ this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
   if(result.status){
     // this.ngOnInit();
     this.myStepper.next();
-    // this.myStepper.next();
+    this.myStepper.next();
     // this.myStepper.next();
   }
 })

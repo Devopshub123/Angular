@@ -53,7 +53,10 @@
 
         <mat-form-field fxFlex.xs="100" fxFlex fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
           <mat-label>Branch Location</mat-label>
-          <input formControlName="branch" matInput placeholder="" maxlength="100" />
+          <input formControlName="branch" matInput placeholder="" maxlength="100" required />
+          <mat-error class="con-error" *ngIf="worklocationForm.controls.branch.errors?.required">
+            {{ msgEM1 }}
+          </mat-error>
         </mat-form-field>
 
       </div>
