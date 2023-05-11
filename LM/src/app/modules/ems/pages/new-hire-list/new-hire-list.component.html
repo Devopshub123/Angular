@@ -45,8 +45,9 @@
           <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
             <mat-label>Personal Email</mat-label>
             <input formControlName="email" matInput placeholder="" maxlength>
-            <mat-error class="con-error" *ngIf="hireForm.controls.email.errors?.email">
-              Please enter valid data
+            <mat-error class="con-error" *ngIf="hireForm.controls.email.errors?.email ||
+            hireForm.controls.email.errors?.pattern">
+              Please enter valid email
             </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">

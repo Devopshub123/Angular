@@ -180,10 +180,10 @@
                                 <mat-label>Personal Email</mat-label>
                                 <input type="text" formControlName="personalemail" matInput placeholder=""
                                     maxlength="50" />
-                                <!-- <mat-error class="reg-error"
-                            *ngIf="personalInfoForm.controls.personalemail.errors?.required">
-                                {{ EM1 }}
-                            </mat-error> -->
+                                <mat-error class="reg-error"
+                                 *ngIf="personalInfoForm.controls.personalemail.errors?.pattern">
+                                 Please enter valid email
+                            </mat-error>
                             </mat-form-field>
                         </div>
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
@@ -260,10 +260,10 @@
                                 <mat-label>Official Email</mat-label>
                                 <input type="text" maxlength="100" formControlName="officeemail" matInput
                                     placeholder="" />
-                                <!-- <mat-error class="con-error"
-                                *ngIf="personalInfoForm.controls.officeemail.errors?.required">
-                                {{EM1}}
-                            </mat-error> -->
+                                <mat-error class="con-error"
+                                *ngIf="personalInfoForm.controls.officeemail.errors?.pattern">
+                                Please enter valid email
+                            </mat-error>
                             </mat-form-field>
 
                             <!-- <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">

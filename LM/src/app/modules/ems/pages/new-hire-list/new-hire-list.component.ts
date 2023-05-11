@@ -100,7 +100,7 @@ export class NewHireListComponent implements OnInit {
       firstname: ["",[Validators.required,this.noWhitespaceValidator()]],
       lastname: ["",[Validators.required,this.noWhitespaceValidator()]],
       middlename:[""],
-      email:["",[Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      email:["",[Validators.email, Validators.pattern('^[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}')]],
       dateofjoin:["",[Validators.required,]],
       hiredon:["",[Validators.required,]],
       designation:["",[Validators.required,]],
