@@ -107,7 +107,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                     <mat-label>Address 1</mat-label>
                                     <input type="text" formControlName="address1" matInput maxlength="100"  required/>
                                     <mat-error class="reg-error" *ngIf="signUpForm.controls.address1.errors?.required">
-                                    This fiels is required.
+                                        This field is required.
                                     </mat-error>
                                 </mat-form-field>
 
@@ -118,10 +118,10 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
 
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                     <mat-label>Address 2</mat-label>
-                                    <input type="text"  formControlName="address2" matInput  maxlength="100"  required/>
-                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.address2.errors?.required">
-                                    This fiels is required.
-                                    </mat-error>
+                                    <input type="text"  formControlName="address2" matInput  maxlength="100" />
+                                    <!-- <mat-error class="reg-error" *ngIf="signUpForm.controls.address2.errors?.required">
+                                        This field is required.
+                                    </mat-error> -->
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
@@ -175,7 +175,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                     <input type="text" formControlName="pincode" matInput
                                         maxlength="6" minlength="6" (keypress)="numberOnly($event)" required/>
                                         <mat-error class="reg-error" *ngIf="signUpForm.controls.pincode.errors?.required">
-                                            This fiels is required.
+                                            This field is required.
                                             </mat-error>
                                     <mat-error class="reg-error"
                                         *ngIf="signUpForm.controls.pincode.errors?.minlength">
@@ -207,7 +207,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                     <mat-label>Enter Industry type</mat-label>
                                     <input type="text" formControlName="others" matInput required/>
                                         <mat-error class="reg-error" *ngIf="signUpForm.controls.others.errors?.required">
-                                            This fiels is required.
+                                            This field is required.
                                             </mat-error>
                                 </mat-form-field>
                             </div>

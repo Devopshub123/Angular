@@ -127,7 +127,7 @@ export class UsersLoginComponent implements OnInit {
         if (email != undefined) {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             disableClose: true,
-            data: 'User ID is already exist',
+            data: 'User ID is already exists',
           });
         } else {
           this.saveUserLogin();

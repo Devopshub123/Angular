@@ -8,12 +8,14 @@
                 <form [formGroup]="addausersForm">
                 <p>Existing Users <input type="number" [readonly]="true" formControlName="addexistingusers"/></p>
             </form>
-                Add Users <button class="plusminus" (click)="handleMinus()" [disabled]="disable">-</button>&nbsp;
+                Add Users 
+                <span style="padding-left: 32px;">
+            <button class="plusminus" (click)="handleMinus()" [disabled]="disable">-</button>&nbsp;
             <input type="number" class="num" value="0" [(ngModel)]="addvalue" />&nbsp;
             <button class="plusminus" (click)="handlePlus()">+</button>&nbsp;&nbsp;
             <button class="btn-primary" (click)="addUsersDisplayInfo()" *ngIf="!addUsersDisplayInfohide">Add</button>
             <!-- <p>28 in use,2 Available.</p> -->
-        
+        </span>
             </span>
             <!-- <span style="padding-top: 30px;">
                 <p>1800</p>
@@ -52,12 +54,14 @@
                 <form [formGroup]="renewalausersForm">
                 <p>Existing Users <input type="number"[readonly]="true"  formControlName="renewalexistingusers" /></p>&nbsp;
             </form>
-                Renew Users <button class="plusminus" (click)="handleMinusrenew()" [disabled]="disablerenew">-</button>&nbsp;
+                Renew Users 
+                <span style="padding-left: 17px;">
+                <button class="plusminus" (click)="handleMinusrenew()" [disabled]="disablerenew">-</button>&nbsp;
             <input type="number" class="num" value="0" [(ngModel)]="renewalvalue" />&nbsp;
             <button class="plusminus" (click)="handlePlusrenew()">+</button>&nbsp;&nbsp;
             <!-- <button class=" btn-primary " >Add</button> -->
             <!-- <p>28 in use,2 Available.</p> -->
-        
+        </span>
             </span>
             <!-- <span style="padding-top: 30px;">
                 <p>1800</p>

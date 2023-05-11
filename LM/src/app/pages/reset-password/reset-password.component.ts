@@ -116,7 +116,8 @@ export class ResetPasswordComponent implements OnInit {
   cancel(){
     this.formGroup.reset();
     this.formGroup.valid = true;
-
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate(["/Login"]));
 
   }
   getMessages(messageCode:any) {

@@ -351,8 +351,6 @@ locByDeptEmpsdoughnutChartData: any;
           this.shiftByDepartmentCountList.push(e.count); 
          })
       }
-      console.log("vb-0",res.data)
-      console.log("vb-1",this.shiftByDepartmentCountList)
       this.vbarChartType = 'horizontalBar';
       this.vbarChartData = {
         labels: this.shiftByDepartmentNameList,
@@ -378,7 +376,7 @@ locByDeptEmpsdoughnutChartData: any;
           xAxes: [{
               display: true,
               ticks: {
-                  suggestedMin: 10, //min
+                  suggestedMin: 5, //min
                   suggestedMax: 300 //max 
               }
           }]

@@ -27,7 +27,7 @@
                     <mat-label>Company Code</mat-label>
                     <input matInput class="form-control" type="text" formControlName="comapnyname"
                     id="company" formc
-                       placeholder="" maxlength="30" />
+                       placeholder="" maxlength="15" />
                     <mat-error class="con-error" *ngIf="formGroup.controls.comapnyname.errors?.required">
                       This field is required.
                     </mat-error>
@@ -63,7 +63,7 @@
                     </mat-form-field>
 
                   </div>
-                  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" style="padding-left: 8px;padding-left: 8px">
+                  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" style="padding-left: 8px;padding-right: 8px">
                     <div fxLayout="row" fxFlex="50">
                      <mat-checkbox formControlName="rememberme">
                        Remember Me
