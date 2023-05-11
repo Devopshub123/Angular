@@ -16,6 +16,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import { environment } from 'src/environments/environment';
 
 import * as _moment from 'moment';
+import { EmsService } from 'src/app/modules/ems/ems.service';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 
@@ -66,6 +67,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
 
   workTypeData: any;
   userSession: any;
+  employeeEmailData: any = [];
   shiftData: any;
   employeesData: any;
   userData: any;
@@ -87,7 +89,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   companyDBName:any = environment.dbName;
   constructor(private formBuilder: FormBuilder, private attendanceService: AttendanceService,
     public dialog: MatDialog, public datePipe: DatePipe, private router: Router,
-    private location: Location,private adminService: AdminService) {
+    private location: Location,private adminService: AdminService,private emsService: EmsService) {
     this.minFromDate = new Date();
     this.minFromDate.setDate(this.currentDate.getDate() - 31);
     this.maxFromDate = new Date();
@@ -120,7 +122,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
 
     this.requestform.get("employeeName")?.valueChanges.subscribe(selectedValue => {
       console.log("selectedValue",selectedValue)
-     // this.getEmployeeShiftDetails(selectedValue);
+     this.getEmployeeEmailData(selectedValue);
      this.getEmployeeInformation(selectedValue)
      this.requestform.get('workType')?.enable();
      this.getEmployeeWeekoffsHolidaysForAttendance();
@@ -366,7 +368,8 @@ export class AttendanceRequestBehalfComponent implements OnInit {
         "raisedby": this.userSession.id ?? '',
         "approvercomments": '',
         "actionby": this.userSession.id ?? '',
-        "status": 'Approved'
+        "status": 'Approved',
+        "emails": this.employeeEmailData,
 
       };
       this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res) => {
@@ -390,6 +393,13 @@ export class AttendanceRequestBehalfComponent implements OnInit {
       })
     }
   }
+  getEmployeeEmailData(userid:any) {
+    this.employeeEmailData = [];
+    this.emsService.getEmployeeEmailDataByEmpid(userid)
+      .subscribe((res: any) => {
+        this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
+      })
+  }
   resetform() {
     if (this.userData.userData != undefined) {
       this.router.navigate(["/Attendance/ManagerDashboard"]);
@@ -400,7 +410,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     }
   }
   getPageSizes(): number[] {
-     
+
   var customPageSizeArray = [];
   if (this.dataSource.data.length > 5) {
     customPageSizeArray.push(5);
@@ -447,13 +457,21 @@ export class AttendanceRequestBehalfComponent implements OnInit {
  getEmployeeInformation(id:any){
   this.attendanceService.getEmployeeInformation(id).subscribe((res) => {
     if(res.status){
-      // this.minFromDate =new Date(res.data[0].dateofjoin);
-      // console.log(new Date(res.data[0].dateofjoin))
-      // console.log(this.currentDate)
-      // this.minFromDate.setDate(this.currentDate.getDate() - 31);
+      //this.minFromDate =new Date(res.data[0].dateofjoin);
+      var userinfo=JSON.parse(res.data[0].json)[0];
+       console.log(new Date(userinfo.dateofjoin))
+      if(userinfo.dateofjoin !=null){
+        const dateofjoin = new Date(userinfo.dateofjoin);
+        const mindate = new Date(this.minFromDate);
+        if (mindate < dateofjoin) {
+          console.log('date1 is before date2');
+          this.minFromDate=dateofjoin;
+        }
+      }
+
     }
-  
-    
+
+
   })
 
  }

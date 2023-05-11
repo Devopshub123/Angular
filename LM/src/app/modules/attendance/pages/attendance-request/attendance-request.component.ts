@@ -113,6 +113,16 @@ export class AttendanceRequestComponent implements OnInit {
   ngOnInit(): void {
     this.getMessagesList();
     this.userData = this.location.getState();
+    this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+    if(this.userSession.dateofjoin !=null){
+      const dateofjoin = new Date(this.userSession.dateofjoin);
+      const mindate = new Date(this.minFromDate);
+      if (mindate < dateofjoin) {
+        console.log('date1 is before date2');
+        this.minFromDate=dateofjoin;
+      }
+    }
+
     this.todayWithPipe = this.pipe.transform(Date.now(), 'dd-MM-yyyy');
     this.requestform = this.formBuilder.group(
       {
@@ -124,7 +134,6 @@ export class AttendanceRequestComponent implements OnInit {
         reason: ['', [Validators.required,this.noWhitespaceValidator()]],
         comment: [''],
       });
-    this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.getWorkypeList();
     //  this.getEmployeeShiftDetails()
     this.getAttendanceRequestListByEmpId();
@@ -141,6 +150,7 @@ export class AttendanceRequestComponent implements OnInit {
         });
         this.minToDate=new Date(this.userData.userData.absent_date);
       this.getEmployeeShiftDetailsByIdWithDates();
+
     }
     this.requestform.get('workType')?.valueChanges.subscribe(selectedValue => {
       if (selectedValue) {
@@ -254,7 +264,7 @@ export class AttendanceRequestComponent implements OnInit {
       }
     });
   }
-  getEmployeeWeekoffsHolidaysForAttendance() {
+   getEmployeeWeekoffsHolidaysForAttendance() {
     let data = {
       "employee_id": this.userSession.id,
     }
@@ -295,29 +305,34 @@ export class AttendanceRequestComponent implements OnInit {
           }
           if (this.regularizationdays.length > 0) {
             this.regularizationdays.forEach((i: any) => {
-              let date = i + ' ' + '00:00:00'
+              let date = i + ' ' + '00:00:00';
               this.disableDates.push(new Date(date));
-            });
+              });
           }
           this.myDateFilter = (d: Date): boolean => {
             let isValid=true;
-            if (!this.isEditView) {
-              this.disableDates.forEach((e:any) => {
-                if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
-                  isValid=false;
-                }
-              });
-              
-            }
-            else {
-              this.disableDates.forEach((e:any) => {
-                if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(   this.requestform.controls.fromDate.value, 'yyyy/MM/dd')){
-                  isValid=true;
-                }
-              });
-              
-            }
-         
+            this.disableDates.forEach((e:any) => {
+              if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
+                isValid=false;
+              }
+            });
+            // if (!this.isEditView) {
+            //   this.disableDates.forEach((e:any) => {
+            //     if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
+            //       isValid=false;
+            //     }
+            //   });
+
+            // }
+            // else {
+            //   this.disableDates.forEach((e:any) => {
+            //     if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(   this.requestform.controls.fromDate.value, 'yyyy/MM/dd')){
+            //       isValid=true;
+            //     }
+            //   });
+
+            //}
+
 
             return isValid;
 
@@ -423,7 +438,7 @@ export class AttendanceRequestComponent implements OnInit {
 
   }
   getPageSizes(): number[] {
-     
+
   var customPageSizeArray = [];
   if (this.dataSource.data.length > 5) {
     customPageSizeArray.push(5);
@@ -437,14 +452,14 @@ export class AttendanceRequestComponent implements OnInit {
   customPageSizeArray.push(this.dataSource.data.length);
   return customPageSizeArray;
   }
-  editRequest(event: any) {
+  async editRequest(event: any) {
     this.uniqueId = event.id;
     this.isRequestView = false;
     this.isEditView = true;
-    this.getEmployeeWeekoffsHolidaysForAttendance();
+  await this.getEmployeeWeekoffsHolidaysForAttendance();
     // this.myDateFilter = (d: Date): any => {
     //   let isValid=true;
-      
+
     // this.disableDates.forEach((e:any) => {
     //   if(this.pipe.transform(e, 'yyyy/MM/dd') == this.pipe.transform(d, 'yyyy/MM/dd')){
     //     isValid=true;
@@ -539,7 +554,7 @@ export class AttendanceRequestComponent implements OnInit {
       if (result == 'YES') {
         this.deleteRequest(event)
       } else {
-        
+
       }
       });
   }
