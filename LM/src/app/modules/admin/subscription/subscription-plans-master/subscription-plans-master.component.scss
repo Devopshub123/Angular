@@ -1,0 +1,34 @@
+.headerbox{
+    height: 45px;
+    background-color: #28acaf !important;
+    align-items: center;
+  }
+  .title{
+    font-family: "Roboto";
+    font-size: 20px;
+    font-weight: 500;
+     font-stretch: normal;
+     font-style: normal;
+    letter-spacing: 0.32px;
+    color: #ffffff;
+    margin-bottom: 0px;
+  }
+.dev-Pad{
+    padding-top: 1%;
+    padding-right: 8px;
+  }
+  mat-card {
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+    position: relative;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  
+  ::ng-deep tr.mat-header-row {
+    height: 45px !important
+  }
+  .table-pad{
+    padding-left: 15px;
+    padding-right: 15px;
+  }

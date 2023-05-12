@@ -40,11 +40,12 @@ export class ClientAdminSubscriptionComponent implements OnInit {
   /** */
   isOther: boolean = false;
   constructor(private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog,
-    private adminService: AdminService,private companyService: CompanySettingService,) {
+    private adminService: AdminService, private companyService: CompanySettingService,) {
+    this.getActiveEmployeesCount();
       this.getClientSubscriptionDetailswithshortcode();
 
    }
-
+  activeemployeecount: any;
   ngOnInit(): void {
 
     this.subscriptionForm=this.formBuilder.group(
@@ -81,7 +82,7 @@ export class ClientAdminSubscriptionComponent implements OnInit {
         this.subscriptionForm.controls.companyCode.setValue(value[0].company_code);
         this.subscriptionForm.controls.subscriptionId.setValue(value[0].subscription_id);
         this.subscriptionForm.controls.plan.setValue(value[0].plan_name);
-        this.subscriptionForm.controls.takenUsers.setValue(value[0].user_count);
+        this.subscriptionForm.controls.takenUsers.setValue(value[0].user_count +" ( "+ this.activeemployeecount+" in use)");
         this.subscriptionForm.controls.monthlyCost.setValue(value[0].cost_per_user_monthly_bill);
         //this.subscriptionForm.controls.yearlyCost.setValue(value[0].company_code);
         this.subscriptionForm.controls.totalPaidAmt.setValue(value[0].amount_paid);
@@ -131,5 +132,12 @@ export class ClientAdminSubscriptionComponent implements OnInit {
 
       }
     })
+  }
+  getActiveEmployeesCount(){
+    this.companyService.getActiveEmployeesCount().subscribe((data: any) => {
+      if (data.status && data.data.length != 0) {
+        this.activeemployeecount = data.data[0].active_employees_count;
+      }
+    });
   }
 }

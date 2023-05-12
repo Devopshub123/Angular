@@ -197,6 +197,14 @@ locByDeptEmpsdoughnutChartData: any;
       })  
   }
   getWorkLocation() {
+    // this.companyService.getActiveBranchCities()
+    // .subscribe((result: any) => {
+    //   if (result.status) {
+    //     this.workLocationList = JSON.parse(result.data);
+    //     this.locationId = this.workLocationList.id;
+    //     this.dashBoardForm.controls.location.setValue(this.workLocationList.id);
+    //   }
+    // })
     this.adminService.getactiveWorkLocation({ id: null, companyName: this.companyName }).subscribe((result) => {
       this.workLocationList = result.data;
       this.locationId = result.data[0].id;
@@ -398,10 +406,7 @@ locByDeptEmpsdoughnutChartData: any;
             this.locationByDepartmentNameLis.push(e.deptname);
             this.locationByDepartmentCountLis.push(e.count);  
           }
-            
           })
-          console.log("d-0",res.data)
-          console.log("d-1",this.locationByDepartmentCountLis)
          this.locByDeptEmpsdoughChartType = 'doughnut';
          this.locByDeptEmpsdoughnutChartData = {
            labels: this.locationByDepartmentNameLis,

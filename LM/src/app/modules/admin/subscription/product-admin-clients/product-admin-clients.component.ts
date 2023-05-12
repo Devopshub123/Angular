@@ -24,16 +24,7 @@ export class ProductAdminClientsComponent implements OnInit {
   ngOnInit(): void {
     this.getSprypleClients();
   }
-  applyFilter(event: Event) {
-    console.log("jhdfsj")
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-}
 getSprypleClients(){
   this.adminService.getAllSprypleClients().subscribe((result:any)=>{
     if(result.status&&result.data.length>0){
@@ -42,6 +33,14 @@ getSprypleClients(){
     }
    
   })
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+
 }
 getPageSizes(): number[] {
   var customPageSizeArray = [];

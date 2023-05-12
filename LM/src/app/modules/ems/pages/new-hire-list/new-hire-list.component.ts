@@ -120,7 +120,6 @@ export class NewHireListComponent implements OnInit {
   }
   getDesignationsMaster() {
     this.companyService.getMastertable('designationsmaster', '1', 1, 1000, this.companyDBName).subscribe(data => {
-      console.log("ggggg",data.data)
       this.designationsList = data.data;
     })
   }
@@ -425,7 +424,7 @@ export class NewHireListComponent implements OnInit {
     })
   }
   getClientSubscriptionDetails(){
-    this.companyService.getClientSubscriptionDetails().subscribe((data:any)=>{
+    this.companyService.getClientSubscriptionDetails().subscribe((data: any) => {
       if (data.status && data.data.length != 0) {
         if(data.data[0].user_count>this.activeemployeecount){
           
@@ -445,12 +444,12 @@ export class NewHireListComponent implements OnInit {
     })
   }
   getActiveEmployeesCount(){
-    this.companyService.getActiveEmployeesCount().subscribe((data:any)=>{
+    this.companyService.getActiveEmployeesCount().subscribe((data: any) => {
       if (data.status && data.data.length != 0) {
         this.getClientSubscriptionDetails();
-        this.activeemployeecount=data.data[0].active_employees_count
+        this.activeemployeecount = data.data[0].active_employees_count;
       }
-});
+    });
   }
 }
 

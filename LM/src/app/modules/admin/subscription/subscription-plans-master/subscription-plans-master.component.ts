@@ -145,8 +145,6 @@ export class SubscriptionPlansMasterComponent implements OnInit {
     this.adminService.getSpryplePlans().subscribe((result:any)=>{
       if(result.status&&result.data.length>0){
         this.dataSource = result.data;
-        console.log(this.dataSource)
-
       }
     })
   }
@@ -221,11 +219,7 @@ export class SubscriptionPlansMasterComponent implements OnInit {
       if(result.status&& result.data.length>0){
         for(let i=0;i<result.data.length;i++){
           this.modulesList.push({"id":result.data[i].id,"modulename":result.data[i].modulename});
-          // this.modulesList[i].push(result.data[i].modulename)
-        }
-        // this.modulesList=result.data;
-        console.log(this.modulesList)
-        // this.subscriptionForm.controls.modules.setValue(this.modulesList)
+         }
       }
 
 
