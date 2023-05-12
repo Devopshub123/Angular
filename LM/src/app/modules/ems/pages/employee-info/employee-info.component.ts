@@ -394,13 +394,13 @@ export class EmployeeInfoComponent implements OnInit {
     this.experienceForm.get('expFromDate')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != null) {
         this.minExperienceDate = selectedValue._d;
-       
+
       }
     })
     this.educationForm.get('eduFromDate')?.valueChanges.subscribe((selectedValue: any) => {
       if (selectedValue != null) {
         this.minEducationDate = selectedValue._d;
-       
+
       }
     })
     /////////
@@ -442,8 +442,8 @@ export class EmployeeInfoComponent implements OnInit {
   onEduDateChange() {
     this.educationForm.controls.eduToDate.setValue('')
   }
-  
-  
+
+
   getnoticeperiods() {
     this.emsService.getnoticeperiods().subscribe((res: any) => {
       if (res.status) {
@@ -871,7 +871,7 @@ export class EmployeeInfoComponent implements OnInit {
         empStatus: ["Active"],
         noticePeriod: [""],
         hireDate: [""],
-        joinDate: [{value: "", disabled: true}],
+        joinDate: [{value: new Date(), disabled: true}],
 
       })
   }
@@ -1008,7 +1008,7 @@ export class EmployeeInfoComponent implements OnInit {
       for (let i = 0; i < roledata.length; i++) {
         if (roledata[i].isEditable == 0) {
           this.availableRole.push(roledata[i])
-          
+
         }
       }
     })
@@ -1468,7 +1468,7 @@ export class EmployeeInfoComponent implements OnInit {
       }
     }
   }
-  
+
   editExperience(i: any) {
     this.experienceIndex = i;
     this.isExperienceEdit = true;
@@ -2403,10 +2403,10 @@ export class EmployeeInfoComponent implements OnInit {
   backArrow() {
     if (this.isNewire ==true) {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(["/ems/new-hired-list"]));  
+      this.router.navigate(["/ems/new-hired-list"]));
     } else {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate(["/ems/employeeDirectory"])); 
+    this.router.navigate(["/ems/employeeDirectory"]));
     }
   }
   getCompanyInformation(){
@@ -2428,7 +2428,7 @@ export class EmployeeInfoComponent implements OnInit {
     return option1.id === option2.id;
   }
 
-  
+
   selectedRolesChange(event: any) {
     if (event.isUserInput && event.source.selected == false) {
       if (event.source.value.id == 2 || event.source.value.id == 6 || event.source.value.id == 9) {
