@@ -31,13 +31,13 @@ export class ProductInvoiceDataComponent implements OnInit {
       this.productinvoicedata = data;
       console.log("invoicedata",data);
       // this.invoicedata = data;
-     
+
     }
     @ViewChild('invoice') invoice: any;
     invoiceData: any;
     ngOnInit(): void {
-      
-        
+
+
           this.invoiceDate = this.productinvoicedata.payment_date;
           this.cname = this.productinvoicedata.company_name;
           this.dueDate = this.productinvoicedata.valid_to;
@@ -49,13 +49,13 @@ export class ProductInvoiceDataComponent implements OnInit {
           // this.country = this.invoiceData.country;
           // this.pincode = this.invoiceData.pincode;
           this.dataSource[0] = this.productinvoicedata;
-  
-      
-      
-      
+
+
+
+
     }
-  
-  
+
+
     print() {
       const DATA = this.invoice.nativeElement;
       const doc: jsPDF = new jsPDF('l', 'mm',  [Number(window.innerWidth), Number(window.innerHeight)]);
@@ -65,12 +65,12 @@ export class ProductInvoiceDataComponent implements OnInit {
           doc.save("invoice.pdf");
         }
       });
-  
+
     }
     onNoClick(): void {
       this.dialogRef.close();
     }
-  
-  
+
+
 
 }
