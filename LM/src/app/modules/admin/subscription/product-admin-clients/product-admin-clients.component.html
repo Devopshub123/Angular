@@ -1,85 +1,99 @@
+<div fxLayout="column" class="first-col">
+  <mat-card>
+    <form [formGroup]="inductionForm" autocomplete="off">
+      <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-card-title class="title"> Clients </mat-card-title>
+     </mat-card-header>
+     <div class="div-pad">
 
-    <div fxLayout="column" class="first-col">
-        <mat-card>
-                <mat-card-header class="headerbox">
-                    <mat-card-title class="title">Clients</mat-card-title>
-                </mat-card-header>
-                <!-- <mat-divider></mat-divider> -->
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutAlign.xs="center" class="dev-Pad" fxLayoutAlign="end">
+            <span style="height: 70px;" fxFlex="50" fxLayoutAlign="end">
+              <mat-form-field fxFlex.xs="100" fxFlex="56" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
+                <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
+                <mat-label>Search</mat-label>
+                <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
+              </mat-form-field>
+            </span>
+          </div>
+        <div fxLayout="column" class="table-pad">
+          <div class="mat-elevation-z1 example-container ">
+             <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="sno">
+                  <th mat-header-cell *matHeaderCellDef>S.No</th>
+                  <td mat-cell *matCellDef="let element; let i=index;">
+                      {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
+              </ng-container>
+  
+                <ng-container matColumnDef="sid">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                    Subscription ID	 </th>
+                  <td mat-cell *matCellDef="let row" > {{ row.subscription }}
+              </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="cname">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                    Company Name</th>
+                  <td mat-cell *matCellDef="let row" > {{ row.company_name }}
+                  </td>
+                </ng-container>
 
-                <div fxLayout="row" fxLayoutAlign="end" style="height: 70px;padding-top: 1%;">
-                    <mat-form-field fxFlex="28" fxFlex.lt-lg="50" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                        <mat-label>Search</mat-label>
-                        <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
-                        <mat-icon matSuffix>search</mat-icon>
-                    </mat-form-field>
-                </div>
+                <ng-container matColumnDef="users">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                    Users</th>
+                  <td mat-cell *matCellDef="let row" > {{ row.user_count }}
+                  </td>
+                </ng-container>
 
-                <div fxLayout="column" class="tableP">
-                    <div class="example-container mat-elevation-z1">
-                        <table mat-table [dataSource]="dataSource" matSort>
-                            <ng-container matColumnDef="sno" >
-                              <th mat-header-cell *matHeaderCellDef>S.No</th>
-                              <td mat-cell *matCellDef="let element; let i=index;" >
-                                {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
-                            </ng-container>
-                            <ng-container matColumnDef="subscriptionid">
-                              <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Subscription ID </th>
-                              <td mat-cell *matCellDef="let row">{{row.subscription}}
-                               </td>
-                            </ng-container>
-                
-                            <ng-container matColumnDef="companyname">
-                              <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Company Name</th>
-                              <td mat-cell *matCellDef="let row">
-                                <span>{{row.company_name}} </span>
-                              </td>
-                            </ng-container>
-                            <ng-container matColumnDef="users">
-                              <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Users </th>
-                              <td mat-cell *matCellDef="let row" style="white-space: nowrap;">
-                                <span>{{row.user_count}}</span>
-                              </td>
-                            </ng-container>
-                
-                            <ng-container matColumnDef="modules">
-                              <th mat-header-cell *matHeaderCellDef > Modules</th>
-                              <td mat-cell *matCellDef="let row" >
-                                <span>{{row.module_list}} </span>
-                              </td>
-                            </ng-container>
-                
-                            <ng-container matColumnDef="startdate">
-                                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Start Date </th>
-                                <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.valid_from | date:'dd-MM-yyyy'}}</td>
-                            </ng-container>
-                        
-                            <ng-container matColumnDef="lastdate">
-                                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Last Paid </th>
-                                <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.valid_to | date:'dd-MM-yyyy'}}</td>
-                              </ng-container>
+                <ng-container matColumnDef="modules">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                    Modules</th>
+                  <td mat-cell *matCellDef="let row" > {{ row.module_list }}
+                  </td>
+                </ng-container>
 
-                              <ng-container matColumnDef="cost">
-                                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;text-align: center;">₹ Amount </th>
-                                <td mat-cell *matCellDef="let row" style="text-align: center;">
-                                    {{row.amount_paid}}
-                                </td>
-                            </ng-container>
-                
-                            <ng-container matColumnDef="status">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                                <td mat-cell *matCellDef="let row">
-                                    Active
-                                </td>
-                            </ng-container>
-                
-                            <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                            <tr class="mat-row" *matNoDataRow>
-                              <td class="mat-cell" colspan="8" style="text-align: center;">No data found</td>
-                            </tr>
-                          </table>
-                        <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-                    </div>
-            </div>
-        </mat-card>
-        </div>
+                <ng-container matColumnDef="startdate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                    Start Date</th>
+                  <td mat-cell *matCellDef="let row" > {{ row.valid_from }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="lastpaid">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                    Last Paid</th>
+                  <td mat-cell *matCellDef="let row" > {{ row.payment_date }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="amount">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                    ₹ Amount</th>
+                  <td mat-cell *matCellDef="let row" > {{ row.amount_paid }}
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                    Status</th>
+                  <td mat-cell *matCellDef="let row" > {{ row.status }}
+                  </td>
+                </ng-container>
+
+                <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4" style="text-align: center;">No data found</td>
+                </tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+          </div>
+         </div>
+      </div>
+    </div>
+  
+   </form>
+  </mat-card>
+  </div>
+  

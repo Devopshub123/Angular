@@ -1,73 +1,87 @@
 <div fxLayout="column" class="first-col">
     <mat-card>
-            <mat-card-header>
-                <mat-card-title>Invoice History</mat-card-title>
-            </mat-card-header>
-            <!-- <mat-divider></mat-divider> -->
-            <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="end" style="height: 70px;padding-top: 1%;">
-                <mat-form-field fxFlex="28" fxFlex.lt-lg="30" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Search</mat-label>
-                    <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
-                    <mat-icon matSuffix>search</mat-icon>
-                </mat-form-field>
-            </div>
-            <div class="tableP">
-                <div class="mat-elevation-z1">
-                    <table mat-table [dataSource]="dataSource" matSort>
-                        <ng-container matColumnDef="sno">
-                            <th mat-header-cell *matHeaderCellDef > S.No. </th>
-                            <!-- <td mat-cell *matCellDef="let element" > {{element.companyname}} </td> -->
-                            <td mat-cell *matCellDef="let element; let i=index;">
-                                {{ (i+1)}} </td>
-                          </ng-container>
+      <form [formGroup]="inductionForm" autocomplete="off">
+        <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-card-title class="title"> Invoice History </mat-card-title>
+       </mat-card-header>
+       <div class="div-pad">
   
-                            <!-- companyname -->
-                            <ng-container matColumnDef="companyname">
-                              <th mat-header-cell *matHeaderCellDef > Comany Name </th>
-                              <td mat-cell *matCellDef="let element" > {{element.company_name}} </td>
-                            </ng-container>
+          <div fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign.xs="center" class="dev-Pad" fxLayoutAlign="end">
+              <span style="height: 70px;" fxFlex="50" fxLayoutAlign="end">
+                <mat-form-field fxFlex.xs="100" fxFlex="56" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
+                  <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
+                  <mat-label>Search</mat-label>
+                  <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
+                </mat-form-field>
+              </span>
+            </div>
+          <div fxLayout="column" class="table-pad">
+            <div class="mat-elevation-z1 example-container ">
+               <table mat-table [dataSource]="dataSource" matSort>
+                  <ng-container matColumnDef="sno">
+                    <th mat-header-cell *matHeaderCellDef>S.No</th>
+                    <td mat-cell *matCellDef="let element; let i=index;">
+                        {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
+                </ng-container>
     
-                            <!-- billingdate -->
-                            <ng-container matColumnDef="billingdate">
-                                <th mat-header-cell *matHeaderCellDef > Billing Date </th>
-                                <td mat-cell *matCellDef="let element" >{{element.payment_date | date:'dd-MM-yyyy'}} </td>
-                            </ng-container>
-                              <!-- useddate -->
-                              <ng-container matColumnDef="useddate">
-                                  <th mat-header-cell *matHeaderCellDef > Used Date </th>
-                                  <td mat-cell *matCellDef="let element"  > {{element.valid_from}} </td>
-                              </ng-container>
-                                <!-- invoice -->
-                            <ng-container matColumnDef="invoice">
-                              <th mat-header-cell *matHeaderCellDef > Invoice </th>
-                              <td mat-cell *matCellDef="let element"  > {{element.payment_reference_number}} </td>
-                           </ng-container>
-                            <!-- amount -->
-                            <ng-container matColumnDef="amount">
-                              <th mat-header-cell *matHeaderCellDef > Amount </th>
-                              <td mat-cell *matCellDef="let element"  > {{element.amount_paid}} </td>
-                           </ng-container>
-                           <!-- <ng-container matColumnDef="status">
-                              <th mat-header-cell *matHeaderCellDef > Status </th>
-                              <td mat-cell *matCellDef="let element"  >{{element.payment_status}}</td>
-                           </ng-container> -->
-                           <ng-container matColumnDef="action">
-                              <th mat-header-cell *matHeaderCellDef >  </th>
-                              <td mat-cell *matCellDef="let element"  > <mat-icon  class="mr-1"  title="view" (click)="view(element)">visibility</mat-icon> </td>
-                           </ng-container>
-                          
-                        
-                        <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        
-                        <!-- Row shown when there is no matching data. -->
-                        <tr class="mat-row" *matNoDataRow>
-                            <td class="mat-cell" colspan="9" style="text-align: center;">No data found</td>
-                        </tr>
-                    </table>
-                    <!-- <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator> -->
-                    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
-                </div>
+                  <ng-container matColumnDef="companyname">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                        Comany Name</th>
+                    <td mat-cell *matCellDef="let row" > {{ row.company_name }}
+                </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="billingdate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                        Billing Date</th>
+                    <td mat-cell *matCellDef="let row" > {{ row.payment_date | date:'dd-MM-yyyy'}}
+                    </td>
+                  </ng-container>
+  
+                  <ng-container matColumnDef="useddate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                        Used Date </th>
+                    <td mat-cell *matCellDef="let row" > {{ row.valid_from }}
+                    </td>
+                  </ng-container>
+  
+                  <ng-container matColumnDef="invoice">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                        Invoice</th>
+                    <td mat-cell *matCellDef="let row" > {{ row.payment_reference_number }}
+                    </td>
+                  </ng-container>
+  
+                  <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                        Amount</th>
+                    <td mat-cell *matCellDef="let row" > {{ row.amount_paid }}
+                    </td>
+                  </ng-container>
+  
+              
+  
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                      Status</th>
+                    <td mat-cell *matCellDef="let row" ><mat-icon  class="mr-1"  title="view" (click)="view(row)">visibility</mat-icon>
+                    </td>
+                  </ng-container>
+  
+                  <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4" style="text-align: center;">No data found</td>
+                  </tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+            </div>
+           </div>
         </div>
+      </div>
+    
+     </form>
     </mat-card>
     </div>
+    

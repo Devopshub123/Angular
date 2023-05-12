@@ -98,7 +98,7 @@
 
                         <span fxLayout="row">
                           <mat-form-field>
-                            <input matInput readonly [matDatepicker]="currentDate" [min]="minDate" [max]="maxDate"
+                            <input matInput readonly [matDatepicker]="currentDate" [min]="minFromDate" [max]="maxDate"
                               placeholder="" (click)="currentDate.open()" formControlName="currentDate" />
                             <mat-datepicker-toggle class="datepicker" matSuffix [for]="currentDate">
                             </mat-datepicker-toggle>
@@ -112,32 +112,53 @@
                       <div fxLayout="row" fxLayoutAlign="space-around center">
                         <div fxLayout="column" fxLayoutAlign="center center">
                           <div fxLayoutAlign="center center" class="center">
-                            <button mat-icon-button (click)="teamOffice()" [matMenuTriggerFor]="menu">
+                            <!-- <button mat-icon-button (click)="teamOffice()" [matMenuTriggerFor]="menu">
                               <span style="color: aliceblue; font-size: 25px;">
                                 {{employeeAttendanceCountData.wfo_count !=null ?
                                 employeeAttendanceCountData.wfo_count:0}}</span>
+                            </button> -->
+                            <button *ngIf="employeeAttendanceCountData.wfo_count > 0" mat-icon-button (click)="teamOffice()" [matMenuTriggerFor]="menu">
+                              <span style="color: white; font-size: 25px;">
+                                {{employeeAttendanceCountData.wfo_count}}</span>
                             </button>
+                            <span *ngIf="employeeAttendanceCountData.wfo_count==0" style="color: white; font-size: 25px;">
+                              {{employeeAttendanceCountData.wfo_count}}
+                             </span>
                           </div>
                           <span style="font-size: 16px;font-weight: 500;text-align: center;">Work from office</span>
                         </div>
                         <div fxLayout="column" fxLayoutAlign="center center">
                           <div fxLayoutAlign="center center" class="center">
-                            <button mat-icon-button (click)="teamhome()" [matMenuTriggerFor]="menu">
+                            <!-- <button mat-icon-button (click)="teamhome()" [matMenuTriggerFor]="menu">
                               <span style="color: aliceblue; font-size: 25px;">
                                 {{employeeAttendanceCountData.wfh_count !=null ?
                                 employeeAttendanceCountData.wfh_count:0}}</span>
+                            </button> -->
+                            <button *ngIf="employeeAttendanceCountData.wfh_count > 0" mat-icon-button (click)="teamhome()" [matMenuTriggerFor]="menu">
+                              <span style="color: white; font-size: 25px;">
+                                {{employeeAttendanceCountData.wfh_count}}</span>
                             </button>
+                            <span *ngIf="employeeAttendanceCountData.wfh_count==0" style="color: white; font-size: 25px;">
+                              {{employeeAttendanceCountData.wfh_count}}
+                             </span>
                           </div>
                           <span style="font-size: 16px;font-weight: 500;text-align: center;">Work from home</span>
                         </div>
                         <div fxLayout="column">
 
                           <div fxLayoutAlign="center center" class="center">
-                            <button mat-icon-button (click)="teamAbsent()" [matMenuTriggerFor]="menu">
+                            <!-- <button mat-icon-button (click)="teamAbsent()" [matMenuTriggerFor]="menu">
                               <span style="color: aliceblue; font-size: 25px;">
                                 {{employeeAttendanceCountData.absents_count !=null ?
                                 employeeAttendanceCountData.absents_count:0}}</span>
+                            </button> -->
+                            <button *ngIf="employeeAttendanceCountData.absents_count > 0" mat-icon-button (click)="teamAbsent()" [matMenuTriggerFor]="menu">
+                              <span style="color: white; font-size: 25px;">
+                                {{employeeAttendanceCountData.absents_count}}</span>
                             </button>
+                            <span *ngIf="employeeAttendanceCountData.absents_count==0" style="color: white; font-size: 25px;">
+                              {{employeeAttendanceCountData.absents_count}}
+                             </span>
                           </div>
                           <span style="font-size: 16px;font-weight: 500;text-align: center;">Absent</span>
                         </div>
@@ -190,7 +211,7 @@
                       <table class="table">
                         <thead>
                           <tr>
-                            <th>Leave Type</th>
+                            <th style="padding-left: 8px;">Leave Type</th>
                             <th style="text-align: center;">Used</th>
                             <th style="text-align: center;">Available</th>
                           </tr>
@@ -198,7 +219,7 @@
                         <tbody>
                           <ng-container *ngFor="let item of leavebalance">
                             <tr>
-                              <td>{{item.display_name}}</td>
+                              <td style="text-align: start;">{{item.display_name}}</td>
                               <td style="text-align: center;">{{ item.used }}</td>
                               <td style="text-align: center;">{{ item.leave_balance }}</td>
                             </tr>

@@ -135,6 +135,7 @@ export class EmployeeDashboardComponent implements OnInit {
   requestType: string = '';
   teamAttendanceCountData: boolean = false;
   minDate = new Date('2000/01/01');
+  minFromDate= new Date();
   maxDate = new Date();
  attendanceForm: any = FormGroup;
   date: any;
@@ -151,9 +152,10 @@ export class EmployeeDashboardComponent implements OnInit {
   inductionAlert: any = [];
   totalEmpCount: any;
   companyName: any;
-  ////////////////
+  userSession: any;
   ngOnInit(): void {
     this.spinner.show();
+    this.minFromDate = new Date();
     this.getIsManagerOrNot();
     this.getScreenWidth().subscribe((width) => {
       if (width < 640) {
@@ -194,13 +196,19 @@ export class EmployeeDashboardComponent implements OnInit {
       });
      this.attendanceForm.get('currentDate')?.valueChanges.subscribe((selectedValue:any) => {
       this.getTeamAttendanceCount();
-
-
      })
+     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+     if(this.userSession.dateofjoin !=null){
+       const dateofjoin = new Date(this.userSession.dateofjoin);
+       this.minFromDate=dateofjoin;
+     }
     setTimeout(()=>{
       this.spinner.hide();
-},1000)
+    },1000)
   }
+
+
+
   getModules() {
     this.AMS.getModules('modulesmaster', null, 1, 100,this.companyName).subscribe((result) => {
       if (result && result.status) {

@@ -54,7 +54,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                 </mat-form-field>
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>GST Number</mat-label>
-                                    <input type="text" formControlName="gstNumber" matInput
+                                    <input type="text" formControlName="gstNumber" matInput (paste)="(false)"
                                         maxlength="15" minlength="6" (keypress)=numberOnly($event) />
                                         <!-- <mat-error class="reg-error" *ngIf="signUpForm.controls.gstNumber.errors?.required">
                                             This fiels is required
@@ -308,12 +308,12 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
  </div>
 
  <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!flag" style="height: 100%;">
-    <mat-card >
     <span>
-        <h1 class="text-dark-50 text-center mt-0 fw-bold" style="color: #28acaf">Selected URL is expired </h1>
-        <a [routerLink]=""(click)="validateemail()"> Please Register Again</a>
+        <h2 class="text-dark-50 text-center mt-0 fw-bold" style="color: #000c18">Selected URL is expired </h2>
+        <div fxLayoutAlign="center center">
+            <a [routerLink]=""(click)="validateemail()" class="style"> Please Register Again</a>
+          </div>
     </span>
-</mat-card>
 </div>
 </div>
 
