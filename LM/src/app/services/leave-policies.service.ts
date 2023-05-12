@@ -93,7 +93,8 @@ export class LeavePoliciesService {
       return this.hClient.get(this.url + 'api/getLeaveTypesToAdd/'+this.companyName, this.httpOptions);
   }
 
-    setNewLeaveType(info:any): Observable<any> {
+  setNewLeaveType(info: any): Observable<any> {
+    this.companyName = sessionStorage.getItem('companyName');
         return this.hClient.post(this.url + 'api/setNewLeaveType/'+this.companyName, JSON.stringify(info), this.httpOptions);
     }
 

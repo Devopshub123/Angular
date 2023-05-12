@@ -92,6 +92,7 @@ export class AttendanceRequestComponent implements OnInit {
   workeddays: any;
   regularizationdays:any;
   ATT75:any;
+  ATT62:any;
   ATT74:any;
   companyDBName: any = environment.dbName;
   employeeEmailData: any = [];
@@ -478,7 +479,6 @@ export class AttendanceRequestComponent implements OnInit {
     this.getEmployeeShiftDetailsByIdWithDates();
   }
   updateRequest() {
-    console.log("this.requestform.invalid",this.requestform.invalid)
     if (this.requestform.invalid) {
       return;
     } else {
@@ -517,7 +517,10 @@ export class AttendanceRequestComponent implements OnInit {
             resMessage = this.dataNotSave;
           } else if (res.message == "update") {
             resMessage = this.ATT75;
-          } else {
+          }else if (res.message == "duplicate") {
+            resMessage = this.ATT62;
+          }
+          else {
             resMessage = this.dataNotSave;
           }
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -640,6 +643,8 @@ export class AttendanceRequestComponent implements OnInit {
           }
           else if (e.code == "ATT74") {
             this.ATT74 = e.message
+          }else if (e.code == "ATT62") {
+            this.ATT62 = e.message
           }
         })
       }

@@ -26,53 +26,25 @@
                         
                         <mat-form-field fxFlex fxFlex.xs="100" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                             <mat-label>Modules</mat-label>
-                            <!-- <mat-select (openedChange)="openedSearch($event)" [compareWith]="compareFn"
-                                placeholder="Select" required formControlName="modules" multiple>
-                              
-                                <div class="select-container">
-                                    <mat-option (onSelectionChange)="selectedEmployesChange($event)"
-                                        *ngFor="let emp of modulesList" [value]="emp.id">{{emp.modulename}}
-                                    </mat-option>
-                                </div>
-                            </mat-select> -->
-                            <!-- <mat-select placeholder="module" name="mo" formControlName="modules" required multiple #moduleSelect>
-
-                              
-                                <button mat-raised-button class="mat-primary fill text-sm"
-                                    (click)="selectAll(moduleSelect, modulesList, subscriptionForm.modules)"
-                                    *ngIf="!ishideselect">Select All
-                                </button>
-                                <button mat-raised-button class="mat-accent fill text-sm" (click)="deselectAll(moduleSelect)"
-                                    *ngIf="ishideselect">
-                                    Deselect All
-                                </button>
-                                
-                                <mat-option *ngFor="let location of modulesList" [value]="location">
-                                    {{location.modulename}}
-                                </mat-option>
-                            </mat-select> -->
-
-
-
                             <mat-select  [compareWith]="compareFn"   placeholder="Select" required formControlName="modules" multiple >
                                 <mat-select-trigger>
                                   <span *ngFor="let item of subscriptionForm.controls.modules.value">
                                        {{item.modulename}} ,
                                   </span>
                                  </mat-select-trigger>
-                                <div class="select-container" *ngIf="editflag">
+                                <span class="select-container" *ngIf="editflag">
                                     <mat-option  (onSelectionChange)="selectedModulesChange($event)"
                                     *ngFor="let modules of modulesList" [value]="modules">{{modules.modulename}}
                                 </mat-option>
-                              </div>
-                              <div class="select-container" *ngIf="!editflag">
+                              </span>
+                              <span class="select-container" *ngIf="!editflag">
                                 <mat-option  (onSelectionChange)="selectedModulesChange($event)"
                                 *ngFor="let modules of modulesList" [value]="modules">{{modules.modulename}}
                             </mat-option>
-                          </div>
+                                </span>
                             </mat-select>
                             <mat-error class="con-error" *ngIf="subscriptionForm.controls.modules.errors?.required">
-                                This field is required
+                                Please select an option
                             </mat-error>
                         </mat-form-field>
                       
