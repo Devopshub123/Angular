@@ -111,6 +111,7 @@ export class UserLeaveRequestComponent implements OnInit {
 
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
+
     this.employeeId = this.userSession.id;
     this.activeModule = JSON.parse(sessionStorage.getItem('activeModule') || '');
 
@@ -251,8 +252,11 @@ export class UserLeaveRequestComponent implements OnInit {
       this.getDaystobedisabledfromdate();
       if(selectedValue!=''){
         this.getCompOffValidityDuration(selectedValue);
-        this.minDate = new Date()
-      }
+        if(new Date() < new Date(this.userSession.dateofjoin)){}
+        this.minDate = new Date(this.userSession.dateofjoin)
+        }else{
+          this.minDate = new Date()
+        }
       // }
     });
 
@@ -1030,8 +1034,12 @@ if (result.status && errorCode == 'LM79') {
     this.LM.getDurationFoBackDatedLeave().subscribe((result) => {
       if (result && result.status) {
         this.roleValue = result.data[0].value
-        this.minDate = new Date();
+        if(new Date() < new Date(this.userSession.dateofjoin)){
+        this.minDate = new Date(this.userSession.dateofjoin)
+        }else{
+              this.minDate = new Date();
         this.minDate.setDate(this.minDate.getDate() - this.roleValue);
+        }
       }
 
     })

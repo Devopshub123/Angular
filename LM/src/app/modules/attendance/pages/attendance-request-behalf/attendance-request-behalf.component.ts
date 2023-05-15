@@ -455,9 +455,8 @@ export class AttendanceRequestBehalfComponent implements OnInit {
    })
  }
  getEmployeeInformation(id:any){
-  this.attendanceService.getEmployeeInformation(id).subscribe((res) => {
+  this.attendanceService.getEmployeeInformationforlogindate(id).subscribe((res) => {
     if(res.status){
-      //this.minFromDate =new Date(res.data[0].dateofjoin);
       var userinfo=res.data[0];
        console.log(new Date(userinfo.dateofjoin))
       if(userinfo.dateofjoin !=null){

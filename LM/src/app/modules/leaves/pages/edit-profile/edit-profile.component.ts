@@ -393,8 +393,8 @@ export class EditProfileComponent implements OnInit {
     this.LM.getEmployeeInformation(this.userSession.id).subscribe((result) => {
      
       if (result && result.status) {
-        this.employeedata = result.data[0];
-        // this.employeedata = JSON.parse(result.data[0].json)[0];
+        // this.employeedata = result.data[0];
+        this.employeedata = JSON.parse(result.data[0].json)[0];
         this.editForm.controls.firstName.setValue(this.employeedata.firstname);
         this.editForm.controls.middlename.setValue(
           this.employeedata.middlename

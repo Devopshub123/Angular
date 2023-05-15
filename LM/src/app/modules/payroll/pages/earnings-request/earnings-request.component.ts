@@ -139,7 +139,7 @@ export class EarningsRequestComponent implements OnInit {
       }
       else{
         this.isShowCalculatedAmount = "Flat Amount";
-
+       
         this.getComponentConfiguredValuesForPayGroup(this.earndata.Earndata.pigcm_id,0)
         
       }
@@ -239,11 +239,12 @@ export class EarningsRequestComponent implements OnInit {
           epf_always_value:this.earningsRequestForm.controls.epf_option_contribution.value=='always'?1:0,
           epf_only_when_pf_wage_is_less_than_standard_pf_wage_value:this.earningsRequestForm.controls.epf_option_contribution.value=='always'?0:1,
           show_this_component_in_payslip_value:this.earningsRequestForm.controls.showComponent.value,
-          status:'Active'
+          status:'Active',
+          flatorpercent:this.isShowCalculatedAmount=='basicPercentage'?this.validationvalue.toString():null
         }
         /**configure component values service call */
         this.PR.configurePayGroupComponent(data).subscribe((result:any)=>{
-          if(result.status){
+          if(result.status && result.data.state==0){
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                 this.router.navigate(["/Payroll/Earnings"],{state:{data:this.senddata}})); 
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
@@ -251,6 +252,14 @@ export class EarningsRequestComponent implements OnInit {
               disableClose: true,
               data: this.PR9
             });
+          }
+          else if(result.status && result.data.state==1){
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position:{top:`70px`},
+              disableClose: true,
+              data: result.data.error_message
+            });
+
           }
           else{
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
