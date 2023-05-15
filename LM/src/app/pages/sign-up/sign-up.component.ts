@@ -106,7 +106,7 @@ export class SignUpComponent implements OnInit {
     { id: 50, value: '0-50' },
     { id: 100, value: '51-100' },
     { id: 200, value: '101-200' },
-    { id: 300, value: '200+ Users' },
+    { id: 999, value: '200+ Users' },
   ];
   countryDetails: any = [];
   stateDetails: any = [];
@@ -504,6 +504,13 @@ this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
   preventLeadingZero(event:any) {
     const input = event.target.value;
     if (input.length === 0 && event.which === 48) {
+      event.preventDefault();
+    }
+  }
+  alphabetKeyPress(event: any,) {
+    const pattern = /[a-zA-Z ]/;
+      let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
   }

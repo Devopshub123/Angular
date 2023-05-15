@@ -38,7 +38,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="reg-error" *ngIf="signUpForm.controls.companySize.hasError('required')">
-                                        Please select one option.
+                                        Please select an option.
                                     </mat-error>
                                 </mat-form-field>
                             </div>
@@ -134,7 +134,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="reg-error" *ngIf="signUpForm.controls.country.errors?.required">
-                                        Please select one option.
+                                        Please select an option.
                                         </mat-error>
                                 </mat-form-field>
                                 <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
@@ -147,7 +147,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="reg-error" *ngIf="signUpForm.controls.state.errors?.required">
-                                        Please select one option.
+                                        Please select an option.
                                         </mat-error>
                                 </mat-form-field>
                             </div>
@@ -166,7 +166,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="reg-error" *ngIf="signUpForm.controls.city.errors?.required">
-                                        Please select one option.
+                                        Please select an option.
                                         </mat-error>
                                 </mat-form-field>
 
@@ -200,12 +200,13 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                         </ng-container>
                                     </mat-select>
                                     <mat-error class="reg-error" *ngIf="signUpForm.controls.IndustryType.hasError('required')">
-                                        Please select one option.
+                                        Please select an option.
                                     </mat-error>
                                 </mat-form-field>
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline" *ngIf="hide">
                                     <mat-label>Enter Industry type</mat-label>
-                                    <input type="text" formControlName="others" matInput required/>
+                                    <input type="text" formControlName="others" matInput required (keypress)="alphabetKeyPress($event)"
+                                    maxlength="50"/>
                                         <mat-error class="reg-error" *ngIf="signUpForm.controls.others.errors?.required">
                                             This field is required.
                                             </mat-error>
@@ -316,4 +317,3 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
     </span>
 </div>
 </div>
-
