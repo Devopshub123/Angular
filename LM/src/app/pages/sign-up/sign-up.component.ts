@@ -171,7 +171,7 @@ export class SignUpComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data:"Users count should not greater than company size"
+            data:"Users count should not be greater than company size"
           });
           this.signUpForm.controls.totalUsers.setValue("")
         }
@@ -275,7 +275,6 @@ export class SignUpComponent implements OnInit {
       companycode: this.companycode
     }
     this.mainService.getUnverifiedSprypleClient(data).subscribe((result:any)=>{
-      console.log("getUnverifiedSprypleClientgetUnverifiedSprypleClient",result);
       if (result.status&&result.data.length>0) {
         let value = result.data[0];
         this.clientId = value.id;

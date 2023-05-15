@@ -71,7 +71,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
     /**
      * extracted data from route and assign to corresponding fields
      * **/
-    console.log("sgfgfdgsfdh",this.leaveInfo.leaveData)
+    console.log("1",this.leaveInfo.leaveData)
     if(this.leaveInfo.leaveData !=undefined){
       if(this.leaveInfo.isleave){
         if(this.leaveInfo.leaveData.leavetype == 3 || this.leaveInfo.leaveData.leavetype == 5 ){
@@ -93,14 +93,12 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
             approvedon: [{ value: this.pipe.transform(new Date(this.leaveInfo.leaveData.approvedon), 'dd-MM-yyyy'),disabled:true}],
             actionReason:[{value:this.leaveInfo.leaveData.action_reason, disabled:true }],
             updatedon:[{value: this.pipe.transform(new Date(this.leaveInfo.leaveData.updatedon), 'dd-MM-yyyy'), disabled:true}],
-            workDate:[{value: this.pipe.transform(new Date(this.leaveInfo.leaveData.comp_off_worked_date), 'dd-MM-yyyy'), disabled:true}]
+            workDate:[{value: this.pipe.transform(new Date(this.leaveInfo.leaveData.worked_date), 'dd-MM-yyyy'), disabled:true}]
           });
 
 
       }else{
-        console.log("sgfgfdgsfdh",this.leaveInfo.leaveData)
-        
-        this.requestform = this.formBuilder.group(
+         this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.applied_date), 'dd-MM-yyyy') , disabled: true }],
             empId: [{ value: this.leaveInfo.leaveData.employee_id, disabled: true }],
@@ -115,7 +113,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
             leaveReason: [{ value: this.leaveInfo.leaveData.reason, disabled: true }],
             actionReason:[{value:this.leaveInfo.leaveData.remarks, disabled:true }],
             updatedon:[{value: this.pipe.transform(new Date(this.leaveInfo.leaveData.updateddate), 'dd-MM-yyyy'), disabled:true}],
-            workDate:[{value: this.pipe.transform(new Date(this.leaveInfo.leaveData.comp_off_worked_date), 'dd-MM-yyyy'), disabled:true}]
+            workDate:[{value: this.pipe.transform(new Date(this.leaveInfo.leaveData.worked_date), 'dd-MM-yyyy'), disabled:true}]
           });
 
       }
