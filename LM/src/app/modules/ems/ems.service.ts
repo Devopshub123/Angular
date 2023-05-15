@@ -369,18 +369,18 @@ export class EmsService {
     getConductedByEmployeesList(): any {
       return this.http.get(this.mainUrl + 'ems/api/getInductionConductedbyEmployees/'+this.companyName, this.httpOptions);
   }
-  
+
     /**get departments by program id */
     getDepartmentsByProgramId(pid: any): any {
       return this.http.get(this.mainUrl + 'ems/api/getDepartmentsByProgramId/'+ pid+'/'+this.companyName, this.httpOptions);
   }
-  
+
     /** update Induction ConductedBy status*/
   updateInductionConductedByStatus(data: any): any {
       data.companyName = this.companyName;
       return this.http.post(this.mainUrl + 'ems/api/updateInductionConductedbyStatus', data, this.httpOptions);
-  } 
-  
+  }
+
       /**get departments by program id */
       getConductEmployeesByProgramIdAndDeptId(pid: any,did:any): any {
         return this.http.get(this.mainUrl + 'ems/api/getCondcutedEmployeesByPrgIdAndDeptId/'+ pid+'/'+did+'/'+this.companyName, this.httpOptions);
@@ -389,5 +389,5 @@ export class EmsService {
          return this.http.post(this.mainUrl + 'ems/api/setEmployeeExcelData/'+cname,data, this.httpOptions);
 
     }
-    
+
 }

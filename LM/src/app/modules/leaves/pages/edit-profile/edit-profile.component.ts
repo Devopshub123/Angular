@@ -317,7 +317,7 @@ export class EditProfileComponent implements OnInit {
           data:{Message:this.LM117,}
          });
          this.getUploadImage();
-      }   
+      }
   }else{
     this.getUploadImage();
       this.validpic= false;
@@ -343,11 +343,11 @@ export class EditProfileComponent implements OnInit {
         data: {Message: this.LM117, url: '/LeaveManagement/EditProfile'},
       });
     }
-     
 
-  
-     
-    
+
+
+
+
   }
   fileImageToggler() {
     this.isFileImage = !this.isFileImage;
@@ -391,7 +391,7 @@ export class EditProfileComponent implements OnInit {
 
   getEmployeeInformation(){
     this.LM.getEmployeeInformation(this.userSession.id).subscribe((result) => {
-     
+
       if (result && result.status) {
         this.employeedata = JSON.parse(result.data[0].json)[0];
         this.editForm.controls.firstName.setValue(this.employeedata.firstname);

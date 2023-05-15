@@ -247,10 +247,10 @@ export class MainDashboardComponent implements OnInit {
             if(sessionStorage.getItem("moduleData")){
            //   this.menu = [];
               this.firstRoute = '';
-               
+
            //   sessionStorage.removeItem('sidemenu');
            //   sessionStorage.setItem('sidemenu', JSON.stringify(this.menu));
-              
+
               if (this.requestType == 'AttendanceApproval') {
                 this.showSpinner();
                 sessionStorage.setItem('selectedModule', 'Attendance');
@@ -590,7 +590,7 @@ export class MainDashboardComponent implements OnInit {
     this.requestType = 'AttendanceRequest';
     sessionStorage.setItem('selectedModule','Attendance')
     this.getrolescreenfunctionalities(4, true);
-   
+
     //  this.router.navigate(["/Attendance/Request"], { state: { userData: this.requestData } });
   }
   leaverequest(element: RequestData) {
@@ -678,7 +678,7 @@ export class MainDashboardComponent implements OnInit {
             this.mainService
             .getDocumentOrImagesForEMS(result.data[0])
             .subscribe((imageData) => {
-   
+
               if (imageData.success) {
                 let TYPED_ARRAY = new Uint8Array(imageData.image.data);
                 const STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
