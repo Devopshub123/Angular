@@ -18,26 +18,27 @@ import {LeavesForCancellationComponent} from "./pages/leaves-for-cancellation/le
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 import {UserLeaveRequestComponent} from "./pages/user-leave-request/user-leave-request.component";
 import { EmpPayrollReportComponent } from './pages/emp-payroll-report/emp-payroll-report.component';
+import { LMSAccessGuard } from 'src/app/LMS-access.guard';
 const routes: Routes = [
   {path:'',component:MainComponent,children:[
-      {path:'PendingApprovals',component:PendingApprovalsComponent},
+      {path:'PendingApprovals',component:PendingApprovalsComponent,canActivate:[LMSAccessGuard]},
       {path:'ReviewAndApprovals',component:ManagerReviewAndApprovalsComponent},
-      {path:"ManagerDashboard",component:ManagerDashboardComponent},
-      {path:"PendingCompoff",component:PendingCompoffComponent},
-      {path:"LeaveHistory",component:LeaveHistoryComponent},
-      {path:"CompOffHistory",component:CompOffHistoryComponent},
-      {path:'DetailedReport',component:DetailedReportForManagerComponent},
-      {path:'SummaryReport',component:SummaryReportForManagerComponent},
-      {path:'UserLeaveHistory',component:UserLeaveHistoryComponent},
-      {path:'UserLeaveBalance',component:UserLeaveBalanceComponent},
-      {path:'UserCompOff',component:UserCompoffComponent},
+      {path:"ManagerDashboard",component:ManagerDashboardComponent,canActivate:[LMSAccessGuard]},
+      {path:"PendingCompoff",component:PendingCompoffComponent,canActivate:[LMSAccessGuard]},
+      {path:"LeaveHistory",component:LeaveHistoryComponent,canActivate:[LMSAccessGuard]},
+      {path:"CompOffHistory",component:CompOffHistoryComponent,canActivate:[LMSAccessGuard]},
+      {path:'DetailedReport',component:DetailedReportForManagerComponent,canActivate:[LMSAccessGuard]},
+      {path:'SummaryReport',component:SummaryReportForManagerComponent,canActivate:[LMSAccessGuard]},
+      {path:'UserLeaveHistory',component:UserLeaveHistoryComponent,canActivate:[LMSAccessGuard]},
+      {path:'UserLeaveBalance',component:UserLeaveBalanceComponent,canActivate:[LMSAccessGuard]},
+      {path:'UserCompOff',component:UserCompoffComponent,canActivate:[LMSAccessGuard]},
       {path:"ManagerDashboardCalender",component:ManagerDashboardCalenderComponent},
       {path:'EditProfile',component:EditProfileComponent},
-      {path:"LeavesForCancellation",component:LeavesForCancellationComponent},
-      {path:'UserDashboard',component:UserDashboardComponent},
-      {path:"ManagerDashboardCalender",component:ManagerDashboardCalenderComponent},
-      {path:"LeaveRequest",component:UserLeaveRequestComponent},
-      {path:"payrollreport",component:EmpPayrollReportComponent}
+      {path:"LeavesForCancellation",component:LeavesForCancellationComponent,canActivate:[LMSAccessGuard]},
+      {path:'UserDashboard',component:UserDashboardComponent,canActivate:[LMSAccessGuard]},
+      {path:"ManagerDashboardCalender",component:ManagerDashboardCalenderComponent,canActivate:[LMSAccessGuard]},
+      {path:"LeaveRequest",component:UserLeaveRequestComponent,canActivate:[LMSAccessGuard]},
+      {path:"payrollreport",component:EmpPayrollReportComponent,canActivate:[LMSAccessGuard]}
     ]}
 ];
 

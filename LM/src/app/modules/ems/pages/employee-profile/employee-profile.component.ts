@@ -452,7 +452,7 @@ export class EmployeeProfileComponent implements OnInit {
     this.emsService
       .getEmployeeInformationData(this.employeeId)
       .subscribe((res: any) => {
-        this.employeeInformationData = res.data[0];
+        this.employeeInformationData = JSON.parse(res.data[0].json)[0];
 
         if (this.employeeInformationData.id != null) {
           this.preOnboardId = this.employeeInformationData.id;

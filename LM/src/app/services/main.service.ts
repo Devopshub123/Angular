@@ -109,11 +109,16 @@ export class MainService {
   removeDocumentOrImagesForEMS(info: any): Observable<any> {
     return this.http.post(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/', info, this.httpOptions);
   }
+  removeDocumentOrImagesForEMSpreonboarding(info: any): Observable<any> {
+    return this.http.post(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMSpreonboarding/', info, this.httpOptions);
+  }
 
   deleteFilesMaster(id: any): Observable<any> {
     return this.http.get(this.mainBeUrl + 'ems/api/deleteFilesMaster/' + id + '/' + this.companyName, this.httpOptions);
   }
-
+  deleteFilesMasterpreonboarding(id: any): Observable<any> {
+    return this.http.get(this.mainBeUrl + 'ems/api/deleteFilesMasterpreonboarding/' + id + '/' + this.companyName, this.httpOptions);
+  }
 
   /** */
   getEmployeeAttendanceCounts(mid: any, empid: any, date: any): Observable<any> {

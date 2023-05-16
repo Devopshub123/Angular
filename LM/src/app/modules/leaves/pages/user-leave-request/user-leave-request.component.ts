@@ -103,6 +103,7 @@ export class UserLeaveRequestComponent implements OnInit {
     this.getleavecyclelastmonth();
     this.leaveInfo = this.location.getState();
     this.leaveData = this.leaveInfo.leaveData;
+    console.log("FFFFF",this.leaveData)
     if(this.leaveData!=undefined){
       this.isedit=true;
     }
@@ -375,6 +376,7 @@ async  getLeavesTypeInfo() {
    * **/
 
   getDaystobedisabledfromdate() {
+    console.log("this.leaveData.idgetDaystobedisabledfromdate",this.maxDate)
     // this.spinner.show()
     // var info = this.LM.getDaysToBeDisabledFromDate(this.userSession.id, this.newLeaveRequest.id ? this.newLeaveRequest.id : null).then((result) => {
     if(this.leaveRequestForm.controls.leaveTypeId.value == 9 && this.leaveRequestForm.controls.compoffApprovedDate.value){
@@ -438,15 +440,18 @@ async  getLeavesTypeInfo() {
   }
 
   async getDaystobedisabledtodate() {
-
+    console.log("this.leaveData.idgetDaystobedisabledfromdate",this.maxDate)
+    this.todate=[];
+    console.log("this.toDateFilter ",this.toDateFilter )
     var data =  this.LM.getDaysToBeDisabledToDate(this.userSession.id,  this.leaveData?this.leaveData.id:null).then((result) => {
+      console.log("ttttt",result)
       if (result && result.status) {
         for (var i = 0; i < result.data.length; i++) {
           (result.data[i].first_half && result.data[i].second_half) ? this.todate.push(new Date(result.data[i].edate)) : this.ToDatesHalfDays.push(result.data[i]);
 
         }
 
-
+       
         this.toDateFilter = (d: Date): boolean => {
           let isValid=true;
           this.todate.forEach((e:any) => {
@@ -557,7 +562,8 @@ async  getLeavesTypeInfo() {
     this.leaveRequestForm.controls.leaveCount.setValue('');
     var input = {
       id: this.userSession.id,
-      date: this.pipe.transform(date, 'yyyy-MM-dd')
+      date: this.pipe.transform(date, 'yyyy-MM-dd'),
+      leaveid:this.leaveData?this.leaveData.id:null
     }
     this.LM.getNextLeaveDate(input).then((result) => {
       if (result && result.status) {

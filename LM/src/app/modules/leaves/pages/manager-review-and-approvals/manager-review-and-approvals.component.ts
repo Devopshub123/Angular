@@ -78,6 +78,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
         if(this.leaveInfo.leaveData.leavetype == 3 || this.leaveInfo.leaveData.leavetype == 5 ){
           this.getUploadDocument()
         }
+        console.log("hhhh",this.leaveInfo.leaveData.comp_off_worked_date)
         this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.appliedon), 'dd-MM-yyyy') , disabled: true }],

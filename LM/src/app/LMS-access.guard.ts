@@ -24,34 +24,34 @@ export class LMSAccessGuard implements CanActivate {
     var urlsList:any=[]
     var module: any = JSON.parse(sessionStorage.getItem('moduleData') ?? '[]');
     console.log("modules--",module)
-  //   if (module.length > 0) {
-  //     module.forEach((e: any) => {
-  //       if (e.menu_items.length>0) {
-  //         e.menu_items.forEach((item: any) => {
-  //           urlsList.push({
-  //             "routeurl": item.routename
-  //           });
-  //         });
-  //       }
-  //     });
-  //   }
-  //   else {
-  //  }
+    if (module.length > 0) {
+      module.forEach((e: any) => {
+        if (e.menu_items.length>0) {
+          e.menu_items.forEach((item: any) => {
+            urlsList.push({
+              "routeurl": item.routename
+            });
+          });
+        }
+      });
+    }
+    else {
+   }
     if (sessionStorage.getItem('user')) {
-      return true;
-      // if (urlsList.length > 0) {
-      //   const toSelect = urlsList.find((url: any) => url.routeurl.trim() == state.url);
-      //    if (toSelect != undefined) {
-      //     return true;
-      //   } else {
-      //     this.route.navigate(['Login'])
-      //     return false;
-      //   } 
+      // return true;
+      if (urlsList.length > 0) {
+        const toSelect = urlsList.find((url: any) => url.routeurl.trim() == state.url);
+         if (toSelect != undefined) {
+          return true;
+        } else {
+          this.route.navigate(['Login'])
+          return false;
+        } 
 
-      // } else {
-      //   this.route.navigate(['Login'])
-      //   return false;
-      // }
+      } else {
+        this.route.navigate(['Login'])
+        return false;
+      }
     }
     else {
       this.route.navigate(['Login'])

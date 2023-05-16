@@ -6,7 +6,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
 
          </div>
                 <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
-                       <mat-step [stepControl]="signUpForm" disabled   [completed]="step1Complete" [editable]="false">
+                       <mat-step [stepControl]="signUpForm">
                         <ng-template  matStepLabel>Sign Up</ng-template>
                         <form [formGroup]="signUpForm">
                             <div>
@@ -236,7 +236,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
 
                     </mat-step>
               <!-- payment details -->
-                    <mat-step [stepControl]="PayviewForm" disabled  [completed]="step2Complete" [editable]="false">
+                    <mat-step [stepControl]="PayviewForm"  >
                         <ng-template  matStepLabel>Payment Details</ng-template>
                         <form [formGroup]="PayviewForm">
                             <div fxFlex="100" fxLayout="row">
@@ -294,7 +294,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
 
                     <!-- final details -->
 
-                    <mat-step [completed]="step3Complete" disabled  [editable]="false">
+                    <mat-step [completed]="step3Complete" disabled >
                         <ng-template  matStepLabel>Finish</ng-template>
                         <form [formGroup]="PayForm"></form>
                          <div style="text-align: center;">
