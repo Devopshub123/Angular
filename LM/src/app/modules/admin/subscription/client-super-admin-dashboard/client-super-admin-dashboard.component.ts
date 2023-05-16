@@ -16,6 +16,7 @@ import * as _moment from 'moment';
 import { ChartComponent } from 'angular2-chartjs';
 import { ChartData, ChartOptions, Color } from 'chart.js';
 import { AdminService } from '../../admin.service';
+import { CompanySettingService } from 'src/app/services/companysetting.service';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 export const MY_FORMATS = {
@@ -77,7 +78,7 @@ locByDeptEmpsdoughnutChartData: any;
   rejectedLeaveCount: any;
   shiftId: any;
   shiftDataList: any = [];
-  
+
   allLocationsNameList: any = [];
   allLocationsTotalCount: any = [];
 
@@ -105,25 +106,25 @@ locByDeptEmpsdoughnutChartData: any;
   deptWisePayrollBarChartType: any;
   deptWisePayrollBarChartOptions: any;
   deptWisePayrollBarChartData: any ;
-  
+
 //   barChartOptions = {
 //     scaleShowVerticalLines: false,
 //     responsive: true
 //   };
 // barChartLabels :any= ['2012', '2013', '2014', '2015', '2016', '2017', '2018'];
 // barChartType :any= 'bar';
-// barChartLegend :any= true;  
+// barChartLegend :any= true;
 // barChartData: ChartData<'bar'> = {
 //     labels: this.barChartLabels,
 //     datasets: [
 //   {
-//         data: [55, 60, 75, 82, 56, 62, 80], 
+//         data: [55, 60, 75, 82, 56, 62, 80],
 //         label: 'Company A',
 //         categoryPercentage: 1,
 //         backgroundColor: 'rgba(105,159,177,0.2)',
 //       borderColor: 'rgba(105,159,177,1)',
 //       },
-//       { data: [58, 55, 60, 79, 66, 57, 90], 
+//       { data: [58, 55, 60, 79, 66, 57, 90],
 //         label: 'Company B',
 //         categoryPercentage: 1,
 //         backgroundColor: 'rgba(77,20,96,0.3)',
@@ -139,6 +140,7 @@ locByDeptEmpsdoughnutChartData: any;
     private spinner: NgxSpinnerService,
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
+    private LMS: CompanySettingService
   ) {
     this.companyName = sessionStorage.getItem('companyName');
     this.dashBoardForm = this.formBuilder.group(
@@ -189,12 +191,12 @@ locByDeptEmpsdoughnutChartData: any;
       this.dashBoardForm.get('leaveStatusDate')?.valueChanges.subscribe((selectedValue:any) => {
         this.getLeavesTypesCountByMonth();
       })
-    
+
       this.dashBoardForm.get('deptWiseleavesDate')?.valueChanges.subscribe((selectedValue:any) => {
         this.departmentWiseLeaveNameList = [];
         this.departmentWiseLeaveCountList = [];
         this.getDepartmentWiseLeavesCountByMonth();
-      })  
+      })
   }
   getWorkLocation() {
     // this.companyService.getActiveBranchCities()
@@ -205,12 +207,13 @@ locByDeptEmpsdoughnutChartData: any;
     //     this.dashBoardForm.controls.location.setValue(this.workLocationList.id);
     //   }
     // })
-    this.adminService.getactiveWorkLocation({ id: null, companyName: this.companyName }).subscribe((result) => {
+    this.LMS.getactiveWorkLocation({ id: null, companyName: this.companyName }).subscribe((result) => {
       this.workLocationList = result.data;
       this.locationId = result.data[0].id;
       this.dashBoardForm.controls.location.setValue(result.data[0].id);
      })
   }
+
 
   getLocationWiseEmployeeCount() {
     this.adminService.getLocationWiseEmployeeCount().subscribe((res: any) => {
@@ -234,12 +237,12 @@ locByDeptEmpsdoughnutChartData: any;
           }
         ]
       }
-      this.locPieChartoptions = {			
+      this.locPieChartoptions = {
         responsive: true,
         maintainAspectRatio: false,
         legend: { position: 'bottom' }
         // scales:{
-        //     // yAxes: [{						
+        //     // yAxes: [{
         //     //   gridLines: {
         //     //     beginAtZero: true,
         //     //     display: false
@@ -263,7 +266,7 @@ locByDeptEmpsdoughnutChartData: any;
         //     // 	}
         //     // }],
         //   }
-    
+
     }
   });
   }
@@ -290,16 +293,16 @@ locByDeptEmpsdoughnutChartData: any;
             }
           ]
         }
-        this.attDonutChartoptions = {	
+        this.attDonutChartoptions = {
           responsive: true,
           maintainAspectRatio: false,
           cutout: '65%',
           legend: { position: 'bottom' }
-      
+
       }
       }
     });
-   
+
 
   }
 
@@ -312,9 +315,9 @@ locByDeptEmpsdoughnutChartData: any;
             this.departmentWiseLeaveCountList = [];
           } else {
             this.departmentWiseLeaveNameList.push(e.deptname);
-            this.departmentWiseLeaveCountList.push(e.count);  
+            this.departmentWiseLeaveCountList.push(e.count);
           }
-          
+
          })
       }
       this.deptWiseLeavepieChartType = 'pie';
@@ -322,13 +325,13 @@ locByDeptEmpsdoughnutChartData: any;
         labels: this.departmentWiseLeaveNameList,
         datasets: [
           {
-           
+
             data: this.departmentWiseLeaveCountList,
             backgroundColor: ["#22a7f0", "#ffe29a", "#838c95", "#7FDBFF"],
           }
         ]
       }
-      this.deptWiseLeavepieoptions = {	
+      this.deptWiseLeavepieoptions = {
         responsive: true,
         maintainAspectRatio: false,
         legend: { position: 'bottom' }
@@ -356,7 +359,7 @@ locByDeptEmpsdoughnutChartData: any;
             this.shiftByDepartmentCountList = [];
           }
           this.shiftByDepartmentNameList.push(e.deptname);
-          this.shiftByDepartmentCountList.push(e.count); 
+          this.shiftByDepartmentCountList.push(e.count);
          })
       }
       this.vbarChartType = 'horizontalBar';
@@ -364,7 +367,7 @@ locByDeptEmpsdoughnutChartData: any;
         labels: this.shiftByDepartmentNameList,
         datasets: [
           {
-           
+
             data: this.shiftByDepartmentCountList,
             backgroundColor: [
               '#5e569b',
@@ -377,7 +380,7 @@ locByDeptEmpsdoughnutChartData: any;
           }
         ]
       }
-      this.vbaroptions = {	
+      this.vbaroptions = {
         indexAxis: 'y',
         legend: { display: false },
         scales: {
@@ -385,7 +388,7 @@ locByDeptEmpsdoughnutChartData: any;
               display: true,
               ticks: {
                   suggestedMin: 5, //min
-                  suggestedMax: 300 //max 
+                  suggestedMax: 300 //max
               }
           }]
       }
@@ -404,7 +407,7 @@ locByDeptEmpsdoughnutChartData: any;
             this.locationByDepartmentCountLis = [];
           } else {
             this.locationByDepartmentNameLis.push(e.deptname);
-            this.locationByDepartmentCountLis.push(e.count);  
+            this.locationByDepartmentCountLis.push(e.count);
           }
           })
          this.locByDeptEmpsdoughChartType = 'doughnut';
@@ -417,19 +420,19 @@ locByDeptEmpsdoughnutChartData: any;
              }
            ]
          }
-         this.locByDeptEmpsdoughnutChartOptions = {	
+         this.locByDeptEmpsdoughnutChartOptions = {
           responsive: true,
           maintainAspectRatio: false,
            cutout: '65%',
            legend: { position: 'bottom' }
-       
+
        }
       } else {
-        
+
        }
      });
-    
- 
+
+
    }
 // -----------------------
   date = new FormControl(moment());
@@ -475,7 +478,7 @@ locByDeptEmpsdoughnutChartData: any;
       }
     });
   }
-  
+
   getLeavesTypesCountByMonth() {
     let date = this.pipe.transform(this.dashBoardForm.controls.leaveStatusDate.value, 'yyyy-MM-dd');
     this.adminService.getLeavesTypesCountByMonth(date).subscribe((res: any) => {
@@ -493,9 +496,9 @@ locByDeptEmpsdoughnutChartData: any;
       if (res.status && res.data) {
         res.data.forEach((e: any) => {
           this.deptWisePayrollNameList.push(e.deptname);
-          this.deptWisePayrollMonthList.push(e.MonthName); 
-          this.deptWisePayrollSumList.push(e.sum); 
-          this.deptWisePayrollYearList.push(e.year); 
+          this.deptWisePayrollMonthList.push(e.MonthName);
+          this.deptWisePayrollSumList.push(e.sum);
+          this.deptWisePayrollYearList.push(e.year);
          })
       }
       this.deptWisePayrollBarChartType = 'bar';
@@ -515,7 +518,7 @@ locByDeptEmpsdoughnutChartData: any;
           ],
           borderWidth: 1
           },
-          
+
           //   data: this.deptWisePayrollSumList,
           //   backgroundColor: [
           //     'rgba(54, 162, 235, 0.2)',
@@ -527,17 +530,17 @@ locByDeptEmpsdoughnutChartData: any;
           // }
         ]
       }
-      this.deptWisePayrollBarChartOptions = {	
+      this.deptWisePayrollBarChartOptions = {
         scales: {
           yAxes: [{
               display: true,
               ticks: {
                   suggestedMin: 10000, //min
-                  // suggestedMax: 100 //max 
+                  // suggestedMax: 100 //max
               }
           }]
       }
-    
+
     }
     });
   }

@@ -407,8 +407,8 @@ export class EditProfileComponent implements OnInit {
         this.editForm.controls.address.setValue(this.employeedata.address);
         this.editForm.controls.countryId.setValue(this.employeedata.country);
         this.editForm.controls.zipCode.setValue(this.employeedata.pincode);
-       // this.editForm.controls.stateId.setValue(this.employeedata.state);
-       // this.editForm.controls.cityId.setValue(this.employeedata.city);
+        this.editForm.controls.stateId.setValue(this.employeedata.state);
+        this.editForm.controls.cityId.setValue(this.employeedata.city);
       }
     });
   }
