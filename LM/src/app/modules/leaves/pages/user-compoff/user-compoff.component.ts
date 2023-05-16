@@ -10,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
+import { AttendanceService } from 'src/app/modules/attendance/attendance.service';
 
 import * as _moment from 'moment';
 import { EmsService } from 'src/app/modules/ems/ems.service';
@@ -71,7 +71,7 @@ export class UserCompoffComponent implements OnInit {
   currentYear = new Date().getDate();
   myDateFilter:any;
   pipe = new DatePipe('en-US');
-  constructor(private formBuilder: FormBuilder, private router: Router, private LM: LeavesService,
+  constructor(private formBuilder: FormBuilder, private router: Router, private LM: LeavesService,private attendanceService: AttendanceService,
     public datepipe: DatePipe, public dialog: MatDialog,private EMS:EmsService) {
     this.usersession = JSON.parse(sessionStorage.getItem('user') || '')
     this.year = this.today.getFullYear();
@@ -117,6 +117,10 @@ export class UserCompoffComponent implements OnInit {
       rejectreason:['']
 
     });
+    this.CompoffForm.get('workeddate')?.valueChanges.subscribe((selectedValue:any) => {
+      this.getEmployeeShiftDetailsByIdWithDates()
+
+    })
     this.CompoffForm.get('hours')?.valueChanges.subscribe((selectedValue:any) => {
       if(selectedValue == 24){
         this.CompoffForm.controls.minutes.setValue('00')
@@ -171,6 +175,38 @@ export class UserCompoffComponent implements OnInit {
   //   });
   //
   // }
+  getEmployeeShiftDetailsByIdWithDates() {
+    let data = {
+      "employee_id": this.usersession.id,
+      "fromd_date": this.pipe.transform(new Date(), 'yyyy-MM-dd'),
+      "to_date": this.pipe.transform(new Date(), 'yyyy-MM-dd'),
+    }
+    this.attendanceService.getEmployeeShiftByDates(data).subscribe((res: any) => {
+      if (res.status) {
+
+        if (res.data.length > 0) {
+          if (res.data.length > 1) {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+             data: "Unable to request. please check the configure shift."
+            });
+          } else {
+            
+           
+          }
+        } else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Unable to request. please configure the shift before request"
+          });
+        }
+
+
+      }
+    });
+  }
 
   getCompoffCalender(){
     this.calender.employeeId=this.usersession.id;
@@ -254,7 +290,7 @@ export class UserCompoffComponent implements OnInit {
   }
   view(data: any) {
     this.isview= true;
-    if (data.status != "Approved") {
+    if (data.status != "Rejected") {
       this.isReject= true;
     }
     this.CompoffForm.controls.empId.setValue()

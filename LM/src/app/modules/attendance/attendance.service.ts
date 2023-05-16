@@ -118,4 +118,7 @@ export class AttendanceService {
   getEmployeeInformation(id: any): Observable<any> {
     return this.http.get(this.mainUrl + 'api/getEmployeeInformation/' + id+'/'+this.companyName, this.httpOptions);
   }
+  getEmployeeInformationforlogindate(id: any): Observable<any> {
+    return this.http.get(this.mainUrl + 'api/getEmployeeInformationforlogindate/' + id+'/'+this.companyName, this.httpOptions);
+  }
 }
