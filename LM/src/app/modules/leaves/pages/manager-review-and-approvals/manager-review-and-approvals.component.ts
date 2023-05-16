@@ -71,9 +71,10 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
     /**
      * extracted data from route and assign to corresponding fields
      * **/
-    console.log("1",this.leaveInfo.leaveData)
     if(this.leaveInfo.leaveData !=undefined){
-      if(this.leaveInfo.isleave){
+      if (this.leaveInfo.isleave) {
+        console.log("v-0",this.leaveInfo.leaveData);
+        console.log("v-1",this.leaveInfo.leaveData.worked_date);
         if(this.leaveInfo.leaveData.leavetype == 3 || this.leaveInfo.leaveData.leavetype == 5 ){
           this.getUploadDocument()
         }
@@ -98,7 +99,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
           });
 
 
-      }else{
+      } else {
          this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.applied_date), 'dd-MM-yyyy') , disabled: true }],
