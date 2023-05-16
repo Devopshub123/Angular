@@ -87,7 +87,7 @@ export class CompanyinformationComponent implements OnInit {
         address2:[""],
         cin:["",Validators.required],
         gstnumber:["",Validators.required],
-        established_date:[new Date(),Validators.required],
+        established_date:[Validators.required],
         secondarycontactnumber:[""],
         city: ["",Validators.required],
         state: ["",Validators.required],
@@ -253,8 +253,8 @@ export class CompanyinformationComponent implements OnInit {
         this.companyForm.controls.city.setValue(data.data[0].city);
         this.companyForm.controls.cin.setValue(data.data[0].cin);
         this.companyForm.controls.gstnumber.setValue(data.data[0].gstnumber);
-        this.companyForm.controls.established_date.setValue(new Date(data.data[0].established_date)??new Date());
-        if(data.data[0].secondarycontactnumber=="null"){
+        this.companyForm.controls.established_date.setValue(data.data[0].established_date !=null ? new Date(data.data[0].established_date):'' );
+        if (data.data[0].secondarycontactnumber == "null") {
         this.companyForm.controls.secondarycontactnumber.setValue('');
         }
         else{

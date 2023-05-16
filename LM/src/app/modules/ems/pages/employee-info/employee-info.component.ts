@@ -682,11 +682,12 @@ export class EmployeeInfoComponent implements OnInit {
       this.personalInfoForm.controls.companylocation.setValue(this.employeeInformationData.worklocation);
       this.personalInfoForm.controls.designation.setValue(this.employeeInformationData.designation);
       this.personalInfoForm.controls.department.setValue(this.employeeInformationData.department);
-      if (this.employeeInformationData.reportingmanager == 77) {
-        this.personalInfoForm.controls.reportingmanager.setValue("Self")
-      } else {
-        this.personalInfoForm.controls.reportingmanager.setValue(this.employeeInformationData.reportingmanager);
-      }
+      this.personalInfoForm.controls.reportingmanager.setValue(this.employeeInformationData.reportingmanager);
+    // if (this.employeeInformationData.reportingmanager == 77) {
+      //   this.personalInfoForm.controls.reportingmanager.setValue("Self")
+      // } else {
+      //   this.personalInfoForm.controls.reportingmanager.setValue(this.employeeInformationData.reportingmanager);
+      // }
       //this.personalInfoForm.controls.noticePeriod.setValue(this.employeeInformationData.noticeperiod);
 
       if (this.employeeInformationData.relations != null) {
@@ -2451,7 +2452,7 @@ export class EmployeeInfoComponent implements OnInit {
       const toSelect = this.selectedRoles.find((e: any) => e.id == event.source.value.id);
       if (toSelect == undefined) {
         this.selectedRoles.push({ "id": event.source.value.id });
-        if (event.source.value.id == 2 || event.source.value.id == 6 || event.source.value.id == 9) {
+        if (event.source.value.id == 2 || event.source.value.id == 4 || event.source.value.id == 6 || event.source.value.id == 9) {
         this.isself = true;
          }
        else {

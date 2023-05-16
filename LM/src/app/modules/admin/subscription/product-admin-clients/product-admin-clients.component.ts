@@ -47,7 +47,6 @@ export class ProductAdminClientsComponent implements OnInit {
     this.adminService.getAllSprypleClients().subscribe((result:any)=> {
       if(result.status&&result.data.length>0){
         this.arrayList = result.data
-        console.log("data",this.arrayList)
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

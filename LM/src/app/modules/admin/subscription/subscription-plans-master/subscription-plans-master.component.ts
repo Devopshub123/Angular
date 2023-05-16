@@ -61,7 +61,8 @@ export class SubscriptionPlansMasterComponent implements OnInit {
     private adminService: AdminService, private ES: EmsService, private LM: CompanySettingService) {
    }
    seperationsList: any = [];
-   editflag: boolean = true;
+  editflag: boolean = true;
+  pageLoading = true;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     /** */
@@ -144,7 +145,10 @@ export class SubscriptionPlansMasterComponent implements OnInit {
    getSpryplePlans(){
     this.adminService.getSpryplePlans().subscribe((result:any)=>{
       if(result.status&&result.data.length>0){
-        this.dataSource = result.data;
+        this.dataSource = new MatTableDataSource(result.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.pageLoading = false;
       }
     })
   }
@@ -244,5 +248,27 @@ export class SubscriptionPlansMasterComponent implements OnInit {
       event.preventDefault();
     }
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  getPageSizes(): number[] {
+     
+    var customPageSizeArray = [];
+    if (this.dataSource.data.length > 5) {
+      customPageSizeArray.push(5);
+    }
+    if (this.dataSource.data.length > 10) {
+      customPageSizeArray.push(10);
+    }
+    if (this.dataSource.data.length > 20) {
+      customPageSizeArray.push(20);
+    }
+    customPageSizeArray.push(this.dataSource.data.length);
+    return customPageSizeArray;
+    }
 }
 

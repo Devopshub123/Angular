@@ -93,16 +93,22 @@
                         </button>
                     </div>
                 </div>
-
-                <br>
+                <div *ngIf="!isData" fxLayout="row" fxLayoutAlign.xs="center" class="dev-Pad" fxLayoutAlign="end">
+                    <span style="height: 70px;" fxFlex="50" fxLayoutAlign="end">
+                      <mat-form-field fxFlex.xs="100" fxFlex="56" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
+                        <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
+                        <mat-label>Search</mat-label>
+                        <input (keyup)="applyFilter($event)" matInput placeholder="" maxlength="100">
+                      </mat-form-field>
+                    </span>
+                  </div>
                 <div class="table-pad" *ngIf="!isData">
                     <div class="example-container mat-elevation-z1">
                         <table mat-table [dataSource]="dataSource" matSort>
                             <ng-container matColumnDef="sno">
                                 <th mat-header-cell *matHeaderCellDef>S.No</th>
-                                <td mat-cell *matCellDef="let row; let i = index">
-                                    <span>{{ i + 1 }}</span>
-                                </td>
+                                <td mat-cell *matCellDef="let element; let i=index;">
+                                    {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
                             </ng-container>
                             <ng-container matColumnDef="plan">
                                 <th mat-header-cell *matHeaderCellDef>
@@ -162,6 +168,8 @@
                                 </td>
                             </tr>
                         </table>
+                        <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+        
                     </div>
                 </div>
 

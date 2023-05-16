@@ -341,6 +341,7 @@ export class SignUpComponent implements OnInit {
 
   submit() {
     this.spinner.show();
+    console.log("v-1",this.signUpForm.valid)
     if (this.signUpForm.valid && this.signUpForm.controls.isChecked.value) {
       let data ={
         company_name_value:this.signUpForm.controls.companyName.value,

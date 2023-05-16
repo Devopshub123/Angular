@@ -588,6 +588,7 @@ export class EmployeeProfileComponent implements OnInit {
           this.isContractData = true;
         }
         let rolesList = JSON.parse(this.employeeInformationData.usertype);
+        let data = JSON.parse(this.employeeInformationData.usertype);
         rolesList.forEach((e:any) => {
        this.roleName.push(e.name);
        this.selectedRoles.push({ "id": e.id });

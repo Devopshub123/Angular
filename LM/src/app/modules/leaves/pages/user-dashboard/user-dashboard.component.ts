@@ -200,8 +200,8 @@ export class UserDashboardComponent implements OnInit {
 
   getHolidaysList() {
     this.LM.getHolidaysList(this.usersession.id).subscribe((result)=>{
-      if(result && result.status){
-         for(let i=0;i<result.data[0].length;i++){
+      if (result && result.status) {
+        for(let i=0;i<result.data[0].length;i++){
           if(i<=2){
             this.holidaysList.push(result.data[0][i])
             this.holidaydatasource = new MatTableDataSource(this.holidaysList);

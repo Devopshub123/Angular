@@ -122,6 +122,7 @@ export class ChecklistMeetComponent implements OnInit {
   employeeEmailData: any = [];
   programId: any;
   deptId: any;
+  isdisable:boolean=false;
   constructor(private formBuilder: FormBuilder,private router: Router,public dialog: MatDialog,private companyServices: CompanySettingService,private EMS:EmsService) {
 
   }
@@ -184,13 +185,13 @@ export class ChecklistMeetComponent implements OnInit {
       if (this.programId != null) {
         this.conductlist = [];
         this.availableDepartments=[]
-          this.getProgramDepartmentList(this.programId);
+        this.getProgramDepartmentList(this.programId);
         }
       });
       this.checklistForm.get('department')?.valueChanges.subscribe((selectedValue) => {
         this.deptId = selectedValue;
         if (this.deptId != null) {
-          this.getConductedEmployessList(this.programId,this.deptId);
+          this.getConductedEmployessList(this.programId, this.deptId);
         }
       });
   }
@@ -319,7 +320,7 @@ export class ChecklistMeetComponent implements OnInit {
   resetform() {}
 
   editRequest(data: any) {
-  
+    this.isdisable = true;
     this.isAdd = true;
     this.isdata = false;
     this.isView = false;
@@ -753,5 +754,8 @@ export class ChecklistMeetComponent implements OnInit {
       .subscribe((res: any) => {
         this.employeeEmailData = JSON.parse(res.data[0].jsonvalu)[0];
        })
+  }
+  onChange() {
+    this.isdisable = false; 
   }
 }

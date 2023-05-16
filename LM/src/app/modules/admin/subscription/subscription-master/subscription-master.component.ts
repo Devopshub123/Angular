@@ -76,7 +76,8 @@ export class SubscriptionMasterComponent implements OnInit {
     private AS: AdminService, private ES: EmsService, private LM: CompanySettingService) {
    }
    seperationsList: any = [];
-   plansdata:any=[];
+  plansdata: any = [];
+  pageLoading = true;
   //  plansdata:any=[{id:1,'plan':'standard'},{id:1,'plan':'premium'},{id:1,'plan':'extra premium'}]
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
@@ -131,10 +132,11 @@ export class SubscriptionMasterComponent implements OnInit {
   }
   getSpryplePlanCostDetails(){
     this.AS.getSpryplePlanCostDetails().subscribe((result:any)=>{
-      if(result.status&&result.data.length>0){
-        this.dataSource = result.data;
-        console.log(this.dataSource)
-
+      if (result.status && result.data.length > 0) {
+        this.dataSource = new MatTableDataSource(result.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.pageLoading = false;
       }
     })
   }
@@ -183,8 +185,6 @@ export class SubscriptionMasterComponent implements OnInit {
     this.AS.getUnmappedPlans().subscribe((result:any)=>{
       if(result.status&&result.data.length>0){
         this.plansdata = result.data;
-        console.log(this.plansdata)
-
       }
     })
   }
@@ -258,4 +258,26 @@ export class SubscriptionMasterComponent implements OnInit {
       event.preventDefault();
     }
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  getPageSizes(): number[] {
+     
+    var customPageSizeArray = [];
+    if (this.dataSource.data.length > 5) {
+      customPageSizeArray.push(5);
+    }
+    if (this.dataSource.data.length > 10) {
+      customPageSizeArray.push(10);
+    }
+    if (this.dataSource.data.length > 20) {
+      customPageSizeArray.push(20);
+    }
+    customPageSizeArray.push(this.dataSource.data.length);
+    return customPageSizeArray;
+    }
 }
