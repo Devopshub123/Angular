@@ -28,7 +28,8 @@ const routes: Routes = [
       { path: 'uploadExcel', component: AttendanceUploadexcelComponent,canActivate:[LMSAccessGuard] },
       { path: 'ChangePassword', component: ChangePasswordComponent},
       { path: 'ShiftConfigure', component: ShiftConfigureComponent,canActivate:[LMSAccessGuard] },
-      {path:'ApprovedHistory',component:ApprovalHistoryComponent,canActivate:[LMSAccessGuard]}
+      {path:'ApprovedHistory',component:ApprovalHistoryComponent,canActivate:[LMSAccessGuard]},
+      {path:'ChangePassword',component:ChangePasswordComponent},
     ]
   }];
 
