@@ -1288,10 +1288,10 @@ export class PreOnboardingDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == 'YES') {
-        this.mainService.deleteFilesMaster(data.id).subscribe((res: any) => {
+        this.mainService.deleteFilesMasterpreonboarding(data.id).subscribe((res: any) => {
           if (res && res.status) {
             var info = JSON.stringify(data)
-            this.mainService.removeDocumentOrImagesForEMS(info).subscribe((result: any) => { })
+            this.mainService.removeDocumentOrImagesForEMSpreonboarding(info).subscribe((result: any) => { })
             // this.mainService.removeDocumentOrImagesForEMS(data).subscribe(result => {})
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position: { top: `70px` },

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewChild ,ElementRef } from '@angular/core';
 import { FormGroup,FormControl,Validators, FormBuilder, AbstractControl, FormArray, ValidatorFn, ValidationErrors} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,7 +9,11 @@ import {AdminService} from'../../../admin/admin.service';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
 import { environment } from 'src/environments/environment';
 import { EmsService } from 'src/app/modules/ems/ems.service';
-
+import * as XLSX from "xlsx";
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+const htmlToPdfmake = require("html-to-pdfmake");
 @Component({
   selector: 'app-product-admin-clients',
   templateUrl: './product-admin-clients.component.html',
@@ -24,6 +28,7 @@ export class ProductAdminClientsComponent implements OnInit {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
+  @ViewChild('table') table!: ElementRef;
   userSession:any;
   arrayValue:any;
   companyDBName:any = environment.dbName;
@@ -80,6 +85,65 @@ export class ProductAdminClientsComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  public exportPDF(): void {
+    const pdfTable = this.table.nativeElement;
+    var html = htmlToPdfmake(pdfTable.innerHTML);
+    pdfMake.createPdf({
+      info: {
+        title: "clients data",
+        author:'Sreeb tech',
+        subject:'Theme',
+            keywords:'Report'
+      },
+      footer: function (currentPage, pageCount) {
+        return {
+          margin: 10,
+          columns: [
+            {
+              fontSize: 9,
+              text: [
+                {
+                  text: 'Page ' + currentPage.toString() + ' of ' + pageCount,
+                }
+              ],
+              alignment: 'center'
+            }
+          ]
+        };
+      },
+      content: [
+        {
+          text: "Clients\n\n",
+          style: 'header',
+          alignment: 'center',
+          fontSize: 14
+        },
+        // {
+        //   text:
+        //     "Designation :  " + this.designationForPdf +"\n" +
+        //     "Employee Name and Id:  " + this.employeeNameForPdf + "\n" +
+        //     "Year:  " + this.searchForm.controls.calenderYear.value+ "\n",
+        //   fontSize: 10,
+        //   margin: [0, 0, 0, 20],
+        //   alignment: 'left'
+        // },
+        html
+      ],
+      pageOrientation: 'landscape'//'portrait'
+    }).download("Clients.pdf");
 
+  }
+  exportAsXLSX() {
+  
+    // var ws:XLSX.WorkSheet=XLSX.utils.table_to_sheet('Payroll_report_for_financeteam_');
+    var ws:XLSX.WorkSheet=XLSX.utils.table_to_sheet(document.getElementById('table'));
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'clients');
+
+    /* save to file */
+    // XLSX.writeFile('Payroll_report_for_financeteam_'+this.monthdata,'Payroll_report_for_financeteam_'+this.monthdata+'_'+this.year+'.xlsx')
+    XLSX.writeFile(wb, 'clients_.xlsx');
+
+  }
 
 }
