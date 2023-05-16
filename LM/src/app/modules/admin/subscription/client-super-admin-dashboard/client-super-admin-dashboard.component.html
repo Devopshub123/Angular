@@ -15,12 +15,12 @@
               <chart #chart style="display: block;
               width: 245px;
               height: 220px;"
-              [type]="locPieChartType" 
-              [data]="locPieChartdata" 
+              [type]="locPieChartType"
+              [data]="locPieChartdata"
               [options]="locPieChartoptions"
               ></chart>
          </div>
-        
+
           </mat-card>
 
           <mat-card class="card outline" fxFlex="100" fxLayout="column">
@@ -33,7 +33,7 @@
                     <mat-select formControlName="location">
                         <ng-container>
                             <div *ngFor="let b of workLocationList">
-                                <mat-option [value]="b.id">{{ b.cityname }}</mat-option>
+                                <mat-option [value]="b.id">{{ b.location }}</mat-option>
                             </div>
                         </ng-container>
                     </mat-select>
@@ -43,13 +43,13 @@
                   <chart #chart style="display: block;
                   width: 245px;
                   height: 220px;"
-                  [type]="locByDeptEmpsdoughChartType" 
-                  [data]="locByDeptEmpsdoughnutChartData" 
+                  [type]="locByDeptEmpsdoughChartType"
+                  [data]="locByDeptEmpsdoughnutChartData"
                   [options]="locByDeptEmpsdoughnutChartOptions"
                   ></chart>
             </div>
               </div>
-              
+
           <div fxLayout="column" fxFlex="100" fxLayoutAlign="center center" *ngIf="locationByDepartmentCountLis.length == 0 || locationByDepartmentCountLis ==null">
           <span>No Data Found</span>
           </div>
@@ -81,7 +81,7 @@
                  </span>
                  <div fxLayout="row"><span class="textStyle">Exit Employees :</span>&nbsp;<span class="textStyle2">{{exitEmployeeStatusCount}}</span></div>
               </div>
- 
+
            </mat-card>
 
       </div>
@@ -89,7 +89,7 @@
       <!-- 2nd row -->
 
       <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="10px">
-    
+
           <mat-card class="card outline" fxFlex="100">
              <span class="title" fxLayoutAlign="start">
                 <span>Attendance</span>
@@ -109,8 +109,8 @@
                 <chart #chart style="display: block;
                 width: 245px;
                 height: 220px;"
-                [type]="attDonutChartType" 
-                [data]="attDonutChartdata" 
+                [type]="attDonutChartType"
+                [data]="attDonutChartdata"
                 [options]="attDonutChartoptions"
                 ></chart>
             </div>
@@ -136,8 +136,8 @@
               <chart #chart style="display: block;
               width: 245px;
               height: 220px;"
-              [type]="deptWiseLeavepieChartType" 
-              [data]="deptWiseLeavepieChartData" 
+              [type]="deptWiseLeavepieChartType"
+              [data]="deptWiseLeavepieChartData"
               [options]="deptWiseLeavepieoptions"
               >
             </chart>
@@ -201,9 +201,9 @@
        </span>
 
        <div *ngIf="shiftByDepartmentCountList.length > 0">
-        <chart #chart 
-        [type]="vbarChartType" 
-        [data]="vbarChartData" 
+        <chart #chart
+        [type]="vbarChartType"
+        [data]="vbarChartData"
         [options]="vbaroptions"
         >
        </chart>
@@ -221,14 +221,14 @@
               <span>Payroll Analysis By </span>
             </span>
           </div>
-          <chart #chart 
-          [type]="deptWisePayrollBarChartType" 
-          [data]="deptWisePayrollBarChartData" 
+          <chart #chart
+          [type]="deptWisePayrollBarChartType"
+          [data]="deptWisePayrollBarChartData"
           [options]="deptWisePayrollBarChartOptions"
           ></chart>
         </mat-card>
       </div>
-      
+
     </form>
   </mat-card>
 </div>

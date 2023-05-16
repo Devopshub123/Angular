@@ -388,7 +388,7 @@ export class EmployeeProfileComponent implements OnInit {
         this.minEducationDate = selectedValue._d;
       }
     });
-    
+
     // this.personalInfoForm.get('usertype')?.valueChanges.subscribe((selectedValue) => {
     //     if (selectedValue == 2) {
     //       this.isself = true;
@@ -442,7 +442,7 @@ export class EmployeeProfileComponent implements OnInit {
     this.experienceForm.controls.expToDate.setValue('')
     }
   onEduDateChange() {
-  this.educationForm.controls.eduToDate.setValue('')  
+  this.educationForm.controls.eduToDate.setValue('')
   }
 
   /** through employee directory login data  */
@@ -452,7 +452,7 @@ export class EmployeeProfileComponent implements OnInit {
     this.emsService
       .getEmployeeInformationData(this.employeeId)
       .subscribe((res: any) => {
-        this.employeeInformationData = JSON.parse(res.data[0].json)[0];
+        this.employeeInformationData = res.data[0];
 
         if (this.employeeInformationData.id != null) {
           this.preOnboardId = this.employeeInformationData.id;
@@ -486,16 +486,16 @@ export class EmployeeProfileComponent implements OnInit {
         let fname = this.employeeInformationData.firstname;
         fname = fname ? fname.charAt(0).toUpperCase() + fname.substr(1).toLowerCase() : '';
         this.personalInfoForm.controls.firstname.setValue(fname);
-  
+
         let mname = this.employeeInformationData.middlename;
         mname = mname ? mname.charAt(0).toUpperCase() + mname.substr(1).toLowerCase() : '';
         this.personalInfoForm.controls.middlename.setValue(mname);
-  
+
         let lname = this.employeeInformationData.lastname;
         lname = lname ? lname.charAt(0).toUpperCase() + lname.substr(1).toLowerCase() : '';
         this.personalInfoForm.controls.lastname.setValue(lname);
 
-       
+
         this.personalInfoForm.controls.dateofbirth.setValue(
           new Date(this.employeeInformationData.dateofbirth)
         );
@@ -1359,7 +1359,7 @@ export class EmployeeProfileComponent implements OnInit {
   addWorkExperience() {
     this.addExperienceValidators();
     if(this.experienceForm.valid){
-      
+
       if (this.isExperienceEdit) {
         this.isExperienceEdit = false;
         this.workExperienceDetails[this.experienceIndex].companyname =
@@ -1394,11 +1394,11 @@ export class EmployeeProfileComponent implements OnInit {
             skills: this.experienceForm.controls.jobDescription.value,
             designation: this.experienceForm.controls.designation.value,
           });
-         
+
           this.workExperienceDataSource = new MatTableDataSource(
             this.workExperienceDetails
           );
-          
+
           this.clearExperienceValidators();
           this.clearWorkExperience();
           this.saveWorkExperience();
@@ -1499,7 +1499,7 @@ export class EmployeeProfileComponent implements OnInit {
       bankaccountnumber: this.employementForm.controls.bankAccountNumber.value !=null ? this.employementForm.controls.bankAccountNumber.value:null,
       uanumber: this.employementForm.controls.uanNumber.value !=null ? this.employementForm.controls.uanNumber.value:null,
       pan: this.employementForm.controls.panNumber.value !=null ? this.employementForm.controls.panNumber.value:null,
-   
+
     };
     this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
       if (res.status && res.data[0].statuscode == 0) {
@@ -1641,7 +1641,7 @@ export class EmployeeProfileComponent implements OnInit {
       }
 
     }
-    
+
   }
   editEduction(i: any) {
     this.educationIndex = i;
@@ -2161,7 +2161,7 @@ export class EmployeeProfileComponent implements OnInit {
     this.documentsForm.get('documentId').updateValueAndValidity();
     this.documentsForm.get('attachedFile').clearValidators();
     this.documentsForm.get('attachedFile').updateValueAndValidity();
-  
+
   }
   delete() {
     this.isedit = false;
