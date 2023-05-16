@@ -469,7 +469,10 @@ export class EmployeeInfoComponent implements OnInit {
         this.personalInfoForm.controls.checked.setValue(true)
       }
       this.loginCandidateId = this.loginData.candidateid;
-      this.employeeNameh = this.loginData.firstname + ' ' + this.loginData.middlename + ' '+this.loginData.lastname;
+       let firname = this.loginData.firstname != null ? this.loginData.firstname : '';
+      let midname = this.loginData.middlename != null ? this.loginData.middlename : '';
+      let lasname = this.loginData.lastname != null ? this.loginData.lastname : '';
+      this.employeeNameh = firname + ' ' + midname + ' '+ lasname;
       this.employeeCode = this.loginData.empid;
       this.availableDesignations.forEach((e: any) => {
         if (e.id == this.loginData.designation) {
@@ -610,7 +613,10 @@ export class EmployeeInfoComponent implements OnInit {
       if (a.country == a.pcountry && a.state == a.pstate && a.city == a.pcity && a.address == a.paddress && a.pincode == a.ppincode) {
         this.personalInfoForm.controls.checked.setValue(true)
       }
-      this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.middlename  + ' ' + this.employeeInformationData.lastname;
+      let midname = this.employeeInformationData.middlename != null ? this.employeeInformationData.middlename : '';
+      let lasname = this.employeeInformationData.lastname != null ? this.employeeInformationData.lastname : '';
+      this.employeeNameh = this.employeeInformationData.firstname + ' ' + midname + ' '+ lasname;
+      // this.employeeNameh = this.employeeInformationData.firstname + ' ' + this.employeeInformationData.middlename  + ' ' + this.employeeInformationData.lastname;
       this.employeeCode = this.employeeInformationData.empid;
       this.availableDesignations.forEach((e: any) => {
         if (e.id == this.employeeInformationData.designation) {
