@@ -1550,57 +1550,10 @@ export class EmployeeInfoComponent implements OnInit {
   saveWorkExperience() {
 
     if (this.employeeCode != undefined || this.employeeCode != null) {
-      if (this.workExperienceDetails.length > 0) {
-        this.spinner.show();
-        let data = {
-          empid: this.employeeCode,
-          experience: this.workExperienceDetails,
-          bankname: this.employementForm.controls.bankName.value !=null ? this.employementForm.controls.bankName.value:null,
-          ifsccode: this.employementForm.controls.ifscCode.value !=null ? this.employementForm.controls.ifscCode.value:null,
-          nameasperbankaccount: this.employementForm.controls.bankAccountName.value !=null ? this.employementForm.controls.bankAccountName.value:null,
-          branchname: this.employementForm.controls.branchName.value !=null ? this.employementForm.controls.branchName.value:null,
-          bankaccountnumber: this.employementForm.controls.bankAccountNumber.value !=null ? this.employementForm.controls.bankAccountNumber.value:null,
-          uanumber: this.employementForm.controls.uanNumber.value !=null ? this.employementForm.controls.uanNumber.value:null,
-          pan: this.employementForm.controls.panNumber.value !=null ? this.employementForm.controls.panNumber.value:null,
-        }
-        this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
-          if (res.status && res.data[0].statuscode == 0) {
-            this.spinner.hide();
-            this.getEmployeeEmploymentList();
-            if (this.isUpdate == false && this.isDelete ==false) {
-              let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                position: { top: `70px` },
-                disableClose: true,
-                data: this.EM42,
-              });
-            } else if (this.isUpdate == true) {
-              let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                position: { top: `70px` },
-                disableClose: true,
-                data: this.EM62
-              });
-            } else if (this.isDelete == true) {
-              let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                position: { top: `70px` },
-                disableClose: true,
-                data: this.EM63,
-              });
-            }
-            if (this.isSubmitAdd == false) {
-              this.selectedtab.setValue(3);
-            }
-            this.clearExperienceValidators();
-            this.clearWorkExperience();
-            this.isSubmitAdd == false;
-          } else {
-            this.spinner.hide();
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position: { top: `70px` },
-              disableClose: true,
-              data: this.EM43
-            });
-          }
-        });
+      if (this.isDelete ==true) {
+        this.submitExperience();
+      } else if (this.workExperienceDetails.length > 0) {
+        this.submitExperience();
      }
 
     } else {
@@ -1614,7 +1567,59 @@ export class EmployeeInfoComponent implements OnInit {
 
   }
 
-
+  submitExperience() {
+    this.spinner.show();
+    let data = {
+      empid: this.employeeCode,
+      experience: this.workExperienceDetails,
+      bankname: this.employementForm.controls.bankName.value !=null ? this.employementForm.controls.bankName.value:null,
+      ifsccode: this.employementForm.controls.ifscCode.value !=null ? this.employementForm.controls.ifscCode.value:null,
+      nameasperbankaccount: this.employementForm.controls.bankAccountName.value !=null ? this.employementForm.controls.bankAccountName.value:null,
+      branchname: this.employementForm.controls.branchName.value !=null ? this.employementForm.controls.branchName.value:null,
+      bankaccountnumber: this.employementForm.controls.bankAccountNumber.value !=null ? this.employementForm.controls.bankAccountNumber.value:null,
+      uanumber: this.employementForm.controls.uanNumber.value !=null ? this.employementForm.controls.uanNumber.value:null,
+      pan: this.employementForm.controls.panNumber.value !=null ? this.employementForm.controls.panNumber.value:null,
+    }
+    this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
+      if (res.status && res.data[0].statuscode == 0) {
+        this.spinner.hide();
+        this.getEmployeeEmploymentList();
+        if (this.isUpdate == false && this.isDelete ==false) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.EM42,
+          });
+        } else if (this.isUpdate == true) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data updated successfully.",
+          });
+        } else if (this.isDelete == true) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data deleted successfully.",
+          });
+        }
+        if (this.isSubmitAdd == false) {
+          this.selectedtab.setValue(3);
+        }
+        this.clearExperienceValidators();
+        this.clearWorkExperience();
+        this.isSubmitAdd == false;
+      } else {
+        this.spinner.hide();
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+          data: this.EM43
+        });
+      }
+    });
+  }
+  
   saveBankDetails() {
 
     if (this.employeeCode != undefined || this.employeeCode != null) {
@@ -1667,55 +1672,11 @@ export class EmployeeInfoComponent implements OnInit {
 
   //** */
   saveEducation() {
-
     if (this.employeeCode != undefined || this.employeeCode != null) {
-      if (this.educationForm.valid) {
-        this.spinner.show();
-        let data = {
-          empid: this.employeeCode,
-          education: this.educationDetails,
-        }
-
-        this.emsService.saveEmployeeEducationData(data).subscribe((res: any) => {
-          if (res.status && res.data[0].statuscode == 0) {
-            this.getEmployeeEducationList();
-            if (this.isUpdate == false && this.isDelete ==false) {
-              let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                position: { top: `70px` },
-                disableClose: true,
-                data: this.EM42,
-              });
-            } else if (this.isUpdate == true) {
-              let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                position: { top: `70px` },
-                disableClose: true,
-                data: this.EM62
-              });
-            } else if (this.isDelete == true) {
-              let dialogRef = this.dialog.open(ReusableDialogComponent, {
-                position: { top: `70px` },
-                disableClose: true,
-                data: this.EM63,
-              });
-            }
-            this.spinner.hide();
-            if (this.isSubmitAdd == false) {
-              this.selectedtab.setValue(5);
-            }
-            this.clearEducationValidators();
-            this.clearEducation();
-            this.isSubmitAdd = false;
-          } else {
-            this.spinner.hide();
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position: { top: `70px` },
-              disableClose: true,
-              data: this.EM43
-            });
-          }
-        });
-      } else {
-        this.spinner.hide();
+      if (this.isDelete ==true) {
+        this.submitEducation();
+      } else if(this.educationForm.valid){
+        this.submitEducation();
       }
 
     } else {
@@ -1729,6 +1690,53 @@ export class EmployeeInfoComponent implements OnInit {
 
   }
 
+  submitEducation() {
+    this.spinner.show();
+    let data = {
+      empid: this.employeeCode,
+      education: this.educationDetails,
+    }
+
+    this.emsService.saveEmployeeEducationData(data).subscribe((res: any) => {
+      if (res.status && res.data[0].statuscode == 0) {
+        this.getEmployeeEducationList();
+        if (this.isUpdate == false && this.isDelete ==false) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: this.EM42,
+          });
+        } else if (this.isUpdate == true) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data updated successfully.",
+          });
+        } else if (this.isDelete == true) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data deleted successfully.",
+          });
+        }
+        this.spinner.hide();
+        if (this.isSubmitAdd == false) {
+          this.selectedtab.setValue(5);
+        }
+        this.clearEducationValidators();
+        this.clearEducation();
+        this.isSubmitAdd = false;
+      } else {
+        this.spinner.hide();
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+          data: this.EM43
+        });
+      }
+    });
+  }
+  
   educationSaveAdd() {
     this.isSubmitAdd = true;
     this.addEducation();
