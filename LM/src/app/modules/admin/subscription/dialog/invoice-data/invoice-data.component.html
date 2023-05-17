@@ -1,8 +1,8 @@
 
 
 <div fxLayoutAlign="space-between center" style="width: auto;"> 
-    <div>
-        <h3> <b>INVOICE</b></h3>
+    <div style="padding-left: 10%;">
+        <h3 > <b>INVOICE</b></h3>
     </div>
     <div fxLayout="row wrap">
        <span style="color:#28acaf">
@@ -18,15 +18,16 @@
    
     
 </div>
-<div id="invoice" #invoice  style="width: 100%">
+<div id="invoice" #invoice  >
+<div style="padding-left: 10%;padding-top: 20px;">
 <div fxLayout="row wrap" fxLayout.xs="column">
-    <div style="width: 40%;">
+    <div style="width: 45%;">
         <p><b>Invoice Date: </b> {{invoiceDate | date:'dd-MM-yyyy'}}</p>
         <p><b>Due Date: </b> {{dueDate | date:'dd-MM-yyyy'}}</p>
         <p><b>Invoice Number: </b> {{invoiceNum}}</p>
 
     </div>
-    <div style="width: 40%;">
+    <div style="width: 45%;">
         <p><b>Company Name: </b> {{cname}}</p>
         <p><b>Billing Address: </b> {{address1}},</p>
         <span *ngIf="address2 !=null">
@@ -40,7 +41,7 @@
     
     
 </div>
-<div style="height: auto">
+<div style="height: auto;width:80%">
     <div class="mat-elevation-z1">
  
     <table mat-table  [dataSource]="dataSource" matSort  #table>
@@ -75,6 +76,7 @@
     </table>
    </div><br>
    
+</div>
 </div>
 </div>
 

@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatStepper } from '@angular/material/stepper';
-
+import { SignupMoreusersDialogComponent } from '../signup-moreusers-dialog/signup-moreusers-dialog.component';
 // import { MatTableDataSource } from '@angular/material/table';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AdminService } from 'src/app/modules/admin/admin.service';
@@ -184,6 +184,16 @@ export class SignUpComponent implements OnInit {
       this.companyService.getPreonboardingStatesc(selectedValue,'spryple_dev').subscribe((data)=>{
         this.stateDetails = data.data;
       })
+    })
+    this.signUpForm.get('companySize')?.valueChanges.subscribe((selectedValue: any) => {
+      if(selectedValue>201){
+        let dialogRef = this.dialog.open(SignupMoreusersDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+         
+        });
+        this.isdisable = true;
+      }
     })
 
   this.signUpForm.get('state')?.valueChanges.subscribe((selectedValue: any) => {
@@ -479,7 +489,7 @@ this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
   if(result.status){
     // this.ngOnInit();
     this.myStepper.next();
-    this.myStepper.next();
+    // this.myStepper.next();
     // this.myStepper.next();
   }
 })

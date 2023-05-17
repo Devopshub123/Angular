@@ -111,8 +111,8 @@ export class FinanceDashboardComponent implements OnInit {
 		}
 
 	
-	
 	this.PR.getMonthlyPayrollData(data).subscribe((result:any)=>{
+		
 		if(result.status){
 		 this.grosssalary = result.data[0].gross_salary;
 		 this.netSalary = result.data[0].net_salary;
@@ -133,6 +133,7 @@ export class FinanceDashboardComponent implements OnInit {
 
 		this.departments=[];
 		this.departmentsdata=[];
+		console.log("getMonthlyPayrollDataForGraph",result);
 		if(result.status){
 		 for(let i=0;i<result.data.length;i++){
 			this.departments.push(result.data[i].deptname);
@@ -214,6 +215,7 @@ export class FinanceDashboardComponent implements OnInit {
 		let data={
 		  fyear:this.financeyears,
 		}
+
 		this.PR.Month_Year(data.fyear).subscribe((result:any)=>{
 		  if(result.status&&result.data.length>0){
 			this.monthsdata =result.data;
