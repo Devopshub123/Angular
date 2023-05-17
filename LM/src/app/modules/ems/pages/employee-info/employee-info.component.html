@@ -964,7 +964,7 @@
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%">
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Company Name</mat-label>
-                                <input type="text" formControlName="companyName" specialIsAlpha matInput placeholder=""
+                                <input type="text" formControlName="companyName" (keypress)="alphabetKeyPress($event)" matInput placeholder=""
                                     maxlength="100" required />
                                 <mat-error class="con-error"
                                     *ngIf="experienceForm.controls.companyName.errors?.required">
@@ -973,7 +973,7 @@
                             </mat-form-field>
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Designation</mat-label>
-                                <input type="text" required formControlName="designation" specialIsAlpha matInput
+                                <input type="text" required formControlName="designation" (keypress)="alphabetKeyPress($event)" matInput
                                     placeholder="" maxlength="30" />
                                 <mat-error class="reg-error" *ngIf="
                       experienceForm.controls.designation.hasError('required')
@@ -1215,7 +1215,7 @@
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Course</mat-label>
                                 <input required type="text" maxlength="100" formControlName="course" matInput
-                                    placeholder="" />
+                                    placeholder="" (keypress)="alphabetKeyPress($event)"/>
                                 <mat-error class="con-error" *ngIf="educationForm.controls.course.errors?.required">
                                     {{ EM1 }}
                                 </mat-error>
