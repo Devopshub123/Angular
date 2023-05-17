@@ -100,13 +100,14 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
 
 
       } else {
+        console.log((this.leaveInfo.leaveData))
          this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.applied_date), 'dd-MM-yyyy') , disabled: true }],
             empId: [{ value: this.leaveInfo.leaveData.employee_id, disabled: true }],
             empName: [{ value: this.leaveInfo.leaveData.employeename, disabled: true }],
             // leaveType: [{ value:this.leaveInfo.leaveData.display_name, disabled: true }],
-            fromDate: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.comp_off_date), 'dd-MM-yyyy') , disabled: true }],
+            fromDate: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.comp_off_worked_date), 'dd-MM-yyyy') , disabled: true }],
             // toDate: [{ value: this.pipe.transform(new Date(this.leaveInfo.leaveData.todate), 'mediumDate') , disabled: true }],
             noOfDays: [{ value: this.leaveInfo.leaveData.worked_hours+':'+this.leaveInfo.leaveData.worked_minutes, disabled: true }],
             // workType1: [{ value: this.leaveInfo.leaveDate.leavecount, disabled: true }],

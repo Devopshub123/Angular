@@ -181,9 +181,9 @@ export class PaySlipsComponent implements OnInit {
     this.getFinancialYears();
     this.payslipsForm = this.formBuilder.group(
       {
-        financial_year:  ["2022-2023"],
+        financial_year:  ["2023-2024"],
       });
-      this.getEmployeePayslips("2022-2023");
+      this.getEmployeePayslips("2023-2024");
       this.payslipsForm.get('financial_year')?.valueChanges.subscribe((selectedValue:any) => {
         this.getEmployeePayslips(selectedValue);
       })

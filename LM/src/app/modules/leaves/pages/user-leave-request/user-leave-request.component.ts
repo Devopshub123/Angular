@@ -1035,16 +1035,21 @@ if (result.status && errorCode == 'LM79') {
   getDurationFoBackDatedLeave() {
     this.LM.getDurationFoBackDatedLeave().subscribe((result) => {
       if (result && result.status) {
+       
         this.roleValue = result.data[0].value;
-        if(new Date() > new Date(this.userSession.dateofjoin)){
+        if(new Date() < new Date(this.userSession.dateofjoin)){
         this.minDate = new Date(this.userSession.dateofjoin);
-        }else{
-          let date = new Date(this.userSession.dateofjoin);
-          if(date >new Date(this.userSession.dateofjoin)){
-           this.minDate = date;
+        }
+        else{
+          let dateSent = new Date(this.userSession.dateofjoin);
+          let currentDate = new Date();
+          let days = Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate()) ) /(1000 * 60 * 60 * 24))
+          if(Number(days)>Number(this.roleValue)){
+            this.minDate = new Date();
+            this.minDate.setDate(this.minDate.getDate() - this.roleValue);
           }
           else{
-            this.minDate.setDate(this.minDate.getDate() - this.roleValue);
+            this.minDate = dateSent;      
           }
         }
       }
