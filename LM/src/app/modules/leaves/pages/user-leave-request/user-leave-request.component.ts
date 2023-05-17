@@ -103,7 +103,6 @@ export class UserLeaveRequestComponent implements OnInit {
     this.getleavecyclelastmonth();
     this.leaveInfo = this.location.getState();
     this.leaveData = this.leaveInfo.leaveData;
-    console.log("FFFFF",this.leaveData)
     if(this.leaveData!=undefined){
       this.isedit=true;
     }
@@ -226,13 +225,13 @@ export class UserLeaveRequestComponent implements OnInit {
 
       }
     });
-    this.leaveRequestForm.get('compoffApprovedDate')?.valueChanges.subscribe((selectedValue:any) => {
-      if(selectedValue != '' || selectedValue != null){
-        console.log("compoffApprovedDatecompoffApprovedDatecompoffApprovedDate")
+    // this.leaveRequestForm.get('compoffApprovedDate')?.valueChanges.subscribe((selectedValue:any) => {
+    //   if(selectedValue != '' || selectedValue != null){
+        
 
-      }
+    //   }
      
-    });
+    // });
 
 
       this.leaveRequestForm.get('toDate')?.valueChanges.subscribe((selectedValue: any) => {
@@ -253,10 +252,7 @@ export class UserLeaveRequestComponent implements OnInit {
       this.getDaystobedisabledfromdate();
       if(selectedValue!=''){
         this.getCompOffValidityDuration(selectedValue);
-        if(new Date() < new Date(this.userSession.dateofjoin)){}
-        this.minDate = new Date(this.userSession.dateofjoin)
-        }else{
-          this.minDate = new Date()
+      
         }
       // }
     });
@@ -1039,12 +1035,17 @@ if (result.status && errorCode == 'LM79') {
   getDurationFoBackDatedLeave() {
     this.LM.getDurationFoBackDatedLeave().subscribe((result) => {
       if (result && result.status) {
-        this.roleValue = result.data[0].value
-        if(new Date() < new Date(this.userSession.dateofjoin)){
-        this.minDate = new Date(this.userSession.dateofjoin)
+        this.roleValue = result.data[0].value;
+        if(new Date() > new Date(this.userSession.dateofjoin)){
+        this.minDate = new Date(this.userSession.dateofjoin);
         }else{
-              this.minDate = new Date();
-        this.minDate.setDate(this.minDate.getDate() - this.roleValue);
+          let date = new Date(this.userSession.dateofjoin);
+          if(date >new Date(this.userSession.dateofjoin)){
+           this.minDate = date;
+          }
+          else{
+            this.minDate.setDate(this.minDate.getDate() - this.roleValue);
+          }
         }
       }
 
@@ -1267,8 +1268,10 @@ noWhitespaceValidator(): ValidatorFn {
       if(result.status){
         this.fromMaxDate = '';
         var dates= new Date(date);
+        this.minDate = new Date(date);
         dates.setDate(dates.getDate() + Number(result.data[0].value));
-        this.fromMaxDate = dates
+        this.fromMaxDate = dates;
+      
 
       }
       else{
