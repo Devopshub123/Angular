@@ -53,7 +53,7 @@ const routes: Routes = [
   {
     path: 'Payroll',
     loadChildren: () => import('./modules/payroll/payroll.module').then(m => m.PayrollModule)
-  ,canActivate:[LMSAccessGuard]},
+  },
   {path:'Reports',loadChildren:()=>import('./modules/reports/reports.module').then(m=>m.ReportsModule)},
   {
     path: '',
