@@ -81,7 +81,7 @@ const routes: Routes = [
       { path: 'subscription-cancel',component:SubscriptionCancelComponent,canActivate:[LMSAccessGuard]},
       { path: 'subscription-plans',component:SubscriptionPlansMasterComponent,canActivate:[LMSAccessGuard]},
       { path: 'add-renewal-users', component: AddRenewalUesrsComponent, canActivate: [LMSAccessGuard] },
-      { path: 'product-admin-dashboard', component: ProductAdminDashboardComponent, canActivate: [LMSAccessGuard] },
+      { path: 'product-admin-dashboard', component: ProductAdminDashboardComponent },
       { path: 'client-superadmin-dashboard', component: ClientSuperAdminDashboardComponent, canActivate: [LMSAccessGuard] },
      ]
   }

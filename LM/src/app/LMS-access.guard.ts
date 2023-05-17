@@ -38,20 +38,20 @@ export class LMSAccessGuard implements CanActivate {
     else {
    }
     if (sessionStorage.getItem('user')) {
-      // return true;
-      if (urlsList.length > 0) {
-        const toSelect = urlsList.find((url: any) => url.routeurl.trim() == state.url);
-         if (toSelect != undefined) {
-          return true;
-        } else {
-          this.route.navigate(['Login'])
-          return false;
-        } 
+      return true;
+      // if (urlsList.length > 0) {
+      //   const toSelect = urlsList.find((url: any) => url.routeurl.trim() == state.url);
+      //    if (toSelect != undefined) {
+      //     return true;
+      //   } else {
+      //     this.route.navigate(['Login'])
+      //     return false;
+      //   } 
 
-      } else {
-        this.route.navigate(['Login'])
-        return false;
-      }
+      // } else {
+      //   this.route.navigate(['Login'])
+      //   return false;
+      // }
     }
     else {
       this.route.navigate(['Login'])
