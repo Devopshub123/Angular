@@ -45,7 +45,7 @@ const routes: Routes = [
       { path: 'EarningsRequest', component: EarningsRequestComponent}, 
       { path: 'EmployeeITDeclaration', component: EmployeeItDeclarationsComponent,canActivate:[LMSAccessGuard]}, 
       { path: 'PaySlips', component: PaySlipsComponent,canActivate:[LMSAccessGuard]}, 
-      { path: 'PaySlipsView', component: PaySlipsViewComponent,canActivate:[LMSAccessGuard]}, 
+      { path: 'PaySlipsView', component: PaySlipsViewComponent}, 
       { path: 'EmployeeForm16', component: EmployeeForm16Component,canActivate:[LMSAccessGuard]}, 
       { path: 'FinanceForm16', component: FinanceForm16Component,canActivate:[LMSAccessGuard]}, 
       { path: 'ESI', component: EsiComponent,canActivate:[LMSAccessGuard]}, 

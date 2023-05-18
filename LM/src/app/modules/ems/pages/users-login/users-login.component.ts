@@ -71,7 +71,7 @@ export class UsersLoginComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(30),
+          Validators.maxLength(50),
         ],
       ],
       password: [{ value: 'Welcome1!', disabled: true }, Validators.required],

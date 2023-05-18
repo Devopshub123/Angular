@@ -44,7 +44,7 @@ const routes: Routes = [
   {
     path: 'Admin',
     loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)
-    ,canActivate:[LMSAccessGuard]
+    
   },
   {
     path: 'Attendance',
