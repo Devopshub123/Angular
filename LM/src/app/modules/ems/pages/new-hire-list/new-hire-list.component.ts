@@ -209,15 +209,15 @@ export class NewHireListComponent implements OnInit {
     
   }
   editEmployee(id: any, data: any) {
-    if(!this.subscriptionflag){
-      let dialogRef = this.dialog.open(EmpValidationPopUpComponent, {
-        width: '800px',position: { top: `100px` },
-        disableClose: true,
-        data: "Attention! Please note that you are no longer authorized to add new employees. If you want to add new employees, please upgrade your plan or increase the user count in your current plan. For further assistance, please contact your admistrator. Thank you!"
-      });
+    // if(!this.subscriptionflag){
+    //   let dialogRef = this.dialog.open(EmpValidationPopUpComponent, {
+    //     width: '800px',position: { top: `100px` },
+    //     disableClose: true,
+    //     data: "Attention! Please note that you are no longer authorized to add new employees. If you want to add new employees, please upgrade your plan or increase the user count in your current plan. For further assistance, please contact your admistrator. Thank you!"
+    //   });
 
-    }
-    else{
+    // }
+    // else{
     this.isNewhire = true;
     this.isNewhireList = false;
     this.isUpdate = true;
@@ -242,7 +242,7 @@ export class NewHireListComponent implements OnInit {
     this.hireForm.controls.designation.setValue(data.designation);
     this.hireForm.controls.mobile.setValue(data.contact_number);
     this.hireForm.controls.alternatenumber.setValue(data.alternatecontact_number);
-    }
+    // }
   }
 
   getNewHiredList() {
@@ -446,7 +446,7 @@ export class NewHireListComponent implements OnInit {
   getActiveEmployeesCount(){
     this.companyService.getActiveEmployeesCount().subscribe((data: any) => {
       if (data.status && data.data.length != 0) {
-        this.getClientSubscriptionDetails();
+        // this.getClientSubscriptionDetails();
         this.activeemployeecount = data.data[0].active_employees_count;
       }
     });

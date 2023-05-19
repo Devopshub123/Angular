@@ -80,7 +80,7 @@ const routes: Routes = [
       { path: 'upgrade-plan',component:ClientUpgradePlanComponent,canActivate:[LMSAccessGuard]},
       { path: 'subscription-cancel',component:SubscriptionCancelComponent,canActivate:[LMSAccessGuard]},
       { path: 'subscription-plans',component:SubscriptionPlansMasterComponent,canActivate:[LMSAccessGuard]},
-      { path: 'add-renewal-users', component: AddRenewalUesrsComponent, canActivate: [LMSAccessGuard] },
+      { path: 'add-renewal-users', component: AddRenewalUesrsComponent },
       { path: 'product-admin-dashboard', component: ProductAdminDashboardComponent },
       { path: 'client-superadmin-dashboard', component: ClientSuperAdminDashboardComponent, canActivate: [LMSAccessGuard] },
      ]

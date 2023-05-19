@@ -1,0 +1,104 @@
+<div fxLayout="column" class="first-col">
+
+    <mat-card>
+      <mat-card-header class="headerbox">
+         <mat-card-title class="title"> EPF Report </mat-card-title>
+       </mat-card-header>
+      <div [formGroup]="searchForm" class="tableP" >
+        <div fxLayout="row"  fxLayout.xs="column">
+          
+
+          <mat-form-field fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
+            <mat-label>Month and Year</mat-label>
+            <input matInput readonly [matDatepicker]="fromDate"
+                   placeholder="From Date" [formControl]="date" [max]="max" (click)="fromDate.open()">
+            <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
+            <mat-datepicker #fromDate
+            startView="multi-year"
+            (monthSelected)="setMonthAndYear($event, fromDate)"
+            panelClass="example-month-picker">
+            </mat-datepicker>
+
+          </mat-form-field>
+        </div>
+       
+
+       
+
+      </div>
+      <div style="margin-bottom: 1%;padding-right: 2%;" fxLayout="row xs-column" fxLayoutAlign="end  center" >
+        <div>
+          <span class="exlprint"> | </span>
+          <a title="Text"> <img (click)="exportText()"   src="./assets/images/icons/text.png"  width="20px" height="20px"></a>
+  
+          <span class="exlprint"> | </span>
+          <a title="Excel"> <img (click)="exportAsXLSX()"  src="./assets/images/icons/excel.png">
+          </a>
+        </div>
+      </div >
+
+
+<div class="tablePadding">
+   <div  class="mat-elevation-z1 example-container">
+    <div id="table" #table=''>
+      <table id="table" mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="sno">
+            <th mat-header-cell *matHeaderCellDef > S.No</th>
+            <td mat-cell *matCellDef="let element; let i=index;">
+             {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
+          </ng-container>
+          <ng-container matColumnDef="uan">
+            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> UAN No </th>
+            <td mat-cell *matCellDef="let row" ><span >{{row.UAN}} </span></td>
+          </ng-container>
+          <ng-container matColumnDef="empname">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Employee Name </th>
+            <td mat-cell *matCellDef="let row" ><span >{{row.Employee_Name}} </span></td>
+          </ng-container>
+          <ng-container matColumnDef="gross">
+        <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;" >Gross </th>
+        <td mat-cell *matCellDef="let row" ><span >{{row.employee_epf_value}} </span></td>
+          </ng-container>
+          <ng-container matColumnDef="epf">
+            <th mat-header-cell *matHeaderCellDef  >EPF </th>
+            <td mat-cell *matCellDef="let row" ><span >{{row.employee_epf_value}} </span></td>
+              </ng-container>
+            <ng-container matColumnDef="eps">
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EPS</th>
+                <td mat-cell *matCellDef="let row" ><span >{{row.employer_eps_value}} </span></td>
+            </ng-container>
+            <ng-container matColumnDef="edil">
+                    <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EDIL</th>
+                    <td mat-cell *matCellDef="let row" ><span >{{row.employer_edli_value}} </span></td>
+            </ng-container>
+            <ng-container matColumnDef="ee">
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EE</th>
+                <td mat-cell *matCellDef="let row" ><span >{{row.employer_epf_value}} </span></td>
+            </ng-container>
+            <ng-container matColumnDef='er'>
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">ER</th>
+                <td mat-cell *matCellDef="let row" ><span >{{row.employer_epf_value}} </span></td>
+            </ng-container>
+            <ng-container matColumnDef="ncp">
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">NCP</th>
+                <td mat-cell *matCellDef="let row" ><span >0</span></td>
+            </ng-container>
+            <ng-container matColumnDef="refunds">
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Refunds</th>
+                <td mat-cell *matCellDef="let row" ><span >0 </span></td>
+            </ng-container>
+          <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="8" style="text-align: center;">No data found</td>
+          </tr>
+      </table>
+    </div>
+      <mat-paginator   [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+
+    </div>
+    
+</div>
+    <!-- <ngx-spinner size="medium" type='ball-fussion'></ngx-spinner> -->
+  </mat-card>
+  </div>

@@ -27,6 +27,10 @@ import { OrganizationDetailsComponent } from './pages/organization-details/organ
 import { ProfessionalTaxMainComponent } from './pages/professional-tax-main/professional-tax-main.component';
 import { AssignPayGroupComponent } from './pages/assign-pay-group/assign-pay-group.component';
 import { MonthlyPayrollComponent } from './pages/monthly-payroll/monthly-payroll.component';
+import { EpfReportsComponent } from './pages/epf-reports/epf-reports.component';
+import { PftaxReportsComponent } from './pages/pftax-reports/pftax-reports.component';
+import { EsiReportsComponent } from './pages/esi-reports/esi-reports.component';
+import { MonthlyPayrollReportComponent } from './pages/monthly-payroll-report/monthly-payroll-report.component';
 const routes: Routes = [
   {    path: '', component: MainComponent,
     children: [
@@ -45,7 +49,7 @@ const routes: Routes = [
       { path: 'EarningsRequest', component: EarningsRequestComponent}, 
       { path: 'EmployeeITDeclaration', component: EmployeeItDeclarationsComponent,canActivate:[LMSAccessGuard]}, 
       { path: 'PaySlips', component: PaySlipsComponent,canActivate:[LMSAccessGuard]}, 
-      { path: 'PaySlipsView', component: PaySlipsViewComponent,canActivate:[LMSAccessGuard]}, 
+      { path: 'PaySlipsView', component: PaySlipsViewComponent}, 
       { path: 'EmployeeForm16', component: EmployeeForm16Component,canActivate:[LMSAccessGuard]}, 
       { path: 'FinanceForm16', component: FinanceForm16Component,canActivate:[LMSAccessGuard]}, 
       { path: 'ESI', component: EsiComponent,canActivate:[LMSAccessGuard]}, 
@@ -56,6 +60,10 @@ const routes: Routes = [
       { path: 'ProfessionalTaxMain', component: ProfessionalTaxMainComponent,canActivate:[LMSAccessGuard] },
       { path: 'AssignPayGroup', component: AssignPayGroupComponent,canActivate:[LMSAccessGuard] },
       { path: 'MonthlyPayroll', component: MonthlyPayrollComponent,canActivate:[LMSAccessGuard] },
+      // { path: 'epfreports',component:EpfReportsComponent},
+      // { path: 'esireports',component:EsiReportsComponent},
+      // { path: 'pftaxreports',component:PftaxReportsComponent},
+      // { path:'monthlypayrollreport',component:MonthlyPayrollReportComponent}
     ]
   }];
 

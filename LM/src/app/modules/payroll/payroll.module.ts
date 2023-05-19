@@ -42,7 +42,11 @@ import { InvestmentRejectComponent } from './pages/investment-reject/investment-
 import { MonthlyPayrollComponent } from './pages/monthly-payroll/monthly-payroll.component';
 import { CopyContentService } from './copy-content.service';
 import { ConfirmationDialogueComponent } from './pages/confirmation-dialogue/confirmation-dialogue.component';
-import { NgxMaskModule,IConfig } from 'ngx-mask'
+import { NgxMaskModule,IConfig } from 'ngx-mask';
+import { EsiReportsComponent } from './pages/esi-reports/esi-reports.component';
+import { PftaxReportsComponent } from './pages/pftax-reports/pftax-reports.component';
+import { EpfReportsComponent } from './pages/epf-reports/epf-reports.component';
+import { MonthlyPayrollReportComponent } from './pages/monthly-payroll-report/monthly-payroll-report.component'
  FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
   interactionPlugin
@@ -79,7 +83,11 @@ import { NgxMaskModule,IConfig } from 'ngx-mask'
     InvestmentRejectComponent,
     MonthlyPayrollComponent,
     MinMaxDirective,
-    ConfirmationDialogueComponent
+    ConfirmationDialogueComponent,
+    EsiReportsComponent,
+    PftaxReportsComponent,
+    EpfReportsComponent,
+    MonthlyPayrollReportComponent
   ],
   imports: [
     CommonModule,
