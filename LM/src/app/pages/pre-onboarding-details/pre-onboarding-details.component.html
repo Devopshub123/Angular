@@ -635,7 +635,7 @@
                                 <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Course</mat-label>
                                     <input type="text" maxlength="100" formControlName="course" matInput placeholder=""
-                                        appRemoveSpace required/>
+                                        appRemoveSpace required specialIsAlpha/>
                                         <mat-error class="reg-error" *ngIf="educationForm.controls.course.hasError('required')">
                                             {{EM1}}
                                         </mat-error>

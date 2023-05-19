@@ -288,7 +288,7 @@ locByDeptEmpsdoughnutChartData: any;
           labels: this.attendanceTypeList,
           datasets: [
             {
-              backgroundColor: ["#D864A9", "#eda2f2", "#ffa69e", "#ff8fa3", "#ffb3c1"],
+              backgroundColor: ["#a7c957", "#c385d8", "#e56b6f"],
               data:this.attendanceCountList
             }
           ]
@@ -415,7 +415,8 @@ locByDeptEmpsdoughnutChartData: any;
            labels: this.locationByDepartmentNameLis,
            datasets: [
              {
-               backgroundColor: ["#0080ff", "#eda2f2", "#ffa69e", "#ff8fa3", "#ffb3c1"],
+               backgroundColor: ["#118ab2", "#ffd166","#06d6a0","#28acaf","#ef476f"],
+              //  backgroundColor: ["#0080ff", "#eda2f2", "#ffa69e", "#ff8fa3", "#ffb3c1"],
                data:this.locationByDepartmentCountLis
              }
            ]

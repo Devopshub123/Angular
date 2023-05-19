@@ -158,7 +158,7 @@ export class MainService {
     return this.http.post(this.mainBeUrl + 'ems/api/getDocumentOrImagesForEMSPreonboarding/', info, this.httpOptions)
   }
   setPreonboardingDocumentOrImageForEMS(data: FormData, cname: any): Observable<any> {
-    return this.http.post(this.mainBeUrl + 'ems/api/setDocumentOrImageForEMS/' + cname, data);
+    return this.http.post(this.mainBeUrl + 'ems/api/preonboardingSetDocumentOrImageForEMS/' + cname, data);
   }
   removePreonboardingDocumentOrImagesForEMS(info: any, cname: any): Observable<any> {
     return this.http.delete(this.mainBeUrl + 'ems/api/removeDocumentOrImagesForEMS/' + cname + '/' + encodeURI(info), this.httpOptions);

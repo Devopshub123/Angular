@@ -23,7 +23,6 @@ export class LMSAccessGuard implements CanActivate {
     state: RouterStateSnapshot) {
     var urlsList:any=[]
     var module: any = JSON.parse(sessionStorage.getItem('moduleData') ?? '[]');
-    console.log("modules--",module)
     if (module.length > 0) {
       module.forEach((e: any) => {
         if (e.menu_items.length>0) {

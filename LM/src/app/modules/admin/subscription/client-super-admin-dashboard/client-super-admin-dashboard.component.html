@@ -11,7 +11,7 @@
                 <span>No Data Found</span>
                 </div>
 
-            <div *ngIf="allLocationsTotalCount.length > 0 || allLocationsTotalCount.isNotEmpty" style="padding-top: 55px;" >
+            <div fxLayoutAlign="center" *ngIf="allLocationsTotalCount.length > 0 || allLocationsTotalCount.isNotEmpty" style="padding-top: 55px;" >
               <chart #chart style="display: block;
               width: 245px;
               height: 220px;"
@@ -39,7 +39,7 @@
                     </mat-select>
                 </mat-form-field>
                 </span>
-                <div *ngIf="locationByDepartmentCountLis.length > 0">
+                <div fxLayoutAlign="center" *ngIf="locationByDepartmentCountLis.length > 0">
                   <chart #chart style="display: block;
                   width: 245px;
                   height: 220px;"
@@ -105,7 +105,7 @@
                          (monthSelected)="attendanceMonthAndYear($event, attendanceWiseDate)"></mat-datepicker>
                 </mat-form-field>
               </span>
-              <div>
+              <div fxLayoutAlign="center">
                 <chart #chart style="display: block;
                 width: 245px;
                 height: 220px;"
@@ -132,7 +132,7 @@
                         (monthSelected)="deptLeaveMonth($event, deptWiseleavesDate)"></mat-datepicker>
                </mat-form-field>
              </span>
-             <div *ngIf="departmentWiseLeaveCountList.length > 0">
+             <div fxLayoutAlign="center" *ngIf="departmentWiseLeaveCountList.length > 0">
               <chart #chart style="display: block;
               width: 245px;
               height: 220px;"

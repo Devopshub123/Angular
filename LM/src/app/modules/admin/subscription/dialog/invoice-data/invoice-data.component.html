@@ -30,7 +30,7 @@
     <div style="width: 45%;">
         <p><b>Company Name: </b> {{cname}}</p>
         <p><b>Billing Address: </b> {{address1}},</p>
-        <span *ngIf="address2 !=null || address2 !='' ">
+        <span *ngIf="address2 !=null">
             <p>{{address2}}{{', '}}{{location}},</p>
         </span>
         <span *ngIf="address2 ==null || '' ">

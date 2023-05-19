@@ -720,49 +720,10 @@ export class PreOnboardingDetailsComponent implements OnInit {
    }
 
   saveWorkExperience() {
-
-    if (this.workExperienceDetails.length > 0) {
-      let data = {
-        preid: this.preOnboardId != null ? this.preOnboardId : null,
-        candidateid: this.loginCandidateId,
-        stepcompleted: 3,
-        experience: this.workExperienceDetails,
-      }
-      this.mainService.savePreOnboardingCandidateExperience(data).subscribe((res: any) => {
-        if (res.status && res.data[0].statuscode == 0) {
-          if (this.isDeleted ==true) {
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position: { top: `70px` },
-              disableClose: true,
-              data: "Record is removed successfully"
-            });
-            this.getCandidateData();
-            this.isDeleted = false;
-          } else {
-
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: "Details submitted successfully"
-          });
-          if (this.isSubmitAdd == false) {
-            this.selectedtab.setValue(2);
-          }
-          this.isSubmitAdd == false;
-            this.clearExperienceValidators();
-            this.clearWork();
-            this.getCandidateData();
-            this.employmentDataChange = false;
-           
-          }
-        } else {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: "Data is not saved"
-          });
-        }
-      });
+    if (this.isDeleted == true) {
+      this.submitWorkExperience();
+    }else if (this.workExperienceDetails.length > 0) {
+      this.submitWorkExperience();
     } else {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },
@@ -773,13 +734,56 @@ export class PreOnboardingDetailsComponent implements OnInit {
     }
   }
 
+  submitWorkExperience() {
+    let data = {
+      preid: this.preOnboardId != null ? this.preOnboardId : null,
+      candidateid: this.loginCandidateId,
+      stepcompleted: 3,
+      experience: this.workExperienceDetails,
+    }
+    this.mainService.savePreOnboardingCandidateExperience(data).subscribe((res: any) => {
+      if (res.status && res.data[0].statuscode == 0) {
+        if (this.isDeleted ==true) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data deleted successfully.",
+          });
+          this.getCandidateData();
+          this.isDeleted = false;
+        } else {
+
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+          data: "Details submitted successfully"
+        });
+        if (this.isSubmitAdd == false) {
+          this.selectedtab.setValue(2);
+        }
+        this.isSubmitAdd == false;
+          this.clearExperienceValidators();
+          this.clearWork();
+          this.getCandidateData();
+          this.employmentDataChange = false;
+         
+        }
+      } else {
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+          data: "Data is not saved"
+        });
+      }
+    });
+  }
+  
   workExperienceSubmitAdd() {
     this.isSubmitAdd = true;
     this.addWorkExperience();
   }
   
   addWorkExperience() {
-    console.log("val",this.employementForm)
     if (this.employementForm.valid) {
       this.workExperienceDetails.push({
         companyname: this.employementForm.controls.companyName.value,
@@ -856,54 +860,59 @@ export class PreOnboardingDetailsComponent implements OnInit {
   }
 
   saveEducation() {
-
-    if (this.educationDetails.length > 0) {
-      let data = {
-        preid: this.preOnboardId != null ? this.preOnboardId : null,
-        candidateid: this.loginCandidateId,
-        stepcompleted: 2,
-        education: this.educationDetails,
-      }
-      this.mainService.savePreOnboardingCandidateEducation(data).subscribe((res: any) => {
-        if (res.status && res.data[0].statuscode == 0) {
-          if (this.isDeleted == true) {
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position: { top: `70px` },
-              disableClose: true,
-              data: "Record is removed successfully"
-            });
-            this.getCandidateData();
-            this.isDeleted = false;
-          } else {
-            let dialogRef = this.dialog.open(ReusableDialogComponent, {
-              position: { top: `70px` },
-              disableClose: true,
-              data: "Details submitted successfully"
-            });
-            if (this.isSubmitAdd == false) {
-              this.selectedtab.setValue(3);
-            }
-            this.isSubmitAdd = false;
-             this.clearEducationValidators();
-              this.clearEducation();
-            this.getCandidateData();
-
-              this.educationDataChange = false;
-          }
-        } else {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data: "Data is not saved"
-          });
-        }
-      });
+    if (this.isDeleted ==true) {
+      this.submitEducation();
+}
+  else if (this.educationDetails.length > 0) {
+    this.submitEducation();
     } else {
 
     }
 
   }
+  submitEducation() {
+    let data = {
+      preid: this.preOnboardId != null ? this.preOnboardId : null,
+      candidateid: this.loginCandidateId,
+      stepcompleted: 2,
+      education: this.educationDetails,
+    }
+    this.mainService.savePreOnboardingCandidateEducation(data).subscribe((res: any) => {
+      if (res.status && res.data[0].statuscode == 0) {
+        if (this.isDeleted == true) {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Data deleted successfully.",
+          });
+          this.getCandidateData();
+          this.isDeleted = false;
+        } else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Details submitted successfully"
+          });
+          if (this.isSubmitAdd == false) {
+            this.selectedtab.setValue(3);
+          }
+          this.isSubmitAdd = false;
+           this.clearEducationValidators();
+            this.clearEducation();
+          this.getCandidateData();
 
+            this.educationDataChange = false;
+        }
+      } else {
+        let dialogRef = this.dialog.open(ReusableDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
+          data: "Data is not saved"
+        });
+      }
+    });
+  }
+  
   educationSaveAdd() {
     this.isSubmitAdd = true;
     this.addEducation();

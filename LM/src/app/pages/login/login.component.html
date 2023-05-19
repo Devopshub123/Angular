@@ -38,10 +38,10 @@
                 <div>
 
                   <mat-form-field fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Email</mat-label>
+                    <mat-label>User Name/Email</mat-label>
                     <input matInput class="form-control" type="email" formControlName="username"
                     id="emailaddress" formc
-                       placeholder="" maxlength="30" />
+                       placeholder="" maxlength="50"/>
                     <mat-error class="con-error" *ngIf="formGroup.controls.username.errors?.required">
                       This field is required.
                     </mat-error>
