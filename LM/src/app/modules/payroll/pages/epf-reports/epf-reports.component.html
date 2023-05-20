@@ -57,20 +57,26 @@
           </ng-container>
           <ng-container matColumnDef="gross">
         <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;" >Gross </th>
-        <td mat-cell *matCellDef="let row" ><span >{{row.employee_epf_value}} </span></td>
+        <td mat-cell *matCellDef="let row" ><span >{{row.gross_salary}} </span></td>
           </ng-container>
           <ng-container matColumnDef="epf">
             <th mat-header-cell *matHeaderCellDef  >EPF </th>
-            <td mat-cell *matCellDef="let row" ><span >{{row.employee_epf_value}} </span></td>
+            <td mat-cell *matCellDef="let row" ><span >{{row.epf_wage}} </span></td>
               </ng-container>
             <ng-container matColumnDef="eps">
                 <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EPS</th>
-                <td mat-cell *matCellDef="let row" ><span >{{row.employer_eps_value}} </span></td>
+                <td mat-cell *matCellDef="let row" ><span >{{row.eps_wage}} </span></td>
             </ng-container>
             <ng-container matColumnDef="edil">
                     <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EDIL</th>
-                    <td mat-cell *matCellDef="let row" ><span >{{row.employer_edli_value}} </span></td>
+                    <td mat-cell *matCellDef="let row" ><span >{{row.edil_wage}} </span></td>
             </ng-container>
+            <ng-container matColumnDef="epsvalue">
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EDIL</th>
+                <td mat-cell *matCellDef="let row" ><span >{{row.employer_eps_value}} </span></td>
+        </ng-container>
+            
+
             <ng-container matColumnDef="ee">
                 <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EE</th>
                 <td mat-cell *matCellDef="let row" ><span >{{row.employer_epf_value}} </span></td>

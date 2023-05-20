@@ -479,7 +479,10 @@ export class AttendanceRequestComponent implements OnInit {
     this.getEmployeeShiftDetailsByIdWithDates();
   }
   updateRequest() {
-    if (this.requestform.invalid) {
+  
+    console.log("hhh",this.requestform.invalid)
+    if (this.requestform.controls.shift.invalid&&this.requestform.controls.reason.invalid) {
+      console.log("hghjghfds")
       return;
     } else {
       let worktypename = '';
@@ -508,8 +511,9 @@ export class AttendanceRequestComponent implements OnInit {
 
       };
 
-
+      console.log("sfhdhgdgfdjgfd")
       this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res: any) => {
+        console.log("sdgfdjgfd")
         if (res.status) {
           let resMessage: any;
 

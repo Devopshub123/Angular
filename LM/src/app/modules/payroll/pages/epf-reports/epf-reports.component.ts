@@ -57,8 +57,8 @@ export class EpfReportsComponent implements OnInit {
     datepicker.close();
   }
   searchForm!: FormGroup;
-  displayedColumns: string[] = ['uan','empname','gross','epf','eps','edil','ee','er','ncp','refunds'];
-  // dataSource: MatTableDataSource<any>=<any>[];
+  displayedColumns: string[] = ['uan','empname','gross','epf','eps','edil','epsvalue','ee','er','ncp','refunds'];
+  dataSource: MatTableDataSource<any>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -73,10 +73,10 @@ export class EpfReportsComponent implements OnInit {
   months=[{id:0,month:'Jan'},{id:1,month:'Feb'},{id:2,month:'Mar'},{id:3,month:'Apr'},{id:4,month:'May'},{id:5,month:'Jun'},{id:6,month:'Jul'},{id:7,month:'Aug'},{id:8,month:'Sep'},{id:9,month:'Oct'},{id:10,month:'Nov'},{id:11,month:'Dec'}]
   monthdata: any;
   datadatas:any=[];
-  dataSource:any =    [
-    {Employee_Name: "Rakesh",Gross_Salary:50000,UAN:"2357625",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value: 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5},
-    {Employee_Name: "Rakesh",Gross_Salary:50000,UAN:"5647765",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value: 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5},
-]
+//   dataSource:any =    [
+//     {Employee_Name: "Rakesh",Gross_Salary:50000,UAN:"2357625",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value: 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5},
+//     {Employee_Name: "Rakesh",Gross_Salary:50000,UAN:"5647765",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value: 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5},
+// ]
 
   constructor(private router: Router,public formBuilder: FormBuilder,private PR:PayrollService,public spinner :NgxSpinnerService,private RS:ReportsService,private sanitizer: DomSanitizer) { }
   @ViewChild('table') table!: ElementRef;
@@ -139,7 +139,8 @@ export class EpfReportsComponent implements OnInit {
   return customPageSizeArray;
   }
   public exportText(): void {
-    const data = this.datadatas;
+    const data = this.datadatas.toString().replace(/\,/g,'');
+    console.log("hhh",data.replace(/\,/g,''))
     const blob = new Blob([data], { type: 'application/octet-stream' });
 
     let urls:any = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
@@ -155,13 +156,14 @@ export class EpfReportsComponent implements OnInit {
   }
   getEpfValuesForChallan(){
     let data ={
-      year:"2022",
-      month:"12"
+      year:"2023",
+      month:"1"
     }
     console.log(this.date.value._d)
     this.PR.getEpfValuesForChallan(data).subscribe((result:any)=>{
+      console.log("fagsdfgsa",result)
      if(result.status){
-      // this.dataSource = result.data
+      this.dataSource = result.data
     //  this.dataSource = 
     //  [{Employee_Name: "Rakesh Goud  Thallapelly",Gross_Salary:50000,UAN:"2357625",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value
     //  : 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5},
@@ -169,9 +171,10 @@ export class EpfReportsComponent implements OnInit {
     //  : 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5}]
     this.datadata=this.dataSource;
     for(let i = 0;i<this.datadata.length;i++){
-      this.datadatas[i] = this.datadata[i].UAN +'#~#'+this.datadata[i].Employee_Name+'#~#'+this.datadata[i].Employee_Name+'#~#'+this.datadata[i].employee_epf_value+'\n'
+      this.datadatas[i] = this.datadata[i].UAN +'#~#'+this.datadata[i].Employee_Name+'#~#'+this.datadata[i].gross_salary+'#~#'+this.datadata[i].epf_wage+'#~#'+this.datadata[i].eps_wage+'\n'
     }
-
+   
+ 
      }
  
       
