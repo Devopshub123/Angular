@@ -179,6 +179,15 @@ export class PaySlipsComponent implements OnInit {
   dataSource :any;
   ngOnInit(): void {
     this.getFinancialYears();
+    let datadate = new Date();
+    console.log(datadate.getFullYear());
+    console.log(datadate.getMonth())
+    if((datadate.getMonth()+1)>4){
+      console.log("if",datadate.getFullYear()+'-'+(datadate.getFullYear()+1))
+    }
+    else{
+      console.log("else",datadate.getFullYear()-1+'-'+(datadate.getFullYear()))
+    }
     this.payslipsForm = this.formBuilder.group(
       {
         financial_year:  ["2023-2024"],

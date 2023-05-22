@@ -266,4 +266,20 @@ import { environment } from 'src/environments/environment';
   getValidateSalaryProcessingDate(month:any,year:any): Observable<any> {
     return this.http.get(this.mainBeUrl + 'api/validateSalaryProcessingDate/'+month+'/'+year+'/'+this.companyName,this.httpOptions);
   }
+  getEpfValuesForChallan(data:any){
+    data.companyName = this.companyName;
+    return this.http.post(this.mainBeUrl+'api/getEpfValuesForChallan', JSON.stringify(data), this.httpOptions);
+  }
+  getESIValuesForChallan(data:any){
+    data.companyName = this.companyName;
+    return this.http.post(this.mainBeUrl+'api/getESIValuesForChallan', JSON.stringify(data), this.httpOptions);
+  }
+  getProfessionalTaxValuesForChallan(data:any){
+    data.companyName = this.companyName;
+    return this.http.post(this.mainBeUrl+'api/getProfessionalTaxValuesForChallan', JSON.stringify(data), this.httpOptions);
+  }
+  monthlyPayrollReportChallan(data:any){
+    data.companyName = this.companyName;
+    return this.http.post(this.mainBeUrl+'api/monthlyPayrollReportChallan', JSON.stringify(data), this.httpOptions);
+  }
 }

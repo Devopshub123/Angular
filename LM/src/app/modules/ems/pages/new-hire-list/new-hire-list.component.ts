@@ -446,7 +446,7 @@ export class NewHireListComponent implements OnInit {
   getActiveEmployeesCount(){
     this.companyService.getActiveEmployeesCount().subscribe((data: any) => {
       if (data.status && data.data.length != 0) {
-        this.getClientSubscriptionDetails();
+        // this.getClientSubscriptionDetails();
         this.activeemployeecount = data.data[0].active_employees_count;
       }
     });
