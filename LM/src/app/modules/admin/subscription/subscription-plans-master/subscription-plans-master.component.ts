@@ -167,7 +167,6 @@ export class SubscriptionPlansMasterComponent implements OnInit {
 
 
   edit(event: any, data: any) {
-    console.log(data)
     this.editflag =false;
     this.isData = true;
     this.isAddBtn = false;

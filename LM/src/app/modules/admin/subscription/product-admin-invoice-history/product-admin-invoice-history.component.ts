@@ -45,7 +45,6 @@ export class ProductAdminInvoiceHistoryComponent implements OnInit {
     this.adminService.getPayments().subscribe((result:any)=> {
       if(result.status&&result.data.length>0){
         this.arrayList = result.data
-        console.log("this.arrayList",this.arrayList)
         this.dataSource = new MatTableDataSource(this.arrayList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

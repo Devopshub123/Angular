@@ -119,7 +119,6 @@ export class AttendanceRequestComponent implements OnInit {
       const dateofjoin = new Date(this.userSession.dateofjoin);
       const mindate = new Date(this.minFromDate);
       if (mindate < dateofjoin) {
-        console.log('date1 is before date2');
         this.minFromDate=dateofjoin;
       }
     }
@@ -405,7 +404,8 @@ export class AttendanceRequestComponent implements OnInit {
         "status": 'Submitted',
         "emails": this.employeeEmailData,
         "worktypename": worktypename,
-        "shiftname":this.shiftData.shiftname
+        "shiftname": this.shiftData.shiftname,
+        "isBehalf":false
       };
 
       this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res: any) => {
@@ -504,8 +504,8 @@ export class AttendanceRequestComponent implements OnInit {
         "status": 'Submitted',
         "emails": this.employeeEmailData,
         "worktypename": worktypename,
-        "shiftname":this.shiftData.shiftname
-
+        "shiftname":this.shiftData.shiftname,
+        "isBehalf":false
       };
 
 

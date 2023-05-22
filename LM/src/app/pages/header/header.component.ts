@@ -206,7 +206,6 @@ export class HeaderComponent implements OnInit {
 
               let base64String = btoa(STRING_CHAR)
               this.imageurls = 'data:image/png;base64,' + base64String;
-              console.log("jjf",this.imageurls)
             }
             else {
               this.imageurls = '';

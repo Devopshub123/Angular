@@ -58,7 +58,6 @@ export class PendingCompoffComponent implements OnInit {
 
       if (res.status) {
         this.arrayList = res.data;
-        console.log("gggfg",this.arrayList)
         // for(let i = 0; i<res.data.length;i++){
         //   var date = new Date();
         //   var appliedDate = new Date(res.data[i].applied_date)

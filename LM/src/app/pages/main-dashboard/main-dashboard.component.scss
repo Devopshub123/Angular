@@ -566,3 +566,23 @@ th{
   overflow: hidden;
   display: block !important;
 }
+.blinking {
+  // class="blinking"
+  animation: opacity 2s ease-in-out infinite;
+  opacity: 1;
+  font-size: 18px;
+}
+
+@keyframes opacity {
+0% {
+  opacity: 1;
+}
+
+50% {
+  opacity: 0.5;
+}
+
+100% {
+  opacity: 0;
+}
+}

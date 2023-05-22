@@ -290,7 +290,7 @@ export class UserCompoffComponent implements OnInit {
   }
   view(data: any) {
     this.isview= true;
-    if (data.status != "Rejected") {
+    if (data.status == "Rejected") {
       this.isReject= true;
     }
     this.CompoffForm.controls.empId.setValue()

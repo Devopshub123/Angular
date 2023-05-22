@@ -106,7 +106,6 @@ export class UsersLoginComponent implements OnInit {
     this.ES.getUserLoginData().subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.userLoginList = res.data;
-        console.log("userLoginList",this.userLoginList)
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -127,7 +126,7 @@ export class UsersLoginComponent implements OnInit {
         if (email != undefined) {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             disableClose: true,
-            data: 'User ID is already exists',
+            data: 'Already existing this user id. Please try another',
           });
         } else {
           this.saveUserLogin();

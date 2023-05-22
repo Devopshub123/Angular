@@ -25,7 +25,6 @@ export class AttendanceService {
     return this.http.get(this.mainUrl+'api/getMastertable/'+tableName+'/'+status+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
   }
   excelDataForAttendance(data:any): Observable<any> {
-    console.log("jsondata",data)
     // data.companyName = this.companyName;
       return this.http.post(this.mainUrl + 'attendance/api/setEmployeeAttendance/'+this.companyName,JSON.stringify(data), this.httpOptions);
   }

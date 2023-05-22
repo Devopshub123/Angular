@@ -82,7 +82,6 @@ export class LoginComponent implements OnInit {
         if(data.status === true){
           if(new Date(data.expirydate)>=new Date()){
             let empdata = data.result[0];
-            console.log("DSFAF",empdata)
           sessionStorage.setItem('token', data.token);
           sessionStorage.setItem('user', JSON.stringify(empdata));
           sessionStorage.setItem('expirydate', data.expirydate);

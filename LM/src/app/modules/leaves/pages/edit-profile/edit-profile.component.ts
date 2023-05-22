@@ -155,7 +155,6 @@ export class EditProfileComponent implements OnInit {
             });
           } else {
             this.LM.getFilepathsMaster(1).subscribe((result) => {
-              console.log("data",result)
               if (result && result.status) {
                 let obj = {
                   id: this.profileId ? this.profileId : null,

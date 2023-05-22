@@ -73,12 +73,9 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
      * **/
     if(this.leaveInfo.leaveData !=undefined){
       if (this.leaveInfo.isleave) {
-        console.log("v-0",this.leaveInfo.leaveData);
-        console.log("v-1",this.leaveInfo.leaveData.worked_date);
         if(this.leaveInfo.leaveData.leavetype == 3 || this.leaveInfo.leaveData.leavetype == 5 ){
           this.getUploadDocument()
         }
-        console.log("hhhh",this.leaveInfo.leaveData.comp_off_worked_date)
         this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.appliedon), 'dd-MM-yyyy') , disabled: true }],
@@ -100,7 +97,6 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
 
 
       } else {
-        console.log((this.leaveInfo.leaveData))
          this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:this.pipe.transform(new Date(this.leaveInfo.leaveData.applied_date), 'dd-MM-yyyy') , disabled: true }],

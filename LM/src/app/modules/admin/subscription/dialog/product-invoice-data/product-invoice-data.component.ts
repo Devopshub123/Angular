@@ -29,7 +29,6 @@ export class ProductInvoiceDataComponent implements OnInit {
       @Inject(MAT_DIALOG_DATA) public data: any) {
       this.paymentId = data.payment_reference_number;
       this.productinvoicedata = data;
-      console.log("invoicedata",data);
       // this.invoicedata = data;
 
     }

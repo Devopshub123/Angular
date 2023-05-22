@@ -67,7 +67,6 @@ export class EmployeeExcelUploadComponent implements OnInit {
       'employeeList': JSON.parse(this.convertedJson),
       'createdby':this.userSession.id
     }
-    console.log("sendata--",data)
     this.emsService.setEmployeeExcelData(data,this.companyName).subscribe(
      (res:any) => {
       this.isLoading=false;

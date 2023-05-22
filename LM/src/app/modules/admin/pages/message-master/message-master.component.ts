@@ -123,7 +123,7 @@ export class MessageMasterComponent implements OnInit {
 }
 
   edit(w: any, res: any) {
-    console.log("res",res)
+
     this.errorMessagesForm.controls.message.setValue(res.message);
     this.enable = res.id;
     this.isEdit=false;

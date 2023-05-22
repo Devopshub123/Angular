@@ -40,7 +40,6 @@ export class ReviewAndApprovalsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any, private LM: LeavesService) { }
 
   ngOnInit(): void {
-    console.log("asdf",this.data)
     this.getErrorMessages('LM1');
     this.form = this.formBuilder.group({
       'reason':['',[Validators.required,this.noWhitespaceValidator()]], });
@@ -50,7 +49,6 @@ export class ReviewAndApprovalsComponent implements OnInit {
     this.dialogRef.close();
   }
   onOkClick(){
-    console.log("this.form.valid0",this.form.valid)
     if(this.form.valid){
       if(this.data.name == "Reject"){
         this.form.get('reason')!.setValidators([Validators.required]);

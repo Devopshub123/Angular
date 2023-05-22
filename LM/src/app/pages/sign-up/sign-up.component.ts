@@ -351,7 +351,6 @@ export class SignUpComponent implements OnInit {
 
   submit() {
     this.spinner.show();
-    console.log("v-1",this.signUpForm.valid)
     if (this.signUpForm.valid && this.signUpForm.controls.isChecked.value) {
       let data ={
         company_name_value:this.signUpForm.controls.companyName.value,
@@ -461,13 +460,13 @@ export class SignUpComponent implements OnInit {
       })
        
 
-      console.log(response.error.code);
-      console.log(response.error.description);
-      console.log(response.error.source);
-      console.log(response.error.step);
-      console.log(response.error.reason);
-      console.log(response.error.metadata.order_id);
-      console.log(response.error.metadata.payment_id);
+      // console.log(response.error.code);
+      // console.log(response.error.description);
+      // console.log(response.error.source);
+      // console.log(response.error.step);
+      // console.log(response.error.reason);
+      // console.log(response.error.metadata.order_id);
+      // console.log(response.error.metadata.payment_id);
     }
     );
   }

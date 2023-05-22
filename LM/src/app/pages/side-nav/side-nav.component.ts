@@ -43,7 +43,6 @@ export class SideNavComponent implements OnInit {
   }
 
   toggleActive(item: any) {
-    console.log("item")
     if (item.id==3) {
       this.timesheet();
       return;

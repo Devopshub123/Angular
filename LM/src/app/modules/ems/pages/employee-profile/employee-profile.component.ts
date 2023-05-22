@@ -1940,12 +1940,10 @@ export class EmployeeProfileComponent implements OnInit {
   }
 
   fileView(data: any) {
-    console.log("fileview",data)
     let info = data;
     this.spinner.show();
     this.mainService.getDocumentOrImagesForEMS(info).subscribe((imageData) => {
-      console.log("imageData",imageData)
-      if (imageData.success) {
+     if (imageData.success) {
         this.spinner.hide();
 
         let TYPED_ARRAY = new Uint8Array(imageData.image.data);

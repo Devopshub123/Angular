@@ -63,7 +63,7 @@ const routes: Routes = [
   // {path:'MainDashboard',component:MainDashboardComponent,canActivate:[LMSAccessGuard]},
   {path:'LeaveManagement',loadChildren:()=>import('./modules/leaves/leaves.module').then(m=>m.LeavesModule)},
   {path:'Asset',loadChildren:()=>import('./modules/assets/assets.module').then(m=>m.AssetsModule),canActivate:[LMSAccessGuard]},
-  {path:'ems',loadChildren:()=>import('./modules/ems/ems.module').then(m=>m.EMSModule),canActivate:[LMSAccessGuard]},
+  {path:'ems',loadChildren:()=>import('./modules/ems/ems.module').then(m=>m.EMSModule)},
   {path:'Reimbursement',loadChildren:()=>import('./modules/reimbursement/reimbursement.module').then(m=>m.ReimbursementModule),canActivate:[LMSAccessGuard]}
   
 ];

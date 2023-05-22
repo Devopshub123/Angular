@@ -128,10 +128,9 @@ export class AddRenewalUesrsComponent implements OnInit {
     let data ={
       client_id_value:id
     }
-    console.log("jhjkhsdfj",data)
+
     this.adminService.getClientPlanDetails(data).subscribe((result:any)=>{
-      console.log("clientplandetailid",result)
-       if(result.status){
+      if(result.status){
         // this.enableRenewButton(result.data[0].valid_to);
         // this.validto = result.data[0].valid_to;
         // this.clientplandetailid = result.data[0].client_plan_detail_id;
@@ -325,14 +324,6 @@ export class AddRenewalUesrsComponent implements OnInit {
         data:'Your Payment failed.Please try again.'
     
       });
-      
-      console.log(response.error.code);
-      console.log(response.error.description);
-      console.log(response.error.source);
-      console.log(response.error.step);
-      console.log(response.error.reason);
-      console.log(response.error.metadata.order_id);
-      console.log(response.error.metadata.payment_id);
       //this.error = response.error.reason;
     }
     );
@@ -350,14 +341,6 @@ export class AddRenewalUesrsComponent implements OnInit {
         data:'Your Payment failed.Please try again.'
     
       });
-      
-      console.log(response.error.code);
-      console.log(response.error.description);
-      console.log(response.error.source);
-      console.log(response.error.step);
-      console.log(response.error.reason);
-      console.log(response.error.metadata.order_id);
-      console.log(response.error.metadata.payment_id);
       //this.error = response.error.reason;
     }
     );
@@ -379,8 +362,6 @@ export class AddRenewalUesrsComponent implements OnInit {
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event: any): void {
     this.message = "Success Payment";
-    console.log("data",event)
-    console.log("data",event.detail)
     // this.addusersamount=false;
     // this.renewalusersamount=true;
 if(this.addusersamount){
@@ -393,7 +374,6 @@ if(this.addusersamount){
       payment_date_value:this.datePipe.transform(new Date(), "y-MM-dd"),
       payment_status_value:"Paid"
     }
-    console.log("Success Payment data for add users",data);
     this.adminService.addUsers(data).subscribe((result:any)=>{
       if(result.status){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -427,7 +407,6 @@ if(this.addusersamount){
       payment_date_value:this.datePipe.transform(new Date(), "y-MM-dd"),
       payment_status_value:"Paid"
     }
-    console.log("Success Payment data for renewal users",data);
     this.adminService.renewUsers(data).subscribe((result:any)=>{
       if(result.status){
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
@@ -460,7 +439,6 @@ getClientSubscriptionDetails(){
   this.companyService.getClientSubscriptionDetails().subscribe((data:any)=>{
     if (data.status && data.data.length != 0) {
       // this.getClientPaymentDetails(Number(data.data[0].client_id));
-      console.log("getClientPlanDetails",data)
       this.getClientPlanDetails(Number(data.data[0].client_id));
       // this.getUsers(Number(data.data[0].client_id));
       this.renewalvalue = data.data[0].user_count;
@@ -472,8 +450,6 @@ getClientSubscriptionDetails(){
       this.clientname=data.data[0].contact_name;
       this.email=data.data[0].company_email;
       this.contactnumber=data.data[0].mobile_number;
-      console.log("hgfjshdg",data.data[0].valid_to);
-      console.log("hgfjshdg",this.datePipe.transform(new Date(), 'yyyy-MM-dd'));
       if(data.data[0].valid_to  == this.datePipe.transform(new Date(), 'yyyy-MM-dd')){
         this.renewal=true;
       }

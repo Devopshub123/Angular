@@ -121,7 +121,6 @@ export class AttendanceRequestBehalfComponent implements OnInit {
     this.getAttendanceRequestListByEmpId();
 
     this.requestform.get("employeeName")?.valueChanges.subscribe(selectedValue => {
-      console.log("selectedValue",selectedValue)
      this.getEmployeeEmailData(selectedValue);
      this.getEmployeeInformation(selectedValue)
      this.requestform.get('workType')?.enable();
@@ -370,6 +369,7 @@ export class AttendanceRequestBehalfComponent implements OnInit {
         "actionby": this.userSession.id ?? '',
         "status": 'Approved',
         "emails": this.employeeEmailData,
+        "isBehalf":true
 
       };
       this.attendanceService.setemployeeattendanceregularization(obj).subscribe((res) => {
@@ -458,13 +458,11 @@ export class AttendanceRequestBehalfComponent implements OnInit {
   this.attendanceService.getEmployeeInformationforlogindate(id).subscribe((res) => {
     if(res.status){
       var userinfo=res.data[0];
-       console.log(new Date(userinfo.dateofjoin))
       if(userinfo.dateofjoin !=null){
         const dateofjoin = new Date(userinfo.dateofjoin);
         const mindate = new Date(this.minFromDate);
         if (mindate < dateofjoin) {
-          console.log('date1 is before date2');
-          this.minFromDate=dateofjoin;
+           this.minFromDate=dateofjoin;
         }
       }
 

@@ -53,13 +53,11 @@ export class InvoiceDataComponent implements OnInit {
     this.adminService.getInvoiceDataById(this.paymentId).subscribe((result:any)=>{
       if (result.status && result.data.length > 0) {
         this.invoiceData = result.data[0];
-        console.log("in=",this.invoiceData)
-        this.invoiceDate = this.invoiceData.payment_date;
+       this.invoiceDate = this.invoiceData.payment_date;
         this.cname = this.invoiceData.company_name;
         this.dueDate = this.invoiceData.valid_to;
         this.address1 = this.invoiceData.company_address;
         this.address2 = this.invoiceData.company_address2;
-        console.log("in=1",this.address2)
         this.invoiceNum = this.invoiceData.invoiceno;
         this.location = this.invoiceData.location;
         this.state = this.invoiceData.state;

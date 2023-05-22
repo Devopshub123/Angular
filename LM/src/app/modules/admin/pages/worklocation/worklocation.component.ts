@@ -96,11 +96,11 @@ export class WorklocationComponent implements OnInit {
     private dialog: MatDialog,
     private ts: LoginService,private emsService:EmsService
   ) {
-    console.log("consttt")
+
   }
 
   ngOnInit(): void {
-    console.log("ngoninit")
+
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.getstatuslist();
     this.getmessages('EM1');
@@ -333,7 +333,6 @@ export class WorklocationComponent implements OnInit {
     });
   }
   submit() {
-    console.log("this.worklocationForm.valid",this.worklocationForm.valid)
     if (this.worklocationForm.valid) {
       if (
         this.worklocationForm.controls.id.value == '' ||

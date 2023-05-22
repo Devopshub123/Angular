@@ -97,8 +97,6 @@ export class InductionConductedByMasterComponent implements OnInit {
     this.array=[];
     this.flag = false;
     this.conductId = data.id;
-    console.log(data)
-    console.log(data.empids.length)
     this.inductionForm.controls.programType.setValue(data.program_id);
     this.inductionForm.controls.department.setValue(data.department_id);
     for(let i=0;i<data.empids.length;i++){

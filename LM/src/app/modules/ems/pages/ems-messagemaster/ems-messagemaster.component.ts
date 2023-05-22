@@ -50,8 +50,7 @@ export class EmsMessagemasterComponent implements OnInit {
   }
 
   submit(event: any, rcode: any, rmessage: any, screenname: any) {
-    console.log("rcode", rcode);
-    if (this.errorMessagesForm.valid) {
+   if (this.errorMessagesForm.valid) {
       if (rmessage.length == 0) {
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position: { top: `70px` },

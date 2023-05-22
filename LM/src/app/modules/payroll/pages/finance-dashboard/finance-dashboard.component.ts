@@ -133,7 +133,6 @@ export class FinanceDashboardComponent implements OnInit {
 
 		this.departments=[];
 		this.departmentsdata=[];
-		console.log("getMonthlyPayrollDataForGraph",result);
 		if(result.status){
 		 for(let i=0;i<result.data.length;i++){
 			this.departments.push(result.data[i].deptname);
