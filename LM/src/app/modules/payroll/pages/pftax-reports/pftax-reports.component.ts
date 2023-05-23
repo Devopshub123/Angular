@@ -56,7 +56,7 @@ export class PftaxReportsComponent implements OnInit {
     datepicker.close();
   }
   searchForm!: FormGroup;
-  displayedColumns: string[] = ['sno','payrange','tax','employees'];
+  displayedColumns: string[] = ['sno','state','payrange','tax','employees'];
   dataSource: MatTableDataSource<any>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -70,7 +70,8 @@ export class PftaxReportsComponent implements OnInit {
   year:any;
   max = new Date()
   months=[{id:0,month:'Jan'},{id:1,month:'Feb'},{id:2,month:'Mar'},{id:3,month:'Apr'},{id:4,month:'May'},{id:5,month:'Jun'},{id:6,month:'Jul'},{id:7,month:'Aug'},{id:8,month:'Sep'},{id:9,month:'Oct'},{id:10,month:'Nov'},{id:11,month:'Dec'}]
-  monthdata: any;;
+  monthdata: any;
+  stateslist:any=[{state_id:null,state:"ALL"}];
 
   constructor(private router: Router,public formBuilder: FormBuilder,private PR:PayrollService,public spinner :NgxSpinnerService,private RS:ReportsService) { }
   @ViewChild('table') table!: ElementRef;
@@ -80,7 +81,8 @@ export class PftaxReportsComponent implements OnInit {
     
     this.searchForm = this.formBuilder.group({
       fromDate:[new Date()],
-      employeeId:['All']
+      employeeId:['All'],
+      state:[null]
     });
     this.Searchform();
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
@@ -168,7 +170,7 @@ export class PftaxReportsComponent implements OnInit {
       },
       content: [
         {
-          text: "Payroll Report\n\n",
+          text: "Professional tax Report\n\n",
           style: 'header',
           alignment: 'center',
           fontSize: 14
@@ -185,20 +187,22 @@ export class PftaxReportsComponent implements OnInit {
         html
       ],
       pageOrientation: 'landscape'//'portrait'
-    }).download("Payroll Report.pdf");
+    }).download("Pfofessional tax xhallan Report.pdf");
 
   }
   getProfessionalTaxValuesForChallan(){
     let data ={
       year:"2023",
-      month:"1"
+      month:"1",
+      state:null
     }
     console.log(this.date.value._d)
     this.PR.getProfessionalTaxValuesForChallan(data).subscribe((result:any)=>{
+      console.log("result",result)
      if(result.status){
       this.dataSource = result.data
      }
-       console.log("result",result)
+       
       
     })
   }

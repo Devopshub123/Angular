@@ -171,7 +171,8 @@ export class EpfReportsComponent implements OnInit {
     //  : 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5}]
     this.datadata=this.dataSource;
     for(let i = 0;i<this.datadata.length;i++){
-      this.datadatas[i] = this.datadata[i].UAN +'#~#'+this.datadata[i].Employee_Name+'#~#'+this.datadata[i].gross_salary+'#~#'+this.datadata[i].epf_wage+'#~#'+this.datadata[i].eps_wage+'\n'
+      // this.datadatas[i] = this.datadata[i].UAN +'#~#'+this.datadata[i].Employee_Name+'#~#'+this.datadata[i].gross_salary+'#~#'+this.datadata[i].employee_epf_wage+'#~#'+this.datadata[i].eps_wage+this.datadata[i].edli_wage+'#~#'+this.datadata[i].employer_eps_value+'#~#'+this.datadata[i]. epf_eps_difference+'#~#'+(this.datadata[i].ncp_days==null?0:this.datadata[i].ncp_days)+'\n'
+        this.datadatas[i] = 1012220251 +'#~#'+this.datadata[i].Employee_Name+'#~#'+this.datadata[i].gross_salary+'#~#'+this.datadata[i].employee_epf_wage+'#~#'+this.datadata[i].eps_wage+'#~#'+this.datadata[i].edli_wage+'#~#'+this.datadata[i].employer_eps_value+'#~#'+this.datadata[i]. epf_eps_difference+'#~#'+(this.datadata[i].ncp_days==null?0:this.datadata[i].ncp_days)+'#~#'+(this.datadata[i].refund_of_advance==null?0:this.datadata[i].refund_of_advance)+'\n'
     }
    
  

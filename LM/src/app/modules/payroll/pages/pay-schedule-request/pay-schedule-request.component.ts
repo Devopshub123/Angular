@@ -20,6 +20,7 @@ export class PayScheduleRequestComponent implements OnInit {
   payScheduleDetails :any;
   PR7:any;
   PR8:any;
+  PR49:any;
   messagesDataList:any;
   // editInfo:any=[]
   constructor(private formBuilder: FormBuilder,private location:Location,private PR:PayrollService,private router:Router,private dialog: MatDialog) {
@@ -183,6 +184,9 @@ export class PayScheduleRequestComponent implements OnInit {
             this.PR7 = e.message
           } else if (e.code == "PR8") {
             this.PR8 =e.message
+          }
+          else if (e.code == "PR49") {
+            this.PR49 =e.message
           }
         })
 
