@@ -107,13 +107,11 @@ export class RegisterValidationComponent implements OnInit {
     this.captchavalid = false;
    }
   }
-  alphaNumberOnly(e: any) {  // Accept only alpha numerics, not special characters
-    var regex = new RegExp("^[a-zA-Z0-9 ]+$");
-    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-    if (regex.test(str)) {
-      return true;
+  alphabetKeyPress(event: any,) {
+    const pattern = /[a-zA-Z ]/;
+      let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
     }
-    e.preventDefault();
-    return false;
   }
 }
