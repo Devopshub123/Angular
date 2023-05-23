@@ -95,6 +95,10 @@ import { environment } from 'src/environments/environment';
     info.companyName = this.companyName;
     return this.hClient.post(this.mainBeUrl + 'api/updateStatusall', JSON.stringify(info), this.httpOptions);
   }
+  updateStatusworklocation(info:any): Observable<any>{
+    info.companyName = this.companyName;
+    return this.hClient.post(this.mainBeUrl + 'api/updateStatusworklocation', JSON.stringify(info), this.httpOptions);
+  }
   designationstatus(info:any): Observable<any>{
       info.companyName= this.companyName;
     return this.hClient.post(this.mainBeUrl + 'api/designationstatus', JSON.stringify(info), this.httpOptions);

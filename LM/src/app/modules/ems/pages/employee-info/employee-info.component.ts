@@ -2463,9 +2463,6 @@ export class EmployeeInfoComponent implements OnInit {
         if (event.source.value.id == 2 || event.source.value.id == 4 || event.source.value.id == 6 || event.source.value.id == 9) {
         this.isself = true;
          }
-       else {
-        this.isself = false;
-      }
       }
     }
   }
