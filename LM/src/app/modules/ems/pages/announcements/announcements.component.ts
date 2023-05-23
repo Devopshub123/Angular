@@ -126,7 +126,8 @@ export class AnnouncementsComponent implements OnInit {
 
     this.announcementForm.get('fromdate')?.valueChanges.subscribe((selectedValue:any) => {
       this.istodate=false;
-      this.minAnounceDate = selectedValue._d==undefined?this.minAnounceDate:selectedValue._d;
+      this.minAnounceDate = selectedValue._d == undefined ? this.minAnounceDate : selectedValue._d;
+      this.announcementForm.controls.todate.setValue('');
     })
   }
   noWhitespaceValidator(): ValidatorFn {

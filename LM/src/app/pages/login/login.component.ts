@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
       password:this.password,
       companyName:this.formGroup.controls.comapnyname.value
     }
-    if(this.formGroup.valid){
+    if (this.formGroup.valid) {
       sessionStorage.setItem('companyName',this.formGroup.controls.comapnyname.value);
       if(this.formGroup.controls.rememberme.value==true){
         localStorage.setItem("comapnyname",this.formGroup.controls.comapnyname.value);
@@ -78,7 +78,6 @@ export class LoginComponent implements OnInit {
       }
       this.tss.Savelogin(data).subscribe((data) =>{
         // sessionStorage.setItem('user', JSON.stringify(data.result[0]));
-        
         if(data.status === true){
           if(new Date(data.expirydate)>=new Date()){
             let empdata = data.result[0];
@@ -183,8 +182,6 @@ export class LoginComponent implements OnInit {
      }
 
    })
-
-
   }
 
 

@@ -84,12 +84,12 @@
         </ng-container>
         <ng-container matColumnDef="firstlogintime">
           <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">First In</th>
-          <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.firstlogintime | date:'dd-MM-yyyy'}} {{row.firstlogintime | date:'hh:mm:ss'}} </td>
+          <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.firstlogintime | date:'dd-MM-yyyy'}} {{row.firstlogintime | date:'hh:mm:ss a'}} </td>
 
         </ng-container>
         <ng-container matColumnDef="lastlogouttime">
           <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Last Out</th>
-          <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.lastlogouttime | date:'dd-MM-yyyy'}} {{row.lastlogouttime | date:'hh:mm:ss' }} </td>
+          <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.lastlogouttime | date:'dd-MM-yyyy'}} {{row.lastlogouttime | date:'hh:mm:ss a' }} </td>
 
         </ng-container>
         <ng-container matColumnDef="totalhours">

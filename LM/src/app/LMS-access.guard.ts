@@ -38,7 +38,7 @@ export class LMSAccessGuard implements CanActivate {
    }
     if (sessionStorage.getItem('user')) {
       // return true;
-      if (urlsList.length > 0) {
+     if (urlsList.length > 0) {
         const toSelect = urlsList.find((url: any) => url.routeurl.trim() == state.url);
          if (toSelect != undefined) {
           return true;

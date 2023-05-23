@@ -129,6 +129,9 @@ export class SubscriptionPlansMasterComponent implements OnInit {
             disableClose: true,
             data:"Data added succesfully. "
           });
+          this.router
+          .navigateByUrl('/', { skipLocationChange: true })
+          .then(() => this.router.navigate(['/Admin/subscription-plans']));
         }
         else{
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
