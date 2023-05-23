@@ -20,6 +20,19 @@
             </mat-datepicker>
 
           </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2">
+            <mat-label>State</mat-label>
+            <mat-select  formControlName="state">
+              <ng-container>
+                <div *ngFor="let b of stateslist">
+                  <mat-option value="{{ b.state_id }}">{{
+                    b.state
+                    }}</mat-option>
+                </div>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+          
         </div>
        
 
@@ -47,17 +60,21 @@
             <td mat-cell *matCellDef="let element; let i=index;">
              {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
           </ng-container>
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef > State</th>
+            <td mat-cell *matCellDef="let row" ><span >{{row.state}} </span></td>
+          </ng-container>
           <ng-container matColumnDef="payrange">
             <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Pay Range </th>
-            <td mat-cell *matCellDef="let row" ><span >{{row.empid}} </span></td>
+            <td mat-cell *matCellDef="let row" ><span >{{row.salary_from_value}}-{{row.salary_to_value==null?'above':row.salary_to_value}} </span></td>
           </ng-container>
           <ng-container matColumnDef="tax">
             <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Tax Rate (%) </th>
-            <td mat-cell *matCellDef="let row" ><span >{{row.empname}} </span></td>
+            <td mat-cell *matCellDef="let row" ><span >{{row.tax_value}} </span></td>
           </ng-container>
           <ng-container matColumnDef="employees">
         <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;" >No. of Employees </th>
-        <td mat-cell *matCellDef="let row" ><span >{{row.lopcount==null?0:row.lopcount}} </span></td>
+        <td mat-cell *matCellDef="let row" ><span >{{row.total}} </span></td>
           </ng-container>
           
           <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>

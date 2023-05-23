@@ -61,33 +61,33 @@
           </ng-container>
           <ng-container matColumnDef="epf">
             <th mat-header-cell *matHeaderCellDef  >EPF </th>
-            <td mat-cell *matCellDef="let row" ><span >{{row.epf_wage}} </span></td>
+            <td mat-cell *matCellDef="let row" ><span >{{row.employee_epf_wage}} </span></td>
               </ng-container>
             <ng-container matColumnDef="eps">
                 <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EPS</th>
                 <td mat-cell *matCellDef="let row" ><span >{{row.eps_wage}} </span></td>
             </ng-container>
             <ng-container matColumnDef="edil">
-                    <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EDIL</th>
-                    <td mat-cell *matCellDef="let row" ><span >{{row.edil_wage}} </span></td>
+                    <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EDLI</th>
+                    <td mat-cell *matCellDef="let row" ><span >{{row.edli_wage}} </span></td>
             </ng-container>
             <ng-container matColumnDef="epsvalue">
-                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EDIL</th>
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EPS</th>
                 <td mat-cell *matCellDef="let row" ><span >{{row.employer_eps_value}} </span></td>
         </ng-container>
             
 
             <ng-container matColumnDef="ee">
                 <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">EE</th>
-                <td mat-cell *matCellDef="let row" ><span >{{row.employer_epf_value}} </span></td>
+                <td mat-cell *matCellDef="let row" ><span >{{row.employee_epf_value}} </span></td>
             </ng-container>
             <ng-container matColumnDef='er'>
                 <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">ER</th>
-                <td mat-cell *matCellDef="let row" ><span >{{row.employer_epf_value}} </span></td>
+                <td mat-cell *matCellDef="let row" ><span >{{row.epf_eps_difference}} </span></td>
             </ng-container>
             <ng-container matColumnDef="ncp">
                 <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">NCP</th>
-                <td mat-cell *matCellDef="let row" ><span >0</span></td>
+                <td mat-cell *matCellDef="let row" ><span >{{row.ncp_days==null?0:row.ncp_days}}</span></td>
             </ng-container>
             <ng-container matColumnDef="refunds">
                 <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Refunds</th>

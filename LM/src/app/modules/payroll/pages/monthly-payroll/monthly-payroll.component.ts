@@ -109,6 +109,8 @@ export class MonthlyPayrollComponent implements OnInit {
   }  
 
   validateSalaryProcessingDate(){
+    this.selection.selected.forEach((s:any) => this.arrdata.push(s.id));
+ if(this.arrdata.length>0){
     if(this.monthlyPayrollForm.valid){
       for(let i=0;i<this.monthyear.length;i++){
         if(this.monthyear[i].month_value == this.month_value){
@@ -143,6 +145,14 @@ export class MonthlyPayrollComponent implements OnInit {
       })
   
     }
+  }
+  else{
+    let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      position:{top:`70px`},
+      disableClose: true,
+      data:this.PR46
+    });
+   }
    
     
   }
