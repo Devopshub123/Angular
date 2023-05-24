@@ -10,6 +10,7 @@ import * as _moment from 'moment';
 import { ManageUsersComponent } from '../dialog/manage-users/manage-users.component';
 import { InvoiceDataComponent } from '../dialog/invoice-data/invoice-data.component';
 import { CompanySettingService } from 'src/app/services/companysetting.service';
+import { DatePipe } from '@angular/common';
 const moment =  _moment;
 
 export const MY_FORMATS = {
@@ -39,7 +40,7 @@ export class ClientAdminSubscriptionComponent implements OnInit {
   clientid:any;
   /** */
   isOther: boolean = false;
-  constructor(private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog,
+  constructor(public datePipe: DatePipe,private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog,
     private adminService: AdminService, private companyService: CompanySettingService,) {
     this.getActiveEmployeesCount();
       this.getClientSubscriptionDetailswithshortcode();
@@ -86,8 +87,8 @@ export class ClientAdminSubscriptionComponent implements OnInit {
         this.subscriptionForm.controls.monthlyCost.setValue(value[0].cost_per_user_monthly_bill);
         //this.subscriptionForm.controls.yearlyCost.setValue(value[0].company_code);
         this.subscriptionForm.controls.totalPaidAmt.setValue(value[0].amount_paid);
-        this.subscriptionForm.controls.nextRenewal.setValue(value[0].valid_to);
-        this.subscriptionForm.controls.lastRenewal.setValue(value[0].payment_date);
+        this.subscriptionForm.controls.nextRenewal.setValue(this.datePipe.transform(new Date(value[0].valid_to), 'dd-MM-yyyy'));
+        this.subscriptionForm.controls.lastRenewal.setValue(this.datePipe.transform(new Date(value[0].payment_date), 'dd-MM-yyyy'));
         this.subscriptionForm.controls.contactPerson.setValue(value[0].contact_name);
         this.subscriptionForm.controls.companyName.setValue(value[0].company_name);
         this.subscriptionForm.controls.mobile.setValue(value[0].mobile_number);
