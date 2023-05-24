@@ -12,8 +12,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import {CompanySettingService} from '../../../../services/companysetting.service'
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
-
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { AttendanceService } from 'src/app/modules/attendance/attendance.service';
 import * as _moment from 'moment';
 import { EmsService } from 'src/app/modules/ems/ems.service';
 // import {default as _rollupMoment} from 'moment';
@@ -97,7 +97,7 @@ export class UserLeaveRequestComponent implements OnInit {
   isedit:boolean=false;
   constructor(private sanitizer: DomSanitizer, private router: Router, private location: Location,
     private LM: LeavesService, private formBuilder: FormBuilder, private dialog: MatDialog,
-    private spinner: NgxSpinnerService, private LMSC: CompanySettingService,private emsService: EmsService) {
+    private spinner: NgxSpinnerService, private LMSC: CompanySettingService,private emsService: EmsService,private attendanceService: AttendanceService,) {
     this.formData = new FormData();
     this.getDurationFoBackDatedLeave();
     this.getleavecyclelastmonth();
@@ -154,6 +154,7 @@ export class UserLeaveRequestComponent implements OnInit {
 
 
     this.leaveRequestForm.get('leaveTypeId')?.valueChanges.subscribe((selectedValue:any) => {
+      this.getEmployeeShiftDetailsByIdWithDates()
       if(selectedValue) {
         this.document = false;
         this.leaveRequestForm.controls.fromDate.setValue('',{emitEvent:false});
@@ -293,6 +294,38 @@ export class UserLeaveRequestComponent implements OnInit {
         this.leavebalance = this.leaveTypes(result.data[0],true);
       }
     })
+  }
+  getEmployeeShiftDetailsByIdWithDates() {
+    let data = {
+      "employee_id": this.userSession.id,
+      "fromd_date": this.pipe.transform(new Date(), 'yyyy-MM-dd'),
+      "to_date": this.pipe.transform(new Date(), 'yyyy-MM-dd'),
+    }
+    this.attendanceService.getEmployeeShiftByDates(data).subscribe((res: any) => {
+      if (res.status) {
+
+        if (res.data.length > 0) {
+          if (res.data.length > 1) {
+            let dialogRef = this.dialog.open(ReusableDialogComponent, {
+              position: { top: `70px` },
+              disableClose: true,
+             data: "Unable to request. please check the configure shift."
+            });
+          } else {
+            
+           
+          }
+        } else {
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Unable to request. please configure the shift before request"
+          });
+        }
+
+
+      }
+    });
   }
   /**
    * leaveTypes

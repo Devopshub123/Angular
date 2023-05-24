@@ -48,7 +48,7 @@
     
     </mat-card>
 <br>
-    <mat-card class="cardP outline" *ngIf="renewal">
+    <mat-card class="cardP outline" >
         <div class="section"><b>Renew Users</b></div>
 
         <div fxLayout="row wrap" fxLayout.xs="column">
@@ -62,7 +62,7 @@
                 <span style="padding-left: 17px;">
                 <button class="plusminus" (click)="handleMinusrenew()" [disabled]="disablerenew">-</button>&nbsp;
             <input type="number" class="num" value="0" [(ngModel)]="renewalvalue" />&nbsp;
-            <button class="plusminus" (click)="handlePlusrenew()">+</button>&nbsp;&nbsp;
+            <button class="plusminus" (click)="handlePlusrenew()"  >+</button>&nbsp;&nbsp;
             <!-- <button class=" btn-primary " >Add</button> -->
             <!-- <p>28 in use,2 Available.</p> -->
         </span>
@@ -87,7 +87,10 @@
                 
         </div>
         <div fxLayoutAlign="center">
-            <button class="btn btn-primary mr-2 mb-2 custom" (click)="paynow()"  >
+            <button class="btn btn-primary mr-2 mb-2 custom" (click)="paynow()"  *ngIf="renewal">
+                Pay Now
+            </button>
+            <button class="btn btn-primary mr-2 mb-2 custom" (click)="paynow()" [disabled]="true" *ngIf="!renewal" title="This feature can only be enabled within 24 hours prior to the payment date.">
                 Pay Now
             </button>
             <button class="btn btn-danger mr-2 mb-2"  (click)="cancel()" >

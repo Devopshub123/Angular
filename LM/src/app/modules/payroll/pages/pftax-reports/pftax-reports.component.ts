@@ -48,12 +48,14 @@ export const MY_FORMATS = {
 })
 export class PftaxReportsComponent implements OnInit {
   date = new FormControl(moment());
+  statehide:boolean = false;
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.date.value!;
     ctrlValue.month(normalizedMonthAndYear.month());
     ctrlValue.year(normalizedMonthAndYear.year());
     this.date.setValue(ctrlValue);
     datepicker.close();
+    this.getStatesForProfessionalTax()
   }
   searchForm!: FormGroup;
   displayedColumns: string[] = ['sno','state','payrange','tax','employees'];
@@ -81,9 +83,10 @@ export class PftaxReportsComponent implements OnInit {
     
     this.searchForm = this.formBuilder.group({
       fromDate:[new Date()],
-      employeeId:['All'],
-      state:[null]
+      state:[""]
     });
+   
+
     this.Searchform();
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.dataSource = new MatTableDataSource(this.arrayList)
@@ -106,14 +109,7 @@ export class PftaxReportsComponent implements OnInit {
     XLSX.writeFile(wb, 'Prefessionaltax_report_for_financeteam_'+this.monthdata+'_'+this.year+'.xlsx');
 
   }
-  getallEmployeesList(){
-    this.RS.getTotalEmployeslist().subscribe((res:any)=>{
-      if(res.status && res.data.length>0){
-        this.employeeDetails = res.data;
-      }
 
-    })
-  }
   Searchform(){
     let data ={
       date:this.pipe.transform( this.date.value._d, 'yyyy-MM-dd')
@@ -147,7 +143,7 @@ export class PftaxReportsComponent implements OnInit {
     var html = htmlToPdfmake(pdfTable.innerHTML);
     pdfMake.createPdf({
       info: {
-        title: "Payroll Report",
+        title: "Professional Tax Report",
         author:'Sreeb tech',
         subject:'Theme',
             keywords:'Report'
@@ -187,7 +183,7 @@ export class PftaxReportsComponent implements OnInit {
         html
       ],
       pageOrientation: 'landscape'//'portrait'
-    }).download("Pfofessional tax xhallan Report.pdf");
+    }).download("Pfofessional tax challan Report.pdf");
 
   }
   getProfessionalTaxValuesForChallan(){
@@ -201,6 +197,29 @@ export class PftaxReportsComponent implements OnInit {
       console.log("result",result)
      if(result.status){
       this.dataSource = result.data
+     }
+       
+      
+    })
+  }
+  getStatesForProfessionalTax(){
+    let data ={
+      year:this.date.value._d.getFullYear(),
+      month:this.date.value._d.getMonth(),
+     
+    }
+    console.log(this.date.value._d)
+    this.PR.getStatesForProfessionalTax(data).subscribe((result:any)=>{
+      console.log("result",result)
+     if(result.status){
+      this.stateslist = result.data;
+      if(result.data[0].status == 0){
+        this.statehide= false;
+
+      }else{
+        this.statehide= true;
+      }
+      
      }
        
       

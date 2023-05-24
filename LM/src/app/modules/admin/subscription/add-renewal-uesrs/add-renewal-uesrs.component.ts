@@ -222,82 +222,82 @@ export class AddRenewalUesrsComponent implements OnInit {
    
 
   }
-  adduserspay(){
-    if(this.addvalue>0){
-      let data = {
-        client_renewal_detail_id_value:this.clientplandetailid,
-        valid_to_value:this.validto,
-        user_count_value:this.addvalue,
-        created_by_value:1,
-        payment_reference_number_value:"Shhhf3425",
-        payment_date_value:this.datePipe.transform(new Date(), "y-MM-dd"),
-        payment_status_value:"Paid"
-      }
-      this.adminService.addUsers(data).subscribe((result:any)=>{
-        if(result.status){
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-            this.router.navigate(["/Admin/add-renewal-users"]));
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position:{top:`70px`},
-            disableClose: true,
-            data:'Payment success for add users'
-          });
+  // adduserspay(){
+  //   if(this.addvalue>0){
+  //     let data = {
+  //       client_renewal_detail_id_value:this.clientplandetailid,
+  //       valid_to_value:this.validto,
+  //       user_count_value:this.addvalue,
+  //       created_by_value:1,
+  //       payment_reference_number_value:"Shhhf3425",
+  //       payment_date_value:this.datePipe.transform(new Date(), "y-MM-dd"),
+  //       payment_status_value:"Paid"
+  //     }
+  //     this.adminService.addUsers(data).subscribe((result:any)=>{
+  //       if(result.status){
+  //         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+  //           this.router.navigate(["/Admin/add-renewal-users"]));
+  //         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+  //           position:{top:`70px`},
+  //           disableClose: true,
+  //           data:'Payment success for add users'
+  //         });
 
-        }
-        else{
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position:{top:`70px`},
-            disableClose: true,
-            data:'unable to success payment for addUsers.'
-          });
+  //       }
+  //       else{
+  //         let dialogRef = this.dialog.open(ReusableDialogComponent, {
+  //           position:{top:`70px`},
+  //           disableClose: true,
+  //           data:'unable to success payment for addUsers.'
+  //         });
 
-        }
+  //       }
   
-      })
+  //     })
 
-    }
-    else{
-      let dialogRef = this.dialog.open(ReusableDialogComponent, {
-        position:{top:`70px`},
-        disableClose: true,
-        data:'Please Add users'
-      });
+  //   }
+  //   else{
+  //     let dialogRef = this.dialog.open(ReusableDialogComponent, {
+  //       position:{top:`70px`},
+  //       disableClose: true,
+  //       data:'Please Add users'
+  //     });
 
-    }
+  //   }
    
     
-  }
-  renewalpay(){
-    let data={
-      client_plan_detail_id_value:this.clientplandetailid,
-      user_count_value:this.renewalvalue,
-      valid_to_value:this.validto,
-      renew_type:this.renewalausersForm.controls.renewtype.value,
-      created_by_value:1,
-      payment_reference_number_value:"Shhhf3425",
-      payment_date_value:this.datePipe.transform(new Date(), "y-MM-dd"),
-      payment_status_value:"Paid"
-    }
-    this.adminService.renewUsers(data).subscribe((result:any)=>{
-      if(result.status){
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data:'Payment susuccess for add renewal.'
-        });
+  // }
+  // renewalpay(){
+  //   let data={
+  //     client_plan_detail_id_value:this.clientplandetailid,
+  //     user_count_value:this.renewalvalue,
+  //     valid_to_value:this.validto,
+  //     renew_type:this.renewalausersForm.controls.renewtype.value,
+  //     created_by_value:1,
+  //     payment_reference_number_value:"Shhhf3425",
+  //     payment_date_value:this.datePipe.transform(new Date(), "y-MM-dd"),
+  //     payment_status_value:"Paid"
+  //   }
+  //   this.adminService.renewUsers(data).subscribe((result:any)=>{
+  //     if(result.status){
+  //       let dialogRef = this.dialog.open(ReusableDialogComponent, {
+  //         position:{top:`70px`},
+  //         disableClose: true,
+  //         data:'Payment susuccess for add renewal.'
+  //       });
 
-      }
-      else{
-        let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          position:{top:`70px`},
-          disableClose: true,
-          data:'unable to success payment for renewal.'
-        });
+  //     }
+  //     else{
+  //       let dialogRef = this.dialog.open(ReusableDialogComponent, {
+  //         position:{top:`70px`},
+  //         disableClose: true,
+  //         data:'unable to success payment for renewal.'
+  //       });
 
-      }
+  //     }
       
-    })
-  }
+  //   })
+  // }
   cancel(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
     this.router.navigate(["/Admin/add-renewal-users"]));
@@ -306,9 +306,9 @@ export class AddRenewalUesrsComponent implements OnInit {
   paynow() {
     this.paymentId = '';
     this.error = '';
-    this.options.prefill.name = 'Rakesh'//this.clientname;
-    this.options.prefill.email = 'rthallapely@sreebtech.com'//this.email;
-    this.options.prefill.contact ='9704546030'//this.contactnumber;
+    this.options.prefill.name = this.clientname//this.clientname;
+    this.options.prefill.email = this.email//this.email;
+    this.options.prefill.contact =this.contactnumber//this.contactnumber;
     if(this.addvalue>0 &&this.addusersamount){
     let dataamount:any = Math.floor(this.addUsersDisplayInfoamount*100);
     this.options.amount = dataamount; //paise
@@ -445,7 +445,7 @@ getClientSubscriptionDetails(){
       this.addausersForm.controls.addexistingusers.setValue(data.data[0].user_count);
       this.renewalausersForm.controls.renewalexistingusers.setValue(data.data[0].user_count);
        this.validto = data.data[0].valid_to;
-      this.clientplandetailid = data.data[0].client_id;
+      this.clientplandetailid = data.data[0].client_plan_detail_id;
       this.monthlycost=data.data[0].cost_per_user_monthly_bill;
       this.clientname=data.data[0].contact_name;
       this.email=data.data[0].company_email;
