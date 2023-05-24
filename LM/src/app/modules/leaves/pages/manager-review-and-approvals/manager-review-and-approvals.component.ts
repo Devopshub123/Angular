@@ -54,7 +54,7 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
     this.pendingapprove.ngOnInit();
     this.compoffPendingapprove.ngOnInit();
     this.cancellationapprove.ngOnInit();
-
+console.log("dat--",this.leaveInfo.leaveData)
     this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:'' , disabled: true }],

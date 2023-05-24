@@ -426,7 +426,8 @@ export class EmployeeInfoComponent implements OnInit {
     })
 
     this.personalInfoForm.get('department')?.valueChanges.subscribe((selectedValue: any) => {
-      this.availablereportingmanagers = []
+      this.availablereportingmanagers = [];
+      this.personalInfoForm.controls.reportingmanager.setValue('');
       let data = {
         id: selectedValue
       }

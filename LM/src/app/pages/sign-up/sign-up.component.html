@@ -55,7 +55,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>GST Number</mat-label>
                                     <input type="text" formControlName="gstNumber" matInput (paste)="(false)"
-                                        maxlength="15" minlength="6" (keypress)=numberOnly($event) />
+                                        maxlength="15" minlength="6" (keypress)=alphaNumberOnly($event) />
                                         <!-- <mat-error class="reg-error" *ngIf="signUpForm.controls.gstNumber.errors?.required">
                                             This fiels is required
                                             </mat-error> -->

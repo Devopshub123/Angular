@@ -20,7 +20,7 @@
                   <mat-form-field fxFlex.xs="100" fxFlex="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Company Code</mat-label>
                     <input matInput class="form-control" type="text" formControlName="companyname"
-                    id="company" (keypress)="alphaNumberOnly($event)"  (paste)="(false)"
+                    id="company" (keypress)="alphabetKeyPress($event)"  (paste)="(false)"
                        placeholder="" minlength="5" maxlength="10" (keydown.space)="$event.preventDefault()" required/>
                     <mat-error class="con-error" *ngIf="formGroup.controls.companyname.errors?.required">
                       This field is required.
@@ -55,7 +55,7 @@
                 sitekey 6Ld9lrslAAAAAHnnQ1AIk85Pq -->
 
                 
-                <div style="padding-left: 35px;">
+                <div fxLayoutAlign="center" >
                   <ngx-recaptcha2 #captchaElem class="g-recaptcha"  data-type="image" siteKey="6LcvK9klAAAAALiKILhAsIwwr225tF534gvOotQ7
                   " (success)="handleSuccess($event,true)" [size]="size"
  [hl]="lang" [theme]="theme" [type]="type" >
