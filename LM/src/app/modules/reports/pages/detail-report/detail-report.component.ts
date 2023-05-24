@@ -222,11 +222,12 @@ export class DetailReportComponent implements OnInit {
     }
   }
   public exportPDF(): void {
+    let date = (this.datePipe.transform(this.searchForm.controls.fromDate.value, "MM-YYYY"))
     const pdfTable = this.table.nativeElement;
     var html = htmlToPdfmake(pdfTable.innerHTML);
     pdfMake.createPdf({
       info: {
-        title: "Attendance Monthly Detailed Report",
+        title:date+"-"+ "Attendance Monthly Detailed Report",
         author:'Sreeb tech',
         subject:'Theme',
             keywords:'Report'
@@ -249,7 +250,7 @@ export class DetailReportComponent implements OnInit {
       },
       content: [
         {
-          text: "Attendance Monthly Detailed Report\n\n",
+          text: date +" - " + "Attendance Monthly Detailed Report \n\n" ,
           style: 'header',
           alignment: 'center',
           fontSize: 14

@@ -1490,17 +1490,15 @@ export class EmployeeProfileComponent implements OnInit {
     this.saveWorkExperience();
   }
   saveWorkExperience() {
-    if (this.isDelete ==true) {
-      this.submitExperience();
-    } else if(this.educationForm.valid){
+    if (this.isDelete == true) {
       this.submitExperience();
     } else {
-      this.spinner.hide();
+      this.submitExperience();
     }
   }
 
   submitExperience() {
-    let data = {
+   let data = {
       empid: this.employeeCode,
       experience: this.workExperienceDetails,
       bankname: this.employementForm.controls.bankName.value !=null ? this.employementForm.controls.bankName.value:null,

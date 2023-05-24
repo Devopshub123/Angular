@@ -2,16 +2,23 @@
    
     <span fxLayoutAlign="end" >
         <button mat-icon-button (click)="onNoClick()" title="close">
-         <mat-icon>cancel</mat-icon>
+         <mat-icon style="color: crimson;" >cancel</mat-icon>
         </button>  
     </span>
     <div style="text-align: center;">
     <span><h1 class="r_style">Exclusive Pricing</h1></span><br>
-    <span><h2 class="r_style">Contact our sales team for custom pricing packages.</h2></span><br>
+    <span><h2 class="r_style2">Contact our sales team for custom pricing packages.</h2></span>
    
- <span fxLayoutAlign="center center" fxLayout="column">
-    <span fxLayout="row"><mat-icon style="color: #3737ad;" > phone_in_talk</mat-icon>&nbsp;&nbsp; <b class="icon_style">+91 9100052053</b></span><br>
-    <span fxLayout="row"><mat-icon style="color: #3737ad;"> email</mat-icon> &nbsp;&nbsp;<b class="icon_style">contact@spryple.com</b></span>
+ <span fxLayoutAlign="start" fxLayout="column">
+    <span fxLayout="row"><mat-icon> phone_in_talk</mat-icon>&nbsp;&nbsp; <b class="icon_style">+91 9100052053</b></span>
+    <span fxLayout="row"><mat-icon> mail_outline</mat-icon> &nbsp;&nbsp;<b class="icon_style">contact@spryple.com</b></span>
 </span>
+<br>
+<div fxLayoutAlign="center">
+    <button class="btn btn-primary mr-2 mb-2" (click)="onNoClick()" type="submit">
+        <span>Okay</span>
+    </button>
+   <br>
+</div>
 </div>
 </div>
