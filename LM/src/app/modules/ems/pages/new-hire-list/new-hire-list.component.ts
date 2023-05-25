@@ -50,7 +50,7 @@ export class NewHireListComponent implements OnInit {
     private adminService: AdminService, private companyService: CompanySettingService,
     private dialog: MatDialog, private emsService: EmsService,public spinner:NgxSpinnerService) {
      
-      // this.getActiveEmployeesCount();
+      this.getActiveEmployeesCount();
      }
   hireForm: any = FormGroup;
   userSession: any;
@@ -124,22 +124,22 @@ export class NewHireListComponent implements OnInit {
     })
   }
   newHire() {
-    // if(!this.subscriptionflag){
-    //   let dialogRef = this.dialog.open(EmpValidationPopUpComponent, {
-    //     width: '800px',position: { top: `100px` },
-    //     disableClose: true,
+    if(!this.subscriptionflag){
+      let dialogRef = this.dialog.open(EmpValidationPopUpComponent, {
+        width: '800px',position: { top: `100px` },
+        disableClose: true,
         
-    //     data: "Attention! Please note that you are no longer authorized to add new employees. If you want to add new employees, please upgrade your plan or increase the user count in your current plan. For further assistance, please contact your admistrator. Thank you!"
-    //   });
+        data: "Attention! Please note that you are no longer authorized to add new employees. If you want to add new employees, please upgrade your plan or increase the user count in your current plan. For further assistance, please contact your admistrator. Thank you!"
+      });
 
-    // }
-    // else{
+    }
+    else{
       this.candidateId =null
       this.isNewhire = true;
       this.isNewhireList = false;
       this.isUpdate = false;
 
-    // }
+    }
    
   }
   submit() {
@@ -209,15 +209,16 @@ export class NewHireListComponent implements OnInit {
     
   }
   editEmployee(id: any, data: any) {
-    // if(!this.subscriptionflag){
-    //   let dialogRef = this.dialog.open(EmpValidationPopUpComponent, {
-    //     width: '800px',position: { top: `100px` },
-    //     disableClose: true,
-    //     data: "Attention! Please note that you are no longer authorized to add new employees. If you want to add new employees, please upgrade your plan or increase the user count in your current plan. For further assistance, please contact your admistrator. Thank you!"
-    //   });
+    if(!this.subscriptionflag){
+      let dialogRef = this.dialog.open(EmpValidationPopUpComponent, {
+        width: '800px',position: { top: `100px` },
+        disableClose: true,
+        data: "Attention! Please note that you are no longer authorized to add new employees. If you want to add new employees, please upgrade your plan or increase the user count in your current plan. For further assistance, please contact your admistrator. Thank you!"
+      });
 
-    // }
-    // else{
+    }
+    else { 
+      
     this.isNewhire = true;
     this.isNewhireList = false;
     this.isUpdate = true;
@@ -242,9 +243,9 @@ export class NewHireListComponent implements OnInit {
     this.hireForm.controls.designation.setValue(data.designation);
     this.hireForm.controls.mobile.setValue(data.contact_number);
     this.hireForm.controls.alternatenumber.setValue(data.alternatecontact_number);
-    // }
+    }
   }
-
+/**get new hired  list data */
   getNewHiredList() {
    this.hiredList = [];
     this.joinedList = [];
@@ -299,15 +300,15 @@ export class NewHireListComponent implements OnInit {
   }
   
   editCandidateData(id:any, data:any) {
-    // if(!this.subscriptionflag){
-    //   let dialogRef = this.dialog.open(EmpValidationPopUpComponent, {
-    //     width: '800px',position: { top: `100px` },
-    //     disableClose: true,
-    //     data: "Attention! Please note that you are no longer authorized to add new employees. If you want to add new employees, please upgrade your plan or increase the user count in your current plan. For further assistance, please contact your admistrator. Thank you!"
-    //   });
+    if(!this.subscriptionflag){
+      let dialogRef = this.dialog.open(EmpValidationPopUpComponent, {
+        width: '800px',position: { top: `100px` },
+        disableClose: true,
+        data: "Attention! Please note that you are no longer authorized to add new employees. If you want to add new employees, please upgrade your plan or increase the user count in your current plan. For further assistance, please contact your admistrator. Thank you!"
+      });
 
-    // }
-    // else{
+    }
+    else{
     // dateofjoin
     const dateOne = new Date(data.dateofjoin);
    const dateTwo = new Date();
@@ -322,7 +323,7 @@ export class NewHireListComponent implements OnInit {
       let candId=this.encriptPipe.transform(data.candidate_id.toString());
       this.router.navigate(["/ems/empInformation",{candId}])
     }
-  // }
+  }
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -423,6 +424,7 @@ export class NewHireListComponent implements OnInit {
       }
     })
   }
+  
   getClientSubscriptionDetails(){
     this.companyService.getClientSubscriptionDetails().subscribe((data: any) => {
       if (data.status && data.data.length != 0) {
@@ -433,20 +435,21 @@ export class NewHireListComponent implements OnInit {
         }
         else{
           this.subscriptionflag =false;
-          // let dialogRef = this.dialog.open(ReusableDialogComponent, {
-          //   position: { top: `70px` },
-          //   disableClose: true,
-          //   data: "Attention! Please note that you are no longer authorized to add new employees. If you want to add new employees, please upgrade your plan or increase the user count in your current plan. For further assistance, please contact your supervisor or HR representative. Thank you!"
-          // });
+          let dialogRef = this.dialog.open(ReusableDialogComponent, {
+            position: { top: `70px` },
+            disableClose: true,
+            data: "Attention! Please note that you are no longer authorized to add new employees. If you want to add new employees, please upgrade your plan or increase the user count in your current plan. For further assistance, please contact your supervisor or HR representative. Thank you!"
+          });
           
         }
       }
     })
   }
+
   getActiveEmployeesCount(){
     this.companyService.getActiveEmployeesCount().subscribe((data: any) => {
       if (data.status && data.data.length != 0) {
-        // this.getClientSubscriptionDetails();
+        this.getClientSubscriptionDetails();
         this.activeemployeecount = data.data[0].active_employees_count;
       }
     });

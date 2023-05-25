@@ -10,6 +10,9 @@ export const environment = {
 
   /** local build */
   // apiUrl: 'http://192.168.1.10:7676/',
+
+  /**-------------------------------------------------- */
+  /**offline build */
   // apiUrl:'http://192.168.1.86:6060/',
 
   dbName:sessionStorage.getItem('companyName'),
