@@ -123,7 +123,8 @@ export class SignUpComponent implements OnInit {
   hide:boolean=false;
   isdisable:boolean=true;
   date:any;
-  flag:boolean=false;
+  flag: boolean = false;
+  isVerified:boolean=false;
   @ViewChild('stepper') private myStepper: any;
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private spinner: NgxSpinnerService, private dialog: MatDialog, private router: Router,
@@ -147,6 +148,7 @@ export class SignUpComponent implements OnInit {
     }
     else {
       this.flag = false;
+      this.isVerified = false;
     }
     this.createForm();
     this.getIndustryTypes();
@@ -435,6 +437,7 @@ export class SignUpComponent implements OnInit {
     rzp1.open();
     rzp1.on('payment.failed',  (response: any) => {
       rzp1.close();
+      this.isVerified = false;
       let data ={
         client_id_value:this.clientId,
         company_code_value:this.companycode,
@@ -473,6 +476,7 @@ export class SignUpComponent implements OnInit {
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event: any,stepper: MatStepper): void {
     this.message = "Success Payment";
+    this.isVerified = true;
 let data ={
   client_id_value:this.clientId,
   company_code_value:this.companycode,
@@ -485,9 +489,9 @@ let data ={
   company_email_value:this.email
 }
 this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
-  if(result.status){
-    // this.ngOnInit();
-    this.myStepper.next();
+  if (result.status) {
+    this.ngOnInit();
+    // this.myStepper.next();
     // this.myStepper.next();
     // this.myStepper.next();
   }

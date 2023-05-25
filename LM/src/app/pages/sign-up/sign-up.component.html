@@ -1,6 +1,6 @@
 <div fxLayout="column"  class="bg-image"
 style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflow-y: auto;" >
-    <div class="card" style="background-color: cornsilk;border: 2px solid #28acaf;" *ngIf="flag">
+    <div class="card" style="background-color: cornsilk;border: 2px solid #28acaf;" *ngIf="flag && !isVerified">
         <div style="height: 70px;    background-color: #28acaf;" fxLayoutAlign="center center">
         <span class="section">GET STARTED WITH SPRYPLE</span>
 
@@ -239,7 +239,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                     <mat-step [stepControl]="PayviewForm"  >
                         <ng-template  matStepLabel>Payment Details</ng-template>
                         <form [formGroup]="PayviewForm">
-                            <div fxFlex="100" fxLayout="row">
+                            <div fxFlex="100" fxLayout="row" *ngIf="!isVerified">
 
                             <div fxFlex.gt-md="20" fxFlex.lt-lg="5"></div>
 
@@ -261,17 +261,6 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                         <mat-label>Valid To</mat-label>
                                         <input type="text" formControlName="validTo" matInput [ngClass]="{'disable':true}" [readonly]="true"/>
                                     </mat-form-field>
-
-                                 <!-- <div fxLayout="row" fxLayout.xs="column">
-                                    <mat-form-field ngStyle.gt-md="width: 172px;" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                        <mat-label>Valid From</mat-label>
-                                        <input type="text" formControlName="validFrom" matInput [ngClass]="{'disable':true}" [readonly]="true"/>
-                                    </mat-form-field>
-                                    <mat-form-field ngStyle.gt-md="width: 175px;"  fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                        <mat-label>Valid To</mat-label>
-                                        <input type="text" formControlName="validTo" matInput [ngClass]="{'disable':true}" [readonly]="true"/>
-                                    </mat-form-field>
-                                </div> -->
                                     <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                         <mat-label>Cost</mat-label>
                                         <input type="text" formControlName="cost" matInput [ngClass]="{'disable':true}" [readonly]="true"/>
@@ -286,7 +275,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
 
                             <div fxFlex.gt-md="20" fxFlex.lt-lg="5"></div>
                         </div>
-                        </form>
+                       </form>
 
 
 
@@ -294,21 +283,22 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
 
                     <!-- final details -->
 
-                    <mat-step [completed]="step3Complete" disabled >
+                    <!-- <mat-step [completed]="step3Complete" disabled >
                         <ng-template  matStepLabel>Finish</ng-template>
                         <form [formGroup]="PayForm"></form>
                          <div style="text-align: center;">
-                            <!-- Great job! <br> -->
-                            <h2>You have successfully completed the payment process.<br> We are delighted to have you onboard as a Spryple subscriber.
+                               <h2>You have successfully completed the payment process.<br> We are delighted to have you onboard as a Spryple subscriber.
                             <br>Please verify your email for Invoice details. </h2>
                          </div>
 
-                       </mat-step>
+                       </mat-step> -->
+
+
                 </mat-horizontal-stepper>
 
  </div>
 
- <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!flag" style="height: 100%;">
+ <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!flag && !isVerified" style="height: 100%;">
     <span>
         <h2 class="text-dark-50 text-center mt-0 fw-bold" style="color: #000c18">Selected URL is expired </h2>
         <div fxLayoutAlign="center center">
@@ -316,4 +306,17 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
           </div>
     </span>
 </div>
+
+<div fxLayout="column" fxLayoutAlign="center center" *ngIf="flag && isVerified" style="height: 100%;">
+    <span fxLayout="column" fxLayoutAlign="center center">
+        <span class="style-2 text-dark-50 text-center mt-0 fw-bold">You have successfully completed the payment process.</span>&nbsp;
+        <span class="style-2 text-dark-50 text-center mt-0 fw-bold"> We are delighted to have you onboard as a Spryple subscriber.</span>&nbsp;
+        <span class="style-2 text-dark-50 text-center mt-0 fw-bold">Please verify your email for Invoice details.</span>
+    </span>
+    <br>
+    <div fxLayoutAlign="center center">
+        <span><a href="https://spryple.com/" class="style" >www.spryple.com</a></span>
+      </div>
+</div>
+
 </div>

@@ -45,13 +45,13 @@
   <div class="mcard outline">
     <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
       <p class="card-category" style="color:#28acaf;font-size: 1.1rem;margin-bottom: 1rem;">Total Employees</p>
-        <h4 class="card-title" style="color: #5a5c69!important;font-size: 1.32rem;">{{empcount}}</h4>
+        <h4 class="card-title fontStyle">{{empcount}}</h4>
     </div>
   </div>
   <div class="mcard outline">
     <div class="numbers text-center" style="margin-top: 7px; margin-bottom: 21px;">
       <p class="card-category" style="color:#28acaf;font-size: 1.1rem;margin-bottom: 1rem;">Gross Earnings</p>
-        <h4 class="card-title" style="color: #5a5c69!important;font-size: 1.32rem;">{{grosssalary}}</h4>
+        <h4 class="card-title fontStyle">{{grosssalary}}</h4>
     </div>
   </div>
 
@@ -74,15 +74,22 @@
 
   <div fxLayout="column wrap" fxLayout.xs="column" fxFlex="49" >
     <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation" style="margin-right: 14px;">
-      <div class="card-body ">
-          <div class="row" >
-              
-              <div class="col-13" >
+      <div class="card-body" style="height: 140px;">
+          <div class="column" >
+  
                   <div class="numbers text-center">
-                      <p class="card-category" style="margin-left: 100px;color:#28acaf;font-size: 1.5rem;">Net Pay</p>
+                      <p class="card-category" style="color:#28acaf;font-size: 1.1rem;">Net Pay</p>
                  </div>
-                  <div >
-                  <div class="col-6" style="float: left;margin-left: 10px;">
+                  <div fxLayout="row" fxLayoutAlign="space-around center">
+                    <div fxLayout="column">
+                    <span class="fontStyle">{{netSalary}}</span>&nbsp;
+                    <span class="fontStyle">{{SelDisplay}}</span>
+                    </div>
+                    <div fxLayout="column">
+                      <span class="fontStyle" style="text-align: center;">{{deductions}}</span>&nbsp;
+                      <span class="fontStyle">Deductions</span>
+                      </div>
+                  <!-- <div class="col-6" style="float: left;margin-left: 10px;">
                     <p style="text-align: center;color: #5a5c69!important;font-size: 1.25rem;">{{netSalary}}</p>
                     <p style="text-align: center;font-size: 1.20rem;display: inline-block;">{{SelDisplay}}</p>
                   </div>
@@ -90,9 +97,8 @@
                   <div class="col-4" style="float: right;margin-left: 42px;">
                     <p style="text-align:center;color: #5a5c69!important;font-size: 1.25rem;">{{deductions}}</p>
                     <p style="text-align:center;font-size: 1.20rem;display: inline-block;">Deductions</p>
-                  </div>
-                </div>
-              </div>
+                  </div> -->
+                        </div>
           </div>
       </div>
   </div>

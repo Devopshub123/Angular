@@ -37,7 +37,7 @@ export class RegisterValidationComponent implements OnInit {
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       'companyname':['',[Validators.minLength(5), Validators.required]],
-      'username': ['', [Validators.email, Validators.pattern('^[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}'),Validators.required]],
+      'username': ['', [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),Validators.required]],
       // 'recaptcha': ['', Validators.required],
       
     });
