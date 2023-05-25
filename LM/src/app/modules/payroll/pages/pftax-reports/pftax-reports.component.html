@@ -20,12 +20,12 @@
             </mat-datepicker>
 
           </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2">
+          <mat-form-field appearance="outline" fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2" *ngIf="statehide">
             <mat-label>State</mat-label>
             <mat-select  formControlName="state">
               <ng-container>
                 <div *ngFor="let b of stateslist">
-                  <mat-option value="{{ b.state_id }}">{{
+                  <mat-option value="{{ b.id }}">{{
                     b.state
                     }}</mat-option>
                 </div>
@@ -34,7 +34,17 @@
           </mat-form-field>
           
         </div>
-       
+        <div fxLayout="row" fxLayoutAlign="center">
+            <span>
+                <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()"
+                       >
+                    Search
+                </button>
+            </span>
+    <button class="btn btn-danger mr-2 mb-2" (click)="resetform()">
+      <span>Clear</span>
+    </button>
+  </div>
 
        
 

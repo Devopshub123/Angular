@@ -282,4 +282,9 @@ import { environment } from 'src/environments/environment';
     data.companyName = this.companyName;
     return this.http.post(this.mainBeUrl+'api/monthlyPayrollReportChallan', JSON.stringify(data), this.httpOptions);
   }
+  
+  getStatesForProfessionalTax(data:any){
+    data.companyName = this.companyName;
+    return this.http.post(this.mainBeUrl+'api/getStatesForProfessionalTax', JSON.stringify(data), this.httpOptions);
+  }
 }
