@@ -57,7 +57,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                     <input type="text" formControlName="gstNumber" matInput (paste)="(false)"
                                         maxlength="15" minlength="6" (keypress)=alphaNumberOnly($event) />
                                         <!-- <mat-error class="reg-error" *ngIf="signUpForm.controls.gstNumber.errors?.required">
-                                            This fiels is required
+                                            This field is required
                                             </mat-error> -->
                                     <mat-error class="reg-error"
                                         *ngIf="signUpForm.controls.gstNumber.errors?.minlength">

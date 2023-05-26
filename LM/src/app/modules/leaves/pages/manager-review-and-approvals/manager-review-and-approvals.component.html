@@ -16,39 +16,39 @@
         
         <mat-form-field fxFlex.xs="100" fxFlex="31"  fxFlex.lt-lg="45" class="mx-2 my-2" appearance="outline">
           <mat-label>Emp Id</mat-label>
-          <input formControlName="empId" required matInput placeholder="Shift" >
+          <input formControlName="empId" required matInput placeholder="" >
         </mat-form-field>
 
         <mat-form-field fxFlex.xs="100" fxFlex="31"  fxFlex.lt-lg="45" class="mx-2 my-2" appearance="outline">
           <mat-label>Emp Name</mat-label>
-          <input formControlName="empName" required matInput placeholder="Shift" >
+          <input formControlName="empName" required matInput placeholder="" >
         </mat-form-field>
 
   
 
         <mat-form-field *ngIf="!leaveInfo.isleave" fxFlex.xs="100" fxFlex="31"  fxFlex.lt-lg="45"  class="mx-2 my-2" appearance="outline">
-          <mat-label>Comp-off Date</mat-label>
-          <input formControlName="fromDate" required matInput placeholder="Shift" >
+          <mat-label>Worked Date</mat-label>
+          <input formControlName="fromDate" required matInput placeholder="" >
         </mat-form-field>
 
         <mat-form-field *ngIf="leaveInfo.isleave" fxFlex.xs="100" fxFlex="31"  fxFlex.lt-lg="45" class="mx-2 my-2" appearance="outline">
           <mat-label>Leave Type</mat-label>
-          <input formControlName="leaveType" required matInput placeholder="Shift" >
+          <input formControlName="leaveType" required matInput placeholder="" >
         </mat-form-field>
 
         <mat-form-field *ngIf="leaveInfo.isleave" fxFlex.xs="100" fxFlex="31"  fxFlex.lt-lg="45"  class="mx-2 my-2" appearance="outline">
           <mat-label *ngIf="leaveInfo.leaveData.leave_id !=8">From Date</mat-label>
           <mat-label *ngIf="leaveInfo.leaveData.leave_id ==8">Leave Date</mat-label>
-          <input formControlName="fromDate" required matInput placeholder="Shift" >
+          <input formControlName="fromDate" required matInput placeholder="" >
         </mat-form-field>
 
         <mat-form-field *ngIf="leaveInfo.isleave && leaveInfo.leaveData.leave_id != 8" fxFlex.xs="100" fxFlex="31"  fxFlex.lt-lg="45"  class="mx-2 my-2" appearance="outline">
           <mat-label>To Date</mat-label>
-          <input formControlName="toDate" required matInput placeholder="Shift" >
+          <input formControlName="toDate" required matInput placeholder="" >
         </mat-form-field>
         <mat-form-field *ngIf=" leaveInfo.leaveData.leave_id == 8" fxFlex.xs="100" fxFlex="31"  fxFlex.lt-lg="45"  class="mx-2 my-2" appearance="outline">
           <mat-label>Worked Date</mat-label>
-          <input formControlName="workDate" required matInput placeholder="Shift" >
+          <input formControlName="workDate" required matInput placeholder="" >
         </mat-form-field>
 
    
@@ -73,7 +73,7 @@
 
         <mat-form-field fxFlex.xs="100" fxFlex="31"  fxFlex.lt-lg="45" *ngIf="leaveInfo.leaveData.leavestatus == 'Submitted'"  class="mx-2 my-2" appearance="outline">
           <mat-label>Pending Since</mat-label>
-          <input formControlName="pendingSince" required matInput placeholder="Shift" >
+          <input formControlName="pendingSince" required matInput placeholder="" >
         </mat-form-field>
 
         <mat-form-field fxFlex.xs="100" fxFlex="31"  fxFlex.lt-lg="45" *ngIf="leaveInfo.isCancellation == true"  class="mx-2 my-2" appearance="outline">
