@@ -289,13 +289,15 @@ export class UserCompoffComponent implements OnInit {
 
   }
   view(data: any) {
+    console.log("dad-",data)
     this.isview= true;
     if (data.status == "Rejected") {
       this.isReject= true;
     }
     this.CompoffForm.controls.empId.setValue()
     this.CompoffForm.controls.empName.setValue(1)
-    this.CompoffForm.controls.workeddate.setValue(new Date(data.comp_off_date))  
+    this.CompoffForm.controls.workeddate.setValue(new Date(data.comp_off_worked_date))  
+    this.CompoffForm.controls.workeddate.disable();
     this.CompoffForm.controls.hours.setValue(data.worked_hours) 
     this.CompoffForm.controls.minutes.setValue(data.worked_minutes==0?"00":data.worked_minutes) 
     this.CompoffForm.controls.reason.setValue(data.reason) 

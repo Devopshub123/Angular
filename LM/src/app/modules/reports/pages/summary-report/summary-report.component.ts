@@ -209,11 +209,13 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
   }
   
   public exportPDF(): void {
+    let fromdate = (this.datePipe.transform(this.searchForm.controls.fromDate.value, "dd-MM-YYYY"))
+    let todate = (this.datePipe.transform(this.searchForm.controls.toDate.value, "dd-MM-YYYY"))
     const pdfTable = this.table.nativeElement;
     var html = htmlToPdfmake(pdfTable.innerHTML);
     pdfMake.createPdf({
       info: {
-        title: "Attendance Summary Report",
+        title:fromdate+" - "+todate+" - "+ "Attendance Summary Report",
         author:'Sreeb tech',
         subject:'Theme',
             keywords:'Report'
@@ -236,7 +238,7 @@ this.reportsService.getTotalEmployeslistByManagerId(obj).subscribe((res: any) =>
       },
       content: [ 
         {
-          text: "Attendance Summary Report\n\n",
+          text: fromdate+" - "+ todate +" - "+"Attendance Summary Report\n\n",
           style: 'header',
           alignment: 'center',
           fontSize: 14
