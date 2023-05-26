@@ -1,5 +1,5 @@
 import {SelectionModel} from '@angular/cdk/collections';
-import {Component,OnInit,ViewChild} from '@angular/core';
+import {Component,OnInit,ViewChild,ElementRef} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import {FormBuilder,FormGroup,FormArray,FormControl,ValidatorFn,Validators} from '@angular/forms';
@@ -7,8 +7,15 @@ import { PayrollService } from '../../payroll.service';
 import { MatDialog } from '@angular/material/dialog'; 
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import { ignoreElements } from 'rxjs/operators';
-
-
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import * as XLSX from "xlsx";
+import jsPDF from "jspdf";
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+const htmlToPdfmake = require("html-to-pdfmake");
+import { MatRadioChange } from '@angular/material/radio';
 /**
  * @title Table with selection
  */
@@ -27,17 +34,27 @@ export class MonthlyPayrollComponent implements OnInit {
   month_value:any;
   monthforemplist:any;
   yearforemplist:any;
+  pageLoading = true;
   arrdata:any=[];
   hide:boolean=false;
   messagesList:any=[];
   PR27:any;
   PR28:any;
   PR46:any;
-  
+  generate:boolean=true;
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+  @ViewChild(MatSort)
+  sort!: MatSort;
+  @ViewChild('table') table!: ElementRef;
+  messageflag:boolean=true;
+  message:any;
   // @ViewChild(MatPaginator) paginator: MatPaginator;
   // displayedColumns: string[] = ['select','position','empid',  'name', 'designation', 'worklocation'];
   displayedColumns: string[] = ['select','empid',  'name', 'designation', 'worklocation'];
+  displayedColumns2: string[] = ['sno','empid','empname','amount','accountnumber','bank','ifsc'];
   dataSource = new MatTableDataSource<any>();
+  dataSource2 = new MatTableDataSource<any>();
   selection = new SelectionModel<any>(true, []);
 
   constructor(private router: Router,private formBuilder: FormBuilder,private PR:PayrollService,private dialog: MatDialog,) {
@@ -53,7 +70,7 @@ export class MonthlyPayrollComponent implements OnInit {
         financial_year:  ["", ],
       });
       this.monthlyPayrollForm.get('financial_year')?.valueChanges.subscribe((selectedValue:any) => {
-        // this.yearforemplist = selectedValue;
+        this.yearforemplist = selectedValue;
         this.Month_Year(selectedValue);
       })
       this.monthlyPayrollForm.get('Month_year')?.valueChanges.subscribe((selectedValue:any) => {
@@ -64,7 +81,15 @@ export class MonthlyPayrollComponent implements OnInit {
             break;
           }
         }
-        this.getEmployeeListForSalaryProcessing(this.yearforemplist,this.month_value);
+        if(this.generate){
+          this.getEmployeeListForSalaryProcessing(this.yearforemplist,this.month_value);
+        }
+        else{
+          console.log("SGAAAAAAAAAAAAA")
+          this.getsalaryProcessedEmployeesList(2023,1)
+          
+        }
+        
       })
   }
   /** Whether the number of selected elements matches the total number of rows. */
@@ -87,6 +112,7 @@ export class MonthlyPayrollComponent implements OnInit {
   /** getFinancialYears Data*/
   getFinancialYears(){
     this.PR.getFinancialYears().subscribe((result:any)=>{
+      console.log("hgdshg",this.financeyears)
       if(result.status && result.data.length>0){
         this.financeyears = result.data;
       }
@@ -240,8 +266,16 @@ getMessagesList() {
 
   })
 }
+ applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource2.filter = filterValue.trim().toLowerCase();
+     if (this.dataSource2.paginator) {
+       this.dataSource2.paginator.firstPage();
+    }
+  }
  /**getEmployees List for caluculate monthly salary */ 
  getEmployeeListForSalaryProcessing(year:any,month:any){
+  this.dataSource = new MatTableDataSource<any>([]);
   this.PR.getEmployeeListForSalaryProcessing(year,month).subscribe((result:any)=>{
     if(result.status && result.data.length>0){
       this.dataSource = new MatTableDataSource<any>(result.data);
@@ -252,6 +286,154 @@ getMessagesList() {
     }
   })
 }   
-  
- 
+ /**getEmployees List after processing salary */ 
+ getsalaryProcessedEmployeesList(year:any,month:any){
+  let data ={
+    year:year,
+    month:month
+  }
+  this.dataSource2=new MatTableDataSource<any>([])
+  this.PR.getSalaryProcessedEmployeeList(data).subscribe((result:any)=>{
+    if(result.status && result.data.length>0){
+      
+      this.dataSource2 = new MatTableDataSource<any>(result.data);
+      this.hide = true;
+    }
+    else{
+      this.dataSource2 = new MatTableDataSource<any>([]);
+    }
+  })
+}   
+
+getPageSizes(): number[] {
+     
+  var customPageSizeArray = [];
+  if (this.dataSource.data.length > 5) {
+    customPageSizeArray.push(5);
+  }
+  if (this.dataSource.data.length > 10) {
+    customPageSizeArray.push(10);
+  }
+  if (this.dataSource.data.length > 20) {
+    customPageSizeArray.push(20);
+  }
+  customPageSizeArray.push(this.dataSource.data.length);
+  return customPageSizeArray;
+  }
+
+  exportAsXLSX() {
+    if(this.messageflag){
+      // this.year=this.searchForm.controls.fromDate.value.getFullYear();
+    // for(let i =0;i<this.months.length;i++){
+    //   if((this.searchForm.controls.fromDate.value).getMonth()==this.months[i].id){
+    //    this.monthdata = this.months[i].month;
+    //    break;
+    //   }
+    // }
+    // var ws:XLSX.WorkSheet=XLSX.utils.table_to_sheet('Payroll_report_for_financeteam_');
+    var ws:XLSX.WorkSheet=XLSX.utils.table_to_sheet(document.getElementById('table'));
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Payroll_report');
+
+    /* save to file */
+    // XLSX.writeFile('Payroll_report_for_financeteam_'+this.monthdata,'Payroll_report_for_financeteam_'+this.monthdata+'_'+this.year+'.xlsx')
+    XLSX.writeFile(wb, 'Monthly_Payroll_Report.xlsx');
+
+    }
+    else{
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data:this.message
+      });
+
+    }
+    
+
+  }
+  public exportPDF(): void {
+    console.log("gggggggggggshk",this.messageflag)
+    if(this.messageflag){
+    const pdfTable = this.table.nativeElement;
+    var html = htmlToPdfmake(pdfTable.innerHTML);
+    pdfMake.createPdf({
+      info: {
+        title: "Monthly Payroll Report",
+        author:'Sreeb tech',
+        subject:'Theme',
+            keywords:'Report'
+      },
+      footer: function (currentPage, pageCount) {
+        return {
+          margin: 10,
+          columns: [
+            {
+              fontSize: 9,
+              text: [
+                {
+                  text: 'Page ' + currentPage.toString() + ' of ' + pageCount,
+                }
+              ],
+              alignment: 'center'
+            }
+          ]
+        };
+      },
+      content: [
+        {
+          text: "Monthly Payroll Report\n\n",
+          style: 'header',
+          alignment: 'center',
+          fontSize: 14
+        },
+        // {
+        //   text:
+        //     "Designation :  " + this.designationForPdf +"\n" +
+        //     "Employee Name and Id:  " + this.employeeNameForPdf + "\n" +
+        //     "Year:  " + this.searchForm.controls.calenderYear.value+ "\n",
+        //   fontSize: 10,
+        //   margin: [0, 0, 0, 20],
+        //   alignment: 'left'
+        // },
+        html
+      ],
+      pageOrientation: 'landscape'//'portrait'
+    }).download("Monthly Payroll Report.pdf");
+  }
+  else{
+    let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      position:{top:`70px`},
+      disableClose: true,
+      data:this.message
+    });
+  }
+
+  }
+  radioChange(event: MatRadioChange) {
+    if (event.value == 1) {
+     this.generate = true;
+     } else if(event.value == 2){
+      this.generate = false;
+      this.getsalaryProcessedEmployeesList(2023,1)
+      this.validateSalaryChallanDownload()
+     } 
+ }
+ validateSalaryChallanDownload(){
+  let data = {
+    month:this.month_value,
+    year:this.yearforemplist
+  }
+  this.PR.validateSalaryChallanDownload(data).subscribe((result:any)=>{
+    if(result.status&&result.data[0].validity == 0){
+      this.messageflag = false;
+      this.message = result.data[0].message
+      
+    }
+    else{
+      this.messageflag = true;
+      this.message =''
+    }
+
+  })
+ }
 }

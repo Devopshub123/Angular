@@ -14,6 +14,8 @@ import {MatDatepicker} from '@angular/material/datepicker';
 import { Moment} from 'moment';
 import * as _moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 import jsPDF from "jspdf";
@@ -49,6 +51,7 @@ export const MY_FORMATS = {
 export class EpfReportsComponent implements OnInit {
   date = new FormControl(moment());
   datadata:any;
+  financeyears:any;
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.date.value!;
     ctrlValue.month(normalizedMonthAndYear.month());
@@ -69,16 +72,20 @@ export class EpfReportsComponent implements OnInit {
   userSession:any;
   employeeDetails: any;
   year:any;
-  max = new Date()
+  messageflag:boolean=true;
+  message:any;
   months=[{id:0,month:'Jan'},{id:1,month:'Feb'},{id:2,month:'Mar'},{id:3,month:'Apr'},{id:4,month:'May'},{id:5,month:'Jun'},{id:6,month:'Jul'},{id:7,month:'Aug'},{id:8,month:'Sep'},{id:9,month:'Oct'},{id:10,month:'Nov'},{id:11,month:'Dec'}]
   monthdata: any;
   datadatas:any=[];
+  maxDate:any=new Date();
 //   dataSource:any =    [
 //     {Employee_Name: "Rakesh",Gross_Salary:50000,UAN:"2357625",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value: 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5},
 //     {Employee_Name: "Rakesh",Gross_Salary:50000,UAN:"5647765",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value: 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5},
 // ]
 
-  constructor(private router: Router,public formBuilder: FormBuilder,private PR:PayrollService,public spinner :NgxSpinnerService,private RS:ReportsService,private sanitizer: DomSanitizer) { }
+  constructor(private router: Router,public formBuilder: FormBuilder,private PR:PayrollService,public spinner :NgxSpinnerService,private RS:ReportsService,private sanitizer: DomSanitizer,private dialog: MatDialog,) {
+    this.getFinancialYears();
+   }
   @ViewChild('table') table!: ElementRef;
 
   ngOnInit(): void {
@@ -93,6 +100,7 @@ export class EpfReportsComponent implements OnInit {
     // this.dataSource = new MatTableDataSource(this.arrayList)
   }
   exportAsXLSX() {
+    if(this.messageflag){
     this.year=this.searchForm.controls.fromDate.value.getFullYear();
     for(let i =0;i<this.months.length;i++){
       if((this.searchForm.controls.fromDate.value).getMonth()==this.months[i].id){
@@ -108,6 +116,15 @@ export class EpfReportsComponent implements OnInit {
     /* save to file */
     // XLSX.writeFile('Payroll_report_for_financeteam_'+this.monthdata,'Payroll_report_for_financeteam_'+this.monthdata+'_'+this.year+'.xlsx')
     XLSX.writeFile(wb, 'epf_report_for_financeteam_'+this.monthdata+'_'+this.year+'.xlsx');
+  }
+  else{
+    let dialogRef = this.dialog.open(ReusableDialogComponent, {
+      position:{top:`70px`},
+      disableClose: true,
+      data:this.message
+    });
+
+  }
 
   }
  
@@ -139,6 +156,7 @@ export class EpfReportsComponent implements OnInit {
   return customPageSizeArray;
   }
   public exportText(): void {
+    if(this.messageflag){
     const data = this.datadatas.toString().replace(/\,/g,'');
     console.log("hhh",data.replace(/\,/g,''))
     const blob = new Blob([data], { type: 'application/octet-stream' });
@@ -153,6 +171,15 @@ export class EpfReportsComponent implements OnInit {
     link.click();
     document.body.removeChild(link);
     // window.open(url);
+    }
+    else{
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data:this.message
+      });
+    }
+
   }
   getEpfValuesForChallan(){
     let data ={
@@ -163,7 +190,8 @@ export class EpfReportsComponent implements OnInit {
     this.PR.getEpfValuesForChallan(data).subscribe((result:any)=>{
       console.log("fagsdfgsa",result)
      if(result.status){
-      this.dataSource = result.data
+      this.dataSource = result.data;
+      this.validateEpfChallanDownload()
     //  this.dataSource = 
     //  [{Employee_Name: "Rakesh Goud  Thallapelly",Gross_Salary:50000,UAN:"2357625",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value
     //  : 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5},
@@ -181,5 +209,36 @@ export class EpfReportsComponent implements OnInit {
       
     })
   }
+
+  /**getFinancialYears */
+  getFinancialYears(){
+    this.PR.getFinancialYears().subscribe((result:any)=>{
+      if(result.status && result.data.length>0){
+      
+        for(let i=0;i<result.data.length;i++){
+          this.financeyears = result[i].financial_year
+        }
+        // console.log("financial years",   this.financeyears)
+      }
+    })
+  }
+  validateEpfChallanDownload(){
+    let data = {
+      month:4 ,  //this.date.value._d,
+      year:2023  //this.date.value._d
+    }
+    this.PR.validateEpfChallanDownload(data).subscribe((result:any)=>{
+      if(result.status&&result.data[0].validity == 0){
+        this.messageflag = false;
+        this.message = result.data[0].message
+        
+      }
+      else{
+        this.messageflag = true;
+        this.message =''
+      }
+  
+    })
+   }
 
 }

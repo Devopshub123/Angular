@@ -287,4 +287,20 @@ import { environment } from 'src/environments/environment';
     data.companyName = this.companyName;
     return this.http.post(this.mainBeUrl+'api/getStatesForProfessionalTax', JSON.stringify(data), this.httpOptions);
   }
+  validateEpfChallanDownload(data:any){
+    data.companyName = this.companyName;
+    return this.http.post(this.mainBeUrl+'api/validateEpfChallanDownload', JSON.stringify(data), this.httpOptions);
+  }
+  validateEsiChallanDownload(data:any){
+    data.companyName = this.companyName;
+    return this.http.post(this.mainBeUrl+'api/validateEsiChallanDownload', JSON.stringify(data), this.httpOptions);
+  }
+  validateSalaryChallanDownload(data:any){
+    data.companyName = this.companyName;
+    return this.http.post(this.mainBeUrl+'api/validateSalaryChallanDownload', JSON.stringify(data), this.httpOptions);
+  }
+  getSalaryProcessedEmployeeList(data:any){
+    data.companyName = this.companyName;
+    return this.http.post(this.mainBeUrl+'api/getSalaryProcessedEmployeeList', JSON.stringify(data), this.httpOptions);
+  }
 }

@@ -85,24 +85,7 @@ export class MonthlyPayrollReportComponent implements OnInit {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     this.dataSource = new MatTableDataSource(this.arrayList)
   }
-  exportAsXLSX() {
-    this.year=this.searchForm.controls.fromDate.value.getFullYear();
-    for(let i =0;i<this.months.length;i++){
-      if((this.searchForm.controls.fromDate.value).getMonth()==this.months[i].id){
-       this.monthdata = this.months[i].month;
-       break;
-      }
-    }
-    // var ws:XLSX.WorkSheet=XLSX.utils.table_to_sheet('Payroll_report_for_financeteam_');
-    var ws:XLSX.WorkSheet=XLSX.utils.table_to_sheet(document.getElementById('table'));
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Payroll_report');
-
-    /* save to file */
-    // XLSX.writeFile('Payroll_report_for_financeteam_'+this.monthdata,'Payroll_report_for_financeteam_'+this.monthdata+'_'+this.year+'.xlsx')
-    XLSX.writeFile(wb, 'ESI_report_for_financeteam_'+this.monthdata+'_'+this.year+'.xlsx');
-
-  }
+  
   getallEmployeesList(){
     this.RS.getTotalEmployeslist().subscribe((res:any)=>{
       if(res.status && res.data.length>0){
