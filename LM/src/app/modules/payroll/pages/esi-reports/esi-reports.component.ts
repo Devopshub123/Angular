@@ -12,10 +12,11 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatDatepicker} from '@angular/material/datepicker';
 import { Moment} from 'moment';
-import { MatDialog } from '@angular/material/dialog'; 
+ 
 import * as _moment from 'moment';
 import { PayrollService } from '../../payroll.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 // import {default as _rollupMoment} from 'moment';
 const moment =  _moment;
 import jsPDF from "jspdf";
@@ -90,7 +91,7 @@ export class EsiReportsComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.arrayList)
   }
   exportAsXLSX() {
-    if(this.messageflag){
+    if(true){
     this.year=this.searchForm.controls.fromDate.value.getFullYear();
     for(let i =0;i<this.months.length;i++){
       if((this.searchForm.controls.fromDate.value).getMonth()==this.months[i].id){

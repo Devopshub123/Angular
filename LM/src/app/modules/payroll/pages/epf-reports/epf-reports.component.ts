@@ -100,7 +100,7 @@ export class EpfReportsComponent implements OnInit {
     // this.dataSource = new MatTableDataSource(this.arrayList)
   }
   exportAsXLSX() {
-    if(this.messageflag){
+    if(true){
     this.year=this.searchForm.controls.fromDate.value.getFullYear();
     for(let i =0;i<this.months.length;i++){
       if((this.searchForm.controls.fromDate.value).getMonth()==this.months[i].id){
@@ -156,7 +156,7 @@ export class EpfReportsComponent implements OnInit {
   return customPageSizeArray;
   }
   public exportText(): void {
-    if(this.messageflag){
+    if(true){
     const data = this.datadatas.toString().replace(/\,/g,'');
     console.log("hhh",data.replace(/\,/g,''))
     const blob = new Blob([data], { type: 'application/octet-stream' });
