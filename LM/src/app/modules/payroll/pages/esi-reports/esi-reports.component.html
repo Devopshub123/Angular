@@ -11,7 +11,7 @@
           <mat-form-field fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
             <mat-label>Month and Year</mat-label>
             <input matInput readonly [matDatepicker]="fromDate"
-                   placeholder="From Date" [formControl]="date" [max]="max" (click)="fromDate.open()">
+                   placeholder="From Date" [formControl]="date" [min]="minDate" [max]="max" (click)="fromDate.open()">
             <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
             <mat-datepicker #fromDate
             startView="multi-year"
@@ -82,8 +82,9 @@
               <td class="mat-cell" colspan="8" style="text-align: center;">No data found</td>
           </tr>
       </table>
-    </div>
       <mat-paginator   [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+    </div>
+      
 
     </div>
     

@@ -55,7 +55,7 @@ export class PftaxReportsComponent implements OnInit {
     ctrlValue.year(normalizedMonthAndYear.year());
     this.date.setValue(ctrlValue);
     datepicker.close();
-    this.getStatesForProfessionalTax()
+    this.getStatesForProfessionalTax();
   }
   searchForm!: FormGroup;
   displayedColumns: string[] = ['sno','state','payrange','tax','employees'];
@@ -70,7 +70,8 @@ export class PftaxReportsComponent implements OnInit {
   userSession:any;
   employeeDetails: any;
   year:any;
-  max = new Date()
+  max = new Date();
+  minDate:any= new Date('2022-01-01');
   months=[{id:0,month:'Jan'},{id:1,month:'Feb'},{id:2,month:'Mar'},{id:3,month:'Apr'},{id:4,month:'May'},{id:5,month:'Jun'},{id:6,month:'Jul'},{id:7,month:'Aug'},{id:8,month:'Sep'},{id:9,month:'Oct'},{id:10,month:'Nov'},{id:11,month:'Dec'}]
   monthdata: any;
   stateslist:any=[{state_id:null,state:"ALL"}];
@@ -85,11 +86,7 @@ export class PftaxReportsComponent implements OnInit {
       fromDate:[new Date()],
       state:[""]
     });
-   
 
-    this.Searchform();
-    this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    this.dataSource = new MatTableDataSource(this.arrayList)
   }
   exportAsXLSX() {
     this.year=this.searchForm.controls.fromDate.value.getFullYear();
@@ -102,7 +99,7 @@ export class PftaxReportsComponent implements OnInit {
     // var ws:XLSX.WorkSheet=XLSX.utils.table_to_sheet('Payroll_report_for_financeteam_');
     var ws:XLSX.WorkSheet=XLSX.utils.table_to_sheet(document.getElementById('table'));
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Payroll_report');
+    XLSX.utils.book_append_sheet(wb, ws, 'Prefessionaltax_report_for_financeteam_');
 
     /* save to file */
     // XLSX.writeFile('Payroll_report_for_financeteam_'+this.monthdata,'Payroll_report_for_financeteam_'+this.monthdata+'_'+this.year+'.xlsx')
@@ -114,14 +111,14 @@ export class PftaxReportsComponent implements OnInit {
     let data ={
       date:this.pipe.transform( this.date.value._d, 'yyyy-MM-dd')
     }
-    this.spinner.show();
+    // this.spinner.show();
     this.getProfessionalTaxValuesForChallan()
    
 
   }
   resetform(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["/LeaveManagement/payrollreport"]));
+          this.router.navigate(["/Payroll/pftaxreports"]));
     }
   getPageSizes(): number[] {
      
@@ -187,14 +184,18 @@ export class PftaxReportsComponent implements OnInit {
 
   }
   getProfessionalTaxValuesForChallan(){
+    // let data ={
+    //   year:"2023",
+    //   month:"1",
+    //   state:null
+    // }
     let data ={
-      year:"2023",
-      month:"1",
+      year:this.date.value._d.getFullYear(),
+      month:this.date.value._d.getMonth()+1,
       state:null
     }
     console.log(this.date.value._d)
     this.PR.getProfessionalTaxValuesForChallan(data).subscribe((result:any)=>{
-      console.log("result",result)
      if(result.status){
       this.dataSource = result.data
      }
@@ -205,19 +206,18 @@ export class PftaxReportsComponent implements OnInit {
   getStatesForProfessionalTax(){
     let data ={
       year:this.date.value._d.getFullYear(),
-      month:this.date.value._d.getMonth(),
+      month:this.date.value._d.getMonth()+1,
      
     }
     console.log(this.date.value._d)
     this.PR.getStatesForProfessionalTax(data).subscribe((result:any)=>{
-      console.log("result",result)
      if(result.status){
       this.stateslist = result.data;
       if(result.data[0].status == 0){
-        this.statehide= false;
+        this.statehide= true;
 
       }else{
-        this.statehide= true;
+        this.statehide= false;
       }
       
      }

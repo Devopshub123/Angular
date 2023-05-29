@@ -57,6 +57,7 @@ export class EpfReportsComponent implements OnInit {
     ctrlValue.month(normalizedMonthAndYear.month());
     ctrlValue.year(normalizedMonthAndYear.year());
     this.date.setValue(ctrlValue);
+    this.getEpfValuesForChallan();
     datepicker.close();
   }
   searchForm!: FormGroup;
@@ -78,13 +79,9 @@ export class EpfReportsComponent implements OnInit {
   monthdata: any;
   datadatas:any=[];
   maxDate:any=new Date();
-//   dataSource:any =    [
-//     {Employee_Name: "Rakesh",Gross_Salary:50000,UAN:"2357625",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value: 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5},
-//     {Employee_Name: "Rakesh",Gross_Salary:50000,UAN:"5647765",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value: 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5},
-// ]
+  minDate:any= new Date('2022-01-01');
 
   constructor(private router: Router,public formBuilder: FormBuilder,private PR:PayrollService,public spinner :NgxSpinnerService,private RS:ReportsService,private sanitizer: DomSanitizer,private dialog: MatDialog,) {
-    this.getFinancialYears();
    }
   @ViewChild('table') table!: ElementRef;
 
@@ -92,12 +89,6 @@ export class EpfReportsComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       fromDate:[new Date()],
     });
-    this.searchForm.get('fromDate')?.valueChanges.subscribe((selectedvalue:any)=>{
-      this.getEpfValuesForChallan();
-    })
-    this.Searchform();
-    this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    // this.dataSource = new MatTableDataSource(this.arrayList)
   }
   exportAsXLSX() {
     if(true){
@@ -132,13 +123,13 @@ export class EpfReportsComponent implements OnInit {
     let data ={
       date:this.pipe.transform( this.date.value._d, 'yyyy-MM-dd')
     }
-    this.spinner.show();
+    // this.spinner.show();
    this.getEpfValuesForChallan();
 
   }
   resetform(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["/LeaveManagement/payrollreport"]));
+          this.router.navigate(["/Payroll/epfreports"]));
     }
   getPageSizes(): number[] {
      
@@ -158,9 +149,7 @@ export class EpfReportsComponent implements OnInit {
   public exportText(): void {
     if(true){
     const data = this.datadatas.toString().replace(/\,/g,'');
-    console.log("hhh",data.replace(/\,/g,''))
     const blob = new Blob([data], { type: 'application/octet-stream' });
-
     let urls:any = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
@@ -183,14 +172,14 @@ export class EpfReportsComponent implements OnInit {
   }
   getEpfValuesForChallan(){
     let data ={
-      year:"2023",
-      month:"1"
+      year:this.date.value._d.getFullYear(),
+      month:this.date.value._d.getMonth()+1
     }
-    console.log(this.date.value._d)
     this.PR.getEpfValuesForChallan(data).subscribe((result:any)=>{
-      console.log("fagsdfgsa",result)
      if(result.status){
       this.dataSource = result.data;
+      this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
       this.validateEpfChallanDownload()
     //  this.dataSource = 
     //  [{Employee_Name: "Rakesh Goud  Thallapelly",Gross_Salary:50000,UAN:"2357625",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value
@@ -200,7 +189,7 @@ export class EpfReportsComponent implements OnInit {
     this.datadata=this.dataSource;
     for(let i = 0;i<this.datadata.length;i++){
       // this.datadatas[i] = this.datadata[i].UAN +'#~#'+this.datadata[i].Employee_Name+'#~#'+this.datadata[i].gross_salary+'#~#'+this.datadata[i].employee_epf_wage+'#~#'+this.datadata[i].eps_wage+this.datadata[i].edli_wage+'#~#'+this.datadata[i].employer_eps_value+'#~#'+this.datadata[i]. epf_eps_difference+'#~#'+(this.datadata[i].ncp_days==null?0:this.datadata[i].ncp_days)+'\n'
-        this.datadatas[i] = 1012220251 +'#~#'+this.datadata[i].Employee_Name+'#~#'+this.datadata[i].gross_salary+'#~#'+this.datadata[i].employee_epf_wage+'#~#'+this.datadata[i].eps_wage+'#~#'+this.datadata[i].edli_wage+'#~#'+this.datadata[i].employer_eps_value+'#~#'+this.datadata[i]. epf_eps_difference+'#~#'+(this.datadata[i].ncp_days==null?0:this.datadata[i].ncp_days)+'#~#'+(this.datadata[i].refund_of_advance==null?0:this.datadata[i].refund_of_advance)+'\n'
+        this.datadatas[i] = this.datadata[i].UAN +'#~#'+this.datadata[i].Employee_Name+'#~#'+this.datadata[i].gross_salary+'#~#'+this.datadata[i].employee_epf_wage+'#~#'+this.datadata[i].eps_wage+'#~#'+this.datadata[i].edli_wage+'#~#'+this.datadata[i].employer_eps_value+'#~#'+this.datadata[i]. epf_eps_difference+'#~#'+(this.datadata[i].ncp_days==null?0:this.datadata[i].ncp_days)+'#~#'+(this.datadata[i].refund_of_advance==null?0:this.datadata[i].refund_of_advance)+'\n'
     }
    
  
@@ -222,10 +211,15 @@ export class EpfReportsComponent implements OnInit {
       }
     })
   }
+  /**to Download validation for Exceland text formats */
   validateEpfChallanDownload(){
-    let data = {
-      month:4 ,  //this.date.value._d,
-      year:2023  //this.date.value._d
+    // let data = {
+    //   month:4 ,  //this.date.value._d,
+    //   year:2023  //this.date.value._d
+    // }
+    let data ={
+      year:this.date.value._d.getFullYear(),
+      month:this.date.value._d.getMonth()+1
     }
     this.PR.validateEpfChallanDownload(data).subscribe((result:any)=>{
       if(result.status&&result.data[0].validity == 0){

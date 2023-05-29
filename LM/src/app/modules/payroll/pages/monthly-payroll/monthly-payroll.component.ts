@@ -86,7 +86,7 @@ export class MonthlyPayrollComponent implements OnInit {
         }
         else{
           console.log("SGAAAAAAAAAAAAA")
-          this.getsalaryProcessedEmployeesList(2023,1)
+          this.getsalaryProcessedEmployeesList(this.yearforemplist,this.month_value)
           
         }
         
@@ -414,7 +414,7 @@ getPageSizes(): number[] {
      this.generate = true;
      } else if(event.value == 2){
       this.generate = false;
-      this.getsalaryProcessedEmployeesList(2023,1)
+      this.getsalaryProcessedEmployeesList(this.yearforemplist,this.month_value)
       this.validateSalaryChallanDownload()
      } 
  }
