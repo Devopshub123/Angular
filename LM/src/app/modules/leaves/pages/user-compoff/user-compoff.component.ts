@@ -291,6 +291,7 @@ export class UserCompoffComponent implements OnInit {
   view(data: any) {
     console.log("dad-",data)
     this.isview= true;
+    this.isReject= false;
     if (data.status == "Rejected") {
       this.isReject= true;
     }

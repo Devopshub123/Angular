@@ -154,6 +154,7 @@ export class UserLeaveRequestComponent implements OnInit {
 
 
     this.leaveRequestForm.get('leaveTypeId')?.valueChanges.subscribe((selectedValue:any) => {
+      this.isFile = true;
       this.getEmployeeShiftDetailsByIdWithDates()
       if(selectedValue) {
         this.document = false;

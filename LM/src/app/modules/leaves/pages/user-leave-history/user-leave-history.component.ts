@@ -75,6 +75,7 @@ export class UserLeaveHistoryComponent implements OnInit {
   }
 
 view(data:any){
+  console.log("hjgsdjhgshdfhghghdfhgh",data)
   this.isview=true;
   this.isdata=false;
   this.viewdata = data;

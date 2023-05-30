@@ -26,7 +26,7 @@
 
   
 
-        <mat-form-field *ngIf="!leaveInfo.isleave" fxFlex.xs="100" fxFlex="31"  fxFlex.lt-lg="45"  class="mx-2 my-2" appearance="outline">
+        <mat-form-field *ngIf="!leaveInfo.isleave || leaveInfo.leaveData.leavetype ==9" fxFlex.xs="100" fxFlex="31"  fxFlex.lt-lg="45"  class="mx-2 my-2" appearance="outline">
           <mat-label>Worked Date</mat-label>
           <input formControlName="fromDate" required matInput placeholder="" >
         </mat-form-field>
@@ -37,8 +37,8 @@
         </mat-form-field>
 
         <mat-form-field *ngIf="leaveInfo.isleave" fxFlex.xs="100" fxFlex="31"  fxFlex.lt-lg="45"  class="mx-2 my-2" appearance="outline">
-          <mat-label *ngIf="leaveInfo.leaveData.leave_id !=8">From Date</mat-label>
-          <mat-label *ngIf="leaveInfo.leaveData.leave_id ==8">Leave Date</mat-label>
+          <mat-label *ngIf="leaveInfo.leaveData.leave_id !=8 ">From Date</mat-label>
+          <mat-label *ngIf="leaveInfo.leaveData.leave_id ==8 || leaveInfo.leaveData.leavetype ==9">Leave Date</mat-label>
           <input formControlName="fromDate" required matInput placeholder="" >
         </mat-form-field>
 

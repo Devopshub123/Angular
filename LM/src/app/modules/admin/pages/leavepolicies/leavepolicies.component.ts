@@ -1207,7 +1207,9 @@ hexToRgb(hex:any) {
               data: data.message
             });
               // this.toastr.success(data.message)
+
             this.isEditDefaultRules = false;
+            this.addBtn1 = true;
             this.ngOnInit();
           }
           else {
