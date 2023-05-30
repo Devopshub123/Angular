@@ -26,65 +26,7 @@
        
 
       </div>
-      <div style="margin-bottom: 1%;padding-right: 2%;" fxLayout="row xs-column" fxLayoutAlign="end  center" >
-        <div>
-          <span class="exlprint"> | </span>
-          <a title="PDF"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
-  
-          <span class="exlprint"> | </span>
-          <a title="Excel"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
-          </a>
-        </div>
-      </div >
-
-
-<div class="tablePadding">
-   <div  class="mat-elevation-z1 example-container">
-    <div id="table" #table=''>
-      <table id="table" mat-table [dataSource]="dataSource" matSort>
-          <ng-container matColumnDef="sno">
-            <th mat-header-cell *matHeaderCellDef > S.No</th>
-            <td mat-cell *matCellDef="let element; let i=index;">
-             {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
-          </ng-container>
-          <ng-container matColumnDef="empid">
-            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Emp ID</th>
-            <td mat-cell *matCellDef="let row" ><span >{{row.ESI}} </span></td>
-          </ng-container>
-          <ng-container matColumnDef="empname">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Emp Name </th>
-            <td mat-cell *matCellDef="let row" ><span >{{row.Employee_Name}} </span></td>
-          </ng-container>
-          <ng-container matColumnDef="amount">
-        <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;" >Amount </th>
-        <td mat-cell *matCellDef="let row" ><span >{{row.lopcount==null?0:row.lopcount}} </span></td>
-          </ng-container>
-          <ng-container matColumnDef="accountnumber">
-            <th mat-header-cell *matHeaderCellDef  >Account Number </th>
-            <td mat-cell *matCellDef="let row" ><span >{{row.Gross_Salary}} </span></td>
-              </ng-container>
-            <ng-container matColumnDef="bank">
-                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">Bank</th>
-                <td mat-cell *matCellDef="let row" ><span >{{row.approved_leaves==null?0:row.approved_leaves}} </span></td>
-            </ng-container>
-            <ng-container matColumnDef="ifsc">
-                    <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">IFSC</th>
-                    <td mat-cell *matCellDef="let row" ><span >{{row.approved_leaves==null?0:row.approved_leaves}} </span></td>
-            </ng-container>
-        
-           
-          <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          <tr class="mat-row" *matNoDataRow>
-              <td class="mat-cell" colspan="8" style="text-align: center;">No data found</td>
-          </tr>
-      </table>
-    </div>
-      <mat-paginator   [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
-
-    </div>
-    
-</div>
+      
     <!-- <mat-card>
 
       <mat-card-content style="width:100%;overflow-x: auto">
