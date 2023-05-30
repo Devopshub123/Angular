@@ -10,6 +10,7 @@ import { DialogDetailComponent } from './pages/dialog-detail/dialog-detail.compo
 import { EmployeMonthlyDetailReportComponent } from './pages/employe-monthly-detail-report/employe-monthly-detail-report.component';
 import { Limit } from 'src/app/custom-directive/limit';
 import { LateAttendanceReportComponent } from './pages/late-attendance-report/late-attendance-report.component';
+import { ShiftsWiseReportComponent } from './pages/shifts-wise-report/shifts-wise-report.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { LateAttendanceReportComponent } from './pages/late-attendance-report/la
     DialogDetailComponent,
     EmployeMonthlyDetailReportComponent,
     Limit,
-    LateAttendanceReportComponent
+    LateAttendanceReportComponent,
+    ShiftsWiseReportComponent
   ],
   imports: [
     CommonModule,

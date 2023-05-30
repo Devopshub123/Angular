@@ -1,0 +1,194 @@
+<div fxLayout="column" class="first-col">
+    <mat-card>
+      <mat-card-header class="headerbox" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-card-title class="title"> Shift Change Request </mat-card-title>
+        <div style="margin-right: 2%;" *ngIf="isShow">
+          <button mat-icon-button style="padding-right: 40px;" (click)="newRequest()" matTooltip="New Request">
+            <mat-icon style="font-size: 30px">add_circle</mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+  
+      <div fxLayout="column" *ngIf="isNew" class="main-Pad">
+        <form [formGroup]="shiftRequestForm" autocomplete="off">
+          <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center">
+            <mat-form-field fxFlex="33" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+              <mat-label>Applied Date</mat-label>
+              <input formControlName="appliedDate" matInput readonly >
+          </mat-form-field>
+
+            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
+              <mat-label>Current Shift</mat-label>
+              <input formControlName="currentShift" class="m_title" matInput readonly>
+              </mat-form-field>
+  
+          </div>
+  
+          <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center">
+        
+            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
+              <mat-label>From Date</mat-label>
+              <input matInput readonly required [matDatepicker]="fromDate" [min]="minDate"
+                placeholder="DD-MM-YYYY" formControlName="fromDate" (click)="fromDate.open()">
+              <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
+              <mat-datepicker #fromDate></mat-datepicker>
+              <mat-error class="con-error" *ngIf="shiftRequestForm.controls.fromDate.errors?.required">
+                {{requiredOption}}
+              </mat-error>
+            </mat-form-field>
+  
+            <mat-form-field fxFlex.xs="100" fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
+              <mat-label>To Date</mat-label>
+              <input matInput readonly required [matDatepicker]="toDate" [min]="minDate"
+                placeholder="DD-MM-YYYY" formControlName="toDate" (click)="toDate.open()">
+              <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
+              <mat-datepicker #toDate></mat-datepicker>
+              <mat-error class="con-error" *ngIf="shiftRequestForm.controls.toDate.errors?.required">
+                {{requiredOption}}
+              </mat-error>
+            </mat-form-field>
+  
+  
+          </div>
+  
+          <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center">
+  
+            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
+              <mat-label>From Shift</mat-label>
+              <mat-select formControlName="fromShift" required>
+                <ng-container>
+                  <span *ngFor="let list of toShiftList">
+                    <mat-option [value]="list.id">{{list.designation}}</mat-option>
+                  </span>
+                </ng-container>
+              </mat-select>
+              <mat-error class="con-error" *ngIf="shiftRequestForm.controls.fromShift.errors?.required">
+                {{requiredOption}}
+              </mat-error>
+            </mat-form-field>
+  
+            <mat-form-field fxFlex.xs="100" fxFlex="33" class="mx-2 my-2" appearance="outline">
+              <mat-label>To Shift</mat-label>
+              <mat-select formControlName="toShift" required>
+                <ng-container>
+                  <span *ngFor="let list of toShiftList">
+                    <mat-option [value]="list.id">{{list.designation}}</mat-option>
+                  </span>
+                </ng-container>
+              </mat-select>
+              <mat-error class="con-error" *ngIf="shiftRequestForm.controls.toShift.errors?.required">
+                {{requiredOption}}
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+          <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="row wrap" fxLayoutAlign.xs="center">
+  
+            <mat-form-field fxFlex="68" fxFlex.lt-lg="50" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+              <mat-label>Reason</mat-label>
+              <textarea formControlName="reason" required maxlength="250" matInput
+                  placeholder="Reason"></textarea>
+              <mat-error class="con-error" *ngIf="shiftRequestForm.controls.reason.errors?.invalid ||shiftRequestForm.controls.reason.errors?.['whitespace']">
+                 {{requiredField}}
+              </mat-error>
+              <mat-error class="con-error" *ngIf="shiftRequestForm.controls.reason.errors?.maxlength">
+                  Reason should be below 250 charactors.
+              </mat-error>
+          </mat-form-field>
+
+          </div>
+          <div fxLayoutAlign="center">
+            <button *ngIf="!isUpdate" class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit">
+              <span>Submit</span>
+            </button>
+            <button *ngIf="isUpdate" class="btn btn-primary mr-2 mb-2" (click)="submit()" type="submit">
+              <span>Update</span>
+            </button>
+  
+            <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
+              <span>Cancel</span>
+            </button>
+            <br />
+          </div>
+  
+        </form>
+      </div>
+  
+      <div *ngIf="isShow">
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="end" style="height: 70px;padding-top: 1%;">
+            <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline" style="padding-right: 16px;">
+            <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
+            <mat-label>Search</mat-label>
+            <input (keyup)="applyFilter($event)" matInput maxlength="100">
+          </mat-form-field>
+        </div>
+        
+        <div fxLayout="column" class="table-pad">
+          <div class="example-container mat-elevation-z1">
+            <table mat-table [dataSource]="dataSource" matSort>
+              <ng-container matColumnDef="sno" >
+                <th mat-header-cell *matHeaderCellDef>S.No</th>
+                <td mat-cell *matCellDef="let element; let i=index;" >
+                  {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
+              </ng-container>
+              <ng-container matColumnDef="fromshift">
+                <th mat-header-cell *matHeaderCellDef> From Shift </th>
+                <td mat-cell *matCellDef="let row">
+                  <span>{{row.firstname}}</span>
+  
+                </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="toshift">
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">To Shift </th>
+                <td mat-cell *matCellDef="let row">
+                  <span>{{row.personal_email}} </span>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="fromdate">
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> From Date </th>
+                <td mat-cell *matCellDef="let row" style="white-space: nowrap;">
+                  <span>{{row.hired_date | date:'dd-MM-yyyy'}} </span>
+                </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="todate">
+                <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> To Date </th>
+                <td mat-cell *matCellDef="let row" style="white-space: nowrap;">
+                  <span>{{row.dateofjoin | date:'dd-MM-yyyy'}} </span>
+                </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef="let row">
+                  <span>{{row.status}} </span>
+                </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row;let i = index;" style="white-space: nowrap;">
+                  <button mat-icon-button matTooltip="Edit" [tabindex]="[i+3]" (keyup.enter)="editRequest($event,row)">
+                    <mat-icon (click)="editRequest($event,row)">edit</mat-icon>
+                  </button>
+                  <button mat-icon-button matTooltip="Delete Request">
+                    <mat-icon (click)="deleteRequest($event,row)">save</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+  
+              <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="8" style="text-align: center;">No data found</td>
+              </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+  

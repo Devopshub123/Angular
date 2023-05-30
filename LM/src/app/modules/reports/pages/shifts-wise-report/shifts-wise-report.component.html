@@ -1,0 +1,95 @@
+<div fxLayout="column" class="first-col">
+    <mat-card>
+        <mat-card-header class="headerbox">
+            <mat-card-title class="title">
+               Shifts Wise Report
+            </mat-card-title>
+        </mat-card-header>
+        <br />
+        <div fxLayout fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign.xs="center center" [formGroup]="searchForm">
+            <div fxLayout="row" fxLayout.xs="column">
+                <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
+                    <mat-label>From Date</mat-label>
+                    <input matInput readonly [matDatepicker]="fromDate" [min]="minDate" [max]="maxDate"
+                        placeholder="From Date" formControlName="fromDate" (click)="fromDate.open()" tabindex="2"/>
+                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                    <mat-datepicker #fromDate></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
+                    <mat-label>To Date</mat-label>
+                    <input matInput readonly [matDatepicker]="toDate" [min]="minDate" [max]="maxDate"
+                        placeholder="From Date" formControlName="toDate" (click)="toDate.open()" tabindex="2"/>
+                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
+                    <mat-datepicker #toDate></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign.lt-lg="center center" fxLayoutAlign.xs="center center">
+                <span ngStyle.gt-md="margin-top: 5%">
+                    <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()" tabindex="3">
+                        Search
+                    </button>
+                    <span class="line" style="color: #1898d5; font-size: 16px"></span>
+                    <button class="btn btn-danger mr-2 mb-2" (click)="resetform()" tabindex="4">
+                        <span>Clear</span>
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div fxLayout="row xs-column" fxLayoutAlign="end  center" *ngIf="List.length > 0"
+            style="height: 20px; margin-right: 3%">
+            <div>
+                <span class="exlprint"> | </span>
+                <button mat-icon-button tabindex="5" (keyup.enter)="exportPDF()">
+                <a title="PDF">
+                    <img (click)="exportPDF()" src="./assets/images/icons/pdf.png" width="20px" height="20px" /></a>
+               
+               </button>     <span class="exlprint"> | </span>
+                <button mat-icon-button tabindex="6" (keyup.enter)="exportAsXLSX()">
+                <a title="Excel">
+                    <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png" />
+                </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="p-2">
+            <div class="example-container" style="padding: 10px" #table>
+                <table style="width: 100%" *ngIf="List.length > 0">
+                    <thead>
+                        <tr>
+                            <th><span style="font-size: 18px">Employee </span></th>
+                            <ng-container *ngFor="let a of headersList[0]; let i = index">
+                                <th>
+                                    <u>{{ a | date : "d" }} </u><br />
+                                    {{ headersList[1][i] | limit : 2 }}
+                                </th>
+                            </ng-container>
+                            <th><span style="font-size: 18px">Absents</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let item of List">
+                            <tr style="width: auto">
+                                <ng-container *ngFor="let e of item">
+                                    <td [ngStyle]="{
+                      'background-color':
+                        e == 'H' || e == 'W' ? '#E2E5DE' : '#ffffff'
+                    }">
+                                        <span [hidden]="e == 'H' || e == 'W'" [ngStyle]="{ color: getColor(e) }">
+                                            {{ e }}
+                                        </span>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+
+                <div style="text-align: center; padding-top: 20px" *ngIf="List.length === 0">
+                    No data found.
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>

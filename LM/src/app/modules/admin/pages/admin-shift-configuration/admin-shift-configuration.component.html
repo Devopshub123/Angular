@@ -1,0 +1,215 @@
+<div fxLayout="column" class="first-col">
+    <form [formGroup]="requestform" autocomplete="off">
+        <mat-card>
+            <mat-card-header class="headerbox">
+                <mat-card-title class="title"> Shift Configuration </mat-card-title>
+               </mat-card-header>
+        <div fxLayout="column" class="dev-Pad">
+            <!-- <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
+
+                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Employee Name</mat-label>
+                    <mat-select formControlName="employeeName" required>
+                        <ng-container *ngFor="let v of employeesData">
+                            <mat-option [value]="v.empid">{{v.empname}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error class="con-error" *ngIf="requestform.controls.employeeName.errors?.required">
+                        Please select an option.
+                    </mat-error>
+                </mat-form-field>
+
+            </div> -->
+            <form [formGroup]="searchform" autocomplete="off">
+            <div fxLayout="row" fxLayoutAlign.xs="center center">
+                <mat-form-field fxFlex.xs="100" fxFlex="31" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Department</mat-label>
+                    <mat-select required formControlName="department">
+                        <ng-container>
+                            <div *ngFor="let b of availableDepartments">
+                                <mat-option [value]="b.id">{{ b.deptname }}</mat-option>
+                            </div>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error class="con-error" *ngIf="
+                    searchform.controls.department.errors?.required">
+                        {{ requiredOption }}
+                    </mat-error>
+                </mat-form-field>
+                <div style="padding-top: 10px;">
+                    <button class="btn btn-primary mr-2 mb-2" (click)="getEmployeeConfigureShifts()">
+                        <span>Search</span>
+                    </button>
+    
+                    <button class="btn btn-danger mr-2 mb-2" (click)="resetform()">
+                        <span>Cancel</span>
+                    </button>
+                    <br />
+                </div>
+           </div>
+        </form>
+            <div fxLayout="row" fxLayoutAlign.xs="center center">
+                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>Shift</mat-label>
+                    <mat-select formControlName="shift"  required>
+                        <ng-container *ngFor="let v of shiftDataList">
+                            <mat-option [value]="v.shiftid">{{v.shiftname}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+
+                    <mat-error class="con-error" *ngIf="requestform.controls.shift.errors?.required">
+                      {{requiredOption}}
+                    </mat-error>
+                </mat-form-field>
+
+                 <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>From Date</mat-label>
+                    <input matInput readonly [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate"
+                        (dateInput)="fromDateChange('input', $event)" placeholder="DD-MM-YYYY"
+                        formControlName="fromDate" (click)="fromDate.open()">
+                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                    <mat-datepicker #fromDate></mat-datepicker>
+                    <mat-error class="con-error" *ngIf="requestform.controls.fromDate.errors?.required">
+                        {{requiredOption}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                    <mat-label>To Date</mat-label>
+                    <input matInput readonly [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate" placeholder="DD-MM-YYYY"
+                        (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="toDate.open()">
+                    <mat-datepicker-toggle class="datepicker" matSuffix [for]="toDate"></mat-datepicker-toggle>
+                    <mat-datepicker #toDate></mat-datepicker>
+                    <mat-error class="con-error" *ngIf="requestform.controls.toDate.errors?.required">
+                        {{requiredOption}}
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+
+
+            <div class="column">
+                <mat-label class="mx-2"><b>Weekly Off</b></mat-label>
+
+                <div class="row wrap mx-2">
+                    <ng-container *ngFor="let item of weekDaysDetails; let i = index" class="example-section">
+                        <div class="mx-2 my-2">
+                            <mat-checkbox (change)="checkCheckBoxvalue($event,item)">
+                                {{item.week_name}}
+                            </mat-checkbox>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="column">
+                <mat-label class="mx-2"><b>Working Days</b></mat-label>
+
+                <div class="row wrap mx-2">
+                    <ng-container *ngFor="let e of workingDays;">
+                        <div class="mx-2 my-2">
+                                {{e.name}}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+            <mat-divider></mat-divider>
+            <div fxLayout="column">
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" class="dev-Pad"  style="padding-top: 5px;height: 70px;">
+                    <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
+                        <mat-icon matSuffix style="color: #28acaf">search</mat-icon>
+                        <mat-label>Search </mat-label>
+                        <input (keyup)="applyFilter($event)" matInput placeholder=""
+                            maxlength="100" />
+                    </mat-form-field>
+                </div>
+                <div class="table-pad">
+                      <div class="example-container mat-elevation-z1">
+                    <table mat-table [dataSource]="dataSource" matSort>
+                        <!-- Checkbox Column -->
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)">
+                                </mat-checkbox>
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef > S.No. </th>
+                            <td mat-cell *matCellDef="let row;let i = index;"> {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="empid">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Employee ID </th>
+                            <td mat-cell *matCellDef="let row"> {{row.emp_code}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="empname">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Employee Name </th>
+                            <td mat-cell *matCellDef="let row"> {{row.empname}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="shiftname">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Current Shift </th>
+                            <td mat-cell *matCellDef="let row"> {{row.shiftname}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="fromdate">
+                            <th mat-header-cell *matHeaderCellDef> From  </th>
+                            <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.fromdate | date:'dd-MM-yyyy'}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="todate">
+                            <th mat-header-cell *matHeaderCellDef > To  </th>
+                            <td mat-cell *matCellDef="let row" style="white-space: nowrap;"> {{row.todate | date:'dd-MM-yyyy'}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="weekoffs">
+                            <th mat-header-cell *matHeaderCellDef > Week Offs </th>
+                            <td mat-cell *matCellDef="let row"> {{row.weekoffs}} </td>
+                        </ng-container>
+                        <tr class="headerbox title" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="8" style="text-align: center;">No data found</td>
+                          </tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+                    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+                </div>
+            </div>
+        </div>
+            <br>
+            <div fxLayoutAlign="center" *ngIf="isShow">
+                <button class="btn btn-primary mr-2 mb-2" (click)="saveShiftConfiguration()" type="submit">
+                    <span>Submit</span>
+                </button>
+
+                <button class="btn btn-danger mr-2 mb-2" (click)="resetform()">
+                    <span>Cancel</span>
+                </button>
+                <br />
+            </div>
+
+
+
+            
+        </mat-card>
+    </form>
+
+
+
+
+
+
+</div>

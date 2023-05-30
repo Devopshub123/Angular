@@ -40,6 +40,7 @@ import { SubscriptionPlansMasterComponent } from './subscription/subscription-pl
 import { AddRenewalUesrsComponent } from './subscription/add-renewal-uesrs/add-renewal-uesrs.component';
 import { ProductAdminDashboardComponent } from 'src/app/pages/product-admin-dashboard/product-admin-dashboard.component';
 import { ClientSuperAdminDashboardComponent } from './subscription/client-super-admin-dashboard/client-super-admin-dashboard.component';
+import { AdminShiftConfigurationComponent } from './pages/admin-shift-configuration/admin-shift-configuration.component';
 const routes: Routes = [
   {
     path: '', component: MainComponent,
@@ -83,6 +84,7 @@ const routes: Routes = [
       { path: 'add-renewal-users', component: AddRenewalUesrsComponent},
       { path: 'product-admin-dashboard', component: ProductAdminDashboardComponent },
       { path: 'client-superadmin-dashboard', component: ClientSuperAdminDashboardComponent, canActivate: [LMSAccessGuard] },
+      { path: 'admin-shift', component: AdminShiftConfigurationComponent },
      ]
   }
 

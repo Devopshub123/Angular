@@ -43,6 +43,7 @@ import { ProductInvoiceDataComponent } from './subscription/dialog/product-invoi
 import { ClientSuperAdminDashboardComponent } from './subscription/client-super-admin-dashboard/client-super-admin-dashboard.component';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartModule } from 'angular2-chartjs';
+import { AdminShiftConfigurationComponent } from './pages/admin-shift-configuration/admin-shift-configuration.component';
 @NgModule({
   declarations: [
 
@@ -76,6 +77,7 @@ import { ChartModule } from 'angular2-chartjs';
     AddRenewalUesrsComponent,
     ProductInvoiceDataComponent,
     ClientSuperAdminDashboardComponent,
+    AdminShiftConfigurationComponent,
     
   ],
   imports: [

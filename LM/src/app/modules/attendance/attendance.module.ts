@@ -18,6 +18,8 @@ import { AttendanceRequestBehalfComponent } from './pages/attendance-request-beh
 import { AttendanceRequestComponent } from './pages/attendance-request/attendance-request.component';
 import { ShiftConfigureComponent } from './pages/shift-configure/shift-configure.component';
 import { ApprovalHistoryComponent } from './pages/approval-history/approval-history.component';
+import { ShiftChangeRequestComponent } from './pages/shift-change-request/shift-change-request.component';
+import { ShiftChangeApproveComponent } from './pages/shift-change-approve/shift-change-approve.component';
 
  FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -35,7 +37,9 @@ import { ApprovalHistoryComponent } from './pages/approval-history/approval-hist
     AttendanceUploadexcelComponent,
     DialogComponent,
     ShiftConfigureComponent,
-    ApprovalHistoryComponent
+    ApprovalHistoryComponent,
+    ShiftChangeRequestComponent,
+    ShiftChangeApproveComponent,
   ],
   imports: [
     CommonModule,

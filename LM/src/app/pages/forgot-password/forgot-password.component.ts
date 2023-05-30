@@ -61,7 +61,7 @@ export class ForgotPasswordComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Please enter a valid company short code.'
+            data: 'Please enter a valid company code.'
           });
           
         }
@@ -69,7 +69,7 @@ export class ForgotPasswordComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position:{top:`70px`},
             disableClose: true,
-            data: 'Please enter valid email and comapany code for reset password'
+            data: 'Please enter valid email and company code for reset password'
           });
           
         }

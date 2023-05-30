@@ -36,7 +36,6 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
   pdfName:any=null;
   constructor(private formBuilder: FormBuilder,private location: Location,public dialog: MatDialog,private LM:LeavesService,private router: Router,private spinner:NgxSpinnerService,private EMS: EmsService) {
     this.leaveInfo = this.location.getState();
-    console.log("hjh",this.leaveInfo)
   }
   pipe = new DatePipe('en-US');
 
@@ -54,7 +53,6 @@ export class ManagerReviewAndApprovalsComponent implements OnInit {
     this.pendingapprove.ngOnInit();
     this.compoffPendingapprove.ngOnInit();
     this.cancellationapprove.ngOnInit();
-console.log("dat--",this.leaveInfo.leaveData)
     this.requestform = this.formBuilder.group(
           {
             appliedOn: [{ value:'' , disabled: true }],

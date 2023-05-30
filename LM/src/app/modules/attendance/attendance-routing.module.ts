@@ -12,6 +12,8 @@ import {LMSAccessGuard} from  '../../LMS-access.guard';
 import { ChangePasswordComponent } from '../../pages/change-password/change-password.component'
 import { ShiftConfigureComponent } from './pages/shift-configure/shift-configure.component';
 import { ApprovalHistoryComponent } from './pages/approval-history/approval-history.component';
+import { ShiftChangeApproveComponent } from './pages/shift-change-approve/shift-change-approve.component';
+import { ShiftChangeRequestComponent } from './pages/shift-change-request/shift-change-request.component';
 
 
 const routes: Routes = [
@@ -29,7 +31,8 @@ const routes: Routes = [
       { path: 'ChangePassword', component: ChangePasswordComponent},
       { path: 'ShiftConfigure', component: ShiftConfigureComponent,canActivate:[LMSAccessGuard] },
       {path:'ApprovedHistory',component:ApprovalHistoryComponent,canActivate:[LMSAccessGuard]},
-      {path:'ChangePassword',component:ChangePasswordComponent},
+      {path:'Shift-change-approve',component:ShiftChangeApproveComponent},
+      {path:'Shift-change-request',component:ShiftChangeRequestComponent},
     ]
   }];
 
