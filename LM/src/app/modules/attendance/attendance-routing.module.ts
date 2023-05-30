@@ -31,8 +31,8 @@ const routes: Routes = [
       { path: 'ChangePassword', component: ChangePasswordComponent},
       { path: 'ShiftConfigure', component: ShiftConfigureComponent,canActivate:[LMSAccessGuard] },
       {path:'ApprovedHistory',component:ApprovalHistoryComponent,canActivate:[LMSAccessGuard]},
-      {path:'Shift-change-approve',component:ShiftChangeApproveComponent},
-      {path:'Shift-change-request',component:ShiftChangeRequestComponent},
+      // {path:'Shift-change-approve',component:ShiftChangeApproveComponent},
+      // {path:'Shift-change-request',component:ShiftChangeRequestComponent},
     ]
   }];
 

@@ -14,7 +14,7 @@ const routes: Routes = [
     {path:'DetailReport',component:DetailReportComponent},
     {path:'MonthlyDetailReport',component:EmployeMonthlyDetailReportComponent},
     {path:'LateAttendanceReport',component:LateAttendanceReportComponent},
-    {path:'ShiftsWiseReport',component:ShiftsWiseReportComponent},
+    // {path:'ShiftsWiseReport',component:ShiftsWiseReportComponent},
   ]}
 ];
 

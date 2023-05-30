@@ -84,7 +84,7 @@ const routes: Routes = [
       { path: 'add-renewal-users', component: AddRenewalUesrsComponent},
       { path: 'product-admin-dashboard', component: ProductAdminDashboardComponent },
       { path: 'client-superadmin-dashboard', component: ClientSuperAdminDashboardComponent, canActivate: [LMSAccessGuard] },
-      { path: 'admin-shift', component: AdminShiftConfigurationComponent },
+      // { path: 'admin-shift', component: AdminShiftConfigurationComponent },
      ]
   }
 
