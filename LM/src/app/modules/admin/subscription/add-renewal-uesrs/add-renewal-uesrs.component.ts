@@ -186,7 +186,7 @@ export class AddRenewalUesrsComponent implements OnInit {
          this.addUsersDisplayInfoUserCount = result.data[0].user_count
          let date1:any =new Date( );
          let date2:any = new Date(this.validto)
-         let dayscount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+         let dayscount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24))+1;
          this.addUsersDisplayInfoamount = Math.floor((this.addvalue*Number( this.monthlycost)*dayscount)/30);
          this.addUsersDisplayInfovaliddate = result.data[0].validity
         }

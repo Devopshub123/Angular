@@ -272,10 +272,12 @@ locByDeptEmpsdoughnutChartData: any;
   }
 
   getAttendanceEmployeesCountByDate() {
+    console.log("dgafhdgsfhgdhfghsdg")
     this.attendanceTypeList = [];
     this.attendanceCountList = [];
    let date = this.pipe.transform(this.dashBoardForm.controls.attendanceWiseDate.value, 'yyyy-MM-dd');
     this.adminService.getAttendanceEmployeesCountByDate(date).subscribe((res: any) => {
+      console.log("res.data",res.data)
       if (res.status && res.data) {
         Object.keys(res.data[0]).forEach((e: any) => {
           this.attendanceTypeList.push(e);

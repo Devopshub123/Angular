@@ -195,6 +195,11 @@
                     <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.worked_date | date:'dd-MM-yyyy'}}" >
     
                 </mat-form-field>
+                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline" *ngIf="viewdata.leavetype === 'Bereavement Leave'">
+                    <mat-label>Relationship</mat-label>
+                    <input matInput [readonly]="true"[readonly]="true" value="{{viewdata.bereavement_relation}}" >
+    
+                </mat-form-field>
                 <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline" >
                     <mat-label>Manager</mat-label>
                     <input  matInput [readonly]="true"[readonly]="true" value="{{usersession.roles[0].rm_name}}">

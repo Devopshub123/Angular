@@ -51,7 +51,8 @@ export class EmployeeDashboardComponent implements OnInit {
     this.Empdashboardform = this.formBuilder.group(
       {
         financial_year:  ["2023-2024"],
-        EPF:[this.arrayValue[new Date().getMonth()]]
+        EPF:[this.arrayValue[new Date().getMonth()]],
+        ESI:[this.arrayValue[new Date().getMonth()]]
       });
       this.getEmployeePayslips("2023-2024");
       this.Empdashboardform.get('financial_year')?.valueChanges.subscribe((selectedValue:any) => {
@@ -72,6 +73,7 @@ export class EmployeeDashboardComponent implements OnInit {
    /** getFinancialYears Data*/
    getFinancialYears(){
     this.PR.getFinancialYears().subscribe((result:any)=>{
+     console.log("result",result)
       if(result.status && result.data.length>0){
         this.financeyears = result.data;
       }

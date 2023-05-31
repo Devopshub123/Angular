@@ -53,10 +53,13 @@
                                 <div class="numbers text-center">                                        
                                     <mat-form-field appearance="outline" fxFlex fxFlex.xs="100">
                                       <mat-label>ESI</mat-label>
-                                      <mat-select  [tabIndex]="2"> 
-                                          <mat-option value="January">Jan</mat-option>
-                                          <mat-option value="Feb">Feb</mat-option>
-                                          <mat-option value="Yearly">Mar</mat-option>
+                                      <mat-select formControlName="ESI" [tabIndex]="2"> 
+                                        <ng-container>
+                                            <div *ngFor="let fy of EPFfulldetails">
+                                                <mat-option [value]="fy.month_name">{{fy.month_name}}</mat-option>
+                                            </div>
+                                        </ng-container>
+                                          
                                       </mat-select>                                    
                                   </mat-form-field>
                                 </div>

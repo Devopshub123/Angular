@@ -339,7 +339,7 @@ export class SignUpComponent implements OnInit {
         this.date1=value.fromdate;
         this.date2 =value.todate;
         this.users =value.number_of_users;
-        let dayscount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24));
+        let dayscount = Math.floor((date2 - date1) / (1000 * 60 * 60 * 24))+1;
         this.payamount = Math.floor((value.number_of_users*value.cost_per_user_monthly_bill*dayscount)/30);
         let disamount = this.numberWithCommas( this.payamount)
         this.PayviewForm.controls.plan.setValue(value.plan_name);
