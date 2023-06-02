@@ -70,6 +70,7 @@ export class EmployeeDirectoryComponent implements OnInit {
     this.emsService.getEmployeeDirectoryList().subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.employeeList = res.data;
+        console.log("dad-",this.employeeList)
         this.employeeFilteredList=this.employeeList;
      }
     })

@@ -61,10 +61,11 @@ export class ReportpopupComponent implements OnInit {
 
   }
   save(){
+    console.log("earningselectedIdsfkjdkjghsjkghh")
     const earningselectedIds = this.reportpopupForm.value.earnings
       .map((checked:any, i:any) => checked ? 1 : 0)
       .filter((v:any) => v !== null);
-
+      console.log("earningselectedIds,",earningselectedIds)
       let data = {
         empid:this.userSession.id,
         employee_status_value:(earningselectedIds[0]),

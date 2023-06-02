@@ -59,7 +59,7 @@ export class PftaxReportsComponent implements OnInit {
   }
   searchForm!: FormGroup;
   displayedColumns: string[] = ['sno','state','payrange','tax','employees'];
-  dataSource: MatTableDataSource<any>=<any>[];
+  dataSource: any=[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -118,12 +118,12 @@ export class PftaxReportsComponent implements OnInit {
   }
   resetform(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["/Payroll/pftaxreports"]));
+          this.router.navigate(["/Payroll/ProfessionaTaxReports"]));
     }
   getPageSizes(): number[] {
      
   var customPageSizeArray = [];
-  if (this.dataSource.data.length > 5) {
+  if (this.dataSource.length > 5) {
     customPageSizeArray.push(5);
   }
   if (this.dataSource.data.length > 10) {
@@ -192,12 +192,18 @@ export class PftaxReportsComponent implements OnInit {
     let data ={
       year:this.date.value._d.getFullYear(),
       month:this.date.value._d.getMonth()+1,
-      state:null
+      state:this.searchForm.controls.state.value==''?null:Number(this.searchForm.controls.state.value)
     }
     console.log(this.date.value._d)
+    this.dataSource=new MatTableDataSource()
     this.PR.getProfessionalTaxValuesForChallan(data).subscribe((result:any)=>{
+     
      if(result.status){
-      this.dataSource = result.data
+      this.dataSource = result.data;
+      this.dataSource.paginator = this.paginator;
+        // this.dataSource.paginator.pageSize=5;
+        this.dataSource.sort = this.sort;
+        this.pageLoading = false;
      }
        
       

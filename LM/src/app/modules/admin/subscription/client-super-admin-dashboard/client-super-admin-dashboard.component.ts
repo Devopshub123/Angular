@@ -99,6 +99,7 @@ locByDeptEmpsdoughnutChartData: any;
  allShiftList:any=[]
 
  deptWisePayrollNameList: any = [];
+ deptWisePayrollNameListdata:any=[];
   deptWisePayrollMonthList: any = [];
   deptWisePayrollSumList: any = [];
   deptWisePayrollYearList: any = [];
@@ -498,10 +499,16 @@ locByDeptEmpsdoughnutChartData: any;
     this.adminService.getDepartmentWiseMonthlySalaries(date).subscribe((res: any) => {
       if (res.status && res.data) {
         res.data.forEach((e: any) => {
-          this.deptWisePayrollNameList.push(e.deptname);
+          this.deptWisePayrollNameListdata.push(e.deptname);
+          this.deptWisePayrollNameList=[];
+          
           this.deptWisePayrollMonthList.push(e.MonthName);
           this.deptWisePayrollSumList.push(e.sum);
           this.deptWisePayrollYearList.push(e.year);
+          this.deptWisePayrollNameList=   this.deptWisePayrollNameListdata.reduce((uniqArr:any, item:any) => {
+            return uniqArr.includes(item) ? uniqArr : [...uniqArr, item]}
+            ,[]
+            );
          })
       }
       this.deptWisePayrollBarChartType = 'bar';

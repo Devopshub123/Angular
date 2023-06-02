@@ -180,6 +180,7 @@ export class EpfReportsComponent implements OnInit {
       this.dataSource = result.data;
       this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+          this.pageLoading = false;
       this.validateEpfChallanDownload()
     //  this.dataSource = 
     //  [{Employee_Name: "Rakesh Goud  Thallapelly",Gross_Salary:50000,UAN:"2357625",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value
