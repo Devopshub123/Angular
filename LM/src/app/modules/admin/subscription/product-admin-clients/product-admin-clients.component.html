@@ -10,7 +10,7 @@
         <div fxLayout="column">
           <div fxLayout="row" fxLayoutAlign.xs="center" class="dev-Pad" fxLayoutAlign="space-between center">
             <div style="margin-bottom: 1%;padding-right: 2%;" fxLayout="row xs-column" *ngIf="arrayList.length > 0">
-              <div>
+              <div style="padding-left: 13px;">
                 
                 <a title="PDF"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
         
@@ -38,12 +38,12 @@
                       {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
               </ng-container>
   
-                <ng-container matColumnDef="sid">
+                <!-- <ng-container matColumnDef="sid">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header >
                     Subscription ID	 </th>
                   <td mat-cell *matCellDef="let row" > {{ row.subscription }}
               </td>
-                </ng-container>
+                </ng-container> -->
   
                 <ng-container matColumnDef="cname">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header >

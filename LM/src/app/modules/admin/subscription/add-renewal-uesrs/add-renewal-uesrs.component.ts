@@ -329,6 +329,8 @@ export class AddRenewalUesrsComponent implements OnInit {
     );
   }
   else if( this.renewalusersamount){
+    if(this.renewalausersForm.controls.renewtype.value!=''){
+      console.log("renewalausersForm",this.renewalausersForm.controls.renewtype.value)
     let dataamount:any = Math.floor(this.renewalDisplayInfoamount*100);
     this.options.amount = dataamount; //paise
     var rzp1 = new Razorpay(this.options);
@@ -344,6 +346,17 @@ export class AddRenewalUesrsComponent implements OnInit {
       //this.error = response.error.reason;
     }
     );
+
+    }
+    else{
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position:{top:`70px`},
+        disableClose: true,
+        data:'Please select monthly or yearly. '
+      });
+
+    }
+    
   
     
 

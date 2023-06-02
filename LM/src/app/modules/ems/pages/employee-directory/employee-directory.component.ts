@@ -81,6 +81,7 @@ export class EmployeeDirectoryComponent implements OnInit {
       || m.designation.toString().toLowerCase().includes(filterValue.trim().toLowerCase())
     || m.location.toString().toLowerCase().includes(filterValue.trim().toLowerCase()));
       this.employeeFilteredList=filterdata;
+      console.log("ghhh",this.employeeFilteredList)
   }
   search() {
 

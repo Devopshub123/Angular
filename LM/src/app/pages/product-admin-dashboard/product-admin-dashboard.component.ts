@@ -28,6 +28,17 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'YYYY',
   },
 };
+export const MY_FORMATSYEAR = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 @Component({
   selector: 'app-product-admin-dashboard',
   templateUrl: './product-admin-dashboard.component.html',
@@ -36,6 +47,7 @@ export const MY_FORMATS = {
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
 
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    // {provide: MAT_DATE_FORMATS, useValue: MY_FORMATSYEAR},
   ],
 })
 export class ProductAdminDashboardComponent implements OnInit {

@@ -50,7 +50,7 @@
                   <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
                   <mat-cell *matCellDef="let row">
                     <mat-checkbox (click)="$event.stopPropagation()" (change)="toggle($event, row)"
-                    [checked]="row.status == 'Completed'">
+                    [checked]="row.status == 'Completed'" [disabled]="row.status == 'Completed'">
                     </mat-checkbox>
                   </mat-cell>
                 </ng-container>
