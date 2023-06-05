@@ -22,7 +22,8 @@ const htmlToPdfmake = require("html-to-pdfmake");
 export class ProductAdminClientsComponent implements OnInit {
   arrayList:any=[];
   inductionForm:any= FormGroup;
-  displayedColumns: string[] = ['sno','sid','cname','users','modules','startdate','lastpaid','amount','status'];
+  // displayedColumns: string[] = ['sno','sid','cname','users','modules','startdate','lastpaid','amount','status'];
+  displayedColumns: string[] = ['sno','cname','users','modules','startdate','lastpaid','amount','status'];
   dataSource: MatTableDataSource<any>=<any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;

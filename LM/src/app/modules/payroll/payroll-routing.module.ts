@@ -60,9 +60,9 @@ const routes: Routes = [
       { path: 'ProfessionalTaxMain', component: ProfessionalTaxMainComponent,canActivate:[LMSAccessGuard] },
       { path: 'AssignPayGroup', component: AssignPayGroupComponent,canActivate:[LMSAccessGuard] },
       { path: 'MonthlyPayroll', component: MonthlyPayrollComponent },
-      { path: 'EpfReports',component:EpfReportsComponent},
+      { path: 'EpfReport',component:EpfReportsComponent},
       { path: 'EsiReports',component:EsiReportsComponent},
-      { path: 'ProfessionaTaxReports',component:PftaxReportsComponent},
+      { path: 'ProfessionaTaxReport',component:PftaxReportsComponent},
       // { path:'monthlypayrollreport',component:MonthlyPayrollReportComponent}
     ]
   }];

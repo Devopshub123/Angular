@@ -70,6 +70,7 @@ export class EmployeeDirectoryComponent implements OnInit {
     this.emsService.getEmployeeDirectoryList().subscribe((res: any) => {
       if (res.status && res.data.length != 0) {
         this.employeeList = res.data;
+        console.log("dad-",this.employeeList)
         this.employeeFilteredList=this.employeeList;
      }
     })
@@ -81,6 +82,7 @@ export class EmployeeDirectoryComponent implements OnInit {
       || m.designation.toString().toLowerCase().includes(filterValue.trim().toLowerCase())
     || m.location.toString().toLowerCase().includes(filterValue.trim().toLowerCase()));
       this.employeeFilteredList=filterdata;
+      console.log("ghhh",this.employeeFilteredList)
   }
   search() {
 

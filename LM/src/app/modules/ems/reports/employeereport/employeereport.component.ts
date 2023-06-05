@@ -257,6 +257,7 @@ export class EmployeereportComponent implements OnInit {
   }
   getEmsEmployeeColumnFilterData(){
     this.ES.getEmsEmployeeColumnFilterData().subscribe((result:any)=>{
+      console.log("hdsgfjhsgfhjgf",result.data)
       for(let i=0;i<result.data.length;i++){
         if(result.data[i].column_name == 'Employee Status'){
          this.employeestatus.push(result.data[i]);
@@ -291,7 +292,7 @@ export class EmployeereportComponent implements OnInit {
           this.shift.push(result.data[i])
           this.shiftid.push(result.data[i].id)
          }
-         if(result.data[i].column_name == 'Reporting Manager'){
+         if(result.data[i].column_name == 'Reporting Manager' && result.data[i].id != 1){
           this.manager.push(result.data[i])
           this.managerid.push(result.data[i].id)
          }
