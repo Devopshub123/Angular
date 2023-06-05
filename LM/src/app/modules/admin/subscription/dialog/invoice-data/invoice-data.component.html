@@ -19,7 +19,7 @@
     
 </div>
 <div id="invoice" #invoice  >
-<div style="padding-left: 10%;padding-top: 20px;">
+<div style="padding-top: 20px;">
 <div fxLayout="row wrap" fxLayout.xs="column">
     <div style="width: 45%;">
         <p><b>Invoice Date: </b> {{invoiceDate | date:'dd-MM-yyyy'}}</p>
@@ -41,7 +41,7 @@
     
     
 </div>
-<div style="height: auto;width:80%">
+<div style="height: auto;">
     <div class="mat-elevation-z1">
  
     <table mat-table  [dataSource]="dataSource" matSort  #table>

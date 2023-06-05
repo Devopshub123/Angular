@@ -103,10 +103,10 @@ export class SignUpComponent implements OnInit {
   minDate = new Date('1950/01/01');
   industryTypeList: any[] = [];
   companySizeList: any[] = [
-    { id: 50, value: '0-50' },
-    { id: 100, value: '51-100' },
-    { id: 200, value: '101-200' },
-    { id: 999, value: '200+ Users' },
+    { id: 50, value: '1-50',minvalue:1 },
+    { id: 100, value: '51-100' ,minvalue:51},
+    { id: 200, value: '101-200',minvalue:101 },
+    { id: 999, value: '200+ Users' ,minvalue:201},
   ];
   countryDetails: any = [];
   stateDetails: any = [];
@@ -124,7 +124,8 @@ export class SignUpComponent implements OnInit {
   isdisable:boolean=true;
   date:any;
   flag: boolean = false;
-  isVerified:boolean=false;
+  isVerified: boolean = false;
+  minimumUsers:any;
   @ViewChild('stepper') private myStepper: any;
   constructor(private formBuilder: FormBuilder, private companyService: CompanySettingService,
     private spinner: NgxSpinnerService, private dialog: MatDialog, private router: Router,
@@ -166,20 +167,6 @@ export class SignUpComponent implements OnInit {
        }
       }
     })
-    this.signUpForm.get('totalUsers')?.valueChanges.subscribe((selectedValue: any) => {
-      let cmpSize = this.signUpForm.controls.companySize.value;
-      if (selectedValue != null || '') {
-        if (selectedValue > cmpSize) {
-          let dialogRef = this.dialog.open(ReusableDialogComponent, {
-            position: { top: `70px` },
-            disableClose: true,
-            data:"Users count should not be greater than company size"
-          });
-          this.signUpForm.controls.totalUsers.setValue("")
-        }
-      }
-     
-     })
 
     this.signUpForm.get('country')?.valueChanges.subscribe((selectedValue: any) => {
       this.stateDetails= [];
@@ -244,6 +231,33 @@ export class SignUpComponent implements OnInit {
 
   }
 
+  onChange(value: any) {
+    this.minimumUsers = 0;
+    this.minimumUsers = value.minvalue;
+    console.log("p-1",this.minimumUsers)
+  }
+  minChange() {
+    console.log("v-1",this.signUpForm.controls.totalUsers.value)
+    console.log("v-2",this.minimumUsers)
+    let cmpSize = this.signUpForm.controls.companySize.value;
+    console.log("v-3",cmpSize)
+      if (this.signUpForm.controls.totalUsers.value > cmpSize) {
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data:"Users count should not be greater than company size"
+      });
+      this.signUpForm.controls.totalUsers.setValue("")
+    }
+    else if (this.signUpForm.controls.totalUsers.value <   this.minimumUsers) {
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data:"Users count should not be less than company size"
+      });
+      this.signUpForm.controls.totalUsers.setValue("")
+    }
+}
   agreement() {
     this.mainService.agreement().subscribe((result:any)=>{
       let TYPED_ARRAY = new Uint8Array(result.image.data);

@@ -840,7 +840,7 @@
                                     <ng-container matColumnDef="action">
                                         <th mat-header-cell *matHeaderCellDef></th>
                                         <td mat-cell *matCellDef="let data">
-                                        <mat-icon (click)="editDock(data)" title="Edit" *ngIf="data.status == 'Submitted'">edit</mat-icon>
+                                        <!-- <mat-icon (click)="editDock(data)" title="Edit" *ngIf="data.status == 'Submitted'">edit</mat-icon> -->
                                         <mat-icon (click)="deleteDock(data)" title="Delete" *ngIf="data.status == 'Submitted'"> delete</mat-icon>
                                         </td>
                                     </ng-container>

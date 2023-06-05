@@ -70,7 +70,7 @@ export class ApprovalAttendanceComponent implements OnInit {
     private location:Location,public dialog: MatDialog,private router:Router,
     private attendanceService: AttendanceService, private adminService: AdminService,
     private emsService: EmsService) { }
-
+    isStatus = false;
   ngOnInit(): void {
     // if (this.activeroute.snapshot.params.userData !=null){
     //   this.userData=this.activeroute.snapshot.params.userData;
@@ -96,7 +96,12 @@ export class ApprovalAttendanceComponent implements OnInit {
         this.isEdit=false;
       }else{
         this.isEdit=true;
-      }
+    }
+    if (this.userData.userData.status =='Approved') {
+      this.isStatus = true;
+    } else {
+      this.isStatus = false;
+    }
       this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
       this.getEmployeeEmailData();
   }

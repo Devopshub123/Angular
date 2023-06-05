@@ -75,6 +75,7 @@ export class AttendanceRequestComponent implements OnInit {
   pageLoading = true;
   isRequestView = false;
   isCommentView = false;
+  isStatus = false;
   isEditView = false;
   uniqueId: any = '';
   messagesDataList: any = [];
@@ -591,6 +592,11 @@ export class AttendanceRequestComponent implements OnInit {
   }
   requestView(event: any) {
     if (event.comment != null || "") {
+      if (event.status == 'Approved') {
+        this.isStatus = true;
+      } else {
+        this.isStatus = false;
+      }
       this.requestform.controls.comment.setValue("");
     }
     this.isRequestView = true;

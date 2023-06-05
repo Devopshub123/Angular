@@ -72,7 +72,8 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field *ngIf="!isEdit" fxFlex="32" fxFlex.xs="100" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Comment</mat-label>
+                    <mat-label *ngIf="isStatus">Approved Reason</mat-label>
+                    <mat-label *ngIf="!isStatus">Rejected Reason</mat-label>
                     <textarea formControlName="comment" readonly matInput placeholder="Comment"></textarea>
 
                 </mat-form-field>

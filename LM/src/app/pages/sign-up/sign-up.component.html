@@ -1,289 +1,308 @@
-<div fxLayout="column"  class="bg-image"
-style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflow-y: auto;" >
+<div fxLayout="column" class="bg-image"
+    style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflow-y: auto;">
     <div class="card" style="background-color: cornsilk;border: 2px solid #28acaf;" *ngIf="flag && !isVerified">
         <div style="height: 70px;    background-color: #28acaf;" fxLayoutAlign="center center">
-        <span class="section">GET STARTED WITH SPRYPLE</span>
+            <span class="section">GET STARTED WITH SPRYPLE</span>
 
-         </div>
-                <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
-                       <mat-step [stepControl]="signUpForm">
-                        <ng-template  matStepLabel>Sign Up</ng-template>
-                        <form [formGroup]="signUpForm">
-                            <div>
+        </div>
+        <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
+            <mat-step [stepControl]="signUpForm">
+                <ng-template matStepLabel>Sign Up</ng-template>
+                <form [formGroup]="signUpForm">
+                    <div>
 
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Company Name</mat-label>
-                                    <input type="text"  formControlName="companyName" matInput maxlength="50" required
-                                    (keypress)="alphaNumberOnly($event)"/>
-                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.companyName.errors?.required ||
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%;">
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Company Name</mat-label>
+                                <input type="text" formControlName="companyName" matInput maxlength="50" required
+                                    (keypress)="alphaNumberOnly($event)" />
+                                <mat-error class="reg-error" *ngIf="signUpForm.controls.companyName.errors?.required ||
                                          signUpForm.controls.companyName.errors?.['whitespace']">
                                     This field is required.
-                                    </mat-error>
-                                </mat-form-field>
+                                </mat-error>
+                            </mat-form-field>
 
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Company Code</mat-label>
-                                    <input type="text" formControlName="companyCode" matInput required
-                                        maxlength="50" [ngClass]="{'disable':true}" [readonly]="true"/>
-                                </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Company Code</mat-label>
+                                <input type="text" formControlName="companyCode" matInput required maxlength="50"
+                                    [ngClass]="{'disable':true}" [readonly]="true" />
+                            </mat-form-field>
 
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Company Size</mat-label>
-                                    <mat-select formControlName="companySize" required>
-                                        <ng-container>
-                                            <div *ngFor="let b of companySizeList">
-                                                <mat-option [value]="b.id">{{b.value}}</mat-option>
-                                            </div>
-                                        </ng-container>
-                                    </mat-select>
-                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.companySize.hasError('required')">
-                                        Please select an option.
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Company Size</mat-label>
+                                <mat-select formControlName="companySize" required>
+                                    <ng-container>
+                                        <div *ngFor="let b of companySizeList">
+                                            <mat-option [value]="b.id" (onSelectionChange)="onChange(b)" >{{b.value}}</mat-option>
+                                        </div>
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="reg-error"
+                                    *ngIf="signUpForm.controls.companySize.hasError('required')">
+                                    Please select an option.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
 
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>No. of Users</mat-label>
-                                    <input type="text" onlyNumber formControlName="totalUsers" matInput
-                                        maxlength="3" required (keypress)=preventLeadingZero($event)/>
-                                        <mat-error class="reg-error" *ngIf="signUpForm.controls.totalUsers.hasError('required')">
-                                            This field is required.
-                                        </mat-error>
-                                </mat-form-field>
-                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>GST Number</mat-label>
-                                    <input type="text" formControlName="gstNumber" matInput (paste)="(false)"
-                                        maxlength="15" minlength="6" (keypress)=alphaNumberOnly($event) />
-                                        <!-- <mat-error class="reg-error" *ngIf="signUpForm.controls.gstNumber.errors?.required">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>No. of Users</mat-label>
+                                <input type="text" onlyNumber formControlName="totalUsers" matInput maxlength="3"
+                                    required (keypress)=preventLeadingZero($event) (change)="minChange()"/>
+                                <mat-error class="reg-error"
+                                    *ngIf="signUpForm.controls.totalUsers.hasError('required')">
+                                    This field is required.
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                <mat-label>GST Number</mat-label>
+                                <input type="text" formControlName="gstNumber" matInput (paste)="(false)" maxlength="15"
+                                    minlength="6" (keypress)=alphaNumberOnly($event) />
+                                <!-- <mat-error class="reg-error" *ngIf="signUpForm.controls.gstNumber.errors?.required">
                                             This field is required
                                             </mat-error> -->
-                                    <mat-error class="reg-error"
-                                        *ngIf="signUpForm.controls.gstNumber.errors?.minlength">
-                                        GST Number should be minimum 6 digits.
-                                    </mat-error>
-                                </mat-form-field>
+                                <mat-error class="reg-error" *ngIf="signUpForm.controls.gstNumber.errors?.minlength">
+                                    GST Number should be minimum 6 digits.
+                                </mat-error>
+                            </mat-form-field>
 
 
 
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Mobile Number</mat-label>
-                                    <input type="text" onlyNumber formControlName="mobile" matInput
-                                    maxlength="10" minlength="10" (keypress)="stopLeadingZero($event)" required/>
-                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.mobile.hasError('required')">
-                                        This field is required.
-                                    </mat-error>
-                                    <mat-error class="con-error" *ngIf="signUpForm.get('mobile').hasError('pattern')">
-                                        Please enter valid mobile number
-                                      </mat-error>
-                                </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Mobile Number</mat-label>
+                                <input type="text" onlyNumber formControlName="mobile" matInput maxlength="10"
+                                    minlength="10" (keypress)="stopLeadingZero($event)" required />
+                                <mat-error class="reg-error" *ngIf="signUpForm.controls.mobile.hasError('required')">
+                                    This field is required.
+                                </mat-error>
+                                <mat-error class="con-error" *ngIf="signUpForm.get('mobile').hasError('pattern')">
+                                    Please enter valid mobile number
+                                </mat-error>
+                            </mat-form-field>
 
 
-                            </div>
+                        </div>
 
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                               <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Name</mat-label>
-                                    <input type="text" specialIsAlpha formControlName="contactPerson" matInput
-                                        maxlength="50" required/>
-                                        <mat-error class="reg-error" *ngIf="signUpForm.controls.contactPerson.hasError('required')">
-                                            This field is required.
-                                        </mat-error>
-                                </mat-form-field>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Name</mat-label>
+                                <input type="text" specialIsAlpha formControlName="contactPerson" matInput
+                                    maxlength="50" required />
+                                <mat-error class="reg-error"
+                                    *ngIf="signUpForm.controls.contactPerson.hasError('required')">
+                                    This field is required.
+                                </mat-error>
+                            </mat-form-field>
 
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Company Email</mat-label>
-                                    <input type="text" formControlName="companyemail" required [ngClass]="{'disable':true}" [readonly]="true" matInput  />
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Company Email</mat-label>
+                                <input type="text" formControlName="companyemail" required [ngClass]="{'disable':true}"
+                                    [readonly]="true" matInput />
 
-                                </mat-form-field>
+                            </mat-form-field>
 
-                                <!-- <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                            <!-- <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
                                     <mat-label>Password</mat-label>
                                     <input #aadharnumber type="text" formControlName="password" matInput maxlength="30"/>
                                 </mat-form-field> -->
 
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Address 1</mat-label>
-                                    <input type="text" formControlName="address1" matInput maxlength="100"  required/>
-                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.address1.errors?.required">
-                                        This field is required.
-                                    </mat-error>
-                                </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Address 1</mat-label>
+                                <input type="text" formControlName="address1" matInput maxlength="100" required />
+                                <mat-error class="reg-error" *ngIf="signUpForm.controls.address1.errors?.required">
+                                    This field is required.
+                                </mat-error>
+                            </mat-form-field>
 
-                            </div>
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                        </div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
 
 
 
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Address 2</mat-label>
-                                    <input type="text"  formControlName="address2" matInput  maxlength="100" />
-                                    <!-- <mat-error class="reg-error" *ngIf="signUpForm.controls.address2.errors?.required">
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Address 2</mat-label>
+                                <input type="text" formControlName="address2" matInput maxlength="100" />
+                                <!-- <mat-error class="reg-error" *ngIf="signUpForm.controls.address2.errors?.required">
                                         This field is required.
                                     </mat-error> -->
-                                </mat-form-field>
+                            </mat-form-field>
 
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Country</mat-label>
-                                    <mat-select formControlName="country" required>
-                                        <ng-container>
-                                            <div *ngFor="let b of countryDetails">
-                                                <mat-option [value]="b.id">{{ b.country }}</mat-option>
-                                            </div>
-                                        </ng-container>
-                                    </mat-select>
-                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.country.errors?.required">
-                                        Please select an option.
-                                        </mat-error>
-                                </mat-form-field>
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>State</mat-label>
-                                    <mat-select formControlName="state" required>
-                                        <ng-container>
-                                            <div *ngFor="let b of stateDetails">
-                                                <mat-option [value]="b.id">{{ b.state }}</mat-option>
-                                            </div>
-                                        </ng-container>
-                                    </mat-select>
-                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.state.errors?.required">
-                                        Please select an option.
-                                        </mat-error>
-                                </mat-form-field>
-                            </div>
-
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
-
-
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>City</mat-label>
-                                    <mat-select formControlName="city" required>
-                                        <ng-container>
-                                            <div *ngFor="let b of cityDetails">
-                                                <mat-option [value]="b.id">{{ b.location }}</mat-option>
-                                            </div>
-                                        </ng-container>
-                                    </mat-select>
-                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.city.errors?.required">
-                                        Please select an option.
-                                        </mat-error>
-                                </mat-form-field>
-
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Pincode</mat-label>
-                                    <input type="text" formControlName="pincode" matInput
-                                        maxlength="6" minlength="6" (keypress)="numberOnly($event)" required/>
-                                        <mat-error class="reg-error" *ngIf="signUpForm.controls.pincode.errors?.required">
-                                            This field is required.
-                                            </mat-error>
-                                    <mat-error class="reg-error"
-                                        *ngIf="signUpForm.controls.pincode.errors?.minlength">
-                                        Pincode should be 6 digits.
-                                    </mat-error>
-                                </mat-form-field>
-                                <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Plan Name</mat-label>
-                                    <input type="text" formControlName="planid" matInput [ngClass]="{'disable':true}" [readonly]="true"/>
-                                </mat-form-field>
-                            </div>
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-
-
-                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
-                                    <mat-label>Industry Type</mat-label>
-                                    <mat-select formControlName="IndustryType" required>
-                                        <ng-container>
-                                            <div *ngFor="let b of industryTypeList">
-                                                <mat-option [value]="b.id">{{b.industry_type_name}}</mat-option>
-                                            </div>
-                                        </ng-container>
-                                    </mat-select>
-                                    <mat-error class="reg-error" *ngIf="signUpForm.controls.IndustryType.hasError('required')">
-                                        Please select an option.
-                                    </mat-error>
-                                </mat-form-field>
-                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline" *ngIf="hide">
-                                    <mat-label>Enter Industry type</mat-label>
-                                    <input type="text" formControlName="others" matInput required (keypress)="alphabetKeyPress($event)"
-                                    maxlength="50"/>
-                                        <mat-error class="reg-error" *ngIf="signUpForm.controls.others.errors?.required">
-                                            This field is required.
-                                            </mat-error>
-                                </mat-form-field>
-                            </div>
-                            <section style="padding-left:7px" fxlayout="row">
-                         <mat-checkbox class="example-margin"  formControlName="isChecked" (change)="change()" [(ngModel)]="checked"></mat-checkbox>
-                         <span style="font-size: 16px;">
-                            I agree to <a [routerLink]=""(click)="agree()">    Terms & Conditions</a>
-                        </span>
-
-                              </section>
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Country</mat-label>
+                                <mat-select formControlName="country" required>
+                                    <ng-container>
+                                        <div *ngFor="let b of countryDetails">
+                                            <mat-option [value]="b.id">{{ b.country }}</mat-option>
+                                        </div>
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="reg-error" *ngIf="signUpForm.controls.country.errors?.required">
+                                    Please select an option.
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>State</mat-label>
+                                <mat-select formControlName="state" required>
+                                    <ng-container>
+                                        <div *ngFor="let b of stateDetails">
+                                            <mat-option [value]="b.id">{{ b.state }}</mat-option>
+                                        </div>
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="reg-error" *ngIf="signUpForm.controls.state.errors?.required">
+                                    Please select an option.
+                                </mat-error>
+                            </mat-form-field>
                         </div>
-                        <br>
-                        <div fxLayoutAlign="center">
-                            <button class="btn btn-primary mr-2 mb-2" [disabled]="isdisable" (click)="submit()" type="submit" matStepperNext>
-                                <span>Sign up</span>
-                            </button>
-                            <!-- <button class="btn btn-danger mr-2 mb-2" (click)="clear()" type="submit">
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+
+
+
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>City</mat-label>
+                                <mat-select formControlName="city" required>
+                                    <ng-container>
+                                        <div *ngFor="let b of cityDetails">
+                                            <mat-option [value]="b.id">{{ b.location }}</mat-option>
+                                        </div>
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="reg-error" *ngIf="signUpForm.controls.city.errors?.required">
+                                    Please select an option.
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Pincode</mat-label>
+                                <input type="text" formControlName="pincode" matInput maxlength="6" minlength="6"
+                                    (keypress)="numberOnly($event)" required />
+                                <mat-error class="reg-error" *ngIf="signUpForm.controls.pincode.errors?.required">
+                                    This field is required.
+                                </mat-error>
+                                <mat-error class="reg-error" *ngIf="signUpForm.controls.pincode.errors?.minlength">
+                                    Pincode should be 6 digits.
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
+                                <mat-label>Plan Name</mat-label>
+                                <input type="text" formControlName="planid" matInput [ngClass]="{'disable':true}"
+                                    [readonly]="true" />
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+
+
+                            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                <mat-label>Industry Type</mat-label>
+                                <mat-select formControlName="IndustryType" required>
+                                    <ng-container>
+                                        <div *ngFor="let b of industryTypeList">
+                                            <mat-option [value]="b.id">{{b.industry_type_name}}</mat-option>
+                                        </div>
+                                    </ng-container>
+                                </mat-select>
+                                <mat-error class="reg-error"
+                                    *ngIf="signUpForm.controls.IndustryType.hasError('required')">
+                                    Please select an option.
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline"
+                                *ngIf="hide">
+                                <mat-label>Enter Industry type</mat-label>
+                                <input type="text" formControlName="others" matInput required
+                                    (keypress)="alphabetKeyPress($event)" maxlength="50" />
+                                <mat-error class="reg-error" *ngIf="signUpForm.controls.others.errors?.required">
+                                    This field is required.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div style="padding-left:10px" fxLayout="row">
+                            <span> <mat-checkbox formControlName="isChecked" (change)="change()"
+                                    [(ngModel)]="checked"></mat-checkbox>
+                            </span>
+                            <span style="padding-top: 3px;padding-left: 5px;font-size: 16px;"> 
+                            <span> I agree to <a [routerLink]="" (click)="agree()"> Terms & Conditions</a>
+                                    </span>
+                          </span>
+                        </div>
+                    </div>
+                    <br>
+                    <div fxLayoutAlign="center">
+                        <button class="btn btn-primary mr-2 mb-2" [disabled]="isdisable" (click)="submit()"
+                            type="submit" matStepperNext>
+                            <span>Sign up</span>
+                        </button>
+                        <!-- <button class="btn btn-danger mr-2 mb-2" (click)="clear()" type="submit">
                                 <span>Clear</span>
                             </button> -->
-                            <br>
-                        </div>
-                    </form>
+                        <br>
+                    </div>
+                </form>
 
 
 
-                    </mat-step>
-              <!-- payment details -->
-                    <mat-step [stepControl]="PayviewForm"  >
-                        <ng-template  matStepLabel>Payment Details</ng-template>
-                        <form [formGroup]="PayviewForm">
-                            <div fxFlex="100" fxLayout="row" *ngIf="!isVerified">
+            </mat-step>
+            <!-- payment details -->
+            <mat-step [stepControl]="PayviewForm">
+                <ng-template matStepLabel>Payment Details</ng-template>
+                <form [formGroup]="PayviewForm">
+                    <div fxFlex="100" fxLayout="row" *ngIf="!isVerified">
 
-                            <div fxFlex.gt-md="20" fxFlex.lt-lg="5"></div>
+                        <div fxFlex.gt-md="20" fxFlex.lt-lg="5"></div>
 
-                            <div ngStyle.lt-lg="width:100%" fxFlex.gt-md="60" fxLayout="column" fxLayoutAlign="center center">
-                                 <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                        <mat-label>Plan Name</mat-label>
-                                        <input type="text"  formControlName="plan" matInput [ngClass]="{'disable':true}" [readonly]="true" />
-                                    </mat-form-field>
+                        <div ngStyle.lt-lg="width:100%" fxFlex.gt-md="60" fxLayout="column"
+                            fxLayoutAlign="center center">
+                            <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex
+                                class="mx-2 my-2" appearance="outline">
+                                <mat-label>Plan Name</mat-label>
+                                <input type="text" formControlName="plan" matInput [ngClass]="{'disable':true}"
+                                    [readonly]="true" />
+                            </mat-form-field>
 
-                                    <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                        <mat-label>No. of Users</mat-label>
-                                        <input type="text" formControlName="totalusers" matInput [ngClass]="{'disable':true}" [readonly]="true"/>
-                                    </mat-form-field>
-                                    <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                        <mat-label>Valid From</mat-label>
-                                        <input type="text" formControlName="validFrom" matInput [ngClass]="{'disable':true}" [readonly]="true"/>
-                                    </mat-form-field>
-                                    <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                        <mat-label>Valid To</mat-label>
-                                        <input type="text" formControlName="validTo" matInput [ngClass]="{'disable':true}" [readonly]="true"/>
-                                    </mat-form-field>
-                                    <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex class="mx-2 my-2" appearance="outline">
-                                        <mat-label>Cost</mat-label>
-                                        <input type="text" formControlName="cost" matInput [ngClass]="{'disable':true}" [readonly]="true"/>
-                                    </mat-form-field>
-                                    <div fxLayoutAlign="center">
-                                        <button class="btn btn-primary mr-2 mb-2 custom" (click)="paynow()" type="submit" >
-                                            <span>Pay Now</span>
-                                        </button>
-                                        <br>
-                                    </div>
+                            <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex
+                                class="mx-2 my-2" appearance="outline">
+                                <mat-label>No. of Users</mat-label>
+                                <input type="text" formControlName="totalusers" matInput [ngClass]="{'disable':true}"
+                                    [readonly]="true" />
+                            </mat-form-field>
+                            <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex
+                                class="mx-2 my-2" appearance="outline">
+                                <mat-label>Valid From</mat-label>
+                                <input type="text" formControlName="validFrom" matInput [ngClass]="{'disable':true}"
+                                    [readonly]="true" />
+                            </mat-form-field>
+                            <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex
+                                class="mx-2 my-2" appearance="outline">
+                                <mat-label>Valid To</mat-label>
+                                <input type="text" formControlName="validTo" matInput [ngClass]="{'disable':true}"
+                                    [readonly]="true" />
+                            </mat-form-field>
+                            <mat-form-field ngStyle.gt-md="width:60%" ngStyle.lt-md="width:100%" fxFlex.xs="100" fxFlex
+                                class="mx-2 my-2" appearance="outline">
+                                <mat-label>Cost</mat-label>
+                                <input type="text" formControlName="cost" matInput [ngClass]="{'disable':true}"
+                                    [readonly]="true" />
+                            </mat-form-field>
+                            <div fxLayoutAlign="center">
+                                <button class="btn btn-primary mr-2 mb-2 custom" (click)="paynow()" type="submit">
+                                    <span>Pay Now</span>
+                                </button>
+                                <br>
                             </div>
-
-                            <div fxFlex.gt-md="20" fxFlex.lt-lg="5"></div>
                         </div>
-                       </form>
+
+                        <div fxFlex.gt-md="20" fxFlex.lt-lg="5"></div>
+                    </div>
+                </form>
 
 
 
-                    </mat-step>
+            </mat-step>
 
-                    <!-- final details -->
+            <!-- final details -->
 
-                    <!-- <mat-step [completed]="step3Complete" disabled >
+            <!-- <mat-step [completed]="step3Complete" disabled >
                         <ng-template  matStepLabel>Finish</ng-template>
                         <form [formGroup]="PayForm"></form>
                          <div style="text-align: center;">
@@ -294,29 +313,32 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                        </mat-step> -->
 
 
-                </mat-horizontal-stepper>
+        </mat-horizontal-stepper>
 
- </div>
+    </div>
 
- <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!flag && !isVerified" style="height: 100%;">
-    <span>
-        <h2 class="text-dark-50 text-center mt-0 fw-bold" style="color: #000c18">Selected URL is expired </h2>
+    <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!flag && !isVerified" style="height: 100%;">
+        <span>
+            <h2 class="text-dark-50 text-center mt-0 fw-bold" style="color: #000c18">Selected URL is expired </h2>
+            <div fxLayoutAlign="center center">
+                <a [routerLink]="" (click)="validateemail()" class="style"> Please Register Again</a>
+            </div>
+        </span>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="center center" *ngIf="flag && isVerified" style="height: 100%;">
+        <span fxLayout="column" fxLayoutAlign="center center">
+            <span class="style-2 text-dark-50 text-center mt-0 fw-bold">You have successfully completed the payment
+                process.</span>&nbsp;
+            <span class="style-2 text-dark-50 text-center mt-0 fw-bold"> We are delighted to have you onboard as a
+                Spryple subscriber.</span>&nbsp;
+            <span class="style-2 text-dark-50 text-center mt-0 fw-bold">Please verify your email for Invoice
+                details.</span>
+        </span>
+        <br>
         <div fxLayoutAlign="center center">
-            <a [routerLink]=""(click)="validateemail()" class="style"> Please Register Again</a>
-          </div>
-    </span>
-</div>
-
-<div fxLayout="column" fxLayoutAlign="center center" *ngIf="flag && isVerified" style="height: 100%;">
-    <span fxLayout="column" fxLayoutAlign="center center">
-        <span class="style-2 text-dark-50 text-center mt-0 fw-bold">You have successfully completed the payment process.</span>&nbsp;
-        <span class="style-2 text-dark-50 text-center mt-0 fw-bold"> We are delighted to have you onboard as a Spryple subscriber.</span>&nbsp;
-        <span class="style-2 text-dark-50 text-center mt-0 fw-bold">Please verify your email for Invoice details.</span>
-    </span>
-    <br>
-    <div fxLayoutAlign="center center">
-        <span><a href="https://spryple.com/" class="style" >www.spryple.com</a></span>
-      </div>
-</div>
+            <span><a href="https://spryple.com/" class="style">www.spryple.com</a></span>
+        </div>
+    </div>
 
 </div>
