@@ -11,7 +11,7 @@
 
         <form [formGroup]="shiftForm" autocomplete="off" *ngIf="isAdd">
             <div class="tableP">
-                <div fxLayout="row" fxLayoutAlign.xs="center center">
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
                     <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                         <mat-label>Shift Name <span style="color: red">*</span></mat-label>
                         <input formControlName="shift" matInput maxlength="64" placeholder="Shift Name" />

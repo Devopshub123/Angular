@@ -17,7 +17,7 @@
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"> Reminder to complete
           incomplete sections in an employee onboarding checklist will be notified to employees in the inbox
         </div>
-        <br>
+        <div style="margin: 10px 0 10px 0;"></div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
           <span class="text">Probation Period </span>
           <mat-slide-toggle formControlName="PROBATION_PERIOD" (change)="toglechange('PROBATION_PERIOD',$event)"
@@ -27,9 +27,9 @@
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2">Onboarding tasks can be
           set around the probation period of the company
         </div>
-        <br *ngIf="onboardingForm.controls.PROBATION_PERIOD.value">
+        <br style="margin: 10px 0 10px 0;" *ngIf="onboardingForm.controls.PROBATION_PERIOD.value">
 
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center"
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center start"
              *ngIf="onboardingForm.controls.PROBATION_PERIOD.value">
           <mat-label style="margin-top: 25px;margin-right: 25px;"><span class="text">Probation Period (In Months)</span>
           </mat-label>
@@ -45,7 +45,7 @@
           <!--<mat-label style="margin-top: 25px;">in Days</mat-label>-->
         </div>
 
-        <br>
+        <div style="margin: 10px 0 10px 0;"></div>
         <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
           <span class="text">Customized Email Notifications</span>
           <mat-slide-toggle formControlName="CUSTOMISED_EMAIL_NOTIFICATIONS"
@@ -55,7 +55,7 @@
         <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"> customized email
           notifications is to create the subject and body of thr email
         </div> -->
-        <br>
+        <div style="margin: 10px 0 10px 0;"></div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"
              *ngIf="onboardingForm.controls.CUSTOMISED_EMAIL_NOTIFICATIONS.value">
           <mat-checkbox class="example-margin" formControlName="ACTIVATION_EMAIL"
@@ -107,7 +107,7 @@
                 type="submit" tabIndex="4">
           <span>Submit</span>
         </button>
-        <br/>
+        <div style="margin: 10px 0 10px 0;"></div>
       </div>
     </mat-card>
   </form>

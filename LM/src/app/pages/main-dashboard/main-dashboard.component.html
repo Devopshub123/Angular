@@ -72,7 +72,7 @@
           style="padding-right: 17px;padding-top: 2%">
           <!-- first column -->
           <div fxLayout="column" fxLayout.xs="column" fxLayoutGap="10px" fxFlex="50">
-            <mat-card fxLayout="row" fxLayout.xs="column" style="background-color: #28acaf; height: 200px"
+            <mat-card fxLayout="row" fxLayout.xs="column" ngClass.gt-sm="desktop" ngClass.lt-md="mobile"
               class="card outline">
               <div fxLayout="column" fxLayoutAlign="center" fxFlex="40">
                 <!-- <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
@@ -95,8 +95,8 @@
 
               </div>
 
-              <div fxLayout="column" fxLayoutAlign="space-around" fxFlex="60" fxFlex.xs="50"
-                style="overflow: auto">
+              <div fxLayout="column" fxLayoutAlign="space-around" fxFlex="60" fxFlex.xs="100"
+                style="overflow: auto" ngStyle.lt-md="padding-left: 5px;">
                 <div fxLayout="column">
                   <span class="heading">{{ employeeNameh }}</span>
                   <span class="heading1">{{ employeeCode }}</span>
@@ -104,15 +104,16 @@
                     employeeJoinDate | date: "dd-MM-YYYY"
                     }}</span>
                   <span class="heading1">{{ employeeDesignation }}</span>
-                  <div style="margin-top:5% ;" fxLayout="row" fxLayout.xs="column" >
-                    <span class="heading2">Reporting: </span> &nbsp;
-                    <span class="heading2">{{ empReportingManager }}</span>
+                  <div ngStyle.gt-md="margin-top:5% ;" fxLayout="row" ngStyle.lt-md="margin-top:2% ;" fxLayout.xs="column" >
+                    <span class="heading2">Reporting: </span>
+                    <span class="heading2" ngStyle.gt-md="padding-left: 5px;">{{ empReportingManager }}</span>
                   </div>
                 </div>
                 <!-- <div fxLayout="column">
 
               </div> -->
               </div>
+
             </mat-card>
 
             <mat-card class="card outline" fxLayout="column" fxFlex>

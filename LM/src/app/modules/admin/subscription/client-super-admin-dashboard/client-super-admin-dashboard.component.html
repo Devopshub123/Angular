@@ -100,9 +100,10 @@
                     placeholder="" (click)="attendanceWiseDate.open()" formControlName="attendanceWiseDate" />
                   <mat-datepicker-toggle class="datepicker" matSuffix [for]="attendanceWiseDate">
                   </mat-datepicker-toggle>
-                  <mat-datepicker #attendanceWiseDate
+                  <mat-datepicker #attendanceWiseDate></mat-datepicker>
+                  <!-- <mat-datepicker #attendanceWiseDate
                   startView="multi-year"
-                         (monthSelected)="attendanceMonthAndYear($event, attendanceWiseDate)"></mat-datepicker>
+                         (monthSelected)="attendanceMonthAndYear($event, attendanceWiseDate)"></mat-datepicker> -->
                 </mat-form-field>
               </span>
               <div fxLayoutAlign="center">
@@ -127,6 +128,7 @@
                    placeholder="" (click)="deptWiseleavesDate.open()" formControlName="deptWiseleavesDate" />
                  <mat-datepicker-toggle class="datepicker" matSuffix [for]="deptWiseleavesDate">
                  </mat-datepicker-toggle>
+             
                  <mat-datepicker #deptWiseleavesDate
                  startView="multi-year"
                         (monthSelected)="deptLeaveMonth($event, deptWiseleavesDate)"></mat-datepicker>
@@ -158,9 +160,10 @@
                    placeholder="" (click)="leaveStatusDate.open()" formControlName="leaveStatusDate" />
                  <mat-datepicker-toggle class="datepicker" matSuffix [for]="leaveStatusDate">
                  </mat-datepicker-toggle>
-                 <mat-datepicker #leaveStatusDate
+                 <mat-datepicker #leaveStatusDate></mat-datepicker>
+                 <!-- <mat-datepicker #leaveStatusDate
                  startView="multi-year"
-                        (monthSelected)="leaveMonthAndYear($event, leaveStatusDate)"></mat-datepicker>
+                        (monthSelected)="leaveMonthAndYear($event, leaveStatusDate)"></mat-datepicker> -->
                </mat-form-field>
              </span>
             <div fxLayout="column" fxFlex fxLayoutAlign="center center">

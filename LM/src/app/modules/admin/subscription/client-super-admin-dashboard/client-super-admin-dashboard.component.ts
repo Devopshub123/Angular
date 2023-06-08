@@ -24,7 +24,8 @@ export const MY_FORMATS = {
     dateInput: 'LL',
   },
   display: {
-    dateInput: 'MM-YYYY',
+    // dateInput: 'MM-YYYY',
+    dateInput: 'DD-MM-YYYY',
     monthYearLabel: 'YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'YYYY',
@@ -390,8 +391,8 @@ locByDeptEmpsdoughnutChartData: any;
           xAxes: [{
               display: true,
               ticks: {
-                  suggestedMin: 5, //min
-                  suggestedMax: 300 //max
+                  suggestedMin: 3, //min
+                  suggestedMax: 100 //max
               }
           }]
       }
@@ -467,8 +468,8 @@ locByDeptEmpsdoughnutChartData: any;
 
   deptLeaveMonth(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.date.value!;
+    //ctrlValue.year(normalizedMonthAndYear.year());
     ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
     this.dashBoardForm.controls.deptWiseleavesDate.setValue(ctrlValue);
     datepicker.close();
   }

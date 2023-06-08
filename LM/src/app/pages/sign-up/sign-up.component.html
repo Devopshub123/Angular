@@ -33,7 +33,7 @@ style="height: 100%;padding: 10px ; padding-left: 10%;padding-right: 10%;overflo
                                 <mat-select formControlName="companySize" required>
                                     <ng-container>
                                         <div *ngFor="let b of companySizeList">
-                                            <mat-option [value]="b.id" (onSelectionChange)="onChange(b)" >{{b.value}}</mat-option>
+                                            <mat-option [value]="b.id" (click)="onChange(b)" >{{b.value}}</mat-option>
                                         </div>
                                     </ng-container>
                                 </mat-select>

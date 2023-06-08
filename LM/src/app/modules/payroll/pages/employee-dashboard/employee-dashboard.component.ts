@@ -73,7 +73,6 @@ export class EmployeeDashboardComponent implements OnInit {
    /** getFinancialYears Data*/
    getFinancialYears(){
     this.PR.getFinancialYears().subscribe((result:any)=>{
-     console.log("result",result)
       if(result.status && result.data.length>0){
         this.financeyears = result.data;
       }

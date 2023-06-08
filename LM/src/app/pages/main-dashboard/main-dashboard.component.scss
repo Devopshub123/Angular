@@ -87,6 +87,7 @@ mat-card {
   padding-left: 1%;
   padding-right: 0px;
   padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .card {
@@ -585,4 +586,12 @@ th{
 100% {
   opacity: 0;
 }
+}
+.desktop{
+  background-color: #28acaf;
+   height: 200px
+}
+.mobile{
+  background-color: #28acaf;
+  height: 350px
 }

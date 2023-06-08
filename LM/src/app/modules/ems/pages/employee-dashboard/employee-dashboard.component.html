@@ -4,7 +4,7 @@
   <div fxLayout="row" fxFlex="100"  fxLayout.xs="column" fxLayoutGap="10px">
 
             <!-- attendance card -->
-            <mat-card *ngIf="isAttendanceModule" fxFlex="50" class="card outline">
+            <mat-card *ngIf="isAttendanceModule" fxFlex="50" fxFlex.xs="70" class="card outline">
               <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutAlign="space-between center" fxLayoutAlign.lt-lg="start">
                 <span class="title">
                   <span>Attendance</span>
@@ -67,6 +67,7 @@
                         </div>
                        <span class="subheading" ngStyle.lt-lg="padding-left:5px">Absent</span>
                       </div>
+                      
                       <!-- self attendance detailed list -->
                       <mat-menu #menu="matMenu">
                         <span *ngIf="selfwfo">
@@ -109,7 +110,7 @@
                       <div style="font-size: 16px;font-weight: 500;padding-right: 2%;">
                         Total Employees: <span>{{totalEmpCount}}</span></div>
                     </div>
-                      <div fxLayout="row" fxLayoutAlign="space-around center">
+                      <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center">
                         <div fxLayout="column" fxLayoutAlign="center center">
                           <div fxLayoutAlign="center center" class="center">
                             <!-- <button mat-icon-button (click)="teamOffice()" [matMenuTriggerFor]="menu">

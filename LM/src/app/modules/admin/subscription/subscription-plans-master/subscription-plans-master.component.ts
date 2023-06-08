@@ -54,26 +54,23 @@ export class SubscriptionPlansMasterComponent implements OnInit {
   planid:any=null;
 
   selectedModules: any = [];
-  arrayValue:any=[{"id":"Active","name":"Active"},{"id":"Inactive","name":"Inactive"}];
   modulesList:any=[];
   ischecked:boolean=false;
   constructor(private formBuilder: FormBuilder, private router: Router, public dialog: MatDialog,
     private adminService: AdminService, private ES: EmsService, private LM: CompanySettingService) {
    }
-   seperationsList: any = [];
   editflag: boolean = true;
   pageLoading = true;
   ngOnInit(): void {
     this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
     /** */
-    this.getSpryplePlans();
-    this.getmodules();
     this.subscriptionForm=this.formBuilder.group(
       {
       planName:["",[Validators.required]],
       modules:[ "",[Validators.required]],
       });
-
+      this.getSpryplePlans();
+      this.getmodules();
   }
   addNew() {
     this.isData = true;
@@ -220,22 +217,21 @@ export class SubscriptionPlansMasterComponent implements OnInit {
       }
     }
   }
-  getmodules(){
+  getmodules() {
+    this.modulesList = [];
     this.adminService.getAllModules().subscribe((result:any)=>{
       if(result.status&& result.data.length>0){
         for(let i=0;i<result.data.length;i++){
           this.modulesList.push({"id":result.data[i].id,"modulename":result.data[i].modulename});
          }
       }
-
-
-    })
+     })
   }
   openedSearch(e:any) {
     this.searchTextboxControl.patchValue('');
   }
-  compareFn(option1:any,option2:any){
-    return option1.empid === option2.empid;
+  compareFn(option1: any, option2: any) {
+    return option1.id === option2.id;
   }
   stopLeadingZero(event:any) {
     const input = event.target.value;

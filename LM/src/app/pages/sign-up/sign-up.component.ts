@@ -174,16 +174,16 @@ export class SignUpComponent implements OnInit {
         this.stateDetails = data.data;
       })
     })
-    this.signUpForm.get('companySize')?.valueChanges.subscribe((selectedValue: any) => {
-      if(selectedValue>201){
-        let dialogRef = this.dialog.open(SignupMoreusersDialogComponent, {
-          position: { top: `70px` },
-          disableClose: true,
+    // this.signUpForm.get('companySize')?.valueChanges.subscribe((selectedValue: any) => {
+    //   if(selectedValue>201){
+    //     let dialogRef = this.dialog.open(SignupMoreusersDialogComponent, {
+    //       position: { top: `70px` },
+    //       disableClose: true,
          
-        });
-        this.isdisable = true;
-      }
-    })
+    //     });
+    //     this.isdisable = true;
+    //   }
+    // })
 
   this.signUpForm.get('state')?.valueChanges.subscribe((selectedValue: any) => {
     this.signUpForm.controls.city.setValue("");
@@ -232,15 +232,12 @@ export class SignUpComponent implements OnInit {
   }
 
   onChange(value: any) {
-    this.minimumUsers = 0;
+    this.minimumUsers = '0';
     this.minimumUsers = value.minvalue;
-    console.log("p-1",this.minimumUsers)
+    this.signUpForm.controls.totalUsers.setValue('');
   }
   minChange() {
-    console.log("v-1",this.signUpForm.controls.totalUsers.value)
-    console.log("v-2",this.minimumUsers)
     let cmpSize = this.signUpForm.controls.companySize.value;
-    console.log("v-3",cmpSize)
       if (this.signUpForm.controls.totalUsers.value > cmpSize) {
       let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position: { top: `70px` },

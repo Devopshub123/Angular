@@ -320,7 +320,7 @@ export class UserLeaveRequestComponent implements OnInit {
           let dialogRef = this.dialog.open(ReusableDialogComponent, {
             position: { top: `70px` },
             disableClose: true,
-            data: "Unable to request. please configure the shift before request"
+            data: "Please configure the shift before requesting. Unable to request."
           });
         }
 
