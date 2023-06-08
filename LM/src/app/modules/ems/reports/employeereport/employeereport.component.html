@@ -4,8 +4,7 @@
         <mat-card-header class="headerbox">
              <mat-card-title class="title"> Employee Reports </mat-card-title>
             </mat-card-header>
-        
-        <div *ngIf="ishide" class="div-pad">
+        <div *ngIf="ishide" class="div-pad" fxLayout="column">
             
             <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center" style="height: 70px;">
               <span  style="padding-top: 1%;" fxFlex="50">
@@ -335,12 +334,7 @@
                 <button class="col-md-2  btn btn-danger" (click)="clear()" >Close</button>
             </div>
         </div>
-        
-        
-        
-        
      
-       
       </mat-card>
     </form>
 </div>

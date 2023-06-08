@@ -35,7 +35,7 @@
             </div>
           <div fxLayout="column" *ngIf="isdata">
             <div fxLayout="row" fxLayoutAlign.xs="center" class="dev-Pad" fxLayoutAlign="end">
-                <span style="height: 70px;" fxFlex="50" fxLayoutAlign="end">
+                <span style="height: 70px;" fxFlex="50" fxFlex.xs="100" fxLayoutAlign="end">
                   <mat-form-field fxFlex.xs="100" fxFlex="56" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
                     <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
                     <mat-label>Search</mat-label>
@@ -70,7 +70,7 @@
                             <th mat-header-cell *matHeaderCellDef style="padding-left: 60px">
                                 Status
                             </th>
-                            <td mat-cell *matCellDef="let row">
+                            <td mat-cell *matCellDef="let row" style="white-space: nowrap;">
                                 <mat-radio-group>
                                     <mat-radio-button class="mr-2" color="primary"
                                         *ngFor="let list of statusList; index as i"

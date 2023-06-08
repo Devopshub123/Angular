@@ -31,7 +31,6 @@ export class LeaveHistoryComponent implements OnInit {
     this.getHandledLeaves()
   }
   leaveReview(row: any) {
-    console.log("da-",row)
    row.url = "/LeaveManagement/LeaveHistory"
     this.router.navigate(["/LeaveManagement/ReviewAndApprovals"], { state: { leaveData: row, isleave: true, isleaveHistory: 'leave' } });
 
