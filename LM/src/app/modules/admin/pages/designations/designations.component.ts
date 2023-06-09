@@ -105,6 +105,24 @@ export class DesignationsComponent implements OnInit {
       }
     }
   }
+  validateupdatedesignation(id:any,data: any) {
+    if (this.designationData.length == 0) {
+      this.valid = true;
+    }
+    else {
+      if (this.designationData.length > 0) {
+        for (let i = 0; i < this.designationData.length; i++) {
+          if (id !=this.designationData[i].id && data.replace(/\s{1,}/g, '').trim().toLowerCase() === this.designationData[i].designation.replace(/\s{1,}/g, '').trim().toLowerCase()) {
+            this.valid = false;
+            break;
+          }
+          else {
+            this.valid = true;
+          }
+        }
+      }
+    }
+ }
   setdesignations() {
     if (this.designationForm.valid) {
       this.validatedesignation(this.designationForm.controls.designation.value)
@@ -200,7 +218,8 @@ export class DesignationsComponent implements OnInit {
   }
   save(event: any, id: any, desname: any, datas: any) {
     if (this.designationForm.valid) {
-      this.validatedesignation(desname)
+      // this.validatedesignation(desname)
+      this.validateupdatedesignation(id,desname)
       this.enable = null;
       this.isEdit = true;
       this.isSave = false;

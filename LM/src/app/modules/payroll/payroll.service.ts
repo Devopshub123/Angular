@@ -303,4 +303,7 @@ import { environment } from 'src/environments/environment';
     data.companyName = this.companyName;
     return this.http.post(this.mainBeUrl+'api/getSalaryProcessedEmployeeList', JSON.stringify(data), this.httpOptions);
   }
+  getEmployeeEsiDetails(data:any): Observable<any> {
+    return this.http.get(this.mainBeUrl+'api/getEmployeeEsiDetails/'+data+'/'+this.companyName,this.httpOptions);
+  }
 }

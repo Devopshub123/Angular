@@ -107,6 +107,25 @@ export class DeparmentComponent implements OnInit {
     }
 
   }
+  validateupdatedepartments(id:any,data: any) {
+    console.log("gfhdhfghsg")
+    if (this.departmentData.length == 0) {
+      this.valid = true;
+    }
+    else {
+      if (this.departmentData.length > 0) {
+        for (let i = 0; i < this.departmentData.length; i++) {
+          if (id !=this.departmentData[i].id && data.replace(/\s{1,}/g, '').trim().toLowerCase() === this.departmentData[i].deptname.replace(/\s{1,}/g, '').trim().toLowerCase()) {
+            this.valid = false;
+            break;
+          }
+          else {
+            this.valid = true;
+          }
+        }
+      }
+    }
+ }
   setdepartment() {
     this.validatedepartments(this.departmentForm.controls.department.value)
     this.department = this.departmentForm.controls.department.value;
@@ -210,7 +229,8 @@ export class DeparmentComponent implements OnInit {
   save(event: any, id: any, deptname: any, datas: any) {
 
     if (this.departmentForm.valid) {
-      this.validatedepartments(deptname)
+      // this.validatedepartments(deptname)
+      this.validateupdatedepartments(id,deptname)
       this.enable = null;
       this.isEdit = true;
       this.isSave = false;

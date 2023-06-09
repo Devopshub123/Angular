@@ -16,8 +16,11 @@ export class EmployeeDashboardComponent implements OnInit {
   userSession:any;
   dataSource:any=[];
   EPFfulldetails:any=[];
+  ESIfulldetails:any=[];
   deduction:any;
   month:any;
+  deductionesi:any;
+  monthesi:any;
   public chartType: ChartType = 'doughnut';
   public data: ChartData<'doughnut'> = {
     labels: ['one', 'two', 'three'],
@@ -48,6 +51,7 @@ export class EmployeeDashboardComponent implements OnInit {
   arrayValue:any=['January','Febraury','March','April','May','June','July','August','September','October','November','December'];
   ngOnInit(): void {
     this.getEmployeeEpfDetails();
+    this.getEmployeeESIDetails();
     this.Empdashboardform = this.formBuilder.group(
       {
         financial_year:  ["2023-2024"],
@@ -64,6 +68,16 @@ export class EmployeeDashboardComponent implements OnInit {
           if(this.EPFfulldetails[i].month_name == selectedValue){
             this.deduction = this.EPFfulldetails[i].employee_provident_fund;
             this.month = selectedValue;
+            break;
+          }
+        }
+      })
+      this.Empdashboardform.get('ESI')?.valueChanges.subscribe((selectedValue:any) => {
+        // this.getEmployeePayslips(selectedValue);
+        for(let i=0;i<this.ESIfulldetails.length;i++){
+          if(this.ESIfulldetails[i].month_name == selectedValue){
+            this.deductionesi = this.ESIfulldetails[i].esi;
+            this.monthesi = selectedValue;
             break;
           }
         }
@@ -119,7 +133,24 @@ export class EmployeeDashboardComponent implements OnInit {
         })
 
       }
+      
+      getEmployeeESIDetails(){
+        this.PR.getEmployeeEsiDetails(this.userSession.id).subscribe((result:any)=>{
+          this.ESIfulldetails=[];
+          if(result.status){
+            this.ESIfulldetails =result.data;
+            for(let i=0;i<this.ESIfulldetails.length;i++){
+              if(this.ESIfulldetails[i].month_name == this.arrayValue[new Date().getMonth()]){
+                this.deductionesi = this.ESIfulldetails[i].esi;
+                this.monthesi = this.arrayValue[new Date().getMonth()];
+                break;
+              }
+            }
+          }
+         
+        })
 
+      }
       payslipview(data:any){
         this.router.navigate(["/Payroll/PaySlipsView"],{state: {userData:data}}); 
         

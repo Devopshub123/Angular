@@ -107,6 +107,24 @@ export class TerminationCategoryComponent implements OnInit {
       }
     }
   }
+  validateUpdateData(id:any,data: any) {
+    if (this.terminationList.length == 0) {
+      this.valid = true;
+    }
+    else {
+      if (this.terminationList.length > 0) {
+        for (let i = 0; i < this.terminationList.length; i++) {
+          if (id !=this.terminationList[i].id && data.replace(/\s{1,}/g, '').trim().toLowerCase() === this.terminationList[i].category.replace(/\s{1,}/g, '').trim().toLowerCase()) {
+            this.valid = false;
+            break;
+          }
+          else {
+            this.valid = true;
+          }
+        }
+      }
+    }
+ }
   save() {
     if (this.terminationCategoryForm.valid) {
       this.validateData(this.terminationCategoryForm.controls.terminationCategory.value)
@@ -152,7 +170,8 @@ export class TerminationCategoryComponent implements OnInit {
 //////////
 update(name: any,value:any) {
   if (this.terminationCategoryForm.valid) {
-    this.validateData(name)
+    // this.validateData(name)
+    this.validateUpdateData(value.id,name)
     this.terminationName = name;
     let data = {
       termination_id:value.id,

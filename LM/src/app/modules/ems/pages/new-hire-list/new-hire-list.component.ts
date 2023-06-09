@@ -163,6 +163,7 @@ export class NewHireListComponent implements OnInit {
         status:3,
         actionby: this.userSession.id,
         loginToken: this.loginToken,
+        hremail:this.userSession.officeemail
        };
      
       this.emsService.saveNewHireData(data).subscribe((res: any) => {
