@@ -20,9 +20,9 @@
                 </mat-form-field>
 
             </div> -->
-            <div fxLayout="row wrap" fxLayoutAlign.xs="center center">
+            <div fxLayout="row" fxLayout.lt-lg="row wrap" fxFlex.xs="column" fxLayoutAlign.xs="center center">
 
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>Shift</mat-label>
                     <mat-select formControlName="shift"  required>
                         <ng-container *ngFor="let v of shiftDataList">
@@ -35,9 +35,7 @@
                     </mat-error>
                 </mat-form-field>
 
-
-
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+                <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                     <mat-label>From Date</mat-label>
                     <input matInput readonly [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate"
                         (dateInput)="fromDateChange('input', $event)" placeholder="DD-MM-YYYY"
@@ -48,7 +46,8 @@
                         {{requiredOption}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+
+                <mat-form-field fxFlex fxFlex.xs="100" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                     <mat-label>To Date</mat-label>
                     <input matInput readonly [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate" placeholder="DD-MM-YYYY"
                         (dateInput)="toDateChange('input', $event)" formControlName="toDate" (click)="toDate.open()">

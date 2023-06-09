@@ -107,7 +107,8 @@
 
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" fxLayoutAlign="end" style="height: 70px;padding-top: 1%;">
-          <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline" style="padding-right: 16px;">
+          <mat-form-field fxFlex.xs="100" fxFlex="28" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline"
+          ngStyle.lt-lg="padding-right:9px" ngStyle.gt-md="padding-right: 16px;">
           <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
           <mat-label>Search</mat-label>
           <input (keyup)="applyFilter($event)" matInput [tabIndex]="9" maxlength="100">

@@ -73,3 +73,6 @@
   padding-right: 1%;
   background-color: rgb(255, 255, 255);
 }
+::ng-deep.no-break{
+  white-space: nowrap;
+ }

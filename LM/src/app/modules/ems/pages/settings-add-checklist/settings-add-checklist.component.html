@@ -149,7 +149,7 @@
                     </ng-container>
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef></th>
-                        <td mat-cell *matCellDef="let row">
+                        <td mat-cell *matCellDef="let row"   style="white-space: nowrap;">
                             <button mat-icon-button *ngIf="enable != row.id" (keyup.enter)="edit($event,row)">
                             <mat-icon (click)="edit($event,row)"  title="Edit">edit</mat-icon>
                           </button>

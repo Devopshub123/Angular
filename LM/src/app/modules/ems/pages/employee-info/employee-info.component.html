@@ -176,6 +176,7 @@
                                     Please enter 12 digit valid number
                                 </mat-error>
                             </mat-form-field>
+
                             <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Personal Email</mat-label>
                                 <input type="text" formControlName="personalemail" matInput placeholder=""
@@ -193,7 +194,7 @@
                                 <input type="text" formControlName="spokenLanguages" matInput
                                     maxlength="100" (keypress)="alphabetKeyPress($event)"/>
                             </mat-form-field>
-                            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Mobile Number</mat-label>
                                 <input type="text" formControlName="mobileNo" matInput placeholder="" maxlength="10"
                                     minlength="10" (keypress)="_keyPress($event)" required />
@@ -210,7 +211,7 @@
                                 </mat-error>
                             </mat-form-field>
 
-                            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Emergency Contact Number</mat-label>
                                 <input type="text" onlyNumber formControlName="alternateMobileNo" matInput
                                     placeholder="" maxlength="10" minlength="10" (keypress)="numberOnly($event)"
@@ -237,7 +238,7 @@
                         <div class="section"><b>Work Information</b></div>
                         <mat-divider></mat-divider>
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" style="padding-top: 1%">
-                            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Joining Date</mat-label>
                                 <input required matInput readonly [matDatepicker]="joinDate" [min]="minJoinDate"
                                     [max]="maxDate" placeholder="DD-MM-YYYY" formControlName="joinDate"
@@ -374,7 +375,7 @@
                                     {{ EM2 }}
                                 </mat-error>
                             </mat-form-field>
-                            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Department</mat-label>
                                 <mat-select required formControlName="department">
                                     <ng-container>
@@ -390,7 +391,7 @@
                                 </mat-error>
                             </mat-form-field>
 
-                            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                            <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Reporting Manager</mat-label>
                                 <mat-select formControlName="reportingmanager" required>
                                     <ng-container *ngFor="let b of availablereportingmanagers">
@@ -409,8 +410,8 @@
                             </mat-form-field>
                         </div>
 
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                            <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                            <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="33" class="mx-2 my-2" appearance="outline">
                                 <mat-label>Notice Period</mat-label>
                                 <input type="text" readonly formControlName="noticePeriod" matInput placeholder="" />
                             </mat-form-field>

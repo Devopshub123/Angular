@@ -19,18 +19,19 @@
                 <button class="btn btn-danger mr-2 mb-2" (click)="resetform()">
                     <span>Clear</span>
                 </button> -->
+                <div fxLayout="row" fxLayoutAlign.xs="center center">
+                    <span ngStyle.gt-md="margin-top: 5%" ngStyle.lt-lg="margin-top: 5%" ngStyle.xs="margin-top: 0px">
+                        <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()" tabIndex="2">
+                            Search
+                        </button>
+                        <span class="line" style="color: #1898d5; font-size: 16px"></span>
+                        <button class="btn btn-danger mr-2 mb-2" (click)="resetform()" tabIndex="3">
+                            <span>Clear</span>
+                        </button>
+                    </span>
+                </div>
             </div>
-            <div fxLayout="row" fxLayoutAlign.lt-lg="center center" fxLayoutAlign.xs="center center">
-                <span ngStyle.gt-md="margin-top: 5%">
-                    <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()" tabIndex="2">
-                        Search
-                    </button>
-                    <span class="line" style="color: #1898d5; font-size: 16px"></span>
-                    <button class="btn btn-danger mr-2 mb-2" (click)="resetform()" tabIndex="3">
-                        <span>Clear</span>
-                    </button>
-                </span>
-            </div>
+           
             <!-- <div fxLayout="row" fxFlex.xs="100%">
                 <span>
                     <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()" >

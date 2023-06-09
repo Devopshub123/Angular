@@ -9,9 +9,9 @@
       </div>
     </mat-card-header>
 
-    <div fxLayout="row" fxLayout.xs="column" class="custom-card">
+    <div fxLayout="row" fxLayout.xs="column" class="custom-card" ngStyle.xs="padding:5px">
       <form [formGroup]="epfRequestForm" autocomplete="off" style="width: 100%">
-        <div>
+        <div fxLayout.xs="column">
           <div fxLayout="column" fxFlex="3" class="custom-payroll-div"></div>
           <div fxLayout="column" fxFlex="45" class="custom-payroll-div">
             <div>
@@ -69,7 +69,7 @@
 
                         </section> -->
               <p>
-                <mat-form-field appearance="outline" style="width: 100%">
+                <mat-form-field appearance="outline" style="width: 100%" fxFlex.xs="100">
                   <mat-label>Effective Date</mat-label>
                   <input matInput [matDatepicker]="picker" [disabled]="enable" formControlName="effective_date"
                     [min]="mindate" (click)="picker.open()" />
@@ -192,7 +192,7 @@
             </span>  -->
         </div>
 
-        <div class="form-group row" *ngIf="!enable">
+        <!-- <div class="form-group row" *ngIf="!enable">
           <div class="col-sm-6 text-right" style="padding: 0px">
             <button class="btn btn-primary mr-2 mb-2" (click)="setEpf()" type="submit">
               <span>Save</span>
@@ -203,7 +203,18 @@
               <span>Cancel</span>
             </button>
           </div>
+        </div> -->
+
+        <div fxLayoutAlign="center" *ngIf="!enable">
+          <button class="btn btn-primary mr-2 mb-2" (click)="setEpf()" type="submit">
+            <span>Save</span>
+          </button>
+         <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
+            <span>Cancel</span>
+          </button>
         </div>
+
+
         <br />
       </form>
     </div>
