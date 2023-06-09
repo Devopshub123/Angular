@@ -112,7 +112,7 @@
                             <mat-form-field appearance="outline" ><input type="text" matInput [readonly]="true"  class="form-control" formControlName="companyPayrollCycle" placeholder="" style="background-color: #e8e8e8;;"></mat-form-field>
                          </p> -->
                          <p><label><b>Payroll Window</b></label></p>
-                         <p fxLayout="row" fxLayoutAlign="space-around center" >
+                         <p fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center" >
                             <mat-form-field appearance="outline" >
                                 <mat-label>From Date</mat-label>
                                 <input formControlName="payrollFromDate" [ngClass]="{'disable':true}"  [readonly]="true"  matInput placeholder="" >
@@ -128,7 +128,7 @@
                          </p>
                          <p *ngIf="payGroupRequestForm.controls.payroll_leavewindow.value"><label><b>Leave Window</b></label></p>
                         <p *ngIf="!payGroupRequestForm.controls.payroll_leavewindow.value"><label>Select Leave Window</label></p>
-                        <p fxLayout="row" fxLayoutAlign="space-around center"  *ngIf="payGroupRequestForm.controls.payroll_leavewindow.value">
+                        <p fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center"  *ngIf="payGroupRequestForm.controls.payroll_leavewindow.value">
                             <mat-form-field appearance="outline" >
                                 <mat-label>From Date</mat-label>
                                 <input formControlName="leaveWindowStartDate" [ngClass]="{'disable':true}"  [readonly]="true"  matInput placeholder="" >
@@ -142,8 +142,8 @@
                             </mat-form-field>
 
                          </p>
-                      <p fxLayout="row"  fxLayoutAlign="space-around center" *ngIf="!payGroupRequestForm.controls.payroll_leavewindow.value" >
-                            <mat-form-field appearance="outline" >
+                         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around" *ngIf="!payGroupRequestForm.controls.payroll_leavewindow.value">
+                            <mat-form-field appearance="outline" fxFlex.xs="100" >
                                 <mat-label>Previous Month</mat-label>
                                 
                                 <mat-select   formControlName="leaveWindowStartDate" [disabled]="payGroupRequestForm.controls.payroll_leavewindow.value === false ? false:true">
@@ -162,7 +162,8 @@
                                 </mat-select>
 
                             </mat-form-field>
-                            <mat-form-field appearance="outline" >
+
+                            <mat-form-field appearance="outline" fxFlex.xs="100">
                                 <mat-label>Present Month</mat-label>
                                 <mat-select   formControlName="leaveWindowEndDate" [disabled]="true">
                                   <mat-option value="19">19</mat-option>   
@@ -182,12 +183,24 @@
                                 </mat-select>
                                 <!-- <input formControlName="leaveWindowEndDate" [readonly]="true" matInput placeholder="" > -->
                             </mat-form-field>
-                         </p>             
+                         </div>
+       
                 </div>
 
                 </div>
             </div>
-            <div class="row tab-lap-desk-show" style="margin-bottom: 51px !important;margin-top: -47px;">
+
+            <div fxLayoutAlign="center">
+                <button class="btn btn-primary mr-2 mb-2" (click)="setPayGroup()" type="submit">
+                  <span>Save</span>
+                </button>
+               <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
+                  <span>Cancel</span>
+                </button>
+              </div>
+
+
+            <!-- <div class="row tab-lap-desk-show" style="margin-bottom: 51px !important;margin-top: -47px;">
                 <div class="col-sm-6 text-right" style="padding:0px">
                 <button  class="btn btn-primary mr-2 mb-2" (click)="setPayGroup()"   type="submit">
                     <span>Save</span>
@@ -210,7 +223,9 @@
                     <span >Cancel</span>
                 </button>
                 </div>
-            </div>
+            </div> -->
+
+
         </form>
       </div>
     </mat-card>

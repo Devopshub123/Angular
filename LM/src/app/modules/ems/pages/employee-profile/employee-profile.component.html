@@ -126,6 +126,7 @@
                                             formControlName="aadharNumber" matInput maxlength="12"
                                             tabindex="8" />
                                     </mat-form-field>
+
                                     <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Personal Email</mat-label>
                                         <input type="text" formControlName="personalemail" matInput tabindex="9" maxlength="50"/>
@@ -138,7 +139,8 @@
                                         <input type="text" formControlName="spokenLanguages" matInput tabindex="10" 
                                         (keypress)="alphabetKeyPress($event)" maxlength="100"/>
                                     </mat-form-field>
-                                    <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+
+                                    <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Mobile Number</mat-label>
                                         <input type="text" onlyNumber formControlName="mobileNo" matInput tabindex="11"
                                             maxlength="10" (keypress)=_keyPress($event) required />
@@ -156,7 +158,7 @@
                                         </mat-error>
                                     </mat-form-field>
 
-                                    <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                    <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                         <mat-label>Emergency Contact Number</mat-label>
                                         <input type="text" onlyNumber formControlName="alternateMobileNo" matInput
                                         tabindex="12" maxlength="10" minlength="10" (keypress)=_keyPress($event)
@@ -853,13 +855,13 @@
                             </div>
 
                             <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
-                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>IFSC Code</mat-label>
                                     <input type="text" readonly maxlength="15" (keypress)="alphaNumberOnly($event)"
                                         formControlName="ifscCode" matInput placeholder="" />
                                 </mat-form-field>
 
-                                <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
+                                <mat-form-field fxFlex.xs="100" fxFlex="50" class="mx-2 my-2" appearance="outline">
                                     <mat-label>Branch Name</mat-label>
                                     <input type="text" readonly (keypress)="alphabetKeyPress($event)"
                                         formControlName="branchName" matInput placeholder="" />
@@ -872,7 +874,7 @@
                                 </mat-form-field>
                             </div>
 
-                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+                            <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center">
                                 <mat-form-field fxFlex.xs="100" fxFlex="32" class="mx-2 my-2" appearance="outline">
                                     <mat-label>PAN Number</mat-label>
                                     <input type="text" readonly maxlength="15" (keypress)="alphaNumberOnly($event)"

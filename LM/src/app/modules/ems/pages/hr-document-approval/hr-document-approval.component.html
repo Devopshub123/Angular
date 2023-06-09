@@ -58,12 +58,12 @@
                 </div>
             </div>
             <div *ngIf="isview" class="div-pad">
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
-                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                    <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
                         <mat-label>Employee Name</mat-label>
                         <input formControlName="empname" matInput placeholder="" readonly [tabIndex]="[1]"/>
                     </mat-form-field>
-                    <mat-form-field fxFlex.xs="100" fxFlex="30" class="mx-2 my-2" appearance="outline">
+                    <mat-form-field fxFlex.xs="100" fxFlex="32" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
                         <mat-label>Employee Id</mat-label>
                         <input formControlName="empid" matInput placeholder="" readonly [tabIndex]="[2]"/>
                     </mat-form-field>

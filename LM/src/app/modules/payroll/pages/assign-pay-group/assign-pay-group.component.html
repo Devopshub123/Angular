@@ -10,7 +10,7 @@
                 <div fxLayout="column" fxFlex="auto" class="custom-payroll-div">
                   <form [formGroup]="Assignpaygroupform" autocomplete="off"> 
                     <div class="form-row" fxLayout.lt-lg="column" style="padding-left: 1%;">
-                      <div fxLayout="row">
+                      <div fxLayout="row" fxLayout.xs="column">
                         <mat-form-field fxFlex.xs="100" fxFlex  class="mx-2 my-2" appearance="outline" >
                           <mat-label>Emp Name</mat-label>
                           <mat-select  formControlName="empName" required [tabIndex]="1">

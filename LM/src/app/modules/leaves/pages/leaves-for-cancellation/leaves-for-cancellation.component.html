@@ -19,20 +19,20 @@
 
         <!-- ID Column -->
         <ng-container matColumnDef="appliedOn">
-          <th mat-header-cell *matHeaderCellDef> Applied On</th>
+          <th mat-header-cell *matHeaderCellDef class="no-break"> Applied On</th>
           <td mat-cell *matCellDef="let row">{{row.updatedon  | date:'dd-MM-yyyy'}} </td>
         </ng-container>
         <ng-container matColumnDef="empId">
-          <th mat-header-cell *matHeaderCellDef > Emp Id </th>
+          <th mat-header-cell *matHeaderCellDef class="no-break"> Emp Id </th>
           <td mat-cell *matCellDef="let row"> {{row.employee_id}}</td>
         </ng-container>
         <ng-container matColumnDef="empName">
-          <th mat-header-cell *matHeaderCellDef > Emp Name </th>
+          <th mat-header-cell *matHeaderCellDef   class="no-break"> Emp Name </th>
           <td mat-cell *matCellDef="let row"> {{row.emp_name}}</td>
         </ng-container>
         <!-- Progress Column  empid-->
         <ng-container matColumnDef="leaveType">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Leave Type</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header   class="no-break"> Leave Type</th>
           <td mat-cell *matCellDef="let row" > {{row.display_name}}</td>
         </ng-container>
         <ng-container matColumnDef="fromDate">
@@ -45,13 +45,13 @@
         </ng-container>
         <!-- Name Column -->
         <ng-container matColumnDef="noOfDays">
-          <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Days </th>
+          <th mat-header-cell *matHeaderCellDef > Days </th>
           <td mat-cell *matCellDef="let row"  > {{row.leavecount}} </td>
         </ng-container>
 
         <!-- Color Column -->
         <ng-container matColumnDef="pendingSince">
-          <th mat-header-cell *matHeaderCellDef  style="white-space: nowrap;"> Pending Since </th>
+          <th mat-header-cell *matHeaderCellDef    class="no-break"> Pending Since </th>
           <td mat-cell *matCellDef="let row" style="text-align: center;" > {{row.pendingSince}} </td>
         </ng-container>
         <!-- Color Column -->
