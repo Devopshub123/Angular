@@ -243,7 +243,7 @@ export class AnnouncementsComponent implements OnInit {
 
        }
        this.ES.setAnnouncements(data).subscribe((res:any)=>{
-        if(this.isedit){
+        if(this.iseditingdata){
           if(res.status ){
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
               this.router.navigate(["/Admin/announcement"]));

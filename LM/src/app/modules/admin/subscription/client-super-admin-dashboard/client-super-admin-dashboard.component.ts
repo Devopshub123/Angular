@@ -63,6 +63,7 @@ export class ClientSuperAdminDashboardComponent implements OnInit {
 deptWiseLeavepieChartType :any;
 deptWiseLeavepieChartData: any;
   deptWiseLeavepieoptions: any;
+  deptWisePayrollMonthListdata:any;
   // shift by dept emps chart
  vbarChartType: any;
   vbarChartData: any;
@@ -510,6 +511,12 @@ locByDeptEmpsdoughnutChartData: any;
             return uniqArr.includes(item) ? uniqArr : [...uniqArr, item]}
             ,[]
             );
+            console.log("deptWisePayrollSumList",this.deptWisePayrollSumList)
+            console.log("deptWisePayrollMonthList",this.deptWisePayrollMonthList)
+            // this.deptWisePayrollMonthList = this.deptWisePayrollNameListdata.reduce((uniqArr:any, item:any) => {
+            //   return uniqArr.includes(item) ? uniqArr : [...uniqArr, item]}
+            //   ,[]
+            //   );
          })
       }
       this.deptWisePayrollBarChartType = 'bar';
