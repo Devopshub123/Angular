@@ -26,6 +26,7 @@ export class FinanceDashboardComponent implements OnInit {
 	empcount: any;
 	deductions: any;
 	EPF: any;
+	ESI:any;
 	pftax: any;
 	departments:any=[];
 	departmentsdata:any=[];
@@ -104,6 +105,7 @@ export class FinanceDashboardComponent implements OnInit {
 		 this.deductions = '';
 		 this.pftax = '';
 		 this.EPF = '';
+		 this.ESI = '';
 		let data ={
 			month:this.Selmonth,
 			year:this.Selyear,
@@ -112,7 +114,7 @@ export class FinanceDashboardComponent implements OnInit {
 
 	
 	this.PR.getMonthlyPayrollData(data).subscribe((result:any)=>{
-		
+		console.log("df",result.data)
 		if(result.status){
 		 this.grosssalary = result.data[0].gross_salary;
 		 this.netSalary = result.data[0].net_salary;
@@ -120,6 +122,7 @@ export class FinanceDashboardComponent implements OnInit {
 		 this.deductions = result.data[0].total_deductions;
 		 this.pftax = result.data[0].professional_tax;
 		 this.EPF = result.data[0].epf;
+		//  this.ESI = result.data[0].esi;
 		}
 	   
 	  })

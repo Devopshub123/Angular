@@ -68,6 +68,7 @@ export class ShiftConfigureComponent implements OnInit {
   workingDays: any = [];
   weekoffs: any=[];
   selectedEmps: any=[];
+  weekofflags:boolean=false;
 
   pageLoading = true;
   messagesDataList: any = [];
@@ -214,7 +215,6 @@ export class ShiftConfigureComponent implements OnInit {
     }
   }
   saveConsultation() {
-
     if (this.requestform.invalid) {
       return;
     } else {
@@ -231,6 +231,7 @@ export class ShiftConfigureComponent implements OnInit {
       "empids": JSON.stringify(this.selectedEmps)
 
     };
+   
     this.attendanceService.setEmployeeConfigureShift(obj).subscribe((res) => {
       if (res.status) {
         let resMessage: any;
@@ -269,6 +270,15 @@ export class ShiftConfigureComponent implements OnInit {
 
     if (event.checked == true) {
       this.weekoffs.push(data.id);
+     if(this.weekoffs.length>=5){
+      let dialogRef = this.dialog.open(ReusableDialogComponent, {
+        position: { top: `70px` },
+        disableClose: true,
+        data: 'Please select atleast one working day.'
+      });
+      
+      
+     }
       this.workingDays.forEach((e:any,index:any) => {
         if (e.id == data.id){
          this.workingDays.splice(index, 1);
