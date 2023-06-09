@@ -11,8 +11,8 @@
                  </div>
          </mat-card-header>
 
-            <div fxLayout="row" fxLayoutAlign.xs="center center" fxLayout.lt-lg="column" class="dev-Pad" *ngIf="isAdd">
-                <div fxLayout="row">
+            <div fxLayout="row" fxLayout.lt-lg="column" class="dev-Pad" *ngIf="isAdd">
+                <div fxLayout="row" fxLayout.xs="column">
                 <mat-form-field fxFlex.xs="100" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
                     <mat-label>Bio-Metric Id</mat-label>
                     <input formControlName="biometricid" required matInput onlyNumber maxlength="3" placeholder="Bio-Metric Id" >
@@ -69,19 +69,19 @@
 
 
                 <ng-container matColumnDef="biometricid" >
-                    <th mat-header-cell *matHeaderCellDef> Biometric Id </th>
+                    <th mat-header-cell *matHeaderCellDef  style="white-space: nowrap;"> Biometric Id </th>
                     <td mat-cell *matCellDef="let row"> {{row.deviceempid}}</td>
                 </ng-container>
 
 
                 <ng-container matColumnDef="empid" >
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee ID </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header  style="white-space: nowrap;"> Employee ID </th>
                     <td mat-cell *matCellDef="let row"> {{row.boonempid}} </td>
                 </ng-container>
 
 
                 <ng-container matColumnDef="empname" >
-                    <th mat-header-cell *matHeaderCellDef> Employee Name </th>
+                    <th mat-header-cell *matHeaderCellDef  style="white-space: nowrap;"> Employee Name </th>
                     <td mat-cell *matCellDef="let row"> {{row.empname}} </td>
                 </ng-container>
 

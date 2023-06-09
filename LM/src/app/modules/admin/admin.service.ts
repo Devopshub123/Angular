@@ -275,4 +275,9 @@ getAttendanceEmployeesCountByDate(data:any){
 getDepartmentWiseMonthlySalaries(data:any){
     return this.http.get(this.mainUrl+'subscription/api/getDepartmentWiseMonthlySalaries/'+data+'/'+this.companyName, this.httpOptions);
   }
+
+/**get Active Modules */
+  getActiveAllModules(){
+    return this.http.get(this.mainUrl+'subscription/api/getActiveModules/', this.httpOptions)
+  }
 }

@@ -789,13 +789,13 @@
                                         </ng-container>
                                         <ng-container matColumnDef="fromDate">
                                             <th mat-header-cell *matHeaderCellDef>From Date</th>
-                                            <td mat-cell *matCellDef="let data">
+                                            <td mat-cell *matCellDef="let data" style="white-space: nowrap;">
                                                 {{ data.fromdate | date:'dd-MM-yyyy'}}
                                             </td>
                                         </ng-container>
                                         <ng-container matColumnDef="toDate">
                                             <th mat-header-cell *matHeaderCellDef>To Date</th>
-                                            <td mat-cell *matCellDef="let data">
+                                            <td mat-cell *matCellDef="let data" style="white-space: nowrap;">
                                                 {{ data.todate | date:'dd-MM-yyyy'}}
                                             </td>
                                         </ng-container>

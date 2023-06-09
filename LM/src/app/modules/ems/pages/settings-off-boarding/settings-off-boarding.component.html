@@ -16,7 +16,7 @@
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2"> Auto reminders are
           sent nudge owners via email for the timely completion of employee clearance form
         </div>
-        <br>
+        <div style="margin: 10px 0 10px 0;"></div>
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
           <span class="text">Notice Period </span>
           <mat-slide-toggle formControlName='NOTICE_PERIOD' (change)="toglechange('NOTICE_PERIOD',$event)"
@@ -25,7 +25,7 @@
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center" class="text2">The suggested exit date
           by the system is dependent on notice period of company
         </div>
-        <br>
+        <br style="margin: 10px 0 10px 0;">
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center"
              *ngIf="offboardingForm.controls.NOTICE_PERIOD.value">

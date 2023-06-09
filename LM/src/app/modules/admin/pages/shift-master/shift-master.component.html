@@ -11,7 +11,7 @@
 
         <form [formGroup]="shiftForm" autocomplete="off" *ngIf="isAdd">
             <div class="tableP">
-                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center center">
+                <div fxLayout="row" fxLayout.xs="column" >
                     <mat-form-field fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
                         <mat-label>Shift Name <span style="color: red">*</span></mat-label>
                         <input formControlName="shift" matInput maxlength="64" placeholder="Shift Name" />
@@ -107,7 +107,7 @@
                 </div>
                 <div fxLayout="column">
                     <mat-label class="mx-2"><b>Overtime Duration</b></mat-label>
-                    <div fxLayout="row">
+                    <div fxLayout="row" fxLayout.xs="column">
                         <mat-label class="mx-4 my-4">Allow minimum number of work hours per day</mat-label>
                         <mat-form-field fxFlex.xs="100%" class="mx-2 my-2" appearance="outline">
                             <mat-label>Over Time <span style="color: red">*</span></mat-label>

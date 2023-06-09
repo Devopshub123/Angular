@@ -70,7 +70,7 @@ export class SubscriptionPlansMasterComponent implements OnInit {
       modules:[ "",[Validators.required]],
       });
       this.getSpryplePlans();
-      this.getmodules();
+      this.getActivemodules();
   }
   addNew() {
     this.isData = true;
@@ -217,10 +217,22 @@ export class SubscriptionPlansMasterComponent implements OnInit {
       }
     }
   }
-  getmodules() {
+
+  // getmodules() {
+  //   this.modulesList = [];
+  //   this.adminService.getAllModules().subscribe((result:any)=>{
+  //     if(result.status&& result.data.length>0){
+  //       for(let i=0;i<result.data.length;i++){
+  //         this.modulesList.push({"id":result.data[i].id,"modulename":result.data[i].modulename});
+  //        }
+  //     }
+  //    })
+  // }
+
+  getActivemodules() {
     this.modulesList = [];
-    this.adminService.getAllModules().subscribe((result:any)=>{
-      if(result.status&& result.data.length>0){
+    this.adminService.getActiveAllModules().subscribe((result: any) => {
+        if(result.status&& result.data.length>0){
         for(let i=0;i<result.data.length;i++){
           this.modulesList.push({"id":result.data[i].id,"modulename":result.data[i].modulename});
          }
