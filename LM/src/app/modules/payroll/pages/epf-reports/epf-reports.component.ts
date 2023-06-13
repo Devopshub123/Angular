@@ -177,20 +177,21 @@ export class EpfReportsComponent implements OnInit {
     }
     this.PR.getEpfValuesForChallan(data).subscribe((result:any)=>{
      if(result.status){
-      this.dataSource = result.data;
+          this.dataSource = new MatTableDataSource(result.data);
       this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.pageLoading = false;
+        // this.dataSource.paginator.pageSize=5;
+        this.dataSource.sort = this.sort;
+        this.pageLoading = false;
       this.validateEpfChallanDownload()
     //  this.dataSource = 
     //  [{Employee_Name: "Rakesh Goud  Thallapelly",Gross_Salary:50000,UAN:"2357625",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value
     //  : 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5},
     //  {Employee_Name: "Rakesh",Gross_Salary:50000,UAN:"5647765",employee_epf_value: 4500,employer_admin_charges_value: 187.5,employer_edli_value
     //  : 75,employer_epf_value: 3250.5,employer_eps_value: 1249.5}]
-    this.datadata=this.dataSource;
+    this.datadata=result.data;
     for(let i = 0;i<this.datadata.length;i++){
       // this.datadatas[i] = this.datadata[i].UAN +'#~#'+this.datadata[i].Employee_Name+'#~#'+this.datadata[i].gross_salary+'#~#'+this.datadata[i].employee_epf_wage+'#~#'+this.datadata[i].eps_wage+this.datadata[i].edli_wage+'#~#'+this.datadata[i].employer_eps_value+'#~#'+this.datadata[i]. epf_eps_difference+'#~#'+(this.datadata[i].ncp_days==null?0:this.datadata[i].ncp_days)+'\n'
-        this.datadatas[i] = this.datadata[i].UAN +'#~#'+this.datadata[i].Employee_Name+'#~#'+this.datadata[i].gross_salary+'#~#'+this.datadata[i].employee_epf_wage+'#~#'+this.datadata[i].eps_wage+'#~#'+this.datadata[i].edli_wage+'#~#'+this.datadata[i].employer_eps_value+'#~#'+this.datadata[i]. epf_eps_difference+'#~#'+(this.datadata[i].ncp_days==null?0:this.datadata[i].ncp_days)+'#~#'+(this.datadata[i].refund_of_advance==null?0:this.datadata[i].refund_of_advance)+'\n'
+        this.datadatas[i] = this.datadata[i].UAN  +'#~#'+this.datadata[i].Employee_Name+'#~#'+this.datadata[i].gross_salary+'#~#'+this.datadata[i].employee_epf_wage+'#~#'+this.datadata[i].eps_wage+'#~#'+this.datadata[i].edli_wage+'#~#'+this.datadata[i].employer_eps_value+'#~#'+this.datadata[i]. epf_eps_difference+'#~#'+(this.datadata[i].ncp_days==null?0:this.datadata[i].ncp_days)+'#~#'+(this.datadata[i].refund_of_advance==null?0:this.datadata[i].refund_of_advance)+'\n'
     }
    
  

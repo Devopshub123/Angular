@@ -297,6 +297,10 @@ getMessagesList() {
     if(result.status && result.data.length>0){
       
       this.dataSource2 = new MatTableDataSource<any>(result.data);
+      this.dataSource2.paginator = this.paginator;
+      // this.dataSource.paginator.pageSize=5;
+      this.dataSource2.sort = this.sort;
+      this.pageLoading = false;
       this.hide = true;
     }
     else{

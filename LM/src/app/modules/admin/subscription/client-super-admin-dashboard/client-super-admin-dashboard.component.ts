@@ -506,13 +506,13 @@ locByDeptEmpsdoughnutChartData: any;
           
           this.deptWisePayrollMonthList.push(e.MonthName);
           this.deptWisePayrollSumList.push(e.sum);
+          
           this.deptWisePayrollYearList.push(e.year);
           this.deptWisePayrollNameList=   this.deptWisePayrollNameListdata.reduce((uniqArr:any, item:any) => {
             return uniqArr.includes(item) ? uniqArr : [...uniqArr, item]}
             ,[]
             );
-            console.log("deptWisePayrollSumList",this.deptWisePayrollSumList)
-            console.log("deptWisePayrollMonthList",this.deptWisePayrollMonthList)
+            
             // this.deptWisePayrollMonthList = this.deptWisePayrollNameListdata.reduce((uniqArr:any, item:any) => {
             //   return uniqArr.includes(item) ? uniqArr : [...uniqArr, item]}
             //   ,[]
