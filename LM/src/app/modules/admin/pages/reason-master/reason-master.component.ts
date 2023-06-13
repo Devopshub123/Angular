@@ -114,6 +114,24 @@ export class ReasonMasterComponent implements OnInit {
       }
     }
   }
+  validateUpdateData(id:any,data: any) {
+    if (this.reasonsDataList.length == 0) {
+      this.valid = true;
+    }
+    else {
+      if (this.reasonsDataList.length > 0) {
+        for (let i = 0; i < this.reasonsDataList.length; i++) {
+          if (id !=this.reasonsDataList[i].id && data.replace(/\s{1,}/g, '').trim().toLowerCase() === this.reasonsDataList[i].reason.replace(/\s{1,}/g, '').trim().toLowerCase()) {
+            this.valid = false;
+            break;
+          }
+          else {
+            this.valid = true;
+          }
+        }
+      }
+    }
+ }
 
   saveReason() {
     if (this.reasonsForm.valid) {
@@ -158,7 +176,8 @@ export class ReasonMasterComponent implements OnInit {
 
   updateData( reason: any,value:any) {
     if (this.reasonsForm.valid) {
-      this.validateData(reason)
+      // this.validateData(reason)
+      this.validateUpdateData(value.id,reason)
       let data = {
         reason_id :value.id ,
         reason: reason,

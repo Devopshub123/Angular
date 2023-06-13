@@ -105,6 +105,7 @@ export class SettingsAddChecklistComponent implements OnInit {
         }
   
         this.emsService.setChecklistsMaster(data).subscribe((res: any) => {
+          console.log("res",res.data)
            if (res.status && res.data.length ==0) {
               this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
               this.router.navigate(["/Admin/settings-checklist"]));
@@ -189,6 +190,7 @@ export class SettingsAddChecklistComponent implements OnInit {
       }
 
       this.emsService.setChecklistsMaster(data).subscribe((res: any) => {
+        console.log(res.data)
         if (res.status && res.data.length ==0) {
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             this.router.navigate(["/Admin/settings-checklist"]));

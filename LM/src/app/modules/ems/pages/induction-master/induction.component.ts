@@ -99,7 +99,7 @@ export class InductionComponent implements OnInit {
       this.isEdit = true;
       this.isSave = false;
       this.inductionForm.controls.pid.value = info.id;
-      this.setProgramsMaster();
+      this.updateProgramsMaster(info.id);
     }else {
       this.dialog.open(ReusableDialogComponent, {
         position: {top: `70px`},
@@ -368,4 +368,95 @@ export class InductionComponent implements OnInit {
       }
     }
   }
+  validateupdateinduction(id:any,data: any) {
+    if (this.arrayList.length == 0) {
+      this.valid = true;
+    }
+    else {
+      if (this.arrayList.length > 0) {
+        for (let i = 0; i < this.arrayList.length; i++) {
+          if (id !=this.arrayList[i].id && data.replace(/\s{1,}/g, '').trim().toLowerCase() === this.arrayList[i].description.replace(/\s{1,}/g, '').trim().toLowerCase()) {
+            this.valid = false;
+            break;
+          }
+          else {
+            this.valid = true;
+          }
+        }
+      }
+    }
+ }
+ updateProgramsMaster(id:any){
+  this.validateupdateinduction(id,this.inductionForm.controls.programType.value)
+  let obj={
+    'pid':this.inductionForm.controls.pid.value?this.inductionForm.controls.pid.value:null,
+    'programType':null,
+    'pDescription':this.inductionForm.controls.programType.value,
+    'pStatus':this.inductionForm.controls.status.value?this.inductionForm.controls.status.value:1,
+    'actionby':this.userSession.id,
+  }
+  if(this.inductionForm.valid) {
+    if (this.valid) {
+      this.EMS.setProgramsMaster(obj).subscribe((result: any) => {
+        this.getProgramsMaster(null);
+        if (result.data[0].successstate == 0 && !result.data[0].pid) {
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+          this.router.navigate(["/Admin/induction"]));
+          this.dialog.open(ReusableDialogComponent, {
+            position: {top: `70px`},
+            disableClose: true, /**Inserted succesfully **/
+            data: this.EM4
+          });
+
+        } else if (result.data[0].successstate == 0 && result.data[0].pid) {
+          this.getProgramsMaster(null);
+          this.dialog.open(ReusableDialogComponent, {
+            position: {top: `70px`}, /**updated succesfully **/
+            disableClose: true,
+            data: this.EM7
+          });
+
+        } else if (result.data[0].successstate == 1) {
+          this.dialog.open(ReusableDialogComponent, {
+            position: {top: `70px`}, /**duplecated record **/
+            disableClose: true,
+            data: this.EM5
+          });
+
+        } else if (result.data[0].successstate == -1 && !result.data[0].pid) {
+          this.dialog.open(ReusableDialogComponent, {
+            position: {top: `70px`},
+            disableClose: true, /**unable to insert  **/
+            data: this.EM6
+          });
+
+        } else if (result.data[0].successstate == -1 && result.data[0].pid) {
+          this.dialog.open(ReusableDialogComponent, {
+            position: {top: `70px`},
+            disableClose: true, /**unable to update  **/
+            data: this.EM8
+          });
+
+        }
+
+      });
+    } else {
+      this.dialog.open(ReusableDialogComponent, {
+        position: {top: `70px`},
+        disableClose: true, /**duplecated record **/
+        data: this.EM5
+      });
+
+    }
+   }//else {
+
+  //   this.dialog.open(ReusableDialogComponent, {
+  //     position: {top: `70px`},
+  //     disableClose: true,
+  //     data: this.EM9
+  //   });
+
+  // }
+
+}
 }

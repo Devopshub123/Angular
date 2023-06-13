@@ -250,7 +250,7 @@ export class AnnouncementsComponent implements OnInit {
             let dialogRef = this.dialog.open(ReusableDialogComponent, {
               position:{top:`70px`},
               disableClose: true,
-              data: 'Announcemenyt Updated successfully'
+              data: 'Announcement Updated successfully'
             });
 
           }

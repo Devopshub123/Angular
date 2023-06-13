@@ -112,6 +112,8 @@ export class SignUpComponent implements OnInit {
   stateDetails: any = [];
   cityDetails: any = [];
   companyName: any;
+  viewcomapanyname:any;
+  address:any;
   checked = false;
   params:any;
   email:any;
@@ -303,6 +305,8 @@ export class SignUpComponent implements OnInit {
         this.clientId = value.id;
         this.clientname= value.contact_name;
         this.contactnumber=value.mobile_number;
+        this.viewcomapanyname=value.company_name;
+        this.address = value.company_address1;
 
         this.signUpForm.controls.companyName.setValue(value.company_name);
        this.signUpForm.controls.companyCode.setValue(value.company_code);
@@ -497,7 +501,10 @@ let data ={
   number_of_users_value:this.users,
   paid_amount:Math.floor(this.payamount),
   transaction_number:event.detail.razorpay_payment_id,
-  company_email_value:this.email
+  company_email_value:this.email,
+  company_name:this.viewcomapanyname,
+  company_address:this.address,
+  plan_name:this.planName,
 }
 this.mainService.setSprypleClientPlanPayment(data).subscribe((result:any)=>{
   if (result.status) {
