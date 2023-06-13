@@ -9,7 +9,7 @@
                         </button>
                     </span>
                 </div>
-                <div fxLayout="row">
+                <div fxLayout="row" fxLayout.xs="column">
                     <div fxFlex="30" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="center">
                         <div class="avatar-upload" *ngFor="let url of imageurls; let i = index">
                             <img class="avatar-preview" [src]="url.base64String" />
@@ -17,31 +17,31 @@
                     </div>
 
                     <div fxFlex="70" fxFlex.xs="50" fxFlex.sm="50" fxLayoutAlign="start">
-                        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" style="width: 100%;align-items: center;">
-                            <div fxLayout="column" fxLayoutAlign="start">
-                                <span class="subh">Name</span>
-                                <br>
-                                <span class="subh">Designation</span>
-                               </div>
-
-                               <div fxLayout="column" fxLayoutAlign="start">
-                                <span class="heading">{{ employeeNameh | titlecase }}</span>
-                                <br>
-                                <span class="heading1">{{employeeDesignation}}</span>
-                               </div>
-                                <div></div><div></div>
-                               <div fxLayout="column" fxLayoutAlign="start">
-                                <span class="subh">Mobile</span>
-                                <br>
-                                <span class="subh">Joining Date</span>
-                               </div>
-
-                               <div fxLayout="column" fxLayoutAlign="start">
-                                <span class="heading">{{ employeeMobile }}</span>
-                                <br>
-                                <span class="heading1">{{employeeJoinDate | date: "dd-MM-YYYY"}}</span>
-                               </div>
+                        <div fxLayout="row" fxLayout.xs="column" style="width: 100%">
+                            <div fxLayout="column" fxLayoutAlign="center" ngStyle.gt-md="width: 45%" ngStyle.xs="100%">
+                                <p class="subh">Name
+                                    <span class="heading" style="padding-left: 15%;">{{ employeeNameh | titlecase }}</span>
+                                </p>
+                                <p class="subh">
+                                    Designation
+                                    <span class="heading1" style="padding-left: 8px;">{{
+                                        employeeDesignation
+                                        }}</span>
+                                </p>
                             </div>
+                            <div fxLayout="column" fxLayoutAlign="center" ngStyle.gt-md="width: 50%" ngStyle.xs="100%">
+                                <p class="subh">
+                                    Mobile
+                                    <span class="heading1" style="padding-left: 40px">{{ employeeMobile }}
+                                    </span>
+                                </p>
+                                <p class="subh">
+                                    Joining Date
+                                    <span class="heading1" style="padding-left: 5px">
+                                        {{ employeeJoinDate | date: "dd-MM-YYYY" }}</span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </mat-card>
@@ -1398,7 +1398,7 @@
                                 &nbsp;
                             </div>
                         </div>
-                        <div fxLayout="row" fxLayoutAlign="center center">
+                        <div fxLayout="row" fxLayoutAlign="center center" ngStyle.xs="padding-top:1%">
                             <button class="btn btn-primary mr-2 mb-2"  (click)="validateDocument()">
                                 <span *ngIf="!isedit"> Save </span>
                                 <span *ngIf="isedit"> Update </span>

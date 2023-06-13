@@ -30,11 +30,11 @@
         </ng-container>
         <ng-container matColumnDef="fromDate">
           <th mat-header-cell *matHeaderCellDef > From  </th>
-          <td mat-cell *matCellDef="let row"> {{row.fromdate | date:'dd-MM-yyyy'}}</td>
+          <td mat-cell *matCellDef="let row" class="no-break"> {{row.fromdate | date:'dd-MM-yyyy'}}</td>
         </ng-container>
         <ng-container matColumnDef="toDate">
           <th mat-header-cell *matHeaderCellDef > To  </th>
-          <td mat-cell *matCellDef="let row"> {{row.todate  | date:'dd-MM-yyyy'}}</td>
+          <td mat-cell *matCellDef="let row" class="no-break"> {{row.todate  | date:'dd-MM-yyyy'}}</td>
         </ng-container>
         <!-- Name Column -->
         <ng-container matColumnDef="noOfDays">

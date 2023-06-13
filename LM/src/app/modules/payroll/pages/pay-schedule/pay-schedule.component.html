@@ -14,14 +14,26 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="numbers text-center" >
-                                      <div style="display: -webkit-box">
+                                      <!-- <div style="display: -webkit-box">
                                         <p class="card-category" style="text-align:left; margin-right: auto;font-family: 'Roboto';">The organization payroll runs on this schedule</p>
                                       <p>
                                         <button mat-icon-button title="Edit" [tabindex]="[1]" (keyup.enter)="onRequestClick()">
                                         <mat-icon title="Edit" style="color: black" (click)="onRequestClick()">edit
                                       </mat-icon>
                                     </button></p>
-                                      </div>
+                                      </div> -->
+<div fxLayout="row" fxLayoutAlign="space-between">
+    <span style="padding-top: 8px;">
+<span style="color: black;font-size: large;font-weight: 500;">The organization payroll runs on this schedule</span>
+</span>
+<span>
+    <button mat-icon-button title="Edit" [tabindex]="[1]" (keyup.enter)="onRequestClick()">
+        <mat-icon title="Edit" style="color: black" (click)="onRequestClick()">edit
+      </mat-icon>
+    </button>
+</span>
+</div>
+
                                       <table class="table no-border mt-3">
                                             <tbody style="text-align:left;">
                                                 <!--<tr>-->

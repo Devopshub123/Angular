@@ -40,7 +40,11 @@ mat-header-cell {
 .custom-investment-th {
     color:white !important;
     font-size: 16px !important;  
-    padding: 0.75rem !important;
+    // padding: 0.75rem !important;
+    padding-top: 7px;
+    padding-left: 5px;
+    background-color: #28acaf;
+    height: 35px;
  } 
  .example-element-detail {
     overflow: hidden;

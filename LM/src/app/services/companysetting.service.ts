@@ -55,7 +55,8 @@ import { environment } from 'src/environments/environment';
     getStates(tableName:any,page:any,size:any,companyName:any):Observable<any>{
       return this.hClient.get(this.mainBeUrl + 'api/getMastertable/'+tableName+'/'+page+'/'+size+'/'+this.companyName, this.httpOptions);
     }
-    getStatesc(id:any):Observable<any>{
+  getStatesc(id: any): Observable<any>{
+    this.companyName = sessionStorage.getItem('companyName');
       return this.hClient.get(this.mainBeUrl + 'api/getStates/'+id+'/'+this.companyName,this.httpOptions)
     }
     getCities(id:any):Observable<any>{

@@ -14,29 +14,29 @@
               {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
       </ng-container>
         <ng-container matColumnDef="appliedOn">
-          <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Applied On</th>
-          <td mat-cell *matCellDef="let row"  >{{row.appliedon  | date:'dd-MM-yyyy'}} </td>
+          <th mat-header-cell *matHeaderCellDef class="no-break"> Applied On</th>
+          <td mat-cell *matCellDef="let row"  class="no-break">{{row.appliedon  | date:'dd-MM-yyyy'}} </td>
         </ng-container>
         <ng-container matColumnDef="empId">
-          <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Emp Id </th>
+          <th mat-header-cell *matHeaderCellDef class="no-break"> Emp Id </th>
           <td mat-cell *matCellDef="let row"> {{row.employee_id}}</td>
         </ng-container>
         <ng-container matColumnDef="empName">
-          <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Emp Name </th>
+          <th mat-header-cell *matHeaderCellDef class="no-break"> Emp Name </th>
           <td mat-cell *matCellDef="let row"> {{row.emp_name}}</td>
         </ng-container>
     
         <ng-container matColumnDef="leaveType">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Leave Type</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="no-break"> Leave Type</th>
           <td mat-cell *matCellDef="let row"> {{row.display_name}}</td>
         </ng-container>
         <ng-container matColumnDef="fromDate">
           <th mat-header-cell *matHeaderCellDef > From</th>
-          <td mat-cell *matCellDef="let row"> {{row.fromdate | date:'dd-MM-yyyy'}}</td>
+          <td mat-cell *matCellDef="let row" class="no-break"> {{row.fromdate | date:'dd-MM-yyyy'}}</td>
         </ng-container>
         <ng-container matColumnDef="toDate">
           <th mat-header-cell *matHeaderCellDef > To</th>
-          <td mat-cell *matCellDef="let row"> {{row.todate  | date:'dd-MM-yyyy'}}</td>
+          <td mat-cell *matCellDef="let row" class="no-break"> {{row.todate  | date:'dd-MM-yyyy'}}</td>
         </ng-container>
      
         <ng-container matColumnDef="noOfDays">
@@ -45,8 +45,8 @@
         </ng-container>
 
               <ng-container matColumnDef="pendingSince">
-          <th mat-header-cell *matHeaderCellDef  style="white-space: nowrap;"> Approved On</th>
-          <td mat-cell *matCellDef="let row"> {{row.approvedon| date:'dd-MM-yyyy'}} </td>
+          <th mat-header-cell *matHeaderCellDef  class="no-break"> Approved On</th>
+          <td mat-cell *matCellDef="let row" class="no-break"> {{row.approvedon| date:'dd-MM-yyyy'}} </td>
         </ng-container>
     
         <ng-container matColumnDef="status">

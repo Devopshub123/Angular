@@ -2,14 +2,17 @@
 <!--<div class="example-container" class="h-100">-->
   <mat-toolbar>
     <div class="main-header">
-      <div class="logo-header">
-        <div class="custom-mob-icons" style="margin-top: 4% ">
-          <a href="/#/main/MainDashboard" (click)="onClickMainDashboard()" class="logo"><img [src]="pic" style="width: 25px;" alt="" class="logo-img mr-2">{{companyName}}</a>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+    
+      <div class="logo-header" style="padding-top: 5px;">
+        <div class="custom-mob-icons" style="margin-top: 1% ">
+          <a href="/#/main/MainDashboard" (click)="onClickMainDashboard()" class="logo">
+            <img [src]="pic" style="width: 25px;" alt="" class="logo-img mr-2">{{companyName}}</a>
           <!--<button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>-->
         </div>
+        
         <div class="navbar-nav topbar-nav ml-md-auto mobile-view">
           <div>
-            <!--<ul>-->
             <li class="nav-item dropdown">
               <a class="dropdown-toggle profile-pic"  data-toggle="dropdown" href="#"
               aria-expanded="false">
@@ -42,6 +45,8 @@
         </div>
 
       </div>
+
+
       <nav class="navbar navbar-header navbar-expand-lg tab-view" >
 
         <div class="container-fluid">
@@ -76,21 +81,22 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" (click)="logout()"><i class="fa fa-power-off"></i> Logout</a>
               </ul>
-              <!-- /.dropdown-user -->
             </li>
           </ul>
         </div>
       </nav>
+
+    </div>
+
       <div style="width:100%;background:lightseagreen;color:white;text-align: center; " *ngIf="flag">
       <span >
         Welcome {{selectedModule?'to':''}} {{selectedModule?selectedModule:'Spryple'}}
       </span>
     </div>
+
+
     </div>
-
-
-
-  </mat-toolbar>
+ </mat-toolbar>
 <ngx-spinner size="medium" type='ball-fussion'></ngx-spinner>
 
 

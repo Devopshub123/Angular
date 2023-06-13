@@ -4,135 +4,118 @@
             <mat-card-title class="title">Pay Group</mat-card-title>
           </mat-card-header>
     
-          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" class="custom-card">    
-            <form [formGroup]="payGroupRequestForm" autocomplete="off" style="width:100%" class="div-pad">  
-             <div> 
-              
-            <div fxLayout="column" fxFlex="45" class="custom-payroll-div">
-                                
-                  <div>
-                  
-                       <mat-form-field appearance="outline" style="width: 100%;">
-                            <mat-label>Name of the Pay Group</mat-label>
-                            <input type="text" formControlName="payNameGroup" matInput maxlength="30" (keypress)="alphaNumberOnly($event)">
-                            <mat-error class="con-error" *ngIf="  payGroupRequestForm.controls.payNameGroup.errors?.required" >
-                                {{PR1}}
-                            </mat-error> 
-                        </mat-form-field>
-                        <p>
-                            <label style="font-size: 18px !important;">Annual CTC</label>    
-                        </p>    
-                        <p>
-                        
-                        <mat-form-field appearance="outline" style="width: 100%;">
-                            <mat-label>Start Range</mat-label>
-                            <input type="number"  onKeyPress="if(this.value.length==13) return false;"   formControlName="start_range" matInput placeholder="" >
-                            <mat-error class="con-error" *ngIf="  payGroupRequestForm.controls.start_range.errors?.required ">
-                                {{PR1}}
-                            </mat-error> 
-                        </mat-form-field>
-                        </p>
-                       
-                       
-                        <p>
-                            <mat-expansion-panel hideToggle style="box-shadow: none !important;">
-                                <mat-expansion-panel-header style="padding: 0 !important;" (click)="validateExpansion('earnings')">
-                                  <mat-panel-title>
-                                    <span class="material-icons" *ngIf="isEarnings" style="margin-right: 5px;color:#28acaf;">add_box</span>
-                                    <span class="material-icons" *ngIf="!isEarnings" style="margin-right: 5px;color:#28acaf;">indeterminate_check_box</span>
-                                    
-                                    <p style="text-decoration: underline;color:#28acaf;">Earnings</p>
-                                  </mat-panel-title>
-                                </mat-expansion-panel-header>
-                                <div>
-                                    <!-- <p formArrayName="earnings" *ngFor="let earnings of payGroupRequestForm.controls.earnings.controls; let i = index">
-                                        <input type="checkbox" [formControlName]="i">
-                                        {{earnings[i].name}}
-                                    </p> -->
-                                    <p formArrayName="earnings" *ngFor="let order of earningsFormArray.controls; let i = index">
-                                        <input type="checkbox" [formControlName]="i" >
-                                        {{earningData[i].component}}
-                                    </p>
-                                    
-                                   
-                                    <!-- <p><mat-checkbox formControlName="basic">Basic</mat-checkbox></p>
-                                    <p><mat-checkbox formControlName="hra">HRA</mat-checkbox></p>
-                                    <p><mat-checkbox formControlName="conveyance">Conveyance</mat-checkbox></p>
-                                    <p><mat-checkbox formControlName="fixedAllowance">Fixed Allowance</mat-checkbox></p> -->
-                                </div>
-                    
-                            </mat-expansion-panel>
-                        </p>
-                       
+          <div fxLayout="column" class="div-pad">    
+            <form [formGroup]="payGroupRequestForm" autocomplete="off" fxLayout="column">  
+<div fxLayout="row">
+    <mat-form-field appearance="outline" fxFlex="49" fxFlex.xs="100">
+        <mat-label>Name of the Pay Group</mat-label>
+        <input type="text" formControlName="payNameGroup" matInput maxlength="30" (keypress)="alphaNumberOnly($event)">
+        <mat-error class="con-error" *ngIf="  payGroupRequestForm.controls.payNameGroup.errors?.required" >
+            {{PR1}}
+        </mat-error> 
+    </mat-form-field>
+</div>
 
-                        <p>                           
-                            <mat-form-field appearance="outline" style="width: 100%;">
-                                <mat-label>Status</mat-label>
-                                <input type="text"   formControlName="status" [readonly]="true" matInput placeholder="" >
+<div fxLayout="column">
+    <p>
+        <label style="font-size: 18px !important;">Annual CTC</label>    
+    </p>
+    <div fxLayout="row"  fxLayout.xs="column" fxLayoutGap="20px">
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>Start Range</mat-label>
+            <input type="number"  onKeyPress="if(this.value.length==13) return false;"   formControlName="start_range" matInput placeholder="" >
+            <mat-error class="con-error" *ngIf="  payGroupRequestForm.controls.start_range.errors?.required ">
+                {{PR1}}
+            </mat-error> 
+        </mat-form-field>
 
-                                <!-- <mat-select formControlName="status">
-                                    <mat-option value="To Be Configured">To Be Configured</mat-option>
-                                </mat-select> -->
-                                <mat-error class="con-error" *ngIf="  payGroupRequestForm.controls.status.errors?.required">
-                                    {{PR30}}
-                                </mat-error> 
-                            </mat-form-field>
-                        </p>
-                   
-                          
-                        
-                  </div> 
-
-                </div>
-             <div fxLayout="column" fxFlex="5">
-            </div>
-            <div fxLayout="column" fxFlex="45">
-                <p style="margin-bottom:145px"></p>
-                 <mat-form-field appearance="outline" style="width: 100%;">
-                         <mat-label>End Range</mat-label> <!-- max="99999999999999"   oninput="validity.valid||(value='9999999999999');"  -->
-                        <input type="number"   onKeyPress="if(this.value.length==13) return false;"  formControlName="end_range" matInput placeholder="" >
-                        <mat-error class="con-error" *ngIf="payGroupRequestForm.controls.end_range.errors?.required">
-                            {{PR1}}
-                        </mat-error> 
-                    </mat-form-field>
-               
-                <p style="margin-top: 14px;">
-                    <mat-expansion-panel hideToggle style="box-shadow: none !important;">
-                        <mat-expansion-panel-header style="padding: 0 !important;" (click)="validateExpansion('deductions')">
-                          <mat-panel-title>
-                            <span class="material-icons" *ngIf="isDeductions" style="margin-right: 5px;color:#28acaf;">add_box</span>
-                            <span class="material-icons" *ngIf="!isDeductions" style="margin-right: 5px;color:#28acaf;">indeterminate_check_box</span>
-                            
-                            <p style="text-decoration: underline;color:#28acaf;">Deductions</p>
-                          </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div>
-                            <p formArrayName="deducts" *ngFor="let order of deductionFormArray.controls; let i = index">
-                                <input type="checkbox" [formControlName]="i">
-                                {{deductionData[i].component}}
-                            </p>
-                        </div>
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>End Range</mat-label> <!-- max="99999999999999"   oninput="validity.valid||(value='9999999999999');"  -->
+           <input type="number"   onKeyPress="if(this.value.length==13) return false;"  formControlName="end_range" matInput placeholder="" >
+           <mat-error class="con-error" *ngIf="payGroupRequestForm.controls.end_range.errors?.required">
+               {{PR1}}
+           </mat-error> 
+       </mat-form-field>
+    </div>
+</div>
+<div fxLayout="row" fxLayout.xs="column">
+<div fxFlex="50">
+    <mat-expansion-panel hideToggle style="box-shadow: none !important;">
+        <mat-expansion-panel-header style="padding: 0 !important;" (click)="validateExpansion('earnings')">
+          <mat-panel-title>
+            <span class="material-icons" *ngIf="isEarnings" style="margin-right: 5px;color:#28acaf;">add_box</span>
+            <span class="material-icons" *ngIf="!isEarnings" style="margin-right: 5px;color:#28acaf;">indeterminate_check_box</span>
             
-                    </mat-expansion-panel>
-                </p>
-                <p>                          
-                    <mat-form-field appearance="outline" style="width: 100%;">
-                        <mat-label>Description</mat-label>
-                        <textarea formControlName="descriptions" matInput placeholder="" maxlength="500"></textarea>
-                    </mat-form-field>
-                </p>
-            </div>
-            </div>
-            <div fxLayoutAlign="center">
-                <button class="btn btn-primary mr-2 mb-2" (click)="setPayGroup()"   type="submit">
-                    <span>Save</span>
-                </button>
-        
-                <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
-                    <span >Cancel</span>
-                </button>
-                <br />
-              </div>
+            <p style="text-decoration: underline;color:#28acaf;">Earnings</p>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+            <!-- <p formArrayName="earnings" *ngFor="let earnings of payGroupRequestForm.controls.earnings.controls; let i = index">
+                <input type="checkbox" [formControlName]="i">
+                {{earnings[i].name}}
+            </p> -->
+            <p formArrayName="earnings" *ngFor="let order of earningsFormArray.controls; let i = index">
+                <input type="checkbox" [formControlName]="i" >
+                {{earningData[i].component}}
+            </p>
+            
+           
+            <!-- <p><mat-checkbox formControlName="basic">Basic</mat-checkbox></p>
+            <p><mat-checkbox formControlName="hra">HRA</mat-checkbox></p>
+            <p><mat-checkbox formControlName="conveyance">Conveyance</mat-checkbox></p>
+            <p><mat-checkbox formControlName="fixedAllowance">Fixed Allowance</mat-checkbox></p> -->
+        </div>
+
+    </mat-expansion-panel>
+</div>
+<div fxFlex="50">
+    <mat-expansion-panel hideToggle style="box-shadow: none !important;padding-left: 10px;" >
+        <mat-expansion-panel-header style="padding: 0 !important;" (click)="validateExpansion('deductions')">
+          <mat-panel-title>
+            <span class="material-icons" *ngIf="isDeductions" style="margin-right: 5px;color:#28acaf;">add_box</span>
+            <span class="material-icons" *ngIf="!isDeductions" style="margin-right: 5px;color:#28acaf;">indeterminate_check_box</span>
+            
+            <p style="text-decoration: underline;color:#28acaf;">Deductions</p>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+            <p formArrayName="deducts" *ngFor="let order of deductionFormArray.controls; let i = index">
+                <input type="checkbox" [formControlName]="i">
+                {{deductionData[i].component}}
+            </p>
+        </div>
+
+    </mat-expansion-panel>
+</div>
+</div>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+    <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Status</mat-label>
+        <input type="text"   formControlName="status" [readonly]="true" matInput placeholder="" >
+
+        <!-- <mat-select formControlName="status">
+            <mat-option value="To Be Configured">To Be Configured</mat-option>
+        </mat-select> -->
+        <mat-error class="con-error" *ngIf="  payGroupRequestForm.controls.status.errors?.required">
+            {{PR30}}
+        </mat-error> 
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Description</mat-label>
+        <textarea formControlName="descriptions" matInput placeholder="" maxlength="500"></textarea>
+    </mat-form-field>
+</div>
+<div fxLayoutAlign="center">
+    <button class="btn btn-primary mr-2 mb-2" (click)="setPayGroup()"   type="submit">
+        <span>Save</span>
+    </button>
+
+    <button class="btn btn-danger mr-2 mb-2" (click)="cancel()">
+        <span >Cancel</span>
+    </button>
+    <br />
+  </div>
         </form>
         </div>
       
