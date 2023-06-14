@@ -791,13 +791,13 @@
                                         </ng-container>
                                         <ng-container matColumnDef="fromDate">
                                             <th mat-header-cell *matHeaderCellDef>From Date</th>
-                                            <td mat-cell *matCellDef="let data" style="white-space: nowrap;">
+                                            <td mat-cell *matCellDef="let data" class="no-break">
                                                 {{ data.fromdate | date:'dd-MM-yyyy'}}
                                             </td>
                                         </ng-container>
                                         <ng-container matColumnDef="toDate">
                                             <th mat-header-cell *matHeaderCellDef>To Date</th>
-                                            <td mat-cell *matCellDef="let data" style="white-space: nowrap;">
+                                            <td mat-cell *matCellDef="let data" class="no-break">
                                                 {{ data.todate | date:'dd-MM-yyyy'}}
                                             </td>
                                         </ng-container>
@@ -980,13 +980,13 @@
                                     </ng-container>
                                     <ng-container matColumnDef="fromDate">
                                         <th mat-header-cell *matHeaderCellDef>From Date</th>
-                                        <td mat-cell *matCellDef="let data">
+                                        <td mat-cell *matCellDef="let data" class="no-break">
                                             {{ data.fromdate | date:'dd-MM-yyyy' }}
                                         </td>
                                     </ng-container>
                                     <ng-container matColumnDef="toDate">
                                         <th mat-header-cell *matHeaderCellDef>To Date</th>
-                                        <td mat-cell *matCellDef="let data">
+                                        <td mat-cell *matCellDef="let data" class="no-break">
                                             {{ data.todate | date:'dd-MM-yyyy' }}
                                         </td>
                                     </ng-container>
@@ -1073,6 +1073,7 @@
                                     &nbsp;
                                 </div>
                             </div>
+                            <br>
                             <div fxLayout="row" fxLayoutAlign="center center">
                                 <button class="btn btn-primary mr-2 mb-2"  (click)="validateDocument()">
                                     <span *ngIf="!isedit"> Save </span>
@@ -1120,7 +1121,7 @@
                                     </ng-container>
                                     <ng-container matColumnDef="action">
                                         <th mat-header-cell *matHeaderCellDef></th>
-                                        <td mat-cell *matCellDef="let data">
+                                        <td mat-cell *matCellDef="let data" class="no-break">
                                             <button *ngIf="data.status == 'Submitted'" mat-icon-button (keyup.enter)="editDock(data)">
                                             <mat-icon (click)="editDock(data)" title="Edit">edit</mat-icon>
                                             </button>

@@ -1072,13 +1072,13 @@
                                 </ng-container>
                                 <ng-container matColumnDef="fromDate">
                                     <th mat-header-cell *matHeaderCellDef>From Date</th>
-                                    <td mat-cell *matCellDef="let data">
+                                    <td mat-cell *matCellDef="let data" class="no-break">
                                         {{ data.fromdate | date: "dd-MM-yyyy" }}
                                     </td>
                                 </ng-container>
                                 <ng-container matColumnDef="toDate">
                                     <th mat-header-cell *matHeaderCellDef>To Date</th>
-                                    <td mat-cell *matCellDef="let data">
+                                    <td mat-cell *matCellDef="let data" class="no-break">
                                         {{ data.todate | date: "dd-MM-yyyy" }}
                                     </td>
                                 </ng-container>
@@ -1298,13 +1298,13 @@
                                 </ng-container>
                                 <ng-container matColumnDef="fromDate">
                                     <th mat-header-cell *matHeaderCellDef>From Date</th>
-                                    <td mat-cell *matCellDef="let data">
+                                    <td mat-cell *matCellDef="let data" class="no-break">
                                         {{ data.fromdate | date: "dd-MM-yyyy" }}
                                     </td>
                                 </ng-container>
                                 <ng-container matColumnDef="toDate">
                                     <th mat-header-cell *matHeaderCellDef>To Date</th>
-                                    <td mat-cell *matCellDef="let data">
+                                    <td mat-cell *matCellDef="let data" class="no-break">
                                         {{ data.todate | date: "dd-MM-yyyy" }}
                                     </td>
                                 </ng-container>
@@ -1407,6 +1407,7 @@
                                 Clear
                             </button>
                         </div>
+                        <br>
                         <div class="mat-elevation-z1" *ngIf="documentDetails.length > 0">
                             <table mat-table [dataSource]="documentDataSource">
                                 <ng-container matColumnDef="position">
@@ -1439,7 +1440,7 @@
                                 </ng-container>
                                 <ng-container matColumnDef="action">
                                     <th mat-header-cell *matHeaderCellDef></th>
-                                    <td mat-cell *matCellDef="let data">
+                                    <td mat-cell *matCellDef="let data" class="no-break">
                                         <button mat-icon-button (keyup.enter)="editDock(data)" *ngIf="!isviewemployee">
                                         <mat-icon (click)="editDock(data)" title="Edit"
                                             *ngIf="data.status == 'Submitted'">edit</mat-icon>

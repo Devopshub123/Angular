@@ -42,6 +42,7 @@ font-size: 20px;
 .example-viewport {
   height: 100%;
   width: 100%;
+  overflow-x: auto;
 //  border: 1px solid black;
 //  box-sizing: border-box;
 }
@@ -54,4 +55,9 @@ mat-card {
   position: relative;
   padding-left: 0px;
   padding-right: 0px;
+}
+.example-container {
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
 }

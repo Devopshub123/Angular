@@ -111,3 +111,8 @@ mat-card {
   margin: 0.2em 0 !important;
 }
 
+.example-container {
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+}

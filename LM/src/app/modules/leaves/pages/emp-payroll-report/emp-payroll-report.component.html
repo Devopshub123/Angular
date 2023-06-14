@@ -4,9 +4,9 @@
       <mat-card-header class="headerbox">
          <mat-card-title class="title"> Monthly Payroll Report </mat-card-title>
        </mat-card-header>
-      <div [formGroup]="searchForm" class="tableP" >
+      <div [formGroup]="searchForm" class="tableP" ngStyle.xs="padding-top: 5%;">
         <div fxLayout="row"  fxLayout.xs="column">
-          <mat-form-field fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline" >
+          <mat-form-field fxFlex="33" fxFlex.xs="100" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline" >
             <mat-label>Employee Name and ID</mat-label>
             <mat-select fxFlex.xs="100" formControlName="employeeId" >
               <mat-option value='All'> All </mat-option>

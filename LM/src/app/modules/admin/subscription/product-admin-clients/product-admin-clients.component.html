@@ -10,7 +10,7 @@
         <div fxLayout="column">
           <div fxLayout="row" fxLayoutAlign.xs="center" class="dev-Pad" fxLayoutAlign="space-between center">
             <div style="margin-bottom: 1%;padding-right: 2%;" fxLayout="row xs-column" *ngIf="arrayList.length > 0">
-              <div style="padding-left: 13px;">
+              <div style="padding-left: 15px;">
                 
                 <a title="PDF"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
         
@@ -46,7 +46,7 @@
                 </ng-container> -->
   
                 <ng-container matColumnDef="cname">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="no-break">
                     Company Name</th>
                   <td mat-cell *matCellDef="let row" > {{ row.company_name }}
                   </td>
@@ -69,19 +69,19 @@
                 <ng-container matColumnDef="startdate">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header >
                     Start Date</th>
-                  <td mat-cell *matCellDef="let row" > {{ row.valid_from  | date:'dd-MM-yyyy'}}
+                  <td mat-cell *matCellDef="let row" class="no-break"> {{ row.valid_from  | date:'dd-MM-yyyy'}}
                   </td>
                 </ng-container>
 
                 <ng-container matColumnDef="lastpaid">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header >
                     Last Paid</th>
-                  <td mat-cell *matCellDef="let row" > {{ row.payment_date  | date:'dd-MM-yyyy'}}
+                  <td mat-cell *matCellDef="let row" class="no-break"> {{ row.payment_date  | date:'dd-MM-yyyy'}}
                   </td>
                 </ng-container>
 
                 <ng-container matColumnDef="amount">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="no-break">
                     ₹ Amount</th>
                   <td mat-cell *matCellDef="let row" > {{ row.amount_paid }}
                   </td>
