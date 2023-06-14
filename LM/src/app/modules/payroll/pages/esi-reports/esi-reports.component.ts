@@ -219,7 +219,11 @@ export class EsiReportsComponent implements OnInit {
     }
     this.PR.getESIValuesForChallan(data).subscribe((result:any)=>{
      if(result.status){
-      this.dataSource = result.data;
+      this.dataSource = new MatTableDataSource(result.data);
+      this.dataSource.paginator = this.paginator;
+        // this.dataSource.paginator.pageSize=5;
+        this.dataSource.sort = this.sort;
+        this.pageLoading = false;
       this.validateEsiChallanDownload();
      }
       

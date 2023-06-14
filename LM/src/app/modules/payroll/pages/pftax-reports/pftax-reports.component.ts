@@ -59,7 +59,7 @@ export class PftaxReportsComponent implements OnInit {
   }
   searchForm!: FormGroup;
   displayedColumns: string[] = ['sno','state','payrange','tax','employees'];
-  dataSource: any=[];
+  dataSource : MatTableDataSource<any> = <any>[];
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
@@ -120,21 +120,23 @@ export class PftaxReportsComponent implements OnInit {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
           this.router.navigate(["/Payroll/ProfessionaTaxReport"]));
     }
-  getPageSizes(): number[] {
-     
-  var customPageSizeArray = [];
-  if (this.dataSource.length > 5) {
-    customPageSizeArray.push(5);
-  }
-  if (this.dataSource.length > 10) {
-    customPageSizeArray.push(10);
-  }
-  if (this.dataSource.length > 20) {
-    customPageSizeArray.push(20);
-  }
-  customPageSizeArray.push(this.dataSource.length);
-  return customPageSizeArray;
-  }
+    getPageSizes(): number[] {
+      var customPageSizeArray = [];
+      
+        if (this.dataSource.data.length > 5) {
+          customPageSizeArray.push(5);
+        }
+        if (this.dataSource.data.length > 10) {
+          customPageSizeArray.push(10);
+        }
+        if (this.dataSource.data.length > 20) {
+          customPageSizeArray.push(20);
+         
+        }
+        customPageSizeArray.push(this.dataSource.data.length);
+        return customPageSizeArray;
+   }
+
   public exportPDF(): void {
     const pdfTable = this.table.nativeElement;
     var html = htmlToPdfmake(pdfTable.innerHTML);
@@ -199,11 +201,11 @@ export class PftaxReportsComponent implements OnInit {
     this.PR.getProfessionalTaxValuesForChallan(data).subscribe((result:any)=>{
      console.log("ghghgsgh",result.data)
      if(result.status){
-      this.dataSource = result.data;
+      // this.dataSource = result.data;
+      this.dataSource = new MatTableDataSource(result.data);
       this.dataSource.paginator = this.paginator;
         // this.dataSource.paginator.pageSize=5;
         this.dataSource.sort = this.sort;
-        console.log("ghsf",this.dataSource.length)
         this.pageLoading = false;
      }
        

@@ -1,105 +1,106 @@
 <div fxLayout="column" class="first-col">
 
-    <mat-card>
-      <mat-card-header class="headerbox">
-         <mat-card-title class="title"> Professional Tax Report </mat-card-title>
-       </mat-card-header>
-      <div [formGroup]="searchForm" class="tableP" >
-        <div fxLayout="row"  fxLayout.xs="column">
-          
+  <mat-card>
+    <mat-card-header class="headerbox">
+       <mat-card-title class="title"> Professional Tax Report </mat-card-title>
+     </mat-card-header>
+    <div [formGroup]="searchForm" class="tableP" >
+      <div fxLayout="row"  fxLayout.xs="column">
+        
 
-          <mat-form-field fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
-            <mat-label>Month and Year</mat-label>
-            <input matInput readonly [matDatepicker]="fromDate"
-                   placeholder="From Date" [formControl]="date" [min]="minDate"  [max]="max" (click)="fromDate.open()">
-            <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
-            <mat-datepicker #fromDate
-            startView="multi-year"
-            (monthSelected)="setMonthAndYear($event, fromDate)"
-            panelClass="example-month-picker">
-            </mat-datepicker>
+        <mat-form-field fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2" appearance="outline">
+          <mat-label>Month and Year</mat-label>
+          <input matInput readonly [matDatepicker]="fromDate"
+                 placeholder="From Date" [formControl]="date" [min]="minDate"  [max]="max" (click)="fromDate.open()">
+          <mat-datepicker-toggle class="datepicker" matSuffix [for]="fromDate"></mat-datepicker-toggle>
+          <mat-datepicker #fromDate
+          startView="multi-year"
+          (monthSelected)="setMonthAndYear($event, fromDate)"
+          panelClass="example-month-picker">
+          </mat-datepicker>
 
-          </mat-form-field>
-          <mat-form-field appearance="outline" fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2" *ngIf="statehide">
-            <mat-label>State</mat-label>
-            <mat-select  formControlName="state">
-              <ng-container>
-                <div *ngFor="let b of stateslist">
-                  <mat-option value="{{ b.id }}">{{
-                    b.state
-                    }}</mat-option>
-                </div>
-              </ng-container>
-            </mat-select>
-          </mat-form-field>
-          
-        </div>
-        <div fxLayout="row" fxLayoutAlign="center">
-            <span>
-                <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()"
-                       >
-                    Search
-                </button>
-            </span>
-    <button class="btn btn-danger mr-2 mb-2" (click)="resetform()">
-      <span>Clear</span>
-    </button>
-  </div>
-
-       
-
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="33" fxFlex.lt-lg="48" class="mx-2 my-2" *ngIf="statehide">
+          <mat-label>State</mat-label>
+          <mat-select  formControlName="state">
+            <ng-container>
+              <div *ngFor="let b of stateslist">
+                <mat-option value="{{ b.id }}">{{
+                  b.state
+                  }}</mat-option>
+              </div>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        
       </div>
-      <div style="margin-bottom: 1%;padding-right: 2%;" fxLayout="row xs-column" fxLayoutAlign="end  center" >
-        <div>
-          <span class="exlprint"> | </span>
-          <a title="PDF"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
-  
-          <span class="exlprint"> | </span>
-          <a title="Excel"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
-          </a>
-        </div>
-      </div >
+      <div fxLayout="row" fxLayoutAlign="center">
+          <span>
+              <button class="btn btn-primary mr-2 mb-2" (click)="Searchform()"
+                     >
+                  Search
+              </button>
+          </span>
+  <button class="btn btn-danger mr-2 mb-2" (click)="resetform()">
+    <span>Clear</span>
+  </button>
+</div>
+
+     
+
+    </div>
+    <div style="margin-bottom: 1%;padding-right: 2%;" fxLayout="row xs-column" fxLayoutAlign="end  center" >
+      <div>
+        <span class="exlprint"> | </span>
+        <a title="PDF"> <img (click)="exportPDF()" src="./assets/images/icons/pdf.png"  width="20px" height="20px"></a>
+
+        <span class="exlprint"> | </span>
+        <a title="Excel"> <img (click)="exportAsXLSX()" src="./assets/images/icons/excel.png">
+        </a>
+      </div>
+    </div >
 
 
 <div class="tablePadding">
-   <div  class="mat-elevation-z1 example-container">
-    <div id="table" #table=''>
-      <table id="table" mat-table [dataSource]="dataSource" matSort>
-          <ng-container matColumnDef="sno">
-            <th mat-header-cell *matHeaderCellDef > S.No.</th>
-            <td mat-cell *matCellDef="let element; let i=index;">
-             {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
-          </ng-container>
-          <ng-container matColumnDef="state">
-            <th mat-header-cell *matHeaderCellDef > State</th>
-            <td mat-cell *matCellDef="let row" ><span >{{row.state}} </span></td>
-          </ng-container>
-          <ng-container matColumnDef="payrange">
-            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Pay Range </th>
-            <td mat-cell *matCellDef="let row" ><span >{{row.salary_from_value}}-{{row.salary_to_value==null?'above':row.salary_to_value}} </span></td>
-          </ng-container>
-          <ng-container matColumnDef="tax">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Tax Rate (%) </th>
-            <td mat-cell *matCellDef="let row" ><span >{{row.tax_value}} </span></td>
-          </ng-container>
-          <ng-container matColumnDef="employees">
-        <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;" >No. of Employees </th>
-        <td mat-cell *matCellDef="let row" ><span >{{row.total}} </span></td>
-          </ng-container>
-          
-          <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          <tr class="mat-row" *matNoDataRow>
-              <td class="mat-cell" colspan="4" style="text-align: center;">No data found</td>
-          </tr>
-      </table>
-    </div>
-      <mat-paginator   [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
+ <div  class="mat-elevation-z1 example-container">
+  <div id="table" #table=''>
+    <table id="table" mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="sno">
+          <th mat-header-cell *matHeaderCellDef > S.No.</th>
+          <td mat-cell *matCellDef="let element; let i=index;">
+           {{ (i+1) + (paginator.pageIndex * paginator.pageSize) }} </td>
+        </ng-container>
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef > State</th>
+          <td mat-cell *matCellDef="let row" ><span >{{row.state}} </span></td>
+        </ng-container>
+        <ng-container matColumnDef="payrange">
+          <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> Pay Range </th>
+          <td mat-cell *matCellDef="let row" ><span >{{row.salary_from_value}}-{{row.salary_to_value==null?'above':row.salary_to_value}} </span></td>
+        </ng-container>
+        <ng-container matColumnDef="tax">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="white-space: nowrap;"> Tax Rate (%) </th>
+          <td mat-cell *matCellDef="let row" ><span >{{row.tax_value}} </span></td>
+        </ng-container>
+        <ng-container matColumnDef="employees">
+      <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;" >No. of Employees </th>
+      <td mat-cell *matCellDef="let row" ><span >{{row.total}} </span></td>
+        </ng-container>
+        
+        <tr  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4" style="text-align: center;">No data found</td>
+        </tr>
+    </table>
+    <mat-paginator   [pageSizeOptions]="!pageLoading ? getPageSizes() : [5, 10, 20]"></mat-paginator>
 
-    </div>
-    
+  </div>
+
+  </div>
+  
 </div>
 
-  </mat-card>
-  </div>
+</mat-card>
+</div>
 
