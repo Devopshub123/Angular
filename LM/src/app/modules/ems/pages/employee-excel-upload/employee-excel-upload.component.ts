@@ -64,7 +64,7 @@ export class EmployeeExcelUploadComponent implements OnInit {
   SaveUploadedData(){
     this.isLoading = true;
     let data = {
-      'employeeList': JSON.parse(this.convertedJson),
+      'emplist': JSON.parse(this.convertedJson),
       'createdby':this.userSession.id
     }
     this.emsService.setEmployeeExcelData(data,this.companyName).subscribe(

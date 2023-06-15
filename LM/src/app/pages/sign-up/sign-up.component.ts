@@ -176,16 +176,16 @@ export class SignUpComponent implements OnInit {
         this.stateDetails = data.data;
       })
     })
-    // this.signUpForm.get('companySize')?.valueChanges.subscribe((selectedValue: any) => {
-    //   if(selectedValue>201){
-    //     let dialogRef = this.dialog.open(SignupMoreusersDialogComponent, {
-    //       position: { top: `70px` },
-    //       disableClose: true,
+    this.signUpForm.get('companySize')?.valueChanges.subscribe((selectedValue: any) => {
+      if(selectedValue>201){
+        let dialogRef = this.dialog.open(SignupMoreusersDialogComponent, {
+          position: { top: `70px` },
+          disableClose: true,
          
-    //     });
-    //     this.isdisable = true;
-    //   }
-    // })
+        });
+        this.isdisable = true;
+      }
+    })
 
   this.signUpForm.get('state')?.valueChanges.subscribe((selectedValue: any) => {
     this.signUpForm.controls.city.setValue("");

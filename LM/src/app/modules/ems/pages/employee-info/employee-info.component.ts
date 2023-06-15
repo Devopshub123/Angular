@@ -1636,7 +1636,7 @@ export class EmployeeInfoComponent implements OnInit {
         uanumber: this.employementForm.controls.uanNumber.value,
         //pfaccountnumber: this.employementForm.controls.contractFile.value,
         pan: this.employementForm.controls.panNumber.value,
-        experience: this.workExperienceDetails.length > 0 ? this.workExperienceDetails:null,
+        // experience: this.workExperienceDetails.length > 0 ? this.workExperienceDetails:null,
       }
 
       this.emsService.saveEmployeeEmployementData(data).subscribe((res: any) => {
