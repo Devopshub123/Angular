@@ -4,15 +4,15 @@
          <mat-card-title class="title"> Attendance Request </mat-card-title>
         </mat-card-header>
     <div fxLayout="column">
-      <form [formGroup]="requestform" autocomplete="off"  style="padding-left: 1%;padding-top: 1%;">
-        <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center" >
+      <form [formGroup]="requestform" autocomplete="off"  style="padding-left: 1%;padding-top: 1%;" ngStyle.xs="padding-top: 5%">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center" >
 
-            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex="35" fxFlex.xs="100" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
                 <mat-label>Applied Date</mat-label>
                 <input formControlName="appliedDate" matInput placeholder="DD-MM-YYYY" readonly [tabIndex]="1">
             </mat-form-field>
 
-            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex="35" fxFlex.xs="100" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
                 <mat-label>Work Type </mat-label>
                 <mat-select formControlName="workType" required [tabIndex]="2">
                     <ng-container *ngFor="let v of workTypeData">
@@ -24,7 +24,12 @@
                 </mat-error>
              </mat-form-field>
 
-             <mat-form-field fxFlex fxFlex.lt-lg="48" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+
+          </div>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+          
+            <mat-form-field fxFlex="35"  fxFlex.xs="100" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
                 <mat-label>From Date </mat-label>
                 <input matInput readonly required [min]="minFromDate" [max]="maxFromDate" [matDatepicker]="fromDate"
                  [matDatepickerFilter]="myDateFilter"
@@ -36,12 +41,8 @@
                    {{requiredOption}}
                 </mat-error>
             </mat-form-field>
-          </div>
 
-        <div fxLayout="row" fxLayout.lt-lg="row wrap" fxLayout.xs="column" fxLayoutAlign.xs="center">
-          
-
-            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
+            <mat-form-field fxFlex="35" fxFlex.xs="100" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
                 <mat-label>To Date </mat-label>
                 <input matInput readonly required [min]="minToDate" [max]="maxToDate" [matDatepicker]="toDate"
                 [matDatepickerFilter]="myDateFilter" placeholder="DD-MM-YYYY"
@@ -53,32 +54,33 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field fxFlex fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                     <mat-label>Shift</mat-label>
-                     <input formControlName="shift"  readonly required matInput placeholder="Shift" [tabIndex]="5">
-                     <mat-error *ngIf="requestform.controls['shift'].invalid">
-                         {{requiredOption}}
-                     </mat-error>
-                 </mat-form-field>
+            </div>
+ <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
+          <mat-form-field fxFlex="35" fxFlex.xs="100" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
+        <mat-label>Shift</mat-label>
+        <input formControlName="shift"  readonly required matInput placeholder="Shift" [tabIndex]="5">
+        <mat-error *ngIf="requestform.controls['shift'].invalid">
+            {{requiredOption}}
+        </mat-error>
+              </mat-form-field>
 
-                 <mat-form-field fxFlex fxFlex.lt-lg="48" fxFlex.xs="100" class="mx-2 my-2" appearance="outline">
-                    <mat-label>Reason</mat-label>
-                    <textarea formControlName="reason" required maxlength="250" matInput
-                        placeholder="Reason" [tabIndex]="6"></textarea>
-                    <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.invalid ||requestform.controls.reason.errors?.['whitespace']">
-                       {{requiredField}}
-                    </mat-error>
-                    <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.maxlength">
-                        Reason should be below 250 charactors.
-                    </mat-error>
+             <mat-form-field fxFlex="35" fxFlex.xs="100" fxFlex.lt-lg="50" class="mx-2 my-2" appearance="outline">
+       <mat-label>Reason</mat-label>
+       <textarea formControlName="reason" required maxlength="250" matInput
+           placeholder="Reason" [tabIndex]="6"></textarea>
+       <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.invalid ||requestform.controls.reason.errors?.['whitespace']">
+          {{requiredField}}
+       </mat-error>
+       <mat-error class="con-error" *ngIf="requestform.controls.reason.errors?.maxlength">
+           Reason should be below 250 charactors.
+       </mat-error>
                 </mat-form-field>
-
-             </div>
+            </div>
 
         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign.xs="center">
                
 
-                <mat-form-field *ngIf="isCommentView" fxFlex="32" fxFlex.lt-lg="48" fxFlex.xs="100" class="mx-2 my-2"
+                <mat-form-field *ngIf="isCommentView" fxFlex="35" fxFlex.lt-lg="50" fxFlex.xs="100" class="mx-2 my-2"
                 appearance="outline">
                 <mat-label *ngIf="isStatus">Approved Reason</mat-label>
                 <mat-label *ngIf="!isStatus">Rejected Reason</mat-label>

@@ -85,3 +85,9 @@ table td, table th {
   display: flex;
   flex-direction: column;
 }
+.example-container2 {
+  overflow-x: auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}

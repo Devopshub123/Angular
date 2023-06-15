@@ -35,12 +35,12 @@
                                           itemSize="5">
                                           <mat-list class="time-attendance">
                                                  <ng-container *cdkVirtualFor="let item of notificationsData">
-                                                        <mat-list-item>
+                                                        <mat-list-item fxLayoutAling.xs="space-between center">
                                                                <h3 matLine>{{ item.employee_name }}</h3>
-                                                               <div>{{ item.absent_date | date : "dd-MM-yyyy" }}</div>
+                                                               <div class="no-break" ngStyle.xs="padding-left:5px">{{ item.absent_date | date : "dd-MM-yyyy" }}</div>
                                                                <div style="padding-left: 10px">
-                                                                      <a style="padding-left: 10px" routerLink="/" [tabindex]="1" (keyup.enter)="onBehalfofRequestClick(item)"
-                                                                             (click)="onBehalfofRequestClick(item)">
+                                                                      <a ngStyle.gt-md="padding-left: 10px" routerLink="/" [tabindex]="1" (keyup.enter)="onBehalfofRequestClick(item)"
+                                                                             (click)="onBehalfofRequestClick(item)" class="no-break">
                                                                              Add a request
                                                                       </a>
                                                                </div>
@@ -59,13 +59,13 @@
                                    </div>
                                    <cdk-virtual-scroll-viewport class="example-viewport" style="height: 300px"
                                           itemSize="5">
-                                          <mat-list class="time-attendance">
+                                          <mat-list class="time-attendance example-container">
                                                  <ng-container *cdkVirtualFor="let item of arrayList">
                                                         <mat-list-item>
                                                                <h3 matLine>{{ item.raisedbyname }}</h3>
-                                                               <div>{{ item.fromdate | date : "dd-MM-yyyy" }}</div>
+                                                               <div class="no-break" ngStyle.xs="padding-left:5px">{{ item.fromdate | date : "dd-MM-yyyy" }}</div>
                                                                <div style="padding-left: 10px">
-                                                                      <a routerLink="/" [tabindex]="2" (keyup.enter)="changeTab(item)" (click)="changeTab(item)">
+                                                                      <a routerLink="/" [tabindex]="2" class="no-break" (keyup.enter)="changeTab(item)" (click)="changeTab(item)">
                                                                              Approve request
                                                                       </a>
                                                                </div>

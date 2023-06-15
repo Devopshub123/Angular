@@ -33,8 +33,8 @@
         </div>
       </div>
       <div fxLayout="column" *ngIf="isview" >
-        <div fxLayout="row" fxLayoutAlign.xs="center" class="dev-Pad" fxLayoutAlign="end">
-          <span style="height: 70px;" fxFlex="50" fxLayoutAlign="end">
+        <div fxLayout="row" fxLayoutAlign.xs="center" class="dev-Pad" fxLayoutAlign="end" ngStyle.gt-md="padding-right:8px">
+          <span style="height: 70px;" fxFlex="50" fxFlex.xs="100" fxLayoutAlign="end">
             <mat-form-field fxFlex.xs="100" fxFlex="56" fxFlex.lt-lg="100" class="mx-2 my-2" appearance="outline">
               <mat-icon matSuffix style="color: #28acaf;">search</mat-icon>
               <mat-label>Search</mat-label>
@@ -54,7 +54,7 @@
               <ng-container matColumnDef="programtype">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header >
                   Program Type </th>
-                <td mat-cell *matCellDef="let row" >
+                <td mat-cell *matCellDef="let row" class="no-break">
                   <span *ngIf="enable != row.id">{{row.description}} </span>
                   <span *ngIf="enable == row.id">
                                   <mat-form-field appearance="outline">
@@ -67,7 +67,7 @@
 
               <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef style="padding-left: 5%;"> Status </th>
-                <td mat-cell *matCellDef="let row"  >
+                <td mat-cell *matCellDef="let row"  class="no-break">
                    <mat-radio-group  >
                     <mat-radio-button class="mr-2" color="primary" *ngFor="let halfs of arrayValue;index as i;" (change)="status(halfs.id,row)" [checked]="halfs.id == row.status"  [value]="halfs.id"  >{{halfs.name}}</mat-radio-button>
                   </mat-radio-group>
@@ -76,7 +76,7 @@
               </ng-container>
               <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef >  </th>
-                <td mat-cell *matCellDef="let row" >
+                <td mat-cell *matCellDef="let row" class="no-break">
                    <mat-icon (click)="edit($event,row)" title="Edit" *ngIf="enable != row.id">edit</mat-icon>
                   <mat-icon (click)="save($event,row)" title="Save" *ngIf="enable == row.id">save</mat-icon>
                   <mat-icon (click)="canceledit($event,row.id)" title="Cancel" *ngIf="enable == row.id">cancel</mat-icon>
