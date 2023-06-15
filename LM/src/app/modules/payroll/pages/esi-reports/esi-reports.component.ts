@@ -55,7 +55,9 @@ export class EsiReportsComponent implements OnInit {
     ctrlValue.month(normalizedMonthAndYear.month());
     ctrlValue.year(normalizedMonthAndYear.year());
     this.date.setValue(ctrlValue);
+    this.getESIValuesForChallan();
     this.validateEsiChallanDownload();
+
     datepicker.close();
   }
   searchForm!: FormGroup;
@@ -83,11 +85,16 @@ export class EsiReportsComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
-      fromDate:[new Date()],
+      date:[new Date()],
       employeeId:['All']
     });
+    // this.searchForm.
+    this.searchForm.get('date')?.valueChanges.subscribe((selectedValue:any) => {
+      console.log("shfdgh")
+      this.getESIValuesForChallan();
+    })
     // this.userSession = JSON.parse(sessionStorage.getItem('user') || '');
-    // this.dataSource = new MatTableDataSource(this.arrayList)
+    // this.dataSource = new MatTableDataSource(this.arrayList);
   }
   exportAsXLSX() {
     if(true){
