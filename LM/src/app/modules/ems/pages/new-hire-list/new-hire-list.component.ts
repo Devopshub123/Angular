@@ -124,6 +124,7 @@ export class NewHireListComponent implements OnInit {
     })
   }
   newHire() {
+    /**online build */
     if(!this.subscriptionflag){
       let dialogRef = this.dialog.open(EmpValidationPopUpComponent, {
         width: '800px',position: { top: `100px` },
@@ -131,16 +132,19 @@ export class NewHireListComponent implements OnInit {
         
         data: "Attention! Please note that you are no longer authorized to add new employees. If you want to add new employees, please upgrade your plan or increase the user count in your current plan. For further assistance, please contact your admistrator. Thank you!"
       });
-
     }
     else{
       this.candidateId =null
       this.isNewhire = true;
       this.isNewhireList = false;
       this.isUpdate = false;
-
     }
-   
+
+    /** offline build */
+    // this.candidateId =null
+    // this.isNewhire = true;
+    // this.isNewhireList = false;
+    // this.isUpdate = false;
   }
   submit() {
 
@@ -210,6 +214,9 @@ export class NewHireListComponent implements OnInit {
     
   }
   editEmployee(id: any, data: any) {
+
+    /** uncomment upto else for online build */
+
     if(!this.subscriptionflag){
       let dialogRef = this.dialog.open(EmpValidationPopUpComponent, {
         width: '800px',position: { top: `100px` },
@@ -309,7 +316,8 @@ export class NewHireListComponent implements OnInit {
       });
 
     }
-    else{
+    else {
+      
     // dateofjoin
     const dateOne = new Date(data.dateofjoin);
    const dateTwo = new Date();
