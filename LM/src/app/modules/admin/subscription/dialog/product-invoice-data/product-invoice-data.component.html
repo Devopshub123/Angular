@@ -1,7 +1,7 @@
 
 
 <div fxLayoutAlign="space-between center" style="width: auto;"> 
-    <div>
+    <div style="padding-left: 10%;">
         <h3> <b>INVOICE</b></h3>
     </div>
     <div fxLayout="row wrap">
@@ -18,15 +18,15 @@
    
     
 </div>
-<div id="invoice" #invoice  style="width: auto;">
-<div fxLayout="row wrap" fxLayout.xs="column">
-    <div style="width: 50%;">
+<div id="invoice" #invoice   style="width: auto;padding-top: 20px;padding-left: 40px;">
+<div fxLayout="row wrap" fxLayout.xs="column" >
+    <div  style="width: 45%;">
         <p><b>Invoice Date: </b> {{invoiceDate | date:'dd-MM-yyyy'}}</p>
         <p><b>Due Date: </b> {{dueDate | date:'dd-MM-yyyy'}}</p>
         <p><b>Invoice Number: </b> {{invoiceNum}}</p>
 
     </div>
-    <div style="width: 50%;">
+    <div style="width: 45%;">
         <p><b>Company Name: </b> {{cname}}</p>
         <p><b>Billing Address: </b> {{address1}}</p>
         <!-- <p>{{address2}}{{' '}}{{location}}</p>
@@ -56,7 +56,7 @@
             <td mat-cell *matCellDef="let element" style="text-align: center;" > {{element.cost_per_user}} </td>
         </ng-container>
         <ng-container matColumnDef="subtotal">
-            <th mat-header-cell *matHeaderCellDef style="text-align: center;"><img src="./assets/img/currency-white.png"> Total </th>
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"><img src="./assets/img/currency-white.png"> Total </th>
             <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.amount_paid}} </td>
         </ng-container>
        

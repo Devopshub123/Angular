@@ -102,7 +102,8 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('user', JSON.stringify(data.result[0]));
             sessionStorage.setItem('expirydate', data.expirydate);
             this.employeeId = data.result[0].id;
-            this.router.navigate(['Admin/client-superadmin-dashboard'])
+            this.router.navigate(['/Admin/client-superadmin-dashboard'])
+            // this.router.navigate(['main/MainDashboard'])
 
           }
           else{
