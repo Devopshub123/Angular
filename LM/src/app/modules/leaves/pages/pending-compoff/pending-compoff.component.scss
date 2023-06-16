@@ -51,38 +51,38 @@ span[data-title]:hover:after{
   }
 }
 
-.mat-column-appliedOn {
-  max-width: 100px;
-  min-width: 90px;
-}
-.mat-column-empId {
-  max-width: 100px;
-  min-width: 90px;
-}
-.mat-column-empName {
-  max-width: 150px;
-  min-width: 120px;
-}
-.mat-column-fromDate {
-  max-width: 120px;
-  min-width: 100px;
-}
-.mat-column-noOfHours {
-  max-width: 100px;
-  min-width: 90px;
-}
-.mat-column-pendingSince {
-  max-width: 120px;
-  min-width: 100px;
-}
-.mat-column-reason {
-  max-width: 100px;
-  min-width: 90px;
-}
-.mat-column-action {
-  max-width: 100px;
-  min-width: 90px;
-}
+// .mat-column-appliedOn {
+//   max-width: 100px;
+//   min-width: 90px;
+// }
+// .mat-column-empId {
+//   max-width: 100px;
+//   min-width: 90px;
+// }
+// .mat-column-empName {
+//   max-width: 150px;
+//   min-width: 120px;
+// }
+// .mat-column-fromDate {
+//   max-width: 120px;
+//   min-width: 100px;
+// }
+// .mat-column-noOfHours {
+//   max-width: 100px;
+//   min-width: 90px;
+// }
+// .mat-column-pendingSince {
+//   max-width: 120px;
+//   min-width: 100px;
+// }
+// .mat-column-reason {
+//   max-width: 100px;
+//   min-width: 90px;
+// }
+// .mat-column-action {
+//   max-width: 100px;
+//   min-width: 90px;
+// }
 mat-card {
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   display: block;

@@ -6,7 +6,7 @@
             </mat-card-header>
         <div *ngIf="ishide" class="div-pad" fxLayout="column">
             
-            <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign="space-between center" style="height: 70px;">
+            <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxLayoutAlign.gt-md="space-between center" style="height: 70px;">
               <span  style="padding-top: 1%;" fxFlex="50">
                 <button mat-icon-button (keyup.enter)="popup()" [tabIndex]="1">
                     <mat-icon class="styles" title='Select' (click)="popup()">blur_linear</mat-icon>

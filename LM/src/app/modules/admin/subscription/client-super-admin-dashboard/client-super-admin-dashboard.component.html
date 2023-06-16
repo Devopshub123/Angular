@@ -2,8 +2,8 @@
   <mat-card class="sidePad">
     <form [formGroup]="dashBoardForm" fxLayout="Column">
       <!-- f1st row -->
-      <div fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px">
-         <mat-card class="card outline" fxFlex="100" fxLayout="column">
+      <div fxLayout="row"  fxLayout.xs="column" fxLayoutGap="10px" ngStyle.xs="padding-top: 5%;">
+         <mat-card class="card outline" fxFlex="100" fxLayout="column" ngStyle.gt-md="height: 50vh;">
           <span class="title" fxLayoutAlign="start">
                 <span>Locations</span>
               </span>
@@ -23,7 +23,7 @@
 
           </mat-card>
 
-          <mat-card class="card outline" fxFlex="100" fxLayout="column">
+          <mat-card class="card outline" fxFlex="100" fxLayout="column" ngStyle.gt-md="height: 50vh;">
            <span class="title" fxLayoutAlign="start">
                 <span>Department Wise Employees</span>
               </span>
@@ -55,7 +55,7 @@
           </div>
           </mat-card>
 
-          <mat-card class="card outline" fxFlex="100" fxLayout="column">
+          <mat-card class="card outline" fxFlex="100" fxLayout="column" ngStyle.gt-md="height: 50vh;">
             <span class="title" fxLayoutAlign="start">
                  <span>Employees Count</span>
                </span>
@@ -90,7 +90,7 @@
 
       <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="10px">
 
-          <mat-card class="card outline" fxFlex="100">
+          <mat-card class="card outline" fxFlex="100" ngStyle.gt-md="height: 50vh;">
              <span class="title" fxLayoutAlign="start">
                 <span>Attendance</span>
               </span>
@@ -117,7 +117,7 @@
             </div>
           </mat-card>
 
-        <mat-card class="card outline" fxFlex="100" fxLayout="column">
+        <mat-card class="card outline" fxFlex="100" fxLayout="column" ngStyle.gt-md="height: 50vh;">
           <span class="title" fxLayoutAlign="start">
                <span>Employees on Leave</span>
              </span>
@@ -150,7 +150,7 @@
             </div>
          </mat-card>
 
-         <mat-card class="card outline" fxFlex="100" fxLayout="column">
+         <mat-card class="card outline" fxFlex="100" fxLayout="column" ngStyle.gt-md="height: 50vh;">
           <span class="title" fxLayoutAlign="start">
                <span>Leave Status</span>
              </span>
@@ -189,7 +189,7 @@
 
       <!-- 3rd row -->
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px">
-        <mat-card class="card2 outline" fxFlex="100" fxLayout="column">
+        <mat-card class="card2 outline" fxFlex="100" fxLayout="column" ngStyle.gt-md="height: 50vh;">
           <span class="title" fxLayoutAlign="start">
              <span>Shift-Based Headcount</span>
            </span>
@@ -219,7 +219,7 @@
 
        </mat-card>
 
-        <mat-card class="card2 outline" fxFlex="100">
+        <mat-card class="card2 outline" fxFlex="100" ngStyle.gt-md="height: 50vh;">
           <div fxLayout="row" fxLayoutAlign="start">
             <span class="title">
               <span>Payroll Analysis By Department </span>
