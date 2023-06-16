@@ -88,7 +88,7 @@ export class EmployeeExcelUploadComponent implements OnInit {
        let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
           disableClose:true,
-          data: 'Databsaved successfully.'//resMessage
+          data: 'Data saved successfully.'//resMessage
        });
       }else{
         

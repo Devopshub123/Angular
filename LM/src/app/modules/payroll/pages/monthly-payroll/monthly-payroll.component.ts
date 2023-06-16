@@ -54,7 +54,7 @@ export class MonthlyPayrollComponent implements OnInit {
   displayedColumns: string[] = ['select','empid',  'name', 'designation', 'worklocation'];
   displayedColumns2: string[] = ['sno','empid','empname','amount','accountnumber','bank','ifsc'];
   dataSource = new MatTableDataSource<any>();
-  dataSource2 = new MatTableDataSource<any>();
+  dataSource2 : MatTableDataSource<any> = <any>[];
   selection = new SelectionModel<any>(true, []);
 
   constructor(private router: Router,private formBuilder: FormBuilder,private PR:PayrollService,private dialog: MatDialog,) {
