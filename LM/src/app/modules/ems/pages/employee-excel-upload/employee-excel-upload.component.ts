@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AdminService } from 'src/app/modules/admin/admin.service';
 import { ReusableDialogComponent } from 'src/app/pages/reusable-dialog/reusable-dialog.component';
 import * as XLSX from 'xlsx';
+import { Router, RouterModule } from '@angular/router';
 import { EmsService } from '../../ems.service';
 type AOA = any[][];
 @Component({
@@ -28,7 +29,7 @@ export class EmployeeExcelUploadComponent implements OnInit {
   isLoading = false;
   companyName: any;
   userSession: any;
-  constructor(private emsService: EmsService, public dialog: MatDialog) {
+  constructor(private emsService: EmsService, public dialog: MatDialog,private router: Router,) {
     this.companyName = sessionStorage.getItem("companyName")?sessionStorage.getItem("companyName"):null;
     this.userSession = JSON.parse(sessionStorage.getItem('user') ?? '');
   }
@@ -82,18 +83,19 @@ export class EmployeeExcelUploadComponent implements OnInit {
        this.removeData();
        this.isview=false;
        this.isadd = true;
-
+       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+       this.router.navigate(["/ems/employee-excel-upload "]));
        let dialogRef = this.dialog.open(ReusableDialogComponent, {
         position:{top:`70px`},
           disableClose:true,
-          data: resMessage
+          data: 'Databsaved successfully.'//resMessage
        });
       }else{
         
         let dialogRef = this.dialog.open(ReusableDialogComponent, {
           position:{top:`70px`},
           disableClose:true,
-          data:this.reqNotSave
+          data: 'Unable to save data.'//this.reqNotSave
        });
       }
      }, 
