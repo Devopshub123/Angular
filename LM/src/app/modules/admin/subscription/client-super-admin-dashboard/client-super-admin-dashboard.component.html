@@ -154,35 +154,36 @@
           <span class="title" fxLayoutAlign="start">
                <span>Leave Status</span>
              </span>
-             <span fxLayoutAlign="end">
+             <!-- <span fxLayoutAlign="end">
                <mat-form-field>
                  <input matInput readonly [matDatepicker]="leaveStatusDate" [min]="minDate" [max]="maxDate"
                    placeholder="" (click)="leaveStatusDate.open()" formControlName="leaveStatusDate" />
                  <mat-datepicker-toggle class="datepicker" matSuffix [for]="leaveStatusDate">
                  </mat-datepicker-toggle>
                  <mat-datepicker #leaveStatusDate></mat-datepicker>
-                 <!-- <mat-datepicker #leaveStatusDate
-                 startView="multi-year"
-                        (monthSelected)="leaveMonthAndYear($event, leaveStatusDate)"></mat-datepicker> -->
-               </mat-form-field>
-             </span>
-            <div fxLayout="column" fxFlex fxLayoutAlign="center center">
-              <span fxLayoutAlign="center">
-                 <mat-icon>person_add</mat-icon>
-               </span>
-               <div fxLayout="row"><span class="textStyle">Today Leaves :</span>&nbsp;<span class="textStyle2">{{totalLeaveCount}}</span></div>
-               <br>
-               <span fxLayoutAlign="center">
-                 <mat-icon>exit_to_app</mat-icon>
-               </span>
-               <div fxLayout="row"><span class="textStyle">Pending Leaves :</span>&nbsp;<span class="textStyle2">{{pendingLeaveCount}}</span></div>
-               <br>
-               <span fxLayoutAlign="center">
-                 <mat-icon>exit_to_app</mat-icon>
-               </span>
-               <div fxLayout="row"><span class="textStyle">Rejected Leaves :</span>&nbsp;<span class="textStyle2">{{rejectedLeaveCount}}</span></div>
+                </mat-form-field>
+             </span> -->
+            <div fxLayout="column" fxFlex  fxLayoutAlign="center" style="padding-left:10%">
+                         <div fxLayout="row"><span class="textStyle">Today Leaves</span></div>
+                       
+                         <div fxLayout="row">
+                          <span class="textStyle">
+                            <mat-form-field>
+                              <input matInput readonly [matDatepicker]="leaveStatusDate" [min]="minDate" [max]="maxDate"
+                                placeholder="" (click)="leaveStatusDate.open()" formControlName="leaveStatusDate" />
+                              <mat-datepicker-toggle class="datepicker" matSuffix [for]="leaveStatusDate">
+                              </mat-datepicker-toggle>
+                              <mat-datepicker #leaveStatusDate></mat-datepicker>
+                            </mat-form-field>
+                          </span>&nbsp;
+                          <span style="padding-top:20px">:</span>&nbsp;
+                          <span class="textStyle2" style="padding-top:20px">{{totalLeaveCount}}</span>
+                        </div>
+                        <div fxLayout="row"><span class="textStyle">Pending Leaves :</span>&nbsp;<span class="textStyle2">{{pendingLeaveCount}}</span></div>
+                         <br>
+                       <div fxLayout="row"><span class="textStyle">Rejected Leaves :</span>&nbsp;
+                     <span class="textStyle2">{{rejectedLeaveCount}}</span></div>
            </div>
-
          </mat-card>
       </div>
 
