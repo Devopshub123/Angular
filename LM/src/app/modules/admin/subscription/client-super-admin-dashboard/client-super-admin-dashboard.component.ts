@@ -105,6 +105,8 @@ locByDeptEmpsdoughnutChartData: any;
   deptWisePayrollMonthList: any = [];
   deptWisePayrollSumList: any = [];
   deptWisePayrollYearList: any = [];
+  deptWisePayrollDataset:any=[];
+  deptWisePayrollbgColor:any[]= ["#118ab2", "#ffd166","#06d6a0","#28acaf","#ef476f"];
   // bar chart
   deptWisePayrollBarChartType: any;
   deptWisePayrollBarChartOptions: any;
@@ -500,53 +502,81 @@ locByDeptEmpsdoughnutChartData: any;
     let date = this.pipe.transform(this.currentYear, 'yyyy-MM-dd');
     this.adminService.getDepartmentWiseMonthlySalaries(date).subscribe((res: any) => {
       if (res.status && res.data) {
-        res.data.forEach((e: any) => {
+          res.data.forEach((e: any) => {
+
+          if(this.deptWisePayrollDataset.length>0){
+            let ismonththere=false;
+            let indexvalue=0;
+            this.deptWisePayrollDataset.forEach((item:any,index:any)=>{
+                if(item.label==e.deptname){
+                item.data.push(e.sum);
+                // let bgcolor=this.deptWisePayrollbgColor[index];
+                // item.backgroundColor.push(bgcolor);
+                ismonththere=true;
+               }
+
+            });
+            if(ismonththere==false){
+              let testarray=[e.sum];
+              let bgcolor=[this.deptWisePayrollbgColor[0]];
+              let object={label:e.deptname,data:testarray,backgroundColor: []};
+              this.deptWisePayrollDataset.push(object);
+            }
+          }else{
+            let testarray=[e.sum];
+            let bgcolor=[this.deptWisePayrollbgColor[0]];
+            let object={label:e.deptname,data:testarray,backgroundColor: []};
+            this.deptWisePayrollDataset.push(object);
+          }
           this.deptWisePayrollNameListdata.push(e.deptname);
           this.deptWisePayrollNameList=[];
-          
-          this.deptWisePayrollMonthList.push(e.MonthName);
+          if(this.deptWisePayrollMonthList.length>0){
+            let ismonththere=false;
+            this.deptWisePayrollMonthList.forEach((t:any)=>{
+              if(t==e.MonthName){
+                ismonththere=true;
+              }
+            })
+            if(ismonththere==false){
+              this.deptWisePayrollMonthList.push(e.MonthName);
+            }
+
+          }else{
+            this.deptWisePayrollMonthList.push(e.MonthName);
+
+          }
+
           this.deptWisePayrollSumList.push(e.sum);
-          
+
           this.deptWisePayrollYearList.push(e.year);
           this.deptWisePayrollNameList=   this.deptWisePayrollNameListdata.reduce((uniqArr:any, item:any) => {
             return uniqArr.includes(item) ? uniqArr : [...uniqArr, item]}
             ,[]
             );
-            
+
             // this.deptWisePayrollMonthList = this.deptWisePayrollNameListdata.reduce((uniqArr:any, item:any) => {
             //   return uniqArr.includes(item) ? uniqArr : [...uniqArr, item]}
             //   ,[]
             //   );
          })
+
+         console.log(this.deptWisePayrollDataset);
+         this.deptWisePayrollDataset.forEach((item:any,index:any)=>{
+          item.data.forEach((t:any)=>{
+            let bgcolor=this.deptWisePayrollbgColor[index+1];
+            item.backgroundColor.push(bgcolor);
+          });
+
+      });
+
+
       }
+
       this.deptWisePayrollBarChartType = 'bar';
       this.deptWisePayrollBarChartData = {
         labels: this.deptWisePayrollMonthList,
-        datasets: [
-          {
-            label: this.deptWisePayrollNameList,
-            data: this.deptWisePayrollSumList,
-            backgroundColor: [
-              '#003f5c',
-              '#665191'
-          ],
-          borderColor: [
-            '#003f5c',
-            '#665191',
-          ],
-          borderWidth: 1
-          },
+        datasets: this.deptWisePayrollDataset,
 
-          //   data: this.deptWisePayrollSumList,
-          //   backgroundColor: [
-          //     'rgba(54, 162, 235, 0.2)',
-          // ],
-          // borderColor: [
-          //     'rgba(54, 162, 235, 1)',
-          // ],
-          // borderWidth: 1
-          // }
-        ]
       }
       this.deptWisePayrollBarChartOptions = {
         scales: {
