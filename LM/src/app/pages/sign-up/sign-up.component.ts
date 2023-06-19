@@ -100,7 +100,7 @@ export class SignUpComponent implements OnInit {
     { id: 50, value: '1-50',minvalue:1 },
     { id: 100, value: '51-100' ,minvalue:51},
     { id: 200, value: '101-200',minvalue:101 },
-    { id: 999, value: '200+ Users' ,minvalue:201},
+    { id: 2000, value: '200+ Users' ,minvalue:201},
   ];
   countryDetails: any = [];
   stateDetails: any = [];

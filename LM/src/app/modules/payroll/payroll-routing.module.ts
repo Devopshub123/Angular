@@ -56,7 +56,7 @@ const routes: Routes = [
       { path: 'EPF', component: EpfComponent,canActivate:[LMSAccessGuard]}, 
       { path: 'EmployeeDashboard', component: EmployeeDashboardComponent,canActivate:[LMSAccessGuard]}, 
       { path: 'ChangePassword', component: ChangePasswordComponent,canActivate:[LMSAccessGuard] },
-      { path: 'OrganizationTaxDetails', component: OrganizationDetailsComponent,canActivate:[LMSAccessGuard] },
+      { path: 'OrganizationTaxDetails', component: OrganizationDetailsComponent,},
       { path: 'ProfessionalTaxMain', component: ProfessionalTaxMainComponent,canActivate:[LMSAccessGuard] },
       { path: 'AssignPayGroup', component: AssignPayGroupComponent,canActivate:[LMSAccessGuard] },
       { path: 'MonthlyPayroll', component: MonthlyPayrollComponent,canActivate:[LMSAccessGuard]  },

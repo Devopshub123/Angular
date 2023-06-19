@@ -59,7 +59,7 @@
 
 <div fxLayout="row" fxLayout.xs="column" fxLayout.lt-lg="column" fxlayoutGap="5px" style="padding-left: 9px;">
 
-  <div fxLayout="column wrap" fxFlex="49" fxFlex.xs="100">
+  <div fxLayout="column" fxFlex="49" fxFlex.xs="100">
     <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation">
       <div class="custom-investment-th">Gross Salary Breakdown by Departments</div>
       <div class="card card-stats">
@@ -72,7 +72,7 @@
 
 <div fxFlex="2"></div>
 
-  <div fxLayout="column wrap" fxLayout.xs="column" fxFlex="49" >
+  <div fxLayout="column" fxLayout.xs="column" fxFlex="49" fxFlex.lt-md="100" >
     <div class="card card-stats outline" appMaterialElevation [defaultElevation]="defaultElevation" style="margin-right: 14px;">
       <div class="card-body" style="height: 140px;">
           <div class="column" >
@@ -129,6 +129,9 @@
   </div>
 
 </div>
+<div fxLayout.lt-lg="row" fxLayout.xs="row" ngStyle.lt-lg="height:200px" ngStyle.xs="height:60px">
+</div>
+
 
 </form>
 </div>

@@ -1,5 +1,5 @@
 <form [formGroup]="reportpopupForm" autocomplete="off">
-
+    <button class="btn btn-primary mr-2 mb-2" (click)="save()">Select All</button>
 <p formArrayName="earnings" *ngFor="let order of earningsFormArray.controls; let i = index">
     <input type="checkbox" [formControlName]="i">
     {{earningData[i].name}}
