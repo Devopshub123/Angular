@@ -128,7 +128,7 @@
                    placeholder="" (click)="deptWiseleavesDate.open()" formControlName="deptWiseleavesDate" />
                  <mat-datepicker-toggle class="datepicker" matSuffix [for]="deptWiseleavesDate">
                  </mat-datepicker-toggle>
-             
+
                  <mat-datepicker #deptWiseleavesDate
                  startView="multi-year"
                         (monthSelected)="deptLeaveMonth($event, deptWiseleavesDate)"></mat-datepicker>
@@ -165,7 +165,7 @@
              </span> -->
             <div fxLayout="column" fxFlex  fxLayoutAlign="center" style="padding-left:10%">
                          <div fxLayout="row"><span class="textStyle">Today Leaves</span></div>
-                       
+
                          <div fxLayout="row">
                           <span class="textStyle">
                             <mat-form-field>
@@ -229,6 +229,7 @@
           [type]="deptWisePayrollBarChartType"
           [data]="deptWisePayrollBarChartData"
           [options]="deptWisePayrollBarChartOptions"
+
           ></chart>
         </mat-card>
       </div>
