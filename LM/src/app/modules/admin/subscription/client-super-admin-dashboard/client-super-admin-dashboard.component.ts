@@ -106,7 +106,8 @@ locByDeptEmpsdoughnutChartData: any;
   deptWisePayrollSumList: any = [];
   deptWisePayrollYearList: any = [];
   deptWisePayrollDataset:any=[];
-  deptWisePayrollbgColor:any[]= ["#118ab2", "#ffd166","#06d6a0","#28acaf","#ef476f"];
+  deptWisePayrollbgColor: any[] = ["#118ab2", "#ffd166", "#06d6a0", "#28acaf", "#ef476f", "#ffa1b5",
+                                  "#86c7f3", "#ffe29a", "#838c95", "#7FDBFF", "#a7c957", "#c385d8",];
   // bar chart
   deptWisePayrollBarChartType: any;
   deptWisePayrollBarChartOptions: any;

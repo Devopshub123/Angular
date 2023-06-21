@@ -35,7 +35,7 @@ export class ProductInvoiceDataComponent implements OnInit {
     @ViewChild('invoice') invoice: any;
     invoiceData: any;
     ngOnInit(): void {
-
+console.log("data-",this.productinvoicedata)
 
           this.invoiceDate = this.productinvoicedata.payment_date;
           this.cname = this.productinvoicedata.company_name;

@@ -494,11 +494,11 @@ export class EmployeeProfileComponent implements OnInit {
         let lname = this.employeeInformationData.lastname;
         lname = lname ? lname.charAt(0).toUpperCase() + lname.substr(1).toLowerCase() : '';
         this.personalInfoForm.controls.lastname.setValue(lname);
-
-
-        this.personalInfoForm.controls.dateofbirth.setValue(
-          new Date(this.employeeInformationData.dateofbirth)
-        );
+        if (this.employeeInformationData.dateofbirth !=null) {
+          this.personalInfoForm.controls.dateofbirth.setValue(
+            new Date(this.employeeInformationData.dateofbirth)
+          );
+        }
         this.personalInfoForm.controls.bloodgroup.setValue(
           this.employeeInformationData.bloodgroup
         );

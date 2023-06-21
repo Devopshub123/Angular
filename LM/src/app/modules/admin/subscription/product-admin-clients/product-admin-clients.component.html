@@ -67,14 +67,14 @@
                 </ng-container>
 
                 <ng-container matColumnDef="startdate">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="no-break">
                     Start Date</th>
                   <td mat-cell *matCellDef="let row" class="no-break"> {{ row.valid_from  | date:'dd-MM-yyyy'}}
                   </td>
                 </ng-container>
 
                 <ng-container matColumnDef="lastpaid">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header >
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header class="no-break">
                     Last Paid</th>
                   <td mat-cell *matCellDef="let row" class="no-break"> {{ row.payment_date  | date:'dd-MM-yyyy'}}
                   </td>

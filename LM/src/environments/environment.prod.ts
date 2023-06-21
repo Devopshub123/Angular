@@ -9,11 +9,11 @@ export const environment = {
   // apiUrl: 'http://122.175.62.210:7676/',
 
   /** local build */
-  apiUrl: 'http://192.168.1.10:7676/',
+  // apiUrl: 'http://192.168.1.10:7676/',
 
   /**-------------------------------------------------- */
   /**offline build */
-  // apiUrl:'http://192.168.1.86:6060/',
+  apiUrl:'http://192.168.1.86:6060/',
 
   dbName:sessionStorage.getItem('companyName'),
 };
