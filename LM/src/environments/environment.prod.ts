@@ -8,7 +8,7 @@ export const environment = {
 
   /**-------------------------------------------------- */
   /**offline build */
-  apiUrl:'http://192.168.0.14:6060/',
+  apiUrl:'http://localhost:6060/',
 
   dbName:sessionStorage.getItem('companyName'),
 };
