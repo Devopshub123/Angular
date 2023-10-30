@@ -3,10 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  apiUrl:'http://localhost:6060/', //dev Env
-  dbName: sessionStorage.getItem('companyName'),
- //  dbName:'spryple'
+  production: false
 };
 
 /*
